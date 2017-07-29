@@ -7,13 +7,19 @@
  */
 use Slim\PDO\Database;
 function connect(){
-    $mysql_server_name='localhost'; //改成自己的mysql数据库服务器
-    $mysql_username='root'; //改成自己的mysql数据库用户名
-    $mysql_password='123456'; //改成自己的mysql数据库密码
-    $mysql_database='Mydb'; //改成自己的mysql数据库名
-    $database=new database("mysql:host=root:Gd6lhOSsY@db2.daocloudinternal.io:60212/temp_db;dbname=temp_db;charset=utf8","root","Gd6lhOSsY");
+	   $serverName = env("MYSQL_PORT_3306_TCP_ADDR", "	db2.daocloudinternal.io");
+    $databaseName = env("MYSQL_INSTANCE_NAME", "temp_db");
+    $username = env("MYSQL_USERNAME", "root");
+    $password = env("MYSQL_PASSWORD", "Gd6lhOSsY");
+    $database=new database("mysql:host=".$serverName.";dbname=".$databaseName.";charset=utf8",$username,$password);
     return  $database;
 }
-
+function env($key, $default = null)
+{
+    $value = getenv($key);
+    if ($value === false) {
+        return $default;
+    }
+    return $value;
 
 ?>
