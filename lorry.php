@@ -6,6 +6,7 @@
  * Time: 10:08
  */
 require 'Slim/Slim.php';
+require 'connect.php';
 use Slim\PDO\Database;
 
 
@@ -16,7 +17,7 @@ $app->post('/lorry',function()use($app){
     $tenant_id=$app->request->headers->get("tenant-id");
     $body=$app->request->getBody();
     $body=json_decode($body);
-    $database=new database("mysql:host=127.0.0.1;dbname=cloud_ware;charset=utf8","root","");
+    $database=localhost();
     $plate_number=$body->plate_number;
     $driver_name=$body->driver_name;
     $driver_phone=$body->driver_phone;
@@ -26,26 +27,46 @@ $app->post('/lorry',function()use($app){
         $array[$key]=$value;
     }
     $array['tenant_id']=$tenant_id;
-    if(($tenant_id!=''||$tenant_id!=null)&&($plate_number!=null||$plate_number!='')&&($driver_name!=null||$driver_name!='')&&($driver_phone!=''||$driver_phone!=null)&&($driver_identycard!=''||$driver_identycard!=null)){
-        $selectStatement = $database->select()
-            ->from('lorry')
-            ->where('tenant_id','=',$tenant_id);
-        $stmt = $selectStatement->execute();
-        $data = $stmt->fetchAll();
-        if($data!=null){
-            $lorry_id=count($data)+100000001;
+    if($tenant_id!=''||$tenant_id!=null){
+        if($plate_number!=null||$plate_number!=''){
+            if($driver_name!=null||$driver_name!=''){
+                if($driver_phone!=''||$driver_phone!=null){
+                    if(preg_match("/^1[34578]\d{9}$/", $driver_phone)) {
+                        if ($driver_identycard != '' || $driver_identycard != null) {
+                            $selectStatement = $database->select()
+                                ->from('lorry')
+                                ->where('tenant_id', '=', $tenant_id);
+                            $stmt = $selectStatement->execute();
+                            $data = $stmt->fetchAll();
+                            if ($data != null) {
+                                $lorry_id = count($data) + 100000001;
+                            } else {
+                                $lorry_id = 100000001;
+                            }
+                            $array['lorry_id'] = $lorry_id;
+                            $array['exist'] = 0;
+                            $insertStatement = $database->insert(array_keys($array))
+                                ->into('lorry')
+                                ->values(array_values($array));
+                            $insertId = $insertStatement->execute(false);
+                            echo json_encode(array("result" => "0", "desc" => "success"));
+                        } else {
+                            echo json_encode(array("result" => "1", "desc" => "缺少司机身份证"));
+                        }
+                    }else{
+                        echo json_encode(array("result"=>"2","desc"=>"电话号码不符合要求"));
+                    }
+                }else{
+                    echo json_encode(array("result"=>"2","desc"=>"缺少司机电话"));
+                }
+            }else{
+                echo json_encode(array("result"=>"3","desc"=>"缺少司机姓名"));
+            }
         }else{
-            $lorry_id=100000001;
+            echo json_encode(array("result"=>"4","desc"=>"缺少车牌号"));
         }
-        $array['lorry_id']=$lorry_id;
-        $array['exist']=0;
-        $insertStatement = $database->insert(array_keys($array))
-            ->into('lorry')
-            ->values(array_values($array));
-        $insertId = $insertStatement->execute(false);
-        echo json_encode(array("result"=>"0","desc"=>"success"));
     }else{
-        echo json_encode(array("result"=>"1","desc"=>"信息不全"));
+        echo json_encode(array("result"=>"5","desc"=>"缺少租户id"));
     }
 });
 
@@ -54,39 +75,43 @@ $app->put('/lorry',function()use($app){
     $tenant_id=$app->request->headers->get("tenant-id");
     $body=$app->request->getBody();
     $body=json_decode($body);
-    $database=new database("mysql:host=127.0.0.1;dbname=cloud_ware;charset=utf8","root","");
+    $database=localhost();
     $lorry_id=$body->lorry_id;
     $array=array();
     foreach($body as $key=>$value){
         $array[$key]=$value;
     }
-    if(($tenant_id!=''||$tenant_id!=null)&&($lorry_id!=''||$lorry_id!=null)){
-        $selectStatement = $database->select()
-            ->from('lorry')
-            ->where('tenant_id','=',$tenant_id)
-            ->where('exist','=',0);
-        $stmt = $selectStatement->execute();
-        $data = $stmt->fetchAll();
-        if($data!=null){
-            $updateStatement = $database->update($array)
-                ->table('lorry')
+    if($tenant_id!=''||$tenant_id!=null){
+        if($lorry_id!=''||$lorry_id!=null){
+            $selectStatement = $database->select()
+                ->from('lorry')
                 ->where('tenant_id','=',$tenant_id)
-                ->where('exist','=',0)
-                ->where('lorry_id','=',$lorry_id);
-            $affectedRows = $updateStatement->execute();
-            echo json_encode(array("result"=>"0","desc"=>"success"));
+                ->where('exist','=',0);
+            $stmt = $selectStatement->execute();
+            $data = $stmt->fetchAll();
+            if($data!=null){
+                $updateStatement = $database->update($array)
+                    ->table('lorry')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('exist','=',0)
+                    ->where('lorry_id','=',$lorry_id);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array("result"=>"0","desc"=>"success"));
+            }else{
+                echo json_encode(array("result"=>"1","desc"=>"车辆不存在"));
+            }
         }else{
-            echo json_encode(array("result"=>"1","desc"=>"车辆不存在"));
+            echo json_encode(array("result"=>"2","desc"=>"缺少车辆id"));
         }
     }else{
-        echo json_encode(array("result"=>"2","desc"=>"信息不全"));
+        echo json_encode(array("result"=>"3","desc"=>"缺少租户id"));
     }
 });
 
 $app->get('/lorry',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
-    $database=new database('mysql:host=127.0.0.1;dbname=cloud_ware;charset=utf8','root','');
+    $database=localhost();
     $page=$app->request->get("page");
     $per_page=$app->request->get("per_page");
     if(($tenant_id!=''||$tenant_id!=null)){
@@ -116,50 +141,66 @@ $app->get('/lorry',function()use($app){
 $app->delete('/lorry',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
-    $database=new database('mysql:host=127.0.0.1;dbname=cloud_ware;charset=utf8','root','');
+    $database=localhost();
     $lorry_id=$app->request->get('lorryid');
-    if(($tenant_id!=null||$tenant_id!='')&&($lorry_id!=""||$lorry_id!=null)){
-        $selectStatement = $database->select()
-            ->from('lorry')
-            ->where('tenant_id','=',$tenant_id)
-            ->where('exist',"=",0)
-            ->where('lorry_id','=',$lorry_id);
-        $stmt = $selectStatement->execute();
-        $data = $stmt->fetch();
-        if($data!=null){
+    if(($tenant_id!=''||$tenant_id!=null)){
+        if($lorry_id!=""||$lorry_id!=null){
             $selectStatement = $database->select()
-                ->from('schedule_order')
+                ->from('lorry')
                 ->where('tenant_id','=',$tenant_id)
                 ->where('exist',"=",0)
-                ->where('schedule_id','=',$data['schedule_id']);
+                ->where('lorry_id','=',$lorry_id);
             $stmt = $selectStatement->execute();
-            $data1 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('orders')
-                ->where('tenant_id','=',$tenant_id)
-                ->where('exist',"=",0)
-                ->where('order_id','=',$data1['order_id']);
-            $stmt = $selectStatement->execute();
-            $data2 = $stmt->fetch();
-            if($data1['order_status']==0||$data1['order_status']==5){
-                $updateStatement = $database->update(array('exist' => 1))
-                    ->table('lorry')
+            $data = $stmt->fetch();
+            if($data!=null){
+                $selectStatement = $database->select()
+                    ->from('scheduling')
                     ->where('tenant_id','=',$tenant_id)
                     ->where('exist',"=",0)
                     ->where('lorry_id','=',$lorry_id);
-                $affectedRows = $updateStatement->execute();
-                echo json_encode(array("result"=>"0","desc"=>"success"));
-            }else{
-                echo json_encode(array("result"=>"1","desc"=>"车辆在送货途中"));
-            }
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('schedule_order')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('exist',"=",0)
+                    ->where('schedule_id','=',$data1['schedule_id']);
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('exist',"=",0)
+                    ->where('order_id','=',$data2['order_id']);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetch();
+                if($data3['order_status']==0||$data3['order_status']==5){
+                    $updateStatement = $database->update(array('exist' => 1))
+                        ->table('lorry')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('exist',"=",0)
+                        ->where('lorry_id','=',$lorry_id);
+                    $affectedRows = $updateStatement->execute();
+                    echo json_encode(array("result"=>"0","desc"=>"success"));
+                }else{
+                    echo json_encode(array("result"=>"1","desc"=>"车辆在送货途中"));
+                }
 
+            }else{
+                echo json_encode(array("result"=>"2","desc"=>'车辆不存在'));
+            }
         }else{
-            echo json_encode(array("result"=>"2","desc"=>'车辆不存在'));
+            echo json_encode(array("result"=>"3","desc"=>"缺少车辆id"));
         }
     }else{
-        echo json_encode(array("result"=>"3","desc"=>"信息不全"));
+        echo json_encode(array("result"=>"4","desc"=>"缺少租户id"));
     }
 });
 
 $app->run();
+
+
+function localhost(){
+    return connect();
+}
 ?>
