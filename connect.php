@@ -7,10 +7,14 @@
  */
 use Slim\PDO\Database;
 function connect(){
-    $serverName = env("MYSQL_PORT_3306_TCP_ADDR", "	db2.daocloudinternal.io");
-    $databaseName = env("MYSQL_INSTANCE_NAME", "temp_db");
+//    $serverName = env("MYSQL_PORT_3306_TCP_ADDR", "	db2.daocloudinternal.io");
+//    $databaseName = env("MYSQL_INSTANCE_NAME", "temp_db");
+//    $username = env("MYSQL_USERNAME", "root");
+//    $password = env("MYSQL_PASSWORD", "Gd6lhOSsY");
+    $serverName = env("MYSQL_PORT_3306_TCP_ADDR", "127.0.0.1");
+    $databaseName = env("MYSQL_INSTANCE_NAME", "cloud_ware");
     $username = env("MYSQL_USERNAME", "root");
-    $password = env("MYSQL_PASSWORD", "Gd6lhOSsY");
+    $password = env("MYSQL_PASSWORD", "");
     $database=new database("mysql:host=".$serverName.";port=60212;dbname=".$databaseName.";charset=utf8",$username,$password);
     return  $database;
 }
