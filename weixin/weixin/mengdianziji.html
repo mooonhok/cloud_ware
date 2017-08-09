@@ -818,7 +818,7 @@
 	</script>
 	<script>
 		$("#commit").on('click',function(){
-			var sendway="上门提货";
+			var sendway="门店自寄";
 			var sendname=$("#sendname").val();
 			var sendtel=$("#sendtel").val();
 			var sendaddress=$("#saddress").html();
@@ -863,34 +863,75 @@
             	alert("缺少付款方式");
             	//alert(price);
             }else{
-            	 $.post("http://mooonhok-cloudware.daoapp.io/goods.php/goods",{
-            	goods_name:"goodsname",
-            	goods_weight:"goodsweight",
-            	goods_package:"goodspage",
-            	goods_count:"goodscount",
-            	goods_capacity:"goodsvolume",
-            	special_need:"goodsneed",
-            	good_worth:"price"
-            });
-            $.post("http://mooonhok-cloudware.daoapp.io/wxmessage.php/wxmessage",{
-            	from_user:"sendname",
-            	mobilephone:"sendtel"
-            });
-             $.post("http://mooonhok-cloudware.daoapp.io/order.php/order",{
-            	pay_method:"payway"
-            });
-             $.post("http://mooonhok-cloudware.daoapp.io/customerphp/customer",{
-                 customer_name:"sendname",
-                 customer_phone:"sendtel",
-                 customer_comment:"sendaddress"
-            });
-            $.post("http://mooonhok-cloudware.daoapp.io/customerphp/customer",{
-                 customer_name:"acceptname",
-                 customer_phone:"accepttel",
-                 customer_comment:"acceptaddress"
-            });
+            	$.ajax({
+		            url :"http://mooonhok-cloudware.daoapp.io/goods.php/goods",
+			        dataType:'json',
+			        type:'post',
+			        data:{
+					    goods_name:goodsname,
+					    goods_weight:goodsweight,
+					    goods_package:goodspage,
+					    goods_count:goodscount,
+					    goods_capacity:goodsvolume,
+					    goods_capacity:goodsvolume,
+					    special_need:goodsneed,
+					    good_worth:price
+			        },
+			        success:function(msg){
+                       console.log(msg);
+				    },
+			        error:function(e){
+			            alert("lorry/alter出错！");
+			        }
+	            });
+               $.ajax({
+		            url :"http://mooonhok-cloudware.daoapp.io/order.php/order",
+			        dataType:'json',
+			        type:'post',
+			        data:{
+					  pay_method:payway
+			        },
+			        success:function(msg){
+                       console.log(msg);
+				    },
+			        error:function(e){
+			            alert("lorry/alter出错！");
+			        }
+	            });
+                  $.ajax({
+		            url :"http://mooonhok-cloudware.daoapp.io/customer.php/customer",
+			        dataType:'json',
+			        type:'post',
+			        data:{
+					 customer_name:sendname,
+                     customer_phone:sendtel,
+                     customer_comment:sendaddress
+			        },
+			        success:function(msg){
+                       console.log(msg);
+				    },
+			        error:function(e){
+			            alert("lorry/alter出错！");
+			        }
+	            });
+                  $.ajax({
+		            url :"http://mooonhok-cloudware.daoapp.io/customer.php/customer",
+			        dataType:'json',
+			        type:'post',
+			        data:{
+					customer_name:acceptname,
+                    customer_phone:accepttel,
+                   customer_comment:acceptaddress
+			        },
+			        success:function(msg){
+                       console.log(msg);
+				    },
+			        error:function(e){
+			            alert("lorry/alter出错！");
+			        }
+	            });
             window.location.href="chenggong.html";
             }
-		});
+            });
 	</script>
 </html>
