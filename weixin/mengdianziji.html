@@ -195,7 +195,7 @@
 			}
 			.box1{
 				width:100%;
-				height:360px;
+				height:300px;
 				position:fixed;
 				bottom:0;
 				left:0;
@@ -204,7 +204,7 @@
 			}
 			.box2{
 				width:100%;
-				height:230px;
+				height:220px;
 				position:fixed;
 				bottom:0;
 				left:0;
@@ -213,7 +213,7 @@
 			}
 			.box3{
 				width:100%;
-				height:300px;
+				height:260px;
 				position:fixed;
 				bottom:0;
 				left:0;
@@ -246,7 +246,7 @@
 			}
 			.box1_center{
 			    width:100%;
-			    height:230px;
+			    height:180px;
 			}
 			.box2_center{
 			    width:100%;
@@ -254,11 +254,11 @@
 			}
 			.box3_center{
 			    width:100%;
-			    height:190px;
+			    height:160px;
 			}
 			.box1_center div{
-				height:34px;
-				line-height:34px;
+				height:30px;
+				line-height:30px;
 				margin-bottom:12px;
 			}
 			.box1_center_left{
@@ -268,13 +268,19 @@
 			}
 			.box1_center_right{
 				width:65%;
-				height:34px;
+				height:30px;
 				font:normal 15px "微软雅黑";
 			}
 			.box3_center_right{
 				width:65%;
-				height:34px;
+				height:30px;
 				margin-left:15%;
+				font:normal 15px "微软雅黑";
+			}
+			.box4_center_right{
+				width:65%;
+				height:30px;
+				margin-left:27%;
 				font:normal 15px "微软雅黑";
 			}
 			.box1_bottom{
@@ -283,7 +289,7 @@
 			}
 			.box1_bottom input{
 				width:80%;
-				height:40px;
+				height:30px;
 				background:transparent;
 				border:1px solid #000000;
 				border-radius:5px;
@@ -291,7 +297,7 @@
 			}
 			.box2_bottom input{
 				width:60%;
-				height:40px;
+				height:30px;
 				background:transparent;
 				border:1px solid #000000;
 				border-radius:5px;
@@ -522,7 +528,7 @@
 				    	</div>
 				    	<div>
 				    		<div class="box1_center_left"></div>
-					        <input placeholder="或填写最大体积"  class="box3_center_right" id="goodsvolumesu"></input>立方米
+					        <input placeholder="或填写最大体积"  class="box4_center_right" id="goodsvolumesu"></input>立方米
 				    	</div>
 			    	</div>
 				    <div class="box1_bottom">
@@ -875,12 +881,11 @@
             }else{
             	$.ajax({
 		            url :"http://mooonhok-cloudware.daoapp.io/goods.php/goods",
-		           beforeSend: function(request) {  
+		            beforeSend: function(request) {  
                         request.setRequestHeader("tenant-id", "Chenxizhang");  
-                    }, 
+                    },
 			        dataType:'json',
 			        type:'post',
-
 			        data:{
 					    goods_name:goodsname,
 					    goods_weight:goodsweight,
@@ -901,7 +906,7 @@
 		            url :"http://mooonhok-cloudware.daoapp.io/order.php/order",
 		             beforeSend: function(request) {  
                         request.setRequestHeader("tenant-id", "Chenxizhang");  
-                    }, 
+                    },
 			        dataType:'json',
 			        type:'post',
 			        data:{
@@ -916,9 +921,9 @@
 	            });
                   $.ajax({
 		            url :"http://mooonhok-cloudware.daoapp.io/customer.php/customer",
-		            beforeSend: function(request) {  
+		             beforeSend: function(request) {  
                         request.setRequestHeader("tenant-id", "Chenxizhang");  
-                    }, 
+                    },
 			        dataType:'json',
 			        type:'post',
 			        data:{
@@ -935,13 +940,13 @@
 	            });
                   $.ajax({
 		            url :"http://mooonhok-cloudware.daoapp.io/customer.php/customer",
-		           beforeSend: function(request) {  
+		             beforeSend: function(request) {  
                         request.setRequestHeader("tenant-id", "Chenxizhang");  
-                    }, 
+                    },
 			        dataType:'json',
 			        type:'post',
 			        data:{
-					          customer_name:acceptname,
+					customer_name:acceptname,
                     customer_phone:accepttel,
                     customer_address:acceptaddress
 			        },
