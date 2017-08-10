@@ -820,52 +820,6 @@
 		$("#commit").on('click',function(){
 			var sendway="上门提货";
 			var sendname=$("#sendname").val();
-			var sendtel=$("#sendtel").val();
-			var sendaddress=$("#saddress").html();
-			var acceptname=$("#acceptname").val();
-            var accepttel=$("#accepttel").val();
-            var acceptaddress=$("#aaddress").html();
-            var goodsname=$("#goodsname").val();
-            var goodsweight=$("#goodsweight").val();
-            var goodsvolume=$("#goodsvolume").val();
-            var goodspage=$("#page").val();
-            var goodscount=$("#count").val();
-            var goodsneed=$("#need").val()+sendway;
-            var price=$("#price").html();
-            var payway=$("#payway").html();
-//          alert(sendaddress+acceptaddress+price);
-//			alert(sendname+sendtel+acceptname+accepttel+goodsname+goodsweight+goodsvolume+goodspage+goodscount+goodsneed+payway);
-            if(sendname==""||sendtel==""||sendaddress==""){
-            	alert("发货人信息不全");
-            	//alert(sendname+sendtel+sendaddress);
-            }else if(acceptname==""||acceptaddress==""||accepttel==""){
-            	alert("收货人信息不全");
-            	//alert(acceptname+accepttel+acceptaddress);
-            }else if(goodsname==""){
-            	alert("缺少货物名称");
-            	//alert(goodsname);
-            }else if(goodscount==""||goodscount==0){
-            	alert("缺少货物件数或数量不能为0");
-            	//alert(goodscount);
-            }else if(goodspage==""){
-            	alert("未选择货物包装");
-            	//alert(goodspage);
-            }else if(goodsvolume==""||goodsvolume==0){
-            	alert("缺少货物体积或体积不能为0");
-            	//alert(goodsvolume);
-            }else if(goodsweight==""||goodsweight==0){
-            	alert("缺少货物重量或重量不能为0");
-            	//alert(goodsweight);
-            }else if(price==""||price==0){
-            	alert("缺少货物价值或价值不能为0");
-            	//alert(price);
-            }else if( payway==""){
-            	alert("缺少付款方式");
-            	//alert(price);
-            }else{
-           $("#commit").on('click',function(){
-			var sendway="门店自寄";
-			var sendname=$("#sendname").val();
 			var sendtel=parseInt($("#sendtel").val());
 			var sendaddress=$("#saddress").html();
 			var acceptname=$("#acceptname").val();
@@ -933,8 +887,7 @@
 					    good_worth:price
 			        },
 			        success:function(msg){
-					alert(msg);
-                           alert("提交货物信息成功！");
+                         alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.goods);
 				    },
 			        error:function(e){
 			            alert("提交商品信息出错！");
@@ -948,8 +901,7 @@
 					  pay_method:str3
 			        },
 			        success:function(msg){
-					alert(msg);
-                        alert("提交付款方式成功！");
+                        alert("提交付款方式结果"+msg.result+"/////"+msg.desc+"//////"+msg.order);
 				    },
 			        error:function(e){
 			            alert("提交订单出错！");
@@ -965,8 +917,7 @@
                      customer_comment:sendaddress
 			        },
 			        success:function(msg){
-					alert(msg);
-                          alert("提交寄件人成功！");
+                          alert("提交寄件人结果"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
 				    },
 			        error:function(e){
 			            alert("提交寄件人出错！");
@@ -981,16 +932,14 @@
                     customer_phone:accepttel,
                     customer_comment:acceptaddress
 			        },
-			        success:function(msg){ 
-				alert(msg);
+			        success:function(msg){
+			        	 alert("提交收获人结果"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
                          window.location.href="chenggong.html";
 				    },
 			        error:function(e){
 			            alert("提交收获人出错！");
 			        }
 	            });
-            }
-            });
             }
             });
 	</script>

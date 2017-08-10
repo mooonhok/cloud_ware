@@ -887,7 +887,7 @@
 					    good_worth:price
 			        },
 			        success:function(msg){
-                           alert("提交货物信息成功！");
+                         alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.goods);
 				    },
 			        error:function(e){
 			            alert("提交商品信息出错！");
@@ -901,7 +901,7 @@
 					  pay_method:str3
 			        },
 			        success:function(msg){
-                        alert("提交付款方式成功！");
+                        alert("提交付款方式结果"+msg.result+"/////"+msg.desc+"//////"+msg.order);
 				    },
 			        error:function(e){
 			            alert("提交订单出错！");
@@ -917,7 +917,7 @@
                      customer_comment:sendaddress
 			        },
 			        success:function(msg){
-                          alert("提交寄件人成功！");
+                          alert("提交寄件人结果"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
 				    },
 			        error:function(e){
 			            alert("提交寄件人出错！");
@@ -933,6 +933,7 @@
                     customer_comment:acceptaddress
 			        },
 			        success:function(msg){
+			        	 alert("提交收获人结果"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
                          window.location.href="chenggong.html";
 				    },
 			        error:function(e){
