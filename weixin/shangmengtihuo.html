@@ -875,11 +875,11 @@
             }else{
             	$.ajax({
 		            url :"http://mooonhok-cloudware.daoapp.io/goods.php/goods",
-			        dataType:'json',
-			        type:'post',
-			        beforeSend: function(request) {  
+		             beforeSend: function(request) {  
                         request.setRequestHeader("tenant-id", "Chenxizhang");  
                     }, 
+			        dataType:'json',
+			        type:'post',
 			        data:{
 					    goods_name:goodsname,
 					    goods_weight:goodsweight,
@@ -898,6 +898,9 @@
 	            });
                $.ajax({
 		            url :"http://mooonhok-cloudware.daoapp.io/order.php/order",
+		            beforeSend: function(request) {  
+                        request.setRequestHeader("tenant-id", "Chenxizhang");  
+                    }, 
 			        dataType:'json',
 			        type:'post',
 			        data:{
@@ -912,6 +915,9 @@
 	            });
                   $.ajax({
 		            url :"http://mooonhok-cloudware.daoapp.io/customer.php/customer",
+		           	beforeSend: function(request) {  
+                        request.setRequestHeader("tenant-id", "Chenxizhang");  
+                    }, 
 			        dataType:'json',
 			        type:'post',
 			        data:{
@@ -928,10 +934,13 @@
 	            });
                   $.ajax({
 		            url :"http://mooonhok-cloudware.daoapp.io/customer.php/customer",
+		            beforeSend: function(request) {  
+                        request.setRequestHeader("tenant-id", "Chenxizhang");  
+                    }, 
 			        dataType:'json',
 			        type:'post',
 			        data:{
-					customer_name:acceptname,
+					          customer_name:acceptname,
                     customer_phone:accepttel,
                     customer_address:acceptaddress
 			        },
