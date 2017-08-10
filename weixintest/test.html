@@ -286,6 +286,7 @@
 			.box1_bottom{
 			    width:100%;
 			    text-align:center;
+			    margin: 0 auto;
 			}
 			.box1_bottom input{
 				width:80%;
@@ -294,6 +295,7 @@
 				border:1px solid #000000;
 				border-radius:5px;
 				font:normal 17px "微软雅黑";
+				  
 			}
 			.box2_bottom input{
 				width:60%;
@@ -302,7 +304,8 @@
 				border:1px solid #000000;
 				border-radius:5px;
 				font:normal 17px "微软雅黑";
-				margin-left: 18%;
+				margin-left:20%;
+				  
 			}
 			
 		.box6_center_left{
@@ -886,7 +889,7 @@
                     },
 			        dataType:'json',
 			        type:'post',
-			        data:{
+			        data:JSON.stringify({
 			        	goods_id:1,
 			        	exist:0,
 			        	order_id:100000001,
@@ -897,7 +900,7 @@
 					    goods_capacity:goodsvolume,
 					    special_need:goodsneed,
 					    good_worth:price
-			        },
+			        }),
 			        success:function(msg){
                       alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.goods);
 				    },
@@ -912,7 +915,7 @@
                     },
 			        dataType:'json',
 			        type:'post',
-			        data:{
+			        data:JSON.stringify({
 			        	order_id:100000001,
 			        	sender_id:10000001,
 			        	receiver_id:10000001,
@@ -921,7 +924,7 @@
 			        	order_datetime:"2017-01-01",
 					    pay_method:str3,
 					    exist:0
-			        },
+			        }),
 			        success:function(msg){
                       alert("提交付款方式结果"+msg.result+"/////"+msg.desc+"//////"+msg.order);
 				    },
