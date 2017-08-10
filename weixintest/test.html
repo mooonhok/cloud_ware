@@ -882,7 +882,7 @@
             	$.ajax({
 		            url :"http://mooonhok-cloudware.daoapp.io/goods.php/goods",
 		            beforeSend: function(request) {  
-                        request.setRequestHeader("tenant-id", "Chenxizhang");  
+                        request.setRequestHeader("tenant-id",1000000000);  
                     },
 			        dataType:'json',
 			        type:'post',
@@ -898,7 +898,7 @@
 					    good_worth:price
 			        },
 			        success:function(msg){
-//                       alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.goods);
+                      alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.goods);
 				    },
 			        error:function(e){
 			            alert("提交商品信息出错！");
@@ -907,7 +907,7 @@
                $.ajax({
 		            url :"http://mooonhok-cloudware.daoapp.io/order.php/order",
 		             beforeSend: function(request) {  
-                        request.setRequestHeader("tenant-id", "Chenxizhang");  
+                        request.setRequestHeader("tenant-id", 1000000000);  
                     },
 			        dataType:'json',
 			        type:'post',
@@ -922,7 +922,7 @@
 					    exist:0
 			        },
 			        success:function(msg){
-//                      alert("提交付款方式结果"+msg.result+"/////"+msg.desc+"//////"+msg.order);
+                      alert("提交付款方式结果"+msg.result+"/////"+msg.desc+"//////"+msg.order);
 				    },
 			        error:function(e){
 			            alert("提交订单出错！");
