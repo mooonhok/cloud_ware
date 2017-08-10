@@ -923,23 +923,7 @@
 			            alert("提交寄件人出错！");
 			        }
 	            });
-                  $.ajax({
-		            url :"http://mooonhok-cloudware.daoapp.io/customer.php/customer",
-			        dataType:'json',
-			        type:'post',
-			        data:{
-					customer_name:acceptname,
-                    customer_phone:accepttel,
-                    customer_comment:acceptaddress
-			        },
-			        success:function(msg){
-			        	 alert("提交收获人结果"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
-                         window.location.href="chenggong.html";
-				    },
-			        error:function(e){
-			            alert("提交收获人出错！");
-			        }
-	            });
+           
             }
             });
 	</script>
