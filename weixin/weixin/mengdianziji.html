@@ -820,19 +820,29 @@
 		$("#commit").on('click',function(){
 			var sendway="门店自寄";
 			var sendname=$("#sendname").val();
-			var sendtel=$("#sendtel").val();
+			var sendtel=parseInt($("#sendtel").val());
 			var sendaddress=$("#saddress").html();
 			var acceptname=$("#acceptname").val();
-            var accepttel=$("#accepttel").val();
+            var accepttel=parseInt($("#accepttel").val());
             var acceptaddress=$("#aaddress").html();
             var goodsname=$("#goodsname").val();
-            var goodsweight=$("#goodsweight").val();
-            var goodsvolume=$("#goodsvolume").val();
+            var str1=$("#goodsweight").val();
+            var goodsweight=str1*1;
+            var str2=$("#goodsvolume").val();
+            var goodsvolume=str2*1;
             var goodspage=$("#page").val();
-            var goodscount=$("#count").val();
+            var goodscount=parseInt($("#count").val());
             var goodsneed=$("#need").val()+sendway;
-            var price=$("#price").html();
+            var price=parseInt($("#price").html());     
             var payway=$("#payway").html();
+            var str3=0;
+            if(payway=="到付"){
+            	str3=2;
+            }else if(payway=="现付"){
+            	str3=1;
+            }else if(payway=="月结"){
+            	str3=3;
+            }
 //          alert(sendaddress+acceptaddress+price);
 //			alert(sendname+sendtel+acceptname+accepttel+goodsname+goodsweight+goodsvolume+goodspage+goodscount+goodsneed+payway);
             if(sendname==""||sendtel==""||sendaddress==""){
@@ -859,12 +869,12 @@
             }else if(price==""||price==0){
             	alert("缺少货物价值或价值不能为0");
             	//alert(price);
-            }else if( payway==""){
+            }else if( str3==0){
             	alert("缺少付款方式");
             	//alert(price);
             }else{
             	$.ajax({
-		            url :"http://mooonhok-cloudware.daoapp.io/goods.php/goods",
+		            url :"'Access-Control-Allow-origin'：http://mooonhok-cloudware.daoapp.io/goods.php/goods",
 			        dataType:'json',
 			        type:'post',
 			        data:{
@@ -873,33 +883,32 @@
 					    goods_package:goodspage,
 					    goods_count:goodscount,
 					    goods_capacity:goodsvolume,
-					    goods_capacity:goodsvolume,
 					    special_need:goodsneed,
 					    good_worth:price
 			        },
 			        success:function(msg){
-                       console.log(msg);
+                           alert("提交货物信息成功！");
 				    },
 			        error:function(e){
-			            alert("lorry/alter出错！");
+			            alert("提交商品信息出错！");
 			        }
 	            });
                $.ajax({
-		            url :"http://mooonhok-cloudware.daoapp.io/order.php/order",
+		            url :"'Access-Control-Allow-origin'：http://mooonhok-cloudware.daoapp.io/order.php/order",
 			        dataType:'json',
 			        type:'post',
 			        data:{
-					  pay_method:payway
+					  pay_method:str3
 			        },
 			        success:function(msg){
-                       console.log(msg);
+                        alert("提交付款方式成功！");
 				    },
 			        error:function(e){
-			            alert("lorry/alter出错！");
+			            alert("提交订单出错！");
 			        }
 	            });
                   $.ajax({
-		            url :"http://mooonhok-cloudware.daoapp.io/customer.php/customer",
+		            url :"'Access-Control-Allow-origin'：http://mooonhok-cloudware.daoapp.io/customer.php/customer",
 			        dataType:'json',
 			        type:'post',
 			        data:{
@@ -908,29 +917,28 @@
                      customer_comment:sendaddress
 			        },
 			        success:function(msg){
-                       console.log(msg);
+                          alert("提交寄件人成功！");
 				    },
 			        error:function(e){
-			            alert("lorry/alter出错！");
+			            alert("提交寄件人出错！");
 			        }
 	            });
                   $.ajax({
-		            url :"http://mooonhok-cloudware.daoapp.io/customer.php/customer",
+		            url :"'Access-Control-Allow-origin'：http://mooonhok-cloudware.daoapp.io/customer.php/customer",
 			        dataType:'json',
 			        type:'post',
 			        data:{
 					customer_name:acceptname,
                     customer_phone:accepttel,
-                   customer_comment:acceptaddress
+                    customer_comment:acceptaddress
 			        },
 			        success:function(msg){
-                       console.log(msg);
+                         window.location.href="chenggong.html";
 				    },
 			        error:function(e){
-			            alert("lorry/alter出错！");
+			            alert("提交收获人出错！");
 			        }
 	            });
-            window.location.href="chenggong.html";
             }
             });
 	</script>
