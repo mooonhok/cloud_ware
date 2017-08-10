@@ -843,8 +843,8 @@
             }else if(payway=="月结"){
             	str3=3;
             }
-//          alert(sendaddress+acceptaddress+price);
-//			alert(sendname+sendtel+acceptname+accepttel+goodsname+goodsweight+goodsvolume+goodspage+goodscount+goodsneed+payway);
+//     alert(sendaddress+"////"+sendname+"//////"+sendtel+"/////"+acceptname+"//////"+accepttel+"//////"+acceptaddress);
+//			alert(+goodsname+goodsweight+goodsvolume+goodspage+goodscount+goodsneed+payway);
             if(sendname==""||sendtel==""||sendaddress==""){
             	alert("发货人信息不全");
             	//alert(sendname+sendtel+sendaddress);
@@ -914,13 +914,13 @@
 			        data:{
 					 customer_name:sendname,
                      customer_phone:sendtel,
-                     customer_comment:sendaddress
+                     customer_address:sendaddress
 			        },
 			        success:function(msg){
                           alert("提交寄件人结果"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
 				    },
-			        error:function(e){
-			            alert("提交寄件人出错！");
+			        error:function(xhr){
+			            alert("提交寄件人出错！"+xhr.responseText);
 			        }
 	            });
                   $.ajax({
@@ -930,14 +930,14 @@
 			        data:{
 					customer_name:acceptname,
                     customer_phone:accepttel,
-                    customer_comment:acceptaddress
+                    customer_address:acceptaddress
 			        },
 			        success:function(msg){
 			        	 alert("提交收获人结果"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
                          window.location.href="chenggong.html";
 				    },
-			        error:function(e){
-			            alert("提交收获人出错！");
+			        error:function(xhr){
+			            alert("提交收获人出错！"+xhr.responseText);
 			        }
 	            });
             }
