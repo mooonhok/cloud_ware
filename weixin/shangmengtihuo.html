@@ -877,6 +877,9 @@
 		            url :"http://mooonhok-cloudware.daoapp.io/goods.php/goods",
 			        dataType:'json',
 			        type:'post',
+			        beforeSend: function(request) {  
+                        request.setRequestHeader("tenant-id", "Chenxizhang");  
+                    }, 
 			        data:{
 					    goods_name:goodsname,
 					    goods_weight:goodsweight,
