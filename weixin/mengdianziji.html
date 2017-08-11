@@ -889,7 +889,8 @@
                     },
 			        dataType:'json',
 			        type:'post',
-			        data:{
+			        contentType:"application/json;charset=utf-8",
+			        data:JSON.stringify({
 					    goods_name:goodsname,
 					    goods_weight:goodsweight,
 					    goods_package:goodspage,
@@ -897,7 +898,7 @@
 					    goods_capacity:goodsvolume,
 					    special_need:goodsneed,
 					    good_worth:price
-			        },
+			        }),
 			        success:function(msg){
                          alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.goods);
 				    },
@@ -912,9 +913,10 @@
                     },
 			        dataType:'json',
 			        type:'post',
-			        data:{
+			        contentType:"application/json;charset=utf-8",
+			        data:JSON.stringify({
 					  pay_method:str3
-			        },
+			        }),
 			        success:function(msg){
                         alert("提交付款方式结果"+msg.result+"/////"+msg.desc+"//////"+msg.order);
 				    },
@@ -929,11 +931,12 @@
                     },
 			        dataType:'json',
 			        type:'post',
-			        data:{
+			        contentType:"application/json;charset=utf-8",
+			        data:JSON.stringify({
 					 customer_name:sendname,
                      customer_phone:sendtel,
                      customer_address:sendaddress
-			        },
+			        }),
 			        success:function(msg){
                           alert("提交寄件人结果"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
 				    },
@@ -948,11 +951,12 @@
                     },
 			        dataType:'json',
 			        type:'post',
-			        data:{
+			        contentType:"application/json;charset=utf-8",
+			        data:JSON.stringify({
 					customer_name:acceptname,
                     customer_phone:accepttel,
                     customer_address:acceptaddress
-			        },
+			        }),
 			        success:function(msg){
 			        	 alert("提交收获人结果"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
                          window.location.href="chenggong.html";
