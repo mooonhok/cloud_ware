@@ -680,7 +680,7 @@
 			        success:function(msg){
                         alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
                         for(var i=0;i<msg.length;i++){
-                         	$("#province1").val('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+                         	$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
                         }
 				    },
 			        error:function(e){
@@ -704,7 +704,7 @@
 			        success:function(msg){
                         alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
                         for(var i=0;i<msg.length;i++){
-                         	$("#province1").val('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+                         	$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
                         }
 				    },
 			        error:function(e){
@@ -732,9 +732,7 @@
 		});
 	
 	</script>
-	<script>
-			
-				
+	<script>		
 				$.ajax({
 		            url :"http://mooonhok-cloudware.daoapp.io/city.php/province",
 		             beforeSend: function(request) {
@@ -749,7 +747,7 @@
                         alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
                         
                         for(var i=0;i<msg.length;i++){
-                         	$("#province1").val('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+                         	$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
                          	
                         }
 				    },
@@ -775,7 +773,7 @@
 			        success:function(msg){
                         alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
                         for(var i=0;i<msg.length;i++){
-                         	$("#province1").val('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+                         	$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
                         }
 				    },
 			        error:function(e){
