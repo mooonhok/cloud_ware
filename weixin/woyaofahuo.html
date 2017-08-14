@@ -451,10 +451,14 @@
 				    	</div>
 				    	<div>
 				    		<div class="box1_center_left">地址</div>
-				    		<div class="box1_center_right" id="suadd1"><SELECT NAME="province" onChange="getpro()">  
-                                                                     <OPTION VALUE="0">请选择省份</OPTION></SELECT>    
-                                                                     <SELECT NAME="city" id="se1"   onchange="getCity()">
-                                                  	                  <OPTION VALUE="0">请选择城市</OPTION></SELECT></div>
+				    		<div class="box1_center_right" id="suadd1">
+				    			<SELECT NAME="province" id="province1" onChange="getPro1()">  
+                                    <OPTION VALUE="0">请选择省份</OPTION>
+				    			</SELECT>    
+                                <SELECT NAME="city" id="city1" onchange="getCity1()">
+                                   	<OPTION VALUE="0">请选择城市</OPTION>
+                                </SELECT>
+				    		</div>
 				    	</div>
 				    	<div>
 				    		<div class="box1_center_left"></div>
@@ -485,9 +489,13 @@
 				    	</div>
 				    	<div>
 				    		<div class="box1_center_left">地址</div>
-				    		<div class="box1_center_right" id="suadd1"><SELECT NAME="province"  onChange="getpro()">  
-                                                                     <OPTION VALUE="0">请选择省份</OPTION></SELECT>    
-                                                  <SELECT NAME="city"  id="se2"   onchange="getCity()"><OPTION VALUE="0">请选择城市</OPTION></SELECT></div>
+				    		<div class="box1_center_right" id="suadd1">
+				    			<SELECT NAME="province" id="province2" onChange="getPro2()">  
+                                    <OPTION VALUE="0">请选择省份</OPTION>
+				    			</SELECT>    
+                                <SELECT NAME="city" id="city2" onchange="getCity2()">
+                                	<OPTION VALUE="0">请选择城市</OPTION>
+                                </SELECT></div>
 				    	</div>
 				    	<div>
 				    		<div class="box1_center_left"></div>
@@ -659,24 +667,53 @@
 	</body>
 	<script src="jquery-3.2.1.min.js"></script>
 	<script>
-			function getpro(url, par, sel) {
-           $(sel).empty();
-           $.getJSON(url, { id: par }, function (data, textStatus) {
-           for (var i = data.length - 1; i >= 0; i--) {
-          $(sel).prepend('<option value="' + data[i].Id + '">' + data[i].Name + '</option>')
-          };
-          $(sel).prepend('<option value="0">请选择</option>')
-          });
-        }
-		function getCity(url, par, sel) {
-           $(sel).empty();
-           $.getJSON(url, { id: par }, function (data, textStatus) {
-           for (var i = data.length - 1; i >= 0; i--) {
-          $(sel).prepend('<option value="' + data[i].Id + '">' +data[i].Name + '</option>')
-          };
-          $(sel).prepend('<option value="0">请选择</option>')
-          });
-        }
+			function getPro1() {
+				$.ajax({
+		            url :"http://mooonhok-cloudware.daoapp.io/city.php/province",
+		             beforeSend: function(request) {
+                        request.setRequestHeader("tenant-id", "Chenxizhang");  
+                    },
+			        dataType:'json',
+			        type:'post',
+			        contentType:"application/json;charset=utf-8",
+			        data:JSON.stringify({
+			        }),
+			        success:function(msg){
+                        alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
+                        for(var i=0;i<msg.length;i++){
+                         	$("#province1").innerHTML('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+                        }
+				    },
+			        error:function(e){
+			            alert("省份列表1信息出错！");
+			        }
+	          });
+            }
+			function getCity1() {
+				var pid=$("#province1 option:selected").val();
+				$.ajax({
+		            url :"http://mooonhok-cloudware.daoapp.io/city.php/city",
+		             beforeSend: function(request) {
+                        request.setRequestHeader("tenant-id", "Chenxizhang");  
+                    },
+			        dataType:'json',
+			        type:'post',
+			        contentType:"application/json;charset=utf-8",
+			        data:JSON.stringify({
+			        	pid:pid
+			        }),
+			        success:function(msg){
+                        alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
+                        for(var i=0;i<msg.length;i++){
+                         	$("#province1").innerHTML('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+                        }
+				    },
+			        error:function(e){
+			            alert("城市2列表信息出错！");
+			        }
+	          });
+            }
+			
 		$(document).ready(function(){
 			$('#pop1').on('click',function(){
                 $('#popup1').css("display","block");
@@ -690,13 +727,61 @@
      		$("#sendname").val($("#sename").val());
      		$("#sendtel").val($("#setel").val());
 			
-			 var str = $("#se1 option:selected").val();
+			 var str = $("#city1 option:selected").val();
 			 $("#sendcity").val(str);
 			 $('#popup1').css("display","none");
 		});
 	
 	</script>
 	<script>
+			function getPro2() {
+				$.ajax({
+		            url :"http://mooonhok-cloudware.daoapp.io/city.php/province",
+		             beforeSend: function(request) {
+                        request.setRequestHeader("tenant-id", "Chenxizhang");  
+                    },
+			        dataType:'json',
+			        type:'post',
+			        contentType:"application/json;charset=utf-8",
+			        data:JSON.stringify({
+			        }),
+			        success:function(msg){
+                        alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
+                        
+                        for(var i=0;i<msg.length;i++){
+                         	$("#province1").html('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+                         	
+                        }
+				    },
+			        error:function(e){
+			            alert("省份信息列表出错！");
+			        }
+	          });
+            }
+			function getCity2() {
+				var pid=$("#province2 option:selected").val();
+				$.ajax({
+		            url :"http://mooonhok-cloudware.daoapp.io/city.php/city",
+		             beforeSend: function(request) {
+                        request.setRequestHeader("tenant-id", "Chenxizhang");  
+                    },
+			        dataType:'json',
+			        type:'post',
+			        contentType:"application/json;charset=utf-8",
+			        data:JSON.stringify({
+			        	pid:pid
+			        }),
+			        success:function(msg){
+                        alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
+                        for(var i=0;i<msg.length;i++){
+                         	$("#province1").val('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+                        }
+				    },
+			        error:function(e){
+			            alert("提交商品信息出错！");
+			        }
+	          });
+            }
 		$(document).ready(function(){
 			$('#pop2').on('click',function(){
 				$('#popup2').css("display","block");
@@ -709,7 +794,7 @@
 			$("#aaddress").html($("#suadd3").val());	
 			$("#acceptname").val($("#acname").val());
 			$("#accepttel").val($("#actel").val());
-			var str = $("#se2 option:selected").val();
+			var str = $("#city2 option:selected").val();
 			 $("#acceptcity").val(str);
 			$('#popup2').css("display","none");
 		});
@@ -926,10 +1011,10 @@
 			var sendname=$("#sendname").val();
 			var sendtel=parseInt($("#sendtel").val());
 			var sendaddress=$("#saddress").html();
-			var sendcity=parseInt(("#sendcity").val());
+			var sendcity=parseInt($("#sendcity").val());
 			var acceptname=$("#acceptname").val();
             var accepttel=parseInt($("#accepttel").val());
-            var acceptcity=parseInt(("#acceptcity").val());
+            var acceptcity=parseInt($("#acceptcity").val());
             var acceptaddress=$("#aaddress").html();
             var goodsname=$("#goodsname").val();
             var str1=$("#goodsweight").val();

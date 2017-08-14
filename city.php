@@ -6,6 +6,7 @@
  * Time: 11:38
  */
 require 'Slim/Slim.php';
+require 'connect.php';
 use Slim\PDO\Database;
 
 
