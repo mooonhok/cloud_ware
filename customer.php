@@ -6,7 +6,6 @@ use Slim\PDO\Database;
 \Slim\Slim::registerAutoloader();
     $app = new \Slim\Slim();
 $app->post('/customer',function()use($app){
-	header('Access-Control-Allow-Origin:*');
 	$app->response->headers->set('Content-Type', 'application/json');
     $database=localhost();
 	$tenant_id=$app->request->headers->get("tenant-id");
