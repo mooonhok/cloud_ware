@@ -133,7 +133,7 @@
 			}
 			.view3_center{			
 				width:56%;
-				height: px;		
+				height: 54px;		
 				float:left;
 				line-height:60px;
 			}
@@ -278,10 +278,9 @@
 				font:normal 15px "微软雅黑";
 			}
 			.box1_center_right select{
-				width:30%;
+				width:40%;
 				height:30px;
-				margin-left:5%;
-				margin-right:5%;
+				margin-left:2%;
 				float: left;
 			    font:normal 15px "微软雅黑";
 			}
@@ -372,6 +371,7 @@
 				<div class="view1_center"  id="saddress">请选择寄件人详细地址</div>
 				<input id="sendname" class="hid"></input>
 				<input id="sendtel" class="hid"></input>
+				<input id="sendcity" class="hid"></input>
 				<div class="view1_right">
 					<img src="left_arrow.png" class="left_arrow left_arrow1">
 				</div>
@@ -383,6 +383,7 @@
 				<div class="view1_center"  id="aaddress">请选择收件人详细地址</div>
 				<input id="acceptname" class="hid"></input>
 				<input id="accepttel" class="hid"></input>
+				<input id="acceptcity" class="hid"></input>
 				<div class="view1_right">
 					<img src="left_arrow.png" class="left_arrow left_arrow1">
 				</div>
@@ -451,9 +452,9 @@
 				    	<div>
 				    		<div class="box1_center_left">地址</div>
 				    		<div class="box1_center_right" id="suadd1"><SELECT NAME="province" onChange="getpro()">  
-                                                                     <OPTION VALUE="0">请选择所在省份</OPTION></SELECT>    
-                                                                     <SELECT NAME="city" onchange="getCity()">
-                                                  	                  <OPTION VALUE="0">请选择所在城市</OPTION></SELECT></div>
+                                                                     <OPTION VALUE="0">请选择省份</OPTION></SELECT>    
+                                                                     <SELECT NAME="city" id="se1"   onchange="getCity()">
+                                                  	                  <OPTION VALUE="0">请选择城市</OPTION></SELECT></div>
 				    	</div>
 				    	<div>
 				    		<div class="box1_center_left"></div>
@@ -484,9 +485,9 @@
 				    	</div>
 				    	<div>
 				    		<div class="box1_center_left">地址</div>
-				    		<div class="box1_center_right" id="suadd1"><SELECT NAME="province" onChange="getpro()">  
-                                                                     <OPTION VALUE="0">请选择所在省份</OPTION></SELECT>    
-                                                  <SELECT NAME="city"  onchange="getCity()"><OPTION VALUE="0">请选择所在城市</OPTION></SELECT></div>
+				    		<div class="box1_center_right" id="suadd1"><SELECT NAME="province"  onChange="getpro()">  
+                                                                     <OPTION VALUE="0">请选择省份</OPTION></SELECT>    
+                                                  <SELECT NAME="city"  id="se2"   onchange="getCity()"><OPTION VALUE="0">请选择城市</OPTION></SELECT></div>
 				    	</div>
 				    	<div>
 				    		<div class="box1_center_left"></div>
@@ -658,6 +659,24 @@
 	</body>
 	<script src="jquery-3.2.1.min.js"></script>
 	<script>
+			function getpro(url, par, sel) {
+           $(sel).empty();
+           $.getJSON(url, { id: par }, function (data, textStatus) {
+           for (var i = data.length - 1; i >= 0; i--) {
+          $(sel).prepend('<option value="' + data[i].Id + '">' + data[i].Name + '</option>')
+          };
+          $(sel).prepend('<option value="0">请选择</option>')
+          });
+        }
+		function getCity(url, par, sel) {
+           $(sel).empty();
+           $.getJSON(url, { id: par }, function (data, textStatus) {
+           for (var i = data.length - 1; i >= 0; i--) {
+          $(sel).prepend('<option value="' + data[i].Id + '">' +data[i].Name + '</option>')
+          };
+          $(sel).prepend('<option value="0">请选择</option>')
+          });
+        }
 		$(document).ready(function(){
 			$('#pop1').on('click',function(){
                 $('#popup1').css("display","block");
@@ -670,8 +689,12 @@
      		$("#saddress").html($("#suadd").val());
      		$("#sendname").val($("#sename").val());
      		$("#sendtel").val($("#setel").val());
-			$('#popup1').css("display","none");
+			
+			 var str = $("#se1 option:selected").val();
+			 $("#sendcity").val(str);
+			 $('#popup1').css("display","none");
 		});
+	
 	</script>
 	<script>
 		$(document).ready(function(){
@@ -686,6 +709,8 @@
 			$("#aaddress").html($("#suadd3").val());	
 			$("#acceptname").val($("#acname").val());
 			$("#accepttel").val($("#actel").val());
+			var str = $("#se2 option:selected").val();
+			 $("#acceptcity").val(str);
 			$('#popup2').css("display","none");
 		});
 	</script>
@@ -901,8 +926,10 @@
 			var sendname=$("#sendname").val();
 			var sendtel=parseInt($("#sendtel").val());
 			var sendaddress=$("#saddress").html();
+			var sendcity=parseInt(("#sendcity").val());
 			var acceptname=$("#acceptname").val();
             var accepttel=parseInt($("#accepttel").val());
+            var acceptcity=parseInt(("#acceptcity").val());
             var acceptaddress=$("#aaddress").html();
             var goodsname=$("#goodsname").val();
             var str1=$("#goodsweight").val();
@@ -923,10 +950,10 @@
             }
 //          alert(sendaddress+acceptaddress+price);
 //			alert(sendtel+acceptname+accepttel+goodsname+goodsweight+goodsvolume+goodspage+goodscount+goodsneed+payway);
-            if(sendname==""||sendtel==""||sendaddress==""){
+            if(sendname==""||sendtel==""||sendaddress==""||sendcity==0){
             	alert("发货人信息不全");
             	//alert(sendname+sendtel+sendaddress);
-            }else if(acceptname==""||acceptaddress==""||accepttel==""){
+            }else if(acceptname==""||acceptaddress==""||accepttel==""||acceptcity==0){
             	alert("收货人信息不全");
             	//alert(acceptname+accepttel+acceptaddress);
             }else if(goodsname==""){
@@ -1004,6 +1031,7 @@
 			        data:JSON.stringify({
 					 customer_name:sendname,
                      customer_phone:sendtel,
+                     customer_city_id:sendcity,
                      customer_address:sendaddress
 			        }),
 			        success:function(msg){
@@ -1024,6 +1052,7 @@
 			        data:JSON.stringify({
 					customer_name:acceptname,
                     customer_phone:accepttel,
+                     customer_city_id:acceptcity,
                     customer_address:acceptaddress
 			        }),
 			        success:function(msg){
