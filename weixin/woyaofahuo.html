@@ -678,7 +678,7 @@
 			        data:JSON.stringify({
 			        }),
 			        success:function(msg){
-                        alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
+                        alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province[0].name);
                         for(var i=0;i<msg.length;i++){
                          	$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
                         }
