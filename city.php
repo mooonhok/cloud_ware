@@ -13,7 +13,7 @@ use Slim\PDO\Database;
 $app = new \Slim\Slim();
 $app->post('/province',function ()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
-    $database=new database("mysql:host=127.0.0.1;dbname=cloud_ware;charset=utf8","root","");
+    $database=localhost();
     $selectStatement = $database->select()
         ->from('province');
     $stmt = $selectStatement->execute();
@@ -23,10 +23,10 @@ $app->post('/province',function ()use($app){
 
 $app->post('/city',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
+    $database=localhost();
     $body = $app->request->getBody();
     $body=json_decode($body);
     $pid=$body->pid;
-    $database=new database("mysql:host=127.0.0.1;dbname=cloud_ware;charset=utf8","root","");
     if($pid!=null||$pid!=""){
             $selectStatement = $database->select()
                 ->from('city')
@@ -38,4 +38,7 @@ $app->post('/city',function()use($app){
 });
 
 $app->run();
+function localhost(){
+    return connect();
+}
 ?>
