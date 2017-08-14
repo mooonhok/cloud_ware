@@ -258,6 +258,10 @@
 			    width:100%;
 			    height:160px;
 			}
+			.box4_center{
+			    width:100%;
+			    height:160px;
+			}
 			.box1_center div{
 				height:30px;
 				line-height:30px;
@@ -274,8 +278,10 @@
 				font:normal 15px "微软雅黑";
 			}
 			.box1_center_right select{
-				width:40%;
+				width:30%;
 				height:30px;
+				margin-left:5%;
+				margin-right:5%;
 				float: left;
 			    font:normal 15px "微软雅黑";
 			}
@@ -338,10 +344,11 @@
 			text-align: center;
 		}
 		.box8_center_left{
-			width:14%;
+			width:30%;
 			height: 50px;
-			margin-left:5%;
-			margin-right:5%;
+			margin-left:10%;
+			margin-right:10%;
+			margin-top: 20px;
 			background-color: #0080FF;
 			border-radius:5px;
 			font:normal 17px "微软雅黑";
@@ -445,7 +452,7 @@
 				    		<div class="box1_center_left">地址</div>
 				    		<div class="box1_center_right" id="suadd1"><SELECT NAME="province" onChange="getpro()">  
                                                                      <OPTION VALUE="0">请选择所在省份</OPTION></SELECT>    
-                                                                     <SELECT NAME="city" onchange="getCity()>
+                                                                     <SELECT NAME="city" onchange="getCity()">
                                                   	                  <OPTION VALUE="0">请选择所在城市</OPTION></SELECT></div>
 				    	</div>
 				    	<div>
@@ -602,7 +609,7 @@
 					        <img src="close.png" id="close8">
 				    	</div>
 			    	</div>
-			    	<div class="box3_center">
+			    	<div class="box4_center">
 			    		<div  class="box8_center_left" id="bt4" value=1 onclick="d()">上门提货</div>
 			    		<div  class="box8_center_left" id="bt1" value=1 onclick="a()">开票申请</div>
 			    		<div  class="box8_center_left" id="bt2" value=1 onclick="b()">加急</div>
