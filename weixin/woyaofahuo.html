@@ -678,8 +678,8 @@
 			        data:JSON.stringify({
 			        }),
 			        success:function(msg){
-                        alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province[0].name);
-                        for(var i=0;i<msg.province.length;i++){
+                        alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
+                        for(var i=0;i<msg.length;i++){
                          	$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
                         }
 				    },
@@ -702,13 +702,13 @@
 			        	pid:pid
 			        }),
 			        success:function(msg){
-                        alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
-                        for(var i=0;i<msg.province.length;i++){
+                        alert("city结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
+                        for(var i=0;i<msg.length;i++){
                          	$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
                         }
 				    },
 			        error:function(e){
-			            alert("城市2列表信息出错！");
+			            alert("城市1列表信息出错！");
 			        }
 	          });
             }
@@ -746,41 +746,46 @@
 			        success:function(msg){
                         alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
                         
-                        for(var i=0;i<msg.province.length;i++){
+                        for(var i=0;i<msg.length;i++){
                          	$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
                          	
                         }
+                        $("#province2").on("change",function(){
+                        	var pid=$("#province2 option:selected").val();
+                        	alert(pid);
+				            $.ajax({
+		                     url :"http://mooonhok-cloudware.daoapp.io/city.php/city",
+		                      beforeSend: function(request) {
+                              request.setRequestHeader("tenant-id", "Chenxizhang");  
+                             },
+			                 dataType:'json',
+			                 type:'post',
+			                  contentType:"application/json;charset=utf-8",
+			                  data:JSON.stringify({
+			             	pid:pid
+			                 }),
+			                 success:function(msg){
+                             alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
+                            for(var i=0;i<msg.length;i++){
+                         	$("#province2").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+                         }
+				         },
+			               error:function(e){
+			               alert("城市列表信息出错！");
+			          }
+	               });
+                        });
+                        
 				    },
 			        error:function(e){
 			            alert("省份信息列表出错！");
 			        }
 	          });
         
-			function getPro2() {
+		
 			
-				var pid=$("#province2 option:selected").val();
-				$.ajax({
-		            url :"http://mooonhok-cloudware.daoapp.io/city.php/city",
-		             beforeSend: function(request) {
-                        request.setRequestHeader("tenant-id", "Chenxizhang");  
-                    },
-			        dataType:'json',
-			        type:'post',
-			        contentType:"application/json;charset=utf-8",
-			        data:JSON.stringify({
-			        	pid:pid
-			        }),
-			        success:function(msg){
-                        alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
-                        for(var i=0;i<msg.province.length;i++){
-                         	$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
-                        }
-				    },
-			        error:function(e){
-			            alert("城市列表信息出错！");
-			        }
-	          });
-            }
+				
+            
 		$(document).ready(function(){
 			$('#pop2').on('click',function(){
 				$('#popup2').css("display","block");
