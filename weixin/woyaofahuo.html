@@ -689,6 +689,7 @@
 	          });
             
 			function getPro1() {	
+			     $("#city1").empty();
 				var pid=$("#province1 option:selected").val();
 				$.ajax({
 		            url :"http://mooonhok-cloudware.daoapp.io/city.php/city",
@@ -754,7 +755,8 @@
 			        }
 	          });
             
-			function getPro2() {	
+			function getPro2() {
+				  $("#city2").empty();
 				var pid=$("#province2 option:selected").val();
 				$.ajax({
 		            url :"http://mooonhok-cloudware.daoapp.io/city.php/city",

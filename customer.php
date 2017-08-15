@@ -6,9 +6,6 @@ use Slim\PDO\Database;
 \Slim\Slim::registerAutoloader();
     $app = new \Slim\Slim();
 $app->post('/customer',function()use($app){
-	$app->response->headers->set("Access-Control-Allow-Headers", "Content-Type");
-	$app->response->headers->set('Access-Control-Allow-Origin,*');
-  $app->response->headers->set("Access-Control-Allow-Methods","POST,PUT,GET,DELETE,OPTIONS");
 	$app->response->headers->set('Content-Type', 'application/json');
 	
     $database=localhost();
