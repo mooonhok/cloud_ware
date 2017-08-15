@@ -679,7 +679,7 @@
 			        }),
 			        success:function(msg){
                         alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
-                        for(var i=0;i<msg.length;i++){
+                        for(var i=0;i<msg.province.length;i++){
                          	$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
                         }
 				    },
@@ -702,9 +702,9 @@
 			        	pid:pid
 			        }),
 			        success:function(msg){
-                        alert("city结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
-                        for(var i=0;i<msg.length;i++){
-                         	$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+                        alert("city结果"+msg.result+"/////"+msg.desc+"//////"+msg.city);
+                        for(var i=0;i<msg.city.length;i++){
+                         	$("#city1").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
                         }
 				    },
 			        error:function(e){
@@ -746,7 +746,7 @@
 			        success:function(msg){
                         alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
                         
-                        for(var i=0;i<msg.length;i++){
+                        for(var i=0;i<msg.province.length;i++){
                          	$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
                          	
                         }
@@ -765,9 +765,9 @@
 			             	pid:pid
 			                 }),
 			                 success:function(msg){
-                             alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
-                            for(var i=0;i<msg.length;i++){
-                         	$("#province2").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+                             alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.city);
+                            for(var i=0;i<msg.city.length;i++){
+                         	$("#city2").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
                          }
 				         },
 			               error:function(e){
