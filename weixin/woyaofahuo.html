@@ -678,13 +678,13 @@
 			        data:JSON.stringify({
 			        }),
 			        success:function(msg){
-                        alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
+//                        alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
                         for(var i=0;i<msg.province.length;i++){
                          	$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
                         }
 				    },
 			        error:function(e){
-			            alert("省份列表1信息出错！");
+//			            alert("省份列表1信息出错！");
 			        }
 	          });
             
@@ -703,13 +703,13 @@
 			        	pid:pid
 			        }),
 			        success:function(msg){
-                        alert("city结果"+msg.result+"/////"+msg.desc+"//////"+msg.city);
+ //                       alert("city结果"+msg.result+"/////"+msg.desc+"//////"+msg.city);
                         for(var i=0;i<msg.city.length;i++){
                          	$("#city1").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
                         }
 				    },
 			        error:function(e){
-			            alert("城市1列表信息出错！");
+		//	            alert("城市1列表信息出错！");
 			        }
 	          });
             }
@@ -745,13 +745,13 @@
 			        data:JSON.stringify({
 			        }),
 			        success:function(msg){
-                        alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
+        //                alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
                         for(var i=0;i<msg.province.length;i++){
                          	$("#province2").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
                         }
 				    },
 			        error:function(e){
-			            alert("省份列表2信息出错！");
+		//	            alert("省份列表2信息出错！");
 			        }
 	          });
             
@@ -770,13 +770,13 @@
 			        	pid:pid
 			        }),
 			        success:function(msg){
-                        alert("city结果"+msg.result+"/////"+msg.desc+"//////"+msg.city);
+      //                  alert("city结果"+msg.result+"/////"+msg.desc+"//////"+msg.city);
                         for(var i=0;i<msg.city.length;i++){
                          	$("#city2").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
                         }
 				    },
 			        error:function(e){
-			            alert("城市1列表信息出错！");
+		//	            alert("城市1列表信息出错！");
 			        }
 	          });
            }         
@@ -1079,7 +1079,7 @@
 					    good_worth:price
 			        }),
 			        success:function(msg){
-                         alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.goods);
+           //              alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.goods);
 				    },
 			        error:function(e){
 			            alert("提交商品信息出错！");
@@ -1097,7 +1097,7 @@
 					  pay_method:str3
 			        }),
 			        success:function(msg){
-                        alert("提交付款方式结果"+msg.result+"/////"+msg.desc+"//////"+msg.order);
+              //          alert("提交付款方式结果"+msg.result+"/////"+msg.desc+"//////"+msg.order);
 				    },
 			        error:function(e){
 			            alert("提交订单出错！");
@@ -1118,7 +1118,7 @@
                      customer_address:sendaddress
 			        }),
 			        success:function(msg){
-                          alert("提交寄件人结果"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
+        //                  alert("提交寄件人结果"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
 				    },
 			        error:function(xhr){
 			            alert("提交寄件人出错！"+xhr.responseText);
@@ -1139,7 +1139,7 @@
                     customer_address:acceptaddress
 			        }),
 			        success:function(msg){
-			        	 alert("提交收获人结果"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
+		//	        	 alert("提交收获人结果"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
                          window.location.href="chenggong.html";
 				    },
 			        error:function(xhr){
