@@ -109,7 +109,7 @@ $app->put('/stafftest',function()use($app){
     }
 });
 
-$app->put('/staff',function()use($app){
+$app->put('/stafftest',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
@@ -153,7 +153,7 @@ $app->put('/staff',function()use($app){
     }
 });
 
-$app->get('/staff',function()use($app){
+$app->get('/stafftest',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id=$app->request->headers->get("tenant-id");
     $page=$app->request->get('page');
@@ -183,7 +183,7 @@ $app->get('/staff',function()use($app){
     }
 });
 
-$app->delete('/staff',function()use($app){
+$app->delete('/stafftest',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id=$app->request->headers->get("tenant-id");
     $database=localhost();
