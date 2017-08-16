@@ -17,12 +17,11 @@ $app->post('/stafftest',function()use($app){
     $body=json_decode($body);
     $staff_id=$body->staff_id;
     $username=$body->username;
-    $password=$body->password;
     $name=$body->name;
     $telephone=$body->telephone;
     $position=$body->position;
     $staff_status=$body->status;
-    $permissions=$body->permissions;
+    $permission=$body->permission;
     $array=array();
     foreach($body as $key=>$value){
         $array[$key]=$value;
@@ -33,9 +32,9 @@ $app->post('/stafftest',function()use($app){
                 if($telephone!=null||$telephone!=''){
                         if($position!=null||$position!=''){
                             if($staff_status!=null||$staff_status!=''){
-                                if($permissions!=null||$permissions!=''){
+                                if($permission!=null||$permission!=''){
                                     if($staff_id!=null||$staff_id!=''){
-                                        if($password!=null||$password!=''){
+                                            $array['password']="123456";
                                             $array['tenant_id']=$tenant_id;
                                             $array['exist']=0;
                                             $insertStatement = $database->insert(array_keys($array))
@@ -43,9 +42,6 @@ $app->post('/stafftest',function()use($app){
                                                 ->values(array_values($array));
                                             $insertId = $insertStatement->execute(false);
                                             echo json_encode(array("result"=>"0","desc"=>"success"));
-                                        }else{
-                                            echo json_encode(array('result'=>'1','desc'=>'缺少密码'));
-                                        }
                                     }else{
                                         echo json_encode(array('result'=>'1','desc'=>'缺少员工id'));
                                     }
@@ -74,7 +70,7 @@ $app->post('/stafftest',function()use($app){
     }
 });
 
-$app->put('/staff',function()use($app){
+$app->put('/stafftest',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
