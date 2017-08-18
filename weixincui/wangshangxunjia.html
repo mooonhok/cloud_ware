@@ -9,20 +9,44 @@
 <body>
 <div class="box">
 	<div class="top">
-	
+		<div class="wenzi">货物类型</div> 
+		<div class="text">
+			<input type="text" placeholder="必填项">
+		</div>		
+		
 	</div>
+	
 
 	<div class="center">
-	<div class="center_1"></div>
+	<div class="center_1">
+		<div class="wenzi">体积</div>
+		
+		<div class="text">
+		<input type="text" placeholder="必填项">
+		</div>
+		
+	</div>
 	
-	<div class="center_2"></div>
+	<div class="center_2">
+		<div class="wenzi">重量</div>
+		<div class="text">
+		<input type="text" placeholder="必填项">
+		</div>
+		
+	</div>
 		
 	</div>
 
 	<div class="foot">
-		<div class="foot_1"></div>
+		<div class="foot_1">
+			<div class="wenzi">发站</div>
+		<div class="fuhao"><img src="images/left_arrow.png" alt=""></div>
+		</div>
 		
-		<div class="foot_2"></div>
+		<div class="foot_2">
+			<div class="wenzi">到站</div>
+		<div class="fuhao"><img src="images/left_arrow.png" alt=""></div>
+		</div>
 	</div>
 
 	<div class="xunjia">
@@ -30,6 +54,53 @@
 	</div>
 	
 </div>
+	<div class="box2">
+		<div class="box3">
+			<div class="ok">
+				确定
+			</div>
+			<div class="box4">
+				<select name="" id="">
+					<option>请选择</option>
+				</select>
+				
+				<select name="" id="">
+					<option>请选择</option>
+				</select>
+
+			</div>
+			
+				
+			
+
+		</div>		
+
+	</div>
 	
 </body>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+	 $(".box2").css("display","none");
+	 $(".foot_1").on("click",function(){
+	 	// alert('ok');
+	 	$(".box2").css("display","block");
+	 	$(".box2").css("z-index","100");
+	 })
+	 $(".foot_2").on("click",function(){
+	 	// alert('ok');
+	 	$(".box2").css("display","block");
+	 	$(".box2").css("z-index","100");
+	 })
+
+	 $(".ok").on("click",function(){
+	 	$(".box2").css("display","none");
+	 })
+
+		
+	</script>
+	<script type="text/javascript">
+		$(".xunjia").on("click",function(){
+			alert('ok');
+		})
+	</script>
 </html>
