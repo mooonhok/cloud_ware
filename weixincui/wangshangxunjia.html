@@ -19,7 +19,7 @@
 
 	<div class="center">
 	<div class="center_1">
-		<div class="wenzi">体积</div>
+		<div class="wenzi">体积(m³)</div>
 		
 		<div class="text">
 		<input type="text" placeholder="必填项">
@@ -28,7 +28,7 @@
 	</div>
 	
 	<div class="center_2">
-		<div class="wenzi">重量</div>
+		<div class="wenzi">重量(吨)</div>
 		<div class="text">
 		<input type="text" placeholder="必填项">
 		</div>
@@ -40,6 +40,9 @@
 	<div class="foot">
 		<div class="foot_1">
 			<div class="wenzi">发站</div>
+			<div class="text1">
+				
+			</div>
 		<div class="fuhao"><img src="images/left_arrow.png" alt=""></div>
 		</div>
 		
@@ -55,17 +58,39 @@
 	
 </div>
 	<div class="box2">
-		<div class="box3">
-			<div class="ok">
+		<div class="box2-1">
+			<div class="ok1">
 				确定
 			</div>
-			<div class="box4">
-				<select name="" id="">
-					<option>请选择</option>
+			<div class="box2-2">
+				<select id="province">
+					<option value="">请选择</option>
 				</select>
 				
-				<select name="" id="">
-					<option>请选择</option>
+				<select id="city">
+					<option value="">请选择</option>
+				</select>
+
+			</div>
+			
+				
+			
+
+		</div>		
+
+	</div>
+	<div class="box3">
+		<div class="box3-1">
+			<div class="ok2">
+				确定
+			</div>
+			<div class="box3-2">
+				<select id="province">
+					<option value="">请选择</option>
+				</select>
+				
+				<select id="city">
+					<option value="">请选择</option>
 				</select>
 
 			</div>
@@ -81,6 +106,7 @@
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
 	 $(".box2").css("display","none");
+	 $(".box3").css("display","none");
 	 $(".foot_1").on("click",function(){
 	 	// alert('ok');
 	 	$(".box2").css("display","block");
@@ -88,14 +114,26 @@
 	 })
 	 $(".foot_2").on("click",function(){
 	 	// alert('ok');
-	 	$(".box2").css("display","block");
-	 	$(".box2").css("z-index","100");
+	 	$(".box3").css("display","block");
+	 	$(".box3").css("z-index","100");
 	 })
 
-	 $(".ok").on("click",function(){
+	 $(".ok1").on("click",function(){
 	 	$(".box2").css("display","none");
+
+
+	 })
+	 $(".ok2").on("click",function(){
+	 	$(".box3").css("display","none");
+
+
 	 })
 
+		
+	</script>
+	
+	
+	<script type="text/javascript">
 		
 	</script>
 	<script type="text/javascript">
