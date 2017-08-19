@@ -1,6 +1,6 @@
 <?php
-//header("Access-Control-Allow-Origin:*");
-//header("Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS");
+header("Access-Control-Allow-Origin:*");
+header("Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS");
 require 'Slim/Slim.php';
 require 'connect.php';
 use Slim\PDO\Database;
@@ -9,24 +9,44 @@ use Slim\PDO\Database;
     $app = new \Slim\Slim();
 $app->post('/customer',function()use($app){
 	$app->response->headers->set('Content-Type', 'application/json');
-	
     $database=localhost();
 	$tenant_id=$app->request->headers->get("tenant-id");
 	$body = $app->request->getBody();
 	$body=json_decode($body);
 	$customer_name=$body->customer_name;
 	$customer_phone=$body->customer_phone;
-	$customer_city=$body->customer_city;
+	$customer_city_id=$body->customer_city_id;
 	$customer_address=$body->customer_address;
 	$array=array();
     foreach($body as $key=>$value){
     	$array[$key]=$value;
     }
  if($tenant_id!=""||$tenant_id!=null){
+     $selectStatement = $database->select()
+         ->from('tenant')
+         ->where('exist',"=",0)
+         ->where('tenant_id','=',$tenant_id);
+     $stmt = $selectStatement->execute();
+     $data2 = $stmt->fetch();
+     if($data2!=null){
     if($customer_name!=""||$customer_name!=null){
         if($customer_phone>0||$customer_phone!=null){
             if(preg_match("/^1[34578]\d{9}$/", $customer_phone)) {
-                if ($customer_city != "" || $customer_city != null) {
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('exist',"=",0)
+                    ->where('customer_phone',"=",$customer_phone)
+                    ->where('tenant_id','=',$tenant_id);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetch();
+                if($data3==null){
+                if ($customer_city_id != "" || $customer_city_id != null) {
+                    $selectStatement = $database->select()
+                        ->from('city')
+                        ->where('id','=',$customer_city_id);
+                    $stmt = $selectStatement->execute();
+                    $data4 = $stmt->fetch();
+                    if($data4!=null){
                     if ($customer_address != "" || $customer_address != null) {
                         $selectStatement = $database->select()
                             ->from('customer')
@@ -50,20 +70,30 @@ $app->post('/customer',function()use($app){
                     } else {
                         echo json_encode(array("result" => "1", "desc" => "缺少客户地址"));
                     }
+                    } else {
+                        echo json_encode(array("result" => "2", "desc" => "客户城市不存在"));
+                    }
                 } else {
-                    echo json_encode(array("result" => "2", "desc" => "缺少客户城市"));
+                    echo json_encode(array("result" => "3", "desc" => "缺少客户城市"));
+                }
+                }else{
+                    echo json_encode(array("result"=>"4","desc"=>"该公司该电话已经存在"));
                 }
             }else {
-                echo json_encode(array("result" => "3", "desc" => "电话不符和要求"));
+                echo json_encode(array("result" => "5", "desc" => "电话不符和要求"));
             }
+
         }else{
-            echo json_encode(array("result"=>"4","desc"=>"缺少客户电话"));
+            echo json_encode(array("result"=>"6","desc"=>"缺少客户电话"));
         }
     }else{
-        echo json_encode(array("result"=>"5","desc"=>"缺少客户姓名"));
+        echo json_encode(array("result"=>"7","desc"=>"缺少客户姓名"));
     }
+     }else{
+         echo json_encode(array("result"=>"8","desc"=>"租户不存在"));
+     }
  }else{
-     echo json_encode(array("result"=>"6","desc"=>"缺少租户id"));
+     echo json_encode(array("result"=>"9","desc"=>"缺少租户id"));
  }
 });
 
@@ -76,6 +106,13 @@ $app->get('/customers',function()use($app){
 	$per_page=$app->request->get("per_page");
     $database=localhost();
 	if($tenant_id!=null||$tenant_id!=""){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        if($data2!=null){
 			if($page==null||$per_page==null){
 			    $selectStatement = $database->select()
                                  ->from('customer')
@@ -94,8 +131,11 @@ $app->get('/customers',function()use($app){
                 $data = $stmt->fetchAll();
                 echo json_encode(array("result"=>"0","desc"=>"success","customers"=>$data));
 	        }
+        }else{
+            echo json_encode(array("result"=>"1","desc"=>"租户不存在"));
+        }
 	}else{
-		echo json_encode(array("result"=>"1","desc"=>"信息不全","orders"=>""));
+		echo json_encode(array("result"=>"2","desc"=>"缺少租户id","orders"=>""));
 	}
 });
 
@@ -106,6 +146,13 @@ $app->get("/customer",function()use($app){
 	$customer_id=$app->request->get("customerid");
     $database=localhost();
 	if($tenant_id!=null||$tenant_id!=""){
+            $selectStatement = $database->select()
+                ->from('tenant')
+                ->where('exist',"=",0)
+                ->where('tenant_id','=',$tenant_id);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            if($data2!=null){
 	    if($customer_id!=null||$customer_id!=""){
             $selectStatement = $database->select()
                 ->from('customer')
@@ -114,12 +161,19 @@ $app->get("/customer",function()use($app){
                 ->where('exist',"=",0);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetch();
-            echo json_encode(array("result"=>"0","desc"=>"success","customer"=>$data));
-        }else{
-            echo json_encode(array("result"=>"1","desc"=>"缺少客户id","customer"=>""));
-        }
+            if($data!=null){
+                echo json_encode(array("result"=>"0","desc"=>"success","customer"=>$data));
+            }else{
+                echo json_encode(array("result"=>"1","desc"=>"客户不存在","customer"=>''));
+            }
+            }else{
+             echo json_encode(array("result"=>"2","desc"=>"缺少客户id","customer"=>""));
+          }
+            }else{
+                echo json_encode(array("result"=>"3","desc"=>"租户不存在"));
+            }
     }else{
-        echo json_encode(array("result"=>"2","desc"=>"缺少租户id","customer"=>""));
+        echo json_encode(array("result"=>"4","desc"=>"缺少租户id","customer"=>""));
     }
 });
 
@@ -133,8 +187,14 @@ $app->put('/customer',function()use($app){
 	$customer_id=$body->customer_id;
 	$customer_comment=$body->customer_comment;
 	if($tenant_id!=null||$tenant_id!=""){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        if($data2!=null){
          if($customer_id!=null||$customer_id!=""){
-             if($customer_comment!=null||$customer_comment!=""){
                  $selectStatement = $database->select()
                      ->from('customer')
                      ->where('tenant_id','=',$tenant_id)
@@ -143,6 +203,7 @@ $app->put('/customer',function()use($app){
                  $stmt = $selectStatement->execute();
                  $data = $stmt->fetch();
                  if($data!=null){
+                     if($customer_comment!=null||$customer_comment!=""){
                      $updateStatement = $database->update(array('customer_comment'=>$customer_comment))
                          ->table('customer')
                          ->where('tenant_id','=',$tenant_id)
@@ -151,16 +212,19 @@ $app->put('/customer',function()use($app){
                      $affectedRows = $updateStatement->execute();
                      echo json_encode(array("result"=>"0","desc"=>"success"));
                  }else{
-                     echo json_encode(array("result"=>"1","desc"=>"客户不存在"));
+                     echo json_encode(array("result"=>"1","desc"=>"缺少客户备注信息"));
                  }
-             }else{
-                 echo json_encode(array("result"=>"2","desc"=>"缺少客户信息备注"));
-             }
-         }else{
+              }else{
+                 echo json_encode(array("result"=>"2","desc"=>"客户不存在"));
+              }
+          }else{
              echo json_encode(array("result"=>"3","desc"=>"缺少客户id"));
-         }
+          }
+        }else{
+            echo json_encode(array("result"=>"4","desc"=>"租户不存在"));
+        }
     }else{
-        echo json_encode(array("result"=>"4","desc"=>"缺少租户id"));
+        echo json_encode(array("result"=>"5","desc"=>"缺少租户id"));
     }
 });
 
@@ -170,6 +234,13 @@ $app->delete('/customer',function()use($app){
     $database=localhost();
     $customer_id=$app->request->get('customerid');
     if($tenant_id!=null||$tenant_id!=""){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        if($data2!=null){
         if($customer_id!=null||$customer_id!=""){
             $selectStatement = $database->select()
                 ->from('customer')
@@ -192,8 +263,11 @@ $app->delete('/customer',function()use($app){
         }else{
             echo json_encode(array("result"=>"2",'desc'=>'缺少客户id'));
         }
+        }else{
+            echo json_encode(array("result"=>"3","desc"=>"租户不存在"));
+        }
     }else{
-        echo json_encode(array("result"=>"3",'desc'=>'缺少租户id'));
+        echo json_encode(array("result"=>"4",'desc'=>'缺少租户id'));
     }
 });
 

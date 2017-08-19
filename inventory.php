@@ -14,6 +14,13 @@ $app->post('/inventory',function()use($app){
     $database=localhost();
     $order_id=$body->order_id;
     if($tenant_id!=null||$tenant_id!=""){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        if($data2!=null){
         if($order_id!=''||$order_id!=null){
             $selectStatement = $database->select()
                 ->from('inventory')
@@ -60,8 +67,11 @@ $app->post('/inventory',function()use($app){
         }else{
             echo json_encode(array('result'=>'3','desc'=>'缺少运单id'));
         }
+        }else{
+            echo json_encode(array('result'=>'4','desc'=>'租户不存在'));
+        }
     }else{
-        echo json_encode(array('result'=>'4','desc'=>'缺少租户id'));
+        echo json_encode(array('result'=>'5','desc'=>'缺少租户id'));
     }
 });
 
@@ -79,7 +89,51 @@ $app->get('/inventory',function()use($app){
                 ->where('exist',"=",0);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
-            echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$data));
+            $inventories=array();
+            $num = count($data);
+            for($i=0;$i<$num;++$i){
+                $inventory=array();
+                foreach($data[$i] as $k=>$v){
+                    if($k=="inventory_id"){
+                        $inventory['inventory_id']=$v;
+                    }
+                    if($k=="order_id"){
+                        $selectStatement = $database->select()
+                            ->from('goods')
+                            ->where('order_id','=',$v)
+                            ->where('exist',"=",0);
+                        $stmt = $selectStatement->execute();
+                        $data1 = $stmt->fetch();
+                        $inventory["goods_name"]= $data1["goods_name"];
+                        $inventory["goods_capacity"]= $data1["goods_capacity"];
+                        $inventory["goods_weight"]= $data1["goods_weight"];
+                        $inventory["goods_count"]= $data1["goods_count"];
+                        $inventory["goods_package"]= $data1["goods_package"];
+                        $selectStatement = $database->select()
+                            ->from('orders')
+                            ->where('order_id','=',$v)
+                            ->where('exist',"=",0);
+                        $stmt = $selectStatement->execute();
+                        $data2 = $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id','=',$data2['sender_id'])
+                            ->where('exist',"=",0);
+                        $stmt = $selectStatement->execute();
+                        $data3 = $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id','=',$data2['receiver_id'])
+                            ->where('exist',"=",0);
+                        $stmt = $selectStatement->execute();
+                        $data4 = $stmt->fetch();
+                        $inventory["send_city"]= $data3["customer_city"];
+                        $inventory["receive_city"]= $data4["customer_city"];
+                    }
+                }
+                array_push($inventories,$inventory);
+            }
+            echo  json_encode(array("result"=>"0","desc"=>"success","inventories"=>$inventories));
         }else{
             $selectStatement = $database->select()
                 ->from('inventory')
@@ -88,7 +142,51 @@ $app->get('/inventory',function()use($app){
                 ->limit((int)$per_page,(int)$per_page*(int)$page);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
-            echo json_encode(array("result"=>"0","desc"=>"success","inventories"=>$data));
+            $inventories=array();
+            $num = count($data);
+            for($i=0;$i<$num;++$i){
+                $inventory=array();
+                foreach($data[$i] as $k=>$v){
+                    if($k=="inventory_id"){
+                        $inventory['inventory_id']=$v;
+                    }
+                    if($k=="order_id"){
+                        $selectStatement = $database->select()
+                            ->from('goods')
+                            ->where('order_id','=',$v)
+                            ->where('exist',"=",0);
+                        $stmt = $selectStatement->execute();
+                        $data1 = $stmt->fetch();
+                        $inventory["goods_name"]= $data1["goods_name"];
+                        $inventory["goods_capacity"]= $data1["goods_capacity"];
+                        $inventory["goods_weight"]= $data1["goods_weight"];
+                        $inventory["goods_count"]= $data1["goods_count"];
+                        $inventory["goods_package"]= $data1["goods_package"];
+                        $selectStatement = $database->select()
+                            ->from('orders')
+                            ->where('order_id','=',$v)
+                            ->where('exist',"=",0);
+                        $stmt = $selectStatement->execute();
+                        $data2 = $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id','=',$data2['sender_id'])
+                            ->where('exist',"=",0);
+                        $stmt = $selectStatement->execute();
+                        $data3 = $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id','=',$data2['receiver_id'])
+                            ->where('exist',"=",0);
+                        $stmt = $selectStatement->execute();
+                        $data4 = $stmt->fetch();
+                        $inventory["send_city"]= $data3["customer_city"];
+                        $inventory["receive_city"]= $data4["customer_city"];
+                    }
+                }
+                array_push($inventories,$inventory);
+            }
+            echo  json_encode(array("result"=>"0","desc"=>"success","inventories"=>$inventories));
         }
     }else{
         echo json_encode(array("result"=>"1","desc"=>"信息不全","inventories"=>""));
@@ -125,13 +223,13 @@ $app->delete('/inventory',function()use($app){
                     $affectedRows = $updateStatement->execute();
                     echo json_encode(array("result" => "0", "desc" => "success"));
                 } else {
-                    echo json_encode(array("result" => "1", "desc" => "订单还在途中"));
+                    echo json_encode(array("result" => "2", "desc" => "订单还在途中"));
                 }
             }else{
-                echo json_encode(array("result" => "2", "desc" => "仓库不存在"));
+                echo json_encode(array("result" => "3", "desc" => "仓库不存在"));
             }
     }else{
-        echo json_encode(array("result"=>"3","desc"=>"信息不全"));
+        echo json_encode(array("result"=>"4","desc"=>"信息不全"));
     }
 });
 

@@ -21,7 +21,21 @@ $app->post('/goods',function()use($app){
 	$goods_count=$body->goods_count;
 	$special_need=$body->special_need;
     if(($tenant_id!=null||$tenant_id!="")) {
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        if($data2!=null){
         if ($order_id != null || $order_id != "") {
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('exist',"=",0)
+                ->where('order_id','=',$order_id);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            if($data3!=null){
             if ($goods_name != null || $goods_name != "") {
                 if ($goods_weight != null || $goods_weight != "") {
                     if ($goods_capacity != null || $goods_capacity != "") {
@@ -75,10 +89,16 @@ $app->post('/goods',function()use($app){
                     echo json_encode(array("result" => "7", 'desc' => '货物名称不能为空'));
                 }
             } else {
-                echo json_encode(array("result" => "8", 'desc' => '运单号不能为空'));
+                echo json_encode(array("result" => "8", 'desc' => '运单号不存在'));
+            }
+            } else {
+                echo json_encode(array("result" => "9", 'desc' => '运单号不能为空'));
             }
         } else {
-            echo json_encode(array("result" => "9", 'desc' => '租户不存在'));
+            echo json_encode(array("result" => "10", 'desc' => '租户不存在'));
+        }
+        } else {
+            echo json_encode(array("result" => "11", 'desc' => '租户id不能为空'));
         }
 
 
@@ -99,6 +119,13 @@ $app->put('/goods',function()use($app){
 		}
 	}
 	  if($tenant_id!=null||$tenant_id!=""){
+          $selectStatement = $database->select()
+              ->from('tenant')
+              ->where('exist',"=",0)
+              ->where('tenant_id','=',$tenant_id);
+          $stmt = $selectStatement->execute();
+          $data2 = $stmt->fetch();
+          if($data2!=null){
            if($goods_id!=null||$goods_id!=""){
                $selectStatement=$database->select()
                    ->from('goods')
@@ -115,7 +142,7 @@ $app->put('/goods',function()use($app){
                        ->where('exist','=',0);
                    $stmt = $selectStatement->execute();
                    $data1 = $stmt->fetch();
-                   if($data1['order_status']==0&&$data1!=null){
+                   if($data1['order_status']==0){
                        $updateStatement = $database->update($array)
                            ->table('goods')
                            ->where('tenant_id','=',$tenant_id)
@@ -132,8 +159,11 @@ $app->put('/goods',function()use($app){
            }else{
                echo json_encode(array('result'=>'3','desc'=>'缺少货物id'));
            }
+          }else{
+              echo json_encode(array('result'=>'4','desc'=>'租户不存在'));
+          }
       }else{
-          echo json_encode(array('result'=>'4','desc'=>'缺少租户id'));
+          echo json_encode(array('result'=>'5','desc'=>'缺少租户id'));
       }
 });
 
@@ -145,6 +175,13 @@ $app->delete('/goods',function()use($app){
 	$goods_id=$app->request->get('goodsid');
 	 if($goods_id!=null||$goods_id!=""){
 	     if ($tenant_id!=''||$tenant_id!=null){
+             $selectStatement = $database->select()
+                 ->from('tenant')
+                 ->where('exist',"=",0)
+                 ->where('tenant_id','=',$tenant_id);
+             $stmt = $selectStatement->execute();
+             $data2 = $stmt->fetch();
+             if($data2!=null){
              $selectStatement=$database->select()
                  ->from('goods')
                  ->where('goods_id','=',$goods_id)
@@ -159,7 +196,7 @@ $app->delete('/goods',function()use($app){
                  ->where('exist','=',0);
              $stmt=$selectStatement->execute();
              $data1=$stmt->fetch();
-             if($data1['order_status']==0&&$data1!=null){
+             if($data1['order_status']==0){
                  $updateStatement = $database->update(array('exist'=>'1'))
                      ->table('goods')
                      ->where('tenant_id','=',$tenant_id)
@@ -169,11 +206,14 @@ $app->delete('/goods',function()use($app){
              }else{
                  echo json_encode(array('result'=>"1",'desc'=>'货物已运送或不存在，不可更改'));
              }
+             }else{
+                 echo json_encode(array('result'=>"2",'desc'=>'租户不存在'));
+             }
          }else{
-             echo json_encode(array('result'=>"1",'desc'=>'缺少租户id'));
+             echo json_encode(array('result'=>"3",'desc'=>'缺少租户id'));
          }
      }else{
-         echo json_encode(array('result'=>"1",'desc'=>'缺少货物id'));
+         echo json_encode(array('result'=>"4",'desc'=>'缺少货物id'));
      }
 });
 
@@ -183,25 +223,38 @@ $app->get('/goods',function()use($app){
 	$tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
 	$goods_id=$app->request->get('goodsid');
-	if($goods_id!=null||$goods_id!=""){
       if($tenant_id!=''||$tenant_id!=null){
-          $selectStatement=$database->select()
+          $selectStatement = $database->select()
+              ->from('tenant')
+              ->where('exist',"=",0)
+              ->where('tenant_id','=',$tenant_id);
+          $stmt = $selectStatement->execute();
+          $data2 = $stmt->fetch();
+          if($data2!=null){
+              if($goods_id!=null||$goods_id!=""){
+              $selectStatement=$database->select()
               ->from('goods')
               ->where('goods_id','=',$goods_id)
               ->where('tenant_id','=',$tenant_id)
               ->where('exist','=',0);
           $stmt=$selectStatement->execute();
           $data=$stmt->fetch();
-          echo json_encode(array('result'=>"0",'desc'=>'success','goods'=>$data));
+          if($data!=null||$data!=""){
+              echo json_encode(array('result'=>"0",'desc'=>'success','goods'=>$data));
+          }else{
+              echo json_encode(array('result'=>"1",'desc'=>'货物不存在','goods'=>""));
+          }
+          }else{
+              echo json_encode(array('result'=>'2','desc'=>'缺少货物id','goods'=>''));
+          }
+          }else{
+              echo json_encode(array('result'=>'3','desc'=>'租户不存在','goods'=>''));
+          }
       }else{
-          echo json_encode(array('result'=>'1','desc'=>'缺少租户id','goods'=>''));
+          echo json_encode(array('result'=>'4','desc'=>'缺少租户id','goods'=>''));
       }
-    }else{
-        echo json_encode(array('result'=>'2','desc'=>'缺少货物id','goods'=>''));
-    }
+
 });
-
-
 
 
 

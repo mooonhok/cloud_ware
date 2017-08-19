@@ -28,9 +28,31 @@ $app->post('/lorry',function()use($app){
     }
     $array['tenant_id']=$tenant_id;
     if($tenant_id!=''||$tenant_id!=null){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        if($data2!=null){
         if($plate_number!=null||$plate_number!=''){
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('exist',"=",0)
+                ->where('plate_number','=',$plate_number);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            if($data3!=null){
             if($driver_name!=null||$driver_name!=''){
                 if($driver_phone!=''||$driver_phone!=null){
+                    $selectStatement = $database->select()
+                        ->from('tenant')
+                        ->where('exist',"=",0)
+                        ->where('','=',$driver_phone)
+                        ->where('tenant_id','=',$tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data4 = $stmt->fetch();
+                    if($data4!=null){
                     if(preg_match("/^1[34578]\d{9}$/", $driver_phone)) {
                         if ($driver_identycard != '' || $driver_identycard != null) {
                             $selectStatement = $database->select()
@@ -56,17 +78,26 @@ $app->post('/lorry',function()use($app){
                     }else{
                         echo json_encode(array("result"=>"2","desc"=>"电话号码不符合要求"));
                     }
+                    }else{
+                        echo json_encode(array("result"=>"3","desc"=>"该公司下该电话已经存在"));
+                    }
                 }else{
-                    echo json_encode(array("result"=>"2","desc"=>"缺少司机电话"));
+                    echo json_encode(array("result"=>"4","desc"=>"缺少司机电话"));
                 }
             }else{
-                echo json_encode(array("result"=>"3","desc"=>"缺少司机姓名"));
+                echo json_encode(array("result"=>"5","desc"=>"缺少司机姓名"));
+            }
+            }else{
+                echo json_encode(array("result"=>"6","desc"=>"车牌号已经存在"));
             }
         }else{
-            echo json_encode(array("result"=>"4","desc"=>"缺少车牌号"));
+            echo json_encode(array("result"=>"7","desc"=>"缺少车牌号"));
+        }
+        }else{
+            echo json_encode(array("result"=>"8","desc"=>"该租户不存在"));
         }
     }else{
-        echo json_encode(array("result"=>"5","desc"=>"缺少租户id"));
+        echo json_encode(array("result"=>"9","desc"=>"缺少租户id"));
     }
 });
 
@@ -82,6 +113,13 @@ $app->put('/lorry',function()use($app){
         $array[$key]=$value;
     }
     if($tenant_id!=''||$tenant_id!=null){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        if($data2!=null){
         if($lorry_id!=''||$lorry_id!=null){
             $selectStatement = $database->select()
                 ->from('lorry')
@@ -103,8 +141,11 @@ $app->put('/lorry',function()use($app){
         }else{
             echo json_encode(array("result"=>"2","desc"=>"缺少车辆id"));
         }
+        }else{
+            echo json_encode(array("result"=>"3","desc"=>"该租户不存在"));
+        }
     }else{
-        echo json_encode(array("result"=>"3","desc"=>"缺少租户id"));
+        echo json_encode(array("result"=>"4","desc"=>"缺少租户id"));
     }
 });
 
@@ -115,6 +156,13 @@ $app->get('/lorry',function()use($app){
     $page=$app->request->get("page");
     $per_page=$app->request->get("per_page");
     if(($tenant_id!=''||$tenant_id!=null)){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        if($data2!=null){
         if($page==null||$per_page==null){
             $selectStatement = $database->select()
                 ->from('lorry')
@@ -133,8 +181,11 @@ $app->get('/lorry',function()use($app){
             $data = $stmt->fetchAll();
             echo json_encode(array("result"=>"0","desc"=>"success","lorries"=>$data));
         }
+        }else{
+            echo json_encode(array("result"=>"1","desc"=>"该租户不存在"));
+        }
     }else{
-        echo json_encode(array("result"=>"1","desc"=>"信息不全","lorries"=>""));
+        echo json_encode(array("result"=>"2","desc"=>"信息不全","lorries"=>""));
     }
 });
 
@@ -144,6 +195,13 @@ $app->delete('/lorry',function()use($app){
     $database=localhost();
     $lorry_id=$app->request->get('lorryid');
     if(($tenant_id!=''||$tenant_id!=null)){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        if($data2!=null){
         if($lorry_id!=""||$lorry_id!=null){
             $selectStatement = $database->select()
                 ->from('lorry')
@@ -192,8 +250,11 @@ $app->delete('/lorry',function()use($app){
         }else{
             echo json_encode(array("result"=>"3","desc"=>"缺少车辆id"));
         }
+        }else{
+            echo json_encode(array("result"=>"4","desc"=>"该租户不存在"));
+        }
     }else{
-        echo json_encode(array("result"=>"4","desc"=>"缺少租户id"));
+        echo json_encode(array("result"=>"5","desc"=>"缺少租户id"));
     }
 });
 

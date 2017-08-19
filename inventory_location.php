@@ -20,6 +20,13 @@ $app->post('/inventory_location',function()use($app){
     $database=localhost();
     $inventory_loc_name=$body->inventory_loc_name;
     if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        if($data2!=null){
         if($inventory_loc_name!=null||$inventory_loc_name!=''){
             $selectStatement = $database->select()
                 ->from('inventory_location')
@@ -50,8 +57,11 @@ $app->post('/inventory_location',function()use($app){
         }else{
             echo json_encode(array("result"=>"2","desc"=>"缺少库位名称"));
         }
+        }else{
+            echo json_encode(array('result'=>'3','desc'=>'该租户不存在'));
+        }
     }else{
-        echo json_encode(array("result"=>"3","desc"=>"缺少租户id"));
+        echo json_encode(array("result"=>"4","desc"=>"缺少租户id"));
     }
 });
 
@@ -62,6 +72,13 @@ $app->get('/inventory_location',function()use($app){
     $per_page=$app->request->get("per_page");
     $database=localhost();
     if($tenant_id!=null||$tenant_id!=""){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        if($data2!=null){
         if($page==null||$per_page==null){
             $selectStatement = $database->select()
                 ->from('inventory_location')
@@ -80,8 +97,11 @@ $app->get('/inventory_location',function()use($app){
             $data = $stmt->fetchAll();
             echo json_encode(array("result"=>"0","desc"=>"success","locations"=>$data));
         }
+        }else{
+            echo json_encode(array('result'=>'1','desc'=>'该租户不存在'));
+        }
     }else{
-        echo json_encode(array("result"=>"1","desc"=>"信息不全","locations"=>""));
+        echo json_encode(array("result"=>"2","desc"=>"缺少租户信息","locations"=>""));
     }
 });
 
@@ -91,6 +111,13 @@ $app->delete('/inventory_location',function()use($app){
     $database=localhost();
     $inventory_loc_id =$app->request->get('inventory_loc_id');
     if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        if($data2!=null){
         if($inventory_loc_id!=null||$inventory_loc_id!=''){
             $selectStatement = $database->select()
                 ->from('inventory_location')
@@ -113,8 +140,11 @@ $app->delete('/inventory_location',function()use($app){
         }else{
             echo json_encode(array("result"=>"2","desc"=>"缺少库位id"));
         }
+        }else{
+            echo json_encode(array('result'=>'3','desc'=>'该租户不存在'));
+        }
     }else{
-        echo json_encode(array("result"=>"3","desc"=>"缺少租户id"));
+        echo json_encode(array("result"=>"4","desc"=>"缺少租户id"));
     }
 });
 

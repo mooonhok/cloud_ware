@@ -37,13 +37,22 @@ $app->post('/staff',function()use($app){
          $data2 = $stmt->fetch();
           if($data2!=null){
               if($username!=null||$username!=''){
+                  $selectStatement = $database->select()
+                      ->from('staff')
+                      ->where('exist','=','0')
+                      ->where('usename','=',$username)
+                      ->where('tenant','=',$tenant_id);
+                  $stmt = $selectStatement->execute();
+                  $data3 = $stmt->fetch();
+                  if($data3==null){
                   if($name!=null||$name!=''){
                       if($telephone!=null||$telephone!=''){
                           if(preg_match("/^1[34578]\d{9}$/", $telephone)){
                               $selectStatement = $database->select()
                                   ->from('staff')
                                   ->where('exist','=','0')
-                                  ->where('telephone','=',$telephone);
+                                  ->where('telephone','=',$telephone)
+                                  ->where('tenant','=',$tenant_id);
                               $stmt = $selectStatement->execute();
                               $data1 = $stmt->fetch();
                               if($data1==null){
@@ -78,7 +87,7 @@ $app->post('/staff',function()use($app){
                                       echo json_encode(array('result'=>'3','desc'=>'缺少职位'));
                                   }
                               }else{
-                                  echo json_encode(array('result'=>'9','desc'=>'该电话已经存在'));
+                                  echo json_encode(array('result'=>'9','desc'=>'该公司内该电话已经存在'));
                               }
                           }else{
                               echo json_encode(array('result'=>'4','desc'=>'电话号码不符合要求'));
@@ -88,6 +97,9 @@ $app->post('/staff',function()use($app){
                       }
                   }else{
                       echo json_encode(array('result'=>'6','desc'=>'缺少姓名'));
+                  }
+                  }else{
+                      echo json_encode(array('result'=>'7','desc'=>'该公司该用户名已经存在'));
                   }
               }else{
                   echo json_encode(array('result'=>'7','desc'=>'缺少用户名'));
@@ -142,10 +154,10 @@ $app->put('/staff',function()use($app){
              echo json_encode(array('result'=>'2','desc'=>'缺少员工id'));
            }
         }else{
-            echo json_encode(array('result'=>'10','desc'=>'该租户不存在'));
+            echo json_encode(array('result'=>'3','desc'=>'该租户不存在'));
         }
     }else{
-        echo json_encode(array('result'=>'3','desc'=>'缺少租户信息'));
+        echo json_encode(array('result'=>'4','desc'=>'缺少租户信息'));
     }
 });
 
@@ -196,10 +208,10 @@ $app->put('/staff',function()use($app){
             echo json_encode(array('result'=>'3','desc'=>'缺少员工id'));
         }
         }else{
-            echo json_encode(array('result'=>'10','desc'=>'该租户不存在'));
+            echo json_encode(array('result'=>'4','desc'=>'该租户不存在'));
         }
     }else{
-        echo json_encode(array('result'=>'4','desc'=>'缺少租户id'));
+        echo json_encode(array('result'=>'5','desc'=>'缺少租户id'));
     }
 });
 
@@ -236,10 +248,10 @@ $app->get('/staff',function()use($app){
             echo json_encode(array("result"=>"0","desc"=>"success","staff"=>$data));
         }
         }else{
-            echo json_encode(array('result'=>'10','desc'=>'该租户不存在'));
+            echo json_encode(array('result'=>'1','desc'=>'该租户不存在'));
         }
     }else{
-        echo json_encode(array("result"=>"1","desc"=>"信息不全","staff"=>""));
+        echo json_encode(array("result"=>"2","desc"=>"缺少租户id","staff"=>""));
     }
 });
 
@@ -279,10 +291,10 @@ $app->delete('/staff',function()use($app){
             echo json_encode(array("result"=>"2","desc"=>"缺少员工id"));
         }
         }else{
-            echo json_encode(array('result'=>'10','desc'=>'该租户不存在'));
+            echo json_encode(array('result'=>'3','desc'=>'该租户不存在'));
         }
     }else{
-        echo json_encode(array("result"=>"3","desc"=>"缺少租户id"));
+        echo json_encode(array("result"=>"4","desc"=>"缺少租户id"));
     }
 });
 
