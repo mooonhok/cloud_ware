@@ -2,59 +2,68 @@
 /**
  * Created by PhpStorm.
  * User: Administrator
- * Date: 2017/8/18
- * Time: 17:12
+ * Date: 2017/8/19
+ * Time: 13:30
  */
-require 'Slim/Slim.php';
-require 'connect.php';
+function getBaseInfo(){
 
-
-\Slim\Slim::registerAutoloader();
-$app = new \Slim\Slim();
-
-$appid='wx15ef051f9f0bba92';
-$redirect_uri = urlencode ( 'http://mooonhok-cloudware.daoapp.io/test.php' );
-$url ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
-header("Location:".$url);
-function getopenid(){
     $appid = "wx15ef051f9f0bba92";
-    $secret = "57ea0ee4abf4f4c6d6e38c88a289e687";
-    $code = $_GET["code"];
-
-//第一步:取全局access_token
-    $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$secret";
-    $token = getJson($url);
-
-//第二步:取得openid
-    $oauth2Url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$secret&code=$code&grant_type=authorization_code";
-    $oauth2 = getJson($oauth2Url);
-    //第三步:根据全局access_token和openid查询用户信息
-    $access_token = $token["access_token"];
-    $openid = $oauth2['openid'];
-    $get_user_info_url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access_token&openid=$openid&lang=zh_CN";
-    $userinfo = getJson($get_user_info_url);
-
-    return $userinfo;
+    $redirect_uri = urlencode("http://mooonhok-cloudware.daoapp.io/test.php");
+    $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=".$appid."&redirect_uri=".$redirect_uri."&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
+    header('location:'.$url);
 }
+getBaseInfo();
 
 
-function getJson($url){
+//获取到网页授权的access_token
+$appid = "wx15ef051f9f0bba92";//填写公众号或服务号、测试号的appid
+$secret = "57ea0ee4abf4f4c6d6e38c88a289e687";//填写对应的secriet
+
+if(isset($_SESSION['openId'])){
+    $openid = $_SESSION['openId'];
+}else{
+    $code = $_GET['code'];
+    $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=".$appid."&secret=".$secret."&code=".$code."&grant_type=authorization_code ";
+
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    $output = curl_exec($ch);
+    curl_setopt($ch,CURLOPT_URL,$url);
+    curl_setopt($ch,CURLOPT_HEADER,0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1 );
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+    $res = curl_exec($ch);
     curl_close($ch);
-    return json_decode($output, true);
+    $json_obj = json_decode($res,true);
+    $openid = $json_obj['openid'];
+    $_SESSION['openId'] = $openid;
+}
+    echo '微信用户：'.$openid.'<br/>';
+    echo '$json_obj 返回信息：';
+    var_dump($json_obj);
+
+    getUserInfo($json_obj);
+/**
+ * @param $json_obj
+ * 根据用户openid 获取其所有信息
+ */
+function getUserInfo($json_obj){
+    $access_token = $json_obj['access_token'];
+    $openid = $json_obj['openid'];
+    $get_user_info_url = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
+
+    $ch = curl_init();
+    curl_setopt($ch,CURLOPT_URL,$get_user_info_url);
+    curl_setopt($ch,CURLOPT_HEADER,0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1 );
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+    $res = curl_exec($ch);
+    curl_close($ch);
+
+//解析json
+    $user_obj = json_decode($res,true);
+    var_dump($user_obj);
+    echo 'Name:'.$user_obj['nickname'];
 }
 
-$app->post('/test',function()use($app){
-    $app->response->headers->set('Content-Type','application/json');
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    echo getopenid();
 
-});
-$app->run();
 ?>
+
