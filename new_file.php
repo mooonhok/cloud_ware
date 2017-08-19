@@ -7,6 +7,8 @@
  *
  * If you are using Composer, you can skip this step.
  */
+require 'weixinceshi.php';
+require 'test.php';
 require 'Slim/Slim.php';
 
 use Slim\PDO\Database;
@@ -74,6 +76,10 @@ $app->delete('/order', function() use ($app) {
 
 $app->put('/order',"getAllBook");
 
+$app->put('/weixin',function(){
+    getopenid();
+});
+
 $app->run();
 
 function getConnection()
@@ -100,4 +106,10 @@ function getAllBook()
      
         echo "fff";
     }
+}
+
+
+function getopenid(){
+
+getuserinfo();
 }
