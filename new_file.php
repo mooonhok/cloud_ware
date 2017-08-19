@@ -75,7 +75,7 @@ $app->delete('/order', function() use ($app) {
 
 $app->put('/order',"getAllBook");
 
-$app->put('/weixin',function(){
+$app->get('/weixin',function(){
     getopenid();
 });
 
@@ -110,5 +110,5 @@ function getAllBook()
 
 function getopenid(){
 
-getuserinfo();
+getBaseInfo();
 }
