@@ -18,25 +18,24 @@
 			网站建设中
 		</div>
 	</body>
-	<script src="jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
 	<script>
-	                  $.ajax({
-		            url :"http://mooonhok-cloudware.daoapp.io/test.php/test",
-		             beforeSend: function(request) {  
-                        request.setRequestHeader("tenant-id", "Chenxizhang");  
-                    },
-			        dataType:'json',
-			        type:'post',
-			        contentType:"application/json;charset=utf-8",
-			        data:JSON.stringify({
-			        }),
-			        success:function(msg){
-		//	        	 alert("提交收获人结果"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
-                         alert(msg);
-				    },
-			        error:function(xhr){
-			            alert("提交收获人出错！"+xhr.responseText);
-			        }
-	            });
-	   </script>
+            $.ajax({
+                url :"http://mooonhok-cloudware.daoapp.io/new_file.php/weixin",
+                beforeSend: function(request) {
+                    request.setRequestHeader("tenant-id", "Chenxizhang");
+                },
+                dataType:'json',
+                type:'put',
+                contentType:"application/json;charset=utf-8",
+                data:JSON.stringify({
+                }),
+                success:function(msg){
+                    alert(msg);
+                },
+                error:function(xhr){
+                    alert("用户注册失败！"+xhr.responseText);
+                }
+            });
+	</script>
 </html>
