@@ -18,4 +18,25 @@
 			网站建设中
 		</div>
 	</body>
+	<script src="jquery-3.2.1.min.js"></script>
+	<script>
+	                  $.ajax({
+		            url :"http://mooonhok-cloudware.daoapp.io/test12.php",
+		             beforeSend: function(request) {  
+                        request.setRequestHeader("tenant-id", "Chenxizhang");  
+                    },
+			        dataType:'json',
+			        type:'post',
+			        contentType:"application/json;charset=utf-8",
+			        data:JSON.stringify({
+			        }),
+			        success:function(msg){
+		//	        	 alert("提交收获人结果"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
+                         alert(msg);
+				    },
+			        error:function(xhr){
+			            alert("提交收获人出错！"+xhr.responseText);
+			        }
+	            });
+	   </script>
 </html>
