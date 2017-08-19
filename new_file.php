@@ -7,7 +7,6 @@
  *
  * If you are using Composer, you can skip this step.
  */
-require 'weixinceshi.php';
 require 'test.php';
 require 'Slim/Slim.php';
 
