@@ -20,22 +20,23 @@
 	</body>
 	<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
 	<script>
-            $.ajax({
-                url :"http://mooonhok-cloudware.daoapp.io/test.php",
-                beforeSend: function(request) {
-                    request.setRequestHeader("tenant-id", "Chenxizhang");
-                },
-                dataType:'json',
-                type:'get',
-                contentType:"application/json;charset=utf-8",
-                data:JSON.stringify({
-                }),
-                success:function(msg){
-                    alert(msg);
-                },
-                error:function(xhr){
-                    alert("用户注册失败！"+xhr.responseText);
-                }
-            });
+		$('.box1').text($.session.get('openid'));
+//            $.ajax({
+//                url :"http://mooonhok-cloudware.daoapp.io/new_file.php/weixin",
+//                beforeSend: function(request) {
+//                    request.setRequestHeader("tenant-id", "1");
+//                },
+//                dataType:'json',
+//                type:'put',
+//                contentType:"application/json;charset=utf-8",
+//                data:JSON.stringify({
+//                }),
+//                success:function(msg){
+//                    alert(msg);
+//                },
+//                error:function(xhr){
+//                    alert("用户注册失败！"+xhr.responseText);
+//                }
+//            });
 	</script>
 </html>
