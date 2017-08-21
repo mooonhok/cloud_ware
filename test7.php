@@ -18,7 +18,7 @@
 header('Content-type:text/html;charset=utf-8');
 if(!isset($_GET['code'])){
     $appid='wx25c3261d32ae33f0';
-    $redirect_uri = urlencode ( 'http://mooonhok-cloudware.daoapp.io/test7.php' );
+    $redirect_uri = urlencode ( 'http://mooonhok-cloudware.daoapp.io/test03.php');
     $scope='snsapi_base';
     $url ="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
     header('Location:'.$url);
@@ -34,8 +34,7 @@ if(!isset($_GET['code'])){
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     $output = curl_exec($ch);
     curl_close($ch);
-    $json_obj=json_decode($output, true);
-    $_SESSION['openid']=$json_obj['openid'];
+    $json_obj=json_decode($output,true);
     echo $json_obj['openid'];
 }
 
