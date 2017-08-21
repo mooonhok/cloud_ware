@@ -36,6 +36,7 @@ class wechatCallbackapiTest
         if (!empty($postStr)){
 
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+            session_start();
             $_SESSION['openid']=$postObj->FromUserName;
             $fromUsername = $postObj->FromUserName;
             $toUsername = $postObj->ToUserName;
