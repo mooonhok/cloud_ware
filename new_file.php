@@ -76,7 +76,15 @@ $app->delete('/order', function() use ($app) {
 $app->put('/order',"getAllBook");
 
 $app->get('/weixin',function(){
-    getopenid();
+$url='http://mooonhok-cloudware.daoapp.io/test7.php';
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $output = curl_exec($ch);
+    curl_close($ch);
+    echo $output;
 });
 
 $app->run();
