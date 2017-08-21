@@ -23,5 +23,24 @@
 	<script>
 		$('.box1').text($.session.get('openid'));
 		alert($.session.get('openid'))
+
+		            $.ajax({
+		            url :"http://mooonhok-cloudware.daoapp.io/new_file.php/weixin",
+		             beforeSend: function(request) {
+                        request.setRequestHeader("tenant-id", "1");
+                    },
+			        dataType:'json',
+			        type:'get',
+			        contentType:"application/json;charset=utf-8",
+			        data:JSON.stringify({
+			        }),
+			        success:function(msg){
+/	        	 alert("提交收获人结果"+msg+"/////"+msg+"//////"+msg);
+                         
+				    },
+			        error:function(xhr){
+			            alert("提交收获人出错！"+xhr.responseText);
+			        }
+	            });
 	</script>
 </html>
