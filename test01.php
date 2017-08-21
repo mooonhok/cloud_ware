@@ -21,7 +21,7 @@ if(isset($_SESSION['openId'])){
     $openid = $json_obj['openid'];
     $_SESSION['openId'] = $openid;
     if ($_COOKIE==null){
-       setcookie('opendid','$openID');
+       setcookie('opendid',$openid);
     }
 }
 
