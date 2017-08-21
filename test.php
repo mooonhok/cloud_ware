@@ -35,7 +35,8 @@ if(!isset($_GET['code'])){
     curl_close($ch);
     $json_obj=json_decode($output, true);
     $_SESSION['openid']=$json_obj['openid'];
-    echo $json_obj['openid'];
+//    echo $json_obj['openid'];
+    header('Location:http://mooonhok-cloudware.daoapp.io/weixin/chenggong.html');
 }
 
 ?>
