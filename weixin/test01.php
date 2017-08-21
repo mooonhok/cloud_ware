@@ -50,9 +50,9 @@ echo '<!DOCTYPE html>
 	<head>
 		<meta charset="UTF-8">
 		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1,minimum-scale=0.1,user-scalable=0" name="viewport">
-		<link rel="stylesheet" href="css/zhuce.css">
+		<link rel="stylesheet" href="zhuce.css">
 		<title>注册</title>
-		 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		 <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
         <script type="text/javascript">
             $(function(){
                 //改变div的高度
