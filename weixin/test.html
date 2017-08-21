@@ -15,16 +15,16 @@
 		alert('cucess');  
 		alert(result);  //输出openid
 	}  
-	
+	alert("方法getquery");
 function getQueryString(name) {
 	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
 	var r = window.location.search.substr(1).match(reg);
 	if (r != null) return unescape(r[2]); return null;
 	}
-
+alert("ajax");
 
 var code = getQueryString("code");
-
+    alert(code);
 $.ajax({ 
 	  async: false, 
 	  url: "http://mooonhok-cloudware.daoapp.io/test02.php", //这是我的服务端处理文件php的
@@ -36,6 +36,7 @@ $.ajax({
 	  data: {code:code}, //传递本页面获取的code到后台，以便后台获取openid
 	  timeout: 5000, 
 	  success: function (result) { 
+	  	alert(result)
 		callback(result);
 	  }, 
 	  error: function (jqXHR, textStatus, errorThrown) { 
