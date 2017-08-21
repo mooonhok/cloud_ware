@@ -24,7 +24,7 @@ if(isset($_SESSION['openId'])){
        setcookie('openid',$openid);
     }
     $redirect_uri = urlencode("http://mooonhok-cloudware.daoapp.io/weixin/zhuce.html");
-    header('location:'.$url);
+    header('location:'.$redirect_uri);
 }
   //  echo '用户信息'.$openid.'<br/>';
     //echo $_COOKIE['opendid'];
