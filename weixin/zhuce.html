@@ -118,7 +118,7 @@
 	$("#submit").on('click',function(){
 		var customername=$("#customername").val();
 		var customertel=$("#customertel").val();
-	    var openid=$.cookie("openid").val();
+	    var openid=$.cookie('openid');
 		alert(customername+customertel);
 	   $.ajax({
 		            url :"http://mooonhok-cloudware.daoapp.io/customer.php/customer",
