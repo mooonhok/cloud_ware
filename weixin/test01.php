@@ -74,12 +74,12 @@ echo '<!DOCTYPE html>
 
 				</div>
 			<div class="box_buttom">
-				<div id="submit">注<span class="kong"></span>册</div>
+				<div id="submit"  onclick="a()">注<span class="kong"></span>册</div>
 			</div>
 		</div>
 	</body>
 	<script>
-	$("#submit").on(\'click\',function(){
+	function  a(){
 		var customername=$("#customername").val();
 		var customertel=$("#customertel").val();
 		alert(customername+customertel);
@@ -94,8 +94,7 @@ echo '<!DOCTYPE html>
 			        data:JSON.stringify({
 					customer_name:customername,
                     customer_phone:customertel,
-                     wx_openid:';
-                    $_COOKIE['openid'];
+                     wx_openid:';$_COOKIE['openid'];
 			      echo  '}),
 			        success:function(msg){
 		        	 alert("用户注册成功"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
