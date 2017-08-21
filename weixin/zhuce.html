@@ -5,6 +5,7 @@
 		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1,minimum-scale=0.1,user-scalable=0" name="viewport">
 		<title></title>
 		 <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+		 <script type="text/javascript" src="jquery.cookie.js"></script>
         <script type="text/javascript">
             $(function(){
                 //改变div的高度
@@ -117,6 +118,7 @@
 	$("#submit").on('click',function(){
 		var customername=$("#customername").val();
 		var customertel=$("#customertel").val();
+	    var openid=$.cookie("openid").val();
 		alert(customername+customertel);
 	   $.ajax({
 		            url :"http://mooonhok-cloudware.daoapp.io/customer.php/customer",
@@ -128,14 +130,18 @@
 			        contentType:"application/json;charset=utf-8",
 			        data:JSON.stringify({
 					customer_name:customername,
-                    customer_phone:customertel
+                    customer_phone:customertel,
+                    openid:openid
 			        }),
 			        success:function(msg){
 		        	 alert("用户注册成功"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
+		        	 alert(openid);
                          window.location.href="chenggong.html";
+                         
 				    },
 			        error:function(xhr){
 			            alert("用户注册失败！"+xhr.responseText);
+			            alert(openid);
 			        }
 	            });
          });
