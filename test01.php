@@ -1,8 +1,8 @@
 <?php
 
-//»ñÈ¡µ½ÍøÒ³ÊÚÈ¨µÄaccess_token
-$appid = "wx15ef051f9f0bba92";//ÌîĞ´¹«ÖÚºÅ»ò·şÎñºÅ¡¢²âÊÔºÅµÄappid
-$secret = "57ea0ee4abf4f4c6d6e38c88a289e687";//ÌîĞ´¶ÔÓ¦µÄsecriet
+
+$appid = "wx15ef051f9f0bba92";
+$secret = "57ea0ee4abf4f4c6d6e38c88a289e687";
 
 if(isset($_SESSION['openId'])){
     $openid = $_SESSION['openId'];
@@ -20,12 +20,13 @@ if(isset($_SESSION['openId'])){
     $json_obj = json_decode($res,true);
     $openid = $json_obj['openid'];
     $_SESSION['openId'] = $openid;
+    if ($_COOKIE==null){
+       setcookie('opendid','$openID');
+    }
 }
-    echo 'Î¢ĞÅÓÃ»§£º'.$openid.'<br/>';
-/**
- * @param $json_obj
- * ¸ù¾İÓÃ»§openid »ñÈ¡ÆäËùÓĞĞÅÏ¢
- */
+
+    echo 'ç”¨æˆ·ä¿¡æ¯'.$openid.'<br/>';
+    echo $_COOKIE['opendid'];
 function getUserInfo($json_obj){
     $access_token = $json_obj['access_token'];
     $openid = $json_obj['openid'];
@@ -40,7 +41,7 @@ function getUserInfo($json_obj){
     curl_close($ch);
 
 
-//½âÎöjson
+//ï¿½ï¿½ï¿½ï¿½json
     $user_obj = json_decode($res,true);
     var_dump($user_obj);
     return 'Name:'.$user_obj['nickname'];
@@ -53,7 +54,7 @@ echo '<!DOCTYPE html>
     <title></title>
     <script type="text/javascript">
         $(function(){
-            //¸Ä±ädivµÄ¸ß¶È
+           
             $(".content").css("height", $(window).height());
         });
     </script>
@@ -76,7 +77,7 @@ echo '<!DOCTYPE html>
             width: 100%;
             height: 60px;
             padding-top: 80px;
-            font: 40px "Î¢ÈíÑÅºÚ";
+            font: 40px "å¾®è½¯é›…é»‘";
             text-align: center;
             color:white;
         }
@@ -85,7 +86,7 @@ echo '<!DOCTYPE html>
             width: 90%;
             height: 250px;
             background-color:#2EBEB1;
-            font: 30px "Î¢ÈíÑÅºÚ";
+            font: 30px "å¾®è½¯é›…é»‘";
             text-align: center;
             color:white;
         }
@@ -97,7 +98,7 @@ echo '<!DOCTYPE html>
         }
         .box_center1 span{
             height: 50px;
-            font: 18px "Î¢ÈíÑÅºÚ";
+            font: 18px "å¾®è½¯é›…é»‘";
             color:white;
         }
         .box_center1 input{
@@ -107,7 +108,7 @@ echo '<!DOCTYPE html>
             background-color:#42A199;
             line-height: 45px;
             border-style: none;
-            font: 15px "Î¢ÈíÑÅºÚ";
+            font: 15px "å¾®è½¯é›…é»‘";
             color:#FFFFFF;
             padding:0 18px;
             outline: 0;
@@ -138,7 +139,7 @@ echo '<!DOCTYPE html>
             height:50px;
             background-color:#005757;
             margin-top: 22px;
-            font: 25px "Î¢ÈíÑÅºÚ";
+            font: 25px "å¾®è½¯é›…é»‘";
             line-height: 50px;
             text-align: center;
             color:#48D1CC;
@@ -150,12 +151,12 @@ echo '<!DOCTYPE html>
 <div class="content">
     <div class="box_top"><div class="box_top1">Welcome</div></div>
     <div class="box_center">
-        <div class="box_center1"><span>×¢²á</span></div>
-        <div class="box_center1"><input id="customername" placeholder="»õÖ÷Ãû³Æ"></input></div>
-        <div class="box_center1"><input id="customertel"  placeholder="ÊÖ»úºÅÂë"></input></div>
+        <div class="box_center1"><span>æ³¨å†Œ</span></div>
+        <div class="box_center1"><input id="customername" placeholder="è´§ä¸»åç§°"></input></div>
+        <div class="box_center1"><input id="customertel"  placeholder="æ‰‹æœºå·"></input></div>
     </div>
     <div class="box_buttom">
-        <div id="submit">×¢²á</div>
+        <div id="submit">æ³¨å†Œ</div>
     </div>
 </div>
 </body>
