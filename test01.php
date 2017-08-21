@@ -23,11 +23,11 @@ if(isset($_SESSION['openId'])){
     if ($_COOKIE==null){
        setcookie('openid',$openid);
     }
-    $redirect_uri = urlencode("http://mooonhok-cloudware.daoapp.io/weixin/zhuce.html");
-    header('location:'.$redirect_uri);
 }
-  //  echo '用户信息'.$openid.'<br/>';
-    //echo $_COOKIE['opendid'];
+$redirect = urlencode("http://mooonhok-cloudware.daoapp.io/weixin/zhuce.html");
+header('location:'.$redirect);
+//    echo '用户信息'.$openid.'<br/>';
+//    echo $_COOKIE['opendid'];
 function getUserInfo($json_obj){
     $access_token = $json_obj['access_token'];
     $openid = $json_obj['openid'];
