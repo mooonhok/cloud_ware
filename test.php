@@ -25,7 +25,8 @@ if(!isset($_GET['code'])){
     $appid = "wx15ef051f9f0bba92";
     $secret = "57ea0ee4abf4f4c6d6e38c88a289e687";
     $code = $_GET["code"];
-    $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$secret&code=$code&grant_type=authorization_code";
+    $url1='Location:http://mooonhok-cloudware.daoapp.io/weixin/chenggong.html';
+    $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$secret&code=$code&grant_type=authorization_code&redirect_uri=$redirect_uri";
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
@@ -35,8 +36,7 @@ if(!isset($_GET['code'])){
     curl_close($ch);
     $json_obj=json_decode($output, true);
     $_SESSION['openid']=$json_obj['openid'];
-//    echo $json_obj['openid'];
-    header('Location:http://mooonhok-cloudware.daoapp.io/weixin/chenggong.html');
+    echo $json_obj['openid'];
 }
 
 ?>
