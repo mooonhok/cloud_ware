@@ -23,17 +23,17 @@ function getQueryString(name) {
 	}
 alert("ajax");
 
-var code = getQueryString("code");
-    alert(code);
+//var code = getQueryString("code");
+//  alert(code);
 $.ajax({ 
 	  async: false, 
-	  url: "http://mooonhok-cloudware.daoapp.io/test02.php", //这是我的服务端处理文件php的
+	  url: "http://mooonhok-cloudware.daoapp.io/test03.php", //这是我的服务端处理文件php的
 	  type: "GET", 
 	  //下面几行是jsoup，如果去掉下面几行的注释，后端对应的返回结果也要去掉注释
 	  // dataType: 'jsonp', 
 	  // jsonp: 'callback', //jsonp的值自定义,如果使用jsoncallback,那么服务器端,要返回一个jsoncallback的值对应的对象. 
 	  // jsonpCallback:'callback',
-	  data: {code:code}, //传递本页面获取的code到后台，以便后台获取openid
+//	  data: {code:code}, //传递本页面获取的code到后台，以便后台获取openid
 	  timeout: 5000, 
 	  success: function (result) { 
 	  	alert(result)
