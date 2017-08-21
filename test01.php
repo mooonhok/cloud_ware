@@ -45,9 +45,7 @@ function getUserInfo($json_obj){
     var_dump($user_obj);
     return 'Name:'.$user_obj['nickname'];
 }
-
-?>
-<!DOCTYPE html>
+echo '<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -163,4 +161,10 @@ function getUserInfo($json_obj){
 </body>
 
 </html>
+'
+
+
+
+
+?>
 
