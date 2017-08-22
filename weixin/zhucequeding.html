@@ -6,6 +6,7 @@
 		<link rel="stylesheet" href="css/zhuce.css">
 		<title>注册</title>
 		 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		  <script type="text/javascript" src="js/jquery.cookie.js"></script>
         <script type="text/javascript">
             $(function(){
                 //改变div的高度
@@ -42,8 +43,6 @@
 				return false;
 			}else {
 				
-		
-
 	   $.ajax({
 		            url :"http://mooonhok-cloudware.daoapp.io/customer.php/wx_customer",
 		             beforeSend: function(request) {  
