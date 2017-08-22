@@ -37,12 +37,12 @@
 		var openid=$.cookie('openid');
 		if(openid!=null){	
 		$.ajax({
-			 url :"http://mooonhok-cloudware.daoapp.io/customer.php/wx_customer",
+			 url :"http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid",
 		             beforeSend: function(request) {  
                         request.setRequestHeader("tenant-id", "1");  
                     },
 			        dataType:'json',
-			        type:'get',
+			        type:'post',
 			        contentType:"application/json;charset=utf-8",
 			        data:JSON.stringify({
                      wx_openid:openid
