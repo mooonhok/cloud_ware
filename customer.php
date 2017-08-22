@@ -280,7 +280,6 @@ $app->post('/wx_customer',function()use($app){
     $body=json_decode($body);
     $customer_name=$body->customer_name;
     $customer_phone=$body->customer_phone;
-    $openid=$_COOKIE['openid'];
     $array=array();
     foreach($body as $key=>$value){
         $array[$key]=$value;
@@ -313,7 +312,6 @@ $app->post('/wx_customer',function()use($app){
                             } else {
                                 $customer_id = count($data) + 10000001;
                             }
-                            $array['wx_openid']=$openid;
                             $array['customer_address']='-1';
                             $array['customer_city_id']='-1';
                             $array["customer_id"] = $customer_id;
