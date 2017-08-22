@@ -35,7 +35,8 @@
 	$("#submit").on('click',function(){
 		var customername=$("#customername").val();
 		var customertel=$("#customertel").val();
-		alert(customername+customertel);
+		var openid=$.cookie('openid');
+		alert(customername+customertel+openid);
 	   $.ajax({
 		            url :"http://mooonhok-cloudware.daoapp.io/customer.php/customer",
 		             beforeSend: function(request) {  
@@ -46,7 +47,8 @@
 			        contentType:"application/json;charset=utf-8",
 			        data:JSON.stringify({
 					customer_name:customername,
-                    customer_phone:customertel
+                    customer_phone:customertel,
+                     openid:openid
 			        }),
 			        success:function(msg){
 		        	 alert("用户注册成功"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
