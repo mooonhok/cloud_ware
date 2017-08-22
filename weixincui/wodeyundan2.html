@@ -6,12 +6,12 @@
 	<title>我的运单</title>
 	<link rel="stylesheet" href="css/wodeyundan2.css">
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-        <script type="text/javascript">
+       <!--  <script type="text/javascript">
             $(function(){
                 //改变div的高度
                 $(".box").css("height", $(window).height());
             });
-        </script>
+        </script> -->
 </head>
 <body>
 	<div class="box">
@@ -21,7 +21,7 @@
 		</div>
 		<!-- top1 -->
 		<div class="top1">
-			<div class="top1-1">地图模式</div>
+			<div class="top1-1"><a href="ditu.html">地图模式</a></div>
 			<div class="top1-2">文字模式</div>
 		</div>
 		<div class="top1-3"></div>
@@ -70,7 +70,7 @@
 			<div class="sxian5"></div>
 			<div class="syuan6"></div>
 			<div class="sxian6"></div>
-			<div class="syuan7"></div>
+			<div class="syuan7"><div class="syuan7-1"></div></div>
 
 			<div style="clear:both;"></div>
 			</div>
@@ -144,4 +144,7 @@
 		<div style="clear:both;"></div>
 	</div>
 </body>
+<script type="text/javascript">
+	$(".top1-3").hide();
+</script>
 </html>

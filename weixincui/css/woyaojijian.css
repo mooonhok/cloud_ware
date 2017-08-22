@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-18 09:58:43
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-08-22 11:07:49
+* @Last Modified time: 2017-08-22 16:30:06
 */
 *{
 	margin: 0;padding: 0;
@@ -213,31 +213,17 @@ html,body{height:100%; width:100%;
 }
 .box2-1{
 	width: 100%;
-	height: 250px;
+	height: 400px;
 	background: white;
 	position: absolute;bottom: 0;
 }
-.ok1{
-	background: green;
-	color: white;
-	float: right;
-	width: 50px;
-	height: 20px;
-	text-align: center;
-	font-size: 14px;
-	border-radius: 5px;
-	margin-top: 5px;
-	margin-right:  5%;
-}
-.box2-2{
-	width: 80%;
-	height: 50px;
-	/* border: 1px solid red; */
+.jj{
+	width: 40%;
+	height: 30px;
+	line-height: 30px;
 	float: left;
-	margin-top: 10px;
-	margin-left: 10%;
+	margin-left: 30%;
 	text-align: center;
-	line-height: 50px;
 }
 .box3{
 	width: 100%;
@@ -248,47 +234,94 @@ html,body{height:100%; width:100%;
 }
 .box3-1{
 	width: 100%;
-	height: 250px;
+	height: 400px;
 	background: white;
 	position: absolute;bottom: 0;
 }
-.ok2{
-	background: green;
-	color: white;
-	float: right;
-	width: 50px;
-	height: 20px;
-	text-align: center;
-	font-size: 14px;
-	border-radius: 5px;
-	margin-top: 5px;
-	margin-right:  5%;
-}
-.box3-2{
-	width: 80%;
-	height: 50px;
-	/* border: 1px solid red; */
+.sj{
+	width: 40%;
+	height: 30px;
+	line-height: 30px;
 	float: left;
+	margin-left: 30%;
+	text-align: center;
+}
+.name{
+	width: 80%;
+	height: 25px;
+	float: left;
+	margin-left: 10%;
+	margin-top: 20px;
+	line-height: 25px;
+}
+.name1{
+	width: 70%;
+	float: right;
+}
+.name1 input{
+	width: 90%;
+	height: 25px;
+}
+.phone{
+	width: 80%;
+	height: 25px;
+	float: left;
+	margin-left: 10%;
+	margin-top: 10px;
+	line-height: 25px;
+}
+.phone1{
+	width: 70%;
+	float: right;
+}
+.phone1 input{
+	width: 90%;
+	height: 25px;
+}
+.dizhi{
+	width: 80%;
+	height: 25px;
+	float: left;
+	margin-left: 10%;
+	line-height: 25px;
+	margin-top: 10px;
+}
+.dizhi1{
+	width: 70%;
+	float: right;
+}
+.dizhi1 select{
+	width: 45%;
+	height: 25px;
+}
+.dizhi2{
+	float: left;
+	width: 80%;
+	height: 150px;
+	/* border: 1px solid red; */
 	margin-top: 10px;
 	margin-left: 10%;
-	text-align: center;
-	line-height: 50px;
+}
+.dizhi2-1{
+	width: 70%;
+	float: right;
+
+}
+.dizhi2-1 textarea{
+	width: 90%;
+}
+.tijiao1{
+	width: 70%;
+	height: 30px;
+	float: left;
+	margin-left: 15%;
+}
+.tijiao1 button{
+	width: 100%;
+	height: 30px;
+	font-size: 16px;
 }
 
-.box2-3{
-	/* border: 1px solid red; */
-	width: 80%;
-	float: left;
-	margin-left: 10%;
-	text-align: center;
-}
-.box3-3{
-	/* border: 1px solid red; */
-	width: 80%;
-	float: left;
-	margin-left: 10%;
-	text-align: center;
-}
 .box4{
 	width: 100%;
 	height: 100%;

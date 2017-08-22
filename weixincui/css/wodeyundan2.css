@@ -2,12 +2,16 @@
 * @Author: Administrator
 * @Date:   2017-08-21 12:01:50
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-08-21 17:54:03
+* @Last Modified time: 2017-08-22 14:41:55
 */
 *{
 	margin: 0;padding: 0;
 	font-family: "微软雅黑";
 	
+}
+a{
+	text-decoration: none;
+	color: black;
 }
 
 .box{
@@ -23,7 +27,7 @@
 	background: white;
 	text-align: center;
 	line-height: 60px;
-	font-size: 18px;	
+	font-size: 20px;	
 }
 .top1{
 	width: 100%;
@@ -31,6 +35,7 @@
 	background: white;
 	float: left;
 	margin-top: 1px;
+
 }
 .top1-1{
 	width: 50%;
@@ -38,6 +43,7 @@
 	float: left;
 	text-align: center;
 	line-height: 50px;
+	font-size: 19px;
 }
 .top1-2{
 	width: 50%;
@@ -45,6 +51,7 @@
 	float: left;
 	text-align: center;
 	line-height: 50px;
+	font-size: 19px;
 }
 .top1-3{
 	width: 50%;
@@ -56,7 +63,7 @@
 	width: 50%;
 	height: 2px;
 	background: #B6E3DF;
-	float: left;
+	float: right;
 }
 .center{
 	width: 100%;
@@ -198,12 +205,13 @@
 	width: 10%;
 	float: left;
 	background: white;
+	/* border: 1px solid green; */
 }
 .foot1-1{
-	width: 14px;
+	width: 20px;
 	/* border: 1px solid green; */
 	float:left;
-	margin-left: 30%;
+	margin-left: 10%;
 	margin-top: 40px;
 
 }
@@ -213,6 +221,7 @@
 	border-radius: 100px;
 	background: #CCCCCC;
 	float: left;
+	margin-left: 3px;
 }
 .syuan2{
 	width: 14px;
@@ -220,6 +229,7 @@
 	border-radius: 100px;
 	background: #CCCCCC;
 	float: left;
+	margin-left: 3px;
 }
 .syuan3{
 	width: 14px;
@@ -227,6 +237,7 @@
 	border-radius: 100px;
 	background: #CCCCCC;
 	float: left;
+	margin-left: 3px;
 }
 .syuan4{
 	width: 14px;
@@ -234,6 +245,7 @@
 	border-radius: 100px;
 	background: #CCCCCC;
 	float: left;
+	margin-left: 3px;
 }
 .syuan5{
 	width: 14px;
@@ -241,6 +253,7 @@
 	border-radius: 100px;
 	background: #CCCCCC;
 	float: left;
+	margin-left: 3px;
 }
 .syuan6{
 	width: 14px;
@@ -248,55 +261,66 @@
 	border-radius: 100px;
 	background: #CCCCCC;
 	float: left;
+	margin-left: 3px;
 }
 .syuan7{
+	width: 20px;
+	height:20px;
+	border-radius: 100px;
+	background: rgba(0, 0, 0, 0.1);
+	float: left;
+	/* margin-left: 3px; */	
+}
+.syuan7-1{
 	width: 14px;
 	height: 14px;
 	border-radius: 100px;
-	background: #CCCCCC;
+	background: #7DE8DF;
 	float: left;
+	margin-left: 3px;
+	margin-top: 3px;
 }
 .sxian1{
 	width: 2px;
 	height: 80px;
 	background: #CCCCCC;
 	float: left;
-	margin-left: 6px;
+	margin-left: 9px;
 }
 .sxian2{
 	width: 2px;
 	height: 80px;
 	background: #CCCCCC;
 	float: left;
-	margin-left: 6px;
+	margin-left: 9px;
 }
 .sxian3{
 	width: 2px;
 	height: 80px;
 	background: #CCCCCC;
 	float: left;
-	margin-left: 6px;
+	margin-left: 9px;
 }
 .sxian4{
 	width: 2px;
 	height: 80px;
 	background: #CCCCCC;
 	float: left;
-	margin-left: 6px;
+	margin-left: 9px;
 }
 .sxian5{
 	width: 2px;
 	height: 80px;
 	background: #CCCCCC;
 	float: left;
-	margin-left: 6px;
+	margin-left: 9px;
 }
 .sxian6{
 	width: 2px;
 	height: 80px;
 	background: #CCCCCC;
 	float: left;
-	margin-left: 6px;
+	margin-left: 9px;
 }
 .foot2{
 	width: 90%;
@@ -306,17 +330,20 @@
 	float: left;
 }
 .foot2-1{
-	width: 20%;
+	width: 60%;
 	height: 93px;
 	line-height: 93px;
 	float: left;
+	font-size: 15px;
+	color: #CCCCCC;
 }
 .foot2-2{
-	width: 30%;
+	width: 35%;
 	height: 93px;
 	line-height: 93px;
 	float: right;
-
+	font-size: 12px;
+	color: #CCCCCC;
 }
 .foot3{
 	float: left;
@@ -327,17 +354,20 @@
 	margin-top: 1px;
 }
 .foot3-1{
-	width: 20%;
+	width: 60%;
 	height: 93px;
 	line-height: 93px;
 	float: left;
+	font-size: 15px;
+	color: #CCCCCC;
 }
 .foot3-2{
-	width: 30%;
+	width: 35%;
 	height: 93px;
 	line-height: 93px;
 	float: right;
-
+	font-size: 12px;
+	color: #CCCCCC;
 }
 .foot4{
 	width: 90%;
@@ -345,19 +375,23 @@
 	height: 93px;
 	background: white;
 	margin-top: 1px;
+
 }
 .foot4-1{
-	width: 20%;
+	width: 60%;
 	height: 93px;
 	line-height: 93px;
 	float: left;
+	font-size: 15px;
+	color: #CCCCCC;
 }
 .foot4-2{
-	width: 30%;
+	width: 35%;
 	height: 93px;
 	line-height: 93px;
 	float: right;
-
+	font-size: 12px;
+	color: #CCCCCC;
 }
 .foot5{
 	width: 90%;
@@ -367,17 +401,27 @@
 	margin-top: 1px;
 }
 .foot5-1{
-	width: 50%;
+	width: 65%;
 	height: 93px;
 	line-height: 93px;
 	float: left;
+	font-size: 15px;
+	color: #CCCCCC;
+	/* border: 1px solid red; */
+}
+.foot5-1 span{
+	font-size: 13px;
+	color: #7DE8DF;
 }
 .foot5-2{
-	width: 30%;
+	width: 35%;
 	height: 93px;
 	line-height: 93px;
 	float: right;
-
+	font-size: 12px; 
+	color: #CCCCCC;
+	/* border: 1px solid red; */
+	/* margin-right: 5%; */
 }
 .foot6{
 	width: 90%;
@@ -387,17 +431,20 @@
 	margin-top: 1px;
 }
 .foot6-1{
-	width: 50%;
+	width: 60%;
 	height: 93px;
 	line-height: 93px;
 	float: left;
+	font-size: 15px;
+	color: #CCCCCC;
 }
 .foot6-2{
-	width: 30%;
+	width: 35%;
 	height: 93px;
 	line-height: 93px;
 	float: right;
-
+	font-size: 12px;
+	color: #CCCCCC;
 }
 .foot7{
 	width: 90%;
@@ -407,16 +454,20 @@
 	margin-top: 1px;
 }
 .foot7-1{
-	width: 50%;
+	width: 60%;
 	height: 93px;
 	line-height: 93px;
 	float: left;
+	font-size: 15px;
+	color: #CCCCCC;
 }
 .foot7-2{
-	width: 30%;
+	width: 35%;
 	height: 93px;
 	line-height: 93px;
 	float: right;
+	font-size: 12px;
+	color: #CCCCCC;
 
 }
 .tianchong{
@@ -437,6 +488,8 @@
 	height: 93px;
 	line-height: 93px;
 	float: left;
+	font-size: 15px;
+	color: #7DE8DF;
 }
 
 

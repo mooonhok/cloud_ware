@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-17 17:24:45
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-08-19 15:03:59
+* @Last Modified time: 2017-08-22 17:04:49
 */
 
 *{
@@ -195,4 +195,10 @@
 	margin-left: 10%;
 	text-align: center;
 	line-height: 50px;
+}
+.box2-2 select{
+	width: 40%;
+}
+.box3-2 select{
+	width: 40%;
 }
