@@ -20,7 +20,7 @@ if(isset($_SESSION['openId'])){
     $json_obj = json_decode($res, true);
     $openid = $json_obj['openid'];
     $_SESSION['openId'] = $openid;
-    if ($_COOKIE == null) {
+    if ($_COOKIE['openid'] == null) {
         setcookie('openid', $openid);
     }
     header('location:http://mooonhok-cloudware.daoapp.io/weixin/zhuce.html');
