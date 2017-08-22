@@ -23,6 +23,7 @@ if(isset($_SESSION['openId'])){
     if ($_COOKIE == null) {
         setcookie('openid', $openid);
     }
+    header('location:http://mooonhok-cloudware.daoapp.io/weixin/zhuce.html');
 }
 
 //    echo '用户信息'.$openid.'<br/>';
@@ -45,6 +46,6 @@ function getUserInfo($json_obj){
     return 'Name:'.$user_obj['nickname'];
 }
 
-header('location:http://mooonhok-cloudware.daoapp.io/weixin/zhuce.html');
+
 ?>
 
