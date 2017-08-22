@@ -350,10 +350,6 @@ $app->get('/wx_customer',function()use($app){
     $body = $app->request->getBody();
     $body=json_decode($body);
     $wx_openid=$body->wx_openid;
-    $array=array();
-    foreach($body as $key=>$value){
-        $array[$key]=$value;
-    }
     if($tenant_id!=""||$tenant_id!=null){
         $selectStatement = $database->select()
             ->from('tenant')
