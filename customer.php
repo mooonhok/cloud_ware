@@ -272,6 +272,78 @@ $app->delete('/customer',function()use($app){
 });
 
 
+$app->post('/wx_customer',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body=json_decode($body);
+    $customer_name=$body->customer_name;
+    $customer_phone=$body->customer_phone;
+    $array=array();
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+    if($tenant_id!=""||$tenant_id!=null){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        if($data2!=null){
+            if($customer_name!=""||$customer_name!=null){
+                if($customer_phone>0||$customer_phone!=null){
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('exist',"=",0)
+                            ->where('customer_phone',"=",$customer_phone)
+                            ->where('tenant_id','=',$tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data3 = $stmt->fetch();
+                        if($data3==null) {
+                            $selectStatement = $database->select()
+                                ->from('customer')
+                                ->where('tenant_id', '=', $tenant_id);
+                            $stmt = $selectStatement->execute();
+                            $data = $stmt->fetchAll();
+                            if ($data == null) {
+                                $customer_id = 10000001;
+                            } else {
+                                $customer_id = count($data) + 10000001;
+                            }
+                            $array['customer_address']='-1';
+                            $array['customer_city_id']='-1';
+                            $array["customer_id"] = $customer_id;
+                            $array["tenant_id"] = $tenant_id;
+                            $array["exist"] = 0;
+                            $insertStatement = $database->insert(array_keys($array))
+                                ->into('customer')
+                                ->values(array_values($array));
+                            $insertId = $insertStatement->execute(false);
+
+                            echo json_encode(array("result" => "0", "desc" => "success"));
+
+                        }else{
+                            echo json_encode(array("result"=>"1","desc"=>"该公司该电话已经存在"));
+                        }
+
+                }else{
+                    echo json_encode(array("result"=>"3","desc"=>"缺少客户电话"));
+                }
+            }else{
+                echo json_encode(array("result"=>"4","desc"=>"缺少客户姓名"));
+            }
+        }else{
+            echo json_encode(array("result"=>"5","desc"=>"租户不存在"));
+        }
+    }else{
+        echo json_encode(array("result"=>"6","desc"=>"缺少租户id"));
+    }
+});
+
+
+
 $app->run();
 
 function localhost(){
