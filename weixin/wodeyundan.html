@@ -3,30 +3,19 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1,minimum-scale=0.1,user-scalable=0" name="viewport">
+		 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		  <script type="text/javascript" src="js/jquery.cookie.js"></script>
 		<link rel="stylesheet" href="css/wodeyundan.css">
 		<title>我的运单</title>
-		
 	</head>
 	<body>
 	<div class="box">
-	<!-- top -->
-		<!-- <div class="top">
-		<div class="top_1">
-			<div></div>
-			<div></div>
-			</div>
-			<div class="top_2">
-			我的运单
-			</div>		
-		</div> -->
-
-	<!-- top2 -->
 	    <div class="top2">
 
 	    	<div class="yundanghao">
 				<div class="rongqi">
 				<div class="kuang">
-	    		<input type="text" placeholder="请输入要查询的运单号">
+	    		<input id="yundanhao"  type="text" placeholder="请输入要查询的运单号">
 	    		</div>
 
                 <div class="tu">
@@ -309,5 +298,61 @@
 			alert('ok')
 		})
 	</script>
-
+    <script>
+    	//判断openid是否已经被注册
+    	var openid=$.cookie('openid');
+		if(openid!=null){	
+		$.ajax({
+			 url :"http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid",
+		             beforeSend: function(request) {  
+                        request.setRequestHeader("tenant-id", "1");  
+                    },
+			        dataType:'json',
+			        type:'post',
+			        contentType:"application/json;charset=utf-8",
+			        data:JSON.stringify({
+                     wx_openid:openid
+			        }),
+			        success:function(msg){
+		        	 alert("用户注册成功"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
+                        if(msg.result==0){
+                        	 window.location.href="zhucequeding.html";
+                        }else{
+                        	alert(openid);
+                        }  
+				    },
+			        error:function(xhr){
+			            alert("获取后台失败！"+xhr.responseText);
+			        }
+			
+		});
+		}	
+    </script>
+    <script>
+    	$("#yundanhao").on('keyup',function(){
+    	     var order_id=$("#yundanhao").val();
+    	     alert(order_id);
+//  	     $.ajax({
+//  	     	url:"",
+//  	     	 beforeSend: function(request) {  
+//                      request.setRequestHeader("tenant-id", "1");  
+//                  },
+//			        dataType:'json',
+//			        type:'post',
+//			        contentType:"application/json;charset=utf-8",
+//			        data:JSON.stringify({
+//                     order_id:order_id
+//			        }),
+//			        success:function(msg){
+//		        
+//				    },
+//			        error:function(xhr){
+//			         
+//			        }
+//  	     });
+    	     
+    	});
+    	
+    	
+    </script>
 </html>
