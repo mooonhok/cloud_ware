@@ -343,6 +343,45 @@ $app->post('/wx_customer',function()use($app){
 });
 
 
+$app->get('/wx_customer',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body=json_decode($body);
+    $wx_openid=$body->wx_openid;
+    $array=array();
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+    if($tenant_id!=""||$tenant_id!=null){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        if($data2!=null){
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('exist',"=",0)
+                ->where('wx_openid','=',$wx_openid)
+                ->where('tenant_id','=',$tenant_id);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            if($data3==null){
+                echo json_encode(array("result"=>"0","desc"=>"去注册"));
+            }else{
+                echo json_encode(array("result"=>"1","desc"=>"用户已注册"));
+            }
+        }else{
+            echo json_encode(array("result"=>"2","desc"=>"租户不存在"));
+        }
+    }else{
+        echo json_encode(array("result"=>"3","desc"=>"缺少租户id"));
+    }
+});
+
 
 $app->run();
 
