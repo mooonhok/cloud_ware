@@ -12,11 +12,11 @@
 	<script>
 		var openid=$.cookie('openid');
 		if(openid!=null){
-			
+
 		$.ajax({
 			 url :"http://mooonhok-cloudware.daoapp.io/customer.php/wx_customer",
-		             beforeSend: function(request) {  
-                        request.setRequestHeader("tenant-id", "1");  
+		             beforeSend: function(request) {
+                        request.setRequestHeader("tenant-id", "1");
                     },
 			        dataType:'json',
 			        type:'get',
@@ -26,16 +26,16 @@
 			        }),
 			        success:function(msg){
 		        	 alert("用户注册成功"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
-                        if(msg.result==0){
-                        	 window.location.href="zhucequeding.html";
-                        }else{
-                        	alert(openid);
-                        }  
+     //                   if(msg.result==0){
+   //                     	 window.location.href="zhucequeding.html";
+    //                    }else{
+    //                    	alert(openid);
+    //                    }
 				    },
 			        error:function(xhr){
 			            alert("获取后台失败！"+xhr.responseText);
 			        }
-			
+
 		});
 		}
 	</script>
