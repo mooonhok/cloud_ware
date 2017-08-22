@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/woyaojijian.css">
+	<title>我要寄件</title>
+	
+	 
+</head>
+<body>
+	<div class="box">
+	<!-- top -->
+		<div class="top">
+		<div class="top1">
+			<div class="wenzi"><span class="span1">寄</span>件人详细地址</div> 
+		<div class="fuhao"><img src="images/left_arrow.png" alt=""></div>
+		</div>
+		
+		
+
+		<div class="top2">
+			<div class="wenzi"><span class="span2">收</span>件人详细地址</div> 
+		<div class="fuhao"><img src="images/left_arrow.png" alt=""></div>
+		</div>
+		
+		</div>
+
+	<!-- center -->
+	    <div class="center">
+
+	    <div class="center_1">
+	    	<div class="wenzi">货物品名</div> 
+	    	<div class="text">
+	    		<input type="text" placeholder="必填项">
+	    	</div>
+		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
+	    </div>
+
+	    <div class="center_3">
+	    	<div class="wenzi">重量(吨)</div> 
+	    	<div class="text3">
+	    		<input type="text" placeholder="必填项">
+	    	</div>
+		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
+	    </div>
+
+	    <div class="center_3">
+	    	<div class="wenzi">体积(m³)</div> 
+	    	<div class="text4">
+	    		<input type="text" placeholder="必填项">
+	    	</div>
+		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
+	    </div>
+
+	    <div class="center_4">
+	    	<div class="wenzi">包装</div> 
+	    	<div class="text1">
+	    		<input type="text" placeholder="必填项" class="baozhuang">
+	    	</div>
+		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
+	    </div>
+
+	    <div class="center_5">
+	    	<div class="wenzi">件数</div> 
+	    	<div class="text1">
+	    		<input type="text" placeholder="必填项">
+	    	</div>
+		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
+	    </div>
+
+	    <div class="center_6">
+	    	<div class="wenzi">需求</div> 
+	    	<div class="text1">
+	    		<input type="text" placeholder="默认门店自寄" class="need">
+	    	</div>
+		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
+	    </div>
+	    	
+	    </div>
+
+	<!-- foot -->
+	    <div class="foot">
+	    <div class="foot1">
+	    	<div class="wenzi">货物价值</div>
+	    	<div class="text">
+	    		<input type="text" placeholder="必填项">
+	    	</div> 
+		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
+	    </div>
+	    <div class="foot2">
+	    	<div class="wenzi">付款方式</div> 
+	    	<div class="text2">
+	    		<input type="text" placeholder="必填项" class="money">
+	    	</div>
+		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
+	    </div>
+	    	
+	    </div>
+
+	<!-- tijiao -->
+	    <div class="tijiao">
+	    	提交
+	    </div>
+
+
+	</div>	
+<!-- box2 -->
+	<div class="box2">
+		<div class="box2-1">
+			<div class="ok1">
+				确定
+			</div>
+			<div class="box2-2">
+				<select id="province">
+					<option value="">请选择</option>
+				</select>				
+				<select id="city">
+					<option value="">请选择</option>
+				</select>
+			</div>
+			<div class="box2-3">
+			    <textarea cols="30" rows="5" placeholder="请填写详细地址"></textarea>				
+			</div>
+		</div>		
+	</div>
+<!-- box3 -->
+	<div class="box3">
+		<div class="box3-1">
+			<div class="ok2">
+				确定
+			</div>
+			<div class="box3-2">
+				<select id="province">
+					<option value="">请选择</option>
+				</select>				
+				<select id="city">
+					<option value="">请选择</option>
+				</select>
+			</div>
+			<div class="box3-3">
+			    <textarea cols="30" rows="5" placeholder="请填写详细地址"></textarea>				
+			</div>
+		</div>		
+	</div>
+<!-- box4 -->
+    <div class="box4">
+    	<div class="box4-1">
+    		<h5>包装类型</h5>
+    		<div class="box4-2">
+    			<div class="box4-2-1" value="木箱">木箱</div>
+    			<div class="box4-2-2" value="油布">油布</div>
+    			<div class="box4-2-3" value="无包装">无包装</div>
+    		</div>
+    	</div>
+    </div>
+
+<!-- box5 -->
+
+    <div class="box5">
+    	<div class="box5-1">
+    		<h5>需求</h5>
+    		<div class="box5-2">
+    		<div class="box5-3">
+    			<div class="box5-2-1" onclick="a()">上门提货</div>
+    			<div class="box5-2-2" onclick="b()">开票申请</div>
+    		</div>
+    		<div class="box5-3">
+    			<div class="box5-2-3" onclick="c()">加急</div>
+    			<div class="box5-2-4" onclick="d()">送货上门</div>
+    		</div>	
+    		</div>
+    		<div class="box5-4">提交</div>
+    	</div>
+    	
+    </div>
+
+<!-- box6 -->
+	<div class="box6">
+		<div class="box6-1">
+    		<h5>付款方式</h5>
+    		<div class="box6-2">
+    			<div class="box6-2-1" value="到付">到付</div>
+    			<div class="box6-2-2" value="现付">现付</div>
+    			<div class="box6-2-3" value="月付">月付</div>
+    		</div>
+    	</div>
+	</div>
+
+
+</body>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+	 $(".box2").css("display","none");
+	 $(".box3").css("display","none");
+	 $(".top1").on("click",function(){
+	 	// alert('ok');
+	 	$(".box2").css("display","block");
+	 	$(".box2").css("z-index","100");
+	 })
+	 $(".top2").on("click",function(){
+	 	// alert('ok');
+	 	$(".box3").css("display","block");
+	 	$(".box3").css("z-index","100");
+	 })
+
+	 $(".ok1").on("click",function(){
+	 	$(".box2").css("display","none");
+
+
+	 })
+	 $(".ok2").on("click",function(){
+	 	$(".box3").css("display","none");
+
+
+	 })
+
+		
+	</script>
+
+	<script type="text/javascript">
+		$(".box4").css("display","none");
+		$(".center_4").on("click",function(){
+			$(".box4").css("display","block");
+		})
+		$(".box4-2-1").on("click",function(){
+			var box4=$(this).html();
+			$(".baozhuang").val(box4);
+			$(".box4").css("display","none");						
+		})
+		$(".box4-2-2").on("click",function(){
+			var box4=$(this).html();
+			$(".baozhuang").val(box4);
+			$(".box4").css("display","none");						
+		})
+		$(".box4-2-3").on("click",function(){
+			var box4=$(this).html();
+			$(".baozhuang").val(box4);
+			$(".box4").css("display","none");						
+		})
+	</script>
+
+	<script type="text/javascript">
+		var needs = "0000";	
+		$(".box5").css("display","none");
+		$(".center_6").on("click",function(){
+			$(".box5").css("display","block");
+		})
+		var count1=0;
+		var count2=0;
+		var count3=0;
+		var count4=0;
+		function a(){
+			count1++;
+			if(count1%2==1){
+				$(".box5-2-1").css("background","orange");
+			}else{
+				$(".box5-2-1").css("background","blue");
+			}
+		}
+		function b(){
+			count2++;
+			if(count2%2==1){
+				$(".box5-2-2").css("background","orange");
+			}else{
+				$(".box5-2-2").css("background","blue");
+			}
+		}
+		function c(){
+			count3++;
+			if(count3%2==1){
+				$(".box5-2-3").css("background","orange");
+			}else{
+				$(".box5-2-3").css("background","blue");
+			}
+		}
+		function d(){
+			count4++;
+			if(count4%2==1){
+				$(".box5-2-4").css("background","orange");
+			}else{
+				$(".box5-2-4").css("background","blue");
+			}
+		}
+
+		$(".box5-4").on("click",function(){
+			if(count1%2==1&&count2%2==1&&count3%2==1&&count4%2==1){
+				$(".need").val("上门提货/开票申请/加急/送货上门");
+				needs="1111";
+            }else if(count1%2==1&&count2%2==1&&count3%2==1&&count4%2==0){
+            	$(".need").val("上门提货/开票申请/加急");
+            	needs="1110";
+            }else if(count1%2==1&&count2%2==1&&count3%2==0&&count4%2==0){
+            	$(".need").val("上门提货/开票申请");
+            	needs="1100";
+            }else if(count1%2==1&&count2%2==0&&count3%2==0&&count4%2==0){
+            	$(".need").val("上门提货");
+            	needs="1000";
+            }else if(count1%2==0&&count2%2==1&&count3%2==1&&count4%2==1){
+            	$(".need").val("开票申请/加急/送货上门");
+            	needs="0111";
+            }else if(count1%2==0&&count2%2==0&&count3%2==1&&count4%2==1){
+            	$(".need").val("加急/送货上门");
+            	needs="0011";
+            }else if(count1%2==0&&count2%2==0&&count3%2==0&&count4%2==1){
+            	$(".need").val("送货上门");
+            	needs="0001";
+            }else if(count1%2==0&&count2%2==1&&count3%2==0&&count4%2==1){
+            	$(".need").val("开票申请/送货上门");
+            	needs="0101";
+            }else if(count1%2==0&&count2%2==1&&count3%2==0&&count4%2==0){
+            	$(".need").val("开票申请");
+            	needs="0100";
+            }else if(count1%2==0&&count2%2==0&&count3%2==1&&count4%2==0){
+            	$(".need").val("加急");
+            	needs="0010";
+            }else if(count1%2==0&&count2%2==0&&count3%2==0&&count4%2==0){
+            	$(".need").val("默认门店自寄");
+            	needs="0000";
+            }else if(count1%2==0&&count2%2==1&&count3%2==1&&count4%2==0){
+            	$(".need").val("开票申请/加急");
+            	needs="0110";
+            }else if(count1%2==1&&count2%2==0&&count3%2==0&&count4%2==1){
+            	$(".need").val("上门提货/送货上门");
+				needs="1001";
+            }else if(count1%2==1&&count2%2==0&&count3%2==1&&count4%2==1){
+            	$(".need").val("上门提货/加急/送货上门");
+            	needs="1011";
+            }else if(count1%2==1&&count2%2==0&&count3%2==1&&count4%2==0){
+            	$(".need").val("上门提货/加急");
+            	needs="1010";
+            }else if(count1%2==1&&count2%2==1&&count3%2==0&&count4%2==1){
+            	$(".need").val("上门提货/开票申请/送货上门");
+            	needs="1101";
+            }
+								
+			$(".box5").css("display","none");	
+		})
+	</script>
+
+	<script type="text/javascript">
+		$(".box6").css("display","none");
+		$(".foot2").on("click",function(){
+			$(".box6").css("display","block");
+		})
+		$(".box6-2-1").on("click",function(){
+			var box6=$(this).html();
+			$(".money").val(box6);
+			$(".box6").css("display","none");						
+		})
+		$(".box6-2-2").on("click",function(){
+			var box4=$(this).html();
+			$(".money").val(box4);
+			$(".box6").css("display","none");						
+		})
+		$(".box6-2-3").on("click",function(){
+			var box4=$(this).html();
+			$(".money").val(box4);
+			$(".box6").css("display","none");						
+		})
+	</script>
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
