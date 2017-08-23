@@ -107,7 +107,7 @@
 					if(msg.result == 0) {
 						window.location.href = "zhucequeding.html";
 					} else {
-						alert(openid);
+//						alert(openid);
 					}
 				},
 				error: function(xhr) {
@@ -173,8 +173,13 @@
 			success: function(msg) {
 				alert(msg.result + "////"+msg.desc +"////"+ msg.orders);
 				for(var i = 0; i < msg.orders.length; i++) {
-					a = "<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
-					+msg.orders[i].order_id+"</span>" +	"</p><p>签收时间:<span>"
+					if(msg.order[i].status=="已签收"){
+						$("#sta").css("background","#000000");
+					}else{
+						$("#sta").css("background","#F75000");
+					}
+					a = "<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span id='se'>"
+					+msg.orders[i].order_id+"</span>" +	"</p><p>订单状态<span id='sta'>"
 					+msg.orders[i].receive+"</span></p></div><div class='yundan_3'><div class='yundan_3_1'>" +
 						"<h2>结</h2>" + "<h2>算</h2>" + "</div></div><div class='yundan_2'><div class='yundan_2_1'><h3>"
 					+msg.orders[i].sendcity+"</h3><p>"
@@ -208,8 +213,13 @@
 			success: function(msg) {
 				alert(msg.result + "////"+msg.desc +"////"+ msg.orders);
 				for(var i = 0; i < msg.orders.length; i++) {
-					a = "<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
-					+msg.orders[i].order_id+"</span>" +	"</p><p>签收时间:<span>"
+					if(msg.order[i].status=="已签收"){
+						$("#sta").css("background","#000000");
+					}else{
+						$("#sta").css("background","#F75000");
+					}
+					a = "<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span id='se'>"
+					+msg.orders[i].order_id+"</span>" +	"</p><p>订单状态<span id='sta'>"
 					+msg.orders[i].receive +"</span></p></div><div class='yundan_3'><div class='yundan_3_1'>" +
 						"<h2>结</h2>" + "<h2>算</h2>" + "</div></div><div class='yundan_2'><div class='yundan_2_1'><h3>"
 					+msg.orders[i].sendcity+"</h3><p>"
@@ -226,5 +236,13 @@
 			alert("获取数据失败");
 		}
 		});
+	</script>
+	<script>
+		//点击事件
+		$(".yundan").click(function(){
+			var sendid=$(this).children().eq(0).children().eq(0).children().eq(0).text();
+			alert(sendid);
+			window.location.href="wodeyundan2.html？sendid";
+		})
 	</script>
 </html>

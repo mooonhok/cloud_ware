@@ -376,17 +376,23 @@ $app->post('/wx_orders_s', function () use ($app) {
                         $stmt = $selectStatement->execute();
                         $data8= $stmt->fetch();
                         if($array1['status']==0){
-                            $array1['receive']=$data8['order_timea'];
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
                         }else if($array1['status']==1){
-                            $array1['receive']=$data8['order_timeb'];
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
                         }else if($array1['status']==2){
-                            $array1['receive']=$data8['order_timec'];
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
                         }else if($array1['status']==3){
-                            $array1['receive']=$data8['order_timed'];
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
                         }else if($array1['status']==4){
-                            $array1['receive']=$data8['order_timee'];
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
                         }else if($array1['status']==5){
-                            $array1['receive']=$data8['order_timef'];
+                            $array1['receive']='签收时间'.$data8['order_timef'];
+                            $array1['status']='已签收';
                         }
                         $selectStatement = $database->select()
                             ->from('customer')
@@ -425,18 +431,25 @@ $app->post('/wx_orders_s', function () use ($app) {
                     $stmt = $selectStatement->execute();
                     $data8= $stmt->fetch();
                     if($array1['status']==0){
-                        $array1['receive']=$data8['order_timea'];
+                        $array1['receive']='未签收';
+                        $array1['status']='未签收';
                     }else if($array1['status']==1){
-                        $array1['receive']=$data8['order_timeb'];
+                        $array1['receive']='未签收';
+                        $array1['status']='未签收';
                     }else if($array1['status']==2){
-                        $array1['receive']=$data8['order_timec'];
+                        $array1['receive']='未签收';
+                        $array1['status']='未签收';
                     }else if($array1['status']==3){
-                        $array1['receive']=$data8['order_timed'];
+                        $array1['receive']='未签收';
+                        $array1['status']='未签收';
                     }else if($array1['status']==4){
-                        $array1['receive']=$data8['order_timee'];
+                        $array1['receive']='未签收';
+                        $array1['status']='未签收';
                     }else if($array1['status']==5){
-                        $array1['receive']=$data8['order_timef'];
+                        $array1['receive']='签收时间'.$data8['order_timef'];
+                        $array1['status']='已签收';
                     }
+
                     $selectStatement = $database->select()
                         ->from('customer')
                         ->where('exist', "=", 0)
@@ -529,8 +542,8 @@ $app->post('/wx_orders_r', function () use ($app) {
                     $array=array();
                     for($i=0;$i<$num1;$i++){
                         $array1=array();
-                        $array1['sendcity']=$data7['name'];
-                        $array1['sendname']=$data6['customer_name'];
+                        $array1['acceptcity']=$data7['name'];
+                        $array1['acceptname']=$data6['customer_name'];
                         $array1['order_id']=$data3[$i]['order_id'];
                         $array1['status']=$data3[$i]['order_status'];
                         $selectStatement = $database->select()
@@ -541,33 +554,39 @@ $app->post('/wx_orders_r', function () use ($app) {
                         $stmt = $selectStatement->execute();
                         $data8= $stmt->fetch();
                         if($array1['status']==0){
-                            $array1['receive']=$data8['order_timea'];
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
                         }else if($array1['status']==1){
-                            $array1['receive']=$data8['order_timeb'];
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
                         }else if($array1['status']==2){
-                            $array1['receive']=$data8['order_timec'];
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
                         }else if($array1['status']==3){
-                            $array1['receive']=$data8['order_timed'];
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
                         }else if($array1['status']==4){
-                            $array1['receive']=$data8['order_timee'];
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
                         }else if($array1['status']==5){
-                            $array1['receive']=$data8['order_timef'];
+                            $array1['receive']='签收时间'.$data8['order_timef'];
+                            $array1['status']='已签收';
                         }
                         $selectStatement = $database->select()
                             ->from('customer')
                             ->where('exist', "=", 0)
-                            ->where('customer_id','=',$data3[$i]['receiver_id'])
+                            ->where('customer_id','=',$data3[$i]['sender_id'])
                             ->where('tenant_id', '=', $tenant_id);
                         $stmt = $selectStatement->execute();
                         $data4= $stmt->fetch();
-                        $array1['receivename']=$data4['customer_name'];
+                        $array1['sendname']=$data4['customer_name'];
 
                         $selectStatement = $database->select()
                             ->from('city')
                             ->where('id', '=', $data4['customer_city_id']);
                         $stmt = $selectStatement->execute();
                         $data5= $stmt->fetch();
-                        $array1['receivecity']=$data5['name'];
+                        $array1['sendcity']=$data5['name'];
                         array_push($array,$array1);
                     }
                     echo json_encode(array("result" => "1", "desc" => "success", "orders" => $array));
@@ -590,17 +609,23 @@ $app->post('/wx_orders_r', function () use ($app) {
                     $stmt = $selectStatement->execute();
                     $data8= $stmt->fetch();
                     if($array1['status']==0){
-                        $array1['receive']=$data8['order_timea'];
+                        $array1['receive']='未签收';
+                        $array1['status']='未签收';
                     }else if($array1['status']==1){
-                        $array1['receive']=$data8['order_timeb'];
+                        $array1['receive']='未签收';
+                        $array1['status']='未签收';
                     }else if($array1['status']==2){
-                        $array1['receive']=$data8['order_timec'];
+                        $array1['receive']='未签收';
+                        $array1['status']='未签收';
                     }else if($array1['status']==3){
-                        $array1['receive']=$data8['order_timed'];
+                        $array1['receive']='未签收';
+                        $array1['status']='未签收';
                     }else if($array1['status']==4){
-                        $array1['receive']=$data8['order_timee'];
+                        $array1['receive']='未签收';
+                        $array1['status']='未签收';
                     }else if($array1['status']==5){
-                        $array1['receive']=$data8['order_timef'];
+                        $array1['receive']='签收时间'.$data8['order_timef'];
+                        $array1['status']='已签收';
                     }
                     $selectStatement = $database->select()
                         ->from('customer')
@@ -609,13 +634,13 @@ $app->post('/wx_orders_r', function () use ($app) {
                         ->where('tenant_id', '=', $tenant_id);
                     $stmt = $selectStatement->execute();
                     $data4= $stmt->fetch();
-                    $array1['receivename']=$data4['customer_name'];
+                    $array1['acceptname']=$data4['customer_name'];
                     $selectStatement = $database->select()
                         ->from('city')
                         ->where('id', '=', $data4['customer_city_id']);
                     $stmt = $selectStatement->execute();
                     $data5= $stmt->fetch();
-                    $array1['receivecity']=$data5['name'];
+                    $array1['acceptcity']=$data5['name'];
                     $selectStatement = $database->select()
                         ->from('customer')
                         ->where('exist', "=", 0)
@@ -623,13 +648,13 @@ $app->post('/wx_orders_r', function () use ($app) {
                         ->where('tenant_id', '=', $tenant_id);
                     $stmt = $selectStatement->execute();
                     $data6= $stmt->fetch();
-                    $array1['acceptname']=$data6['customer_name'];
+                    $array1['sendname']=$data6['customer_name'];
                     $selectStatement = $database->select()
                         ->from('city')
                         ->where('id', '=', $data4['customer_city_id']);
                     $stmt = $selectStatement->execute();
                     $data7= $stmt->fetch();
-                    $array1['acceptcity']=$data7['name'];
+                    $array1['sendcity']=$data7['name'];
                     array_push($array,$array1);
                     echo json_encode(array("result" => "1", "desc" => "success", "orders" => $array));
                 }
