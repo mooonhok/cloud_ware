@@ -107,7 +107,7 @@
 					if(msg.result == 0) {
 						window.location.href = "zhucequeding.html";
 					} else {
-//						alert(openid);
+						alert(openid);
 					}
 				},
 				error: function(xhr) {
@@ -171,13 +171,13 @@
 				wx_openid: openid
 			}),
 			success: function(msg) {
-				alert(msg.result + "////"+msg.desc +"////"+ msg.orders);
+				alert("我寄的"+msg.result + "////"+msg.desc +"////"+ msg.orders[1].order_id);
 				for(var i = 0; i < msg.orders.length; i++) {
-					if(msg.order[i].status=="已签收"){
-						$("#sta").css("background","#000000");
-					}else{
-						$("#sta").css("background","#F75000");
-					}
+//					if(msg.order[i].status=="已签收"){
+//						$("#sta").css("background","#000000");
+//					}else{
+//						$("#sta").css("background","#F75000");
+//					}
 					a = "<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span id='se'>"
 					+msg.orders[i].order_id+"</span>" +	"</p><p>订单状态<span id='sta'>"
 					+msg.orders[i].receive+"</span></p></div><div class='yundan_3'><div class='yundan_3_1'>" +
@@ -211,13 +211,13 @@
 				wx_openid: openid
 			}),
 			success: function(msg) {
-				alert(msg.result + "////"+msg.desc +"////"+ msg.orders);
+				alert("我收的"+msg.result + "////"+msg.desc +"////"+ msg.orders[0].order_id);
 				for(var i = 0; i < msg.orders.length; i++) {
-					if(msg.order[i].status=="已签收"){
-						$("#sta").css("background","#000000");
-					}else{
-						$("#sta").css("background","#F75000");
-					}
+//					if(msg.order[i].status=="已签收"){
+//						$("#sta").css("background","#000000");
+//					}else{
+//						$("#sta").css("background","#F75000");
+//					}
 					a = "<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span id='se'>"
 					+msg.orders[i].order_id+"</span>" +	"</p><p>订单状态<span id='sta'>"
 					+msg.orders[i].receive +"</span></p></div><div class='yundan_3'><div class='yundan_3_1'>" +
