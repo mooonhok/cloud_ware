@@ -79,12 +79,12 @@
 	</script>
 	<script type="text/javascript">
 		$(".tu").on("click", function() {
-			alert('ok')
+	//		alert('ok')
 		})
 	</script>
 	<script type="text/javascript">
 		$(".yundan_3_1").on("click", function() {
-			alert('ok')
+	//		alert('ok')
 		})
 	</script>
 	<script>
@@ -171,7 +171,7 @@
 				wx_openid: openid
 			}),
 			success: function(msg) {
-				alert(msg.result + "////" + msg.order_id);
+				alert(msg.result + "////" + msg.orders);
 				for(var i = 0; i < msg.orders.length; i++) {
 					a = "<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders[i].order_id+"</span>" +	"</p><p>签收时间:<span>"
@@ -180,9 +180,9 @@
 					+msg.orders[i].sendcity+"</h3><p>"
 					+msg.orders[i].sendname+"</p></div>" +
 						"<div class='yundan_2_2'><p>"
-					+msg.order[i].status+"</p></div><div class='yundan_2_1'><h3>"
-					+msg.order[i].acceptcity+"</h3><p>"
-					+msg.order[i].acceptname+"</p>" +
+					+msg.orders[i].status+"</p></div><div class='yundan_2_1'><h3>"
+					+msg.orders[i].acceptcity+"</h3><p>"
+					+msg.orders[i].acceptname+"</p>" +
 						"</div></div></div><div class='xian'></div><div class='kongbai'></div>";
 					$(".box1").text(a);
 				};
@@ -215,9 +215,9 @@
 					+msg.orders[i].sendcity+"</h3><p>"
 					+msg.orders[i].sendname+"</p></div>" +
 						"<div class='yundan_2_2'><p>"
-					+msg.order[i].status+"</p></div><div class='yundan_2_1'><h3>"
-					+msg.order[i].acceptcity+"</h3><p>"
-					+msg.order[i].acceptname+"</p>" +
+					+msg.orders[i].status+"</p></div><div class='yundan_2_1'><h3>"
+					+msg.orders[i].acceptcity+"</h3><p>"
+					+msg.orders[i].acceptname+"</p>" +
 						"</div></div></div><div class='xian'></div><div class='kongbai'></div>";
 					$(".box2").text(a);
 				};	
