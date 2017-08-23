@@ -5,53 +5,24 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>我的运单</title>
 	<link rel="stylesheet" href="css/wodeyundan2.css">
-	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-       <!--  <script type="text/javascript">
-            $(function(){
-                //改变div的高度
-                $(".box").css("height", $(window).height());
-            });
-        </script> -->
+	
+       
 </head>
 <body>
 	<div class="box">
 		<!-- top -->
 		<div class="top">
-			<p>运单号 : <span>786689867749</span></p>
+			<p>运单号 :<span>786689867749</span></p>
 		</div>
+		<div class="xian1"></div>
 		<!-- top1 -->
 		<div class="top1">
-			<div class="top1-1"><a href="ditu.html">地图模式</a></div>
-			<div class="top1-2">文字模式</div>
+			<div class="top1-1"><h4>地图模式</h4></div>
+			<div class="top1-2"><h4>文字模式</h4></div>
 		</div>
 		<div class="top1-3"></div>
 		<div class="top1-4"></div>
-		<!-- center -->
-		<div class="center">
-		<div class="center1">
-					
-			<div class="yuan1"></div>
-			<div class="xian1"></div>
-			<div class="yuan2"></div>
-			<div class="xian2"></div>
-			<div class="yuan3"></div>
-			<div class="xian3"></div>
-			<div class="yuan4"></div>
-			<div class="xian4"></div>
-			<div class="yuan5"></div>
-			<div class="xian5"></div>
-			<div class="yuan6"></div>
-			<div class="xian6"></div>
-			<div class="yuan7"></div>
-			
-		</div>
-		<div class="chufa">
-			靖江
-		</div>	
-		<div class="mudi">
-			广州
-		</div>
-		</div>
+		
 
 		<!-- foot -->
 		<div class="foot">
@@ -70,7 +41,7 @@
 			<div class="sxian5"></div>
 			<div class="syuan6"></div>
 			<div class="sxian6"></div>
-			<div class="syuan7"><div class="syuan7-1"></div></div>
+			<div class="syuan7"></div>
 
 			<div style="clear:both;"></div>
 			</div>
@@ -87,6 +58,8 @@
 				
 			</div>
 
+			<div class="xian"></div>
+
 			<div class="foot3">
 				<div class="foot3-1">
 					入库
@@ -95,6 +68,8 @@
 					03-08 12 : 13
 				</div>	
 			</div>
+			<div class="xian"></div>
+
 			<div class="foot4">
 				<div class="foot4-1">
 					出库
@@ -103,6 +78,8 @@
 					03-09 10 : 00
 				</div>
 			</div>
+
+			<div class="xian"></div>
 
 			<div class="foot5">
 				<div class="foot5-1">
@@ -113,6 +90,8 @@
 				</div>
 			</div>
 
+			<div class="xian"></div>
+
 			<div class="foot6">
 				<div class="foot6-1">
 					到达
@@ -122,15 +101,19 @@
 				</div>
 			</div>	
 
+			<div class="xian"></div>
+
 			<div class="foot7">
 				<div class="foot7-1">
 					收货
 				</div>
 				<div class="foot7-2">
 					03-11 14 : 13
-				</div>
-				
+				</div>				
 			</div>	
+
+			<div class="xian"></div>
+
 			<div class="tianchong"></div>	
 			<div class="foot8">
 				<div class="foot8-1">
@@ -141,10 +124,35 @@
 
 			<div style="clear:both;"></div>
 		</div>
+
+		<div class="center">
+			<div class="center1-1">发站:<span>靖江市</span></div>
+			<div class="center1-2">到站:<span>广州市</span></div>
+		
+		<div class="xian1"></div>
+		<div class="ditu">
+		<img src="images/ditu.png" alt="">	
+		</div>
 		<div style="clear:both;"></div>
+		</div>
+
 	</div>
 </body>
-<script type="text/javascript">
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
 	$(".top1-3").hide();
-</script>
+	$(".center").css("display","none");
+	$(".top1-1").on("click",function(){
+		$(".top1-4").hide();
+	    $(".foot").css("display","none");
+		$(".top1-3").show();
+	    $(".center").css("display","block");
+	})
+	$(".top1-2").on("click",function(){
+		$(".top1-3").hide();
+	    $(".center").css("display","none");
+		$(".top1-4").show();
+	    $(".foot").css("display","block");
+	})
+	</script>
 </html>
