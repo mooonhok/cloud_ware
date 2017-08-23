@@ -103,7 +103,7 @@
 					wx_openid: openid
 				}),
 				success: function(msg) {
-					alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
+//					alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
 					if(msg.result == 0) {
 						window.location.href = "zhucequeding.html";
 					} else {
@@ -171,7 +171,7 @@
 				wx_openid: openid
 			}),
 			success: function(msg) {
-				alert(msg.result + "////" + msg.orders);
+				alert(msg.result + "////"+msg.desc +"////"+ msg.orders);
 				for(var i = 0; i < msg.orders.length; i++) {
 					a = "<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders[i].order_id+"</span>" +	"</p><p>签收时间:<span>"
@@ -206,7 +206,7 @@
 				wx_openid: openid
 			}),
 			success: function(msg) {
-				alert(msg.result + "////" + msg.order_id);
+				alert(msg.result + "////"+msg.desc +"////"+ msg.orders);
 				for(var i = 0; i < msg.orders.length; i++) {
 					a = "<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders[i].order_id+"</span>" +	"</p><p>签收时间:<span>"
