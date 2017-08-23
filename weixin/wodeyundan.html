@@ -1,167 +1,230 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1,minimum-scale=0.1,user-scalable=0" name="viewport">
-		 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-		  <script type="text/javascript" src="js/jquery.cookie.js"></script>
-		  <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 		<link rel="stylesheet" href="css/wodeyundan.css">
 		<title>我的运单</title>
 	</head>
+
 	<body>
-	<div class="box">
-	    <div class="top2">
+		<div class="box">
+			<div class="top2">
 
-	    	<div class="yundanghao">
-				<div class="rongqi">
-				<div class="kuang">
-	    		<input id="yundanhao"  type="text" placeholder="请输入要查询的运单号">
-	    		</div>
+				<div class="yundanghao">
+					<div class="rongqi">
+						<div class="kuang">
+							<input id="yundanhao" type="text" placeholder="请输入要查询的运单号">
+						</div>
 
-                <div class="tu">
-	    		<img src="images/saoma.png" alt="">
+						<div class="tu">
+							<img src="images/saoma.png" alt="">
+						</div>
+					</div>
 				</div>
-               </div>
-	    	</div>
 
-	    </div>
-	<!-- center -->
-	<div class="center">
+			</div>
+			<!-- center -->
+			<div class="center">
 
-		<div class="BT">
-		<div class="center1"><h3>我寄的</h3></div>		
-		
-		<div class="center2"><h3>我收的</h3></div>
-		
-        </div>
-        <div class="BT2">
-        	<div class="center1_1"></div>
-        	<div class="center2_1"></div>
-        </div>
+				<div class="BT">
+					<div class="center1">
+						<h3>我寄的</h3></div>
 
-		<div class="box1">
+					<div class="center2">
+						<h3>我收的</h3></div>
 
+				</div>
+				<div class="BT2">
+					<div class="center1_1"></div>
+					<div class="center2_1"></div>
+				</div>
 
-			
+				<div class="box1">
+
+				</div>
+
+				<div class="box2">
+
+				</div>
+
+			</div>
+
 		</div>
 
-		<div class="box2">
-		
-		</div>
-
-	</div>
-
-	</div>
-		
 	</body>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-	 <script type="text/javascript" src="js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script type="text/javascript">
 		$(".box2").hide();
-		$(".center1_1").css("border","1px solid #AAF0EB");
-		$(".center2").on("click",function(){
+		$(".center1_1").css("border", "1px solid #AAF0EB");
+		$(".center2").on("click", function() {
 			$(".box1").hide();
 			$(".box2").show();
-			$(".center1_1").css("border","1px solid white");			
-			$(".center2_1").css("border","1px solid #AAF0EB");
-			
+			$(".center1_1").css("border", "1px solid white");
+			$(".center2_1").css("border", "1px solid #AAF0EB");
+
 		})
-		$(".center1").on("click",function(){
+		$(".center1").on("click", function() {
 			$(".box2").hide();
 			$(".box1").show();
-			$(".center2_1").css("border","1px solid white");					
-			$(".center1_1").css("border","1px solid #AAF0EB");
-			
-		})
+			$(".center2_1").css("border", "1px solid white");
+			$(".center1_1").css("border", "1px solid #AAF0EB");
 
+		})
 	</script>
 	<script type="text/javascript">
-		$(".tu").on("click",function(){
+		$(".tu").on("click", function() {
 			alert('ok')
 		})
 	</script>
 	<script type="text/javascript">
-		$(".yundan_3_1").on("click",function(){
+		$(".yundan_3_1").on("click", function() {
 			alert('ok')
 		})
 	</script>
-    <script>
-    	//判断openid是否已经被注册
-    	var openid=$.cookie('openid');
-		if(openid!=null){	
+	<script>
+		//判断openid是否已经被注册
+		var openid = $.cookie('openid');
+		if(openid != null) {
+			$.ajax({
+				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid",
+				beforeSend: function(request) {
+					request.setRequestHeader("tenant-id", "1");
+				},
+				dataType: 'json',
+				type: 'post',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					wx_openid: openid
+				}),
+				success: function(msg) {
+					alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
+					if(msg.result == 0) {
+						window.location.href = "zhucequeding.html";
+					} else {
+						alert(openid);
+					}
+				},
+				error: function(xhr) {
+					alert("获取后台失败！" + xhr.responseText);
+				}
+
+			});
+		}
+	</script>
+	<script>
+//		//查询运单
+//		$("#yundanhao").on('keyup',function(){
+//	     var order_id=$("#yundanhao").val();
+//	    alert(order_id);
+//		$.ajax({
+//			url: "",
+//			beforeSend: function(request) {
+//				request.setRequestHeader("tenant-id", "1");
+//			},
+//			dataType: 'json',
+//			type: 'post',
+//			contentType: "application/json;charset=utf-8",
+//			data: JSON.stringify({
+//				wx_openid: openid,
+//				order_id:order_id
+//			}),
+//			success: function(msg) {
+////				alert(msg.result + "////" + msg.order_id);
+//				for(var i = 0; i < msg.orders.length; i++) {
+//					a = "<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
+//					+msg.orders[i].order_id+"</span>" +	"</p><p>签收时间:<span>"
+//					+2017 - 7 - 31 14: 57 +"</span></p></div><div class='yundan_3'><div class='yundan_3_1'>" +
+//						"<h2>结</h2>" + "<h2>算</h2>" + "</div></div><div class='yundan_2'><div class='yundan_2_1'><h3>"
+//					+msg.orders[i].sendcity+"</h3><p>"
+//					+msg.orders[i].sendname+"</p></div>" +
+//						"<div class='yundan_2_2'><p>"
+//					_已签收_ "</p></div><div class='yundan_2_1'><h3>"
+//					+msg.order[i].acceptcity+"</h3><p>"
+//					+msg.order[i].acceptname+"</p>" +
+//						"</div></div></div><div class='xian'></div><div class='kongbai'></div>";
+//					$(".box1").text(a);
+//				}
+//			}
+//		},   
+//		  });
+	</script>
+	<script>
+		//扫一扫
+	</script>
+	<script>
+		//我寄的
 		$.ajax({
-			 url :"http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid",
-		             beforeSend: function(request) {  
-                        request.setRequestHeader("tenant-id", "1");  
-                    },
-			        dataType:'json',
-			        type:'post',
-			        contentType:"application/json;charset=utf-8",
-			        data:JSON.stringify({
-                     wx_openid:openid
-			        }),
-			        success:function(msg){
-		        	 alert("用户注册成功"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
-                        if(msg.result==0){
-                        	 window.location.href="zhucequeding.html";
-                        }else{
-                        	alert(openid);
-                        }  
-				    },
-			        error:function(xhr){
-			            alert("获取后台失败！"+xhr.responseText);
-			        }
-			
+			url: "http://mooonhok-cloudware.daoapp.io/order.php/wx_orders_s",
+			beforeSend: function(request) {
+				request.setRequestHeader("tenant-id", "1");
+			},
+			dataType: 'json',
+			type: 'post',
+			contentType: "application/json;charset=utf-8",
+			data: JSON.stringify({
+				wx_openid: openid
+			}),
+			success: function(msg) {
+				alert(msg.result + "////" + msg.order_id);
+				for(var i = 0; i < msg.orders.length; i++) {
+					a = "<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
+					+msg.orders[i].order_id+"</span>" +	"</p><p>签收时间:<span>"
+					+msg.orders[i].receive+"</span></p></div><div class='yundan_3'><div class='yundan_3_1'>" +
+						"<h2>结</h2>" + "<h2>算</h2>" + "</div></div><div class='yundan_2'><div class='yundan_2_1'><h3>"
+					+msg.orders[i].sendcity+"</h3><p>"
+					+msg.orders[i].sendname+"</p></div>" +
+						"<div class='yundan_2_2'><p>"
+					+msg.order[i].status+"</p></div><div class='yundan_2_1'><h3>"
+					+msg.order[i].acceptcity+"</h3><p>"
+					+msg.order[i].acceptname+"</p>" +
+						"</div></div></div><div class='xian'></div><div class='kongbai'></div>";
+					$(".box1").text(a);
+				};
+		},
+		error: function(xhr) {
+			alert("获取数据失败");
+		}
 		});
-		}	
-    </script>
-    <script>
-      	//查询运单
-//  	$("#yundanhao").on('keyup',function(){
-//  	     var order_id=$("#yundanhao").val();
-//  	     alert(order_id);
-//  	     $.ajax({
-//  	     	url:"",
-//  	     	 beforeSend: function(request) {  
-//                      request.setRequestHeader("tenant-id", "1");  
-//                  },
-//			        dataType:'json',
-//			        type:'post',
-//			        contentType:"application/json;charset=utf-8",
-//			        data:JSON.stringify({
-//                     order_id:order_id,
-//                     wx_openid:openid
-//			        }),
-//			        success:function(msg){
-//		                alert(msg.result+"////"+msg.order_id);
-//		                for(int i=0;i<json.length;i++){
-//		      a="<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"786 689 867 749"</span>"
-//			    +"</p><p>签收时间:<span>"2017-7-31 14:57"</span></p></div><div class='yundan_3'><div class='yundan_3_1'>"
-//			    +"<h2>结</h2>"+"<h2>算</h2>"+"</div></div><div class='yundan_2'><div class='yundan_2_1'><h3>"芜湖市"</h3><p>"蒋修松"</p></div>"
-//				+"<div class='yundan_2_2'><p>"_已签收_"</p></div><div class='yundan_2_1'><h3>"南通市"</h3><p>"陈高然"</p>"
-//				+"</div></div></div><div class='xian'></div><div class='kongbai'></div>";
-//				$(".box1").text(a);
-//		         }
-//		      }
-//		 },
-//	   error:function(xhr){
-//		  alert("获取数据失败");     
-//	    }
-//  	 });     
-//  });
-    </script>
-    <script>
-    	//扫一扫
-    	$(".tu").('click',function(){
-    		wx.scanQRCode({
-          needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-          scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
-          success: function (res) {
-           var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-           alert(result);
-          }
-          });
-    	});
-    </script>
+	</script>
+	<script>
+		//我收的
+		$.ajax({
+			url: "http://mooonhok-cloudware.daoapp.io/order.php/wx_orders_r",
+			beforeSend: function(request) {
+				request.setRequestHeader("tenant-id", "1");
+			},
+			dataType: 'json',
+			type: 'post',
+			contentType: "application/json;charset=utf-8",
+			data: JSON.stringify({
+				wx_openid: openid
+			}),
+			success: function(msg) {
+				alert(msg.result + "////" + msg.order_id);
+				for(var i = 0; i < msg.orders.length; i++) {
+					a = "<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
+					+msg.orders[i].order_id+"</span>" +	"</p><p>签收时间:<span>"
+					+msg.orders[i].receive +"</span></p></div><div class='yundan_3'><div class='yundan_3_1'>" +
+						"<h2>结</h2>" + "<h2>算</h2>" + "</div></div><div class='yundan_2'><div class='yundan_2_1'><h3>"
+					+msg.orders[i].sendcity+"</h3><p>"
+					+msg.orders[i].sendname+"</p></div>" +
+						"<div class='yundan_2_2'><p>"
+					+msg.order[i].status+"</p></div><div class='yundan_2_1'><h3>"
+					+msg.order[i].acceptcity+"</h3><p>"
+					+msg.order[i].acceptname+"</p>" +
+						"</div></div></div><div class='xian'></div><div class='kongbai'></div>";
+					$(".box2").text(a);
+				};	
+		},
+		error: function(xhr) {
+			alert("获取数据失败");
+		}
+		});
+	</script>
 </html>
