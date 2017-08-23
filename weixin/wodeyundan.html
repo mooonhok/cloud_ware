@@ -44,11 +44,11 @@
 					<div class="center2_1"></div>
 				</div>
 
-				<div class="box1">
+				<div class="box1" id="bo1">
 
 				</div>
 
-				<div class="box2">
+				<div class="box2" id="bo2">
 
 				</div>
 
@@ -184,7 +184,7 @@
 					+msg.orders[i].acceptcity+"</h3><p>"
 					+msg.orders[i].acceptname+"</p>" +
 						"</div></div></div><div class='xian'></div><div class='kongbai'></div>";
-					$(".box1").text(a);
+					$("#bo1").append(a);
 				};
 		},
 		error: function(xhr) {
@@ -219,7 +219,7 @@
 					+msg.orders[i].acceptcity+"</h3><p>"
 					+msg.orders[i].acceptname+"</p>" +
 						"</div></div></div><div class='xian'></div><div class='kongbai'></div>";
-					$(".box2").text(a);
+					$("#bo2").append(a);
 				};	
 		},
 		error: function(xhr) {
