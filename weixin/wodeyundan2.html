@@ -130,7 +130,7 @@
 				type: 'post',
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({
-					order_id: order_id
+					order_id:order_id
 				}),
 				success: function(msg) {
 					if(msg.orders==null){
@@ -162,24 +162,24 @@
 					          +msg.orders.order_time5+"</div>";
 					 $(".foot7").html(shouhuo);
 					 if(msg.orders.order_time0!=null){
-					 	$(".syuan1").css("color", "#02F78E");
+					 	$(".syuan1").css("background", "#02F78E");
 					 	if(msg.orders.order_time1!=null){
-					 		$(".syuan2").css("color", "#02F78E");
-					 		$(".sxian1").css("color", "#02F78E");
+					 		$(".syuan2").css("background", "#02F78E");
+					 		$(".sxian1").css("background", "#02F78E");
 					 		if(msg.orders.order_time2!=null){
-					 			$(".syuan3").css("color", "#02F78E");
-					 		    $(".sxian2").css("color", "#02F78E");
+					 			$(".syuan3").css("background", "#02F78E");
+					 		    $(".sxian2").css("background", "#02F78E");
 					 		    if(msg.orders.order_time3!=null){
-					 		    	$(".syuan4").css("color", "#02F78E");
-					 		        $(".sxian3").css("color", "#02F78E");
+					 		    	$(".syuan4").css("background", "#02F78E");
+					 		        $(".sxian3").css("background", "#02F78E");
 					 		        if(msg.orders.order_time4!=null){
-					 		        	$(".syuan5").css("color", "#02F78E");
-					 		            $(".sxian4").css("color", "#02F78E");
+					 		        	$(".syuan5").css("background", "#02F78E");
+					 		            $(".sxian4").css("background", "#02F78E");
 					 		          if(msg.orders.order_time5!=null){
-					 		          	$(".syuan6").css("color", "#02F78E");
-					 		            $(".sxian5").css("color", "#02F78E");
-					 		            $(".sxian6").css("color", "#02F78E");
-					 		            $(".syuan7").css("color", "#02F78E");
+					 		          	$(".syuan6").css("background", "#02F78E");
+					 		            $(".sxian5").css("background", "#02F78E");
+					 		            $(".sxian6").css("background", "#02F78E");
+					 		            $(".syuan7").css("background", "#02F78E");
 					 		           var wc="<div class='foot8-1'>运输完成</div>";
 					 		           $(".foot8").html(wc);
 					 		          }
