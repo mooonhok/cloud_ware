@@ -162,9 +162,8 @@ $app->post('/wxmessages',function()use($app){
                 $data4 = $stmt->fetch();
                 $array['goods']=$data4;
                 array_push($array1,$array);
-                echo  json_encode(array("result"=>"0","desc"=>"success","wxmessage"=>$data1));
             }
-            echo  json_encode(array("result"=>"0","desc"=>"success","wxmessage"=>$data));
+            echo  json_encode(array("result"=>"0","desc"=>"success","wxmessage"=>$array1));
         }else {
             $selectStatement = $database->select()
                 ->from('wx_message')
