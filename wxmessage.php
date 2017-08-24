@@ -129,6 +129,7 @@ $app->post('/wxmessages',function()use($app){
             $array1=array();
             for($i=0;$i<$num1;$i++){
                 $array=array();
+                $array['wxmessage']=$data[$i];
                 $selectStatement = $database->select()
                     ->from('orders')
                     ->where('tenant_id','=',$tenant_id)
