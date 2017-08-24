@@ -858,12 +858,12 @@ $app->post('/wx_order_z', function () use ($app) {
             $data2= $stmt->fetch();
             if($data2!=null){
                 $array['order_status']=$data2['order_status'];
-                $array['order_time0']=$data2['order_time0'];
-                $array['order_time1']=$data2['order_time1'];
-                $array['order_time2']=$data2['order_time2'];
-                $array['order_time3']=$data2['order_time3'];
-                $array['order_time4']=$data2['order_time4'];
-                $array['order_time5']=$data2['order_time5'];
+                $array['order_time0']=$data2['order_datetime0'];
+                $array['order_time1']=$data2['order_datetime1'];
+                $array['order_time2']=$data2['order_datetime2'];
+                $array['order_time3']=$data2['order_datetime3'];
+                $array['order_time4']=$data2['order_datetime4'];
+                $array['order_time5']=$data2['order_datetime5'];
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('exist', "=", 0)
