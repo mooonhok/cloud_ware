@@ -32,8 +32,6 @@ $app->post('/wxmessage',function()use($app){
     $goods_name =$body->goods_name;
     $goods_weight =$body->goods_weight;
     $goods_capacity=$body->goods_capacity;
-    $title=$body->title;
-    $content=$body->content;
     $array=array();
     foreach($body as $key=>$value){
         $array[$key]=$value;
@@ -145,7 +143,12 @@ $app->post('/wxmessages',function()use($app){
                     ->where('customer_id','=',$data1['sender_id']);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetch();
-                $array['sender']=$data2;
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id','=',$data2['customer_city_id']);
+                $stmt = $selectStatement->execute();
+                $data5 = $stmt->fetch();
+                $array['sender_city']=$data5['name'];
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('tenant_id','=',$tenant_id)
@@ -153,6 +156,12 @@ $app->post('/wxmessages',function()use($app){
                     ->where('customer_id','=',$data1['receiver_id']);
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id','=',$data3['customer_city_id']);
+                $stmt = $selectStatement->execute();
+                $data6 = $stmt->fetch();
+                $array['receiver_city']=$data6['name'];
                 $array['receiver']=$data3;
                 $selectStatement = $database->select()
                     ->from('goods')
@@ -178,6 +187,7 @@ $app->post('/wxmessages',function()use($app){
             $array1 = array();
             for ($i = 0; $i < $num1; $i++) {
                 $array = array();
+                $array['wxmessage']=$data[$i];
                 $selectStatement = $database->select()
                     ->from('orders')
                     ->where('tenant_id', '=', $tenant_id)
@@ -193,6 +203,12 @@ $app->post('/wxmessages',function()use($app){
                     ->where('customer_id', '=', $data1['sender_id']);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id','=',$data2['customer_city_id']);
+                $stmt = $selectStatement->execute();
+                $data5 = $stmt->fetch();
+                $array['sender_city']=$data5['name'];
                 $array['sender'] = $data2;
                 $selectStatement = $database->select()
                     ->from('customer')
@@ -201,6 +217,12 @@ $app->post('/wxmessages',function()use($app){
                     ->where('customer_id', '=', $data1['receiver_id']);
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id','=',$data3['customer_city_id']);
+                $stmt = $selectStatement->execute();
+                $data6 = $stmt->fetch();
+                $array['receiver_city']=$data6['name'];
                 $array['receiver'] = $data3;
                 $selectStatement = $database->select()
                     ->from('goods')
