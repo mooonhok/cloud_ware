@@ -20,18 +20,23 @@ $app->post('/wxmessage',function()use($app){
     $body=$app->request->getBody();
     $body=json_decode($body);
     $database=localhost();
-    $customer_name1=$body->customer_name1;
-    $customer_phone1 =$body->customer_phone1;
-    $customer_city1=$body->customer_city1;
-    $customer_name2=$body->customer_name2;
-    $customer_phone2 =$body->customer_phone2;
-    $customer_city2=$body->customer_city3;
-    $goods_name =$body->goods_name;
-    $goods_weight =$body->goods_weight;
+    $customer_name_s=$body->customer_name_s;
+    $customer_city_s=$body->customer_city_s;
+    $customer_address_s=$body->customer_address_s;
+    $customer_phone_s=$body->customer_phone_s;
+    $customer_name_a=$body->customer_name_a;
+    $customer_city_a=$body->customer_city_a;
+    $customer_address_a=$body->customer_address_a;
+    $customer_phone_a=$body->customer_phone_a;
+    $goods_name=$body->goods_name;
+    $goods_weight=$body->goods_weight;
     $goods_capacity=$body->goods_capacity;
-    $goods_name =$body->goods_name;
-    $goods_weight =$body->goods_weight;
-    $goods_capacity=$body->goods_capacity;
+    $goods_package=$body->goods_package;
+    $goods_count=$body->goods_count;
+    $special_need=$body->special_need;
+    $good_worth=$body->good_worth;
+    $pay_method=$body->pay_method;
+    $wx_openid=$body->openid;
     $array=array();
     foreach($body as $key=>$value){
         $array[$key]=$value;
@@ -143,6 +148,7 @@ $app->post('/wxmessages',function()use($app){
                     ->where('customer_id','=',$data1['sender_id']);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetch();
+                $array['sender']=$data2;
                 $selectStatement = $database->select()
                     ->from('city')
                     ->where('id','=',$data2['customer_city_id']);
@@ -203,6 +209,7 @@ $app->post('/wxmessages',function()use($app){
                     ->where('customer_id', '=', $data1['sender_id']);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetch();
+                $array['sender']=$data2;
                 $selectStatement = $database->select()
                     ->from('city')
                     ->where('id','=',$data2['customer_city_id']);
