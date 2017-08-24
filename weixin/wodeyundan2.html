@@ -82,7 +82,7 @@
 
 				<div class="xian1"></div>
 				<div class="ditu">
-					<img src="images/ditu.png" alt="">
+					<!--<img src="images/ditu.png" alt="">-->
 				</div>
 				<div style="clear:both;"></div>
 			</div>
@@ -106,7 +106,7 @@
 			$(".foot").css("display", "block");
 		})
 	</script>
-	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	
 	<script>
 		//获取order——id
 	(function($){
@@ -133,46 +133,49 @@
 					order_id: order_id
 				}),
 				success: function(msg) {
-					var sendcity="发站:<span>"+sendcity+"</span>";
+					if(msg.orders==null){
+						alert("订单不存在");
+					}else{
+					var sendcity="发站:<span>"+msg.orders.sendcity+"</span>";
 					$(".center1-1").html(sendcity);
-					var acceptcity="到站:<span>"+receivercity+"</span>";
+					var acceptcity="到站:<span>"+msg.orders.receivercity+"</span>";
 					$(".center1-2").html(sendcity);
 					var xiadan="<div class='foot2-1'>下单成功</div><div class='foot2-2'>"
-						      +order_time0+"</div>";
+						      +msg.orders.order_time0+"</div>";
 					$(".foot2").html(xiadan);
 				    var ruku="<div class='foot3-1'>入库</div><div class='foot3-2'>"
-	                          +order_time1+"</div>";
+	                          +msg.orders.order_time1+"</div>";
 	                 $(".foot3").html(ruku);  
 	                var chuku="<div class='foot4-1'>出库</div><div class='foot4-2'>"
-					          +order_time2+"</div>";
+					          +msg.orders.order_time2+"</div>";
 					 $(".foot4").html(chuku);
-					 if(plate_number==null){
-					 	plate_number="";
+					 if(msg.orders.plate_number==null){
+					 	msg.orders.plate_number="";
 					 }
-					var zaitu="<div class='foot5-1'><p>在途 <span>"+plate_number+"</span></p></div><div class='foot5-2'>"
-						      +order_time3+"</div>";
+					var zaitu="<div class='foot5-1'><p>在途 <span>"+msg.orders.plate_number+"</span></p></div><div class='foot5-2'>"
+						      +msg.orders.order_time3+"</div>";
 					 $(".foot5").html(zaitu);
 					 var daoda="<div class='foot6-1'>到达</div><div class='foot6-2'>"
-					          +order_time4+"</div>";
+					          +msg.orders.order_time4+"</div>";
 					 $(".foot6").html(daoda);
 					 var shouhuo="<div class='foot7-1'>到达</div><div class='foot7-2'>"
-					          +order_time5+"</div>";
+					          +msg.orders.order_time5+"</div>";
 					 $(".foot7").html(shouhuo);
-					 if(order_time0!=null){
+					 if(msg.orders.order_time0!=null){
 					 	$(".syuan1").css("color", "#02F78E");
-					 	if(order_time1!=null){
+					 	if(msg.orders.order_time1!=null){
 					 		$(".syuan2").css("color", "#02F78E");
 					 		$(".sxian1").css("color", "#02F78E");
-					 		if(order_time2!=null){
+					 		if(msg.orders.order_time2!=null){
 					 			$(".syuan3").css("color", "#02F78E");
 					 		    $(".sxian2").css("color", "#02F78E");
-					 		    if(order_time3!=null){
+					 		    if(msg.orders.order_time3!=null){
 					 		    	$(".syuan4").css("color", "#02F78E");
 					 		        $(".sxian3").css("color", "#02F78E");
-					 		        if(order_time4!=null){
+					 		        if(msg.orders.order_time4!=null){
 					 		        	$(".syuan5").css("color", "#02F78E");
 					 		            $(".sxian4").css("color", "#02F78E");
-					 		          if(order_time5!=null){
+					 		          if(msg.orders.order_time5!=null){
 					 		          	$(".syuan6").css("color", "#02F78E");
 					 		            $(".sxian5").css("color", "#02F78E");
 					 		            $(".sxian6").css("color", "#02F78E");
@@ -184,10 +187,11 @@
 					 		    }
 					 		}
 					 	}
-					 }	 
+					 }	
+					};
 				},
 				error: function(xhr) {
-					alert("获取数据失败");
+					alert("运单不存在");
 				}
 			});
           });
