@@ -106,10 +106,13 @@ $app->post('/wxmessage',function()use($app){
     }
 });
 
-$app->get('/wxmessages',function()use($app){
+$app->post('/wxmessages',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $is_read=$body->is_read;
     $page=$app->request->get("page");
     $per_page=$app->request->get("per_page");
     if(($tenant_id!=''||$tenant_id!=null)){
@@ -118,7 +121,7 @@ $app->get('/wxmessages',function()use($app){
                              ->from('wx_message')
                              ->where('tenant_id','=',$tenant_id)
                              ->where('exist',"=",0)
-                             ->where('is_read','=','0')
+                             ->where('is_read','=',$is_read)
                              ->orderBy('ms_date');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
