@@ -12,6 +12,37 @@ use Slim\PDO\Database;
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
+
+//微信添加
+$app->post('/wxmessage',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $database=localhost();
+    $customer_name1=$body->customer_name1;
+    $customer_phone1 =$body->customer_phone1;
+    $customer_city1=$body->customer_city1;
+    $customer_name2=$body->customer_name2;
+    $customer_phone2 =$body->customer_phone2;
+    $customer_city2=$body->customer_city3;
+    $goods_name =$body->goods_name;
+    $goods_weight =$body->goods_weight;
+    $goods_capacity=$body->goods_capacity;
+    $goods_name =$body->goods_name;
+    $goods_weight =$body->goods_weight;
+    $goods_capacity=$body->goods_capacity;
+    $title=$body->title;
+    $content=$body->content;
+    $array=array();
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+
+});
+
+
+
 $app->post('/wxmessage',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id=$app->request->headers->get("tenant-id");
@@ -86,19 +117,98 @@ $app->get('/wxmessages',function()use($app){
             $selectStatement = $database->select()
                              ->from('wx_message')
                              ->where('tenant_id','=',$tenant_id)
-                             ->where('exist',"=",0);
-            $stmt = $selectStatement->execute();
-            $data = $stmt->fetchAll();
-            echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$data));
-        }else{
-            $selectStatement = $database->select()
-                             ->from('wx_message')
-                             ->where('tenant_id','=',$tenant_id)
                              ->where('exist',"=",0)
-                             ->limit((int)$per_page,(int)$per_page*(int)$page);
+                             ->where('is_read','=','0')
+                             ->orderBy('ms_date');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
-            echo json_encode(array("result"=>"0","desc"=>"success","orders"=>$data));
+            $num1=count($data);
+            $array1=array();
+            for($i=0;$i<$num1;$i++){
+                $array=array();
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('exist',"=",0)
+                    ->where('order_id','=',$data[$i]['order_id']);
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetch();
+                $array['orders']=$data1;
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('exist',"=",0)
+                    ->where('customer_id','=',$data1['sender_id']);
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetch();
+                $array['sender']=$data2;
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('exist',"=",0)
+                    ->where('customer_id','=',$data1['receiver_id']);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetch();
+                $array['receiver']=$data3;
+                $selectStatement = $database->select()
+                    ->from('goods')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('exist',"=",0)
+                    ->where('order_id','=',$data[$i]['order_id']);
+                $stmt = $selectStatement->execute();
+                $data4 = $stmt->fetch();
+                $array['goods']=$data4;
+                array_push($array1,$array);
+            }
+            echo  json_encode(array("result"=>"0","desc"=>"success","wxmessage"=>$array));
+        }else {
+            $selectStatement = $database->select()
+                ->from('wx_message')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('exist', "=", 0)
+                ->orderBy('ms_date')
+                ->limit((int)$per_page, (int)$per_page * (int)$page);
+            $stmt = $selectStatement->execute();
+            $data = $stmt->fetchAll();
+            $num1 = count($data);
+            $array1 = array();
+            for ($i = 0; $i < $num1; $i++) {
+                $array = array();
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('exist', "=", 0)
+                    ->where('order_id', '=', $data[$i]['order_id']);
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetch();
+                $array['orders'] = $data1;
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('exist', "=", 0)
+                    ->where('customer_id', '=', $data1['sender_id']);
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetch();
+                $array['sender'] = $data2;
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('exist', "=", 0)
+                    ->where('customer_id', '=', $data1['receiver_id']);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetch();
+                $array['receiver'] = $data3;
+                $selectStatement = $database->select()
+                    ->from('goods')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('exist', "=", 0)
+                    ->where('goods_id', '=', $data1['goods_id']);
+                $stmt = $selectStatement->execute();
+                $data4 = $stmt->fetch();
+                $array['goods'] = $data4;
+                array_push($array1, $array);
+            }
+            echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
         }
     }else{
         echo json_encode(array("result"=>"1","desc"=>"信息不全","orders"=>""));
