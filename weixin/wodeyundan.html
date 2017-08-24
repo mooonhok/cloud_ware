@@ -146,7 +146,7 @@
 							 +msg.orders[i].order_id+"</span></p><p>订单状态:<span id='sta'>"
 							 +msg.orders[i].receive+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><h3>"
 							 +msg.orders[i].sendcity+"</h3><p>"
-							 +msg.orders[i].sendname+"</p></div><div class='yundan_2_2'><p id='stus'>"
+							 +msg.orders[i].sendname+"</p></div><div class='yundan_2_2'><p class='stus'>"
 							 +msg.orders[i].status+"</p></div><div class='yundan_2_1'><h3>"
 							 +msg.orders[i].acceptcity+"</h3><p>"
 							 +msg.orders[i].acceptname+"</p></div></div></div><div class='yundan_3'><div class='yundan_3_1'>"
@@ -161,7 +161,7 @@
 			                    $(".box1").show();
 							}
 						};
-						if($("#stus").text() == "已签收") {
+						if($(".stus").text() == "已签收") {
 						$("#sta").css("color", "#000000");
 					} else {
 						$("#sta").css("color", "#F75000");
@@ -205,14 +205,14 @@
 							 +msg.orders[i].order_id+"</span></p><p>订单状态:<span id='sta'>"
 							 +msg.orders[i].receive+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><h3>"
 							 +msg.orders[i].sendcity+"</h3><p>"
-							 +msg.orders[i].sendname+"</p></div><div class='yundan_2_2'><p id='stus'>"
+							 +msg.orders[i].sendname+"</p></div><div class='yundan_2_2'><p class='stus'>"
 							 +msg.orders[i].status+"</p></div><div class='yundan_2_1'><h3>"
 							 +msg.orders[i].acceptcity+"</h3><p>"
 							 +msg.orders[i].acceptname+"</p></div></div></div><div class='yundan_3'><div class='yundan_3_1'>"
 							 +"<h2>结</h2><h2>算</h2></div></div><div class='xian'></div><div class='kongbai'></div>";
 					$("#bo1").append(a);
 				};
-					if($("#stus").text() == "已签收") {
+					if($(".stus").text() == "已签收") {
 						$("#sta").css("color", "#000000");
 					} else {
 						$("#sta").css("color", "#F75000");
@@ -250,14 +250,14 @@
 							 +msg.orders[i].order_id+"</span></p><p>订单状态:<span id='sta'>"
 							 +msg.orders[i].receive+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><h3>"
 							 +msg.orders[i].sendcity+"</h3><p>"
-							 +msg.orders[i].sendname+"</p></div><div class='yundan_2_2'><p id='stus'>"
+							 +msg.orders[i].sendname+"</p></div><div class='yundan_2_2'><p class='stus'>"
 							 +msg.orders[i].status+"</p></div><div class='yundan_2_1'><h3>"
 							 +msg.orders[i].acceptcity+"</h3><p>"
 							 +msg.orders[i].acceptname+"</p></div></div></div><div class='yundan_3'><div class='yundan_3_1'>"
 							 +"<h2>结</h2><h2>算</h2></div></div><div class='xian'></div><div class='kongbai'></div>";
 					$("#bo2").append(a);
 				};
-				if($("#stus").text() == "已签收") {
+				if($(".stus").text() == "已签收") {
 						$("#sta").css("color", "#000000");
 					} else {
 						$("#sta").css("color", "#F75000");
