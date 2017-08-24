@@ -144,7 +144,7 @@
 					} else {
 						for(var i = 0; i < msg.orders.length; i++) {
 							var a="<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
-							 +msg.orders[i].order_id+"</span></p><p>订单状态:<span class='sta'>"
+							 +order_id+"</span></p><p>订单状态:<span class='sta'>"
 							 +msg.orders[i].receive+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><h3>"
 							 +msg.orders[i].sendcity+"</h3><p>"
 							 +msg.orders[i].sendname+"</p></div><div class='yundan_2_2'><p class='stus'>"
@@ -152,7 +152,7 @@
 							 +msg.orders[i].acceptcity+"</h3><p>"
 							 +msg.orders[i].acceptname+"</p></div></div></div><div class='yundan_3'><div class='yundan_3_1'>"
 							 +"<h2>结</h2><h2>算</h2></div></div><div class='xian'></div><div class='kongbai'></div>";
-							if(msg.fashou == 1) {
+							if(msg.orders[i].fashou == 1) {
 								$("#bo2").html(a);
 								$(".box1").hide();
 			                    $(".box2").show();
@@ -171,10 +171,9 @@
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
 						alert(sendid);
-						//			   window.location.href = "wodeyundan2.html？sendid";
+					     window.location.href = "wodeyundan2.html？order_id="+sendid;
 					});
 					}
-
 				},
 				error: function(xhr) {
 					alert("获取数据失败");
@@ -222,7 +221,7 @@
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
 						alert(sendid);
-						//			   window.location.href = "wodeyundan2.html？sendid";
+					   window.location.href = "wodeyundan2.html？order_id="+sendid;
 					});
 			},
 			error: function(xhr) {
@@ -267,7 +266,7 @@
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
 						alert(sendid);
-						//			   window.location.href = "wodeyundan2.html？sendid";
+					     window.location.href = "wodeyundan2.html？order_id="+sendid;
 					});
 			},
 			error: function(xhr) {
@@ -275,5 +274,4 @@
 			}
 		});
 	</script>
-
 </html>
