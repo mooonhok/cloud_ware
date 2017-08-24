@@ -484,7 +484,6 @@ $app->post('/wx_orders_s', function () use ($app) {
                     }else{
                         echo json_encode(array("result" => "1", "desc" => "ji", "orders" => $array));
                     }
-
                 }
             }
         } else {
@@ -675,6 +674,293 @@ $app->post('/wx_orders_r', function () use ($app) {
     } else {
         echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => ""));
     }
+});
+
+
+//根据订单order_id和wx_openid查出对应的订单
+$app->post('/wx_order', function () use ($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $order_id = $body->order_id;
+    $wx_openid=$body->wx_openid;
+    $database = localhost();
+    if ($tenant_id != null || $tenant_id != "") {
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist', "=", 0)
+            ->where('tenant_id', '=', $tenant_id);
+        $stmt = $selectStatement->execute();
+        $data1= $stmt->fetch();
+        if ($data1 != null) {
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('exist', "=", 0)
+                ->where('wx_openid','=',$wx_openid)
+                ->where('tenant_id', '=', $tenant_id);
+            $stmt = $selectStatement->execute();
+            $data2= $stmt->fetch();
+            if($data2==null){
+                echo json_encode(array("result" => "0", "desc" => "用户不存在", "orders" => ""));
+            }else{
+                if($order_id==null){
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('exist', "=", 0)
+                        ->where('receiver_id','=',$data2['customer_id'])
+                        ->where('tenant_id', '=', $tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data3= $stmt->fetchAll();
+                    $selectStatement = $database->select()
+                        ->from('customer')
+                        ->where('exist', "=", 0)
+                        ->where('customer_id','=',$data2['customer_id'])
+                        ->where('tenant_id', '=', $tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data6= $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('city')
+                        ->where('id', '=', $data6['customer_city_id']);
+                    $stmt = $selectStatement->execute();
+                    $data7= $stmt->fetch();
+                    $num1=count($data3);
+                    $array=array();
+                    for($i=0;$i<$num1;$i++){
+                        $array1=array();
+                        $array1['acceptcity']=$data7['name'];
+                        $array1['acceptname']=$data6['customer_name'];
+                        $array1['order_id']=$data3[$i]['order_id'];
+                        $array1['status']=$data3[$i]['order_status'];
+                        $selectStatement = $database->select()
+                            ->from('order_time')
+                            ->where('exist', "=", 0)
+                            ->where('order_id','=',$data3[$i]['order_id'])
+                            ->where('tenant_id', '=', $tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data8= $stmt->fetch();
+                        if($array1['status']==0){
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
+                        }else if($array1['status']==1){
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
+                        }else if($array1['status']==2){
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
+                        }else if($array1['status']==3){
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
+                        }else if($array1['status']==4){
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
+                        }else if($array1['status']==5){
+                            $array1['receive']='签收时间'.$data8['order_timef'];
+                            $array1['status']='已签收';
+                        }
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('exist', "=", 0)
+                            ->where('customer_id','=',$data3[$i]['sender_id'])
+                            ->where('tenant_id', '=', $tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data4= $stmt->fetch();
+                        $array1['sendname']=$data4['customer_name'];
+
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data4['customer_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data5= $stmt->fetch();
+                        $array1['sendcity']=$data5['name'];
+                        array_push($array,$array1);
+                    }
+                    echo json_encode(array("result" => "1", "desc" => "success", "orders" => $array));
+                }else{
+                    $array=array();
+                    $array1=array();
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('exist', "=", 0)
+                        ->where('order_id','=',$order_id)
+                        ->where('tenant_id', '=', $tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data3= $stmt->fetch();
+                    if($data3!=null){
+                        $array1['status']=$data3['order_status'];
+                        $selectStatement = $database->select()
+                            ->from('order_time')
+                            ->where('exist', "=", 0)
+                            ->where('order_id','=',$data3['order_id'])
+                            ->where('tenant_id', '=', $tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data8= $stmt->fetch();
+                        if($array1['status']==0){
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
+                        }else if($array1['status']==1){
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
+                        }else if($array1['status']==2){
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
+                        }else if($array1['status']==3){
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
+                        }else if($array1['status']==4){
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
+                        }else if($array1['status']==5){
+                            $array1['receive']='签收时间'.$data8['order_timef'];
+                            $array1['status']='已签收';
+                        }
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('exist', "=", 0)
+                            ->where('customer_id','=',$data3['receiver_id'])
+                            ->where('tenant_id', '=', $tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data4= $stmt->fetch();
+                        if($data4['wx_openid']==$wx_openid){
+                          $array1['fashou']=1;
+                        }
+                        $array1['acceptname']=$data4['customer_name'];
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data4['customer_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data5= $stmt->fetch();
+                        $array1['acceptcity']=$data5['name'];
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('exist', "=", 0)
+                            ->where('customer_id','=',$data3['sender_id'])
+                            ->where('tenant_id', '=', $tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data6= $stmt->fetch();
+                        if($data6['wx_openid']==$wx_openid){
+                            $array1['fashou']=2;
+                        }
+                        $array1['sendname']=$data6['customer_name'];
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data4['customer_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data7= $stmt->fetch();
+                        $array1['sendcity']=$data7['name'];
+                        array_push($array,$array1);
+                        echo json_encode(array("result" => "1", "desc" => "", "orders" => $array));
+                    }else{
+                        echo json_encode(array("result" => "1", "desc" => "", "orders" => $array));
+                    }
+                }
+            }
+        } else {
+            echo json_encode(array("result" => "2", "desc" => "租户不存在", "orders" => ""));
+        }
+    } else {
+        echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => ""));
+    }
+});
+
+
+//根据订单order_id查出对应的订单详细信息
+$app->post('/wx_order_z', function () use ($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+//    $tenant_id = $app->request->headers->get("tenant-id");
+//    $body = $app->request->getBody();
+//    $body = json_decode($body);
+//    $order_id = $body->order_id;
+    $order_id = $app->request->get("order_id");
+    $database = localhost();
+    $array=array();
+//    if ($tenant_id != null || $tenant_id != "") {
+//        $selectStatement = $database->select()
+//            ->from('tenant')
+//            ->where('exist', "=", 0)
+//            ->where('tenant_id', '=', $tenant_id);
+//        $stmt = $selectStatement->execute();
+//        $data1= $stmt->fetch();
+//        if ($data1 != null) {
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('exist', "=", 0)
+                ->where('order_id','=',$order_id);
+            $stmt = $selectStatement->execute();
+            $data2= $stmt->fetch();
+            if($data2!=null){
+                $selectStatement = $database->select()
+                    ->from('order_time')
+                    ->where('exist', "=", 0)
+                    ->where('order_id','=',$order_id);
+                $stmt = $selectStatement->execute();
+                $data3= $stmt->fetch();
+
+                $array['order_status']=$data2['order_status'];
+                $array['order_timea']=$data3['order_timea'];
+                $array['order_timeb']=$data3['order_timeb'];
+                $array['order_timec']=$data3['order_timec'];
+                $array['order_timed']=$data3['order_timed'];
+                $array['order_timee']=$data3['order_timee'];
+                $array['order_timef']=$data3['order_timef'];
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('exist', "=", 0)
+                    ->where('customer_id','=',$data2['sender_id'])
+                    ->where('tenant_id', '=', $data2['tenant_id']);
+                $stmt = $selectStatement->execute();
+                $data7= $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data7['customer_city_id']);
+                $stmt = $selectStatement->execute();
+                $data8= $stmt->fetch();
+                $array['sendcity']=$data8['name'];
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('exist', "=", 0)
+                    ->where('customer_id','=',$data2['receiver_id'])
+                    ->where('tenant_id', '=', $data2['tenant_id']);
+                $stmt = $selectStatement->execute();
+                $data9= $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data9['customer_city_id']);
+                $stmt = $selectStatement->execute();
+                $data10= $stmt->fetch();
+                $array['receivercity']=$data10['name'];
+                $selectStatement = $database->select()
+                    ->from('schedule_order')
+                    ->where('exist', "=", 0)
+                    ->where('order_id','=',$order_id)
+                    ->where('tenant_id', '=', $data2['tenant_id']);
+                $stmt = $selectStatement->execute();
+                $data4= $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('scheduling')
+                    ->where('exist', "=", 0)
+                    ->where('scheduling_id','=',$data4['schedule_id'])
+                    ->where('tenant_id', '=', $data2['tenant_id']);
+                $stmt = $selectStatement->execute();
+                $data5= $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('lorry')
+                    ->where('exist', "=", 0)
+                    ->where('lorry_id','=',$data5['lorry_id'])
+                    ->where('tenant_id', '=', $data2['tenant_id']);
+                $stmt = $selectStatement->execute();
+                $data6= $stmt->fetch();
+                $array['plate_number']=$data6['plate_number'];
+                echo json_encode(array("result" => "2", "desc" => "租户不存在", "orders" => $array));
+            }else{
+                echo json_encode(array("result" => "2", "desc" => "租户不存在", "orders" => ""));
+            }
+//        } else {
+//            echo json_encode(array("result" => "2", "desc" => "租户不存在", "orders" => ""));
+//        }
+//    } else {
+//        echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => ""));
+//    }
 });
 
 
