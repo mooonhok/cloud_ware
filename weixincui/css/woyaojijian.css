@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-18 09:58:43
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-08-24 14:25:18
+* @Last Modified time: 2017-08-24 17:19:03
 */
 *{
 	margin: 0;padding: 0;
@@ -558,13 +558,7 @@ html,body{height:100%; width:100%;
 	border: 0;outline-style: none;
 	background: white;
 }
-.jname{display: none;}
-.jphone{display: none;}
-.jdizhi{display: none;}
 
-.jname1{display: none;}
-.jphone1{display: none;}
-.jdizhi1{display: none;}
 
 
 

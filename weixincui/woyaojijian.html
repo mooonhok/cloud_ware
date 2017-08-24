@@ -15,9 +15,6 @@
 		<div class="top1">
 			<div class="wenzi"><span class="span1">寄</span>件人详细地址</div> 
 			<div class="shuru">
-			<input class="jname" type="text">
-			<input class="jphone" type="text">
-			<input class="jdizhi" type="text">
 			</div>
 		<div class="fuhao"><img src="images/left_arrow.png" alt=""></div>
 		</div>
@@ -27,9 +24,6 @@
 		<div class="top2">
 			<div class="wenzi"><span class="span2">收</span>件人详细地址</div>
 			<div class="shuru1">
-			<input class="jname1" type="text">
-			<input class="jphone1" type="text">
-			<input class="jdizhi1" type="text"> 
 			</div> 
 		<div class="fuhao"><img src="images/left_arrow.png" alt=""></div>
 		</div>
@@ -82,7 +76,7 @@
 	    <div class="center_6">
 	    	<div class="wenzi">需求</div> 
 	    	<div class="text1">
-	    		<input type="text" placeholder="默认门店自寄" class="need" disabled="disabled">
+	    		<input type="text" placeholder="门店自寄" class="need" disabled="disabled">
 	    	</div>
 		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
 	    </div>
@@ -602,7 +596,7 @@
    		}else if(str==0){
    			alert("未选择付款方式");
    		}else{
-   			// console.log(shuru+jname+jphone+shuru1+jname1+jphone1+huowu+zhong+tiji+baozhuang+jianshu+needs+jiazhi+str)
+   			console.log(shuru+jname+jphone+shuru1+jname1+jphone1+huowu+zhong+tiji+baozhuang+jianshu+needs+jiazhi+str)
    		  $.ajax({
    		  	  url:"http://mooonhok-cloudware.daoapp.io/goods.php/goods",
    		  	  beforeSend:function(request){
