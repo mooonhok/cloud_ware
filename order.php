@@ -835,11 +835,11 @@ $app->post('/wx_order', function () use ($app) {
 //根据订单order_id查出对应的订单详细信息
 $app->post('/wx_order_z', function () use ($app) {
     $app->response->headers->set('Content-Type', 'application/json');
-//    $tenant_id = $app->request->headers->get("tenant-id");
-//    $body = $app->request->getBody();
-//    $body = json_decode($body);
-//    $order_id = $body->order_id;
-    $order_id = $app->request->get("order_id");
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $order_id = $body->order_id;
+   // $order_id = $app->request->get("order_id");
     $database = localhost();
     $array=array();
 //    if ($tenant_id != null || $tenant_id != "") {
