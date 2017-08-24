@@ -835,11 +835,11 @@ $app->post('/wx_order', function () use ($app) {
 //根据订单order_id查出对应的订单详细信息
 $app->post('/wx_order_z', function () use ($app) {
     $app->response->headers->set('Content-Type', 'application/json');
-    $tenant_id = $app->request->headers->get("tenant-id");
+//    $tenant_id = $app->request->headers->get("tenant-id");
     $body = $app->request->getBody();
     $body = json_decode($body);
     $order_id = $body->order_id;
-   // $order_id = $app->request->get("order_id");
+//    $order_id = $app->request->get("order_id");
     $database = localhost();
     $array=array();
 //    if ($tenant_id != null || $tenant_id != "") {
@@ -858,12 +858,12 @@ $app->post('/wx_order_z', function () use ($app) {
             $data2= $stmt->fetch();
             if($data2!=null){
                 $array['order_status']=$data2['order_status'];
-                $array['order_time0']=$data2['order_datetime0'];
-                $array['order_time1']=$data2['order_datetime1'];
-                $array['order_time2']=$data2['order_datetime2'];
-                $array['order_time3']=$data2['order_datetime3'];
-                $array['order_time4']=$data2['order_datetime4'];
-                $array['order_time5']=$data2['order_datetime5'];
+                $array['order_time0']=$data2['order_time0'];
+                $array['order_time1']=$data2['order_time1'];
+                $array['order_time2']=$data2['order_time2'];
+                $array['order_time3']=$data2['order_time3'];
+                $array['order_time4']=$data2['order_time4'];
+                $array['order_time5']=$data2['order_time5'];
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('exist', "=", 0)
@@ -923,6 +923,104 @@ $app->post('/wx_order_z', function () use ($app) {
 //        echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => ""));
 //    }
 });
+
+//客户端查出微信受理的单子
+$app->post('/wx_orders_s', function () use ($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $order_id = $body->order_id;
+    $database = localhost();
+    $array=array();
+
+
+
+});
+
+
+//客户端对微信的订单受理
+$app->post('/wx_orders_accept', function () use ($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $message_id = $body->message_id;
+    $database = localhost();
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist', "=", 0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data1= $stmt->fetch();
+        if($data1!=null){
+            $selectStatement = $database->select()
+                ->from('wx_message')
+                ->where('exist', "=", 0)
+                ->where('tenant_id','=',$tenant_id)
+                ->where('message_id','=',$message_id);
+            $stmt = $selectStatement->execute();
+            $data2= $stmt->fetch();
+            if($data2!=null){
+                $array=array();
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->where('exist', "=", 0)
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('order_status','=','-1')
+                    ->where('order_id','=',$data2['order_id']);
+                $stmt = $selectStatement->execute();
+                $data3= $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('exist', "=", 0)
+                    ->where('customer_id', '=', $data3['sender_id']);
+                $stmt = $selectStatement->execute();
+                $data4 = $stmt->fetch();
+                $array['sender']=$data4;
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id','=',$data4['customer_city_id']);
+                $stmt = $selectStatement->execute();
+                $data5 = $stmt->fetch();
+                $array['sender_city']=$data5['name'];
+//                $array['sender'] = $data2;
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('exist', "=", 0)
+                    ->where('customer_id', '=', $data3['receiver_id']);
+                $stmt = $selectStatement->execute();
+                $data6 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id','=',$data6['customer_city_id']);
+                $stmt = $selectStatement->execute();
+                $data7 = $stmt->fetch();
+                $array['receiver_city']=$data7['name'];
+                $array['receiver'] = $data6;
+                $selectStatement = $database->select()
+                    ->from('goods')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('exist', "=", 0)
+                    ->where('order_id', '=', $data2['order_id']);
+                $stmt = $selectStatement->execute();
+                $data8 = $stmt->fetch();
+                $array['goods'] = $data8;
+                echo json_encode(array("result" => "1", "desc" => "", "wx_message" => $array));
+            }else{
+                echo json_encode(array("result" => "2", "desc" => "租户不存在", "wx_message" =>""));
+            }
+        }else{
+            echo json_encode(array("result" => "3", "desc" => "租户不存在", "wx_message" => ""));
+        }
+    }else{
+        echo json_encode(array("result" => "4", "desc" => "租户不存在", "wx_message" => ""));
+    }
+});
+
 
 
 $app->run();
