@@ -163,7 +163,7 @@ $app->post('/wxmessages',function()use($app){
                 $array['goods']=$data4;
                 array_push($array1,$array);
             }
-            echo  json_encode(array("result"=>"0","desc"=>"success","wxmessage"=>$array));
+            echo  json_encode(array("result"=>"0","desc"=>"success","wxmessage"=>$data));
         }else {
             $selectStatement = $database->select()
                 ->from('wx_message')
@@ -211,7 +211,7 @@ $app->post('/wxmessages',function()use($app){
                 $array['goods'] = $data4;
                 array_push($array1, $array);
             }
-            echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
+            echo json_encode(array("result" => "0", "desc" => "success", "orders" => $array));
         }
     }else{
         echo json_encode(array("result"=>"1","desc"=>"信息不全","orders"=>""));
