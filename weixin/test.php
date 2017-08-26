@@ -1,25 +1,25 @@
 <?php
-require_once "../test4.php";
+require_once "test4.php";
 $jssdk = new JSSDK("wx15ef051f9f0bba92", "57ea0ee4abf4f4c6d6e38c88a289e687");
 $signPackage = $jssdk->GetSignPackage();
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
     <meta charset="UTF-8">
-    	<style type="text/css">
     	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-    <style type="text/css">
+        <style type="text/css">
     	#saoman{
     		height:60px;
     		width:80px;
     	}
+    	</style>
     <title></title>
 </head>
 <body>
-   <div id="saoman">扫码<div>
+   <div id='saoman'>扫码<div>
 </body>
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
 <script>
     /*
      * 注意：
@@ -43,12 +43,6 @@ $signPackage = $jssdk->GetSignPackage();
         ]
     });
     wx.ready(function () { 
-//// 9 微信原生接口  
-//// 9.1.1 扫描二维码并返回结果  
-//document.querySelector('#s').onclick = function () {  
-//  wx.scanQRCode();  
-//};  
-  // 9.1.2 扫描二维码并返回结果  
   document.querySelector('#saoman').onclick = function () {  
     wx.scanQRCode({  
       needResult: 1,  
@@ -65,4 +59,3 @@ wx.error(function (res) {
 }); 
 </script>
 </html>
-
