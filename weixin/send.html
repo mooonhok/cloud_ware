@@ -480,7 +480,6 @@
 			        type:'get',
 			        contentType:"application/json;charset=utf-8",
 			        data:JSON.stringify({
-			        	pid:pid
 			        }),
 			        success:function(msg){
  //                      alert("city结果"+msg.result+"/////"+msg.desc+"//////"+msg.city);
@@ -597,11 +596,11 @@
    $(".tijiao").on('click',function(){
    		var shuru = $(".shuru").html();
    		var jname = $(".name2").val();
-   		var jphone = parseInt($(".phone2").val());
+   		var jphone = $(".phone2").val();
    		var jdizhi = parseInt($("#city1 option:selected").val());
    		var shuru1 = $(".shuru1").html()
    		var jname1 = $(".name3").val();
-   		var jphone1 = parseInt($(".phone3").val());
+   		var jphone1 = $(".phone3").val();
    		var jdizhi1 = parseInt($("#city2 option:selected").val());
    		var huowu = $(".huowu").val();
    		var str1 = $(".zhong").val();
@@ -627,7 +626,7 @@
             message: "发货人信息不全",
             size: 'small'
     })
-   		}else if(shuru1==""||jname1==""||jphone1==0||jdizhi1==""){
+   		}else if(shuru1==""||jname1==""||jphone1==""||jdizhi1==""){
    			bootbox.setLocale("zh_Cn");
    			bootbox.alert({
             message: "收件人信息不全",
