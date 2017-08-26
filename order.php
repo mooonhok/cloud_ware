@@ -1012,8 +1012,6 @@ $app->post('/wx_orders_accept', function () use ($app) {
                 $array['goods']=$data8;
                 $selectStatement = $database->select()
                     ->from('goods_package')
-                    ->where('tenant_id', '=', $tenant_id)
-                    ->where('exist', "=", 0)
                     ->where('goods_package_id', '=', $data8['goods_package_id']);
                 $stmt = $selectStatement->execute();
                 $data9 = $stmt->fetch();
