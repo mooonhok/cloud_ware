@@ -12,7 +12,7 @@ use Slim\PDO\Database;
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
-$app->post('/province',function ()use($app){
+$app->get('/province',function ()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database=localhost();
     $selectStatement = $database->select()
@@ -22,12 +22,10 @@ $app->post('/province',function ()use($app){
     echo  json_encode(array("result"=>"0","desc"=>"success","province"=>$data));
 });
 
-$app->post('/city',function()use($app){
+$app->get('/city',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database=localhost();
-    $body = $app->request->getBody();
-    $body=json_decode($body);
-    $pid=$body->pid;
+    $pid=$app->request->headers->get('pid');
     if($pid!=null||$pid!=""){
             $selectStatement = $database->select()
                 ->from('city')

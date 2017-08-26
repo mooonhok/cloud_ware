@@ -25,7 +25,8 @@
 
 				<div class="box_center1"><input id="customername" placeholder="货主名称"></div>
 
-				<div class="box_center1"><input id="customertel"  placeholder="手机号码"></div>
+				<div class="box_center1"><input id="customertel"  placeholder="手机号码" pattern="[0-9]*" type="tel"></div>
+
 
 				</div>
 			<div class="box_buttom">
@@ -38,15 +39,14 @@
 		var openid=$.cookie('openid');
 		if(openid!=null){	
 		$.ajax({
-			 url :"http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid",
+			 url :"http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid?wx_openid="+openid,
 		             beforeSend: function(request) {  
                         request.setRequestHeader("tenant-id", "1");  
                     },
 			        dataType:'json',
-			        type:'post',
+			        type:'get',
 			        contentType:"application/json;charset=utf-8",
 			        data:JSON.stringify({
-                     wx_openid:openid
 			        }),
 			        success:function(msg){
 		        	// alert("用户注册成功"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
@@ -88,7 +88,7 @@
 			        }),
 			        success:function(msg){
 		        //	 alert("用户注册成功"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
-                         window.location.href="chenggong.html";
+                        alert("注册成功");
 				    },
 			        error:function(xhr){
 			            alert("用户注册失败！");

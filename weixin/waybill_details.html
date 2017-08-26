@@ -109,7 +109,42 @@
 			$(".foot").css("display", "block");
 		})
 	</script>
-	
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script>
+		//判断openid是否已经被注册
+		var openid = $.cookie('openid');
+		if(openid != null) {
+			$.ajax({
+				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid?wx_openid="+openid,
+				beforeSend: function(request) {
+					request.setRequestHeader("tenant-id", "1");
+				},
+				dataType: 'json',
+				type: 'get',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					
+				}),
+				success: function(msg) {
+					//					alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
+					if(msg.result == 0) {
+						window.location.href = "register.html";
+					} else {
+						alert(openid);
+					}
+				},
+				error: function(xhr) {
+					bootbox.setLocale("zh_CN");
+					bootbox.alert({
+						message:"获取后台失败！"+xhr.responseText,
+						size:"small"
+					})
+					
+				}
+
+			});
+		}
+</script>
 	<script>
 		//获取order——id
 	(function($){

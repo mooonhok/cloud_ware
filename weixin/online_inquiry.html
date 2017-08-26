@@ -12,7 +12,7 @@
 	<div class="top">
 		<div class="wenzi">货物类型</div> 
 		<div class="text">
-			<input type="text" placeholder="必填项" pattern="[0-9]*">
+			<input type="text" placeholder="必填项">
 		</div>		
 		
 	</div>
@@ -31,7 +31,7 @@
 	<div class="center_2">
 		<div class="wenzi">重量(吨)</div>
 		<div class="text">
-		<input type="tel" placeholder="必填项">
+		<input type="number" placeholder="必填项">
 		</div>
 		
 	</div>
@@ -132,7 +132,42 @@
 	</script>		
 	<script type="text/javascript">		
 	</script>
-	
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script>
+		//判断openid是否已经被注册
+		var openid = $.cookie('openid');
+		if(openid != null) {
+			$.ajax({
+				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid?wx_openid="+openid,
+				beforeSend: function(request) {
+					request.setRequestHeader("tenant-id", "1");
+				},
+				dataType: 'json',
+				type: 'get',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					
+				}),
+				success: function(msg) {
+					//					alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
+					if(msg.result == 0) {
+						window.location.href = "register.html";
+					} else {
+						alert(openid);
+					}
+				},
+				error: function(xhr) {
+					bootbox.setLocale("zh_CN");
+					bootbox.alert({
+						message:"获取后台失败！"+xhr.responseText,
+						size:"small"
+					})
+					
+				}
+
+			});
+		}
+</script>
 	<script>
    	//获取省份和城市列表1
    	$.ajax({
@@ -141,7 +176,7 @@
                         request.setRequestHeader("tenant-id", "Chenxizhang");  
                     },
 			        dataType:'json',
-			        type:'post',
+			        type:'get',
 			        contentType:"application/json;charset=utf-8",
 			        data:JSON.stringify({
 			        }),
@@ -160,15 +195,15 @@
 			     $("#city1").empty();
 				var pid=$("#province1 option:selected").val();
 				$.ajax({
-		            url :"http://mooonhok-cloudware.daoapp.io/city.php/city",
+		            url :"http://mooonhok-cloudware.daoapp.io/city.php/city?pid="+pid,
 		             beforeSend: function(request) {
                         request.setRequestHeader("tenant-id", "Chenxizhang");  
                     },
 			        dataType:'json',
-			        type:'post',
+			        type:'get',
 			        contentType:"application/json;charset=utf-8",
 			        data:JSON.stringify({
-			        	pid:pid
+			        
 			        }),
 			        success:function(msg){
  //                      alert("city结果"+msg.result+"/////"+msg.desc+"//////"+msg.city);
@@ -190,7 +225,7 @@
                         request.setRequestHeader("tenant-id", "Chenxizhang");  
                     },
 			        dataType:'json',
-			        type:'post',
+			        type:'get',
 			        contentType:"application/json;charset=utf-8",
 			        data:JSON.stringify({
 			        }),
@@ -209,15 +244,14 @@
 			     $("#city2").empty();
 				var pid=$("#province2 option:selected").val();
 				$.ajax({
-		            url :"http://mooonhok-cloudware.daoapp.io/city.php/city",
+		            url :"http://mooonhok-cloudware.daoapp.io/city.php/city?pid="+pid,
 		             beforeSend: function(request) {
                         request.setRequestHeader("tenant-id", "Chenxizhang");  
                     },
 			        dataType:'json',
-			        type:'post',
+			        type:'get',
 			        contentType:"application/json;charset=utf-8",
 			        data:JSON.stringify({
-			        	pid:pid
 			        }),
 			        success:function(msg){
  //                      alert("city结果"+msg.result+"/////"+msg.desc+"//////"+msg.city);

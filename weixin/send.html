@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
 	<link rel="stylesheet" href="css/woyaojijian.css">
+	<link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" />  
 	<title>我要寄件</title>
 	
 	 
@@ -20,8 +21,6 @@
 		<div class="fuhao"><img src="images/left_arrow.png" alt=""></div>
 		</div>
 		
-		
-
 		<div class="top2">
 			<div class="wenzi"><span class="span2">收</span>件人详细地址</div>
 			<div class="shuru1">
@@ -45,7 +44,7 @@
 	    <div class="center_3">
 	    	<div class="wenzi">重量(吨)</div> 
 	    	<div class="text3">
-	    		<input type="text" placeholder="必填项" class="zhong">
+	    		<input type="number" placeholder="必填项" class="zhong">
 	    	</div>
 		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
 	    </div>
@@ -53,7 +52,7 @@
 	    <div class="center_3">
 	    	<div class="wenzi">体积(m³)</div> 
 	    	<div class="text4">
-	    		<input type="text" placeholder="必填项" class="tiji">
+	    		<input type="number" placeholder="必填项" class="tiji">
 	    	</div>
 		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
 	    </div>
@@ -69,15 +68,15 @@
 	    <div class="center_5">
 	    	<div class="wenzi">件数</div> 
 	    	<div class="text1">
-	    		<input type="text" placeholder="必填项" class="jianshu">
+	    		<input type="number" placeholder="必填项" class="jianshu">
 	    	</div>
 		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
 	    </div>
 
 	    <div class="center_6">
-	    	<div class="wenzi">需求</div> 
+	    	<div class="wenzi">备注</div> 
 	    	<div class="text1">
-	    		<input type="text" placeholder="门店自寄" class="need" disabled="disabled">
+	    		<input type="text" placeholder="门店自寄" class="needs">
 	    	</div>
 		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
 	    </div>
@@ -89,7 +88,7 @@
 	    <div class="foot1">
 	    	<div class="wenzi">货物价值</div>
 	    	<div class="text">
-	    		<input type="text" placeholder="必填项" class="jiazhi">
+	    		<input type="number" placeholder="必填项" class="jiazhi">
 	    	</div> 
 		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
 	    </div>
@@ -107,8 +106,8 @@
 	    <div class="tijiao">
 	    	提交
 	    </div>
-
-
+	
+	<div class="TT"></div>
 	</div>	
 <!-- box2 -->
 	<div class="box2">
@@ -126,7 +125,7 @@
 			<div class="phone">
 				<label for="">联系方式</label>			
 			<div class="phone1">
-				<input type="text" class="phone2">
+				<input type="tel" class="phone2" pattern="[0-9]*">
 			</div>	
 			</div>		
 			<div class="dizhi">
@@ -171,7 +170,7 @@
 			<div class="phone">
 				<label for="">联系方式</label>			
 			<div class="phone1">
-				<input type="text" class="phone3">
+				<input type="tel" class="phone3" pattern="[0-9]*">
 			</div>	
 			</div>		
 			<div class="dizhi">
@@ -205,16 +204,21 @@
     	<div class="box4-1">
     		<h5>包装类型</h5>
     		<div class="box4-2">
-    			<div class="box4-2-1" value="木箱">木箱</div>
-    			<div class="box4-2-2" value="油布">油布</div>
-    			<div class="box4-2-3" value="无包装">无包装</div>
+    			<div class="box4-2-1" value="纸箱">纸箱</div>
+    			<div class="box4-2-2" value="木箱">木箱</div>
+    			<div class="box4-2-3" value="油布">油布</div>
+    			</div>
+    			<div class="box4-3">
+    			<div class="box4-3-1" value="编织袋">编织袋</div>
+    			<div class="box4-3-2" value="集装箱">集装箱</div>
+    			<div class="box4-3-3" value="无包装">无包装</div>
     		</div>
     	</div>
     </div>
 
 <!-- box5 -->
 
-    <div class="box5">
+   <!--  <div class="box5">
     	<div class="box5-1">
     		<h5>需求</h5>
     		<div class="box5-2">
@@ -230,7 +234,7 @@
     		<div class="box5-4">提交</div>
     	</div>
     	
-    </div>
+    </div> -->
 
 <!-- box6 -->
 	<div class="box6">
@@ -247,6 +251,8 @@
 
 </body>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>  
+    <script src="http://bootboxjs.com/bootbox.js"></script>  
 
 	<script type="text/javascript">
 	 $(".box2").css("display","none");
@@ -298,9 +304,24 @@
 			$(".baozhuang").val(box4);
 			$(".box4").css("display","none");						
 		})
+		$(".box4-3-1").on("click",function(){
+			var box4=$(this).html();
+			$(".baozhuang").val(box4);
+			$(".box4").css("display","none");						
+		})
+		$(".box4-3-2").on("click",function(){
+			var box4=$(this).html();
+			$(".baozhuang").val(box4);
+			$(".box4").css("display","none");						
+		})
+		$(".box4-3-3").on("click",function(){
+			var box4=$(this).html();
+			$(".baozhuang").val(box4);
+			$(".box4").css("display","none");						
+		})
 	</script>
 
-	<script type="text/javascript">
+<!-- 	<script type="text/javascript">
 		var needs = "0000";	
 		$(".box5").css("display","none");
 		$(".center_6").on("click",function(){
@@ -396,7 +417,7 @@
 								
 			$(".box5").css("display","none");	
 		})
-	</script>
+	</script> -->
 
 	<script type="text/javascript">
 		$(".box6").css("display","none");
@@ -427,7 +448,7 @@
                         request.setRequestHeader("tenant-id", "Chenxizhang");  
                     },
 			        dataType:'json',
-			        type:'post',
+			        type:'get',
 			        contentType:"application/json;charset=utf-8",
 			        data:JSON.stringify({
 			        }),
@@ -438,7 +459,12 @@
                         }
 				    },
 			        error:function(e){
-			            alert("省份列表1信息出错！");
+			        	bootbox.setLocale("zh_CN");
+			        	bootbox.alert({
+			        		message:"省份列表1信息出错!",
+			        		size:"small"
+			        	})
+			            
 			        }
 	          });
             
@@ -446,12 +472,12 @@
 			     $("#city1").empty();
 				var pid=$("#province1 option:selected").val();
 				$.ajax({
-		            url :"http://mooonhok-cloudware.daoapp.io/city.php/city",
+		            url :"http://mooonhok-cloudware.daoapp.io/city.php/city?pid="+pid,
 		             beforeSend: function(request) {
                         request.setRequestHeader("tenant-id", "Chenxizhang");  
                     },
 			        dataType:'json',
-			        type:'post',
+			        type:'get',
 			        contentType:"application/json;charset=utf-8",
 			        data:JSON.stringify({
 			        	pid:pid
@@ -463,7 +489,11 @@
                         }
 				    },
 			        error:function(e){
-		            alert("城市1列表信息出错！");
+			        	bootbox.setLocale("zh_CN");
+			        	bootbox.alert({
+			        		message:"城市1列表信息出错!",
+			        		size:"small"
+			        	})
 			        }
 	          });
            } 	
@@ -476,7 +506,7 @@
                         request.setRequestHeader("tenant-id", "Chenxizhang");  
                     },
 			        dataType:'json',
-			        type:'post',
+			        type:'get',
 			        contentType:"application/json;charset=utf-8",
 			        data:JSON.stringify({
 			        }),
@@ -487,7 +517,11 @@
                         }
 				    },
 			        error:function(e){
-			            alert("省份列表2信息出错！");
+			            bootbox.setLocale("zh_CN");
+			        	bootbox.alert({
+			        		message:"省份列表2信息出错!",
+			        		size:"small"
+			        	})
 			        }
 	          });
             
@@ -495,15 +529,14 @@
 			     $("#city2").empty();
 				var pid=$("#province2 option:selected").val();
 				$.ajax({
-		            url :"http://mooonhok-cloudware.daoapp.io/city.php/city",
+		            url :"http://mooonhok-cloudware.daoapp.io/city.php/city?pid="+pid,
 		             beforeSend: function(request) {
                         request.setRequestHeader("tenant-id", "Chenxizhang");  
                     },
 			        dataType:'json',
-			        type:'post',
+			        type:'get',
 			        contentType:"application/json;charset=utf-8",
 			        data:JSON.stringify({
-			        	pid:pid
 			        }),
 			        success:function(msg){
  //                      alert("city结果"+msg.result+"/////"+msg.desc+"//////"+msg.city);
@@ -512,7 +545,11 @@
                         }
 				    },
 			        error:function(e){
-		            alert("城市1列表信息出错！");
+		                bootbox.setLocale("zh_CN");
+			        	bootbox.alert({
+			        		message:"城市2列表信息出错!",
+			        		size:"small"
+			        	})
 			        }
 	          });
           } 	
@@ -524,26 +561,31 @@
 		var openid = $.cookie('openid');
 		if(openid != null) {
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid",
+				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid?wx_openid="+openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "1");
 				},
 				dataType: 'json',
-				type: 'post',
+				type: 'get',
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({
-					wx_openid: openid
+					
 				}),
 				success: function(msg) {
 					//					alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
 					if(msg.result == 0) {
-						window.location.href = "zhucequeding.html";
+						window.location.href = "register.html";
 					} else {
 						alert(openid);
 					}
 				},
 				error: function(xhr) {
-					alert("获取后台失败！" + xhr.responseText);
+					bootbox.setLocale("zh_CN");
+					bootbox.alert({
+						message:"获取后台失败！"+xhr.responseText,
+						size:"small"
+					})
+					
 				}
 
 			});
@@ -568,6 +610,7 @@
    		var tiji = str2*1;
    		var baozhuang = $(".baozhuang").val();
    		var jianshu = parseInt($(".jianshu").val());
+   		var needs = $(".needs").val();
    		var jiazhi = parseInt($(".jiazhi").val());
    		var money = $(".money").val();
    		var str = 0;
@@ -579,23 +622,59 @@
    			str=3;
    		}
    		if(shuru==""||jname==""||jphone==""||jdizhi==0){
-   			alert("发货人信息不全");
+   			bootbox.setLocale("zh_Cn");
+   			bootbox.alert({
+            message: "发货人信息不全",
+            size: 'small'
+    })
    		}else if(shuru1==""||jname1==""||jphone1==0||jdizhi1==""){
-   			alert("收件人信息不全");
+   			bootbox.setLocale("zh_Cn");
+   			bootbox.alert({
+            message: "收件人信息不全",
+            size: 'small'
+    })
    		}else if(huowu==""){
-   			alert("缺少货物名");
+   			bootbox.setLocale("zh_Cn");
+   			bootbox.alert({
+            message: "缺少货物名",
+            size: 'small'
+    })
    		}else if(zhong==""||zhong==0) {
-   			alert("缺少货物重量或货物重量不能为0");
+   			bootbox.setLocale("zh_Cn");
+   			bootbox.alert({
+            message: "缺少货物重量或货物重量不能为0",
+            size: 'small'
+    })
    		}else if(tiji==""||tiji==0){
-   			alert("缺少货物体积或体积不能为0");
+   			bootbox.setLocale("zh_Cn");
+   			bootbox.alert({
+            message: "缺少货物体积或体积不能为0",
+            size: 'small'
+    })
    		}else if(baozhuang==""){
-   			alert("未选择货物包装")
+   			bootbox.setLocale("zh_Cn");
+   			bootbox.alert({
+            message: "未选择货物包装",
+            size: 'small'
+    })
    		}else if(jianshu==""||jianshu==0){
-   			alert("缺少货物件数或货物件数不能为0");
+   			bootbox.setLocale("zh_Cn");
+   			bootbox.alert({
+            message: "缺少货物件数或货物件数不能为0",
+            size: 'small'
+    })
    		}else if(jiazhi==""||jiazhi==0){
-   			alert("缺少货物价值或货物价值不能为0")
+   			bootbox.setLocale("zh_Cn");
+   			bootbox.alert({
+            message: "缺少货物价值或货物价值不能为0",
+            size: 'small'
+    })
    		}else if(str==0){
-   			alert("未选择付款方式");
+   			bootbox.setLocale("zh_Cn");
+   			bootbox.alert({
+            message: "未选择付款方式",
+            size: 'small'
+    })
    		}else{
    			console.log(shuru+jname+jphone+shuru1+jname1+jphone1+huowu+zhong+tiji+baozhuang+jianshu+needs+jiazhi+str)
    		  $.ajax({
@@ -626,10 +705,19 @@
    		  	  	wx_openid:openid
    		  	  }),
    		  	  success:function(msg){
-   		  	  	alert("提交订单成功");
+   		  	  	bootbox.setLocale("zh_CN");
+   		  	  	bootbox.alert({
+   		  	  		message:"提交订单成功",
+   		  	  		size:"small"
+   		  	  	})
+   		  	  	
    		  	  },
    		  	  error:function(xhr) {
-   		  	  	alert("提交订单出错");
+   		  	  	bootbox.setLocale("zh_CN");
+   		  	  	bootbox.alert({
+   		  	  		message:"提交订单失败",
+   		  	  		size:"small"
+   		  	  	})
    		  	  },
    		  })
    		}

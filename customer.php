@@ -7,6 +7,12 @@ use Slim\PDO\Database;
 
 \Slim\Slim::registerAutoloader();
     $app = new \Slim\Slim();
+
+
+
+
+
+
 $app->post('/customer',function()use($app){
 	$app->response->headers->set('Content-Type', 'application/json');
     $database=localhost();
@@ -343,13 +349,13 @@ $app->post('/wx_customer',function()use($app){
 });
 
 
-$app->post('/wx_openid',function()use($app){
+$app->get('/wx_customer',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
-    $body = $app->request->getBody();
-    $body=json_decode($body);
-    $wx_openid=$body->wx_openid;
+//    $body = $app->request->getBody();
+//    $body=json_decode($body);
+    $wx_openid=$app->request->get("wx_openid");
     if($tenant_id!=""||$tenant_id!=null){
         $selectStatement = $database->select()
             ->from('tenant')

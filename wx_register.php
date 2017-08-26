@@ -9,7 +9,7 @@ header('Content-type:text/html;charset=utf-8');
 if ($_COOKIE['openid'] == null) {
     if (!isset($_GET['code'])) {
         $appid = 'wx15ef051f9f0bba92';
-        $redirect_uri = urlencode('http://mooonhok-cloudware.daoapp.io/wx_zhuce.php');
+        $redirect_uri = urlencode('http://mooonhok-cloudware.daoapp.io/wx_register.php');
         $scope = 'snsapi_base';
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
         header('Location:' . $url);
@@ -28,9 +28,9 @@ if ($_COOKIE['openid'] == null) {
         $json_obj = json_decode($output, true);
         // echo $json_obj['openid'];
         setcookie('openid', $json_obj['openid']);
-        header('location:http://mooonhok-cloudware.daoapp.io/weixin/zhucequeding.html');
+        header('location:http://mooonhok-cloudware.daoapp.io/weixin/register.html');
     }
 }else{
-    header('location:http://mooonhok-cloudware.daoapp.io/weixin/zhucequeding.html');
+    header('location:http://mooonhok-cloudware.daoapp.io/weixin/register.html');
 }
 ?>

@@ -1,3 +1,8 @@
+<?php
+require_once "jssdk.php";
+$jssdk = new JSSDK("wx15ef051f9f0bba92", "57ea0ee4abf4f4c6d6e38c88a289e687");
+$signPackage = $jssdk->GetSignPackage();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -19,10 +24,10 @@
 				<div class="yundanghao">
 					<div class="rongqi">
 						<div class="kuang">
-							<input id="yundanhao" type="text" placeholder="请输入要查询的运单号">
+							<input id="yundanhao" type="number" placeholder="请输入要查询的运单号" pattern="[0-9]*">
 						</div>
 
-						<div class="tu">
+						<div class="tu" id="saoman">
 							<img src="images/saoma.png" alt="">
 						</div>
 					</div>
@@ -93,20 +98,20 @@
 		var openid = $.cookie('openid');
 		if(openid != null) {
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid",
+				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid?wx_openid="+openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "1");
 				},
 				dataType: 'json',
-				type: 'post',
+				type: 'get',
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({
-					wx_openid: openid
+					
 				}),
 				success: function(msg) {
 					//					alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
 					if(msg.result == 0) {
-						window.location.href = "zhucequeding.html";
+						window.location.href = "register.html";
 					} else {
 						alert(openid);
 					}
@@ -172,7 +177,7 @@
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
 						alert(sendid);
-					     window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/wodeyundan2.html?order_id="+sendid;
+					     window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+sendid;
 					});
 					}
 				},
@@ -222,7 +227,7 @@
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
 						alert(sendid);
-					   window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/wodeyundan2.html?order_id="+sendid;
+					   window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+sendid;
 					});
 			},
 			error: function(xhr) {
@@ -267,12 +272,43 @@
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
 						alert(sendid);
-					     window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/wodeyundan2.html?order_id="+sendid;
+					     window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+sendid;
 					});
 			},
 			error: function(xhr) {
 				alert("获取数据失败");
 			}
 		});
+	</script>
+	<script type="text/javascript">
+		 wx.config({
+        debug: true,
+        appId: '<?php echo $signPackage["appId"];?>',
+        timestamp: <?php echo $signPackage["timestamp"];?>,
+        nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+        signature: '<?php echo $signPackage["signature"];?>',
+        jsApiList: [
+            'checkJsApi', 'scanQRCode'
+        ]
+    });
+    wx.ready(function () { 
+  document.querySelector('#saoman').onclick = function () {  
+    wx.scanQRCode({  
+      needResult: 1,  
+      desc: 'scanQRCode desc',  
+      success: function (res) {    
+        alert(res.resultStr);
+        var a=new Array();
+        a=res.resultStr.split(",");
+        alert(a[1]);
+       window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+a[1];
+      }  
+    });  
+  };  
+});  
+  
+wx.error(function (res) {  
+  //alert(res.errMsg);  
+}); 
 	</script>
 </html>

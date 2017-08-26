@@ -133,7 +133,7 @@ $signPackage = $jssdk->GetSignPackage();
 		</div>
 		<div class="center">
 			<div   class="center1">运单号</div>
-			<div class="center2"><input id="order_id" type="text" placeholder="请输入运单号"></div>
+			<div class="center2"><input id="order_id" type="number" placeholder="请输入运单号" pattern="[0-9]*"></div>
 			<div class="center3" id="saoman"><img src="images/saoma.png" alt=""></div>
 		</div>
 		<div  id="sumbit"  class="foot">
@@ -150,8 +150,44 @@ $signPackage = $jssdk->GetSignPackage();
 	$("#sumbit").click(function(){
 		var order_id=$("#order_id").val();
 		//alert(order_id);
-		window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/wodeyundan2.html?order_id="+order_id;
+		window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+order_id;
 	});
+</script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script>
+		//判断openid是否已经被注册
+		var openid = $.cookie('openid');
+		if(openid != null) {
+			$.ajax({
+				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid?wx_openid="+openid,
+				beforeSend: function(request) {
+					request.setRequestHeader("tenant-id", "1");
+				},
+				dataType: 'json',
+				type: 'get',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					
+				}),
+				success: function(msg) {
+					//					alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
+					if(msg.result == 0) {
+						window.location.href = "register.html";
+					} else {
+						alert(openid);
+					}
+				},
+				error: function(xhr) {
+					bootbox.setLocale("zh_CN");
+					bootbox.alert({
+						message:"获取后台失败！"+xhr.responseText,
+						size:"small"
+					})
+					
+				}
+
+			});
+		}
 </script>
 <script>
     /*
@@ -160,10 +196,6 @@ $signPackage = $jssdk->GetSignPackage();
      * 2. 如果发现在 Android 不能分享自定义内容，请到官网下载最新的包覆盖安装，Android 自定义分享接口需升级至 6.0.2.58 版本及以上。
      * 3. 常见问题及完整 JS-SDK 文档地址：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
      *
-     * 开发中遇到问题详见文档“附录5-常见错误及解决办法”解决，如仍未能解决可通过以下渠道反馈：
-     * 邮箱地址：weixin-open@qq.com
-     * 邮件主题：【微信JS-SDK反馈】具体问题
-     * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
      */
     wx.config({
         debug: true,
@@ -185,7 +217,7 @@ $signPackage = $jssdk->GetSignPackage();
         var a=new Array();
         a=res.resultStr.split(",");
         alert(a[1]);
-       window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/wodeyundan2.html?order_id="+a[1];
+       window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+a[1];
       }  
     });  
   };  

@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
         <link rel="stylesheet" href="css/zhifuyunfei.css">
         <title>支付费用</title>
          <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
@@ -31,7 +32,7 @@
     <div class="yunshufei">
     <h3>运输费（元）</h3>
     <div class="shurukuang">
-    <input type="text">	
+    <input type="number">	
     </div>
      </div>
 
@@ -107,7 +108,43 @@
     		alert('ok')
     	})
     </script>
+   <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script>
+		//判断openid是否已经被注册
+		var openid = $.cookie('openid');
+		if(openid != null) {
+			$.ajax({
+				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid?wx_openid="+openid,
+				beforeSend: function(request) {
+					request.setRequestHeader("tenant-id", "1");
+				},
+				dataType: 'json',
+				type: 'get',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					
+				}),
+				success: function(msg) {
+					//					alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
+					if(msg.result == 0) {
+						window.location.href = "register.html";
+					} else {
+						alert(openid);
+					}
+				},
+				error: function(xhr) {
+					bootbox.setLocale("zh_CN");
+					bootbox.alert({
+						message:"获取后台失败！"+xhr.responseText,
+						size:"small"
+					})
+					
+				}
 
+			});
+		}
+</script>
 
   
     	
