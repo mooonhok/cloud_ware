@@ -177,7 +177,7 @@
 				<label for="">地址</label>
 			
 			<div class="dizhi1">
-				<select name="province" id="province2" onchange="getPro1()">
+				<select name="province" id="province2" onchange="getPro2()">
 					<option value="">请选择</option>
 				</select>	
 				<select name="city" id="city2">
@@ -524,7 +524,7 @@
 			        }
 	          });
             
-			function getPro1() {	
+			function getPro2() {	
 			     $("#city2").empty();
 				var pid=$("#province2 option:selected").val();
 				$.ajax({
