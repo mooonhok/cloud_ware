@@ -835,24 +835,25 @@ $app->post('/wx_order', function () use ($app) {
 //根据订单order_id查出对应的订单详细信息
 $app->post('/wx_order_z', function () use ($app) {
     $app->response->headers->set('Content-Type', 'application/json');
-//    $tenant_id = $app->request->headers->get("tenant-id");
+    $tenant_id = $app->request->headers->get("tenant-id");
     $body = $app->request->getBody();
     $body = json_decode($body);
     $order_id = $body->order_id;
 //    $order_id = $app->request->get("order_id");
     $database = localhost();
     $array=array();
-//    if ($tenant_id != null || $tenant_id != "") {
-//        $selectStatement = $database->select()
-//            ->from('tenant')
-//            ->where('exist', "=", 0)
-//            ->where('tenant_id', '=', $tenant_id);
-//        $stmt = $selectStatement->execute();
-//        $data1= $stmt->fetch();
-//        if ($data1 != null) {
+    if ($tenant_id != null || $tenant_id != "") {
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist', "=", 0)
+            ->where('tenant_id', '=', $tenant_id);
+        $stmt = $selectStatement->execute();
+        $data1= $stmt->fetch();
+        if ($data1 != null) {
             $selectStatement = $database->select()
                 ->from('orders')
                 ->where('exist', "=", 0)
+                ->where('tenant_id','=',$tenant_id)
                 ->where('order_id','=',$order_id);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetch();
@@ -912,16 +913,16 @@ $app->post('/wx_order_z', function () use ($app) {
                 $stmt = $selectStatement->execute();
                 $data6= $stmt->fetch();
                 $array['plate_number']=$data6['plate_number'];
-                echo json_encode(array("result" => "2", "desc" => "租户不存在", "orders" => $array));
+                echo json_encode(array("result" => "1", "desc" => "租户不存在", "orders" => $array));
             }else{
                 echo json_encode(array("result" => "2", "desc" => "租户不存在", "orders" => ""));
             }
-//        } else {
-//            echo json_encode(array("result" => "2", "desc" => "租户不存在", "orders" => ""));
-//        }
-//    } else {
-//        echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => ""));
-//    }
+        } else {
+            echo json_encode(array("result" => "3", "desc" => "租户不存在", "orders" => ""));
+        }
+    } else {
+        echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => ""));
+    }
 });
 
 
@@ -1101,8 +1102,10 @@ $app->post('/wx_orders_order_source', function () use ($app) {
                         ->where('exist','=',0);
                     $stmt = $selectStatement->execute();
                     $data3= $stmt->fetch();
-                    $array1["orders"]=$data3;
-                    $array1['message']=$data2[$i];
+                    if($data3!=null){
+                        $array1["orders"]=$data3;
+                        $array1['message']=$data2[$i];
+                    }
                     array_push($array,$array1);
                  }
                 echo json_encode(array("result" => "1", "desc" => "success", "orders" => $array));
