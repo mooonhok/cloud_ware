@@ -1072,6 +1072,55 @@ $app->get('/wx_orders_order_status', function () use ($app) {
     }
 });
 
+
+
+//受理的单子（更改order_status）
+$app->put('/order_status', function () use ($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $order_id=$body->order_id;
+    $order_status = $body->order_status;
+    if ($tenant_id != null || $tenant_id != "") {
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist', "=", 0)
+            ->where('tenant_id', '=', $tenant_id);
+        $stmt = $selectStatement->execute();
+        $data1= $stmt->fetch();
+        if($data1!=null){
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('exist', "=", 0)
+                ->where('order_id','=',$order_id)
+                ->where('tenant_id', '=', $tenant_id);
+            $stmt = $selectStatement->execute();
+            $data2= $stmt->fetch();
+            if($data2!=null){
+                $updateStatement = $database->update(array('order_status' => $order_status))
+                    ->table('orders')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('exist','=',0)
+                    ->where('order_id', '=', $order_id);
+                $affectedRows = $updateStatement->execute();
+                if($affectedRows!=null){
+                    echo json_encode(array("result" => "1", "desc" => "success"));
+                }else{
+                    echo json_encode(array("result" => "2", "desc" => "未执行"));
+                }
+            }else{
+                echo json_encode(array("result" => "3", "desc" => "没有该订单"));
+            }
+        }else{
+            echo json_encode(array("result" => "4", "desc" => "没有该租户"));
+        }
+    } else {
+        echo json_encode(array("result" => "5", "desc" => "缺少租户id"));
+    }
+});
+
 $app->run();
 
 function localhost()
