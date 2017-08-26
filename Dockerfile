@@ -13,4 +13,4 @@ RUN a2enmod rewrite
 
 # /var/www/html/ 为 Apache 目录
 COPY . /var/www/html/
-RUN  chmod 777 /var/www/html/*
+RUN  chmod -R 777 /var/www/html/*
