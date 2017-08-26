@@ -591,7 +591,7 @@ $app->post("/wxmessage_isread",function()use($app){
 });
 
 
-//order_source为1的所有订单
+//order_source为1的所有订单数
 $app->get("/wx_message_source",function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant_id');
@@ -604,7 +604,7 @@ $app->get("/wx_message_source",function()use($app){
             ->where('exist',"=",0);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
-        echo json_encode(array("result"=>"1","desc"=>"缺少租户id",'count'=>count($data1)));
+        echo json_encode(array("result"=>"1","desc"=>"success",'count'=>count($data1)));
     }else{
         echo json_encode(array("result"=>"2","desc"=>"缺少租户id"));
     }
