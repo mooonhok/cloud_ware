@@ -1009,6 +1009,7 @@ $app->post('/wx_orders_accept', function () use ($app) {
                     ->where('order_id', '=', $data2['order_id']);
                 $stmt = $selectStatement->execute();
                 $data8 = $stmt->fetch();
+                $array['goods']=$data8;
                 $selectStatement = $database->select()
                     ->from('goods_package')
                     ->where('tenant_id', '=', $tenant_id)
@@ -1016,7 +1017,7 @@ $app->post('/wx_orders_accept', function () use ($app) {
                     ->where('goods_package_id', '=', $data8['goods_package_id']);
                 $stmt = $selectStatement->execute();
                 $data9 = $stmt->fetch();
-                $array['goods_packager'] = $data9;
+                $array['goods_package'] = $data9;
                 echo json_encode(array("result" => "1", "desc" => "", "wx_message" => $array));
             }else{
                 echo json_encode(array("result" => "2", "desc" => "", "wx_message" =>""));

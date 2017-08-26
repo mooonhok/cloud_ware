@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-21 12:01:50
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-08-24 16:31:37
+* @Last Modified time: 2017-08-23 11:33:32
 */
 *{
 	margin: 0;padding: 0;
@@ -64,7 +64,7 @@ a{
 	width: 50%;
 	height: 2px;
 	background: #B6E3DF;
-	float: left;
+	float: right;
 }
 
 .foot{
@@ -388,6 +388,7 @@ a{
 }
 .xian1{
 	width: 100%;
+	float: right;
 	height: 1px;
 	background: #E7E7E7;
 }

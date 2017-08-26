@@ -94,18 +94,18 @@
 	</body>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
-		$(".top1-3").css("background","white");
+		$(".top1-3").hide();
 		$(".center").css("display", "none");
 		$(".top1-1").on("click", function() {
-			$(".top1-4").css("background","white");
+			$(".top1-4").hide();
 			$(".foot").css("display", "none");
-			$(".top1-3").css("background","#B6E3DF");
+			$(".top1-3").show();
 			$(".center").css("display", "block");
 		})
 		$(".top1-2").on("click", function() {
-			$(".top1-3").css("background","white");
+			$(".top1-3").hide();
 			$(".center").css("display", "none");
-			$(".top1-4").css("background","#B6E3DF");
+			$(".top1-4").show();
 			$(".foot").css("display", "block");
 		})
 	</script>
@@ -161,7 +161,7 @@
 					 var daoda="<div class='foot6-1'>到达</div><div class='foot6-2'>"
 					          +msg.orders.order_time4+"</div>";
 					 $(".foot6").html(daoda);
-					 var shouhuo="<div class='foot7-1'>收货</div><div class='foot7-2'>"
+					 var shouhuo="<div class='foot7-1'>到达</div><div class='foot7-2'>"
 					          +msg.orders.order_time5+"</div>";
 					 $(".foot7").html(shouhuo);
 					 if(msg.orders.order_time0!=null){
