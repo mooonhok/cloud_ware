@@ -86,7 +86,7 @@
 				确定
 			</div>
 			<div class="box3-2">
-				<select  id="province2" onchange="getPro1()">
+				<select  id="province2" onchange="getPro2()">
 					<option value="0">请选择</option>
 				</select>
 				
@@ -240,7 +240,7 @@
 			        }
 	          });
             
-			function getPro1() {	
+			function getPro2() {	
 			     $("#city2").empty();
 				var pid=$("#province2 option:selected").val();
 				$.ajax({
