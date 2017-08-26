@@ -9,6 +9,11 @@ $signPackage = $jssdk->GetSignPackage();
     <meta charset="UTF-8">
     	<style type="text/css">
     	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <style type="text/css">
+    	#saoman{
+    		height:60px;
+    		width:80px;
+    	}
     <title></title>
 </head>
 <body>
