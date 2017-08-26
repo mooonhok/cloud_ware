@@ -968,63 +968,78 @@ $app->post('/wx_orders_accept', function () use ($app) {
                     ->from('orders')
                     ->where('exist', "=", 0)
                     ->where('tenant_id','=',$tenant_id)
-                    ->where('order_status','=','-1')
                     ->where('order_id','=',$data2['order_id']);
                 $stmt = $selectStatement->execute();
                 $data3= $stmt->fetch();
                 $array['order']=$data3;
-                $selectStatement = $database->select()
-                    ->from('customer')
-                    ->where('tenant_id', '=', $tenant_id)
-                    ->where('exist', "=", 0)
-                    ->where('customer_id', '=', $data3['sender_id']);
-                $stmt = $selectStatement->execute();
-                $data4 = $stmt->fetch();
-                $array['sender']=$data4;
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id','=',$data4['customer_city_id']);
-                $stmt = $selectStatement->execute();
-                $data5 = $stmt->fetch();
-                $array['sender_city']=$data5['name'];
-//                $array['sender'] = $data2;
-                $selectStatement = $database->select()
-                    ->from('customer')
-                    ->where('tenant_id', '=', $tenant_id)
-                    ->where('exist', "=", 0)
-                    ->where('customer_id', '=', $data3['receiver_id']);
-                $stmt = $selectStatement->execute();
-                $data6 = $stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id','=',$data6['customer_city_id']);
-                $stmt = $selectStatement->execute();
-                $data7 = $stmt->fetch();
-                $array['receiver_city']=$data7['name'];
-                $array['receiver'] = $data6;
-                $selectStatement = $database->select()
-                    ->from('goods')
-                    ->where('tenant_id', '=', $tenant_id)
-                    ->where('exist', "=", 0)
-                    ->where('order_id', '=', $data2['order_id']);
-                $stmt = $selectStatement->execute();
-                $data8 = $stmt->fetch();
-                $array['goods']=$data8;
-                $selectStatement = $database->select()
-                    ->from('goods_package')
-                    ->where('goods_package_id', '=', $data8['goods_package_id']);
-                $stmt = $selectStatement->execute();
-                $data9 = $stmt->fetch();
-                $array['goods_package'] = $data9;
-                echo json_encode(array("result" => "1", "desc" => "", "wx_message" => $array));
+                if($data3!=null){
+                    $selectStatement = $database->select()
+                        ->from('customer')
+                        ->where('tenant_id', '=', $tenant_id)
+                        ->where('exist', "=", 0)
+                        ->where('customer_id', '=', $data3['sender_id']);
+                    $stmt = $selectStatement->execute();
+                    $data4 = $stmt->fetch();
+                    $array['sender']=$data4;
+                    if($data4!=null){
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id','=',$data4['customer_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data5 = $stmt->fetch();
+                        $array['sender_city']=$data5['name'];
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('tenant_id', '=', $tenant_id)
+                            ->where('exist', "=", 0)
+                            ->where('customer_id', '=', $data3['receiver_id']);
+                        $stmt = $selectStatement->execute();
+                        $data6 = $stmt->fetch();
+                        if($data6!=null){
+                            $selectStatement = $database->select()
+                                ->from('city')
+                                ->where('id','=',$data6['customer_city_id']);
+                            $stmt = $selectStatement->execute();
+                            $data7 = $stmt->fetch();
+                            $array['receiver_city']=$data7['name'];
+                            $array['receiver'] = $data6;
+                            $selectStatement = $database->select()
+                                ->from('goods')
+                                ->where('tenant_id', '=', $tenant_id)
+                                ->where('exist', "=", 0)
+                                ->where('order_id', '=', $data2['order_id']);
+                            $stmt = $selectStatement->execute();
+                            $data8 = $stmt->fetch();
+                            if($data8!=null){
+                                $array['goods']=$data8;
+                                $selectStatement = $database->select()
+                                    ->from('goods_package')
+                                    ->where('goods_package_id', '=', $data8['goods_package_id']);
+                                $stmt = $selectStatement->execute();
+                                $data9 = $stmt->fetch();
+                                $array['goods_package'] = $data9;
+                                echo json_encode(array("result" => "1", "desc" => "success", "wx_message" => $array));
+                            }else{
+                                echo json_encode(array("result" => "2", "desc" => "货物不存在", "wx_message" =>""));
+                            }
+                        }else{
+                            echo json_encode(array("result" => "3", "desc" => "收货人不存在", "wx_message" =>""));
+                        }
+                    }else{
+                        echo json_encode(array("result" => "4", "desc" => "发货人不存在", "wx_message" =>""));
+                    }
+
+                }else{
+                    echo json_encode(array("result" => "5", "desc" => "订单不存在", "wx_message" =>""));
+                }
             }else{
-                echo json_encode(array("result" => "2", "desc" => "", "wx_message" =>""));
+                echo json_encode(array("result" => "6", "desc" => "", "wx_message" =>""));
             }
         }else{
-            echo json_encode(array("result" => "3", "desc" => "", "wx_message" => ""));
+            echo json_encode(array("result" => "7", "desc" => "", "wx_message" => ""));
         }
     }else{
-        echo json_encode(array("result" => "4", "desc" => "", "wx_message" => ""));
+        echo json_encode(array("result" => "8", "desc" => "", "wx_message" => ""));
     }
 });
 
