@@ -1091,6 +1091,7 @@ $app->post('/wx_orders_order_source', function () use ($app) {
         $stmt = $selectStatement->execute();
         $data1= $stmt->fetch();
         if($data1!=null){
+            $array=array();
             $array1=array();
             $selectStatement = $database->select()
                 ->from('wx_message')
@@ -1110,15 +1111,19 @@ $app->post('/wx_orders_order_source', function () use ($app) {
                         ->where('exist','=',0);
                     $stmt = $selectStatement->execute();
                     $data3= $stmt->fetch();
+                    $array1["orders"]=$data3;
+                    $array1['message']=$data2[$i];
+                    array_push($array,$array1);
                  }
+                echo json_encode(array("result" => "1", "desc" => "success", "orders" => $array));
             }else{
-                echo json_encode(array("result" => "1", "desc" => "success", "orders" => ""));
+                echo json_encode(array("result" => "2", "desc" => "success", "orders" => ""));
             }
         }else{
-            echo json_encode(array("result" => "2", "desc" => "没有该租户", "orders" => ""));
+            echo json_encode(array("result" => "3", "desc" => "没有该租户", "orders" => ""));
         }
     } else {
-        echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => ""));
+        echo json_encode(array("result" => "4", "desc" => "缺少租户id", "orders" => ""));
     }
 });
 
