@@ -1054,7 +1054,7 @@ $app->get('/wx_orders_order_status', function () use ($app) {
                 $selectStatement = $database->select()
                     ->from('wx_message')
                     ->where('exist', "=", 0)
-                    ->where('order_id','=',$data2["order_id"])
+                    ->where('order_id','=',$data2[$i]["order_id"])
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
                 $data3= $stmt->fetch();
