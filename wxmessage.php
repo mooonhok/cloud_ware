@@ -41,6 +41,31 @@ $app->post('/wxmessage',function()use($app){
     foreach($body as $key=>$value){
         $array[$key]=$value;
     }
+    $selectStatement = $database->select()
+        ->from('customer')
+        ->where('tenant_id','=',$tenant_id)
+        ->where('exist',"=",0)
+        ->where('customer_name','=',$customer_name_s)
+        ->where('customer_city','=',$customer_city_s)
+        ->where('customer_address','=',$customer_address_s)
+        ->where('customer_phone','=',$customer_phone_s);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetch();
+//    if($data==null){
+//        $selectStatement = $database->select()
+//            ->from('customer')
+//            ->where('tenant_id','=',$tenant_id)
+//            ->where('exist',"=",0);
+//        $stmt = $selectStatement->execute();
+//        $data1 = $stmt->fetchAll();
+//        $customer_id=count($data1)+10000001;
+//        $insertStatement = $database->insert(array('customer_name', 'customer_city', 'customer_address','customer_phone'))
+//            ->into('customer')
+//            ->values(array($goods_id,$order_id, $goods_name,$goods_weight,$goods_capacity,$goods_package,$goods_count,$special_need,0,$tenant_id));
+//        $insertId = $insertStatement->execute(false);
+//    }else{
+//
+//    }
 
 });
 
@@ -109,6 +134,8 @@ $app->post('/wxmessage',function()use($app){
     }
 });
 
+
+//获得所有微信下的单
 $app->post('/wxmessages',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
@@ -136,6 +163,7 @@ $app->post('/wxmessages',function()use($app){
                 $selectStatement = $database->select()
                     ->from('orders')
                     ->where('tenant_id','=',$tenant_id)
+                    ->where('order_source','=','1')
                     ->where('exist',"=",0)
                     ->where('order_id','=',$data[$i]['order_id']);
                 $stmt = $selectStatement->execute();
@@ -235,10 +263,10 @@ $app->post('/wxmessages',function()use($app){
                     ->from('goods')
                     ->where('tenant_id', '=', $tenant_id)
                     ->where('exist', "=", 0)
-                    ->where('goods_id', '=', $data1['goods_id']);
+                    ->where('order_id', '=', $data1['order_id']);
                 $stmt = $selectStatement->execute();
-                $data4 = $stmt->fetch();
-                $array['goods'] = $data4;
+                $data7 = $stmt->fetch();
+                $array['goods'] = $data7;
                 array_push($array1, $array);
             }
             echo json_encode(array("result" => "0", "desc" => "success", "orders" => $array));
@@ -247,6 +275,10 @@ $app->post('/wxmessages',function()use($app){
         echo json_encode(array("result"=>"1","desc"=>"信息不全","orders"=>""));
     }
 });
+
+
+
+
 
 $app->get('/wxmessage/isread',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
@@ -351,6 +383,56 @@ $app->delete("/wxmessage",function()use($app){
         echo json_encode(array("result"=>"4","desc"=>"缺少租户id"));
     }
 });
+
+
+
+//is_read的修改0至1
+$app->put("/wxmessage_isread",function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant_id');
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $database=localhost();
+    $message_id=$body->message_id;
+    if($tenant_id!=''||$tenant_id!=null){
+        if ($message_id!=''||$message_id!=null){
+            $selectStatement = $database->select()
+                ->from('tenant')
+                ->where('exist', "=", 0)
+                ->where('tenant_id', '=', $tenant_id);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            if($data1!=null){
+                $selectStatement = $database->select()
+                    ->from('wx_message')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('message_id','=',$message_id)
+                    ->where('exist',"=",0);
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetch();
+//                if(){
+//
+//                }else{
+//
+//                }
+            }else{
+                echo json_encode(array("result"=>"3","desc"=>"租户不存在"));
+            }
+                    $updateStatement = $database->update(array('exist' => 1))
+                        ->table('wx_message')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('message_id','=',$message_id)
+                        ->where('exist',"=",0);
+                    $affectedRows = $updateStatement->execute();
+
+        }else{
+            echo json_encode(array("result"=>"3","desc"=>"缺少消息id"));
+        }
+    }else{
+        echo json_encode(array("result"=>"4","desc"=>"缺少租户id"));
+    }
+});
+
 
 $app->run();
 

@@ -49,6 +49,12 @@ $signPackage = $jssdk->GetSignPackage();
       desc: 'scanQRCode desc',  
       success: function (res) {  
         alert(JSON.stringify(res));  
+        alert(res.resultStr);
+        var a=new Array();
+        a=res.resultStr.split(",");
+        alert(a[0]);
+        alert(a[1]);
+        alert(a[2]);
       }  
     });  
   };  

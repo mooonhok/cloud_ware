@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-18 09:58:43
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-08-24 14:25:18
+* @Last Modified time: 2017-08-26 11:14:05
 */
 *{
 	margin: 0;padding: 0;
@@ -371,42 +371,84 @@ html,body{height:100%; width:100%;
 }
 .box4-2{
 	width: 90%;
-	height: 100px;
+	/* height: 100px; */
 	/* border: 1px solid red; */
 	float: left;
-	margin-top: 20px;
+	margin-top: 10px;
 	margin-left: 5%;
+	height: 50px;
 }
 .box4-2-1{
 	width: 30%;
-	height: 50px;
+	height: 40px;
 	background: blue;
 	color: white;
 	float: left;
-	line-height: 50px;
-	margin-top: 25px;
+	line-height: 40px;
+	/* margin-top: 25px; */
 	border-radius: 5px;
 }
 .box4-2-2{
 	width: 30%;
-	height: 50px;
+	height: 40px;
 	background: blue;
 	color: white;
 	float: left;
 	margin-left: 5%;
-	line-height: 50px;
-	margin-top: 25px;
+	line-height: 40px;
+	/* margin-top: 25px; */
 	border-radius: 5px;
 }
 .box4-2-3{
 	width: 30%;
-	height: 50px;
+	height: 40px;
 	background: blue;
 	color: white;
 	float: left;
 	margin-left: 5%;
-	line-height: 50px;
-	margin-top: 25px;
+	line-height: 40px;
+	/* margin-top: 25px; */
+	border-radius: 5px;
+}
+.box4-3{
+	width: 90%;
+	/* height: 100px; */
+	/* border: 1px solid red; */
+	float: left;
+	margin-top: 10px;
+	margin-left: 5%;
+	height: 50px;
+}
+.box4-3-1{
+	width: 30%;
+	height: 40px;
+	background: blue;
+	color: white;
+	float: left;
+	line-height: 40px;
+	/* margin-top: 25px; */
+	border-radius: 5px;
+}
+.box4-3-2{
+	width: 30%;
+	height: 40px;
+	background: blue;
+	color: white;
+	float: left;
+	margin-left: 5%;
+	line-height: 40px;
+	/* margin-top: 25px; */
+	border-radius: 5px;
+}
+.box4-3-3{
+	width: 30%;
+	height: 40px;
+	background: blue;
+	color: white;
+	float: left;
+	margin-left: 5%;
+	line-height: 40px;
+	/* margin-top: 25px; */
 	border-radius: 5px;
 }
 .box5{
@@ -558,13 +600,7 @@ html,body{height:100%; width:100%;
 	border: 0;outline-style: none;
 	background: white;
 }
-.jname{display: none;}
-.jphone{display: none;}
-.jdizhi{display: none;}
 
-.jname1{display: none;}
-.jphone1{display: none;}
-.jdizhi1{display: none;}
 
 
 
