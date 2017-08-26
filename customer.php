@@ -349,7 +349,7 @@ $app->post('/wx_customer',function()use($app){
 });
 
 
-$app->get('/wx_customer',function()use($app){
+$app->get('/wx_openid',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
