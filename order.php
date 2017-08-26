@@ -972,6 +972,7 @@ $app->post('/wx_orders_accept', function () use ($app) {
                     ->where('order_id','=',$data2['order_id']);
                 $stmt = $selectStatement->execute();
                 $data3= $stmt->fetch();
+                $array['order']=$data3;
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('tenant_id', '=', $tenant_id)
@@ -1011,13 +1012,13 @@ $app->post('/wx_orders_accept', function () use ($app) {
                 $array['goods'] = $data8;
                 echo json_encode(array("result" => "1", "desc" => "", "wx_message" => $array));
             }else{
-                echo json_encode(array("result" => "2", "desc" => "租户不存在", "wx_message" =>""));
+                echo json_encode(array("result" => "2", "desc" => "", "wx_message" =>""));
             }
         }else{
-            echo json_encode(array("result" => "3", "desc" => "租户不存在", "wx_message" => ""));
+            echo json_encode(array("result" => "3", "desc" => "", "wx_message" => ""));
         }
     }else{
-        echo json_encode(array("result" => "4", "desc" => "租户不存在", "wx_message" => ""));
+        echo json_encode(array("result" => "4", "desc" => "", "wx_message" => ""));
     }
 });
 
