@@ -184,7 +184,7 @@
 				<label for="">地址</label>
 			
 			<div class="dizhi1">
-				<select name="province" id="province2" onchange="getPro1()">
+				<select name="province" id="province2" onchange="getPro2()">
 					<option value="">请选择</option>
 				</select>	
 				<select name="city" id="city2">
@@ -497,7 +497,7 @@
 			        }
 	          });
             
-			function getPro1() {	
+			function getPro2() {	
 			     $("#city2").empty();
 				var pid=$("#province2 option:selected").val();
 				$.ajax({
@@ -605,9 +605,9 @@
    		}else{
    			// console.log(shuru+jname+jphone+shuru1+jname1+jphone1+huowu+zhong+tiji+baozhuang+jianshu+needs+jiazhi+str)
    		  $.ajax({
-   		  	  url:"http://mooonhok-cloudware.daoapp.io/goods.php/goods",
+   		  	  url:"http://mooonhok-cloudware.daoapp.io/order.php/wx_orders_accept",
    		  	  beforeSend:function(request){
-   		  	  	request.setRequestHeader("tenant-id","Chenxizhang");
+   		  	  	request.setRequestHeader("tenant-id","1");
    		  	  },
    		  	  dataType:'json',
    		  	  type:'post',
