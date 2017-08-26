@@ -924,19 +924,7 @@ $app->post('/wx_order_z', function () use ($app) {
 //    }
 });
 
-//客户端查出微信受理的单子
-$app->post('/wx_orders_s', function () use ($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
-    $tenant_id = $app->request->headers->get("tenant-id");
-    $body = $app->request->getBody();
-    $body = json_decode($body);
-    $order_id = $body->order_id;
-    $database = localhost();
-    $array=array();
 
-
-
-});
 
 
 //客户端对微信的订单受理
@@ -1061,6 +1049,7 @@ $app->get('/wx_orders_num', function () use ($app) {
                 ->from('orders')
                 ->where('exist', "=", 0)
                 ->where('order_source','=','1')
+                ->where('order_status','=',0)
                 ->where('tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetchAll();
@@ -1107,6 +1096,7 @@ $app->post('/wx_orders_order_source', function () use ($app) {
                     $selectStatement = $database->select()
                         ->from('orders')
                         ->where('order_id', "=", $data2[$i]['order_id'])
+                        ->where('order_status','=',0)
                         ->where('tenant_id', '=', $tenant_id)
                         ->where('exist','=',0);
                     $stmt = $selectStatement->execute();
