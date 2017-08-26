@@ -51,21 +51,21 @@ $app->post('/wxmessage',function()use($app){
         ->where('customer_phone','=',$customer_phone_s);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
-//    if($data==null){
-//        $selectStatement = $database->select()
-//            ->from('customer')
-//            ->where('tenant_id','=',$tenant_id)
-//            ->where('exist',"=",0);
-//        $stmt = $selectStatement->execute();
-//        $data1 = $stmt->fetchAll();
-//        $customer_id=count($data1)+10000001;
-//        $insertStatement = $database->insert(array('customer_name', 'customer_city', 'customer_address','customer_phone'))
-//            ->into('customer')
-//            ->values(array($goods_id,$order_id, $goods_name,$goods_weight,$goods_capacity,$goods_package,$goods_count,$special_need,0,$tenant_id));
-//        $insertId = $insertStatement->execute(false);
-//    }else{
-//
-//    }
+    if($data==null){
+        $selectStatement = $database->select()
+            ->from('customer')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('exist',"=",0);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetchAll();
+        $customer_id=count($data1)+10000001;
+        $insertStatement = $database->insert(array('customer_name', 'customer_city', 'customer_address','customer_phone'))
+            ->into('customer')
+            ->values(array($goods_id,$order_id, $goods_name,$goods_weight,$goods_capacity,$goods_package,$goods_count,$special_need,0,$tenant_id));
+        $insertId = $insertStatement->execute(false);
+    }else{
+
+    }
 
 });
 
@@ -428,8 +428,43 @@ $app->put("/wxmessage_isread",function()use($app){
             }else{
                 echo json_encode(array("result"=>"4","desc"=>"租户不存在"));
             }
+        }else{
+            echo json_encode(array("result"=>"3","desc"=>"缺少消息id"));
+        }
+    }else{
+        echo json_encode(array("result"=>"4","desc"=>"缺少租户id"));
+    }
+});
 
 
+//根据message_id查出已读is_read
+$app->post("/wxmessage_isread",function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant_id');
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $database=localhost();
+    $message_id=$body->message_id;
+    if($tenant_id!=''||$tenant_id!=null){
+        if ($message_id!=''||$message_id!=null){
+            $selectStatement = $database->select()
+                ->from('tenant')
+                ->where('exist', "=", 0)
+                ->where('tenant_id', '=', $tenant_id);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            if($data1!=null){
+                $selectStatement = $database->select()
+                    ->from('wx_message')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('message_id','=',$message_id)
+                    ->where('exist',"=",0);
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetch();
+                echo json_encode(array("result"=>"1","desc"=>"","is_read"=>$data2['is_read']));
+            }else{
+                echo json_encode(array("result"=>"2","desc"=>"租户不存在"));
+            }
         }else{
             echo json_encode(array("result"=>"3","desc"=>"缺少消息id"));
         }
