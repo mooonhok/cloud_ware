@@ -410,20 +410,25 @@ $app->put("/wxmessage_isread",function()use($app){
                     ->where('exist',"=",0);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetch();
-//                if(){
-//
-//                }else{
-//
-//                }
-            }else{
-                echo json_encode(array("result"=>"3","desc"=>"租户不存在"));
-            }
-                    $updateStatement = $database->update(array('exist' => 1))
+                if($data2!=null){
+                    $updateStatement = $database->update(array('is_read' => 1))
                         ->table('wx_message')
                         ->where('tenant_id','=',$tenant_id)
                         ->where('message_id','=',$message_id)
                         ->where('exist',"=",0);
                     $affectedRows = $updateStatement->execute();
+                    if($affectedRows!=null){
+                        echo json_encode(array("result"=>"1","desc"=>"successs"));
+                    }else{
+                        echo json_encode(array("result"=>"2","desc"=>"未执行"));
+                    }
+                }else{
+                    echo json_encode(array("result"=>"3","desc"=>"信息不存在"));
+                }
+            }else{
+                echo json_encode(array("result"=>"4","desc"=>"租户不存在"));
+            }
+
 
         }else{
             echo json_encode(array("result"=>"3","desc"=>"缺少消息id"));

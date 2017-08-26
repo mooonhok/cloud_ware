@@ -1043,8 +1043,8 @@ $app->post('/wx_orders_accept', function () use ($app) {
     }
 });
 
-//获得微信下单受理的
-$app->get('/wx_orders_order_status', function () use ($app) {
+//获得微信下单受理总数
+$app->get('/wx_orders_num', function () use ($app) {
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
@@ -1060,25 +1060,12 @@ $app->get('/wx_orders_order_status', function () use ($app) {
             $selectStatement = $database->select()
                 ->from('orders')
                 ->where('exist', "=", 0)
-                ->where('order_status','=','0')
+                ->where('order_source','=','1')
                 ->where('tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetchAll();
             $num1=count($data2);
-            for($i=0;$i<$num1;$i++){
-                $selectStatement = $database->select()
-                    ->from('wx_message')
-                    ->where('exist', "=", 0)
-                    ->where('order_id','=',$data2[$i]["order_id"])
-                    ->where('tenant_id', '=', $tenant_id);
-                $stmt = $selectStatement->execute();
-                $data3= $stmt->fetch();
-                $array=array();
-                $array['wxmessage']=$data3;
-                $array['order']=$data2[$i];
-                array_push($array1,$array);
-            }
-            echo json_encode(array("result" => "1", "desc" => "success", "orders" => $array1));
+            echo json_encode(array("result" => "1", "desc" => "success", "num" => $num1));
         }else{
             echo json_encode(array("result" => "2", "desc" => "没有该租户", "orders" => ""));
         }
@@ -1087,7 +1074,53 @@ $app->get('/wx_orders_order_status', function () use ($app) {
     }
 });
 
-
+//分页显示微信的单子
+$app->post('/wx_orders_order_source', function () use ($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $offset = $body->offset;
+    $size=$body->size;
+    if ($tenant_id != null || $tenant_id != "") {
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist', "=", 0)
+            ->where('tenant_id', '=', $tenant_id);
+        $stmt = $selectStatement->execute();
+        $data1= $stmt->fetch();
+        if($data1!=null){
+            $array1=array();
+            $selectStatement = $database->select()
+                ->from('wx_message')
+                ->where('exist', "=", 0)
+                ->where('tenant_id', '=', $tenant_id)
+                ->orderBy("ms_date")
+                ->limit((int)$size,(int)$offset);
+            $stmt = $selectStatement->execute();
+            $data2= $stmt->fetchAll();
+            if($data2!=null){
+             $num1=count($data2);
+                for($i=0;$i<$num1;$i++){
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('order_id', "=", $data2[$i]['order_id'])
+                        ->where('tenant_id', '=', $tenant_id)
+                        ->where('exist','=',0);
+                    $stmt = $selectStatement->execute();
+                    $data3= $stmt->fetch();
+                 }
+            }else{
+                echo json_encode(array("result" => "1", "desc" => "success", "orders" => ""));
+            }
+        }else{
+            echo json_encode(array("result" => "2", "desc" => "没有该租户", "orders" => ""));
+        }
+    } else {
+        echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => ""));
+    }
+});
 
 //受理的单子（更改order_status）
 $app->put('/order_status', function () use ($app) {
