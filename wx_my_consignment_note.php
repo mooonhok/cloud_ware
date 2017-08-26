@@ -28,9 +28,9 @@ if ($_COOKIE['openid'] == null) {
         $json_obj = json_decode($output, true);
         // echo $json_obj['openid'];
         setcookie('openid', $json_obj['openid']);
-        header('location:http://mooonhok-cloudware.daoapp.io/weixin/my_consignment_note.html');
+        header('location:http://mooonhok-cloudware.daoapp.io/weixin/my_consignment_note.php');
     }
 }else{
-    header('location:http://mooonhok-cloudware.daoapp.io/weixin/my_consignment_note.html');
+    header('location:http://mooonhok-cloudware.daoapp.io/weixin/my_consignment_note.php');
 }
 ?>

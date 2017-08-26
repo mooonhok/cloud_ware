@@ -41,31 +41,128 @@ $app->post('/wxmessage',function()use($app){
     foreach($body as $key=>$value){
         $array[$key]=$value;
     }
-    $selectStatement = $database->select()
-        ->from('customer')
-        ->where('tenant_id','=',$tenant_id)
-        ->where('exist',"=",0)
-        ->where('customer_name','=',$customer_name_s)
-        ->where('customer_city','=',$customer_city_s)
-        ->where('customer_address','=',$customer_address_s)
-        ->where('customer_phone','=',$customer_phone_s);
-    $stmt = $selectStatement->execute();
-    $data = $stmt->fetch();
-    if($data==null){
-        $selectStatement = $database->select()
-            ->from('customer')
-            ->where('tenant_id','=',$tenant_id)
-            ->where('exist',"=",0);
-        $stmt = $selectStatement->execute();
-        $data1 = $stmt->fetchAll();
-        $customer_id=count($data1)+10000001;
-        $insertStatement = $database->insert(array('customer_name', 'customer_city', 'customer_address','customer_phone'))
-            ->into('customer')
-            ->values(array($goods_id,$order_id, $goods_name,$goods_weight,$goods_capacity,$goods_package,$goods_count,$special_need,0,$tenant_id));
-        $insertId = $insertStatement->execute(false);
-    }else{
+    if($tenant_id!=''||$tenant_id!=null){
+        if($customer_name_s!=''||$customer_name_s!=null){
+            if($customer_city_s!=''||$customer_city_s!=null){
+                if($customer_address_s!=''||$customer_address_s!=null){
+                        if($customer_phone_s!=''||$customer_phone_s!=null){
+                            if($customer_name_a!=''||$customer_name_a!=null){
+                                if($customer_city_a!=''||$customer_city_a!=null){
+                                    if($customer_address_a!=''||$customer_address_a!=null){
+                                        if($customer_phone_a!=''||$customer_phone_a!=null){
+                                            if($goods_name!=''||$goods_name!=null){
+                                                if($goods_weight!=''||$goods_weight!=null){
+                                                    if($goods_capacity!=''||$goods_capacity!=null){
+                                                        if($goods_package!=''||$goods_package!=null){
+                                                            if($goods_count!=''||$goods_count!=null){
+                                                                if($special_need!=''||$special_need!=null){
+                                                                    if($good_worth!=''||$good_worth!=null){
+                                                                        if($pay_method!=''||$pay_method!=null){
+                                                                            if($wx_openid!=''||$wx_openid!=null){
+                                                                                $selectStatement = $database->select()
+                                                                                    ->from('customer')
+                                                                                    ->where('tenant_id','=',$tenant_id)
+                                                                                    ->where('exist',"=",0)
+                                                                                    ->where('wx_openid','=',$wx_openid);
+                                                                                $stmt = $selectStatement->execute();
+                                                                                $data = $stmt->fetch();
+                                                                                if($data!=null){
+                                                                                    $selectStatement = $database->select()
+                                                                                        ->from('customer_informations')
+                                                                                        ->where('tenant_id','=',$tenant_id)
+                                                                                        ->where('customer_adress','=',$customer_address_s)
+                                                                                        ->where('customer_name','=',$customer_name_s)
+                                                                                        ->where('customer_city','=',$customer_city_s)
+                                                                                        ->where('customer_phone','=',$customer_phone_s)
+                                                                                        ->where('customer_id','=',$data['customer_id'])
+                                                                                        ->where('exist',"=",0);
+                                                                                    $stmt = $selectStatement->execute();
+                                                                                    $data1 = $stmt->fetch();
+                                                                                    if($data1!=null){
 
+                                                                                    }else{
+                                                                                        $selectStatement = $database->select()
+                                                                                            ->from('customer_informations')
+                                                                                            ->where('tenant_id','=',$tenant_id)
+                                                                                            ->where('customer_id','=',$data['customer_id'])
+                                                                                            ->where('exist',"=",0);
+                                                                                        $stmt = $selectStatement->execute();
+                                                                                        $data2 = $stmt->fetchAll();
+                                                                                    $customer_informations_id =count($data2)+10000001;
+                                                                                    $insertStatement = $database->insert(array('customer_name', 'customer_city', 'customer_address','customer_phone','customer_id','exist','customer_informations_id','tenant_id'))
+                                                                                        ->into('customer_informations')
+                                                                                        ->values(array($customer_name_s,$customer_city_s, $customer_address_s,$customer_phone_s,$data['customer_id'],0,$customer_informations_id,$tenant_id));
+                                                                                    $insertId = $insertStatement->execute(false);
+                                                                                    if($insertId!=null){
+
+                                                                                    }else{
+                                                                                        echo json_encode(array("result"=>"2","desc"=>"添加未执行"));
+                                                                                    }
+                                                                                    }
+//                                                                                    $customer_id=count($data1)+10000001;
+//                                                                                    $insertStatement = $database->insert(array('customer_name', 'customer_city', 'customer_address','customer_phone'))
+//                                                                                        ->into('customer')
+//                                                                                        ->values(array($goods_id,$order_id, $goods_name,$goods_weight,$goods_capacity,$goods_package,$goods_count,$special_need,0,$tenant_id));
+//                                                                                    $insertId = $insertStatement->execute(false);
+                                                                                }else{
+                                                                                    echo json_encode(array("result"=>"2","desc"=>"客户不存在"));
+                                                                                }
+                                                                            }else{
+                                                                                echo json_encode(array("result"=>"1","desc"=>"缺少消息内容"));
+                                                                            }
+                                                                        }else{
+                                                                            echo json_encode(array("result"=>"2","desc"=>"缺少消息标题"));
+                                                                        }
+                                                                    }else{
+                                                                        echo json_encode(array("result"=>"4","desc"=>"缺少订单创建人电话"));
+                                                                    }
+                                                                }else{
+                                                                    echo json_encode(array("result"=>"5","desc"=>"缺少订单创建人"));
+                                                                }
+                                                            }else{
+                                                                echo json_encode(array("result"=>"6","desc"=>"缺少运单id"));
+                                                            }
+                                                        }else{
+                                                            echo json_encode(array("result"=>"7","desc"=>"缺少租户id"));
+                                                        }
+                                                    }else{
+                                                        echo json_encode(array("result"=>"1","desc"=>"缺少消息内容"));
+                                                    }
+                                                }else{
+                                                    echo json_encode(array("result"=>"2","desc"=>"缺少消息标题"));
+                                                }
+                                            }else{
+                                                echo json_encode(array("result"=>"4","desc"=>"缺少订单创建人电话"));
+                                            }
+                                        }else{
+                                            echo json_encode(array("result"=>"5","desc"=>"缺少订单创建人"));
+                                        }
+                                    }else{
+                                        echo json_encode(array("result"=>"6","desc"=>"缺少运单id"));
+                                    }
+                                }else{
+                                    echo json_encode(array("result"=>"7","desc"=>"缺少租户id"));
+                                }
+                            }else{
+                                echo json_encode(array("result"=>"1","desc"=>"缺少消息内容"));
+                            }
+                        }else{
+                            echo json_encode(array("result"=>"2","desc"=>"缺少消息标题"));
+                        }
+                }else{
+                    echo json_encode(array("result"=>"4","desc"=>"缺少订单创建人电话"));
+                }
+            }else{
+                echo json_encode(array("result"=>"5","desc"=>"缺少订单创建人"));
+            }
+        }else{
+            echo json_encode(array("result"=>"6","desc"=>"缺少运单id"));
+        }
+    }else{
+        echo json_encode(array("result"=>"7","desc"=>"缺少租户id"));
     }
+
+
 
 });
 
@@ -492,6 +589,27 @@ $app->post("/wxmessage_isread",function()use($app){
         echo json_encode(array("result"=>"4","desc"=>"缺少租户id"));
     }
 });
+
+
+//order_source为1的所有订单
+$app->get("/wx_message_source",function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant_id');
+    $database=localhost();
+    if($tenant_id!=null){
+        $selectStatement = $database->select()
+            ->from('orders')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('order_source','=',1)
+            ->where('exist',"=",0);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetchAll();
+        echo json_encode(array("result"=>"1","desc"=>"缺少租户id",'count'=>count($data1)));
+    }else{
+        echo json_encode(array("result"=>"2","desc"=>"缺少租户id"));
+    }
+});
+
 
 
 $app->run();
