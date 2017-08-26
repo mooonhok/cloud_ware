@@ -14,13 +14,17 @@
 		<div class="top">
 		<div class="top1">
 			<div class="wenzi"><span class="span1">寄</span>件人详细地址</div> 
+			<div class="shuru">
+			</div>
 		<div class="fuhao"><img src="images/left_arrow.png" alt=""></div>
 		</div>
 		
 		
 
 		<div class="top2">
-			<div class="wenzi"><span class="span2">收</span>件人详细地址</div> 
+			<div class="wenzi"><span class="span2">收</span>件人详细地址</div>
+			<div class="shuru1">
+			</div> 
 		<div class="fuhao"><img src="images/left_arrow.png" alt=""></div>
 		</div>
 		
@@ -32,7 +36,7 @@
 	    <div class="center_1">
 	    	<div class="wenzi">货物品名</div> 
 	    	<div class="text">
-	    		<input type="text" placeholder="必填项">
+	    		<input type="text" placeholder="必填项" class="huowu">
 	    	</div>
 		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
 	    </div>
@@ -40,7 +44,7 @@
 	    <div class="center_3">
 	    	<div class="wenzi">重量(吨)</div> 
 	    	<div class="text3">
-	    		<input type="text" placeholder="必填项">
+	    		<input type="text" placeholder="必填项" class="zhong">
 	    	</div>
 		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
 	    </div>
@@ -48,7 +52,7 @@
 	    <div class="center_3">
 	    	<div class="wenzi">体积(m³)</div> 
 	    	<div class="text4">
-	    		<input type="text" placeholder="必填项">
+	    		<input type="text" placeholder="必填项" class="tiji">
 	    	</div>
 		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
 	    </div>
@@ -56,7 +60,7 @@
 	    <div class="center_4">
 	    	<div class="wenzi">包装</div> 
 	    	<div class="text1">
-	    		<input type="text" placeholder="必填项" class="baozhuang">
+	    		<input type="text" placeholder="必填项" class="baozhuang" disabled="disabled">
 	    	</div>
 		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
 	    </div>
@@ -64,7 +68,7 @@
 	    <div class="center_5">
 	    	<div class="wenzi">件数</div> 
 	    	<div class="text1">
-	    		<input type="text" placeholder="必填项">
+	    		<input type="text" placeholder="必填项" class="jianshu">
 	    	</div>
 		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
 	    </div>
@@ -72,7 +76,7 @@
 	    <div class="center_6">
 	    	<div class="wenzi">需求</div> 
 	    	<div class="text1">
-	    		<input type="text" placeholder="默认门店自寄" class="need">
+	    		<input type="text" placeholder="门店自寄" class="need" disabled="disabled">
 	    	</div>
 		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
 	    </div>
@@ -84,14 +88,14 @@
 	    <div class="foot1">
 	    	<div class="wenzi">货物价值</div>
 	    	<div class="text">
-	    		<input type="text" placeholder="必填项">
+	    		<input type="text" placeholder="必填项" class="jiazhi">
 	    	</div> 
 		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
 	    </div>
 	    <div class="foot2">
 	    	<div class="wenzi">付款方式</div> 
 	    	<div class="text2">
-	    		<input type="text" placeholder="必填项" class="money">
+	    		<input type="text" placeholder="必填项" class="money" disabled="disabled">
 	    	</div>
 		<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
 	    </div>
@@ -108,39 +112,91 @@
 <!-- box2 -->
 	<div class="box2">
 		<div class="box2-1">
-			<div class="ok1">
-				确定
+		<div class="jj">
+			<h5>寄件人信息</h5>
+		</div>
+		<form>
+			<div class="name">
+				<label for="">姓名</label>
+			<div class="name1">
+				<input type="text" class="name2">
+				</div>	
 			</div>
-			<div class="box2-2">
-				<select id="province">
+			<div class="phone">
+				<label for="">联系方式</label>			
+			<div class="phone1">
+				<input type="text" class="phone2">
+			</div>	
+			</div>		
+			<div class="dizhi">
+				<label for="">地址</label>
+			
+			<div class="dizhi1">
+				<select name="province" id="province1" onchange="getPro1()">
 					<option value="">请选择</option>
-				</select>				
-				<select id="city">
+				</select>	
+				<select name="city" id="city1">
 					<option value="">请选择</option>
 				</select>
+				</div>	
 			</div>
-			<div class="box2-3">
-			    <textarea cols="30" rows="5" placeholder="请填写详细地址"></textarea>				
+			<div class="dizhi2">
+			<div class="dizhi2-1">
+				<textarea name="" id="xdizhi" cols="27" rows="5" placeholder="请填写详细地址"></textarea>
+				</div>
 			</div>
+			<div class="tijiao1">
+				提交
+			</div>
+		</form>
+			
+		
+
 		</div>		
 	</div>
 <!-- box3 -->
 	<div class="box3">
 		<div class="box3-1">
-			<div class="ok2">
-				确定
+		<div class="sj">
+			<h5>收件人信息</h5>
+		</div>
+		<form>
+			<div class="name">
+				<label for="">姓名</label>
+			<div class="name1">
+				<input type="text" class="name3">
+				</div>	
 			</div>
-			<div class="box3-2">
-				<select id="province">
+			<div class="phone">
+				<label for="">联系方式</label>			
+			<div class="phone1">
+				<input type="text" class="phone3">
+			</div>	
+			</div>		
+			<div class="dizhi">
+				<label for="">地址</label>
+			
+			<div class="dizhi1">
+				<select name="province" id="province2" onchange="getPro1()">
 					<option value="">请选择</option>
-				</select>				
-				<select id="city">
+				</select>	
+				<select name="city" id="city2">
 					<option value="">请选择</option>
 				</select>
+				</div>	
 			</div>
-			<div class="box3-3">
-			    <textarea cols="30" rows="5" placeholder="请填写详细地址"></textarea>				
+			<div class="dizhi2">
+			<div class="dizhi2-1">
+				<textarea name=""  cols="27" rows="5" placeholder="请填写详细地址" id="xdizhi2"></textarea>
+				</div>
 			</div>
+			<div class="tijiao2">
+				提交
+			</div>
+		</form>
+			
+		
+
 		</div>		
 	</div>
 <!-- box4 -->
@@ -190,34 +246,37 @@
 
 </body>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+
 	<script type="text/javascript">
 	 $(".box2").css("display","none");
-	 $(".box3").css("display","none");
+	
+	 $(document).ready(function(){
 	 $(".top1").on("click",function(){
 	 	// alert('ok');
 	 	$(".box2").css("display","block");
 	 	$(".box2").css("z-index","100");
 	 })
+
+	 $(".tijiao1").click(function(){
+	 	$(".shuru").html($("#xdizhi").val());	 		 	
+	 	$(".box2").css("display","none");
+	 })
+	})
+	 
+	</script>
+	<script type="text/javascript">
+		 $(".box3").css("display","none");
+	$(document).ready(function(){ 
 	 $(".top2").on("click",function(){
-	 	// alert('ok');
 	 	$(".box3").css("display","block");
 	 	$(".box3").css("z-index","100");
 	 })
-
-	 $(".ok1").on("click",function(){
-	 	$(".box2").css("display","none");
-
-
-	 })
-	 $(".ok2").on("click",function(){
+	 $(".tijiao2").click(function(){
+	 	$(".shuru1").html($("#xdizhi2").val());
 	 	$(".box3").css("display","none");
-
-
 	 })
-
-		
+	})	 
 	</script>
-
 	<script type="text/javascript">
 		$(".box4").css("display","none");
 		$(".center_4").on("click",function(){
@@ -359,16 +418,223 @@
 			$(".box6").css("display","none");						
 		})
 	</script>
+   <script>
+   	//获取省份和城市列表1
+   	$.ajax({
+		            url :"http://mooonhok-cloudware.daoapp.io/city.php/province",
+		             beforeSend: function(request) {
+                        request.setRequestHeader("tenant-id", "Chenxizhang");  
+                    },
+			        dataType:'json',
+			        type:'post',
+			        contentType:"application/json;charset=utf-8",
+			        data:JSON.stringify({
+			        }),
+			        success:function(msg){
+//                        alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
+                        for(var i=0;i<msg.province.length;i++){
+                         	$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+                        }
+				    },
+			        error:function(e){
+			            alert("省份列表1信息出错！");
+			        }
+	          });
+            
+			function getPro1() {	
+			     $("#city1").empty();
+				var pid=$("#province1 option:selected").val();
+				$.ajax({
+		            url :"http://mooonhok-cloudware.daoapp.io/city.php/city",
+		             beforeSend: function(request) {
+                        request.setRequestHeader("tenant-id", "Chenxizhang");  
+                    },
+			        dataType:'json',
+			        type:'post',
+			        contentType:"application/json;charset=utf-8",
+			        data:JSON.stringify({
+			        	pid:pid
+			        }),
+			        success:function(msg){
+ //                      alert("city结果"+msg.result+"/////"+msg.desc+"//////"+msg.city);
+                        for(var i=0;i<msg.city.length;i++){
+                         	$("#city1").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
+                        }
+				    },
+			        error:function(e){
+		            alert("城市1列表信息出错！");
+			        }
+	          });
+           } 	
+   </script>
+<script>
+	//获取城市列表2
+		$.ajax({
+		            url :"http://mooonhok-cloudware.daoapp.io/city.php/province",
+		             beforeSend: function(request) {
+                        request.setRequestHeader("tenant-id", "Chenxizhang");  
+                    },
+			        dataType:'json',
+			        type:'post',
+			        contentType:"application/json;charset=utf-8",
+			        data:JSON.stringify({
+			        }),
+			        success:function(msg){
+//                        alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
+                        for(var i=0;i<msg.province.length;i++){
+                         	$("#province2").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+                        }
+				    },
+			        error:function(e){
+			            alert("省份列表2信息出错！");
+			        }
+	          });
+            
+			function getPro1() {	
+			     $("#city2").empty();
+				var pid=$("#province2 option:selected").val();
+				$.ajax({
+		            url :"http://mooonhok-cloudware.daoapp.io/city.php/city",
+		             beforeSend: function(request) {
+                        request.setRequestHeader("tenant-id", "Chenxizhang");  
+                    },
+			        dataType:'json',
+			        type:'post',
+			        contentType:"application/json;charset=utf-8",
+			        data:JSON.stringify({
+			        	pid:pid
+			        }),
+			        success:function(msg){
+ //                      alert("city结果"+msg.result+"/////"+msg.desc+"//////"+msg.city);
+                        for(var i=0;i<msg.city.length;i++){
+                         	$("#city2").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
+                        }
+				    },
+			        error:function(e){
+		            alert("城市1列表信息出错！");
+			        }
+	          });
+          } 	
+</script>
+
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script>
+		//判断openid是否已经被注册
+		var openid = $.cookie('openid');
+		if(openid != null) {
+			$.ajax({
+				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid",
+				beforeSend: function(request) {
+					request.setRequestHeader("tenant-id", "1");
+				},
+				dataType: 'json',
+				type: 'post',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					wx_openid: openid
+				}),
+				success: function(msg) {
+					//					alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
+					if(msg.result == 0) {
+						window.location.href = "zhucequeding.html";
+					} else {
+						alert(openid);
+					}
+				},
+				error: function(xhr) {
+					alert("获取后台失败！" + xhr.responseText);
+				}
+
+			});
+		}
+</script>
 
 
+<script type="text/javascript">
+   $(".tijiao").on('click',function(){
+   		var shuru = $(".shuru").html();
+   		var jname = $(".name2").val();
+   		var jphone = parseInt($(".phone2").val());
+   		var jdizhi = parseInt($("#city1 option:selected").val());
+   		var shuru1 = $(".shuru1").html()
+   		var jname1 = $(".name3").val();
+   		var jphone1 = parseInt($(".phone3").val());
+   		var jdizhi1 = parseInt($("#city2 option:selected").val());
+   		var huowu = $(".huowu").val();
+   		var str1 = $(".zhong").val();
+   		var zhong = str1*1;
+   		var str2 = $(".tiji").val();
+   		var tiji = str2*1;
+   		var baozhuang = $(".baozhuang").val();
+   		var jianshu = parseInt($(".jianshu").val());
+   		var jiazhi = parseInt($(".jiazhi").val());
+   		var money = $(".money").val();
+   		var str = 0;
+   		if (money=="到付") {
+   			str=2;
+   		}else if(money=="现付"){
+   			str=1;
+   		}else if(money=="月付"){
+   			str=3;
+   		}
+   		if(shuru==""||jname==""||jphone==""||jdizhi==0){
+   			alert("发货人信息不全");
+   		}else if(shuru1==""||jname1==""||jphone1==0||jdizhi1==""){
+   			alert("收件人信息不全");
+   		}else if(huowu==""){
+   			alert("缺少货物名");
+   		}else if(zhong==""||zhong==0) {
+   			alert("缺少货物重量或货物重量不能为0");
+   		}else if(tiji==""||tiji==0){
+   			alert("缺少货物体积或体积不能为0");
+   		}else if(baozhuang==""){
+   			alert("未选择货物包装")
+   		}else if(jianshu==""||jianshu==0){
+   			alert("缺少货物件数或货物件数不能为0");
+   		}else if(jiazhi==""||jiazhi==0){
+   			alert("缺少货物价值或货物价值不能为0")
+   		}else if(str==0){
+   			alert("未选择付款方式");
+   		}else{
+   			console.log(shuru+jname+jphone+shuru1+jname1+jphone1+huowu+zhong+tiji+baozhuang+jianshu+needs+jiazhi+str)
+   		  $.ajax({
+   		  	  url:"http://mooonhok-cloudware.daoapp.io/goods.php/goods",
+   		  	  beforeSend:function(request){
+   		  	  	request.setRequestHeader("tenant-id","Chenxizhang");
+   		  	  },
+   		  	  dataType:'json',
+   		  	  type:'post',
+   		  	  contentType:"application/json;charset=utf-8",
+   		  	  data:JSON.stringify({
+   		  	  	customer_name:jname,
+   		  	  	customer_phone:jphone,
+   		  	  	customer_city_id:jdizhi,
+   		  	  	customer_address:shuru,
+   		  	  	customer_name:jname1,
+   		  	  	customer_phone:jphone1,
+   		  	  	customer_city_id:jdizhi1,
+   		  	  	customer_address:shuru1,
+   		  	  	goods_name:huowu,
+   		  	  	goods_weight:zhong,
+   		  	  	goods_capacity:tiji,
+   		  	  	goods_package:baozhuang,
+   		  	  	goods_count:jianshu,
+   		  	  	special_need:needs,
+   		  	  	good_worth:jiazhi,
+   		  	  	pay_method:str,
+   		  	  	wx_openid:openid
+   		  	  }),
+   		  	  success:function(msg){
+   		  	  	alert("提交订单成功");
+   		  	  },
+   		  	  error:function(xhr) {
+   		  	  	alert("提交订单出错");
+   		  	  },
+   		  })
+   		}
 
-
-
-
-
-
-
-
-
-
+   })
+		
+</script>
+	
 </html>

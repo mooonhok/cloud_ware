@@ -93,9 +93,7 @@
 			</div>
 
 		</div>
-
-		</div>
-
+	
 	</body>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
@@ -145,7 +143,7 @@
 				}
 			},
 			error: function(e) {
-				//			            alert("省份列表1信息出错！");
+				  alert("省份列表1信息出错！");
 			}
 		});
 
@@ -164,13 +162,13 @@
 					pid: pid
 				}),
 				success: function(msg) {
-					//                       alert("city结果"+msg.result+"/////"+msg.desc+"//////"+msg.city);
+			       alert("city结果"+msg.result+"/////"+msg.desc+"//////"+msg.city);
 					for(var i = 0; i < msg.city.length; i++) {
 						$("#city1").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
 					}
 				},
 				error: function(e) {
-					//	            alert("城市1列表信息出错！");
+						            alert("城市1列表信息出错！");
 				}
 			});
 		}
@@ -197,7 +195,7 @@
 				}
 			},
 			error: function(e) {
-				//	            alert("省份列表2信息出错！");
+					            alert("省份列表2信息出错！");
 			}
 		});
 
@@ -222,7 +220,7 @@
 					}
 				},
 				error: function(e) {
-					//	            alert("城市1列表信息出错！");
+					            alert("城市2列表信息出错！");
 				}
 			});
 		}
