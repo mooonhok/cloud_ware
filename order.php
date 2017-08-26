@@ -859,12 +859,12 @@ $app->post('/wx_order_z', function () use ($app) {
             $data2= $stmt->fetch();
             if($data2!=null){
                 $array['order_status']=$data2['order_status'];
-                $array['order_time0']=$data2['order_time0'];
-                $array['order_time1']=$data2['order_time1'];
-                $array['order_time2']=$data2['order_time2'];
-                $array['order_time3']=$data2['order_time3'];
-                $array['order_time4']=$data2['order_time4'];
-                $array['order_time5']=$data2['order_time5'];
+                $array['order_time0']=$data2['order_datetime0'];
+                $array['order_time1']=$data2['order_datetime1'];
+                $array['order_time2']=$data2['order_datetime2'];
+                $array['order_time3']=$data2['order_datetime3'];
+                $array['order_time4']=$data2['order_datetime4'];
+                $array['order_time5']=$data2['order_datetime5'];
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('exist', "=", 0)
@@ -1085,9 +1085,11 @@ $app->post('/wx_orders_order_source', function () use ($app) {
             $array1=array();
             $selectStatement = $database->select()
                 ->from('wx_message')
-                ->where('exist', "=", 0)
-                ->where('tenant_id', '=', $tenant_id)
-                ->orderBy("ms_date")
+                ->join('orders', 'wx_message.order_id', '=', 'orders.order_id','right')
+                ->where('wx_message.exist', "=", 0)
+                ->where('wx_message.tenant_id', '=', $tenant_id)
+                ->where('orders.order_status','=',0)
+                ->orderBy("wx_message.ms_date")
                 ->limit((int)$size,(int)$offset);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetchAll();
@@ -1102,11 +1104,16 @@ $app->post('/wx_orders_order_source', function () use ($app) {
                         ->where('exist','=',0);
                     $stmt = $selectStatement->execute();
                     $data3= $stmt->fetch();
-                    if($data3!=null){
+                    $selectStatement = $database->select()
+                        ->from('wx_message')
+                        ->where('exist', "=", 0)
+                        ->where('order_id','=',$data2[$i]['order_id'])
+                        ->where('tenant_id', '=', $tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data4= $stmt->fetch();
                         $array1["orders"]=$data3;
-                        $array1['message']=$data2[$i];
-                    }
-                    array_push($array,$array1);
+                        $array1['message']=$data4;
+                        array_push($array,$array1);
                  }
                 echo json_encode(array("result" => "1", "desc" => "success", "orders" => $array));
             }else{
