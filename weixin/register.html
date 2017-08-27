@@ -88,13 +88,11 @@
                      wx_openid:openid
 			        }),
 			        success:function(msg){
-			        			        	
+			        	if(msg.result==0){		        	
                         alert("用户注册成功");
-                        window.history.back();
-                        if (history.length==0){
-                        	window.location.href="http://mooonhok-cloudware.daoapp.io/wx_send.php";
-                        } 
-                       
+                        window.location.href="http://mooonhok-cloudware.daoapp.io/wx_send.php";
+                      
+                      } 
 				    },
 			        error:function(xhr){
 			            alert("用户注册失败！");
