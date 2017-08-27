@@ -87,14 +87,13 @@
                     customer_phone:customertel,
                      wx_openid:openid
 			        }),
-			        success:function(msg){
-			        	if (msg.result == 0) {
-                        alert("注册成功")
+			        success:function(msg){			        	
+                        alert("用户注册成功");
                         window.history.back();
                         if (history.length==0){
-                        	window.location.href="send.html";
+                        	window.location.href="";
                         } 
-                       }
+                       
 				    },
 			        error:function(xhr){
 			            alert("用户注册失败！");
