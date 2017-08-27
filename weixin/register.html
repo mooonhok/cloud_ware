@@ -88,11 +88,13 @@
                      wx_openid:openid
 			        }),
 			        success:function(msg){
+			        	if (msg.result == 0) {
                         alert("注册成功")
                         window.history.back();
                         if (history.length==0){
                         	window.location.href="send.html";
                         } 
+                       }
 				    },
 			        error:function(xhr){
 			            alert("用户注册失败！");

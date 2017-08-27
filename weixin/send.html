@@ -574,9 +574,11 @@
 					//					alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
 					if(msg.result == 0) {
 						window.location.href = "register.html";
-					} else {
-						alert(openid);
+					}else if (msg.result==1) {
+						window.location.href="";
 					}
+						// alert(openid);
+					
 				},
 				error: function(xhr) {
 					bootbox.setLocale("zh_CN");
