@@ -52,7 +52,6 @@
 		        	// alert("用户注册成功"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
                         if(msg.result==1){
                         	alert("你已经注册过了");
-
                         }
 				    },
 			        error:function(xhr){
@@ -90,8 +89,7 @@
 			        success:function(msg){
 			        	if(msg.result==0){		        	
                         alert("用户注册成功");
-                        window.location.href="http://mooonhok-cloudware.daoapp.io/wx_send.php";
-                      
+                        window.location.href="http://mooonhok-cloudware.daoapp.io/send.tml";   
                       } 
 				    },
 			        error:function(xhr){
