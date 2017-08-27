@@ -1216,12 +1216,36 @@ $app->get('/orders_goods_customer', function () use ($app) {
                 $stmt = $selectStatement->execute();
                 $data4= $stmt->fetch();
                 $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', "=", $data4['customer_city_id']);
+                $stmt = $selectStatement->execute();
+                $data6= $stmt->fetch();
+                $array['sender_city']=$data6;
+                $selectStatement = $database->select()
+                    ->from('province')
+                    ->where('id', "=", $data6['pid']);
+                $stmt = $selectStatement->execute();
+                $data7= $stmt->fetch();
+                $array['sender_province']=$data7;
+                $selectStatement = $database->select()
                     ->from('customer')
                     ->where('exist', "=", 0)
                     ->where('customer_id','=',$data2['receiver_id'])
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
                 $data5= $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', "=", $data5['customer_city_id']);
+                $stmt = $selectStatement->execute();
+                $data8= $stmt->fetch();
+                $array['receiver_city']=$data8;
+                $selectStatement = $database->select()
+                    ->from('province')
+                    ->where('id', "=", $data8['pid']);
+                $stmt = $selectStatement->execute();
+                $data9= $stmt->fetch();
+                $array['receiver_province']=$data9;
                 $array['sender']=$data4;
                 $array['receiver']=$data5;
                 echo json_encode(array("result" => "0", "desc" => "success",'orders'=>$array));
@@ -1229,7 +1253,7 @@ $app->get('/orders_goods_customer', function () use ($app) {
                 echo json_encode(array("result" => "1", "desc" => "没有该租户"));
             }
         }else{
-           echo json_encode(array('result'=>'2','desc'=>'订单id'));
+           echo json_encode(array('result'=>'2','desc'=>'订单id缺失'));
         }
     } else {
         echo json_encode(array("result" => "3", "desc" => "缺少租户id"));
