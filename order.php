@@ -1174,6 +1174,67 @@ $app->put('/order_status', function () use ($app) {
     }
 });
 
+
+
+//根据order_id获得orders、goods、customer
+$app->get('/orders_goods_customer', function () use ($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $order_id = $app->request->get('order_id');
+    if ($tenant_id != null || $tenant_id != "") {
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist', "=", 0)
+            ->where('tenant_id', '=', $tenant_id);
+        $stmt = $selectStatement->execute();
+        $data1= $stmt->fetch();
+        if($order_id!=null||$order_id!=''){
+            if($data1!=null){
+                $array=array();
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->where('exist', "=", 0)
+                    ->where('order_id','=',$order_id)
+                    ->where('tenant_id', '=', $tenant_id);
+                $stmt = $selectStatement->execute();
+                $data2= $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('goods')
+                    ->where('exist', "=", 0)
+                    ->where('order_id','=',$order_id)
+                    ->where('tenant_id', '=', $tenant_id);
+                $stmt = $selectStatement->execute();
+                $data3= $stmt->fetch();
+                $array['order']=$data2;
+                $array['goods']=$data3;
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('exist', "=", 0)
+                    ->where('customer_id','=',$data2['sender_id'])
+                    ->where('tenant_id', '=', $tenant_id);
+                $stmt = $selectStatement->execute();
+                $data4= $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('exist', "=", 0)
+                    ->where('customer_id','=',$data2['receiver_id'])
+                    ->where('tenant_id', '=', $tenant_id);
+                $stmt = $selectStatement->execute();
+                $data5= $stmt->fetch();
+                $array['sender']=$data4;
+                $array['receiver']=$data5;
+                echo json_encode(array("result" => "0", "desc" => "success",'orders'=>$array));
+            }else{
+                echo json_encode(array("result" => "1", "desc" => "没有该租户"));
+            }
+        }else{
+           echo json_encode(array('result'=>'2','desc'=>'订单id'));
+        }
+    } else {
+        echo json_encode(array("result" => "3", "desc" => "缺少租户id"));
+    }
+});
 $app->run();
 
 function localhost()
