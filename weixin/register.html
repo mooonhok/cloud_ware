@@ -87,11 +87,12 @@
                     customer_phone:customertel,
                      wx_openid:openid
 			        }),
-			        success:function(msg){			        	
+			        success:function(msg){
+			        			        	
                         alert("用户注册成功");
                         window.history.back();
                         if (history.length==0){
-                        	window.location.href="send.html";
+                        	window.location.href="http://mooonhok-cloudware.daoapp.io/wx_send.php";
                         } 
                        
 				    },
