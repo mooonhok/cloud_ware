@@ -419,12 +419,28 @@ $app->post('/plus_customer',function()use($app){
                    ->values(array(0,$tenant_id,$wx_openid,$type,count($data2),$adress,$city_id,$customer_name,$phone));
                $insertId = $insertStatement->execute(false);
                if($insertId!=null){
-                   echo json_encode(array("result"=>"1","desc"=>"success"));
+                   $selectStatement = $database->select()
+                       ->from('customer')
+                       ->where('exist',"=",0)
+                       ->where('type',"=",$type)
+                       ->where('wx_openid','=',$wx_openid)
+                       ->where('tenant_id','=',$tenant_id);
+                   $stmt = $selectStatement->execute();
+                   $data2 = $stmt->fetchAll();
+                   echo json_encode(array("result"=>"1","desc"=>"success",'customers'=>$data2));
                }else{
                    echo json_encode(array("result"=>"2","desc"=>"添加未执行"));
                }
            }else{
-               echo json_encode(array("result"=>"3","desc"=>"已存在"));
+               $selectStatement = $database->select()
+                   ->from('customer')
+                   ->where('exist',"=",0)
+                   ->where('type',"=",$type)
+                   ->where('wx_openid','=',$wx_openid)
+                   ->where('tenant_id','=',$tenant_id);
+               $stmt = $selectStatement->execute();
+               $data2 = $stmt->fetchAll();
+               echo json_encode(array("result"=>"1","desc"=>"success",'customers'=>$data2));
            }
        }else{
            echo json_encode(array("result"=>"4","desc"=>"缺少openid"));
@@ -432,6 +448,55 @@ $app->post('/plus_customer',function()use($app){
     }else{
         echo json_encode(array("result"=>"5","desc"=>"缺少租户id"));
     }
+});
+
+//批量上传，无则增加，有则修改
+$app->post('/customers_insert',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $array=array();
+    $body=json_decode($body);
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+    $num=count($array);
+//    $aa=$array[0];
+//    $array1=array();
+//    foreach($aa as $key=>$value){
+//        $array1[$key]=$value;
+//    }
+
+//echo count($array1);
+    for($i=0;$i<$num;$i++){
+        $array1=array();
+        foreach($array[$i] as $key=>$value){
+            $array1[$key]=$value;
+        }
+        $selectStatement = $database->select()
+            ->from('customer')
+            ->where('customer_id','=',$array1['customer_id'])
+            ->where('exist','=',0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        if($data1==null){
+            $insertStatement = $database->insert(array_keys($array1))
+                ->into('customer')
+                ->values(array_values($array1));
+            $insertId = $insertStatement->execute(false);
+        }else{
+            $updateStatement = $database->update($array1)
+                ->table('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('customer_id','=',$array1['customer_id'])
+                ->where('exist',"=",0);
+            $affectedRows = $updateStatement->execute();
+        }
+
+    }
+    echo json_encode(array("result"=>"1","desc"=>"success"));
 });
 
 $app->run();
