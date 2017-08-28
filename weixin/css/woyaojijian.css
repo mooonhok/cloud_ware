@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-18 09:58:43
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-08-28 10:56:53
+* @Last Modified time: 2017-08-28 14:19:22
 */
 *{
 	margin: 0;padding: 0;
@@ -806,6 +806,9 @@ html,body{height:100%; width:100%;
 }
 label{
 	font-size: 14px;
+}
+select{
+	width: 45%;
 }
 
 
