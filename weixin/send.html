@@ -773,13 +773,20 @@
 				type: 'post',
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({
+					customer_name:name_1,
+					customer_phone:phone_1;
+					city_id:cit+pro,
+					adress:dizhi_1,
+					type:1,
 					wx_openid: openid,
 				}),
 			success:function(msg){
-						var a = '<div class="name"><p>'+name_1+'</p></div><div class="phone"><p>'+phone_1+'</p></div><div class="dizhi"><p><span>'+pro+cit+'</span>'+dizhi_1+'</p></div><div class="xian"></div><div class="tu"><input type="checkbox"></div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div><div class="bj1">编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1">删除</div></div><div class="xian1"></div>';
+				for(var i=0;i<data.length;i++){
+						var a = '<div class="name"><p>'+data[i].customer_name+'</p></div><div class="phone"><p>'+data[i].customer_phone+'</p></div><div class="dizhi"><p><span>'+data[i].city_id+'</span>'+data[i].adress+'</p></div><div class="xian"></div><div class="tu"><input type="checkbox"></div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div><div class="bj1">编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1">删除</div></div><div class="xian1"></div>';
 					console.log(name_1+phone_1+pro+cit+dizhi_1);
 					$("#box10").html(a);
-					},	
+					}
+				},	
 						
 			error: function(xhr) {
 				alert("获取数据失败");
