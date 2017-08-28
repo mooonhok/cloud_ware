@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-18 09:58:43
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-08-28 09:10:26
+* @Last Modified time: 2017-08-28 10:56:53
 */
 *{
 	margin: 0;padding: 0;
@@ -785,10 +785,24 @@ html,body{height:100%; width:100%;
 	font-size: 15px;
 	color: white;
 }
+.tijiao2{
+	width: 80%;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background: #24D9C9;
+	border-radius: 5px;
+	float: left;
+	margin-top: 5px;
+	margin-left: 10%;
+	font-size: 15px;
+	color: white;
+}
 .kong{
 	width: 100%;
 	height: 20px;
 	background:#E7E7E7; 
+	float: left;
 }
 label{
 	font-size: 14px;
