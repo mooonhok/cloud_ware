@@ -414,9 +414,9 @@ $app->post('/plus_customer',function()use($app){
                    ->where('tenant_id','=',$tenant_id);
                $stmt = $selectStatement->execute();
                $data2 = $stmt->fetchAll();
-               $insertStatement = $database->insert('exist','tenant_id','wx_openid','type','customer_id','customer_adress','customer_city_id','customer_name','customer_phone')
+               $insertStatement = $database->insert(array('exist','tenant_id','wx_openid','type','customer_id','customer_adress','customer_city_id','customer_name','customer_phone'))
                    ->into('customer')
-                   ->values(0,$tenant_id,$wx_openid,$type,count($data2),$adress,$city_id,$customer_name,$phone);
+                   ->values(array(0,$tenant_id,$wx_openid,$type,count($data2),$adress,$city_id,$customer_name,$phone));
                $insertId = $insertStatement->execute(false);
                if($insertId!=null){
                    echo json_encode(array("result"=>"1","desc"=>"success"));
