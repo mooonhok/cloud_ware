@@ -234,7 +234,7 @@
 				<p>12345678911</p>
 			</div>	
 			<div class="dizhi">
-				江苏省南通市港闸区
+				<p><span></span>江苏省南通市港闸区</p>
 			</div>
 			<div class="xian"></div>
 			<div class="tu"><input type="checkbox"></div>
@@ -776,28 +776,69 @@
 		
 </script>
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 	$(".tijiao1").click(function(){
 		$("#box10").html("");
 		$$.ajax({
-			url:
+			url:"http://mooonhok-cloudware.daoapp.io/wxmessage.php/wxmessage"
 			beforeSend: function(request) {
-					request.setRequestHeader("tenant-id", "1");
+			request.setRequestHeader("tenant-id", "1");
 				},
 				dataType: 'json',
 				type: 'post',
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({
 					wx_openid: openid,
-					order_id: order_id
 				}),
 			success:function(msg){
+				if (msg.wxmessage.length==0) {
+					alert("请添加地址");
+				}else{
+					for(var i=0;i<msg.wxmessage.length;i++){
+						var a = "<div class="name"><p>"+msg.wxmessage[i].customer_name+"</p></div><div class="phone"><p>"+msg.wxmessage[i].customer_phone+"</p></div><div class="dizhi"><p><span>"+msg.wxmessage[i].city_id+"</span>"
+				+msg.wxmessage[i].adress+
+				"</p></div><div class="xian"></div><div class="tu"><input type="checkbox"></div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div><div class="bj1">编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1">删除</div></div><div class="xian1"></div>";
+					$("#box10").html(a);
+					}
+				}
 				
 			}
 		})
 		
 		
 	})
-</script> -->
+</script>
+
+<script type="text/javascript">
+	$(".tijiao2").click(function(){
+		$("#box11").html("");
+		$$.ajax({
+			url:"http://mooonhok-cloudware.daoapp.io/wxmessage.php/wxmessage"
+			beforeSend: function(request) {
+			request.setRequestHeader("tenant-id", "2");
+				},
+				dataType: 'json',
+				type: 'post',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					wx_openid: openid,
+				}),
+			success:function(msg){
+				if (msg.wxmessage.length==0) {
+					alert("请添加地址");
+				}else{
+					for(var i=0;i<msg.wxmessage.length;i++){
+						var a = "<div class="name"><p>"+msg.wxmessage[i].customer_name+"</p></div><div class="phone"><p>"+msg.wxmessage[i].customer_phone+"</p></div><div class="dizhi"><p><span>"+msg.wxmessage[i].city_id+"</span>"
+				+msg.wxmessage[i].adress+
+				"</p></div><div class="xian"></div><div class="tu"><input type="checkbox"></div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div><div class="bj1">编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1">删除</div></div><div class="xian1"></div>"
+					}
+				}
+				
+			}
+		})
+		
+		
+	})
+</script>
 	
 </html>
