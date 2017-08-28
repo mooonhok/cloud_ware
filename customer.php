@@ -8,11 +8,6 @@ use Slim\PDO\Database;
 \Slim\Slim::registerAutoloader();
     $app = new \Slim\Slim();
 
-
-
-
-
-
 $app->post('/customer',function()use($app){
 	$app->response->headers->set('Content-Type', 'application/json');
     $database=localhost();
@@ -277,7 +272,7 @@ $app->delete('/customer',function()use($app){
     }
 });
 
-
+//用户注册
 $app->post('/wx_customer',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database=localhost();
@@ -348,8 +343,8 @@ $app->post('/wx_customer',function()use($app){
     }
 });
 
-
-$app->get('/wx_openid',function()use($app){
+//微信，进入每个页面查询是否注册
+$app->get('/wx_customer',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
@@ -384,6 +379,60 @@ $app->get('/wx_openid',function()use($app){
     }
 });
 
+
+
+//微信添加寄件人、收件人的地址详情
+$app->post('/plus_customer',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body=json_decode($body);
+    $wx_openid=$body->wx_openid;
+    $type=$body->type;
+    $adress=$body->adress;
+    $city_id=$body->city_id;
+    $customer_name=$body->customer_name;
+    $phone=$body->customer_phone;
+    if($tenant_id!=null||$tenant_id!=''){
+       if($wx_openid!=null||$wx_openid!=''){
+           $selectStatement = $database->select()
+               ->from('customer')
+               ->where('exist',"=",0)
+               ->where('type',"=",$type)
+               ->where('customer_adress',"=",$adress)
+               ->where('customer_city_id',"=",$city_id)
+               ->where('customer_name','=',$customer_name)
+               ->where('customer_phone','=',$phone)
+               ->where('wx_openid','=',$wx_openid)
+               ->where('tenant_id','=',$tenant_id);
+           $stmt = $selectStatement->execute();
+           $data1 = $stmt->fetch();
+           if($data1==null){
+               $selectStatement = $database->select()
+                   ->from('customer')
+                   ->where('tenant_id','=',$tenant_id);
+               $stmt = $selectStatement->execute();
+               $data2 = $stmt->fetchAll();
+               $insertStatement = $database->insert('exist','tenant_id','wx_openid','type','customer_id','customer_adress','customer_city_id','customer_name','customer_phone')
+                   ->into('customer')
+                   ->values(0,$tenant_id,$wx_openid,$type,count($data2),$adress,$city_id,$customer_name,$phone);
+               $insertId = $insertStatement->execute(false);
+               if($insertId!=null){
+                   echo json_encode(array("result"=>"1","desc"=>"success"));
+               }else{
+                   echo json_encode(array("result"=>"2","desc"=>"添加未执行"));
+               }
+           }else{
+               echo json_encode(array("result"=>"3","desc"=>"已存在"));
+           }
+       }else{
+           echo json_encode(array("result"=>"4","desc"=>"缺少openid"));
+       }
+    }else{
+        echo json_encode(array("result"=>"5","desc"=>"缺少租户id"));
+    }
+});
 
 $app->run();
 
