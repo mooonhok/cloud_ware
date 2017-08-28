@@ -558,6 +558,7 @@
 <script>
 		//判断openid是否已经被注册
 		var openid = $.cookie('openid');
+		alert(openid);
 		if(openid != null) {
 			$.ajax({
 				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid?wx_openid="+openid,
@@ -573,6 +574,7 @@
 				success: function(msg) {
 					//					alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
 					if(msg.result == 0) {
+						alert(openid);
 						window.location.href = "http://mooonhok-cloudware.daoapp.io/wx_register.php";
 					}
 					//else if (msg.result==1) {
@@ -616,6 +618,7 @@
    		var jiazhi = parseInt($(".jiazhi").val());
    		var money = $(".money").val();
    		var str = 0;
+   		alert(openid);
    		if (money=="到付") {
    			str=1;
    		}else if(money=="现付"){
