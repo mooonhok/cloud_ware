@@ -153,7 +153,7 @@
 		</form>
 	</div>		
 	<div class="kong"></div>
-		<div class="box1">
+		<div class="box1" id="box10">
 			<div class="name">
 				<p>张三</p>	
 			</div>	
@@ -220,13 +220,13 @@
 				<textarea name="" id="" cols="27" rows="5" placeholder="请填写详细地址"></textarea>
 				</div>
 			</div>
-			<div class="tijiao1">
+			<div class="tijiao2">
 				添加新地址
 			</div>
 		</form>
 	</div>		
 	<div class="kong"></div>
-		<div class="box1">
+		<div class="box1" id="box11">
 			<div class="name">
 				<p>张三</p>	
 			</div>	
@@ -244,13 +244,10 @@
 			<div class="bj1">编辑</div>
 			<div class="sc"><img src="images/sc.png" alt=""></div>
 			<div class="sc1">删除</div>
-
 			</div>	
-
 			<div class="xian1"></div>
 			<div style="clear:both;"></div>
 		</div>	
-		
 	 <div style="clear:both;"></div>
 	</div>
 <!-- box4 -->
@@ -318,10 +315,10 @@
 	 	$(".box2").css("z-index","100");
 	 })
 
-	 $(".tijiao1").click(function(){
-	 	$(".shuru").html($("#xdizhi").val());	 		 	
-	 	$(".box2").css("display","none");
-	 })
+	//  $(".tijiao1").click(function(){
+	//  	$(".shuru").html($("#xdizhi").val());	 		 	
+	//  	$(".box2").css("display","none");
+	//  })
 	})
 	 
 	</script>
@@ -332,10 +329,10 @@
 	 	$(".box3").css("display","block");
 	 	$(".box3").css("z-index","100");
 	 })
-	 $(".tijiao2").click(function(){
-	 	$(".shuru1").html($("#xdizhi2").val());
-	 	$(".box3").css("display","none");
-	 })
+	//  $(".tijiao2").click(function(){
+	//  	$(".shuru1").html($("#xdizhi2").val());
+	//  	$(".box3").css("display","none");
+	//  })
 	})	 
 	</script>
 	<script type="text/javascript">
@@ -778,5 +775,29 @@
    })
 		
 </script>
+
+<!-- <script type="text/javascript">
+	$(".tijiao1").click(function(){
+		$("#box10").html("");
+		$$.ajax({
+			url:
+			beforeSend: function(request) {
+					request.setRequestHeader("tenant-id", "1");
+				},
+				dataType: 'json',
+				type: 'post',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					wx_openid: openid,
+					order_id: order_id
+				}),
+			success:function(msg){
+				
+			}
+		})
+		
+		
+	})
+</script> -->
 	
 </html>
