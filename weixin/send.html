@@ -121,30 +121,30 @@
 			<div class="name1">
 				<label for="">姓名</label>
 			<div class="name2">
-				<input type="text">
+				<input type="text" class="name_1">
 				</div>	
 			</div>
 			<div class="phone1">
 				<label for="">联系方式</label>			
 			<div class="phone2">
-				<input type="tel">
+				<input type="tel" class="phone_1">
 			</div>	
 			</div>		
 			<div class="dizhi1">
 				<label for="">地址</label>
 			
 			<div class="dizhi2">
-				<select name="province" id="province1" onchange="getPro1()">
+				<select name="province" id="province1" onchange="getPro1()" class="pro">
 					<option value="">请选择</option>
 				</select>	
-				<select name="city" id="city1">
+				<select name="city" id="city1" class="cit">
 					<option value="">请选择</option>
 				</select>
 				</div>	
 			</div>
 			<div class="dizhi3">
 			<div class="dizhi3-1">
-				<textarea name="" id="" cols="27" rows="5" placeholder="请填写详细地址"></textarea>
+				<textarea  id="dizhi_1" cols="27" rows="5" placeholder="请填写详细地址"></textarea>
 				</div>
 			</div>
 			<div class="tijiao1">
@@ -758,6 +758,11 @@
 
 <script type="text/javascript">
 	$(".tijiao1").on("click",function(){
+		var name_1 = $(".name_1").val();
+		var phone_1 = $(".phone_1").val();
+		var pro = $(".pro").val();
+		var cit = $(".cit").val();
+		var dizhi_1 = $("#dizhi_1").val();
 		$("#box10").html("");
 		$.ajax({
 			url:"http://mooonhok-cloudware.daoapp.io/wxmessage.php/wxmessage",
@@ -771,13 +776,11 @@
 					wx_openid: openid,
 				}),
 			success:function(msg){
-			
-					for(var i=0;i<msg.wxmessage.length;i++){
-						var a = '<div class="name"><p>'+msg.wxmessage[i].customer_name+'</p></div><div class="phone"><p>'+msg.wxmessage[i].customer_phone+'</p></div><div class="dizhi"><p><span>'+msg.wxmessage[i].city_id+'</span>'+msg.wxmessage[i].adress+'</p></div><div class="xian"></div><div class="tu"><input type="checkbox"></div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div><div class="bj1">编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1">删除</div></div><div class="xian1"></div>';
-					console.log(msg.wxmessage[i].customer_name+msg.wxmessage[i].customer_phone+msg.wxmessage[i].city_id+msg.wxmessage[i].adress);
+						var a = '<div class="name"><p>'+name_1+'</p></div><div class="phone"><p>'+phone_1+'</p></div><div class="dizhi"><p><span>'+pro+cit+'</span>'+dizhi_1+'</p></div><div class="xian"></div><div class="tu"><input type="checkbox"></div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div><div class="bj1">编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1">删除</div></div><div class="xian1"></div>';
+					console.log(name_1+phone_1+pro+cit+dizhi_1);
 					$("#box10").html(a);
-					}	
-				},			
+					},	
+						
 			error: function(xhr) {
 				alert("获取数据失败");
 			}
