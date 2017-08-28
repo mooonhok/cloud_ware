@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-18 09:58:43
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-08-26 11:14:05
+* @Last Modified time: 2017-08-28 09:10:26
 */
 *{
 	margin: 0;padding: 0;
@@ -227,11 +227,10 @@ html,body{height:100%; width:100%;
 .box2{
 	width: 100%;
 	height: 100%;
-	background: rgba(0, 0, 0,0.2);	
+	background: white;	
 	position: absolute;
-
 }
-.box2-1{
+/* .box2-1{
 	width: 100%;
 	height: 400px;
 	background: white;
@@ -244,15 +243,14 @@ html,body{height:100%; width:100%;
 	float: left;
 	margin-left: 30%;
 	text-align: center;
-}
+} */
 .box3{
 	width: 100%;
 	height: 100%;
-	background: rgba(0, 0, 0,0.2);	
+	background: white;	
 	position: absolute;
-
 }
-.box3-1{
+/* .box3-1{
 	width: 100%;
 	height: 400px;
 	background: white;
@@ -265,8 +263,8 @@ html,body{height:100%; width:100%;
 	float: left;
 	margin-left: 30%;
 	text-align: center;
-}
-.name{
+} */
+/* .name{
 	width: 80%;
 	height: 25px;
 	float: left;
@@ -289,8 +287,8 @@ html,body{height:100%; width:100%;
 	margin-left: 10%;
 	margin-top: 10px;
 	line-height: 25px;
-}
-.phone1{
+} */
+/* .phone1{
 	width: 70%;
 	float: right;
 }
@@ -317,9 +315,9 @@ html,body{height:100%; width:100%;
 .dizhi2{
 	float: left;
 	width: 80%;
-	height: 150px;
+	height: 150px; */
 	/* border: 1px solid red; */
-	margin-top: 10px;
+	/* margin-top: 10px;
 	margin-left: 10%;
 }
 .dizhi2-1{
@@ -353,7 +351,7 @@ html,body{height:100%; width:100%;
 	line-height: 45px;
 	margin-left: 10%;
 	border-radius: 5px;
-}
+} */
 
 .box4{
 	width: 100%;
@@ -365,7 +363,7 @@ html,body{height:100%; width:100%;
 .box4-1{
 	width: 100%;
 	height: 150px;
-	background: white;
+	background: #f5f5f5;
 	position: absolute;bottom: 0;
 	text-align: center;
 }
@@ -381,7 +379,7 @@ html,body{height:100%; width:100%;
 .box4-2-1{
 	width: 30%;
 	height: 40px;
-	background: blue;
+	background: #24D9CA;
 	color: white;
 	float: left;
 	line-height: 40px;
@@ -391,7 +389,7 @@ html,body{height:100%; width:100%;
 .box4-2-2{
 	width: 30%;
 	height: 40px;
-	background: blue;
+	background: #24D9CA;
 	color: white;
 	float: left;
 	margin-left: 5%;
@@ -402,7 +400,7 @@ html,body{height:100%; width:100%;
 .box4-2-3{
 	width: 30%;
 	height: 40px;
-	background: blue;
+	background: #24D9CA;
 	color: white;
 	float: left;
 	margin-left: 5%;
@@ -422,7 +420,7 @@ html,body{height:100%; width:100%;
 .box4-3-1{
 	width: 30%;
 	height: 40px;
-	background: blue;
+	background: #24D9CA;
 	color: white;
 	float: left;
 	line-height: 40px;
@@ -432,7 +430,7 @@ html,body{height:100%; width:100%;
 .box4-3-2{
 	width: 30%;
 	height: 40px;
-	background: blue;
+	background: #24D9CA;
 	color: white;
 	float: left;
 	margin-left: 5%;
@@ -443,7 +441,7 @@ html,body{height:100%; width:100%;
 .box4-3-3{
 	width: 30%;
 	height: 40px;
-	background: blue;
+	background: #24D9CA;
 	color: white;
 	float: left;
 	margin-left: 5%;
@@ -543,7 +541,7 @@ html,body{height:100%; width:100%;
 .box6-1{
 	width: 100%;
 	height: 150px;
-	background: white;
+	background: #f5f5f5;
 	position: absolute;bottom: 0;
 	text-align: center;
 }
@@ -558,7 +556,7 @@ html,body{height:100%; width:100%;
 .box6-2-1{
 	width: 30%;
 	height: 50px;
-	background: blue;
+	background: #24D9CA;
 	color: white;
 	float: left;
 	line-height: 50px;
@@ -568,7 +566,7 @@ html,body{height:100%; width:100%;
 .box6-2-2{
 	width: 30%;
 	height: 50px;
-	background: blue;
+	background: #24D9CA;
 	color: white;
 	float: left;
 	margin-left: 5%;
@@ -579,7 +577,7 @@ html,body{height:100%; width:100%;
 .box6-2-3{
 	width: 30%;
 	height: 50px;
-	background: blue;
+	background: #24D9CA;
 	color: white;
 	float: left;
 	margin-left: 5%;
@@ -599,6 +597,201 @@ html,body{height:100%; width:100%;
 	width: 100%;
 	border: 0;outline-style: none;
 	background: white;
+}
+.xian{
+	width: 100%;
+	height: 1px;
+	background: #E7E7E7;
+	float: left;
+}
+.box1{
+	width: 100%;
+	float: left;
+}
+.name{
+	float: left;
+	width: 30%;
+	height: 30px;
+	line-height: 30px;
+	margin-left: 3%;
+	font-size: 15px;
+}
+.phone{
+	float: right;
+	width: 60%;
+	height: 30px;
+	line-height: 30px;
+	text-align: right;
+	margin-right: 3%;
+	font-size: 15px;
+}
+.dizhi{
+	float: left;
+	width: 94%;
+	height: 30px;
+	line-height: 30px;
+	margin-left: 3%;
+	font-size: 15px;
+}
+.tu{
+	float: left;
+	width: 30%;
+	height: 20px;
+	margin-top: 5px;
+	margin-left: 3%;
+}
+.tu img{
+	width: 15px;
+	height: 15px;
+}
+.bj{
+	float: left;
+	/* width: 45%; */
+	height: 20px;
+	margin-top: 5px;
+}
+.bj1{
+	float: left;
+	font-size: 14px;
+	color: #9B9B9B;
+	height: 20px;
+	line-height: 20px;
+	margin-top: 5px;
+}
+.bj img{
+	width: 20px;
+	height: 20px;
+}
+.sc{
+	float: left;
+	/* width: 45%; */
+	height: 20px;
+	margin-top: 5px;
+	margin-left: 5%;
+}
+.sc1{
+	float: left;
+	font-size: 14px;
+	color: #9B9B9B;
+	height: 20px;
+	line-height: 20px;
+	margin-top: 5px;
+}
+.sc img{
+	width: 20px;
+	height: 20px;
+}
+.tu2{
+	width: 40%;
+	float: right;
+}
+.xian1{
+	width: 100%;
+	height: 1px;
+	background: #E7E7E7;
+	float: left;
+	margin-top: 3px;
+}
+
+.box2-1{
+	width: 100%;
+	height: 250px;
+	background: white;
+	
+}
+.jj{
+	width: 40%;
+	height: 30px;
+	line-height: 30px;
+	float: left;
+	margin-left: 30%;
+	text-align: center;
+}
+.name1{
+	width: 80%;
+	height: 20px;
+	float: left;
+	margin-left: 10%;
+	margin-top: 5px;
+	line-height: 20px;
+}
+.name2{
+	width: 70%;
+	float: right;
+}
+.name2 input{
+	width: 90%;
+	height: 20px;
+}
+.phone1{
+	width: 80%;
+	height: 20px;
+	float: left;
+	margin-left: 10%;
+	margin-top: 5px;
+	line-height: 20px;
+}
+.phone2{
+	width: 70%;
+	float: right;
+}
+.phone2 input{
+	width: 90%;
+	height: 20px;
+}
+.dizhi1{
+	width: 80%;
+	height: 20px;
+	float: left;
+	margin-left: 10%;
+	line-height: 20px;
+	margin-top: 10px;
+}
+.dizhi2{
+	width: 70%;
+	float: right;
+}
+.dizhi3 select{
+	width: 45%;
+	height: 20px;
+}
+.dizhi3{
+	float: left;
+	width: 80%;
+	height: 100px;
+	/* border: 1px solid red; */
+	margin-top: 2px;
+	margin-left: 10%;
+}
+.dizhi3-1{
+	width: 70%;
+	float: right;
+
+}
+.dizhi3-1 textarea{
+	width: 90%;
+	font-size: 14px;
+}
+.tijiao1{
+	width: 80%;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background: #24D9C9;
+	border-radius: 5px;
+	float: left;
+	margin-top: 5px;
+	margin-left: 10%;
+	font-size: 15px;
+	color: white;
+}
+.kong{
+	width: 100%;
+	height: 20px;
+	background:#E7E7E7; 
+}
+label{
+	font-size: 14px;
 }
 
 

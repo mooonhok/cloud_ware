@@ -5,8 +5,7 @@
  * Date: 2017/8/27
  * Time: 14:31
  */
-$num=rand(1,1000);
-echo $num;
+
 header('Content-type:text/html;charset=utf-8');
 if ($_COOKIE['openid'] == null) {
     if (!isset($_GET['code'])) {
@@ -16,6 +15,7 @@ if ($_COOKIE['openid'] == null) {
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
         header('Location:' . $url);
     } else {
+        $num=rand(1,1000);
         $appid = "wx15ef051f9f0bba92";
         $secret = "57ea0ee4abf4f4c6d6e38c88a289e687";
         $code = $_GET["code"];

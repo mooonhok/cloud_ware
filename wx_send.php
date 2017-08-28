@@ -28,9 +28,11 @@ if ($_COOKIE['openid'] == null) {
         $json_obj = json_decode($output, true);
         // echo $json_obj['openid'];
         setcookie('openid', $json_obj['openid']);
-        header('location:http://mooonhok-cloudware.daoapp.io/weixin/send.html');
+        $num=rand(1,100);
+        header('location:http://mooonhok-cloudware.daoapp.io/weixin/send.html?num='.$num);
     }
 }else{
-    header('location:http://mooonhok-cloudware.daoapp.io/weixin/send.html');
+	$num=rand(1,100);
+    header('location:http://mooonhok-cloudware.daoapp.io/weixin/send.html?num='.$num);
 }
 ?>
