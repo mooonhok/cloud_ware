@@ -763,7 +763,7 @@
 					wx_openid: openid,
 				}),
 			success:function(msg){
-				$ajax({
+				$.ajax({
 					url:"http://mooonhok-cloudware.daoapp.io/wxmessage.php/wxmessage",
 					beforeSend:function(request){
 						request.setRequestHeader("tenant-id","1");
