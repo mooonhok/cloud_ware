@@ -378,6 +378,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                         $array1['sendname']=$data6['customer_name'];
                         $array1['order_id']=$data3[$i]['order_id'];
                         $array1['status']=$data3[$i]['order_status'];
+                        $array1['order_cost']=$data3[$i]['order_cost'];
                         if($array1['status']==0){
                             $array1['receive']='未签收';
                             $array1['status']='未签收';
@@ -396,6 +397,12 @@ $app->post('/wx_orders_s', function () use ($app) {
                         }else if($array1['status']==5){
                             $array1['receive']='签收时间'.$data3[$i]['order_datetime5'];
                             $array1['status']='已签收';
+                        }else if($array1['status']==-1){
+                            $array1['receive']='拒受理';
+                            $array1['status']='拒受理';
+                        }else if($array1['status']==-2){
+                            $array1['receive']='未受理';
+                            $array1['status']='未受理';
                         }
                         $selectStatement = $database->select()
                             ->from('customer')
@@ -427,6 +434,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                     $data3= $stmt->fetch();
                     if($data3!=null){
                         $array1['status']=$data3['order_status'];
+                        $array1['order_cost']=$data3['order_cost'];
                         if($array1['status']==0){
                             $array1['receive']='未签收';
                             $array1['status']='未签收';
@@ -445,6 +453,12 @@ $app->post('/wx_orders_s', function () use ($app) {
                         }else if($array1['status']==5){
                             $array1['receive']='签收时间'.$data3['order_datetime5'];
                             $array1['status']='已签收';
+                        }else if($array1['status']==-1){
+                            $array1['receive']='拒受理';
+                            $array1['status']='拒受理';
+                        }else if($array1['status']==-2){
+                            $array1['receive']='未受理';
+                            $array1['status']='未受理';
                         }
 
                         $selectStatement = $database->select()
@@ -546,6 +560,7 @@ $app->post('/wx_orders_r', function () use ($app) {
                         $array1['acceptname']=$data6['customer_name'];
                         $array1['order_id']=$data3[$i]['order_id'];
                         $array1['status']=$data3[$i]['order_status'];
+                        $array1['order_cost']=$data3[$i]['order_cost'];
                         if($array1['status']==0){
                             $array1['receive']='未签收';
                             $array1['status']='未签收';
@@ -564,6 +579,12 @@ $app->post('/wx_orders_r', function () use ($app) {
                         }else if($array1['status']==5){
                             $array1['receive']='签收时间'.$data3[$i]['order_datetime5'];
                             $array1['status']='已签收';
+                        }else if($array1['status']==-1){
+                            $array1['receive']='拒受理';
+                            $array1['status']='拒受理';
+                        }else if($array1['status']==-2){
+                            $array1['receive']='未受理';
+                            $array1['status']='未受理';
                         }
                         $selectStatement = $database->select()
                             ->from('customer')
@@ -595,6 +616,7 @@ $app->post('/wx_orders_r', function () use ($app) {
                     $data3= $stmt->fetch();
                     if($data3!=null){
                         $array1['status']=$data3['order_status'];
+                        $array1['order_cost']=$data3['order_cost'];
                         if($array1['status']==0){
                             $array1['receive']='未签收';
                             $array1['status']='未签收';
@@ -613,6 +635,12 @@ $app->post('/wx_orders_r', function () use ($app) {
                         }else if($array1['status']==5){
                             $array1['receive']='签收时间'.$data3['order_datetime5'];
                             $array1['status']='已签收';
+                        }else if($array1['status']==-1){
+                            $array1['receive']='拒受理';
+                            $array1['status']='拒受理';
+                        }else if($array1['status']==-2){
+                            $array1['receive']='未受理';
+                            $array1['status']='未受理';
                         }
                         $selectStatement = $database->select()
                             ->from('customer')
@@ -643,18 +671,18 @@ $app->post('/wx_orders_r', function () use ($app) {
                         $data7= $stmt->fetch();
                         $array1['sendcity']=$data7['name'];
                         array_push($array,$array1);
-                        echo json_encode(array("result" => "1", "desc" => "", "orders" => $array));
+                        echo json_encode(array("result" => "1", "desc" => "success", "orders" => $array));
                     }else{
-                        echo json_encode(array("result" => "1", "desc" => "", "orders" => $array));
+                        echo json_encode(array("result" => "2", "desc" => "", "orders" => $array));
                     }
 
                 }
             }
         } else {
-            echo json_encode(array("result" => "2", "desc" => "租户不存在", "orders" => ""));
+            echo json_encode(array("result" => "3", "desc" => "租户不存在", "orders" => ""));
         }
     } else {
-        echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => ""));
+        echo json_encode(array("result" => "4", "desc" => "缺少租户id", "orders" => ""));
     }
 });
 
@@ -714,6 +742,7 @@ $app->post('/wx_order', function () use ($app) {
                         $array1['acceptname']=$data6['customer_name'];
                         $array1['order_id']=$data3[$i]['order_id'];
                         $array1['status']=$data3[$i]['order_status'];
+                        $array1['order_cost']=$data3[$i]['order_cost'];
                         if($array1['status']==0){
                             $array1['receive']='未签收';
                             $array1['status']='未签收';
@@ -763,6 +792,7 @@ $app->post('/wx_order', function () use ($app) {
                     $data3= $stmt->fetch();
                     if($data3!=null){
                         $array1['status']=$data3['order_status'];
+                        $array1['order_cost']=$data3['order_cost'];
                         if($array1['status']==0){
                             $array1['receive']='未签收';
                             $array1['status']='未签收';
