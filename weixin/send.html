@@ -775,10 +775,8 @@
 						wx_openid:openid,
 					}),
 					success:function(msg){
-					  for(var i=0;i<msg.wxmessage;i++){
-
-					  
-						var a = '<div class="name"><p>'+msg.wxmessage[i].customer_name+'</p></div><div class="phone"><p>'+msg.wxmessage[i]customer_phone+'</p></div><div class="dizhi"><p><span>'+msg.wxmessage[i]city_id+'</span>'+msg.wxmessage[i]adress+'</p></div><div class="xian"></div><div class="tu"><input type="checkbox"></div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div><div class="bj1">编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1">删除</div></div><div class="xian1"></div>';
+					  for(var i=0;i<msg.wxmessage;i++){					  
+						var a = '<div class="name"><p>'+msg.wxmessage[i].customer_name+'</p></div><div class="phone"><p>'+msg.wxmessage[i].customer_phone+'</p></div><div class="dizhi"><p><span>'+msg.wxmessage[i].city_id+'</span>'+msg.wxmessage[i].adress+'</p></div><div class="xian"></div><div class="tu"><input type="checkbox"></div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div><div class="bj1">编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1">删除</div></div><div class="xian1"></div>';
 					// console.log(name_1+phone_1+pro+cit+dizhi_1);
 					$("#box10").html(a);
 					}
