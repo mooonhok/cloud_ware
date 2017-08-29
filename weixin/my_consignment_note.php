@@ -263,7 +263,7 @@ $signPackage = $jssdk->GetSignPackage();
 							 +msg.orders[i].acceptcity+"</h3><p>"
 							 +msg.orders[i].acceptname+"</p></div></div></div><div class='yundan_3'><div class='yundan_3_1'>"
 							 +msg.orders[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
-					$("#bo1").append(a);
+					$("#bo2").append(a);
 				};
 					if($(".yundan_3_1").text() == "已签收") {
 						$(".sta").css("color", "#000000");
