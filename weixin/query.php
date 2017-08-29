@@ -150,7 +150,7 @@ $signPackage = $jssdk->GetSignPackage();
 	$("#sumbit").click(function(){
 		var order_id=$("#order_id").val();
 		//alert(order_id);
-		window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/wx_waybill_details.php?order_id="+order_id;
+		window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/weixin/waybill_details.php?order_id="+order_id;
 	});
 </script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
@@ -217,7 +217,7 @@ $signPackage = $jssdk->GetSignPackage();
         var a=new Array();
         a=res.resultStr.split(",");
         alert(a[1]);
-       window.location.href="http://mooonhok-cloudware.daoapp.io/wx_waybill_details.php?order_id="+a[1];
+       window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.php?order_id="+a[1];
       }  
     });  
   };  

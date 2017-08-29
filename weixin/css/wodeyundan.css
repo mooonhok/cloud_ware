@@ -153,7 +153,7 @@
 
 .yundan_2{
 	/* border: 1px solid red; */
-	width: 60%;
+	width: 50%;
 	height: 50px;
 	float: left;
 	margin-left: 10%;
@@ -170,7 +170,7 @@
 
 .yundan_2_2{
 	float:left;
-	width: 30%;
+	width: 20%;
 	text-align: center;
 	height: 45px;
 	line-height: 45px;
@@ -188,7 +188,7 @@
 
 .yundan_3{
 	float: right;
-	width: 35%;
+	width: 25%;
 	background: #24D9C9;
 	color: white;
 	height: 140px;
