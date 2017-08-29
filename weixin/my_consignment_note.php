@@ -229,7 +229,7 @@ $signPackage = $jssdk->GetSignPackage();
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
 						alert(sendid);
-					   window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+sendid;
+					   window.location.href = "http://mooonhok-cloudware.daoapp.io/wx_waybill_details.php?order_id="+sendid;
 					});
 			},
 			error: function(xhr) {
@@ -274,7 +274,7 @@ $signPackage = $jssdk->GetSignPackage();
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
 						alert(sendid);
-					     window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+sendid;
+					     window.location.href = "http://mooonhok-cloudware.daoapp.io/wx_waybill_details.php?order_id="+sendid;
 					});
 			},
 			error: function(xhr) {
@@ -303,7 +303,7 @@ $signPackage = $jssdk->GetSignPackage();
         var a=new Array();
         a=res.resultStr.split(",");
         alert(a[1]);
-       window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+a[1];
+       window.location.href="http://mooonhok-cloudware.daoapp.io/wx_waybill_details.php?order_id="+a[1];
       }  
     });  
   };  
