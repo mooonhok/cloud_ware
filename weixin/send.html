@@ -147,7 +147,7 @@
 							<textarea id="dizhi_1" cols="27" rows="5" placeholder="请填写详细地址"></textarea>
 						</div>
 					</div>
-					<div class="tijiao1">
+					<div class="tijiao1" id="subaddress2">
 						添加新地址
 					</div>
 				</form>
@@ -157,7 +157,7 @@
 
 				<div style="clear:both;"></div>
 			</div>
-
+           <div class="tijiao2" id="subaddress3">提交</div>
 			<div style="clear:both;"></div>
 		</div>
 
@@ -197,7 +197,7 @@
 							<textarea id="dizhi_2" cols="27" rows="5" placeholder="请填写详细地址"></textarea>
 						</div>
 					</div>
-					<div class="tijiao2">
+					<div class="tijiao2" id="subaddress4">
 						添加新地址
 					</div>
 				</form>
@@ -207,6 +207,7 @@
 
 				<div style="clear:both;"></div>
 			</div>
+			<div class="tijiao2" id="subaddress5">提交</div>
 			<div style="clear:both;"></div>
 		</div>
 		<!-- box4 -->
@@ -575,7 +576,7 @@
 
 				}),
 				success: function(msg) {
-					//					alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
+					//	alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
 					if(msg.result == 0) {
 						window.location.href = "http://mooonhok-cloudware.daoapp.io/wx_register.php";
 					}
@@ -596,15 +597,136 @@
 	</script>
 
 	<script type="text/javascript">
-		$(".tijiao").on('click', function() {
-			var shuru = $(".shuru").html();
-			var jname = $(".name2").val();
-			var jphone = $(".phone2").val();
-			var jdizhi = parseInt($("#city1 option:selected").val());
-			var shuru1 = $(".shuru1").html()
-			var jname1 = $(".name3").val();
-			var jphone1 = $(".phone3").val();
-			var jdizhi1 = parseInt($("#city2 option:selected").val());
+		var customer_send_id=null;
+		var customer_accept_id=null;
+		$("#subaddress2").on("click", function() {
+			var name_1 = $(".name_1").val();
+			var phone_1 = $(".phone_1").val();
+			var pro = $(".pro").val();
+			var cit = $(".cit").val();
+			var dizhi_1 = $("#dizhi_1").val();
+			$("#box10").html("");
+			$.ajax({
+				url: "http://mooonhok-cloudware.daoapp.io/wxmessage.php/wxmessage",
+				beforeSend: function(request) {
+					request.setRequestHeader("tenant-id", "1");
+				},
+				dataType: 'json',
+				type: 'post',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					customer_name: name_1,
+					customer_phone: phone_1,
+					city_id: cit + pro,
+					address: dizhi_1,
+					type: 1,
+					wx_openid: openid,
+				}),
+				success: function(msg) {
+					alert("添加地址");
+					$.ajax({
+						url: "http://mooonhok-cloudware.daoapp.io/wxmessage.php/wxaddress?wx_openid=" + openid ,
+						beforeSend: function(request) {
+							request.setRequestHeader("tenant-id", "1");
+						},
+						dataType: 'json',
+						type: 'get',
+						contentType: "application/json;charset=utf-8",
+						data: JSON.stringify({}),
+						success: function(msg) {
+							for(var i = 0; i < msg.wxmessage.length; i++) {
+								var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
+									msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
+									msg.wxmessage[i].customer_city_id + '</span>' +
+									msg.wxmessage[i].customer_address + '</p></div><div class="xian"></div><div class="tu"><input type="radio" value='+
+									 msg.wxmessage[i].customer_id+'>' +
+									'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>'
+									+'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1">删除</div></div><div class="xian1"></div>';
+								if(msg.wxmessage[i].type == 1) {
+									$("#box10").html(a);
+								}
+								$("#subaddress3").on('click',function(){
+									customer_send_id=$("input[type='radio']:checked").val();
+									alert(customer_send_id);
+									$("shuru").html($("input[type='radio']:checked").parent().prev().prev().text());
+								});
+							}
+						}
+					});
+				},
+
+				error: function(xhr) {
+					alert("获取数据失败");
+				}
+			});
+		});
+	</script>
+
+	<script type="text/javascript">
+		$("#subaddress4").on("click", function() {
+			$("#box11").html("");
+			$.ajax({
+					url: "http://mooonhok-cloudware.daoapp.io/wxmessage.php/wxmessage",
+					beforeSend: function(request) {
+						request.setRequestHeader("tenant-id", "1");
+					},
+					dataType: 'json',
+					type: 'post',
+					contentType: "application/json;charset=utf-8",
+					data: JSON.stringify({
+						customer_name: name_2,
+						customer_phone: phone_2,
+						city_id: pro1 + cit1,
+						adress: dizhi_2,
+						type: 2,
+						wx_openid: openid,
+					}),
+					success: function(msg) {
+						alert("添加地址");
+						$.ajax({
+							url: "http://mooonhok-cloudware.daoapp.io/wxmessage.php/wxaddress?wx_openid=" + openid,
+							beforeSend: function(request) {
+								request.setRequestHeader("tenant-id", "1");
+							},
+							dataType: 'json',
+							type: 'get',
+							contentType: "application/json;charset=utf-8",
+							data: JSON.stringify({
+
+							}),
+							success: function(msg) {
+								for(var i = 0; i < msg.wxmessage.length; i++) {
+									var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
+									msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
+									msg.wxmessage[i].customer_city_id + '</span>' +
+									msg.wxmessage[i].customer_address + '</p></div><div class="xian"></div><div class="tu"><input type="radio" value='+
+									 msg.wxmessage[i].customer_id+'>' +
+									'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>'
+									+'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1">删除</div></div><div class="xian1"></div>';
+									// console.log(name_1+phone_1+pro+cit+dizhi_1);
+									if(msg.wxmessage[i].type == 2) {
+										$("#box11").html(a);
+									}
+									$("#subaddress5").on('click',function(){
+										customer_accept_id=$("input[type='radio']:checked").val();
+										alert(customer_accept_id);
+										$("shuru1").html($("input[type='radio']:checked").parent().prev().prev().text());
+									});
+								}
+							}
+						});
+					},
+				
+				error: function(xhr) {
+					alert("获取数据失败");
+				}
+			});
+
+		})
+	</script>
+	<script type="text/javascript">
+	$(".tijiao").on('click', function() {
+
 			var huowu = $(".huowu").val();
 			var str1 = $(".zhong").val();
 			var zhong = str1 * 1;
@@ -623,13 +745,13 @@
 			} else if(money == "月付") {
 				str = 2;
 			}
-			if(shuru == "" || jname == "" || jphone == "" || jdizhi == 0) {
+			if(customer_send_id == ""||customer_accept_id==0) {
 				bootbox.setLocale("zh_Cn");
 				bootbox.alert({
 					message: "发货人信息不全",
 					size: 'small'
 				})
-			} else if(shuru1 == "" || jname1 == "" || jphone1 == "" || jdizhi1 == "") {
+			} else if(customer_accept_id == ""||customer_accept_id==0) {
 				bootbox.setLocale("zh_Cn");
 				bootbox.alert({
 					message: "收件人信息不全",
@@ -688,14 +810,8 @@
 					type: 'post',
 					contentType: "application/json;charset=utf-8",
 					data: JSON.stringify({
-						customer_name: jname,
-						customer_phone: jphone,
-						customer_city_id: jdizhi,
-						customer_address: shuru,
-						customer_name: jname1,
-						customer_phone: jphone1,
-						customer_city_id: jdizhi1,
-						customer_address: shuru1,
+						customer_send_id: customer_send_id,
+					    customer_accept_id:customer_accept_id,
 						goods_name: huowu,
 						goods_weight: zhong,
 						goods_capacity: tiji,
@@ -726,123 +842,4 @@
 
 		})
 	</script>
-
-	<script type="text/javascript">
-		$(".tijiao1").on("click", function() {
-			var name_1 = $(".name_1").val();
-			var phone_1 = $(".phone_1").val();
-			var pro = $(".pro").val();
-			var cit = $(".cit").val();
-			var dizhi_1 = $("#dizhi_1").val();
-			$("#box10").html("");
-			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/wxmessage.php/wxmessage",
-				beforeSend: function(request) {
-					request.setRequestHeader("tenant-id", "1");
-				},
-				dataType: 'json',
-				type: 'post',
-				contentType: "application/json;charset=utf-8",
-				data: JSON.stringify({
-					customer_name: name_1,
-					customer_phone: phone_1,
-					city_id: cit + pro,
-					address: dizhi_1,
-					type: 1,
-					wx_openid: openid,
-				}),
-				success: function(msg) {
-					alert("添加地址");
-					$.ajax({
-						url: "http://mooonhok-cloudware.daoapp.io/wxmessage.php/wxaddress?wx_openid=" + openid ,
-						beforeSend: function(request) {
-							request.setRequestHeader("tenant-id", "1");
-						},
-						dataType: 'json',
-						type: 'get',
-						contentType: "application/json;charset=utf-8",
-						data: JSON.stringify({}),
-						success: function(msg) {
-							for(var i = 0; i < msg.wxmessage.length; i++) {
-								var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
-									msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
-									msg.wxmessage[i].city_id + '</span>' +
-									msg.wxmessage[i].address + '</p></div><div class="xian"></div><div class="tu"><input type="radio">' +
-							
-									//'</div><div class="tu2">' +<div class="bj"><img src="images/bj.png" alt=""></div><div class="bj1">编辑</div>'
-									+'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1">删除</div></div><div class="xian1"></div>';
-								// console.log(name_1+phone_1+pro+cit+dizhi_1);
-								if(msg.wxmessage[i].type == 1) {
-									$("#box10").html(a);
-								}
-							}
-						}
-					});
-				},
-
-				error: function(xhr) {
-					alert("获取数据失败");
-				}
-			});
-		});
-	</script>
-
-	<script type="text/javascript">
-		$(".tijiao2").on("click", function() {
-			$("#box11").html("");
-			$.ajax({
-					url: "http://mooonhok-cloudware.daoapp.io/wxmessage.php/wxmessage",
-					beforeSend: function(request) {
-						request.setRequestHeader("tenant-id", "1");
-					},
-					dataType: 'json',
-					type: 'post',
-					contentType: "application/json;charset=utf-8",
-					data: JSON.stringify({
-						customer_name: name_2,
-						customer_phone: phone_2,
-						city_id: pro1 + cit1,
-						adress: dizhi_2,
-						type: 2,
-						wx_openid: openid,
-					}),
-					success: function(msg) {
-						alert("添加地址");
-						$.ajax({
-							url: "http://mooonhok-cloudware.daoapp.io/wxmessage.php/wxaddress?wx_openid=" + openid,
-							beforeSend: function(request) {
-								request.setRequestHeader("tenant-id", "1");
-							},
-							dataType: 'json',
-							type: 'get',
-							contentType: "application/json;charset=utf-8",
-							data: JSON.stringify({
-
-							}),
-							success: function(msg) {
-								for(var i = 0; i < msg.wxmessage.length; i++) {
-									var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
-										msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
-										msg.wxmessage[i].city_id + '</span>' +
-										msg.wxmessage[i].address + '</p></div><div class="xian"></div><div class="tu"><input type="radio">' +
-										'</div>' +
-										//<div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div><div class="bj1">编辑</div>'
-										+'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1">删除</div></div><div class="xian1"></div>';
-									// console.log(name_1+phone_1+pro+cit+dizhi_1);
-									if(msg.wxmessage[i].type == 2) {
-										$("#box10").html(a);
-									}
-								}
-							}
-						});
-					},
-				
-				error: function(xhr) {
-					alert("获取数据失败");
-				}
-			});
-
-		})
-	</script>
-
 </html>

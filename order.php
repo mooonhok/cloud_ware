@@ -382,7 +382,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                         if($array1['status']==0&&$array1['order_cost']==null){
                             $array1['order_cost']=='受理中';
                             $array1['receive']='未签收';
-                            $array1['status']='未签收';
+                            $array1['status']='受理中';
                         }else if($array1['status']==1){
                             $array1['receive']='未签收';
                             $array1['status']='未签收';
@@ -407,8 +407,8 @@ $app->post('/wx_orders_s', function () use ($app) {
                             $array1['receive']='未受理';
                             $array1['status']='未受理';
                         }else if($array1['status']==0&&$array1['order_cost']!=null){
-                            $array1['receive']='未受理';
-                            $array1['status']='未受理';
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
                         }
                         $selectStatement = $database->select()
                             ->from('customer')
@@ -444,7 +444,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                         if($array1['status']==0&&$array1['order_cost']==null){
                             $array1['order_cost']=='受理中';
                             $array1['receive']='未签收';
-                            $array1['status']='未签收';
+                            $array1['status']='受理中';
                         }else if($array1['status']==1){
                             $array1['receive']='未签收';
                             $array1['status']='未签收';
@@ -469,8 +469,8 @@ $app->post('/wx_orders_s', function () use ($app) {
                             $array1['receive']='未受理';
                             $array1['status']='未受理';
                         }else if($array1['status']==0&&$array1['order_cost']!=null){
-                            $array1['receive']='未受理';
-                            $array1['status']='未受理';
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
                         }
 
                         $selectStatement = $database->select()
@@ -576,7 +576,7 @@ $app->post('/wx_orders_r', function () use ($app) {
                         if($array1['status']==0&&$array1['order_cost']==null){
                             $array1['order_cost']=='受理中';
                             $array1['receive']='未签收';
-                            $array1['status']='未签收';
+                            $array1['status']='受理中';
                         }else if($array1['status']==1){
                             $array1['receive']='未签收';
                             $array1['status']='未签收';
@@ -601,8 +601,8 @@ $app->post('/wx_orders_r', function () use ($app) {
                             $array1['receive']='未受理';
                             $array1['status']='未受理';
                         }else if($array1['status']==0&&$array1['order_cost']!=null){
-                            $array1['receive']='未受理';
-                            $array1['status']='未受理';
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
                         }
                         $selectStatement = $database->select()
                             ->from('customer')
@@ -638,7 +638,7 @@ $app->post('/wx_orders_r', function () use ($app) {
                         if($array1['status']==0&&$array1['order_cost']==null){
                             $array1['order_cost']=='受理中';
                             $array1['receive']='未签收';
-                            $array1['status']='未签收';
+                            $array1['status']='受理中';
                         }else if($array1['status']==1){
                             $array1['receive']='未签收';
                             $array1['status']='未签收';
@@ -663,8 +663,8 @@ $app->post('/wx_orders_r', function () use ($app) {
                             $array1['receive']='未受理';
                             $array1['status']='未受理';
                         }else if($array1['status']==0&&$array1['order_cost']!=null){
-                            $array1['receive']='未受理';
-                            $array1['status']='未受理';
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
                         }
                         $selectStatement = $database->select()
                             ->from('customer')
@@ -770,7 +770,7 @@ $app->post('/wx_order', function () use ($app) {
                         if($array1['status']==0&&$array1['order_cost']==null){
                             $array1['order_cost']=='受理中';
                             $array1['receive']='未签收';
-                            $array1['status']='未签收';
+                            $array1['status']='受理中';
                         }else if($array1['status']==1){
                             $array1['receive']='未签收';
                             $array1['status']='未签收';
@@ -795,8 +795,8 @@ $app->post('/wx_order', function () use ($app) {
                             $array1['receive']='未受理';
                             $array1['status']='未受理';
                         }else if($array1['status']==0&&$array1['order_cost']!=null){
-                            $array1['receive']='未受理';
-                            $array1['status']='未受理';
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
                         }
                         $selectStatement = $database->select()
                             ->from('customer')
@@ -832,7 +832,7 @@ $app->post('/wx_order', function () use ($app) {
                         if($array1['status']==0&&$array1['order_cost']==null){
                             $array1['order_cost']=='受理中';
                             $array1['receive']='未签收';
-                            $array1['status']='未签收';
+                            $array1['status']='受理中';
                         }else if($array1['status']==1){
                             $array1['receive']='未签收';
                             $array1['status']='未签收';
@@ -857,8 +857,8 @@ $app->post('/wx_order', function () use ($app) {
                             $array1['receive']='未受理';
                             $array1['status']='未受理';
                         }else if($array1['status']==0&&$array1['order_cost']!=null){
-                            $array1['receive']='未受理';
-                            $array1['status']='未受理';
+                            $array1['receive']='未签收';
+                            $array1['status']='未签收';
                         }
                         $selectStatement = $database->select()
                             ->from('customer')
