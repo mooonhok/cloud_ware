@@ -1,0 +1,86 @@
+/*
+* @Author: Administrator
+* @Date:   2017-08-30 17:04:52
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-08-30 17:56:20
+*/
+*{
+	padding: 0;
+	margin: 0;
+	font-family: "微软雅黑";
+}
+.top{
+	width: 100%;
+	height: 60px;
+	background: #1F333A;
+}
+html,body{
+	background: #E3E3E3;
+}
+.top_1{
+	width: 1300px;
+	height: 60px;
+	line-height: 60px;
+	color: white;
+	margin: 0 auto;
+}
+.box_1{
+	width: 1300px;
+	margin: 15px auto;
+}
+.head{
+	width: 230px;
+	height: 230px;
+	background: #70ACC4;
+	float: left;
+}
+.head_1{
+	width: 60px;
+	height: 60px;
+	border-radius: 90px;
+	background: white;
+	float: left;
+	margin-left: 85px;
+	margin-top: 30px;
+}
+.head_2{
+	width: 230px;
+	height: 60px;
+	text-align: center;
+	float: left;
+	margin-top: 20px;
+	line-height: 30px;
+}
+.daohang{
+	width: 230px;
+	height: 450px;
+	background: white;
+	float: left;
+	margin-top: 20px;
+}
+.dian{
+	width: 230px;
+	height: 50px;
+	line-height: 50px;
+}
+.wenzi{
+	width: 100px;
+	height: 50px;
+	line-height: 50px;
+	font-size: 16px;
+	float: left;
+	margin-left: 20px;
+}
+.xian{
+	width: 5px;
+	height: 50px;
+	float: right;
+	background: #70ACC4;
+}
+.box2{
+	width: 1050px;
+	height: 700px;
+	float: right;
+	background: white;
+}
+
