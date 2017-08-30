@@ -157,7 +157,7 @@
 
 				<div style="clear:both;"></div>
 			</div>
-           <div class="tijiao2" id="subaddress3">提交</div>
+			<div class="tijiao2" id="subaddress3">提交</div>
 			<div style="clear:both;"></div>
 		</div>
 
@@ -595,14 +595,82 @@
 			});
 		}
 	</script>
-
 	<script type="text/javascript">
-		var customer_send_id=null;
-		var customer_accept_id=null;
+		$.ajax({
+			url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?type=1&wx_openid=" + openid,
+			beforeSend: function(request) {
+				request.setRequestHeader("tenant-id", "1");
+			},
+			dataType: 'json',
+			type: 'get',
+			contentType: "application/json;charset=utf-8",
+			data: JSON.stringify({}),
+			success: function(msg) {
+				alert("cxdz");
+				for(var i = 0; i < msg.wxmessage.length; i++) {
+					var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
+						msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
+						msg.wxmessage[i].customer_city + '</span>' +
+						msg.wxmessage[i].customer_address + '</p></div><div class="xian"></div><div class="tu"><input type="radio" class="rad1" value=' +
+						msg.wxmessage[i].customer_id + '>' +
+						'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>' +
+						'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1">删除</div></div><div class="xian1"></div>';
+					$("#box10").append(a);
+					$("#subaddress3").on('click', function() {
+						customer_send_id = $("input[class='rad1']:checked").val();
+						//	alert(customer_send_id);
+						$(".shuru").html($("input[class='rad1']:checked").parent().prev().prev().text());
+						$(".box2").css("display", "none");
+					});
+				}
+			},
+			error: function(xhr) {
+				alert("获取地址数据失败" + xhr.responseText);
+			}
+		});
+
+		$.ajax({
+			url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?type=2&wx_openid=" + openid,
+			beforeSend: function(request) {
+				request.setRequestHeader("tenant-id", "1");
+			},
+			dataType: 'json',
+			type: 'get',
+			contentType: "application/json;charset=utf-8",
+			data: JSON.stringify({
+
+			}),
+			success: function(msg) {
+				alert("cxdz");
+				for(var i = 0; i < msg.wxmessage.length; i++) {
+					var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
+						msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
+						msg.wxmessage[i].customer_city + '</span>' +
+						msg.wxmessage[i].customer_address + '</p></div><div class="xian"></div><div class="tu"><input type="radio"  class="rad2"  value=' +
+						msg.wxmessage[i].customer_id + '>' +
+						'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>' +
+						'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1">删除</div></div><div class="xian1"></div>';
+					$("#box11").append(a);
+					$("#subaddress5").on('click', function() {
+						customer_accept_id = $("input[class='rad2']:checked").val();
+						//alert(customer_accept_id);
+						$(".shuru1").html($("input[class='rad2']:checked").parent().prev().prev().text());
+						$(".box3").css("display", "none");
+					});
+				}
+			},
+			error: function(xhr) {
+				alert("获取地址数据失败" + xhr.responseText);
+			}
+		});
+	</script>
+	<script type="text/javascript">
+		var customer_send_id = null;
+		var customer_accept_id = null;
 		$("#subaddress2").on("click", function() {
 			var name_1 = $(".name_1").val();
 			var phone_1 = $(".phone_1").val();
-			
+
 			var cit = $("#city1").val();
 			var dizhi_1 = $("#dizhi_1").val();
 			//$("#box10").html("");
@@ -625,7 +693,7 @@
 				success: function(msg) {
 					alert("添加地址");
 					$.ajax({
-						url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?type=1&wx_openid=" + openid ,
+						url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?type=1&wx_openid=" + openid,
 						beforeSend: function(request) {
 							request.setRequestHeader("tenant-id", "1");
 						},
@@ -639,27 +707,27 @@
 								var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 									msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
 									msg.wxmessage[i].customer_city + '</span>' +
-									msg.wxmessage[i].customer_address + '</p></div><div class="xian"></div><div class="tu"><input type="radio" value='+
-									 msg.wxmessage[i].customer_id+'>' +
-									'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>'
-									+'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1">删除</div></div><div class="xian1"></div>';
-									$("#box10").html(a);
-								$("#subaddress3").on('click',function(){
-									customer_send_id=$("input[type='radio']:checked").val();
-									alert(customer_send_id);
-									$(".shuru").html($("input[type='radio']:checked").parent().prev().prev().text());
+									msg.wxmessage[i].customer_address + '</p></div><div class="xian"></div><div class="tu"><input type="radio" class="rad1" value=' +
+									msg.wxmessage[i].customer_id + '>' +
+									'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>' +
+									'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1">删除</div></div><div class="xian1"></div>';
+								$("#box10").append(a);
+								$("#subaddress3").on('click', function() {
+									customer_send_id = $("input[class='rad1']:checked").val();
+									//	alert(customer_send_id);
+									$(".shuru").html($("input[class='rad1']:checked").parent().prev().prev().text());
 									$(".box2").css("display", "none");
 								});
 							}
 						},
-				error: function(xhr) {
-					alert("获取地址数据失败"+ xhr.responseText);
-				}
+						error: function(xhr) {
+							alert("获取地址数据失败" + xhr.responseText);
+						}
 					});
 				},
 
 				error: function(xhr) {
-					alert("获取数据失败"+ xhr.responseText);
+					alert("获取数据失败" + xhr.responseText);
 				}
 			});
 		});
@@ -671,70 +739,70 @@
 			var phone_2 = $(".phone_2").val();
 			var cit1 = $("#city2").val();
 			var dizhi_2 = $("#dizhi_2").val();
-		//	$("#box11").html("");
+			//	$("#box11").html("");
 			$.ajax({
-					url: "http://mooonhok-cloudware.daoapp.io/customer.php/plus_customer",
-					beforeSend: function(request) {
-						request.setRequestHeader("tenant-id", "1");
-					},
-					dataType: 'json',
-					type: 'post',
-					contentType: "application/json;charset=utf-8",
-					data: JSON.stringify({
-						customer_name: name_2,
-						customer_phone: phone_2,
-						city_id:cit1,
-						address: dizhi_2,
-						type: 2,
-						wx_openid: openid,
-					}),
-					success: function(msg) {
-						alert("添加地址");
-						$.ajax({
-							url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?type=2&wx_openid="+openid,
-							beforeSend: function(request) {
-								request.setRequestHeader("tenant-id", "1");
-							},
-							dataType: 'json',
-							type: 'get',
-							contentType: "application/json;charset=utf-8",
-							data: JSON.stringify({
+				url: "http://mooonhok-cloudware.daoapp.io/customer.php/plus_customer",
+				beforeSend: function(request) {
+					request.setRequestHeader("tenant-id", "1");
+				},
+				dataType: 'json',
+				type: 'post',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					customer_name: name_2,
+					customer_phone: phone_2,
+					city_id: cit1,
+					address: dizhi_2,
+					type: 2,
+					wx_openid: openid,
+				}),
+				success: function(msg) {
+					alert("添加地址");
+					$.ajax({
+						url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?type=2&wx_openid=" + openid,
+						beforeSend: function(request) {
+							request.setRequestHeader("tenant-id", "1");
+						},
+						dataType: 'json',
+						type: 'get',
+						contentType: "application/json;charset=utf-8",
+						data: JSON.stringify({
 
-							}),
-							success: function(msg) {
-								alert("cxdz");
-								for(var i = 0; i < msg.wxmessage.length; i++) {
-									var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
+						}),
+						success: function(msg) {
+							alert("cxdz");
+							for(var i = 0; i < msg.wxmessage.length; i++) {
+								var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 									msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
 									msg.wxmessage[i].customer_city + '</span>' +
-									msg.wxmessage[i].customer_address + '</p></div><div class="xian"></div><div class="tu"><input type="radio" value='+
-									 msg.wxmessage[i].customer_id+'>' +
-									'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>'
-									+'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1">删除</div></div><div class="xian1"></div>';
-										$("#box11").html(a);
-									$("#subaddress5").on('click',function(){
-										customer_accept_id=$("input[type='radio']:checked").val();
-										alert(customer_accept_id);
-										$(".shuru1").html($("input[type='radio']:checked").parent().prev().prev().text());
-										$(".box3").css("display", "none");
-									});			
-								}
-							},
-							error: function(xhr) {
-					alert("获取地址数据失败"+ xhr.responseText);
-				}
-						});
-					},
-				
+									msg.wxmessage[i].customer_address + '</p></div><div class="xian"></div><div class="tu"><input type="radio"  class="rad2"  value=' +
+									msg.wxmessage[i].customer_id + '>' +
+									'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>' +
+									'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1">删除</div></div><div class="xian1"></div>';
+								$("#box11").append(a);
+								$("#subaddress5").on('click', function() {
+									customer_accept_id = $("input[class='rad2']:checked").val();
+									//alert(customer_accept_id);
+									$(".shuru1").html($("input[class='rad2']:checked").parent().prev().prev().text());
+									$(".box3").css("display", "none");
+								});
+							}
+						},
+						error: function(xhr) {
+							alert("获取地址数据失败" + xhr.responseText);
+						}
+					});
+				},
+
 				error: function(xhr) {
-					alert("获取数据失败"+xhr.responseText);
+					alert("获取数据失败" + xhr.responseText);
 				}
 			});
 
 		})
 	</script>
 	<script type="text/javascript">
-	$(".tijiao").on('click', function() {
+		$(".tijiao").on('click', function() {
 
 			var huowu = $(".huowu").val();
 			var str1 = $(".zhong").val();
@@ -754,13 +822,13 @@
 			} else if(money == "月付") {
 				str = 2;
 			}
-			if(customer_send_id == ""||customer_accept_id==0) {
+			if(customer_send_id == "" || customer_accept_id == 0) {
 				bootbox.setLocale("zh_Cn");
 				bootbox.alert({
 					message: "发货人信息不全",
 					size: 'small'
 				})
-			} else if(customer_accept_id == ""||customer_accept_id==0) {
+			} else if(customer_accept_id == "" || customer_accept_id == 0) {
 				bootbox.setLocale("zh_Cn");
 				bootbox.alert({
 					message: "收件人信息不全",
@@ -820,7 +888,7 @@
 					contentType: "application/json;charset=utf-8",
 					data: JSON.stringify({
 						customer_send_id: customer_send_id,
-					    customer_accept_id:customer_accept_id,
+						customer_accept_id: customer_accept_id,
 						goods_name: huowu,
 						goods_weight: zhong,
 						goods_capacity: tiji,
@@ -840,7 +908,7 @@
 
 					},
 					error: function(xhr) {
-						alert("提交数据失败"+xhr.responseText);
+						alert("提交数据失败" + xhr.responseText);
 						bootbox.setLocale("zh_CN");
 						bootbox.alert({
 							message: "提交订单失败",
@@ -852,4 +920,5 @@
 
 		})
 	</script>
+
 </html>
