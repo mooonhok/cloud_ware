@@ -74,8 +74,8 @@
          })(jQuery);
     $(function(){
 		     var page=$.getUrlParam('page');
-             alert(page);
-	$("#submit").on('click',function(){
+             alert("//////"+page);
+	   $("#submit").on('click',function(){
 		var customername=$("#customername").val();
 		var customertel=$("#customertel").val();
 		var openid=$.cookie('openid');
@@ -99,19 +99,17 @@
 			        }),
 			        success:function(msg){			        			        	
                         alert("用户注册成功");
+                        alert("获取page值"+page);
                         switch(page){
                         	case 0:
-                        	window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/send.html";
+                        	window.location.href="http://mooonhok-cloudware.daoapp.io/wx_send.php";
                         	break;
                         	case 1:
-                        	window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/my_consignment_note.html";
+                        	window.location.href="http://mooonhok-cloudware.daoapp.io/wx_my_consignment_note.php";
                         	break;
                         	case 2:
-                        	window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/online_inquiry.html";
+                        	window.location.href="http://mooonhok-cloudware.daoapp.io/wx_online_inquiry.php";
                         	break;
-                        	default:
-                        	alert("注册成功请返回");
-                        	
                         }
                         
 				    },
