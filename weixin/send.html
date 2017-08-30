@@ -602,8 +602,8 @@
 		$("#subaddress2").on("click", function() {
 			var name_1 = $(".name_1").val();
 			var phone_1 = $(".phone_1").val();
-			var pro = $(".pro").val();
-			var cit = $(".cit").val();
+			
+			var cit = $("#city1").val();
 			var dizhi_1 = $("#dizhi_1").val();
 			//$("#box10").html("");
 			$.ajax({
@@ -617,7 +617,7 @@
 				data: JSON.stringify({
 					customer_name: name_1,
 					customer_phone: phone_1,
-					city_id: cit + pro,
+					city_id: cit,
 					address: dizhi_1,
 					type: 1,
 					wx_openid: openid,
@@ -638,7 +638,7 @@
 							for(var i = 0; i < msg.wxmessage.length; i++) {
 								var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 									msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
-									msg.wxmessage[i].customer_city_id + '</span>' +
+									msg.wxmessage[i].customer_city + '</span>' +
 									msg.wxmessage[i].customer_address + '</p></div><div class="xian"></div><div class="tu"><input type="radio" value='+
 									 msg.wxmessage[i].customer_id+'>' +
 									'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>'
@@ -647,7 +647,7 @@
 								$("#subaddress3").on('click',function(){
 									customer_send_id=$("input[type='radio']:checked").val();
 									alert(customer_send_id);
-									$("shuru").html($("input[type='radio']:checked").parent().prev().prev().text());
+									$(".shuru").html($("input[type='radio']:checked").parent().prev().prev().text());
 									$(".box2").css("display", "none");
 								});
 							}
@@ -667,11 +667,10 @@
 
 	<script type="text/javascript">
 		$("#subaddress4").on("click", function() {
-			var name_1 = $(".name_1").val();
-			var phone_1 = $(".phone_1").val();
-			var pro = $(".pro").val();
-			var cit = $(".cit").val();
-			var dizhi_1 = $("#dizhi_1").val();
+			var name_2 = $(".name_2").val();
+			var phone_2 = $(".phone_2").val();
+			var cit1 = $("#city2").val();
+			var dizhi_2 = $("#dizhi_2").val();
 		//	$("#box11").html("");
 			$.ajax({
 					url: "http://mooonhok-cloudware.daoapp.io/customer.php/plus_customer",
@@ -684,7 +683,7 @@
 					data: JSON.stringify({
 						customer_name: name_2,
 						customer_phone: phone_2,
-						city_id: pro1 + cit1,
+						city_id:cit1,
 						address: dizhi_2,
 						type: 2,
 						wx_openid: openid,
@@ -707,22 +706,18 @@
 								for(var i = 0; i < msg.wxmessage.length; i++) {
 									var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 									msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
-									msg.wxmessage[i].customer_city_id + '</span>' +
+									msg.wxmessage[i].customer_city + '</span>' +
 									msg.wxmessage[i].customer_address + '</p></div><div class="xian"></div><div class="tu"><input type="radio" value='+
 									 msg.wxmessage[i].customer_id+'>' +
 									'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>'
 									+'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1">删除</div></div><div class="xian1"></div>';
-									
-									
 										$("#box11").html(a);
-								
 									$("#subaddress5").on('click',function(){
 										customer_accept_id=$("input[type='radio']:checked").val();
 										alert(customer_accept_id);
-										$("shuru1").html($("input[type='radio']:checked").parent().prev().prev().text());
+										$(".shuru1").html($("input[type='radio']:checked").parent().prev().prev().text());
 										$(".box3").css("display", "none");
-									});
-									
+									});			
 								}
 							},
 							error: function(xhr) {

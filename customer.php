@@ -405,6 +405,21 @@ $app->get('/wxaddress',function()use($app){
                        ->where('tenant_id','=',$tenant_id);
                    $stmt = $selectStatement->execute();
                    $data2 = $stmt->fetchAll();
+                   $num=count($data2);
+                   for($i=0;$i<$num;$i++){
+                       $selectStatement = $database->select()
+                           ->from('city')
+                           ->where('id',"=",$data2[$i]['customer_city_id']);
+                       $stmt = $selectStatement->execute();
+                       $data3 = $stmt->fetch();
+                       $selectStatement = $database->select()
+                           ->from('province')
+                           ->where('id',"=",$data3['pid']);
+                       $stmt = $selectStatement->execute();
+                       $data4 = $stmt->fetch();
+                       $data2[$i]['customer_city']=$data3['name'];
+                       $data2[$i]['customer_province']=$data4['name'];
+                   }
                    echo json_encode(array("result"=>"1","desc"=>"添加未执行","wxmessage"=>$data2));
                }else{
                    echo json_encode(array("result"=>"2","desc"=>"租户不存在"));
@@ -456,7 +471,7 @@ $app->post('/plus_customer',function()use($app){
                $data2 = $stmt->fetchAll();
                $insertStatement = $database->insert(array('exist','tenant_id','wx_openid','type','customer_id','customer_address','customer_city_id','customer_name','customer_phone'))
                    ->into('customer')
-                   ->values(array(0,$tenant_id,$wx_openid,$type,count($data2),$adress,$city_id,$customer_name,$phone));
+                   ->values(array(0,$tenant_id,$wx_openid,$type,count($data2)+10000001,$adress,$city_id,$customer_name,$phone));
                $insertId = $insertStatement->execute(false);
                if($insertId!=null){
 //                   $selectStatement = $database->select()
