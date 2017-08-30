@@ -19,14 +19,16 @@ $app->post('/wxmessage_insert',function()use($app){
     $body=$app->request->getBody();
     $body=json_decode($body);
     $database=localhost();
-    $customer_name_s=$body->customer_name_s;
-    $customer_city_s=$body->customer_city_s;
-    $customer_adress_s=$body->customer_address_s;
-    $customer_phone_s=$body->customer_phone_s;
-    $customer_name_a=$body->customer_name_a;
-    $customer_city_a=$body->customer_city_a;
-    $customer_address_a=$body->customer_address_a;
-    $customer_phone_a=$body->customer_phone_a;
+//    $customer_name_s=$body->customer_name_s;
+//    $customer_city_s=$body->customer_city_s;
+//    $customer_adress_s=$body->customer_address_s;
+//    $customer_phone_s=$body->customer_phone_s;
+//    $customer_name_a=$body->customer_name_a;
+//    $customer_city_a=$body->customer_city_a;
+//    $customer_address_a=$body->customer_address_a;
+//    $customer_phone_a=$body->customer_phone_a;
+    $customer_send_id=$body->customer_send_id;
+    $customer_accept_id=$body->customer_accept_id;
     $goods_name=$body->goods_name;
     $goods_weight=$body->goods_weight;
     $goods_capacity=$body->goods_capacity;
@@ -37,14 +39,16 @@ $app->post('/wxmessage_insert',function()use($app){
     $pay_method=$body->pay_method;
     $wx_openid=$body->openid;
     if($tenant_id!=''||$tenant_id!=null){
-        if($customer_name_s!=''||$customer_name_s!=null){
-            if($customer_city_s!=''||$customer_city_s!=null){
-                if($customer_adress_s!=''||$customer_adress_s!=null){
-                        if($customer_phone_s!=''||$customer_phone_s!=null){
-                            if($customer_name_a!=''||$customer_name_a!=null){
-                                if($customer_city_a!=''||$customer_city_a!=null){
-                                    if($customer_address_a!=''||$customer_address_a!=null){
-                                        if($customer_phone_a!=''||$customer_phone_a!=null){
+//        if($customer_name_s!=''||$customer_name_s!=null){
+//            if($customer_city_s!=''||$customer_city_s!=null){
+//                if($customer_adress_s!=''||$customer_adress_s!=null){
+//                        if($customer_phone_s!=''||$customer_phone_s!=null){
+//                            if($customer_name_a!=''||$customer_name_a!=null){
+//                                if($customer_city_a!=''||$customer_city_a!=null){
+//                                    if($customer_address_a!=''||$customer_address_a!=null){
+//                                        if($customer_phone_a!=''||$customer_phone_a!=null){
+                                      if($customer_send_id!=null||$customer_send_id!=''){
+                                          if($customer_accept_id!=null||$customer_accept_id!=''){
                                             if($goods_name!=''||$goods_name!=null){
                                                 if($goods_weight!=''||$goods_weight!=null){
                                                     if($goods_capacity!=''||$goods_capacity!=null){
@@ -58,10 +62,11 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                     ->from('customer')
                                                                                     ->where('tenant_id','=',$tenant_id)
                                                                                     ->where('exist',"=",0)
-                                                                                    ->where('customer_address','=',$customer_adress_s)
-                                                                                    ->where('customer_name','=',$customer_name_s)
-                                                                                    ->where('customer_city_id','=',$customer_city_s)
-                                                                                    ->where('customer_phone','=',$customer_phone_s)
+//                                                                                    ->where('customer_address','=',$customer_adress_s)
+//                                                                                    ->where('customer_name','=',$customer_name_s)
+//                                                                                    ->where('customer_city_id','=',$customer_city_s)
+//                                                                                    ->where('customer_phone','=',$customer_phone_s)
+                                                                                    ->where('customer_id','=',$customer_send_id)
                                                                                     ->where('type','=',1)
                                                                                     ->where('wx_openid','=',$wx_openid);
                                                                                 $stmt = $selectStatement->execute();
@@ -71,10 +76,11 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                             ->from('customer')
                                                                                             ->where('tenant_id','=',$tenant_id)
                                                                                             ->where('exist',"=",0)
-                                                                                            ->where('customer_address','=',$customer_adress_s)
-                                                                                            ->where('customer_name','=',$customer_name_s)
-                                                                                            ->where('customer_city_id','=',$customer_city_s)
-                                                                                            ->where('customer_phone','=',$customer_phone_s)
+//                                                                                            ->where('customer_address','=',$customer_adress_a)
+//                                                                                            ->where('customer_name','=',$customer_name_a)
+//                                                                                            ->where('customer_city_id','=',$customer_city_a)
+//                                                                                            ->where('customer_phone','=',$customer_phone_a)
+                                                                                            ->where('customer_id','=',$customer_accept_id)
                                                                                             ->where('type','=',2)
                                                                                             ->where('wx_openid','=',$wx_openid);
                                                                                         $stmt = $selectStatement->execute();
@@ -94,9 +100,9 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                                     $stmt = $selectStatement->execute();
                                                                                                     $data4= $stmt->fetchAll();
                                                                                                 }while($data4!=null);
-                                                                                    $insertStatement = $database->insert(array('order_id', 'tenant_id', 'pay_method','exist','order_status','customer_information_id','order_source'))
+                                                                                    $insertStatement = $database->insert(array('order_id', 'tenant_id', 'pay_method','exist','order_status','sender_id','order_source','receiver_id'))
                                                                                         ->into('orders')
-                                                                                        ->values(array($str,$tenant_id, $pay_method,0,-2,$data1["customer_information_id"],1));
+                                                                                        ->values(array($str,$tenant_id, $pay_method,0,-2,$data["customer_id"],1,$data1['customer_id']));
                                                                                     $insertId = $insertStatement->execute(false);
                                                                                     if($insertId!=null){
 //                                                                                        $selectStatement = $database->select()
@@ -123,9 +129,9 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                             ->from('customer')
                                                                                             ->where('tenant_id','=',$tenant_id)
                                                                                             ->where('exist',"=",0)
-                                                                                            ->where('customer_adress','=','')
-                                                                                            ->where('customer_city_id','=','')
-                                                                                            ->where('type','=',1)
+                                                                                            ->where('customer_adress','=','-1')
+                                                                                            ->where('customer_city_id','=','-1')
+                                                                                            ->where('type','=',"")
                                                                                             ->where('wx_openid','=',$wx_openid);
                                                                                         $stmt = $selectStatement->execute();
                                                                                         $data6 = $stmt->fetch();
@@ -206,30 +212,36 @@ $app->post('/wxmessage_insert',function()use($app){
                                             }else{
                                                 echo json_encode(array("result"=>"16","desc"=>"缺少订单创建人电话"));
                                             }
-                                        }else{
-                                            echo json_encode(array("result"=>"17","desc"=>"缺少订单创建人"));
-                                        }
-                                    }else{
-                                        echo json_encode(array("result"=>"18","desc"=>"缺少收货人的地址"));
-                                    }
-                                }else{
-                                    echo json_encode(array("result"=>"19","desc"=>"缺少收货人的城市"));
-                                }
-                            }else{
-                                echo json_encode(array("result"=>"20","desc"=>"缺少收货人的姓名"));
-                            }
-                        }else{
-                            echo json_encode(array("result"=>"21","desc"=>"缺少发货人的电话"));
-                        }
-                }else{
-                    echo json_encode(array("result"=>"22","desc"=>"缺少发货人的地址"));
-                }
-            }else{
-                echo json_encode(array("result"=>"23","desc"=>"缺少发货人的城市"));
-            }
-        }else{
-            echo json_encode(array("result"=>"24","desc"=>"缺少发货人的姓名"));
-        }
+                                          }else{
+                                              echo json_encode(array("result"=>"17","desc"=>"缺少收件人id"));
+                                          }
+                                         }else{
+                                                echo json_encode(array("result"=>"18","desc"=>"缺少寄件人id"));
+                                         }
+//                                        }else{
+//                                            echo json_encode(array("result"=>"17","desc"=>"缺少订单创建人"));
+//                                        }
+//                                    }else{
+//                                        echo json_encode(array("result"=>"18","desc"=>"缺少收货人的地址"));
+//                                    }
+//                                }else{
+//                                    echo json_encode(array("result"=>"19","desc"=>"缺少收货人的城市"));
+//                                }
+//                            }else{
+//                                echo json_encode(array("result"=>"20","desc"=>"缺少收货人的姓名"));
+//                            }
+//                        }else{
+//                            echo json_encode(array("result"=>"21","desc"=>"缺少发货人的电话"));
+//                        }
+//                }else{
+//                    echo json_encode(array("result"=>"22","desc"=>"缺少发货人的地址"));
+//                }
+//            }else{
+//                echo json_encode(array("result"=>"23","desc"=>"缺少发货人的城市"));
+//            }
+//        }else{
+//            echo json_encode(array("result"=>"24","desc"=>"缺少发货人的姓名"));
+//        }
 }else{
     echo json_encode(array("result"=>"25","desc"=>"缺少租户id"));
 }
