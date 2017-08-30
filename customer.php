@@ -430,7 +430,7 @@ $app->post('/plus_customer',function()use($app){
     $body=json_decode($body);
     $wx_openid=$body->wx_openid;
     $type=$body->type;
-    $adress=$body->adress;
+    $adress=$body->address;
     $city_id=$body->city_id;
     $customer_name=$body->customer_name;
     $phone=$body->customer_phone;
@@ -440,7 +440,7 @@ $app->post('/plus_customer',function()use($app){
                ->from('customer')
                ->where('exist',"=",0)
                ->where('type',"=",$type)
-               ->where('customer_adress',"=",$adress)
+               ->where('customer_address',"=",$adress)
                ->where('customer_city_id',"=",$city_id)
                ->where('customer_name','=',$customer_name)
                ->where('customer_phone','=',$phone)
@@ -454,7 +454,7 @@ $app->post('/plus_customer',function()use($app){
                    ->where('tenant_id','=',$tenant_id);
                $stmt = $selectStatement->execute();
                $data2 = $stmt->fetchAll();
-               $insertStatement = $database->insert(array('exist','tenant_id','wx_openid','type','customer_id','customer_adress','customer_city_id','customer_name','customer_phone'))
+               $insertStatement = $database->insert(array('exist','tenant_id','wx_openid','type','customer_id','customer_address','customer_city_id','customer_name','customer_phone'))
                    ->into('customer')
                    ->values(array(0,$tenant_id,$wx_openid,$type,count($data2),$adress,$city_id,$customer_name,$phone));
                $insertId = $insertStatement->execute(false);
