@@ -73,7 +73,7 @@
          }
          })(jQuery);
     $(function(){
-		     var page=$.getUrlParam('page');
+		     var page=parseInt($.getUrlParam('page'));
              alert("//////"+page);
 	   $("#submit").on('click',function(){
 		var customername=$("#customername").val();
@@ -100,18 +100,13 @@
 			        success:function(msg){			        			        	
                         alert("用户注册成功");
                         alert("获取page值"+page);
-                        switch(page){
-                        	case 0:
+                        if(page==0){
                         	window.location.href="http://mooonhok-cloudware.daoapp.io/wx_send.php";
-                        	break;
-                        	case 1:
-                        	window.location.href="http://mooonhok-cloudware.daoapp.io/wx_my_consignment_note.php";
-                        	break;
-                        	case 2:
-                        	window.location.href="http://mooonhok-cloudware.daoapp.io/wx_online_inquiry.php";
-                        	break;
-                        }
-                        
+                          }else if(page==1){
+                          	window.location.href="http://mooonhok-cloudware.daoapp.io/wx_my_consignment_note.php";
+                          }else if(page==2){
+                          	window.location.href="http://mooonhok-cloudware.daoapp.io/wx_online_inquiry.php";
+                          }
 				    },
 			        error:function(xhr){      
 					alert("获取后台失败！" + xhr.responseText);
