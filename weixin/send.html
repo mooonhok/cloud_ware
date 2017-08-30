@@ -115,7 +115,7 @@
 		<div class="box2">
 			<div class="box2-1">
 				<div class="jj">
-					<h5>收货地址</h5>
+					<h5>寄件地址</h5>
 				</div>
 				<form>
 					<div class="name1">
@@ -578,7 +578,7 @@
 				success: function(msg) {
 					//	alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
 					if(msg.result == 0) {
-						window.location.href = "http://mooonhok-cloudware.daoapp.io/wx_register.php";
+						window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/register.html?page=0";
 					}
 					// alert(openid);
 
@@ -648,14 +648,18 @@
 									customer_send_id=$("input[type='radio']:checked").val();
 									alert(customer_send_id);
 									$("shuru").html($("input[type='radio']:checked").parent().prev().prev().text());
+									$(".box2").css("display", "none");
 								});
 							}
-						}
+						},
+				error: function(xhr) {
+					alert("获取地址数据失败"+ xhr.responseText);
+				}
 					});
 				},
 
 				error: function(xhr) {
-					alert("获取数据失败");
+					alert("获取数据失败"+ xhr.responseText);
 				}
 			});
 		});
@@ -716,14 +720,19 @@
 										customer_accept_id=$("input[type='radio']:checked").val();
 										alert(customer_accept_id);
 										$("shuru1").html($("input[type='radio']:checked").parent().prev().prev().text());
+										$(".box3").css("display", "none");
 									});
+									
 								}
-							}
+							},
+							error: function(xhr) {
+					alert("获取地址数据失败"+ xhr.responseText);
+				}
 						});
 					},
 				
 				error: function(xhr) {
-					alert("获取数据失败");
+					alert("获取数据失败"+xhr.responseText);
 				}
 			});
 
@@ -836,6 +845,7 @@
 
 					},
 					error: function(xhr) {
+						alert("提交数据失败"+xhr.responseText);
 						bootbox.setLocale("zh_CN");
 						bootbox.alert({
 							message: "提交订单失败",

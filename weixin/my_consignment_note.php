@@ -109,11 +109,9 @@ $signPackage = $jssdk->GetSignPackage();
 					
 				}),
 				success: function(msg) {
-					//					alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
-					if(msg.result == 0) {
-						window.location.href = "register.html";
-					} else {
-						alert(openid);
+					//alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
+				if(msg.result == 0) {
+						window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/register.html?page=1";
 					}
 				},
 				error: function(xhr) {
