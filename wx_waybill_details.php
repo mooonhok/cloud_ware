@@ -28,11 +28,9 @@ if ($_COOKIE['openid'] == null) {
         $json_obj = json_decode($output, true);
         // echo $json_obj['openid'];
         setcookie('openid', $json_obj['openid']);
-        $num=rand(1,100);
-        header('location:http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?num='.$num);
+        header('location:http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html');
     }
 }else{
-	$num=rand(1,100);
-    header('location:http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?num='.$num);
+    header('location:http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html');
 }
 ?>
