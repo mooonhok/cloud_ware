@@ -29,7 +29,7 @@
 				</ul>
                </li>
 				</div>
-				<div class="top_2_2" style="color: white;"><a href="#">登录</a>|<a href="">注册</a></div>
+				<div class="top_2_2" style="color: white;"><a href="#">登录</a></div>
 			</div>
 		</div>
 		</div>
@@ -86,7 +86,7 @@
 			 <input name="Fruit" type="radio" value="1">
 			 </div>
 			 <div class="wenzi1">
-			 日起查询
+			 日期查询
              </div>
 			<div class="xuan2">
 			 <input name="Fruit" type="radio" value="2">
@@ -233,8 +233,48 @@
 
 	</div>
 	
-
+<div style="clear: both;"></div>
 	</div>
+
+	<div class="box2">
+		<div class="box3">
+			<div class="box3_1">
+				<h4>业 务 员 登 录</h4>
+			</div>
+			<div class="box3_2"></div>
+			<div class="box3_3">
+				<input type="text" placeholder="手机号">
+			</div>	
+			<div class="box3_4">
+				<input type="password" placeholder="密码">
+			</div>	
+			<div class="box3_5">
+				<a href="">忘记密码</a>
+			</div>
+			<div class="box3_6">
+				登 录
+			</div>
+			<div class="box3_7">
+				<div class="box3_7_1">新用户注册</div>
+			</div>
+			
+		</div>
+	</div>
+	<!-- <div class="box4">
+		<div class="box5">
+			<div class="box5_1">
+				
+			</div>
+		</div>
+	</div> -->
 </body>
+	<script type="text/javascript">
+		$(".top_2_2").on("click",function(){
+			$(".box2").css("display","block");
+		})
+		$(".box3_6").on("click",function(){
+			$(".box2").css("display","none");
+		})
+	</script>
 
 </html>

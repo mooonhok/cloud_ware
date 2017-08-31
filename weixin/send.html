@@ -756,9 +756,9 @@
 			} else {
 			//	alert(shuru + jname + jphone + shuru1 + jname1 + jphone1 + huowu + zhong + tiji + baozhuang + jianshu + needs + jiazhi + str)
 				$.ajax({
-					url: "http://mooonhok-cloudware.daoapp.io/goods.php/goods",
+					url: "http://mooonhok-cloudware.daoapp.io/wxmessage.php/wxmessage_insert",
 					beforeSend: function(request) {
-						request.setRequestHeader("tenant-id", "Chenxizhang");
+						request.setRequestHeader("tenant-id", "1");
 					},
 					dataType: 'json',
 					type: 'post',
