@@ -131,7 +131,6 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                             ->where('exist',"=",0)
                                                                                             ->where('customer_address','=','-1')
                                                                                             ->where('customer_city_id','=','-1')
-                                                                                            ->where('type','=',"")
                                                                                             ->where('wx_openid','=',$wx_openid);
                                                                                         $stmt = $selectStatement->execute();
                                                                                         $data6 = $stmt->fetch();
