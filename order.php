@@ -1284,7 +1284,13 @@ $app->get('/orders_goods_customer', function () use ($app) {
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
                 $data3= $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('goods_package')
+                    ->where('goods_package_id','=',$data3['goods_package_id']);
+                $stmt = $selectStatement->execute();
+                $data10= $stmt->fetch();
                 $array['order']=$data2;
+                $data3['good_package_name']=$data10['goods_package'];
                 $array['goods']=$data3;
                 $selectStatement = $database->select()
                     ->from('customer')
