@@ -555,7 +555,7 @@
 		//加载收货地址
 		function loadaccept(openid) {
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?type=1&wx_openid=" + openid,
+				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?type=2&wx_openid=" + openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "1");
 				},
