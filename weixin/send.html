@@ -623,7 +623,7 @@
 				}
 				$(".sc1").on('click', function() {
 					$("#box10").html("");
-					var deleteid = $(".sc1").parent().prev().children().val();
+					var deleteid = $(this).parent().prev().children().val();
 					alert(deleteid);
 					$.ajax({
 						url: "http://mooonhok-cloudware.daoapp.io/customer.php/customer?customerid="+deleteid,
@@ -720,7 +720,7 @@
 					});
 				}
 				$(".sc2").on('click', function() {
-					var deleteid = $(".sc1").parent().prev().children().val();
+					var deleteid = $(this).parent().prev().children().val();
 					alert(deleteid);
 					$("#box11").html("");
 					$.ajax({
@@ -849,7 +849,7 @@
 									});
 								}
 								$(".sc1").on('click', function() {
-									var deleteid = $(".sc1").parent().prev().children().val();
+									var deleteid = $(this).parent().prev().children().val();
 									alert(deleteid);
 									$("#box10").html("");
 									$.ajax({
@@ -986,7 +986,7 @@
 								}
 								$(".sc2").on('click', function() {
 									$("#box11").html("");
-									var deleteid = $(".sc1").parent().prev().children().val();
+									var deleteid = $(this).parent().prev().children().val();
 									alert(deleteid);
 									$.ajax({
 										url: "http://mooonhok-cloudware.daoapp.io/customer.php/customer?customerid="+deleteid,
