@@ -593,6 +593,7 @@
 		}
 	</script>
 	<script type="text/javascript">
+		//加载寄货地址信息
 		$.ajax({
 			url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?type=1&wx_openid=" + openid,
 			beforeSend: function(request) {
@@ -621,10 +622,11 @@
 					});
 				}
 				$(".sc1").on('click', function() {
+					$("#box10").html("");
 					var deleteid = $(".sc1").parent().prev().children().val();
 					alert(deleteid);
 					$.ajax({
-						url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid?whttp://mooonhok-cloudware.daoapp.io/customer.php/customer",
+						url: "http://mooonhok-cloudware.daoapp.io/customer.php/customer?customerid="+deleteid,
 						beforeSend: function(request) {
 							request.setRequestHeader("tenant-id", "1");
 						},
@@ -720,8 +722,9 @@
 				$(".sc2").on('click', function() {
 					var deleteid = $(".sc1").parent().prev().children().val();
 					alert(deleteid);
+					$("#box11").html("");
 					$.ajax({
-						url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid?whttp://mooonhok-cloudware.daoapp.io/customer.php/customer",
+						url: "http://mooonhok-cloudware.daoapp.io/customer.php/customer?customerid="+deleteid,
 						beforeSend: function(request) {
 							request.setRequestHeader("tenant-id", "1");
 						},
@@ -729,7 +732,7 @@
 						type: 'delete',
 						contentType: "application/json;charset=utf-8",
 						data: JSON.stringify({
-							customerid: deleteid
+							
 						}),
 						success: function(msg) {
 							alert("删除失败");
@@ -786,19 +789,20 @@
 		});
 	</script>
 	<script type="text/javascript">
+		//添加地址
 		var customer_send_id = null;
 		var customer_accept_id = null;
 		$("#subaddress2").on("click", function() {
 			var name_1 = $(".name_1").val();
 			var phone_1 = $(".phone_1").val();
-
 			var cit = $("#city1").val();
 			var dizhi_1 = $("#dizhi_1").val();
+			$("#box10").html("");
 			if(!/^1[34578]\d{9}$/.test(phone_1)) {
 				alert("手机号码格式不对")
 				return false;
 			} else {
-				//$("#box10").html("");
+				
 				$.ajax({
 					url: "http://mooonhok-cloudware.daoapp.io/customer.php/plus_customer",
 					beforeSend: function(request) {
@@ -847,8 +851,9 @@
 								$(".sc1").on('click', function() {
 									var deleteid = $(".sc1").parent().prev().children().val();
 									alert(deleteid);
+									$("#box10").html("");
 									$.ajax({
-										url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid?whttp://mooonhok-cloudware.daoapp.io/customer.php/customer",
+										url: "http://mooonhok-cloudware.daoapp.io/customer.php/customer?customerid="+deleteid,
 										beforeSend: function(request) {
 											request.setRequestHeader("tenant-id", "1");
 										},
@@ -856,7 +861,7 @@
 										type: 'delete',
 										contentType: "application/json;charset=utf-8",
 										data: JSON.stringify({
-											customerid: deleteid
+											
 										}),
 										success: function(msg) {
 											alert("删除失败");
@@ -928,6 +933,7 @@
 			var phone_2 = $(".phone_2").val();
 			var cit1 = $("#city2").val();
 			var dizhi_2 = $("#dizhi_2").val();
+			$("#box11").html("");
 			if(!/^1[34578]\d{9}$/.test(phone_2)) {
 				alert("手机号码格式不对")
 				return false;
@@ -959,7 +965,6 @@
 							type: 'get',
 							contentType: "application/json;charset=utf-8",
 							data: JSON.stringify({
-
 							}),
 							success: function(msg) {
 								alert("cxdz");
@@ -980,10 +985,11 @@
 									});
 								}
 								$(".sc2").on('click', function() {
+									$("#box11").html("");
 									var deleteid = $(".sc1").parent().prev().children().val();
 									alert(deleteid);
 									$.ajax({
-										url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid?whttp://mooonhok-cloudware.daoapp.io/customer.php/customer",
+										url: "http://mooonhok-cloudware.daoapp.io/customer.php/customer?customerid="+deleteid,
 										beforeSend: function(request) {
 											request.setRequestHeader("tenant-id", "1");
 										},
@@ -991,7 +997,6 @@
 										type: 'delete',
 										contentType: "application/json;charset=utf-8",
 										data: JSON.stringify({
-											customerid: deleteid
 										}),
 										success: function(msg) {
 											alert("删除失败");
