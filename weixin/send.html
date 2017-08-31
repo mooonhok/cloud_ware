@@ -496,7 +496,7 @@
 							msg.wxmessage[i].customer_address + '</p></div><div class="xian"></div><div class="tu"><input type="radio" class="rad1" value=' +
 							msg.wxmessage[i].customer_id + '>' +
 							'</div><div class="tu2"><div class="bj"></div>' +
-							'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" onclick="delete(' +
+							'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" onclick="delet(' +
 							msg.wxmessage[i].customer_id + ')">删除</div></div><div class="xian1"></div>';
 						$("#box10").append(a);
 						$("#subaddress3").on('click', function() {
@@ -519,7 +519,7 @@
 	</script>
 	<script type="text/javascript">
 		//删除方法
-		function delete(id) {
+		function delet(id) {
 			$.ajax({
 						url: "http://mooonhok-cloudware.daoapp.io/customer.php/customer?customerid=" + id,
 						beforeSend: function(request) {
@@ -568,7 +568,7 @@
 							msg.wxmessage[i].customer_address + '</p></div><div class="xian"></div><div class="tu"><input type="radio" class="rad2" value=' +
 							msg.wxmessage[i].customer_id + '>' +
 							'</div><div class="tu2"><div class="bj"></div>' +
-							'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" onclick="delete(' +
+							'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" onclick="delet(' +
 							msg.wxmessage[i].customer_id + ')">删除</div></div><div class="xian1"></div>';
 						$("#box11").append(a);
 						$("#subaddress5").on('click', function() {
