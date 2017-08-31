@@ -529,7 +529,7 @@
 						type: 'delete',
 						contentType: "application/json;charset=utf-8",
 						data: JSON.stringify({
-							customerid: deleteid
+							customerid: id
 						}),
 						success: function(msg) {
 							alert("删除成功");
@@ -666,6 +666,12 @@
 				});
 				}
 			});
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			loadsend();
+			loadaccept();
+		});
 	</script>
 	<script type="text/javascript">
 		$(".tijiao").on('click', function() {
