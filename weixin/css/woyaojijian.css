@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-18 09:58:43
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-08-28 14:19:22
+* @Last Modified time: 2017-08-30 16:22:40
 */
 *{
 	margin: 0;padding: 0;
@@ -706,6 +706,50 @@ html,body{height:100%; width:100%;
 	float: left;
 	margin-left: 30%;
 	text-align: center;
+}
+.qx{
+	width: 10%;
+	float: right;
+	text-align: center;
+	height: 20px;
+	line-height: 20px;
+	background: gray;
+	margin-top: 5px;
+	margin-right: 5px;
+	border-radius: 5px;
+}
+.qx1{
+	width: 10%;
+	float: right;
+	text-align: center;
+	height: 20px;
+	line-height: 20px;
+	background: gray;
+	margin-top: 5px;
+	margin-right: 5px;
+	border-radius: 5px;
+}
+.qx2{
+	width: 10%;
+	float: right;
+	text-align: center;
+	height: 20px;
+	line-height: 20px;
+	background: gray;
+	margin-top: -30px;
+	margin-right: 5px;
+	border-radius: 5px;
+}
+.qx3{
+	width: 10%;
+	float: right;
+	text-align: center;
+	height: 20px;
+	line-height: 20px;
+	background: gray;
+	margin-top: -30px;
+	margin-right: 5px;
+	border-radius: 5px;
 }
 .name1{
 	width: 80%;
