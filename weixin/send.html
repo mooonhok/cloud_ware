@@ -524,6 +524,7 @@
 	<script type="text/javascript">
 		//删除方法
 		function delet(id) {
+			alert(id);
 			$.ajax({
 						url: "http://mooonhok-cloudware.daoapp.io/customer.php/customer?customerid=" + id,
 						beforeSend: function(request) {
@@ -533,7 +534,7 @@
 						type: 'delete',
 						contentType: "application/json;charset=utf-8",
 						data: JSON.stringify({
-							customerid: id
+							customerid:id
 						}),
 						success: function(msg) {
 							alert("删除成功");
@@ -564,7 +565,7 @@
 				data: JSON.stringify({}),
 				success: function(msg) {
 					alert("cxdz");
-					$("#box10").html("");
+					$("#box11").html("");
 					for(var i = 0; i < msg.wxmessage.length; i++) {
 						var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 							msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
