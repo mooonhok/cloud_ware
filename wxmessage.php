@@ -136,7 +136,7 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                         $data6 = $stmt->fetch();
                                                                                         if($data6!=null){
                                                                                             date_default_timezone_set("PRC");
-                                                                                            $shijian=date("Y-m-d h:i:sa",time());
+                                                                                            $shijian=date("Y-m-d H:i:s",time());
                                                                                             $insertStatement = $database->insert(array('order_id', 'tenant_id', 'message_id','exist','from_user','mobilephone','is_read','ms_date'))
                                                                                                 ->into('wx_message')
                                                                                                 ->values(array($str,$tenant_id, $str1,0,$data6['customer_name'],$data6["customer_phone"],0,$shijian));
