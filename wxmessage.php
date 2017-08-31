@@ -129,7 +129,7 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                             ->from('customer')
                                                                                             ->where('tenant_id','=',$tenant_id)
                                                                                             ->where('exist',"=",0)
-                                                                                            ->where('customer_adress','=','-1')
+                                                                                            ->where('customer_address','=','-1')
                                                                                             ->where('customer_city_id','=','-1')
                                                                                             ->where('type','=',"")
                                                                                             ->where('wx_openid','=',$wx_openid);
