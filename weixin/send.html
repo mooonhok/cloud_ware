@@ -622,9 +622,10 @@
 					});
 				}
 				$(".sc1").on('click', function() {
-					$("#box10").html("");
+					
 					var deleteid = $(this).parent().prev().children().val();
 					alert(deleteid);
+					$("#box10").html("");
 					$.ajax({
 						url: "http://mooonhok-cloudware.daoapp.io/customer.php/customer?customerid="+deleteid,
 						beforeSend: function(request) {
@@ -637,7 +638,7 @@
 							customerid: deleteid
 						}),
 						success: function(msg) {
-							alert("删除失败");
+							alert("删除成功");
 							$.ajax({
 								url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?type=2&wx_openid=" + openid,
 								beforeSend: function(request) {
@@ -689,7 +690,7 @@
 				alert("获取地址数据失败" + xhr.responseText);
 			}
 		});
-
+//加载收货
 		$.ajax({
 			url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?type=2&wx_openid=" + openid,
 			beforeSend: function(request) {
@@ -735,7 +736,7 @@
 							
 						}),
 						success: function(msg) {
-							alert("删除失败");
+							alert("删出成功");
 							$.ajax({
 								url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?type=2&wx_openid=" + openid,
 								beforeSend: function(request) {
@@ -864,7 +865,7 @@
 											
 										}),
 										success: function(msg) {
-											alert("删除失败");
+											alert("删除成功");
 											$.ajax({
 												url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?type=2&wx_openid=" + openid,
 												beforeSend: function(request) {
@@ -985,9 +986,10 @@
 									});
 								}
 								$(".sc2").on('click', function() {
-									$("#box11").html("");
+									
 									var deleteid = $(this).parent().prev().children().val();
 									alert(deleteid);
+									$("#box11").html("");
 									$.ajax({
 										url: "http://mooonhok-cloudware.daoapp.io/customer.php/customer?customerid="+deleteid,
 										beforeSend: function(request) {
