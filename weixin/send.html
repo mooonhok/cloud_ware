@@ -244,15 +244,55 @@
 
 	</body>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script src="http://bootboxjs.com/bootbox.js"></script>
 
 	<script type="text/javascript">
+		
+
+		//判断openid是否已经被注册
+		var openid = $.cookie('openid');
+		var customer_send_id = null;
+		var customer_accept_id = null;
+		if(openid != null) {
+			$.ajax({
+				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid?wx_openid=" + openid,
+				beforeSend: function(request) {
+					request.setRequestHeader("tenant-id", "1");
+				},
+				dataType: 'json',
+				type: 'get',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+
+				}),
+				success: function(msg) {
+					//	alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
+					if(msg.result == 0) {
+						window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/register.html?page=0";
+					}
+					// alert(openid);
+
+				},
+				error: function(xhr) {
+					bootbox.setLocale("zh_CN");
+					bootbox.alert({
+						message: "获取后台失败！" + xhr.responseText,
+						size: "small"
+					})
+
+				}
+
+			});
+		}
+	
 		$(".box2").css("display", "none");
 
 		$(document).ready(function() {
 			$(".top1").on("click", function() {
 				// alert('ok');
+				loadsend(openid);
 				$(".box2").css("display", "block");
 				$(".box2").css("z-index", "100");
 			})
@@ -263,6 +303,7 @@
 		$(".box3").css("display", "none");
 		$(document).ready(function() {
 			$(".top2").on("click", function() {
+				loadaccept(openid);
 				$(".box3").css("display", "block");
 				$(".box3").css("z-index", "100");
 			})
@@ -436,44 +477,7 @@
 		}
 	</script>
 
-	<script type="text/javascript" src="js/jquery.cookie.js"></script>
-	<script>
-		//判断openid是否已经被注册
-		var openid = $.cookie('openid');
-		var customer_send_id = null;
-		var customer_accept_id = null;
-		if(openid != null) {
-			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid?wx_openid=" + openid,
-				beforeSend: function(request) {
-					request.setRequestHeader("tenant-id", "1");
-				},
-				dataType: 'json',
-				type: 'get',
-				contentType: "application/json;charset=utf-8",
-				data: JSON.stringify({
-
-				}),
-				success: function(msg) {
-					//	alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
-					if(msg.result == 0) {
-						window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/register.html?page=0";
-					}
-					// alert(openid);
-
-				},
-				error: function(xhr) {
-					bootbox.setLocale("zh_CN");
-					bootbox.alert({
-						message: "获取后台失败！" + xhr.responseText,
-						size: "small"
-					})
-
-				}
-
-			});
-		}
-	</script>
+	
 	<script type="text/javascript">
 		//加载寄件人信息
 		function loadsend(openid) {
@@ -669,7 +673,7 @@
 	</script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			loadsend();
+			
 			loadaccept();
 		});
 	</script>
