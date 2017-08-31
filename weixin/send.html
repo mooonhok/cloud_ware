@@ -605,6 +605,7 @@
 			data: JSON.stringify({}),
 			success: function(msg) {
 				alert("cxdz");
+				$("#box10").html("");
 				for(var i = 0; i < msg.wxmessage.length; i++) {
 					var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 						msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
@@ -622,10 +623,8 @@
 					});
 				}
 				$(".sc1").on('click', function() {
-					
 					var deleteid = $(this).parent().prev().children().val();
 					alert(deleteid);
-					$("#box10").html("");
 					$.ajax({
 						url: "http://mooonhok-cloudware.daoapp.io/customer.php/customer?customerid="+deleteid,
 						beforeSend: function(request) {
@@ -652,6 +651,7 @@
 								}),
 								success: function(msg) {
 									alert("cxdz");
+									$("#box10").html("");
 									for(var i = 0; i < msg.wxmessage.length; i++) {
 										var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 											msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
@@ -704,6 +704,7 @@
 			}),
 			success: function(msg) {
 				alert("cxdz");
+				$("#box11").html("");
 				for(var i = 0; i < msg.wxmessage.length; i++) {
 					var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 						msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
@@ -723,7 +724,7 @@
 				$(".sc2").on('click', function() {
 					var deleteid = $(this).parent().prev().children().val();
 					alert(deleteid);
-					$("#box11").html("");
+					
 					$.ajax({
 						url: "http://mooonhok-cloudware.daoapp.io/customer.php/customer?customerid="+deleteid,
 						beforeSend: function(request) {
@@ -737,6 +738,7 @@
 						}),
 						success: function(msg) {
 							alert("删出成功");
+							
 							$.ajax({
 								url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?type=2&wx_openid=" + openid,
 								beforeSend: function(request) {
@@ -746,10 +748,10 @@
 								type: 'get',
 								contentType: "application/json;charset=utf-8",
 								data: JSON.stringify({
-
 								}),
 								success: function(msg) {
 									alert("cxdz");
+									$("#box11").html("");
 									for(var i = 0; i < msg.wxmessage.length; i++) {
 										var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 											msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
@@ -833,6 +835,7 @@
 							data: JSON.stringify({}),
 							success: function(msg) {
 								alert("cxdz");
+								$("#box10").html("");
 								for(var i = 0; i < msg.wxmessage.length; i++) {
 									var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 										msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
@@ -852,7 +855,7 @@
 								$(".sc1").on('click', function() {
 									var deleteid = $(this).parent().prev().children().val();
 									alert(deleteid);
-									$("#box10").html("");
+									
 									$.ajax({
 										url: "http://mooonhok-cloudware.daoapp.io/customer.php/customer?customerid="+deleteid,
 										beforeSend: function(request) {
@@ -866,6 +869,7 @@
 										}),
 										success: function(msg) {
 											alert("删除成功");
+											
 											$.ajax({
 												url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?type=2&wx_openid=" + openid,
 												beforeSend: function(request) {
@@ -879,6 +883,7 @@
 												}),
 												success: function(msg) {
 													alert("cxdz");
+													$("#box10").html("");
 													for(var i = 0; i < msg.wxmessage.length; i++) {
 														var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 															msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
@@ -969,6 +974,7 @@
 							}),
 							success: function(msg) {
 								alert("cxdz");
+								$("#box11").html("");
 								for(var i = 0; i < msg.wxmessage.length; i++) {
 									var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 										msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
@@ -986,7 +992,6 @@
 									});
 								}
 								$(".sc2").on('click', function() {
-									
 									var deleteid = $(this).parent().prev().children().val();
 									alert(deleteid);
 									$("#box11").html("");
@@ -1015,6 +1020,7 @@
 												}),
 												success: function(msg) {
 													alert("cxdz");
+													$("#box11").html("");
 													for(var i = 0; i < msg.wxmessage.length; i++) {
 														var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 															msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
