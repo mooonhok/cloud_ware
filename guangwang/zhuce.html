@@ -8,6 +8,7 @@
 	 <script type="text/javascript" src="js/jquery.session.js"></script>
 </head>
 <body>
+	<form id="myform" action="http://mooonhok-cloudware.daoapp.io/tenant.php/tenant" method="post">
 	<div class="box">
 	<!-- top -->
 		<div class="top">
@@ -23,19 +24,27 @@
 
 	   		<div class="center_1_1">
 	   		<div class="center_1_2">
-	   			公 司 名 称: <input type="text" id="company">	
+	   			公 司 名 称: <input type="text"  id="company"
+	   				<!--id="company"-->
+	   				>	
 	   		</div>	
 	   		<div class="xian1"></div>
 	   		</div>
 	   		<div class="center_3">
 	   			<div class="wenzi">营业执照号码:</div>
-	   			<div class="wenzi2"><input type="text" id="bussiness_l"></div>
-	   			<div class="cs"><input type="file" accept="image/*" name="upimage" id="upload_file" value="拍照上传"></div>	
+	   			<div class="wenzi2"><input type="text" id="business_l"
+	   				<!--id="bussiness_l"-->
+	   				></div>
+	   			<div class="cs"><input type="file" accept="image/*" name="upimage" 
+	   				id="upload_file" 
+	   				value="拍照上传"></div>	
 	   			
 	   		</div>
 	   		<div class="center_4">
 	   			<div class="wenzi">负责人姓名:</div>
-	   			<div class="wenzi1"><input type="text" id="contactname"></div>	   			
+	   			<div class="wenzi1"><input type="text"  id="contact_name"
+	   				<!--id="contactname"-->
+	   				></div>	   			
 	   		</div>
 	   		<div class="center_5">
 	   			<div class="wenzi">负责人电话:</div>
@@ -43,14 +52,18 @@
 	   		</div>
 	   		<div class="center_6">
 	   			<div class="wenzi">电子邮箱:</div>
-	   			<div class="wenzi1"><input type="text" id="email"></div>
+	   			<div class="wenzi1"><input type="text" id="email"
+	   				<!--id="email"-->
+	   				></div>
 	   		</div>
 	   		<div class="center_7">
 	   			<div class="wenzi">QQ:</div>
 	   			<div class="wenzi1"><input type="text" id="qq"></div>
 	   		</div>
 	   		<div class="center_8">
-	   			<div class="center_8_1">经 营 地 址:<input type="text" id="address"></div>
+	   			<div class="center_8_1">经 营 地 址:<input type="text" id="address"
+	   				<!--id="address"-->
+	   				></div>
 	   			<div style="width: 918px;height: 1px;background: black;float: left;margin-left: 82px;"></div>
 	   		</div>
 	   	<div class="center_9">
@@ -78,20 +91,24 @@
 	   		<div class="center_12">
 	   			<div class="wenzi11">使用开始时间:</div>
 	   			<div class="wenzi10">
-	   			<input type="text" id="inp" placeholder="选择日期" id="begintime">
+	   			<input type="text" id="inp" placeholder="选择日期" id="begin_time"
+	   				<!--id="begintime"-->
+	   				>
 	   			</div>
 	   		</div>
 	   		<div class="center_13">
 	   			<div class="wenzi11">使用结束时间:</div>
 	   			<div class="wenzi10">
-	   			<input type="text" id="inp2" placeholder="选择日期" id="endtime">
+	   			<input type="text" id="inp2" placeholder="选择日期" id="end_time"
+	   				<!--id="endtime"-->
+	   				>
 	   			</div>
 	   			</div>
 	   		</div>
-	   		
-
 	   	</div>	
-	   
+	   	<textarea id="business_l_p"
+	   		<!--id="tupian"-->
+	   		 style="display: none;"></textarea>
 	   <!-- foot -->
 	   <div class="foot">
 	   		<div class="foot_1">
@@ -99,31 +116,43 @@
 	   			<div class="xian"></div>
 	   			<div class="foot_2">
 	   				<div class="wenzi3">运单模版:</div>
-	   				<div class="wenzi4"><form id="upload_file3"><input type="file" value="上传文件" ></form></div>
+	   				<div class="wenzi4">
+	   					<!--<form id="upload_file3">-->
+	   						<input type="file" value="上传文件" id="order_t_p">
+	   					<!--</form>-->
+	   				</div>
 	   			</div>
 	   			<div class="foot_3">
 	   				<div class="wenzi3">运输合同模版:</div>
-	   				<div class="wenzi5"><form id="upload_file2"><input type="file" value="上传文件" ></form></div>
+	   				<div class="wenzi5">
+	   					<!--<form id="upload_file2">-->
+	   						<input type="file" value="上传文件" id="trans_contract_p" >
+	   				<!--	</form>-->
+	   				</div>
 	   			</div>
 	   			<div class="foot_4">
 	   				<div class="wenzi6">服务项目:</div>	
 	   				<div class="wenzi7">
-	   					<textarea class="text1" id="services"></textarea>
+	   					<textarea class="text1" id="service_items"
+	   						<!--id="services"-->
+	   						></textarea>
 	   				</div>
 	   			</div>
 	   			<div class="foot_5">
 	   				<div class="wenzi6">公司介绍:</div>	
 	   				<div class="wenzi7">
-	   					<textarea class="text1" id="intro"></textarea>
+	   					<textarea class="text1" id="c_introduction"
+	   						<!--id="intro"-->
+	   						></textarea>
 	   				</div>
 	   			</div>
-
-	   			<div class="tijiao"><h1>提 交</h1></div>	
-
+	   		<!--	<div class="tijiao"><h1>提 交</h1></div>	-->
+	   		<input type="submit" onclick="a()" value="提交">
 	   		</div>
 	   </div>	
 	</div>
-	<textarea id="tupian" style="display: none;"></textarea>
+</form>
+	
 </body>
 <script src="http://www.itakeo.com/down/calender2.js"></script>
 <script>
@@ -255,65 +284,70 @@
 	</script>
 	<script>
 		//session判断
-		  var userid=$.session.get('userid');
-          var username=$.session.get('username');
-          alert(userid);
+//		  var userid=$.session.get('userid');
+//        var username=$.session.get('username');
+//        alert(userid);
      //   if(userid==null||username==null){
     	//window.location.href="index.html";
        //  }else{
-    	$(".tijiao").on('click',function(){
-    		var comname=$("#company").val();
-    		var bussiness_l=$("#bussiness_l").val();
-    	//	var bussiness_l_p=$("#bussiness_l_p").val();
-    	    var contactname=$("#contactname").val();
-    	    var tel=$("#telephone").val();
-    	    var email=$("#email").val();
-    	    var qq=$("#qq").val();
-    	    var address=$("#address").val();
-    	    var sendcity=parseInt($("#city1 option:selected").val());
-    	    var accept=parseInt($("#city2 option:selected").val());
-    	    var serives=$("#services").val();
-    	    var c_intro=$("#intro").val();
-    	    var begintime=$("#begintime").val();
-    	    var endtime=$("#endtime").val();
-    	    var trans=new FormData($("#upload_file2")[0]);
-    	    var ordert=new FormData($("#upload_file3")[0]);
-    	    var tu=$("#tupian").val();
-       	      alert("图片"+tu);
-       	      alert("运单模版"+ordert);
-       	      alert("运输合同"+trans);
-    	    $.ajax({
-    	    	url: "http://mooonhok-cloudware.daoapp.io/tenant.php/tenant",
-				dataType: 'json',
-				type: 'post',
-				contentType: "application/json;charset=utf-8",
-				data: JSON.stringify({
-					address:address,
-					begin_time:begintime,
-					end_time:endtime,
-					business_l:bussiness_l,
-					company:comname,
-					contact_name:contactname,
-					business_l_p:tu,
-					c_introduction:c_intro,
-					email:email,
-					order_t_p:ordert,
-					qq:qq,
-					receive_city_id:accept,
-					from_city_id:sendcity,
-					sales_id:userid,
-					service_items:serives,
-					trans_contract_p:trans
-				}),
-				success: function(msg) {
-				   alert("提交成功");
-				},
-				error: function(xhr) {
-					   alert("获取后台失败！"+xhr.responseText);
-					
-				}
-    	    });
-    	});
+//  	$(".tijiao").on('click',function(){
+//  		var comname=$("#company").val();
+//  		var bussiness_l=$("#bussiness_l").val();
+//  	//	var bussiness_l_p=$("#bussiness_l_p").val();
+//  	    var contactname=$("#contactname").val();
+//  	    var tel=$("#telephone").val();
+//  	    var email=$("#email").val();
+//  	    var qq=$("#qq").val();
+//  	    var address=$("#address").val();
+//  	    var sendcity=parseInt($("#city1 option:selected").val());
+//  	    var accept=parseInt($("#city2 option:selected").val());
+//  	    var serives=$("#services").val();
+//  	    var c_intro=$("#intro").val();
+//  	    var begintime=$("#begintime").val();
+//  	    var endtime=$("#endtime").val();
+//  	    var trans=new FormData($("#upload_file2")[0]);
+//  	    var ordert=new FormData($("#upload_file3")[0]);
+//  	    var tu=$("#tupian").val();
+//     	      alert("图片"+tu);
+//     	      alert("运单模版"+ordert);
+//     	      alert("运输合同"+trans);
+//  	    $.ajax({
+//  	    	url: "http://mooonhok-cloudware.daoapp.io/tenant.php/tenant",
+//				dataType: 'json',
+//				type: 'post',
+//				contentType: "application/json;charset=utf-8",
+//				data: JSON.stringify({
+//					address:address,
+//					begin_time:begintime,
+//					end_time:endtime,
+//					business_l:bussiness_l,
+//					company:comname,
+//					contact_name:contactname,
+//					business_l_p:tu,
+//					c_introduction:c_intro,
+//					email:email,
+//					order_t_p:ordert,
+//					qq:qq,
+//					receive_city_id:accept,
+//					from_city_id:sendcity,
+//					sales_id:userid,
+//					service_items:serives,
+//					trans_contract_p:trans
+//				}),
+//				success: function(msg) {
+//				   alert("提交成功");
+//				},
+//				error: function(xhr) {
+//					   alert("获取后台失败！"+xhr.responseText);
+//					
+//				}
+//  	    });
+//  	});
     //}
+    
+    function a(){
+    	document.getElementById("myform").submit();
+    	alert("成功");
+    }
 	</script>
 </html>
