@@ -115,25 +115,35 @@
 		<div class="box2">
 			<div class="box2-1">
 				<div class="jj">
-					<h5>寄件地址</h5>
+				<div class="jj1">
+					<h5>新增寄件地址</h5>
 				</div>
-				<div class="qx">取消</div>
+				<div class="qx">取消</div>	
+				</div>
+				
 				<form>
 					<div class="name1">
-						<label for="">姓名</label>
+					<div class="lab">
+						<label for="">姓名:</label>
+					</div>	
 						<div class="name2">
 							<input type="text" class="name_1">
 						</div>
 					</div>
+					<div class="bor"></div>
 					<div class="phone1">
-						<label for="">联系方式</label>
+					<div class="lab">
+						<label for="">联系方式:</label>
+					</div>	
 						<div class="phone2">
 							<input type="tel" class="phone_1">
 						</div>
 					</div>
+					<div class="bor"></div>
 					<div class="dizhi1">
-						<label for="">地址</label>
-
+					<div class="lab">
+						<label for="">地址:</label>
+                     </div>
 						<div class="dizhi2">
 							<select name="province" id="province1" onchange="getPro1()" class="pro">
 								<option value="">请选择</option>
@@ -143,48 +153,63 @@
 							</select>
 						</div>
 					</div>
+					<div class="bor"></div>
 					<div class="dizhi3">
-						<div class="dizhi3-1">
-							<textarea id="dizhi_1" cols="27" rows="5" placeholder="请填写详细地址"></textarea>
-						</div>
+					<div class="lab">
+						<label for="">详细地址:</label>
 					</div>
-					<div class="tijiao1" id="subaddress2">
-						添加新地址
+						<div class="dizhi3-1">
+							<textarea id="dizhi_1"></textarea>
+						</div>
 					</div>
 				</form>
 			</div>
-			<div class="kong"></div>
-			<div class="box1" id="box10">
+			
+			<div class="tijiao2" id="subaddress3">添加新地址</div>
+		</div>
+		<!--  -->
+		<div class="box1" id="box10">
+			<div class="box10_1">
+			<div class="box10_1_1">添加地址</div>
+			<div class="qx5">取消</div>
+			</div>
+			<div class="box10_2" id="subaddress2">提交</div>
 
 				<div style="clear:both;"></div>
 			</div>
-			<div class="tijiao2" id="subaddress3">提交</div>
-			<div style="clear:both;"></div>
-		</div>
 
 		<!-- box3 -->
 		<div class="box3">
 			<div class="box2-1">
 				<div class="jj">
-					<h5>收货地址</h5>
+				<div class="jj1">
+					<h5>新增收件地址</h5>
 				</div>
-				<div class="qx1">取消</div>
+				<div class="qx1">取消</div>	
+				</div>
 				<form>
 					<div class="name1">
+					<div class="lab">
 						<label for="">姓名</label>
+						</div>	
 						<div class="name2">
 							<input type="text" class="name_2">
 						</div>
 					</div>
+					<div class="bor"></div>	
 					<div class="phone1">
+					<div class="lab">
 						<label for="">联系方式</label>
+						</div>	
 						<div class="phone2">
 							<input type="tel" class="phone_2">
 						</div>
 					</div>
+					<div class="bor"></div>	
 					<div class="dizhi1">
+					<div class="lab">
 						<label for="">地址</label>
-
+                    </div>	
 						<div class="dizhi2">
 							<select name="province" id="province2" onchange="getPro2()" class="pro1">
 								<option value="">请选择</option>
@@ -194,24 +219,34 @@
 							</select>
 						</div>
 					</div>
+					<div class="bor"></div>	
 					<div class="dizhi3">
-						<div class="dizhi3-1">
-							<textarea id="dizhi_2" cols="27" rows="5" placeholder="请填写详细地址"></textarea>
+						
+						<div class="lab">
+						<label for="">详细地址:</label>
+					   </div>
+					   <div class="dizhi3-1">
+							<textarea id="dizhi_2"></textarea>
 						</div>
 					</div>
-					<div class="tijiao2" id="subaddress4">
+					<!-- <div class="tijiao2" id="subaddress4">
 						添加新地址
-					</div>
+					</div> -->
 				</form>
 			</div>
-			<div class="kong"></div>
-			<div class="box1" id="box11">
-
-				<div style="clear:both;"></div>
-			</div>
-			<div class="tijiao2" id="subaddress5">提交</div>
+			
+			<div class="tijiao2" id="subaddress5">添加新地址</div>
 			<div style="clear:both;"></div>
 		</div>
+		<!--  -->
+		<div class="box1" id="box11">
+			<div class="box11_1">
+			<div class="box11_1_1">添加地址</div>
+            <div class="qx6">取消</div>
+			</div>
+			<div class="box11_2" id="subaddress4">提交</div>
+				<div style="clear:both;"></div>
+			</div>
 		<!-- box4 -->
 		<div class="box4">
 			<div class="box4-1">
@@ -290,19 +325,32 @@
 			$(".top1").on("click", function() {
 				// alert('ok');
 				loadsend(openid);
-				$(".box2").css("display", "block");
-				$(".box2").css("z-index", "100");
+				$("#box10").css("display","block");
+				$("#box10").css("z-index","100");
+				$(".box10_1_1").on("click",function(){
+			      $("#box10").css("display","none");
+				  $(".box2").css("display","block");
+				  $(".box2").css("z-index","100");			
 			})
-
+			})
 		})
-	</script>
+		</script>
+		<script type="text/javascript">
+		
+</script>
+	
 	<script type="text/javascript">
-		$(".box3").css("display", "none");
 		$(document).ready(function() {
 			$(".top2").on("click", function() {
 				loadaccept(openid);
-				$(".box3").css("display", "block");
-				$(".box3").css("z-index", "100");
+				$("#box11").css("display", "block");
+				$("#box11").css("z-index", "100");
+				$(".box11_1_1").on("click",function(){
+					$(".box3").css("display","block");
+					$(".box3").css("z-index","100");
+					$("#box11").css("display","none");
+
+				})
 			})
 
 		})
@@ -498,7 +546,7 @@
 							'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" onclick="delet(' +
 							msg.wxmessage[i].customer_id + ')">删除</div></div><div class="xian1"></div>';
 						$("#box10").append(a);
-						$("#subaddress3").on('click', function() {
+						$("#subaddress2").on('click', function() {
 							customer_send_id = $("input[class='rad1']:checked").val();
 							//alert(customer_accept_id);
 							$(".shuru").html($("input[class='rad1']:checked").parent().prev().prev().text());
@@ -571,7 +619,7 @@
 							'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" onclick="delet(' +
 							msg.wxmessage[i].customer_id + ')">删除</div></div><div class="xian1"></div>';
 						$("#box11").append(a);
-						$("#subaddress5").on('click', function() {
+						$("#subaddress4").on('click', function() {
 							customer_accept_id = $("input[class='rad2']:checked").val();
 							//alert(customer_accept_id);
 							$(".shuru1").html($("input[class='rad2']:checked").parent().prev().prev().text());
@@ -591,7 +639,7 @@
 	</script> 
 	<script type="text/javascript">
 		//添加寄件地址
-		$("#subaddress2").on("click", function() {
+		$("#subaddress3").on("click", function() {
 			var name_1 = $(".name_1").val();
 			var phone_1 = $(".phone_1").val();
 			var cit = $("#city1").val();
@@ -631,7 +679,7 @@
 	</script>
 	<script type="text/javascript">
 		//添加收货地址
-		$("#subaddress4").on("click", function() {
+		$("#subaddress5").on("click", function() {
 			var name_2 = $(".name_2").val();
 			var phone_2 = $(".phone_2").val();
 			var cit1 = $("#city2").val();
@@ -795,15 +843,25 @@
 	<script type="text/javascript">
 		$(".qx").on("click", function() {
 			$(".box2").css("display", "none");
+			$("#box10").css("display","block");
+			$("#box10").css("z-index","100");		
 		})
 		$(".qx1").on("click", function() {
 			$(".box3").css("display", "none");
+			$("#box11").css("display","block");
+			$("#box11").css("z-index","100");
 		})
 		$(".qx2").on("click", function() {
 			$(".box4").css("display", "none");
 		})
 		$(".qx3").on("click", function() {
 			$(".box6").css("display", "none");
+		})
+		$(".qx6").on("click", function() {
+			$("#box11").css("display","none");
+		})
+		$(".qx5").on("click", function() {
+			$("#box10").css("display","none");
 		})
 	</script>
 
