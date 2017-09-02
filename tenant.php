@@ -251,7 +251,7 @@ $app->post('/tenant',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $cc=$app->request->getHost();
-    $qq=$app->request->get(qq);
+    $qq=$app->request->params('qq');
     echo $cc.'////'.$qq;
 //    $body=$app->request->getBody();
 //    $body=json_decode($body);
