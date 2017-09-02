@@ -22,9 +22,8 @@
 				<li class="l1">
                  <a href="" class="a1"><img src="images/dl.png" alt="" class="img1"></a>
 				<ul>
-					
-					<li><a href="" id="name">用户名</a></li>
-					<li><a href="" id="tenant">客户信息</a></li>
+					<li><div id="name">用户名</div></li>
+					<li><a href="zhuce.html">客户信息</a></li>
 					<li><a href="">企业信息</a></li>
 					<li><a href="">费用结算</a></li>
 					<li class="tc"><a href="">退出登录</a></li>
@@ -265,9 +264,6 @@
 		$(".tc").on('click',function(){
 			$.session.remove('userid');
 			$.session.remove('username');
-		});
-		$("#tenant").on('click',function(){
-			 window.location.href="zhuce.html";
 		});
 	</script>
 </html>

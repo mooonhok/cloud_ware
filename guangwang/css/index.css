@@ -15,9 +15,14 @@ a{
 li{
 	list-style: none;
 }
+#name{
+	text-decoration: none;
+	color: white;
+}
 .box{
 	width: 100%;
 	position: absolute;
+	list-style: none;
 }
 /* top */
 .top{
