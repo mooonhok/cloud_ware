@@ -252,7 +252,11 @@ $app->post('/tenant',function()use($app){
     $database=localhost();
     $cc=$app->request->getHost();
     $qq=$app->request->params('qq');
-    echo $cc.'////'.$qq;
+    $bb=$app->request->get('qq');
+    $ss=$app->request->getMediaTypeParams();
+    $num=count($ss);
+    echo $cc.'////'.$qq.'////'.$bb.'///'.$num;
+
 //    $body=$app->request->getBody();
 //    $body=json_decode($body);
 //    $address=$body->address;

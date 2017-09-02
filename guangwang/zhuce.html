@@ -6,9 +6,12 @@
 	<link rel="stylesheet" href="css/zhuce.css">
 	 <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
 	 <script type="text/javascript" src="js/jquery.session.js"></script>
+	 <script>
+	 	var host = window.location.host;
+	 </script>
 </head>
 <body>
-	<form id="myform" action="http://mooonhok-cloudware.daoapp.io/tenant.php/tenant" method="post">
+	<form id="myform" action="host/tenant.php/tenant" method="post">
 	<div class="box">
 	<!-- top -->
 		<div class="top">
@@ -24,7 +27,7 @@
 
 	   		<div class="center_1_1">
 	   		<div class="center_1_2">
-	   			公 司 名 称: <input type="text"  id="company"
+	   			公 司 名 称: <input type="text"  name="company"
 	   				<!--id="company"-->
 	   				>	
 	   		</div>	
@@ -32,36 +35,36 @@
 	   		</div>
 	   		<div class="center_3">
 	   			<div class="wenzi">营业执照号码:</div>
-	   			<div class="wenzi2"><input type="text" id="business_l"
+	   			<div class="wenzi2"><input type="text" name="business_l"
 	   				<!--id="bussiness_l"-->
 	   				></div>
-	   			<div class="cs"><input type="file" accept="image/*" name="upimage" 
-	   				id="upload_file" 
+	   			<div class="cs"><input type="file" accept="image/*" 
+	   				name="upload_file" 
 	   				value="拍照上传"></div>	
 	   			
 	   		</div>
 	   		<div class="center_4">
 	   			<div class="wenzi">负责人姓名:</div>
-	   			<div class="wenzi1"><input type="text"  id="contact_name"
+	   			<div class="wenzi1"><input type="text"  name="contact_name"
 	   				<!--id="contactname"-->
 	   				></div>	   			
 	   		</div>
 	   		<div class="center_5">
 	   			<div class="wenzi">负责人电话:</div>
-	   			<div class="wenzi1"><input type="text" id="telephone"></div>		
+	   			<div class="wenzi1"><input type="text" name="telephone"></div>		
 	   		</div>
 	   		<div class="center_6">
 	   			<div class="wenzi">电子邮箱:</div>
-	   			<div class="wenzi1"><input type="text" id="email"
+	   			<div class="wenzi1"><input type="text" name="email"
 	   				<!--id="email"-->
 	   				></div>
 	   		</div>
 	   		<div class="center_7">
 	   			<div class="wenzi">QQ:</div>
-	   			<div class="wenzi1"><input type="text" id="qq"></div>
+	   			<div class="wenzi1"><input type="text" name="qq"></div>
 	   		</div>
 	   		<div class="center_8">
-	   			<div class="center_8_1">经 营 地 址:<input type="text" id="address"
+	   			<div class="center_8_1">经 营 地 址:<input type="text" name="address"
 	   				<!--id="address"-->
 	   				></div>
 	   			<div style="width: 918px;height: 1px;background: black;float: left;margin-left: 82px;"></div>
@@ -91,7 +94,7 @@
 	   		<div class="center_12">
 	   			<div class="wenzi11">使用开始时间:</div>
 	   			<div class="wenzi10">
-	   			<input type="text" id="inp" placeholder="选择日期" id="begin_time"
+	   			<input type="text" id="inp" placeholder="选择日期" name="begin_time"
 	   				<!--id="begintime"-->
 	   				>
 	   			</div>
@@ -99,7 +102,7 @@
 	   		<div class="center_13">
 	   			<div class="wenzi11">使用结束时间:</div>
 	   			<div class="wenzi10">
-	   			<input type="text" id="inp2" placeholder="选择日期" id="end_time"
+	   			<input type="text" id="inp2" placeholder="选择日期" name="end_time"
 	   				<!--id="endtime"-->
 	   				>
 	   			</div>
@@ -118,7 +121,7 @@
 	   				<div class="wenzi3">运单模版:</div>
 	   				<div class="wenzi4">
 	   					<!--<form id="upload_file3">-->
-	   						<input type="file" value="上传文件" id="order_t_p">
+	   						<input type="file" value="上传文件" name="order_t_p">
 	   					<!--</form>-->
 	   				</div>
 	   			</div>
@@ -126,14 +129,14 @@
 	   				<div class="wenzi3">运输合同模版:</div>
 	   				<div class="wenzi5">
 	   					<!--<form id="upload_file2">-->
-	   						<input type="file" value="上传文件" id="trans_contract_p" >
+	   						<input type="file" value="上传文件" name="trans_contract_p" >
 	   				<!--	</form>-->
 	   				</div>
 	   			</div>
 	   			<div class="foot_4">
 	   				<div class="wenzi6">服务项目:</div>	
 	   				<div class="wenzi7">
-	   					<textarea class="text1" id="service_items"
+	   					<textarea class="text1" name="service_items"
 	   						<!--id="services"-->
 	   						></textarea>
 	   				</div>
@@ -141,7 +144,7 @@
 	   			<div class="foot_5">
 	   				<div class="wenzi6">公司介绍:</div>	
 	   				<div class="wenzi7">
-	   					<textarea class="text1" id="c_introduction"
+	   					<textarea class="text1" name="c_introduction"
 	   						<!--id="intro"-->
 	   						></textarea>
 	   				</div>
@@ -156,6 +159,7 @@
 </body>
 <script src="http://www.itakeo.com/down/calender2.js"></script>
 <script>
+	
 	//日期判断
 (function(){
         calender('#inp').init({format : 'yyyy-MM-dd',
@@ -175,7 +179,7 @@
 <script>
 		//获取省份和城市列表1
 		$.ajax({
-			url: "http://mooonhok-cloudware.daoapp.io/city.php/province",
+			url: "host/city.php/province",
 			beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", "Chenxizhang");
 			},
@@ -200,7 +204,7 @@
 			$("#city1").empty();
 			var pid = $("#province1 option:selected").val();
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/city.php/city?pid=" + pid,
+				url: "host/city.php/city?pid=" + pid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "Chenxizhang");
 				},
@@ -224,7 +228,7 @@
 	<script>
 		//获取城市列表2
 		$.ajax({
-			url: "http://mooonhok-cloudware.daoapp.io/city.php/province",
+			url: "host/city.php/province",
 			beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", "Chenxizhang");
 			},
@@ -247,7 +251,7 @@
 			$("#city2").empty();
 			var pid = $("#province2 option:selected").val();
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/city.php/city?pid=" + pid,
+				url: "host/city.php/city?pid=" + pid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "Chenxizhang");
 				},
@@ -268,19 +272,19 @@
 		}
 	</script>
 	<script>
-		  $("#upload_file").on('click',function(){
-		//图片转化
-		var file = $_('upload_file').files[0];
-       	     r = new FileReader();
-       	       r.onload = function(){
-              //alert(r.result); 
-              $("#tupian").val(r.result);
-             }
-       	      r.readAsDataURL(file);
-		  });
-		  function $_(id) {
-             return document.getElementById(id);                   
-           }
+//		  $(".upload_file").on('click',function(){
+//		//图片转化
+//		var file = $_('upload_file').files[0];
+//     	     r = new FileReader();
+//     	       r.onload = function(){
+//            //alert(r.result); 
+//            $("#tupian").val(r.result);
+//           }
+//     	      r.readAsDataURL(file);
+//		  });
+//		  function $_(name) {
+//           return document.getElementById(id);                   
+//         }
 	</script>
 	<script>
 		//session判断
@@ -312,7 +316,7 @@
 //     	      alert("运单模版"+ordert);
 //     	      alert("运输合同"+trans);
 //  	    $.ajax({
-//  	    	url: "http://mooonhok-cloudware.daoapp.io/tenant.php/tenant",
+//  	    	url: "host/tenant.php/tenant",
 //				dataType: 'json',
 //				type: 'post',
 //				contentType: "application/json;charset=utf-8",
