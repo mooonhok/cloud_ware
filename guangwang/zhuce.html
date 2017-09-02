@@ -3,9 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>用户注册</title>
-	<link rel="stylesheet" href="css/zhuce.css">
-	 <script type="text/javascript" src="js/jquery.session.js"></script>
+	<link rel="stylesheet" href="css/zhuce.css"> 
 	 <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+	 <script type="text/javascript" src="js/jquery.session.js"></script>
 </head>
 <body>
 	<div class="box">
@@ -134,10 +134,13 @@
 </body>
 <script type="text/javascript">
 	//判断sessions
+       $(document).ready(function(){
 	var userid=$.session.get('userid');
     var username=$.session.get('username');
 	alert(userid);
 	alert(username);
+       });
+
 	
 </script>
 </html>
