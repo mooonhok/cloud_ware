@@ -286,9 +286,6 @@
 
 			});
 		}
-	
-		$(".box2").css("display", "none");
-
 		$(document).ready(function() {
 			$(".top1").on("click", function() {
 				// alert('ok');
@@ -311,7 +308,6 @@
 		})
 	</script>
 	<script type="text/javascript">
-		$(".box4").css("display", "none");
 		$(".center_4").on("click", function() {
 			$(".box4").css("display", "block");
 		})
@@ -347,7 +343,6 @@
 		})
 	</script>
 	<script type="text/javascript">
-		$(".box6").css("display", "none");
 		$(".foot2").on("click", function() {
 			$(".box6").css("display", "block");
 		})
@@ -686,7 +681,7 @@
 			var zhong = str1 * 1;
 			var str2 = $(".tiji").val();
 			var tiji = str2 * 1;
-			var baozhuang = parseInt($(".baozhuang").val());
+			var baozhuang = $(".baozhuang").val();
 			var jianshu = parseInt($(".jianshu").val());
 			var needs = $(".needs").val();
 			var jiazhi = parseInt($(".jiazhi").val());
