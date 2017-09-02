@@ -244,11 +244,11 @@
    		  	  success:function(msg){
    		  	  	alert(msg.result);
    		  	  	if(msg.result==0){	
-   		  	  		alert(msg.user);
-   		  	  	    $.session.set('user',msg.user);
+   		  	  		alert(msg.user.id);
+   		  	  		alert(msg.user.user_name);
+   		  	  	    $.session.set('userid',msg.user);
    		  	  	    var user=$.session.get('user');
-   		  	  	    alert(user.user_username);
-   		  	  	    $("#name").val(user.user_name);
+   		  	  	    $("#name").val(msg.user.user_name);
    		  	  	}else{
    		  	  		alert(msg.desc);
    		  	  	}
@@ -257,6 +257,9 @@
    		  	  	alert(xhr.responseText);
    		  	  }
 		});
+		});
+		$(".tc").on('click',function(){
+			$.session.remove('user');
 		});
 	</script>
 </html>
