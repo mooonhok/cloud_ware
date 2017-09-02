@@ -250,13 +250,10 @@ $app->delete('/tenant',function()use($app){
 $app->post('/tenant',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
-    $cc=$app->request->getHost();
     $qq=$app->request->params('qq');
-    $bb=$app->request->get('qq');
-    $ss=$app->request->getMediaTypeParams();
-    $num=count($ss);
-    echo $cc.'////'.$qq.'////'.$bb.'///'.$num;
-
+    $address=$app->request->params('address');
+    $from_city_id=$app->request->params('from_city_id');
+ echo $from_city_id;
 //    $body=$app->request->getBody();
 //    $body=json_decode($body);
 //    $address=$body->address;
