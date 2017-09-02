@@ -6,12 +6,10 @@
 	<link rel="stylesheet" href="css/zhuce.css">
 	 <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
 	 <script type="text/javascript" src="js/jquery.session.js"></script>
-	 <script>
-	 	var host = window.location.host;
-	 </script>
+	 
 </head>
 <body>
-	<form id="myform" action="host/tenant.php/tenant" method="post">
+	<form id="myform" action="http://mooonhok-cloudware.daoapp.io/tenant.php/tenant" method="post">
 	<div class="box">
 	<!-- top -->
 		<div class="top">
@@ -179,7 +177,7 @@
 <script>
 		//获取省份和城市列表1
 		$.ajax({
-			url: "host/city.php/province",
+			url: "http://mooonhok-cloudware.daoapp.io/city.php/province",
 			beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", "Chenxizhang");
 			},
@@ -204,7 +202,7 @@
 			$("#city1").empty();
 			var pid = $("#province1 option:selected").val();
 			$.ajax({
-				url: "host/city.php/city?pid=" + pid,
+				url: "http://mooonhok-cloudware.daoapp.io/city.php/city?pid=" + pid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "Chenxizhang");
 				},
@@ -228,7 +226,7 @@
 	<script>
 		//获取城市列表2
 		$.ajax({
-			url: "host/city.php/province",
+			url: "http://mooonhok-cloudware.daoapp.io/city.php/province",
 			beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", "Chenxizhang");
 			},
@@ -251,7 +249,7 @@
 			$("#city2").empty();
 			var pid = $("#province2 option:selected").val();
 			$.ajax({
-				url: "host/city.php/city?pid=" + pid,
+				url: "http://mooonhok-cloudware.daoapp.io/city.php/city?pid=" + pid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "Chenxizhang");
 				},
@@ -272,7 +270,7 @@
 		}
 	</script>
 	<script>
-//		  $(".upload_file").on('click',function(){
+//		  $("#upload_file").on('click',function(){
 //		//图片转化
 //		var file = $_('upload_file').files[0];
 //     	     r = new FileReader();
@@ -282,7 +280,7 @@
 //           }
 //     	      r.readAsDataURL(file);
 //		  });
-//		  function $_(name) {
+//		  function $_(id) {
 //           return document.getElementById(id);                   
 //         }
 	</script>
