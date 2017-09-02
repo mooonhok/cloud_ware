@@ -1,0 +1,306 @@
+/*
+* @Author: Administrator
+* @Date:   2017-08-30 11:38:00
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-09-02 11:00:11
+*/
+*{
+	padding: 0;
+	margin: 0;
+	font-family: "微软雅黑";
+}
+.top{
+	width: 100%;
+	height: 40px;
+	background: #1F333A;
+}
+.top_1{
+	width: 1300px;
+	height: 40px;
+	margin: 0 auto;
+	color: white;
+	line-height: 40px;
+}
+.center{
+	width: 1300px;
+	height: 700px;
+	margin: 0 auto;
+	background: #BDEFF6;
+}
+.center_1{
+	width: 1000px;
+	height: 550px;
+	/* border: 1px solid red; */
+	float: left;
+	margin-left: 150px;
+	margin-top: 75px;
+}
+.xian{
+	width: 1000px;
+	height: 1px;
+	background: black;
+	float: left;
+	margin-top: 5px;
+}
+.center_1_1{
+	width: 1000px;
+	height: 50px;
+	/* border: 1px solid red; */
+	float: left;
+	margin-top: 30px;
+}
+.center_1_2{
+	width: 1000px;
+	height: 22px;
+	float: left;
+}
+.center_1_2 input{
+	width: 800px;
+	list-style: none;
+	outline-style: none;
+	border: 0;
+	background: #BDEFF6; 
+	height: 22px;
+	font-size: 16px;
+}
+.xian1{
+	width: 918px;
+	float: right;
+	height: 1px;
+	background: black;
+
+}
+.center_2{
+	width: 330px;
+	height: 40px;
+	line-height: 40px;
+}
+.wenzi{
+	float: left;
+}
+.wenzi8{
+	float: left;
+}
+.wenzi1{
+	float: right;
+}
+.wenzi9{
+	float: left;
+	margin-left:64px; 
+}
+.wenzi10{
+	float: left;
+	margin-left:32px; 
+}
+.wenzi1 input{
+	width: 200px;
+	background: #BDEFF6;
+	list-style: none;
+	outline-style: none;
+	border: 1px solid black;
+	height: 22px;
+	font-size: 16px;
+}
+.wenzi9 select{
+	width: 90px;
+	font-size: 16px;
+	text-align: center;
+}
+.wenzi10 select{
+	width: 90px;
+	font-size: 16px;
+	text-align: center;
+}
+.center_3{
+	width:1000px;
+	float: left;
+	margin-top: 30px;
+	height: 40px; 
+}
+.wenzi2{
+	float: left;
+	margin-left: 27px;
+}
+.wenzi2 input{
+	width: 200px;
+	background: #BDEFF6;
+	list-style: none;
+	outline-style: none;
+	border: 1px solid black;
+	height: 22px;
+	font-size: 16px;
+}
+.cs{
+	float: left;
+	margin-left: 100px;
+}
+.center_4{
+	width: 330px;
+	height: 40px;
+	line-height: 40px;
+	margin-top: 20px;
+	float: left;
+}
+.center_5{
+	width: 330px;
+	height: 40px;
+	line-height: 40px;
+	margin-top: 20px;
+	float: left;
+	margin-left: 100px;
+}
+.center_6{
+	width: 330px;
+	height: 40px;
+	line-height: 40px;
+	margin-top: 30px;
+	float: left;
+}
+.center_7{
+	width: 330px;
+	height: 40px;
+	line-height: 40px;
+	margin-top: 30px;
+	float: left;
+	margin-left: 100px;
+}
+.center_8{
+	width: 1000px;
+	height: 22px;
+	/* border: 1px solid red; */
+	margin-top: 60px;
+}
+.center_8{
+	width: 1000px;
+	height: 22px;
+	float: left;
+	
+}
+.center_8_1 input{
+	width: 800px;
+	list-style: none;
+	outline-style: none;
+	border: 0;
+	background: #BDEFF6; 
+	height: 22px;
+	font-size: 16px;
+}
+.foot{
+	width: 1300px;
+	height: 700px;
+	background: #BDEFF6;
+	margin: 10px auto;
+}
+.foot_1{
+	width: 1000px;
+	height: 600px;
+	margin-left: 150px;
+	margin-top: 40px;
+	float: left;
+}
+.foot_2{
+	width: 1000px;
+	height: 30px;
+	float: left;
+	/* border: 1px solid red; */
+	margin-top: 30px;
+}
+.wenzi3{
+	float: left;
+	text-align: left;
+}
+.wenzi4{
+	float: left;
+	margin-left: 50px;
+}
+.foot_3{
+	width: 1000px;
+	height: 30px;
+	float: left;
+	/* border: 1px solid red; */
+	margin-top: 30px;
+}
+.wenzi5{
+	float: left;
+	margin-left: 18px;
+}
+.foot_4{
+	width: 1000px;
+	height: 180px;
+	/* border: 1px solid red; */
+	float: left;
+	margin-top: 30px;
+}
+.wenzi6{
+	float: left;
+}
+.text1{
+	width: 700px;
+	height: 150px;
+	border-radius: 5px;
+	resize: none;
+	outline-style: none;
+	list-style: none;
+	border: 1px solid black;
+	background: #BDEFF6;
+}
+.wenzi7{
+	float: left;
+	margin-left: 50px;
+}
+.foot_5{
+	width: 1000px;
+	height: 180px;
+	/* border: 1px solid red; */
+	float: left;
+	margin-top: 30px;
+}
+.tijiao{
+	width: 200px;
+	height: 60px;
+	background: #1F333A;
+	float: left;
+	margin-left: 400px;
+	border-radius: 10px;
+	text-align: center;
+	line-height: 55px;
+	color: white;
+}
+.center_9{
+	width: 330px;
+	height: 40px;
+	line-height: 40px;
+	margin-top: 30px;
+	float: left;
+}
+.center_10{
+	width: 330px;
+	height: 40px;
+	line-height: 40px;
+	margin-top: 30px;
+	float: left;
+	margin-left: 100px;
+}
+.center_11{
+	width: 1000px;
+	height: 22px;
+	float: left;
+	margin-top: 10px;
+	font-size: 18px;
+	font-weight: bold;
+}
+.center_12{
+	width: 330px;
+	height: 40px;
+	line-height: 40px;
+	margin-top: 10px;
+	float: left;
+}
+.center_13{
+	width: 330px;
+	height: 40px;
+	line-height: 40px;
+	margin-top: 10px;
+	float: left;
+	margin-left: 100px;
+}
