@@ -250,28 +250,32 @@ $app->delete('/tenant',function()use($app){
 $app->post('/tenant',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $address=$body->address;
-    $begin_time=$body->begin_time;
-    $end_time=$body->end_time;
-    $business_l=$body->business_l;
-    $business_l_p=$body->business_l_p;
-    $company=$body->company;
-    $contact_name=$body->contact_name;
-    $c_introduction=$body->c_introduction;
-    $email=$body->email;
-    $from_city_id=$body->from_city_id;
-    $order_t_p=$body->order_t_p;
-    $qq=$body->qq;
-    $receive_city_id=$body->receive_city_id;
-    $sales_id=$body->sales_id;
-    $service_items=$body->service_items;
-    $trans_contract_p=$body->trans_contract_p;
-    $array=array();
-    foreach($body as $key=>$value){
-        $array[$key]=$value;
-    }
+    $cc=$app->request->getHost();
+    $qq=$app->request->get(qq);
+    echo $cc.'////'.$qq;
+//    $body=$app->request->getBody();
+//    $body=json_decode($body);
+//    $address=$body->address;
+//    $begin_time=$body->begin_time;
+//    $end_time=$body->end_time;
+//    $business_l=$body->business_l;
+//    $business_l_p=$body->business_l_p;
+//    $company=$body->company;
+//    $contact_name=$body->contact_name;
+//    $c_introduction=$body->c_introduction;
+//    $email=$body->email;
+//    $from_city_id=$body->from_city_id;
+//    $order_t_p=$body->order_t_p;
+//    $qq=$body->qq;
+//    $receive_city_id=$body->receive_city_id;
+//    $sales_id=$body->sales_id;
+//    $service_items=$body->service_items;
+//    $trans_contract_p=$body->trans_contract_p;
+//    $array=array();
+//    foreach($body as $key=>$value){
+//        $array[$key]=$value;
+//    }
+
 //    $name=$_FILES["myfile"]["name"];
 //    $name=iconv("UTF-8","gb2312", $name);
 //    move_uploaded_file($_FILES["myfile"]["tmp_name"],"upload/". $name."");
@@ -286,7 +290,27 @@ $app->post('/tenant',function()use($app){
 //                               if($c_introduction!=''||$c_introduction!=null){
 //                                   if($email!=null||$email!=''){
 //                                       if($from_city_id!=null||$from_city_id!=''){
+//                                           if($order_t_p!=null||$order_t_p!=''){
+//                                              if($qq!=null||$qq!=''){
+//                                                 if($receive_city_id!=null||$receive_city_id!=''){
+//                                                    if($sales_id!=null||$sales_id!=''){
+//                                                        if($service_items!=null||$service_items!=''){
 //
+//                                                        }else{
+//                                                            echo json_encode(array("result"=>"2","desc"=>"缺少服务项目"));
+//                                                        }
+//                                                    }else{
+//                                                        echo json_encode(array("result"=>"2","desc"=>"缺少销售人员id"));
+//                                                    }
+//                                                 }else{
+//                                                     echo json_encode(array("result"=>"2","desc"=>"缺少收货城市id"));
+//                                                 }
+//                                              }else{
+//                                                  echo json_encode(array("result"=>"2","desc"=>"缺少qq"));
+//                                              }
+//                                           }else{
+//                                               echo json_encode(array("result"=>"2","desc"=>"缺少订单运输协议"));
+//                                           }
 //                                       }else{
 //                                           echo json_encode(array("result"=>"2","desc"=>"缺少发货城市id"));
 //                                       }
@@ -317,11 +341,11 @@ $app->post('/tenant',function()use($app){
 //    }else{
 //        echo json_encode(array("result"=>"2","desc"=>"缺少办公地址"));
 //    }
-                                                    $insertStatement = $database->insert(array('order_t_p','trans_contract_p'))
-                                                        ->into('tenantceshi')
-                                                        ->values(array($order_t_p,$trans_contract_p));
-                                                    $insertId = $insertStatement->execute(false);
-                                                    echo json_encode(array("result"=>"0","desc"=>"success"));
+//                                                    $insertStatement = $database->insert(array('order_t_p','trans_contract_p'))
+//                                                        ->into('tenantceshi')
+//                                                        ->values(array($order_t_p,$trans_contract_p));
+//                                                    $insertId = $insertStatement->execute(false);
+//                                                    echo json_encode(array("result"=>"0","desc"=>"success"));
 });
 
 $app->run();
