@@ -244,9 +244,10 @@
    		  	  success:function(msg){
    		  	  	alert(msg.result);
    		  	  	if(msg.result==0){	
+   		  	  		alert(msg.user);
    		  	  	    $.session.set('user',msg.user);
    		  	  	    var user=$.session.get('user');
-   		  	  	    alert(user);
+   		  	  	    alert(user.user_username);
    		  	  	    $("#name").val(user.user_name);
    		  	  	}else{
    		  	  		alert(msg.desc);
