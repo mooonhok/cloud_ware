@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-08-17 17:24:45
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-08-30 16:50:23
+* @Last Modified by:   boycui
+* @Last Modified time: 2017-09-03 14:58:41
 */
 
 *{
@@ -237,7 +237,13 @@
 }
 .foot_1_1 select{
 	width: 45%;
+	height: 26px;
+	border: solid 1px #ccc;
+	background: #E7E7E7;
 }
 .foot_2_1 select{
 	width: 45%;
+	height: 26px;
+	border: solid 1px #ccc;
+	background: #E7E7E7;
 }
