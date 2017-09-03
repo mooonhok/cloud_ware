@@ -150,7 +150,7 @@ $signPackage = $jssdk->GetSignPackage();
 	$("#sumbit").click(function(){
 		var order_id=$("#order_id").val();
 		//alert(order_id);
-		window.location.href="http://mooonhok-cloudware.daoapp.io/waybill_details.php?order_id="+order_id;
+		window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.php?order_id="+order_id;
 	});
 </script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
