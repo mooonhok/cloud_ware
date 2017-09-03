@@ -310,6 +310,7 @@
 
 				}),
 				success: function(msg) {
+					alert("判断openid结果"+msg.result);
 					//	alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
 					if(msg.result == 0) {
 						window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/register.html?page=0";
@@ -532,7 +533,7 @@
 		//加载寄件人信息
 		function loadsend(openid) {
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?type=1&wx_openid=" + openid,
+				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?wx_openid=" + openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "1");
 				},
@@ -541,7 +542,8 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					alert("cxdz");
+					//alert("cxdz");
+					alert("加载寄件人地址结果"+msg.result);
 					$("#box101").html("");
 					for(var i = 0; i < msg.wxmessage.length; i++) {
 						var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
@@ -587,7 +589,7 @@
 							customerid:id
 						}),
 						success: function(msg) {
-							alert("删除成功");
+							alert("删除成功"+msg.result);
 							loadsend(openid);
 							loadaccept(openid);
 						},
@@ -605,7 +607,7 @@
 		//加载收货地址
 		function loadaccept(openid) {
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?type=2&wx_openid=" + openid,
+				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?wx_openid=" + openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "1");
 				},
@@ -614,7 +616,8 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					alert("cxdz");
+					//alert("cxdz");
+						alert("加载收货地址"+msg.result);
 					$("#box111").html("");
 					for(var i = 0; i < msg.wxmessage.length; i++) {
 						var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
@@ -656,7 +659,6 @@
 				alert("手机号码格式不对")
 				return false;
 			} else {
-				
 				$.ajax({
 					url: "http://mooonhok-cloudware.daoapp.io/customer.php/plus_customer",
 					beforeSend: function(request) {
@@ -674,7 +676,8 @@
 						wx_openid: openid,
 					}),
 					success: function(msg) {
-						alert("添加地址");
+						alert("添加地址"+msg.result);
+							
 						loadsend(openid);
 						$(".box2").css("display","none");
 						$("#box10").css("display","block");
@@ -715,7 +718,7 @@
 						wx_openid: openid,
 					}),
 					success: function(msg) {
-						alert("添加地址");
+						alert("添加地址"+msg.result);
 						loadaccept(openid);
 						$(".box3").css("display","none");
 						$("#box11").css("display", "block");
@@ -727,12 +730,6 @@
 				});
 				}
 			});
-	</script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			
-			loadaccept();
-		});
 	</script>
 	<script type="text/javascript">
 		$(".tijiao").on('click', function() {
@@ -833,6 +830,7 @@
 						openid: openid
 					}),
 					success: function(msg) {
+							alert(msg.result);
 						bootbox.setLocale("zh_CN");
 						bootbox.alert({
 							message: msg.result+"提交订单成功"+customer_send_id,

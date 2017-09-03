@@ -362,6 +362,8 @@ $app->get('/wx_openid',function()use($app){
             $selectStatement = $database->select()
                 ->from('customer')
                 ->where('exist',"=",0)
+                ->where('customer_address','=',-1)
+                ->where('customer_city_id','=',-1)
                 ->where('wx_openid','=',$wx_openid)
                 ->where('tenant_id','=',$tenant_id);
             $stmt = $selectStatement->execute();
@@ -385,10 +387,8 @@ $app->get('/wxaddress',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get('tenant-id');
-    $type=$app->request->get('type');
     $wx_openid=$app->request->get('wx_openid');
     if($tenant_id!=null||$tenant_id!=''){
-       if($type!=null||$type!=''){
            if($wx_openid!=null||$wx_openid!=''){
                $selectStatement = $database->select()
                    ->from('tenant')
@@ -400,7 +400,8 @@ $app->get('/wxaddress',function()use($app){
                    $selectStatement = $database->select()
                        ->from('customer')
                        ->where('exist',"=",0)
-                       ->where('type',"=",$type)
+                       ->where('customer_address','!=',-1)
+                       ->where('customer_city_id','=',-1)
                        ->where('wx_openid','=',$wx_openid)
                        ->where('tenant_id','=',$tenant_id);
                    $stmt = $selectStatement->execute();
@@ -420,18 +421,15 @@ $app->get('/wxaddress',function()use($app){
                        $data2[$i]['customer_city']=$data3['name'];
                        $data2[$i]['customer_province']=$data4['name'];
                    }
-                   echo json_encode(array("result"=>"1","desc"=>"添加未执行","wxmessage"=>$data2));
+                   echo json_encode(array("result"=>"1","desc"=>"success","wxmessage"=>$data2));
                }else{
                    echo json_encode(array("result"=>"2","desc"=>"租户不存在"));
                }
            }else{
                echo json_encode(array("result"=>"3","desc"=>"openid为空"));
            }
-       }else{
-           echo json_encode(array("result"=>"4","desc"=>"类型为空"));
-       }
     }else{
-        echo json_encode(array("result"=>"5","desc"=>"租户为空"));
+        echo json_encode(array("result"=>"4","desc"=>"租户为空"));
     }
 });
 
@@ -555,46 +553,40 @@ $app->post('/customers_insert',function()use($app){
     echo json_encode(array("result"=>"1","desc"=>"success"));
 });
 
-//客户端，根据tenant_id和customer_id，查出tenant和customer
-$app->get('/tenant_customer',function()use($app){
-    $app->response->headers->set('Content-Type','application/json');
-    $database=localhost();
-    $tenant_id=$app->request->headers->get('tenant-id');
-    $customer_id=$app->request->get('customer_id');
-    if($tenant_id!=null||$tenant_id!=''){
-       if($customer_id!=null||$customer_id!=''){
-           $array=array();
-           $selectStatement = $database->select()
-               ->from('tenant')
-               ->where('exist','=',0)
-               ->where('tenant_id','=',$tenant_id);
-           $stmt = $selectStatement->execute();
-           $data1 = $stmt->fetch();
-           if($data1!=null){
-               $selectStatement = $database->select()
-                   ->from('customer')
-                   ->where('exist','=',0)
-                   ->where('tenant_id','=',$tenant_id)
-                   ->where('customer_id','=',$customer_id);
-               $stmt = $selectStatement->execute();
-               $data2 = $stmt->fetch();
-               if($data2!=null){
-                   $array['tenant']=$data1;
-                   $array['customer']=$data2;
-                   echo json_encode(array("result"=>"1","desc"=>"success",'customer'=>$array));
-               }else{
-                   echo json_encode(array("result"=>"2","desc"=>"客户不存在"));
-               }
-           }else{
-               echo json_encode(array("result"=>"3","desc"=>"租户不存在"));
-           }
-       }else{
-           echo json_encode(array("result"=>"4","desc"=>"客户id为空"));
-       }
-    }else{
-        echo json_encode(array("result"=>"5","desc"=>"租户id为空"));
-    }
-});
+//客户端，根据tenant_id，查出tenant和customer
+//$app->get('/tenant_customer',function()use($app){
+//    $app->response->headers->set('Content-Type','application/json');
+//    $database=localhost();
+//    $tenant_id=$app->request->headers->get('tenant-id');
+//    if($tenant_id!=null||$tenant_id!=''){
+//           $array=array();
+//           $selectStatement = $database->select()
+//               ->from('tenant')
+//               ->where('exist','=',0)
+//               ->where('tenant_id','=',$tenant_id);
+//           $stmt = $selectStatement->execute();
+//           $data1 = $stmt->fetch();
+//           if($data1!=null){
+//               $selectStatement = $database->select()
+//                   ->from('customer')
+//                   ->where('exist','=',0)
+//                   ->where('tenant_id','=',$tenant_id);
+//               $stmt = $selectStatement->execute();
+//               $data2 = $stmt->fetchAll();
+//               if($data2!=null){
+//                   $array['tenant']=$data1;
+//                   $array['customer']=
+//                   echo json_encode(array("result"=>"1","desc"=>"success",'customer'=>$array));
+//               }else{
+//                   echo json_encode(array("result"=>"2","desc"=>"客户不存在"));
+//               }
+//           }else{
+//               echo json_encode(array("result"=>"3","desc"=>"租户不存在"));
+//           }
+//    }else{
+//        echo json_encode(array("result"=>"4","desc"=>"租户id为空"));
+//    }
+//});
 $app->run();
 
 function localhost(){
