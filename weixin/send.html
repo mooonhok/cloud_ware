@@ -69,7 +69,7 @@
 				<div class="center_5">
 					<div class="wenzi">件数</div>
 					<div class="text1">
-						<input type="number" placeholder="必填项" class="jianshu">
+						<input type="tel" placeholder="必填项" class="jianshu">
 					</div>
 					<!-- <div class="fuhao"><img src="images/left_arrow.png" alt=""></div> -->
 				</div>
@@ -749,19 +749,19 @@
 			} else if(money == "月付") {
 				str = 2;
 			}
-			if(customer_send_id == "" || customer_send_id == 0) {
+			if(customer_send_id == "" || customer_send_id == null) {
 				bootbox.setLocale("zh_Cn");
 				bootbox.alert({
 					message: "发货人信息不全",
 					size: 'small'
 				})
-			} else if(customer_accept_id == "" || customer_accept_id == 0) {
+			} else if(customer_accept_id == "" || customer_accept_id == null) {
 				bootbox.setLocale("zh_Cn");
 				bootbox.alert({
 					message: "收件人信息不全",
 					size: 'small'
 				})
-			} else if(huowu == "") {
+			} else if(huowu == ""||huowu==null) {
 				bootbox.setLocale("zh_Cn");
 				bootbox.alert({
 					message: "缺少货物名",
@@ -804,7 +804,7 @@
 					size: 'small'
 				})
 			} else {
-				alert(customer_send_id+'////'+'customer_accept_id' +'///'+ huowu + zhong + tiji + baozhuang + jianshu + needs + jiazhi + str+openid)
+				alert(customer_send_id+'////'+customer_accept_id +'///'+ huowu + zhong + tiji + baozhuang + jianshu + needs + jiazhi + str+openid)
 				$.ajax({
 					url: "http://mooonhok-cloudware.daoapp.io/wxmessage.php/wxmessage_insert",
 					beforeSend: function(request) {
