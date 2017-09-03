@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-18 09:58:43
 * @Last Modified by:   boycui
-* @Last Modified time: 2017-09-03 09:52:57
+* @Last Modified time: 2017-09-03 10:22:55
 */
 *{
 	margin: 0;padding: 0;
@@ -818,11 +818,10 @@ html,body{height:100%; width:100%;
 .dizhi2{
 	width: 70%;
 	float: left;
-	margin-top: 3px;
 	margin-left: 5%;
 }
-.dizhi3 select{
-	width: 45%;
+select{
+	width: 35%;
 	height: 26px;
 	border: solid 1px #ccc;
 	background: #E7E7E7;

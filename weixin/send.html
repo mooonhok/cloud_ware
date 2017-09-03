@@ -674,6 +674,7 @@
 					success: function(msg) {
 						alert("添加地址");
 						loadsend(openid);
+						$(".box2").css("display","none");
 					},
 					error: function(xhr) {
 						alert("获取数据失败" + xhr.responseText);
@@ -712,6 +713,7 @@
 					success: function(msg) {
 						alert("添加地址");
 						loadaccept(openid);
+						$(".box3").css("display","none");
 					},
 					error: function(xhr) {
 						alert("获取数据失败" + xhr.responseText);
