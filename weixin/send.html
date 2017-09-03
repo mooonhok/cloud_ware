@@ -675,6 +675,8 @@
 						alert("添加地址");
 						loadsend(openid);
 						$(".box2").css("display","none");
+						$("#box10").css("display","block");
+						$("#box10").css("z-index","100");
 					},
 					error: function(xhr) {
 						alert("获取数据失败" + xhr.responseText);
@@ -714,6 +716,8 @@
 						alert("添加地址");
 						loadaccept(openid);
 						$(".box3").css("display","none");
+						$("#box11").css("display", "block");
+				        $("#box11").css("z-index", "100");
 					},
 					error: function(xhr) {
 						alert("获取数据失败" + xhr.responseText);
