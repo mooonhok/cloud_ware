@@ -342,7 +342,7 @@ $app->post('/wx_orders_s', function () use ($app) {
         if ($data1 != null) {
             $selectStatement = $database->select()
                 ->from('customer')
-                ->join('orders','orders.sender_id','=','customer.customer_id','left')
+                ->join('orders','orders.sender_id','=','customer.customer_id','INNER')
                 ->where('customer.exist', "=", 0)
                 ->where('customer.customer_address','!=','-1')
                 ->where('customer.customer_city_id','!=','-1')
@@ -525,7 +525,7 @@ $app->post('/wx_orders_r', function () use ($app) {
         if ($data1 != null) {
             $selectStatement = $database->select()
                 ->from('customer')
-                ->join('orders','orders.receiver_id','=','customer.customer_id','right')
+                ->join('orders','orders.receiver_id','=','customer.customer_id','INNER')
                 ->where('customer.exist', "=", 0)
                 ->where('customer.customer_address','!=','-1')
                 ->where('customer.customer_city_id','!=','-1')

@@ -826,12 +826,13 @@
 						openid: openid
 					}),
 					success: function(msg) {
-                        window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/my_consignment_note.php";
+                       
 						bootbox.setLocale("zh_CN");
 						bootbox.alert({
 							message: msg.result + "提交订单成功" + customer_send_id,
 							size: "small"
 						})
+						  window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/my_consignment_note.php";
 
 					},
 					error: function(xhr) {
