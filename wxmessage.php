@@ -67,7 +67,6 @@ $app->post('/wxmessage_insert',function()use($app){
 //                                                                                    ->where('customer_city_id','=',$customer_city_s)
 //                                                                                    ->where('customer_phone','=',$customer_phone_s)
                                                                                     ->where('customer_id','=',$customer_send_id)
-                                                                                    ->where('type','=',1)
                                                                                     ->where('wx_openid','=',$wx_openid);
                                                                                 $stmt = $selectStatement->execute();
                                                                                 $data = $stmt->fetch();
@@ -81,7 +80,6 @@ $app->post('/wxmessage_insert',function()use($app){
 //                                                                                            ->where('customer_city_id','=',$customer_city_a)
 //                                                                                            ->where('customer_phone','=',$customer_phone_a)
                                                                                             ->where('customer_id','=',$customer_accept_id)
-                                                                                            ->where('type','=',2)
                                                                                             ->where('wx_openid','=',$wx_openid);
                                                                                         $stmt = $selectStatement->execute();
                                                                                         $data1 = $stmt->fetch();
@@ -158,7 +156,7 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                                 }while($data4!=null);
                                                                                                 $selectStatement = $database->select()
                                                                                                     ->from('goods_package')
-                                                                                                    ->where('goods_package','=',$goods_package);
+                                                                                                    ->where('goods_package  ','=',$goods_package);
                                                                                                 $stmt = $selectStatement->execute();
                                                                                                 $data7= $stmt->fetch();
                                                                                                 $insertStatement = $database->insert(array('order_id', 'tenant_id', 'goods_id','exist','goods_package_id','goods_name','goods_weight','goods_capacity','goods_count','special_need','goods_value'))
