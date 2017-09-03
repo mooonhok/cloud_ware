@@ -307,7 +307,6 @@
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({
-
 				}),
 				success: function(msg) {
 					alert("判断openid结果"+msg.result);
@@ -316,7 +315,6 @@
 						window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/register.html?page=0";
 					}
 					// alert(openid);
-
 				},
 				error: function(xhr) {
 					bootbox.setLocale("zh_CN");
@@ -733,7 +731,6 @@
 	</script>
 	<script type="text/javascript">
 		$(".tijiao").on('click', function() {
-
 			var huowu = $(".huowu").val();
 			var str1 = $(".zhong").val();
 			var zhong = str1 * 1;
@@ -752,7 +749,7 @@
 			} else if(money == "月付") {
 				str = 2;
 			}
-			if(customer_send_id == "" || customer_accept_id == 0) {
+			if(customer_send_id == "" || customer_send_id == 0) {
 				bootbox.setLocale("zh_Cn");
 				bootbox.alert({
 					message: "发货人信息不全",
@@ -830,7 +827,7 @@
 						openid: openid
 					}),
 					success: function(msg) {
-							alert(msg.result);
+							
 						bootbox.setLocale("zh_CN");
 						bootbox.alert({
 							message: msg.result+"提交订单成功"+customer_send_id,
