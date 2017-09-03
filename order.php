@@ -360,7 +360,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                         $array1=array();
                         $selectStatement = $database->select()
                             ->from('city')
-                            ->where('id', '=', $data2['customer_city_id']);
+                            ->where('id', '=', $data2[$i]['customer_city_id']);
                         $stmt = $selectStatement->execute();
                         $data7= $stmt->fetch();
                         $array1['sendcity']=$data7['name'];
