@@ -547,7 +547,7 @@
 						var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 							msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
 							msg.wxmessage[i].customer_city + '</span>' +
-							msg.wxmessage[i].customer_address + '</p></div><div class="xian"></div><div class="tu"><input type="radio" class="rad1" value=' +
+							msg.wxmessage[i].customer_address + '</p></div><div class="xian"></div><div class="tu"><input type="radio" class="rad1" name="rad" value=' +
 							msg.wxmessage[i].customer_id + '>' +
 							'</div><div class="tu2"><div class="bj"></div>' +
 							'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" onclick="delet(' +
@@ -557,6 +557,7 @@
 							customer_send_id = $("input[class='rad1']:checked").val();
 							//alert(customer_accept_id);
 							$(".shuru").html($("input[class='rad1']:checked").parent().prev().prev().text());
+							$("#box10").css("display","none");
 						});
 					}
 				},
@@ -619,7 +620,7 @@
 						var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 							msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
 							msg.wxmessage[i].customer_city + '</span>' +
-							msg.wxmessage[i].customer_address + '</p></div><div class="xian"></div><div class="tu"><input type="radio" class="rad2" value=' +
+							msg.wxmessage[i].customer_address + '</p></div><div class="xian"></div><div class="tu"><input type="radio" class="rad2" name="rad" value=' +
 							msg.wxmessage[i].customer_id + '>' +
 							'</div><div class="tu2"><div class="bj"></div>' +
 							'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" onclick="delet(' +
@@ -629,6 +630,7 @@
 							customer_accept_id = $("input[class='rad2']:checked").val();
 							//alert(customer_accept_id);
 							$(".shuru1").html($("input[class='rad2']:checked").parent().prev().prev().text());
+							$("#box11").css("display","none")
 						});
 					}
 				},
