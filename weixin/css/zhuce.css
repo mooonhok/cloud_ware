@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-08-17 15:05:16
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-08-17 17:05:30
+* @Last Modified by:   boycui
+* @Last Modified time: 2017-09-03 16:16:56
 */
 *{
 				margin:0 auto;
@@ -85,13 +85,13 @@
 				border-radius:50px;
 				width: 75%;
 				height:50px;
-				background-color:#005757;
+				background:white;
 				margin-top: 22px;
                 font: 25px "微软雅黑";
                 line-height: 50px;
                 text-align: center;
                 color:#48D1CC;
-                background-color:white;
+        
 			}
 			.kong{
 				display: inline-block;
