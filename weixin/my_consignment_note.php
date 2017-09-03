@@ -284,7 +284,7 @@ $signPackage = $jssdk->GetSignPackage();
 		 wx.config({
         debug: true,
         appId: '<?php echo $signPackage["appId"];?>',
-        timestamp: <?php echo $signPackage["timestamp"];?>,
+        timestamp: '<?php echo $signPackage["timestamp"];?>',
         nonceStr: '<?php echo $signPackage["nonceStr"];?>',
         signature: '<?php echo $signPackage["signature"];?>',
         jsApiList: [

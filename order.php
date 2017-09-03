@@ -342,43 +342,32 @@ $app->post('/wx_orders_s', function () use ($app) {
         if ($data1 != null) {
             $selectStatement = $database->select()
                 ->from('customer')
-                ->where('exist', "=", 0)
-                ->where('wx_openid','=',$wx_openid)
-                ->where('tenant_id', '=', $tenant_id);
+                ->fullJoin('order','order.sender_id','=','customer.customer_id')
+                ->where('customer.exist', "=", 0)
+                ->where('customer.customer_address','!=','-1')
+                ->where('customer.customer_city_id','!=','-1')
+                ->where('customer.wx_openid','=',$wx_openid)
+                ->where('customer.tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
-            $data2= $stmt->fetch();
+            $data2= $stmt->fetchAll();
             if($data2==null){
                 echo json_encode(array("result" => "0", "desc" => "用户不存在", "orders" => ""));
             }else{
                 if($order_id==null){
-                    $selectStatement = $database->select()
-                        ->from('orders')
-                        ->where('exist', "=", 0)
-                        ->where('sender_id','=',$data2['customer_id'])
-                        ->where('tenant_id', '=', $tenant_id);
-                    $stmt = $selectStatement->execute();
-                    $data3= $stmt->fetchAll();
-                    $selectStatement = $database->select()
-                        ->from('customer')
-                        ->where('exist', "=", 0)
-                        ->where('customer_id','=',$data2['customer_id'])
-                        ->where('tenant_id', '=', $tenant_id);
-                    $stmt = $selectStatement->execute();
-                    $data6= $stmt->fetch();
-                    $selectStatement = $database->select()
-                        ->from('city')
-                        ->where('id', '=', $data6['customer_city_id']);
-                    $stmt = $selectStatement->execute();
-                    $data7= $stmt->fetch();
-                    $num1=count($data3);
+                    $num1=count($data2);
                     $array=array();
                     for($i=0;$i<$num1;$i++){
                         $array1=array();
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data2['customer_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data7= $stmt->fetch();
                         $array1['sendcity']=$data7['name'];
-                        $array1['sendname']=$data6['customer_name'];
-                        $array1['order_id']=$data3[$i]['order_id'];
-                        $array1['status']=$data3[$i]['order_status'];
-                        $array1['order_cost']=$data3[$i]['order_cost'];
+                        $array1['sendname']=$data2[$i]['customer_name'];
+                        $array1['order_id']=$data2[$i]['order_id'];
+                        $array1['status']=$data2[$i]['order_status'];
+                        $array1['order_cost']=$data2[$i]['order_cost'];
                         if($array1['status']==0&&$array1['order_cost']==null){
                             $array1['order_cost']=='受理中';
                             $array1['receive']='未签收';
@@ -396,7 +385,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                             $array1['receive']='未签收';
                             $array1['status']='未签收';
                         }else if($array1['status']==5){
-                            $array1['receive']='签收时间'.$data3[$i]['order_datetime5'];
+                            $array1['receive']='签收时间'.$data2[$i]['order_datetime5'];
                             $array1['status']='已签收';
                         }else if($array1['status']==-1){
                             $array1['order_cost']=='拒受理';
@@ -413,7 +402,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                         $selectStatement = $database->select()
                             ->from('customer')
                             ->where('exist', "=", 0)
-                            ->where('customer_id','=',$data3[$i]['receiver_id'])
+                            ->where('customer_id','=',$data2[$i]['receiver_id'])
                             ->where('tenant_id', '=', $tenant_id);
                         $stmt = $selectStatement->execute();
                         $data4= $stmt->fetch();
@@ -536,43 +525,32 @@ $app->post('/wx_orders_r', function () use ($app) {
         if ($data1 != null) {
             $selectStatement = $database->select()
                 ->from('customer')
-                ->where('exist', "=", 0)
-                ->where('wx_openid','=',$wx_openid)
-                ->where('tenant_id', '=', $tenant_id);
+                ->fullJoin('order','order.receiver_id','=','customer.customer_id')
+                ->where('customer.exist', "=", 0)
+                ->where('customer.customer_address','!=','-1')
+                ->where('customer.customer_city_id','!=','-1')
+                ->where('customer.wx_openid','=',$wx_openid)
+                ->where('customer.tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
-            $data2= $stmt->fetch();
+            $data2= $stmt->fetchAll();
             if($data2==null){
                 echo json_encode(array("result" => "0", "desc" => "用户不存在", "orders" => ""));
             }else{
                 if($order_id==null){
-                    $selectStatement = $database->select()
-                        ->from('orders')
-                        ->where('exist', "=", 0)
-                        ->where('receiver_id','=',$data2['customer_id'])
-                        ->where('tenant_id', '=', $tenant_id);
-                    $stmt = $selectStatement->execute();
-                    $data3= $stmt->fetchAll();
-                    $selectStatement = $database->select()
-                        ->from('customer')
-                        ->where('exist', "=", 0)
-                        ->where('customer_id','=',$data2['customer_id'])
-                        ->where('tenant_id', '=', $tenant_id);
-                    $stmt = $selectStatement->execute();
-                    $data6= $stmt->fetch();
-                    $selectStatement = $database->select()
-                        ->from('city')
-                        ->where('id', '=', $data6['customer_city_id']);
-                    $stmt = $selectStatement->execute();
-                    $data7= $stmt->fetch();
-                    $num1=count($data3);
+                    $num1=count($data2);
                     $array=array();
                     for($i=0;$i<$num1;$i++){
                         $array1=array();
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data2[$i]['customer_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data7= $stmt->fetch();
                         $array1['acceptcity']=$data7['name'];
-                        $array1['acceptname']=$data6['customer_name'];
-                        $array1['order_id']=$data3[$i]['order_id'];
-                        $array1['status']=$data3[$i]['order_status'];
-                        $array1['order_cost']=$data3[$i]['order_cost'];
+                        $array1['acceptname']= $data2[$i]['customer_name'];
+                        $array1['order_id']= $data2[$i]['order_id'];
+                        $array1['status']= $data2[$i]['order_status'];
+                        $array1['order_cost']= $data2[$i]['order_cost'];
                         if($array1['status']==0&&$array1['order_cost']==null){
                             $array1['order_cost']=='受理中';
                             $array1['receive']='未签收';
@@ -590,7 +568,7 @@ $app->post('/wx_orders_r', function () use ($app) {
                             $array1['receive']='未签收';
                             $array1['status']='未签收';
                         }else if($array1['status']==5){
-                            $array1['receive']='签收时间'.$data3[$i]['order_datetime5'];
+                            $array1['receive']='签收时间'. $data2[$i]['order_datetime5'];
                             $array1['status']='已签收';
                         }else if($array1['status']==-1){
                             $array1['order_cost']=='拒受理';
@@ -607,12 +585,11 @@ $app->post('/wx_orders_r', function () use ($app) {
                         $selectStatement = $database->select()
                             ->from('customer')
                             ->where('exist', "=", 0)
-                            ->where('customer_id','=',$data3[$i]['sender_id'])
+                            ->where('customer_id','=', $data2[$i]['sender_id'])
                             ->where('tenant_id', '=', $tenant_id);
                         $stmt = $selectStatement->execute();
                         $data4= $stmt->fetch();
                         $array1['sendname']=$data4['customer_name'];
-
                         $selectStatement = $database->select()
                             ->from('city')
                             ->where('id', '=', $data4['customer_city_id']);
