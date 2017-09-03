@@ -259,6 +259,15 @@ $app->post('/tenant',function()use($app){
     $company=$app->request->params('company');
     $contact_name=$app->request->params('contact_name');
     $from_city_id=$app->request->params('from_city_id');
+    $c_introduction=$app->request->params('c_introduction');
+    $email=$app->request->params('email');
+    $order_t_p=$app->request->params('order_t_p');
+    $qq=$app->request->params('qq');
+    $receive_city_id=$app->request->params('receive_city_id');
+    $sales_id=$app->request->params('sales_id');
+    $service_items=$app->request->params('service_items');
+    $trans_contract_p=$app->request->params('trans_contract_p');
+
 //    $body=$app->request->getBody();
 //    $body=json_decode($body);
 //    $address=$body->address;
@@ -374,7 +383,7 @@ $app->get('/tenant_customer',function()use($app){
                 ->where('tenant_id','=',$data[$i]['tenant_id'])
                 ->where('exist',"=",0);
             $stmt = $selectStatement->execute();
-            $data1 = $stmt->fetchAll();
+            $data1 = $stmt->fetch();
             $array1=array();
             $array1['customer']=$data1;
             $array1['tenant']=$data[$i];
