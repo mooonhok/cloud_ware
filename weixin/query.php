@@ -149,8 +149,13 @@ $signPackage = $jssdk->GetSignPackage();
 <script>
 	$("#sumbit").click(function(){
 		var order_id=$("#order_id").val();
+		if(order_id!=null||order_id!=""){
+		
 		//alert(order_id);
 		window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+order_id;
+		}else{
+			alert("没有填写订单号");
+		}
 	});
 </script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
