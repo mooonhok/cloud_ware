@@ -252,8 +252,13 @@ $app->post('/tenant',function()use($app){
     $database=localhost();
     $qq=$app->request->params('qq');
     $address=$app->request->params('address');
+    $begin_time=$app->request->params('begin_time');
+    $end_time=$app->request->params('end_time');
+    $business_l=$app->request->params('business_l');
+    $business_l_p=$app->request->params('business_l_p');
+    $company=$app->request->params('company');
+    $contact_name=$app->request->params('contact_name');
     $from_city_id=$app->request->params('from_city_id');
- echo $from_city_id;
 //    $body=$app->request->getBody();
 //    $body=json_decode($body);
 //    $address=$body->address;
@@ -348,6 +353,60 @@ $app->post('/tenant',function()use($app){
 //                                                    $insertId = $insertStatement->execute(false);
 //                                                    echo json_encode(array("result"=>"0","desc"=>"success"));
 });
+
+$app->get('/tenant_customer',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $page=$app->request->get('page');
+    $per_page=$app->request->get("per_page");
+    $database=localhost();
+    if($page==null||$per_page==null){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        $num=count($data);
+        $array=array();
+        for($i=0;$i<$num;$i++){
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('customer_id','=',$data[$i]['contact_id'])
+                ->where('tenant_id','=',$data[$i]['tenant_id'])
+                ->where('exist',"=",0);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetchAll();
+            $array1=array();
+            $array1['customer']=$data1;
+            $array1['tenant']=$data[$i];
+            array_push($array,$array1);
+        }
+        echo  json_encode(array("result"=>"0","desc"=>"success","tenants"=>$array));
+    }else{
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->limit((int)$per_page,(int)$per_page*(int)$page);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        $num=count($data);
+        $array=array();
+        for($i=0;$i<$num;$i++){
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('customer_id','=',$data[$i]['contact_id'])
+                ->where('tenant_id','=',$data[$i]['tenant_id'])
+                ->where('exist',"=",0);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetchAll();
+            $array1=array();
+            $array1['customer']=$data1;
+            $array1['tenant']=$data[$i];
+            array_push($array,$array1);
+        }
+        echo  json_encode(array("result"=>"0","desc"=>"success","tenants"=>$array));
+    }
+});
+
 
 $app->run();
 
