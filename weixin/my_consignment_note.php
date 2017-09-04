@@ -123,6 +123,7 @@ $signPackage = $jssdk->GetSignPackage();
 	</script>
 	<script>
 		//查询运单
+		var tu=null;
 		$("#yundanhao").on('keyup', function() {
 			$("#bo2").html("");
 			$("#bo1").html("");
@@ -141,21 +142,26 @@ $signPackage = $jssdk->GetSignPackage();
 					order_id: order_id
 				}),
 				success: function(msg) {
-					alert("我寄的" + msg.result + "////" + msg.desc + "////" + msg.orders[0].order_id);
-					if(msg.orders.length == 0) {
-						a == null;
-						alert("没有订单");
-					} else {
+					//alert("我寄的" + msg.result + "////" + msg.desc + "////" + msg.orders[0].order_id);
+//					if(msg.orders.length == 0) {
+//						a == null;
+//						alert("没有订单");
+//					} else {
+						if(msg.orders[i].fashou == 1) {
+								tu=accept;
+							} else {
+								to=tu;
+							}
 						for(var i = 0; i < msg.orders.length; i++) {
 							var a="<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
-							 +msg.orders[i].order_id+"</span></p><p>订单价格:<span >"
-							 +msg.orders[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><h3>"
-							 +msg.orders[i].sendcity+"</h3><p>"
-							 +msg.orders[i].sendname+"</p></div><div class='yundan_2_2'><p class='sta'>"
-							 +msg.orders[i].receive+"</p></div><div class='yundan_2_1'><h3>"
-							 +msg.orders[i].acceptcity+"</h3><p>"
-							 +msg.orders[i].acceptname+"</p></div></div></div><div class='yundan_3'><div class='yundan_3_1'>"
-							 +msg.orders[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
+					+msg.orders[i].order_id+"</span></p><p>订单价格:<span>"
+					+msg.orders[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
+					+msg.orders[i].sendcity+"</div><div class='name_1'>"
+					+msg.orders[i].sendname+"</div></div><div class='yundan_2_2'><p class='sta'><img src='images/"
+					+to+".png'></p></div><div class='yundan_2_1'><div class='city_2'>"
+					+msg.orders[i].acceptcity+"</div><div class='name_2'>"
+					+msg.orders[i].acceptname+"</div></div></div></div><div class='yundan_3'><div class='yundan_3_1'>"
+					+msg.orders[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
 							if(msg.orders[i].fashou == 1) {
 								$("#bo2").html(a);
 							} else {
@@ -173,7 +179,7 @@ $signPackage = $jssdk->GetSignPackage();
 						alert(sendid);
 					     window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+sendid;
 					});
-					}
+					//}
 				},
 				error: function(xhr) {
 					alert("获取数据失败");
@@ -195,11 +201,11 @@ $signPackage = $jssdk->GetSignPackage();
 			type: 'post',
 			contentType: "application/json;charset=utf-8",
 			data: JSON.stringify({
-				wx_openid: openid,
-				order_id: ''
+				wx_openid:openid,
+				order_id:''
 			}),
 			success: function(msg) {
-				alert("我寄的" + msg.result + "////" + msg.desc + "////" + msg.orders[1].order_id);
+				//alert("我寄的" + msg.result + "////" + msg.desc + "////" + msg.orders[1].order_id);
 				for(var i = 0; i < msg.orders.length; i++) {
 					var a="<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders[i].order_id+"</span></p><p>订单价格:<span>"
@@ -243,9 +249,8 @@ $signPackage = $jssdk->GetSignPackage();
 				order_id:''
 			}),
 			success: function(msg) {
-				alert("我收的" + msg.result + "////"+ msg.orders[0].order_id);
+				//alert("我收的" + msg.result + "////"+ msg.orders.length);
 				for(var i = 0; i < msg.orders.length; i++) {
-   
 					var a="<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders[i].order_id+"</span></p><p>订单价格:<span>"
 					+msg.orders[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
