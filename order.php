@@ -538,7 +538,7 @@ $app->post('/wx_orders_r', function () use ($app) {
                 ->join('orders','orders.receiver_id','=','customer.customer_id','INNER')
                 ->where('customer.exist', "=", 0)
                 ->where('customer_address','!=',-1)
-                ->where('customer_city_id','!=',-1)
+                ->where('customer_city_id','>',0)
                 ->where('customer.customer_phone','=',$dataa['customer_phone'])
                 ->where('customer.tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
