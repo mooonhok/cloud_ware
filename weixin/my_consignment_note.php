@@ -201,16 +201,14 @@ $signPackage = $jssdk->GetSignPackage();
 			success: function(msg) {
 				alert("我寄的" + msg.result + "////" + msg.desc + "////" + msg.orders[1].order_id);
 				for(var i = 0; i < msg.orders.length; i++) {
-
 					var a="<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
-							 +msg.orders[i].order_id+"</span></p><p>订单价格:<span >"
-							 +msg.orders[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><h3>"
-							 +msg.orders[i].sendcity+"</h3><p>"
-							 +msg.orders[i].sendname+"</p></div><div class='yundan_2_2'><p class='sta'>"
-							 +"<img src='images/to.png'>"+"</p></div><div class='yundan_2_1'><h3>"
-							 +msg.orders[i].acceptcity+"</h3><p>"
-							 +msg.orders[i].acceptname+"</p></div></div></div><div class='yundan_3'><div class='yundan_3_1'>"
-							 +msg.orders[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
+					+msg.orders[i].order_id+"</span></p><p>订单价格:<span>"
+					+msg.orders[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
+					+msg.orders[i].sendcity+"</div><div class='name_1'>"
+					+msg.orders[i].sendname+"</div></div><div class='yundan_2_2'><p class='sta'><img src='images/to.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
+					+msg.orders[i].acceptcity+"</div><div class='name_2'>"
+					+msg.orders[i].acceptname+"</div></div></div></div><div class='yundan_3'><div class='yundan_3_1'>"
+					+msg.orders[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
 					$("#bo1").append(a);
 				};
 					if($(".yundan_3_1").text() == "已签收") {
@@ -247,16 +245,15 @@ $signPackage = $jssdk->GetSignPackage();
 			success: function(msg) {
 				alert("我收的" + msg.result + "////"+ msg.orders[0].order_id);
 				for(var i = 0; i < msg.orders.length; i++) {
-
+   
 					var a="<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
-							 +msg.orders[i].order_id+"</span></p><p>订单价格:<span >"
-							 +msg.orders[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><h3>"
-							 +msg.orders[i].sendcity+"</h3><p>"
-							 +msg.orders[i].sendname+"</p></div><div class='yundan_2_2'><p class='sta'>"
-							 +'<img src="images/accept.png">'+"</p></div><div class='yundan_2_1'><h3>"
-							 +msg.orders[i].acceptcity+"</h3><p>"
-							 +msg.orders[i].acceptname+"</p></div></div></div><div class='yundan_3'><div class='yundan_3_1'>"
-							 +msg.orders[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
+					+msg.orders[i].order_id+"</span></p><p>订单价格:<span>"
+					+msg.orders[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
+					+msg.orders[i].sendcity+"</div><div class='name_1'>"
+					+msg.orders[i].sendname+"</div></div><div class='yundan_2_2'><p class='sta'><img src='images/accept.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
+					+msg.orders[i].acceptcity+"</div><div class='name_2'>"
+					+msg.orders[i].acceptname+"</div></div></div></div><div class='yundan_3'><div class='yundan_3_1'>"
+					+msg.orders[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
 					$("#bo2").append(a);
 				};
 					if($(".yundan_3_1").text() == "已签收") {
