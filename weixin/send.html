@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 		<link rel="stylesheet" href="css/woyaojijian.css">
-		<link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="css/layer.css" rel="stylesheet" />
 		<title>我要寄件</title>
 
 	</head>
@@ -288,8 +288,8 @@
 	</body>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
-	<script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	<script src="http://bootboxjs.com/bootbox.js"></script>
+	<script type="text/javascript" src="js/layer.js"></script>
+	<script type="text/javascript" src="js/layer (2).js"></script>
 
 	<script type="text/javascript">
 		//判断openid是否已经被注册
@@ -307,7 +307,7 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					alert("判断openid结果" + msg.result);
+					// alert("判断openid结果" + msg.result);
 					//	alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
 					if(msg.result == 0) {
 						window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/register.html?page=0";
@@ -315,11 +315,12 @@
 					// alert(openid);
 				},
 				error: function(xhr) {
-					bootbox.setLocale("zh_CN");
-					bootbox.alert({
-						message: "获取后台失败！" + xhr.responseText,
-						size: "small"
-					})
+					// bootbox.setLocale("zh_CN");
+					// bootbox.alert({
+					// 	message: "获取后台失败！" ,
+					// 	size: "small"
+					// })
+					layer.msg("获取后台失败");
 
 				}
 
@@ -433,12 +434,12 @@
 				}
 			},
 			error: function(e) {
-				bootbox.setLocale("zh_CN");
-				bootbox.alert({
-					message: "省份列表1信息出错!",
-					size: "small"
-				})
-
+				// bootbox.setLocale("zh_CN");
+				// bootbox.alert({
+				// 	message: "省份列表1信息出错!",
+				// 	size: "small"
+				// })
+				layer.msg("省份列表1信息出错!");
 			}
 		});
 
@@ -461,11 +462,12 @@
 					}
 				},
 				error: function(e) {
-					bootbox.setLocale("zh_CN");
-					bootbox.alert({
-						message: "城市1列表信息出错!",
-						size: "small"
-					})
+					// bootbox.setLocale("zh_CN");
+					// bootbox.alert({
+					// 	message: "城市1列表信息出错!",
+					// 	size: "small"
+					// })
+					layer.msg("城市1列表信息出错!");
 				}
 			});
 		}
@@ -488,11 +490,12 @@
 				}
 			},
 			error: function(e) {
-				bootbox.setLocale("zh_CN");
-				bootbox.alert({
-					message: "省份列表2信息出错!",
-					size: "small"
-				})
+				// bootbox.setLocale("zh_CN");
+				// bootbox.alert({
+				// 	message: "省份列表2信息出错!",
+				// 	size: "small"
+				// })
+				layer.msg("省份列表2信息出错!");
 			}
 		});
 
@@ -515,11 +518,12 @@
 					}
 				},
 				error: function(e) {
-					bootbox.setLocale("zh_CN");
-					bootbox.alert({
-						message: "城市2列表信息出错!",
-						size: "small"
-					})
+					// bootbox.setLocale("zh_CN");
+					// bootbox.alert({
+					// 	message: "城市2列表信息出错!",
+					// 	size: "small"
+					// })
+					layer.msg("城市2列表信息出错!");
 				}
 			});
 		}
@@ -539,7 +543,7 @@
 				data: JSON.stringify({}),
 				success: function(msg) {
 					//alert("cxdz");
-					alert("加载寄件人地址结果" + msg.result);
+					// alert("加载寄件人地址结果" + msg.result);
 					$("#box101").html("");
 					for(var i = 0; i < msg.wxmessage.length; i++) {
 						var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
@@ -561,11 +565,12 @@
 					}
 				},
 				error: function(xhr) {
-					bootbox.setLocale("zh_CN");
-					bootbox.alert({
-						message: "获取后台失败！" + xhr.responseText,
-						size: "small"
-					})
+					// bootbox.setLocale("zh_CN");
+					// bootbox.alert({
+					// 	message: "获取后台失败！",
+					// 	size: "small"
+					// })
+				layer.msg("获取后台失败！");
 				}
 			});
 		}
@@ -586,16 +591,23 @@
 					customerid: id
 				}),
 				success: function(msg) {
-					alert("删除成功" + msg.result);
+					// bootbox.setLocale("zh_CN");
+					// bootbox.alert({
+					// message:"删除成功",
+					// size:"small"	
+					// })
+					layer.msg("删除成功");
+					
 					loadsend(openid);
 					loadaccept(openid);
 				},
 				error: function(xhr) {
-					bootbox.setLocale("zh_CN");
-					bootbox.alert({
-						message: "获取后台失败！" + xhr.responseText,
-						size: "small"
-					})
+					// bootbox.setLocale("zh_CN");
+					// bootbox.alert({
+					// 	message: "获取后台失败！",
+					// 	size: "small"
+					// })
+					layer.msg("获取后台失败！");
 				}
 			});
 		}
@@ -614,7 +626,7 @@
 				data: JSON.stringify({}),
 				success: function(msg) {
 					//alert("cxdz");
-					alert("加载收货地址" + msg.result);
+					// alert("加载收货地址" + msg.result);
 					$("#box111").html("");
 					for(var i = 0; i < msg.wxmessage.length; i++) {
 						var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
@@ -633,17 +645,23 @@
 								$("#box11").css("display", "none");
 								$(".box").css("display","block");
 							} else {
-								alert("寄件人不能和收件人相同");
+								// bootbox.setLocale("zh_CN");
+								// bootbox.alert({
+						  //       message: "寄件人不能和收件人相同",
+						  //       size: "small"
+					   //            })
+								layer.msg("寄件人不能和收件人相同");
 							}
 						});
 					}
 				},
 				error: function(xhr) {
-					bootbox.setLocale("zh_CN");
-					bootbox.alert({
-						message: "获取后台失败！" + xhr.responseText,
-						size: "small"
-					})
+					// bootbox.setLocale("zh_CN");
+					// bootbox.alert({
+					// 	message: "获取后台失败！",
+					// 	size: "small"
+					// })
+					layer.msg("获取后台失败！");
 				}
 			});
 		}
@@ -657,7 +675,12 @@
 			var dizhi_1 = $("#dizhi_1").val();
 
 			if(!/^1[34578]\d{9}$/.test(phone_1)) {
-				alert("手机号码格式不对")
+				// bootbox.setLocale("zh_CN");
+				// 	bootbox.alert({
+				//     message: "手机号码格式不对",
+				// 	size: "small"
+				// })
+				layer.msg("手机号码格式不对");
 				return false;
 			} else {
 				$.ajax({
@@ -677,15 +700,19 @@
 						wx_openid: openid,
 					}),
 					success: function(msg) {
-						alert("添加地址" + msg.result);
-
+						// bootbox.setLocale("zh_CN");
+					 //    bootbox.alert({
+				  //         message: "添加地址成功",
+					 //      size: "small"
+				  //    })
+				  layer.msg("添加地址成功");
 						loadsend(openid);
 						$(".box2").css("display", "none");
 						$("#box10").css("display", "block");
 						$("#box10").css("z-index", "100");
 					},
 					error: function(xhr) {
-						alert("获取数据失败" + xhr.responseText);
+						alert("获取数据失败");
 					}
 				});
 			}
@@ -699,7 +726,12 @@
 			var cit1 = $("#city2").val();
 			var dizhi_2 = $("#dizhi_2").val();
 			if(!/^1[34578]\d{9}$/.test(phone_2)) {
-				alert("手机号码格式不对")
+				// bootbox.setLocale("zh_CN");
+				// 	bootbox.alert({
+				//     message: "手机号码格式不对",
+				// 	size: "small"
+				// })
+				layer.msg("手机号码格式不对");
 				return false;
 			} else {
 				$.ajax({
@@ -719,14 +751,19 @@
 						wx_openid: openid,
 					}),
 					success: function(msg) {
-						alert("添加地址" + msg.result);
+						// bootbox.setLocale("zh_CN");
+					 //    bootbox.alert({
+				  //         message: "添加地址成功",
+					 //      size: "small"
+				  //    })
+					  layer.msg("添加地址成功");
 						loadaccept(openid);
 						$(".box3").css("display", "none");
 						$("#box11").css("display", "block");
 						$("#box11").css("z-index", "100");
 					},
 					error: function(xhr) {
-						alert("获取数据失败" + xhr.responseText);
+						alert("获取数据失败");
 					}
 				});
 			}
@@ -831,21 +868,23 @@
 					}),
 					success: function(msg) {
                        
-						bootbox.setLocale("zh_CN");
-						bootbox.alert({
-							message: msg.result + "提交订单成功" + customer_send_id,
-							size: "small"
-						})
+						// bootbox.setLocale("zh_CN");
+						// bootbox.alert({
+						// 	message:  "提交订单成功" ,
+						// 	size: "small"
+						// })
+					 layer.msg("提交订单成功");
 						  window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/my_consignment_note.php";
 
 					},
 					error: function(xhr) {
-						alert("提交数据失败" + xhr.responseText);
-						bootbox.setLocale("zh_CN");
-						bootbox.alert({
-							message: "提交订单失败",
-							size: "small"
-						})
+						// alert("提交数据失败" + xhr.responseText);
+						// bootbox.setLocale("zh_CN");
+						// bootbox.alert({
+						// 	message: "提交订单失败",
+						// 	size: "small"
+						// })
+						layer.msg("提交订单失败");
 					},
 				})
 			}

@@ -6,9 +6,13 @@
 		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1,minimum-scale=0.1,user-scalable=0" name="viewport">
 		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 		<link rel="stylesheet" href="css/zhuce.css">
+		<link href="css/layer.css" rel="stylesheet" />
 		<title>注册</title>
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="js/layer.js"></script>
+		<script type="text/javascript" src="js/layer (2).js"></script>
+
 		<script type="text/javascript">
 			$(function() {
 				//改变div的高度
@@ -53,7 +57,7 @@
 				success: function(msg) {
 					// alert("用户注册成功"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
 					if(msg.result == 1) {
-						alert("你已经注册过了");
+						layer.msg("你已经注册过了");
 						$("#submit").css("background", "gray");
 					} else {
 						(function($) {
@@ -66,14 +70,14 @@
 						})(jQuery);
 						$(function() {
 							var page = parseInt($.getUrlParam('page'));
-							alert("//////" + page);
+							// alert("//////" + page);
 							$("#submit").on('click', function() {
 								var customername = $("#customername").val();
 								var customertel = $("#customertel").val();
 								var openid = $.cookie('openid');
 								//alert(customername+customertel+openid);
 								if(!/^1[34578]\d{9}$/.test(customertel)) {
-									alert("手机号码格式不对")
+									layer.msg("手机号码格式不对")
 									return false;
 								} else {
 									$.ajax({
@@ -90,9 +94,9 @@
 											wx_openid: openid
 										}),
 										success: function(msg) {
-											alert("用户注册成功");
-											$("#submit").removeAttr('onclick');;
-											alert("获取page值" + page);
+											layer.msg("用户注册成功");
+											$("#submit").removeAttr('onclick');
+											// alert("获取page值" + page);
 											if(page == 0) {
 												window.location.href = "http://mooonhok-cloudware.daoapp.io/wx_send.php";
 											} else if(page == 1) {
@@ -102,7 +106,7 @@
 											}
 										},
 										error: function(xhr) {
-											alert("获取后台失败！" + xhr.responseText);
+											alert("获取后台失败！");
 										}
 									});
 								}
@@ -117,60 +121,4 @@
 			});
 		}
 	</script>
-
-	<script>
-//		(function($) {
-//			$.getUrlParam = function(name) {
-//				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-//				var r = window.location.search.substr(1).match(reg);
-//				if(r != null) return unescape(r[2]);
-//				return null;
-//			}
-//		})(jQuery);
-//		$(function() {
-//			var page = parseInt($.getUrlParam('page'));
-//			alert("//////" + page);
-//			$("#submit").on('click', function() {
-//				var customername = $("#customername").val();
-//				var customertel = $("#customertel").val();
-//				var openid = $.cookie('openid');
-//				//alert(customername+customertel+openid);
-//				if(!/^1[34578]\d{9}$/.test(customertel)) {
-//					alert("手机号码格式不对")
-//					return false;
-//				} else {
-//					$.ajax({
-//						url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_customer",
-//						beforeSend: function(request) {
-//							request.setRequestHeader("tenant-id", "1");
-//						},
-//						dataType: 'json',
-//						type: 'post',
-//						contentType: "application/json;charset=utf-8",
-//						data: JSON.stringify({
-//							customer_name: customername,
-//							customer_phone: customertel,
-//							wx_openid: openid
-//						}),
-//						success: function(msg) {
-//							alert("用户注册成功");
-//							$("#submit").removeAttr('onclick');;
-//							alert("获取page值" + page);
-//							if(page == 0) {
-//								window.location.href = "http://mooonhok-cloudware.daoapp.io/wx_send.php";
-//							} else if(page == 1) {
-//								window.location.href = "http://mooonhok-cloudware.daoapp.io/wx_my_consignment_note.php";
-//							} else if(page == 2) {
-//								window.location.href = "http://mooonhok-cloudware.daoapp.io/wx_online_inquiry.php";
-//							}
-//						},
-//						error: function(xhr) {
-//							alert("获取后台失败！" + xhr.responseText);
-//						}
-//					});
-//				}
-//			});
-//		});
-	</script>
-
 </html>

@@ -67,7 +67,7 @@ $signPackage = $jssdk->GetSignPackage();
 		}
 		.center{
 			width: 80%;
-			height: 46px;
+			height: 40px;
 			float: left;
 			margin-left: 10%;
 			margin-top: 20px;
@@ -77,9 +77,9 @@ $signPackage = $jssdk->GetSignPackage();
 		.center1{
 			width: 30%;
 			float: left;
-			height: 46px;
+			height: 40px;
 			text-align: center;
-			line-height: 46px;
+			line-height: 40px;
 			font-size: 16px;
 		}
 		.center2{
@@ -87,7 +87,6 @@ $signPackage = $jssdk->GetSignPackage();
 			width: 50%;
 			height: 40px;
 			margin-left: 3%;
-			margin-top: 3px;
 		}
 		.center2 input{
 			width: 100%;
@@ -173,7 +172,7 @@ $signPackage = $jssdk->GetSignPackage();
 					    size: 'small'
 				       })	
 					}else{
-					alert(order_id);
+					// alert(order_id);
 		            window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+order_id;
 					}
 				},
@@ -213,7 +212,7 @@ $signPackage = $jssdk->GetSignPackage();
 				error: function(xhr) {
 					bootbox.setLocale("zh_CN");
 					bootbox.alert({
-						message:"获取后台失败！"+xhr.responseText,
+						message:"获取后台失败！",
 						size:"small"
 					})
 					
@@ -269,7 +268,7 @@ $signPackage = $jssdk->GetSignPackage();
 					    size: 'small'
 				       })	
 					}else{
-					//alert(order_id);
+					alert(order_id);
 		            window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+a[1];
 					}
 				},

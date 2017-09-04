@@ -143,16 +143,17 @@ $signPackage = $jssdk->GetSignPackage();
 				}),
 				success: function(msg) {
 					//alert("我寄的" + msg.result + "////" + msg.desc + "////" + msg.orders[0].order_id);
-//					if(msg.orders.length == 0) {
-//						a == null;
-//						alert("没有订单");
-//					} else {
-						if(msg.orders[i].fashou == 1) {
+					if(msg.result == 2) {
+						a == null;
+						alert("没有订单");
+					} else {
+						
+						for(var i = 0; i < msg.orders.length; i++) {
+							if(msg.orders[i].fashou == 1) {
 								tu=accept;
 							} else {
 								to=tu;
 							}
-						for(var i = 0; i < msg.orders.length; i++) {
 							var a="<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders[i].order_id+"</span></p><p>订单价格:<span>"
 					+msg.orders[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
@@ -179,7 +180,7 @@ $signPackage = $jssdk->GetSignPackage();
 						alert(sendid);
 					     window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+sendid;
 					});
-					//}
+					}
 				},
 				error: function(xhr) {
 					alert("获取数据失败");
