@@ -603,7 +603,7 @@
 	<script type="text/javascript">
 		//加载收货地址
 		function loadaccept(openid) {
-			$.ajax({
+			$.ajax({ 
 				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wxaddress?wx_openid=" + openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "1");

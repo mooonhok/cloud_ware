@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-18 09:58:43
 * @Last Modified by:   boycui
-* @Last Modified time: 2017-09-03 14:57:20
+* @Last Modified time: 2017-09-04 10:10:48
 */
 *{
 	margin: 0;padding: 0;
@@ -632,11 +632,14 @@ html,body{height:100%; width:100%;
 .dizhi{
 	float: left;
 	width: 94%;
-	height: 30px;
-	line-height: 30px;
+	height: 20px;
+	line-height: 20px;
 	margin-left: 3%;
 	font-size: 15px;
+	margin-top: 10px;
+	text-overflow: ellipsis;
 }
+
 .tu{
 	float: left;
 	width: 30%;
@@ -846,8 +849,8 @@ select{
 	list-style: none;
 	outline-style: none;
 	border: 0;
-	overflow:hidden;
     resize:none;
+    text-overflow: ellipsis;
 }
 .bor{
 	width: 100%;
