@@ -537,6 +537,8 @@ $app->post('/wx_orders_r', function () use ($app) {
                 ->from('customer')
                 ->join('orders','orders.receiver_id','=','customer.customer_id','INNER')
                 ->where('customer.exist', "=", 0)
+                ->where('customer_address','!=',-1)
+                ->where('customer_city_id','!=',-1)
                 ->where('customer.customer_phone','=',$dataa['customer_phone'])
                 ->where('customer.tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
@@ -852,13 +854,12 @@ $app->post('/wx_order', function () use ($app) {
                         $selectStatement = $database->select()
                             ->from('customer')
                             ->where('exist', "=", 0)
+                            ->where('customer.customer_address','=',-1)
+                            ->where('customer.customer_city_id','=',-1)
                             ->where('customer_id','=',$data3['receiver_id'])
                             ->where('tenant_id', '=', $tenant_id);
                         $stmt = $selectStatement->execute();
                         $data4= $stmt->fetch();
-                        if($data4['wx_openid']==$wx_openid){
-                          $array1['fashou']=1;
-                        }
                         $array1['acceptname']=$data4['customer_name'];
                         $selectStatement = $database->select()
                             ->from('city')
@@ -874,7 +875,10 @@ $app->post('/wx_order', function () use ($app) {
                         $stmt = $selectStatement->execute();
                         $data6= $stmt->fetch();
                         if($data6['wx_openid']==$wx_openid){
-                            $array1['fashou']=2;
+                            $array1['fa']=2;
+                        }
+                        if($data4!=null){
+                            $array1['shou']=1;
                         }
                         $array1['sendname']=$data6['customer_name'];
                         $selectStatement = $database->select()
