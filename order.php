@@ -718,6 +718,7 @@ $app->post('/wx_order', function () use ($app) {
         if ($data1 != null) {
                     $array=array();
                     $array1=array();
+            $array2=array();
                     $array2a=array();
                     $array2b=array();
                     $selectStatement = $database->select()
@@ -757,41 +758,41 @@ $app->post('/wx_order', function () use ($app) {
                                 ->where('id', '=', $data2b[$i]['customer_city_id']);
                             $stmt = $selectStatement->execute();
                             $data7 = $stmt->fetch();
-                            $array1['acceptcity'] = $data7['name'];
-                            $array1['acceptname'] = $data2b[$i]['customer_name'];
-                            $array1['order_id'] = $data2b[$i]['order_id'];
-                            $array1['status'] = $data2b[$i]['order_status'];
-                            $array1['order_cost'] = $data2b[$i]['order_cost'];
-                            if ($array1['status'] == 0 && $array1['order_cost'] == null) {
-                                $array1['order_cost'] = '受理中';
-                                $array1['receive'] = '未签收';
-                                $array1['status'] = '受理中';
-                            } else if ($array1['status'] == 1) {
-                                $array1['receive'] = '未签收';
-                                $array1['status'] = '未签收';
-                            } else if ($array1['status'] == 2) {
-                                $array1['receive'] = '未签收';
-                                $array1['status'] = '未签收';
-                            } else if ($array1['status'] == 3) {
-                                $array1['receive'] = '未签收';
-                                $array1['status'] = '未签收';
-                            } else if ($array1['status'] == 4) {
-                                $array1['receive'] = '未签收';
-                                $array1['status'] = '未签收';
-                            } else if ($array1['status'] == 5) {
-                                $array1['receive'] = '签收时间' . $data2b['order_datetime5'];
-                                $array1['status'] = '已签收';
-                            } else if ($array1['status'] == -1) {
-                                $array1['order_cost'] = '拒受理';
-                                $array1['receive'] = '拒受理';
-                                $array1['status'] = '拒受理';
-                            } else if ($array1['status'] == -2) {
-                                $array1['order_cost'] = '未受理';
-                                $array1['receive'] = '未受理';
-                                $array1['status'] = '未受理';
-                            } else if ($array1['status'] == 0 && $array1['order_cost'] != null) {
-                                $array1['receive'] = '未签收';
-                                $array1['status'] = '未签收';
+                            $array2['acceptcity'] = $data7['name'];
+                            $array2['acceptname'] = $data2b[$i]['customer_name'];
+                            $array2['order_id'] = $data2b[$i]['order_id'];
+                            $array2['status'] = $data2b[$i]['order_status'];
+                            $array2['order_cost'] = $data2b[$i]['order_cost'];
+                            if ($array2['status'] == 0 && $array2['order_cost'] == null) {
+                                $array2['order_cost'] = '受理中';
+                                $array2['receive'] = '未签收';
+                                $array2['status'] = '受理中';
+                            } else if ($array2['status'] == 1) {
+                                $array2['receive'] = '未签收';
+                                $array2['status'] = '未签收';
+                            } else if ($array2['status'] == 2) {
+                                $array2['receive'] = '未签收';
+                                $array2['status'] = '未签收';
+                            } else if ($array2['status'] == 3) {
+                                $array2['receive'] = '未签收';
+                                $array2['status'] = '未签收';
+                            } else if ($array2['status'] == 4) {
+                                $array2['receive'] = '未签收';
+                                $array2['status'] = '未签收';
+                            } else if ($array2['status'] == 5) {
+                                $array2['receive'] = '签收时间' . $data2b['order_datetime5'];
+                                $array2['status'] = '已签收';
+                            } else if ($array2['status'] == -1) {
+                                $array2['order_cost'] = '拒受理';
+                                $array2['receive'] = '拒受理';
+                                $array2['status'] = '拒受理';
+                            } else if ($array2['status'] == -2) {
+                                $array2['order_cost'] = '未受理';
+                                $array2['receive'] = '未受理';
+                                $array2['status'] = '未受理';
+                            } else if ($array2['status'] == 0 && $array2['order_cost'] != null) {
+                                $array2['receive'] = '未签收';
+                                $array2['status'] = '未签收';
                             }
                             $selectStatement = $database->select()
                                 ->from('customer')
@@ -800,14 +801,14 @@ $app->post('/wx_order', function () use ($app) {
                                 ->where('tenant_id', '=', $tenant_id);
                             $stmt = $selectStatement->execute();
                             $data4 = $stmt->fetch();
-                            $array1['sendname'] = $data4['customer_name'];
+                            $array2['sendname'] = $data4['customer_name'];
                             $selectStatement = $database->select()
                                 ->from('city')
                                 ->where('id', '=', $data4['customer_city_id']);
                             $stmt = $selectStatement->execute();
                             $data5 = $stmt->fetch();
-                            $array1['sendcity'] = $data5['name'];
-                            array_push($array2b, $array1);
+                            $array2['sendcity'] = $data5['name'];
+                            array_push($array2b, $array2);
                         }
                     }
                         if($data2a!=null){
