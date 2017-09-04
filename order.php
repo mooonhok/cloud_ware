@@ -526,16 +526,23 @@ $app->post('/wx_orders_r', function () use ($app) {
         if ($data1 != null) {
             $selectStatement = $database->select()
                 ->from('customer')
+                ->where('exist', "=", 0)
+                ->where('customer_address','=',-1)
+                ->where('customer_city_id','=',-1)
+                ->where('wx_openid','=',$wx_openid)
+                ->where('tenant_id', '=', $tenant_id);
+            $stmt = $selectStatement->execute();
+            $dataa= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('customer')
                 ->join('orders','orders.receiver_id','=','customer.customer_id','INNER')
                 ->where('customer.exist', "=", 0)
-                ->where('customer.customer_address','!=','-1')
-                ->where('customer.customer_city_id','!=','-1')
-                ->where('customer.wx_openid','=',$wx_openid)
+                ->where('customer.customer_phone','=',$dataa['customer_phone'])
                 ->where('customer.tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetchAll();
             if($data2==null){
-                echo json_encode(array("result" => "0", "desc" => "用户不存在", "orders" => ""));
+                echo json_encode(array("result" => "0", "desc" => "没有收货", "orders" => ""));
             }else{
                 if($order_id==null){
                     $num1=count($data2);
@@ -709,11 +716,14 @@ $app->post('/wx_order', function () use ($app) {
         if ($data1 != null) {
             $selectStatement = $database->select()
                 ->from('customer')
-                ->where('exist', "=", 0)
-                ->where('wx_openid','=',$wx_openid)
-                ->where('tenant_id', '=', $tenant_id);
+                ->join('orders','orders.receiver_id','=','customer.customer_id','INNER')
+                ->where('customer.exist', "=", 0)
+                ->where('customer.customer_address','!=','-1')
+                ->where('customer.customer_city_id','!=','-1')
+                ->where('customer.wx_openid','=',$wx_openid)
+                ->where('customer.tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
-            $data2= $stmt->fetch();
+            $data2= $stmt->fetchAll();
             if($data2==null){
                 echo json_encode(array("result" => "0", "desc" => "用户不存在", "orders" => ""));
             }else{
@@ -804,7 +814,7 @@ $app->post('/wx_order', function () use ($app) {
                         ->whereLike('order_id',$order_id.'%')
                         ->where('tenant_id', '=', $tenant_id);
                     $stmt = $selectStatement->execute();
-                    $data3= $stmt->fetch();
+                    $data3= $stmt->fetchAll();
                     if($data3!=null){
                         $array1['status']=$data3['order_status'];
                         $array1['order_cost']=$data3['order_cost'];
