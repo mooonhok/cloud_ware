@@ -801,7 +801,7 @@ $app->post('/wx_order', function () use ($app) {
                     $selectStatement = $database->select()
                         ->from('orders')
                         ->where('exist', "=", 0)
-                        ->where('order_id','=',$order_id)
+                        ->whereLike('order_id',$order_id.'%')
                         ->where('tenant_id', '=', $tenant_id);
                     $stmt = $selectStatement->execute();
                     $data3= $stmt->fetch();
