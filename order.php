@@ -749,19 +749,19 @@ $app->post('/wx_order', function () use ($app) {
                         ->where('customer.tenant_id', '=', $tenant_id);
                     $stmt = $selectStatement->execute();
                     $data2b= $stmt->fetchAll();
-                    if($data2b!=null){
-                        $num2b=count($data2b);
-                            for($i=0;$i<$num2b;$i++){
-                                $selectStatement = $database->select()
-                                    ->from('city')
-                                    ->where('id', '=', $data2b[$i]['customer_city_id']);
-                                $stmt = $selectStatement->execute();
-                                $data7= $stmt->fetch();
-                                $array1['acceptcity']=$data7['name'];
-                                $array1['acceptname']= $data2b[$i]['customer_name'];
-                                $array1['order_id']= $data2b[$i]['order_id'];
-                                $array1['status']= $data2b[$i]['order_status'];
-                                $array1['order_cost']= $data2b[$i]['order_cost'];
+                    if($data2b!=null) {
+                        $num2b = count($data2b);
+                        for ($i = 0; $i < $num2b; $i++) {
+                            $selectStatement = $database->select()
+                                ->from('city')
+                                ->where('id', '=', $data2b[$i]['customer_city_id']);
+                            $stmt = $selectStatement->execute();
+                            $data7 = $stmt->fetch();
+                            $array1['acceptcity'] = $data7['name'];
+                            $array1['acceptname'] = $data2b[$i]['customer_name'];
+                            $array1['order_id'] = $data2b[$i]['order_id'];
+                            $array1['status'] = $data2b[$i]['order_status'];
+                            $array1['order_cost'] = $data2b[$i]['order_cost'];
                             if ($array1['status'] == 0 && $array1['order_cost'] == null) {
                                 $array1['order_cost'] = '受理中';
                                 $array1['receive'] = '未签收';
@@ -793,22 +793,23 @@ $app->post('/wx_order', function () use ($app) {
                                 $array1['receive'] = '未签收';
                                 $array1['status'] = '未签收';
                             }
-                                $selectStatement = $database->select()
-                                    ->from('customer')
-                                    ->where('exist', "=", 0)
-                                    ->where('customer_id','=', $data2b[$i]['sender_id'])
-                                    ->where('tenant_id', '=', $tenant_id);
-                                $stmt = $selectStatement->execute();
-                                $data4= $stmt->fetch();
-                                $array1['sendname']=$data4['customer_name'];
-                                $selectStatement = $database->select()
-                                    ->from('city')
-                                    ->where('id', '=', $data4['customer_city_id']);
-                                $stmt = $selectStatement->execute();
-                                $data5= $stmt->fetch();
-                                $array1['sendcity']=$data5['name'];
+                            $selectStatement = $database->select()
+                                ->from('customer')
+                                ->where('exist', "=", 0)
+                                ->where('customer_id', '=', $data2b[$i]['sender_id'])
+                                ->where('tenant_id', '=', $tenant_id);
+                            $stmt = $selectStatement->execute();
+                            $data4 = $stmt->fetch();
+                            $array1['sendname'] = $data4['customer_name'];
+                            $selectStatement = $database->select()
+                                ->from('city')
+                                ->where('id', '=', $data4['customer_city_id']);
+                            $stmt = $selectStatement->execute();
+                            $data5 = $stmt->fetch();
+                            $array1['sendcity'] = $data5['name'];
                             array_push($array2b, $array1);
                         }
+                    }
                         if($data2a!=null){
                             $num2a=count($data2a);
                             for($i=0;$i<$num2a;$i++){
@@ -876,14 +877,12 @@ $app->post('/wx_order', function () use ($app) {
                             $array['shou']=$array2b;
                         echo json_encode(array("result" => "1", "desc" => "", "orders" => $array));
                     }else{
-                        echo json_encode(array("result" => "1", "desc" => "", "orders" => $array));
+                        echo json_encode(array("result" => "2", "desc" => "", "orders" => ''));
                     }
         } else {
-            echo json_encode(array("result" => "2", "desc" => "租户不存在", "orders" => ""));
+            echo json_encode(array("result" => "3", "desc" => "租户idkong", "orders" => ""));
         }
-   } else {
-    echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => ""));
-}
+
 });
 
 
