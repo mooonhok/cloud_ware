@@ -147,10 +147,8 @@ $signPackage = $jssdk->GetSignPackage();
 						alert("没有订单");
 					} else {
 						for(var i = 0; i < msg.orders.length; i++) {
-							if(msg){}else{}
-							
 							var a="<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
-							 +msg.orders[i].order_id+"</span></p><p>订单价格:<span >"
+							 +order_id+"</span></p><p>订单价格:<span >"
 							 +msg.orders[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><h3>"
 							 +msg.orders[i].sendcity+"</h3><p>"
 							 +msg.orders[i].sendname+"</p></div><div class='yundan_2_2'><p class='sta'>"
@@ -201,7 +199,8 @@ $signPackage = $jssdk->GetSignPackage();
 			type: 'post',
 			contentType: "application/json;charset=utf-8",
 			data: JSON.stringify({
-				wx_openid: openid
+				wx_openid: openid,
+				order_id: ''
 			}),
 			success: function(msg) {
 				alert("我寄的" + msg.result + "////" + msg.desc + "////" + msg.orders[1].order_id);
@@ -246,7 +245,8 @@ $signPackage = $jssdk->GetSignPackage();
 			type: 'post',
 			contentType: "application/json;charset=utf-8",
 			data: JSON.stringify({
-				wx_openid: openid
+				wx_openid: openid,
+				order_id:''
 			}),
 			success: function(msg) {
 				alert("我收的" + msg.result + "////"+ msg.orders[0].order_id);
