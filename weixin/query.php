@@ -180,7 +180,6 @@ $signPackage = $jssdk->GetSignPackage();
 					alert("获取后台失败");
 				}
 			});
-		
 		}else{
 			alert("没有填写订单号");
 		}
@@ -207,7 +206,7 @@ $signPackage = $jssdk->GetSignPackage();
 					if(msg.result == 0) {
 						window.location.href = "register.html";
 					} else {
-						alert(openid);
+						//alert(openid);
 					}
 				},
 				error: function(xhr) {
@@ -246,11 +245,40 @@ $signPackage = $jssdk->GetSignPackage();
       needResult: 1,  
       desc: 'scanQRCode desc',  
       success: function (res) {    
-        alert(res.resultStr);
+       // alert(res.resultStr);
         var a=new Array();
         a=res.resultStr.split(",");
-        alert(a[1]);
-       window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+a[1];
+        if(a[1].length!=0){
+			$.ajax({
+				url: "http://mooonhok-cloudware.daoapp.io/order.php/wx_order_z",
+				beforeSend: function(request) {
+					request.setRequestHeader("tenant-id", "1");
+				},
+				dataType: 'json',
+				type: 'post',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					order_id: a[1]
+				}),
+				success: function(msg) {
+					if(msg.result == 2) {
+						bootbox.setLocale("zh_Cn");
+				        bootbox.alert({
+					    message: "订单不存在",
+					    size: 'small'
+				       })	
+					}else{
+					alert(order_id);
+		            window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+a[1];
+					}
+				},
+				error: function(xhr) {
+					alert("获取后台失败");
+				}
+			});
+		}else{
+			alert("没有扫描到条形码");
+		}
       }  
     });  
   };  
