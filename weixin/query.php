@@ -10,6 +10,7 @@ $signPackage = $jssdk->GetSignPackage();
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+	<link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" />
 	<title>运单号查询</title>
 	<style type="text/css">
 		*{
@@ -139,20 +140,47 @@ $signPackage = $jssdk->GetSignPackage();
 		<div  id="sumbit"  class="foot">
 			查   询
 		</div>
-
+       
 		</div>
 	</div>		
 	
 </body>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="http://bootboxjs.com/bootbox.js"></script>
 <script>
 	$("#sumbit").click(function(){
 		var order_id=$("#order_id").val();
-		if(order_id!=null||order_id!=""){
+		if(order_id.length!=0){
+			$.ajax({
+				url: "http://mooonhok-cloudware.daoapp.io/order.php/wx_order_z",
+				beforeSend: function(request) {
+					request.setRequestHeader("tenant-id", "1");
+				},
+				dataType: 'json',
+				type: 'post',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					order_id: order_id
+				}),
+				success: function(msg) {
+					if(msg.result == 2) {
+						bootbox.setLocale("zh_Cn");
+				        bootbox.alert({
+					    message: "订单不存在",
+					    size: 'small'
+				       })	
+					}else{
+					alert(order_id);
+		            window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+order_id;
+					}
+				},
+				error: function(xhr) {
+					alert("获取后台失败");
+				}
+			});
 		
-		alert(order_id);
-		window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+order_id;
 		}else{
 			alert("没有填写订单号");
 		}
@@ -194,12 +222,6 @@ $signPackage = $jssdk->GetSignPackage();
 			});
 		}
 </script>
-	<!--if(msg.result == 2) {
-						//alert("订单不存在");
-						$(".top").html("运单不存在");
-						$(".top1-4").html("订单不存在");
-						$(".top1-3").html("订单不存在");
-					} else-->
 <script>
     /*
      * 注意：
