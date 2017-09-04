@@ -151,7 +151,7 @@ $signPackage = $jssdk->GetSignPackage();
 		var order_id=$("#order_id").val();
 		if(order_id!=null||order_id!=""){
 		
-		//alert(order_id);
+		alert(order_id);
 		window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+order_id;
 		}else{
 			alert("没有填写订单号");
@@ -194,6 +194,12 @@ $signPackage = $jssdk->GetSignPackage();
 			});
 		}
 </script>
+	<!--if(msg.result == 2) {
+						//alert("订单不存在");
+						$(".top").html("运单不存在");
+						$(".top1-4").html("订单不存在");
+						$(".top1-3").html("订单不存在");
+					} else-->
 <script>
     /*
      * 注意：
