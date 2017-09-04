@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-18 09:58:43
 * @Last Modified by:   boycui
-* @Last Modified time: 2017-09-04 11:03:16
+* @Last Modified time: 2017-09-04 11:44:07
 */
 *{
 	margin: 0;padding: 0;
@@ -676,6 +676,8 @@ html,body{height:100%; width:100%;
 .name2{
 	width: 80%;
 	float: left;
+	height: 40px;
+	line-height: 40px;
 }
 .name2 input{
 	width: 100%;
@@ -693,6 +695,8 @@ html,body{height:100%; width:100%;
 .phone2{
 	width: 80%;
 	float: right;
+	height: 40px;
+	line-height: 40px;
 }
 .phone2 input{
 	width: 100%;
