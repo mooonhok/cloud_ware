@@ -22,7 +22,7 @@ $app->post('/userlogin',function ()use($app){
     $str1=str_split($password1,3);
     $password=null;
     for ($x=0;$x<count($str1);$x++){
-       $password+=$str1[$x].$x;
+       $password.=$str1[$x].$x;
     }
     if($username!=""||$username!=null){
         $selectStaement=$database->select()
