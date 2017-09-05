@@ -63,7 +63,7 @@
    		  	       password:pwd
    		  	  }),
    		  	  success:function(msg){
-   		  	  	alert(msg.result);
+   		  	  //	alert(msg.result);
    		  	  	if(msg.result==0){	
    		  	  	    $.session.set('userid',msg.user.id);
    		  	  	    var user=$.session.get('userid');
