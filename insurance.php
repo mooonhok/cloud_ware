@@ -19,7 +19,11 @@ $app->post('/userlogin',function ()use($app){
     $body=json_decode($body);
     $username=$body->username;
     $password1=$body->password;
-    $password=$password1*9*7+100;
+    $str1=str_split($password1,3);
+    $password=null;
+    for ($x=0;$x<count($str1);$x++){
+       $password+=$str1[$x].$x;
+    }
     if($username!=""||$username!=null){
         $selectStaement=$database->select()
             ->from('admin')
