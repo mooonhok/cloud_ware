@@ -1,0 +1,116 @@
+/*
+* @Author: boycui
+* @Date:   2017-09-05 10:29:30
+* @Last Modified by:   boycui
+* @Last Modified time: 2017-09-05 14:14:03
+*/
+*{
+   margin: 0;
+   padding: 0;
+   font-family: "微软雅黑";
+}
+.box{
+	width: 100%;
+}
+.top{
+	width: 100%;
+	height: 60px;
+}
+.top_1{
+	width: 150px;
+	height: 60px;
+	float: left;
+	margin-left: 15%;
+}
+.top_1 img{
+	width: 100%;
+}
+.top_2{
+	width: 250px;
+	height: 60px;
+	float: right;
+	margin-right: 15%;
+}
+.top_2 img{
+	width: 100%;
+}
+.top_3{
+	width: 100%;
+	height: 5px;
+	background: blue;
+}
+.center{
+	width: 600px;
+	height: 350px;
+	margin:200px auto;
+	background: #ACDDFE;
+}
+.center_1{
+	float: left;
+	margin: 40px auto;
+	width: 600px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	font-size: 26px;
+	font-weight: bold;
+}
+.center_2{
+	float: left;
+	width: 400px;
+	margin-left: 100px;
+	height: 50px;
+	margin-top: 20px;
+}
+.center_3{
+	float: left;
+	width: 400px;
+	margin-left: 100px;
+	height: 50px;
+	margin-top: 25px;
+}
+.center_2_1{
+	float: left;
+	height: 50px;
+	line-height: 50px;
+	width: 60px;
+	font-size: 22px
+}
+.center_3_1{
+	float: left;
+	height: 50px;
+	line-height: 50px;
+	width: 60px;
+	font-size: 22px
+}
+.center_2_2{
+	float: left;
+	width: 300px;
+	height: 50px; 
+}
+.center_3_2{
+	float: left;
+	width: 300px;
+	height: 50px;
+}
+input{
+	width: 100%;
+	height: 50px;
+	background: white;
+	list-style: none;
+	outline-style: none;
+	border: 0;
+	font-size: 18px;
+}
+.login{
+	width: 150px;
+	height: 50px;
+	line-height: 50px;
+	background: #658DCB;
+	color: white;
+	font-size: 18px;
+	text-align: center;
+	float: left;
+	margin-left: 225px;
+	margin-top: 20px;
+}
