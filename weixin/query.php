@@ -67,7 +67,7 @@ $signPackage = $jssdk->GetSignPackage();
 		}
 		.center{
 			width: 80%;
-			height: 40px;
+			height: 46px;
 			float: left;
 			margin-left: 10%;
 			margin-top: 20px;
@@ -77,9 +77,9 @@ $signPackage = $jssdk->GetSignPackage();
 		.center1{
 			width: 30%;
 			float: left;
-			height: 40px;
+			height: 46px;
 			text-align: center;
-			line-height: 40px;
+			line-height: 46px;
 			font-size: 16px;
 		}
 		.center2{
@@ -87,6 +87,7 @@ $signPackage = $jssdk->GetSignPackage();
 			width: 50%;
 			height: 40px;
 			margin-left: 3%;
+			margin-top: 3px;
 		}
 		.center2 input{
 			width: 100%;
