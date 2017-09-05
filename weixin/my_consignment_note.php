@@ -13,7 +13,11 @@ $signPackage = $jssdk->GetSignPackage();
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
 		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<link rel="stylesheet" href="css/layer.css">
+		<link rel="stylesheet" href="css/layer (2).css">
 		<link rel="stylesheet" href="css/wodeyundan.css">
+		<script type="text/javascript" src="js/layer.js"></script>
+		<script type="text/javascript" src="js/layer (2).js"></script>
 		<title>我的运单</title>
 	</head>
 
@@ -115,7 +119,7 @@ $signPackage = $jssdk->GetSignPackage();
 					}
 				},
 				error: function(xhr) {
-					alert("获取后台失败！" + xhr.responseText);
+					alert("获取后台失败！");
 				}
 
 			});
@@ -145,7 +149,7 @@ $signPackage = $jssdk->GetSignPackage();
 					//alert("我寄的" + msg.result + "////" + msg.desc + "////" + msg.orders[0].order_id);
 					if(msg.result == 2) {
 						a == null;
-						alert("没有订单");
+						layer.msg("没有订单");
 					} else {
 						
 						for(var i = 0; i < msg.orders.fa.length; i++) {

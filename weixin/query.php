@@ -10,7 +10,8 @@ $signPackage = $jssdk->GetSignPackage();
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
-	<link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/layer.css">
+	<link rel="stylesheet" href="css/layer (2).css">
 	<title>运单号查询</title>
 	<style type="text/css">
 		*{
@@ -148,8 +149,8 @@ $signPackage = $jssdk->GetSignPackage();
 </body>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
-<script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	<script src="http://bootboxjs.com/bootbox.js"></script>
+<script type="text/javascript" src="js/layer (2).js"></script>
+<script type="text/javascript" src="js/layer.js"></script>
 <script>
 	$("#sumbit").click(function(){
 		var order_id=$("#order_id").val();
@@ -167,11 +168,7 @@ $signPackage = $jssdk->GetSignPackage();
 				}),
 				success: function(msg) {
 					if(msg.result == 2) {
-						bootbox.setLocale("zh_Cn");
-				        bootbox.alert({
-					    message: "订单不存在",
-					    size: 'small'
-				       })	
+				       layer.msg("订单不存在");	
 					}else{
 					// alert(order_id);
 		            window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+order_id;
@@ -182,7 +179,7 @@ $signPackage = $jssdk->GetSignPackage();
 				}
 			});
 		}else{
-			alert("没有填写订单号");
+			 layer.msg("没有填写订单号");
 		}
 	});
 </script>
@@ -211,10 +208,7 @@ $signPackage = $jssdk->GetSignPackage();
 					}
 				},
 				error: function(xhr) {
-					bootbox.setLocale("zh_CN");
-					bootbox.alert({
-						message:"获取后台失败！",
-						size:"small"
+					alert("获取后台数据失败")
 					})
 					
 				}
@@ -263,13 +257,9 @@ $signPackage = $jssdk->GetSignPackage();
 				}),
 				success: function(msg) {
 					if(msg.result == 2) {
-						bootbox.setLocale("zh_Cn");
-				        bootbox.alert({
-					    message: "订单不存在",
-					    size: 'small'
-				       })	
+				     layer.msg("订单不存在")  	
 					}else{
-					alert(order_id);
+					// alert(order_id);
 		            window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+a[1];
 					}
 				},
@@ -278,7 +268,7 @@ $signPackage = $jssdk->GetSignPackage();
 				}
 			});
 		}else{
-			alert("没有扫描到条形码");
+			 layer.msg("没有扫描到条形码");
 		}
       }  
     });  

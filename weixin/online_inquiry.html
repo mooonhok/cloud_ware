@@ -73,49 +73,6 @@
 	</div>
 	
 </div>
-	<!-- <div class="box2">
-		<div class="box2-1">
-			<div class="ok1">
-				确定
-			</div>
-			<div class="box3-2">
-				<select  id="province2" onchange="getPro2()">
-					<option value="0">请选择</option>
-				</select>
-				
-				<select id="city2">
-					<option value="0">请选择</option>
-				</select>
-
-			</div>
-				
-			
-
-		</div>		
-
-	</div>
-	<div class="box3">
-		<div class="box3-1">
-			<div class="ok2">
-				确定
-			</div>
-			<div class="box3-2">
-				<select  id="province2" onchange="getPro2()">
-					<option value="0">请选择</option>
-				</select>
-				
-				<select id="city2">
-					<option value="0">请选择</option>
-				</select>
-
-			</div>
-			
-				
-			
-
-		</div>		
-
-	</div> -->
 	
 </body>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
@@ -169,11 +126,7 @@
 					} 
 				},
 				error: function(xhr) {
-					bootbox.setLocale("zh_CN");
-					bootbox.alert({
-						message:"获取后台失败！"+xhr.responseText,
-						size:"small"
-					})
+					alert("获取后台失败！"+xhr.responseText)
 					
 				}
 
