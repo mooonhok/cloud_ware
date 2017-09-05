@@ -384,6 +384,24 @@ $app->get('/tenant_customer',function()use($app){
                 ->where('exist',"=",0);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data1['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data[$i]['from_city_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data[$i]['receive_city_id']);
+            $stmt = $selectStatement->execute();
+            $data4 = $stmt->fetch();
+            $data1['customer_city']=$data2['name'];
+            $data[$i]['from_city']=$data3['name'];
+            $data[$i]['receive_city']=$data4['name'];
             $array1=array();
             $array1['customer']=$data1;
             $array1['tenant']=$data[$i];
