@@ -186,7 +186,7 @@ $signPackage = $jssdk->GetSignPackage();
 					//点击事件
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
-						alert(sendid);
+						//alert(sendid);
 					     window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+sendid;
 					});
 					}
@@ -235,7 +235,7 @@ $signPackage = $jssdk->GetSignPackage();
 					//点击事件
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
-						alert(sendid);
+					//	alert(sendid);
 					   window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+sendid;
 					});
 			},
@@ -279,7 +279,7 @@ $signPackage = $jssdk->GetSignPackage();
 					//点击事件
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
-						alert(sendid);
+					//	alert(sendid);
 					     window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+sendid;
 					});
 			},
@@ -290,7 +290,7 @@ $signPackage = $jssdk->GetSignPackage();
 	</script>
 	<script type="text/javascript">
 		 wx.config({
-        debug: true,
+        debug: false,
         appId: '<?php echo $signPackage["appId"];?>',
         timestamp: '<?php echo $signPackage["timestamp"];?>',
         nonceStr: '<?php echo $signPackage["nonceStr"];?>',
@@ -305,10 +305,10 @@ $signPackage = $jssdk->GetSignPackage();
       needResult: 1,  
       desc: 'scanQRCode desc',  
       success: function (res) {    
-        alert(res.resultStr);
+   //     alert(res.resultStr);
         var a=new Array();
         a=res.resultStr.split(",");
-        alert(a[1]);
+      //  alert(a[1]);
        window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+a[1];
       }  
     });  
