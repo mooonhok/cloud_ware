@@ -24,7 +24,7 @@ $app->post('/userlogin',function ()use($app){
             ->from('admin')
             ->where('exist','=',0)
             ->where('type','=',0)
-            ->where('user_name','=',$username);
+            ->where('username','=',$username);
         $stmt=$selectStaement->execute();
         $data=$stmt->fetch();
         if ($data!=null){
@@ -33,7 +33,7 @@ $app->post('/userlogin',function ()use($app){
                 ->where('password','=',$password)
                 ->where('exist','=',0)
                 ->where('type','=',0)
-                ->where('user_name','=',$username);
+                ->where('username','=',$username);
             $stmt=$selectStaement->execute();
             $data2=$stmt->fetch();
             if($data2!=null){
