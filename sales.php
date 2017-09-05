@@ -17,6 +17,7 @@ $app->post('/usersign',function ()use($app){
     if($username!=""||$username!=null){
         $selectStaement=$database->select()
             ->from('sales')
+            ->where('exist','=',0)
             ->where('user_name','=',$username);
         $stmt=$selectStaement->execute();
         $data=$stmt->fetch();
@@ -24,6 +25,7 @@ $app->post('/usersign',function ()use($app){
              $selectStaement=$database->select()
                  ->from('sales')
                  ->where('password','=',$password)
+                 ->where('exist','=',0)
                  ->where('user_name','=',$username);
              $stmt=$selectStaement->execute();
              $data2=$stmt->fetch();

@@ -4,6 +4,8 @@
 	<meta charset="UTF-8">
 	<title>保险公司人员登录</title>
 	<link rel="stylesheet" href="css/login.css">
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.session.js"></script>
 </head>
 <body>
 	<div class="box">
@@ -24,7 +26,7 @@
 				<label for="">姓名</label>
 			</div>
 			<div class="center_2_2">
-				<input type="text">
+				<input type="text" id="username">
 			</div>
 		</div>
 		<div class="center_3">
@@ -32,10 +34,10 @@
 				<label for="">密码</label>
 			</div>
 			<div class="center_3_2">
-				<input type="password">
+				<input type="password" id="password">
 			</div>
 			</div>
-		<div class="login">
+		<div class="login" id="signin">
 			确 认 登 录
 		</div>	
 		</div>
@@ -43,4 +45,40 @@
 		<div style="clear: both;"></div>	
 	</div>	
 </body>
+<script>
+	$("#signin").on('click',function(){
+			var name=$("#username").val();
+			var pwd=$("#password").val();
+			//alert(name+pwd);
+			if(name==null ||name==""||pwd==null||pwd==""){
+				alert("用户名或密码不能为空");
+			}else{
+			$.ajax({
+   		  	  url:"http://mooonhok-cloudware.daoapp.io/insurance.php/userlogin",
+   		  	  dataType:'json',
+   		  	  type:'post',
+   		  	  contentType:"application/json;charset=utf-8",
+   		  	  data:JSON.stringify({
+   		  	       username:name,
+   		  	       password:pwd
+   		  	  }),
+   		  	  success:function(msg){
+   		  	  	alert(msg.result);
+   		  	  	if(msg.result==0){	
+   		  	  	    $.session.set('userid',msg.user.id);
+   		  	  	    var user=$.session.get('userid');
+   		  	  	    if(user!=null||user!=""){
+   		  	  	    	window.location.href = "http://mooonhok-cloudware.daoapp.io/insurance/safe.html";
+   		  	  	    }
+   		  	  	}else{
+   		  	  		alert(msg.desc);
+   		  	  	}
+   		  	  },
+   		  	  error:function(xhr) {
+   		  	  	alert(xhr.responseText);
+   		  	  }
+		});
+		}
+		});
+		</script>
 </html>
