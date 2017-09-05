@@ -162,7 +162,7 @@ $signPackage = $jssdk->GetSignPackage();
 								$("#bo1").append(a);
 						};
 							for(var i = 0; i < msg.orders.shou.length; i++) {
-					var a="<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
+					var b="<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders.shou[i].order_id+"</span></p><p>订单价格:<span>"
 					+msg.orders.shou[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
 					+msg.orders.shou[i].sendcity+"</div><div class='name_1'>"
