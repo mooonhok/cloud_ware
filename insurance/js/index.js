@@ -3,7 +3,7 @@ $(document).ready(function(){
 	var data3=null;
 	//充值记录
  	$.ajax({
-		  	  url:"http://mooonhok-cloudware.daoapp.io/insurance.php/insurance_rechanges?tenant_id=1",
+		  	  url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?tenant_id=1",
  		  	  dataType:'json',
 		  	  type:'get',
 		  	  contentType:"application/json;charset=utf-8",
@@ -47,7 +47,7 @@ $(document).ready(function(){
 	});
 	//历史保险记录
 	$.ajax({
-		  	  url:"http://mooonhok-cloudware.daoapp.io/insurance.php/insurances?tenant_id=1",
+		  	  url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurances?tenant_id=1",
  		  	  dataType:'json',
 		  	  type:'get',
 		  	  contentType:"application/json;charset=utf-8",
