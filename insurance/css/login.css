@@ -1,8 +1,8 @@
 /*
 * @Author: boycui
 * @Date:   2017-09-05 10:29:30
-* @Last Modified by:   boycui
-* @Last Modified time: 2017-09-05 14:14:03
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-09-06 09:42:42
 */
 *{
    margin: 0;
@@ -11,10 +11,14 @@
 }
 .box{
 	width: 100%;
+	height: 100%;
+	background: #658DCB;
+	position:fixed;
 }
 .top{
 	width: 100%;
 	height: 60px;
+	background: white;
 }
 .top_1{
 	width: 150px;
@@ -41,76 +45,130 @@
 }
 .center{
 	width: 600px;
-	height: 350px;
-	margin:200px auto;
-	background: #ACDDFE;
+	height: 600px;
+	margin:0 auto;
+	background: #658DCB;
 }
 .center_1{
 	float: left;
-	margin: 40px auto;
-	width: 600px;
+	margin-left: 120px;
+	width: 360px;
 	height: 40px;
 	text-align: center;
 	line-height: 40px;
-	font-size: 26px;
+	font-size: 20px;
 	font-weight: bold;
+	margin-top: 100px;
+}
+.xian{
+	float: left;
+	margin-left: 120px;
+	width: 360px;
+	height: 2px;
+	background: white;
 }
 .center_2{
 	float: left;
-	width: 400px;
-	margin-left: 100px;
-	height: 50px;
-	margin-top: 20px;
+	width:360px;
+	margin-left: 120px;
+	height: 35px;
+	margin-top: 25px;
 }
 .center_3{
 	float: left;
-	width: 400px;
-	margin-left: 100px;
-	height: 50px;
+	width: 360px;
+	margin-left: 120px;
+	height: 35px;
 	margin-top: 25px;
 }
-.center_2_1{
-	float: left;
-	height: 50px;
-	line-height: 50px;
-	width: 60px;
-	font-size: 22px
-}
-.center_3_1{
-	float: left;
-	height: 50px;
-	line-height: 50px;
-	width: 60px;
-	font-size: 22px
-}
+
 .center_2_2{
 	float: left;
-	width: 300px;
-	height: 50px; 
+	width: 360px;
+	height: 35px; 
+	background: white;
 }
 .center_3_2{
 	float: left;
-	width: 300px;
-	height: 50px;
+	width: 360px;
+	height: 35px;
+	background: white;
 }
-input{
-	width: 100%;
-	height: 50px;
+.center_2_2 input{
+	width: 340px;
+	height: 35px;
 	background: white;
 	list-style: none;
 	outline-style: none;
 	border: 0;
-	font-size: 18px;
+	font-size: 16px;
+	display: inline-block;
+	float: left;
+	margin-left: 20px;
+}
+.center_3_2 input{
+	width: 340px;
+	height: 35px;
+	background: white;
+	list-style: none;
+	outline-style: none;
+	border: 0;
+	font-size: 16px;
+	display: inline-block;
+	float: left;
+	margin-left: 20px;
 }
 .login{
-	width: 150px;
-	height: 50px;
-	line-height: 50px;
-	background: #658DCB;
+	width: 360px;
+	height: 35px;
+	line-height: 35px;
+	background: #204C8D;
 	color: white;
 	font-size: 18px;
 	text-align: center;
 	float: left;
-	margin-left: 225px;
+	margin-left: 120px;
 	margin-top: 20px;
+	cursor: pointer;
 }
+.center_4{
+	width: 360px;
+	float: left;
+	margin-top: 30px;
+	margin-left: 120px;
+	height: 50px;
+}
+.center_4_1{
+	float: left;
+	width: 200px;
+	height: 35px;
+}
+.center_4_1 input{
+	width: 200px;
+	height: 35px;
+	text-align: center;
+	list-style: none;
+	outline-style: none;
+	border: 0;
+	font-size: 16px;
+}
+.center_4_2{
+	float: right;
+	width: 150px;
+	height: 50px;
+}
+.verify{
+	width: 150px;
+	height: 40px;
+	background: white;
+}
+.text{
+	width: 150px;
+	height: 15px;
+	text-align: center;
+	font-size: 12px;
+	line-height: 12px;
+	margin: 5px 0;
+	cursor: pointer;
+}
+

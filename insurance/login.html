@@ -37,6 +37,18 @@
 				<input type="password" id="password">
 			</div>
 			</div>
+			<div class="center_4">
+			<div class="center_4_1">
+				<input type="text" id="identify" placeholder="请输入验证码" autofocus="">
+			</div>
+			<div class="center_4_2">
+				<div class="verify">
+					<canvas id="canvas" width="150" height="40">		
+					</canvas>
+				</div>
+				<div class="text" id="changeImg">看不清楚换一张</div>
+			</div>
+		</div>
 		<div class="login" id="signin">
 			确 认 登 录
 		</div>	
@@ -46,7 +58,84 @@
 	</div>	
 </body>
 <script>
-	$("#signin").on('click',function(){
+
+		</script>
+		<script type="text/javascript">
+	var canvas;
+	var context;
+	var width;
+	var height;;
+	var code = "";
+	
+	function randomNum(min,max){		
+		return Math.floor(Math.random()*(max-min)+min);
+	}
+	function randomColor(min,max){
+		var r = randomNum(min,max);
+		var g = randomNum(min,max);
+		var b = randomNum(min,max);
+		return "rgb("+r+","+g+","+b+")";
+
+	}
+	//生成随机数
+	function randomCode(){
+		var str = 'ABCEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789';
+		for(var i = 0;i<4;i++){
+			var txt = str[randomNum(0,str.length)];
+			context.font = "20px simHei";
+			context.fillStyle = randomColor(35,150);
+			var x = 10+i*25;
+			var y = randomNum(25,30);
+			var deg = randomNum(-15,15);
+			context.rotate(deg*Math.PI/180);
+			context.fillText(txt,x,y);
+			context.rotate(-deg*Math.PI/180);
+
+			code +=txt;
+		}
+		 console.log(code);
+	}	
+	function randomArc(){
+
+		for(var i = 0;i<=100;i++){
+		context.fillStyle = randomColor(0,255);
+		context.beginPath();
+		context.arc(randomNum(0,width),randomNum(0,height), 1, 0, 2*Math.PI);
+		context.fill();
+		}
+
+	}
+	function randomLine(){
+		for (var i = 0; i < 8 ; i++) {
+			context.strokeStyle = randomColor(50,160);
+			context.beginPath();
+			context.moveTo(randomNum(0,width),randomNum(0,height));
+			context.lineTo(randomNum(0,width),randomNum(0,height));
+			context.stroke();
+
+		}
+
+	}
+	function draw(){
+		canvas = document.getElementById('canvas');
+		context = canvas.getContext('2d');
+		width = canvas.width;
+		height = canvas.height;
+		context.fillStyle =randomColor(150,220);
+	    context.fillRect(0,0,width,height);
+		randomCode();
+		randomArc();
+		randomLine();
+	}	
+	draw();
+	// console.log(code);
+	document.getElementById('changeImg').onclick=function(){
+		draw();
+	}
+	var input = document.getElementById('identify');
+	document.getElementById("signin").onclick=function(){
+		if(input.value != "" && input.value.toUpperCase() == code.toUpperCase()){
+			alert('验证通过');
 			var name=$("#username").val();
 			var pwd=$("#password").val();
 			//alert(name+pwd);
@@ -71,7 +160,7 @@
    		  	  	    	window.location.href = "http://mooonhok-cloudware.daoapp.io/insurance/safe.html";
    		  	  	    }
    		  	  	}else{
-   		  	  		alert(msg.desc);
+   		  	  	//	alert(msg.desc);
    		  	  	}
    		  	  },
    		  	  error:function(xhr) {
@@ -79,6 +168,10 @@
    		  	  }
 		});
 		}
-		});
-		</script>
+		
+		}else{
+			alert('验证码错误');
+		}
+	}
+	</script>
 </html>
