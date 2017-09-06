@@ -434,6 +434,55 @@ $app->get('/tenant_customer',function()use($app){
     }
 });
 
+$app->get('/one_tenant_customer',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id=$app->request->get('tenant_id');
+    $database=localhost();
+    $array=array();
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('exist',"=",0);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        if($data1!=null){
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('customer_id','=',$data1['contact_id'])
+                ->where('exist',"=",0);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data2['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            $data2['customer_city']=$data3['name'];
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data1['from_city_id']);
+            $stmt = $selectStatement->execute();
+            $data4 = $stmt->fetch();
+            $data1['from_city']=$data4['name'];
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data1['receive_city_id']);
+            $stmt = $selectStatement->execute();
+            $data5 = $stmt->fetch();
+            $data1['receive_city']=$data5['name'];
+            $array['tenant']=$data1;
+            $array['customer']=$data2;
+            echo  json_encode(array("result"=>"1","desc"=>"success","tenant"=>$array));
+        }else{
+            echo  json_encode(array("result"=>"2","desc"=>"租户公司不存在","tenant"=>''));
+        }
+    }else{
+        echo  json_encode(array("result"=>"3","desc"=>"租户公司id为空","tenant"=>''));
+    }
+});
+
 
 $app->run();
 
