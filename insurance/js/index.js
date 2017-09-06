@@ -1,6 +1,6 @@
 $(document).ready(function(){
-	var data2=null;
-	var data3=null;
+	var date2=null;
+	var date3=null;
 	//充值记录
  	$.ajax({
 		  	  url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?tenant_id=1",
@@ -8,7 +8,6 @@ $(document).ready(function(){
 		  	  type:'get',
 		  	  contentType:"application/json;charset=utf-8",
  		  	  data:JSON.stringify({
- 		  	  
  		  	  }),
  		  	  success:function(msg){
  		         for(var a=0;a<msg.insurance_rechanges.length;a++){
@@ -52,7 +51,6 @@ $(document).ready(function(){
 		  	  type:'get',
 		  	  contentType:"application/json;charset=utf-8",
  		  	  data:JSON.stringify({
- 		  	  
  		  	  }),
  		  	  success:function(msg){
  		         for(var a=0;a<msg.insurances.length;a++){
@@ -65,7 +63,7 @@ $(document).ready(function(){
 		  	  	alert(xhr.responseText);
  		  	  }
 		});
-	var testdata3 = {'code':'000','data':[data3]};
+	var testdata3 = {'code':'000','data':[date3]};
 	$('#testtable4').yhhDataTable({
 		'paginate':{
 			'changeDisplayLen':true,
