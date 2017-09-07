@@ -10,6 +10,7 @@ $(document).ready(function(){
  		  	  data:JSON.stringify({
  		  	  }),
  		  	  success:function(msg){
+ 		  	  	console.log(msg);
  		         for(var a=0;a<msg.insurance_rechanges.length;a++){
  		         	if(msg.insurance_rechanges[i].status==0){
  		         		var a={'a':msg.insurance_rechanges[i].company,'b':msg.insurance_rechanges[i].pay_time,
