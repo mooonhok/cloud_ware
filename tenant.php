@@ -267,7 +267,6 @@ $app->post('/tenant',function()use($app) {
     $service_items = $app->request->params('service_items');
     $trans_contract_p = $app->request->params('trans_contract_p');
     $telephone=$app->request->params('telephone');
-
     if($company!=null||$company!=""){
         if($business_l!=""||$business_l!=null){
              if($business_l_p!=""||$business_l_p!=null){
@@ -304,7 +303,9 @@ $app->post('/tenant',function()use($app) {
                                                                     ,'begin_time','qq','email','insurance_balance'))
                                                                         ->into('tenant')
                                                                         ->values(array($company,$from_city_id,$receive_city_id,$num,0,$business_l
-                                                                        ,$sales_id,$address,$business_l_p,$order_t_p,$trans_contract_p,$service_items,$c_introduction,$end_time,
+                                                                        ,$sales_id,$address,0
+//                                                                        ,$business_l_p
+                                                                        ,$order_t_p,$trans_contract_p,$service_items,$c_introduction,$end_time,
                                                                             $begin_time,$qq,$email,0));
                                                                     $insertId = $insertStatement->execute(false);
                                                                     if($insertId!=""||$insertId!=null){
