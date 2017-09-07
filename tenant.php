@@ -267,7 +267,7 @@ $app->post('/tenant',function()use($app) {
     $service_items = $app->request->params('service_items');
     $trans_contract_p = $app->request->params('trans_contract_p');
     $telephone=$app->request->params('telephone');
-   
+
     if($company!=null||$company!=""){
         if($business_l!=""||$business_l!=null){
              if($business_l_p!=""||$business_l_p!=null){
@@ -323,32 +323,32 @@ $app->post('/tenant',function()use($app) {
                                                                         $affectedRows = $updateStatement->execute();
                                                                         echo json_decode(array('result'=>'0','desc'=>'添加成功'));
                                                                     }else{
-                                                                        echo json_encode(array("result"=>"0","desc"=>"添加租户信息失败"));
+                                                                        echo json_encode(array("result"=>"1","desc"=>"添加租户信息失败"));
                                                                     }
-                                                                    echo json_encode(array("result"=>"0","desc"=>"添加成功"));
+                                                                    echo json_encode(array("result"=>"2","desc"=>"添加成功"));
                                                                 }else{
-                                                                    echo json_encode(array("result"=>"8","desc"=>"添加负责人信息失败"));
+                                                                    echo json_encode(array("result"=>"3","desc"=>"添加负责人信息失败"));
                                                                 }
                                                             }else {
-                                                                echo json_encode(array("result"=>"8","desc"=>"该业务员不存在"));
+                                                                echo json_encode(array("result"=>"4","desc"=>"该业务员不存在"));
                                                             }
                                                         }else{
-                                                            echo json_encode(array("result"=>"8","desc"=>"缺少sales_id"));
+                                                            echo json_encode(array("result"=>"5","desc"=>"缺少sales_id"));
                                                         }
                                                     }else{
-                                                        echo json_encode(array("result"=>"8","desc"=>"结束时间不能为空"));
+                                                        echo json_encode(array("result"=>"6","desc"=>"结束时间不能为空"));
                                                     }
                                               }else{
-                                                  echo json_encode(array("result"=>"8","desc"=>"开始时间不能为空"));
+                                                  echo json_encode(array("result"=>"7","desc"=>"开始时间不能为空"));
                                               }
                                           }else{
                                               echo json_encode(array("result"=>"8","desc"=>"缺少收货城市"));
                                           }
                                       }else{
-                                          echo json_encode(array("result"=>"7","desc"=>"缺少发货城市"));
+                                          echo json_encode(array("result"=>"9","desc"=>"缺少发货城市"));
                                       }
                                   }else{
-                                      echo json_encode(array("result"=>"7","desc"=>"缺少经营地址"));
+                                      echo json_encode(array("result"=>"10","desc"=>"缺少经营地址"));
                                   }
 //                              }else{
 //                                  echo json_encode(array("result"=>"7","desc"=>"缺少qq"));
@@ -357,19 +357,19 @@ $app->post('/tenant',function()use($app) {
 //                             echo json_encode(array("result"=>"4","desc"=>"缺少电子邮箱"));
 //                         }
                      }else{
-                         echo json_encode(array("result"=>"3","desc"=>"缺少负责人电话"));
+                         echo json_encode(array("result"=>"11","desc"=>"缺少负责人电话"));
                      }
                  }else{
-                     echo json_encode(array("result"=>"2","desc"=>"缺少负责人姓名"));
+                     echo json_encode(array("result"=>"12","desc"=>"缺少负责人姓名"));
                  }
              }else{
-                 echo json_encode(array("result"=>"1","desc"=>"缺少营业执照照片"));
+                 echo json_encode(array("result"=>"13","desc"=>"缺少营业执照照片"));
              }
         }else{
-            echo json_encode(array("result"=>"5","desc"=>"缺少营业执照号码"));
+            echo json_encode(array("result"=>"14","desc"=>"缺少营业执照号码"));
         }
     }else{
-        echo json_encode(array("result"=>"6","desc"=>"缺少公司名称"));
+        echo json_encode(array("result"=>"15","desc"=>"缺少公司名称"));
     }
 });
 
