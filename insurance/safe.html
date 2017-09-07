@@ -21,7 +21,16 @@
 	<div class="top_3"></div>
 	<div class="select">
 		<div class="select_1">
-			<label for="">选择合作公司:</label><select name="company" id="company"></select>		
+			<select name="province" id="province1" onchange="getPro1()" class="pro">
+				<option value="">请选择省</option>
+			</select>
+			<select name="city" id="city1" class="cit">
+				<option value="">请选择市</option>
+			</select>
+		</div>
+		<div class="select_2">
+			<div class="select_2_1"><input type="text"></div>
+			<div class="select_2_2"><img src="images/seek.png" alt="" width="30" height="30"></div>
 		</div>	
 	</div>
 	<div class="gps">
@@ -76,22 +85,90 @@
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/jquery.paginate.js"></script>
 <script type="text/javascript" src="js/jquery.yhhDataTable.js"></script>
-
 <script type="text/javascript" src="js/index.js"></script>
+
 <script type="text/javascript">
 //获取session值
-	var user=$.session.get('userid');
-	alert(user);
+	// var user=$.session.get('userid');
+	// alert(user);
 </script>
+
+<script>
+		//获取省份和城市列表1
+		$.ajax({
+			url: "http://mooonhok-cloudware.daoapp.io/city.php/province",
+			beforeSend: function(request) {
+				request.setRequestHeader("tenant-id", "Chenxizhang");
+			},
+			dataType: 'json',
+			type: 'get',
+			contentType: "application/json;charset=utf-8",
+			data: JSON.stringify({}),
+			success: function(msg) {
+				for(var i = 0; i < msg.province.length; i++) {
+					$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+				}
+			},
+			error: function(e) {	
+				alert("省份列表1信息出错!");
+			}
+		});
+
+		function getPro1() {
+			$("#city1").empty();
+			var pid = $("#province1 option:selected").val();
+			$.ajax({
+				url: "http://mooonhok-cloudware.daoapp.io/city.php/city?pid=" + pid,
+				beforeSend: function(request) {
+					request.setRequestHeader("tenant-id", "Chenxizhang");
+				},
+				dataType: 'json',
+				type: 'get',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({}),
+				success: function(msg) {
+					for(var i = 0; i < msg.city.length; i++) {
+						$("#city1").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
+					}
+				},
+				error: function(e) {
+					alert("城市1列表信息出错!");
+				}
+			});
+		}
+	</script>
+
 <script type="text/javascript">
-function poppage(){
- $(".box2").css("display","block");
-}
-function poppage1(){
- $(".box3").css("display","block");
- var t1=doucment.getElementById("su1");
- t1.getAttribute("value");
-}
+	function btn(a){
+		alert(a.value)
+		alert(a.innerHTML)
+		$(".box3").css("display","block");
+		$(".box3_2").on("click",function(){
+			$(".box3").css("display","none");
+			a.innerHTML="已支付";
+		})
+	}
+</script>
+
+<script type="text/javascript">
+	function but(b){
+		alert(b.value)
+		alert(b.innerHTML)
+		$(".box2").css("display","block");
+		$(".box2_2").on("click",function(){
+			$(".box2").css("display","none");
+		})
+	}
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+
+
 $(".box3_3").on("click",function(){
  $(".box3").css("display","none");	
 })

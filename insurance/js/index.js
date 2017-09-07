@@ -13,7 +13,7 @@ $(document).ready(function(){
  		         for(var a=0;a<msg.insurance_rechanges.length;a++){
  		         	if(msg.insurance_rechanges[i].status==0){
  		         		var a={'a':msg.insurance_rechanges[i].company,'b':msg.insurance_rechanges[i].pay_time,
-	             'c':msg.insurance_rechanges[i].money,'d':'合同详情','e':'<div class="affirm" id="su1" onclick="poppage1()" value="'+msg.insurance_rechanges[i].id+'">确认支付</div>'};
+	             'c':msg.insurance_rechanges[i].money,'d':'合同详情','e':'<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">确认支付</button>'};
  		         	}else{
  		         		var a={'a':msg.insurance_rechanges[i].company,'b':msg.insurance_rechanges[i].pay_time,
 	             'c':msg.insurance_rechanges[i].money,'d':'','e':'已经支付'};
@@ -55,7 +55,7 @@ $(document).ready(function(){
  		  	  success:function(msg){
  		         for(var a=0;a<msg.insurances.length;a++){
 	             var a={'a':msg.insurances[i].plate_number,'b':msg.insurance[i].driver_name,'c':msg.insurances[i].driver_phone,
-	             'd':'<div class="details">详情</div>','e':msg.insurances[i].insurance_price,'f':msg.insurance[i].insurance_money,'g':msg.insurance[i].time};
+	             'd':'<button type="button" value="'+msg.insurances[i].id+'" onclick="but(this)">详情</button>','e':msg.insurances[i].insurance_price,'f':msg.insurance[i].insurance_money,'g':msg.insurance[i].time};
 	             date3+=a;
                }
 		  	  },
@@ -73,7 +73,7 @@ $(document).ready(function(){
 		'tbodyRow':{
 			'zebra':true,
 			'write':function(d){
-				return '<tr><td>'+d.a+'</td><td>'+d.b+'</td><td>'+d.c+'</td><td onclick="poppage()">'+d.d+'</td><td>'+d.e+'</td><td>'+d.f+'</td><td>'+d.g+'</td></tr>';
+				return '<tr><td>'+d.a+'</td><td>'+d.b+'</td><td>'+d.c+'</td><td>'+d.d+'</td><td>'+d.e+'</td><td>'+d.f+'</td><td>'+d.g+'</td></tr>';
 				
 			}
 		},
