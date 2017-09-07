@@ -128,9 +128,6 @@ $app->get('/insurance_rechanges',function()use($app){
            }else{
                echo json_encode(array('result'=>'2','desc'=>'合作公司不存在','insurance_rechanges'=>''));
            }
-
-
-
        }
     }else{
         $selectStatement = $database->select()
@@ -178,12 +175,12 @@ $app->put('/sure_rechanges',function()use($app){
                         ->where('id','=',$pay_id);
                 $affectedRows2 = $updateStatement->execute();
                     if($affectedRows1>0) {
-                        echo json_decode(array('result' => '0', 'desc' => 'success'));
+                        echo json_encode(array('result' => '0', 'desc' => 'success'));
                     }else{
-                        echo json_decode(array('result'=>'1','desc'=>'保险公司确认失败'));
+                        echo json_encode(array('result'=>'1','desc'=>'保险公司确认失败'));
                     }
                 }else{
-                    echo json_decode(array('result'=>'2','desc'=>'公司余额未改变'));
+                    echo json_encode(array('result'=>'2','desc'=>'公司余额未改变'));
                 }
             }else{
                 echo json_encode(array('result'=>'3','desc'=>'充值记录不存在'));
