@@ -267,110 +267,110 @@ $app->post('/tenant',function()use($app) {
     $service_items = $app->request->params('service_items');
     $trans_contract_p = $app->request->params('trans_contract_p');
     $telephone=$app->request->params('telephone');
-    echo $business_l_p;
-//    if($company!=null||$company!=""){
-//        if($business_l!=""||$business_l!=null){
-//             if($business_l_p!=""||$business_l_p!=null){
-//                 if($contact_name!=null||$contact_name!=""){
-//                     if($telephone!=null||$telephone!=""){
-////                         if($email!=null||$email!=""){
-////                              if($qq!=""||$qq!=null){
-//                                  if($address!=""||$address!=null){
-//                                      if($from_city_id!=""||$from_city_id=null){
-//                                          if($receive_city_id!=null||$receive_city_id!=""){
-//                                              if($begin_time!=null||$begin_time!=""){
-//                                                    if($end_time!=null||$end_time!=""){
-//                                                        if($sales_id!=null||$sales_id!=""){
-//                                                            $selectStatement = $database->select()
-//                                                                ->from('sales')
-//                                                                ->where('id','=',$sales_id)
-//                                                                ->where('exist',"=",0);
-//                                                            $stmt = $selectStatement->execute();
-//                                                            $data1 = $stmt->fetch();
-//                                                            if($data1!=null||$data1!=""){
-//                                                                $selectStatement = $database->select()
-//                                                                    ->from('customer');
-//                                                                $stmt = $selectStatement->execute();
-//                                                                $data3 = $stmt->fetch();
-//                                                                $num=count($data3);
-//                                                                $insertStatement = $database->insert(array('customer_id','customer_name','customer_phone','exist'
-//                                                                ,'customer_city_id','customer_address'))
-//                                                                    ->into('customer')
-//                                                                    ->values(array($num,$contact_name,$telephone,0,$from_city_id,$address));
-//                                                                $insertId = $insertStatement->execute(false);
-//                                                                if($insertId!=null||$insertId!=""){
-//                                                                    $insertStatement = $database->insert(array('company','from_city_id','receive_city_id','contact_id','exist','business_l'
-//                                                                    ,'sales_id','address','business_l_p','order_t_p','trans_contract_p','service_items','c_introduction','end_date'
-//                                                                    ,'begin_time','qq','email','insurance_balance'))
-//                                                                        ->into('tenant')
-//                                                                        ->values(array($company,$from_city_id,$receive_city_id,$num,0,$business_l
-//                                                                        ,$sales_id,$address,$business_l_p,$order_t_p,$trans_contract_p,$service_items,$c_introduction,$end_time,
-//                                                                            $begin_time,$qq,$email,0));
-//                                                                    $insertId = $insertStatement->execute(false);
-//                                                                    if($insertId!=""||$insertId!=null){
-//                                                                        $selectStatement = $database->select()
-//                                                                            ->from('tenant')
-//                                                                            ->where('company','=',$company)
-//                                                                            ->where('business_l','=',$business_l);
-//                                                                        $stmt = $selectStatement->execute();
-//                                                                        $data4 = $stmt->fetch();
-//                                                                        $array=array();
-//                                                                        $key='tenant_id';
-//                                                                        $array[$key]=$data4['tenant_id'];
-//                                                                        $updateStatement = $database->update($array)
-//                                                                            ->table('customer')
-//                                                                            ->where('customer_id','=',$num);
-//                                                                        $affectedRows = $updateStatement->execute();
-//                                                                        echo json_decode(array('result'=>'0','desc'=>'添加成功'));
-//                                                                    }else{
-//                                                                        echo json_encode(array("result"=>"0","desc"=>"添加租户信息失败"));
-//                                                                    }
-//                                                                    echo json_encode(array("result"=>"0","desc"=>"添加成功"));
-//                                                                }else{
-//                                                                    echo json_encode(array("result"=>"8","desc"=>"添加负责人信息失败"));
-//                                                                }
-//                                                            }else {
-//                                                                echo json_encode(array("result"=>"8","desc"=>"该业务员不存在"));
-//                                                            }
-//                                                        }else{
-//                                                            echo json_encode(array("result"=>"8","desc"=>"缺少sales_id"));
-//                                                        }
-//                                                    }else{
-//                                                        echo json_encode(array("result"=>"8","desc"=>"结束时间不能为空"));
-//                                                    }
-//                                              }else{
-//                                                  echo json_encode(array("result"=>"8","desc"=>"开始时间不能为空"));
-//                                              }
-//                                          }else{
-//                                              echo json_encode(array("result"=>"8","desc"=>"缺少收货城市"));
-//                                          }
-//                                      }else{
-//                                          echo json_encode(array("result"=>"7","desc"=>"缺少发货城市"));
-//                                      }
-//                                  }else{
-//                                      echo json_encode(array("result"=>"7","desc"=>"缺少经营地址"));
-//                                  }
-////                              }else{
-////                                  echo json_encode(array("result"=>"7","desc"=>"缺少qq"));
-////                              }
-////                         }else{
-////                             echo json_encode(array("result"=>"4","desc"=>"缺少电子邮箱"));
-////                         }
-//                     }else{
-//                         echo json_encode(array("result"=>"3","desc"=>"缺少负责人电话"));
-//                     }
-//                 }else{
-//                     echo json_encode(array("result"=>"2","desc"=>"缺少负责人姓名"));
-//                 }
-//             }else{
-//                 echo json_encode(array("result"=>"1","desc"=>"缺少营业执照照片"));
-//             }
-//        }else{
-//            echo json_encode(array("result"=>"5","desc"=>"缺少营业执照号码"));
-//        }
-//    }else{
-//        echo json_encode(array("result"=>"6","desc"=>"缺少公司名称"));
-//    }
+   
+    if($company!=null||$company!=""){
+        if($business_l!=""||$business_l!=null){
+             if($business_l_p!=""||$business_l_p!=null){
+                 if($contact_name!=null||$contact_name!=""){
+                     if($telephone!=null||$telephone!=""){
+//                         if($email!=null||$email!=""){
+//                              if($qq!=""||$qq!=null){
+                                  if($address!=""||$address!=null){
+                                      if($from_city_id!=""||$from_city_id=null){
+                                          if($receive_city_id!=null||$receive_city_id!=""){
+                                              if($begin_time!=null||$begin_time!=""){
+                                                    if($end_time!=null||$end_time!=""){
+                                                        if($sales_id!=null||$sales_id!=""){
+                                                            $selectStatement = $database->select()
+                                                                ->from('sales')
+                                                                ->where('id','=',$sales_id)
+                                                                ->where('exist',"=",0);
+                                                            $stmt = $selectStatement->execute();
+                                                            $data1 = $stmt->fetch();
+                                                            if($data1!=null||$data1!=""){
+                                                                $selectStatement = $database->select()
+                                                                    ->from('customer');
+                                                                $stmt = $selectStatement->execute();
+                                                                $data3 = $stmt->fetch();
+                                                                $num=count($data3);
+                                                                $insertStatement = $database->insert(array('customer_id','customer_name','customer_phone','exist'
+                                                                ,'customer_city_id','customer_address'))
+                                                                    ->into('customer')
+                                                                    ->values(array($num,$contact_name,$telephone,0,$from_city_id,$address));
+                                                                $insertId = $insertStatement->execute(false);
+                                                                if($insertId!=null||$insertId!=""){
+                                                                    $insertStatement = $database->insert(array('company','from_city_id','receive_city_id','contact_id','exist','business_l'
+                                                                    ,'sales_id','address','business_l_p','order_t_p','trans_contract_p','service_items','c_introduction','end_date'
+                                                                    ,'begin_time','qq','email','insurance_balance'))
+                                                                        ->into('tenant')
+                                                                        ->values(array($company,$from_city_id,$receive_city_id,$num,0,$business_l
+                                                                        ,$sales_id,$address,$business_l_p,$order_t_p,$trans_contract_p,$service_items,$c_introduction,$end_time,
+                                                                            $begin_time,$qq,$email,0));
+                                                                    $insertId = $insertStatement->execute(false);
+                                                                    if($insertId!=""||$insertId!=null){
+                                                                        $selectStatement = $database->select()
+                                                                            ->from('tenant')
+                                                                            ->where('company','=',$company)
+                                                                            ->where('business_l','=',$business_l);
+                                                                        $stmt = $selectStatement->execute();
+                                                                        $data4 = $stmt->fetch();
+                                                                        $array=array();
+                                                                        $key='tenant_id';
+                                                                        $array[$key]=$data4['tenant_id'];
+                                                                        $updateStatement = $database->update($array)
+                                                                            ->table('customer')
+                                                                            ->where('customer_id','=',$num);
+                                                                        $affectedRows = $updateStatement->execute();
+                                                                        echo json_decode(array('result'=>'0','desc'=>'添加成功'));
+                                                                    }else{
+                                                                        echo json_encode(array("result"=>"0","desc"=>"添加租户信息失败"));
+                                                                    }
+                                                                    echo json_encode(array("result"=>"0","desc"=>"添加成功"));
+                                                                }else{
+                                                                    echo json_encode(array("result"=>"8","desc"=>"添加负责人信息失败"));
+                                                                }
+                                                            }else {
+                                                                echo json_encode(array("result"=>"8","desc"=>"该业务员不存在"));
+                                                            }
+                                                        }else{
+                                                            echo json_encode(array("result"=>"8","desc"=>"缺少sales_id"));
+                                                        }
+                                                    }else{
+                                                        echo json_encode(array("result"=>"8","desc"=>"结束时间不能为空"));
+                                                    }
+                                              }else{
+                                                  echo json_encode(array("result"=>"8","desc"=>"开始时间不能为空"));
+                                              }
+                                          }else{
+                                              echo json_encode(array("result"=>"8","desc"=>"缺少收货城市"));
+                                          }
+                                      }else{
+                                          echo json_encode(array("result"=>"7","desc"=>"缺少发货城市"));
+                                      }
+                                  }else{
+                                      echo json_encode(array("result"=>"7","desc"=>"缺少经营地址"));
+                                  }
+//                              }else{
+//                                  echo json_encode(array("result"=>"7","desc"=>"缺少qq"));
+//                              }
+//                         }else{
+//                             echo json_encode(array("result"=>"4","desc"=>"缺少电子邮箱"));
+//                         }
+                     }else{
+                         echo json_encode(array("result"=>"3","desc"=>"缺少负责人电话"));
+                     }
+                 }else{
+                     echo json_encode(array("result"=>"2","desc"=>"缺少负责人姓名"));
+                 }
+             }else{
+                 echo json_encode(array("result"=>"1","desc"=>"缺少营业执照照片"));
+             }
+        }else{
+            echo json_encode(array("result"=>"5","desc"=>"缺少营业执照号码"));
+        }
+    }else{
+        echo json_encode(array("result"=>"6","desc"=>"缺少公司名称"));
+    }
 });
 
 
