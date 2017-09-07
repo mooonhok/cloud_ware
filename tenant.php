@@ -287,23 +287,21 @@ $app->post('/tenant',function()use($app) {
                                                             $stmt = $selectStatement->execute();
                                                             $data1 = $stmt->fetch();
                                                             if($data1!=null||$data1!=""){
-                                                                $insertStatement = $database->insert(array('customer_name','customer_phone','exist'))
+                                                                $selectStatement = $database->select()
+                                                                    ->from('customer');
+                                                                $stmt = $selectStatement->execute();
+                                                                $data3 = $stmt->fetch();
+                                                                $num=count($data3);
+                                                                $insertStatement = $database->insert(array('customer_id','customer_name','customer_phone','exist'))
                                                                     ->into('customer')
-                                                                    ->values(array($contact_name,$telephone,0));
+                                                                    ->values(array($num,$contact_name,$telephone,0));
                                                                 $insertId = $insertStatement->execute(false);
                                                                 if($insertId!=null||$insertId!=""){
-                                                                    $selectStatement = $database->select()
-                                                                        ->from('customer')
-                                                                        ->where('exist','=',0)
-                                                                        ->where('customer_name','=',$contact_name)
-                                                                        ->where('customer_phone',"=",$telephone);
-                                                                    $stmt = $selectStatement->execute();
-                                                                    $data2 = $stmt->fetch();
                                                                     $insertStatement = $database->insert(array('company','from_city_id','receive_city_id','contact_id','exist','business_l'
                                                                     ,'sales_id','address','business_l_p','order_t_p','trans_contract_p','service_items','c_introduction','end_date'
                                                                     ,'begin_time','qq','email','insurance_balance'))
                                                                         ->into('tenant')
-                                                                        ->values(array($company,$from_city_id,$receive_city_id,$data2['customer_id'],0,$business_l
+                                                                        ->values(array($company,$from_city_id,$receive_city_id,$num,0,$business_l
                                                                         ,$sales_id,$address,$business_l_p,$order_t_p,$trans_contract_p,$service_items,$c_introduction,$end_time,
                                                                             $begin_time,$qq,$email,0));
                                                                     $insertId = $insertStatement->execute(false);
