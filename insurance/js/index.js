@@ -11,7 +11,7 @@ $(document).ready(function(){
  		  	  }),
  		  	  success:function(msg){
  		  	  	console.log(msg);
- 		         for(var i=0;i<msg.insurance_rechanges.length;i++){
+ 		         for(var a=0;a<msg.insurance_rechanges.length;a++){
  		         	if(msg.insurance_rechanges[i].status==0){
  		         		var testdata3={'a':msg.insurance_rechanges[i].company,'b':msg.insurance_rechanges[i].pay_time,
 	             'c':msg.insurance_rechanges[i].money,'d':'合同详情','e':'<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">确认支付</button>'};
@@ -53,7 +53,7 @@ $(document).ready(function(){
 		}
 	});
  		         	}   
-	             date2+=i;
+	             // date2+=i;
                }
 		  	  },
  		  	  error:function(xhr) {
