@@ -139,13 +139,13 @@
 	</script>
 
 <script type="text/javascript">
-	function btn(a){
-		alert(a.value)
-		alert(a.innerHTML)
+	function btn(td){
+		alert(td.value)
+		alert(td.innerHTML)
 		$(".box3").css("display","block");
 		$(".box3_2").on("click",function(){
 			$(".box3").css("display","none");
-			a.innerHTML="已支付";
+			td.innerHTML="已支付";
 		})
 	}
 </script>
