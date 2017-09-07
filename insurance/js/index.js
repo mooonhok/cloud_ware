@@ -13,8 +13,8 @@ $(document).ready(function(){
  		  	  	console.log(msg);
  		         for(var a=0;a<msg.insurance_rechanges.length;a++){
  		         	if(msg.insurance_rechanges[a].status==0){
- 		         		var testdata3={'a':msg.insurance_rechanges[a].company,'b':msg.insurance_rechanges[a].pay_time,
-	             'c':msg.insurance_rechanges[a].money,'d':'合同详情','e':'<button type="button" value="'+msg.insurance_rechanges[a].id+'" onclick="btn(this)">确认支付</button>'};
+ 		         		var testdata2={'a':'msg.insurance_rechanges[a].company','b':'msg.insurance_rechanges[a].pay_time',
+	             'c':'msg.insurance_rechanges[a].money','d':'合同详情','e':'<button type="button" value="'+msg.insurance_rechanges[a].id+'" onclick="btn(this)">确认支付</button>'};
 	                $('#testtable3').yhhDataTable({
 		              'paginate':{
 			          'changeDisplayLen':true,
@@ -29,12 +29,12 @@ $(document).ready(function(){
 		},
 		           'tbodyData':{
 			       'enabled':true,  /*是否传入表格数据*/
-			       'source':testdata3 /*传入的表格数据*/
+			       'source':testdata2 /*传入的表格数据*/
 		}
 	});
  		         	}else{
- 		         		var testdata3={'a':msg.insurance_rechanges[a].company,'b':msg.insurance_rechanges[a].pay_time,
-	             'c':msg.insurance_rechanges[a].money,'d':'','e':'已经支付'};
+ 		         		var testdata2={'a':'msg.insurance_rechanges[a].company','b':'msg.insurance_rechanges[a].pay_time',
+	             'c':'msg.insurance_rechanges[a].money','d':'','e':'已经支付'};
 	              $('#testtable3').yhhDataTable({
 		              'paginate':{
 			          'changeDisplayLen':true,
@@ -49,7 +49,7 @@ $(document).ready(function(){
 		},
 		           'tbodyData':{
 			       'enabled':true,  /*是否传入表格数据*/
-			       'source':testdata3 /*传入的表格数据*/
+			       'source':testdata2 /*传入的表格数据*/
 		}
 	});
  		         	}   
