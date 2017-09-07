@@ -95,7 +95,7 @@ $app->get('/insurance_rechanges',function()use($app){
                $selectStatement = $database->select()
                    ->from('rechanges_insurance')
                    ->where('tenant_id', '=', $data1['tenant_id'])
-                   ->orderBy('rechanges_insurance.sure_time');
+                   ->orderBy('rechanges_insurance.sure_time','desc');
                $stmt = $selectStatement->execute();
                $data2 = $stmt->fetchAll();
                for($k=0;$k<count($data2);$k++){
@@ -116,7 +116,7 @@ $app->get('/insurance_rechanges',function()use($app){
                    $selectStatement = $database->select()
                        ->from('rechanges_insurance')
                        ->where('tenant_id', '=', $data1[$i]['tenant_id'])
-                       ->orderBy('rechanges_insurance.sure_time');
+                       ->orderBy('rechanges_insurance.sure_time','desc');
                    $stmt = $selectStatement->execute();
                    $data2 = $stmt->fetchAll();
                    for($k=0;$k<count($data2);$k++){
@@ -128,15 +128,12 @@ $app->get('/insurance_rechanges',function()use($app){
            }else{
                echo json_encode(array('result'=>'2','desc'=>'合作公司不存在','insurance_rechanges'=>''));
            }
-
-
-
        }
     }else{
         $selectStatement = $database->select()
             ->from('tenant')
             ->join('rechanges_insurance','rechanges_insurance.tenant_id','=','tenant.tenant_id','INNER')
-            ->orderBy('rechanges_insurance.sure_time');
+            ->orderBy('rechanges_insurance.sure_time','desc');
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
         echo json_encode(array('result'=>'3','desc'=>'城市id为空','insurance_rechanges'=>$data1));
@@ -178,12 +175,12 @@ $app->put('/sure_rechanges',function()use($app){
                         ->where('id','=',$pay_id);
                 $affectedRows2 = $updateStatement->execute();
                     if($affectedRows1>0) {
-                        echo json_decode(array('result' => '0', 'desc' => 'success'));
+                        echo json_encode(array('result' => '0', 'desc' => 'success'));
                     }else{
-                        echo json_decode(array('result'=>'1','desc'=>'保险公司确认失败'));
+                        echo json_encode(array('result'=>'1','desc'=>'保险公司确认失败'));
                     }
                 }else{
-                    echo json_decode(array('result'=>'2','desc'=>'公司余额未改变'));
+                    echo json_encode(array('result'=>'2','desc'=>'公司余额未改变'));
                 }
             }else{
                 echo json_encode(array('result'=>'3','desc'=>'充值记录不存在'));
