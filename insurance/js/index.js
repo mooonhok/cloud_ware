@@ -29,7 +29,7 @@ $(document).ready(function(){
 		},
 		           'tbodyData':{
 			       'enabled':true,  /*是否传入表格数据*/
-			       'source':testdata2 /*传入的表格数据*/
+			       'source':testdata3 /*传入的表格数据*/
 		}
 	});
  		         	}else{
@@ -49,7 +49,7 @@ $(document).ready(function(){
 		},
 		           'tbodyData':{
 			       'enabled':true,  /*是否传入表格数据*/
-			       'source':testdata2 /*传入的表格数据*/
+			       'source':testdata3 /*传入的表格数据*/
 		}
 	});
  		         	}   
