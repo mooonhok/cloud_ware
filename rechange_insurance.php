@@ -94,7 +94,7 @@ $app->get('/insurance_rechanges',function()use($app){
                   $selectStatement = $database->select()
                       ->from('rechanges_insurance')
                       ->where('tenant_id', '=', $data1[$i]['tenant_id'])
-                      ->orderBy('rechanges_insurance.sure_ttime');;
+                      ->orderBy('rechanges_insurance.sure_time');;
                   $stmt = $selectStatement->execute();
                   $data2 = $stmt->fetchAll();
                   for($k=0;$k<count($data2);$k++){
