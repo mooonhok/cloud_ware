@@ -93,13 +93,14 @@ $app->get('/insurance_rechanges',function()use($app){
               for($i=0;$i<count($data1);$i++){
                   $selectStatement = $database->select()
                       ->from('rechanges_insurance')
-                      ->where('tenant_id', '=', $data1[$i]['tenant_id']);
+                      ->where('tenant_id', '=', $data1[$i]['tenant_id'])
+                      ->orderBy('rechanges_insurance.sure_ttime');;
                   $stmt = $selectStatement->execute();
-                  $data2 = $stmt->fetch();
-                  if($data2!=null){
-                      $data2['company']=$data1[$i]['company'];
-                      array_push($arrays,$data2);
+                  $data2 = $stmt->fetchAll();
+                  for($k=0;$k<count($data2);$k++){
+                          $data2[$k]['company']=$data1[$i]['company'];
                   }
+                  array_push($arrays,$data2);
               }
                echo json_encode(array('result'=>'1','desc'=>'success','insurance_rechanges'=>$arrays));
            }else{
@@ -115,11 +116,12 @@ $app->get('/insurance_rechanges',function()use($app){
            if($data1!=null){
                $selectStatement = $database->select()
                    ->from('rechanges_insurance')
-                   ->where('tenant_id', '=', $data1['tenant_id']);
+                   ->where('tenant_id', '=', $data1['tenant_id'])
+                   ->orderBy('rechanges_insurance.sure_ttime');
                $stmt = $selectStatement->execute();
-               $data2 = $stmt->fetch();
-               if($data2!=null){
-                   $data2['company']=$data1['company'];
+               $data2 = $stmt->fetchAll();
+               for($k=0;$k<count($data2);$k++){
+                   $data2[$k]['company']=$data1['company'];
                }
                echo json_encode(array('result'=>'1','desc'=>'success','insurance_rechanges'=>$data2));
            }else{
@@ -127,7 +129,13 @@ $app->get('/insurance_rechanges',function()use($app){
            }
        }
     }else{
-        echo json_encode(array('result'=>'3','desc'=>'城市id为空','insurance_rechanges'=>''));
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->join('rechanges_insurance','rechanges_insurance.tenant_id','=','tenant.tenant_id','INNER')
+            ->orderBy('rechanges_insurance.sure_ttime');
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetchAll();
+        echo json_encode(array('result'=>'3','desc'=>'城市id为空','insurance_rechanges'=>$data1));
     }
 });
 //修改支付状态
@@ -159,7 +167,9 @@ $app->put('/sure_rechanges',function()use($app){
                     ->where('tenant_id','=',$tenant_id);
                 $affectedRows1 = $updateStatement->execute();
                 if($affectedRows1>0){
-                $updateStatement = $database->update(array('status'=>1))
+                    date_default_timezone_set("PRC");
+                    $now=date("Y-m-d H:i:s",time());
+                $updateStatement = $database->update(array('status'=>1,'sure_time'=>$now))
                         ->table('rechanges_insurance')
                         ->where('id','=',$pay_id);
                 $affectedRows2 = $updateStatement->execute();
