@@ -51,7 +51,7 @@ $app->post('/usersign',function ()use($app){
 //获取该业务员名下的公司
 $app->get('/sales_tenant',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
-    $sales_id = $app->request->headers->get("sales_id");
+    $sales_id = $app->request->get("sales_id");
     $database=localhost();
     $arrays=array();
     if($sales_id!=null||$sales_id!=""){
@@ -85,10 +85,10 @@ $app->get('/sales_tenant',function()use($app){
                array_push($arrays,$array);
                 }
             }else{
-                echo json_encode(array('result'=>'1','desc'=>'该业务员尚未有公司','company'=>$arrays));
+                echo json_encode(array('result'=>'0','desc'=>'该业务员尚未有公司','company'=>$arrays));
             }
         }else{
-            echo json_encode(array('result'=>'1','desc'=>'业务员不存在','company'=>''));
+            echo json_encode(array('result'=>'2','desc'=>'业务员不存在','company'=>''));
         }
     }else{
         echo json_encode(array('result'=>'1','desc'=>'业务员id不能为空','company'=>''));
@@ -147,7 +147,7 @@ $app->put('/tenantchange',function()use($app){
 //统计业务员业务数据
 $app->get('/tenantsum',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
-    $sales_id = $app->request->headers->get("sales_id");
+    $sales_id = $app->request->get("sales_id");
     $database=localhost();
     $arrays=array();
     if($sales_id!=null||$sales_id!=""){
