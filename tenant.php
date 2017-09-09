@@ -244,9 +244,6 @@ $app->delete('/tenant',function()use($app){
     }
 });
 
-
-
-
 $app->post('/tenant',function()use($app) {
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
@@ -267,38 +264,37 @@ $app->post('/tenant',function()use($app) {
     $service_items = $app->request->params('service_items');
  //   $trans_contract_p = $app->request->params('trans_contract_p');
     $telephone=$app->request->params('telephone');
-
     $name= $_FILES["order_t_p"]["name"];
     $name=iconv("UTF-8","UTF-8", $name);
     $name=rand(1,100000).$name;
-   move_uploaded_file($_FILES["order_t_p"]["tmp_name"], 'upload/'.$name);
-   $order_t_p= 'upload/'.$name.'';
+   move_uploaded_file($_FILES["order_t_p"]["tmp_name"], 'order_t_p/'.$name);
+   $order_t_p= 'order_t_p/'.$name.'';
     $name2=$_FILES["trans_contract_p"]["name"];
     $name2=iconv("UTF-8","UTF-8", $name2);
     $name2=rand(1,100000).$name2;
-   move_uploaded_file($_FILES["trans_contract_p"]["tmp_name"],"upload/".$name2);
-   $trans_c_p='upload/'.$name2.'';
+   move_uploaded_file($_FILES["trans_contract_p"]["tmp_name"],"trans_contract_p/".$name2);
+   $trans_c_p='trans_contract_p/'.$name2.'';
     $name3=$_FILES["file1"]["name"];
     $name3=iconv("UTF-8","UTF-8", $name3);
     $name3=rand(1,100000).$name3;
-    move_uploaded_file($_FILES["file1"]["tmp_name"],"upload/".$name3);
-    $business_l_p='upload/'.$name3.'';
+    move_uploaded_file($_FILES["file1"]["tmp_name"],"business_l_p/".$name3);
+    $business_l_p='business_l_p/'.$name3.'';
     if($company!=null||$company!=""){
         if($business_l!=""||$business_l!=null){
              if($business_l_p!=""||$business_l_p!=null){
                  if($contact_name!=null||$contact_name!=""){
                      if($telephone!=null||$telephone!=""){
-                                  if($address!=""||$address!=null){
-                                      if($from_city_id!=""||$from_city_id=null){
-                                          if($receive_city_id!=null||$receive_city_id!=""){
-                                              if($begin_time!=null||$begin_time!=""){
-                                                    if($end_time!=null||$end_time!=""){
-                                                        if($sales_id!=null||$sales_id!=""){
-                                                            $selectStatement = $database->select()
-                                                                ->from('sales')
-                                                                ->where('id','=',$sales_id)
-                                                                ->where('exist',"=",0);
-                                                            $stmt = $selectStatement->execute();
+                         if($address!=""||$address!=null){
+                             if($from_city_id!=""||$from_city_id=null){
+                                 if($receive_city_id!=null||$receive_city_id!=""){
+                                     if($begin_time!=null||$begin_time!=""){
+                                         if($end_time!=null||$end_time!=""){
+                                             if($sales_id!=null||$sales_id!=""){
+                                                 $selectStatement = $database->select()
+                                                     ->from('sales')
+                                                     ->where('id','=',$sales_id)
+                                                     ->where('exist',"=",0);
+                                                     $stmt = $selectStatement->execute();
                                                             $data1 = $stmt->fetch();
                                                             if($data1!=null||$data1!=""){
                                                                 $selectStatement = $database->select()
@@ -317,9 +313,7 @@ $app->post('/tenant',function()use($app) {
                                                                     ,'begin_time','qq','email','insurance_balance'))
                                                                         ->into('tenant')
                                                                         ->values(array($company,$from_city_id,$receive_city_id,$num,0,$business_l
-                                                                        ,$sales_id,$address,$business_l_p
-//                                                                        ,$business_l_p
-                                                                        , $order_t_p, $trans_c_p
+                                                                        ,$sales_id,$address,$business_l_p,$order_t_p, $trans_c_p
                                                                         ,$service_items,$c_introduction,$end_time,
                                                                             $begin_time,$qq,$email,0));
                                                                     $insertId = $insertStatement->execute(false);
