@@ -4,6 +4,7 @@ $(document).ready(function(){
 	var c = "";
 	var d = "";
 	var e = "";
+	var testdata2 = "";
 	$.ajax({
 		url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?tenant_id=1",
 		dataType:"json",
@@ -15,12 +16,12 @@ $(document).ready(function(){
  		    for(var i=0;i<msg.insurance_rechanges.length;i++){
 
  		    	console.log(msg.insurance_rechanges.length);
- 		    	    a += msg.insurance_rechanges[i].company;
- 		    		b += msg.insurance_rechanges[i].pay_time;
- 		    		c += msg.insurance_rechanges[i].money;
- 		    		d += '合同详情';
- 		    		e += '<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">确认支付</button>';
- 		    		var testdata2=[{'a':a,'b':b,'c':c,'d':d,'e':e},]; 
+ 		    	    a = msg.insurance_rechanges[i].company;
+ 		    		b = msg.insurance_rechanges[i].pay_time;
+ 		    		c = msg.insurance_rechanges[i].money;
+ 		    		d = '合同详情';
+ 		    		e = '<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">确认支付</button>';
+ 		    		testdata2 += [{'a':a,'b':b,'c':c,'d':d,'e':e},]; 
  		    	console.log(a);
  		    	console.log(b);
  		    	console.log(c);
