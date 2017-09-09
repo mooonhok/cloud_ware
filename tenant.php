@@ -269,7 +269,7 @@ $app->post('/tenant',function()use($app) {
     $telephone=$app->request->params('telephone');
 //    echo $order_t_p;
 //    echo $trans_contract_p;
-    $name= $_FILES["myfile"]["name"];
+    $name= $_FILES["order_t_p"]["name"];
     move_uploaded_file($_FILES["order_t_p"]["tmp_name"],"upload/". $name."");
 //if ($_FILES[$order_t_p]["error"] > 0)
 //{
