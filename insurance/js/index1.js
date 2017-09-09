@@ -1,9 +1,9 @@
 $(document).ready(function(){
-	// var a = "";
-	// var b = "";
-	// var c = "";
-	// var d = "";
-	// var e = "";
+	var a = "";
+	var b = "";
+	var c = "";
+	var d = "";
+	var e = "";
 	var testdata2 = "";
 	$.ajax({
 		url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?tenant_id=1",
@@ -16,26 +16,37 @@ $(document).ready(function(){
  		    for(var i=0;i<msg.insurance_rechanges.length;i++){
 
  		    	console.log(msg.insurance_rechanges.length);
- 		    	 //    a += msg.insurance_rechanges[i].company+",";
- 		    		// b += msg.insurance_rechanges[i].pay_time+",";
- 		    		// c += msg.insurance_rechanges[i].money+",";
- 		    		// d += '合同详情'+",";
- 		    		// e += '<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">确认支付</button>'+",";
- 		    		// a1 = a.split(",")
- 		    		// b1 = b.split(",")
- 		    		// c1 = c.split(",")
- 		    		// d1 = d.split(",")
- 		    		// e1 = e.split(",")
- 		    		// console.log(a1)
- 		    		// console.log(b1)
- 		    		// console.log(c1)
- 		    		// console.log(d1)
- 		    		// console.log(e1)
- 		    		
- 		    		testdata2 = [{'a':msg.insurance_rechanges[i].company,'b':msg.insurance_rechanges[i].pay_time,'c':msg.insurance_rechanges[i].money,'d':'合同详情','e':'<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">确认支付</button>'}]; 
+ 		    	    a += msg.insurance_rechanges[i].company+",";
+ 		    		b += msg.insurance_rechanges[i].pay_time+",";
+ 		    		c += msg.insurance_rechanges[i].money+",";
+ 		    		d += '合同详情'+",";
+ 		    		e += '<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">确认支付</button>'+",";
+ 		    		a1 = a.split(",")
+ 		    		b1 = b.split(",")
+ 		    		c1 = c.split(",")
+ 		    		d1 = d.split(",")
+ 		    		e1 = e.split(",")
+ 		    		console.log(a1)
+ 		    		console.log(b1)
+ 		    		console.log(c1)
+ 		    		console.log(d1)
+ 		    		console.log(e1)
+ 		    		for(var j=0;j<a1.length;j++){
+ 		    			for(var k=0;k<b1.length;k++){
+ 		    				for(var l=0;l<c1.length;l++){
+ 		    					for(var z=0;z<d1.length;z++){
+ 		    						for(var x=0;x<e1.length;x++){
+ 		    							testdata2 = [{'a':a1[j],'b':b1[k],'c':c1[l],'d':d1[z],'e':e1[x]}]; 
  		    		console.log(testdata2)
+ 		    						}
+ 		    					}
+ 		    				}
+ 		    			}
+ 		    		}
+ 		    		// testdata2 = [{'a':msg.insurance_rechanges[i].company,'b':msg.insurance_rechanges[i].pay_time,'c':msg.insurance_rechanges[i].money,'d':'合同详情','e':'<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">确认支付</button>'}]; 
+ 		    		// console.log(testdata2)
  		    	if(msg.insurance_rechanges[i].status!=0){	    		
-                    testdata2 = [{'a':msg.insurance_rechanges[i].company,'b':msg.insurance_rechanges[i].pay_time,'c':msg.insurance_rechanges[i].money,'d':'合同详情','e':'<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">已支付</button>'}]; 
+                   e = "已支付"
  		    		console.log(testdata2)
  		    	}
  		    	// console.log(a);
