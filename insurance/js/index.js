@@ -15,6 +15,7 @@ $(document).ready(function(){
  		         	if(msg.insurance_rechanges[i].status==0){
  		         		var testdata2={'a':'msg.insurance_rechanges[i].company','b':'msg.insurance_rechanges[i].pay_time',
 	             'c':'msg.insurance_rechanges[i].money','d':'合同详情','e':'<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">确认支付</button>'};
+	                console.log(testdata2);
 	                $('#testtable3').yhhDataTable({
 		              'paginate':{
 			          'changeDisplayLen':true,
@@ -35,6 +36,7 @@ $(document).ready(function(){
  		         	}else{
  		         		var testdata2={'a':'msg.insurance_rechanges[i].company','b':'msg.insurance_rechanges[i].pay_time',
 	             'c':'msg.insurance_rechanges[i].money','d':'','e':'已经支付'};
+	              console.log(testdata2);
 	              $('#testtable3').yhhDataTable({
 		              'paginate':{
 			          'changeDisplayLen':true,
@@ -44,7 +46,7 @@ $(document).ready(function(){
 		           'tbodyRow':{
 			       'zebra':true,
 			       'write':function(d){
-				       return '<tr><td>'+d.a+'</td><td>'+d.b+'</td><td>'+d.c+'</td><td>'+d.d+'</td><td>'+d.e+'</td></tr>';
+				       return '<tr><td>'+d.msg.insurance_rechanges[i].company+'</td><td>'+d.msg.insurance_rechanges[i].pay_time+'</td><td>'+d.msg.insurance_rechanges[i].money+'</td><td>'+d.d+'</td><td>'+d.e+'</td></tr>';
 			}
 		},
 		           'tbodyData':{
