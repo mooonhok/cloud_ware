@@ -12,7 +12,7 @@ $(document).ready(function(){
  		}),
  		success:function(msg){
  			console.log(msg);
- 		    for(var i=0;i<msg.insurance_rechanges.length;i++;){
+ 		    for(var i=0;i<msg.insurance_rechanges.length;i++){
  		    	console.log(msg.insurance_rechanges.length);
  		    	    a = msg.insurance_rechanges[i].company;
  		    		b = msg.insurance_rechanges[i].pay_time;
