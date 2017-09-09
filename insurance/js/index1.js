@@ -20,8 +20,26 @@ $(document).ready(function(){
  		    		b += msg.insurance_rechanges[i].pay_time;
  		    		c += msg.insurance_rechanges[i].money;
  		    		d += '合同详情';
- 		    		e += '<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">确认支付</button>';
+ 		    		e = '<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">确认支付</button>';
  		    		testdata2 += [{'a':a,'b':b,'c':c,'d':d,'e':e}]; 
+ 		    		$('#testtable3').yhhDataTable({
+		              'paginate':{
+			          'changeDisplayLen':true,
+			          'type':'updown',
+			          'visibleGo': true
+		 },
+		           'tbodyRow':{
+			       'zebra':true,
+			       'write':function(d){
+				       return '<tr><td>'+d.a+'</td><td>'+d.b+'</td><td>'+d.c+'</td><td>'+d.d+'</td><td>'+d.e+'</td></tr>';
+			}
+		},
+		           'tbodyData':{
+			       'enabled':true,  /*是否传入表格数据*/
+			       'source':testdata2 /*传入的表格数据*/
+		}
+	});
+
  		    	console.log(a);
  		    	console.log(b);
  		    	console.log(c);
@@ -39,23 +57,7 @@ $(document).ready(function(){
  		    	 console.log(testdata2);
  		    }
  		  
- 		         $('#testtable3').yhhDataTable({
-		              'paginate':{
-			          'changeDisplayLen':true,
-			          'type':'updown',
-			          'visibleGo': true
-		 },
-		           'tbodyRow':{
-			       'zebra':true,
-			       'write':function(d){
-				       return '<tr><td>'+d.a+'</td><td>'+d.b+'</td><td>'+d.c+'</td><td>'+d.d+'</td><td>'+d.e+'</td></tr>';
-			}
-		},
-		           'tbodyData':{
-			       'enabled':true,  /*是否传入表格数据*/
-			       'source':testdata2 /*传入的表格数据*/
-		}
-	});
+ 		         
  		}, error:function(xhr) {
 		  	  	alert(xhr.responseText);
  		  	  }
