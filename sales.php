@@ -158,16 +158,23 @@ $app->get('/tenantsum',function()use($app){
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetch();
         if($data2!=null||$data2!=""){
+            $selectStatement = $database->select()
+                ->from('tenant')
+                ->where('exist','=',0)
+                ->where('sales_id', '=', $sales_id);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $sum=0;
            for($x=1;$x<=12;$x++){
-               $selectStatement = $database->select()
-                   ->from('tenant')
-                   ->where('exist','=',0)
-                   ->where('sales_id', '=', $sales_id)
-                   ->groupBy('begin_time',cal_days_in_month($x));
-               $stmt = $selectStatement->execute();
-               $data2 = $stmt->fetch();
-               $array=count($data2);
-               array_push($arrays,$array);
+              $time=$data2['begin_time'];
+              $timestrap=strtotime($time);
+              for($y=0;$y<count($data2);$y++) {
+                  if (date('m', $timestrap) == $x) {
+                      $sum++;
+                  }
+              }
+              $array=$sum;
+              array_push($arrays,$array);
            }
             echo json_encode(array('result'=>'1','desc'=>'该业务员还没有数据','count'=>$arrays));
         }else{

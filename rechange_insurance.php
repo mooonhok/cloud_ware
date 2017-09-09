@@ -206,7 +206,7 @@ $app->get('/insurances',function ()use($app){
                 ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
                 ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
                 ->where('tenant.from_city_id','=',$city_id)
-                ->where('tenant.$company','=',$company);
+                ->where('tenant.company','=',$company);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
             echo json_encode(array('result'=>'1','desc'=>'success','rechange_insurance'=>$data1));
