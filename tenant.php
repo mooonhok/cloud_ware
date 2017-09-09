@@ -270,7 +270,7 @@ $app->post('/tenant',function()use($app) {
 //    echo $order_t_p;
 //    echo $trans_contract_p;
     $name= $_FILES["order_t_p"]["name"];
-    move_uploaded_file($_FILES["order_t_p"]["tmp_name"],"upload/". $name."");
+    move_uploaded_file($_FILES["order_t_p"]["tmp_name"], ''.$name.'');
 //if ($_FILES[$order_t_p]["error"] > 0)
 //{
     //echo "Error: " . $_FILES[$order_t_p]["error"] ;
