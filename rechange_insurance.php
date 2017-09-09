@@ -280,7 +280,7 @@ $app->get('/insurances',function ()use($app){
             $selectStatement = $database->select()
                 ->from('tenant')
                 ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
-                ->join('lorry','lorry.lorry_id','=','insurance.lorry_id','INNER')
+                ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
                 ->where('tenant.from_city_id','=',$city_id);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetch();
@@ -290,7 +290,7 @@ $app->get('/insurances',function ()use($app){
         $selectStatement = $database->select()
             ->from('tenant')
             ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
-            ->join('lorry','lorry.lorry_id','=','insurance.lorry_id','INNER');
+            ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER');
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetch();
         echo json_encode(array('result'=>'1','desc'=>'城市信息为空','insurances'=>$data1));
