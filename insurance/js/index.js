@@ -34,7 +34,7 @@ $(document).ready(function(){
 		}
 	});
  		         	}else{
- 		         		var testdata2={'a':'msg.insurance_rechanges[i].company','b':'msg.insurance_rechanges[i].pay_time',
+ 		         var testdata2={'a':'msg.insurance_rechanges[i].company','b':'msg.insurance_rechanges[i].pay_time',
 	             'c':'msg.insurance_rechanges[i].money','d':'','e':'已经支付'};
 	              console.log(testdata2);
 	              $('#testtable3').yhhDataTable({
@@ -46,7 +46,7 @@ $(document).ready(function(){
 		           'tbodyRow':{
 			       'zebra':true,
 			       'write':function(d){
-				       return '<tr><td>'+d.msg.insurance_rechanges[i].company+'</td><td>'+d.msg.insurance_rechanges[i].pay_time+'</td><td>'+d.msg.insurance_rechanges[i].money+'</td><td>'+d.d+'</td><td>'+d.e+'</td></tr>';
+				       return "<tr><td>"+d.'msg.insurance_rechanges[i].company'+"</td><td>"+d.'msg.insurance_rechanges[i].pay_time'+"</td><td>"+d.'msg.insurance_rechanges[i].money'+"</td><td>"+d.d+"</td><td>"+d.e+"</td></tr>";
 			}
 		},
 		           'tbodyData':{
