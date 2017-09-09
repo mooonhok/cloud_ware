@@ -275,11 +275,11 @@ $app->post('/tenant',function()use($app) {
     $name2=$_FILES["trans_contract_p"]["name"];
     $name2=iconv("UTF-8","gb2312", $name2);
     $name2=rand(1,100000).$name2;
-   move_upload_file($_FILES["trans_contract_p"]["tmp_name"],"upload/".$name2);
+   move_uploaded_file($_FILES["trans_contract_p"]["tmp_name"],"upload/".$name2);
     $name3=$_FILES["file1"]["name"];
-    $name3=iconv("UTF-8","gb2312", $name2);
+    $name3=iconv("UTF-8","gb2312", $name3);
     $name3=rand(1,100000).$name3;
-    move_upload_file($_FILES["file1"]["tmp_name"],"upload/".$name3);
+    move_uploaded_file($_FILES["file1"]["tmp_name"],"upload/".$name3);
     if($company!=null||$company!=""){
         if($business_l!=""||$business_l!=null){
              if($business_l_p!=""||$business_l_p!=null){
