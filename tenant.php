@@ -267,18 +267,20 @@ $app->post('/tenant',function()use($app) {
     $service_items = $app->request->params('service_items');
     $trans_contract_p = $app->request->params('trans_contract_p');
     $telephone=$app->request->params('telephone');
-    echo $order_t_p;
-    echo $trans_contract_p;
-if ($_FILES[$order_t_p]["error"] > 0)
-{
-    echo "Error: " . $_FILES[$order_t_p]["error"] ;
-}
-else
-{
-    echo "Upload: " . $_FILES[$order_t_p]["size"];
+//    echo $order_t_p;
+//    echo $trans_contract_p;
+    $name= $_FILES["myfile"]["name"];
+    move_uploaded_file($_FILES["order_t_p"]["tmp_name"],"upload/". $name."");
+//if ($_FILES[$order_t_p]["error"] > 0)
+//{
+    //echo "Error: " . $_FILES[$order_t_p]["error"] ;
+//}
+//else
+//{
+  //  echo "Upload: " . $_FILES[$order_t_p]["size"];
 //    echo "Upload: " . $_FILES["file"][$trans_contract_p] . "<br />";
-    echo "Stored in: " . $_FILES[$order_t_p]["tmp_name"];
-}
+    //echo "Stored in: " . $_FILES[$order_t_p]["tmp_name"];
+//}
 
 //    if($company!=null||$company!=""){
 //        if($business_l!=""||$business_l!=null){
