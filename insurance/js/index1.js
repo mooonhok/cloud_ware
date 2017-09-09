@@ -1,10 +1,4 @@
 $(document).ready(function(){
-	var a = "";
-	var b = "";
-	var c = "";
-	var d = "";
-	var e = "";
-	var testdata2 = "";
 	$.ajax({
 		url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?tenant_id=1",
 		dataType:"json",
@@ -16,20 +10,24 @@ $(document).ready(function(){
  			var testdata2 =msg.insurance_rechanges;
 
  		  $('#testtable3').yhhDataTable({
-		              'paginate':{
-			          'changeDisplayLen':true,
-			          'type':'updown',
-			          'visibleGo': true
-		 },
-		           'tbodyRow':{
-			       'zebra':true,
-			       'write':function(d){
-				       return '<tr><td>'+d.company+'</td><td>'+d.pay_time+'</td><td>'+d.money+'</td><td>'+d.id+'</td><td>'+d.status+'</td></tr>';
+		  'paginate':{
+			'changeDisplayLen':true,
+			'type':'updown',
+			'visibleGo': true
+		},
+		    'tbodyRow':{
+			'zebra':true,
+			'write':function(d){
+			if (d.status==0) {
+				return '<tr><td>'+d.company+'</td><td>'+d.pay_time+'</td><td>'+d.money+'</td><td>'+d.id+'</td><td><button type="button" value="'+d.status+'" onclick="btn(this)">确认支付</button></td></tr>';
+			}else{
+		     return '<tr><td>'+d.company+'</td><td>'+d.pay_time+'</td><td>'+d.money+'</td><td>'+d.id+'</td><td><button type="button" value="'+d.status+'" onclick="btn(this)">已支付</button></td></tr>';
+			}
 			}
 		},
-		           'tbodyData':{
-			       'enabled':true,  /*是否传入表格数据*/
-			       'source':testdata2 /*传入的表格数据*/
+		    'tbodyData':{
+			'enabled':true,  /*是否传入表格数据*/
+			'source':testdata2 /*传入的表格数据*/
 		}
 	});
  		         
