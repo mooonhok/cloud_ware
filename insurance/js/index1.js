@@ -27,14 +27,14 @@ $(document).ready(function(){
  		    	console.log(c);
  		    	console.log(d);
  		    	console.log(e);
- 		    	 var testdata2=[{'a':a,'b':b,'c':c,'d':d,'e':e},]; 
+ 		    	 var testdata2=[{'a':a.length,'b':b.length,'c':c.length,'d':d.length,'e':e.length},]; 
  		    	 console.log(testdata2);
  		    }
- 		        console.log(a);
- 		    	console.log(b);
- 		    	console.log(c);
- 		    	console.log(d);
- 		    	console.log(e);
+ 		        console.log(a.length);
+ 		    	console.log(b.length);
+ 		    	console.log(c.length);
+ 		    	console.log(d.length);
+ 		    	console.log(e.length);
  		        console.log(testdata2);
  		         $('#testtable3').yhhDataTable({
 		              'paginate':{
