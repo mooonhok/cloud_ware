@@ -267,12 +267,10 @@ $app->post('/tenant',function()use($app) {
     $service_items = $app->request->params('service_items');
     $trans_contract_p = $app->request->params('trans_contract_p');
     $telephone=$app->request->params('telephone');
-//    echo $order_t_p;
-//    echo $trans_contract_p;
+
     $name= $_FILES["order_t_p"]["name"];
-    move_uploaded_file($_FILES["order_t_p"]["tmp_name"], ''.$name.'');
-//    copy( move_uploaded_file($_FILES["order_t_p"]["tmp_name"], ''.$name.''),''.$name.'');
-    echo  move_uploaded_file($_FILES["order_t_p"]["tmp_name"], ''.$name.'');
+    move_uploaded_file($_FILES["order_t_p"]["tmp_name"], 'upload/'.$name);
+    copy( $_FILES["order_t_p"]["tmp_name"],'upload/'.$name.'');
     echo "Stored in:".$_FILES["order_t_p"]["tmp_name"];
   //  echo  copy( move_uploaded_file($_FILES["order_t_p"]["tmp_name"], ''.$name.''),''.$name.'');
 //if ($_FILES[$order_t_p]["error"] > 0)
