@@ -1,9 +1,9 @@
 $(document).ready(function(){
-	// var a = "";
-	// var b = "";
-	// var c = "";
-	// var d = "";
-	// var e = "";
+	var a = "";
+	var b = "";
+	var c = "";
+	var d = "";
+	var e = "";
 	var testdata2 = "";
 	$.ajax({
 		url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?tenant_id=1",
@@ -13,39 +13,8 @@ $(document).ready(function(){
  		}),
  		success:function(msg){
  			console.log(msg);
- 		    for(var i=0;i<msg.insurance_rechanges.length;i++){
+ 			var testdata2 =msg.insurance_rechanges;
 
- 		    	console.log(msg.insurance_rechanges.length);
- 		    	 //    a += msg.insurance_rechanges[i].company+",";
- 		    		// b += msg.insurance_rechanges[i].pay_time+",";
- 		    		// c += msg.insurance_rechanges[i].money+",";
- 		    		// d += '合同详情'+",";
- 		    		// e += '<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">确认支付</button>'+",";
- 		    		// a1 = a.split(",")
- 		    		// b1 = b.split(",")
- 		    		// c1 = c.split(",")
- 		    		// d1 = d.split(",")
- 		    		// e1 = e.split(",")
- 		    		// console.log(a1)
- 		    		// console.log(b1)
- 		    		// console.log(c1)
- 		    		// console.log(d1)
- 		    		// console.log(e1)
- 		    		
- 		    		testdata2 = {'a':msg.insurance_rechanges[i].company,'b':msg.insurance_rechanges[i].pay_time,'c':msg.insurance_rechanges[i].money,'d':'合同详情','e':'<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">确认支付</button>'}; 
- 		    		console.log(testdata2)
- 		    	if(msg.insurance_rechanges[i].status!=0){	    		
-                    testdata2 = {'a':msg.insurance_rechanges[i].company,'b':msg.insurance_rechanges[i].pay_time,'c':msg.insurance_rechanges[i].money,'d':'合同详情','e':'<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">已支付</button>'}; 
- 		    		console.log(testdata2)
- 		    	}
- 		    	// console.log(a);
- 		    	// console.log(b);
- 		    	// console.log(c);
- 		    	// console.log(d);
- 		    	// console.log(e);
- 		    	 // var testdata2=[{'a':a,'b':b,'c':c,'d':d,'e':e},]; 
- 		    	 console.log(testdata2);
- 		    }
  		  $('#testtable3').yhhDataTable({
 		              'paginate':{
 			          'changeDisplayLen':true,
@@ -55,7 +24,7 @@ $(document).ready(function(){
 		           'tbodyRow':{
 			       'zebra':true,
 			       'write':function(d){
-				       return '<tr><td>'+d.a+'</td><td>'+d.b+'</td><td>'+d.c+'</td><td>'+d.d+'</td><td>'+d.e+'</td></tr>';
+				       return '<tr><td>'+d.company+'</td><td>'+d.pay_time+'</td><td>'+d.money+'</td><td>'+d.id+'</td><td>'+d.status+'</td></tr>';
 			}
 		},
 		           'tbodyData':{
