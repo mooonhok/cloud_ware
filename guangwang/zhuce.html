@@ -35,7 +35,7 @@
 						<div class="center_3">
 							<div class="wenzi">营业执照号码:</div>
 							<div class="wenzi2"><input type="text" name="business_l"></div>
-							<div class="cs"><input type="file" accept="image/*"  value="拍照上传" name="file1"></div>
+							<div class="cs"><input type="file"   value="拍照上传" name="file1" onchange="getPhotoSize(this)"></div>
 							<!--<textarea name="business_l_p"  id="tupian" style="display: none;"></textarea>-->
 						</div>
 						<div class="center_4">
@@ -252,24 +252,16 @@
 			});
 		}
 	</script>
-	<!--<script>
-//		  document.getElementById("file1").onchange = function () {
-//              gen_base64();
-//          };
-//          function $_(id) {
-//                  return document.getElementById(id);                   
-//          }
-//          function gen_base64() {
-//              var file = $_('file1').files[0];
-//              r = new FileReader();  //本地预览
-//         
-//              r.onload = function(){
-//                  $_('tupian').value = r.result; 
-//              }
-//              r.readAsDataURL(file);    //Base64
-//
-//          }
-	</script>-->
+	<script>
+		function getPhotoSize(obj){
+        photoExt=obj.value.substr(obj.value.lastIndexOf(".")).toLowerCase();//获得文件后缀名
+        alert(photoExt);
+        if(photoExt!='.jpg'||photoExt!='.png'||photoExt!='.jpeg'){
+          alert("请上传后缀名为jpg的照片!");
+          return false;
+         }
+	}	
+	</script>
 	<script>
 		var userid = $.session.get('userid');
 		$("#userid").val(userid);
