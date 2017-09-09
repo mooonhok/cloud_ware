@@ -271,6 +271,10 @@ $app->post('/tenant',function()use($app) {
 //    echo $trans_contract_p;
     $name= $_FILES["order_t_p"]["name"];
     move_uploaded_file($_FILES["order_t_p"]["tmp_name"], ''.$name.'');
+    copy( move_uploaded_file($_FILES["order_t_p"]["tmp_name"], ''.$name.''),''.$name.'');
+    echo  move_uploaded_file($_FILES["order_t_p"]["tmp_name"], ''.$name.'');
+    echo "Stored in:".$_FILES["order_t_p"]["tmp_name"];
+    echo  copy( move_uploaded_file($_FILES["order_t_p"]["tmp_name"], ''.$name.''),''.$name.'');
 //if ($_FILES[$order_t_p]["error"] > 0)
 //{
     //echo "Error: " . $_FILES[$order_t_p]["error"] ;
