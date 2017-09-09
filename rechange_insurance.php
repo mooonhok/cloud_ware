@@ -277,10 +277,23 @@ $app->get('/insurances',function ()use($app){
                 echo json_encode(array('result'=>'1','desc'=>'租户公司不存在','rechange_insurance'=>''));
             }
         }else{
-            echo json_encode(array('result'=>'1','desc'=>'租户公司id为空','rechange_insurance'=>''));
+            $selectStatement = $database->select()
+                ->from('tenant')
+                ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
+                ->join('lorry','lorry.lorry_id','=','insurance.lorry_id','INNER')
+                ->where('tenant.from_city_id','=',$city_id);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            echo json_encode(array('result'=>'1','desc'=>'租户公司id为空','rechange_insurance'=>$data1));
         }
     }else{
-        echo json_encode(array('result'=>'1','desc'=>'城市信息为空','insurances'=>''));
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
+            ->join('lorry','lorry.lorry_id','=','insurance.lorry_id','INNER');
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        echo json_encode(array('result'=>'1','desc'=>'城市信息为空','insurances'=>$data1));
     }
 });
 $app->run();
