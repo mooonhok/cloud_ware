@@ -32,10 +32,10 @@ $(document).ready(function(){
  		    		// console.log(d1)
  		    		// console.log(e1)
  		    		
- 		    		testdata2 += [{'a':msg.insurance_rechanges[i].company,'b':msg.insurance_rechanges[i].pay_time,'c':msg.insurance_rechanges[i].money,'d':'合同详情','e':'<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">确认支付</button>'}]; 
+ 		    		testdata2 = [{'a':msg.insurance_rechanges[i].company,'b':msg.insurance_rechanges[i].pay_time,'c':msg.insurance_rechanges[i].money,'d':'合同详情','e':'<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">确认支付</button>'}]; 
  		    		console.log(testdata2)
  		    	if(msg.insurance_rechanges[i].status!=0){	    		
-                    testdata2 += [{'a':msg.insurance_rechanges[i].company,'b':msg.insurance_rechanges[i].pay_time,'c':msg.insurance_rechanges[i].money,'d':'合同详情','e':'<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">已支付</button>'}]; 
+                    testdata2 = [{'a':msg.insurance_rechanges[i].company,'b':msg.insurance_rechanges[i].pay_time,'c':msg.insurance_rechanges[i].money,'d':'合同详情','e':'<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">已支付</button>'}]; 
  		    		console.log(testdata2)
  		    	}
  		    	// console.log(a);
