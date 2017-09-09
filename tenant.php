@@ -255,7 +255,7 @@ $app->post('/tenant',function()use($app) {
     $begin_time = $app->request->params('begin_time');
     $end_time = $app->request->params('end_time');
     $business_l = $app->request->params('business_l');
-    $business_l_p = $app->request->params('business_l_p');
+    //$business_l_p = $app->request->params('business_l_p');
     $company = $app->request->params('company');
     $contact_name = $app->request->params('contact_name');
     $from_city_id = $app->request->params('from_city_id');
@@ -272,14 +272,17 @@ $app->post('/tenant',function()use($app) {
     $name=iconv("UTF-8","gb2312", $name);
     $name=rand(1,100000).$name;
    move_uploaded_file($_FILES["order_t_p"]["tmp_name"], 'upload/'.$name);
+   $order_t_p= 'upload/'.$name.'';
     $name2=$_FILES["trans_contract_p"]["name"];
     $name2=iconv("UTF-8","gb2312", $name2);
     $name2=rand(1,100000).$name2;
    move_uploaded_file($_FILES["trans_contract_p"]["tmp_name"],"upload/".$name2);
+   $trans_c_p='upload/'.$name2.'';
     $name3=$_FILES["file1"]["name"];
     $name3=iconv("UTF-8","gb2312", $name3);
     $name3=rand(1,100000).$name3;
     move_uploaded_file($_FILES["file1"]["tmp_name"],"upload/".$name3);
+    $business_l_p='upload/'.$name3.'';
     if($company!=null||$company!=""){
         if($business_l!=""||$business_l!=null){
              if($business_l_p!=""||$business_l_p!=null){
@@ -314,9 +317,9 @@ $app->post('/tenant',function()use($app) {
                                                                     ,'begin_time','qq','email','insurance_balance'))
                                                                         ->into('tenant')
                                                                         ->values(array($company,$from_city_id,$receive_city_id,$num,0,$business_l
-                                                                        ,$sales_id,$address,"upload/".$name3
+                                                                        ,$sales_id,$address,$business_l_p
 //                                                                        ,$business_l_p
-                                                                        , 'upload/'.$name, "upload/".$name2
+                                                                        , $order_t_p, $trans_c_p
                                                                         ,$service_items,$c_introduction,$end_time,
                                                                             $begin_time,$qq,$email,0));
                                                                     $insertId = $insertStatement->execute(false);
