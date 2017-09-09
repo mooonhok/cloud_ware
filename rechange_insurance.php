@@ -203,79 +203,13 @@ $app->get('/insurances',function ()use($app){
         if($company!=null||$company!=''){
             $selectStatement = $database->select()
                 ->from('tenant')
-                ->where('from_city_id', '=', $city_id)
-                ->where('company', '=', $company);
+                ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
+                ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
+                ->where('tenant.from_city_id','=',$city_id)
+                ->where('tenant.$company','=',$company);
             $stmt = $selectStatement->execute();
-            $data1 = $stmt->fetch();
-            if($data1!=null||$data1!=''){
-                $selectStatement = $database->select()
-                    ->from('insurance')
-                    ->where('tenant_id', '=', $data1['tenant_id']);
-                $stmt = $selectStatement->execute();
-                $data2 = $stmt->fetchAll();
-
-                if($data2!=null){
-                    for($i=0;$i<count($data2);$i++){
-                        $array1=array();
-                        $array=array();
-                        $selectStatement = $database->select()
-                            ->from('lorry')
-                            ->where('lorry_id', '=', $data2[$i]['insurance_lorry_id'])
-                            ->where('tenant_id', '=', $data1['tenant_id']);
-                        $stmt = $selectStatement->execute();
-                        $data2a = $stmt->fetch();
-                        $selectStatement = $database->select()
-                            ->from('insurance_scheduling')
-                            ->where('insurance_id', '=', $data2[$i]['insurance_id'])
-                            ->where('tenant_id','=',$data1['tenant_id']);
-                        $stmt = $selectStatement->execute();
-                        $data3 = $stmt->fetchAll();
-                        if($data3!=null){
-                           for($j=0;$j<count($data3);$j++){
-                               $selectStatement = $database->select()
-                                   ->from('schedule_order')
-                                   ->where('schedule_id', '=', $data3[$j]['scheduling_id'])
-                                   ->where('tenant_id','=',$data1['tenant_id']);
-                               $stmt = $selectStatement->execute();
-                               $data4 = $stmt->fetchAll();
-                               if($data4!=null){
-                                  for($k=0;$k<count($data4);$k++){
-                                      $selectStatement = $database->select()
-                                          ->from('orders')
-                                          ->where('order_id', '=', $data4[$k]['order_id'])
-                                          ->where('tenant_id','=',$data1['tenant_id']);
-                                      $stmt = $selectStatement->execute();
-                                      $data5 = $stmt->fetch();
-                                      if($data5!=null){
-                                          $selectStatement = $database->select()
-                                              ->from('goods')
-                                              ->where('goods_id', '=', $data5['goods_id'])
-                                              ->where('tenant_id','=',$data1['tenant_id']);
-                                          $stmt = $selectStatement->execute();
-                                          $data6 = $stmt->fetch();
-                                          array_push($array,$data6);
-                                      }else{
-                                          echo json_encode(array('result'=>'1','desc'=>'货物不存在','rechange_insurance'=>''));
-                                      }
-                                  }
-                               }else{
-                                   echo json_encode(array('result'=>'1','desc'=>'调度对应订单不存在','rechange_insurance'=>''));
-                               }
-                           }
-                        }else{
-                            echo json_encode(array('result'=>'1','desc'=>'保险对应调度不存在','rechange_insurance'=>''));
-                        }
-                        $data2[$i]['goods']=$array;
-                        $data2[$i]['lorry']=$data2a;
-                    }
-                    echo json_encode(array('result'=>'1','desc'=>'保险对应调度不存在','rechange_insurance'=>$data2));
-                }else{
-                    echo json_encode(array('result'=>'1','desc'=>'保险不存在','rechange_insurance'=>''));
-                }
-
-            }else{
-                echo json_encode(array('result'=>'1','desc'=>'租户公司不存在','rechange_insurance'=>''));
-            }
+            $data1 = $stmt->fetchAll();
+            echo json_encode(array('result'=>'1','desc'=>'success','rechange_insurance'=>$data1));
         }else{
             $selectStatement = $database->select()
                 ->from('tenant')
@@ -294,6 +228,45 @@ $app->get('/insurances',function ()use($app){
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
         echo json_encode(array('result'=>'1','desc'=>'城市信息为空','insurances'=>$data1));
+    }
+});
+
+
+//点击合同详情
+$app->get('/year_insurance',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $id=$app->request->get('id');
+    $database=localhost();
+    if($id!=null||$id!=''){
+        $selectStatement = $database->select()
+            ->from('rechanges_insurance')
+            ->join('tenant','tenant.tenant_id','=','rechanges_insurance.tenant_id','INNER')
+            ->where('rechanges_insurance.id', '=', $id);
+        $stmt = $selectStatement->execute();
+        $data1= $stmt->fetch();
+        echo json_encode(array('result'=>'1','desc'=>'id为空','insurance'=>$data1));
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'id为空','insurance'=>''));
+    }
+});
+
+//点击历史保险的货物详情
+$app->get('/one_goods',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $insurance_id=$app->request->get('insurance_id');
+    $database=localhost();
+    if($insurance_id!=null||$insurance_id!=''){
+        $selectStatement = $database->select()
+            ->from('insurance')
+            ->join('insurance_scheduling','insurance_scheduling.insurance_id','=',$insurance_id,'INNER')
+            ->join('schedule_order','schedule_order.scheduling_id','=','schedule_order.schedule_id','INNER')
+            ->join('scheduling','scheduling.order_id','=','schedule_order.order_id','INNER')
+            ->join('goods','goods.order_id','=','scheduling.order_id');
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetchAll();
+        echo json_encode(array('result'=>'1','desc'=>'success','goods'=>$data1));
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'单个保险id为空','goods'=>''));
     }
 });
 $app->run();
