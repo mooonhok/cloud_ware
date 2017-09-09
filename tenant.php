@@ -270,7 +270,7 @@ $app->post('/tenant',function()use($app) {
 
     $name= $_FILES["order_t_p"]["name"];
     move_uploaded_file($_FILES["order_t_p"]["tmp_name"], 'upload/'.$name);
-    copy( $_FILES["order_t_p"]["tmp_name"],'upload/'.$name.'');
+    //copy( $_FILES["order_t_p"]["tmp_name"],'upload/'.$name.'');
     echo "Stored in:".$_FILES["order_t_p"]["tmp_name"];
   //  echo  copy( move_uploaded_file($_FILES["order_t_p"]["tmp_name"], ''.$name.''),''.$name.'');
 //if ($_FILES[$order_t_p]["error"] > 0)
