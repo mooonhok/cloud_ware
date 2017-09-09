@@ -36,7 +36,7 @@
 							<div class="wenzi">营业执照号码:</div>
 							<div class="wenzi2"><input type="text" name="business_l"></div>
 							<div class="cs"><input type="file" accept="image/*" name="upload_file" value="拍照上传" id="file1"></div>
-							<textarea name="business_l_p"  id="tupian" style="display: none;"></textarea>
+							<!--<textarea name="business_l_p"  id="tupian" style="display: none;"></textarea>-->
 						</div>
 						<div class="center_4">
 							<div class="wenzi">负责人姓名:</div>
@@ -252,24 +252,24 @@
 			});
 		}
 	</script>
-	<script>
-		  document.getElementById("file1").onchange = function () {
-                gen_base64();
-            };
-            function $_(id) {
-                    return document.getElementById(id);                   
-            }
-            function gen_base64() {
-                var file = $_('file1').files[0];
-                r = new FileReader();  //本地预览
-           
-                r.onload = function(){
-                    $_('tupian').value = r.result; 
-                }
-                r.readAsDataURL(file);    //Base64
-  
-            }
-	</script>
+	<!--<script>
+//		  document.getElementById("file1").onchange = function () {
+//              gen_base64();
+//          };
+//          function $_(id) {
+//                  return document.getElementById(id);                   
+//          }
+//          function gen_base64() {
+//              var file = $_('file1').files[0];
+//              r = new FileReader();  //本地预览
+//         
+//              r.onload = function(){
+//                  $_('tupian').value = r.result; 
+//              }
+//              r.readAsDataURL(file);    //Base64
+//
+//          }
+	</script>-->
 	<script>
 		var userid = $.session.get('userid');
 		$("#userid").val(userid);
@@ -286,7 +286,7 @@
 			var telephone = document.getElementsByName("telephone")[0].value;
 			var company = document.getElementsByName("company")[0].value;
 			var contact_name = document.getElementsByName("contact_name")[0].value;
-			var business_l_p = document.getElementsByName("business_l_p")[0].value;
+			var business_l_p = document.getElementsByName("file1")[0].value;
 			var c_introduction = document.getElementsByName("c_introduction")[0].value;
 			var email = document.getElementsByName("email")[0].value;
 			var order_t_p = document.getElementsByName("order_t_p")[0].value;
