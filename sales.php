@@ -86,7 +86,7 @@ $app->get('/sales_tenant',function()use($app){
                 }
                 echo json_encode(array('result'=>'0','desc'=>'','company'=>$arrays));
             }else{
-                echo json_encode(array('result'=>'0','desc'=>'该业务员尚未有公司','company'=>''));
+                echo json_encode(array('result'=>'1','desc'=>'该业务员尚未有业务公司','company'=>''));
             }
         }else{
             echo json_encode(array('result'=>'2','desc'=>'业务员不存在','company'=>''));
@@ -172,12 +172,12 @@ $app->get('/tenantsum',function()use($app){
                $date=date('m', $timestrap);
                 $arrays[$date]++;
            }
-            echo json_encode(array('result'=>'1','desc'=>'该业务员还没有数据','count'=>$arrays));
+            echo json_encode(array('result'=>'0','desc'=>'','count'=>$arrays));
         }else{
             echo json_encode(array('result'=>'1','desc'=>'该业务员还没有数据','count'=>''));
         }
     }else{
-        echo json_encode(array('result'=>'1','desc'=>'业务员id不能为空','count'=>''));
+        echo json_encode(array('result'=>'2','desc'=>'业务员id不能为空','count'=>''));
     }
 });
 
