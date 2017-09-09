@@ -180,6 +180,27 @@ $app->get('/tenantsum',function()use($app){
         echo json_encode(array('result'=>'2','desc'=>'业务员id不能为空','count'=>''));
     }
 });
+//具体显示公司信息
+$app->get('/tenantbyid',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->get("tenant_id");
+    $database=localhost();
+    if($tenant_id!=null||$tenant_id!=""){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist','=',0)
+            ->where('tenant_id', '=', $tenant_id);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        if($data2!=null||$data2!=""){
+            echo json_encode(array('result'=>'0','desc'=>'','tenant'=>$data2));
+        }else{
+            echo json_encode(array('result'=>'0','desc'=>'公司不存在','tenant'=>''));
+        }
+    }else{
+        echo json_encode(array('result'=>'2','desc'=>'公司id为空','tenant'=>''));
+    }
+});
 
 $app->run();
 
