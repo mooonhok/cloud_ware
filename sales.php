@@ -67,24 +67,24 @@ $app->get('/sales_tenant',function()use($app){
                 ->where('exist','=',0)
                 ->where('sales_id', '=', $sales_id);
             $stmt = $selectStatement->execute();
-            $data2 = $stmt->fetch();
+            $data2 = $stmt->fetchAll();
             if($data2!=null||$data2!=""){
+                for($x=0;$x<count($data2);$x++){
                 $selectStatement = $database->select()
                     ->from('customer')
-                    ->where('customer_id', '=', $data2['contact_id']);
+                    ->where('customer_id', '=', $data2[$x]['contact_id']);
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetch();
-                for($x=0;$x<count($data2);$x++){
-                    $array['tenant_id']=$data2['tenant_id'];
+                $array['tenant_id']=$data2[$x]['tenant_id'];
        //        $array['user_name']=$data1['user_name'];
-               $array['customer_name']=$data2['customer_name'];
-               $array['customer_phone']=$data2['customer_phone'];
-               $array['begin_time']=$data2['begin_time'];
-               $array['end_time']=$data2['end_data'];
-               $array['company']=$data3['company'];
+               $array['customer_name']=$data3['customer_name'];
+               $array['customer_phone']=$data3['customer_phone'];
+               $array['begin_time']=$data2[$x]['begin_time'];
+               $array['end_time']=$data2[$x]['end_data'];
+               $array['company']=$data2[$x]['company'];
                array_push($arrays,$array);
                 }
-                echo json_encode(array('result'=>'0','desc'=>'该业务员尚未有公司','company'=>$arrays));
+                echo json_encode(array('result'=>'0','desc'=>'','company'=>$arrays));
             }else{
                 echo json_encode(array('result'=>'0','desc'=>'该业务员尚未有公司','company'=>''));
             }
@@ -164,19 +164,13 @@ $app->get('/tenantsum',function()use($app){
                 ->where('exist','=',0)
                 ->where('sales_id', '=', $sales_id);
             $stmt = $selectStatement->execute();
-            $data2 = $stmt->fetch();
-            $sum=0;
-           for($x=1;$x<=12;$x++){
+            $data2 = $stmt->fetchAll();
+           for($x=0;$x<count($data2);$x++){
                date_default_timezone_set("PRC");
-              $time=$data2['begin_time'];
+              $time=$data2[$x]['begin_time'];
               $timestrap=strtotime($time);
-              for($y=0;$y<count($data2);$y++) {
-                  if (date('m', $timestrap) == $x) {
-                      $sum++;
-                  }
-              }
-              $array=$sum;
-              array_push($arrays,$array);
+               $date=date('m', $timestrap);
+                $arrays[$date]++;
            }
             echo json_encode(array('result'=>'1','desc'=>'该业务员还没有数据','count'=>$arrays));
         }else{
