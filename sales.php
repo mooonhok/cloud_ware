@@ -84,8 +84,9 @@ $app->get('/sales_tenant',function()use($app){
                $array['company']=$data3['company'];
                array_push($arrays,$array);
                 }
-            }else{
                 echo json_encode(array('result'=>'0','desc'=>'该业务员尚未有公司','company'=>$arrays));
+            }else{
+                echo json_encode(array('result'=>'0','desc'=>'该业务员尚未有公司','company'=>''));
             }
         }else{
             echo json_encode(array('result'=>'2','desc'=>'业务员不存在','company'=>''));
@@ -166,6 +167,7 @@ $app->get('/tenantsum',function()use($app){
             $data2 = $stmt->fetch();
             $sum=0;
            for($x=1;$x<=12;$x++){
+               date_default_timezone_set("PRC");
               $time=$data2['begin_time'];
               $timestrap=strtotime($time);
               for($y=0;$y<count($data2);$y++) {
