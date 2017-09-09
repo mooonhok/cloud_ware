@@ -15,19 +15,19 @@ $(document).ready(function(){
  		    for(var i=0;i<msg.insurance_rechanges.length;i++){
 
  		    	console.log(msg.insurance_rechanges.length);
- 		    	    a = msg.insurance_rechanges[i].company;
- 		    		b = msg.insurance_rechanges[i].pay_time;
- 		    		c = msg.insurance_rechanges[i].money;
- 		    		d = '合同详情';
- 		    		e = '<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">确认支付</button>';
- 		    		var testdata2+=[{'a':a,'b':b,'c':c,'d':d,'e':e},]; 
+ 		    	    a += msg.insurance_rechanges[i].company;
+ 		    		b += msg.insurance_rechanges[i].pay_time;
+ 		    		c += msg.insurance_rechanges[i].money;
+ 		    		d += '合同详情';
+ 		    		e += '<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">确认支付</button>';
+ 		    		var testdata2=[{'a':a,'b':b,'c':c,'d':d,'e':e},]; 
  		    	console.log(a);
  		    	console.log(b);
  		    	console.log(c);
  		    	console.log(d);
  		    	console.log(e);
  		    	if(msg.insurance_rechanges[i].status!=0){	    		
-                    e = '<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">已支付</button>';
+                    e += '<button type="button" value="'+msg.insurance_rechanges[i].id+'" onclick="btn(this)">已支付</button>';
  		    	}
  		    	console.log(a);
  		    	console.log(b);
