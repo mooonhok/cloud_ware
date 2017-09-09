@@ -11,7 +11,8 @@
 	</head>
 
 	<body>
-		<form id="myform" action="http://122.152.213.89/tenant.php/tenant" enctype="multipart/form-data" method="post" onsubmit="return check()">
+		<form id="myform" action="http://mooonhok-cloudware.daoapp.io/tenant.php/tenant" enctype="multipart/form-data" method="post" >
+			<!--onsubmit="return check()-->
 			<div class="box">
 				<!-- top -->
 				<div class="top">
@@ -272,99 +273,99 @@
 	<script>
 		var userid = $.session.get('userid');
 		$("#userid").val(userid);
-			if(userid == null || username == null) {
-				window.location.href = "index.html";
-			} else {
-		function check(){
-		//	alert(document.getElementsByName("business_l_p")[0].value);
-			var address = document.getElementsByName("address")[0].value;
-			var begin_time = document.getElementsByName("begin_time")[0].value;
-			var end_time = document.getElementsByName("end_time")[0].value;
-			var business_l = document.getElementsByName("business_l")[0].value;
-			var telephone = document.getElementsByName("telephone")[0].value;
-			var company = document.getElementsByName("company")[0].value;
-			var contact_name = document.getElementsByName("contact_name")[0].value;
-			var business_l_p = document.getElementsByName("business_l_p")[0].value;
-			var c_introduction = document.getElementsByName("c_introduction")[0].value;
-			var email = document.getElementsByName("email")[0].value;
-			var order_t_p = document.getElementsByName("order_t_p")[0].value;
-			var qq = document.getElementsByName("qq")[0].value;
-			var receive_city_id = document.getElementsByName("receive_city_id")[0].value;
-			var from_city_id = document.getElementsByName("from_city_id")[0].value;
-			var sales_id = document.getElementsByName("sales_id")[0].value;
-			var service_items = document.getElementsByName("service_items")[0].value;
-			var trans_contract_p = document.getElementsByName("trans_contract_p")[0].value;
-//			alert(address+"///"+begin_time+"///"+end_time+"///"+business_l+"///"+telephone+"///"+company+"///"+contact_name);
-//			alert(business_l_p);
-			if(address == null || address == "") {
-				alert("地址不能为空");
-				return false;
-			}
-			if(begin_time==null || begin_time=="") {
-				alert("开始时间不能为空");
-				return false;
-			}
-			if(end_time==null || end_time=="") {
-				alert("结束时间不能为空");
-				return false;
-			}
-			if(business_l==null || business_l=="") {
-				alert("营业执照不能为空");
-				return false;
-			}
-			if(company==null || company=="") {
-				alert("公司名称不能为空");
-				return false;
-			}
-			if(contact_name==null || contact_name=="") {
-				alert("公司联系人不能为空");
-				return false;
-			}
-			if(business_l_p==null || business_l_p=="") {
-				alert("公司营业执照照片不能为空");
-				return false;
-			}
-			if(c_introduction==null || c_introduction=="") {
-				alert("公司介绍不能为空");
-				return false;
-			}
-//			if(email==null || email=="") {
-//				alert("邮箱不能为空");
+			//if(userid == null || username == null) {
+		//		window.location.href = "index.html";
+		//	} else {
+//		function check(){
+//		//	alert(document.getElementsByName("business_l_p")[0].value);
+//			var address = document.getElementsByName("address")[0].value;
+//			var begin_time = document.getElementsByName("begin_time")[0].value;
+//			var end_time = document.getElementsByName("end_time")[0].value;
+//			var business_l = document.getElementsByName("business_l")[0].value;
+//			var telephone = document.getElementsByName("telephone")[0].value;
+//			var company = document.getElementsByName("company")[0].value;
+//			var contact_name = document.getElementsByName("contact_name")[0].value;
+//			var business_l_p = document.getElementsByName("business_l_p")[0].value;
+//			var c_introduction = document.getElementsByName("c_introduction")[0].value;
+//			var email = document.getElementsByName("email")[0].value;
+//			var order_t_p = document.getElementsByName("order_t_p")[0].value;
+//			var qq = document.getElementsByName("qq")[0].value;
+//			var receive_city_id = document.getElementsByName("receive_city_id")[0].value;
+//			var from_city_id = document.getElementsByName("from_city_id")[0].value;
+//			var sales_id = document.getElementsByName("sales_id")[0].value;
+//			var service_items = document.getElementsByName("service_items")[0].value;
+//			var trans_contract_p = document.getElementsByName("trans_contract_p")[0].value;
+//         // console(trans_contract_p);
+//         alert(trans_contract_p);
+//			if(address == null || address == "") {
+//				alert("地址不能为空");
 //				return false;
 //			}
-//			if(order_t_p==null || order_t_p=="") {
-//				alert("运单模版不能为空");
+//			if(begin_time==null || begin_time=="") {
+//				alert("开始时间不能为空");
 //				return false;
 //			}
-//			if(qq==null || qq=="") {
-//				alert("qq不能为空");
+//			if(end_time==null || end_time=="") {
+//				alert("结束时间不能为空");
 //				return false;
 //			}
-			if(receive_city_id==0 || receive_city_id=="") {
-				alert("收货城市不能为空");
-				return false;
-			}
-			if(from_city_id==0 || from_city_id=="") {
-				alert("发货城市不能为空");
-				return false;
-			}
-//			if(service_items==null || service_items=="") {
-//				alert("服务项目不能为空");
+//			if(business_l==null || business_l=="") {
+//				alert("营业执照不能为空");
 //				return false;
 //			}
-//			if(trans_contract_p==null || trans_contract_p=="") {
-//				alert("运输合同模版不能为空");
+//			if(company==null || company=="") {
+//				alert("公司名称不能为空");
 //				return false;
 //			}
-			if(telephone==null||telephone==""){
-				alert("缺少公司联系人电话");
-				return false;
-			}
-			alert("提交成功");
-			return true;
-			
-		}
-		}
+//			if(contact_name==null || contact_name=="") {
+//				alert("公司联系人不能为空");
+//				return false;
+//			}
+//			if(business_l_p==null || business_l_p=="") {
+//				alert("公司营业执照照片不能为空");
+//				return false;
+//			}
+////			if(c_introduction==null || c_introduction=="") {
+////				alert("公司介绍不能为空");
+////				return false;
+////			}
+////			if(email==null || email=="") {
+////				alert("邮箱不能为空");
+////				return false;
+////			}
+////			if(order_t_p==null || order_t_p=="") {
+////				alert("运单模版不能为空");
+////				return false;
+////			}
+////			if(qq==null || qq=="") {
+////				alert("qq不能为空");
+////				return false;
+////			}
+//			if(receive_city_id==0 || receive_city_id=="") {
+//				alert("收货城市不能为空");
+//				return false;
+//			}
+//			if(from_city_id==0 || from_city_id=="") {
+//				alert("发货城市不能为空");
+//				return false;
+//			}
+////			if(service_items==null || service_items=="") {
+////				alert("服务项目不能为空");
+////				return false;
+////			}
+////			if(trans_contract_p==null || trans_contract_p=="") {
+////				alert("运输合同模版不能为空");
+////				return false;
+////			}
+//			if(telephone==null||telephone==""){
+//				alert("缺少公司联系人电话");
+//				return false;
+//			}
+//			alert("提交成功");
+//			return true;
+//			
+//		}
+		//}
 	</script>
 
 </html>
