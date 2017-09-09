@@ -35,7 +35,7 @@
 						<div class="center_3">
 							<div class="wenzi">营业执照号码:</div>
 							<div class="wenzi2"><input type="text" name="business_l"></div>
-							<div class="cs"><input type="file"   value="拍照上传" name="file1" onchange="getPhotoSize(this)"></div>
+							<div class="cs"><input type="file"   value="拍照上传" name="file1"></div>
 							<!--<textarea name="business_l_p"  id="tupian" style="display: none;"></textarea>-->
 						</div>
 						<div class="center_4">
@@ -253,24 +253,12 @@
 		}
 	</script>
 	<script>
-		function getPhotoSize(obj){
-        photoExt=obj.value.substr(obj.value.lastIndexOf(".")).toLowerCase();//获得文件后缀名
-        alert(photoExt);
-        if(photoExt!='.jpg'||photoExt!='.png'||photoExt!='.jpeg'){
-          alert("请上传后缀名为jpg的照片!");
-          return false;
-         }
-	}	
-	</script>
-	<script>
 		var userid = $.session.get('userid');
 		$("#userid").val(userid);
 			if(userid == null || username == null) {
 				window.location.href = "index.html";
 			} else {
 		function check(){
-		
-		//	alert(document.getElementsByName("business_l_p")[0].value);
 			var address = document.getElementsByName("address")[0].value;
 			var begin_time = document.getElementsByName("begin_time")[0].value;
 			var end_time = document.getElementsByName("end_time")[0].value;
@@ -288,7 +276,8 @@
 			var sales_id = document.getElementsByName("sales_id")[0].value;
 			var service_items = document.getElementsByName("service_items")[0].value;
 			var trans_contract_p = document.getElementsByName("trans_contract_p")[0].value;
-           // console(trans_contract_p);
+			 photoExt=obj.value.substr(obj.value.lastIndexOf(".")).toLowerCase();//获得文件后缀名
+          
            alert(trans_contract_p);
 			if(address == null || address == "") {
 				alert("地址不能为空");
@@ -318,22 +307,6 @@
 				alert("公司营业执照照片不能为空");
 				return false;
 			}
-//////			if(c_introduction==null || c_introduction=="") {
-//////				alert("公司介绍不能为空");
-//////				return false;
-//////			}
-//////			if(email==null || email=="") {
-//////				alert("邮箱不能为空");
-//////				return false;
-//////			}
-//////			if(order_t_p==null || order_t_p=="") {
-//////				alert("运单模版不能为空");
-//////				return false;
-		//}
-//////			if(qq==null || qq=="") {
-//////				alert("qq不能为空");
-//////				return false;
-//////			}
 			if(receive_city_id==0 || receive_city_id=="") {
 				alert("收货城市不能为空");
 				return false;
@@ -342,23 +315,19 @@
 				alert("发货城市不能为空");
 				return false;
 			}
-////////			if(service_items==null || service_items=="") {
-////////				alert("服务项目不能为空");
-////////				return false;
-////////			}
-////////			if(trans_contract_p==null || trans_contract_p=="") {
-////////				alert("运输合同模版不能为空");
-////////				return false;
-////////			}
 		if(telephone==null||telephone==""){
 			alert("缺少公司联系人电话");
 			return false;
-	}
+	       }
+		if(photoExt=='.jpg'||photoExt=='.png'||photoExt=='.jpeg'){
 			alert("提交成功");
 			return true;
-			
-		}
-		}
+		}else{
+			alert("图片格式错误");
+			return false;
+		}	
+	}
+}
 	</script>
 
 </html>
