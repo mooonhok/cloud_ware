@@ -283,7 +283,7 @@ $app->get('/insurances',function ()use($app){
                 ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
                 ->where('tenant.from_city_id','=',$city_id);
             $stmt = $selectStatement->execute();
-            $data1 = $stmt->fetch();
+            $data1 = $stmt->fetchAll();
             echo json_encode(array('result'=>'1','desc'=>'租户公司id为空','rechange_insurance'=>$data1));
         }
     }else{
@@ -292,7 +292,7 @@ $app->get('/insurances',function ()use($app){
             ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
             ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER');
         $stmt = $selectStatement->execute();
-        $data1 = $stmt->fetch();
+        $data1 = $stmt->fetchAll();
         echo json_encode(array('result'=>'1','desc'=>'城市信息为空','insurances'=>$data1));
     }
 });
