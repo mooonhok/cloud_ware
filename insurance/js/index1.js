@@ -10,9 +10,10 @@
 $(document).ready(function(){
 	var city_id = $.getUrlParam("city_id");
 	var company = $.getUrlParam("company");
-	alert(city_id)
+	alert(city_id);
+	alert(company);
 	$.ajax({
-		url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?city_id=1",
+		url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?city_id="+city_id+"company="+company,
 		dataType:"json",
 		contentType:"application/json;charset=utf-8",
 		data:JSON.stringify({
