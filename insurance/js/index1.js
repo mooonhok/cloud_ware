@@ -39,7 +39,7 @@ $(document).ready(function(){
 			'zebra':true,
 			'write':function(d){
 			if (d.status==0) {
-				return '<tr><td>'+d.company+'</td><td>'+d.pay_time+'</td><td>'+d.money+'</td><td>'+d.id+'</td><td><button type="button" value="'+d.status+'" onclick="btn(this)">确认支付</button></td></tr>';
+				return '<tr><td>'+d.company+'</td><td>'+d.pay_time+'</td><td>'+d.money+'</td><td>'+d.id+'</td><td onclick="btn(this)"><button type="button" value="'+d.status+'">确认支付</button></td></tr>';
 			}else{
 		     return '<tr><td>'+d.company+'</td><td>'+d.pay_time+'</td><td>'+d.money+'</td><td>'+d.id+'</td><td><button type="button" disabled="disabled" value="'+d.status+'">已支付</button></td></tr>';
 			}
@@ -68,6 +68,17 @@ $(".hunt").on("click",function(){
 		
 	}	
 })
+function btn(td){
+		var id = element.children[3].innerHTML;
+		var va = element.children[4].button.value;
+		console.log(id);
+		console.log(va);
+		$(".box3").css("display","block");
+		$(".box3_2").on("click",function(){
+			$(".box3").css("display","none");
+			td.val="";
+		})
+	}
 
 $(".select_2_2 img").on("click",function(){
 	var options=$("#city1 option:selected");
