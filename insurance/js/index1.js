@@ -42,7 +42,7 @@ $(".hunt").on("click",function(){
 		alert("请选择城市")
 	}else{
 		$.ajax({
-		    url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?tenant_id=1",
+		    url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?city_id="+cit,
 		    dataType:"json",
 		    contentType:"application/json;charset=utf-8",
 		    data:JSON.stringify({
