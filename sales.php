@@ -172,6 +172,11 @@ $app->get('/tenantsum',function()use($app){
                $date=date('m', $timestrap);
                 $arrays[$date]++;
            }
+           for($y=1;$y<=12;$y++){
+               if($arrays[$y]==null||$arrays[$y]==""){
+                   $arrays[$y]=0;
+               }
+           }
             echo json_encode(array('result'=>'0','desc'=>'','count'=>$arrays));
         }else{
             echo json_encode(array('result'=>'1','desc'=>'该业务员还没有数据','count'=>''));
@@ -195,7 +200,7 @@ $app->get('/tenantbyid',function()use($app){
         if($data2!=null||$data2!=""){
             echo json_encode(array('result'=>'0','desc'=>'','tenant'=>$data2));
         }else{
-            echo json_encode(array('result'=>'0','desc'=>'公司不存在','tenant'=>''));
+            echo json_encode(array('result'=>'1','desc'=>'公司不存在','tenant'=>''));
         }
     }else{
         echo json_encode(array('result'=>'2','desc'=>'公司id为空','tenant'=>''));
