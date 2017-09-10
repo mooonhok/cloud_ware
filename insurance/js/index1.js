@@ -37,7 +37,8 @@ $(document).ready(function(){
 
 	})
 $(".hunt").on("click",function(){
-	var cit = $(".cit option").value
+	var cit = $(".cit option").value;
+	console.log(cit);
 	if(cit=""){
 		alert("请选择城市")
 	}else{
@@ -50,7 +51,10 @@ $(".hunt").on("click",function(){
 		   success:function(msg){
 		   var fcity = msg.insurance_rechanges.from_city_id;
 		   var rcity = msg.insurance_rechanges.receive_city_id;
+		   console.log(fcity);
+		   console.log(rcity);
 		   var testdata4 =msg.insurance_rechanges;
+		   console.log(testdata4);
 		   $('#testtable3').yhhDataTable({
 		//   'paginate':{
 		// 	'changeDisplayLen':true,
