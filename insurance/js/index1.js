@@ -50,10 +50,10 @@ $(".hunt").on("click",function(){
 		    data:JSON.stringify({
  		}),
 		   success:function(msg){
-		   	for(var i=0;i<msg.insurance_rechanges.length;i++){
-		   		var fcity = msg.insurance_rechanges[i].from_city_id;
-		        var rcity = msg.insurance_rechanges[i].receive_city_id;
-		   	}  
+		   
+		   		var fcity = from_city_id;
+		        var rcity = receive_city_id;
+		   
 		   console.log(fcity);
 		   console.log(rcity);
 		   var testdata4 =msg.insurance_rechanges;
@@ -67,9 +67,9 @@ $(".hunt").on("click",function(){
 		    'tbodyRow':{
 			'zebra':true,
 			'write':function(d){
-			if (cit==fcity&&d.status==0) {
+			if (cit==from_city_id&&d.status==0) {
 				return '<tr><td>'+d.company+'</td><td>'+d.pay_time+'</td><td>'+d.money+'</td><td>'+d.id+'</td><td><button type="button" value="'+d.status+'" onclick="btn(this)">确认支付</button></td></tr>';
-			}else if(cit==fcity&&d.status!=0){
+			}else if(cit==from_city_id&&d.status!=0){
 		     return '<tr><td>'+d.company+'</td><td>'+d.pay_time+'</td><td>'+d.money+'</td><td>'+d.id+'</td><td><button type="button" disabled="disabled" value="'+d.status+'">已支付</button></td></tr>';
 			}else{
 				alert("没有该城市的订单")
