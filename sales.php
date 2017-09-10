@@ -151,6 +151,7 @@ $app->get('/tenantsum',function()use($app){
     $sales_id = $app->request->get("sales_id");
     $database=localhost();
     $arrays=array();
+    $arrays1=array();
     if($sales_id!=null||$sales_id!=""){
         $selectStatement = $database->select()
             ->from('tenant')
@@ -176,8 +177,9 @@ $app->get('/tenantsum',function()use($app){
                if($arrays[$y]==null||$arrays[$y]==""){
                    $arrays[$y]=0;
                }
+              arrays_push($arrays1,$arrays[$y]);
            }
-            echo json_encode(array('result'=>'0','desc'=>'','count'=>$arrays));
+            echo json_encode(array('result'=>'0','desc'=>'','count'=>$arrays1));
         }else{
             echo json_encode(array('result'=>'1','desc'=>'该业务员还没有数据','count'=>''));
         }
