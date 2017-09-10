@@ -269,7 +269,7 @@
    	};
     /*插件参数*/
     $.fn.paginate.defaults = {
-    	'visibleGo': false, /*是否开启直接翻至某页功能*/
+    	'visibleGo': true, /*是否开启直接翻至某页功能*/
     	'type':'numbers', /*默认按钮样式递增（numbers只有数字按钮，updown增加上下页按钮，full增加首尾页按钮）*/
     	/*分页数据信息*/
     	'pageData':{

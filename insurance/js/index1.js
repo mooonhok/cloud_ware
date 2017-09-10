@@ -44,19 +44,7 @@ $(".hunt").on("click",function(){
 	if(cit==0){
 		alert("请选择城市")
 	}else{
-		var refreshTable = function(data,page){
-			if ($.isEmptyObject(data)) data = {};
-			var toData = {
-				'ajaxParam':{'data':data}
-			}
-			if (!$.isEmptyObject(page)){
-				toData.paginate = {};
-				toData.paginate.currentPage = page;
-			}
-			var $table = $page.find('.result-list');
-			$table.yhhDataTable('refresh',toData);
-		}
-		
+		$("#testtable3 tbody").html("");
 		$.ajax({
 		    url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?city_id="+cit,
 		    dataType:"json",
@@ -68,7 +56,7 @@ $(".hunt").on("click",function(){
 		   var testdata4 =msg.insurance_rechanges;
 		   console.log(testdata4);
 		   $('#testtable3').yhhDataTable({
-		//   'paginate':{
+		//  'paginate':{
 		// 	'changeDisplayLen':true,
 		// 	'type':'updown',
 		// 	'visibleGo': true
