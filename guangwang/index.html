@@ -23,7 +23,7 @@
                  <a href="" class="a1"><img src="images/dl.png" alt="" class="img1"></a>
 				<ul>
 					<li><div id="name">用户名</div></li>
-					<li><a href="register.html">客户信息</a></li>
+					<li><a href="zhuce.html">客户信息</a></li>
 					<li><a href="Highcharts.html">企业信息</a></li>
 					<li><a href="">费用结算</a></li>
 					<li class="tc"><a href="">退出登录</a></li>
@@ -249,7 +249,7 @@
    		  	  	    $.session.set('userid',msg.user.id);
    		  	  	    $.session.set('username',msg.user.user_name);
    		  	  	    var user=$.session.get('userid');
-   		  	  	   // alert(user);
+   		  	  	    alert(user);
    		  	  	    $("#name").val(msg.user.user_name);
    		  	  	   
    		  	  	}else{

@@ -21,6 +21,7 @@
    <script>
    	var data1=null;
    	var sales_id = $.session.get('userid');
+   	alert(sales_id);
 // 	if(userid == null || username == null) {
 //				window.location.href = "index.html";
 //	} else {
@@ -36,8 +37,7 @@
    		  	  success:function(msg){
    		  	  	alert(msg.result);
    		  	  	if(msg.result==0){	
-                   data1=[msg.count.01,msg.count.02,msg.count.03,msg.count.04,msg.count.05,msg.count.06,
-                   msg.count.07,msg.count.08,msg.count.09,msg.count.10,msg.count.11,msg.count.12]
+                   data1=[msg.count.01,msg.count.02,msg.count.03,msg.count.04,msg.count.05,msg.count.06,msg.count.07,msg.count.08,msg.count.09,msg.count.10,msg.count.11,msg.count.12]
    		  	  	}else{
    		  	  		alert(msg.desc);
    		  	  	}
@@ -47,8 +47,6 @@
    		  	  }
    	});
    	}
-   </script>
-	<script>
 	/**
   * Highcharts 在 4.2.0 开始已经不依赖 jQuery 了，直接用其构造函数既可创建图表
  **/
