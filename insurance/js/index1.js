@@ -38,8 +38,8 @@ $(document).ready(function(){
 
 	})
 $(".hunt").on("click",function(){
-	var cit = $(".cit option").value;
-	console.log(cit);
+	var options=$("#city1 option:selected");
+    console.log(options.val());
 	if(cit=""){
 		alert("请选择城市")
 	}else{
@@ -50,8 +50,10 @@ $(".hunt").on("click",function(){
 		    data:JSON.stringify({
  		}),
 		   success:function(msg){
-		   var fcity = msg.insurance_rechanges.from_city_id;
-		   var rcity = msg.insurance_rechanges.receive_city_id;
+		   	for(var i=0;i<msg.insurance_rechanges.length;i++){
+		   		var fcity = msg.insurance_rechanges[i].from_city_id;
+		        var rcity = msg.insurance_rechanges[i].receive_city_id;
+		   	}  
 		   console.log(fcity);
 		   console.log(rcity);
 		   var testdata4 =msg.insurance_rechanges;
