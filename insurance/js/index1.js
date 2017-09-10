@@ -11,6 +11,7 @@ $(document).ready(function(){
 
  		  $('#testtable3').yhhDataTable({
 		  'paginate':{
+		  	'enabled':true,
 			'changeDisplayLen':true,
 			'type':'updown',
 			'visibleGo': true

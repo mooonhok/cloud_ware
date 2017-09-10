@@ -276,7 +276,7 @@
     	/*显示渲染*/
     	'view':function($frame,$table,$tbody,pluginName,isStart){
     		var opts = optHandle.get($table,pluginName);
-    		console.log('yhhDataTable param:'+JSON.stringify(opts));
+    		// console.log('yhhDataTable param:'+JSON.stringify(opts));
     		opts.beforeShow();
     		
     		var that = this;
