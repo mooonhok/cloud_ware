@@ -66,9 +66,12 @@ $(".hunt").on("click",function(){
 		window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id="+cit;
 		
 		
-	}
+	}	
+})
 
-	$(".select_2_2").on("click",function(){
+$(".select_2_2 img").on("click",function(){
+	var options=$("#city1 option:selected");
+	var cit = options.val();	
 	var city = $(".select_2_1 input").val();
 	console.log(city);
 	if(cit==0){
@@ -78,7 +81,6 @@ $(".hunt").on("click",function(){
 	}else if(cit!=0&&city!=0){
 		window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id="+cit+"&company="+city;
 	}
-})
 
   })
 
