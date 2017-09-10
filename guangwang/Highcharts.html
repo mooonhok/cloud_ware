@@ -21,12 +21,12 @@
  -->
 		<div id="container" style="min-width:400px;height:400px"></div>
 		<script>
-		    var data1=null;
+		    
 			var sales_id = $.session.get('userid');
 			alert(sales_id);
-			// 	if(sales_id==null||sales_id=="") {
-			//				window.location.href = "index.html";
-			//	} else {
+			 	if(sales_id==null||sales_id=="") {
+							window.location.href = "index.html";
+				} else {
 			$.ajax({
 				url: "http://mooonhok-cloudware.daoapp.io/sales.php/tenantsum?sales_id=" + sales_id,
 				dataType: 'json',
@@ -36,21 +36,10 @@
 				success: function(msg) {
 					alert(msg.result);
 					if(msg.result == 0) {
-						data1=msg.count;
-						alert(data1);
-					} else {
-						alert(msg.desc);
-					}
-				},
-				error: function(xhr) {
-					alert(xhr.responseText);
-				}
-			});
-			//	}
-			/**
-			 * Highcharts 在 4.2.0 开始已经不依赖 jQuery 了，直接用其构造函数既可创建图表
-			 **/
-			var chart = new Highcharts.Chart('container', {
+						/**
+			         * Highcharts 在 4.2.0 开始已经不依赖 jQuery 了，直接用其构造函数既可创建图表
+			           **/
+							var chart = new Highcharts.Chart('container', {
 							title: {
 								text: '业务员月份业务统计',
 								x: -20
@@ -83,9 +72,22 @@
 							},
 							series: [{
 								name: '商家数量',
-								data: [data1]
+								data: [msg.count[0],msg.count[1],msg.count[2],msg.count[3],msg.count[4],msg.count[5],msg.count[6],msg.count[7],msg.count[8],msg.count[9],msg.count[10],msg.count[11]]
 							}]
 						});
+						
+						
+						
+					} else {
+						alert(msg.desc);
+					}
+				},
+				error: function(xhr) {
+					alert(xhr.responseText);
+				}
+			});
+				}
+			
 		</script>
 	</body>
 
