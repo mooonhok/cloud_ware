@@ -12,8 +12,14 @@ $(document).ready(function(){
 	var company = $.getUrlParam("company");
 	alert(city_id);
 	alert(company);
+	if(city_id==null){
+		city_id='';
+	}
+	if(company==null){
+		company='';
+	}
 	$.ajax({
-		url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?city_id="+city_id,
+		url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?city_id="+city_id+"&company="+company+"",
 		dataType:"json",
 		contentType:"application/json;charset=utf-8",
 		data:JSON.stringify({
