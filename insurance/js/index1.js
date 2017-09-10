@@ -10,6 +10,7 @@
 $(document).ready(function(){
 	var city_id = $.getUrlParam("city_id");
 	var company = $.getUrlParam("company");
+	alert(city_id)
 	$.ajax({
 		url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?city_id="+city_id+"&company="+company,
 		dataType:"json",
@@ -55,14 +56,9 @@ $(".hunt").on("click",function(){
 	if(cit==0){
 		alert("请选择城市")
 	}else{
-		window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id="+city_id;
+		window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id="+cit;
 		
 		
 	}
-})
-
-
-
-
-	
+  })
 })

@@ -92,7 +92,7 @@ $app->get('/insurance_rechanges',function()use($app){
                ->where('tenant.company','=',$company)
                ->orderBy('rechanges_insurance.sure_time','desc');
            $stmt = $selectStatement->execute();
-           $data1 = $stmt->fetch();
+           $data1 = $stmt->fetchAll();
            echo json_encode(array('result'=>'1','desc'=>'success','insurance_rechanges'=>$data1));
        }else{
                $selectStatement = $database->select()
