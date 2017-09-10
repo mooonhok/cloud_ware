@@ -87,47 +87,22 @@ $app->get('/insurance_rechanges',function()use($app){
 
            $selectStatement = $database->select()
                ->from('tenant')
-               ->where('from_city_id', '=', $city_id)
-               ->where('company','=',$company);
+               ->join('rechanges_insurance','rechanges_insurance.tenant_id','=','tenant.tenant_id','INNER')
+               ->where('tenant.from_city_id', '=', $city_id)
+               ->where('tenant.company','=',$company)
+               ->orderBy('rechanges_insurance.sure_time','desc');
            $stmt = $selectStatement->execute();
            $data1 = $stmt->fetch();
-           if($data1!=null){
+           echo json_encode(array('result'=>'1','desc'=>'success','insurance_rechanges'=>$data1));
+       }else{
                $selectStatement = $database->select()
-                   ->from('rechanges_insurance')
-                   ->where('tenant_id', '=', $data1['tenant_id'])
+                   ->from('tenant')
+                   ->join('rechanges_insurance','rechanges_insurance.tenant_id','=','tenant.tenant_id','INNER')
+                   ->where('tenant.from_city_id', '=', $city_id)
                    ->orderBy('rechanges_insurance.sure_time','desc');
                $stmt = $selectStatement->execute();
-               $data2 = $stmt->fetchAll();
-               for($k=0;$k<count($data2);$k++){
-                   $data2[$k]['company']=$data1['company'];
-               }
-               echo json_encode(array('result'=>'1','desc'=>'success','insurance_rechanges'=>$data2));
-           }else{
-               echo json_encode(array('result'=>'2','desc'=>'合作公司不存在','insurance_rechanges'=>''));
-           }
-       }else{
-           $selectStatement = $database->select()
-               ->from('tenant')
-               ->where('from_city_id', '=', $city_id);
-           $stmt = $selectStatement->execute();
-           $data1 = $stmt->fetchAll();
-           if($data1!=null){
-               for($i=0;$i<count($data1);$i++){
-                   $selectStatement = $database->select()
-                       ->from('rechanges_insurance')
-                       ->where('tenant_id', '=', $data1[$i]['tenant_id'])
-                       ->orderBy('rechanges_insurance.sure_time','desc');
-                   $stmt = $selectStatement->execute();
-                   $data2 = $stmt->fetchAll();
-                   for($k=0;$k<count($data2);$k++){
-                       $data2[$k]['company']=$data1[$i]['company'];
-                   }
-                   array_push($arrays,$data2);
-               }
-               echo json_encode(array('result'=>'1','desc'=>'success','insurance_rechanges'=>$arrays));
-           }else{
-               echo json_encode(array('result'=>'2','desc'=>'合作公司不存在','insurance_rechanges'=>''));
-           }
+               $data1 = $stmt->fetchAll();
+               echo json_encode(array('result'=>'1','desc'=>'success','insurance_rechanges'=>$data1));
        }
     }else{
         $selectStatement = $database->select()
