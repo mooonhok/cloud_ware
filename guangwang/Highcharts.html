@@ -20,8 +20,7 @@
 *************************************************************************
  -->
 		<div id="container" style="min-width:400px;height:400px"></div>
-		<script>
-		    
+		<script>  
 			var sales_id = $.session.get('userid');
 			alert(sales_id);
 			 	if(sales_id==null||sales_id=="") {
@@ -72,11 +71,9 @@
 							},
 							series: [{
 								name: '商家数量',
-								data: [msg.count[0],msg.count[1],msg.count[2],msg.count[3],msg.count[4],msg.count[5],msg.count[6],msg.count[7],msg.count[8],msg.count[9],msg.count[10],msg.count[11]]
+								data: [msg.count[1],msg.count[2],msg.count[3],msg.count[4],msg.count[5],msg.count[6],msg.count[7],msg.count[8],msg.count[9],msg.count[10],msg.count[11],msg.count[12]]
 							}]
 						});
-						
-						
 						
 					} else {
 						alert(msg.desc);
