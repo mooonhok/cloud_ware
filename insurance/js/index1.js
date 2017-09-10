@@ -67,5 +67,22 @@ $(".hunt").on("click",function(){
 		
 		
 	}
+
+	$(".select_2_2").on("click",function(){
+	var city = $(".select_2_1 input").val();
+	console.log(city);
+	if(cit==0){
+		alert("请选择搜索公司地区");
+	}else if(cit!=0&&city==0){
+		alert("请填写搜索公司名称");
+	}else if(cit!=0&&city!=0){
+		window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id="+cit+"&company="+city;
+	}
+})
+
   })
+
+
+
+
 })
