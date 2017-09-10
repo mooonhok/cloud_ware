@@ -76,7 +76,7 @@ function btn(td){
 		$(".box3").css("display","block");
 		$(".box3_2").on("click",function(){
 			$(".box3").css("display","none");
-			td.val="";
+			va = 1;
 		})
 	}
 
