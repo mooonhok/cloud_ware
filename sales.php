@@ -174,10 +174,18 @@ $app->get('/tenantsum',function()use($app){
                 $arrays[$date]++;
            }
            for($y=1;$y<=12;$y++){
-               if($arrays[$y]==null||$arrays[$y]==""){
-                   $arrays[$y]=0;
+//               if($arrays[$y]==null||$arrays[$y]==""){
+//                   $arrays[$y]=0;
+//               }
+               if($y<10){
+                   $key='0'.$y;
+               }else{
+                   $key=$y;
                }
-               $arrays1[$y]=$arrays[$y];
+               if($arrays[$key]==null||$arrays[$key]==""){
+                   $arrays[$key]=0;
+               }
+               $arrays1[$y]=$arrays[$key];
             //  array_push($arrays1,$arrays);
            }
             echo json_encode(array('result'=>'0','desc'=>'','count'=>$arrays1));
