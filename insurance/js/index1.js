@@ -50,6 +50,7 @@ $(".hunt").on("click",function(){
 		   success:function(msg){
 		   var fcity = msg.insurance_rechanges.from_city_id;
 		   var rcity = msg.insurance_rechanges.receive_city_id;
+		   var testdata4 =msg.insurance_rechanges;
 		   $('#testtable3').yhhDataTable({
 		  'paginate':{
 			'changeDisplayLen':true,
@@ -63,12 +64,14 @@ $(".hunt").on("click",function(){
 				return '<tr><td>'+d.company+'</td><td>'+d.pay_time+'</td><td>'+d.money+'</td><td>'+d.id+'</td><td><button type="button" value="'+d.status+'" onclick="btn(this)">确认支付</button></td></tr>';
 			}else if(cit==frcity&&d.status!=0){
 		     return '<tr><td>'+d.company+'</td><td>'+d.pay_time+'</td><td>'+d.money+'</td><td>'+d.id+'</td><td><button type="button" disabled="disabled" value="'+d.status+'">已支付</button></td></tr>';
+			}else{
+				alert("没有该城市的订单")
 			}
 			}
 		},
 		    'tbodyData':{
 			'enabled':true,  /*是否传入表格数据*/
-			'source':testdata2 /*传入的表格数据*/
+			'source':testdata4 /*传入的表格数据*/
 		}
 	});
  		         
