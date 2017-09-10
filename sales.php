@@ -177,7 +177,8 @@ $app->get('/tenantsum',function()use($app){
                if($arrays[$y]==null||$arrays[$y]==""){
                    $arrays[$y]=0;
                }
-              array_push($arrays1,$arrays[$y]);
+               $arrays1[$y]=$arrays[$y];
+            //  array_push($arrays1,$arrays);
            }
             echo json_encode(array('result'=>'0','desc'=>'','count'=>$arrays1));
         }else{
