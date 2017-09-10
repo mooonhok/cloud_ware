@@ -86,13 +86,13 @@ $app->get('/sales_tenant',function()use($app){
                 }
                 echo json_encode(array('result'=>'0','desc'=>'','company'=>$arrays));
             }else{
-                echo json_encode(array('result'=>'1','desc'=>'该业务员尚未有业务公司','company'=>''));
+                echo json_encode(array('result'=>'1','desc'=>'该业务员尚未有业务数据','company'=>''));
             }
         }else{
             echo json_encode(array('result'=>'2','desc'=>'业务员不存在','company'=>''));
         }
     }else{
-        echo json_encode(array('result'=>'1','desc'=>'业务员id不能为空','company'=>''));
+        echo json_encode(array('result'=>'3','desc'=>'业务员id不能为空','company'=>''));
     }
 });
 // 修改租户信息
@@ -133,16 +133,16 @@ $app->put('/tenantchange',function()use($app){
                     $affectedRows = $updateStatement->execute();
                     echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
                 } else {
-                    echo json_encode(array('result' => '2', 'desc' => '该公司不存在'));
+                    echo json_encode(array('result' => '1', 'desc' => '该公司不存在'));
                 }
             } else {
                 echo json_encode(array('result' => '2', 'desc' => '业务员不存在'));
             }
         }else{
-            echo json_encode(array('result'=>'2','desc'=>'操作公司为空'));
+            echo json_encode(array('result'=>'3','desc'=>'操作公司为空'));
         }
     }else{
-        echo json_encode(array('result'=>'2','desc'=>'业务员id为空'));
+        echo json_encode(array('result'=>'4','desc'=>'业务员id为空'));
     }
 });
 //统计业务员业务数据
