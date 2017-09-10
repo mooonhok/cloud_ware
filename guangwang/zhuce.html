@@ -35,7 +35,7 @@
 						<div class="center_3">
 							<div class="wenzi">营业执照号码:</div>
 							<div class="wenzi2"><input type="text" name="business_l"></div>
-							<div class="cs"><input type="file"   value="拍照上传" name="file1"></div>
+							<div class="cs"><input type="file"   value="拍照上传" name="file1" onchange="getPhotoSize(this)"></div>
 							<!--<textarea name="business_l_p"  id="tupian" style="display: none;"></textarea>-->
 						</div>
 						<div class="center_4">
@@ -253,6 +253,16 @@
 		}
 	</script>
 	<script>
+		function getPhotoSize(obj){
+   photoExt=obj.value.substr(obj.value.lastIndexOf(".")).toLowerCase();//获得文件后缀名
+    if(photoExt!='.jpg'||photoExt!='.png'||photoExt!='.jpeg'||photoExt!='jpg'){
+        alert("请上传正确的照片!");
+      //  $(".file1").empty();
+        return false;
+    }
+   }
+	</script>
+	<script>
 		var userid = $.session.get('userid');
 		$("#userid").val(userid);
 			if(userid == null || username == null) {
@@ -319,13 +329,9 @@
 			alert("缺少公司联系人电话");
 			return false;
 	       }
-		if(photoExt=='.jpg'||photoExt=='.png'||photoExt=='.jpeg'){
+		
 			alert("提交成功");
 			return true;
-		}else{
-			alert("图片格式错误");
-			return false;
-		}	
 	}
 }
 	</script>
