@@ -39,8 +39,9 @@ $(document).ready(function(){
 	})
 $(".hunt").on("click",function(){
 	var options=$("#city1 option:selected");
+	var cit = options.val();
     console.log(options.val());
-	if(cit=""){
+	if(cit==0){
 		alert("请选择城市")
 	}else{
 		$.ajax({
@@ -51,11 +52,6 @@ $(".hunt").on("click",function(){
  		}),
 		   success:function(msg){
 		   
-		   		var fcity = from_city_id;
-		        var rcity = receive_city_id;
-		   
-		   console.log(fcity);
-		   console.log(rcity);
 		   var testdata4 =msg.insurance_rechanges;
 		   console.log(testdata4);
 		   $('#testtable3').yhhDataTable({
@@ -67,12 +63,10 @@ $(".hunt").on("click",function(){
 		    'tbodyRow':{
 			'zebra':true,
 			'write':function(d){
-			if (cit==from_city_id&&d.status==0) {
+			if (d.status==0) {
 				return '<tr><td>'+d.company+'</td><td>'+d.pay_time+'</td><td>'+d.money+'</td><td>'+d.id+'</td><td><button type="button" value="'+d.status+'" onclick="btn(this)">确认支付</button></td></tr>';
-			}else if(cit==from_city_id&&d.status!=0){
+			}else if(d.status!=0){
 		     return '<tr><td>'+d.company+'</td><td>'+d.pay_time+'</td><td>'+d.money+'</td><td>'+d.id+'</td><td><button type="button" disabled="disabled" value="'+d.status+'">已支付</button></td></tr>';
-			}else{
-				alert("没有该城市的订单")
 			}
 			}
 		},
