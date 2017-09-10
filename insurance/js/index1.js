@@ -13,7 +13,7 @@ $(document).ready(function(){
 	alert(city_id);
 	alert(company);
 	$.ajax({
-		url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?city_id="+city_id+"&company="+company,
+		url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?city_id="+city_id,
 		dataType:"json",
 		contentType:"application/json;charset=utf-8",
 		data:JSON.stringify({
