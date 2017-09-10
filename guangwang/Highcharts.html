@@ -21,7 +21,7 @@
  -->
 		<div id="container" style="min-width:400px;height:400px"></div>
 		<script>
-		
+		    var data1=null;
 			var sales_id = $.session.get('userid');
 			alert(sales_id);
 			// 	if(sales_id==null||sales_id=="") {
@@ -36,7 +36,21 @@
 				success: function(msg) {
 					alert(msg.result);
 					if(msg.result == 0) {
-						var chart = new Highcharts.Chart('container', {
+						data1=msg.count;
+						alert(data1);
+					} else {
+						alert(msg.desc);
+					}
+				},
+				error: function(xhr) {
+					alert(xhr.responseText);
+				}
+			});
+			//	}
+			/**
+			 * Highcharts 在 4.2.0 开始已经不依赖 jQuery 了，直接用其构造函数既可创建图表
+			 **/
+			var chart = new Highcharts.Chart('container', {
 							title: {
 								text: '业务员月份业务统计',
 								x: -20
@@ -69,22 +83,9 @@
 							},
 							series: [{
 								name: '商家数量',
-								data: [msg.count.01, msg.count.02,msg.count.03,msg.count.04,msg.count.05,msg.count.06,msg.count.07,msg.count.08,msg.count.09,msg.count.10,msg.count.11, msg.count.12]
-								//data:[1,2,3,3,3,3,3,3,3,3,3,3]
+								data: [data1]
 							}]
 						});
-					} else {
-						alert(msg.desc);
-					}
-				},
-				error: function(xhr) {
-					alert(xhr.responseText);
-				}
-			});
-			//	}
-			/**
-			 * Highcharts 在 4.2.0 开始已经不依赖 jQuery 了，直接用其构造函数既可创建图表
-			 **/
 		</script>
 	</body>
 
