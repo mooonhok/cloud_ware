@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!--css样式-->
+	<link href="http://cdn.bootcss.com/bootstrap-table/1.9.1/bootstrap-table.min.css" rel="stylesheet"/> 
+
+  <script src="http://cdn.bootcss.com/bootstrap-table/1.9.1/bootstrap-table.min.js"></script>
+  //国际化，表格汉化
+ <script src="http://cdn.bootcss.com/bootstrap-table/1.9.1/locale/bootstrap-table-zh-CN.min.js"></script>
+	</head>
+<body>
+	<table data-toggle="table" data-url="data.json">
+            <thead>
+                ...    
+            </thead>
+</table>
+<script>
+	var sales_id = $.session.get('userid');
+		alert(sales_id);
+		if(sales_id == null || sales_id == "") {
+		//	window.location.href = "index.html";
+		} 
+//			              msg.company[i].id
+//							msg.company[i].customer_name
+//							msg.company[i].customer_phone
+//							msg.company[i].begin_time
+//							msg.company[i].end_time
+//							msg.company[i].company
+    var $table = $('#table');
+    $table.bootstrapTable({
+    url: "http://mooonhok-cloudware.daoapp.io/sales.php/sales_tenant?sales_id="+sales_id, 
+    dataType: "json",
+    pagination: true, //分页
+    singleSelect: false,
+    data-locale:"zh-US" , //表格汉化
+    search: true, //显示搜索框
+    sidePagination: "client", //前台处理分页
+          columns: [
+                  {
+                    title: '公司名称',
+                      field: 'company',
+                      align: 'center',
+                      valign: 'middle'
+                  }, 
+                  {
+                      title: '公司负责人',
+                      field: 'customer_name',
+                      align: 'center',
+                      valign: 'middle',
+                  }, 
+                  {
+                      title: '公司负责人电话',
+                      field: 'customer_phone',
+                      align: 'center'
+                  },
+                  {
+                      title: '软件使用开始时间',
+                      field: 'begin_time',
+                      align: 'center'
+                  },
+                  {
+                      title: '软件到期时间',
+                      field: 'end_time',
+                      align: 'center',
+                  },
+                  {
+                      title: '操作',
+                      field: 'id',
+                      align: 'center',
+                      formatter:function(value,row,index){  
+                   var e = '<a href="#" mce_href="#" onclick="edit(\''+ row.id + '\')">编辑</a> ';  
+                   var d = '<a href="#" mce_href="#" onclick="del(\''+ row.id +'\')">删除</a> ';  
+                        return e+d;  
+                    } 
+                  }
+              ]
+      });
+ </script>
+ 
+</body>
+</html>
