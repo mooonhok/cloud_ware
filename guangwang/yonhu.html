@@ -4,13 +4,13 @@
 	<meta charset="UTF-8">
 	<title>用户信息</title>
 	<link rel="stylesheet" href="css/yonhu.css">
-	 <link href="css/jquery.dataTables.min.cs" rel="stylesheet">
+	 <!-- <link href="css/jquery.dataTables.min.cs" rel="stylesheet"> -->
 	<script src="js/jquery-1.9.1.min.js"></script>
 	<!-- <script src="js/jquery.session.js"></script> -->
 	<script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>
 	<script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
 	<script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
-	<script src="js/jquery.dataTables.min.js"></script>
+	<!-- <script src="js/jquery.dataTables.min.js"></script> -->
 
 </head>
 <body>	
@@ -159,46 +159,8 @@
 	</div>
 <!-- box5 -->
 	<div class="box5">
-	<div id="container" style="min-width:400px;height:400px"></div>
-	</div>
-	<!-- daohang -->
-	<div class="daohang">
-		<div class="dian1">
-			<div class="wenzi">个人资料</div>
-			<div class="xian1"></div>
-		</div>	
-		<div class="dian2">
-			<div class="wenzi">客户信息</div>
-			<div class="xian2"></div>
-		</div>	
-		<div class="dian3">
-			<div class="wenzi">账户信息</div>
-			<div class="xian3"></div>
-		</div>	
-	</div>	
-
-	<div style="clear: both;"></div>
-	</div>
-
-
-</div>
-	
-	
-</body>
-
-
-
-
-
-
-
-
+	<div id="container" style="width: 900px;height: 400px"></div>
 <script>  
-			var sales_id = $.session.get('userid');
-			alert(sales_id);
-			 	if(sales_id==null||sales_id=="") {
-							window.location.href = "index.html";
-				} else {
 			$.ajax({
 				url: "http://mooonhok-cloudware.daoapp.io/sales.php/tenantsum?sales_id=" + sales_id,
 				dataType: 'json',
@@ -256,9 +218,43 @@
 					alert(xhr.responseText);
 				}
 			});
-				}
+				
 			
 		</script>
+	</div>
+	<!-- daohang -->
+	<div class="daohang">
+		<div class="dian1">
+			<div class="wenzi">个人资料</div>
+			<div class="xian1"></div>
+		</div>	
+		<div class="dian2">
+			<div class="wenzi">客户信息</div>
+			<div class="xian2"></div>
+		</div>	
+		<div class="dian3">
+			<div class="wenzi">账户信息</div>
+			<div class="xian3"></div>
+		</div>	
+	</div>	
+
+	<div style="clear: both;"></div>
+	</div>
+
+
+</div>
+	
+	
+</body>
+
+
+
+
+
+
+
+
+
 
 <script type="text/javascript">
 	$(".dian1").on("click",function(){
