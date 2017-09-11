@@ -538,7 +538,7 @@ $app->delete('/scheduling',function()use($app){
 //});
 
 //批量上传，有改无增
-$app->post('/scheduling',function()use($app){
+$app->post('/scheduling_insert',function()use($app){
      $app->response->headers->set('Content-Type', 'application/json');
      $database=localhost();
      $tenant_id=$app->request->headers->get("tenant-id");

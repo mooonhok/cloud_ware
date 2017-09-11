@@ -238,6 +238,7 @@
 			if(company==null){
 				company="";
 			}
+			alert(company);
 			$.ajax({
 				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?city_id=" + city_id + "&company=" + company,
 				dataType: 'json',
@@ -277,7 +278,7 @@
 		//确认支付的按钮
 		function makesure(id){
 				$(".box3").css("display", "block");
-				alert(id);
+				//alert(id);
 				$("#makesure").val(id);			
 		}
 		
@@ -285,7 +286,7 @@
 		var company = null;
 		//获取session值
 		var user = $.session.get('userid');
-		alert(user);
+		//alert(user);
 		if(user == null || user == "") {
 			window.location.href = "login.html";
 		} else {
@@ -334,7 +335,7 @@
 		//确认支付
 		$(".box3_2").on("click", function() {
 			var id = $("#makesure").val();
-			alert(id);
+			//alert(id);
 			$.ajax({
 				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/sure_rechanges",
 				beforeSend: function(request) {
