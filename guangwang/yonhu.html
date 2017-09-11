@@ -94,7 +94,7 @@
                 	<th width="120">操作</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tb">
             	<tr>
             		<td>南通物流有限公司</td>
             		<td>习近平</td>
@@ -114,13 +114,24 @@
 		<div class="box3_2">添加</div>
 
 	<script type="text/javascript">
+	var sales_id = $.session.get('userid');
+			alert(sales_id);
+			 	if(sales_id==null||sales_id=="") {
+							window.location.href = "index.html";
+				} else {
 		$.ajax({
 			url:"http://mooonhok-cloudware.daoapp.io/sales.php/sales_tenant?sales_id="+sales_id,
 			dataType:'json',
 			type:'get',
 			contentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
+			success:function(msg){
+				console.log(msg);
+				$("#tb").html("");
+				
+			}
 		})
+	}
 	</script>
 		
 	</div>
