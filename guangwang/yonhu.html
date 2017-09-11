@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="css/yonhu.css">
 	 <!-- <link href="css/jquery.dataTables.min.cs" rel="stylesheet"> -->
 	<script src="js/jquery-1.9.1.min.js"></script>
-	<!-- <script src="js/jquery.session.js"></script> -->
+	<script src="js/jquery.session.js"></script>
 	<script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>
 	<script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
 	<script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
@@ -159,10 +159,15 @@
 	</div>
 <!-- box5 -->
 	<div class="box5">
-	<div id="container" style="width: 900px;height: 400px"></div>
+	<div id="container" style="width: 900px;height: 400px;margin:0 auto;"></div>
 <script>  
+		var sales_id = $.session.get('userid');
+			alert(sales_id);
+			 	if(sales_id==null||sales_id=="") {
+							window.location.href = "index.html";
+				} else {
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/sales.php/tenantsum?sales_id=" + sales_id,
+				url: "http://mooonhok-cloudware.daoapp.io/sales.php/tenantsum?sales_id="+sales_id,
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
@@ -218,7 +223,7 @@
 					alert(xhr.responseText);
 				}
 			});
-				
+			}	
 			
 		</script>
 	</div>
