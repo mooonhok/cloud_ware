@@ -545,22 +545,11 @@ $app->post('/scheduling_insert',function()use($app){
      $body = $app->request->getBody();
      $body=json_decode($body);
     $array=array();
+    $scheduling_id=$body->scheduling_id;
     foreach($body as $key=>$value){
             $array[$key]=$value;
     }
-     $scheduling_id=$body->scheduling_id;
-    $selectStatement = $database->select()
-        ->from('tenant')
-        ->where('exist',"=",0)
-        ->where('tenant_id','=',$tenant_id);
-    $stmt = $selectStatement->execute();
-    $data1 = $stmt->fetch();
-    if($data1!=null){
-            $insertStatement = $database->insert(array('tenant_id'))
-                ->into('tenant')
-                ->values(array($tenant_id));
-            $insertId = $insertStatement->execute(false);
-    }
+
     $selectStatement = $database->select()
             ->from('scheduling')
             ->where('scheduling_id','=',$scheduling_id)
