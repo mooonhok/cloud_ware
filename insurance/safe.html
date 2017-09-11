@@ -212,7 +212,7 @@
 							'<td>' + msg.rechange_insurance[i].driver_name + '</td>' +
 							'<td>' + msg.rechange_insurance[i].driver_phone + '</td>'+
 							'<td class="information"  onclick="detil('+
-							msg.rechange_insurance[i]+')">详情</td>' +
+							msg.rechange_insurance[i].insurance_id+')">详情</td>' +
 							'<td>' + msg.rechange_insurance[i].insurance_price + '</td>' +
 							'<td>' + msg.rechange_insurance[i].insurance_amount + '</td>' +
 							'<td>' + msg.rechange_insurance[i].	insurance_start_time + '</td> '+
@@ -222,13 +222,28 @@
 				}
 				},
 				error: function(xhr) {
-				alert("获取保险记录后台失败！"+xhr.reponse);
+				alert("获取保险记录后台失败！");
 				}
 			});
       }
    	      //货物详情
    	      function detil(id){
-   	      	alert(id.insurance_id+"///"+id.insurance_price);
+   	      //alert(id);
+   	      	$.ajax({
+   	      	   url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/one_goods?insurance_id=" + id,
+				dataType: 'json',
+				type: 'get',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({}),
+				success: function(msg) {
+					alert(msg.goods);
+					
+				},
+				error: function(e) {
+					alert("获取货物详情出错!");
+				}
+   	      	});
+   	      	
    	      }
 		//加载保险充值记录
 		function loadrechanges(city_id, company) {
@@ -260,7 +275,8 @@
 							}
 							a = "<tr><td>" + msg.insurance_rechanges[i].company + "</td><td>" +
 								msg.insurance_rechanges[i].pay_time + "</td><td>" +
-								msg.insurance_rechanges[i].money + "</td><td><a href=''>详情</a></td><td><button class='but' onclick='makesure(" +
+								msg.insurance_rechanges[i].money + "</td><td><div onclick='agree("+
+								msg.insurance_rechanges[i].id+")'>详情</div></td><td><button class='but' onclick='makesure(" +
 								msg.insurance_rechanges[i].id + ")'>" +
 								sure + "</button></td></tr>";
 							 if(msg.insurance_rechanges[i].status == 1) {
@@ -275,11 +291,26 @@
 				}
 			});
 		}
+		//合同详情
+		function agree(id){
+				$.ajax({
+   	      	   url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/year_insurance?id=" + id,
+				dataType: 'json',
+				type: 'get',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({}),
+				success: function(msg) {
+					alert(msg.insurance);		
+				},
+				error: function(e) {
+					alert("获取合同详情信息出错!");
+				}
+   	      	});
+		}
 		//确认支付的按钮
 		function makesure(id){
 				$(".box3").css("display", "block");
-				//alert(id);
-				$("#makesure").val(id);			
+				$("#makesure").val(id);				
 		}
 		
 		var city_id = null;
