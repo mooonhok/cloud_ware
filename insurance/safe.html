@@ -75,7 +75,7 @@
 			</div>
 			<!-- 支付信息 -->
 			<div class="tab">
-				<table id="tb1" width="1200" border="0" cellspacing="0" cellpadding="0">
+				<table  width="1200" border="0" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
 							<th width="350">公司名</th>
@@ -85,7 +85,7 @@
 							<th width="200">操作</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="tb1">
 						<!--<tr>
 					<td>一号物流公司</td>
 					<td>2017-11-16</td>
@@ -205,8 +205,7 @@
 				data: JSON.stringify({}),
 				success: function(msg) {
 					$("#tb1").html("");
-					alert(msg.insurance_rechanges);
-					var a='<tr><th width="350">公司名</th><th width="200">时间</th><th width="150">保费</th><th width="300">合同详情</th><th width="200">操作</th></tr>';
+					//alert(msg.insurance_rechanges);
 					if(msg.insurance_rechanges == null || msg.insurance_rechanges == "") {
 						alert("尚未有冲值记录");
 					} else {
@@ -219,20 +218,14 @@
 							}
 							a = "<tr><td>" + msg.insurance_rechanges[i].company + "</td><td>" +
 								msg.insurance_rechanges[i].pay_time + "</td><td>" +
-								msg.insurance_rechanges[i].money + "</td><td><a href=''>详情</a></td><td><button class='but' value='" +
-								msg.insurance_rechanges[i].id + "'>" +
+								msg.insurance_rechanges[i].money + "</td><td><a href=''>详情</a></td><td><button class='but' onclick='makesure(" +
+								msg.insurance_rechanges[i].id + ")'>" +
 								sure + "</button></td></tr>";
-							if(msg.insurance_rechanges[i].status == 1) {
+							 if(msg.insurance_rechanges[i].status == 1) {
 								$('.but').attr("disabled", "disabled");
 							}
 							$("#tb1").append(a);
 						}
-						$(".but").on("click", function() {
-							$(".box3").css("display", "block");
-							var btn = document.getElementsByClassName("but")[0].value;
-							alert(btn);
-							$("#makesure").val(btn);
-						});
 					}
 				},
 				error: function(xhr) {
@@ -240,6 +233,13 @@
 				}
 			});
 		}
+		
+		function makesure(id){
+				$(".box3").css("display", "block");
+				alert(id);
+				$("#makesure").val(id);			
+		}
+		
 		var city_id = null;
 		var company = null;
 		//获取session值
@@ -273,8 +273,6 @@
 		})
 	</script>
 	<script>
-		var city_id = null;
-		var company = null;
 		//选择搜索按钮的事件
 		$(".hunt").on('click', function() {
 			city_id = $("#city1 option:selected").val();
