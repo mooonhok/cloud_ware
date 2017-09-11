@@ -191,9 +191,14 @@
 	<script>
 		//加载保险充值记录
 		function loadrechanges(city_id, company) {
+			if(city_id==null){
+				city_id="";
+			}
+			if(company==null){
+				company="";
+			}
 			$.ajax({
 				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?city_id=" + city_id + "&company=" + company,
-
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
@@ -201,6 +206,7 @@
 				success: function(msg) {
 					$("#tb1").html("");
 					alert(msg.insurance_rechanges);
+					var a='<tr><th width="350">公司名</th><th width="200">时间</th><th width="150">保费</th><th width="300">合同详情</th><th width="200">操作</th></tr>';
 					if(msg.insurance_rechanges == null || msg.insurance_rechanges == "") {
 						alert("尚未有冲值记录");
 					} else {
@@ -211,7 +217,7 @@
 							} else {
 								sure = "已经支付";
 							}
-							var a = "<tr><td>" + msg.insurance_rechanges[i].company + "</td><td>" +
+							a = "<tr><td>" + msg.insurance_rechanges[i].company + "</td><td>" +
 								msg.insurance_rechanges[i].pay_time + "</td><td>" +
 								msg.insurance_rechanges[i].money + "</td><td><a href=''>详情</a></td><td><button class='but' value='" +
 								msg.insurance_rechanges[i].id + "'>" +
