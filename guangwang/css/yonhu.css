@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-08-30 17:04:52
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-08-31 15:05:42
+* @Last Modified by:   boycui
+* @Last Modified time: 2017-09-11 15:46:34
 */
 *{
 	padding: 0;
@@ -307,20 +307,27 @@ html,body{
 	width: 1050px;
 	height: 600px;
 }
-.tr1 td{
-	height: 50px;
-	border: 1px solid #E2E2E2;
-	text-align: center;
-	line-height: 50px;
-	font-size: 20px;
-	font-weight: bold;
+.box3_1 table {
+	border-right: 1px solid #70ACC4;
+	border-bottom: 1px solid #70ACC4;
 }
-.tr2 td{
+			
+.box3_1 table td {
+	border-left: 1px solid #70ACC4;
+	border-top: 1px solid #70ACC4;
 	height: 50px;
-	border: 1px solid #E2E2E2;
 	text-align: center;
-	line-height: 50px;
 }
+ 			
+.box3_1 table thead tr th {
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	border-left: 1px solid #70ACC4;
+	border-top: 1px solid #70ACC4;
+    background: #70ACC4;
+}
+
 .box3_2{
 	height: 50px;
 	width: 120px;
@@ -328,8 +335,8 @@ html,body{
 	text-align: center;
 	background: #70ACC4;
 	border-radius: 10px;
-	float: left;
-	margin-left: 400px;
+	float: right;
+	margin-right: 100px;
 	margin-top: 30px;
 	color: white;
 	font-size: 18px;
@@ -691,5 +698,20 @@ html,body{
 	font-size: 18px;
 	color: white;
 }
-
+.but_1{
+	width: 60px;
+	height: 20px;
+	background: #70ACC4;
+	color: white;
+	border-radius: 5px;
+	border: 0;
+}
+.but_2{
+	width: 60px;
+	height: 20px;
+	background: #70ACC4;
+	color: white;
+	border-radius: 5px;
+	border: 0;
+}
 
