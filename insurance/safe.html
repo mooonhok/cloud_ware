@@ -200,7 +200,7 @@
 				data: JSON.stringify({}),
 				success: function(msg) {
 					$("#tb1").html("");
-					alert(msg.msg.insurance_rechanges);
+					alert(msg.insurance_rechanges);
 					if(msg.insurance_rechanges == null || msg.insurance_rechanges == "") {
 						alert("尚未有冲值记录");
 					} else {
