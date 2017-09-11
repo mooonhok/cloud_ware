@@ -124,8 +124,7 @@
 							<th width="250">运输时间</th>
 						</tr>
 					</thead>
-
-					<tbody>
+					<tbody id="tb2">
 
 					</tbody>
 				</table>
@@ -187,8 +186,49 @@
 			});
 		}
 	</script>
-
 	<script>
+		//保险记录、
+   	      function insurance(city_id,company){
+   	      	if(city_id==null){
+				city_id="";
+			}
+			if(company==null){
+				company="";
+			}
+   	       $.ajax({
+				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php//insurances?city_id=" + city_id + "&company=" + company,
+				dataType: 'json',
+				type: 'get',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({}),
+				success: function(msg) {
+					$("#tb2").html("");
+					if(msg.rechange_insurance==null||msg.rechange_insurance==""){
+						alert("尚未有保险记录");
+					}else{
+					for(var i = 0; i < msg.rechange_insurance.length; i++) {
+						var a = '<tr><td>' + msg.rechange_insurance[i].plate_number + '</td>'+
+							'<td>' + msg.rechange_insurance[i].driver_name + '</td>' +
+							'<td>' + msg.rechange_insurance[i].driver_phone + '</td>'+
+							'<td class="information"  onclick="detil('+
+							msg.rechange_insurance[i].insurance_id+')">详情</td>' +
+							'<td>' + msg.rechange_insurance[i].insurance_price + '</td>' +
+							'<td>' + msg.rechange_insurance[i].insurance_amount + '</td>' +
+							'<td>' + msg.rechange_insurance[i].	insurance_start_time + '</td> '+
+							'<td>' + msg.rechange_insurance[i].duration + '</td></tr>';
+						$("#tb2").append(a);
+					}
+				}
+				},
+				error: function(xhr) {
+				alert("获取保险记录后台失败！"+xhr.reponse);
+				}
+			});
+      }
+   	      //货物详情
+   	      function detil(id){
+   	      	alert(id);
+   	      }
 		//加载保险充值记录
 		function loadrechanges(city_id, company) {
 			if(city_id==null){
@@ -233,7 +273,7 @@
 				}
 			});
 		}
-		
+		//确认支付的按钮
 		function makesure(id){
 				$(".box3").css("display", "block");
 				alert(id);
@@ -249,6 +289,7 @@
 			window.location.href = "login.html";
 		} else {
 			loadrechanges(city_id, company);
+			insurance(city_id,company);
 		}
 	</script>
 	<script type="text/javascript">
@@ -277,10 +318,12 @@
 		$(".hunt").on('click', function() {
 			city_id = $("#city1 option:selected").val();
 			loadrechanges(city_id, company);
+			insurance(city_id,company);
 		})
 		$(".select_2_2").on('click', function() {
-			company = $(".select_2_1").html();
+			company = $(".select_2_1").val();
 			loadrechanges(city_id, company);
+			insurance(city_id,company);
 		});
 		
 	</script>
@@ -303,7 +346,7 @@
 				}),
 				success: function(msg) {
 					city_id = $("#city1 option:selected").val();
-					company = $(".select_2_1").html();
+					company = $(".select_2_1").val();
 					alert("修改成功");
 					$(".box3").css("display", "none");
 					loadrechanges(city_id, company);
@@ -312,10 +355,9 @@
 					alert("修改支付状态后台错误");
 				}
 			});
-			//		
-			//			$(".but").html("已支付");
-			//			$('.but').attr("disabled", "disabled");
 		});
 	</script>
-
+   <script>
+   	
+   </script>
 </html>
