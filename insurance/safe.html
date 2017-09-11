@@ -4,8 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="css/safe.css">
-		<script src="js/jquery-3.2.1.min.js"></script>
-		<script src="js/jquery.session.js"></script>
+		
 		<title>保险</title>
 		<style>
 			table {
@@ -142,7 +141,8 @@
 		</div>
 
 	</body>
-	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/jquery.session.js"></script>
 	<script>
 		//获取省份和城市列表1
 		$.ajax({
@@ -188,16 +188,16 @@
 		}
 	</script>
 
-	<script type="text/javascript">
+	<script>
 		var city_id = null;
 		var company = null;
 		//获取session值
 		var user = $.session.get('userid');
 		alert(user);
-		if(user==null||user==""){
+		if(user == null || user == "") {
 			window.location.href = "login.html";
-		}else{
-			loadrechanges(city_id,company);
+		} else {
+			loadrechanges(city_id, company);
 		}
 	</script>
 	<script type="text/javascript">
@@ -244,6 +244,7 @@
 				data: JSON.stringify({}),
 				success: function(msg) {
 					$("#tb1").html("");
+					alert(msg.msg.insurance_rechanges);
 					if(msg.insurance_rechanges == null || msg.insurance_rechanges == "") {
 						alert("尚未有冲值记录");
 					} else {
@@ -278,10 +279,10 @@
 			});
 		}
 	</script>
-	<script type="text/javascript">
+	<script>
 		//确认支付
 		$(".box3_2").on("click", function() {
-			var id=$("#makesure").val();
+			var id = $("#makesure").val();
 			alert(id);
 			$.ajax({
 				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/sure_rechanges",
@@ -292,23 +293,23 @@
 				type: 'put',
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({
-					id:id,
-					user_id:user
+					id: id,
+					user_id: user
 				}),
 				success: function(msg) {
 					city_id = $("#city1 option:selected").val();
 					company = $(".select_2_1").html();
 					alert("修改成功");
 					$(".box3").css("display", "none");
-					loadrechanges(city_id,company);
+					loadrechanges(city_id, company);
 				},
 				error: function(e) {
 					alert("修改支付状态后台错误");
 				}
 			});
-//		
-//			$(".but").html("已支付");
-//			$('.but').attr("disabled", "disabled");
+			//		
+			//			$(".but").html("已支付");
+			//			$('.but').attr("disabled", "disabled");
 		});
 	</script>
 
