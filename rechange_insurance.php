@@ -84,7 +84,6 @@ $app->get('/insurance_rechanges',function()use($app){
     $company=$app->request->get('company');
     if($city_id!=null||$city_id!=''){
        if($company!=null||$company!=''){
-
            $selectStatement = $database->select()
                ->from('tenant')
                ->join('rechanges_insurance','rechanges_insurance.tenant_id','=','tenant.tenant_id','INNER')
@@ -120,32 +119,30 @@ $app->put('/sure_rechanges',function()use($app){
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
-    $tenant_id=$body->tenant_id;
+    $user_id=$body->user_id;
     $pay_id=$body->id;
     $array=array();
     $key='insurance_balance';
-    if($tenant_id!=""||$tenant_id!=null){
-        $selectStatement = $database->select()
-            ->from('tenant')
-            ->where('tenant_id', '=', $tenant_id);
-        $stmt = $selectStatement->execute();
-        $data1 = $stmt->fetch();
-        if($data1!=""||$data1!=null){
             $selectStatement = $database->select()
                 ->from('rechanges_insurance')
                 ->where('id', '=', $pay_id);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetch();
+            $selectStatement = $database->select()
+               ->from('tenant')
+               ->where('tenant_id', '=', $data2['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
             if($data2!=null||$data2!=""){
                 $array[$key]=$data2['money']+$data1['insurance_balance'];
                 $updateStatement = $database->update($array)
                     ->table('tenant')
-                    ->where('tenant_id','=',$tenant_id);
+                    ->where('tenant_id','=',$data2['tenant_id']);
                 $affectedRows1 = $updateStatement->execute();
                 if($affectedRows1>0){
                     date_default_timezone_set("PRC");
                     $now=date("Y-m-d H:i:s",time());
-                $updateStatement = $database->update(array('status'=>1,'sure_time'=>$now))
+                $updateStatement = $database->update(array('status'=>1,'sure_time'=>$now,'admin_id'=>$user_id))
                         ->table('rechanges_insurance')
                         ->where('id','=',$pay_id);
                 $affectedRows2 = $updateStatement->execute();
@@ -160,12 +157,7 @@ $app->put('/sure_rechanges',function()use($app){
             }else{
                 echo json_encode(array('result'=>'3','desc'=>'充值记录不存在'));
             }
-        }else{
-            echo json_encode(array('result'=>'4','desc'=>'租户不存在'));
-        }
-    }else{
-        echo json_encode(array('result'=>'5','desc'=>'缺少租户id'));
-    }
+
 });
 //获取保险记录
 $app->get('/insurances',function ()use($app){
@@ -181,6 +173,7 @@ $app->get('/insurances',function ()use($app){
                 ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
                 ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
                 ->where('tenant.from_city_id','=',$city_id)
+                ->where('insurance.sure_insurance','=','1')
                 ->where('tenant.company','=',$company);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
@@ -190,6 +183,7 @@ $app->get('/insurances',function ()use($app){
                 ->from('tenant')
                 ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
                 ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
+                ->where('insurance.sure_insurance','=','1')
                 ->where('tenant.from_city_id','=',$city_id);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
@@ -199,10 +193,11 @@ $app->get('/insurances',function ()use($app){
         $selectStatement = $database->select()
             ->from('tenant')
             ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
-            ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER');
+            ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
+            ->where('insurance.sure_insurance','=','1');
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
-        echo json_encode(array('result'=>'1','desc'=>'城市信息为空','insurances'=>$data1));
+        echo json_encode(array('result'=>'1','desc'=>'城市信息为空','rechange_insurance'=>$data1));
     }
 });
 
