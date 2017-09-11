@@ -565,6 +565,7 @@ $app->post('/scheduling_insert',function()use($app){
                 ->where('exist',"=",0);
             $affectedRows = $updateStatement->execute();
     }else{
+        $array['tenant_id']=$tenant_id;
         $insertStatement = $database->insert(array_keys($array))
             ->into('scheduling')
             ->values(array_values($array));
