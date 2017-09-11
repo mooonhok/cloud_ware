@@ -123,17 +123,11 @@
 					var a = "<tr><td>"+msg.company[i].company+"</td><td>"+msg.company[i].customer_name+"</td><td>"+msg.company[i].customer_phone+"</td><td>"+msg.company[i].begin_time+"</td><td>"+msg.company[i].end_time+"</td><td><div><div><button class='but_1'>编辑</button></div><div><button class='but_2'>删除</button></div></div></td></tr>"
 					$("#tb").append(a);
 				}
-
-			}
-		})
-	}
-	</script>
-	<script type="text/javascript">
-    TablePage('#tables',7);
+				TablePage('#tables',6);
     function TablePage(id,size){  
     var $table = $(id);  
     var currentPage =0;  //当前页  
-    var pageSize = 7;  //每页行数（不包括表头）  
+    var pageSize = 3;  //每页行数（不包括表头）  
     $table.bind("repaginate",function()  
     {  
        //console.log($table.find("tbody tr").eq(0));  
@@ -205,7 +199,15 @@
     });  
       
  } 
-</script>
+
+			},
+			error: function(xhr) {
+					alert("获取保险记录后台失败！");
+				}
+		})
+	}
+	</script>
+
 		
 	</div>
 <!-- box4 -->
