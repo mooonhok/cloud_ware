@@ -212,7 +212,7 @@
 							'<td>' + msg.rechange_insurance[i].driver_name + '</td>' +
 							'<td>' + msg.rechange_insurance[i].driver_phone + '</td>'+
 							'<td class="information"  onclick="detil('+
-							msg.rechange_insurance[i].insurance_id+')">详情</td>' +
+							msg.rechange_insurance[i]+')">详情</td>' +
 							'<td>' + msg.rechange_insurance[i].insurance_price + '</td>' +
 							'<td>' + msg.rechange_insurance[i].insurance_amount + '</td>' +
 							'<td>' + msg.rechange_insurance[i].	insurance_start_time + '</td> '+
@@ -228,7 +228,7 @@
       }
    	      //货物详情
    	      function detil(id){
-   	      	alert(id);
+   	      	alert(id.insurance_id+"///"+id.insurance_price);
    	      }
 		//加载保险充值记录
 		function loadrechanges(city_id, company) {
@@ -238,7 +238,7 @@
 			if(company==null){
 				company="";
 			}
-			alert(company);
+			//alert(company);
 			$.ajax({
 				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?city_id=" + city_id + "&company=" + company,
 				dataType: 'json',
@@ -325,9 +325,15 @@
 		//搜索框
 		$(".select_2_2").on('click', function() {
 			company = $("#coname").val();
-			alert(company);
+			city_id = $("#city1 option:selected").val();
+			if(city_id==null||city_id==""){
+				alert("请先选择城市");
+			}else{
+				//alert(company);
 			loadrechanges(city_id, company);
 			insurance(city_id,company);
+			}
+			
 		});
 		
 	</script>
