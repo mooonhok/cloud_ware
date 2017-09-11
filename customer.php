@@ -552,7 +552,7 @@ $app->post('/plus_customer',function()use($app){
 //    echo json_encode(array("result"=>"1","desc"=>"success"));
 //});
 //批量上传，有改无增
-$app->post('/tenant_customer',function()use($app){
+$app->post('/customer_insert',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
