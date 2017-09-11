@@ -65,7 +65,7 @@
 					<button class="hunt">选择搜索</button>
 				</div>
 				<div class="select_2">
-					<div class="select_2_1"><input type="text"></div>
+					<div class="select_2_1"><input id="coname" type="text"></div>
 					<div class="select_2_2"><img src="images/seek.png" alt="" width="30" height="30"></div>
 				</div>
 			</div>
@@ -115,13 +115,14 @@
 				<table width="1200" border="0" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
-							<th width="150">车牌号</th>
-							<th width="150">驾驶员</th>
-							<th width="200">电话</th>
-							<th width="150">货物详情</th>
-							<th width="150">投保金额</th>
+							<th width="120">车牌号</th>
+							<th width="120">驾驶员</th>
+							<th width="150">电话</th>
+							<th width="120">货物详情</th>
+							<th width="120">投保金额</th>
 							<th width="150">保费</th>
-							<th width="250">运输时间</th>
+							<th width="230">保险开始时间</th>
+							<th width="230"> 运输时间</th>
 						</tr>
 					</thead>
 					<tbody id="tb2">
@@ -320,8 +321,10 @@
 			loadrechanges(city_id, company);
 			insurance(city_id,company);
 		})
+		//搜索框
 		$(".select_2_2").on('click', function() {
-			company = $(".select_2_1").val();
+			company = $("#coname").val();
+			alert(company);
 			loadrechanges(city_id, company);
 			insurance(city_id,company);
 		});
@@ -346,7 +349,7 @@
 				}),
 				success: function(msg) {
 					city_id = $("#city1 option:selected").val();
-					company = $(".select_2_1").val();
+					company = $("#coname").val();
 					alert("修改成功");
 					$(".box3").css("display", "none");
 					loadrechanges(city_id, company);
