@@ -546,6 +546,9 @@
 					//alert("cxdz");
 					// alert("加载寄件人地址结果" + msg.result);
 					$("#box101").html("");
+					if(msg.wxmessage==null||msg.wxmessage==""){
+						layer.msg("地址记录为空，请添加地址");
+					}else{
 					for(var i = 0; i < msg.wxmessage.length; i++) {
 						var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 							msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
@@ -564,6 +567,7 @@
 							$(".box").css("display","block");
 						});
 					}
+				}
 				},
 				error: function(xhr) {
 					// bootbox.setLocale("zh_CN");
@@ -629,6 +633,9 @@
 					//alert("cxdz");
 					// alert("加载收货地址" + msg.result);
 					$("#box111").html("");
+					if(msg.wxmessage==null||msg.wxmessage==""){
+						layer.msg("地址记录为空，请添加地址");
+					}else{
 					for(var i = 0; i < msg.wxmessage.length; i++) {
 						var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 							msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
@@ -654,6 +661,7 @@
 								layer.msg("寄件人不能和收件人相同");
 							}
 						});
+					}
 					}
 				},
 				error: function(xhr) {

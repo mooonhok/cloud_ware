@@ -1322,7 +1322,56 @@ $app->get('/orders_goods_customer', function () use ($app) {
         echo json_encode(array("result" => "3", "desc" => "缺少租户id"));
     }
 });
-
+//客户端，根据order_id改金额
+$app->put('/update_order_cost',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $order_id=$body->order_id;
+    $order_cost=$body->order_cost;
+    if($tenant_id!=null||$tenant_id!=''){
+       if($order_id!=null||$order_id!=''){
+           $selectStatement = $database->select()
+               ->from('tenant')
+               ->where('tenant_id', "=",$tenant_id)
+               ->where('exist','=',0);
+           $stmt = $selectStatement->execute();
+           $data1= $stmt->fetch();
+           if($data1!=null){
+               $selectStatement = $database->select()
+                   ->from('orders')
+                   ->where('tenant_id', "=",$tenant_id)
+                   ->where('order_id','=',$order_id)
+                   ->where('exist','=',0);
+               $stmt = $selectStatement->execute();
+               $data2= $stmt->fetch();
+               if($data2!=null){
+                   $updateStatement = $database->update(array('order_cost' => $order_cost))
+                       ->table('orders')
+                       ->where('tenant_id', '=', $tenant_id)
+                       ->where('exist','=',0)
+                       ->where('order_id', '=', $order_id);
+                   $affectedRows = $updateStatement->execute();
+                   if($affectedRows!=null){
+                       echo json_encode(array("result" => "1", "desc" => "success"));
+                   }else{
+                       echo json_encode(array("result" => "2", "desc" => "未执行"));
+                   }
+               }else{
+                   echo json_encode(array("result" => "3", "desc" => "没有该订单"));
+               }
+           }else{
+               echo json_encode(array("result" => "4", "desc" => "没有该租户"));
+           }
+       }else{
+           echo json_encode(array("result" => "5", "desc" => "缺少订单id"));
+       }
+    }else{
+        echo json_encode(array("result" => "6", "desc" => "缺少租户id"));
+    }
+});
 
 
 $app->run();
