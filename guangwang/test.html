@@ -4,16 +4,15 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<!--css样式-->
-	<link href="http://cdn.bootcss.com/bootstrap-table/1.9.1/bootstrap-table.min.css" rel="stylesheet"/> 
-
-  <script src="http://cdn.bootcss.com/bootstrap-table/1.9.1/bootstrap-table.min.js"></script>
-  //国际化，表格汉化
- <script src="http://cdn.bootcss.com/bootstrap-table/1.9.1/locale/bootstrap-table-zh-CN.min.js"></script>
+	<link href="css/bootstrap-table.min.css" rel="stylesheet"/> 
+	<script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/bootstrap-table.js"></script>
+    <script src="js/bootstrap-table-zh-CN.js"></script>
 	</head>
 <body>
 	<table data-toggle="table" data-url="data.json">
             <thead>
-                ...    
+                
             </thead>
 </table>
 <script>
@@ -34,7 +33,7 @@
     dataType: "json",
     pagination: true, //分页
     singleSelect: false,
-    data-locale:"zh-US" , //表格汉化
+    data-locale:"zh-US", //表格汉化
     search: true, //显示搜索框
     sidePagination: "client", //前台处理分页
           columns: [
