@@ -8,10 +8,95 @@
 	<!-- <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script> -->
 	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="js/jquery.session.js"></script>
+    <script type="text/javascript" src="js/banner.js"></script>
+     <script src="js/jquery.mousewheel.min.js" type="text/javascript" charset="utf-8"></script>  
+    <script src="js/jquery.easie.js" type="text/javascript" charset="utf-8"></script>  
+    <script src="js/jquery.path.js" type="text/javascript" charset="utf-8"></script>  
+    <script type="text/javascript">  
+        $(document).ready(function(){  
+            //得到鼠标滚轮的事件处理  
+            var nowPage = 0;  
+            var lock = true;//函数节流的锁  
+            $(document).mousewheel(function(event,delta){  
+                //console.log(delta);滚轮往上滚delta=1，往下滚delta=-1  
+                //问题？  
+                //鼠标向上滚delta=1，是数值增大的过程，而用户的习惯是序号减小的过程  
+                //鼠标向下滚delta=-1，是数值减小的过程，而用户的习惯是序号增大的过程  
+                //解决：相反数  
+                if(lock){  
+                nowPage = nowPage - delta;  
+                if(nowPage<0){  
+                    nowPage=0;  
+                }  
+                if(nowPage>2){  
+                    nowPage=2;  
+                }  
+                // console.log(nowPage);     
+                //让container进行动画      
+                $(".container").animate({"top": nowPage * -100 +"%"});  
+                /*easieEaseInQuint这个属性就是引用了jquery.easie.js插件所起到的效果，当然也可以使用innear属性，Jquery默认的匀速效果。*/  
+  
+  
+                //current属性交替在标签中  
+                $(".page").eq(nowPage).addClass("current").siblings().removeClass('current');  
+                lock = false;  
+                /*函数节流，知道两秒钟后，才能执行该函数*/  
+                setTimeout(function(){  
+                        lock = true;  
+                    },500);  
+  
+                }  
+            });  
+        });  
+    </script>  
+    <style type="text/css">  
+        *{  
+            margin: 0;  
+            padding: 0;  
+        }  
+        html,body{  
+            height: 100%;  
+            /* 没有滚动条设置 overflow:hidden*/  
+            overflow: hidden;  
+        }  
+        .container{  
+            width: 100%;  
+            height: 100%;  
+            position: absolute;/* absolute定位脱离了标准流，不具备将宽度扩展为父盒子的100%，所以需要重写宽度 */  
+            top: 0%;  
+            left: 0;  
+        }  
+        .page{  
+            width: 100%;  
+            height: 100%;  
+            /* background:url(images/page0_bg.jpg) center top no-repeat; */   
+            /* background-size: cover  这个是css3的属性，表示拉伸为盒子大小 */  
+            /* background-size: cover; */  
+        }  
+        @-webkit-keyframes tiao{  
+            from{  
+                width: 200px;  
+                height: 200px;  
+                background-color: red;  
+            }  
+            to{  
+                width: 0px;  
+                height: 0px;  
+                background-color: green;  
+                transform: rotate(30deg) translateX(500px) translateY(50px);   
+            }  
+        }  
+  
+        .page0 .current div:nth-of-type(1){  
+            transform: rotate(30deg) translateX(500px) translateY(50px);  
+        }  
+  
+    </style>  
 </head>
 <body>
-	<div class="box">
+	<div class="container">
 	<!-- top -->
+	<div class="shang">
 		<div class="top">
 		<div class="top_1_1">
 			<div class="top_1">
@@ -56,7 +141,10 @@
 			</div>
 			
 		</div>
+		</div>
 <!-- banner_box -->
+<div class="page page0 current">
+<div class="banner">
 	<div class="banner_box">
 		<div class="imgs">
 			<img src="images/dbg.png" alt="">
@@ -70,12 +158,15 @@
 			
 		</div>
 		<span class="left_btn">&lt;</span>
-		<span class="right_btn">&gt;</span>		
+		<span class="right_btn">&gt;</span>	
+</div>			
+</div>
 </div>	 
 
 <!-- center -->
 
-
+<div class="page page1">
+<div class="cen">
 	<div class="center">
 		<div class="center_1">
 			
@@ -101,8 +192,11 @@
 		</div>
 		
 	</div>
-
+</div>	
+</div>
 <!-- center1 -->
+<div class="page page2">
+<div class="cent">
 	<div class="center1">
 		<div class="show">
 			<h3>产品展示</h3>
@@ -114,6 +208,7 @@
 		</div>
 
 	</div>
+
 <!-- center2 -->
 	<div class="center2">
 		<div class="new">
@@ -146,8 +241,42 @@
 			</div>
 		</div>
 	</div>
+	<div class="foot">
+	<div class="foot_1">
+		<div class="foot_1_1">公司地址</div>
+		<div class="foot_1_2">江苏省南通市港闸区幸余路</div>
+	</div>
+	<div class="foot_2">
+		<div class="foot_2_1">公司电话</div>
+		<div class="foot_2_2">18888888888</div>
+	</div>
+	<div class="foot_3">
+		<div class="foot_3_1">公司传真</div>
+		<div class="foot_3_2">88888888</div>
+	</div>
+	
+	<div class="foot_4">
+		
+	</div>
+	<div class="foot_6">
+		
+	</div>
+	<div class="foot_5">
+		<div class="foot_5_1">使用条款</div>
+		<div class="foot_5_1">法律声明</div>
+		<div class="foot_5_1">隐私权政策</div>
+		<div class="foot_5_1">网站地图</div>
+		<div class="foot_5_1">支持</div>
+	</div>
+
+	</div>
+	<div style="clear: both;"></div>
+</div>
+	</div>
 	<!-- center3 -->
-	<div class="center3">
+<!-- 	<div class="page page3"> -->
+	<!-- <div class="cente"> -->
+	<!-- <div class="center3">
 		<div class="center3_1">
 			<p class="p1">你是否已经对我公司了解了？还有问题咨询我们？</p>
 			<p class="p2">
@@ -157,9 +286,9 @@
 		<div class="center3_2">
 			马上联系我们
 		</div>
-	</div>
+	</div> -->
 	<!-- foot -->
-	<div class="foot">
+	<!-- <div class="foot">
 	<div class="foot_1">
 		<div class="foot_1_1">公司地址</div>
 		<div class="foot_1_2">江苏省南通市港闸区幸余路</div>
@@ -191,6 +320,9 @@
 	
 <div style="clear: both;"></div>
 	</div>
+	<div style="clear: both;"></div>
+	</div> -->
+</div>
 
 	<div class="box2">
 		<div class="box3">
@@ -215,7 +347,11 @@
 			</div>
 		</div>
 	</div>
+
+
 </body>
+
+
 	<script type="text/javascript">
 		$(".top_2_2").on("click",function(){
 			$(".box2").css("display","block");

@@ -35,7 +35,7 @@
 						<div class="center_3">
 							<div class="wenzi">营业执照号码:</div>
 							<div class="wenzi2"><input type="text" name="business_l"></div>
-							<div class="cs"><input type="file"   value="拍照上传" name="file1" onchange="getPhotoSize(this)"></div>
+							<div class="cs"><input type="file"   value="拍照上传" name="file1" onchange="getPhotoSize(this)" accept="image/*"></div>
 							<!--<textarea name="business_l_p"  id="tupian" style="display: none;"></textarea>-->
 						</div>
 						<div class="center_4">
@@ -44,15 +44,15 @@
 						</div>
 						<div class="center_5">
 							<div class="wenzi">负责人电话:</div>
-							<div class="wenzi1"><input type="text" name="telephone"></div>
+							<div class="wenzi1"><input type="text" name="telephone" id="phone"></div>
 						</div>
 						<div class="center_6">
 							<div class="wenzi">电子邮箱:</div>
-							<div class="wenzi1"><input type="text" name="email"></div>
+							<div class="wenzi1"><input type="text" name="email" id="email"></div>
 						</div>
 						<div class="center_7">
 							<div class="wenzi">QQ:</div>
-							<div class="wenzi1"><input type="text" name="qq"></div>
+							<div class="wenzi1"><input type="text" name="qq" id="qq"></div>
 						</div>
 						<div class="center_8">
 							<div class="center_8_1">经 营 地 址:<input type="text" name="address"></div>
@@ -129,7 +129,7 @@
 								<textarea class="text1" name="c_introduction"></textarea>
 							</div>
 						</div>
-						<input name="sales_id" style="display: none;" id="userid"></input>
+						<input name="sales_id" style="display: none;" id="userid">
 						<input class="tijiao" type="submit" value="提交">
 					</div>
 				</div>
@@ -138,6 +138,32 @@
 
 	</body>
 	<script src="http://www.itakeo.com/down/calender2.js"></script>
+	<script type="text/javascript">
+		
+		$("#phone").on('change',function(){
+			var phone = $("#phone").val();
+			// alert(phone);
+			if(!/^1[34578]\d{9}$/.test(phone)){
+				alert("手机号码格式不对")
+			}
+		})
+	</script>
+	<script type="text/javascript">
+		$("#email").on("change",function(){
+			var email = $("#email").val();
+			if(!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)||!/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)){
+				alert("邮箱格式错误")
+			}
+		})
+	</script>
+	<script type="text/javascript">
+		$("#qq").on("change",function(){
+			var qq = $("#qq").val();
+			if(!/^\d{5,10}$/.test(qq)){
+				alert("QQ号格式错误")
+			}
+		})
+	</script>
 	<script>
 		//日期判断
 		(function() {
@@ -266,7 +292,7 @@
 		var userid = $.session.get('userid');
 		$("#userid").val(userid);
 			if(userid == null || username == null) {
-				window.location.href = "index.html";
+				// window.location.href = "index.html";
 			} else {
 		function check(){
 			var address = document.getElementsByName("address")[0].value;
