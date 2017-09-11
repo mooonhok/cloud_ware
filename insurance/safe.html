@@ -189,50 +189,6 @@
 	</script>
 
 	<script>
-		var city_id = null;
-		var company = null;
-		//获取session值
-		var user = $.session.get('userid');
-		alert(user);
-		if(user == null || user == "") {
-			window.location.href = "login.html";
-		} else {
-			loadrechanges(city_id, company);
-		}
-	</script>
-	<script type="text/javascript">
-		$(".box3_3").on("click", function() {
-			$(".box3").css("display", "none");
-		})
-
-		$(".gps_2").on("click", function() {
-			$(".tab_1").css("display", "block");
-			$(".tab").css("display", "none");
-			$(".gps_2").css("background", "blue")
-			$(".gps_1").css("background", "white")
-		})
-		$(".gps_1").on("click", function() {
-			$(".tab_1").css("display", "none");
-			$(".tab").css("display", "block");
-			$(".gps_2").css("background", "white")
-			$(".gps_1").css("background", "blue")
-		})
-		$(".box2_2").on("click", function() {
-			$(".box2").css("display", "none");
-		})
-	</script>
-	<script>
-		var city_id = null;
-		var company = null;
-		//选择搜索按钮的事件
-		$(".hunt").on('click', function() {
-			city_id = $("#city1 option:selected").val();
-			loadrechanges(city_id, company);
-		})
-		$(".select_2_2").on('click', function() {
-			company = $(".select_2_1").html();
-			loadrechanges(city_id, company);
-		});
 		//加载保险充值记录
 		function loadrechanges(city_id, company) {
 			$.ajax({
@@ -278,6 +234,51 @@
 				}
 			});
 		}
+		var city_id = null;
+		var company = null;
+		//获取session值
+		var user = $.session.get('userid');
+		alert(user);
+		if(user == null || user == "") {
+			window.location.href = "login.html";
+		} else {
+			loadrechanges(city_id, company);
+		}
+	</script>
+	<script type="text/javascript">
+		$(".box3_3").on("click", function() {
+			$(".box3").css("display", "none");
+		})
+
+		$(".gps_2").on("click", function() {
+			$(".tab_1").css("display", "block");
+			$(".tab").css("display", "none");
+			$(".gps_2").css("background", "blue")
+			$(".gps_1").css("background", "white")
+		})
+		$(".gps_1").on("click", function() {
+			$(".tab_1").css("display", "none");
+			$(".tab").css("display", "block");
+			$(".gps_2").css("background", "white")
+			$(".gps_1").css("background", "blue")
+		})
+		$(".box2_2").on("click", function() {
+			$(".box2").css("display", "none");
+		})
+	</script>
+	<script>
+		var city_id = null;
+		var company = null;
+		//选择搜索按钮的事件
+		$(".hunt").on('click', function() {
+			city_id = $("#city1 option:selected").val();
+			loadrechanges(city_id, company);
+		})
+		$(".select_2_2").on('click', function() {
+			company = $(".select_2_1").html();
+			loadrechanges(city_id, company);
+		});
+		
 	</script>
 	<script>
 		//确认支付
