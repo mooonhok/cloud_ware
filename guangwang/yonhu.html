@@ -111,11 +111,18 @@
             </tbody>
        </table>
        </div>
-
-
 		<div class="box3_2">添加</div>
-		<!-- <div class="box3_3">编辑</div> -->
-		<!-- <div class="box3_4">保存</div> -->
+
+	<script type="text/javascript">
+		$.ajax({
+			url:"http://mooonhok-cloudware.daoapp.io/sales.php/sales_tenant?sales_id="+sales_id,
+			dataType:'json',
+			type:'get',
+			contentType: "application/json;charset=utf-8",
+			data: JSON.stringify({}),
+		})
+	</script>
+		
 	</div>
 <!-- box4 -->
 	<div class="box4">
