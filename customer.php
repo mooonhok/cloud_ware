@@ -503,54 +503,87 @@ $app->post('/plus_customer',function()use($app){
     }
 });
 
-//批量上传，无则增加，有则修改
-$app->post('/customers_insert',function()use($app){
+////批量上传，无则增加，有则修改
+//$app->post('/customers_insert',function()use($app){
+//    $app->response->headers->set('Content-Type', 'application/json');
+//    $database=localhost();
+//    $tenant_id=$app->request->headers->get("tenant-id");
+//    $body = $app->request->getBody();
+//    $array=array();
+//    $body=json_decode($body);
+//    foreach($body as $key=>$value){
+//        $array[$key]=$value;
+//    }
+//    $num=count($array);
+////    $aa=$array[0];
+////    $array1=array();
+////    foreach($aa as $key=>$value){
+////        $array1[$key]=$value;
+////    }
+//
+////echo count($array1);
+//    for($i=0;$i<$num;$i++){
+//        $array1=array();
+//        foreach($array[$i] as $key=>$value){
+//            $array1[$key]=$value;
+//        }
+//        $selectStatement = $database->select()
+//            ->from('customer')
+//            ->where('customer_id','=',$array1['customer_id'])
+//            ->where('exist','=',0)
+//            ->where('tenant_id','=',$tenant_id);
+//        $stmt = $selectStatement->execute();
+//        $data1 = $stmt->fetch();
+//        if($data1==null){
+//            $array1['tenant_id']=$tenant_id;
+//            $insertStatement = $database->insert(array_keys($array1))
+//                ->into('customer')
+//                ->values(array_values($array1));
+//            $insertId = $insertStatement->execute(false);
+//        }else{
+//            $updateStatement = $database->update($array1)
+//                ->table('customer')
+//                ->where('tenant_id','=',$tenant_id)
+//                ->where('customer_id','=',$array1['customer_id'])
+//                ->where('exist',"=",0);
+//            $affectedRows = $updateStatement->execute();
+//        }
+//    }
+//    echo json_encode(array("result"=>"1","desc"=>"success"));
+//});
+//批量上传，有改无增
+$app->post('/tenant_customer',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
     $body = $app->request->getBody();
-    $array=array();
     $body=json_decode($body);
+    $array=array();
+    $customer_id=$body->customer_id;
     foreach($body as $key=>$value){
         $array[$key]=$value;
     }
-    $num=count($array);
-//    $aa=$array[0];
-//    $array1=array();
-//    foreach($aa as $key=>$value){
-//        $array1[$key]=$value;
-//    }
-
-//echo count($array1);
-    for($i=0;$i<$num;$i++){
-        $array1=array();
-        foreach($array[$i] as $key=>$value){
-            $array1[$key]=$value;
-        }
-        $selectStatement = $database->select()
-            ->from('customer')
-            ->where('customer_id','=',$array1['customer_id'])
-            ->where('exist','=',0)
-            ->where('tenant_id','=',$tenant_id);
-        $stmt = $selectStatement->execute();
-        $data1 = $stmt->fetch();
-        if($data1==null){
-            $array1['tenant_id']=$tenant_id;
-            $insertStatement = $database->insert(array_keys($array1))
-                ->into('customer')
-                ->values(array_values($array1));
-            $insertId = $insertStatement->execute(false);
-        }else{
-            $updateStatement = $database->update($array1)
-                ->table('customer')
-                ->where('tenant_id','=',$tenant_id)
-                ->where('customer_id','=',$array1['customer_id'])
-                ->where('exist',"=",0);
-            $affectedRows = $updateStatement->execute();
-        }
-
+    $selectStatement = $database->select()
+        ->from('customer')
+        ->where('customer_id','=',$customer_id)
+        ->where('exist','=',0)
+        ->where('tenant_id','=',$tenant_id);
+    $stmt = $selectStatement->execute();
+    $data2 = $stmt->fetch();
+    if($data2!=null){
+        $updateStatement = $database->update($array)
+            ->table('customer')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('customer_id','=',$customer_id)
+            ->where('exist',"=",0);
+        $affectedRows = $updateStatement->execute();
+    }else{
+        $array['tenant_id']=$tenant_id;
+        $insertStatement = $database->insert(array_keys($array))
+            ->into('customer')
+            ->values(array_values($array));
+        $insertId = $insertStatement->execute(false);
     }
-    echo json_encode(array("result"=>"1","desc"=>"success"));
 });
 
 //客户端，根据tenant_id，查出tenant和customer
@@ -587,6 +620,65 @@ $app->post('/customers_insert',function()use($app){
 //        echo json_encode(array("result"=>"4","desc"=>"租户id为空"));
 //    }
 //});
+
+
+
+//客户端添加customer
+$app->post('/khd_customer',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body=json_decode($body);
+    $customer_id=$body->customer_id;
+    $customer_name=$body->customer_name;
+    $customer_phone=$body->customer_phone;
+    $customer_city_id=$body->customer_city_id;
+    $customer_address=$body->customer_address;
+    $contact_tenant_id=$body->contact_tenant_id;
+    $array=array();
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+    if($tenant_id!=null||$tenant_id!=''){
+       if($customer_id!=null||$customer_id!=''){
+          if($customer_name!=null||$customer_name!=''){
+             if($customer_phone!=null||$customer_phone!=''){
+                if($customer_city_id!=null||$customer_city_id!=''){
+                   if($customer_address!=null||$customer_address!=''){
+                       if($contact_tenant_id!=null||$contact_tenant_id!=''){
+                           $insertStatement= $database->insert(array_keys($array))
+                               ->into('customer')
+                               ->values(array_values($array));
+                           $insertId = $insertStatement->execute(false);
+                           if($insertId>0){
+                               echo json_encode(array('result'=>'','desc'=>'添加成功'));
+                           }else{
+                               echo json_encode(array('result'=>'','desc'=>'添加失败'));
+                           }
+                       }else{
+                           echo json_encode(array('result'=>'','desc'=>'合作公司id为空'));
+                       }
+                   }else{
+                       echo json_encode(array('result'=>'','desc'=>'客户地址为空'));
+                   }
+                }else{
+                    echo json_encode(array('result'=>'','desc'=>'客户城市id为空'));
+                }
+             }else{
+                 echo json_encode(array('result'=>'','desc'=>'客户电话为空'));
+             }
+          }else{
+              echo json_encode(array('result'=>'1','desc'=>'客户名字为空'));
+          }
+       }else{
+           echo json_encode(array('result'=>'1','desc'=>'客户id为空'));
+       }
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'租户公司id为空'));
+    }
+});
+
 $app->run();
 
 function localhost(){
