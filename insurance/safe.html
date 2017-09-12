@@ -443,7 +443,7 @@
 							}
 							$("#tb1").append(b);
 							}
-							$("#yeshua").text(up++);
+							$("#yeshua").text(parseInt(up)+1);
 						}else if(msg.insurance_rechanges.length>up*10&&msg.insurance_rechanges.length<(up+1)*10){
 															$("#tb1").text("");
 							for(var i = up*10; i < msg.insurance_rechanges.length; i++) {
@@ -464,7 +464,7 @@
 							}
 							$("#tb1").append(b);
 							}
-							$("#yeshua").text(up++);
+							$("#yeshua").text(parseInt(up)+1);
 						}
 						});
 						
