@@ -212,7 +212,7 @@
 	}
 	</script>
 <script type="text/javascript">
-    function data(id){
+    function updata(id){
     	alert("id");
     	$.ajax({
     		url:"http://mooonhok-cloudware.daoapp.io/sales.php/tenantbyid?tenant_id="+id,
@@ -450,9 +450,9 @@ var sales_id = $.session.get('userid');
 	  		$("#email").val(msg.sales.zip_code)
 	  		$("#dizhi").text(msg.sales.address)
 	  		if(msg.sales.sex==0){
-	  			$("rad2").attr("checked","checked")
+	  			$("#rad2").attr("checked","checked")
 	  		}else{
-	  			$("rad1").attr("checked","checked")
+	  			$("#rad1").attr("checked","checked")
 	  		}
 	  	},
 	  	error:function(xhr){
