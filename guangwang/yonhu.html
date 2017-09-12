@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="css/yonhu.css">
 	 <!-- <link href="css/jquery.dataTables.min.cs" rel="stylesheet"> -->
 	<script src="js/jquery-1.9.1.min.js"></script>
-	<script src="js/jquery.session.js"></script>
+	<!-- <script src="js/jquery.session.js"></script> -->
 	<script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>
 	<script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
 	<script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
@@ -38,17 +38,17 @@
 
 			<div class="box2_2">
 			<div class="box2_2_1"><label for="">用户名</label></div>
-			<div class="box2_2_2"><input type="text"></div>
+			<div class="box2_2_2"><input type="text" id="name_1"></div>
 			</div>
 
 			<div class="box2_3">
 			<div class="box2_3_1"><label for="">性别</label></div>
-			<div class="box2_3_2"><input type="radio" value="boy" name="sex">&nbsp;男&nbsp;&nbsp;&nbsp;<input type="radio" value="girl" name="sex">&nbsp;女</div>
+			<div class="box2_3_2"><input type="radio" value="1" name="sex">&nbsp;男&nbsp;&nbsp;&nbsp;<input type="radio" value="0" name="sex">&nbsp;女</div>
 			</div>	
 
 			<div class="box2_4">
 			<div class="box2_4_1"><label for="">身份证号</label></div>
-			<div class="box2_4_2"><input type="text"></div>
+			<div class="box2_4_2"><input type="text" id="number"></div>
 			</div>	
 
 		</div>
@@ -56,25 +56,25 @@
 			<div class="box2_5_1"><h4>联系方式</h4></div>
 			<div class="box2_6">
 				<div class="box2_6_1"><label for="">手机号</label></div>
-				<div class="box2_6_2"><input type="text"></div>
+				<div class="box2_6_2"><input type="text" id="tel"></div>
 			</div>
 			<div class="box2_7">
 				<div class="box2_7_1"><label for="">QQ</label></div>
-				<div class="box2_7_2"><input type="text"></div>
+				<div class="box2_7_2"><input type="text" id="qq_1"></div>
 			</div>
 			<div class="box2_8">
 				<div class="box2_8_1"><label for="">微信</label></div>
-				<div class="box2_8_2"><input type="text"></div>
+				<div class="box2_8_2"><input type="text" id="wx"></div>
 			</div>
 			<div class="box2_9">
 				<div class="box2_9_1"><label for="">邮箱</label></div>
-				<div class="box2_9_2"><input type="text"></div>
+				<div class="box2_9_2"><input type="text" id="email"></div>
 			</div>
 			<div class="box2_10">
 				<div class="box2_10_1"><label for="">地址</label></div>
-				<div class="box2_10_2"><textarea class="text1"></textarea></div>
+				<div class="box2_10_2"><textarea class="text1" id="dizhi"></textarea></div>
 			</div>
-		   <div class="box2_11">编辑</div>		
+		   <!--<div class="box2_11">编辑</div>-->
 		   <div class="box2_12">保存</div>	
 		</div>
 					
@@ -98,7 +98,7 @@
             </tbody>
        </table>
        <div class="tables_footer clearfix" style="width: 500px;">
-		<div class="page_all fl">共有13条记录</div>
+		<!-- <div class="page_all fl">共有13条记录</div> -->
 		<div class="page_out fr"></div>
 	</div>
        </div>
@@ -120,7 +120,7 @@
 				console.log(msg);
 				$("#tb").html("");
 				for(var i=0;i<msg.company.length;i++){
-					var a = "<tr><td>"+msg.company[i].company+"</td><td>"+msg.company[i].customer_name+"</td><td>"+msg.company[i].customer_phone+"</td><td>"+msg.company[i].begin_time+"</td><td>"+msg.company[i].end_time+"</td><td><button class='but_1'>编辑</button></td></tr>"
+					var a = "<tr><td>"+msg.company[i].company+"</td><td>"+msg.company[i].customer_name+"</td><td>"+msg.company[i].customer_phone+"</td><td>"+msg.company[i].begin_time+"</td><td>"+msg.company[i].end_time+"</td><td><button class='but_1' onclick='updata("+msg.company[i].tenant_id+")'>编辑</button></td></tr>"
 					$("#tb").append(a);
 					TablePage('#tables',6);
     function TablePage(id,size){  
@@ -137,6 +137,9 @@
     var numPages = Math.ceil(numRows/pageSize);//总页数  
     //console.log(numPages);  
     var $pager = $("<div class='page'><a href='javascript:void(0)'><span id='Prev' style='margin-right:4px;'>« Prev</span></a></div>");  //分页div  
+
+
+
     for( var page = 0; page < numPages; page++)  
     {  
       //为分页标签加上链接  
@@ -198,8 +201,8 @@
     });  
       
  } 
-				}
-	
+				
+}	
 
 			},
 			error: function(xhr) {
@@ -208,7 +211,31 @@
 		})
 	}
 	</script>
-
+<script type="text/javascript">
+    function data(id){
+    	alert("id");
+    	$.ajax({
+    		url:"http://mooonhok-cloudware.daoapp.io/sales.php/tenantbyid?tenant_id="+id,
+    		dataType:'json',
+    		type:'get',
+    		contentType:"application/json;charset=utf-8",
+    		data:JSON.stringify({}),
+    		success:function(msg){
+    			console.log("msg");
+    			$("#name").val(msg.tenant.company);
+    			$("#rname").val(msg.tenant.customer_name);
+    			$("#endTime").val(msg.tenant.end_date);
+    			$("#phone").val(msg.tenant.customer_phone);
+    			$("#email").val(msg.tenant.email);
+    			$("#qq").val(msg.tenant.qq);
+    			$("#site").text(msg.tenant.address);
+    		},
+    		error:function(xhr){
+    			alert("获取后台失败");
+    		}
+    	})
+    }
+</script>
 		
 	</div>
 <!-- box4 -->
@@ -217,19 +244,19 @@
 			<div class="box4_1_1"><h4>公司信息</h4></div>
 			<div class="box4_2">
 				<div class="box4_2_1"><label for="">公司名称</label></div>
-				<div class="box4_2_2"><input type="text"></div>
+				<div class="box4_2_2"><input type="text" disabled="disabled" id="name"></div>
 			</div>
 			<div class="box4_3">
-				<div class="box4_3_1"><label for="">联系人</label></div>
-				<div class="box4_3_2"><input type="text"></div>
+				<div class="box4_3_1"><label for="">负责人姓名</label></div>
+				<div class="box4_3_2"><input type="text" id="rname"></div>
 			</div>
 		</div>	
 		<div class="box4_4"></div>
 		<div class="box4_5">
 			<div class="box4_5_1"><h4>使用情况</h4></div>
 			<div class="box4_6">
-				<div class="box4_6_1"><label for="">有效时间</label></div>
-				<div class="box4_6_2"><input type="text"></div>
+				<div class="box4_6_1"><label for="">结束时间</label></div>
+				<div class="box4_6_2"><input type="text" id="endTime"></div>
 			</div>
 		</div>
 		<div class="box4_7"></div>
@@ -237,15 +264,19 @@
 			<div class="box4_8_1"><h4>联系方式</h4></div>
 			<div class="box4_9">
 				<div class="box4_9_1"><label for="">电话</label></div>
-				<div class="box4_9_2"><input type="text"></div>
+				<div class="box4_9_2"><input type="text" id="phone"></div>
 			</div>
 			<div class="box4_10">
-				<div class="box4_10_1"><label for="">邮件</label></div>				
-				<div class="box4_10_2"><input type="text"></div>				
+			<div class="box4_10_1"><label for="">邮件</label></div>				
+			<div class="box4_10_2"><input type="text" id="email"></div>				
+			</div>
+			<div class="box4_10">
+			<div class="box4_10_1"><label for="">QQ</label></div>				
+			<div class="box4_10_2"><input type="text" id="qq"></div>				
 			</div>
 			<div class="box4_11">
 				<div class="box4_11_1"><label for="">地址</label></div>
-				<div class="box4_11_2"><textarea class="text2"></textarea></div>
+				<div class="box4_11_2"><textarea class="text2" id="site"></textarea></div>
 			</div>	
 			
 		</div>
@@ -321,6 +352,54 @@
 			
 		</script>
 	</div>
+	<!-- box6 -->
+	<div class="box6">
+		<div class="box2_1">
+			<div class="box2_1_1"><h4>基本信息</h4></div>
+
+			<div class="box2_2">
+			<div class="box2_2_1"><label for="">用户名</label></div>
+			<div class="box2_2_2"><input type="text" id="name_1"></div>
+			</div>
+
+			<div class="box2_3">
+			<div class="box2_3_1"><label for="">性别</label></div>
+			<div class="box2_3_2"><input type="radio" value="1" name="sex" id="rad1">&nbsp;男&nbsp;&nbsp;&nbsp;<input type="radio" value="0" name="sex" id="rad2">&nbsp;女</div>
+			</div>	
+
+			<div class="box2_4">
+			<div class="box2_4_1"><label for="">身份证号</label></div>
+			<div class="box2_4_2"><input type="text" id="number"></div>
+			</div>	
+
+		</div>
+		<div class="box2_5">
+			<div class="box2_5_1"><h4>联系方式</h4></div>
+			<div class="box2_6">
+				<div class="box2_6_1"><label for="">手机号</label></div>
+				<div class="box2_6_2"><input type="text" id="tel"></div>
+			</div>
+			<div class="box2_7">
+				<div class="box2_7_1"><label for="">QQ</label></div>
+				<div class="box2_7_2"><input type="text" id="qq_1"></div>
+			</div>
+			<div class="box2_8">
+				<div class="box2_8_1"><label for="">微信</label></div>
+				<div class="box2_8_2"><input type="text" id="wx"></div>
+			</div>
+			<div class="box2_9">
+				<div class="box2_9_1"><label for="">邮箱</label></div>
+				<div class="box2_9_2"><input type="text" id="email"></div>
+			</div>
+			<div class="box2_10">
+				<div class="box2_10_1"><label for="">地址</label></div>
+				<div class="box2_10_2"><textarea class="text1" id="dizhi"></textarea></div>
+			</div>
+		   <!--<div class="box2_11">编辑</div>-->
+		   <div class="box2_12">保存</div>	
+		</div>
+					
+	</div>
 	<!-- daohang -->
 	<div class="daohang">
 		<div class="dian1">
@@ -334,7 +413,11 @@
 		<div class="dian3">
 			<div class="wenzi">账户信息</div>
 			<div class="xian3"></div>
-		</div>	
+		</div>
+		<div class="dian4">
+			<div class="wenzi">推荐业务员注册</div>
+			<div class="xian4"></div>
+		</div>		
 	</div>	
 
 	<div style="clear: both;"></div>
@@ -345,14 +428,40 @@
 	
 	
 </body>
-
-
-
-
-
-
-
-
+<script type="text/javascript">
+var sales_id = $.session.get('userid');
+	alert(sales_id);
+    if(sales_id==null||sales_id=="") {
+		window.location.href = "index.html";
+	}else{
+	  $.ajax({
+	  	url:"http://mooonhok-cloudware.daoapp.io/sales.php/sales?sales_id=1",
+	  	dataType:'json',
+	  	type:'get',
+	  	contentType:"application/hson;charset=utf-8",
+	  	data:JSON.stringify({}),
+	  	success:function(msg){
+	  		console.log(msg);
+	  		$("#name_1").val(msg.sales.sales_name);
+	  		$("#number").val(msg.sales.card_id);
+	  		$("#tel").val(msg.sales.telephone)
+	  		$("#qq_1").val(msg.sales.qq)
+	  		$("#wx").val(msg.sales.weixin)
+	  		$("#email").val(msg.sales.zip_code)
+	  		$("#dizhi").text(msg.sales.address)
+	  		if(msg.sales.sex==0){
+	  			$("rad2").attr("checked","checked")
+	  		}else{
+	  			$("rad1").attr("checked","checked")
+	  		}
+	  	},
+	  	error:function(xhr){
+	  		alert("获取后台失败");
+	  	}
+	  })
+	}
+	
+</script>
 
 
 <script type="text/javascript">
@@ -401,16 +510,9 @@
 		$(".xian4").css("display","block");
 	})
 	$(".box3_2").on("click",function(){
-		$(".box4").css("display","block");
-		$(".box2").css("display","none");
-		$(".box3").css("display","none");
-		$(".box5").css("display","none");
-		$(".box6").css("display","none");
-		$(".xian1").css("display","none");
-		$(".xian2").css("display","block");
-		$(".xian3").css("display","none");
-		$(".xian4").css("display","none");
+		window.location.href = "zhuce.html";
 	})
+
 	$(".box4_12").on("click",function(){
 		$(".box2").css("display","none");
 		$(".box3").css("display","block");
@@ -422,5 +524,7 @@
 		$(".xian3").css("display","none");
 		$(".xian4").css("display","none");
 	})
+	
 </script>
+
 </html>
