@@ -91,8 +91,8 @@ $app->get('/insurance_rechanges',function()use($app){
                ->join('rechanges_insurance','rechanges_insurance.tenant_id','=','tenant.tenant_id','INNER')
                ->where('tenant.from_city_id', '=', $city_id)
                ->where('tenant.company','=',$company)
-               ->orderBy('rechanges_insurance.sure_time','desc')
-               ->limit((int)10, (int)10 * (int)$page);
+               ->orderBy('rechanges_insurance.sure_time','desc');
+ //              ->limit((int)10, (int)10 * (int)$page);
            $stmt = $selectStatement->execute();
            $data1 = $stmt->fetchAll();
            echo json_encode(array('result'=>'1','desc'=>'success','insurance_rechanges'=>$data1));
@@ -101,8 +101,8 @@ $app->get('/insurance_rechanges',function()use($app){
                    ->from('tenant')
                    ->join('rechanges_insurance','rechanges_insurance.tenant_id','=','tenant.tenant_id','INNER')
                    ->where('tenant.from_city_id', '=', $city_id)
-                   ->orderBy('rechanges_insurance.sure_time','desc')
-                   ->limit((int)10, (int)10 * (int)$page);
+                   ->orderBy('rechanges_insurance.sure_time','desc');
+  //                 ->limit((int)10, (int)10 * (int)$page);
                $stmt = $selectStatement->execute();
                $data1 = $stmt->fetchAll();
                echo json_encode(array('result'=>'1','desc'=>'success','insurance_rechanges'=>$data1));
@@ -111,8 +111,8 @@ $app->get('/insurance_rechanges',function()use($app){
         $selectStatement = $database->select()
             ->from('tenant')
             ->join('rechanges_insurance','rechanges_insurance.tenant_id','=','tenant.tenant_id','INNER')
-            ->orderBy('rechanges_insurance.sure_time','desc')
-            ->limit((int)10, (int)10 * (int)$page);
+            ->orderBy('rechanges_insurance.sure_time','desc');
+//            ->limit((int)10, (int)10 * (int)$page);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
         echo json_encode(array('result'=>'3','desc'=>'城市id为空','insurance_rechanges'=>$data1));
@@ -227,8 +227,8 @@ $app->get('/insurances',function ()use($app){
                 ->where('tenant.from_city_id','=',$city_id)
                 ->where('insurance.sure_insurance','=','1')
                 ->where('tenant.company','=',$company)
-                ->orderBy('insurance.insurance_start_time','desc')
-                ->limit((int)10, (int)10 * (int)$page);
+                ->orderBy('insurance.insurance_start_time','desc');
+//                ->limit((int)10, (int)10 * (int)$page);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
             echo json_encode(array('result'=>'1','desc'=>'success','rechange_insurance'=>$data1));
@@ -239,8 +239,8 @@ $app->get('/insurances',function ()use($app){
                 ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
                 ->where('insurance.sure_insurance','=','1')
                 ->where('tenant.from_city_id','=',$city_id)
-                ->orderBy('insurance.insurance_start_time','desc')
-                ->limit((int)10, (int)10 * (int)$page);
+                ->orderBy('insurance.insurance_start_time','desc');
+              //  ->limit((int)10, (int)10 * (int)$page);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
             echo json_encode(array('result'=>'1','desc'=>'租户公司id为空','rechange_insurance'=>$data1));
@@ -251,8 +251,8 @@ $app->get('/insurances',function ()use($app){
             ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
             ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
             ->where('insurance.sure_insurance','=','1')
-            ->orderBy('insurance.insurance_start_time','desc')
-            ->limit((int)10, (int)10 * (int)$page);
+            ->orderBy('insurance.insurance_start_time','desc');
+   //         ->limit((int)10, (int)10 * (int)$page);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
         echo json_encode(array('result'=>'1','desc'=>'城市信息为空','rechange_insurance'=>$data1));
