@@ -550,12 +550,12 @@ $("#register").on("click",function(){
 	var sales_id = $.session.get('userid');
 	var name_2 = $("#name_1").val();
 	var sex_1 = $("input[name='sex']:checked").val();
-	var number_1 = $("number_1").val();
-	var tel_1 = $("tel_1").val();
-	var qq_2 = $("qq_2").val();
-	var wx_1 = $("wx_1").val();
-	var email_1 = $("email_2").val();
-	var dizhi_1 = $("dizhi_1").val();
+	var number_1 = $("#number_1").val();
+	var tel_1 = $("#tel_1").val();
+	var qq_2 = $("#qq_2").val();
+	var wx_1 = $("#wx_1").val();
+	var email_1 = $("#email_2").val();
+	var dizhi_1 = $("#dizhi_1").val();
 	$.ajax({
 		url:"http://mooonhok-cloudware.daoapp.io/sales.php/addsales",
 		dataType:'json',
