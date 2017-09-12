@@ -96,6 +96,8 @@
 				-->
 					</tbody>
 				</table>
+				<div id="count" style="display:none;"></div>
+					
 				<div style="float:right;"><span id="up_a">上一页</span><span id="yeshua"></span><span id="down_a">下一页</span></div>
 				<div class="box3">
 					<div class="box3_1">
@@ -170,8 +172,6 @@
 		page=1;
 	}
 	$("#yeshua").text(page);
-	var counta=null;
-	var countb=null;
 		$.ajax({
 			url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges_count?city_id="+city_id+"&company="+company,
 			beforeSend: function(request) {
@@ -182,13 +182,13 @@
 			contentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
-				console.log(msg);
-				counta=msg.count;
+				$('#count').text(msg.count);
 			},
 			error: function(e) {	
 				alert("省份列表1信息出错!");
 			}
 		});
+		var countaq=$('#count').text();
 		alert(counta)
 	//	$.ajax({
 	//	url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_count?city_id="+city_id+"&company="+company,
