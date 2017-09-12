@@ -24,7 +24,7 @@ $app->post('/usersign',function ()use($app){
         $selectStaement=$database->select()
             ->from('sales')
             ->where('exist','=',0)
-            ->where('user_name','=',$username);
+            ->where('telephone','=',$username);
         $stmt=$selectStaement->execute();
         $data=$stmt->fetch();
          if ($data!=null){
@@ -32,7 +32,7 @@ $app->post('/usersign',function ()use($app){
                  ->from('sales')
                  ->where('password','=',$password)
                  ->where('exist','=',0)
-                 ->where('user_name','=',$username);
+                 ->where('telephone','=',$username);
              $stmt=$selectStaement->execute();
              $data2=$stmt->fetch();
              if($data2!=null){
@@ -328,8 +328,6 @@ $app->post('/addsales',function()use($app){
                                        $stmt = $selectStatement->execute();
                                        $data2 = $stmt->fetch();
                                        $num=count($data2)+1;
-                                       $num1=rand(10000,100000);
-                                       $username=$num.$num1;
                                        $num2=rand(1000000,10000000000);
                                        $str1=str_split($num2,3);
                                        $password=null;
@@ -337,12 +335,11 @@ $app->post('/addsales',function()use($app){
                                            $password.=$str1[$x].$x;
                                        }
                                        $insertStatement = $database->insert(array('exist','sales_name','sex','card_id','telephone','address'
-                                         ,'zip_code','qq','weixin','password','user_name','higherlevel_username'))
+                                         ,'zip_code','qq','weixin','password','higherlevel_username'))
                                            ->into('sales')
-                                           ->values(array(0,$sales_name,$sex,$card_id,$telephone,$address,$zip_code,$qq,$weixin,$password,$username
+                                           ->values(array(0,$sales_name,$sex,$card_id,$telephone,$address,$zip_code,$qq,$weixin,$password
                                            ,$higherlevel));
                                        $insertId = $insertStatement->execute(false);
-                                       $arrays['username']=$username;
                                        $arrays['password']=$num2;
                                        echo json_encode(array('result' => '0', 'desc' => '添加成功','sales'=>$arrays));
                                    }else{
