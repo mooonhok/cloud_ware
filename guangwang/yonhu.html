@@ -75,7 +75,7 @@
 				<div class="box2_10_2"><textarea class="text1" id="dizhi"></textarea></div>
 			</div>
 		   <!--<div class="box2_11">编辑</div>-->
-		   <div class="box2_12">保存</div>	
+		   <div class="box2_12" id="save_1">保存</div>	
 		</div>
 					
 	</div>
@@ -435,6 +435,45 @@
 	
 </body>
 <script type="text/javascript">
+	$("#save_1").on("click",function(){
+		var sales_name=$("#name_1").val();
+	  	var numb=$("#number").val();
+	  	var tel=$("#tel").val();
+	  	var qq1=$("#qq_1").val();
+	  	var wx1=$("#wx").val();
+	    var em=$("#email").val();
+	  	var di=$("#dizhi").text();
+	  	var sales_id = $.session.get('userid');
+	  	var sex = $("input[name='sex']:checked").val();
+		//修改用户信息
+		$.ajax({
+   		  	  url:"http://mooonhok-cloudware.daoapp.io/sales.php/sales",
+   		  	  dataType:'json',
+   		  	  type:'put',
+   		  	  contentType:"application/json;charset=utf-8",
+   		  	  data:JSON.stringify({
+   		  	      sales_id:sales_id,
+   		  	      sales_name:sales_name,
+   		  	      sex:sex,
+   		  	      card_id:numb,
+   		  	      telephone:tel,
+   		  	      address:di,
+   		  	      zip_code:em,
+   		  	      qq:qq1,
+   		  	      weixin:wx1
+   		  	  }),
+   		  	  success:function(msg){
+   		  	  	alert("修改个人信息成功");
+   		  	  },
+   		  	  error:function(xhr) {
+   		  	  	alert(xhr.responseText);
+   		  	  }
+		});
+
+	})
+</script>
+
+<script type="text/javascript">
 	$("#save").on("click",function(){
 	  var name=$("#name").val();
       var customer=$("#rname").val();
@@ -470,6 +509,7 @@
 
 	})
 </script>
+
 <script type="text/javascript">
 var sales_id = $.session.get('userid');
 	alert(sales_id);
@@ -486,11 +526,11 @@ var sales_id = $.session.get('userid');
 	  		console.log(msg);
 	  		$("#name_1").val(msg.sales.sales_name);
 	  		$("#number").val(msg.sales.card_id);
-	  		$("#tel").val(msg.sales.telephone)
-	  		$("#qq_1").val(msg.sales.qq)
-	  		$("#wx").val(msg.sales.weixin)
-	  		$("#email").val(msg.sales.zip_code)
-	  		$("#dizhi").text(msg.sales.address)
+	  		$("#tel").val(msg.sales.telephone);
+	  		$("#qq_1").val(msg.sales.qq);
+	  		$("#wx").val(msg.sales.weixin);
+	  		$("#email").val(msg.sales.zip_code);
+	  		$("#dizhi").text(msg.sales.address);
 	  		if(msg.sales.sex==0){
 	  			$("#rad2").attr("checked","checked");
 	  		}else{
@@ -504,6 +544,7 @@ var sales_id = $.session.get('userid');
 	}
 	
 </script>
+
 <script type="text/javascript">
 $("#register").on("click",function(){
 	var sales_id = $.session.get('userid');
