@@ -262,8 +262,8 @@ $app->put('/sales',function()use($app){
         $data1 = $stmt->fetch();
         if($data1!=null||$data1!=""){
             $updateStatement = $database->update($arrays)
-                ->table('tenant')
-                ->where('tenant_id', '=', $sales_id);
+                ->table('sales')
+                ->where('id', '=', $sales_id);
             $affectedRows = $updateStatement->execute();
             echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
         }else{
