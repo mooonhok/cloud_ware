@@ -172,6 +172,7 @@
 		page=1;
 	}
 	$("#yeshua").text(page);
+	var counta=null;
 		$.ajax({
 			url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges_count?city_id="+city_id+"&company="+company,
 			beforeSend: function(request) {
@@ -185,14 +186,13 @@
 				console.log(msg.count);
 				console.log(msg);
 				$('#count').text(msg.count);
-				var counta=$('#count').text();
+				counta=$('#count').text();
 				alert(counta);
 			},
 			error: function(e) {	
 				alert("省份列表1信息出错!");
 			}
 		});
-		var counta=$('#count').text();
 		alert(counta)
 	//	$.ajax({
 	//	url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_count?city_id="+city_id+"&company="+company,
