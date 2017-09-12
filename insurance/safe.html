@@ -182,7 +182,8 @@
 			contentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
-				console.log(msg)
+				console.log(msg.count);
+				console.log(msg);
 				$('#count').text(msg.count);
 			},
 			error: function(e) {	

@@ -305,7 +305,7 @@ $app->post('/addsales',function()use($app){
     $card_id=$body->card_id;
     $telephone=$body->telephone;
     $address=$body->address;
-    $zip_code=$body->zip_body;
+    $zip_code=$body->zip_code;
     $qq=$body->qq;
     $weixin=$body->weixin;
     $higherlevel=$body->higherlevel;
@@ -330,7 +330,7 @@ $app->post('/addsales',function()use($app){
                                        $num=count($data2)+1;
                                        $num1=rand(10000,100000);
                                        $username=$num.$num1;
-                                       $num2=random(1000000,10000000000);
+                                       $num2=rand(1000000,10000000000);
                                        $str1=str_split($num2,3);
                                        $password=null;
                                        for ($x=0;$x<count($str1);$x++){
