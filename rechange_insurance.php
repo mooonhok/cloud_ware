@@ -289,10 +289,14 @@ $app->get('/one_goods',function()use($app){
             ->join('insurance_scheduling','insurance_scheduling.insurance_id','=',$insurance_id,'INNER')
             ->join('schedule_order','insurance_scheduling.scheduling_id','=','schedule_order.schedule_id','INNER')
             ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
-            ->join('goods','goods.order_id','=','orders.order_id');
+            ->join('goods','goods.order_id','=','orders.order_id','INNER');
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
-        echo json_encode(array('result'=>'1','desc'=>'success','goods'=>$data1));
+        $value="";
+        for($i=0;$i<count($data1);$i++){
+           $value.=$data1[$i]['goods_name'].',';
+        }
+        echo json_encode(array('result'=>'1','desc'=>'success','goods'=>$value,'count'=>count($data1)));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'单个保险id为空','goods'=>''));
     }

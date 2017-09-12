@@ -163,10 +163,14 @@
 	alert(company);
 	alert(page);
 	if(city_id==null||city_id==''){
-		city_id=0;
+		city_id="city=";
+	}else{
+		city_id="city="+city_id;
 	}
 	if(company==null||company==''){
-		company=0;
+		company="company=";
+	}else{
+		company="company="+company;
 	}
 	if(page==null||page==""){
 		page=1;
@@ -174,7 +178,7 @@
 	$("#yeshua").text(page);
 	var counta=null;
 		$.ajax({
-			url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges_count?city_id="+city_id+"&company="+company,
+			url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges_count?"+city_id+"&"+company,
 			beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", "Chenxizhang");
 			},
@@ -188,12 +192,30 @@
 				$('#count').text(msg.count);
 				counta=$('#count').text();
 				alert(counta);
+		$("#up_a").on("click",function(){
+		var ye=$("#yeshua").text();
+		if(ye==1){
+			window.location.reload();
+		}else{
+			ye--;
+			window.location.href='http://mooonhok-cloudware.daoapp.io/insurance/safe.html?'+city_id+"&"+company+"&page="+ye;
+		}
+	});
+	
+	$("#down_a").on("click",function(){
+		var ye=$("#yeshub").text();
+		if(ye==counta){
+			window.location.reload();
+		}else{
+			ye++;
+			window.location.href='http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id='+city_id+"&company="+company+"&page="+ye;
+		}
+	});
 			},
 			error: function(e) {	
 				alert("省份列表1信息出错!");
 			}
 		});
-		alert(counta)
 	//	$.ajax({
 	//	url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_count?city_id="+city_id+"&company="+company,
 	//	beforeSend: function(request) {
@@ -210,25 +232,7 @@
 	//			alert("省份列表1信息出错!");
 	//		}
 	//	});
-	$("#up_a").on("click",function(){
-		var ye=$("#yeshua").text();
-		if(ye==1){
-			window.location.reload();
-		}else{
-			ye--;
-			window.location.href='http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id='+city_id+"&company="+company+"&page="+ye;
-		}
-	});
-	
-	$("#down_a").on("click",function(){
-		var ye=$("#yeshub").text();
-		if(ye==counta){
-			window.location.reload();
-		}else{
-			ye++;
-			window.location.href='http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id='+city_id+"&company="+company+"&page="+ye;
-		}
-	});
+
 		$("#up_b").on("click",function(){
 		var ye=$("#yeshub").text();
 		if(ye==1){

@@ -75,7 +75,7 @@
 				<div class="box2_10_2"><textarea class="text1" id="dizhi"></textarea></div>
 			</div>
 		   <!--<div class="box2_11">编辑</div>-->
-		   <div class="box2_12">保存</div>	
+		   <div class="box2_12" id="save_1">保存</div>	
 		</div>
 					
 	</div>
@@ -214,6 +214,7 @@
 <script type="text/javascript">
     function updata(id){
     	$(".box4").css("display","block");
+    	$(".box3").css("display","none");
     	alert(id);
     	$.ajax({
     		url:"http://mooonhok-cloudware.daoapp.io/sales.php/tenantbyid?tenant_id="+id,
@@ -230,6 +231,7 @@
     			$("#email").val(msg.tenant.email);
     			$("#qq").val(msg.tenant.qq);
     			$("#site").text(msg.tenant.address);
+    			$("#gsid").val(id);  
     		},
     		error:function(xhr){
     			alert("获取后台失败");
@@ -267,6 +269,10 @@
 				<div class="box4_9_1"><label for="">电话</label></div>
 				<div class="box4_9_2"><input type="text" id="phone"></div>
 			</div>
+			<div class="box4_9" style="display:none">
+				<div class="box4_9_1"><label for="">公司id</label></div>
+				<div class="box4_9_2"><input type="text" id="gsid"></div>
+			</div>
 			<div class="box4_10">
 			<div class="box4_10_1"><label for="">邮件</label></div>				
 			<div class="box4_10_2"><input type="text" id="email"></div>				
@@ -281,7 +287,7 @@
 			</div>	
 			
 		</div>
-		<div class="box4_12">保存</div>
+		<div class="box4_12" id="save">保存</div>
 	</div>
 <!-- box5 -->
 	<div class="box5">
@@ -360,44 +366,43 @@
 
 			<div class="box2_2">
 			<div class="box2_2_1"><label for="">用户名</label></div>
-			<div class="box2_2_2"><input type="text" id="name_1"></div>
+			<div class="box2_2_2"><input type="text" id="name_2"></div>
 			</div>
 
 			<div class="box2_3">
 			<div class="box2_3_1"><label for="">性别</label></div>
-			<div class="box2_3_2"><input type="radio" value="1" name="sex" id="rad1">&nbsp;男&nbsp;&nbsp;&nbsp;<input type="radio" value="0" name="sex" id="rad2">&nbsp;女</div>
+			<div class="box2_3_2"><input type="radio" value="1" name="sex" id="rad3">&nbsp;男&nbsp;&nbsp;&nbsp;<input type="radio" value="0" name="sex" id="rad4">&nbsp;女</div>
 			</div>	
 
 			<div class="box2_4">
 			<div class="box2_4_1"><label for="">身份证号</label></div>
-			<div class="box2_4_2"><input type="text" id="number"></div>
+			<div class="box2_4_2"><input type="text" id="number_1"></div>
 			</div>	
-
 		</div>
 		<div class="box2_5">
 			<div class="box2_5_1"><h4>联系方式</h4></div>
 			<div class="box2_6">
 				<div class="box2_6_1"><label for="">手机号</label></div>
-				<div class="box2_6_2"><input type="text" id="tel"></div>
+				<div class="box2_6_2"><input type="text" id="tel_1"></div>
 			</div>
 			<div class="box2_7">
 				<div class="box2_7_1"><label for="">QQ</label></div>
-				<div class="box2_7_2"><input type="text" id="qq_1"></div>
+				<div class="box2_7_2"><input type="text" id="qq_2"></div>
 			</div>
 			<div class="box2_8">
 				<div class="box2_8_1"><label for="">微信</label></div>
-				<div class="box2_8_2"><input type="text" id="wx"></div>
+				<div class="box2_8_2"><input type="text" id="wx_1"></div>
 			</div>
 			<div class="box2_9">
 				<div class="box2_9_1"><label for="">邮箱</label></div>
-				<div class="box2_9_2"><input type="text" id="email"></div>
+				<div class="box2_9_2"><input type="text" id="email_1"></div>
 			</div>
 			<div class="box2_10">
 				<div class="box2_10_1"><label for="">地址</label></div>
-				<div class="box2_10_2"><textarea class="text1" id="dizhi"></textarea></div>
+				<div class="box2_10_2"><textarea class="text1" id="dizhi_1"></textarea></div>
 			</div>
 		   <!--<div class="box2_11">编辑</div>-->
-		   <div class="box2_12">保存</div>	
+		   <div class="box2_12" id="register">注册</div>	
 		</div>
 					
 	</div>
@@ -430,6 +435,82 @@
 	
 </body>
 <script type="text/javascript">
+	$("#save_1").on("click",function(){
+		var sales_name=$("#name_1").val();
+	  	var numb=$("#number").val();
+	  	var tel=$("#tel").val();
+	  	var qq1=$("#qq_1").val();
+	  	var wx1=$("#wx").val();
+	    var em=$("#email").val();
+	  	var di=$("#dizhi").text();
+	  	var sales_id = $.session.get('userid');
+	  	var sex = $("input[name='sex']:checked").val();
+		//修改用户信息
+		$.ajax({
+   		  	  url:"http://mooonhok-cloudware.daoapp.io/sales.php/sales",
+   		  	  dataType:'json',
+   		  	  type:'put',
+   		  	  contentType:"application/json;charset=utf-8",
+   		  	  data:JSON.stringify({
+   		  	      sales_id:sales_id,
+   		  	      sales_name:sales_name,
+   		  	      sex:sex,
+   		  	      card_id:numb,
+   		  	      telephone:tel,
+   		  	      address:di,
+   		  	      zip_code:em,
+   		  	      qq:qq1,
+   		  	      weixin:wx1
+   		  	  }),
+   		  	  success:function(msg){
+   		  	  	alert("修改个人信息成功");
+   		  	  },
+   		  	  error:function(xhr) {
+   		  	  	alert(xhr.responseText);
+   		  	  }
+		});
+
+	})
+</script>
+
+<script type="text/javascript">
+	$("#save").on("click",function(){
+	  var name=$("#name").val();
+      var customer=$("#rname").val();
+      var phone=$("#phone").val();
+      var email=$("#email").val();
+      var qq=$("#qq").val();
+      var site=$("#site").val();
+      var end_time=$("#endTime").val();
+      var sales_id = $.session.get('userid');
+		//修改公司信息
+		$.ajax({
+   		  	  url:"http://mooonhok-cloudware.daoapp.io/sales.php/tenantchange",
+   		  	  dataType:'json',
+   		  	  type:'put',
+   		  	  contentType:"application/json;charset=utf-8",
+   		  	  data:JSON.stringify({
+   		  	     sales_id:sales_id,
+   		  	     tenant_id:id,
+   		  	     customer_name:customer,
+   		  	     customer_phone:phone,
+   		  	     address:site,
+   		  	     end_time:end_time,
+   		  	     qq:qq,
+   		  	     email:email  
+   		  	  }),
+   		  	  success:function(msg){
+   		  	  	alert("修改公司信息成功");
+   		  	  },
+   		  	  error:function(xhr) {
+   		  	  	alert(xhr.responseText);
+   		  	  }
+		});
+
+	})
+</script>
+
+<script type="text/javascript">
 var sales_id = $.session.get('userid');
 	alert(sales_id);
     if(sales_id==null||sales_id=="") {
@@ -445,15 +526,15 @@ var sales_id = $.session.get('userid');
 	  		console.log(msg);
 	  		$("#name_1").val(msg.sales.sales_name);
 	  		$("#number").val(msg.sales.card_id);
-	  		$("#tel").val(msg.sales.telephone)
-	  		$("#qq_1").val(msg.sales.qq)
-	  		$("#wx").val(msg.sales.weixin)
-	  		$("#email").val(msg.sales.zip_code)
-	  		$("#dizhi").text(msg.sales.address)
+	  		$("#tel").val(msg.sales.telephone);
+	  		$("#qq_1").val(msg.sales.qq);
+	  		$("#wx").val(msg.sales.weixin);
+	  		$("#email").val(msg.sales.zip_code);
+	  		$("#dizhi").text(msg.sales.address);
 	  		if(msg.sales.sex==0){
-	  			$("#rad2").attr("checked","checked")
+	  			$("#rad2").attr("checked","checked");
 	  		}else{
-	  			$("#rad1").attr("checked","checked")
+	  			$("#rad1").attr("checked","checked");
 	  		}
 	  	},
 	  	error:function(xhr){
@@ -462,6 +543,49 @@ var sales_id = $.session.get('userid');
 	  })
 	}
 	
+</script>
+
+<script type="text/javascript">
+$("#register").on("click",function(){
+	var sales_id = $.session.get('userid');
+	var name_2 = $("#name_1").val();
+	var sex_1 = $("input[name='sex']:checked").val();
+	var number_1 = $("#number_1").val();
+	var tel_1 = $("#tel_1").val();
+	var qq_2 = $("#qq_2").val();
+	var wx_1 = $("#wx_1").val();
+	var email_1 = $("#email_2").val();
+	var dizhi_1 = $("#dizhi_1").val();
+	$.ajax({
+		url:"http://mooonhok-cloudware.daoapp.io/sales.php/addsales",
+		dataType:'json',
+		type:'post',
+		contentType:"application/json;charset=utf-8",
+		data:JSON.stringify({
+			sales_name:name_2,
+			telephone:tel_1,
+			sex:sex_1,
+			card_id:number_1,
+			address:dizhi_1,
+			zip_code:email_1,
+			qq:qq_2,
+			weixin:wx_1,
+			higherlevel:sales_id
+		}),
+		success:function(msg){
+			console.log(msg);
+			if(msg.result==0){
+				alert("请记住密码"+password);
+			}else{
+				alert(msg.desc);
+			}
+		},
+		error:function(xhr){
+			alert(xhr.responseText);
+		}
+	})
+})
+
 </script>
 
 
