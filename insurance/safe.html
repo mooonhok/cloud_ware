@@ -163,10 +163,14 @@
 	alert(company);
 	alert(page);
 	if(city_id==null||city_id==''){
-		city_id=0;
+		city_id="city=";
+	}else{
+		city_id="city="+city_id;
 	}
 	if(company==null||company==''){
-		company=0;
+		company="company=";
+	}else{
+		company="company="+company;
 	}
 	if(page==null||page==""){
 		page=1;
@@ -174,7 +178,7 @@
 	$("#yeshua").text(page);
 	var counta=null;
 		$.ajax({
-			url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges_count?city_id="+city_id+"&company="+company,
+			url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges_count?"+city_id+"&"+company,
 			beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", "Chenxizhang");
 			},
@@ -216,7 +220,7 @@
 			window.location.reload();
 		}else{
 			ye--;
-			window.location.href='http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id='+city_id+"&company="+company+"&page="+ye;
+			window.location.href='http://mooonhok-cloudware.daoapp.io/insurance/safe.html?'+city_id+"&"+company+"&page="+ye;
 		}
 	});
 	
