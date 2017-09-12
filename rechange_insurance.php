@@ -287,7 +287,7 @@ $app->get('/one_goods',function()use($app){
         $selectStatement = $database->select()
             ->from('insurance')
             ->join('insurance_scheduling','insurance_scheduling.insurance_id','=',$insurance_id,'INNER')
-            ->join('schedule_order','insurance.scheduling_id','=','schedule_order.schedule_id','INNER')
+            ->join('schedule_order','insurance_scheduling.scheduling_id','=','schedule_order.schedule_id','INNER')
             ->join('scheduling','scheduling.order_id','=','schedule_order.order_id','INNER')
             ->join('goods','goods.order_id','=','scheduling.order_id');
         $stmt = $selectStatement->execute();
