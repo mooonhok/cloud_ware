@@ -280,11 +280,7 @@
 			contentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
-				console.log(msg.count);
-				console.log(msg);
-				$('#count').text(msg.count);
-				counta=$('#count').text();
-				alert(counta);
+				counta=msg.count;
 		$("#up_a").on("click",function(){
 		var ye=$("#yeshua").text();
 		if(ye==1){
