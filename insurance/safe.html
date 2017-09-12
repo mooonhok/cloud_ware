@@ -96,6 +96,7 @@
 				-->
 					</tbody>
 				</table>
+				<div style="float:right;"><span id="up">上一页</span><span id="yeshua"></span><span id="down">下一页</span></div>
 				<div class="box3">
 					<div class="box3_1">
 						<input id="makesure" type="hidden">
@@ -144,6 +145,103 @@
 	</body>
 <script src="js/jquery-3.2.1.min.js"></script>
 		<script src="js/jquery.session.js"></script>
+		<script>
+			(function($) {
+			$.getUrlParam = function(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if(r != null) return unescape(r[2]);
+				return null;
+			}
+	})(jQuery);
+	var city_id=$.getUrlParam("city_id");
+	var company=$.getUrlParam("company");
+	var page=$.getUrlParam("page");
+	if(city_id==null){
+		city_id="";
+	}
+	if(company==null){
+		company="";
+	}
+	if(page==null||page==""){
+		page=1;
+	}
+	$("#yeshua").text(page);
+	var counta=null;
+	var countb=null;
+		$.ajax({
+			url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges_count?city_id="+city_id+"&company="+company+"",
+			beforeSend: function(request) {
+				request.setRequestHeader("tenant-id", "Chenxizhang");
+			},
+			dataType: 'json',
+			type: 'get',
+			contentType: "application/json;charset=utf-8",
+			data: JSON.stringify({}),
+			success: function(msg) {
+				counta=msg.count;
+			},
+			error: function(e) {	
+				alert("省份列表1信息出错!");
+			}
+		});
+		$.ajax({
+			url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_count?city_id="+city_id+"&company="+company+"",
+			beforeSend: function(request) {
+				request.setRequestHeader("tenant-id", "Chenxizhang");
+			},
+			dataType: 'json',
+			type: 'get',
+			contentType: "application/json;charset=utf-8",
+			data: JSON.stringify({}),
+			success: function(msg) {
+				countb=msg.count;
+			},
+			error: function(e) {	
+				alert("省份列表1信息出错!");
+			}
+		});
+	$("#up_a").on("click",function(){
+		var ye=$("#yeshua").text();
+		if(ye==1){
+			window.reload();
+		}else{
+			ye--;
+			window.location.href='http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id='+city_id+"&company="+company+"&page="+ye;
+		}
+	});
+	
+	$("#down_a").on("click",function(){
+		var ye=$("#yeshub").text();
+		if(ye==count1){
+			window.reload();
+		}else{
+			ye++;
+			window.location.href='http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id='+city_id+"&company="+company+"&page="+ye;
+		}
+	});
+		$("#up_b").on("click",function(){
+		var ye=$("#yeshub").text();
+		if(ye==1){
+			window.reload();
+		}else{
+			ye--;
+			window.location.href='http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id='+city_id+"&company="+company+"&page="+ye;
+		}
+	});
+	
+	$("#down_b").on("click",function(){
+		var ye=$("#yeshub").text();
+		if(ye==count1){
+			window.reload();
+		}else{
+			ye++;
+			window.location.href='http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id='+city_id+"&company="+company+"&page="+ye;
+		}
+	});
+
+		</script>
+			
 	<script>
 		//获取省份和城市列表1
 		$.ajax({
