@@ -105,19 +105,18 @@ $app->put('/tenantchange',function()use($app){
     $tenant_id=$body->tenant_id;
     $customer_name=$body->customer_name;
     $customer_phone=$body->customer_phone;
-    $from_city=$body->from_city_id;
-    $receive=$body->receive_city_id;
+    $address=$body->address;
+    $end_time=$body->end_time;
+    $qq=$body->qq;
+    $email=$body->email;
     $arrays=array();
     $array1=array();
-    foreach($body as $key=>$value){
-        if($key!="tenant_id"&&$key!="customer_name"&&$key!="customer_phone"&&$key!="sales_id"){
-            $arrays[$key]=$value;
-        }
-    }
+    $arrays['address']=$address;
+    $arrays['end_date']=$end_time;
+    $arrays['qq']=$qq;
+    $arrays['email']=$email;
     $array1['customer_name']=$customer_name;
     $array1['customer_phone']=$customer_phone;
-    $array1['from_city_id']=$from_city;
-    $arrays['receive_city_id']=$from_city;
     if($sales_id!=null||$sales_id!=""){
         if($tenant_id!=null||$tenant_id!="") {
             $selectStatement = $database->select()
@@ -242,7 +241,7 @@ $app->get('/tenantbyid',function()use($app){
     }
 });
 //业务员信息修改
-$app->put('sales',function()use($app){
+$app->put('/sales',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
