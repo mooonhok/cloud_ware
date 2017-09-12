@@ -288,8 +288,8 @@ $app->get('/one_goods',function()use($app){
             ->from('insurance')
             ->join('insurance_scheduling','insurance_scheduling.insurance_id','=',$insurance_id,'INNER')
             ->join('schedule_order','insurance_scheduling.scheduling_id','=','schedule_order.schedule_id','INNER')
-            ->join('scheduling','scheduling.order_id','=','schedule_order.order_id','INNER')
-            ->join('goods','goods.order_id','=','scheduling.order_id');
+            ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
+            ->join('goods','goods.order_id','=','orders.order_id');
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
         echo json_encode(array('result'=>'1','desc'=>'success','goods'=>$data1));
