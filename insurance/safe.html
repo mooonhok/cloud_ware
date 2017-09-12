@@ -100,6 +100,7 @@
 					<div class="box3_1">
 						<input id="makesure" type="hidden">
 						<!--	<p><span>xxx</span>已支付:<span>xxx</span>元保费</p>-->
+						<div id="suremessage"></div>
 					</div>
 					<div class="box3_2">
 						确认
@@ -310,7 +311,21 @@
 		//确认支付的按钮
 		function makesure(id){
 				$(".box3").css("display", "block");
-				$("#makesure").val(id);				
+				$("#makesure").val(id);
+				$.ajax({
+					 url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/rechange_insurance_id?id=" + id,
+				dataType: 'json',
+				type: 'get',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({}),
+				success: function(msg) {
+					//alert(msg.insurance);
+					$("#suremessage").html(msg.data);
+				},
+				error: function(e) {
+					alert("获取合同详情信息出错!");
+				}
+				});
 		}
 		
 		var city_id = null;

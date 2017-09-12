@@ -75,13 +75,15 @@ $app->get('/tenants',function()use($app){
         echo json_encode(array('result'=>'1','desc'=>'系统故障','tenants'=>''));
     }
 });
-//获取保险充值记录
+//分页获取保险充值记录
 $app->get('/insurance_rechanges',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $arrays=array();
     $city_id=$app->request->get('city_id');
     $company=$app->request->get('company');
+    $page = $app->request->get('page');
+    $page=(int)$page-1;
     if($city_id!=null||$city_id!=''){
        if($company!=null||$company!=''){
            $selectStatement = $database->select()
@@ -89,7 +91,8 @@ $app->get('/insurance_rechanges',function()use($app){
                ->join('rechanges_insurance','rechanges_insurance.tenant_id','=','tenant.tenant_id','INNER')
                ->where('tenant.from_city_id', '=', $city_id)
                ->where('tenant.company','=',$company)
-               ->orderBy('rechanges_insurance.sure_time','desc');
+               ->orderBy('rechanges_insurance.sure_time','desc')
+               ->limit((int)10, (int)10 * (int)$page);
            $stmt = $selectStatement->execute();
            $data1 = $stmt->fetchAll();
            echo json_encode(array('result'=>'1','desc'=>'success','insurance_rechanges'=>$data1));
@@ -98,7 +101,8 @@ $app->get('/insurance_rechanges',function()use($app){
                    ->from('tenant')
                    ->join('rechanges_insurance','rechanges_insurance.tenant_id','=','tenant.tenant_id','INNER')
                    ->where('tenant.from_city_id', '=', $city_id)
-                   ->orderBy('rechanges_insurance.sure_time','desc');
+                   ->orderBy('rechanges_insurance.sure_time','desc')
+                   ->limit((int)10, (int)10 * (int)$page);
                $stmt = $selectStatement->execute();
                $data1 = $stmt->fetchAll();
                echo json_encode(array('result'=>'1','desc'=>'success','insurance_rechanges'=>$data1));
@@ -107,12 +111,58 @@ $app->get('/insurance_rechanges',function()use($app){
         $selectStatement = $database->select()
             ->from('tenant')
             ->join('rechanges_insurance','rechanges_insurance.tenant_id','=','tenant.tenant_id','INNER')
-            ->orderBy('rechanges_insurance.sure_time','desc');
+            ->orderBy('rechanges_insurance.sure_time','desc')
+            ->limit((int)10, (int)10 * (int)$page);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
         echo json_encode(array('result'=>'3','desc'=>'城市id为空','insurance_rechanges'=>$data1));
     }
 });
+
+
+//获取保险充值记录总数每页显示10个的页数
+$app->get('/insurance_rechanges_count',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $arrays=array();
+    $city_id=$app->request->get('city_id');
+    $company=$app->request->get('company');
+
+    if($city_id!=null||$city_id!=''){
+        if($company!=null||$company!=''){
+            $selectStatement = $database->select()
+                ->from('tenant')
+                ->join('rechanges_insurance','rechanges_insurance.tenant_id','=','tenant.tenant_id','INNER')
+                ->where('tenant.from_city_id', '=', $city_id)
+                ->where('tenant.company','=',$company)
+                ->orderBy('rechanges_insurance.sure_time','desc');
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetchAll();
+            $num=ceil(count($data1)/10);
+            echo json_encode(array('result'=>'1','desc'=>'success','count'=>$num));
+        }else{
+            $selectStatement = $database->select()
+                ->from('tenant')
+                ->join('rechanges_insurance','rechanges_insurance.tenant_id','=','tenant.tenant_id','INNER')
+                ->where('tenant.from_city_id', '=', $city_id)
+                ->orderBy('rechanges_insurance.sure_time','desc');
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetchAll();
+            $num=ceil(count($data1)/10);
+            echo json_encode(array('result'=>'1','desc'=>'success','count'=>$num));
+        }
+    }else{
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->join('rechanges_insurance','rechanges_insurance.tenant_id','=','tenant.tenant_id','INNER')
+            ->orderBy('rechanges_insurance.sure_time','desc');
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetchAll();
+        $num=ceil(count($data1)/10);
+        echo json_encode(array('result'=>'1','desc'=>'success','count'=>$num));
+    }
+});
+
 //修改支付状态
 $app->put('/sure_rechanges',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
@@ -159,11 +209,13 @@ $app->put('/sure_rechanges',function()use($app){
             }
 
 });
-//获取保险记录
+//分页获取保险记录
 $app->get('/insurances',function ()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $company=$app->request->get('company');
     $city_id=$app->request->get('city_id');
+    $page = $app->request->get('page');
+    $page=(int)$page-1;
     $database=localhost();
     $arrays=array();
     if($city_id!=null||$city_id!=""){
@@ -174,7 +226,9 @@ $app->get('/insurances',function ()use($app){
                 ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
                 ->where('tenant.from_city_id','=',$city_id)
                 ->where('insurance.sure_insurance','=','1')
-                ->where('tenant.company','=',$company);
+                ->where('tenant.company','=',$company)
+                ->orderBy('insurance.insurance_start_time','desc')
+                ->limit((int)10, (int)10 * (int)$page);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
             echo json_encode(array('result'=>'1','desc'=>'success','rechange_insurance'=>$data1));
@@ -184,7 +238,9 @@ $app->get('/insurances',function ()use($app){
                 ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
                 ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
                 ->where('insurance.sure_insurance','=','1')
-                ->where('tenant.from_city_id','=',$city_id);
+                ->where('tenant.from_city_id','=',$city_id)
+                ->orderBy('insurance.insurance_start_time','desc')
+                ->limit((int)10, (int)10 * (int)$page);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
             echo json_encode(array('result'=>'1','desc'=>'租户公司id为空','rechange_insurance'=>$data1));
@@ -194,7 +250,9 @@ $app->get('/insurances',function ()use($app){
             ->from('tenant')
             ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
             ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
-            ->where('insurance.sure_insurance','=','1');
+            ->where('insurance.sure_insurance','=','1')
+            ->orderBy('insurance.insurance_start_time','desc')
+            ->limit((int)10, (int)10 * (int)$page);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
         echo json_encode(array('result'=>'1','desc'=>'城市信息为空','rechange_insurance'=>$data1));
@@ -239,6 +297,74 @@ $app->get('/one_goods',function()use($app){
         echo json_encode(array('result'=>'1','desc'=>'单个保险id为空','goods'=>''));
     }
 });
+
+
+
+//获取保险记录总数能分多少页
+$app->get('/insurances_count',function ()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $company=$app->request->get('company');
+    $city_id=$app->request->get('city_id');
+    $database=localhost();
+    $arrays=array();
+    if($city_id!=null||$city_id!=""){
+        if($company!=null||$company!=''){
+            $selectStatement = $database->select()
+                ->from('tenant')
+                ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
+                ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
+                ->where('tenant.from_city_id','=',$city_id)
+                ->where('insurance.sure_insurance','=','1')
+                ->where('tenant.company','=',$company);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetchAll();
+            $num=ceil(count($data1)/10);
+            echo json_encode(array('result'=>'1','desc'=>'success','count'=>$num));
+        }else{
+            $selectStatement = $database->select()
+                ->from('tenant')
+                ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
+                ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
+                ->where('insurance.sure_insurance','=','1')
+                ->where('tenant.from_city_id','=',$city_id);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetchAll();
+            $num=ceil(count($data1)/10);
+            echo json_encode(array('result'=>'1','desc'=>'success','count'=>$num));
+        }
+    }else{
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
+            ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
+            ->where('insurance.sure_insurance','=','1');
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetchAll();
+        $num=ceil(count($data1)/10);
+        echo json_encode(array('result'=>'1','desc'=>'success','count'=>$num));
+    }
+});
+
+
+//官网，xx公司支付的保险金额（通过id)
+$app->get('/rechange_insurance_id',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $id=$app->request->get('id');
+    $database=localhost();
+    $selectStatement = $database->select()
+        ->from('rechanges_insurance')
+        ->where('id', '=', $id);
+    $stmt = $selectStatement->execute();
+    $data2= $stmt->fetch();
+    $selectStatement = $database->select()
+        ->from('tenant')
+        ->where('tenant_id', '=', $data2['tenant_id']);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetch();
+    $data3=$data1['company'].'支付'.$data2['money'];
+    echo json_encode(array('result'=>'1','desc'=>'success','data'=>$data3));
+});
+
 $app->run();
 
 function localhost(){
