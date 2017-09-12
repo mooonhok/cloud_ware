@@ -192,29 +192,7 @@
 				$('#count').text(msg.count);
 				counta=$('#count').text();
 				alert(counta);
-			},
-			error: function(e) {	
-				alert("省份列表1信息出错!");
-			}
-		});
-		alert(counta)
-	//	$.ajax({
-	//	url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_count?city_id="+city_id+"&company="+company,
-	//	beforeSend: function(request) {
-	//			request.setRequestHeader("tenant-id", "Chenxizhang");
-	//		},
-	//		dataType: 'json',
-	//		type: 'get',
-	//		contentType: "application/json;charset=utf-8",
-	//		data: JSON.stringify({}),
-	//		success: function(msg) {
-	//			countb=msg.count;
-	//		},
-	//		error: function(e) {
-	//			alert("省份列表1信息出错!");
-	//		}
-	//	});
-	$("#up_a").on("click",function(){
+		$("#up_a").on("click",function(){
 		var ye=$("#yeshua").text();
 		if(ye==1){
 			window.location.reload();
@@ -233,6 +211,28 @@
 			window.location.href='http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id='+city_id+"&company="+company+"&page="+ye;
 		}
 	});
+			},
+			error: function(e) {	
+				alert("省份列表1信息出错!");
+			}
+		});
+	//	$.ajax({
+	//	url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_count?city_id="+city_id+"&company="+company,
+	//	beforeSend: function(request) {
+	//			request.setRequestHeader("tenant-id", "Chenxizhang");
+	//		},
+	//		dataType: 'json',
+	//		type: 'get',
+	//		contentType: "application/json;charset=utf-8",
+	//		data: JSON.stringify({}),
+	//		success: function(msg) {
+	//			countb=msg.count;
+	//		},
+	//		error: function(e) {
+	//			alert("省份列表1信息出错!");
+	//		}
+	//	});
+
 		$("#up_b").on("click",function(){
 		var ye=$("#yeshub").text();
 		if(ye==1){
