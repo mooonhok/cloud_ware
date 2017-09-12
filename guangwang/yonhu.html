@@ -425,11 +425,8 @@
 			<div class="xian4"></div>
 		</div>		
 	</div>	
-
 	<div style="clear: both;"></div>
 	</div>
-
-
 </div>
 	
 	
@@ -483,6 +480,7 @@
       var site=$("#site").val();
       var end_time=$("#endTime").val();
       var sales_id = $.session.get('userid');
+      var id=$("#gisd").val();
 		//修改公司信息
 		$.ajax({
    		  	  url:"http://mooonhok-cloudware.daoapp.io/sales.php/tenantchange",
@@ -554,7 +552,7 @@ $("#register").on("click",function(){
 	var tel_1 = $("#tel_1").val();
 	var qq_2 = $("#qq_2").val();
 	var wx_1 = $("#wx_1").val();
-	var email_1 = $("#email_2").val();
+	var email_1 = $("#email_1").val();
 	var dizhi_1 = $("#dizhi_1").val();
 	$.ajax({
 		url:"http://mooonhok-cloudware.daoapp.io/sales.php/addsales",
@@ -575,7 +573,7 @@ $("#register").on("click",function(){
 		success:function(msg){
 			console.log(msg);
 			if(msg.result==0){
-				alert("请记住密码"+password);
+				alert("请记住密码"+msg.sales.password);
 			}else{
 				alert(msg.desc);
 			}
