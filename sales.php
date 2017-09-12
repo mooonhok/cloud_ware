@@ -227,6 +227,7 @@ $app->get('/tenantbyid',function()use($app){
             $data3 = $stmt->fetch();
             $array['customer_name']=$data3['customer_name'];
             $array['customer_phone']=$data3['customer_phone'];
+            $array['company']=$data2['company'];
             //$array['begin_time']=$data2['begin_time'];
             $array['end_date']=$data2['end_date'];
             $array['address']=$data2['address'];
