@@ -213,7 +213,8 @@
 	</script>
 <script type="text/javascript">
     function updata(id){
-    	alert("id");
+    	$(".box4").css("display","block");
+    	alert(id);
     	$.ajax({
     		url:"http://mooonhok-cloudware.daoapp.io/sales.php/tenantbyid?tenant_id="+id,
     		dataType:'json',
@@ -221,7 +222,7 @@
     		contentType:"application/json;charset=utf-8",
     		data:JSON.stringify({}),
     		success:function(msg){
-    			console.log("msg");
+    			console.log(msg);
     			$("#name").val(msg.tenant.company);
     			$("#rname").val(msg.tenant.customer_name);
     			$("#endTime").val(msg.tenant.end_date);
