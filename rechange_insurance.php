@@ -294,7 +294,7 @@ $app->get('/one_goods',function()use($app){
         $data1 = $stmt->fetchAll();
         $value="";
         for($i=0;$i<count($data1);$i++){
-           $value.=$data1[$i]['goods_name'];
+           $value.=$data1[$i]['goods_name'].',';
         }
         echo json_encode(array('result'=>'1','desc'=>'success','goods'=>$value,'count'=>count($data1)));
     }else{
