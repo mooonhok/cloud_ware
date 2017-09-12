@@ -157,10 +157,10 @@
 	var city_id=$.getUrlParam("city_id");
 	var company=$.getUrlParam("company");
 	var page=$.getUrlParam("page");
-	if(city_id==null){
+	if(city_id==null||city_id==''){
 		city_id="";
 	}
-	if(company==null){
+	if(company==null||company==''){
 		company="";
 	}
 	if(page==null||page==""){
@@ -207,7 +207,6 @@
 			window.location.reload();
 		}else{
 			ye--;
-			$("#yeshua").text(ye);
 			window.location.href='http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id='+city_id+"&company="+company+"&page="+ye;
 		}
 	});
