@@ -157,6 +157,9 @@
 	var city_id=$.getUrlParam("city_id");
 	var company=$.getUrlParam("company");
 	var page=$.getUrlParam("page");
+	alert(city_id);
+	alert(company);
+	alert(page);
 	if(city_id==null||city_id==''){
 		city_id="";
 	}
@@ -170,7 +173,7 @@
 	var counta=null;
 	var countb=null;
 		$.ajax({
-			url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges_count?city_id="+city_id+"&company="+company+"",
+			url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges_count?city_id="+city_id+"&company="+company,
 			beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", "Chenxizhang");
 			},
@@ -188,7 +191,7 @@
 		});
 		alert(counta)
 		$.ajax({
-			url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_count?city_id="+city_id+"&company="+company+"",
+			url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_count?city_id="+city_id+"&company="+company,
 			beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", "Chenxizhang");
 			},
