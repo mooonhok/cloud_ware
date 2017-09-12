@@ -337,7 +337,7 @@ $app->post('/addsales',function()use($app){
                                            $password.=$str1[$x].$x;
                                        }
                                        $insertStatement = $database->insert(array('exist','sales_name','sex','card_id','telephone','address'
-                                         ,'zip_code','qq','weixin','password','username','heigherlevel_username'))
+                                         ,'zip_code','qq','weixin','password','user_name','heigherlevel_username'))
                                            ->into('sales')
                                            ->values(array(0,$sales_name,$sex,$card_id,$telephone,$address,$zip_code,$qq,$weixin,$password,$username
                                            ,$higherlevel));
