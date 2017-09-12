@@ -214,6 +214,7 @@
 <script type="text/javascript">
     function updata(id){
     	$(".box4").css("display","block");
+    	$(".box3").css("display","none");
     	alert(id);
     	$.ajax({
     		url:"http://mooonhok-cloudware.daoapp.io/sales.php/tenantbyid?tenant_id="+id,
@@ -286,7 +287,7 @@
 			</div>	
 			
 		</div>
-		<div class="box4_12">保存</div>
+		<div class="box4_12" id="save">保存</div>
 	</div>
 <!-- box5 -->
 	<div class="box5">
@@ -434,6 +435,42 @@
 	
 </body>
 <script type="text/javascript">
+	$("#save").on("click",function(){
+	  var name=$("#name").val();
+      var customer=$("#rname").val();
+      var phone=$("#phone").val();
+      var email=$("#email").val();
+      var qq=$("#qq").val();
+      var site=$("#site").val();
+      var end_time=$("#endTime").val();
+      var sales_id = $.session.get('userid');
+		//修改公司信息
+		$.ajax({
+   		  	  url:"http://mooonhok-cloudware.daoapp.io/sales.php/tenantchange",
+   		  	  dataType:'json',
+   		  	  type:'put',
+   		  	  contentType:"application/json;charset=utf-8",
+   		  	  data:JSON.stringify({
+   		  	     sales_id:sales_id,
+   		  	     tenant_id:id,
+   		  	     customer_name:customer,
+   		  	     customer_phone:phone,
+   		  	     address:site,
+   		  	     end_time:end_time,
+   		  	     qq:qq,
+   		  	     email:email  
+   		  	  }),
+   		  	  success:function(msg){
+   		  	  	alert("修改公司信息成功");
+   		  	  },
+   		  	  error:function(xhr) {
+   		  	  	alert(xhr.responseText);
+   		  	  }
+		});
+
+	})
+</script>
+<script type="text/javascript">
 var sales_id = $.session.get('userid');
 	alert(sales_id);
     if(sales_id==null||sales_id=="") {
@@ -455,9 +492,9 @@ var sales_id = $.session.get('userid');
 	  		$("#email").val(msg.sales.zip_code)
 	  		$("#dizhi").text(msg.sales.address)
 	  		if(msg.sales.sex==0){
-	  			$("#rad2").attr("checked","checked")
+	  			$("#rad2").attr("checked","checked");
 	  		}else{
-	  			$("#rad1").attr("checked","checked")
+	  			$("#rad1").attr("checked","checked");
 	  		}
 	  	},
 	  	error:function(xhr){
@@ -479,7 +516,7 @@ $("#register").on("click",function(){
 	var email_1 = $("email_2").val();
 	var dizhi_1 = $("dizhi_1").val();
 	$.ajax({
-		url:"//mooonhok-cloudware.daoapp.io/sales.php/sales ",
+		url:"http://mooonhok-cloudware.daoapp.io/sales.php/addsales",
 		dataType:'json',
 		type:'post',
 		contentType:"application/json;charset=utf-8",
@@ -501,12 +538,10 @@ $("#register").on("click",function(){
 			}else{
 				alert(msg.desc);
 			}
-
 		},
 		error:function(xhr){
 			alert(xhr.responseText);
 		}
-
 	})
 })
 
