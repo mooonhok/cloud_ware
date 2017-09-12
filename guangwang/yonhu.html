@@ -122,8 +122,7 @@
 				for(var i=0;i<msg.company.length;i++){
 					var a = "<tr><td>"+msg.company[i].company+"</td><td>"+msg.company[i].customer_name+"</td><td>"+msg.company[i].customer_phone+"</td><td>"+msg.company[i].begin_time+"</td><td>"+msg.company[i].end_time+"</td><td><div><div><button class='but_1'>编辑</button></div><div><button class='but_2'>删除</button></div></div></td></tr>"
 					$("#tb").append(a);
-				}
-				TablePage('#tables',6);
+					TablePage('#tables',6);
     function TablePage(id,size){  
     var $table = $(id);  
     var currentPage =0;  //当前页  
@@ -199,6 +198,8 @@
     });  
       
  } 
+				}
+	
 
 			},
 			error: function(xhr) {
