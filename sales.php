@@ -288,10 +288,86 @@ $app->get('/sales',function()use($app){
         if($data1!=null||$data1!=""){
             echo json_encode(array('result'=>'0','desc'=>'','sales'=>$data1));
         }else{
-            echo json_encode(array('result' => '1', 'desc' => '业务员不存在'));
+            echo json_encode(array('result' => '1', 'desc' => '业务员不存在','sales'=>''));
         }
     }else{
-        echo json_encode(array('result' => '1', 'desc' => '缺少销售人员id'));
+        echo json_encode(array('result' => '1', 'desc' => '缺少销售人员id','sales'=>''));
+    }
+});
+
+$app->post('/addsales',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $sales_name=$body->sales_name;
+    $sex=$body->sex;
+    $card_id=$body->card_id;
+    $telephone=$body->telephone;
+    $address=$body->address;
+    $zip_code=$body->zip_body;
+    $qq=$body->qq;
+    $weixin=$body->weixin;
+    $higherlevel=$body->higherlevel;
+    if($sales_name!=null||$sales_name!=""){
+         if($sex!=null||$sex!=""){
+              if($card_id!=null||$card_id!=""){
+                  $selectStatement = $database->select()
+                      ->from('sales')
+                      ->where('exist','=',0)
+                      ->where('card_id', '=', $card_id);
+                  $stmt = $selectStatement->execute();
+                  $data1 = $stmt->fetch();
+                  if($data1==null||$data1==""){
+                       if($telephone!=null||$telephone!=""){
+                           if($address!=null||$address!=""){
+                               if($zip_code!=null||$zip_code!=""){
+                                   if($higherlevel!=null||$higherlevel!=""){
+                                       $selectStatement = $database->select()
+                                           ->from('sales');
+                                       $stmt = $selectStatement->execute();
+                                       $data2 = $stmt->fetch();
+                                       $num=count($data2)+1;
+                                       $num1=rand(10000,100000);
+                                       $username=$num.$num1;
+                                       $num2=random(1000000,10000000000);
+                                       $str1=str_split($num2,3);
+                                       $password=null;
+                                       for ($x=0;$x<count($str1);$x++){
+                                           $password.=$str1[$x].$x;
+                                       }
+                                       $insertStatement = $database->insert(array('exist','sales_name','sex','card_id','telephone','address'
+                                         ,'zip_code','qq','weixin','password','username','heigherlevel_username'))
+                                           ->into('sales')
+                                           ->values(array(0,$sales_name,$sex,$card_id,$telephone,$address,$zip_code,$qq,$weixin,$password,$username
+                                           ,$higherlevel));
+                                       $insertId = $insertStatement->execute(false);
+                                       $arrays['username']=$username;
+                                       $arrays['password']=$num2;
+                                       echo json_encode(array('result' => '8', 'desc' => '添加成功','sales'=>$arrays));
+                                   }else{
+                                       echo json_encode(array('result' => '8', 'desc' => '上一级不能为空','sales'=>''));
+                                   }
+                               }else{
+                                   echo json_encode(array('result' => '7', 'desc' => '邮编不能为空','sales'=>''));
+                               }
+                           }else{
+                               echo json_encode(array('result' => '6', 'desc' => '地址不能为空','sales'=>''));
+                           }
+                       }else{
+                           echo json_encode(array('result' => '5', 'desc' => '电话不能为空','sales'=>''));
+                       }
+                  }else{
+                      echo json_encode(array('result' => '4', 'desc' => '业务员已经存在','sales'=>''));
+                  }
+              }else{
+                  echo json_encode(array('result' => '3', 'desc' => '业务员身份证编号为空','sales'=>''));
+              }
+         }else{
+             echo json_encode(array('result' => '2', 'desc' => '没有选择性别','sales'=>''));
+         }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '业务员姓名为空','sales'=>''));
     }
 });
 $app->run();
