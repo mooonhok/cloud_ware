@@ -381,11 +381,11 @@
    		  	  	alert(msg.result);
    		  	  	if(msg.result==0){	
 // 		  	  		alert(msg.user.id);
-// 		  	  		alert(msg.user.user_name);
+
    		  	  	    $.session.set('userid',msg.user.id);
-   		  	  	    $.session.set('username',msg.user.user_name);
+   		  	  	    // $.session.set('username',msg.user.telephone);
    		  	  	    var user=$.session.get('userid');
-   		  	  	    alert(user);
+   		  	  	    // alert(user);
    		  	  	    $("#name").val(msg.user.user_name);
    		  	  	   
    		  	  	}else{
@@ -399,7 +399,7 @@
 		});
 		$(".tc").on('click',function(){
 			$.session.remove('userid');
-			$.session.remove('username');
+			// $.session.remove('username');
 		});
 	</script>
 </html>
