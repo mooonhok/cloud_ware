@@ -103,12 +103,21 @@ $app->put('/tenantchange',function()use($app){
     $body=json_decode($body);
     $sales_id=$body->sales_id;
     $tenant_id=$body->tenant_id;
+    $customer_name=$body->customer_name;
+    $customer_phone=$body->customer_phone;
+    $from_city=$body->from_city_id;
+    $receive=$body->receive_city_id;
     $arrays=array();
+    $array1=array();
     foreach($body as $key=>$value){
-        if($key!="tenant_id"&&$key!="company"&&$key!="business_l_p"){
-            $array[$key]=$value;
+        if($key!="tenant_id"&&$key!="customer_name"&&$key!="customer_phone"&&$key!="sales_id"){
+            $arrays[$key]=$value;
         }
     }
+    $array1['customer_name']=$customer_name;
+    $array1['customer_phone']=$customer_phone;
+    $array1['from_city_id']=$from_city;
+    $arrays['receive_city_id']=$from_city;
     if($sales_id!=null||$sales_id!=""){
         if($tenant_id!=null||$tenant_id!="") {
             $selectStatement = $database->select()
@@ -125,11 +134,16 @@ $app->put('/tenantchange',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetch();
                 if ($data2 != null || $data2 != "") {
-                    $updateStatement = $database->update($array)
+                    $updateStatement = $database->update($arrays)
                         ->table('tenant')
                         ->where('tenant_id', '=', $tenant_id)
                         ->where('exist','=',0)
                         ->where('sales_id', '=', $sales_id);
+                    $affectedRows = $updateStatement->execute();
+                    $updateStatement = $database->update($array1)
+                        ->table('customer')
+                        ->where('customer_id', '=', $data2['contact_id'])
+                        ->where('exist','=',0);
                     $affectedRows = $updateStatement->execute();
                     echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
                 } else {
@@ -174,9 +188,6 @@ $app->get('/tenantsum',function()use($app){
                 $arrays[$date]++;
            }
            for($y=1;$y<=12;$y++){
-//               if($arrays[$y]==null||$arrays[$y]==""){
-//                   $arrays[$y]=0;
-//               }
                if($y<10){
                    $key='0'.$y;
                }else{
@@ -186,7 +197,7 @@ $app->get('/tenantsum',function()use($app){
                    $arrays[$key]=0;
                }
                $arrays1[$y]=$arrays[$key];
-            //  array_push($arrays1,$arrays);
+
            }
             echo json_encode(array('result'=>'0','desc'=>'','count'=>$arrays1));
         }else{
@@ -209,7 +220,19 @@ $app->get('/tenantbyid',function()use($app){
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetch();
         if($data2!=null||$data2!=""){
-            echo json_encode(array('result'=>'0','desc'=>'','tenant'=>$data2));
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('customer_id', '=', $data2['contact_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            $array['customer_name']=$data3['customer_name'];
+            $array['customer_phone']=$data3['customer_phone'];
+            //$array['begin_time']=$data2['begin_time'];
+            $array['end_date']=$data2['end_date'];
+            $array['address']=$data2['address'];
+            $array['qq']=$data2['qq'];
+            $array['email']=$data2['email'];
+            echo json_encode(array('result'=>'0','desc'=>'','tenant'=>$array));
         }else{
             echo json_encode(array('result'=>'1','desc'=>'公司不存在','tenant'=>''));
         }
@@ -217,7 +240,60 @@ $app->get('/tenantbyid',function()use($app){
         echo json_encode(array('result'=>'2','desc'=>'公司id为空','tenant'=>''));
     }
 });
-
+//业务员信息修改
+$app->put('sales',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $sales_id=$body->sales_id;
+    $arrays=array();
+    foreach($body as $key=>$value){
+        if($key!="sales_id"){
+            $arrays[$key]=$value;
+        }
+    }
+    if($sales_id!=null||$sales_id!=""){
+        $selectStatement = $database->select()
+            ->from('sales')
+            ->where('exist','=',0)
+            ->where('id', '=', $sales_id);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        if($data1!=null||$data1!=""){
+            $updateStatement = $database->update($arrays)
+                ->table('tenant')
+                ->where('tenant_id', '=', $sales_id);
+            $affectedRows = $updateStatement->execute();
+            echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '该业务员不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '缺少业务员id'));
+    }
+});
+//获取业务员信息
+$app->get('/sales',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $sales_id = $app->request->get("sales_id");
+    $database=localhost();
+    if($sales_id!=null||$sales_id!=""){
+        $selectStatement = $database->select()
+            ->from('sales')
+            ->where('exist','=',0)
+            ->where('id', '=', $sales_id);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        if($data1!=null||$data1!=""){
+            echo json_encode(array('result'=>'0','desc'=>'','sales'=>$data1));
+        }else{
+            echo json_encode(array('result' => '1', 'desc' => '业务员不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '缺少销售人员id'));
+    }
+});
 $app->run();
 
 function localhost(){
