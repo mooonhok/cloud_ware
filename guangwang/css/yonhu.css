@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-30 17:04:52
 * @Last Modified by:   boycui
-* @Last Modified time: 2017-09-11 15:46:34
+* @Last Modified time: 2017-09-12 08:59:50
 */
 *{
 	padding: 0;
@@ -699,19 +699,12 @@ html,body{
 	color: white;
 }
 .but_1{
-	width: 60px;
-	height: 20px;
+	width: 80px;
+	height: 40px;
 	background: #70ACC4;
 	color: white;
 	border-radius: 5px;
 	border: 0;
 }
-.but_2{
-	width: 60px;
-	height: 20px;
-	background: #70ACC4;
-	color: white;
-	border-radius: 5px;
-	border: 0;
-}
+
 
