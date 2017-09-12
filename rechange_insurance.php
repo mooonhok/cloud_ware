@@ -292,7 +292,11 @@ $app->get('/one_goods',function()use($app){
             ->join('goods','goods.order_id','=','orders.order_id');
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
-        echo json_encode(array('result'=>'1','desc'=>'success','goods'=>$data1));
+        $value="";
+        for($i=0;$i<count($data1);$i++){
+           $value.=$data1[$i]['goods_name'];
+        }
+        echo json_encode(array('result'=>'1','desc'=>'success','goods'=>$value));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'单个保险id为空','goods'=>''));
     }
