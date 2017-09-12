@@ -346,7 +346,7 @@ $app->post('/addsales',function()use($app){
                                        echo json_encode(array('result' => '8', 'desc' => '上一级不能为空','sales'=>''));
                                    }
                                }else{
-                                   echo json_encode(array('result' => '7', 'desc' => '邮编不能为空','sales'=>''));
+                                   echo json_encode(array('result' => '7', 'desc' => '邮箱不能为空','sales'=>''));
                                }
                            }else{
                                echo json_encode(array('result' => '6', 'desc' => '地址不能为空','sales'=>''));
