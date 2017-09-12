@@ -425,11 +425,8 @@
 			<div class="xian4"></div>
 		</div>		
 	</div>	
-
 	<div style="clear: both;"></div>
 	</div>
-
-
 </div>
 	
 	
@@ -576,7 +573,7 @@ $("#register").on("click",function(){
 		success:function(msg){
 			console.log(msg);
 			if(msg.result==0){
-				alert("请记住密码"+password);
+				alert("请记住密码"+msg.sales.password);
 			}else{
 				alert(msg.desc);
 			}
