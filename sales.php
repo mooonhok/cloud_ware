@@ -344,7 +344,7 @@ $app->post('/addsales',function()use($app){
                                        $insertId = $insertStatement->execute(false);
                                        $arrays['username']=$username;
                                        $arrays['password']=$num2;
-                                       echo json_encode(array('result' => '8', 'desc' => '添加成功','sales'=>$arrays));
+                                       echo json_encode(array('result' => '0', 'desc' => '添加成功','sales'=>$arrays));
                                    }else{
                                        echo json_encode(array('result' => '8', 'desc' => '上一级不能为空','sales'=>''));
                                    }
