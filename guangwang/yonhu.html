@@ -531,9 +531,10 @@ var sales_id = $.session.get('userid');
 	  		$("#email").val(msg.sales.zip_code);
 	  		$("#dizhi").text(msg.sales.address);
 	  		if(msg.sales.sex==0){
-	  			$("input[name='radioName'][value=0]").attr("checked",true); 
+	  			$('input:radio:last').attr('checked', 'checked');
 	  		}else{
-	  			$("input[name='radioName'][value=1]").attr("checked",true); 
+	  			$('input:radio:first').attr('checked', 'checked');
+
 	  		}
 	  	},
 	  	error:function(xhr){
