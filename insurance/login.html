@@ -130,8 +130,8 @@
 	var canvas;
 	var context;
 	var width;
-	var height;;
-	
+	var height;
+	var code="";
 	
 	function randomNum(min,max){		
 		return Math.floor(Math.random()*(max-min)+min);
@@ -145,7 +145,7 @@
 	}
 	//生成随机数
 	function randomCode(){
-		var code = "";
+		var code1 = "";
 		var str = 'ABCEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789';
 		for(var i = 0;i<4;i++){
 			var txt = str[randomNum(0,str.length)];
@@ -157,9 +157,10 @@
 			context.rotate(deg*Math.PI/180);
 			context.fillText(txt,x,y);
 			context.rotate(-deg*Math.PI/180);
-			code +=txt;
+			code1 +=txt;
+			code = code1;
 		}
-		 console.log(code);
+		 console.log(code1);
 	}	
 	function randomArc(){
 
