@@ -96,9 +96,9 @@
 				-->
 					</tbody>
 				</table>
-				<div id="count" style="display:none;"></div>
+				<!-- <div id="count" style="display:none;"></div>
 				<div class="tables_footer clearfix" style="width: 500px;"></div>
-		        <div class="page_out fr"></div>
+		        <div class="page_out fr"></div> -->
 
 				<div class="box3">
 					<div class="box3_1">
@@ -134,9 +134,9 @@
 
 					</tbody>
 				</table>
-				<!-- <div class="tables_footer clearfix" style="width: 500px;"></div>
-		<div class="page_all fl">共有13条记录</div>
-		<div class="page_out fr"></div> -->
+				<div class="tables_footer clearfix" style="width: 500px;"></div>
+		<!-- <div class="page_all fl">共有13条记录</div> -->
+		<div class="page_out fr"></div>
 				<div class="box2">
 					<div class="box2_1">
 						货物详情
@@ -309,27 +309,15 @@
 				success:function(msg){
 	TablePage('#tables',6);
     function TablePage(id,size){  
-    	$("#tb2").html("");
-    	if(msg.rechange_insurance==null||msg.rechange_insurance==""){
-						alert("尚未有保险记录");
-					}else{
-					
+    	$("#tb2").html("");			
 					for(var i = 0; i < msg.rechange_insurance.length; i++) {
-						var a = '<tr><td>' + msg.rechange_insurance[i].plate_number + '</td>'+
-							'<td>' + msg.rechange_insurance[i].driver_name + '</td>' +
-							'<td>' + msg.rechange_insurance[i].driver_phone + '</td>'+
-							'<td class="information"  onclick="detil('+
-							msg.rechange_insurance[i].insurance_id+')">详情</td>' +
-							'<td>' + msg.rechange_insurance[i].insurance_price + '</td>' +
-							'<td>' + msg.rechange_insurance[i].insurance_amount + '</td>' +
-							'<td>' + msg.rechange_insurance[i].	insurance_start_time + '</td> '+
-							'<td>' + msg.rechange_insurance[i].duration + '</td></tr>';
+						var a = '<tr><td>'+msg.rechange_insurance[i].plate_number+'</td><td>'+msg.rechange_insurance[i].driver_name+'</td><td>'+msg.rechange_insurance[i].driver_phone+'</td><td class="information"  onclick="detil('+msg.rechange_insurance[i].insurance_id+')">详情</td><td>'+msg.rechange_insurance[i].insurance_price+'</td><td>'+msg.rechange_insurance[i].insurance_amount+'</td><td>'+msg.rechange_insurance[i].insurance_start_time+'</td><td>'+msg.rechange_insurance[i].duration+'</td></tr>';
 						$("#tb2").append(a);
 					}
 				
 	var $table = $(id);  
     var currentPage =0;  //当前页  
-    var pageSize = 3;  //每页行数（不包括表头）  
+    var pageSize = 4;  //每页行数（不包括表头）  
     $table.bind("repaginate",function()  
     {  
        //console.log($table.find("tbody tr").eq(0));  
@@ -404,7 +392,7 @@
     });  
       
  } 			
-		}	
+		
 				},
 				error: function(xhr) {
 				alert("获取保险记录后台失败！");
