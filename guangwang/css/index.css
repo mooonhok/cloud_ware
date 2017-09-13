@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-29 09:48:59
 * @Last Modified by:   boycui
-* @Last Modified time: 2017-09-11 13:44:24
+* @Last Modified time: 2017-09-13 10:18:25
 */
 *{
 	padding: 0;margin: 0;
@@ -68,7 +68,7 @@ li{
 	height: 125px;
 	z-index: 1000;
 	text-align: center;
-	line-height: 25px;
+	line-height: 35px;
 	background: rgba(240, 240, 240, 0.6);
 	font-size: 12px;
 	display: none;
@@ -673,25 +673,25 @@ li{
 	/* border: 1px solid red; */
 	background: #1F333A;
 	float: left;
-	margin-top: 5px;
+	margin-top: 25px;
 }
 .foot_5_1{
 	width: 80px;
-	height: 50px;
+	height: 30px;
 	color: white;
 	text-align: center;
-	line-height: 50px;
+	line-height: 30px;
 	font-size: 14px;
 	float: left;
-	margin-top: 5px;
+	/* margin-top: 5px; */
 }
 .foot_6{
 	width: 0;
 	height: 0;
-	border-bottom: 50px solid #1F333A;
+	border-bottom: 30px solid #1F333A;
     border-left: 50px solid transparent;
     float: left;
-    margin-top: 5px;
+    margin-top: 25px;
 }
 .box2{
 	width: 100%;

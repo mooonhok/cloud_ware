@@ -300,7 +300,6 @@
 			}
    	       $.ajax({
 				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurances?city_id=" + city_id + "&company=" + company,
-				cache:false,
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
@@ -361,7 +360,6 @@
 			//alert(company);
 			$.ajax({
 				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?city_id=" + city_id + "&company=" + company,
-				cache:false,
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
@@ -594,6 +592,7 @@
 					alert("修改成功");
 					$(".box3").css("display", "none");
 					loadrechanges(city_id, company);
+					window.location.href="safe.html";
 				},
 				error: function(e) {
 					alert("修改支付状态后台错误");

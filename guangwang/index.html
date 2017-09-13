@@ -332,15 +332,12 @@
    		  	  success:function(msg){
    		  	  	alert(msg.result);
    		  	  	if(msg.result==0){	
-// 		  	  		alert(msg.user.id);
-
    		  	  	    $.session.set('userid',msg.user.id);
-   		  	  	    // $.session.set('username',msg.user.telephone);
    		  	  	    var user=$.session.get('userid');
-   		  	  	    // alert(user);
-   		  	  	    $("#name").val(msg.user.user_name);
-   		  	  	   
+   		  	  	    $("#name").val(msg.user.user_name);	  
+   		  	  	    $(".top_2_2").css("display","none");
    		  	  	}else{
+   		  	  		$(".top_2_2").css("display","block");
    		  	  		alert(msg.desc);
    		  	  	}
    		  	  },

@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-09-05 14:28:39
 * @Last Modified by:   boycui
-* @Last Modified time: 2017-09-13 09:52:00
+* @Last Modified time: 2017-09-13 10:24:23
 */
 *{
    margin: 0;
@@ -52,9 +52,9 @@ select{
 
 .select_1{
 	float: left;
-	width: 210px;
+	width: 310px;
 	height: 30px;
-	margin-left: 750px;
+	margin-left: 650px;
 }
 .select_2{
 	float: right;
