@@ -271,7 +271,6 @@ $app->post('/goods_insert',function()use($app){
     $selectStatement = $database->select()
         ->from('order')
         ->where('goods_id','=',$goods_id)
-        ->where('exist','=',0)
         ->where('tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
     $data2 = $stmt->fetch();
@@ -279,8 +278,7 @@ $app->post('/goods_insert',function()use($app){
         $updateStatement = $database->update($array)
             ->table('customer')
             ->where('tenant_id','=',$tenant_id)
-            ->where('goods_id','=',$goods_id)
-            ->where('exist',"=",0);
+            ->where('goods_id','=',$goods_id);
         $affectedRows = $updateStatement->execute();
     }else{
         $array['tenant_id']=$tenant_id;

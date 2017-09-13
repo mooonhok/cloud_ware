@@ -29,7 +29,6 @@ $app->post('/exception_insert',function()use($app){
     $selectStatement = $database->select()
         ->from('exception')
         ->where('exception_id','=',$exception_id)
-        ->where('exist','=',0)
         ->where('tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
     $data2 = $stmt->fetch();

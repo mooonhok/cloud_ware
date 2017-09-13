@@ -20,7 +20,7 @@ $app->get('/goods_package',function()use($app){
         ->from('goods_package');
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
-    echo json_encode(array('result'=>'1','desc'=>'用户不存在','goods_package'=>data1));
+    echo json_encode(array('result'=>'1','desc'=>'','goods_package'=>data1));
 });
 
 
@@ -32,7 +32,7 @@ $app->get('/lorry_type',function()use($app){
         ->from('lorry_type');
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
-    echo json_encode(array('result'=>'1','desc'=>'用户不存在','goods_package'=>data1));
+    echo json_encode(array('result'=>'1','desc'=>'','goods_package'=>data1));
 });
 
 

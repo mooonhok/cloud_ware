@@ -506,7 +506,6 @@ $app->post('/scheduling_insert',function()use($app){
     $selectStatement = $database->select()
             ->from('scheduling')
             ->where('scheduling_id','=',$scheduling_id)
-            ->where('exist','=',0)
             ->where('tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
     $data2 = $stmt->fetch();
@@ -514,8 +513,7 @@ $app->post('/scheduling_insert',function()use($app){
             $updateStatement = $database->update($array)
                 ->table('scheduling')
                 ->where('tenant_id','=',$tenant_id)
-                ->where('scheduling_id','=',$scheduling_id)
-                ->where('exist',"=",0);
+                ->where('scheduling_id','=',$scheduling_id);
             $affectedRows = $updateStatement->execute();
     }else{
         $array['tenant_id']=$tenant_id;

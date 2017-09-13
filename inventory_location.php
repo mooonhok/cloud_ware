@@ -164,7 +164,6 @@ $app->post('/inventory_location_insert',function()use($app){
     $selectStatement = $database->select()
         ->from('inventory_loc')
         ->where('inventory_loc_id','=',$inventory_loc_id)
-        ->where('exist','=',0)
         ->where('tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
     $data2 = $stmt->fetch();
@@ -172,8 +171,7 @@ $app->post('/inventory_location_insert',function()use($app){
         $updateStatement = $database->update($array)
             ->table('customer')
             ->where('tenant_id','=',$tenant_id)
-            ->where('inventory_loc_id','=',$inventory_loc_id)
-            ->where('exist',"=",0);
+            ->where('inventory_loc_id','=',$inventory_loc_id);
         $affectedRows = $updateStatement->execute();
     }else{
         $array['tenant_id']=$tenant_id;

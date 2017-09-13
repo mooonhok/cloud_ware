@@ -1390,7 +1390,6 @@ $app->post('/order_insert',function()use($app){
     $selectStatement = $database->select()
         ->from('order')
         ->where('order_id','=',$order_id)
-        ->where('exist','=',0)
         ->where('tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
     $data2 = $stmt->fetch();
@@ -1398,8 +1397,7 @@ $app->post('/order_insert',function()use($app){
         $updateStatement = $database->update($array)
             ->table('customer')
             ->where('tenant_id','=',$tenant_id)
-            ->where('order_id','=',$order_id)
-            ->where('exist',"=",0);
+            ->where('order_id','=',$order_id);
         $affectedRows = $updateStatement->execute();
     }else{
         $array['tenant_id']=$tenant_id;

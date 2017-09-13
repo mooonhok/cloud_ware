@@ -233,7 +233,6 @@ $app->post('/staff_insert',function()use($app){
     $selectStatement = $database->select()
         ->from('staff')
         ->where('staff_id','=',$staff_id)
-        ->where('exist','=',0)
         ->where('tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
     $data2 = $stmt->fetch();
@@ -241,8 +240,7 @@ $app->post('/staff_insert',function()use($app){
         $updateStatement = $database->update($array)
             ->table('customer')
             ->where('tenant_id','=',$tenant_id)
-            ->where('staff_id','=',$staff_id)
-            ->where('exist',"=",0);
+            ->where('staff_id','=',$staff_id);
         $affectedRows = $updateStatement->execute();
     }else{
         $array['tenant_id']=$tenant_id;

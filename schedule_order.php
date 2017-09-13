@@ -30,7 +30,6 @@ $app->post('/schedule_order_insert',function()use($app){
         ->from('scheduling')
         ->where('scheduling_id','=',$scheduling_id)
         ->where('order_id','=',$order_id)
-        ->where('exist','=',0)
         ->where('tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
     $data2 = $stmt->fetch();
