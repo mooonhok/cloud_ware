@@ -323,13 +323,7 @@ $app->post('/addsales',function()use($app){
                            if($address!=null||$address!=""){
                                if($zip_code!=null||$zip_code!=""){
                                    if($higherlevel!=null||$higherlevel!=""){
-                                       $selectStatement = $database->select()
-                                           ->from('sales');
-                                       $stmt = $selectStatement->execute();
-                                       $data2 = $stmt->fetch();
-                                       $num=count($data2)+1;
-                                       $str2=str_split($card_id,6);
-                                           $password1=$str2[count($str2)-1];
+                                           $password1=substr($card_id,-6);
                                       // $num2=rand(1000000,10000000000);
                                        $str1=str_split($password1,3);
                                       $password=null;
@@ -342,7 +336,7 @@ $app->post('/addsales',function()use($app){
                                            ->values(array(0,$sales_name,$sex,$card_id,$telephone,$address,$zip_code,$qq,$weixin,$password
                                            ,$higherlevel));
                                        $insertId = $insertStatement->execute(false);
-                                       $arrays['password']=$password;
+                                       $arrays['password']=$password1;
                                        echo json_encode(array('result' => '0', 'desc' => '添加成功','sales'=>$arrays));
                                    }else{
                                        echo json_encode(array('result' => '8', 'desc' => '上一级不能为空','sales'=>''));
