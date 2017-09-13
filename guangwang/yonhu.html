@@ -24,10 +24,10 @@
 	<!--  -->
 	<div class="box_1">
 	<div class="head">
-		<div class="head_1"></div>
+		<div class="head_1"><img src="images/ym_03.png" alt=""></div>
 		<div class="head_2">
-			<h3>用户名</h3>
-			<h5>ID:123456</h5>
+			<h3 id="h3">用户名</h3>
+			<h5>ID:<span id="span">123456</span></h5>
 		</div>
 	</div>
 
@@ -522,6 +522,8 @@ var sales_id = $.session.get('userid');
 	  	data:JSON.stringify({}),
 	  	success:function(msg){
 	  		console.log(msg);
+	  		$("#h3").html(msg.sales.sales_name);
+	  		$("#span").html(msg.sales.telephone);
 	  		$("#name_1").val(msg.sales.sales_name);
 	  		$("#number").val(msg.sales.card_id);
 	  		$("#tel").val(msg.sales.telephone);
@@ -530,9 +532,9 @@ var sales_id = $.session.get('userid');
 	  		$("#email").val(msg.sales.zip_code);
 	  		$("#dizhi").text(msg.sales.address);
 	  		if(msg.sales.sex==0){
-	  			$("#rad2").attr("checked","checked");
+	  			$("input[name='radioName'][value=0]").attr("checked",true); 
 	  		}else{
-	  			$("#rad1").attr("checked","checked");
+	  			$("input[name='radioName'][value=1]").attr("checked",true); 
 	  		}
 	  	},
 	  	error:function(xhr){
@@ -583,7 +585,14 @@ $("#register").on("click",function(){
 		}
 	})
 })
-
+</script>
+<script type="text/javascript">
+	$(".head_1").on("click",function(){
+		window.location.href="index.html";
+	})
+	$(".top_1").on("click",function(){
+		window.location.href="index.html";
+	})
 </script>
 
 
