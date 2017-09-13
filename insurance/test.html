@@ -95,13 +95,48 @@
 						取消
 					</div>
 				</div>
+			</div><div class="tab_1">
+				<table width="1200" border="0" cellspacing="0" cellpadding="0">
+					<thead>
+						<tr>
+							<th width="120">车牌号</th>
+							<th width="120">驾驶员</th>
+							<th width="150">电话</th>
+							<th width="120">货物详情</th>
+							<th width="120">投保金额</th>
+							<th width="150">保费</th>
+							<th width="230">保险开始时间</th>
+							<th width="230"> 运输时间</th>
+						</tr>
+					</thead>
+					<tbody id="tb2">
+
+					</tbody>
+				</table>
+				<div class="box2">
+					<div class="box2_1">
+						货物详情
+					</div>
+					<div class="box2_2">
+						取消
+					</div>
+				</div>
 			</div>
 			</div>
 	</body>
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/paging.js"></script>
 	<script>
-		//分页	
+		//分页
+		$("#page").paging({
+			pageNo:1,
+			totalPage: 10,
+			totalSize: 300,
+			callback: function(num) {
+				insurance(city_id,company);
+			}
+		})
+		
 		function insurance(city_id,company){
    	      	if(city_id==null){
 				city_id="";
@@ -110,7 +145,7 @@
 				company="";
 			}
    	       $.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php//insurances?city_id=&company=",
+				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php//insurances?city_id=" + city_id + "&company=" + company,
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
@@ -120,13 +155,7 @@
 					if(msg.rechange_insurance==null||msg.rechange_insurance==""){
 						alert("尚未有保险记录");
 					}else{
-						$("#page").paging({
-			           pageNo:1,
-			           totalPage: 3,
-			           totalSize: msg.rechange_insurance.length,
-			           callback: function(num) {
-			        	//alert(num)
-			        		for(var i = 0; i < msg.rechange_insurance.length; i++) {
+					for(var i = 0; i < msg.rechange_insurance.length; i++) {
 						var a = '<tr><td>' + msg.rechange_insurance[i].plate_number + '</td>'+
 							'<td>' + msg.rechange_insurance[i].driver_name + '</td>' +
 							'<td>' + msg.rechange_insurance[i].driver_phone + '</td>'+
@@ -138,9 +167,6 @@
 							'<td>' + msg.rechange_insurance[i].duration + '</td></tr>';
 						$("#tb2").append(a);
 					}
-			          }
-		         })
-				
 				}
 				},
 				error: function(xhr) {
@@ -152,7 +178,7 @@
 		 function detil(id){
    	      //alert(id);
    	      	$.ajax({
-   	      	   url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/one_goods?insurance_id=2",
+   	      	   url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/one_goods?insurance_id=" + id,
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
