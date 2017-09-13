@@ -364,6 +364,8 @@
 				success: function(msg) {
 					$("#tb1").html("");
 					//alert(msg.insurance_rechanges);
+					alert(msg.insurance_rechanges.length)
+					$("#yeshua").text(1);
 					if(msg.insurance_rechanges == null || msg.insurance_rechanges == "") {
 						alert("尚未有冲值记录");
 					} else {
