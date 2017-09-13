@@ -226,7 +226,7 @@ $app->post('/staff_insert',function()use($app){
     $body = $app->request->getBody();
     $body=json_decode($body);
     $array=array();
-    $staff_id=$body->customer_id;
+    $staff_id=$body->staff_id;
     foreach($body as $key=>$value){
         $array[$key]=$value;
     }
