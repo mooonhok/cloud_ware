@@ -309,11 +309,7 @@
 				success:function(msg){
 	TablePage('#tables',6);
     function TablePage(id,size){  
-    	$("#tb2").html("");
-    	if(msg.rechange_insurance==null||msg.rechange_insurance==""){
-						alert("尚未有保险记录");
-					}else{
-					
+    	$("#tb2").html("");			
 					for(var i = 0; i < msg.rechange_insurance.length; i++) {
 						var a = '<tr><td>' + msg.rechange_insurance[i].plate_number + '</td>'+
 							'<td>' + msg.rechange_insurance[i].driver_name + '</td>' +
@@ -329,7 +325,7 @@
 				
 	var $table = $(id);  
     var currentPage =0;  //当前页  
-    var pageSize = 3;  //每页行数（不包括表头）  
+    var pageSize = 4;  //每页行数（不包括表头）  
     $table.bind("repaginate",function()  
     {  
        //console.log($table.find("tbody tr").eq(0));  
@@ -404,7 +400,7 @@
     });  
       
  } 			
-		}	
+		
 				},
 				error: function(xhr) {
 				alert("获取保险记录后台失败！");
