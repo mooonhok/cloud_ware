@@ -4,181 +4,33 @@
 	<head>
 		<meta charset="utf-8" />
 		<title></title>
-		<style>
-			* {
-				padding: 0;
-				margin: 0;
-			}
-			/*
-			  * 外面盒子样式---自己定义
-			  */
-			
-			.page_div {
-				margin-top: 20px;
-				margin-bottom: 20px;
-				font-size: 15px;
-				font-family: "microsoft yahei";
-				color: #666666;
-				margin-right: 10px;
-				padding-left: 20px;
-				box-sizing: border-box;
-			}
-			/*
-			 * 页数按钮样式
-			 */
-			.page_div a {
-				min-width: 30px;
-				height: 28px;
-				border: 1px solid #dce0e0!important;
-				text-align: center;
-				margin: 0 4px;
-				cursor: pointer;
-				line-height: 28px;
-				color: #666666;
-				font-size: 13px;
-				display: inline-block;
-			}
-			#firstPage,
-			#lastPage {
-				width: 50px;
-				color: #0073A9;
-				border: 1px solid #0073A9!important;
-			}
-			#prePage,
-			#nextPage {
-				width: 70px;
-				color: #0073A9;
-				border: 1px solid #0073A9!important;
-			}
-			.page_div .current {
-				background-color: #0073A9;
-				border-color: #0073A9;
-				color: #FFFFFF;
-			}
-			.totalPages {
-				margin: 0 10px;
-			}
-			.totalPages span,
-			.totalSize span {
-				color: #0073A9;
-				margin: 0 5px;
-			}
-		</style>
 	</head>
 
 	<body>
-		
-		<div id="page" class="page_div">
-		<div class="tab_1">
-				<table width="1200" border="0" cellspacing="0" cellpadding="0">
-					<thead>
-						<tr>
-							<th width="120">车牌号</th>
-							<th width="120">驾驶员</th>
-							<th width="150">电话</th>
-							<th width="120">货物详情</th>
-							<th width="120">投保金额</th>
-							<th width="150">保费</th>
-							<th width="230">保险开始时间</th>
-							<th width="230"> 运输时间</th>
-						</tr>
-					</thead>
-					<tbody id="tb2">
-
-					</tbody>
-				</table>
-				<div class="box2">
-					<div class="box2_1">
-						货物详情
-					</div>
-					<div class="box2_2">
-						取消
-					</div>
-				</div>
-			</div><div class="tab_1">
-				<table width="1200" border="0" cellspacing="0" cellpadding="0">
-					<thead>
-						<tr>
-							<th width="120">车牌号</th>
-							<th width="120">驾驶员</th>
-							<th width="150">电话</th>
-							<th width="120">货物详情</th>
-							<th width="120">投保金额</th>
-							<th width="150">保费</th>
-							<th width="230">保险开始时间</th>
-							<th width="230"> 运输时间</th>
-						</tr>
-					</thead>
-					<tbody id="tb2">
-
-					</tbody>
-				</table>
-				<div class="box2">
-					<div class="box2_1">
-						货物详情
-					</div>
-					<div class="box2_2">
-						取消
-					</div>
-				</div>
-			</div>
-			</div>
+		<div id="num"></div>
+		<input id="sub" type="button">
 	</body>
 	<script src="js/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="js/paging.js"></script>
 	<script>
-		//分页
-		$("#page").paging({
-			pageNo:1,
-			totalPage: 10,
-			totalSize: 300,
-			callback: function(num) {
-				insurance(city_id,company);
-			}
-		})
-		
-		function insurance(city_id,company){
-   	      	if(city_id==null){
-				city_id="";
-			}
-			if(company==null){
-				company="";
-			}
-   	       $.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php//insurances?city_id=" + city_id + "&company=" + company,
-				dataType: 'json',
-				type: 'get',
-				contentType: "application/json;charset=utf-8",
-				data: JSON.stringify({}),
-				success: function(msg) {
-					$("#tb2").html("");
-					if(msg.rechange_insurance==null||msg.rechange_insurance==""){
-						alert("尚未有保险记录");
-					}else{
-					for(var i = 0; i < msg.rechange_insurance.length; i++) {
-						var a = '<tr><td>' + msg.rechange_insurance[i].plate_number + '</td>'+
-							'<td>' + msg.rechange_insurance[i].driver_name + '</td>' +
-							'<td>' + msg.rechange_insurance[i].driver_phone + '</td>'+
-							'<td class="information"  onclick="detil('+
-							msg.rechange_insurance[i].insurance_id+')">详情</td>' +
-							'<td>' + msg.rechange_insurance[i].insurance_price + '</td>' +
-							'<td>' + msg.rechange_insurance[i].insurance_amount + '</td>' +
-							'<td>' + msg.rechange_insurance[i].	insurance_start_time + '</td> '+
-							'<td>' + msg.rechange_insurance[i].duration + '</td></tr>';
-						$("#tb2").append(a);
-					}
-				}
-				},
-				error: function(xhr) {
-				alert("获取保险记录后台失败！");
-				}
-			});
-      }
-		
-		 function detil(id){
-   	      //alert(id);
+	function convertURL(url) {    
+        //获取时间戳    
+        var timstamp = (new Date()).valueOf();    
+        //将时间戳信息拼接到url上    
+        //url = "AJAXServer"    
+        if (url.indexOf("?") >= 0) {    
+                url = url + "&t=" + timstamp;    
+        } else {    
+                url = url+ "?t=" + timstamp;    
+        }    
+        return url;    
+}   
+         var url="http://mooonhok-cloudware.daoapp.io/test.php/test";
+          url = convertURL(url);    
+		$("#sub").on('click',function(){
+			//alert(id);
+			 var timstamp = (new Date()).valueOf();    
    	      	$.ajax({
-   	      	   url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/one_goods?insurance_id=" + id,
+   	      	   url: url,
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
@@ -186,14 +38,16 @@
 					
 				}),
 				success: function(msg) {
-					alert(msg.goods);
-					
+					$("#num").html(msg.sales);
 				},
 				error: function(e) {
 					alert("获取货物详情出错!");
 				}
    	      });	
-   	      }
+			
+		});
+   	      
+   	      
 	</script>
 
 </html>
