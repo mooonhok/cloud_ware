@@ -338,7 +338,8 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					alert(msg.goods);
+					console.log(msg);
+					$(".bigbox").css("display","block");
 					
 				},
 				error: function(e) {
@@ -602,7 +603,7 @@
 	</script>
    <script>
    	$(".quxiao").on("click",function(){
-   		$(".xq").css("display","block");
+   		$(".bigbox").css("display","none");
    	})
    </script>
 </html>
