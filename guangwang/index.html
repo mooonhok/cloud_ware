@@ -115,7 +115,7 @@
 				</ul>
                </li>
 				</div>
-				<div class="top_2_2" style="color: white;"><a href="#">登录</a></div>
+				<div class="top_2_2" style="color: white;"><a href="#" class="top_2_2_1">登录</a></div>
 			</div>
 		</div>
 		</div>
@@ -123,9 +123,9 @@
 		<div class="top1">
 			<div class="top1_1"><h2>Unitary</h2></div>
 			
-			<div class="top1_3">
+			<!-- <div class="top1_3">
 				<img src="images/ym_03.png" alt="">
-			</div>
+			</div> -->
 			<div class="top1_2">
 				<div class="top1_2_1"><a href="">首页</a></div>
 				<div class="xian"></div>
@@ -304,7 +304,7 @@
 
 
 	<script type="text/javascript">
-		$(".top_2_2").on("click",function(){
+		$(".top_2_2_1").on("click",function(){
 			$(".box2").css("display","block");
 		})
 		$(".box3_6").on("click",function(){
@@ -334,9 +334,9 @@
    		  	  	    $.session.set('userid',msg.user.id);
    		  	  	    var user=$.session.get('userid');
    		  	  	    $("#name").val(msg.user.user_name);	  
-   		  	  	    $(".top_2_2").css("display","none");
+   		  	  	    $(".top_2_2").html(msg.username);
+
    		  	  	}else{
-   		  	  		$(".top_2_2").css("display","block");
    		  	  		alert(msg.desc);
    		  	  	}
    		  	  },
