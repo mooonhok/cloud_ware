@@ -97,10 +97,8 @@
 					</tbody>
 				</table>
 				<div id="count" style="display:none;"></div>
-				 <div class="tables_footer clearfix" style="width: 500px;">
-		<!-- <div class="page_all fl">共有13条记录</div> -->
-		<div class="page_out fr"></div>
-
+					
+				<div style="float:right;"><span id="up_a">上一页</span><span id="yeshua"></span><span id="down_a">下一页</span></div>
 				<div class="box3">
 					<div class="box3_1">
 						<input id="makesure" type="hidden">
@@ -135,9 +133,6 @@
 
 					</tbody>
 				</table>
-				 <div class="tables_footer clearfix" style="width: 500px;">
-		<!-- <div class="page_all fl">共有13条记录</div> -->
-		<div class="page_out fr"></div>
 				<div class="box2">
 					<div class="box2_1">
 						货物详情
@@ -247,7 +242,9 @@
 </div>
 	</body>
 <script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/jquery.session.js"></script>		
+		<script src="js/jquery.session.js"></script>
+
+			
 	<script>
 		//获取省份和城市列表1
 		$.ajax({
@@ -303,17 +300,16 @@
 			}
    	       $.ajax({
 				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurances?city_id=" + city_id + "&company=" + company,
+				cache:false,
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
-				success:function(msg){
+				success: function(msg) {
+					$("#tb2").html("");
 					if(msg.rechange_insurance==null||msg.rechange_insurance==""){
 						alert("尚未有保险记录");
 					}else{
-	TablePage('#tables',6);
-    function TablePage(id,size){  
-					$("#tb2").html("");
 					for(var i = 0; i < msg.rechange_insurance.length; i++) {
 						var a = '<tr><td>' + msg.rechange_insurance[i].plate_number + '</td>'+
 							'<td>' + msg.rechange_insurance[i].driver_name + '</td>' +
@@ -326,84 +322,7 @@
 							'<td>' + msg.rechange_insurance[i].duration + '</td></tr>';
 						$("#tb2").append(a);
 					}
-	var $table = $(id);  
-    var currentPage =0;  //当前页  
-    var pageSize = 3;  //每页行数（不包括表头）  
-    $table.bind("repaginate",function()  
-    {  
-       //console.log($table.find("tbody tr").eq(0));  
-      $table.find("tbody tr").hide().slice(currentPage * pageSize, (currentPage + 1) * pageSize).show();  
-     // $table.find("tbody tr").eq(0).show();  
-    });  
-    var numRows = $table.find("tbody tr").length;//记录宗条数  
-    var numPages = Math.ceil(numRows/pageSize);//总页数  
-    //console.log(numPages);  
-    var $pager = $("<div class='page'><a href='javascript:void(0)'><span id='Prev' style='margin-right:4px;'>« Prev</span></a></div>");  //分页div  
-
-
-
-    for( var page = 0; page < numPages; page++)  
-    {  
-      //为分页标签加上链接  
-      //if(page==0){$("<a href='javascript:void(0)'><span id='1' class="click_page"></span></a>")}  
-      $("<a href='javascript:void(0)'><span id='"+(page+1)+"'>"+ (page+1) +"</span></a>")  
-           .bind("click", { "newPage": page }, function(event){  
-                currentPage = event.data["newPage"];  
-                //console.log($(this).children("span"));  
-                $(this).children("span").attr("class","click_page");  
-                $(this).children("span").css({"color":"#FFFFFF"});  
-                $(".page a span").not($(this).children("span")).attr("class","");  
-                $(".page a span").not($(this).children("span")).css({"color":"#1155BB"});  
-                $table.trigger("repaginate");  
-            })  
-            .appendTo($pager);  
-  
-        $pager.append("  ");  
-    }  
-    //$table.trigger("repaginate");  
-    var next=$("<a href='javascript:void(0)'><span id='Next'>Next »</span></a>");  
-    $pager.append(next);
-    $('.page_out').append($pager);
-    //$pager.insertAfter($table);//分页div插入table  
-    $("#1").attr("class","click_page");  
-    $("#1").css({"color":"#FFFFFF"});  
-    $table.trigger("repaginate");  
-    //console.log($("#1"));  
-    //$("#1").attr("class","click_page");  
-    //$("#1").css({"background":"#FFFFFF"});  
-    $("#Prev").bind("click",function(){  
-       var prev=Number($(".click_page").text())-2;  
-       currentPage=prev;  
-       $(this).css({"background":"#000000"});  
-       if(currentPage<0) {  
-         $(this).css({"background":"#c0c0c0"});  
-         return;  
- }  
-       $("#"+(prev+1)).attr("class","click_page");  
-       $("#"+(prev+1)).css({"color":"#FFFFFF"});  
-       $(".page a span").not($("#"+(prev+1))).attr("class","");  
-       $(".page a span").not($("#"+(prev+1))).css({"color":"#1155BB"});  
-       //console.log(currentPage);  
-       $table.trigger("repaginate");  
-    });  
-     $("#Next").bind("click",function(){  
-       var next=$(".click_page").attr("id");  
-       currentPage=Number(next);  
-       //console.log($(".click_page").text());  
-       $(this).css({"background":"#FFFFFF"});  
-       if((currentPage+1)>numPages) {  
-         $(this).css({"background":"#c0c0c0"});  
-         return;  
-         }  
-       $("#"+(currentPage+1)).attr("class","click_page");  
-       $("#"+(currentPage+1)).css({"color":"#FFFFFF"});  
-       $(".page a span").not($("#"+(currentPage+1))).attr("class","");  
-       $(".page a span").not($("#"+(currentPage+1))).css({"color":"#1155BB"});  
-       $table.trigger("repaginate");  
-    });  
-      
- } 			
-			}
+				}
 				},
 				error: function(xhr) {
 				alert("获取保险记录后台失败！");
@@ -420,8 +339,7 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					console.log(msg);
-					$(".bigbox").css("display","block");
+					alert(msg.goods);
 					
 				},
 				error: function(e) {
@@ -443,19 +361,24 @@
 			//alert(company);
 			$.ajax({
 				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?city_id=" + city_id + "&company=" + company,
+				cache:false,
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					
+					$("#tb1").html("");
 					//alert(msg.insurance_rechanges);
 					if(msg.insurance_rechanges == null || msg.insurance_rechanges == "") {
 						alert("尚未有冲值记录");
 					} else {
-    TablePage('#tables',6);
-    function TablePage(id,size){  
-						$("#tb1").html("");
+						var length=null;
+						if(msg.insurance_rechanges.length<10){
+							length=msg.insurance_rechanges.length;
+						}else{
+							length=10;
+						}
+						$("#yeshua").text(1);
 						for(var i = 0; i < length; i++) {
 							var sure = null;
 							if(msg.insurance_rechanges[i].status == 0) {
@@ -474,85 +397,84 @@
 							}
 							$("#tb1").append(a);
 						}
-	var $table = $(id);  
-    var currentPage =0;  //当前页  
-    var pageSize = 3;  //每页行数（不包括表头）  
-    $table.bind("repaginate",function()  
-    {  
-       //console.log($table.find("tbody tr").eq(0));  
-      $table.find("tbody tr").hide().slice(currentPage * pageSize, (currentPage + 1) * pageSize).show();  
-     // $table.find("tbody tr").eq(0).show();  
-    });  
-    var numRows = $table.find("tbody tr").length;//记录宗条数  
-    var numPages = Math.ceil(numRows/pageSize);//总页数  
-    //console.log(numPages);  
-    var $pager = $("<div class='page'><a href='javascript:void(0)'><span id='Prev' style='margin-right:4px;'>« Prev</span></a></div>");  //分页div  
-
-
-
-    for( var page = 0; page < numPages; page++)  
-    {  
-      //为分页标签加上链接  
-      //if(page==0){$("<a href='javascript:void(0)'><span id='1' class="click_page"></span></a>")}  
-      $("<a href='javascript:void(0)'><span id='"+(page+1)+"'>"+ (page+1) +"</span></a>")  
-           .bind("click", { "newPage": page }, function(event){  
-                currentPage = event.data["newPage"];  
-                //console.log($(this).children("span"));  
-                $(this).children("span").attr("class","click_page");  
-                $(this).children("span").css({"color":"#FFFFFF"});  
-                $(".page a span").not($(this).children("span")).attr("class","");  
-                $(".page a span").not($(this).children("span")).css({"color":"#1155BB"});  
-                $table.trigger("repaginate");  
-            })  
-            .appendTo($pager);  
-  
-        $pager.append("  ");  
-    }  
-    //$table.trigger("repaginate");  
-    var next=$("<a href='javascript:void(0)'><span id='Next'>Next »</span></a>");  
-    $pager.append(next);
-    $('.page_out').append($pager);
-    //$pager.insertAfter($table);//分页div插入table  
-    $("#1").attr("class","click_page");  
-    $("#1").css({"color":"#FFFFFF"});  
-    $table.trigger("repaginate");  
-    //console.log($("#1"));  
-    //$("#1").attr("class","click_page");  
-    //$("#1").css({"background":"#FFFFFF"});  
-    $("#Prev").bind("click",function(){  
-       var prev=Number($(".click_page").text())-2;  
-       currentPage=prev;  
-       $(this).css({"background":"#000000"});  
-       if(currentPage<0) {  
-         $(this).css({"background":"#c0c0c0"});  
-         return;  
- }  
-       $("#"+(prev+1)).attr("class","click_page");  
-       $("#"+(prev+1)).css({"color":"#FFFFFF"});  
-       $(".page a span").not($("#"+(prev+1))).attr("class","");  
-       $(".page a span").not($("#"+(prev+1))).css({"color":"#1155BB"});  
-       //console.log(currentPage);  
-       $table.trigger("repaginate");  
-    });  
-     $("#Next").bind("click",function(){  
-       var next=$(".click_page").attr("id");  
-       currentPage=Number(next);  
-       //console.log($(".click_page").text());  
-       $(this).css({"background":"#FFFFFF"});  
-       if((currentPage+1)>numPages) {  
-         $(this).css({"background":"#c0c0c0"});  
-         return;  
-         }  
-       $("#"+(currentPage+1)).attr("class","click_page");  
-       $("#"+(currentPage+1)).css({"color":"#FFFFFF"});  
-       $(".page a span").not($("#"+(currentPage+1))).attr("class","");  
-       $(".page a span").not($("#"+(currentPage+1))).css({"color":"#1155BB"});  
-       $table.trigger("repaginate");  
-    });  
-      
- } 	
 						
+						$("#up_a").on("click",function(){
+							alert(msg.insurance_rechanges.length)
+							var up=$("#yeshua").text();
+							if(up>1){
+								
+								$("#tb1").text("");
+							for(var i = (up-2)*10; i <(up-1)*10; i++) {
+							var sure = null;
+							if(msg.insurance_rechanges[i].status == 0) {
+								sure = "确认支付";
+							} else {
+								sure = "已经支付";
+							}
+							  b = "<tr><td>" + msg.insurance_rechanges[i].company + "</td><td>" +
+								msg.insurance_rechanges[i].pay_time + "</td><td>" +
+								msg.insurance_rechanges[i].money + "</td><td><div onclick='agree("+
+								msg.insurance_rechanges[i].id+")'>详情</div></td><td><button class='but' onclick='makesure(" +
+								msg.insurance_rechanges[i].id + ")'>" +
+								sure + "</button></td></tr>";
+							 if(msg.insurance_rechanges[i].status == 1) {
+								$('.but').attr("disabled", "disabled");
+							}
+							$("#tb1").append(b);
+							}
+							$("#yeshua").text(up-1);
+						}
+						});
 						
+							$("#down_a").on("click",function(){
+							alert(msg.insurance_rechanges.length)
+							var up=$("#yeshua").text();
+							if(msg.insurance_rechanges.length>(up+1)*10){
+								
+								$("#tb1").text("");
+							for(var i = up*10; i < (parseInt(up)+1)*10; i++) {
+							var sure = null;
+							if(msg.insurance_rechanges[i].status == 0) {
+								sure = "确认支付";
+							} else {
+								sure = "已经支付";
+							}
+							  b = "<tr><td>" + msg.insurance_rechanges[i].company + "</td><td>" +
+								msg.insurance_rechanges[i].pay_time + "</td><td>" +
+								msg.insurance_rechanges[i].money + "</td><td><div onclick='agree("+
+								msg.insurance_rechanges[i].id+")'>详情</div></td><td><button class='but' onclick='makesure(" +
+								msg.insurance_rechanges[i].id + ")'>" +
+								sure + "</button></td></tr>";
+							 if(msg.insurance_rechanges[i].status == 1) {
+								$('.but').attr("disabled", "disabled");
+							}
+							$("#tb1").append(b);
+							}
+							$("#yeshua").text(parseInt(up)+1);
+						}else if(msg.insurance_rechanges.length>up*10&&msg.insurance_rechanges.length<(up+1)*10){
+															$("#tb1").text("");
+							for(var i = up*10; i < msg.insurance_rechanges.length; i++) {
+							var sure = null;
+							if(msg.insurance_rechanges[i].status == 0) {
+								sure = "确认支付";
+							} else {
+								sure = "已经支付";
+							}
+							  b = "<tr><td>" + msg.insurance_rechanges[i].company + "</td><td>" +
+								msg.insurance_rechanges[i].pay_time + "</td><td>" +
+								msg.insurance_rechanges[i].money + "</td><td><div onclick='agree("+
+								msg.insurance_rechanges[i].id+")'>详情</div></td><td><button class='but' onclick='makesure(" +
+								msg.insurance_rechanges[i].id + ")'>" +
+								sure + "</button></td></tr>";
+							 if(msg.insurance_rechanges[i].status == 1) {
+								$('.but').attr("disabled", "disabled");
+							}
+							$("#tb1").append(b);
+							}
+							$("#yeshua").text(parseInt(up)+1);
+						}
+						});						
+					}
 				},
 				error: function(xhr) {
 					alert("获取后台失败！");
@@ -672,7 +594,6 @@
 					alert("修改成功");
 					$(".box3").css("display", "none");
 					loadrechanges(city_id, company);
-					window.location.href="safe.html";
 				},
 				error: function(e) {
 					alert("修改支付状态后台错误");
@@ -682,7 +603,7 @@
 	</script>
    <script>
    	$(".quxiao").on("click",function(){
-   		$(".bigbox").css("display","none");
+   		$(".xq").css("display","block");
    	})
    </script>
 </html>
