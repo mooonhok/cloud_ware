@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-30 17:04:52
 * @Last Modified by:   boycui
-* @Last Modified time: 2017-09-12 08:59:50
+* @Last Modified time: 2017-09-13 09:16:08
 */
 *{
 	padding: 0;
@@ -43,6 +43,10 @@ html,body{
 	margin-left: 85px;
 	margin-top: 30px;
 }
+.head_1 img{
+	width: 60px;
+	height: 60px;
+}
 .head_2{
 	width: 230px;
 	height: 60px;
@@ -79,7 +83,7 @@ html,body{
 	line-height: 50px;
 }
 .wenzi{
-	width: 100px;
+	width: 150px;
 	height: 50px;
 	line-height: 50px;
 	font-size: 16px;
@@ -394,6 +398,7 @@ html,body{
 }
 .box4_2_1{
 	float: left;
+	width: 80px;
 }
 .box4_2_2{
 	float: left;
@@ -408,10 +413,11 @@ html,body{
 }
 .box4_3_1{
 	float: left;
+	width: 80px;
 }
 .box4_3_2{
 	float: left;
-	margin-left: 25px;
+	margin-left:10px;
 }
 .box4_1 label{
 	color: #AFAFAF;
@@ -444,6 +450,7 @@ html,body{
 }
 .box4_6_1{
 	float: left;
+	width: 80px;
 }
 .box4_6_2{
 	float: left;
@@ -479,10 +486,11 @@ html,body{
 }
 .box4_9_1{
 	float: left;
+	width: 80px;
 }
 .box4_9_2{
 	float: left;
-	margin-left: 50px;
+	margin-left: 10px;
 }
 .box4_8 label{
 	color: #AFAFAF;
@@ -502,10 +510,11 @@ html,body{
 }
 .box4_10_1{
 	float: left;
+	width: 80px;
 }
 .box4_10_2{
 	float: left;
-	margin-left: 50px;
+	margin-left: 10px;
 }
 .box4_11{
 	width: 1000px;
@@ -516,10 +525,11 @@ html,body{
 }
 .box4_11_1{
 	float: left;
+	width: 80px;
 }
 .box4_11_2{
 	float: left;
-	margin-left: 50px;
+	margin-left: 10px;
 }
 .box4_12{
 	width: 150px;
