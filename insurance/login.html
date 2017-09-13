@@ -132,9 +132,15 @@
 	document.getElementById('changeImg').onclick=function(){
 		draw();
 	}
-	var input = document.getElementById('identify');
+	var input = document.getElementById('identify').value.toUpperCase();
 	document.getElementById("signin").onclick=function(){
-		if(input.value != "" && input.value.toUpperCase() == code.toUpperCase()){
+		if(input.length <= 0){
+			alert("请输入验证码")
+		}else if(inputCode != code){
+			alert("验证码输入错误");   	
+        createCode();//刷新验证码  
+        document.getElementById("identify").value = "";//清空文本框  
+         }else{		
 			alert('验证通过');
 			var name=$("#username").val();
 			var pwd=$("#password").val();
