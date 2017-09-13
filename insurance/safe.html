@@ -145,7 +145,7 @@
 		</div>
 
 	<!--  -->
-<div class="xq">
+<div class="xq" style="display:none;">
 <button class="quxiao">取消</button>
 <h2>货物运输预约保险协议</h2>
 <br>
@@ -243,7 +243,14 @@
 
 			
 	<script>
-		$.ajaxSetup({cache:false});
+		(function($) {
+			$.getUrlParam = function(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if(r != null) return unescape(r[2]);
+				return null;
+			}
+		})(jQuery);
 		//获取省份和城市列表1
 		$.ajax({
 			url: "http://mooonhok-cloudware.daoapp.io/city.php/province",
@@ -516,8 +523,10 @@
 				});
 		}
 		
-		var city_id = null;
-		var company = null;
+	//	var city_id = null;
+		//var company = null;
+		var city_id = $.getUrlParam('city_id');
+		var company = $.getUrlParam('company');
 		//获取session值
 		var user = $.session.get('userid');
 		//alert(user);
@@ -553,8 +562,9 @@
 		//选择搜索按钮的事件
 		$(".hunt").on('click', function() {
 			city_id = $("#city1 option:selected").val();
-			loadrechanges(city_id, company);
-			insurance(city_id,company);
+			window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id=" + city_id&company=";
+			//loadrechanges(city_id, company);
+			//insurance(city_id,company);
 		})
 		//搜索框
 		$(".select_2_2").on('click', function() {
@@ -563,9 +573,10 @@
 			if(city_id==null||city_id==""){
 				alert("请先选择城市");
 			}else{
+				window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id=" + city_id&company="+company;
 				//alert(company);
-			loadrechanges(city_id, company);
-			insurance(city_id,company);
+			//loadrechanges(city_id, company);
+			//insurance(city_id,company);
 			}
 			
 		});
