@@ -307,9 +307,6 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success:function(msg){
-					if(msg.rechange_insurance==null||msg.rechange_insurance==""){
-						alert("尚未有保险记录");
-					}else{
 	TablePage('#tables',6);
     function TablePage(id,size){  
     	$("#tb2").html("");

@@ -46,7 +46,7 @@
 					<canvas id="canvas" width="150" height="35">		
 					</canvas>
 				</div>
-				<div class="text" id="changeImg">看不清楚换一张</div>
+				<div class="text" id="changeImg"  onclick="createCode()">看不清楚换一张</div>
 			</div>
 		</div>
 		<div class="login" id="signin">
@@ -128,18 +128,15 @@
 		randomLine();
 	}	
 	draw();
-	// console.log(code);
-	document.getElementById('changeImg').onclick=function(){
-		draw();
-	}
-	
+	// console.log(code);	
 	document.getElementById("signin").onclick=function(){
 	var input = document.getElementById('identify').value;
 	console.log(input);
 		if(input.length <= 0){
 			alert("请输入验证码")
 		}else if(input != code){
-			alert("验证码输入错误");   	
+			alert("验证码输入错误"); 
+			createCode();  	
         document.getElementById("identify").value = "";//清空文本框  
          }else{		
 			alert('验证通过');
