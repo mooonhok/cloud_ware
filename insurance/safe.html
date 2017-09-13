@@ -247,7 +247,7 @@
 			$.getUrlParam = function(name) {
 				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
 				var r = window.location.search.substr(1).match(reg);
-				if(r != null) return unescape(r[2]);
+				if(r != null) return decodeURI(r[2]);
 				return null;
 			}
 		})(jQuery);
@@ -604,7 +604,8 @@
 					company = $("#coname").val();
 					alert("修改成功");
 					$(".box3").css("display", "none");
-					loadrechanges(city_id, company);
+				//	loadrechanges(city_id, company);
+				window.location.reload();
 				},
 				error: function(e) {
 					alert("修改支付状态后台错误");
