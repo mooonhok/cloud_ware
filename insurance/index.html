@@ -311,15 +311,7 @@
     function TablePage(id,size){  
     	$("#tb2").html("");			
 					for(var i = 0; i < msg.rechange_insurance.length; i++) {
-						var a = '<tr><td>' + msg.rechange_insurance[i].plate_number + '</td>'+
-							'<td>' + msg.rechange_insurance[i].driver_name + '</td>' +
-							'<td>' + msg.rechange_insurance[i].driver_phone + '</td>'+
-							'<td class="information"  onclick="detil('+
-							msg.rechange_insurance[i].insurance_id+')">详情</td>' +
-							'<td>' + msg.rechange_insurance[i].insurance_price + '</td>' +
-							'<td>' + msg.rechange_insurance[i].insurance_amount + '</td>' +
-							'<td>' + msg.rechange_insurance[i].	insurance_start_time + '</td> '+
-							'<td>' + msg.rechange_insurance[i].duration + '</td></tr>';
+						var a = '<tr><td>'+msg.rechange_insurance[i].plate_number+'</td><td>'+msg.rechange_insurance[i].driver_name+'</td><td>'+msg.rechange_insurance[i].driver_phone+'</td><td class="information"  onclick="detil('+msg.rechange_insurance[i].insurance_id+')">详情</td><td>'+msg.rechange_insurance[i].insurance_price+'</td><td>'+msg.rechange_insurance[i].insurance_amount+'</td><td>'+msg.rechange_insurance[i].insurance_start_time+'</td><td>'+msg.rechange_insurance[i].duration+'</td></tr>';
 						$("#tb2").append(a);
 					}
 				
