@@ -346,8 +346,6 @@
    	      }
 		//加载保险充值记录
 		function loadrechanges(city_id, company) {
-			alert(city_id)
-			alert(company)
 			if(city_id==null){
 				city_id="";
 			}
@@ -362,6 +360,7 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
+					console.log(msg);
 					$("#tb1").html("");
 					//alert(msg.insurance_rechanges);
 					alert(msg.insurance_rechanges.length)
