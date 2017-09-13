@@ -566,7 +566,6 @@ $app->post('/customer_insert',function()use($app){
     $selectStatement = $database->select()
         ->from('customer')
         ->where('customer_id','=',$customer_id)
-        ->where('exist','=',0)
         ->where('tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
     $data2 = $stmt->fetch();
@@ -574,8 +573,7 @@ $app->post('/customer_insert',function()use($app){
         $updateStatement = $database->update($array)
             ->table('customer')
             ->where('tenant_id','=',$tenant_id)
-            ->where('customer_id','=',$customer_id)
-            ->where('exist',"=",0);
+            ->where('customer_id','=',$customer_id);
         $affectedRows = $updateStatement->execute();
     }else{
         $array['tenant_id']=$tenant_id;

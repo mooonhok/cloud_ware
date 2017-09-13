@@ -169,7 +169,7 @@ $app->post('/inventory_location_insert',function()use($app){
     $data2 = $stmt->fetch();
     if($data2!=null){
         $updateStatement = $database->update($array)
-            ->table('customer')
+            ->table('inventory_loc')
             ->where('tenant_id','=',$tenant_id)
             ->where('inventory_loc_id','=',$inventory_loc_id);
         $affectedRows = $updateStatement->execute();

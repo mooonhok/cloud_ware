@@ -269,14 +269,14 @@ $app->post('/goods_insert',function()use($app){
         $array[$key]=$value;
     }
     $selectStatement = $database->select()
-        ->from('order')
+        ->from('goods')
         ->where('goods_id','=',$goods_id)
         ->where('tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
     $data2 = $stmt->fetch();
     if($data2!=null){
         $updateStatement = $database->update($array)
-            ->table('customer')
+            ->table('goods')
             ->where('tenant_id','=',$tenant_id)
             ->where('goods_id','=',$goods_id);
         $affectedRows = $updateStatement->execute();

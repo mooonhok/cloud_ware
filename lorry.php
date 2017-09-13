@@ -279,7 +279,7 @@ $app->post('/lorry_insert',function()use($app){
     $data2 = $stmt->fetch();
     if($data2!=null){
         $updateStatement = $database->update($array)
-            ->table('customer')
+            ->table('lorry')
             ->where('tenant_id','=',$tenant_id)
             ->where('lorry_id','=',$lorry_id);
         $affectedRows = $updateStatement->execute();

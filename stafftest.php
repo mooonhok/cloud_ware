@@ -238,7 +238,7 @@ $app->post('/staff_insert',function()use($app){
     $data2 = $stmt->fetch();
     if($data2!=null){
         $updateStatement = $database->update($array)
-            ->table('customer')
+            ->table('staff')
             ->where('tenant_id','=',$tenant_id)
             ->where('staff_id','=',$staff_id);
         $affectedRows = $updateStatement->execute();
