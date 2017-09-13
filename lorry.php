@@ -258,6 +258,41 @@ $app->delete('/lorry',function()use($app){
     }
 });
 
+
+//批量上传，有改无增
+$app->post('/lorry_insert',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body=json_decode($body);
+    $array=array();
+    $lorry_id=$body->lorry_id;
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+    $selectStatement = $database->select()
+        ->from('lorry')
+        ->where('lorry_id','=',$lorry_id)
+        ->where('exist','=',0)
+        ->where('tenant_id','=',$tenant_id);
+    $stmt = $selectStatement->execute();
+    $data2 = $stmt->fetch();
+    if($data2!=null){
+        $updateStatement = $database->update($array)
+            ->table('customer')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('lorry_id','=',$lorry_id)
+            ->where('exist',"=",0);
+        $affectedRows = $updateStatement->execute();
+    }else{
+        $array['tenant_id']=$tenant_id;
+        $insertStatement = $database->insert(array_keys($array))
+            ->into('lorry')
+            ->values(array_values($array));
+        $insertId = $insertStatement->execute(false);
+    }
+});
 $app->run();
 
 

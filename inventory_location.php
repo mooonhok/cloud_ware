@@ -148,6 +148,41 @@ $app->delete('/inventory_location',function()use($app){
     }
 });
 
+
+//批量上传，有改无增
+$app->post('/inventory_location_insert',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body=json_decode($body);
+    $array=array();
+    $inventory_loc_id=$body->inventory_loc_id;
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+    $selectStatement = $database->select()
+        ->from('inventory_loc')
+        ->where('inventory_loc_id','=',$inventory_loc_id)
+        ->where('exist','=',0)
+        ->where('tenant_id','=',$tenant_id);
+    $stmt = $selectStatement->execute();
+    $data2 = $stmt->fetch();
+    if($data2!=null){
+        $updateStatement = $database->update($array)
+            ->table('customer')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('inventory_loc_id','=',$inventory_loc_id)
+            ->where('exist',"=",0);
+        $affectedRows = $updateStatement->execute();
+    }else{
+        $array['tenant_id']=$tenant_id;
+        $insertStatement = $database->insert(array_keys($array))
+            ->into('inventory_loc')
+            ->values(array_values($array));
+        $insertId = $insertStatement->execute(false);
+    }
+});
 $app->run();
 
 function localhost(){

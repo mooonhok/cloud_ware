@@ -488,54 +488,7 @@ $app->delete('/scheduling',function()use($app){
     }
 });
 
-//批量上传，无则增加，有则修改（前台传json）
-//$app->post('/scheduling_insert',function()use($app){
-//    $app->response->headers->set('Content-Type', 'application/json');
-//    $database=localhost();
-//    $tenant_id=$app->request->headers->get("tenant-id");
-//    $body = $app->request->getBody();
-//    $array=array();
-//    $body=json_decode($body);
-//    foreach($body as $key=>$value){
-//        $array[$key]=$value;
-//    }
-//    $num=count($array);
-////    $aa=$array[0];
-////    $array1=array();
-////    foreach($aa as $key=>$value){
-////        $array1[$key]=$value;
-////    }
-//
-////echo count($array1);
-//    for($i=0;$i<$num;$i++){
-//        $array1=array();
-//        foreach($array[$i] as $key=>$value){
-//            $array1[$key]=$value;
-//        }
-//        $selectStatement = $database->select()
-//            ->from('scheduling')
-//            ->where('scheduling_id','=',$array1['scheduling_id'])
-//            ->where('exist','=',0)
-//            ->where('tenant_id','=',$tenant_id);
-//        $stmt = $selectStatement->execute();
-//        $data1 = $stmt->fetch();
-//        if($data1==null){
-//            $array1['tenant_id']=$tenant_id;
-//            $insertStatement = $database->insert(array_keys($array1))
-//                ->into('scheduling')
-//                ->values(array_values($array1));
-//            $insertId = $insertStatement->execute(false);
-//        }else{
-//            $updateStatement = $database->update($array1)
-//                ->table('scheduling')
-//                ->where('tenant_id','=',$tenant_id)
-//                ->where('scheduling_id','=',$array1['scheduling_id'])
-//                ->where('exist',"=",0);
-//            $affectedRows = $updateStatement->execute();
-//        }
-//    }
-//    echo json_encode(array("result"=>"1","desc"=>"success"));
-//});
+
 
 //批量上传，有改无增
 $app->post('/scheduling_insert',function()use($app){

@@ -1374,6 +1374,42 @@ $app->put('/update_order_cost',function()use($app){
 });
 
 
+
+//批量上传，有改无增
+$app->post('/order_insert',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body=json_decode($body);
+    $array=array();
+    $order_id=$body->order_id;
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+    $selectStatement = $database->select()
+        ->from('order')
+        ->where('order_id','=',$order_id)
+        ->where('exist','=',0)
+        ->where('tenant_id','=',$tenant_id);
+    $stmt = $selectStatement->execute();
+    $data2 = $stmt->fetch();
+    if($data2!=null){
+        $updateStatement = $database->update($array)
+            ->table('customer')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('order_id','=',$order_id)
+            ->where('exist',"=",0);
+        $affectedRows = $updateStatement->execute();
+    }else{
+        $array['tenant_id']=$tenant_id;
+        $insertStatement = $database->insert(array_keys($array))
+            ->into('order')
+            ->values(array_values($array));
+        $insertId = $insertStatement->execute(false);
+    }
+});
+
 $app->run();
 
 function localhost()
