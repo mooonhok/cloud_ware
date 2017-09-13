@@ -27,22 +27,23 @@ $app->post('/delivery_order_insert',function()use($app){
     $array['tenant_id']=$tenant_id;
     $selectStatement = $database->select()
         ->from('delivery_order')
-        ->where('delivery_order_id','=',$delivery_id)
+        ->where('delivery_id','=',$delivery_id)
         ->where('tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
     $data2 = $stmt->fetch();
-    if($data2!=null){
-        $updateStatement = $database->update($array)
-            ->table('delivery_order')
-            ->where('tenant_id','=',$tenant_id)
-            ->where('delivery_id','=',$delivery_id);
-        $affectedRows = $updateStatement->execute();
-    }else{
-        $insertStatement = $database->insert(array_keys($array))
-            ->into('delivery_order')
-            ->values(array_values($array));
-        $insertId = $insertStatement->execute(false);
-    }
+    echo json_encode($data2);
+//    if($data2!=null){
+//        $updateStatement = $database->update($array)
+//            ->table('delivery_order')
+//            ->where('tenant_id','=',$tenant_id)
+//            ->where('delivery_id','=',$delivery_id);
+//        $affectedRows = $updateStatement->execute();
+//    }else{
+//        $insertStatement = $database->insert(array_keys($array))
+//            ->into('delivery_order')
+//            ->values(array_values($array));
+//        $insertId = $insertStatement->execute(false);
+//    }
 });
 
 
