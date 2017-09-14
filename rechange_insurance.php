@@ -224,6 +224,7 @@ $app->get('/insurances',function ()use($app){
                 ->from('tenant')
                 ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
                 ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
+                ->join('customer','tenant.contact_id','=','customer.customer_id','INNER')
                 ->where('tenant.from_city_id','=',$city_id)
                 ->where('insurance.sure_insurance','=','1')
                 ->where('tenant.company','=',$company)
@@ -231,31 +232,105 @@ $app->get('/insurances',function ()use($app){
 //                ->limit((int)10, (int)10 * (int)$page);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
-            echo json_encode(array('result'=>'1','desc'=>'success','rechange_insurance'=>$data1));
+             for($x=0;$x<count($data1);$x++){
+                 $arrays1['company']=$data1['company'];
+                 $arrays1['customer_phone']=$data1['customer_phone'];
+                 $arrays1['plate_number']=$data1['plate_number'];
+                 $arrays1['driver_name']=$data1['driver_name'];
+                 $arrays1['insurance_start_time']=$data1['insurance_start_time'];
+                 $arrays1['duration']=$data1['duration'];
+                 $arrays1['insurance_amount']=$data1['insurance_amount'];
+                 $arrays1['insurance_price']=$data1['insurance_price'];
+                 $arrays1['insurance_id']=$data1['insurance_id'];
+                 $selectStatement = $database->select()
+                     ->from('city')
+                     ->where('id', '=', $data1['from_city_id']);
+                 $stmt = $selectStatement->execute();
+                 $data2 = $stmt->fetch();
+                 $arrays1['from_city']=$data2['name'];
+                 $selectStatement = $database->select()
+                     ->from('city')
+                     ->where('id', '=', $data1['receive_city_id']);
+                 $stmt = $selectStatement->execute();
+                 $data3 = $stmt->fetch();
+                 $arrays1['receive_city']=$data3['name'];
+                 array_push($arrays,$arrays1);
+             }
+            echo json_encode(array('result'=>'1','desc'=>'success','rechange_insurance'=>$arrays));
         }else{
             $selectStatement = $database->select()
                 ->from('tenant')
                 ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
                 ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
+                ->join('customer','tenant.contact_id','=','customer.customer_id','INNER')
                 ->where('insurance.sure_insurance','=','1')
                 ->where('tenant.from_city_id','=',$city_id)
                 ->orderBy('insurance.insurance_start_time','desc');
               //  ->limit((int)10, (int)10 * (int)$page);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
-            echo json_encode(array('result'=>'1','desc'=>'租户公司id为空','rechange_insurance'=>$data1));
+            for($x=0;$x<count($data1);$x++){
+                $arrays1['company']=$data1['company'];
+                $arrays1['customer_phone']=$data1['customer_phone'];
+                $arrays1['plate_number']=$data1['plate_number'];
+                $arrays1['driver_name']=$data1['driver_name'];
+                $arrays1['insurance_start_time']=$data1['insurance_start_time'];
+                $arrays1['duration']=$data1['duration'];
+                $arrays1['insurance_amount']=$data1['insurance_amount'];
+                $arrays1['insurance_price']=$data1['insurance_price'];
+                $arrays1['insurance_id']=$data1['insurance_id'];
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data1['from_city_id']);
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetch();
+                $arrays1['from_city']=$data2['name'];
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data1['receive_city_id']);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetch();
+                $arrays1['receive_city']=$data3['name'];
+                array_push($arrays,$arrays1);
+            }
+            echo json_encode(array('result'=>'1','desc'=>'租户公司id为空','rechange_insurance'=>$arrays));
         }
     }else{
         $selectStatement = $database->select()
             ->from('tenant')
             ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
             ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
+            ->join('customer','tenant.contact_id','=','customer.customer_id','INNER')
             ->where('insurance.sure_insurance','=','1')
             ->orderBy('insurance.insurance_start_time','desc');
    //         ->limit((int)10, (int)10 * (int)$page);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
-        echo json_encode(array('result'=>'1','desc'=>'城市信息为空','rechange_insurance'=>$data1));
+        for($x=0;$x<count($data1);$x++){
+            $arrays1['company']=$data1['company'];
+            $arrays1['customer_phone']=$data1['customer_phone'];
+            $arrays1['plate_number']=$data1['plate_number'];
+            $arrays1['driver_name']=$data1['driver_name'];
+            $arrays1['insurance_start_time']=$data1['insurance_start_time'];
+            $arrays1['duration']=$data1['duration'];
+            $arrays1['insurance_amount']=$data1['insurance_amount'];
+            $arrays1['insurance_price']=$data1['insurance_price'];
+            $arrays1['insurance_id']=$data1['insurance_id'];
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data1['from_city_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $arrays1['from_city']=$data2['name'];
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data1['receive_city_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            $arrays1['receive_city']=$data3['name'];
+            array_push($arrays,$arrays1);
+        }
+        echo json_encode(array('result'=>'1','desc'=>'城市信息为空','rechange_insurance'=>$arrays));
     }
 });
 
