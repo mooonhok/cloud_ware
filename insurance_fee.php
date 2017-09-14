@@ -21,7 +21,7 @@ $app->get('/insurance_fee',function()use($app){
         $selectStatement = $database->select()
             ->from('insurance_fee');
         $stmt = $selectStatement->execute();
-        $data1= $stmt->fetch();
+        $data1= $stmt->fetchAll();
         echo json_encode(array("result" => "1", "desc" => "success","insurance_fee"=>$data1));
     }else{
         echo json_encode(array("result" => "2", "desc" => "租户公司id为空","insurance_fee"=>''));
