@@ -4,21 +4,21 @@
 	<head>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="css/safe.css">
-		
+
 		<title>保险</title>
 		<style>
 			table {
 				border-right: 1px solid #9CBA60;
 				border-bottom: 1px solid #9CBA60;
 			}
-			
+
 			table td {
 				border-left: 1px solid #9CBA60;
 				border-top: 1px solid #9CBA60;
 				height: 50px;
 				text-align: center;
 			}
-			
+
 			table thead tr th {
 				height: 50px;
 				line-height: 50px;
@@ -27,11 +27,11 @@
 				border-top: 1px solid #9CBA60;
 				background: #9CBA60;
 			}
-			
+
 			a {
 				text-decoration: none;
 			}
-			
+
 			button {
 				width: 100px;
 				height: 30px;
@@ -97,7 +97,7 @@
 					</tbody>
 				</table>
 				<div id="count" style="display:none;"></div>
-					
+
 				<div style="float:right;"><span id="up_a">上一页</span><span id="yeshua"></span><span id="down_a">下一页</span></div>
 				<div class="box3">
 					<div class="box3_1">
@@ -133,6 +133,7 @@
 
 					</tbody>
 				</table>
+				<div style="float:right;"><span id="up_b">上一页</span><span id="yeshub"></span><span id="down_b">下一页</span></div>
 				<div class="box2">
 					<div class="box2_1">
 						货物详情
@@ -170,15 +171,15 @@
 <br>
 <p><span>一、保险期限：</span><span>2017-12-12</span>起至<span>2017-12-13</span>止</p>
 <p>二、保险标的及其包装配载条件：</p>
-<p>（一）保险标的： 全新之常规普通货物：下列货物不在承保范围内，保险人不承担保险责任:</p>	
-<p>1)易变质品、活品，如海鲜、动植物等;</p> 
+<p>（一）保险标的： 全新之常规普通货物：下列货物不在承保范围内，保险人不承担保险责任:</p>
+<p>1)易变质品、活品，如海鲜、动植物等;</p>
 <p>2)易燃易爆品（参照GB12268-2005《危险货物品名表》）;</p>
-<p>3)危险品，化工品如硫酸、水泥等;</p> 
+<p>3)危险品，化工品如硫酸、水泥等;</p>
 <p>4)金银、珠宝、纪念币、钻石、首饰、玉石制品、动植物标本、化石、文物、稀有金属等;</p>
-<p>5)名贵艺术品（如古董、雕塑、名画等）、邮票;</p> 
-<p>6)军火，军品;</p> 
-<p>7)现金、有价证券、票据、文件、档案、账册、图纸、技术资料、信用证、护照，中国大陆境内无修复或定损技术能力的仪器或设备，需冷藏或恒温运输的货物，甲板货;</p> 
-<p>8)手机、笔记本电脑等便携式设备，手表;</p> 
+<p>5)名贵艺术品（如古董、雕塑、名画等）、邮票;</p>
+<p>6)军火，军品;</p>
+<p>7)现金、有价证券、票据、文件、档案、账册、图纸、技术资料、信用证、护照，中国大陆境内无修复或定损技术能力的仪器或设备，需冷藏或恒温运输的货物，甲板货;</p>
+<p>8)手机、笔记本电脑等便携式设备，手表;</p>
 <p>9)汽车、船舶;</p>
 <br>
 <p>2、下列货物如需投保，投保人应起运前2个工作日书面通知保险人，保险人同意后方可生效，否则保险人不承担任何保险责任：</p>
@@ -241,7 +242,7 @@
 <script src="js/jquery-3.2.1.min.js"></script>
 		<script src="js/jquery.session.js"></script>
 
-			
+
 	<script>
 		(function($) {
 			$.getUrlParam = function(name) {
@@ -314,7 +315,26 @@
 					if(msg.rechange_insurance==null||msg.rechange_insurance==""){
 						alert("尚未有保险记录");
 					}else{
-					for(var i = 0; i < msg.rechange_insurance.length; i++) {
+					//for(var i = 0; i < msg.rechange_insurance.length; i++) {
+					//	var a = '<tr><td>' + msg.rechange_insurance[i].plate_number + '</td>'+
+						//	'<td>' + msg.rechange_insurance[i].driver_name + '</td>' +
+						//	'<td>' + msg.rechange_insurance[i].driver_phone + '</td>'+
+//'<td class="information"  onclick="detil('+
+						//	msg.rechange_insurance[i].insurance_id+')">详情</td>' +
+						//	'<td>' + msg.rechange_insurance[i].insurance_price + '</td>' +
+						//	'<td>' + msg.rechange_insurance[i].insurance_amount + '</td>' +
+					//		'<td>' + msg.rechange_insurance[i].	insurance_start_time + '</td> '+
+						//	'<td>' + msg.rechange_insurance[i].duration + '</td></tr>';
+					//	$("#tb2").append(a);
+				//	}
+						var length=null;
+						if(msg.insurance_rechanges.length<10){
+							length=msg.insurance_rechanges.length;
+						}else{
+							length=10;
+						}
+						$("#yeshub").text(1);
+						for(var i = 0; i < length; i++) {
 						var a = '<tr><td>' + msg.rechange_insurance[i].plate_number + '</td>'+
 							'<td>' + msg.rechange_insurance[i].driver_name + '</td>' +
 							'<td>' + msg.rechange_insurance[i].driver_phone + '</td>'+
@@ -324,8 +344,69 @@
 							'<td>' + msg.rechange_insurance[i].insurance_amount + '</td>' +
 							'<td>' + msg.rechange_insurance[i].	insurance_start_time + '</td> '+
 							'<td>' + msg.rechange_insurance[i].duration + '</td></tr>';
-						$("#tb2").append(a);
+
+							$("#tb2").append(a);
+						}
+
+						$("#up_b").on("click",function(){
+							var up=$("#yeshub").text();
+							if(up>1){
+
+								$("#tb2").text("");
+							for(var i = (up-2)*10; i <(up-1)*10; i++) {
+						var a = '<tr><td>' + msg.rechange_insurance[i].plate_number + '</td>'+
+							'<td>' + msg.rechange_insurance[i].driver_name + '</td>' +
+							'<td>' + msg.rechange_insurance[i].driver_phone + '</td>'+
+							'<td class="information"  onclick="detil('+
+							msg.rechange_insurance[i].insurance_id+')">详情</td>' +
+							'<td>' + msg.rechange_insurance[i].insurance_price + '</td>' +
+							'<td>' + msg.rechange_insurance[i].insurance_amount + '</td>' +
+							'<td>' + msg.rechange_insurance[i].	insurance_start_time + '</td> '+
+							'<td>' + msg.rechange_insurance[i].duration + '</td></tr>';
+
+							$("#tb2").append(a);
+						}
 					}
+						});
+
+							$("#down_b").on("click",function(){
+							var up=$("#yeshub").text();
+							if(msg.rechange_insurance.length>(up+1)*10){
+
+								$("#tb1").text("");
+							for(var i = up*10; i < (parseInt(up)+1)*10; i++) {
+						var a = '<tr><td>' + msg.rechange_insurance[i].plate_number + '</td>'+
+							'<td>' + msg.rechange_insurance[i].driver_name + '</td>' +
+							'<td>' + msg.rechange_insurance[i].driver_phone + '</td>'+
+							'<td class="information"  onclick="detil('+
+							msg.rechange_insurance[i].insurance_id+')">详情</td>' +
+							'<td>' + msg.rechange_insurance[i].insurance_price + '</td>' +
+							'<td>' + msg.rechange_insurance[i].insurance_amount + '</td>' +
+							'<td>' + msg.rechange_insurance[i].	insurance_start_time + '</td> '+
+							'<td>' + msg.rechange_insurance[i].duration + '</td></tr>';
+
+							$("#tb2").append(a);
+							}
+							$("#yeshub").text(parseInt(up)+1);
+						}else if(msg.rechange_insurance.length>up*10&&msg.rechange_insurance.length<(up+1)*10){
+															$("#tb1").text("");
+							for(var i = up*10; i < msg.rechange_insurance.length; i++) {
+						var a = '<tr><td>' + msg.rechange_insurance[i].plate_number + '</td>'+
+							'<td>' + msg.rechange_insurance[i].driver_name + '</td>' +
+							'<td>' + msg.rechange_insurance[i].driver_phone + '</td>'+
+							'<td class="information"  onclick="detil('+
+							msg.rechange_insurance[i].insurance_id+')">详情</td>' +
+							'<td>' + msg.rechange_insurance[i].insurance_price + '</td>' +
+							'<td>' + msg.rechange_insurance[i].insurance_amount + '</td>' +
+							'<td>' + msg.rechange_insurance[i].	insurance_start_time + '</td> '+
+							'<td>' + msg.rechange_insurance[i].duration + '</td></tr>';
+
+							$("#tb2").append(a);
+							}
+							$("#yeshub").text(parseInt(up)+1);
+						}
+						});
+
 				}
 				},
 				error: function(xhr) {
@@ -344,13 +425,13 @@
 				data: JSON.stringify({}),
 				success: function(msg) {
 					alert(msg.goods);
-					
+
 				},
 				error: function(e) {
 					alert("获取货物详情出错!");
 				}
    	      	});
-   	      	
+
    	      }
 		//加载保险充值记录
 		function loadrechanges(city_id, company) {
@@ -400,12 +481,12 @@
 							}
 							$("#tb1").append(a);
 						}
-						
+
 						$("#up_a").on("click",function(){
 							alert(msg.insurance_rechanges.length)
 							var up=$("#yeshua").text();
 							if(up>1){
-								
+
 								$("#tb1").text("");
 							for(var i = (up-2)*10; i <(up-1)*10; i++) {
 							var sure = null;
@@ -428,12 +509,12 @@
 							$("#yeshua").text(up-1);
 						}
 						});
-						
+
 							$("#down_a").on("click",function(){
 							alert(msg.insurance_rechanges.length)
 							var up=$("#yeshua").text();
 							if(msg.insurance_rechanges.length>(up+1)*10){
-								
+
 								$("#tb1").text("");
 							for(var i = up*10; i < (parseInt(up)+1)*10; i++) {
 							var sure = null;
@@ -477,8 +558,8 @@
 							$("#yeshua").text(parseInt(up)+1);
 						}
 						});
-						
-						
+
+
 					}
 				},
 				error: function(xhr) {
@@ -496,7 +577,7 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					alert(msg.insurance);		
+					alert(msg.insurance);
 				},
 				error: function(e) {
 					alert("获取合同详情信息出错!");
@@ -522,7 +603,7 @@
 				}
 				});
 		}
-		
+
 	//	var city_id = null;
 		//var company = null;
 		var city_id = $.getUrlParam('city_id');
@@ -578,9 +659,9 @@
 			//loadrechanges(city_id, company);
 			//insurance(city_id,company);
 			}
-			
+
 		});
-		
+
 	</script>
 	<script>
 		//确认支付

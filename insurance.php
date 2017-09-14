@@ -55,6 +55,24 @@ $app->post('/userlogin',function ()use($app){
 
 });
 
+
+$app->post('/one_insurance',function ()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $insurance_id=$body->insurance_id;
+    $insurance_price=$body->insurance_price;
+    $insurance_lorry_id=$body->	insurance_lorry_id;
+    $insurance_start_time=$body->insurance_start_time;
+    $tenant_id=$body->tenant_id;
+    $duration=$body->duration;
+    $sure_insurance=$body->sure_insurance;
+    $insurance_amount=$body->insurance_amount;
+});
+
+
+
 $app->run();
 
 function localhost(){
