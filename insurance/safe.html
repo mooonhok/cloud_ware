@@ -70,35 +70,83 @@
 				</div>
 			</div>
 			<div class="gps">
-				<div class="gps_1">支付信息</div>
+				<div class="gps_1" style="background: green;color: white;">支付信息</div>
 				<div class="gps_2">历史保单</div>
 			</div>
 			<!-- 支付信息 -->
 			<div class="tab">
-				<table  width="1200" border="0" cellspacing="0" cellpadding="0">
+				<table id="tables" width="1200" border="0" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
-							<th width="350">公司名</th>
-							<th width="200">时间</th>
-							<th width="150">充值金额</th>
-							<th width="300">合同详情</th>
-							<th width="200">操作</th>
+							<th>公司名</th>
+							<th>有效时间</th>
+							<th>充值金额</th>
+							<th>合同详情</th>
+							<th>余额</th>
+							<th>扣费详情</th>
+							<th>操作</th>
 						</tr>
 					</thead>
 					<tbody id="tb1">
-						<!--<tr>
-					<td>一号物流公司</td>
-					<td>2017-11-16</td>
-					<td>11.00</td>
-					<td><a href="">详情</a></td>
-					<td><button class="but">确认支付</button></td>
-				</tr>
-				-->
+						<tr>
+							<td>中国邮政储蓄物流邮箱公司</td>
+							<td>2017.1.12-2018.1.12</td>
+							<td>10000</td>
+							<td class="compact">合同详情</td>
+							<td>8000</td>
+							<td class="money">扣费详情</td>
+							<td><button class="pay">已支付</button></td>
+						</tr>
+						<tr>
+							<td>中国邮政储蓄物流邮箱公司</td>
+							<td>2017.1.12-2018.1.12</td>
+							<td>10000</td>
+							<td>合同详情</td>
+							<td>8000</td>
+							<td>扣费详情</td>
+							<td><button>已支付</button></td>
+						</tr>
+						<tr>
+							<td>中国邮政储蓄物流邮箱公司</td>
+							<td>2017.1.12-2018.1.12</td>
+							<td>10000</td>
+							<td>合同详情</td>
+							<td>8000</td>
+							<td>扣费详情</td>
+							<td><button>已支付</button></td>
+						</tr>
+						<tr>
+							<td>中国邮政储蓄物流邮箱公司</td>
+							<td>2017.1.12-2018.1.12</td>
+							<td>10000</td>
+							<td>合同详情</td>
+							<td>8000</td>
+							<td>扣费详情</td>
+							<td><button>已支付</button></td>
+						</tr>
+						<tr>
+							<td>中国邮政储蓄物流邮箱公司</td>
+							<td>2017.1.12-2018.1.12</td>
+							<td>10000</td>
+							<td>合同详情</td>
+							<td>8000</td>
+							<td>扣费详情</td>
+							<td><button>已支付</button></td>
+						</tr>
+						<tr>
+							<td>中国邮政储蓄物流邮箱公司</td>
+							<td>2017.1.12-2018.1.12</td>
+							<td>10000</td>
+							<td>合同详情</td>
+							<td>8000</td>
+							<td>扣费详情</td>
+							<td><button>已支付</button></td>
+						</tr>
+			
 					</tbody>
 				</table>
-				<div id="count" style="display:none;"></div>
-
-				<div style="float:right;"><span id="up_a">上一页</span><span id="yeshua"></span><span id="down_a">下一页</span></div>
+	<div class="tables_footer clearfix" style="width: 500px;"></div>
+    <div class="page_out fr"></div>
 				<div class="box3">
 					<div class="box3_1">
 						<input id="makesure" type="hidden">
@@ -112,42 +160,37 @@
 						取消
 					</div>
 				</div>
-			</div>
-
-			<!-- 历史保单 -->
-			<div class="tab_1">
-				<table width="1200" border="0" cellspacing="0" cellpadding="0">
-					<thead>
-						<tr>
-							<th width="120">车牌号</th>
-							<th width="120">驾驶员</th>
-							<th width="150">电话</th>
-							<th width="120">货物详情</th>
-							<th width="120">投保金额</th>
-							<th width="150">保费</th>
-							<th width="230">保险开始时间</th>
-							<th width="230"> 运输时间</th>
-						</tr>
-					</thead>
-					<tbody id="tb2">
-
-					</tbody>
-				</table>
-				<div style="float:right;"><span id="up_b">上一页</span><span id="yeshub"></span><span id="down_b">下一页</span></div>
-				<div class="box2">
-					<div class="box2_1">
-						货物详情
-					</div>
-					<div class="box2_2">
-						取消
-					</div>
+			<!-- box4 -->
+		<div class="box4">
+			<div class="box4_1">
+				<div class="box4_2">
+					<h3>扣费详情</h3>
 				</div>
+			<p>车<span class="kong"></span>牌<span class="kong"></span>号:<span></span></p>
+			<br>
+			<p>驾<span class="kong"></span>驶<span class="kong"></span>员:<span></span></p>
+			<br>
+			<p>到<span class="kong_1"></span>站:<span></span></p>
+			<br>
+			<p>发<span class="kong_1"></span>站:<span></span></p>
+			<br>
+			<p>货物信息:<span></span></p>
+			<br>
+			<p>投保金额:<span></span></p>
+			<br>
+			<p>保<span class="kong_1"></span>费:<span></span></p>
+			<br>
+			<p>扣费时间:<span></span></p>
+			<div class="but">取消</div>
 			</div>
 		</div>
 
-	<!--  -->
-<div class="bigbox">
-<div class="xq" style="display:none;">
+			</div>		
+		</div>
+
+	
+<div class="bigbox" style="display:none;">
+<div class="xq">
 <button class="quxiao">取消</button>
 <h2>货物运输预约保险协议</h2>
 <br>
@@ -243,465 +286,118 @@
 </div>
 	</body>
 <script src="js/jquery-3.2.1.min.js"></script>
-		<script src="js/jquery.session.js"></script>
+<script src="js/jquery.session.js"></script>
+<script type="text/javascript">
+TablePage('#tables', 7);
+function TablePage(id, size) {
+	var $table = $(id);
+	var currentPage = 0; //当前页  
+	var pageSize = 3; //每页行数（不包括表头）  
+	$table.bind("repaginate", function() {
+	//console.log($table.find("tbody tr").eq(0));  
+	$table.find("tbody tr").hide().slice(currentPage * pageSize, (currentPage + 1) * pageSize).show();
+	// $table.find("tbody tr").eq(0).show();  
+	});
+	var numRows = $table.find("tbody tr").length; //记录宗条数  
+	var numPages = Math.ceil(numRows / pageSize); //总页数  
+    //console.log(numPages);  
+	var $pager = $("<div class='page'><a href='javascript:void(0)'><span id='Prev' style='margin-right:4px;'>上一页</span></a></div>"); //分页div  
 
+	for(var page = 0; page < numPages; page++) {
+	//为分页标签加上链接  
+	//if(page==0){$("<a href='javascript:void(0)'><span id='1' class="click_page"></span></a>")}  
+	$("<a href='javascript:void(0)'><span id='" + (page + 1) + "'>" + (page + 1) + "</span></a>").bind("click", { "newPage": page }, function(event) {
+	currentPage = event.data["newPage"];
+	//console.log($(this).children("span"));  
+	$(this).children("span").attr("class", "click_page");
+	$(this).children("span").css({ "color": "#FFFFFF" });
+	$(".page a span").not($(this).children("span")).attr("class", "");
+    $(".page a span").not($(this).children("span")).css({ "color": "#1155BB" });
+	$table.trigger("repaginate");
+	})
+	.appendTo($pager);
 
-	<script>
-		(function($) {
-			$.getUrlParam = function(name) {
-				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-				var r = window.location.search.substr(1).match(reg);
-				if(r != null) return decodeURI(r[2]);
-				return null;
-			}
-		})(jQuery);
-		//获取省份和城市列表1
-		$.ajax({
-			url: "http://mooonhok-cloudware.daoapp.io/city.php/province",
-			beforeSend: function(request) {
-				request.setRequestHeader("tenant-id", "Chenxizhang");
-			},
-			dataType: 'json',
-			type: 'get',
-			contentType: "application/json;charset=utf-8",
-			data: JSON.stringify({}),
-			success: function(msg) {
-				for(var i = 0; i < msg.province.length; i++) {
-					$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
-				}
-			},
-			error: function(e) {
-				alert("省份列表1信息出错!");
-			}
+	$pager.append("  ");
+	}
+	//$table.trigger("repaginate");  
+	var next = $("<a href='javascript:void(0)'><span id='Next'>下一页</span></a>");
+	$pager.append(next);
+	$('.page_out').append($pager);
+	//$pager.insertAfter($table);//分页div插入table  
+	$("#1").attr("class", "click_page");
+	$("#1").css({ "color": "#FFFFFF" });
+	$table.trigger("repaginate");
+	//console.log($("#1"));  
+	//$("#1").attr("class","click_page");  
+	//$("#1").css({"background":"#FFFFFF"});  
+	$("#Prev").bind("click", function() {
+		var prev = Number($(".click_page").text()) - 2;
+		currentPage = prev;
+		$(this).css({ "background": "#000000" });
+		if(currentPage < 0) {
+			$(this).css({ "background": "#c0c0c0" });
+			return;
+		}
+		$("#" + (prev + 1)).attr("class", "click_page");
+		$("#" + (prev + 1)).css({ "color": "#FFFFFF" });
+		$(".page a span").not($("#" + (prev + 1))).attr("class", "");
+		$(".page a span").not($("#" + (prev + 1))).css({ "color": "#1155BB" });
+		//console.log(currentPage);  
+		$table.trigger("repaginate");
 		});
-
-		function getPro1() {
-			$("#city1").empty();
-			var pid = $("#province1 option:selected").val();
-			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/city.php/city?pid=" + pid,
-				beforeSend: function(request) {
-					request.setRequestHeader("tenant-id", "Chenxizhang");
-				},
-				dataType: 'json',
-				type: 'get',
-				contentType: "application/json;charset=utf-8",
-				data: JSON.stringify({}),
-				success: function(msg) {
-					for(var i = 0; i < msg.city.length; i++) {
-						$("#city1").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
-					}
-				},
-				error: function(e) {
-					alert("城市1列表信息出错!");
-				}
-			});
-		}
+	$("#Next").bind("click", function() {
+	var next = $(".click_page").attr("id");
+	currentPage = Number(next);
+	//console.log($(".click_page").text());  
+	$(this).css({ "background": "#FFFFFF" });
+	if((currentPage + 1) > numPages) {
+	$(this).css({ "background": "#c0c0c0" });
+    return;
+	}
+	$("#" + (currentPage + 1)).attr("class", "click_page");
+    $("#" + (currentPage + 1)).css({ "color": "#FFFFFF" });
+	$(".page a span").not($("#" + (currentPage + 1))).attr("class", "");
+	$(".page a span").not($("#" + (currentPage + 1))).css({ "color": "#1155BB" });
+	$table.trigger("repaginate");
+	});
+}
+</script>
+	<script type="text/javascript">
+		$(".pay").on("click",function(){
+			$(".box3").css("display","block");
+		})
 	</script>
-	<script>
-		//保险记录、
-   	      function insurance(city_id,company){
-   	      	if(city_id==null){
-				city_id="";
-			}
-			if(company==null){
-				company="";
-			}
-   	       $.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurances?city_id=" + city_id + "&company=" + company,
-				dataType: 'json',
-				type: 'get',
-				contentType: "application/json;charset=utf-8",
-				data: JSON.stringify({}),
-				success: function(msg) {
-					$("#tb2").html("");
-					if(msg.rechange_insurance==null||msg.rechange_insurance==""){
-						alert("尚未有保险记录");
-					}else{
-					//for(var i = 0; i < msg.rechange_insurance.length; i++) {
-					//	var a = '<tr><td>' + msg.rechange_insurance[i].plate_number + '</td>'+
-						//	'<td>' + msg.rechange_insurance[i].driver_name + '</td>' +
-						//	'<td>' + msg.rechange_insurance[i].driver_phone + '</td>'+
-//'<td class="information"  onclick="detil('+
-						//	msg.rechange_insurance[i].insurance_id+')">详情</td>' +
-						//	'<td>' + msg.rechange_insurance[i].insurance_price + '</td>' +
-						//	'<td>' + msg.rechange_insurance[i].insurance_amount + '</td>' +
-					//		'<td>' + msg.rechange_insurance[i].	insurance_start_time + '</td> '+
-						//	'<td>' + msg.rechange_insurance[i].duration + '</td></tr>';
-					//	$("#tb2").append(a);
-				//	}
-						var length=null;
-						if(msg.rechange_insurance.length<10){
-							length=msg.rechange_insurance.length;
-						}else{
-							length=10;
-						}
-						$("#yeshub").text(1);
-						for(var i = 0; i < length; i++) {
-						var a = '<tr><td>' + msg.rechange_insurance[i].plate_number + '</td>'+
-							'<td>' + msg.rechange_insurance[i].driver_name + '</td>' +
-							'<td>' + msg.rechange_insurance[i].driver_phone + '</td>'+
-							'<td class="information"  onclick="detil('+
-							msg.rechange_insurance[i].insurance_id+')">详情</td>' +
-							'<td>' + msg.rechange_insurance[i].insurance_price + '</td>' +
-							'<td>' + msg.rechange_insurance[i].insurance_amount + '</td>' +
-							'<td>' + msg.rechange_insurance[i].	insurance_start_time + '</td> '+
-							'<td>' + msg.rechange_insurance[i].duration + '</td></tr>';
-
-							$("#tb2").append(a);
-						}
-
-						$("#up_b").on("click",function(){
-							var up=$("#yeshub").text();
-							if(up>1){
-
-								$("#tb2").text("");
-							for(var i = (up-2)*10; i <(up-1)*10; i++) {
-						var a = '<tr><td>' + msg.rechange_insurance[i].plate_number + '</td>'+
-							'<td>' + msg.rechange_insurance[i].driver_name + '</td>' +
-							'<td>' + msg.rechange_insurance[i].driver_phone + '</td>'+
-							'<td class="information"  onclick="detil('+
-							msg.rechange_insurance[i].insurance_id+')">详情</td>' +
-							'<td>' + msg.rechange_insurance[i].insurance_price + '</td>' +
-							'<td>' + msg.rechange_insurance[i].insurance_amount + '</td>' +
-							'<td>' + msg.rechange_insurance[i].	insurance_start_time + '</td> '+
-							'<td>' + msg.rechange_insurance[i].duration + '</td></tr>';
-
-							$("#tb2").append(a);
-						}
-					}
-						});
-
-							$("#down_b").on("click",function(){
-							var up=$("#yeshub").text();
-							if(msg.rechange_insurance.length>(up+1)*10){
-
-								$("#tb1").text("");
-							for(var i = up*10; i < (parseInt(up)+1)*10; i++) {
-						var a = '<tr><td>' + msg.rechange_insurance[i].plate_number + '</td>'+
-							'<td>' + msg.rechange_insurance[i].driver_name + '</td>' +
-							'<td>' + msg.rechange_insurance[i].driver_phone + '</td>'+
-							'<td class="information"  onclick="detil('+
-							msg.rechange_insurance[i].insurance_id+')">详情</td>' +
-							'<td>' + msg.rechange_insurance[i].insurance_price + '</td>' +
-							'<td>' + msg.rechange_insurance[i].insurance_amount + '</td>' +
-							'<td>' + msg.rechange_insurance[i].	insurance_start_time + '</td> '+
-							'<td>' + msg.rechange_insurance[i].duration + '</td></tr>';
-
-							$("#tb2").append(a);
-							}
-							$("#yeshub").text(parseInt(up)+1);
-						}else if(msg.rechange_insurance.length>up*10&&msg.rechange_insurance.length<(up+1)*10){
-															$("#tb1").text("");
-							for(var i = up*10; i < msg.rechange_insurance.length; i++) {
-						var a = '<tr><td>' + msg.rechange_insurance[i].plate_number + '</td>'+
-							'<td>' + msg.rechange_insurance[i].driver_name + '</td>' +
-							'<td>' + msg.rechange_insurance[i].driver_phone + '</td>'+
-							'<td class="information"  onclick="detil('+
-							msg.rechange_insurance[i].insurance_id+')">详情</td>' +
-							'<td>' + msg.rechange_insurance[i].insurance_price + '</td>' +
-							'<td>' + msg.rechange_insurance[i].insurance_amount + '</td>' +
-							'<td>' + msg.rechange_insurance[i].	insurance_start_time + '</td> '+
-							'<td>' + msg.rechange_insurance[i].duration + '</td></tr>';
-
-							$("#tb2").append(a);
-							}
-							$("#yeshub").text(parseInt(up)+1);
-						}
-						});
-
-				}
-				},
-				error: function(xhr) {
-				alert("获取保险记录后台失败！");
-				}
-			});
-      }
-   	      //货物详情
-   	      function detil(id){
-   	      //alert(id);
-   	      	$.ajax({
-   	      	   url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/one_goods?insurance_id=" + id,
-				dataType: 'json',
-				type: 'get',
-				contentType: "application/json;charset=utf-8",
-				data: JSON.stringify({}),
-				success: function(msg) {
-					alert(msg.goods);
-
-				},
-				error: function(e) {
-					alert("获取货物详情出错!");
-				}
-   	      	});
-
-   	      }
-		//加载保险充值记录
-		function loadrechanges(city_id, company) {
-			if(city_id==null){
-				city_id="";
-			}
-			if(company==null){
-				company="";
-			}
-			//alert(company);
-			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?city_id=" + city_id + "&company=" + company,
-				dataType: 'json',
-				type: 'get',
-				contentType: "application/json;charset=utf-8",
-				data: JSON.stringify({}),
-				success: function(msg) {
-					$("#tb1").html("");
-					//alert(msg.insurance_rechanges);
-					alert(msg.insurance_rechanges.length)
-					$("#yeshua").text(1);
-					if(msg.insurance_rechanges == null || msg.insurance_rechanges == "") {
-						alert("尚未有冲值记录");
-					} else {
-						var length=null;
-						if(msg.insurance_rechanges.length<10){
-							length=msg.insurance_rechanges.length;
-						}else{
-							length=10;
-						}
-						$("#yeshua").text(1);
-						for(var i = 0; i < length; i++) {
-							var sure = null;
-							if(msg.insurance_rechanges[i].status == 0) {
-								sure = "确认支付";
-							} else {
-								sure = "已经支付";
-							}
-							a = "<tr><td>" + msg.insurance_rechanges[i].company + "</td><td>" +
-								msg.insurance_rechanges[i].pay_time + "</td><td>" +
-								msg.insurance_rechanges[i].money + "</td><td><div onclick='agree("+
-								msg.insurance_rechanges[i].id+")'>详情</div></td><td><button class='but' onclick='makesure(" +
-								msg.insurance_rechanges[i].id + ")'>" +
-								sure + "</button></td></tr>";
-							 if(msg.insurance_rechanges[i].status == 1) {
-								$('.but').attr("disabled", "disabled");
-							}
-							$("#tb1").append(a);
-						}
-
-						$("#up_a").on("click",function(){
-							alert(msg.insurance_rechanges.length)
-							var up=$("#yeshua").text();
-							if(up>1){
-
-								$("#tb1").text("");
-							for(var i = (up-2)*10; i <(up-1)*10; i++) {
-							var sure = null;
-							if(msg.insurance_rechanges[i].status == 0) {
-								sure = "确认支付";
-							} else {
-								sure = "已经支付";
-							}
-							  b = "<tr><td>" + msg.insurance_rechanges[i].company + "</td><td>" +
-								msg.insurance_rechanges[i].pay_time + "</td><td>" +
-								msg.insurance_rechanges[i].money + "</td><td><div onclick='agree("+
-								msg.insurance_rechanges[i].id+")'>详情</div></td><td><button class='but' onclick='makesure(" +
-								msg.insurance_rechanges[i].id + ")'>" +
-								sure + "</button></td></tr>";
-							 if(msg.insurance_rechanges[i].status == 1) {
-								$('.but').attr("disabled", "disabled");
-							}
-							$("#tb1").append(b);
-							}
-							$("#yeshua").text(up-1);
-						}
-						});
-
-							$("#down_a").on("click",function(){
-							alert(msg.insurance_rechanges.length)
-							var up=$("#yeshua").text();
-							if(msg.insurance_rechanges.length>(up+1)*10){
-
-								$("#tb1").text("");
-							for(var i = up*10; i < (parseInt(up)+1)*10; i++) {
-							var sure = null;
-							if(msg.insurance_rechanges[i].status == 0) {
-								sure = "确认支付";
-							} else {
-								sure = "已经支付";
-							}
-							  b = "<tr><td>" + msg.insurance_rechanges[i].company + "</td><td>" +
-								msg.insurance_rechanges[i].pay_time + "</td><td>" +
-								msg.insurance_rechanges[i].money + "</td><td><div onclick='agree("+
-								msg.insurance_rechanges[i].id+")'>详情</div></td><td><button class='but' onclick='makesure(" +
-								msg.insurance_rechanges[i].id + ")'>" +
-								sure + "</button></td></tr>";
-							 if(msg.insurance_rechanges[i].status == 1) {
-								$('.but').attr("disabled", "disabled");
-							}
-							$("#tb1").append(b);
-							}
-							$("#yeshua").text(parseInt(up)+1);
-						}else if(msg.insurance_rechanges.length>up*10&&msg.insurance_rechanges.length<(up+1)*10){
-															$("#tb1").text("");
-							for(var i = up*10; i < msg.insurance_rechanges.length; i++) {
-							var sure = null;
-							if(msg.insurance_rechanges[i].status == 0) {
-								sure = "确认支付";
-							} else {
-								sure = "已经支付";
-							}
-							  b = "<tr><td>" + msg.insurance_rechanges[i].company + "</td><td>" +
-								msg.insurance_rechanges[i].pay_time + "</td><td>" +
-								msg.insurance_rechanges[i].money + "</td><td><div onclick='agree("+
-								msg.insurance_rechanges[i].id+")'>详情</div></td><td><button class='but' onclick='makesure(" +
-								msg.insurance_rechanges[i].id + ")'>" +
-								sure + "</button></td></tr>";
-							 if(msg.insurance_rechanges[i].status == 1) {
-								$('.but').attr("disabled", "disabled");
-							}
-							$("#tb1").append(b);
-							}
-							$("#yeshua").text(parseInt(up)+1);
-						}
-						});
 
 
-					}
-				},
-				error: function(xhr) {
-					alert("获取后台失败！");
-				}
-			});
-		}
-		//合同详情
-		function agree(id){
-			$(".xq").css("display","block");
-				$.ajax({
-   	      	   url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/year_insurance?id=" + id,
-				dataType: 'json',
-				type: 'get',
-				contentType: "application/json;charset=utf-8",
-				data: JSON.stringify({}),
-				success: function(msg) {
-					alert(msg.insurance);
-				},
-				error: function(e) {
-					alert("获取合同详情信息出错!");
-				}
-   	      	});
-		}
-		//确认支付的按钮
-		function makesure(id){
-				$(".box3").css("display", "block");
-				$("#makesure").val(id);
-				$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/rechange_insurance_id?id=" + id,
-				dataType: 'json',
-				type: 'get',
-				contentType: "application/json;charset=utf-8",
-				data: JSON.stringify({}),
-				success: function(msg) {
-					//alert(msg.insurance);
-					$("#suremessage").html(msg.data);
-				},
-				error: function(e) {
-					alert("获取合同详情信息出错!");
-				}
-				});
-		}
 
-	//	var city_id = null;
-		//var company = null;
-		var city_id = $.getUrlParam('city_id');
-		var company = $.getUrlParam('company');
-		//获取session值
-		var user = $.session.get('userid');
-		//alert(user);
-		if(user == null || user == "") {
-			window.location.href = "login.html";
-		} else {
-			loadrechanges(city_id, company);
-			insurance(city_id,company);
-		}
+	<script type="text/javascript">
+		$(".compact").on("click",function(){
+			$(".bigbox").css("display","block");
+		})
+		$(".money").on("click",function(){
+			$(".box4").css("display","block");
+		})
+		$(".but").on("click",function(){
+			$(".box4").css("display","none");
+		})
 	</script>
+
 	<script type="text/javascript">
 		$(".box3_3").on("click", function() {
 			$(".box3").css("display", "none");
 		})
 
 		$(".gps_2").on("click", function() {
-			$(".tab_1").css("display", "block");
-			$(".tab").css("display", "none");
-			$(".gps_2").css("background", "green");
-			$(".gps_2").css("color", "white");
-			$(".gps_1").css("background", "white");
+			window.location.href="index.html";
 		})
-		$(".gps_1").on("click", function() {
-			$(".tab_1").css("display", "none");
-			$(".tab").css("display", "block");
-			$(".gps_2").css("background", "white");
-			$(".gps_1").css("background", "green");
-			$(".gps_1").css("color", "white");
-		})
+		
 		$(".box2_2").on("click", function() {
 			$(".box2").css("display", "none");
 		})
 	</script>
-	<script>
-		//选择搜索按钮的事件
-		$(".hunt").on('click', function() {
-			city_id = $("#city1 option:selected").val();
-			window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id=" + city_id+"&company=";
-			//loadrechanges(city_id, company);
-			//insurance(city_id,company);
-		})
-		//搜索框
-		$(".select_2_2").on('click', function() {
-			company = $("#coname").val();
-			city_id = $("#city1 option:selected").val();
-			if(city_id==null||city_id==""){
-				alert("请先选择城市");
-			}else{
-				window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id=" + city_id+"&company="+company;
-				//alert(company);
-			//loadrechanges(city_id, company);
-			//insurance(city_id,company);
-			}
-
-		});
-
-	</script>
-	<script>
-		//确认支付
-		$(".box3_2").on("click", function() {
-			var id = $("#makesure").val();
-			//alert(id);
-			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/sure_rechanges",
-				beforeSend: function(request) {
-					request.setRequestHeader("tenant-id", "Chenxizhang");
-				},
-				dataType: 'json',
-				type: 'put',
-				contentType: "application/json;charset=utf-8",
-				data: JSON.stringify({
-					id: id,
-					user_id: user
-				}),
-				success: function(msg) {
-					city_id = $("#city1 option:selected").val();
-					company = $("#coname").val();
-					alert("修改成功");
-					$(".box3").css("display", "none");
-				//	loadrechanges(city_id, company);
-				window.location.reload();
-				},
-				error: function(e) {
-					alert("修改支付状态后台错误");
-				}
-			});
-		});
-	</script>
    <script>
    	$(".quxiao").on("click",function(){
-   		$(".xq").css("display","block");
+   		$(".bigbox").css("display","none");
    	})
    </script>
 </html>
