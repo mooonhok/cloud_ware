@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-09-05 14:28:39
 * @Last Modified by:   boycui
-* @Last Modified time: 2017-09-13 10:24:23
+* @Last Modified time: 2017-09-14 11:05:14
 */
 *{
    margin: 0;
@@ -88,7 +88,8 @@ select{
 	text-align: center;
 	line-height: 40px;
 	float: left;
-	background: blue;
+	background: green;
+	color: white;
 }
 .gps_2{
 	width: 600px;

@@ -146,6 +146,7 @@
 		</div>
 
 	<!--  -->
+<div class="bigbox">
 <div class="xq" style="display:none;">
 <button class="quxiao">取消</button>
 <h2>货物运输预约保险协议</h2>
@@ -236,6 +237,8 @@
 <br>
 <br>
 <br>
+<div style="clear: both;"></div>
+</div>
 <div style="clear: both;"></div>
 </div>
 	</body>
@@ -626,14 +629,16 @@
 		$(".gps_2").on("click", function() {
 			$(".tab_1").css("display", "block");
 			$(".tab").css("display", "none");
-			$(".gps_2").css("background", "blue")
-			$(".gps_1").css("background", "white")
+			$(".gps_2").css("background", "green");
+			$(".gps_2").css("color", "white");
+			$(".gps_1").css("background", "white");
 		})
 		$(".gps_1").on("click", function() {
 			$(".tab_1").css("display", "none");
 			$(".tab").css("display", "block");
-			$(".gps_2").css("background", "white")
-			$(".gps_1").css("background", "blue")
+			$(".gps_2").css("background", "white");
+			$(".gps_1").css("background", "green");
+			$(".gps_1").css("color", "white");
 		})
 		$(".box2_2").on("click", function() {
 			$(".box2").css("display", "none");
