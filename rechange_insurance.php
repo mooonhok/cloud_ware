@@ -269,10 +269,12 @@ $app->get('/year_insurance',function()use($app){
         $selectStatement = $database->select()
             ->from('rechanges_insurance')
             ->join('tenant','tenant.tenant_id','=','rechanges_insurance.tenant_id','INNER')
+            ->join('customer','customer.customer_id','=','tenant.contact_id','INNER')
             ->where('rechanges_insurance.id', '=', $id);
         $stmt = $selectStatement->execute();
         $data1= $stmt->fetch();
-        echo json_encode(array('result'=>'1','desc'=>'id为空','insurance'=>$data1));
+        $data1['one_year_time']=strtotime("+1 year",$data1['sure_time']);
+        echo json_encode(array('result'=>'1','desc'=>'success','insurance'=>$data1));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'id为空','insurance'=>''));
     }
