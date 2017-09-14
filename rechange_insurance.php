@@ -87,8 +87,8 @@ $app->get('/insurance_rechanges',function()use($app){
     if($city_id!=null||$city_id!=''){
        if($company!=null||$company!=''){
            $selectStatement = $database->select()
-               ->from('tenant')
-               ->join('rechanges_insurance','rechanges_insurance.tenant_id','=','tenant.tenant_id','INNER')
+               ->from('rechanges_insurance')
+               ->join('tenant','tenant.tenant_id','=','rechanges_insurance.tenant_id','INNER')
                ->join('customer','tenant.contact_id','=','customer.customer_id','INNER')
                ->where('tenant.from_city_id', '=', $city_id)
                ->where('tenant.company','=',$company)
@@ -112,8 +112,8 @@ $app->get('/insurance_rechanges',function()use($app){
            echo json_encode(array('result'=>'1','desc'=>'success','insurance_rechanges'=>$arrays));
        }else{
                $selectStatement = $database->select()
-                   ->from('tenant')
-                   ->join('rechanges_insurance','rechanges_insurance.tenant_id','=','tenant.tenant_id','INNER')
+                   ->from('rechanges_insurance')
+                   ->join('tenant','tenant.tenant_id','=','rechanges_insurance.tenant_id','INNER')
                    ->join('customer','tenant.contact_id','=','customer.customer_id','INNER')
                    ->where('tenant.from_city_id', '=', $city_id)
                    ->orderBy('rechanges_insurance.sure_time','desc');
@@ -137,8 +137,8 @@ $app->get('/insurance_rechanges',function()use($app){
        }
     }else{
         $selectStatement = $database->select()
-            ->from('tenant')
-            ->join('rechanges_insurance','rechanges_insurance.tenant_id','=','tenant.tenant_id','INNER')
+            ->from('rechanges_insurance')
+            ->join('tenant','tenant.tenant_id','=','rechanges_insurance.tenant_id','INNER')
             ->join('customer','tenant.contact_id','=','customer.customer_id','INNER')
             ->orderBy('rechanges_insurance.sure_time','desc');
 //            ->limit((int)10, (int)10 * (int)$page);
