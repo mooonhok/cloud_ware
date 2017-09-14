@@ -273,6 +273,7 @@ $app->get('/year_insurance',function()use($app){
             ->where('rechanges_insurance.id', '=', $id);
         $stmt = $selectStatement->execute();
         $data1= $stmt->fetch();
+        date_default_timezone_set("PRC");
         $data1['one_year_time']=strtotime("+1 year",$data1['sure_time']);
         echo json_encode(array('result'=>'1','desc'=>'success','insurance'=>$data1));
     }else{
