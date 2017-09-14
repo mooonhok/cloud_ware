@@ -319,6 +319,9 @@
 			var name=$("#username").val();
 			var pwd=$("#password").val();
 			//alert(name+pwd);
+			if(!/^1[34578]\d{9}$/.test(phone_1)){
+				alert("手机号码格式不对");
+			}else{
 			$.ajax({
    		  	  url:"http://mooonhok-cloudware.daoapp.io/sales.php/usersign",
    		  	  dataType:'json',
@@ -333,9 +336,9 @@
    		  	  	if(msg.result==0){	
    		  	  	    $.session.set('userid',msg.user.id);
    		  	  	    var user=$.session.get('userid');
-   		  	  	    $("#name").val(msg.user.user_name);	  
-   		  	  	    $(".top_2_2").html(msg.username);
-
+   		  	  	//    $("#name").val(msg.user.telephone);	  
+   		  	  	    $(".top_2_2").html(msg.user.telephone);
+                      
    		  	  	}else{
    		  	  		alert(msg.desc);
    		  	  	}
@@ -344,6 +347,7 @@
    		  	  	alert(xhr.responseText);
    		  	  }
 		});
+		}
 		});
 		$(".tc").on('click',function(){
 			$.session.remove('userid');
