@@ -102,7 +102,7 @@ $app->get('/insurance_rechanges',function()use($app){
                    $arrays1['company']=$data1[$x]['company'];
                    $arrays1['money']=$data1[$x]['money'];
                    $arrays1['insurance_balance']=$data1[$x]['insurance_balance'];
-                   $arrays1['insurance_id']=$data1[$x]['id'];
+                   $arrays1['insurance_id']=$data1[$x]['rechanges_insurance.id'];
                    date_default_timezone_set("PRC");
                  $end=date("Y-m-d H:i:s",strtotime("+1 year",strtotime($data1[$x]['sure_time'])));
                  $arrays1['time']=$data1[$x]['sure_time'].'到'.$end;
@@ -126,7 +126,7 @@ $app->get('/insurance_rechanges',function()use($app){
                    $arrays1['company']=$data1[$x]['company'];
                    $arrays1['money']=$data1[$x]['money'];
                    $arrays1['insurance_balance']=$data1[$x]['insurance_balance'];
-                   $arrays1['insurance_id']=$data1[$x]['id'];
+                   $arrays1['insurance_id']=$data1[$x]['rechanges_insurance.id'];
                    date_default_timezone_set("PRC");
                    $end=date("Y-m-d H:i:s",strtotime("+1 year",strtotime($data1[$x]['sure_time'])));
                    $arrays1['time']=$data1[$x]['sure_time'].'到'.$end;
@@ -150,7 +150,7 @@ $app->get('/insurance_rechanges',function()use($app){
                 $arrays1['company']=$data1[$x]['company'];
                 $arrays1['money']=$data1[$x]['money'];
                 $arrays1['insurance_balance']=$data1[$x]['insurance_balance'];
-                $arrays1['insurance_id']=$data1[$x]['id'];
+                $arrays1['insurance_id']=$data1[$x]['rechanges_insurance.id'];
                 date_default_timezone_set("PRC");
                 $end=date("Y-m-d H:i:s",strtotime("+1 year",strtotime($data1[$x]['sure_time'])));
                 $arrays1['time']=$data1[$x]['sure_time'].'到'.$end;
