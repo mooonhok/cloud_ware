@@ -274,7 +274,7 @@ $app->get('/year_insurance',function()use($app){
         $stmt = $selectStatement->execute();
         $data1= $stmt->fetch();
         date_default_timezone_set("PRC");
-        $data1['one_year_time']=strtotime("+1 year",$data1['sure_time']);
+        $data1['one_year_time']=date("Y-m-d H:i:s",strtotime("+1 year",strtotime($data1['sure_time'])));
         echo json_encode(array('result'=>'1','desc'=>'success','insurance'=>$data1));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'id为空','insurance'=>''));
