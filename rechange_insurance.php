@@ -75,7 +75,7 @@ $app->get('/tenants',function()use($app){
         echo json_encode(array('result'=>'1','desc'=>'系统故障','tenants'=>''));
     }
 });
-//分页获取保险充值记录
+//获取保险充值记录
 $app->get('/insurance_rechanges',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
@@ -209,7 +209,7 @@ $app->put('/sure_rechanges',function()use($app){
             }
 
 });
-//分页获取保险记录
+//获取保险记录
 $app->get('/insurances',function ()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $company=$app->request->get('company');
@@ -365,7 +365,12 @@ $app->get('/rechange_insurance_id',function()use($app){
         ->where('tenant_id', '=', $data2['tenant_id']);
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetch();
-    $data3=$data1['company'].'支付'.$data2['money'];
+    $selectStatement = $database->select()
+        ->from('customer')
+        ->where('customer_id', '=', $data1['contact_id']);
+    $stmt = $selectStatement->execute();
+    $data3= $stmt->fetch();
+    $data3=$data1['company'].'支付'.$data2['money'].'。'.$data3['customer_name'].':'.$data3['customer_phone'];
     echo json_encode(array('result'=>'1','desc'=>'success','data'=>$data3));
 });
 
