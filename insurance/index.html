@@ -122,7 +122,6 @@
 		} 
 </script>
 <script type="text/javascript">
-	$("#tb2").html("");
 	 function insurance(city_id,company){
    	      	if(city_id==null){
 				city_id="";
@@ -137,6 +136,7 @@
 		contentType: "application/json;charset=utf-8",
 		data: JSON.stringify({}),
 		success:function(msg){
+			$("#tb2").html("");
 			console.log(msg);
 			for(var i=0;i<msg.rechange_insurance.length;i++){
 				var a = '<tr><td>'+msg.rechange_insurance[i].company+'</td><td>'+msg.rechange_insurance[i].customer_phone+'</td><td>'+plate_number+'</td><td>'+msg.rechange_insurance[i].driver_name+'</td><td>'+msg.rechange_insurance[i].receive_city+'</td><td>'+msg.rechange_insurance[i].from_city+'</td><td class="det" onclick="detil('+msg.rechange_insurance[i].insurance_id+')">详情</td><td>'+msg.rechange_insurance[i].insurance_price+'</td><td>'+msg.rechange_insurance[i].insurance_amount+'</td><td>'+msg.rechange_insurance[i].insurance_start_time+'</td><td>'+msg.rechange_insurance[i].duration+'</td></tr>' ;
