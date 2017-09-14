@@ -114,12 +114,15 @@
 <script type="text/javascript">
 	 //    var city_id = $.getUrlParam('city_id');
 		// var company = $.getUrlParam('company');
+	
 		//获取session值
 		var user = $.session.get('userid');
 		//alert(user);
 		if(user == null || user == "") {
 			window.location.href = "login.html";
-		} 
+		}else{
+			insurance(city_id,company);
+		}
 </script>
 <script type="text/javascript">
 	 function insurance(city_id,company){
