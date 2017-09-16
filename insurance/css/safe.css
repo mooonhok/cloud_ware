@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-09-05 14:28:39
 * @Last Modified by:   boycui
-* @Last Modified time: 2017-09-16 09:10:04
+* @Last Modified time: 2017-09-16 10:55:28
 */
 *{
    margin: 0;
@@ -238,15 +238,20 @@ h2{
 	width: 32px;
 }
 .but{
-	width: 40px;
-	height: 20px;
+	width: 80px;
+	height: 30px;
+	background: #FF8903;
+	border: 0;
 	border-radius: 5px;
-	text-align: center;
-	line-height: 20px;
-	background: green;
 	color: white;
-	float: right;
-	margin-top: 40px;
+}
+.but_1{
+	width: 80px;
+	height: 30px;
+	background: #FF8903;
+	border: 0;
+	border-radius: 5px;
+	color: white;
 }
 .box5{
 	width:1000px;
@@ -257,6 +262,7 @@ h2{
 	left: 100px;
 	top: 100px;
 	background: white;
+	display: none;
 }
 .box5_1{
 	width: 400px;
