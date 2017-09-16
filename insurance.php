@@ -56,7 +56,7 @@ $app->post('/userlogin',function ()use($app){
 });
 
 //客户端,生成去投保险
-$app->post('/to_one_insurance',function ()use($app){
+$app->get('/to_one_insurance',function ()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
@@ -80,9 +80,11 @@ $app->post('/to_one_insurance',function ()use($app){
         $data2 = $stmt->fetchAll();
         $data1['info']=$data2;
     }
-    echo json_encode(array('result'=>'1','desc'=>'success','user'=>$data1));
+    echo json_encode(array('result'=>'1','desc'=>'success','insurance'=>$data1));
 });
 
+
+//客户端，确认一个投保
 
 
 $app->run();
