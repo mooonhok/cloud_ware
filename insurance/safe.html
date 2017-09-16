@@ -113,7 +113,7 @@
 					<div class="box5_2"><button class="but">打印表格</button></div>
 					<div class="box5_3"><button class="but_1">返回</button></div>
 					<div class="box5_4">
-						<table width="800" border="0" cellspacing="0" cellpadding="0">
+						<table id="table" width="800" border="0" cellspacing="0" cellpadding="0">
 							<thead>
 								<tr>
 									<th>车牌号</th>
@@ -131,7 +131,7 @@
 							</tbody>
 						</table>
 						<div class="tables_footer clearfix" style="width: 500px;"></div>
-				        <div class="page_out fr"></div>
+				        <div class="page1_out fr"></div>
 						<div style="clear: both;"></div>
 					</div>
 
@@ -483,7 +483,7 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-						TablePage('#tables', 7);
+					TablePage('#table', 7);
 					function TablePage(id, size) {
 					$("#tb3").html("");
 					for(var i = 0; i < msg.rechanges.length; i++) {
@@ -507,27 +507,27 @@
 								var numRows = $table.find("#tb3 tr").length; //记录宗条数  
 								var numPages = Math.ceil(numRows / pageSize); //总页数  
 								//console.log(numPages);  
-								var $pager = $("<div class='page'><a href='javascript:void(0)'><span id='Prev' style='margin-right:4px;'>上一页</span></a></div>"); //分页div  
+								var $pager = $("<div class='page1'><a href='javascript:void(0)'><span id='Prev1' style='margin-right:4px;'>上一页</span></a></div>"); //分页div  
 					
-								for(var page = 0; page < numPages; page++) {
+								for(var page1 = 0; page1 < numPages; page1++) {
 									//为分页标签加上链接  
 									//if(page==0){$("<a href='javascript:void(0)'><span id='1' class="click_page"></span></a>")}  
-									$("<a href='javascript:void(0)'><span id='" + (page + 1) + "'>" + (page + 1) + "</span></a>").bind("click", { "newPage": page }, function(event) {
+									$("<a href='javascript:void(0)'><span id='" + (page1 + 1) + "'>" + (page1 + 1) + "</span></a>").bind("click", { "newPage": page1 }, function(event) {
 											currentPage = event.data["newPage"];
 											//console.log($(this).children("span"));  
 											$(this).children("span").attr("class", "click_page");
 											$(this).children("span").css({ "color": "#FFFFFF" });
-											$(".page a span").not($(this).children("span")).attr("class", "");
-											$(".page a span").not($(this).children("span")).css({ "color": "#1155BB" });
+											$(".page1 a span").not($(this).children("span")).attr("class", "");
+											$(".page1 a span").not($(this).children("span")).css({ "color": "#1155BB" });
 											$table.trigger("repaginate");
 										})
 										.appendTo($pager);					
 									$pager.append("  ");
 								}
 								//$table.trigger("repaginate");  
-								var next = $("<a href='javascript:void(0)'><span id='Next'>下一页</span></a>");
-								$pager.append(next);
-								$('.page_out').append($pager);
+								var next1 = $("<a href='javascript:void(0)'><span id='Next1'>下一页</span></a>");
+								$pager.append(next1);
+								$('.page1_out').append($pager);
 								//$pager.insertAfter($table);//分页div插入table  
 								$("#1").attr("class", "click_page");
 								$("#1").css({ "color": "#FFFFFF" });
@@ -535,22 +535,22 @@
 								//console.log($("#1"));  
 								//$("#1").attr("class","click_page");  
 								//$("#1").css({"background":"#FFFFFF"});  
-								$("#Prev").bind("click", function() {
-									var prev = Number($(".click_page").text()) - 2;
+								$("#Prev1").bind("click", function() {
+									var prev1 = Number($(".click_page").text()) - 2;
 									currentPage = prev;
 									$(this).css({ "background": "#000000" });
 									if(currentPage < 0) {
 										$(this).css({ "background": "#c0c0c0" });
 										return;
 									}
-									$("#" + (prev + 1)).attr("class", "click_page");
-									$("#" + (prev + 1)).css({ "color": "#FFFFFF" });
-									$(".page a span").not($("#" + (prev + 1))).attr("class", "");
-									$(".page a span").not($("#" + (prev + 1))).css({ "color": "#1155BB" });
+									$("#" + (prev1 + 1)).attr("class", "click_page");
+									$("#" + (prev1 + 1)).css({ "color": "#FFFFFF" });
+									$(".page1 a span").not($("#" + (prev + 1))).attr("class", "");
+									$(".page1 a span").not($("#" + (prev + 1))).css({ "color": "#1155BB" });
 									//console.log(currentPage);  
 									$table.trigger("repaginate");
 								});
-								$("#Next").bind("click", function() {
+								$("#Next1").bind("click", function() {
 									var next = $(".click_page").attr("id");
 									currentPage = Number(next);
 									//console.log($(".click_page").text());  
@@ -561,8 +561,8 @@
 									}
 									$("#" + (currentPage + 1)).attr("class", "click_page");
 									$("#" + (currentPage + 1)).css({ "color": "#FFFFFF" });
-									$(".page a span").not($("#" + (currentPage + 1))).attr("class", "");
-									$(".page a span").not($("#" + (currentPage + 1))).css({ "color": "#1155BB" });
+									$(".page1 a span").not($("#" + (currentPage + 1))).attr("class", "");
+									$(".page1 a span").not($("#" + (currentPage + 1))).css({ "color": "#1155BB" });
 									$table.trigger("repaginate");
 								});
 							}
