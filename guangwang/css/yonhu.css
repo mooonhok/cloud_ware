@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-30 17:04:52
 * @Last Modified by:   boycui
-* @Last Modified time: 2017-09-13 09:16:08
+* @Last Modified time: 2017-09-16 13:29:04
 */
 *{
 	padding: 0;
@@ -46,6 +46,7 @@ html,body{
 .head_1 img{
 	width: 60px;
 	height: 60px;
+	border-radius: 90px;
 }
 .head_2{
 	width: 230px;

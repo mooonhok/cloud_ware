@@ -6,7 +6,7 @@
 		<title>用户信息</title>
 		<link rel="stylesheet" href="css/yonhu.css">
 		<script src="js/jquery-1.9.1.min.js"></script>
-		<script src="js/jquery.session.js"></script>
+		<!-- <script src="js/jquery.session.js"></script> -->
 		<script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>
 		<script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
 		<script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
@@ -26,8 +26,8 @@
 				<div class="head">
 					<div class="head_1"><img src="images/dl.png" alt=""></div>
 					<div class="head_2">
-						<h3 id="h3">用户名</h3>
-						<h5>ID:<span id="span">123456</span></h5>
+						<h3 id="h3"></h3>
+						<h5>ID:<span id="span"></span></h5>
 					</div>
 				</div>
 
@@ -118,7 +118,7 @@
 								contentType: "application/json;charset=utf-8",
 								data: JSON.stringify({}),
 								success: function(msg) {
-									console.log(msg);
+									// console.log(msg);
 
 									TablePage('#tables', 6);
 									function TablePage(id, size) {
@@ -212,7 +212,7 @@
 						function updata(id) {
 							$(".box4").css("display", "block");
 							$(".box3").css("display", "none");
-							alert(id);
+							// alert(id);
 							$.ajax({
 								url: "http://mooonhok-cloudware.daoapp.io/sales.php/tenantbyid?tenant_id=" + id,
 								dataType: 'json',
@@ -258,7 +258,7 @@
 							<h4>使用情况</h4></div>
 						<div class="box4_6">
 							<div class="box4_6_1"><label for="">结束时间</label></div>
-							<div class="box4_6_2"><input type="text" id="endTime"></div>
+							<div class="box4_6_2"><input type="date" id="endTime"></div>
 						</div>
 					</div>
 					<div class="box4_7"></div>
@@ -294,7 +294,7 @@
 					<div id="container" style="width: 900px;height: 400px;margin:0 auto;"></div>
 					<script>
 						var sales_id = $.session.get('userid');
-						alert(sales_id);
+						// alert(sales_id);
 						if(sales_id == null || sales_id == "") {
 							window.location.href = "index.html";
 						} else {
@@ -305,7 +305,7 @@
 								contentType: "application/json;charset=utf-8",
 								data: JSON.stringify({}),
 								success: function(msg) {
-									alert(msg.result);
+									// alert(msg.result);
 									if(msg.result == 0) {
 										/**
 										 * Highcharts 在 4.2.0 开始已经不依赖 jQuery 了，直接用其构造函数既可创建图表
@@ -527,7 +527,7 @@
 	</script>
 	<script type="text/javascript">
 		var sales_id = $.session.get('userid');
-		alert(sales_id);
+		// alert(sales_id);
 		if(sales_id == null || sales_id == "") {
 			window.location.href = "index.html";
 		} else {
@@ -538,7 +538,7 @@
 				contentType: "application/hson;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					console.log(msg);
+					// console.log(msg);
 					$("#h3").html(msg.sales.sales_name);
 					$("#span").html(msg.sales.telephone);
 					$("#name_1").val(msg.sales.sales_name);
