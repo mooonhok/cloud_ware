@@ -526,6 +526,8 @@ $app->get('/lastinsurance',function()use($app){
                 ->join('customer','tenant.contact_id','=','customer.customer_id','INNER')
                 ->where('insurance.sure_insurance','=','1')
                 ->where('tenant.tenant_id','=',$tenant_id)
+                ->where('lorry.tenant_id','=',$tenant_id)
+                ->where('customer.tenant_id','=',$tenant_id)
                 ->orderBy('insurance.insurance_start_time','desc');
 //                ->limit((int)10, (int)10 * (int)$page);
             $stmt = $selectStatement->execute();

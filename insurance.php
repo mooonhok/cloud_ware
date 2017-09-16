@@ -60,7 +60,6 @@ $app->get('/to_one_insurance',function ()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
-
     $selectStatement = $database->select()
         ->from('lorry')
         ->where('tenant_id','=',$tenant_id);
@@ -93,7 +92,7 @@ $app->get('/to_one_insurance',function ()use($app){
                 $data3 = $stmt->fetchAll();
                 array_push($array1,$data3);
             }
-            $data2['goods']=$array1;
+            $data2[$j]['goods']=$array1;
             array_push($array2,$data2);
         }
     }
