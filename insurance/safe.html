@@ -483,6 +483,7 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
+					console.log(msg);
 					TablePage('#table', 7);
 					function TablePage(id, size) {
 					$("#tb3").html("");
@@ -497,15 +498,15 @@
 						$("#tb3").append(c);
 					}
 								var $table = $(id);
-								var currentPage = 0; //当前页  
-								var pageSize = 3; //每页行数（不包括表头）  
+								var currentPage1 = 0; //当前页  
+								var pageSize1 = 3; //每页行数（不包括表头）  
 								$table.bind("repaginate", function() {
 									//console.log($table.find("tbody tr").eq(0));  
-									$table.find("#tb3 tr").hide().slice(currentPage * pageSize, (currentPage + 1) * pageSize).show();
+									$table.find("#tb3 tr").hide().slice(currentPage1 * pageSize1, (currentPage1 + 1) * pageSize1).show();
 									// $table.find("tbody tr").eq(0).show();  
 								});
 								var numRows1 = $table.find("#tb3 tr").length; //记录宗条数  
-								var numPages1 = Math.ceil(numRows1 / pageSize); //总页数  
+								var numPages1 = Math.ceil(numRows1 / pageSize1); //总页数  
 								//console.log(numPages);  
 								var $pager1 = $("<div class='page1'><a href='javascript:void(0)'><span id='Prev1' style='margin-right:4px;'>上一页</span></a></div>"); //分页div  
 					
@@ -513,7 +514,7 @@
 									//为分页标签加上链接  
 									//if(page==0){$("<a href='javascript:void(0)'><span id='1' class="click_page"></span></a>")}  
 									$("<a href='javascript:void(0)'><span id='" + (page1 + 1) + "'>" + (page1 + 1) + "</span></a>").bind("click", { "newPage": page1 }, function(event) {
-											currentPage = event.data["newPage"];
+											currentPage1 = event.data["newPage"];
 											//console.log($(this).children("span"));  
 											$(this).children("span").attr("class", "click_page");
 											$(this).children("span").css({ "color": "#FFFFFF" });
@@ -522,7 +523,7 @@
 											$table.trigger("repaginate");
 										})
 										.appendTo($pager1);					
-									$pager.append("  ");
+									$pager1.append("  ");
 								}
 								//$table.trigger("repaginate");  
 								var next1 = $("<a href='javascript:void(0)'><span id='Next1'>下一页</span></a>");
@@ -537,7 +538,7 @@
 								//$("#1").css({"background":"#FFFFFF"});  
 								$("#Prev1").bind("click", function() {
 									var prev1 = Number($(".click_page").text()) - 2;
-									currentPage = prev1;
+									currentPage1 = prev1;
 									$(this).css({ "background": "#000000" });
 									if(currentPage < 0) {
 										$(this).css({ "background": "#c0c0c0" });
@@ -545,24 +546,24 @@
 									}
 									$("#" + (prev1 + 1)).attr("class", "click_page");
 									$("#" + (prev1 + 1)).css({ "color": "#FFFFFF" });
-									$(".page1 a span").not($("#" + (prev + 1))).attr("class", "");
-									$(".page1 a span").not($("#" + (prev + 1))).css({ "color": "#1155BB" });
+									$(".page1 a span").not($("#" + (prev1 + 1))).attr("class", "");
+									$(".page1 a span").not($("#" + (prev1 + 1))).css({ "color": "#1155BB" });
 									//console.log(currentPage);  
 									$table.trigger("repaginate");
 								});
 								$("#Next1").bind("click", function() {
 									var next = $(".click_page").attr("id");
-									currentPage = Number(next);
+									currentPage1 = Number(next);
 									//console.log($(".click_page").text());  
 									$(this).css({ "background": "#FFFFFF" });
-									if((currentPage + 1) > numPages1) {
+									if((currentPage1 + 1) > numPages1) {
 										$(this).css({ "background": "#c0c0c0" });
 										return;
 									}
-									$("#" + (currentPage + 1)).attr("class", "click_page");
-									$("#" + (currentPage + 1)).css({ "color": "#FFFFFF" });
-									$(".page1 a span").not($("#" + (currentPage + 1))).attr("class", "");
-									$(".page1 a span").not($("#" + (currentPage + 1))).css({ "color": "#1155BB" });
+									$("#" + (currentPage1 + 1)).attr("class", "click_page");
+									$("#" + (currentPage1 + 1)).css({ "color": "#FFFFFF" });
+									$(".page1 a span").not($("#" + (currentPage1 + 1))).attr("class", "");
+									$(".page1 a span").not($("#" + (currentPage1 + 1))).css({ "color": "#1155BB" });
 									$table.trigger("repaginate");
 								});
 							}
