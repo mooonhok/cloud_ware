@@ -400,7 +400,7 @@
 
 				},
 				error: function(xhr) {
-					alert("获取后台失败！");
+					alert("获取后台失败！"+xhr.responseText);
 				}
 			});
 		}
@@ -593,7 +593,7 @@
 		$(".hunt").on('click', function() {
 			city_id = $("#city1 option:selected").val();
 			window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id=" + city_id+"&company=";
-			loadrechanges(city_id, company);
+			//loadrechanges(city_id, company);
 		
 		})
 		//搜索框
@@ -605,7 +605,7 @@
 			}else{
 				window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id=" + city_id+"&company="+company;
 				
-			loadrechanges(city_id, company);
+			//loadrechanges(city_id, company);
 			
 			}
 
