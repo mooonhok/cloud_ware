@@ -275,7 +275,7 @@
 						</div>
 						<div class="box4_10">
 							<div class="box4_10_1"><label for="">邮件</label></div>
-							<div class="box4_10_2"><input type="text" id="email"></div>
+							<div class="box4_10_2"><input type="text" id="email" name="email"></div>
 						</div>
 						<div class="box4_10">
 							<div class="box4_10_1"><label for="">QQ</label></div>
@@ -396,7 +396,7 @@
 						</div>
 						<div class="box2_9">
 							<div class="box2_9_1"><label for="">邮箱</label></div>
-							<div class="box2_9_2"><input type="text" id="email_1"></div>
+							<div class="box2_9_2"><input type="text" id="email_1" name="email"></div>
 						</div>
 						<div class="box2_10">
 							<div class="box2_10_1"><label for="">地址</label></div>
@@ -446,7 +446,7 @@
 				alert("电话号码格式不对");
 			} else if(!/^\d{15}|\d{18}$/.test(numb)){
 				alert("身份证格式不对");		
-				} else if(!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)||!/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)){					 
+				} else if(!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(em)||!/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(em)){					 
 						alert("邮箱格式不对");
 					} else {
 						//修改用户信息
@@ -576,7 +576,7 @@
 				if(!/^\d{15}|\d{18}$/.test(number_1)) {
 					alert("身份证格式不对");
 				} else {
-					if(!/w+([-+.]w+)*@w+([-.]w+)*.w+([-.]w+)*/.test(email_1)) {
+					if(!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test( email_1)||!/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test( email_1)) {
 						alert("邮箱格式不对");
 					} else {
 						$.ajax({

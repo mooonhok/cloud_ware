@@ -224,7 +224,7 @@
 					<p>电 话：<span class="safetel"></span></p>
 					<p>传 真：<span></span></p>
 					<br>
-					<p><span>一、保险期限：</span><span>2017-12-12</span>起至<span>2017-12-13</span>止</p>
+					<p><span>一、保险期限：</span><span class="data1"></span>起至<span class="data2"></span>止</p>
 					<p>二、保险标的及其包装配载条件：</p>
 					<p>（一）保险标的： 全新之常规普通货物：下列货物不在承保范围内，保险人不承担保险责任:</p>
 					<p>1)易变质品、活品，如海鲜、动植物等;</p>
@@ -437,9 +437,9 @@
 					//alert(msg.insurance.company+"/////"+msg.insurance.customer_phone);
 					$(".safeperson").html(msg.insurance.company);
 					$(".safeaddress").html(msg.insurance.address);
-					$(".safetel").val(msg.insurance.customer_phone);
-					$(".data1").text(msg.insurance.sure_time);
-					$(".data2").text(msg.insurance.one_year_time);
+					$(".safetel").html(msg.insurance.customer_phone);
+					$(".data1").html(msg.insurance.sure_time);
+					$(".data2").html(msg.insurance.one_year_time);
 
 				},
 				error: function(e) {
