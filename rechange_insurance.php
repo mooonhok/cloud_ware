@@ -89,7 +89,6 @@ $app->get('/insurance_rechanges',function()use($app){
            $selectStatement = $database->select()
                ->from('rechanges_insurance')
                ->join('tenant','tenant.tenant_id','=','rechanges_insurance.tenant_id','left')
-               ->join('customer','tenant.contact_id','=','customer.customer_id','left')
                ->where('tenant.from_city_id', '=', $city_id)
                ->where('tenant.company','=',$company)
                ->orderBy('rechanges_insurance.sure_time','desc');
@@ -116,7 +115,6 @@ $app->get('/insurance_rechanges',function()use($app){
                $selectStatement = $database->select()
                    ->from('rechanges_insurance')
                    ->join('tenant','tenant.tenant_id','=','rechanges_insurance.tenant_id','INNER')
-                   ->join('customer','tenant.contact_id','=','customer.customer_id','INNER')
                    ->where('tenant.from_city_id', '=', $city_id)
                    ->orderBy('rechanges_insurance.sure_time','desc');
   //                 ->limit((int)10, (int)10 * (int)$page);
@@ -143,7 +141,6 @@ $app->get('/insurance_rechanges',function()use($app){
         $selectStatement = $database->select()
             ->from('rechanges_insurance')
             ->join('tenant','tenant.tenant_id','=','rechanges_insurance.tenant_id','INNER')
-            ->join('customer','tenant.contact_id','=','customer.customer_id','INNER')
             ->orderBy('rechanges_insurance.sure_time','desc');
 //            ->limit((int)10, (int)10 * (int)$page);
         $stmt = $selectStatement->execute();
@@ -576,7 +573,7 @@ $app->get('/lastinsurance',function()use($app){
                     $arrays1['goods_name']=$data9['goods_name'];
                     array_push($arrays,$arrays1);
                 }
-                echo json_encode(array('result'=>'3','desc'=>'','rechanges'=>$arrays));
+                echo json_encode(array('result'=>'0','desc'=>'','rechanges'=>$arrays));
             }else {
                 echo json_encode(array('result' => '3', 'desc' => '该公司无历史保单', 'rechanges' => ''));
             }
