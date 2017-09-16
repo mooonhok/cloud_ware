@@ -64,7 +64,7 @@ $app->get('/to_one_insurance',function ()use($app){
         ->from('scheduling')
         ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','right')
         ->join('schedule_order','schedule_order.schedule_id','=','scheduling.scheduling_id','INNER')
-        ->where('scheduling.is_insurance', '=', null)
+        ->where('scheduling.is_insurance', '=', 0)
         ->where('scheduling.tenant_id','=',$tenant_id)
         ->where('lorry.tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
