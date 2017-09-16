@@ -176,6 +176,16 @@
 
 TablePage('#tables', 7);
 function TablePage(id, size) {
+	var city_id=null;
+	   var company=null;
+		//获取session值
+		var user = $.session.get('userid');
+		//alert(user);
+		if(user == null || user == "") {
+			window.location.href = "login.html";
+		}else{
+			insurance(city_id,company);
+		}
 	var $table = $(id);
 	var currentPage = 0; //当前页  
 	var pageSize = 3; //每页行数（不包括表头）  
@@ -251,9 +261,6 @@ function TablePage(id, size) {
 		$(".det").on("click",function(){
 			$(".box2").css("display","block");
 		})
-
-
-	
 		$(".gps_1").on("click",function(){
 			window.location.href="safe.html";
 		})
