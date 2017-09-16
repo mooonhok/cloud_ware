@@ -55,20 +55,32 @@ $app->post('/userlogin',function ()use($app){
 
 });
 
-
-$app->post('/one_insurance',function ()use($app){
+//客户端,生成去投保险
+$app->post('/to_one_insurance',function ()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $insurance_id=$body->insurance_id;
-    $insurance_price=$body->insurance_price;
-    $insurance_lorry_id=$body->	insurance_lorry_id;
-    $insurance_start_time=$body->insurance_start_time;
-    $tenant_id=$body->tenant_id;
-    $duration=$body->duration;
-    $sure_insurance=$body->sure_insurance;
-    $insurance_amount=$body->insurance_amount;
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $selectStatement = $database->select()
+        ->from('scheduling')
+        ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
+        ->join('schedule_order','schedule_order.schedule_id','=','scheduling.scheduling_id','INNER')
+        ->where('scheduling.is_insurance', '>', 0)
+        ->where('scheduling.tenant_id','=',$tenant_id)
+        ->where('lorry.tenant_id','=',$tenant_id);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetchAll();
+    $num=count($data1);
+    for($i=0;$i<$num;$i++){
+        $selectStatement = $database->select()
+            ->from('scheduling')
+            ->join('orders','scheduling.order_id','=','orders.order_id','INNER')
+            ->join('goods','goods.order_id','=','orders.order_id','INNER')
+            ->where('scheduling.scheduling_id', '=', $data1[$i]['scheduling_id']);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetchAll();
+        $data1['info']=$data2;
+    }
+    echo json_encode(array('result'=>'1','desc'=>'success','user'=>$data1));
 });
 
 

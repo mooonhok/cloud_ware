@@ -242,7 +242,7 @@ $app->put('/sure_rechanges',function()use($app){
                     $now=date("Y-m-d H:i:s",time());
                 $updateStatement = $database->update(array('status'=>1,'sure_time'=>$now,'admin_id'=>$user_id))
                         ->table('rechanges_insurance')
-                        ->where('id','=',$pay_id);
+                        ->where('rechange_insurance_id','=',$pay_id);
                 $affectedRows2 = $updateStatement->execute();
                     if($affectedRows1>0) {
                         echo json_encode(array('result' => '0', 'desc' => 'success'));
