@@ -444,11 +444,9 @@
 			var sex = $("input[name='sex']:checked").val();
 			if(!/^1[34578]\d{9}$/.test(tel)) {
 				alert("电话号码格式不对");
-			} else {
-				if(!/^\d{15}|\d{18}$/.test(numb)) {
-					alert("身份证格式不对");
-				} else {
-					if(!/w+([-+.]w+)*@w+([-.]w+)*.w+([-.]w+)*/.test(em)) {
+			} else if(!/^\d{15}|\d{18}$/.test(numb)){
+				alert("身份证格式不对");		
+				} else if(!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)||!/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)){					 
 						alert("邮箱格式不对");
 					} else {
 						//修改用户信息
@@ -494,8 +492,7 @@
 			var id = $("#gisd").val();
 			if(!/^1[34578]\d{9}$/.test(phone)) {
 				alert("电话号码格式不对");
-			} else {
-				if(!/w+([-+.]w+)*@w+([-.]w+)*.w+([-.]w+)*/.test(email)) {
+			}else if(!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)||!/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)){
 					alert("邮箱格式不对");
 				} else {
 					//修改公司信息
