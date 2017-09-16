@@ -130,13 +130,14 @@
 							
 							</tbody>
 						</table>
-
+						<div class="tables_footer clearfix" style="width: 500px;"></div>
+				        <div class="page_out fr"></div>
 						<div style="clear: both;"></div>
 					</div>
 
 				</div>
 			</div>
-
+</div>
 			<div class="bigbox" style="display:none;">
 				<div class="xq">
 					<button class="quxiao">取消</button>
@@ -278,7 +279,7 @@
 			});
 		}
 	</script>
-		</script>
+
 		<script>
 		function loadrechanges(city_id, company) {
 			if(city_id == null) {
@@ -400,7 +401,7 @@
 
 				},
 				error: function(xhr) {
-					alert("获取后台失败！"+xhr.responseText);
+					alert("获取后台失败！");
 				}
 			});
 		}
@@ -520,8 +521,7 @@
 											$(".page a span").not($(this).children("span")).css({ "color": "#1155BB" });
 											$table.trigger("repaginate");
 										})
-										.appendTo($pager);
-					
+										.appendTo($pager);					
 									$pager.append("  ");
 								}
 								//$table.trigger("repaginate");  

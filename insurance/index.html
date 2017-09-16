@@ -243,7 +243,8 @@ function TablePage(id, size) {
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					alert(msg.goods);
+					// alert(msg.goods);
+					$(".box2").css("display","block");
 				},
 				error: function(e) {
 					alert("获取货物详情出错!");
