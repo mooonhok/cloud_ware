@@ -404,7 +404,7 @@ $app->get('/year_insurance',function()use($app){
         $data1= $stmt->fetch();
         date_default_timezone_set("PRC");
         $data1['one_year_time']=date("Y-m-d H:i:s",strtotime("+1 year",strtotime($data1['sure_time'])));
-        echo json_encode(array('result'=>'1','desc'=>'success','insurance'=>$data1));
+        echo json_encode(array('result'=>'0','desc'=>'success','insurance'=>$data1));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'id为空','insurance'=>''));
     }
@@ -429,7 +429,7 @@ $app->get('/one_goods',function()use($app){
         for($i=0;$i<count($data1);$i++){
            $value.=$data1[$i]['goods_name'].',';
         }
-        echo json_encode(array('result'=>'1','desc'=>'success','goods'=>$value,'count'=>count($data1)));
+        echo json_encode(array('result'=>'0','desc'=>'success','goods'=>$value,'count'=>count($data1)));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'单个保险id为空','goods'=>''));
     }
@@ -520,14 +520,12 @@ $app->get('/lastinsurance',function()use($app){
         $data1 = $stmt->fetch();
         if($data1!=null||$data1!=""){
             $selectStatement = $database->select()
-                ->from('tenant')
-                ->join('insurance','tenant.tenant_id','=','insurance.tenant_id','INNER')
+                ->from('insurance')
+                ->join('tenant','insurance.tenant_id','=','tenant.tenant_id','INNER')
                 ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
                 ->join('customer','tenant.contact_id','=','customer.customer_id','INNER')
                 ->where('insurance.sure_insurance','=','1')
                 ->where('tenant.tenant_id','=',$tenant_id)
-                ->where('lorry.tenant_id','=',$tenant_id)
-                ->where('customer.tenant_id','=',$tenant_id)
                 ->orderBy('insurance.insurance_start_time','desc');
 //                ->limit((int)10, (int)10 * (int)$page);
             $stmt = $selectStatement->execute();
@@ -557,7 +555,7 @@ $app->get('/lastinsurance',function()use($app){
                     $arrays1['receive_city']=$data3['name'];
                     array_push($arrays,$arrays1);
                 }
-                echo json_encode(array('result'=>'1','desc'=>'该公司不存在','rechanges'=>$arrays));
+                echo json_encode(array('result'=>'0','desc'=>'','rechanges'=>$arrays));
             }
 
         }else{
