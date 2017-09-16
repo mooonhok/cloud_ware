@@ -318,7 +318,7 @@
 		var tel=$.session.get('user');
 		if(tel!=null||tel!=""){
 			alert("用户已经登录");
-	   $(".top_2_2").html(msg.user.telephone);
+	   $(".top_2_2").html(tel);
 		}else{
     	$("#signin").on('click',function(){
 			var name=$("#username").val();
