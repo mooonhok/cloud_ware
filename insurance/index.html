@@ -234,6 +234,23 @@ function TablePage(id, size) {
 		}
 	});
 }
+	function detil(id){
+		//alert(id);
+   	      	$.ajax({
+   	      	   url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/one_goods?insurance_id=" + id,
+				dataType: 'json',
+				type: 'get',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({}),
+				success: function(msg) {
+					alert(msg.goods);
+				},
+				error: function(e) {
+					alert("获取货物详情出错!");
+				}
+   	      	});
+	}
+	
 //	     var city_id = $.getUrlParam('city_id');
 //		 var company = $.getUrlParam('company');
 	   var city_id=null;
@@ -246,17 +263,9 @@ function TablePage(id, size) {
 		}else{
 			insurance(city_id,company);
 		}
-
-var city_id=null;
-	   var company=null;
-		//获取session值
-		var user = $.session.get('userid');
-		//alert(user);
-		if(user == null || user == "") {
-			window.location.href = "login.html";
-		}else{
-			insurance(city_id,company);
-		}
+    
+    
+    
 //TablePage('#tables', 7);
 //function TablePage(id, size) {
 //	
