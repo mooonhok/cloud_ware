@@ -504,12 +504,12 @@
 									$table.find("#tb3 tr").hide().slice(currentPage * pageSize, (currentPage + 1) * pageSize).show();
 									// $table.find("tbody tr").eq(0).show();  
 								});
-								var numRows = $table.find("#tb3 tr").length; //记录宗条数  
-								var numPages = Math.ceil(numRows / pageSize); //总页数  
+								var numRows1 = $table.find("#tb3 tr").length; //记录宗条数  
+								var numPages1 = Math.ceil(numRows1 / pageSize); //总页数  
 								//console.log(numPages);  
-								var $pager = $("<div class='page1'><a href='javascript:void(0)'><span id='Prev1' style='margin-right:4px;'>上一页</span></a></div>"); //分页div  
+								var $pager1 = $("<div class='page1'><a href='javascript:void(0)'><span id='Prev1' style='margin-right:4px;'>上一页</span></a></div>"); //分页div  
 					
-								for(var page1 = 0; page1 < numPages; page1++) {
+								for(var page1 = 0; page1 < numPages1; page1++) {
 									//为分页标签加上链接  
 									//if(page==0){$("<a href='javascript:void(0)'><span id='1' class="click_page"></span></a>")}  
 									$("<a href='javascript:void(0)'><span id='" + (page1 + 1) + "'>" + (page1 + 1) + "</span></a>").bind("click", { "newPage": page1 }, function(event) {
@@ -521,13 +521,13 @@
 											$(".page1 a span").not($(this).children("span")).css({ "color": "#1155BB" });
 											$table.trigger("repaginate");
 										})
-										.appendTo($pager);					
+										.appendTo($pager1);					
 									$pager.append("  ");
 								}
 								//$table.trigger("repaginate");  
 								var next1 = $("<a href='javascript:void(0)'><span id='Next1'>下一页</span></a>");
-								$pager.append(next1);
-								$('.page1_out').append($pager);
+								$pager1.append(next1);
+								$('.page1_out').append($pager1);
 								//$pager.insertAfter($table);//分页div插入table  
 								$("#1").attr("class", "click_page");
 								$("#1").css({ "color": "#FFFFFF" });
@@ -537,7 +537,7 @@
 								//$("#1").css({"background":"#FFFFFF"});  
 								$("#Prev1").bind("click", function() {
 									var prev1 = Number($(".click_page").text()) - 2;
-									currentPage = prev;
+									currentPage = prev1;
 									$(this).css({ "background": "#000000" });
 									if(currentPage < 0) {
 										$(this).css({ "background": "#c0c0c0" });
