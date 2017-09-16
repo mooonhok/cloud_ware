@@ -467,15 +467,12 @@
 			//alert(id);
 			$.ajax({
 				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/sure_rechanges",
-				beforeSend: function(request) {
-					request.setRequestHeader("tenant-id", "Chenxizhang");
-				},
 				dataType: 'json',
 				type: 'put',
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({
 					id: id,
-					user_id: user
+					user_id:user
 				}),
 				success: function(msg) {
 					city_id = $("#city1 option:selected").val();
@@ -504,7 +501,7 @@
 
 		function TablePage(id, size) {
 			$("#tb3").html("");
-					for(var x = 0; x < msg.rechanges.length; x++) {
+					for(var i = 0; i < msg.rechanges.length; i++) {
 						var c = "<tr><td>" + msg.rechanges[i].plate_number + "</td><td>" +
 							msg.rechanges[i].driver_name + "</td><td>" +
 							msg.rechanges[i].from_city + "</td><td>" +
