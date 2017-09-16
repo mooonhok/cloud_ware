@@ -64,7 +64,7 @@ $app->get('/to_one_insurance',function ()use($app){
         ->from('scheduling')
         ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
         ->join('schedule_order','schedule_order.schedule_id','=','scheduling.scheduling_id','INNER')
-        ->where('scheduling.is_insurance', '>', 0)
+        ->where('scheduling.is_insurance', '=', null)
         ->where('scheduling.tenant_id','=',$tenant_id)
         ->where('lorry.tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
@@ -78,7 +78,7 @@ $app->get('/to_one_insurance',function ()use($app){
             ->where('scheduling.scheduling_id', '=', $data1[$i]['scheduling_id']);
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetchAll();
-        $data1['info']=$data2;
+        $data1[$i]['info']=$data2;
     }
     echo json_encode(array('result'=>'1','desc'=>'success','insurance'=>$data1));
 });
