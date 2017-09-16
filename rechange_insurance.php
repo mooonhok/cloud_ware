@@ -290,13 +290,13 @@ $app->get('/insurances',function ()use($app){
                  $arrays1['insurance_id']=$data1[$x]['insurance_id'];
                  $selectStatement = $database->select()
                      ->from('city')
-                     ->where('id', '=', $data1[$x]['from_city_id']);
+                     ->where('id', '=', $data1[$x]['from_c_id']);
                  $stmt = $selectStatement->execute();
                  $data2 = $stmt->fetch();
                  $arrays1['from_city']=$data2['name'];
                  $selectStatement = $database->select()
                      ->from('city')
-                     ->where('id', '=', $data1[$x]['receive_city_id']);
+                     ->where('id', '=', $data1[$x]['receive_c_id']);
                  $stmt = $selectStatement->execute();
                  $data3 = $stmt->fetch();
                  $arrays1['receive_city']=$data3['name'];
@@ -329,13 +329,13 @@ $app->get('/insurances',function ()use($app){
                     $arrays1['insurance_id'] = $data1[$x]['insurance_id'];
                     $selectStatement = $database->select()
                         ->from('city')
-                        ->where('id', '=', $data1[$x]['from_city_id']);
+                        ->where('id', '=', $data1[$x]['from_c_id']);
                     $stmt = $selectStatement->execute();
                     $data2 = $stmt->fetch();
                     $arrays1['from_city'] = $data2['name'];
                     $selectStatement = $database->select()
                         ->from('city')
-                        ->where('id', '=', $data1[$x]['receive_city_id']);
+                        ->where('id', '=', $data1[$x]['receive_c_id']);
                     $stmt = $selectStatement->execute();
                     $data3 = $stmt->fetch();
                     $arrays1['receive_city'] = $data3['name'];
@@ -368,13 +368,13 @@ $app->get('/insurances',function ()use($app){
                 $arrays1['insurance_id'] = $data1[$x]['insurance_id'];
                 $selectStatement = $database->select()
                     ->from('city')
-                    ->where('id', '=', $data1[$x]['from_city_id']);
+                    ->where('id', '=', $data1[$x]['from_c_id']);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetch();
                 $arrays1['from_city'] = $data2['name'];
                 $selectStatement = $database->select()
                     ->from('city')
-                    ->where('id', '=', $data1[$x]['receive_city_id']);
+                    ->where('id', '=', $data1[$x]['receive_c_id']);
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetch();
                 $arrays1['receive_city'] = $data3['name'];
