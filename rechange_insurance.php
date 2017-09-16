@@ -490,7 +490,7 @@ $app->get('/rechange_insurance_id',function()use($app){
     $database=localhost();
     $selectStatement = $database->select()
         ->from('rechanges_insurance')
-        ->where('rechange_insurance_id', '=', $id);
+        ->where('rechange_insurance_id', "=", $id);
     $stmt = $selectStatement->execute();
     $data2= $stmt->fetch();
     $selectStatement = $database->select()
