@@ -223,7 +223,7 @@ $app->put('/sure_rechanges',function()use($app){
     $key='insurance_balance';
             $selectStatement = $database->select()
                 ->from('rechanges_insurance')
-                ->where('id', '=', $pay_id);
+                ->where('rechange_insurance_id', '=', $pay_id);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetch();
             $selectStatement = $database->select()
@@ -399,7 +399,7 @@ $app->get('/year_insurance',function()use($app){
             ->from('rechanges_insurance')
             ->join('tenant','tenant.tenant_id','=','rechanges_insurance.tenant_id','INNER')
             ->join('customer','customer.customer_id','=','tenant.contact_id','INNER')
-            ->where('rechanges_insurance.id', '=', $id);
+            ->where('rechanges_insurance.rechange_insurance_id', '=', $id);
         $stmt = $selectStatement->execute();
         $data1= $stmt->fetch();
         date_default_timezone_set("PRC");
@@ -490,7 +490,7 @@ $app->get('/rechange_insurance_id',function()use($app){
     $database=localhost();
     $selectStatement = $database->select()
         ->from('rechanges_insurance')
-        ->where('id', '=', $id);
+        ->where('rechange_insurance_id', '=', $id);
     $stmt = $selectStatement->execute();
     $data2= $stmt->fetch();
     $selectStatement = $database->select()
