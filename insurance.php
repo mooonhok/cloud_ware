@@ -62,7 +62,7 @@ $app->get('/to_one_insurance',function ()use($app){
     $tenant_id=$app->request->headers->get("tenant-id");
     $selectStatement = $database->select()
         ->from('scheduling')
-        ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','right')
+        ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','left')
         ->join('schedule_order','schedule_order.schedule_id','=','scheduling.scheduling_id','INNER')
         ->where('scheduling.is_insurance', '=', 0)
         ->where('scheduling.scheduling_status','=',1)
@@ -73,8 +73,8 @@ $app->get('/to_one_insurance',function ()use($app){
     $num=count($data1);
     for($i=0;$i<$num;$i++){
         $selectStatement = $database->select()
-            ->from('scheduling')
-            ->join('orders','scheduling.order_id','=','orders.order_id','INNER')
+            ->from('schedule_order')
+            ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
             ->join('goods','goods.order_id','=','orders.order_id','INNER')
             ->where('scheduling.scheduling_id', '=', $data1[$i]['scheduling_id']);
         $stmt = $selectStatement->execute();
@@ -87,6 +87,20 @@ $app->get('/to_one_insurance',function ()use($app){
 
 //客户端，确认一个投保
 
+
+
+//客户端，获取保险余额
+$app->get('/insurance_balance',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $selectStatement = $database->select()
+        ->from('tenant')
+        ->where('tenant_id','=',$tenant_id);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetch();
+    echo json_encode(array('result'=>'1','desc'=>'success','insurance'=>$data1));
+});
 
 $app->run();
 
