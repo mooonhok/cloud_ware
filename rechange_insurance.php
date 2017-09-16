@@ -512,6 +512,7 @@ $app->get('/lastinsurance',function()use($app){
     $tenant_id=$app->request->get('tenant_id');
     $database=localhost();
     $arrays=array();
+    $arrays1=array();
     if($tenant_id!=null||$tenant_id!=""){
         $selectStatement = $database->select()
             ->from('tenant')
