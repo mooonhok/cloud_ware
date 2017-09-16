@@ -211,7 +211,7 @@
 					<br>
 					<p>保险人：太平财产保险有限公司南京分公司</p>
 					<p>地 址：<span></span></p>
-					<p>电 话：95589
+					<p>电 话：95589</p>
 						<p>传 真：<span></span></p>
 						<br>
 						<p>投保人：<span class="safeperson"></span></p>
@@ -431,9 +431,9 @@
 				data: JSON.stringify({}),
 				success: function(msg) {
 					//alert(msg.insurance);
-					$(".safeperson").text(msg.insurance.company);
-					$(".safeaddress").text(msg.insurance.address);
-					$(".safetel").text(msg.insurance.customer_phone);
+					$(".safeperson").val(msg.insurance.company);
+					$(".safeaddress").html(msg.insurance.address);
+					$(".safetel").val(msg.insurance.customer_phone);
 					$(".data1").text(msg.insurance.sure_time);
 					$(".data2").text(msg.insurance.one_year_time);
 
@@ -509,7 +509,7 @@
 							msg.rechanges[i].insurance_price + "</td><td>" +
 							msg.rechanges[i].insurance_amount + "</td><td>" +
 							msg.rechanges[i].insurance_start_time + "</td></tr>";
-						$("#tb3").append(b);
+						$("#tb3").append(c);
 					}
 			var $table = $(id);
 			var currentPage = 0; //当前页  
