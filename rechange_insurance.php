@@ -564,7 +564,7 @@ $app->get('/lastinsurance',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data7 = $stmt->fetch();
                     $selectStatement=$database->select()
-                        ->from('scheduling_order')
+                        ->from('schedule_order')
                         ->where('schedule_id','=',$data7['scheduling_id']);
                     $stmt = $selectStatement->execute();
                     $data8 = $stmt->fetch();
