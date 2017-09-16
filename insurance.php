@@ -92,11 +92,11 @@ $app->get('/to_one_insurance',function ()use($app){
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetchAll();
                 array_push($array1,$data3);
+                $data2[$j]['goods']=$array1;
             }
-            $data2[$j]['goods']=$array1;
-
+            array_push($array2,$data2);
         }
-        array_push($array2,$data2);
+
     }
     echo json_encode(array('result'=>'1','desc'=>'success','insurance'=>$array2));
 });
