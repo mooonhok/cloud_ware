@@ -107,6 +107,8 @@
 
 					<script type="text/javascript">
 						var sales_id = $.session.get('userid');
+						var sales_name=$.session.get('user');
+						$("#span").html(sales_name);
 						alert(sales_id);
 						if(sales_id == null || sales_id == "") {
 							window.location.href = "index.html";
@@ -529,7 +531,7 @@
 			window.location.href = "index.html";
 		} else {
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/sales.php/sales?sales_id=1",
+				url: "http://mooonhok-cloudware.daoapp.io/sales.php/sales?sales_id="+sales_id,
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/hson;charset=utf-8",
@@ -537,7 +539,7 @@
 				success: function(msg) {
 					// console.log(msg);
 					$("#h3").html(msg.sales.sales_name);
-					$("#span").html(msg.sales.telephone);
+					
 					$("#name_1").val(msg.sales.sales_name);
 					$("#number").val(msg.sales.card_id);
 					$("#tel").val(msg.sales.telephone);

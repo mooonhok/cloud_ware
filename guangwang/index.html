@@ -315,6 +315,11 @@
 		})
 	</script>
 	<script type="text/javascript">
+		var tel=$.session.get('user');
+		if(tel!+null||tel!=""){
+			alert("用户已经登录");
+	   $(".top_2_2").html(msg.user.telephone);
+		}else{
     	$("#signin").on('click',function(){
 			var name=$("#username").val();
 			var pwd=$("#password").val();
@@ -335,10 +340,11 @@
    		  	  	// alert(msg.result);
    		  	  	if(msg.result==0){	
    		  	  	    $.session.set('userid',msg.user.id);
+   		  	  	    $.session.set('user',msg.user.telephone);
    		  	  	    var user=$.session.get('userid');
    		  	  	//    $("#name").val(msg.user.telephone);	  
    		  	  	    $(".top_2_2").html(msg.user.telephone);
-                      
+                     
    		  	  	}else{
    		  	  		alert(msg.desc);
    		  	  	}
@@ -349,8 +355,10 @@
 		});
 		}
 		});
+		}
 		$(".tc").on('click',function(){
 			$.session.remove('userid');
+			$.session.remove('user');
 			// $.session.remove('username');
 		});
 	</script>
