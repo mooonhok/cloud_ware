@@ -158,7 +158,7 @@ function TablePage(id, size) {
 			}
 	var $table = $(id);
 	var currentPage = 0; //当前页  
-	var pageSize = 3; //每页行数（不包括表头）  
+	var pageSize = 10; //每页行数（不包括表头）  
 	$table.bind("repaginate", function() {
 	//console.log($table.find("tbody tr").eq(0));  
 	$table.find("tbody tr").hide().slice(currentPage * pageSize, (currentPage + 1) * pageSize).show();
