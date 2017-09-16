@@ -90,7 +90,19 @@
 						</tr>
 					</thead>
 					<tbody id="tb2">
-						
+						<tr>
+							<td>一号物流公司</td>
+							<td>13057539211</td>
+							<td>苏F.1234G</td>
+							<td>朱</td>
+							<td>南京</td>
+							<td>上海</td>
+							<td>货物详情</td>
+							<td>80万</td>
+							<td>120</td>
+							<td>2017.10.10</td>
+							<td>7</td>	
+						</tr>
 					</tbody>
 				</table>
 				<div class="tables_footer clearfix" style="width: 500px;"></div>
@@ -113,10 +125,10 @@
 <script src="js/jquery.session.js"></script>
 <script type="text/javascript">
 	function insurance(city_id,company){
-   	      	if(city_id==null){
+	      	if(city_id==null){
 				city_id="";
 			}
-			if(company==null){
+		if(company==null){
 				company="";
 			}
 	$.ajax({
@@ -148,8 +160,6 @@
 		}
 	});
 }
-	
-	
 //	     var city_id = $.getUrlParam('city_id');
 //		 var company = $.getUrlParam('company');
 	   var city_id=null;
@@ -237,7 +247,6 @@ function TablePage(id, size) {
 	$table.trigger("repaginate");
 	});
 }
-
 	
 		$(".det").on("click",function(){
 			$(".box2").css("display","block");
