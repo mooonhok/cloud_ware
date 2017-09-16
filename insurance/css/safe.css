@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-09-05 14:28:39
 * @Last Modified by:   boycui
-* @Last Modified time: 2017-09-16 10:55:28
+* @Last Modified time: 2017-09-16 11:15:23
 */
 *{
    margin: 0;
@@ -192,6 +192,8 @@ select{
 .xq{
 	width: 80%;
 	margin: 0 auto;
+	overflow:auto;
+	height: 100%;
 }
 .bigbox{
 	width: 66%;
@@ -200,6 +202,7 @@ select{
 	background: white;
 	display: none;
 	z-index: 100;
+	height: 100%;
 }
 h2{
 	text-align: center;

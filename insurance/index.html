@@ -304,7 +304,30 @@ function TablePage(id, size) {
 			});
 		}
 	</script>
+<script>
+		//选择搜索按钮的事件
+		$(".hunt").on('click', function() {
+			city_id = $("#city1 option:selected").val();
+			window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id=" + city_id+"&company=";
+			//loadrechanges(city_id, company);
+			//insurance(city_id,company);
+		})
+		//搜索框
+		$(".select_2_2").on('click', function() {
+			company = $("#coname").val();
+			city_id = $("#city1 option:selected").val();
+			if(city_id==null||city_id==""){
+				alert("请先选择城市");
+			}else{
+				window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id=" + city_id+"&company="+company;
+				//alert(company);
+			//loadrechanges(city_id, company);
+			//insurance(city_id,company);
+			}
 
+		});
+
+	</script>
 
 
 <script>
