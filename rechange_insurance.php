@@ -414,10 +414,11 @@ $app->get('/one_goods',function()use($app){
     if($insurance_id!=null||$insurance_id!=''){
         $selectStatement = $database->select()
             ->from('insurance')
-            ->join('insurance_scheduling','insurance_scheduling.insurance_id','=',$insurance_id,'INNER')
+            ->join('insurance_scheduling','insurance_scheduling.insurance_id','=','insurance.insurance_id','INNER')
             ->join('schedule_order','insurance_scheduling.scheduling_id','=','schedule_order.schedule_id','INNER')
             ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
-            ->join('goods','goods.order_id','=','orders.order_id','INNER');
+            ->join('goods','goods.order_id','=','orders.order_id','INNER')
+            ->where('insurance.insurance_id','=',$insurance_id);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
         $value="";
