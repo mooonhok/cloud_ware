@@ -204,7 +204,7 @@
 	console.log(input);
 		if(input.length <= 0){
 			alert("请输入验证码")
-		}else if(input != code){
+		}else if(toLowerCase(input) != toLowerCase(code)){
 			alert("验证码输入错误"); 
 			// createCode();  	
         document.getElementById("identify").value = "";//清空文本框  
