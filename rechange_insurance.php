@@ -142,8 +142,8 @@ $app->get('/insurance_rechanges',function()use($app){
     }else{
         $selectStatement = $database->select()
             ->from('rechanges_insurance')
-            ->join('tenant','tenant.tenant_id','=','rechanges_insurance.tenant_id','INNER')
-            ->join('customer','tenant.contact_id','=','customer.customer_id','INNER')
+            ->join('tenant','tenant.tenant_id','=','rechanges_insurance.tenant_id','right')
+            ->join('customer','tenant.contact_id','=','customer.customer_id','left')
             ->orderBy('rechanges_insurance.sure_time','desc');
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
