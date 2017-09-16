@@ -483,6 +483,7 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
+					alert(id);
 					console.log(msg);
 					TablePage('#table', 7);
 					function TablePage(id, size) {

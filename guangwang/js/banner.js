@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-08-29 12:00:01
-* @Last Modified by:   Administrator
-* @Last Modified time: 2017-08-30 10:02:14
+* @Last Modified by:   boycui
+* @Last Modified time: 2017-09-16 19:22:48
 */
 
 $(function(){
@@ -56,7 +56,7 @@ $(".left_btn").click(function(){
 	
 	$(".banner_box .points span").mouseover(function(){
 		var index = $(this).index();
-	console.log(index);
+	// console.log(index);
 	$('.banner_box .imgs img').eq(index).css('display','block').siblings('img').css('display','none')
 	points(index);
 	num=index+1;
