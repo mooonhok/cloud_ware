@@ -59,6 +59,7 @@ $app->post('/userlogin',function ()use($app){
 $app->get('/to_one_insurance',function ()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
+    $array2=array();
     $tenant_id=$app->request->headers->get("tenant-id");
     $selectStatement = $database->select()
         ->from('lorry')
@@ -67,7 +68,7 @@ $app->get('/to_one_insurance',function ()use($app){
     $data1 = $stmt->fetchAll();
     for($i=0;$i<count($data1);$i++){
         $array1=array();
-        $array2=array();
+
         $selectStatement = $database->select()
             ->from('scheduling')
             ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','right')
