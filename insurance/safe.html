@@ -88,61 +88,7 @@
 						</tr>
 					</thead>
 					<tbody id="tb1">
-						<!--<tr>
-							<td>中国邮政储蓄物流邮箱公司</td>
-							<td>2017.1.12-2018.1.12</td>
-							<td>10000</td>
-							<td class="compact">合同详情</td>
-							<td>8000</td>
-							<td class="money">扣费详情</td>
-							<td><button class="pay">已支付</button></td>
-						</tr>
-						<tr>
-							<td>中国邮政储蓄物流邮箱公司</td>
-							<td>2017.1.12-2018.1.12</td>
-							<td>10000</td>
-							<td>合同详情</td>
-							<td>8000</td>
-							<td>扣费详情</td>
-							<td><button>已支付</button></td>
-						</tr>
-						<tr>
-							<td>中国邮政储蓄物流邮箱公司</td>
-							<td>2017.1.12-2018.1.12</td>
-							<td>10000</td>
-							<td>合同详情</td>
-							<td>8000</td>
-							<td>扣费详情</td>
-							<td><button>已支付</button></td>
-						</tr>
-						<tr>
-							<td>中国邮政储蓄物流邮箱公司</td>
-							<td>2017.1.12-2018.1.12</td>
-							<td>10000</td>
-							<td>合同详情</td>
-							<td>8000</td>
-							<td>扣费详情</td>
-							<td><button>已支付</button></td>
-						</tr>
-						<tr>
-							<td>中国邮政储蓄物流邮箱公司</td>
-							<td>2017.1.12-2018.1.12</td>
-							<td>10000</td>
-							<td>合同详情</td>
-							<td>8000</td>
-							<td>扣费详情</td>
-							<td><button>已支付</button></td>
-						</tr>
-						<tr>
-							<td>中国邮政储蓄物流邮箱公司</td>
-							<td>2017.1.12-2018.1.12</td>
-							<td>10000</td>
-							<td>合同详情</td>
-							<td>8000</td>
-							<td>扣费详情</td>
-							<td><button>已支付</button></td>
-						</tr>-->
-
+						
 					</tbody>
 				</table>
 				<div class="tables_footer clearfix" style="width: 500px;"></div>
@@ -181,16 +127,7 @@
 								</tr>
 							</thead>
 							<tbody id="tb3">
-								<!--<tr>
-									<td>苏F888888</td>
-									<td>曹操</td>
-									<td>南通</td>
-									<td>北京</td>
-									<td>日用品</td>
-									<td>20000</td>
-									<td>120</td>
-									<td>2017.12.12</td>
-								</tr>-->
+							
 							</tbody>
 						</table>
 
@@ -299,6 +236,50 @@
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/jquery.session.js"></script>
 	<script type="text/javascript">
+		$.ajax({
+			url: "http://mooonhok-cloudware.daoapp.io/city.php/province",
+			beforeSend: function(request) {
+				request.setRequestHeader("tenant-id", "Chenxizhang");
+			},
+			dataType: 'json',
+			type: 'get',
+			contentType: "application/json;charset=utf-8",
+			data: JSON.stringify({}),
+			success: function(msg) {
+				for(var i = 0; i < msg.province.length; i++) {
+					$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+				}
+			},
+			error: function(e) {
+				alert("省份列表1信息出错!");
+			}
+		});
+
+		function getPro1() {
+			$("#city1").empty();
+			var pid = $("#province1 option:selected").val();
+			$.ajax({
+				url: "http://mooonhok-cloudware.daoapp.io/city.php/city?pid=" + pid,
+				beforeSend: function(request) {
+					request.setRequestHeader("tenant-id", "Chenxizhang");
+				},
+				dataType: 'json',
+				type: 'get',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({}),
+				success: function(msg) {
+					for(var i = 0; i < msg.city.length; i++) {
+						$("#city1").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
+					}
+				},
+				error: function(e) {
+					alert("城市1列表信息出错!");
+				}
+			});
+		}
+	</script>
+		</script>
+		<script>
 		function loadrechanges(city_id, company) {
 			if(city_id == null) {
 				city_id = "";
@@ -501,9 +482,8 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					//		TablePage('#tables', 7);
-
-					//function TablePage(id, size) {
+						TablePage('#tables', 7);
+					function TablePage(id, size) {
 					$("#tb3").html("");
 					for(var i = 0; i < msg.rechanges.length; i++) {
 						var c = "<tr><td>" + msg.rechanges[i].plate_number + "</td><td>" +
@@ -515,78 +495,78 @@
 							msg.rechanges[i].insurance_start_time + "</td></tr>";
 						$("#tb3").append(c);
 					}
-					//			var $table = $(id);
-					//			var currentPage = 0; //当前页  
-					//			var pageSize = 3; //每页行数（不包括表头）  
-					//			$table.bind("repaginate", function() {
-					//				//console.log($table.find("tbody tr").eq(0));  
-					//				$table.find("#tb3 tr").hide().slice(currentPage * pageSize, (currentPage + 1) * pageSize).show();
-					//				// $table.find("tbody tr").eq(0).show();  
-					//			});
-					//			var numRows = $table.find("#tb3 tr").length; //记录宗条数  
-					//			var numPages = Math.ceil(numRows / pageSize); //总页数  
-					//			//console.log(numPages);  
-					//			var $pager = $("<div class='page'><a href='javascript:void(0)'><span id='Prev' style='margin-right:4px;'>上一页</span></a></div>"); //分页div  
-					//
-					//			for(var page = 0; page < numPages; page++) {
-					//				//为分页标签加上链接  
-					//				//if(page==0){$("<a href='javascript:void(0)'><span id='1' class="click_page"></span></a>")}  
-					//				$("<a href='javascript:void(0)'><span id='" + (page + 1) + "'>" + (page + 1) + "</span></a>").bind("click", { "newPage": page }, function(event) {
-					//						currentPage = event.data["newPage"];
-					//						//console.log($(this).children("span"));  
-					//						$(this).children("span").attr("class", "click_page");
-					//						$(this).children("span").css({ "color": "#FFFFFF" });
-					//						$(".page a span").not($(this).children("span")).attr("class", "");
-					//						$(".page a span").not($(this).children("span")).css({ "color": "#1155BB" });
-					//						$table.trigger("repaginate");
-					//					})
-					//					.appendTo($pager);
-					//
-					//				$pager.append("  ");
-					//			}
-					//			//$table.trigger("repaginate");  
-					//			var next = $("<a href='javascript:void(0)'><span id='Next'>下一页</span></a>");
-					//			$pager.append(next);
-					//			$('.page_out').append($pager);
-					//			//$pager.insertAfter($table);//分页div插入table  
-					//			$("#1").attr("class", "click_page");
-					//			$("#1").css({ "color": "#FFFFFF" });
-					//			$table.trigger("repaginate");
-					//			//console.log($("#1"));  
-					//			//$("#1").attr("class","click_page");  
-					//			//$("#1").css({"background":"#FFFFFF"});  
-					//			$("#Prev").bind("click", function() {
-					//				var prev = Number($(".click_page").text()) - 2;
-					//				currentPage = prev;
-					//				$(this).css({ "background": "#000000" });
-					//				if(currentPage < 0) {
-					//					$(this).css({ "background": "#c0c0c0" });
-					//					return;
-					//				}
-					//				$("#" + (prev + 1)).attr("class", "click_page");
-					//				$("#" + (prev + 1)).css({ "color": "#FFFFFF" });
-					//				$(".page a span").not($("#" + (prev + 1))).attr("class", "");
-					//				$(".page a span").not($("#" + (prev + 1))).css({ "color": "#1155BB" });
-					//				//console.log(currentPage);  
-					//				$table.trigger("repaginate");
-					//			});
-					//			$("#Next").bind("click", function() {
-					//				var next = $(".click_page").attr("id");
-					//				currentPage = Number(next);
-					//				//console.log($(".click_page").text());  
-					//				$(this).css({ "background": "#FFFFFF" });
-					//				if((currentPage + 1) > numPages) {
-					//					$(this).css({ "background": "#c0c0c0" });
-					//					return;
-					//				}
-					//				$("#" + (currentPage + 1)).attr("class", "click_page");
-					//				$("#" + (currentPage + 1)).css({ "color": "#FFFFFF" });
-					//				$(".page a span").not($("#" + (currentPage + 1))).attr("class", "");
-					//				$(".page a span").not($("#" + (currentPage + 1))).css({ "color": "#1155BB" });
-					//				$table.trigger("repaginate");
-					//			});
-					//		}
-					//					
+								var $table = $(id);
+								var currentPage = 0; //当前页  
+								var pageSize = 3; //每页行数（不包括表头）  
+								$table.bind("repaginate", function() {
+									//console.log($table.find("tbody tr").eq(0));  
+									$table.find("#tb3 tr").hide().slice(currentPage * pageSize, (currentPage + 1) * pageSize).show();
+									// $table.find("tbody tr").eq(0).show();  
+								});
+								var numRows = $table.find("#tb3 tr").length; //记录宗条数  
+								var numPages = Math.ceil(numRows / pageSize); //总页数  
+								//console.log(numPages);  
+								var $pager = $("<div class='page'><a href='javascript:void(0)'><span id='Prev' style='margin-right:4px;'>上一页</span></a></div>"); //分页div  
+					
+								for(var page = 0; page < numPages; page++) {
+									//为分页标签加上链接  
+									//if(page==0){$("<a href='javascript:void(0)'><span id='1' class="click_page"></span></a>")}  
+									$("<a href='javascript:void(0)'><span id='" + (page + 1) + "'>" + (page + 1) + "</span></a>").bind("click", { "newPage": page }, function(event) {
+											currentPage = event.data["newPage"];
+											//console.log($(this).children("span"));  
+											$(this).children("span").attr("class", "click_page");
+											$(this).children("span").css({ "color": "#FFFFFF" });
+											$(".page a span").not($(this).children("span")).attr("class", "");
+											$(".page a span").not($(this).children("span")).css({ "color": "#1155BB" });
+											$table.trigger("repaginate");
+										})
+										.appendTo($pager);
+					
+									$pager.append("  ");
+								}
+								//$table.trigger("repaginate");  
+								var next = $("<a href='javascript:void(0)'><span id='Next'>下一页</span></a>");
+								$pager.append(next);
+								$('.page_out').append($pager);
+								//$pager.insertAfter($table);//分页div插入table  
+								$("#1").attr("class", "click_page");
+								$("#1").css({ "color": "#FFFFFF" });
+								$table.trigger("repaginate");
+								//console.log($("#1"));  
+								//$("#1").attr("class","click_page");  
+								//$("#1").css({"background":"#FFFFFF"});  
+								$("#Prev").bind("click", function() {
+									var prev = Number($(".click_page").text()) - 2;
+									currentPage = prev;
+									$(this).css({ "background": "#000000" });
+									if(currentPage < 0) {
+										$(this).css({ "background": "#c0c0c0" });
+										return;
+									}
+									$("#" + (prev + 1)).attr("class", "click_page");
+									$("#" + (prev + 1)).css({ "color": "#FFFFFF" });
+									$(".page a span").not($("#" + (prev + 1))).attr("class", "");
+									$(".page a span").not($("#" + (prev + 1))).css({ "color": "#1155BB" });
+									//console.log(currentPage);  
+									$table.trigger("repaginate");
+								});
+								$("#Next").bind("click", function() {
+									var next = $(".click_page").attr("id");
+									currentPage = Number(next);
+									//console.log($(".click_page").text());  
+									$(this).css({ "background": "#FFFFFF" });
+									if((currentPage + 1) > numPages) {
+										$(this).css({ "background": "#c0c0c0" });
+										return;
+									}
+									$("#" + (currentPage + 1)).attr("class", "click_page");
+									$("#" + (currentPage + 1)).css({ "color": "#FFFFFF" });
+									$(".page a span").not($("#" + (currentPage + 1))).attr("class", "");
+									$(".page a span").not($("#" + (currentPage + 1))).css({ "color": "#1155BB" });
+									$table.trigger("repaginate");
+								});
+							}
+										
 				},
 				error: function(e) {
 					alert("获取合同详情信息出错!");
@@ -596,6 +576,7 @@
 
 		var city_id = null;
 		var company = null;
+		
 		//获取session值
 		var user = $.session.get('userid');
 		alert(user);
@@ -604,7 +585,32 @@
 		} else {
 			loadrechanges(city_id, company);
 		}
-	</script>
+		
+		
+	
+	
+		//选择搜索按钮的事件
+		$(".hunt").on('click', function() {
+			city_id = $("#city1 option:selected").val();
+			window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id=" + city_id+"&company=";
+			loadrechanges(city_id, company);
+		
+		})
+		//搜索框
+		$(".select_2_2").on('click', function() {
+			company = $("#coname").val();
+			city_id = $("#city1 option:selected").val();
+			if(city_id==null||city_id==""){
+				alert("请先选择城市");
+			}else{
+				window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id=" + city_id+"&company="+company;
+				
+			loadrechanges(city_id, company);
+			
+			}
+
+		});
+		</script>
 	<script type="text/javascript">
 		$(".pay").on("click", function() {
 			$(".box3").css("display", "block");
