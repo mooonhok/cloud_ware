@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 	<head>
@@ -476,6 +476,7 @@
 
 		function ins(id) {
 			$(".box5").css("display", "block");
+                        alert(id);
 			$.ajax({
 				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/lastinsurance?tenant_id=" + id,
 				dataType: 'json',
