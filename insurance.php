@@ -68,7 +68,7 @@ $app->get('/to_one_insurance',function ()use($app){
     $data1 = $stmt->fetchAll();
     for($i=0;$i<count($data1);$i++){
         $array1=array();
-
+        $array1['lorry']=$data1[$i];
         $selectStatement = $database->select()
             ->from('scheduling')
             ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
@@ -80,6 +80,7 @@ $app->get('/to_one_insurance',function ()use($app){
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetchAll();
         if($data2!=null){
+            $array3=array();
             for($j=0;$j<count($data2);$j++){
                 $selectStatement = $database->select()
                     ->from('schedule_order')
@@ -91,9 +92,10 @@ $app->get('/to_one_insurance',function ()use($app){
                     ->where('schedule_order.tenant_id','=',$tenant_id);
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetchAll();
-                $data2[$j]['goods']=$data3;
+                array_push($array3,$data3);
             }
-            array_push($array2,$data2);
+            $array1['goods']=$array3;
+            array_push($array2,$array1);
         }
 
     }
