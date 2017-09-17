@@ -139,7 +139,26 @@ $app->get('/lorry_insurance_count',function ()use($app){
 });
 //客户端，确认一个投保
 
-
+//客户端，未做保险时，获得该车的货物详情
+$app->post('/one_insurance_goods',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $lorry_id=$body->lorry_id;
+    $selectStatement = $database->select()
+        ->from('scheduling')
+        ->join('schedule_order','schedule_order.schedule_id','=','scheduling.scheduling_id','INNER')
+        ->join('goods','goods.order_id','=','schedule_order.order_id','INNER')
+        ->where('scheduling.lorry_id','=',$lorry_id)
+        ->where('schedule_order.tenant_id','=',$tenant_id)
+        ->where('scheduling.tenant_id','=',$tenant_id)
+        ->where('goods.tenant_id','=',$tenant_id);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetchAll();
+    echo json_encode(array('result'=>'1','desc'=>'success','insurance'=>$data1));
+});
 
 //客户端，获取保险余额
 $app->get('/insurance_balance',function()use($app){
