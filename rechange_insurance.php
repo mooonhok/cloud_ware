@@ -83,7 +83,7 @@ $app->get('/insurance_rechanges',function()use($app){
     $city_id=$app->request->get('city_id');
     $company=$app->request->get('company');
     $page = $app->request->get('page');
-    $per_page=$app->requeest->get('per_page');
+    $per_page=$app->request->get('per_page');
     $page=(int)$page-1;
     if($page==null||$per_page==null){
         if ($city_id != null || $city_id != '') {
@@ -334,7 +334,7 @@ $app->get('/insurances',function ()use($app){
     $company=$app->request->get('company');
     $city_id=$app->request->get('city_id');
     $page = $app->request->get('page');
-    $per_page=$app->requeest->get('per_page');
+    $per_page=$app->request->get('per_page');
     $page=(int)$page-1;
     $database=localhost();
     $arrays=array();
@@ -707,7 +707,7 @@ $app->get('/lastinsurance',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->get('tenant_id');
 $page = $app->request->get('page');
-$per_page=$app->requeest->get('per_page');
+$per_page=$app->request->get('per_page');
     $database = localhost();
     $arrays = array();
 $page=(int)$page-1;
