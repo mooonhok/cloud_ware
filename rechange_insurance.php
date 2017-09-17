@@ -79,7 +79,6 @@ $app->post('/userlogin',function ()use($app){
 $app->get('/insurance_rechanges',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
-
     $city_id=$app->request->get('city_id');
     $company=$app->request->get('company');
     $page = $app->request->get('page');
@@ -522,8 +521,7 @@ $app->get('/insurances',function ()use($app){
                     ->where('tenant.from_city_id', '=', $city_id)
                     ->where('insurance.sure_insurance', '=', '1')
                     ->where('tenant.company', '=', $company)
-                    ->orderBy('insurance.insurance_start_time', 'desc')
-                    ->limit((int)$per_page, (int)$per_page * (int)$page);
+                    ->orderBy('insurance.insurance_start_time', 'desc');
                 $stmt = $selectStatement->execute();
                 $data4 = $stmt->fetchAll();
                 $num=count($data4);
@@ -577,8 +575,7 @@ $app->get('/insurances',function ()use($app){
                     ->where('tenant.from_city_id', '=', $city_id)
                     ->where('insurance.sure_insurance', '=', '1')
                     ->where('tenant.company', '=', $company)
-                    ->orderBy('insurance.insurance_start_time', 'desc')
-                    ->limit((int)$per_page, (int)$per_page * (int)$page);
+                    ->orderBy('insurance.insurance_start_time', 'desc');
                 $stmt = $selectStatement->execute();
                 $data4 = $stmt->fetchAll();
                 $num=count($data4);
@@ -632,8 +629,7 @@ $app->get('/insurances',function ()use($app){
                 ->where('tenant.from_city_id', '=', $city_id)
                 ->where('insurance.sure_insurance', '=', '1')
                 ->where('tenant.company', '=', $company)
-                ->orderBy('insurance.insurance_start_time', 'desc')
-                ->limit((int)$per_page, (int)$per_page * (int)$page);
+                ->orderBy('insurance.insurance_start_time', 'desc');
             $stmt = $selectStatement->execute();
             $data4 = $stmt->fetchAll();
             $num=count($data4);
