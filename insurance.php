@@ -75,39 +75,48 @@ $app->get('/to_one_insurance',function ()use($app){
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
     for($i=0;$i<count($data1);$i++){
-        $array1=array();
-        $array1['lorry']=$data1[$i];
         $selectStatement = $database->select()
-            ->from('scheduling')
-            ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
-            ->where('scheduling.is_insurance', '=', 0)
-            ->where('scheduling.scheduling_status','=',1)
-            ->where('scheduling.tenant_id','=',$tenant_id)
-            ->where('lorry.tenant_id','=',$tenant_id)
-            ->where('scheduling.lorry_id','=',$data1[$i]['lorry_id']);
+            ->from('lorry')
+            ->where('lorry_id','=',$data1[$i]['lorry_id'])
+            ->where('tenant_id','=',$tenant_id);
         $stmt = $selectStatement->execute();
-        $data2 = $stmt->fetchAll();
-        if($data2!=null){
-            $array3=array();
-            for($j=0;$j<count($data2);$j++){
-                $selectStatement = $database->select()
-                    ->from('schedule_order')
-                    ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
-                    ->join('goods','goods.order_id','=','orders.order_id','INNER')
-                    ->where('schedule_order.schedule_id', '=', $data2[$j]['scheduling_id'])
-                    ->where('orders.tenant_id','=',$tenant_id)
-                    ->where('goods.tenant_id','=',$tenant_id)
-                    ->where('schedule_order.tenant_id','=',$tenant_id);
-                $stmt = $selectStatement->execute();
-                $data3 = $stmt->fetchAll();
-                array_push($array3,$data3);
-            }
-            $array1['goods']=$array3;
-            array_push($array2,$array1);
-        }
-
+        $data2 = $stmt->fetch();
+        array_push($array2,$data2);
     }
-    echo json_encode(array('result'=>'1','desc'=>'success','lorry'=>$data1,'insurance'=>$array2));
+//    for($i=0;$i<count($data1);$i++){
+//        $array1=array();
+//        $array1['lorry']=$data1[$i];
+//        $selectStatement = $database->select()
+//            ->from('scheduling')
+//            ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
+//            ->where('scheduling.is_insurance', '=', 0)
+//            ->where('scheduling.scheduling_status','=',1)
+//            ->where('scheduling.tenant_id','=',$tenant_id)
+//            ->where('lorry.tenant_id','=',$tenant_id)
+//            ->where('scheduling.lorry_id','=',$data1[$i]['lorry_id']);
+//        $stmt = $selectStatement->execute();
+//        $data2 = $stmt->fetchAll();
+//        if($data2!=null){
+//            $array3=array();
+//            for($j=0;$j<count($data2);$j++){
+//                $selectStatement = $database->select()
+//                    ->from('schedule_order')
+//                    ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+//                    ->join('goods','goods.order_id','=','orders.order_id','INNER')
+//                    ->where('schedule_order.schedule_id', '=', $data2[$j]['scheduling_id'])
+//                    ->where('orders.tenant_id','=',$tenant_id)
+//                    ->where('goods.tenant_id','=',$tenant_id)
+//                    ->where('schedule_order.tenant_id','=',$tenant_id);
+//                $stmt = $selectStatement->execute();
+//                $data3 = $stmt->fetchAll();
+//                array_push($array3,$data3);
+//            }
+//            $array1['goods']=$array3;
+//            array_push($array2,$array1);
+//        }
+//
+//    }
+    echo json_encode(array('result'=>'1','desc'=>'success','lorrys'=>$array2));
 });
 
 
