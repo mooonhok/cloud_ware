@@ -211,7 +211,7 @@ $app->get('/insurance_rechanges',function()use($app){
                     ->from('rechanges_insurance')
                     ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'left')
                     ->where('tenant.from_city_id', '=', $city_id)
-                    ->where('tenant.company', '=', $company)
+
                     ->orderBy('rechanges_insurance.sure_time', 'desc');
                 $stmt = $selectStatement->execute();
                 $data4 = $stmt->fetchAll();
@@ -246,8 +246,7 @@ $app->get('/insurance_rechanges',function()use($app){
             $selectStatement = $database->select()
                 ->from('rechanges_insurance')
                 ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'left')
-                ->where('tenant.from_city_id', '=', $city_id)
-                ->where('tenant.company', '=', $company)
+
                 ->orderBy('rechanges_insurance.sure_time', 'desc');
             $stmt = $selectStatement->execute();
             $data4 = $stmt->fetchAll();
@@ -378,7 +377,7 @@ $app->get('/insurances',function ()use($app){
     $per_page=$app->request->get('per_page');
     $database=localhost();
 
-    if($page==null||$per_page==null) {
+    if($page==null||$per_page==null){
         $page=(int)$page-1;
         if ($city_id != null || $city_id != "") {
             if ($company != null || $company != '') {
@@ -518,8 +517,8 @@ $app->get('/insurances',function ()use($app){
                     ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
                     ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
                     ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
-                    ->where('tenant.from_city_id', '=', $city_id)
                     ->where('insurance.sure_insurance', '=', '1')
+                    ->where('tenant.from_city_id', '=', $city_id)
                     ->where('tenant.company', '=', $company)
                     ->orderBy('insurance.insurance_start_time', 'desc');
                 $stmt = $selectStatement->execute();
@@ -572,9 +571,8 @@ $app->get('/insurances',function ()use($app){
                     ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
                     ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
                     ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
-                    ->where('tenant.from_city_id', '=', $city_id)
                     ->where('insurance.sure_insurance', '=', '1')
-                    ->where('tenant.company', '=', $company)
+                    ->where('tenant.from_city_id', '=', $city_id)
                     ->orderBy('insurance.insurance_start_time', 'desc');
                 $stmt = $selectStatement->execute();
                 $data4 = $stmt->fetchAll();
@@ -626,9 +624,7 @@ $app->get('/insurances',function ()use($app){
                 ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
                 ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
                 ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
-                ->where('tenant.from_city_id', '=', $city_id)
                 ->where('insurance.sure_insurance', '=', '1')
-                ->where('tenant.company', '=', $company)
                 ->orderBy('insurance.insurance_start_time', 'desc');
             $stmt = $selectStatement->execute();
             $data4 = $stmt->fetchAll();
@@ -639,7 +635,9 @@ $app->get('/insurances',function ()use($app){
                 ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
                 ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
                 ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
+                ->where('tenant.from_city_id', '=', $city_id)
                 ->where('insurance.sure_insurance', '=', '1')
+                ->where('tenant.company', '=', $company)
                 ->orderBy('insurance.insurance_start_time', 'desc')
                 ->limit((int)$per_page, (int)$per_page * (int)$page);
             $stmt = $selectStatement->execute();
