@@ -91,7 +91,7 @@ $app->get('/to_one_insurance',function ()use($app){
                     ->where('schedule_order.tenant_id','=',$tenant_id);
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetchAll();
-                array_push($data2[$j]['goods'],$data3);
+                $data2[$j]['goods']=$data3;
             }
             array_push($array2,$data2);
         }
