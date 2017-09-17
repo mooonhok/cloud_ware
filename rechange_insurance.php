@@ -84,8 +84,8 @@ $app->get('/insurance_rechanges',function()use($app){
     $company=$app->request->get('company');
     $page = $app->request->get('page');
     $per_page=$app->request->get('per_page');
-    $page=(int)$page-1;
     if($page==null||$per_page==null){
+        $page=(int)$page-1;
         if ($city_id != null || $city_id != '') {
             if ($company != null || $company != '') {
                 $selectStatement = $database->select()
@@ -159,6 +159,7 @@ $app->get('/insurance_rechanges',function()use($app){
             echo json_encode(array('result' => '3', 'desc' => '城市id为空', 'insurance_rechanges' => $arrays));
         }
     }else {
+        $page=(int)$page-1;
         if ($city_id != null || $city_id != '') {
             if ($company != null || $company != '') {
                 $selectStatement = $database->select()
@@ -336,8 +337,8 @@ $app->get('/insurances',function ()use($app){
     $per_page=$app->request->get('per_page');
     $database=localhost();
     $arrays=array();
-    $page=(int)$page-1;
     if($page==null||$per_page==null) {
+        $page=(int)$page-1;
         if ($city_id != null || $city_id != "") {
             if ($company != null || $company != '') {
                 $selectStatement = $database->select()
@@ -459,6 +460,7 @@ $app->get('/insurances',function ()use($app){
             echo json_encode(array('result' => '1', 'desc' => '城市信息为空', 'rechange_insurance' => $arrays));
         }
     }else{
+        $page=(int)$page-1;
         if ($city_id != null || $city_id != "") {
             if ($company != null || $company != '') {
                 $selectStatement = $database->select()
@@ -707,10 +709,11 @@ $app->get('/lastinsurance',function()use($app){
     $tenant_id=$app->request->get('tenant_id');
 $page = $app->request->get('page');
 $per_page=$app->request->get('per_page');
-$page=(int)$page-1;
+
     $database = localhost();
     $arrays = array();
 if($per_page==null||$page==null) {
+    $page=(int)$page-1;
     if ($tenant_id != null || $tenant_id != "") {
         $selectStatement = $database->select()
             ->from('tenant')
@@ -771,6 +774,7 @@ if($per_page==null||$page==null) {
         echo json_encode(array('result' => '1', 'desc' => '租户id为空', 'rechanges' => ''));
     }
 }else{
+    $page=(int)$page-1;
     if ($tenant_id != null || $tenant_id != "") {
         $selectStatement = $database->select()
             ->from('tenant')
