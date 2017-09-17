@@ -83,7 +83,7 @@ $app->get('/to_one_insurance',function ()use($app){
             for($j=0;$j<count($data2);$j++){
                 $selectStatement = $database->select()
                     ->from('schedule_order')
-                    ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+                    ->join('orders','schedule_order.order_id','=','orders.order_id','right')
                     ->join('goods','goods.order_id','=','orders.order_id','INNER')
                     ->where('schedule_order.schedule_id', '=', $data2[$j]['scheduling_id'])
                     ->where('orders.tenant_id','=',$tenant_id)
