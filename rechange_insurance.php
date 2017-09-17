@@ -555,22 +555,7 @@ $app->get('/lastinsurance',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data6 = $stmt->fetch();
                     $arrays1['customer_phone']=$data6['customer_phone'];
-                    $selectStatement=$database->select()
-                        ->from('insurance_scheduling')
-                        ->where('insurance_id','=',$data2[$i]['insurance_id']);
-                    $stmt = $selectStatement->execute();
-                    $data7 = $stmt->fetch();
-                    $selectStatement=$database->select()
-                        ->from('schedule_order')
-                        ->where('schedule_id','=',$data7['scheduling_id']);
-                    $stmt = $selectStatement->execute();
-                    $data8 = $stmt->fetch();
-                    $selectStatement=$database->select()
-                        ->from('goods')
-                        ->where('order_id','=',$data8['order_id']);
-                    $stmt = $selectStatement->execute();
-                    $data9 = $stmt->fetch();
-                    $arrays1['goods_name']=$data9['goods_name'];
+                    $arrays1['goods_name']=$data2['g_type'];
                     array_push($arrays,$arrays1);
                 }
                 echo json_encode(array('result'=>'0','desc'=>'','rechanges'=>$arrays));
