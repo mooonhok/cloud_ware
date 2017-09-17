@@ -110,6 +110,8 @@ $app->get('/insurance_rechanges',function()use($app){
                         array_push($arrays, $arrays1);
                     }
                 }
+                $num=count($data1);
+                $arrays['count']=$num;
                 echo json_encode(array('result' => '1', 'desc' => 'success', 'insurance_rechanges' => $arrays));
             } else {
                 $selectStatement = $database->select()
@@ -133,6 +135,8 @@ $app->get('/insurance_rechanges',function()use($app){
                         array_push($arrays, $arrays1);
                     }
                 }
+                $num=count($data1);
+                $arrays['count']=$num;
                 echo json_encode(array('result' => '1', 'desc' => 'success', 'insurance_rechanges' => $arrays));
             }
         } else {
@@ -156,12 +160,24 @@ $app->get('/insurance_rechanges',function()use($app){
                     array_push($arrays, $arrays1);
                 }
             }
+            $num=count($data1);
+            $arrays['count']=$num;
             echo json_encode(array('result' => '3', 'desc' => '城市id为空', 'insurance_rechanges' => $arrays));
         }
     }else {
         $page=(int)$page-1;
         if ($city_id != null || $city_id != '') {
             if ($company != null || $company != '') {
+                $selectStatement = $database->select()
+                    ->from('rechanges_insurance')
+                    ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'left')
+                    ->where('tenant.from_city_id', '=', $city_id)
+                    ->where('tenant.company', '=', $company)
+                    ->orderBy('rechanges_insurance.sure_time', 'desc');
+                $stmt = $selectStatement->execute();
+                $data4 = $stmt->fetchAll();
+                $num=count($data4);
+                $arrays['count']=$num;
                 $selectStatement = $database->select()
                     ->from('rechanges_insurance')
                     ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'left')
@@ -189,6 +205,16 @@ $app->get('/insurance_rechanges',function()use($app){
             } else {
                 $selectStatement = $database->select()
                     ->from('rechanges_insurance')
+                    ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'left')
+                    ->where('tenant.from_city_id', '=', $city_id)
+                    ->where('tenant.company', '=', $company)
+                    ->orderBy('rechanges_insurance.sure_time', 'desc');
+                $stmt = $selectStatement->execute();
+                $data4 = $stmt->fetchAll();
+                $num=count($data4);
+                $arrays['count']=$num;
+                $selectStatement = $database->select()
+                    ->from('rechanges_insurance')
                     ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'INNER')
                     ->where('tenant.from_city_id', '=', $city_id)
                     ->orderBy('rechanges_insurance.sure_time', 'desc')
@@ -212,6 +238,16 @@ $app->get('/insurance_rechanges',function()use($app){
                 echo json_encode(array('result' => '1', 'desc' => 'success', 'insurance_rechanges' => $arrays));
             }
         } else {
+            $selectStatement = $database->select()
+                ->from('rechanges_insurance')
+                ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'left')
+                ->where('tenant.from_city_id', '=', $city_id)
+                ->where('tenant.company', '=', $company)
+                ->orderBy('rechanges_insurance.sure_time', 'desc');
+            $stmt = $selectStatement->execute();
+            $data4 = $stmt->fetchAll();
+            $num=count($data4);
+            $arrays['count']=$num;
             $selectStatement = $database->select()
                 ->from('rechanges_insurance')
                 ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'INNER')
@@ -350,9 +386,10 @@ $app->get('/insurances',function ()use($app){
                     ->where('insurance.sure_insurance', '=', '1')
                     ->where('tenant.company', '=', $company)
                     ->orderBy('insurance.insurance_start_time', 'desc');
-//                ->limit((int)10, (int)10 * (int)$page);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
+                $num=count($data1);
+                $arrays['count']=$num;
                 if ($data1 != null || $data1 != "") {
                     for ($x = 0; $x < count($data1); $x++) {
                         $arrays1['company'] = $data1[$x]['company'];
@@ -392,6 +429,8 @@ $app->get('/insurances',function ()use($app){
                 //  ->limit((int)10, (int)10 * (int)$page);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
+                $num=count($data1);
+                $arrays['count']=$num;
                 if ($data1 != null || $data1 != "") {
                     for ($x = 0; $x < count($data1); $x++) {
                         $arrays1['company'] = $data1[$x]['company'];
@@ -431,6 +470,8 @@ $app->get('/insurances',function ()use($app){
             //         ->limit((int)10, (int)10 * (int)$page);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
+            $num=count($data1);
+            $arrays['count']=$num;
             if ($data1 != "" || $data1 != null) {
                 for ($x = 0; $x < count($data1); $x++) {
                     $arrays1['company'] = $data1[$x]['company'];
@@ -463,6 +504,20 @@ $app->get('/insurances',function ()use($app){
         $page=(int)$page-1;
         if ($city_id != null || $city_id != "") {
             if ($company != null || $company != '') {
+                $selectStatement = $database->select()
+                    ->from('insurance')
+                    ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
+                    ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
+                    ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
+                    ->where('tenant.from_city_id', '=', $city_id)
+                    ->where('insurance.sure_insurance', '=', '1')
+                    ->where('tenant.company', '=', $company)
+                    ->orderBy('insurance.insurance_start_time', 'desc')
+                    ->limit((int)$per_page, (int)$per_page * (int)$page);
+                $stmt = $selectStatement->execute();
+                $data4 = $stmt->fetchAll();
+                $num=count($data4);
+                $arrays['count']=$num;
                 $selectStatement = $database->select()
                     ->from('insurance')
                     ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
@@ -508,6 +563,20 @@ $app->get('/insurances',function ()use($app){
                     ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
                     ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
                     ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
+                    ->where('tenant.from_city_id', '=', $city_id)
+                    ->where('insurance.sure_insurance', '=', '1')
+                    ->where('tenant.company', '=', $company)
+                    ->orderBy('insurance.insurance_start_time', 'desc')
+                    ->limit((int)$per_page, (int)$per_page * (int)$page);
+                $stmt = $selectStatement->execute();
+                $data4 = $stmt->fetchAll();
+                $num=count($data4);
+                $arrays['count']=$num;
+                $selectStatement = $database->select()
+                    ->from('insurance')
+                    ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
+                    ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
+                    ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
                     ->where('insurance.sure_insurance', '=', '1')
                     ->where('tenant.from_city_id', '=', $city_id)
                     ->orderBy('insurance.insurance_start_time', 'desc')
@@ -543,6 +612,20 @@ $app->get('/insurances',function ()use($app){
                 echo json_encode(array('result' => '1', 'desc' => '租户公司id为空', 'rechange_insurance' => $arrays));
             }
         } else {
+            $selectStatement = $database->select()
+                ->from('insurance')
+                ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
+                ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
+                ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
+                ->where('tenant.from_city_id', '=', $city_id)
+                ->where('insurance.sure_insurance', '=', '1')
+                ->where('tenant.company', '=', $company)
+                ->orderBy('insurance.insurance_start_time', 'desc')
+                ->limit((int)$per_page, (int)$per_page * (int)$page);
+            $stmt = $selectStatement->execute();
+            $data4 = $stmt->fetchAll();
+            $num=count($data4);
+            $arrays['count']=$num;
             $selectStatement = $database->select()
                 ->from('insurance')
                 ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
@@ -727,6 +810,8 @@ if($per_page==null||$page==null) {
                 ->orderBy('insurance_start_time', 'desc');
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
+            $num=count($data2);
+            $arrays['count']=$num;
             if ($data2 != null || $data2 != "") {
                 for ($i = 0; $i < count($data2); $i++) {
                     $arrays1['company'] = $data1['company'];
@@ -782,6 +867,14 @@ if($per_page==null||$page==null) {
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetch();
         if ($data1 != null || $data1 != "") {
+            $selectStatement = $database->select()
+                ->from('insurance')
+                ->where('tenant_id', '=', $tenant_id)
+                ->orderBy('insurance_start_time', 'desc');
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetchAll();
+            $num=count($data2);
+            $arrays['count']=$num;
             $selectStatement = $database->select()
                 ->from('insurance')
                 ->where('tenant_id', '=', $tenant_id)
