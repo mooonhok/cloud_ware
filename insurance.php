@@ -84,8 +84,7 @@ $app->get('/to_one_insurance',function ()use($app){
             ->where('scheduling.scheduling_status','=',1)
             ->where('scheduling.tenant_id','=',$tenant_id)
             ->where('lorry.tenant_id','=',$tenant_id)
-            ->where('scheduling.lorry_id','=',$data1[$i]['lorry_id'])
-            ->limit((int)$per_page, (int)$per_page * (int)$page);
+            ->where('scheduling.lorry_id','=',$data1[$i]['lorry_id']);
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetchAll();
         if($data2!=null){
@@ -108,7 +107,7 @@ $app->get('/to_one_insurance',function ()use($app){
         }
 
     }
-    echo json_encode(array('result'=>'1','desc'=>'success','lorry'=>$data1));
+    echo json_encode(array('result'=>'1','desc'=>'success','lorry'=>$data1,'insurance'=>$array2));
 });
 
 
