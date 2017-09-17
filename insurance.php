@@ -119,7 +119,24 @@ $app->get('/to_one_insurance',function ()use($app){
     echo json_encode(array('result'=>'1','desc'=>'success','lorrys'=>$array2));
 });
 
-
+//客户端，要做保险车辆总数
+$app->get('/lorry_insurance_count',function ()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $array2=array();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $selectStatement = $database->select(array('lorry.lorry_id'))
+        ->from('scheduling')
+        ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
+        ->where('scheduling.is_insurance', '=', 0)
+        ->where('scheduling.scheduling_status','=',1)
+        ->where('scheduling.tenant_id','=',$tenant_id)
+        ->where('lorry.tenant_id','=',$tenant_id)
+        ->groupBy('lorry.lorry_id');
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetchAll();
+    echo json_encode(array('result'=>'1','desc'=>'success','count'=>count($data1)));
+});
 //客户端，确认一个投保
 
 
