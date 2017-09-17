@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-30 17:04:52
 * @Last Modified by:   boycui
-* @Last Modified time: 2017-09-16 13:29:04
+* @Last Modified time: 2017-09-17 13:58:40
 */
 *{
 	padding: 0;
@@ -33,6 +33,7 @@ html,body{
 	height: 230px;
 	background: #70ACC4;
 	float: left;
+	border-radius: 5px;
 }
 .head_1{
 	width: 60px;
@@ -123,6 +124,7 @@ html,body{
 	height: 700px;
 	float: right;
 	background: white;
+	border-radius: 5px;
 	/* display: none; */
 }
 .box2_1{
@@ -307,6 +309,7 @@ html,body{
 	float: right;
 	background: white;
 	display: none;
+	border-radius: 5px;
 }
 .box3_1{
 	width: 1050px;
@@ -378,6 +381,7 @@ html,body{
 	float: right;
 	background: white;
 	display: none;
+	border-radius: 5px;
 }
 .box4_1{
 	width: 1050px;
@@ -551,6 +555,7 @@ html,body{
 	float: right;
 	background: white;
 	display: none;
+	border-radius: 5px;
 }
 .box5_1{
 	width: 400px;
@@ -633,6 +638,7 @@ html,body{
 	float: right;
 	background: white;
 	display: none;
+	border-radius: 5px;
 }
 .box6_1{
 	width: 400px;
@@ -716,6 +722,11 @@ html,body{
 	color: white;
 	border-radius: 5px;
 	border: 0;
+}
+.wire{
+	width: 230px;
+	height: 1px;
+	background: #70ACC4;
 }
 
 

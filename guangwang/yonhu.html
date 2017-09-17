@@ -6,7 +6,7 @@
 		<title>用户信息</title>
 		<link rel="stylesheet" href="css/yonhu.css">
 		<script src="js/jquery-1.9.1.min.js"></script>
-		<script src="js/jquery.session.js"></script>
+		<!-- <script src="js/jquery.session.js"></script> -->
 		<script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>
 		<script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
 		<script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
@@ -23,6 +23,7 @@
 			</div>
 			<!--  -->
 			<div class="box_1">
+
 				<div class="head">
 					<div class="head_1"><img src="images/dl.png" alt=""></div>
 					<div class="head_2">
@@ -260,7 +261,7 @@
 							<h4>使用情况</h4></div>
 						<div class="box4_6">
 							<div class="box4_6_1"><label for="">结束时间</label></div>
-							<div class="box4_6_2"><input type="date" id="endTime"></div>
+							<div class="box4_6_2"><input type="text" id="endTime" placeholder="例：2017-06-03"></div>
 						</div>
 					</div>
 					<div class="box4_7"></div>
@@ -415,18 +416,22 @@
 						<div class="wenzi">个人资料</div>
 						<div class="xian1"></div>
 					</div>
+					<div class="wire"></div>
 					<div class="dian2">
 						<div class="wenzi">客户信息</div>
 						<div class="xian2"></div>
 					</div>
+					<div class="wire"></div>
 					<div class="dian3">
 						<div class="wenzi">账户信息</div>
 						<div class="xian3"></div>
 					</div>
+					<div class="wire"></div>
 					<div class="dian4">
 						<div class="wenzi">推荐业务员注册</div>
 						<div class="xian4"></div>
 					</div>
+					<div class="wire"></div>
 				</div>
 				<div style="clear: both;"></div>
 			</div>
@@ -493,10 +498,16 @@
 			var id = $("#gisd").val();
 			if(!/^1[34578]\d{9}$/.test(phone)) {
 				alert("电话号码格式不对");
-			 }else {//if(!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)||!/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)){
+			 }else if(!/^((?:19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/.test(end_time)){
+			 alert("日期格式不正确(例：2017-06-03)")}
+			 else{	
+
+			 //if(!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)||!/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)){
 			// 		alert("邮箱格式不对");
 			// 	} else {
 					//修改公司信息
+					alert(sales_id+"<br>"+id);
+					// alert(id);
 					$.ajax({
 						url: "http://mooonhok-cloudware.daoapp.io/sales.php/tenantchange",
 						dataType: 'json',
@@ -514,6 +525,7 @@
 						}),
 						success: function(msg) {
 							alert("修改公司信息成功");
+							alert(msg.desc);
 							window.location.reload();
 						},
 						error: function(xhr) {
