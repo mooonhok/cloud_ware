@@ -110,7 +110,7 @@
 		</div>
 	</body>
 <script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/jquery.session.js"></script>
+<!-- <script src="js/jquery.session.js"></script> -->
 <script type="text/javascript" src="src/layui.js"></script>
 <script type="text/javascript">
 
@@ -124,7 +124,7 @@
 				company="";
 			}
 	$.ajax({
-		url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurances?city_id=" + city_id + "&company=" + company+"page="+"&per_page=2",
+		url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurances?city_id=" + city_id + "&company=" + company+"&page="+"&per_page=2",
 		dataType:'json',
 		type:'get',
 		contentType: "application/json;charset=utf-8",
@@ -143,7 +143,7 @@
 				+msg.rechange_insurance[i].insurance_price+'</td><td>'
 				+msg.rechange_insurance[i].insurance_amount+'</td><td>'
 				+msg.rechange_insurance[i].insurance_start_time+'</td><td>'
-				+msg.rechange_insurance[i].duration+'</td></tr>' ;
+				+msg.rechange_insurance[i].duration+'</td></tr>';
 				$("#tb2").append(a);
 			}
 // 			layui.use(['laypage', 'layer'], function(){
