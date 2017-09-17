@@ -82,7 +82,8 @@ $app->get('/sales_tenant',function()use($app){
                         //        $array['user_name']=$data1['user_name'];
                         $array['customer_name']=$data3['customer_name'];
                         $array['customer_phone']=$data3['customer_phone'];
-                        $array['begin_time']=$data2[$x]['begin_time'];
+                        $endtime=date("Y-m-d",$data2[$x]['begin_time']);
+                        $array['begin_time']=$endtime;
                         $array['end_time']=$data2[$x]['end_date'];
                         $array['company']=$data2[$x]['company'];
                         array_push($arrays,$array);
