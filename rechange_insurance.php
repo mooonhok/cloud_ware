@@ -782,7 +782,7 @@ if($per_page==null||$page==null) {
                 ->from('insurance')
                 ->where('tenant_id', '=', $tenant_id)
                 ->orderBy('insurance_start_time', 'desc')
-            ->limit((int)$per_page * (int)$page,(int)$per_page);
+            ->limit(2,0);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
             if ($data2 != null || $data2 != "") {
