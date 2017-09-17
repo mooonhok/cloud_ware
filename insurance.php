@@ -83,7 +83,7 @@ $app->get('/to_one_insurance',function ()use($app){
             for($j=0;$j<count($data2);$j++){
                 $selectStatement = $database->select()
                     ->from('schedule_order')
-                    ->join('orders','schedule_order.order_id','=','orders.order_id','left')
+                    ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
                     ->join('goods','goods.order_id','=','orders.order_id','INNER')
                     ->where('schedule_order.schedule_id', '=', $data2[$j]['scheduling_id'])
                     ->where('orders.tenant_id','=',$tenant_id)
@@ -92,7 +92,6 @@ $app->get('/to_one_insurance',function ()use($app){
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetchAll();
                 array_push($array1,$data3);
-                $data2[$j]['goods']=$array1;
             }
             array_push($array2,$data2);
         }
