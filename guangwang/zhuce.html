@@ -291,8 +291,8 @@
 	<script>
 		var userid = $.session.get('userid');
 		$("#userid").val(userid);
-			if(userid == null || username == null) {
-				// window.location.href = "index.html";
+			if(userid == null || username == "") {
+				window.location.href = "index.html";
 			} else {
 		function check(){
 			var address = document.getElementsByName("address")[0].value;
