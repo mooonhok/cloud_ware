@@ -167,7 +167,7 @@ $app->get('/insurance_rechanges',function()use($app){
                     ->where('tenant.from_city_id', '=', $city_id)
                     ->where('tenant.company', '=', $company)
                     ->orderBy('rechanges_insurance.sure_time', 'desc')
-                     ->limit((int)$per_page * (int)$page,(int)$per_page );
+                    ->limit((int)$per_page, (int)$per_page * (int)$page);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
                 if ($data1 != null || $data1 != "") {
@@ -191,7 +191,7 @@ $app->get('/insurance_rechanges',function()use($app){
                     ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'INNER')
                     ->where('tenant.from_city_id', '=', $city_id)
                     ->orderBy('rechanges_insurance.sure_time', 'desc')
-                    ->limit((int)$per_page * (int)$page,(int)$per_page );
+                    ->limit((int)$per_page, (int)$per_page * (int)$page);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
                 if ($data1 != null || $data1 != "") {
@@ -215,7 +215,7 @@ $app->get('/insurance_rechanges',function()use($app){
                 ->from('rechanges_insurance')
                 ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'INNER')
                 ->orderBy('rechanges_insurance.sure_time', 'desc')
-                ->limit((int)$per_page * (int)$page,(int)$per_page );
+                ->limit((int)$per_page, (int)$per_page * (int)$page);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
             if ($data1 != null || $data1 != "") {
@@ -470,7 +470,7 @@ $app->get('/insurances',function ()use($app){
                     ->where('insurance.sure_insurance', '=', '1')
                     ->where('tenant.company', '=', $company)
                     ->orderBy('insurance.insurance_start_time', 'desc')
-                    ->limit((int)$per_page * (int)$page,(int)$per_page);
+                    ->limit((int)$per_page, (int)$per_page * (int)$page);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
                 if ($data1 != null || $data1 != "") {
@@ -509,7 +509,7 @@ $app->get('/insurances',function ()use($app){
                     ->where('insurance.sure_insurance', '=', '1')
                     ->where('tenant.from_city_id', '=', $city_id)
                     ->orderBy('insurance.insurance_start_time', 'desc')
-                    ->limit((int)$per_page * (int)$page,(int)$per_page);
+                    ->limit((int)$per_page, (int)$per_page * (int)$page);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
                 if ($data1 != null || $data1 != "") {
@@ -548,7 +548,7 @@ $app->get('/insurances',function ()use($app){
                 ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
                 ->where('insurance.sure_insurance', '=', '1')
                 ->orderBy('insurance.insurance_start_time', 'desc')
-                ->limit((int)$per_page * (int)$page,(int)$per_page);
+                ->limit((int)$per_page, (int)$per_page * (int)$page);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
             if ($data1 != "" || $data1 != null) {
@@ -782,7 +782,7 @@ if($per_page==null||$page==null) {
                 ->from('insurance')
                 ->where('tenant_id', '=', $tenant_id)
                 ->orderBy('insurance_start_time', 'desc')
-            ->limit(2,0);
+                ->limit((int)$per_page, (int)$per_page * (int)$page);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
             if ($data2 != null || $data2 != "") {
