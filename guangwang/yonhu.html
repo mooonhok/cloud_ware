@@ -150,7 +150,7 @@
 													currentPage = event.data["newPage"];
 													//console.log($(this).children("span"));  
 													$(this).children("span").attr("class", "click_page");
-													$(this).children("span").css({ "color": "#FFFFFF" });
+													$(this).children("span").css({ "color": "red" });
 													$(".page a span").not($(this).children("span")).attr("class", "");
 													$(".page a span").not($(this).children("span")).css({ "color": "#1155BB" });
 													$table.trigger("repaginate");
@@ -165,7 +165,7 @@
 										$('.page_out').append($pager);
 										//$pager.insertAfter($table);//分页div插入table  
 										$("#1").attr("class", "click_page");
-										$("#1").css({ "color": "#FFFFFF" });
+										$("#1").css({ "color": "red" });
 										$table.trigger("repaginate");
 										//console.log($("#1"));  
 										//$("#1").attr("class","click_page");  
@@ -173,13 +173,13 @@
 										$("#Prev").bind("click", function() {
 											var prev = Number($(".click_page").text()) - 2;
 											currentPage = prev;
-											$(this).css({ "background": "#000000" });
+											$(this).css({ "background": "white" });
 											if(currentPage < 0) {
-												$(this).css({ "background": "#c0c0c0" });
+												$(this).css({ "background": "white" });
 												return;
 											}
 											$("#" + (prev + 1)).attr("class", "click_page");
-											$("#" + (prev + 1)).css({ "color": "#FFFFFF" });
+											$("#" + (prev + 1)).css({ "color": "red" });
 											$(".page a span").not($("#" + (prev + 1))).attr("class", "");
 											$(".page a span").not($("#" + (prev + 1))).css({ "color": "#1155BB" });
 											//console.log(currentPage);  
@@ -191,11 +191,11 @@
 											//console.log($(".click_page").text());  
 											$(this).css({ "background": "#FFFFFF" });
 											if((currentPage + 1) > numPages) {
-												$(this).css({ "background": "#c0c0c0" });
+												$(this).css({ "background": "white" });
 												return;
 											}
 											$("#" + (currentPage + 1)).attr("class", "click_page");
-											$("#" + (currentPage + 1)).css({ "color": "#FFFFFF" });
+											$("#" + (currentPage + 1)).css({ "color": "red" });
 											$(".page a span").not($("#" + (currentPage + 1))).attr("class", "");
 											$(".page a span").not($("#" + (currentPage + 1))).css({ "color": "#1155BB" });
 											$table.trigger("repaginate");
@@ -448,9 +448,10 @@
 				alert("电话号码格式不对");
 			} else if(!/^\d{15}|\d{18}$/.test(numb)){
 				alert("身份证格式不对");		
-				} else if(!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(em)||!/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(em)){					 
-						alert("邮箱格式不对");
-					} else {
+				}else {//if(!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(em)||!/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(em)){					 
+						// alert("邮箱格式不对");
+					// }else {
+					
 						//修改用户信息
 						$.ajax({
 							url: "http://mooonhok-cloudware.daoapp.io/sales.php/sales",
@@ -492,9 +493,9 @@
 			var id = $("#gisd").val();
 			if(!/^1[34578]\d{9}$/.test(phone)) {
 				alert("电话号码格式不对");
-			}else if(!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)||!/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)){
-					alert("邮箱格式不对");
-				} else {
+			 }else {//if(!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)||!/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)){
+			// 		alert("邮箱格式不对");
+			// 	} else {
 					//修改公司信息
 					$.ajax({
 						url: "http://mooonhok-cloudware.daoapp.io/sales.php/tenantchange",
@@ -513,14 +514,15 @@
 						}),
 						success: function(msg) {
 							alert("修改公司信息成功");
+							window.location.reload();
 						},
 						error: function(xhr) {
 							alert(xhr.responseText);
 						}
 					});
-				
-			}
-		})
+				}
+			})
+		
 	</script>
 	<script type="text/javascript">
 		var sales_id = $.session.get('userid');
@@ -576,9 +578,9 @@
 				if(!/^\d{15}|\d{18}$/.test(number_1)) {
 					alert("身份证格式不对");
 				} else {
-					if(!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test( email_1)||!/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test( email_1)) {
-						alert("邮箱格式不对");
-					} else {
+					// if(!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test( email_1)||!/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test( email_1)) {
+					// 	alert("邮箱格式不对");
+					// } else {
 						$.ajax({
 							url: "http://mooonhok-cloudware.daoapp.io/sales.php/addsales",
 							dataType: 'json',
@@ -607,7 +609,7 @@
 								alert(xhr.responseText);
 							}
 						});
-					}
+					// }
 				}
 			}
 		})

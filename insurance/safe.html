@@ -296,9 +296,7 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-
 					TablePage('#tables', 7);
-
 					function TablePage(id, size) {
 						$("#tb1").html("");
 						if(msg.insurance_rechanges == null || msg.insurance_rechanges == "") {
@@ -502,7 +500,7 @@
 					}
 								var $table = $(id);
 								var currentPage1 = 0; //当前页  
-								var pageSize1 = 2; //每页行数（不包括表头）  
+								var pageSize1 = 8; //每页行数（不包括表头）  
 								$table.bind("repaginate", function() {
 									//console.log($table.find("tbody tr").eq(0));  
 									$table.find("#tb3 tr").hide().slice(currentPage1 * pageSize1, (currentPage1 + 1) * pageSize1).show();
@@ -519,10 +517,10 @@
 									$("<a href='javascript:void(0)'><span id='" + (page1 + 1) + "'>" + (page1 + 1) + "</span></a>").bind("click", { "newPage": page1 }, function(event) {
 											currentPage1 = event.data["newPage"];
 											//console.log($(this).children("span"));  
-											$(this).children("span").attr("class", "click_page");
-											$(this).children("span").css({ "color": "#FFFFFF" });
+											$(this).children("span").attr("class", "click_page1");
+											$(this).children("span").css({ "color": "red" });
 											$(".page1 a span").not($(this).children("span")).attr("class", "");
-											$(".page1 a span").not($(this).children("span")).css({ "color": "#1155BB" });
+											$(".page1 a span").not($(this).children("span")).css({ "color": "#1155BB"});
 											$table.trigger("repaginate");
 										})
 										.appendTo($pager1);					
@@ -533,40 +531,40 @@
 								$pager1.append(next1);
 								$('.page1_out').append($pager1);
 								//$pager.insertAfter($table);//分页div插入table  
-								$("#1").attr("class", "click_page");
-								$("#1").css({ "color": "#FFFFFF" });
+								$("#1").attr("class", "click_page1");
+								$("#1").css({ "color": "red" });
 								$table.trigger("repaginate");
 								//console.log($("#1"));  
 								//$("#1").attr("class","click_page");  
 								//$("#1").css({"background":"#FFFFFF"});  
 								$("#Prev1").bind("click", function() {
-									var prev1 = Number($(".click_page").text()) - 2;
+									var prev1 = Number($(".click_page1").text()) - 2;
 									currentPage1 = prev1;
-									$(this).css({ "background": "#000000" });
+									$(this).css({ "background": "white" });
 									if(currentPage1 < 0) {
-										$(this).css({ "background": "#c0c0c0" });
+									 $(this).css({ "background": "white" });
 										return;
 									}
-									$("#" + (prev1 + 1)).attr("class", "click_page");
-									$("#" + (prev1 + 1)).css({ "color": "#FFFFFF" });
+									$("#" + (prev1 + 1)).attr("class", "click_page1");
+									$("#" + (prev1 + 1)).css({ "color": "red" });
 									$(".page1 a span").not($("#" + (prev1 + 1))).attr("class", "");
 									$(".page1 a span").not($("#" + (prev1 + 1))).css({ "color": "#1155BB" });
 									//console.log(currentPage);  
 									$table.trigger("repaginate");
 								});
 								$("#Next1").bind("click", function() {
-									var next = $(".click_page").attr("id");
-									currentPage1 = Number(next);
+									var next2 = $(".click_page1").attr("id");
+									currentPage1 = Number(next2);
 									//console.log($(".click_page").text());  
-									$(this).css({ "background": "#FFFFFF" });
+									$(this).css({ "background": "white" });
 									if((currentPage1 + 1) > numPages1) {
-										$(this).css({ "background": "#c0c0c0" });
+										$(this).css({ "background": "white" });
 										return;
 									}
 									$("#" + (currentPage1 + 1)).attr("class", "click_page");
-									$("#" + (currentPage1 + 1)).css({ "color": "#FFFFFF" });
+									$("#" + (currentPage1 + 1)).css({ "color": "red" });
 									$(".page1 a span").not($("#" + (currentPage1 + 1))).attr("class", "");
-									$(".page1 a span").not($("#" + (currentPage1 + 1))).css({ "color": "#1155BB" });
+									$(".page1 a span").not($("#" + (currentPage1 + 1))).css({ "color": "#1155BB"});
 									$table.trigger("repaginate");
 								});
 							}
