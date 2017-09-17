@@ -63,9 +63,15 @@ $app->get('/to_one_insurance',function ()use($app){
     $tenant_id=$app->request->headers->get("tenant-id");
     $page=$app->request->get('page');
     $per_page=$app->request->get('per_page');
-    $selectStatement = $database->select()
-        ->from('lorry')
-        ->where('tenant_id','=',$tenant_id);
+    $selectStatement = $database->select(array('lorry.lorry_id'))
+        ->from('scheduling')
+        ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
+        ->where('scheduling.is_insurance', '=', 0)
+        ->where('scheduling.scheduling_status','=',1)
+        ->where('scheduling.tenant_id','=',$tenant_id)
+        ->where('lorry.tenant_id','=',$tenant_id)
+        ->limit((int)$per_page, (int)$per_page * (int)$page)
+        ->groupBy('lorry.lorry_id');
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
     for($i=0;$i<count($data1);$i++){
@@ -79,7 +85,7 @@ $app->get('/to_one_insurance',function ()use($app){
             ->where('scheduling.tenant_id','=',$tenant_id)
             ->where('lorry.tenant_id','=',$tenant_id)
             ->where('scheduling.lorry_id','=',$data1[$i]['lorry_id'])
-            ->limit((int)$per_page, (int)$per_page * (int)$page);;
+            ->limit((int)$per_page, (int)$per_page * (int)$page);
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetchAll();
         if($data2!=null){
@@ -97,12 +103,12 @@ $app->get('/to_one_insurance',function ()use($app){
                 $data3 = $stmt->fetchAll();
                 array_push($array3,$data3);
             }
-//            $array1['goods']=$array3;
+            $array1['goods']=$array3;
             array_push($array2,$array1);
         }
 
     }
-    echo json_encode(array('result'=>'1','desc'=>'success','insurance'=>$array2));
+    echo json_encode(array('result'=>'1','desc'=>'success','lorry'=>$data1));
 });
 
 
