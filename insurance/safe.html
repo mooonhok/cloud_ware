@@ -289,7 +289,7 @@
 			}
 			//alert("1");
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?city_id=" + city_id + "&company=" + company+"&page=&per_page=",
+				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?city_id=" + city_id + "&company=" + company+"&page=&per_page=5",
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
@@ -441,7 +441,7 @@
 					$("#suremessage").html(msg.data);
 				},
 				error: function(e) {
-					alert("获取合同详情信息出错!");
+					alert("获取合同详情信息出错!");                       
 				}
 			});
 		}
@@ -508,8 +508,7 @@
 								var numRows1 = $table.find("#tb3 tr").length; //记录宗条数  
 								var numPages1 = Math.ceil(numRows1 / pageSize1); //总页数  
 								//console.log(numPages);  
-								var $pager1 = $("<div class='page1'><a href='javascript:void(0)'><span id='Prev1' style='margin-right:4px;'>上一页</span></a></div>"); //分页div  
-					
+								var $pager1 = $("<div class='page1'><a href='javascript:void(0)'><span id='Prev1' style='margin-right:4px;'>上一页</span></a></div>"); //分页div  				
 								for(var page1 = 0; page1 < numPages1; page1++) {
 									//为分页标签加上链接  
 									//if(page==0){$("<a href='javascript:void(0)'><span id='1' class="click_page"></span></a>")}  
@@ -566,8 +565,7 @@
 									$(".page1 a span").not($("#" + (currentPage1 + 1))).css({ "color": "#1155BB"});
 									$table.trigger("repaginate");
 								});
-							}
-										
+							}										
 				},
 				error: function(e) {
 					alert("获取合同详情信息出错!");
@@ -585,11 +583,7 @@
 			window.location.href = "login.html";
 		} else {
 			loadrechanges(city_id, company);
-		}
-		
-		
-	
-	
+		}	
 		//选择搜索按钮的事件
 		$(".hunt").on('click', function() {
 			city_id = $("#city1 option:selected").val();
