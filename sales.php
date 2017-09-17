@@ -71,6 +71,8 @@ $app->get('/sales_tenant',function()use($app){
                     ->where('sales_id', '=', $sales_id);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetchAll();
+                $num=count($data2);
+                $arrays['count']=$num/(int)$per_page;
                 if($data2!=null||$data2!=""){
                     for($x=0;$x<count($data2);$x++){
                         $selectStatement = $database->select()
@@ -113,8 +115,16 @@ $app->get('/sales_tenant',function()use($app){
                 $selectStatement = $database->select()
                     ->from('tenant')
                     ->where('exist','=',0)
+                    ->where('sales_id', '=', $sales_id);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetchAll();
+                $num=count($data3);
+                $arrays['count']=$num/(int)$per_page;
+                $selectStatement = $database->select()
+                    ->from('tenant')
+                    ->where('exist','=',0)
                     ->where('sales_id', '=', $sales_id)
-                ->limit((int)$per_page, (int)$per_page * (int)$page);
+                    ->limit((int)$per_page, (int)$per_page * (int)$page);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetchAll();
                 if($data2!=null||$data2!=""){
