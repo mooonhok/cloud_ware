@@ -132,7 +132,7 @@
 				company="";
 			}
 	$.ajax({
-		url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurances?city_id=" + city_id + "&company=" + company,
+		url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurances?city_id=" + city_id + "&company=" + company+"&page=&per_page=",
 		dataType:'json',
 		type:'get',
 		contentType: "application/json;charset=utf-8",
@@ -176,7 +176,7 @@ function TablePage(id, size) {
 	currentPage = event.data["newPage"];
 	//console.log($(this).children("span"));  
 	$(this).children("span").attr("class", "click_page");
-	$(this).children("span").css({ "color": "#FFFFFF" });
+	$(this).children("span").css({ "color": "red" });
 	$(".page a span").not($(this).children("span")).attr("class", "");
     $(".page a span").not($(this).children("span")).css({ "color": "#1155BB" });
 	$table.trigger("repaginate");
@@ -191,7 +191,7 @@ function TablePage(id, size) {
 	$('.page_out').append($pager);
 	//$pager.insertAfter($table);//分页div插入table  
 	$("#1").attr("class", "click_page");
-	$("#1").css({ "color": "#FFFFFF" });
+	$("#1").css({ "color": "red" });
 	$table.trigger("repaginate");
 	//console.log($("#1"));  
 	//$("#1").attr("class","click_page");  
@@ -199,13 +199,13 @@ function TablePage(id, size) {
 	$("#Prev").bind("click", function() {
 		var prev = Number($(".click_page").text()) - 2;
 		currentPage = prev;
-		$(this).css({ "background": "#000000" });
+		$(this).css({ "background": "white" });
 		if(currentPage < 0) {
-			$(this).css({ "background": "#c0c0c0" });
+			$(this).css({ "background": "white" });
 			return;
 		}
 		$("#" + (prev + 1)).attr("class", "click_page");
-		$("#" + (prev + 1)).css({ "color": "#FFFFFF" });
+		$("#" + (prev + 1)).css({ "color": "red" });
 		$(".page a span").not($("#" + (prev + 1))).attr("class", "");
 		$(".page a span").not($("#" + (prev + 1))).css({ "color": "#1155BB" });
 		//console.log(currentPage);  
@@ -217,11 +217,11 @@ function TablePage(id, size) {
 	//console.log($(".click_page").text());  
 	$(this).css({ "background": "#FFFFFF" });
 	if((currentPage + 1) > numPages) {
-	$(this).css({ "background": "#c0c0c0" });
+	$(this).css({ "background": "white" });
     return;
 	}
 	$("#" + (currentPage + 1)).attr("class", "click_page");
-    $("#" + (currentPage + 1)).css({ "color": "#FFFFFF" });
+    $("#" + (currentPage + 1)).css({ "color": "red" });
 	$(".page a span").not($("#" + (currentPage + 1))).attr("class", "");
 	$(".page a span").not($("#" + (currentPage + 1))).css({ "color": "#1155BB" });
 	$table.trigger("repaginate");
