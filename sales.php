@@ -52,47 +52,94 @@ $app->post('/usersign',function ()use($app){
 $app->get('/sales_tenant',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $sales_id = $app->request->get("sales_id");
+    $page = $app->request->get('page');
+    $per_page=$app->request->get('per_page');
     $database=localhost();
     $arrays=array();
-    if($sales_id!=null||$sales_id!=""){
-        $selectStatement = $database->select()
-            ->from('sales')
-            ->where('exist','=',0)
-            ->where('id', '=', $sales_id);
-        $stmt = $selectStatement->execute();
-        $data1 = $stmt->fetch();
-        if($data1!=null||$data1!=""){
+    if($page==null||$per_page==null){
+        if($sales_id!=null||$sales_id!=""){
             $selectStatement = $database->select()
-                ->from('tenant')
+                ->from('sales')
                 ->where('exist','=',0)
-                ->where('sales_id', '=', $sales_id);
+                ->where('id', '=', $sales_id);
             $stmt = $selectStatement->execute();
-            $data2 = $stmt->fetchAll();
-            if($data2!=null||$data2!=""){
-                for($x=0;$x<count($data2);$x++){
+            $data1 = $stmt->fetch();
+            if($data1!=null||$data1!=""){
                 $selectStatement = $database->select()
-                    ->from('customer')
-                    ->where('customer_id', '=', $data2[$x]['contact_id']);
+                    ->from('tenant')
+                    ->where('exist','=',0)
+                    ->where('sales_id', '=', $sales_id);
                 $stmt = $selectStatement->execute();
-                $data3 = $stmt->fetch();
-                $array['tenant_id']=$data2[$x]['tenant_id'];
-       //        $array['user_name']=$data1['user_name'];
-               $array['customer_name']=$data3['customer_name'];
-               $array['customer_phone']=$data3['customer_phone'];
-               $array['begin_time']=$data2[$x]['begin_time'];
-               $array['end_time']=$data2[$x]['end_data'];
-               $array['company']=$data2[$x]['company'];
-               array_push($arrays,$array);
+                $data2 = $stmt->fetchAll();
+                if($data2!=null||$data2!=""){
+                    for($x=0;$x<count($data2);$x++){
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id', '=', $data2[$x]['contact_id']);
+                        $stmt = $selectStatement->execute();
+                        $data3 = $stmt->fetch();
+                        $array['tenant_id']=$data2[$x]['tenant_id'];
+                        //        $array['user_name']=$data1['user_name'];
+                        $array['customer_name']=$data3['customer_name'];
+                        $array['customer_phone']=$data3['customer_phone'];
+                        $array['begin_time']=$data2[$x]['begin_time'];
+                        $array['end_time']=$data2[$x]['end_data'];
+                        $array['company']=$data2[$x]['company'];
+                        array_push($arrays,$array);
+                    }
+                    echo json_encode(array('result'=>'0','desc'=>'','company'=>$arrays));
+                }else{
+                    echo json_encode(array('result'=>'1','desc'=>'该业务员尚未有业务数据','company'=>''));
                 }
-                echo json_encode(array('result'=>'0','desc'=>'','company'=>$arrays));
             }else{
-                echo json_encode(array('result'=>'1','desc'=>'该业务员尚未有业务数据','company'=>''));
+                echo json_encode(array('result'=>'2','desc'=>'业务员不存在','company'=>''));
             }
         }else{
-            echo json_encode(array('result'=>'2','desc'=>'业务员不存在','company'=>''));
+            echo json_encode(array('result'=>'3','desc'=>'业务员id不能为空','company'=>''));
         }
     }else{
-        echo json_encode(array('result'=>'3','desc'=>'业务员id不能为空','company'=>''));
+        $page=(int)$page-1;
+        if($sales_id!=null||$sales_id!=""){
+            $selectStatement = $database->select()
+                ->from('sales')
+                ->where('exist','=',0)
+                ->where('id', '=', $sales_id);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            if($data1!=null||$data1!=""){
+                $selectStatement = $database->select()
+                    ->from('tenant')
+                    ->where('exist','=',0)
+                    ->where('sales_id', '=', $sales_id)
+                ->limit((int)$per_page, (int)$per_page * (int)$page);
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetchAll();
+                if($data2!=null||$data2!=""){
+                    for($x=0;$x<count($data2);$x++){
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id', '=', $data2[$x]['contact_id']);
+                        $stmt = $selectStatement->execute();
+                        $data3 = $stmt->fetch();
+                        $array['tenant_id']=$data2[$x]['tenant_id'];
+                        //        $array['user_name']=$data1['user_name'];
+                        $array['customer_name']=$data3['customer_name'];
+                        $array['customer_phone']=$data3['customer_phone'];
+                        $array['begin_time']=$data2[$x]['begin_time'];
+                        $array['end_time']=$data2[$x]['end_data'];
+                        $array['company']=$data2[$x]['company'];
+                        array_push($arrays,$array);
+                    }
+                    echo json_encode(array('result'=>'0','desc'=>'','company'=>$arrays));
+                }else{
+                    echo json_encode(array('result'=>'1','desc'=>'该业务员尚未有业务数据','company'=>''));
+                }
+            }else{
+                echo json_encode(array('result'=>'2','desc'=>'业务员不存在','company'=>''));
+            }
+        }else{
+            echo json_encode(array('result'=>'3','desc'=>'业务员id不能为空','company'=>''));
+        }
     }
 });
 // 修改租户信息
@@ -294,7 +341,7 @@ $app->get('/sales',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '缺少销售人员id','sales'=>''));
     }
 });
-
+//添加业务员
 $app->post('/addsales',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
