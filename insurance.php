@@ -61,6 +61,8 @@ $app->get('/to_one_insurance',function ()use($app){
     $database=localhost();
     $array2=array();
     $tenant_id=$app->request->headers->get("tenant-id");
+    $page=$app->request->get('page');
+    $per_page=$app->request->get('per_page');
     $selectStatement = $database->select()
         ->from('lorry')
         ->where('tenant_id','=',$tenant_id);
@@ -76,7 +78,8 @@ $app->get('/to_one_insurance',function ()use($app){
             ->where('scheduling.scheduling_status','=',1)
             ->where('scheduling.tenant_id','=',$tenant_id)
             ->where('lorry.tenant_id','=',$tenant_id)
-            ->where('scheduling.lorry_id','=',$data1[$i]['lorry_id']);
+            ->where('scheduling.lorry_id','=',$data1[$i]['lorry_id'])
+            ->limit((int)$per_page, (int)$per_page * (int)$page);;
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetchAll();
         if($data2!=null){
@@ -94,7 +97,7 @@ $app->get('/to_one_insurance',function ()use($app){
                 $data3 = $stmt->fetchAll();
                 array_push($array3,$data3);
             }
-            $array1['goods']=$array3;
+//            $array1['goods']=$array3;
             array_push($array2,$array1);
         }
 
