@@ -79,7 +79,7 @@ $app->post('/userlogin',function ()use($app){
 $app->get('/insurance_rechanges',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
-    $arrays=array();
+
     $city_id=$app->request->get('city_id');
     $company=$app->request->get('company');
     $page = $app->request->get('page');
@@ -88,6 +88,7 @@ $app->get('/insurance_rechanges',function()use($app){
         $page=(int)$page-1;
         if ($city_id != null || $city_id != '') {
             if ($company != null || $company != '') {
+                $arrays=array();
                 $selectStatement = $database->select()
                     ->from('rechanges_insurance')
                     ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'left')
@@ -114,6 +115,7 @@ $app->get('/insurance_rechanges',function()use($app){
                 $arrays['count']=ceil($num/(int)$per_page);
                 echo json_encode(array('result' => '1', 'desc' => 'success', 'insurance_rechanges' => $arrays));
             } else {
+                $arrays=array();
                 $selectStatement = $database->select()
                     ->from('rechanges_insurance')
                     ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'INNER')
@@ -140,6 +142,7 @@ $app->get('/insurance_rechanges',function()use($app){
                 echo json_encode(array('result' => '1', 'desc' => 'success', 'insurance_rechanges' => $arrays));
             }
         } else {
+            $arrays=array();
             $selectStatement = $database->select()
                 ->from('rechanges_insurance')
                 ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'INNER')
@@ -168,6 +171,7 @@ $app->get('/insurance_rechanges',function()use($app){
         $page=(int)$page-1;
         if ($city_id != null || $city_id != '') {
             if ($company != null || $company != '') {
+                $arrays=array();
                 $selectStatement = $database->select()
                     ->from('rechanges_insurance')
                     ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'left')
@@ -203,6 +207,7 @@ $app->get('/insurance_rechanges',function()use($app){
                 }
                 echo json_encode(array('result' => '1', 'desc' => 'success', 'insurance_rechanges' => $arrays));
             } else {
+                $arrays=array();
                 $selectStatement = $database->select()
                     ->from('rechanges_insurance')
                     ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'left')
@@ -238,6 +243,7 @@ $app->get('/insurance_rechanges',function()use($app){
                 echo json_encode(array('result' => '1', 'desc' => 'success', 'insurance_rechanges' => $arrays));
             }
         } else {
+            $arrays=array();
             $selectStatement = $database->select()
                 ->from('rechanges_insurance')
                 ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'left')
@@ -372,11 +378,12 @@ $app->get('/insurances',function ()use($app){
     $page = $app->request->get('page');
     $per_page=$app->request->get('per_page');
     $database=localhost();
-    $arrays=array();
+
     if($page==null||$per_page==null) {
         $page=(int)$page-1;
         if ($city_id != null || $city_id != "") {
             if ($company != null || $company != '') {
+                $arrays=array();
                 $selectStatement = $database->select()
                     ->from('insurance')
                     ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
@@ -418,6 +425,7 @@ $app->get('/insurances',function ()use($app){
                 }
                 echo json_encode(array('result' => '1', 'desc' => 'success', 'rechange_insurance' => $arrays));
             } else {
+                $arrays=array();
                 $selectStatement = $database->select()
                     ->from('insurance')
                     ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
@@ -460,6 +468,7 @@ $app->get('/insurances',function ()use($app){
                 echo json_encode(array('result' => '1', 'desc' => '租户公司id为空', 'rechange_insurance' => $arrays));
             }
         } else {
+            $arrays=array();
             $selectStatement = $database->select()
                 ->from('insurance')
                 ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
@@ -504,6 +513,7 @@ $app->get('/insurances',function ()use($app){
         $page=(int)$page-1;
         if ($city_id != null || $city_id != "") {
             if ($company != null || $company != '') {
+                $arrays=array();
                 $selectStatement = $database->select()
                     ->from('insurance')
                     ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
@@ -558,6 +568,7 @@ $app->get('/insurances',function ()use($app){
                 }
                 echo json_encode(array('result' => '1', 'desc' => 'success', 'rechange_insurance' => $arrays));
             } else {
+                $arrays=array();
                 $selectStatement = $database->select()
                     ->from('insurance')
                     ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
@@ -612,6 +623,7 @@ $app->get('/insurances',function ()use($app){
                 echo json_encode(array('result' => '1', 'desc' => '租户公司id为空', 'rechange_insurance' => $arrays));
             }
         } else {
+            $arrays=array();
             $selectStatement = $database->select()
                 ->from('insurance')
                 ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
@@ -794,9 +806,10 @@ $page = $app->request->get('page');
 $per_page=$app->request->get('per_page');
 
     $database = localhost();
-    $arrays = array();
+
 if($per_page==null||$page==null) {
     $page=(int)$page-1;
+    $arrays = array();
     if ($tenant_id != null || $tenant_id != "") {
         $selectStatement = $database->select()
             ->from('tenant')
@@ -860,6 +873,7 @@ if($per_page==null||$page==null) {
     }
 }else{
     $page=(int)$page-1;
+    $arrays = array();
     if ($tenant_id != null || $tenant_id != "") {
         $selectStatement = $database->select()
             ->from('tenant')
