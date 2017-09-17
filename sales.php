@@ -82,9 +82,11 @@ $app->get('/sales_tenant',function()use($app){
                         //        $array['user_name']=$data1['user_name'];
                         $array['customer_name']=$data3['customer_name'];
                         $array['customer_phone']=$data3['customer_phone'];
-                        $endtime=date("Y-m-d",$data2[$x]['begin_time']);
-                        $array['begin_time']=$endtime;
-                        $array['end_time']=$data2[$x]['end_date'];
+                        date_default_timezone_set("PRC");
+                        $begintime=date("Y-m-d",strtotime($data2[$x]['begin_time']));
+                        $array['begin_time']=$begintime;
+                        $endtime=date("Y-m-d",strtotime($data2[$x]['end_date']));
+                        $array['end_time']=$endtime;
                         $array['company']=$data2[$x]['company'];
                         array_push($arrays,$array);
                     }
@@ -126,8 +128,11 @@ $app->get('/sales_tenant',function()use($app){
                         //        $array['user_name']=$data1['user_name'];
                         $array['customer_name']=$data3['customer_name'];
                         $array['customer_phone']=$data3['customer_phone'];
-                        $array['begin_time']=$data2[$x]['begin_time'];
-                        $array['end_time']=$data2[$x]['end_data'];
+                        date_default_timezone_set("PRC");
+                        $begintime=date("Y-m-d",strtotime($data2[$x]['begin_time']));
+                        $array['begin_time']=$begintime;
+                        $endtime=date("Y-m-d",strtotime($data2[$x]['end_date']));
+                        $array['end_time']=$endtime;
                         $array['company']=$data2[$x]['company'];
                         array_push($arrays,$array);
                     }
@@ -276,7 +281,9 @@ $app->get('/tenantbyid',function()use($app){
             $array['customer_phone']=$data3['customer_phone'];
             $array['company']=$data2['company'];
             //$array['begin_time']=$data2['begin_time'];
-            $array['end_date']=$data2['end_date'];
+            date_default_timezone_set("PRC");
+            $endtime=date("Y-m-d",strtotime($data2['end_date']));
+            $array['end_time']=$endtime;
             $array['address']=$data2['address'];
             $array['qq']=$data2['qq'];
             $array['email']=$data2['email'];
