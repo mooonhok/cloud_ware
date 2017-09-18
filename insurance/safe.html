@@ -293,7 +293,7 @@
 			}
 			//alert("1");
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?city_id=" + city_id + "&company=" + company+"&page="+page+"&per_page=2",
+				url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurance_rechanges?city_id=" + city_id + "&company=" + company+"&page="+page+"&per_page=10",
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
@@ -308,7 +308,7 @@
     elem: 'demo20'
     ,count:msg.count
 	  ,curr:page
-    ,limit: 2
+    ,limit: 10
     ,jump: function(obj,first){
           if(!first){
               loadrechanges(city_id,company,obj.curr);
@@ -443,7 +443,7 @@
 					}
 								var $table = $(id);
 						var currentPage = 0; //当前页  
-						var pageSize = 10; //每页行数（不包括表头）  
+						var pageSize = 2; //每页行数（不包括表头）  
 						$table.bind("repaginate", function() {
 							//console.log($table.find("tbody tr").eq(0));  
 							$table.find("#tb1 tr").hide().slice(currentPage * pageSize, (currentPage + 1) * pageSize).show();
@@ -567,7 +567,7 @@
 		})
 		$(".but_1").on("click", function() {
 			$(".box5").css("display", "none");
-			// window.location.reload();
+			window.location.reload();
 		})
 	</script>
 
