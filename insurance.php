@@ -137,7 +137,65 @@ $app->get('/lorry_insurance_count',function ()use($app){
     $data1 = $stmt->fetchAll();
     echo json_encode(array('result'=>'1','desc'=>'success','count'=>count($data1)));
 });
+
 //客户端，确认一个投保
+$app->post('/one_insurance',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $lorry_id=$body->lorry_id;
+    $insurance_price=$body->insurance_price;
+    $duration=$body->duration;
+    $insurance_amount=$body->insurance_amount;
+    $insurance_start_time=$body->insurance_start_time;
+    $g_type=$body->g_type;
+    $selectStatement = $database->select()
+        ->from('scheduling')
+        ->join('schedule_order','schedule_order.schedule_id','=','scheduling.scheduling_id','INNER')
+        ->join('goods','goods.order_id','=','schedule_order.order_id','INNER')
+        ->where('scheduling.lorry_id','=',$lorry_id)
+        ->where('schedule_order.tenant_id','=',$tenant_id)
+        ->where('scheduling.tenant_id','=',$tenant_id)
+        ->where('goods.tenant_id','=',$tenant_id);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetchAll();
+    $selectStatement = $database->select()
+        ->from('insurance')
+        ->where('tenant_id','=',$tenant_id);
+    $stmt = $selectStatement->execute();
+    $data2 = $stmt->fetchAll();
+    $insertStatement = $database->insert(array('insurance_price', 'insurance_lorry_id', 'insurance_start_time', '	tenant_id', 'duration', 'insurance_amount', 'from_c_id', 'receive_c_id', 'g_type','insurance_id'))
+        ->into('insurance')
+        ->values(array($insurance_price,$lorry_id, $insurance_start_time, $tenant_id, $duration, $insurance_amount, $data1[0]['send_city_id'],  $data1[0]['receive_city_id'],$g_type ,(count($data2)+1)));
+    $insertId = $insertStatement->execute(false);
+    for($i=0;$i<count($data1);$i++){
+        $updateStatement = $database->update(array('is_insurance'=>1))
+            ->table('scheduling')
+            ->where('scheduling_id','=',$data1[$i]['scheduling_id'])
+            ->where('tenant_id','=',$tenant_id)
+            ->where('exist',"=",0);
+        $affectedRows = $updateStatement->execute();
+        $insertStatement = $database->insert(array('scheduling_id', 'insurance_id','tenant_id'))
+            ->into('insurance_scheduling')
+            ->values(array($data1[$i]['scheduling_id'],(count($data2)+1),$tenant_id));
+        $insertId = $insertStatement->execute(false);
+    }
+    $selectStatement = $database->select()
+        ->from('tenant')
+        ->where('tenant_id','=',$tenant_id)
+        ->where('exist',"=",0);
+    $stmt = $selectStatement->execute();
+    $data2 = $stmt->fetch();
+    $updateStatement = $database->update(array('insurance_balance'=>($data2['insurance_balance']-$insurance_amount)))
+        ->table('tenant')
+        ->where('tenant_id','=',$tenant_id)
+        ->where('exist',"=",0);
+    $affectedRows = $updateStatement->execute();
+    echo json_encode(array('result'=>'1','desc'=>'success'));
+});
+
 
 //客户端，未做保险时，获得该车的货物详情
 $app->post('/one_insurance_goods',function()use($app){
@@ -172,6 +230,22 @@ $app->get('/insurance_balance',function()use($app){
     $data1 = $stmt->fetch();
     echo json_encode(array('result'=>'1','desc'=>'success','insurance'=>$data1));
 });
+
+
+//客户端，获得历史保险
+$app->get('/insurances',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $selectStatement = $database->select()
+        ->from('insurance')
+        ->where('tenant_id','=',$tenant_id)
+        ->orderBy('insurance.insurance_start_time','desc');
+    $stmt = $selectStatement->execute();
+    $data1= $stmt->fetchAll();
+    echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$data1));
+});
+
 
 $app->run();
 
