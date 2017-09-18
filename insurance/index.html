@@ -159,6 +159,16 @@
 				+msg.rechange_insurance[i].duration+'</td></tr>';
 				$("#tb2").append(a);
 			}
+			layui.use(['laypage', 'layer'], function(){
+             var laypage = layui.laypage
+            ,layer = layui.layer;
+	         laypage.render({
+             elem: 'demo2'
+             ,count:msg.rechange_insurance.length
+             ,theme: '#1E9FFF'
+             ,pages:msg.rechange_insurance.desc
+  });
+})
 		},error:function(xhr){
 			alert("获取保险记录后台失败！");
 		}
@@ -183,16 +193,7 @@
 	}
 
 
-layui.use(['laypage', 'layer'], function(){
-             var laypage = layui.laypage
-            ,layer = layui.layer;
-	         laypage.render({
-             elem: 'demo2'
-             ,count: msg.rechange_insurance.length
-             ,theme: '#1E9FFF'
-             ,limit:'2'
-  });
-})
+
 	</script>
 
 <script>
