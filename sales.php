@@ -90,7 +90,7 @@ $app->get('/sales_tenant',function()use($app){
                         $array['company']=$data2[$x]['company'];
                         array_push($arrays,$array);
                     }
-                    echo json_encode(array('result'=>'0','desc'=>'','company'=>$arrays));
+                    echo json_encode(array('result'=>'0','desc'=>'','company'=>$arrays,'count'=>''));
                 }else{
                     echo json_encode(array('result'=>'1','desc'=>'该业务员尚未有业务数据','company'=>''));
                 }
@@ -118,7 +118,7 @@ $app->get('/sales_tenant',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetchAll();
                 $num=count($data3);
-                $sum=ceil($num/(int)$per_page);
+          //      $sum=ceil($num/(int)$per_page);
                 $selectStatement = $database->select()
                     ->from('tenant')
                     ->where('exist','=',0)

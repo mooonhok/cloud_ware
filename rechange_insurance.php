@@ -65,7 +65,7 @@ $app->get('/insurance_rechanges',function()use($app){
     $page = $app->request->get('page');
     $per_page=$app->request->get('per_page');
     if($page==null||$per_page==null){
-        $page=(int)$page-1;
+      //  $page=(int)$page-1;
         if ($city_id != null || $city_id != '') {
             if ($company != null || $company != '') {
                 $arrays=array();
@@ -401,7 +401,7 @@ $app->get('/insurances',function ()use($app){
                         array_push($arrays, $arrays1);
                     }
                 }
-                echo json_encode(array('result' => '0', 'desc' => '', 'rechange_insurance' => $arrays,'count'=>''));
+                echo json_encode(array('result' => '0', 'desc' => '', 'rechange_insurance' => $arrays,'count'=>$num));
             } else {
                 $arrays=array();
                 $selectStatement = $database->select()
@@ -458,7 +458,7 @@ $app->get('/insurances',function ()use($app){
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
             $num=count($data1);
-            $sum=ceil($num/(int)$per_page);
+          //  $sum=ceil($num/(int)$per_page);
             if ($data1 != "" || $data1 != null) {
                 for ($x = 0; $x < count($data1); $x++) {
                     $arrays1['company'] = $data1[$x]['company'];
@@ -504,7 +504,7 @@ $app->get('/insurances',function ()use($app){
                 $stmt = $selectStatement->execute();
                 $data4 = $stmt->fetchAll();
                 $num=count($data4);
-                $sum=ceil($num/(int)$per_page);
+             //   $sum=ceil($num/(int)$per_page);
                 $selectStatement = $database->select()
                     ->from('insurance')
                     ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
@@ -557,7 +557,7 @@ $app->get('/insurances',function ()use($app){
                 $stmt = $selectStatement->execute();
                 $data4 = $stmt->fetchAll();
                 $num=count($data4);
-                $sum=ceil($num/(int)$per_page);
+             //   $sum=ceil($num/(int)$per_page);
                 $selectStatement = $database->select()
                     ->from('insurance')
                     ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
@@ -609,7 +609,7 @@ $app->get('/insurances',function ()use($app){
             $stmt = $selectStatement->execute();
             $data4 = $stmt->fetchAll();
             $num=count($data4);
-            $sum=ceil($num/(int)$per_page);
+           // $sum=ceil($num/(int)$per_page);
             $selectStatement = $database->select()
                 ->from('insurance')
                 ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
@@ -718,7 +718,7 @@ $app->get('/insurances_count',function ()use($app){
                 ->where('tenant.company','=',$company);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
-            $num=ceil(count($data1)/10);
+        //    $num=ceil(count($data1)/10);
             echo json_encode(array('result'=>'1','desc'=>'success','count'=>$num));
         }else{
             $selectStatement = $database->select()
@@ -796,7 +796,7 @@ if($per_page==null||$page==null) {
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
             $num=count($data2);
-            $arrays['count']=ceil($num/(int)$per_page);
+          //  $arrays['count']=ceil($num/(int)$per_page);
             if ($data2 != null || $data2 != "") {
                 for ($i = 0; $i < count($data2); $i++) {
                     $arrays1['company'] = $data1['company'];
