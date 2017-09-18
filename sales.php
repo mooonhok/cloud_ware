@@ -55,7 +55,7 @@ $app->get('/sales_tenant',function()use($app){
     $page = $app->request->get('page');
     $per_page=$app->request->get('per_page');
     $database=localhost();
-    $arrays=array();
+
     if($page==null||$per_page==null){
         if($sales_id!=null||$sales_id!=""){
             $selectStatement = $database->select()
@@ -103,6 +103,7 @@ $app->get('/sales_tenant',function()use($app){
     }else{
         $page=(int)$page-1;
         if($sales_id!=null||$sales_id!=""){
+            $arrays=array();
             $selectStatement = $database->select()
                 ->from('sales')
                 ->where('exist','=',0)
@@ -117,7 +118,7 @@ $app->get('/sales_tenant',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetchAll();
                 $num=count($data3);
-                $arrays['count']=ceil($num/(int)$per_page);
+                $sum=ceil($num/(int)$per_page);
                 $selectStatement = $database->select()
                     ->from('tenant')
                     ->where('exist','=',0)
@@ -144,7 +145,7 @@ $app->get('/sales_tenant',function()use($app){
                         $array['company']=$data2[$x]['company'];
                         array_push($arrays,$array);
                     }
-                    echo json_encode(array('result'=>'0','desc'=>'','company'=>$arrays));
+                    echo json_encode(array('result'=>'0','desc'=>$sum,'company'=>$arrays));
                 }else{
                     echo json_encode(array('result'=>'1','desc'=>'该业务员尚未有业务数据','company'=>''));
                 }
