@@ -237,6 +237,14 @@
 	<script type="text/javascript" src="src/layui.js"></script>
 	<script type="text/javascript" src="js/jquery.PrintArea.js"></script>
 	<script type="text/javascript">
+			(function($) {
+			$.getUrlParam = function(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if(r != null) return decodeURI(r[2]);
+				return null;
+			}
+		})(jQuery);
 		$.ajax({
 			url: "http://mooonhok-cloudware.daoapp.io/city.php/province",
 			beforeSend: function(request) {
@@ -520,6 +528,7 @@
 		}
          var city_id = $.getUrlParam('city_id');
 		 var company = $.getUrlParam('company');
+		 var page=null;
 		 // var page=$.getUrlParam('page');
 		// var city_id = null;
 		// var company = null;
