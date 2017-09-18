@@ -378,7 +378,7 @@ $app->get('/insurances',function ()use($app){
     $database=localhost();
 
     if($page==null||$per_page==null){
-        $page=(int)$page-1;
+     //   $page=(int)$page-1;
         if ($city_id != null || $city_id != "") {
             if ($company != null || $company != '') {
                 $arrays=array();
@@ -635,9 +635,7 @@ $app->get('/insurances',function ()use($app){
                 ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
                 ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
                 ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
-                ->where('tenant.from_city_id', '=', $city_id)
                 ->where('insurance.sure_insurance', '=', '1')
-                ->where('tenant.company', '=', $company)
                 ->orderBy('insurance.insurance_start_time', 'desc')
                 ->limit((int)$per_page, (int)$per_page * (int)$page);
             $stmt = $selectStatement->execute();
