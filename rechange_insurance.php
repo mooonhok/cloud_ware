@@ -314,7 +314,8 @@ $app->put('/sure_rechanges',function()use($app){
     $key='insurance_balance';
             $selectStatement = $database->select()
                 ->from('rechanges_insurance')
-                ->where('rechange_insurance_id', '=', $pay_id);
+                ->where('rechange_insurance_id', '=', $pay_id)
+                ->where('status','=',0);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetch();
             $selectStatement = $database->select()
