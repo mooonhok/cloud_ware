@@ -155,6 +155,8 @@ $app->post('/one_insurance',function()use($app){
         ->from('scheduling')
         ->join('schedule_order','schedule_order.schedule_id','=','scheduling.scheduling_id','INNER')
         ->join('goods','goods.order_id','=','schedule_order.order_id','INNER')
+        ->where('scheduling.is_insurance', '=', 0)
+        ->where('scheduling.scheduling_status','=',1)
         ->where('scheduling.lorry_id','=',$lorry_id)
         ->where('schedule_order.tenant_id','=',$tenant_id)
         ->where('scheduling.tenant_id','=',$tenant_id)
@@ -197,7 +199,7 @@ $app->post('/one_insurance',function()use($app){
 });
 
 
-//客户端，未做保险时，获得该车的货物详情
+//客户端，未做保险时，获得该车的货物详情（总的不用）
 $app->post('/one_insurance_goods',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
@@ -209,6 +211,8 @@ $app->post('/one_insurance_goods',function()use($app){
         ->from('scheduling')
         ->join('schedule_order','schedule_order.schedule_id','=','scheduling.scheduling_id','INNER')
         ->join('goods','goods.order_id','=','schedule_order.order_id','INNER')
+        ->where('scheduling.is_insurance', '=', 0)
+        ->where('scheduling.scheduling_status','=',1)
         ->where('scheduling.lorry_id','=',$lorry_id)
         ->where('schedule_order.tenant_id','=',$tenant_id)
         ->where('scheduling.tenant_id','=',$tenant_id)
@@ -216,6 +220,60 @@ $app->post('/one_insurance_goods',function()use($app){
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
     echo json_encode(array('result'=>'1','desc'=>'success','insurance'=>$data1));
+});
+
+//客户端，获得该车的调度
+$app->post('/insurance_scheduling',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $lorry_id=$body->lorry_id;
+    $selectStatement = $database->select()
+        ->from('scheduling')
+        ->where('scheduling.is_insurance', '=', 0)
+        ->where('scheduling.scheduling_status','=',1)
+        ->where('scheduling.lorry_id','=',$lorry_id)
+        ->where('scheduling.tenant_id','=',$tenant_id);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetchAll();
+    for($i=0;$i<count($data1);$i++){
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id', '=', $data1[$i]['receive_city_id']);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id', '=', $data1[$i]['send_city_id']);
+        $stmt = $selectStatement->execute();
+        $data3 = $stmt->fetch();
+        $data1[$i]['send_city']=$data3['name'];
+        $data1[$i]['receive_city']=$data2['name'];
+    }
+    echo json_encode(array('result'=>'1','desc'=>'success','insurance_scheduling'=>$data1));
+});
+
+//客户端，通过该车的调度，获得goods
+$app->post('/insurance_scheduling_orders',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $scheduling_id=$body->scheduling_id;
+    $selectStatement = $database->select()
+        ->from('schedule_order')
+        ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
+        ->join('goods','goods.order_id','=','schedule_order.order_id','INNER')
+        ->where('schedule_order.schedule_id','=',$scheduling_id)
+        ->where('goods.tenant_id','=',$tenant_id)
+        ->where('orders.tenant_id','=',$tenant_id)
+        ->where('schedule_order.tenant_id','=',$tenant_id);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetchAll();
+    echo json_encode(array('result'=>'1','desc'=>'success','insurance_scheduling'=>$data1));
 });
 
 //客户端，获取保险余额
