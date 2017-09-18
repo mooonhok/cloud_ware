@@ -330,8 +330,8 @@
                           +item.time+'</td><td>'
                           +item.money+'</td><td>'
                           +item.rechange_insurance_id+'</td><td>'
-                          +item.insurance_balance+'</td><td onclick="ins('+msg.item.tenant_id + ')">扣费详情</td><td><button class="but" onclick="makesure(' 
-						  +msg.insurance_rechanges[i].rechange_insurance_id + ')">'
+                          +item.insurance_balance+'</td><td onclick="ins('+item.tenant_id + ')">扣费详情</td><td><button class="but" onclick="makesure(' 
+						  +item.rechange_insurance_id + ')">'
                           +item.status==0?sure1:sure2+'</button></td></tr>');
                   });
                   return arr.join('');
