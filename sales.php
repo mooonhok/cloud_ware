@@ -57,6 +57,7 @@ $app->get('/sales_tenant',function()use($app){
     $database=localhost();
 
     if($page==null||$per_page==null){
+        $arrays=array();
         if($sales_id!=null||$sales_id!=""){
             $selectStatement = $database->select()
                 ->from('sales')
