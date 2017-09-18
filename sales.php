@@ -145,7 +145,7 @@ $app->get('/sales_tenant',function()use($app){
                         $array['company']=$data2[$x]['company'];
                         array_push($arrays,$array);
                     }
-                    echo json_encode(array('result'=>'0','desc'=>$sum,'company'=>$arrays));
+                    echo json_encode(array('result'=>'0','desc'=>'','company'=>$arrays,'count'=>$num));
                 }else{
                     echo json_encode(array('result'=>'1','desc'=>'该业务员尚未有业务数据','company'=>''));
                 }

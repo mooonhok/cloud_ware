@@ -92,8 +92,8 @@ $app->get('/insurance_rechanges',function()use($app){
                     }
                 }
                 $num=count($data1);
-                $sum=ceil($num/(int)$per_page);
-                echo json_encode(array('result' => '0', 'desc' =>$sum, 'insurance_rechanges' => $arrays));
+         //       $sum=ceil($num/(int)$per_page);
+                echo json_encode(array('result' => '0', 'desc' =>'', 'insurance_rechanges' => $arrays,'count'=>$num));
             } else {
                 $arrays=array();
                 $selectStatement = $database->select()
@@ -118,8 +118,8 @@ $app->get('/insurance_rechanges',function()use($app){
                     }
                 }
                 $num=count($data1);
-                $sum=ceil($num/(int)$per_page);
-                echo json_encode(array('result' => '0', 'desc' => $sum, 'insurance_rechanges' => $arrays));
+          //      $sum=ceil($num/(int)$per_page);
+                echo json_encode(array('result' => '0', 'desc' => '', 'insurance_rechanges' => $arrays,'count'=>$num));
             }
         } else {
             $arrays=array();
@@ -144,8 +144,8 @@ $app->get('/insurance_rechanges',function()use($app){
                 }
             }
             $num=count($data1);
-            $sum=ceil($num/(int)$per_page);
-            echo json_encode(array('result' => '0', 'desc' => $sum, 'insurance_rechanges' => $arrays));
+         //   $sum=ceil($num/(int)$per_page);
+            echo json_encode(array('result' => '0', 'desc' => '', 'insurance_rechanges' => $arrays,'count'=>$num));
         }
     }else {
         $page=(int)$page-1;
@@ -161,7 +161,7 @@ $app->get('/insurance_rechanges',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data4 = $stmt->fetchAll();
                 $num=count($data4);
-                $sum=ceil($num/(int)$per_page);
+          //      $sum=ceil($num/(int)$per_page);
                 $selectStatement = $database->select()
                     ->from('rechanges_insurance')
                     ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'left')
@@ -185,7 +185,7 @@ $app->get('/insurance_rechanges',function()use($app){
                         array_push($arrays, $arrays1);
                     }
                 }
-                echo json_encode(array('result' => '0', 'desc' => $sum, 'insurance_rechanges' => $arrays));
+                echo json_encode(array('result' => '0', 'desc' => '', 'insurance_rechanges' => $arrays,'count'=>$num));
             } else {
                 $arrays=array();
                 $selectStatement = $database->select()
@@ -196,7 +196,7 @@ $app->get('/insurance_rechanges',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data4 = $stmt->fetchAll();
                 $num=count($data4);
-                $sum=ceil($num/(int)$per_page);
+          //      $sum=ceil($num/(int)$per_page);
                 $selectStatement = $database->select()
                     ->from('rechanges_insurance')
                     ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'INNER')
@@ -219,7 +219,7 @@ $app->get('/insurance_rechanges',function()use($app){
                         array_push($arrays, $arrays1);
                     }
                 }
-                echo json_encode(array('result' => '0', 'desc' => $sum, 'insurance_rechanges' => $arrays));
+                echo json_encode(array('result' => '0', 'desc' => '', 'insurance_rechanges' => $arrays,'count'=>$num));
             }
         } else {
             $arrays=array();
@@ -231,7 +231,7 @@ $app->get('/insurance_rechanges',function()use($app){
             $stmt = $selectStatement->execute();
             $data4 = $stmt->fetchAll();
             $num=count($data4);
-            $sum=ceil($num/(int)$per_page);
+         //   $sum=ceil($num/(int)$per_page);
             $selectStatement = $database->select()
                 ->from('rechanges_insurance')
                 ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'INNER')
@@ -253,7 +253,7 @@ $app->get('/insurance_rechanges',function()use($app){
                     array_push($arrays, $arrays1);
                 }
             }
-            echo json_encode(array('result' => '0', 'desc' => $sum, 'insurance_rechanges' => $arrays));
+            echo json_encode(array('result' => '0', 'desc' =>'', 'insurance_rechanges' => $arrays,'count'=>$num));
         }
     }
 });
@@ -374,7 +374,7 @@ $app->get('/insurances',function ()use($app){
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
                 $num=count($data1);
-                $sum=ceil($num/(int)$per_page);
+    //            $sum=ceil($num/(int)$per_page);
                 if ($data1 != null || $data1 != "") {
                     for ($x = 0; $x < count($data1); $x++) {
                         $arrays1['company'] = $data1[$x]['company'];
@@ -401,7 +401,7 @@ $app->get('/insurances',function ()use($app){
                         array_push($arrays, $arrays1);
                     }
                 }
-                echo json_encode(array('result' => '0', 'desc' => $sum, 'rechange_insurance' => $arrays));
+                echo json_encode(array('result' => '0', 'desc' => '', 'rechange_insurance' => $arrays,'count'=>''));
             } else {
                 $arrays=array();
                 $selectStatement = $database->select()
@@ -416,7 +416,7 @@ $app->get('/insurances',function ()use($app){
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
                 $num=count($data1);
-                $sum=ceil($num/(int)$per_page);
+             //   $sum=ceil($num/(int)$per_page);
                 if ($data1 != null || $data1 != "") {
                     for ($x = 0; $x < count($data1); $x++) {
                         $arrays1['company'] = $data1[$x]['company'];
@@ -443,7 +443,7 @@ $app->get('/insurances',function ()use($app){
                         array_push($arrays, $arrays1);
                     }
                 }
-                echo json_encode(array('result' => '0', 'desc' => $sum, 'rechange_insurance' => $arrays));
+                echo json_encode(array('result' => '0', 'desc' => '', 'rechange_insurance' => $arrays,'count'=>$num));
             }
         } else {
             $arrays=array();
@@ -485,7 +485,7 @@ $app->get('/insurances',function ()use($app){
                     array_push($arrays, $arrays1);
                 }
             }
-            echo json_encode(array('result' => '0', 'desc' => $sum, 'rechange_insurance' => $arrays));
+            echo json_encode(array('result' => '0', 'desc' => '', 'rechange_insurance' => $arrays,'count'=>$num));
         }
     }else{
         $page=(int)$page-1;
@@ -543,7 +543,7 @@ $app->get('/insurances',function ()use($app){
                         array_push($arrays, $arrays1);
                     }
                 }
-                echo json_encode(array('result' => '0', 'desc' =>$sum, 'rechange_insurance' => $arrays));
+                echo json_encode(array('result' => '0', 'desc' =>'', 'rechange_insurance' => $arrays,'count'=>$num));
             } else {
                 $arrays=array();
                 $selectStatement = $database->select()
@@ -595,7 +595,7 @@ $app->get('/insurances',function ()use($app){
                         array_push($arrays, $arrays1);
                     }
                 }
-                echo json_encode(array('result' => '0', 'desc' => $sum, 'rechange_insurance' => $arrays));
+                echo json_encode(array('result' => '0', 'desc' => '', 'rechange_insurance' => $arrays,'count'=>$num));
             }
         } else {
             $arrays=array();
@@ -646,7 +646,7 @@ $app->get('/insurances',function ()use($app){
                     array_push($arrays, $arrays1);
                 }
             }
-            echo json_encode(array('result' => '0', 'desc' =>$sum, 'rechange_insurance' => $arrays));
+            echo json_encode(array('result' => '0', 'desc' =>'', 'rechange_insurance' => $arrays,'count'=>$num));
         }
     }
 });
@@ -833,7 +833,7 @@ if($per_page==null||$page==null) {
                     $arrays1['goods_name'] = $data2['g_type'];
                     array_push($arrays, $arrays1);
                 }
-                echo json_encode(array('result' => '0', 'desc' => '', 'rechanges' => $arrays));
+                echo json_encode(array('result' => '0', 'desc' => '', 'rechanges' => $arrays,'count'=>$num));
             } else {
                 echo json_encode(array('result' => '3', 'desc' => '该公司无历史保单', 'rechanges' => ''));
             }
@@ -904,7 +904,7 @@ if($per_page==null||$page==null) {
                     $arrays1['goods_name'] = $data2['g_type'];
                     array_push($arrays, $arrays1);
                 }
-                echo json_encode(array('result' => '0', 'desc' => $sum, 'rechanges' => $arrays));
+                echo json_encode(array('result' => '0', 'desc' => '', 'rechanges' => $arrays,'count'=>$num));
             } else {
                 echo json_encode(array('result' => '3', 'desc' => '该公司无历史保单', 'rechanges' => ''));
             }
