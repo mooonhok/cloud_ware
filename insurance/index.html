@@ -280,19 +280,20 @@
 
 <script>
 	
-// var city_id = $.getUrlParam('city_id');
-//		 var company = $.getUrlParam('company');
-	   var city_id=null;
-	   var company=null;
-	   var page=null;
+var city_id = $.getUrlParam('city_id');
+		 var company = $.getUrlParam('company');
+		 // var page=$.getUrlParam('page');
+	   // var city_id=null;
+	   // var company=null;
+	   // var page=null;
 		//获取session值
-		// var user = $.session.get('userid');
-		//alert(user);
-		// if(user == null || user == "") {
-		// 	window.location.href = "login.html";
-		// }else{
+		var user = $.session.get('userid');
+		alert(user);
+		if(user == null || user == "") {
+			window.location.href = "login.html";
+		}else{
 			insurance(city_id,company,page);
-		// }
+		}
 	
 		$(".det").on("click",function(){
 			$(".box2").css("display","block");

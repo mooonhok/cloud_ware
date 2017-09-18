@@ -518,9 +518,11 @@
 				}
 			});
 		}
-
-		var city_id = null;
-		var company = null;
+         var city_id = $.getUrlParam('city_id');
+		 var company = $.getUrlParam('company');
+		 // var page=$.getUrlParam('page');
+		// var city_id = null;
+		// var company = null;
 		
 		//获取session值
 		var user = $.session.get('userid');
@@ -528,12 +530,12 @@
 		if(user == null || user == "") {
 			window.location.href = "login.html";
 		} else {
-			loadrechanges(city_id, company);
+			loadrechanges(city_id, company,page);
 		}	
 		//选择搜索按钮的事件
 		$(".hunt").on('click', function() {
 			city_id = $("#city1 option:selected").val();
-			window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id=" + city_id+"&company=";
+			window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id=" + city_id+"&company="+"&page=";
 			//loadrechanges(city_id, company);
 		
 		})
@@ -544,7 +546,7 @@
 			if(city_id==null||city_id==""){
 				alert("请先选择城市");
 			}else{
-				window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id=" + city_id+"&company="+company;
+				window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id=" + city_id+"&company="+company+"&page=";
 				
 			//loadrechanges(city_id, company);
 			
