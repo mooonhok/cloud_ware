@@ -129,8 +129,8 @@
 </script>
 <script type="text/javascript">
 	function insurance(city_id,company,page){
-		if(page==null){
-			page=1;
+	    if(page==null){
+	        page=1;
 		}
 	      	if(city_id==null){
 				city_id="";
@@ -139,7 +139,7 @@
 				company="";
 			}
 	$.ajax({
-		url:"http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/insurances?city_id=" + city_id + "&company=" + company+"&page="+page+"&per_page=2",
+		url:"../rechange_insurance.php/insurances?city_id=" + city_id + "&company=" + company+"&page="+page+"&per_page=2",
 		dataType:'json',
 		type:'get',
 		contentType: "application/json;charset=utf-8",
@@ -147,57 +147,50 @@
 		success:function(msg){
 	        $("#tb2").html("");
 			console.log(msg);
-			console.log(msg.rechange_insurance.length);
-			// for(var i=0;i<msg.rechange_insurance.length;i++){
-			// 	var a = '<tr><td>'+msg.rechange_insurance[i].company+'</td><td>'
-			// 	+msg.rechange_insurance[i].customer_phone+'</td><td>'
-			// 	+msg.rechange_insurance[i].plate_number+'</td><td>'
-			// 	+msg.rechange_insurance[i].driver_name+'</td><td>'
-			// 	+msg.rechange_insurance[i].receive_city+'</td><td>'
-			// 	+msg.rechange_insurance[i].from_city+'</td><td class="det" onclick="detil('
-			// 	+msg.rechange_insurance[i].insurance_id+')">详情</td><td>'
-			// 	+msg.rechange_insurance[i].insurance_price+'</td><td>'
-			// 	+msg.rechange_insurance[i].insurance_amount+'</td><td>'
-			// 	+msg.rechange_insurance[i].insurance_start_time+'</td><td>'
-			// 	+msg.rechange_insurance[i].duration+'</td></tr>';
-			// 	$("#tb2").append(a);
-			// }
-			  //调用分页
+  //调用分页
+  layui.use(['laypage', 'layer'], function(){
+  var laypage = layui.laypage;
   laypage.render({
     elem: 'demo20'
     ,count:msg.count
-    ,limit:2
-    ,curr:page
+	  ,curr:page
+    ,limit: 2
     ,jump: function(obj,first){
-         if(!first){
-            insurance(city_id,company,obj.curr);
-         }
-      //模拟渲染
-      document.getElementById('tb2').innerHTML = function(){
-        var arr = []
-        ,thisData =msg.rechange_insurance ;
-        layui.each(thisData, function(index, item){
-          arr.push('<tr><td>'+item.company+'</td><td>'
-				+item.customer_phone+'</td><td>'
-				+item.plate_number+'</td><td>'
-				+item.driver_name+'</td><td>'
-				+item.receive_city+'</td><td>'
-				+item.from_city+'</td><td class="det" onclick="detil('
-				+item.insurance_id+')">详情</td><td>'
-				+item.insurance_price+'</td><td>'
-				+item.insurance_amount+'</td><td>'
-				+item.insurance_start_time+'</td><td>'
-				+item.duration+'</td></tr>');
-        });
-        return arr.join('');
-      }();
+          if(!first){
+              insurance(city_id,company,obj.curr);
+//              window.location.href='index.html?city_id='+city_id+'&company='+company+'&page='+obj.curr+'&per_page=2';
+          }
+              //模拟渲染
+              document.getElementById('tb2').innerHTML = function(){
+                  var arr = []
+                      ,thisData = msg.rechange_insurance;
+                  layui.each(thisData, function(index, item){
+                      arr.push( '<tr><td>'+item.company+'</td><td>'
+                          +item.customer_phone+'</td><td>'
+                          +item.plate_number+'</td><td>'
+                          +item.driver_name+'</td><td>'
+                          +item.receive_city+'</td><td>'
+                          +item.from_city+'</td><td class="det" onclick="detil('
+                          +item.insurance_id+')">详情</td><td>'
+                          +item.insurance_price+'</td><td>'
+                          +item.insurance_amount+'</td><td>'
+                          +item.insurance_start_time+'</td><td>'
+                          +item.duration+'</td></tr>');
+                  });
+                  return arr.join('');
+              }();
+
+
     }
   });
+});
+	
 		},error:function(xhr){
 			alert("获取保险记录后台失败！");
 		}
 	});
 }
+
 	function detil(id){
 		//alert(id);
    	      	$.ajax({
