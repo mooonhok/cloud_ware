@@ -186,7 +186,7 @@
 	<script>
 		//获取省份和城市列表1
 		$.ajax({
-			url: "api.uminfo.cn /city.php/province",
+			url: "http://api.uminfo.cn /city.php/province",
 			beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", "Chenxizhang");
 			},
@@ -211,7 +211,7 @@
 			$("#city1").empty();
 			var pid = $("#province1 option:selected").val();
 			$.ajax({
-				url: "api.uminfo.cn /city.php/city?pid=" + pid,
+				url: "http://api.uminfo.cn /city.php/city?pid=" + pid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "Chenxizhang");
 				},
@@ -234,7 +234,7 @@
 	<script>
 		//获取城市列表2
 		$.ajax({
-			url: "api.uminfo.cn/city.php/province",
+			url: "http://api.uminfo.cn/city.php/province",
 			beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", "Chenxizhang");
 			},
@@ -256,7 +256,7 @@
 			$("#city2").empty();
 			var pid = $("#province2 option:selected").val();
 			$.ajax({
-				url: "api.uminfo.cn/city.php/city?pid=" + pid,
+				url: "http://api.uminfo.cn/city.php/city?pid=" + pid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "Chenxizhang");
 				},

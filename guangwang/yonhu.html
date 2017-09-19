@@ -302,7 +302,7 @@
 							window.location.href = "http://www.uminfo.cn/index.html";
 						} else {
 							$.ajax({
-								url: "api.uminfo.cn/sales.php/tenantsum?sales_id=" + sales_id,
+								url: "http://api.uminfo.cn/sales.php/tenantsum?sales_id=" + sales_id,
 								dataType: 'json',
 								type: 'get',
 								contentType: "application/json;charset=utf-8",
@@ -459,7 +459,7 @@
 					
 						//修改用户信息
 						$.ajax({
-							url: "api.uminfo.cn/sales.php/sales",
+							url: "http://api.uminfo.cn/sales.php/sales",
 							dataType: 'json',
 							type: 'put',
 							contentType: "application/json;charset=utf-8",
@@ -509,7 +509,7 @@
 					alert(sales_id+"<br>"+id);
 					// alert(id);
 					$.ajax({
-						url: "api.uminfo.cn/sales.php/tenantchange",
+						url: "http://api.uminfo.cn/sales.php/tenantchange",
 						dataType: 'json',
 						type: 'put',
 						contentType: "application/json;charset=utf-8",
@@ -543,7 +543,7 @@
 			window.location.href = "http://www.uminfo.cn/index.html";
 		} else {
 			$.ajax({
-				url: "api.uminfo.cn/sales.php/sales?sales_id="+sales_id,
+				url: "http://api.uminfo.cn/sales.php/sales?sales_id="+sales_id,
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/hson;charset=utf-8",
@@ -594,7 +594,7 @@
 					// 	alert("邮箱格式不对");
 					// } else {
 						$.ajax({
-							url: "api.uminfo.cn/sales.php/addsales",
+							url: "http://api.uminfo.cn/sales.php/addsales",
 							dataType: 'json',
 							type: 'post',
 							contentType: "application/json;charset=utf-8",
