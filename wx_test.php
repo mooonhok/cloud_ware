@@ -38,5 +38,9 @@ require 'connect.php';
     }else{
         echo json_encode(array('result'=>'1','desc'=>'访问错误'));
     }
+$app->run();
 
+function localhost(){
+    return connect();
+}
 ?>

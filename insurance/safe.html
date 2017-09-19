@@ -545,14 +545,14 @@
 			loadrechanges(city_id, company,page);
 		}	
 		//选择搜索按钮的事件
-		$("#city1").on('click', function() {
+		$("#city1").on('change', function() {
 			city_id = $("#city1 option:selected").val();
 			window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id=" + city_id+"&company="+"&page=";
 			//loadrechanges(city_id, company);
 		
 		})
 		//搜索框
-		$(".select_2_2").on('change', function() {
+		$(".select_2_2").on('click', function() {
 			company = $("#coname").val();
 			city_id = $("#city1 option:selected").val();
 			if(city_id==null||city_id==""){
