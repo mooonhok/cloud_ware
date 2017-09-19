@@ -11,7 +11,7 @@ $tenant_id=substr($str,$num+10,8);
         ->from('tenant')
         ->where('tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
-    $data1 = $stmt->fetchAll();
+    $data1 = $stmt->fetch();
     if($data1!=null||$data1!=""){
         if ($_COOKIE['openid'] == null) {
             if (!isset($_GET['code'])) {
