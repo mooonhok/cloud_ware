@@ -8,13 +8,13 @@
 		<title>保险</title>
 		<style>
 			table {
-				border-right: 1px solid #9CBA60;
-				border-bottom: 1px solid #9CBA60;
+				border-right: 1px solid #DDDDDD;
+				border-bottom: 1px solid #DDDDDD;
 			}
 			
 			table td {
-				border-left: 1px solid #9CBA60;
-				border-top: 1px solid #9CBA60;
+				border-left: 1px solid #DDDDDD;
+				border-top: 1px solid #DDDDDD;
 				height: 50px;
 				text-align: center;
 			}
@@ -23,9 +23,9 @@
 				height: 50px;
 				line-height: 50px;
 				text-align: center;
-				border-left: 1px solid #9CBA60;
-				border-top: 1px solid #9CBA60;
-				background: #9CBA60;
+				border-left: 1px solid #DDDDDD;
+				border-top: 1px solid #DDDDDD;
+				/* background: #9CBA60; */
 			}
 			
 			a {
@@ -52,6 +52,11 @@
 					<img src="images/2.jpg" alt="">
 				</div>
 			</div>
+			
+			<div class="gps">
+				<div class="gps_1">支付信息</div>
+				<div class="gps_2" style="background: green;color: white;">历史保单</div>
+			</div>
 			<div class="top_3"></div>
 			<div class="select">
 				<div class="select_1">
@@ -61,16 +66,12 @@
 					<select name="city" id="city1" class="cit">
 						<option value="0">请选择市</option>
 					</select>
-					<button class="hunt">选择搜索</button>
+					<!-- <button class="hunt">选择搜索</button> -->
 				</div>
 				<div class="select_2">
 					<div class="select_2_1"><input id="coname" type="text"></div>
 					<div class="select_2_2"><img src="images/seek.png" alt="" width="30" height="30"></div>
 				</div>
-			</div>
-			<div class="gps">
-				<div class="gps_1">支付信息</div>
-				<div class="gps_2" style="background: green;color: white;">历史保单</div>
 			</div>
 			<!-- 历史保单 -->
 			<div class="tab_1">
@@ -109,7 +110,7 @@
 		</div>
 	</body>
 <script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/jquery.session.js"></script>
+<!-- <script src="js/jquery.session.js"></script> -->
 <script type="text/javascript" src="src/layui.js"></script>
 <script type="text/javascript">
 
@@ -145,7 +146,6 @@
     ,jump: function(obj,first){
           if(!first){
               insurance(city_id,company,obj.curr);
-//              window.location.href='index.html?city_id='+city_id+'&company='+company+'&page='+obj.curr+'&per_page=2';
           }
               //模拟渲染
               document.getElementById('tb2').innerHTML = function(){
@@ -179,7 +179,6 @@
 }
 
 	function detil(id){
-		//alert(id);
    	      	$.ajax({
    	      	   url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/one_goods?insurance_id=" + id,
 				dataType: 'json',
@@ -195,9 +194,6 @@
 				}
    	      	});
 	}
-
-
-
 	</script>
 
 <script>
@@ -257,20 +253,15 @@
 		$(".hunt").on('click', function() {
 			city_id = $("#city1 option:selected").val();
 			window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id=" + city_id+"&company=";
-			//loadrechanges(city_id, company);
-			//insurance(city_id,company);
 		})
 		//搜索框
-		$(".select_2_2").on('click', function() {
+		$("#city1").on('change', function() {
 			company = $("#coname").val();
 			city_id = $("#city1 option:selected").val();
 			if(city_id==null||city_id==""){
 				alert("请先选择城市");
 			}else{
 				window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/safe.html?city_id=" + city_id+"&company="+company;
-				//alert(company);
-			//loadrechanges(city_id, company);
-			//insurance(city_id,company);
 			}
 
 		});
@@ -283,11 +274,7 @@
 var city_id = $.getUrlParam('city_id');
 		 var company = $.getUrlParam('company');
 		 var page=null;
-		 // var page=$.getUrlParam('page');
-	   // var city_id=null;
-	   // var company=null;
-	   // var page=null;
-		//获取session值
+
 		var user = $.session.get('userid');
 		alert(user);
 		if(user == null || user == "") {

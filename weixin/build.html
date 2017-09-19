@@ -27,4 +27,19 @@
 	</div>
 	
 </body>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script>
+		(function($) {
+			$.getUrlParam = function(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if(r != null) return decodeURI(r[2]);
+				return null;
+			}
+		})(jQuery);
+	var openid = $.cookie('openid');
+	var tenant_id=$.getUrlParam('tenant_id');
+	alert(openid+"/////"+tenant_id);
+</script>
 </html>
