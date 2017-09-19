@@ -15,7 +15,7 @@ require 'connect.php';
 $app = new \Slim\Slim();
 $app->get('/getappid',function()use($app){
     header('Content-type:text/html;charset=utf-8');
-    $app->response->headers->set('Content-Type','application/json');
+ //   $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->get('tenant_id');
     $selectStatement = $database->select()
