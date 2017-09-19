@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-29 09:48:59
 * @Last Modified by:   boycui
-* @Last Modified time: 2017-09-17 10:19:22
+* @Last Modified time: 2017-09-19 13:30:23
 */
 *{
 	padding: 0;margin: 0;
@@ -742,33 +742,43 @@ li{
 	margin-top: 30px;
 	margin-left: 50px;
 	float: left;	
+	background: #DEDEDE;
+	border-radius: 5px;
 }
 .box3_3 input{
-	width: 300px;
+	width: 260px;
 	height: 30px;
 	background: #DEDEDE;
 	color: #BBBBBB;
 	border: 0;
 	list-style: none;
 	outline-style: none;
-	border-radius: 5px;
+	display: inline-block;
+	float: left;
+	margin-left: 20px;
+	/* border-radius: 5px; */
 }
 .box3_4{
 	width: 300px;
 	height: 30px;
 	margin-top: 30px;
 	margin-left: 50px;	
-	float: left;	
+	float: left;
+	background: #DEDEDE;
+	border-radius: 5px;	
 }
 .box3_4 input{
-	width: 300px;
+	width: 260px;
 	height: 30px;
 	background: #DEDEDE;
 	color: #BBBBBB;
 	border: 0;
 	list-style: none;
 	outline-style: none;
-	border-radius: 5px;
+	/* border-radius: 5px; */
+	display: inline-block;
+	float: left;
+	margin-left: 20px;
 }
 .box3_5{
 	width: 300px;

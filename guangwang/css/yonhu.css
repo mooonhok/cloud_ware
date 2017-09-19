@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-30 17:04:52
 * @Last Modified by:   boycui
-* @Last Modified time: 2017-09-17 13:58:40
+* @Last Modified time: 2017-09-19 13:35:46
 */
 *{
 	padding: 0;
@@ -312,8 +312,11 @@ html,body{
 	border-radius: 5px;
 }
 .box3_1{
-	width: 1050px;
+	width: 950px;
 	height: 600px;
+	float: left;
+	margin-left: 50px;
+	margin-top: 20px;
 }
 .box3_1 table {
 	border-right: 1px solid #70ACC4;
@@ -345,7 +348,7 @@ html,body{
 	border-radius: 10px;
 	float: right;
 	margin-right: 100px;
-	margin-top: 30px;
+	margin-top: 10px;
 	color: white;
 	font-size: 18px;
 }
