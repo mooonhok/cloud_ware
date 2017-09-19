@@ -241,6 +241,7 @@
 			contentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
+				$("#province1").append('<option value="0">请选择省</option>')
 				for(var i = 0; i < msg.province.length; i++) {
 					$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
 				}
@@ -252,6 +253,7 @@
 
 		function getPro1() {
 			$("#city1").empty();
+			$("#city1").append('<option value="0">请选择市</option>')
 			var pid = $("#province1 option:selected").val();
 			$.ajax({
 				url: "http://mooonhok-cloudware.daoapp.io/city.php/city?pid=" + pid,
@@ -262,7 +264,7 @@
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
-				success: function(msg) {
+				success: function(msg){	
 					for(var i = 0; i < msg.city.length; i++) {
 						$("#city1").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
 					}
@@ -281,6 +283,7 @@
 		})
 		//搜索框
 		$("#city1").on('change', function() {
+			alert("1");
 			company = $("#coname").val();
 			city_id = $("#city1 option:selected").val();
 			if(city_id==null||city_id==""){
