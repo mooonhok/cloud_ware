@@ -355,38 +355,14 @@ $app->get('/insurance_goods',function()use($app){
         ->from('insurance')
         ->join('insurance_scheduling','insurance_scheduling.insurance_id','=','insurance.insurance_id','INNER')
         ->join('scheduling','scheduling.scheduling_id','=','insurance_scheduling.scheduling_id','INNER')
-        ->join('schedule_order','schedule_order.schedule_id','=','insurance_scheduling.scheduling_id','INNER')
-        ->join('goods','goods.order_id','=','schedule_order.order_id','INNER')
-        ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
-        ->where('schedule_order.tenant_id','=',$tenant_id)
         ->where('insurance_scheduling.tenant_id','=',$tenant_id)
         ->where('insurance.tenant_id','=',$tenant_id)
         ->where('scheduling.tenant_id','=',$tenant_id)
-        ->where('goods.tenant_id','=',$tenant_id)
         ->where('insurance.insurance_id','=',$insurance_id)
-        ->where('insurance_scheduling.insurance_id','=',$insurance_id);
+        ->where('insurance_scheduling.insurance_id','=',$insurance_id)
+        ->orderBy('scheduling.scheduling_id');
     $stmt = $selectStatement->execute();
     $data1= $stmt->fetchAll();
-    for($i=0;$i<count($data1);$i++){
-        $selectStatement = $database->select()
-            ->from('city')
-            ->where('id', '=', $data1[$i]['receive_city_id']);
-        $stmt = $selectStatement->execute();
-        $data2 = $stmt->fetch();
-        $selectStatement = $database->select()
-            ->from('city')
-            ->where('id', '=', $data1[$i]['send_city_id']);
-        $stmt = $selectStatement->execute();
-        $data3 = $stmt->fetch();
-        $selectStatement = $database->select()
-            ->from('goods_package')
-            ->where('goods_package_id', '=', $data1[$i]['goods_package_id']);
-        $stmt = $selectStatement->execute();
-        $data4 = $stmt->fetch();
-        $data1[$i]['receive_city']=$data2['name'];
-        $data1[$i]['send_city']=$data3['name'];
-        $data1[$i]['goods_package']=$data4['goods_package'];
-    }
     echo json_encode(array('result'=>'1','desc'=>'success','insurance_goods'=>$data1));
 });
 
