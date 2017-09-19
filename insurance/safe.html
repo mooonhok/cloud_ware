@@ -337,6 +337,7 @@
                       arr.push( '<tr><td>'+item.company+'</td><td>'+item.time+'</td><td>'+item.money+'</td><td>'+item.rechange_insurance_id+'</td><td>'+item.insurance_balance+'</td><td onclick="ins('+item.tenant_id + ')">扣费详情</td><td><button class="but" onclick="makesure(' +item.rechange_insurance_id + ')">'+sure+'</button></td></tr>');
                        if(item.status == 1) {
 						$(".but").attr("disabled", true);
+						$('.but').unbind("click");
 					}else{
 						$('.but').attr("disabled", false); 
 					}
