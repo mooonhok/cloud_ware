@@ -66,8 +66,7 @@ $app->get('/to_one_insurance',function ()use($app){
     $selectStatement = $database->select(array('lorry.lorry_id'))
         ->from('scheduling')
         ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
-        ->where('scheduling.is_insurance', '=', 0)
-        ->where('scheduling.scheduling_status','=',1)
+        ->where('scheduling.is_insurance', '=', 1)
         ->where('scheduling.tenant_id','=',$tenant_id)
         ->where('lorry.tenant_id','=',$tenant_id)
         ->limit((int)$per_page, (int)$offset)
@@ -128,8 +127,7 @@ $app->get('/lorry_insurance_count',function ()use($app){
     $selectStatement = $database->select(array('lorry.lorry_id'))
         ->from('scheduling')
         ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
-        ->where('scheduling.is_insurance', '=', 0)
-        ->where('scheduling.scheduling_status','=',1)
+        ->where('scheduling.is_insurance', '=', 1)
         ->where('scheduling.tenant_id','=',$tenant_id)
         ->where('lorry.tenant_id','=',$tenant_id)
         ->groupBy('lorry.lorry_id');
@@ -155,8 +153,7 @@ $app->post('/one_insurance',function()use($app){
         ->from('scheduling')
         ->join('schedule_order','schedule_order.schedule_id','=','scheduling.scheduling_id','INNER')
         ->join('goods','goods.order_id','=','schedule_order.order_id','INNER')
-        ->where('scheduling.is_insurance', '=', 0)
-        ->where('scheduling.scheduling_status','=',1)
+        ->where('scheduling.is_insurance', '=', 1)
         ->where('scheduling.lorry_id','=',$lorry_id)
         ->where('schedule_order.tenant_id','=',$tenant_id)
         ->where('scheduling.tenant_id','=',$tenant_id)
@@ -173,7 +170,7 @@ $app->post('/one_insurance',function()use($app){
         ->values(array($insurance_price,$lorry_id, $insurance_start_time, $tenant_id, $duration, $insurance_amount, $data1[0]['send_city_id'],  $data1[0]['receive_city_id'],$g_type ,(count($data2)+1)));
     $insertId = $insertStatement->execute(false);
     for($i=0;$i<count($data1);$i++){
-        $updateStatement = $database->update(array('is_insurance'=>1))
+        $updateStatement = $database->update(array('is_insurance'=>2))
             ->table('scheduling')
             ->where('scheduling_id','=',$data1[$i]['scheduling_id'])
             ->where('tenant_id','=',$tenant_id)
@@ -211,8 +208,7 @@ $app->post('/one_insurance_goods',function()use($app){
         ->from('scheduling')
         ->join('schedule_order','schedule_order.schedule_id','=','scheduling.scheduling_id','INNER')
         ->join('goods','goods.order_id','=','schedule_order.order_id','INNER')
-        ->where('scheduling.is_insurance', '=', 0)
-        ->where('scheduling.scheduling_status','=',1)
+        ->where('scheduling.is_insurance', '=', 1)
         ->where('scheduling.lorry_id','=',$lorry_id)
         ->where('schedule_order.tenant_id','=',$tenant_id)
         ->where('scheduling.tenant_id','=',$tenant_id)
@@ -232,8 +228,7 @@ $app->post('/insurance_scheduling',function()use($app){
     $lorry_id=$body->lorry_id;
     $selectStatement = $database->select()
         ->from('scheduling')
-        ->where('scheduling.is_insurance', '=', 0)
-        ->where('scheduling.scheduling_status','=',1)
+        ->where('scheduling.is_insurance', '=', 1)
         ->where('scheduling.lorry_id','=',$lorry_id)
         ->where('scheduling.tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
@@ -304,6 +299,29 @@ $app->get('/insurances',function()use($app){
     echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$data1));
 });
 
+
+//客户端，通过调度id修改is_insurance
+$app->put('/is_insurance',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $is_insurance=$body->is_insurance;
+    $scheduling_id=$body->scheduling_id;
+    $updateStatement = $database->update(array('is_insurance'=>$is_insurance))
+        ->table('scheduling')
+        ->where('scheduling_id','=',$scheduling_id)
+        ->where('tenant_id','=',$tenant_id)
+        ->where('exist',"=",0);
+    $affectedRows = $updateStatement->execute();
+    if($affectedRows>0){
+        echo json_encode(array('result'=>'1','desc'=>'success'));
+    }else{
+        echo json_encode(array('result'=>'2','desc'=>'false'));
+    }
+
+});
 
 $app->run();
 
