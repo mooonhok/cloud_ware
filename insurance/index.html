@@ -253,7 +253,6 @@
 
 		function getPro1() {
 			$("#city1").empty();
-			$("#city1").append('<option value="0">请选择市</option>')
 			var pid = $("#province1 option:selected").val();
 			$.ajax({
 				url: "http://mooonhok-cloudware.daoapp.io/city.php/city?pid=" + pid,
@@ -265,6 +264,7 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg){	
+				$("#city1").append('<option value="0">请选择市</option>')	
 					for(var i = 0; i < msg.city.length; i++) {
 						$("#city1").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
 					}
