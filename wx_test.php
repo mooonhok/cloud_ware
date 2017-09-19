@@ -5,7 +5,8 @@ require 'connect.php';
     $database=localhost();
   //  $tenant_id=$_SERVER['QUERY_STRING'];
 $str=$_SERVER['QUERY_STRING'];
-   $tenant_id=strstr($str,'tenant_id=','&');
+$num=strstr($str,'tenant_id=');
+$tenant_id=substr($str,$num+10,8);
     $selectStatement = $database->select()
         ->from('tenant')
         ->where('tenant_id','=',$tenant_id);
