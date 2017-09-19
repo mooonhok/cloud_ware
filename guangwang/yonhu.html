@@ -6,7 +6,7 @@
 		<title>用户信息</title>
 		<link rel="stylesheet" href="css/yonhu.css">
 		<script src="js/jquery-1.9.1.min.js"></script>
-		<!-- <script src="js/jquery.session.js"></script> -->
+		<script src="js/jquery.session.js"></script>
 		<script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>
 		<script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
 		<script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
@@ -115,7 +115,7 @@
 							window.location.href = "index.html";
 						} else {
 							$.ajax({
-								url: "http://mooonhok-cloudware.daoapp.io/sales.php/sales_tenant?sales_id=" + sales_id,
+								url: "../sales.php/sales_tenant?sales_id=" + sales_id,
 								dataType: 'json',
 								type: 'get',
 								contentType: "application/json;charset=utf-8",
@@ -217,7 +217,7 @@
 							$(".box3").css("display", "none");
 							// alert(id);
 							$.ajax({
-								url: "http://mooonhok-cloudware.daoapp.io/sales.php/tenantbyid?tenant_id=" + id,
+								url: "../sales.php/tenantbyid?tenant_id=" + id,
 								dataType: 'json',
 								type: 'get',
 								contentType: "application/json;charset=utf-8",
@@ -302,7 +302,7 @@
 							window.location.href = "index.html";
 						} else {
 							$.ajax({
-								url: "http://mooonhok-cloudware.daoapp.io/sales.php/tenantsum?sales_id=" + sales_id,
+								url: "../sales.php/tenantsum?sales_id=" + sales_id,
 								dataType: 'json',
 								type: 'get',
 								contentType: "application/json;charset=utf-8",
@@ -459,7 +459,7 @@
 					
 						//修改用户信息
 						$.ajax({
-							url: "http://mooonhok-cloudware.daoapp.io/sales.php/sales",
+							url: "../sales.php/sales",
 							dataType: 'json',
 							type: 'put',
 							contentType: "application/json;charset=utf-8",
@@ -509,7 +509,7 @@
 					alert(sales_id+"<br>"+id);
 					// alert(id);
 					$.ajax({
-						url: "http://mooonhok-cloudware.daoapp.io/sales.php/tenantchange",
+						url: "../sales.php/tenantchange",
 						dataType: 'json',
 						type: 'put',
 						contentType: "application/json;charset=utf-8",
@@ -543,7 +543,7 @@
 			window.location.href = "index.html";
 		} else {
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/sales.php/sales?sales_id="+sales_id,
+				url: "../sales.php/sales?sales_id="+sales_id,
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/hson;charset=utf-8",
@@ -594,7 +594,7 @@
 					// 	alert("邮箱格式不对");
 					// } else {
 						$.ajax({
-							url: "http://mooonhok-cloudware.daoapp.io/sales.php/addsales",
+							url: "../sales.php/addsales",
 							dataType: 'json',
 							type: 'post',
 							contentType: "application/json;charset=utf-8",

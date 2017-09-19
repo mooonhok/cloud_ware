@@ -205,7 +205,7 @@
 
 	function detil(id){
    	      	$.ajax({
-   	      	   url: "http://mooonhok-cloudware.daoapp.io/rechange_insurance.php/one_goods?insurance_id=" + id,
+   	      	   url: "../rechange_insurance.php/one_goods?insurance_id=" + id,
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
@@ -232,7 +232,7 @@
 		})(jQuery);
 		//获取省份和城市列表1
 		$.ajax({
-			url: "http://mooonhok-cloudware.daoapp.io/city.php/province",
+			url: "../city.php/province",
 			beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", "Chenxizhang");
 			},
@@ -254,7 +254,7 @@
 			$("#city1").empty();
 			var pid = $("#province1 option:selected").val();
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/city.php/city?pid=" + pid,
+				url: "../city.php/city?pid=" + pid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "Chenxizhang");
 				},
@@ -278,7 +278,7 @@
 		//选择搜索按钮的事件
 		$("#city1").on('change', function() {
 			city_id = $("#city1 option:selected").val();
-			window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/index.html?city_id=" + city_id+"&company=";
+			window.location.href="index.html?city_id=" + city_id+"&company=";
 		})
 		//搜索框
 		$(".select_2_2").on('click', function() {
@@ -288,7 +288,7 @@
 			if(city_id==null||city_id==""){
 				alert("请先选择城市");
 			}else{
-				window.location.href="http://mooonhok-cloudware.daoapp.io/insurance/index.html?city_id=" + city_id+"&company="+company;
+				window.location.href="index.html?city_id=" + city_id+"&company="+company;
 			}
 		});
 	</script>

@@ -11,7 +11,7 @@
 	</head>
 
 	<body>
-		<form id="myform" action="http://mooonhok-cloudware.daoapp.io/tenant.php/tenant" enctype="multipart/form-data"  onsubmit="return check()"  method="post" >
+		<form id="myform" action="../tenant.php/tenant" enctype="multipart/form-data"  onsubmit="return check()"  method="post" >
 			<!--onsubmit="return check()-->
 			<div class="box">
 				<!-- top -->
@@ -186,7 +186,7 @@
 	<script>
 		//获取省份和城市列表1
 		$.ajax({
-			url: "http://mooonhok-cloudware.daoapp.io/city.php/province",
+			url: "../city.php/province",
 			beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", "Chenxizhang");
 			},
@@ -211,7 +211,7 @@
 			$("#city1").empty();
 			var pid = $("#province1 option:selected").val();
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/city.php/city?pid=" + pid,
+				url: "../city.php/city?pid=" + pid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "Chenxizhang");
 				},
@@ -235,7 +235,7 @@
 	<script>
 		//获取城市列表2
 		$.ajax({
-			url: "http://mooonhok-cloudware.daoapp.io/city.php/province",
+			url: "../city.php/province",
 			beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", "Chenxizhang");
 			},
@@ -258,7 +258,7 @@
 			$("#city2").empty();
 			var pid = $("#province2 option:selected").val();
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/city.php/city?pid=" + pid,
+				url: "../city.php/city?pid=" + pid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "Chenxizhang");
 				},
