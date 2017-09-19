@@ -309,7 +309,9 @@ $app->get('/per_insurances',function()use($app){
     $offset=$app->request->get('offset');
     $selectStatement = $database->select()
         ->from('insurance')
-        ->where('tenant_id','=',$tenant_id)
+        ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id')
+        ->where('insurance.tenant_id','=',$tenant_id)
+        ->where('lorry.tenant_id','=',$tenant_id)
         ->orderBy('insurance.insurance_start_time','desc')
         ->limit((int)$size,(int)$offset);
     $stmt = $selectStatement->execute();
