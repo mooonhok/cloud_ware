@@ -366,7 +366,7 @@
                   layui.each(thisData, function(index, item){
                   	var sure = null;
                   	if(item.status == 0) {
-                  		 arr.push( '<tr><td>'+item.company+'</td><td>'+item.time+'</td><td>'+item.money+'</td><td>'+item.rechange_insurance_id+'</td><td>'+item.insurance_balance+'</td><td onclick="ins('+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">扣费详情</span></td><td><button class="but" onclick="makesure(' +item.rechange_insurance_id + ')">确认支付</button></td></tr>');
+                  		 arr.push( '<tr><td>'+item.company+'</td><td>'+item.time+'</td><td>'+item.money+'</td><td>'+item.rechange_insurance_id+'</td><td>'+item.insurance_balance+'</td><td onclick="ins('+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">扣费详情</span></td><td><button class="but" onclick="makesure(' +item.rechange_insurance_id + ')" style="cursor:pointer;">确认支付</button></td></tr>');
 					} else {
 						 arr.push( '<tr><td>'+item.company+'</td><td>'+item.time+'</td><td>'+item.money+'</td><td>'+item.rechange_insurance_id+'</td><td>'+item.insurance_balance+'</td><td onclick="ins('+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">扣费详情</span></td><td><button class="but" disabled="true">已经支付</button></td></tr>');
 					}
@@ -444,7 +444,7 @@
 		});
 		function ins(id) {
 			$(".box5").css("display", "block");
-                        alert(id);
+                        // alert(id);
 			$.ajax({
 				url: "../rechange_insurance.php/lastinsurance?tenant_id=" + id,
 				dataType: 'json',
@@ -452,7 +452,7 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					alert(id);
+					// alert(id);
 					console.log(msg);
 					TablePage('#table', 7);
 					function TablePage(id, size) {
