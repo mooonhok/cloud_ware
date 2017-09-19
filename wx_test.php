@@ -14,6 +14,8 @@ require 'connect.php';
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 $app->get('/getappid',function()use($app){
+    header('Content-type:text/html;charset=utf-8');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->get('tenant_id');
     $selectStatement = $database->select()
@@ -22,19 +24,17 @@ $app->get('/getappid',function()use($app){
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
     if($data1!=null||$data1!=""){
-          $appid=$data1['appid'];
-          $secret=$data1['secret'];
-        header('Content-type:text/html;charset=utf-8');
+
         if ($_COOKIE['openid'] == null) {
             if (!isset($_GET['code'])) {
-             //   $appid = 'wx15ef051f9f0bba92';
+                $appid=$data1['appid'];
                 $redirect_uri = urlencode('http://mooonhok-cloudware.daoapp.io/wx_test.php');
                 $scope = 'snsapi_base';
                 $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
                 header('Location:' . $url);
             } else {
-               // $appid = "wx15ef051f9f0bba92";
-               // $secret = "57ea0ee4abf4f4c6d6e38c88a289e687";
+                $appid=$data1['appid'];
+                $secret=$data1['secret'];
                 $code = $_GET["code"];
                 $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$secret&code=$code&grant_type=authorization_code";
                 $ch = curl_init();
@@ -60,4 +60,5 @@ $app->run();
 function localhost(){
     return connect();
 }
+
 ?>
