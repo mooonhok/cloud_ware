@@ -46,10 +46,10 @@ $app->get('/getappid',function()use($app){
                 curl_close($ch);
                 $json_obj = json_decode($output, true);
                 setcookie('openid', $json_obj['openid']);
-                header('location:http://mooonhok-cloudware.daoapp.io/weixin/builder.html?tenant_id='.$tenant_id);
+                header('location:http://mooonhok-cloudware.daoapp.io/weixin/build.html?tenant_id='.$tenant_id);
             }
         }else{
-            header('location:http://mooonhok-cloudware.daoapp.io/weixin/builder.html?tenant_id='.$tenant_id);
+            header('location:http://mooonhok-cloudware.daoapp.io/weixin/build.html?tenant_id='.$tenant_id);
         }
     }else{
         echo json_encode(array('result'=>'1','desc'=>'访问错误'));
