@@ -44,12 +44,21 @@
 		</div>
 	</body>
 	<script>
+			(function($) {
+			$.getUrlParam = function(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if(r != null) return decodeURI(r[2]);
+				return null;
+			}
+		})(jQuery);
+		var tenant_id=$.getUrlParam('tenant_id');
 		var openid = $.cookie('openid');
 		if(openid != null) {
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid?wx_openid=" + openid,
+				url: "../customer.php/wx_openid?wx_openid=" + openid,
 				beforeSend: function(request) {
-					request.setRequestHeader("tenant-id", "1");
+					request.setRequestHeader("tenant-id", tenant_id);
 				},
 				dataType: 'json',
 				type: 'get',
@@ -82,9 +91,9 @@
 									return false;
 								} else {
 									$.ajax({
-										url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_customer",
+										url: "../customer.php/wx_customer",
 										beforeSend: function(request) {
-											request.setRequestHeader("tenant-id", "1");
+											request.setRequestHeader("tenant-id", tenant_id);
 										},
 										dataType: 'json',
 										type: 'post',
@@ -99,11 +108,11 @@
 											$("#submit").removeAttr('onclick');
 											// alert("获取page值" + page);
 											if(page == 0) {
-												window.location.href = "http://mooonhok-cloudware.daoapp.io/wx_send.php";
+												window.location.href = "../wx_send.php?tenant_id";
 											} else if(page == 1) {
-												window.location.href = "http://mooonhok-cloudware.daoapp.io/wx_my_consignment_note.php";
+												window.location.href = "../wx_my_consignment_note.php";
 											} else if(page == 2) {
-												window.location.href = "http://mooonhok-cloudware.daoapp.io/wx_online_inquiry.php";
+												window.location.href = "../wx_online_inquiry.php";
 											}
 										},
 										error: function(xhr) {

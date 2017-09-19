@@ -152,13 +152,22 @@ $signPackage = $jssdk->GetSignPackage();
 <script type="text/javascript" src="js/layer (2).js"></script>
 <script type="text/javascript" src="js/layer.js"></script>
 <script>
+		(function($) {
+			$.getUrlParam = function(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if(r != null) return decodeURI(r[2]);
+				return null;
+			}
+		})(jQuery);
+		var tenant_id=$.getUrlParam('tenant_id');
 	$("#sumbit").click(function(){
 		var order_id=$("#order_id").val();
 		if(order_id.length!=0){
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/order.php/wx_order_z",
+				url: "../order.php/wx_order_z",
 				beforeSend: function(request) {
-					request.setRequestHeader("tenant-id", "1");
+					request.setRequestHeader("tenant-id", tenant_id);
 				},
 				dataType: 'json',
 				type: 'post',
@@ -171,7 +180,7 @@ $signPackage = $jssdk->GetSignPackage();
 				       layer.msg("订单不存在");	
 					}else{
 					// alert(order_id);
-		            window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+order_id;
+		            window.location.href="waybill_details.html?order_id="+order_id+"&tenant_id="+tenant_id;
 					}
 				},
 				error: function(xhr) {
@@ -189,9 +198,9 @@ $signPackage = $jssdk->GetSignPackage();
 		var openid = $.cookie('openid');
 		if(openid != null) {
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid?wx_openid="+openid,
+				url: "../customer.php/wx_openid?wx_openid="+openid,
 				beforeSend: function(request) {
-					request.setRequestHeader("tenant-id", "1");
+					request.setRequestHeader("tenant-id", tenant_id);
 				},
 				dataType: 'json',
 				type: 'get',
@@ -202,7 +211,7 @@ $signPackage = $jssdk->GetSignPackage();
 				success: function(msg) {
 					//					alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
 					if(msg.result == 0) {
-						window.location.href = "register.html";
+						window.location.href = "register.html?tenant_id="+tenant_id;
 					} else {
 						//alert(openid);
 					}
@@ -245,9 +254,9 @@ $signPackage = $jssdk->GetSignPackage();
         a=res.resultStr.split(",");
         if(a[1].length!=0){
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/order.php/wx_order_z",
+				url: "../order.php/wx_order_z",
 				beforeSend: function(request) {
-					request.setRequestHeader("tenant-id", "1");
+					request.setRequestHeader("tenant-id",tenant_id);
 				},
 				dataType: 'json',
 				type: 'post',
@@ -260,7 +269,7 @@ $signPackage = $jssdk->GetSignPackage();
 				     layer.msg("订单不存在")  	
 					}else{
 					// alert(order_id);
-		            window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+a[1];
+		            window.location.href="waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
 					}
 				},
 				error: function(xhr) {

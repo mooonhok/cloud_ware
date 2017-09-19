@@ -105,13 +105,22 @@
 	</script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 <script>
+	(function($) {
+			$.getUrlParam = function(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if(r != null) return decodeURI(r[2]);
+				return null;
+			}
+		})(jQuery);
+		var tenant_id=$.getUrlParam('tenant_id');
 		//判断openid是否已经被注册
 		var openid = $.cookie('openid');
 		if(openid != null) {
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/customer.php/wx_openid?wx_openid="+openid,
+				url: "../customer.php/wx_openid?wx_openid="+openid,
 				beforeSend: function(request) {
-					request.setRequestHeader("tenant-id", "1");
+					request.setRequestHeader("tenant-id", tenant_id);
 				},
 				dataType: 'json',
 				type: 'get',
@@ -122,7 +131,7 @@
 				success: function(msg) {
 					//					alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
 					if(msg.result == 0) {
-						window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/register.html?page=2";
+						window.location.href = "register.html?page=2&tenant_id="+tenant_id;
 					} 
 				},
 				error: function(xhr) {
