@@ -5,7 +5,7 @@ require 'connect.php';
     $database=localhost();
   //  $tenant_id=$_SERVER['QUERY_STRING'];
 $str=$_SERVER['QUERY_STRING'];
-   $tenant_id=strstr($str,'=');
+   $tenant_id=strstr($str,'tenant_id=','&');
     $selectStatement = $database->select()
         ->from('tenant')
         ->where('tenant_id','=',$tenant_id);
@@ -15,7 +15,7 @@ $str=$_SERVER['QUERY_STRING'];
         if ($_COOKIE['openid'] == null) {
             if (!isset($_GET['code'])) {
                 $appid=$data1['appid'];
-                $redirect_uri = urlencode('http://mooonhok-cloudware.daoapp.io/wx_test.php?');
+                $redirect_uri = urlencode('http://mooonhok-cloudware.daoapp.io/wx_test.php?tenant_id='.$tenant_id);
                 $scope = 'snsapi_base';
                 $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
                 header('Location:' . $url);
