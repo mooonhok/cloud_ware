@@ -1,30 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2017/8/26
- * Time: 19:16
- */
 
-
-require 'Slim/Slim.php';
-require 'connect.php';
-
-
-\Slim\Slim::registerAutoloader();
-$app = new \Slim\Slim();
-$app->get('/getappid',function()use($app){
     header('Content-type:text/html;charset=utf-8');
- //   $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
-    $tenant_id=$app->request->get('tenant_id');
+    $tenant_id=$_SERVER['QUERY_STRING'];
     $selectStatement = $database->select()
         ->from('tenant')
         ->where('tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
     if($data1!=null||$data1!=""){
-
         if ($_COOKIE['openid'] == null) {
             if (!isset($_GET['code'])) {
                 $appid=$data1['appid'];
@@ -54,11 +38,5 @@ $app->get('/getappid',function()use($app){
     }else{
         echo json_encode(array('result'=>'1','desc'=>'访问错误'));
     }
-});
-$app->run();
-
-function localhost(){
-    return connect();
-}
 
 ?>
