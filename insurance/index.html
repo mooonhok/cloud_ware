@@ -55,6 +55,7 @@
 	            float: left;
 	            color:white;
 	            background: #424F63;
+	            cursor:pointer;
             }
             .gps_2{
 	            width: 100px;
@@ -64,6 +65,7 @@
 	            float: left;
 	            color:#A2A49E;
 	            background: #E0E1E7;
+	            cursor:pointer;
            }
 		</style>
 	</head>
@@ -183,7 +185,7 @@
                           +item.driver_name+'</td><td>'
                           +item.receive_city+'</td><td>'
                           +item.from_city+'</td><td class="det" onclick="detil('
-                          +item.insurance_id+')"><a href=""><span style="color:blue;">详情</span></a></td><td>'
+                          +item.insurance_id+')"><span style="color:blue; cursor:pointer;">详情</span></td><td>'
                           +item.insurance_price+'</td><td>'
                           +item.insurance_amount+'</td><td>'
                           +item.insurance_start_time+'</td><td>'

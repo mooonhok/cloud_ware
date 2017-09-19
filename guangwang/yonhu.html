@@ -127,7 +127,7 @@
 									function TablePage(id, size) {
 										$("#tb").html("");
 										for(var i = 0; i < msg.company.length; i++) {
-											var a = "<tr><td>" + msg.company[i].company + "</td><td>" + msg.company[i].customer_name + "</td><td>" + msg.company[i].customer_phone + "</td><td>" + msg.company[i].begin_time + "</td><td>" + msg.company[i].end_time + "</td><td><button class='but_1' onclick='updata(" + msg.company[i].tenant_id + ")'>编辑</button></td></tr>"
+											var a = "<tr><td>" + msg.company[i].company + "</td><td>" + msg.company[i].customer_name + "</td><td>" + msg.company[i].customer_phone + "</td><td>" + msg.company[i].begin_time + "</td><td>" + msg.company[i].end_time + "</td><td><button class='but_1' onclick='updata(" + msg.company[i].tenant_id + ")' style=' cursor:pointer;'>编辑</button></td></tr>"
 											$("#tb").append(a);
 										}
 										var $table = $(id);

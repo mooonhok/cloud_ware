@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-29 09:48:59
 * @Last Modified by:   boycui
-* @Last Modified time: 2017-09-19 13:30:23
+* @Last Modified time: 2017-09-19 15:09:24
 */
 *{
 	padding: 0;margin: 0;
@@ -804,6 +804,7 @@ li{
 	color: white;
 	border-radius: 5px;	
 	font-size: 17px;
+	 cursor:pointer;
 }
 .box3_7{
 	width: 300px;

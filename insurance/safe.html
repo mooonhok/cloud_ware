@@ -60,6 +60,7 @@
 	            float: left;
 	            color:white;
 	            background: #424F63;
+	             cursor:pointer;
             }
             .gps_1{
 	            width: 100px;
@@ -69,6 +70,7 @@
 	            float: left;
 	            color:#A2A49E;
 	            background: #E0E1E7;
+	             cursor:pointer;
            }
 		</style>
 	</head>
@@ -364,9 +366,9 @@
                   layui.each(thisData, function(index, item){
                   	var sure = null;
                   	if(item.status == 0) {
-                  		 arr.push( '<tr><td>'+item.company+'</td><td>'+item.time+'</td><td>'+item.money+'</td><td>'+item.rechange_insurance_id+'</td><td>'+item.insurance_balance+'</td><td onclick="ins('+item.tenant_id + ')"><a href="">扣费详情</a></td><td><button class="but" onclick="makesure(' +item.rechange_insurance_id + ')">确认支付</button></td></tr>');
+                  		 arr.push( '<tr><td>'+item.company+'</td><td>'+item.time+'</td><td>'+item.money+'</td><td>'+item.rechange_insurance_id+'</td><td>'+item.insurance_balance+'</td><td onclick="ins('+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">扣费详情</span></td><td><button class="but" onclick="makesure(' +item.rechange_insurance_id + ')">确认支付</button></td></tr>');
 					} else {
-						 arr.push( '<tr><td>'+item.company+'</td><td>'+item.time+'</td><td>'+item.money+'</td><td>'+item.rechange_insurance_id+'</td><td>'+item.insurance_balance+'</td><td onclick="ins('+item.tenant_id + ')"><span style="color:blue;">扣费详情</span></td><td><button class="but" disabled="true">已经支付</button></td></tr>');
+						 arr.push( '<tr><td>'+item.company+'</td><td>'+item.time+'</td><td>'+item.money+'</td><td>'+item.rechange_insurance_id+'</td><td>'+item.insurance_balance+'</td><td onclick="ins('+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">扣费详情</span></td><td><button class="but" disabled="true">已经支付</button></td></tr>');
 					}
                   });
                   return arr.join('');

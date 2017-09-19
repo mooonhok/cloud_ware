@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-09-05 14:28:39
 * @Last Modified by:   boycui
-* @Last Modified time: 2017-09-19 11:24:54
+* @Last Modified time: 2017-09-19 14:54:03
 */
 *{
    margin: 0;
@@ -74,6 +74,7 @@ select{
 }
 .select_2_2{
 	float: left;
+	 cursor:pointer;
 }
 .top_4{
 	width: 1200px;
@@ -139,6 +140,7 @@ select{
 	background: skyblue;
 	float: left;
 	margin-top: 20px;
+	cursor:pointer;
 }
 .box3{
 	width: 300px;
@@ -168,6 +170,7 @@ select{
 	float: left;
 	margin-top: 30px;
 	margin-left: 25px; 
+	 cursor:pointer;
 }
 .box3_3{
 	width: 100px;
@@ -179,6 +182,7 @@ select{
 	float: left;
 	margin-top: 30px;
 	margin-left:50px; 
+	 cursor:pointer;
 }
 .xq{
 	width: 80%;
@@ -246,6 +250,7 @@ h2{
 	border: 0;
 	border-radius: 5px;
 	color: white;
+	 cursor:pointer;
 }
 .but_2{
 	width: 80px;
@@ -254,6 +259,7 @@ h2{
 	border: 0;
 	border-radius: 5px;
 	color: white;
+	 cursor:pointer;
 }
 .box5{
 	width:1000px;
@@ -305,4 +311,7 @@ h2{
 }
 #tb3 td{
 	text-align: center;
+}
+.quxiao{
+	 cursor:pointer;
 }
