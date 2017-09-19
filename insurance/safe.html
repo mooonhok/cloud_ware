@@ -40,6 +40,36 @@
 				border-radius: 5px;
 				color: white;
 			}
+			.top_4_2{
+				width: 100px;
+				height: 10px;
+				background:white;
+				float: left;
+			}
+			.top_4_1{
+				width: 100px;
+				height: 10px;
+				background:#E0E1E7;
+				float: left;
+			}
+			.gps_2{
+	            width: 100px;
+	            height: 40px;
+	            text-align: center;
+	            line-height: 40px;
+	            float: left;
+	            color:white;
+	            background: #424F63;
+            }
+            .gps_1{
+	            width: 100px;
+	            height: 40px;
+	            text-align: center;
+	            line-height: 40px;
+	            float: left;
+	            color:#A2A49E;
+	            background: #E0E1E7;
+           }
 		</style>
 	</head>
 
@@ -54,10 +84,13 @@
 				</div>
 			</div>
 			<div class="top_3"></div>
-			
+			<div class="top_4">
+				<div class="top_4_1"></div>
+				<div class="top_4_2"></div>
+			</div>
 			<div class="gps">
-				<div class="gps_1" style="background: green;color: white;">支付信息</div>
-				<div class="gps_2">历史保单</div>
+				<div class="gps_1">支付信息</div>
+				<div class="gps_2" onclick="window.location.href='index.html'">历史保单</div>
 			</div>
 			<div class="select">
 				<div class="select_1">
@@ -235,7 +268,7 @@
 			</div>
 	</body>
 	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/jquery.session.js"></script>
+	<!-- <script src="js/jquery.session.js"></script> -->
 	<script type="text/javascript" src="src/layui.js"></script>
 	<script type="text/javascript" src="js/jquery.PrintArea.js"></script>
 	<script type="text/javascript">
@@ -330,9 +363,9 @@
                   layui.each(thisData, function(index, item){
                   	var sure = null;
                   	if(item.status == 0) {
-                  		 arr.push( '<tr><td>'+item.company+'</td><td>'+item.time+'</td><td>'+item.money+'</td><td>'+item.rechange_insurance_id+'</td><td>'+item.insurance_balance+'</td><td onclick="ins('+item.tenant_id + ')">扣费详情</td><td><button class="but" onclick="makesure(' +item.rechange_insurance_id + ')">确认支付</button></td></tr>');
+                  		 arr.push( '<tr><td>'+item.company+'</td><td>'+item.time+'</td><td>'+item.money+'</td><td>'+item.rechange_insurance_id+'</td><td>'+item.insurance_balance+'</td><td onclick="ins('+item.tenant_id + ')"><a href="">扣费详情</a></td><td><button class="but" onclick="makesure(' +item.rechange_insurance_id + ')">确认支付</button></td></tr>');
 					} else {
-						 arr.push( '<tr><td>'+item.company+'</td><td>'+item.time+'</td><td>'+item.money+'</td><td>'+item.rechange_insurance_id+'</td><td>'+item.insurance_balance+'</td><td onclick="ins('+item.tenant_id + ')">扣费详情</td><td><button class="but" disabled="true">已经支付</button></td></tr>');
+						 arr.push( '<tr><td>'+item.company+'</td><td>'+item.time+'</td><td>'+item.money+'</td><td>'+item.rechange_insurance_id+'</td><td>'+item.insurance_balance+'</td><td onclick="ins('+item.tenant_id + ')"><a href="">扣费详情</a></td><td><button class="but" disabled="true">已经支付</button></td></tr>');
 					}
                   });
                   return arr.join('');
@@ -552,11 +585,6 @@
 		$(".box3_3").on("click", function() {
 			$(".box3").css("display", "none");
 		})
-
-		$(".gps_2").on("click", function() {
-			window.location.href = "index.html";
-		})
-
 		$(".box2_2").on("click", function() {
 			$(".box2").css("display", "none");
 		})

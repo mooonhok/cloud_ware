@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-09-05 14:28:39
 * @Last Modified by:   boycui
-* @Last Modified time: 2017-09-19 10:34:51
+* @Last Modified time: 2017-09-19 11:14:03
 */
 *{
    margin: 0;
@@ -43,7 +43,7 @@
 .select{
 	width: 1200px;
 	margin:10px auto;
-	height: 60px;
+	height: 40px;
 }
 select{
 	width: 100px;
@@ -75,26 +75,18 @@ select{
 .select_2_2{
 	float: left;
 }
-
+.top_4{
+	width: 1200px;
+	height: 10px;
+	margin: 0 auto;
+}
 .gps{
 	width: 1200px;
-	margin: 5px auto;
+	margin: 0 auto;
 	height: 40px;
+	background: #424F63;
 }
-.gps_1{
-	width: 600px;
-	height: 40px;
-	text-align: center;
-	line-height: 40px;
-	float: left;
-}
-.gps_2{
-	width: 600px;
-	height: 40px;
-	text-align: center;
-	line-height: 40px;
-	float: left;
-}
+
 .tab{
 	width: 1200px;
 	margin: 0 auto;
@@ -313,7 +305,4 @@ h2{
 }
 #tb3 td{
 	text-align: left;
-}
-.gps{
-
 }

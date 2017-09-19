@@ -26,12 +26,7 @@
 				border-left: 1px solid #DDDDDD;
 				border-top: 1px solid #DDDDDD;
 				/* background: #9CBA60; */
-			}
-			
-			a {
-				text-decoration: none;
-			}
-			
+			}	
 			button {
 				width: 100px;
 				height: 30px;
@@ -40,6 +35,36 @@
 				border-radius: 5px;
 				color: white;
 			}
+			.top_4_1{
+				width: 100px;
+				height: 10px;
+				background:white;
+				float: left;
+			}
+			.top_4_2{
+				width: 100px;
+				height: 10px;
+				background:#E0E1E7;
+				float: left;
+			}
+			.gps_1{
+	            width: 100px;
+	            height: 40px;
+	            text-align: center;
+	            line-height: 40px;
+	            float: left;
+	            color:white;
+	            background: #424F63;
+            }
+            .gps_2{
+	            width: 100px;
+	            height: 40px;
+	            text-align: center;
+	            line-height: 40px;
+	            float: left;
+	            color:#A2A49E;
+	            background: #E0E1E7;
+           }
 		</style>
 	</head>
 	<body>
@@ -52,12 +77,15 @@
 					<img src="images/2.jpg" alt="">
 				</div>
 			</div>
-			
-			<div class="gps">
-				<div class="gps_1">支付信息</div>
-				<div class="gps_2" style="background: green;color: white;">历史保单</div>
-			</div>
 			<div class="top_3"></div>
+			<div class="top_4">
+				<div class="top_4_1"></div>
+				<div class="top_4_2"></div>
+			</div>
+			<div class="gps">
+				<div class="gps_1" onclick="window.location.href='safe.html'">支付信息</div>
+				<div class="gps_2">历史保单</div>
+			</div>
 			<div class="select">
 				<div class="select_1">
 					<select name="province" id="province1" onchange="getPro1()" class="pro">
@@ -113,9 +141,6 @@
 <!-- <script src="js/jquery.session.js"></script> -->
 <script type="text/javascript" src="src/layui.js"></script>
 <script type="text/javascript">
-
-</script>
-<script type="text/javascript">
 	function insurance(city_id,company,page){
 	    if(page==null){
 	        page=1;
@@ -158,7 +183,7 @@
                           +item.driver_name+'</td><td>'
                           +item.receive_city+'</td><td>'
                           +item.from_city+'</td><td class="det" onclick="detil('
-                          +item.insurance_id+')">详情</td><td>'
+                          +item.insurance_id+')"><a href="">详情</a></td><td>'
                           +item.insurance_price+'</td><td>'
                           +item.insurance_amount+'</td><td>'
                           +item.insurance_start_time+'</td><td>'
@@ -286,10 +311,6 @@ var city_id = $.getUrlParam('city_id');
 		$(".det").on("click",function(){
 			$(".box2").css("display","block");
 		})
-		$(".gps_1").on("click",function(){
-			window.location.href="safe.html";
-		})
-		
 		$(".box2_2").on("click", function() {
 			$(".box2").css("display", "none");
 		})
