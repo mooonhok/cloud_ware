@@ -361,6 +361,9 @@
    		  	  url:"http://api.uminfo.cn/sales.php/usersign",
    		  	  dataType:'json',
    		  	  type:'post',
+   		  	  beforeSend: function(request) {
+                        request.setRequestHeader("Access-Control-Allow-Origin", "*");
+                    },
    		  	  contentType:"application/json;charset=utf-8",
    		  	  data:JSON.stringify({
    		  	       username:name,
