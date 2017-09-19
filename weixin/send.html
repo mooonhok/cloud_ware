@@ -308,7 +308,7 @@
 		var customer_accept_id = null;
 		if(openid != null) {
 			$.ajax({
-				url: "../customer.php/wx_openid?wx_openid=" + openid,
+				url: "api.uminfo.cn/customer.php/wx_openid?wx_openid=" + openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
@@ -320,7 +320,7 @@
 					// alert("判断openid结果" + msg.result);
 					//	alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
 					if(msg.result == 0) {
-						window.location.href = "register.html?page=0&tenant_id="+tenant_id;
+						window.location.href = "weixin.uminfo.cn/register.html?page=0&tenant_id="+tenant_id;
 					}
 					// alert(openid);
 				},
@@ -429,7 +429,7 @@
 	<script>
 		//获取省份和城市列表1
 		$.ajax({
-			url: "../city.php/province",
+			url: "api.uminfo.cn/city.php/province",
 			beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", tenant_id);
 			},
@@ -457,7 +457,7 @@
 			$("#city1").empty();
 			var pid = $("#province1 option:selected").val();
 			$.ajax({
-				url: "../city.php/city?pid=" + pid,
+				url: "api.uminfo.cn/city.php/city?pid=" + pid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
@@ -485,7 +485,7 @@
 	<script>
 		//获取城市列表2
 		$.ajax({
-			url: "../city.php/province",
+			url: "api.uminfo.cn/city.php/province",
 			beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", tenant_id);
 			},
@@ -513,7 +513,7 @@
 			$("#city2").empty();
 			var pid = $("#province2 option:selected").val();
 			$.ajax({
-				url: "../city.php/city?pid=" + pid,
+				url: "api.uminfo.cn/city.php/city?pid=" + pid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
@@ -543,7 +543,7 @@
 		//加载寄件人信息
 		function loadsend(openid,tenant_id) {
 			$.ajax({
-				url: "../customer.php/wxaddress?wx_openid=" + openid,
+				url: "api.uminfo.cn/customer.php/wxaddress?wx_openid=" + openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
@@ -594,7 +594,7 @@
 		function delet(id,tenant_id) {
 		//	alert(id);
 			$.ajax({
-				url: "../customer.php/customer?customerid=" + id,
+				url: "api.uminfo.cn/customer.php/customer?customerid=" + id,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
@@ -630,7 +630,7 @@
 		//加载收货地址
 		function loadaccept(openid,tenant_id) {
 			$.ajax({ 
-				url: "../customer.php/wxaddress?wx_openid=" + openid,
+				url: "api.uminfo.cn/customer.php/wxaddress?wx_openid=" + openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
@@ -702,7 +702,7 @@
 				return false;
 			} else {
 				$.ajax({
-					url: "../customer.php/plus_customer",
+					url: "api.uminfo.cn/customer.php/plus_customer",
 					beforeSend: function(request) {
 						request.setRequestHeader("tenant-id", tenant_id);
 					},
@@ -753,7 +753,7 @@
 				return false;
 			} else {
 				$.ajax({
-					url: "../customer.php/plus_customer",
+					url: "api.uminfo.cn/customer.php/plus_customer",
 					beforeSend: function(request) {
 						request.setRequestHeader("tenant-id", tenant_id);
 					},
@@ -828,7 +828,7 @@
 			} else {
 				// alert(customer_send_id + '////' + customer_accept_id + '///' + huowu + zhong + tiji + baozhuang + jianshu + needs + jiazhi + str + openid)
 				$.ajax({
-					url: "../wxmessage.php/wxmessage_insert",
+					url: "api.uminfo.cn/wxmessage.php/wxmessage_insert",
 					beforeSend: function(request) {
 						request.setRequestHeader("tenant-id", tenant_id);
 					},
@@ -856,7 +856,7 @@
 						// 	size: "small"
 						// })
 					 layer.msg("提交订单成功");
-						  window.location.href = "my_consignment_note.php?tenant_id="+tenant_id;
+						  window.location.href = "weixin.uminfo.cn/my_consignment_note.php?tenant_id="+tenant_id;
 
 					},
 					error: function(xhr) {

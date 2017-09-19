@@ -56,7 +56,7 @@
 		var openid = $.cookie('openid');
 		if(openid != null) {
 			$.ajax({
-				url: "../customer.php/wx_openid?wx_openid=" + openid,
+				url: "api.uminfo.cn/customer.php/wx_openid?wx_openid=" + openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
@@ -91,7 +91,7 @@
 									return false;
 								} else {
 									$.ajax({
-										url: "../customer.php/wx_customer",
+										url: "api.uminfo.cn/customer.php/wx_customer",
 										beforeSend: function(request) {
 											request.setRequestHeader("tenant-id", tenant_id);
 										},
@@ -108,11 +108,11 @@
 											$("#submit").removeAttr('onclick');
 											// alert("获取page值" + page);
 											if(page == 0) {
-												window.location.href = "../wx_send.php?tenant_id";
+												window.location.href = "api.uminfo.cn/wx_send.php?tenant_id";
 											} else if(page == 1) {
-												window.location.href = "../wx_my_consignment_note.php";
+												window.location.href = "api.uminfo.cn/wx_my_consignment_note.php";
 											} else if(page == 2) {
-												window.location.href = "../wx_online_inquiry.php";
+												window.location.href = "api.uminfo.cn/wx_online_inquiry.php";
 											}
 										},
 										error: function(xhr) {

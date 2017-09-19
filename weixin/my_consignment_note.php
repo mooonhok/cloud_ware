@@ -111,7 +111,7 @@ $signPackage = $jssdk->GetSignPackage();
 		var openid = $.cookie('openid');
 		if(openid != null) {
 			$.ajax({
-				url: "../customer.php/wx_openid?wx_openid="+openid,
+				url: "api.uminfo.cn/customer.php/wx_openid?wx_openid="+openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id",tenant_id);
 				},
@@ -124,7 +124,7 @@ $signPackage = $jssdk->GetSignPackage();
 				success: function(msg) {
 					//alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
 				if(msg.result == 0) {
-						window.location.href = "register.html?page=1&tenant_id="+tenant_id;
+						window.location.href = "weixin.uminfo.cn/register.html?page=1&tenant_id="+tenant_id;
 					}
 				},
 				error: function(xhr) {

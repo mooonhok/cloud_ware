@@ -165,7 +165,7 @@ $signPackage = $jssdk->GetSignPackage();
 		var order_id=$("#order_id").val();
 		if(order_id.length!=0){
 			$.ajax({
-				url: "../order.php/wx_order_z",
+				url: "api.uminfo.cn/order.php/wx_order_z",
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
@@ -180,7 +180,7 @@ $signPackage = $jssdk->GetSignPackage();
 				       layer.msg("订单不存在");	
 					}else{
 					// alert(order_id);
-		            window.location.href="waybill_details.html?order_id="+order_id+"&tenant_id="+tenant_id;
+		            window.location.href="weixin.uminfo.cn/waybill_details.html?order_id="+order_id+"&tenant_id="+tenant_id;
 					}
 				},
 				error: function(xhr) {
@@ -198,7 +198,7 @@ $signPackage = $jssdk->GetSignPackage();
 		var openid = $.cookie('openid');
 		if(openid != null) {
 			$.ajax({
-				url: "../customer.php/wx_openid?wx_openid="+openid,
+				url: "api.uminfo.cn/customer.php/wx_openid?wx_openid="+openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
@@ -211,7 +211,7 @@ $signPackage = $jssdk->GetSignPackage();
 				success: function(msg) {
 					//					alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
 					if(msg.result == 0) {
-						window.location.href = "register.html?tenant_id="+tenant_id;
+						window.location.href = "weixin.uminfo.cn/register.html?tenant_id="+tenant_id;
 					} else {
 						//alert(openid);
 					}
@@ -254,7 +254,7 @@ $signPackage = $jssdk->GetSignPackage();
         a=res.resultStr.split(",");
         if(a[1].length!=0){
 			$.ajax({
-				url: "../order.php/wx_order_z",
+				url: "api.uminfo.cn/order.php/wx_order_z",
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id",tenant_id);
 				},
@@ -269,7 +269,7 @@ $signPackage = $jssdk->GetSignPackage();
 				     layer.msg("订单不存在")  	
 					}else{
 					// alert(order_id);
-		            window.location.href="waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
+		            window.location.href="weixin.uminfo.cn/waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
 					}
 				},
 				error: function(xhr) {

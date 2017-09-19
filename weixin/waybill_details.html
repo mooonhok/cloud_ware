@@ -125,7 +125,7 @@
 		var openid = $.cookie('openid');
 		if(openid != null) {
 			$.ajax({
-				url: "../customer.php/wx_openid?wx_openid=" + openid,
+				url: "api.uminfo.cn/customer.php/wx_openid?wx_openid=" + openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
@@ -138,7 +138,7 @@
 				success: function(msg) {
 					//	alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
 					if(msg.result == 0) {
-						window.location.href = "../wx_register.php?tenant_id="+tenant_id;
+						window.location.href = "api.uminfo.cn/wx_register.php?tenant_id="+tenant_id;
 					}
 				},
 				error: function(xhr) {
@@ -160,7 +160,7 @@
 			var order_id = $.getUrlParam('order_id');
 			//alert(order_id);   
 			$.ajax({
-				url: "../order.php/wx_order_z",
+				url: "api.uminfo.cn/order.php/wx_order_z",
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "1");
 				},
