@@ -300,6 +300,25 @@ $app->get('/insurances',function()use($app){
 });
 
 
+//客户端，分页获得历史保险
+$app->get('/per_insurances',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $size=$app->request->get('size');
+    $offset=$app->request->get('offset');
+    $selectStatement = $database->select()
+        ->from('insurance')
+        ->where('tenant_id','=',$tenant_id)
+        ->orderBy('insurance.insurance_start_time','desc')
+        ->limit((int)$size,(int)$offset);
+    $stmt = $selectStatement->execute();
+    $data1= $stmt->fetchAll();
+    echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$data1));
+});
+
+
+
 //客户端，通过调度id修改is_insurance
 $app->put('/is_insurance',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
@@ -321,6 +340,52 @@ $app->put('/is_insurance',function()use($app){
         echo json_encode(array('result'=>'2','desc'=>'false'));
     }
 
+});
+
+
+//通过insuranceid查goods
+$app->get('/insurance_goods',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $insurance_id=$app->request->get('insurance_id');
+    $selectStatement = $database->select()
+        ->from('insurance')
+        ->join('insurance_scheduling','insurance_scheduling.insurance_id','=','insurance.insurance_id','INNER')
+        ->join('scheduling','scheduling.scheduling_id','=','insurance_scheduling.scheduling_id','INNER')
+        ->join('schedule_order','schedule_order.schedule_id','=','insurance_scheduling.scheduling_id','INNER')
+        ->join('goods','goods.order_id','=','schedule_order.order_id','INNER')
+        ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
+        ->where('schedule_order.tenant_id','=',$tenant_id)
+        ->where('insurance_scheduling.tenant_id','=',$tenant_id)
+        ->where('insurance.tenant_id','=',$tenant_id)
+        ->where('scheduling.tenant_id','=',$tenant_id)
+        ->where('goods.tenant_id','=',$tenant_id)
+        ->where('insurance.insurance_id','=',$insurance_id)
+        ->where('insurance_scheduling.insurance_id','=',$insurance_id);
+    $stmt = $selectStatement->execute();
+    $data1= $stmt->fetchAll();
+    for($i=0;$i<count($data1);$i++){
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id', '=', $data1[$i]['receive_city_id']);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id', '=', $data1[$i]['send_city_id']);
+        $stmt = $selectStatement->execute();
+        $data3 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('goods_package')
+            ->where('goods_package_id', '=', $data1[$i]['goods_package_id']);
+        $stmt = $selectStatement->execute();
+        $data4 = $stmt->fetch();
+        $data1[$i]['receive_city']=$data2['name'];
+        $data1[$i]['send_city']=$data3['name'];
+        $data1[$i]['goods_package']=$data4['goods_package'];
+    }
+    echo json_encode(array('result'=>'1','desc'=>'success','insurance_goods'=>$data1));
 });
 
 $app->run();
