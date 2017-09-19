@@ -1,4 +1,5 @@
 <?php
+
 require 'connect.php';
     header('Content-type:text/html;charset=utf-8');
     $database=localhost();
@@ -40,7 +41,6 @@ $str=$_SERVER['QUERY_STRING'];
     }else{
         echo json_encode(array('result'=>'1','desc'=>'访问错误'));
     }
-$app->run();
 
 function localhost(){
     return connect();
