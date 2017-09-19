@@ -1,5 +1,5 @@
 <?php
-
+require 'connect.php';
     header('Content-type:text/html;charset=utf-8');
     $database=localhost();
     $tenant_id=$_SERVER['QUERY_STRING'];
