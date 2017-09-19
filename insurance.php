@@ -363,6 +363,20 @@ $app->get('/insurance_goods',function()use($app){
         ->orderBy('scheduling.scheduling_id');
     $stmt = $selectStatement->execute();
     $data1= $stmt->fetchAll();
+    for($i=0;$i<count($data1);$i++){
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id', '=', $data1[$i]['receive_city_id']);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id', '=', $data1[$i]['send_city_id']);
+        $stmt = $selectStatement->execute();
+        $data3 = $stmt->fetch();
+        $data1[$i]['receive_city']=$data2['name'];
+        $data1[$i]['send_city']=$data3['name'];
+    }
     echo json_encode(array('result'=>'1','desc'=>'success','insurance_goods'=>$data1));
 });
 
