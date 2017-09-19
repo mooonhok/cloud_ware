@@ -148,7 +148,7 @@
 				alert("用户名或密码不能为空");
 			}else{
 			$.ajax({
-   		  	  url:"../rechange_insurance.php/userlogin",
+   		  	  url:"api.uminfo.cn/rechange_insurance.php/userlogin",
    		  	  dataType:'json',
    		  	  type:'post',
    		  	  contentType:"application/json;charset=utf-8",
@@ -162,7 +162,7 @@
    		  	  	    $.session.set('userid',msg.user.id);
    		  	  	    var user=$.session.get('userid');
    		  	  	    if(user!=null||user!=""){
-   		  	  	    	window.location.href = "index.html";
+   		  	  	    	window.location.href = "insurance.uminfo.cn/index.html";
    		  	  	    }
    		  	  	}else{
    		  	  		alert(msg.desc);

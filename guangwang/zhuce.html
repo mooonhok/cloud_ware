@@ -11,7 +11,7 @@
 	</head>
 
 	<body>
-		<form id="myform" action="../tenant.php/tenant" enctype="multipart/form-data"  onsubmit="return check()"  method="post" >
+		<form id="myform" action="api.uminfo.cn /tenant.php/tenant" enctype="multipart/form-data"  onsubmit="return check()"  method="post" >
 			<!--onsubmit="return check()-->
 			<div class="box">
 				<!-- top -->
@@ -186,7 +186,7 @@
 	<script>
 		//获取省份和城市列表1
 		$.ajax({
-			url: "../city.php/province",
+			url: "api.uminfo.cn /city.php/province",
 			beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", "Chenxizhang");
 			},
@@ -211,7 +211,7 @@
 			$("#city1").empty();
 			var pid = $("#province1 option:selected").val();
 			$.ajax({
-				url: "../city.php/city?pid=" + pid,
+				url: "api.uminfo.cn /city.php/city?pid=" + pid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "Chenxizhang");
 				},
@@ -220,7 +220,6 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					//                      alert("city结果"+msg.result+"/////"+msg.desc+"//////"+msg.city);
 					for(var i = 0; i < msg.city.length; i++) {
 						$("#city1").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
 					}
@@ -235,7 +234,7 @@
 	<script>
 		//获取城市列表2
 		$.ajax({
-			url: "../city.php/province",
+			url: "api.uminfo.cn /city.php/province",
 			beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", "Chenxizhang");
 			},
@@ -244,7 +243,6 @@
 			contentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
-				//                        alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
 				for(var i = 0; i < msg.province.length; i++) {
 					$("#province2").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
 				}
@@ -358,7 +356,7 @@
 		
 			alert("提交成功");
 			return true;
-			window.location.href="yonhu.html";
+			window.location.href="http://www.uminfo.cn/yonhu.html";
 	}
 }
 	</script>

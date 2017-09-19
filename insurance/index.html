@@ -85,7 +85,7 @@
 				<div class="top_4_2"></div>
 			</div>
 			<div class="gps">
-				<div class="gps_1" onclick="window.location.href='safe.html'">支付信息</div>
+				<div class="gps_1" onclick="window.location.href='insurance.uminfo.cn/safe.html'">支付信息</div>
 				<div class="gps_2">历史保单</div>
 			</div>
 			<div class="select">
@@ -154,7 +154,7 @@
 				company="";
 			}
 	$.ajax({
-		url:"../rechange_insurance.php/insurances?city_id=" + city_id + "&company=" + company+"&page="+page+"&per_page=10",
+		url:"api.uminfo.cn/rechange_insurance.php/insurances?city_id=" + city_id + "&company=" + company+"&page="+page+"&per_page=10",
 		dataType:'json',
 		type:'get',
 		contentType: "application/json;charset=utf-8",
@@ -207,7 +207,7 @@
 
 	function detil(id){
    	      	$.ajax({
-   	      	   url: "../rechange_insurance.php/one_goods?insurance_id=" + id,
+   	      	   url: "api.uminfo.cn/rechange_insurance.php/one_goods?insurance_id=" + id,
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
@@ -234,7 +234,7 @@
 		})(jQuery);
 		//获取省份和城市列表1
 		$.ajax({
-			url: "../city.php/province",
+			url: "api.uminfo.cn/city.php/province",
 			beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", "Chenxizhang");
 			},
@@ -256,7 +256,7 @@
 			$("#city1").empty();
 			var pid = $("#province1 option:selected").val();
 			$.ajax({
-				url: "../city.php/city?pid=" + pid,
+				url: "api.uminfo.cn/city.php/city?pid=" + pid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "Chenxizhang");
 				},
@@ -280,7 +280,7 @@
 		//选择搜索按钮的事件
 		$("#city1").on('change', function() {
 			city_id = $("#city1 option:selected").val();
-			window.location.href="index.html?city_id=" + city_id+"&company=";
+			window.location.href="insurance.uminfo.cn/index.html?city_id=" + city_id+"&company=";
 		})
 		//搜索框
 		$(".select_2_2").on('click', function() {
@@ -290,7 +290,7 @@
 			if(city_id==null||city_id==""){
 				alert("请先选择城市");
 			}else{
-				window.location.href="index.html?city_id=" + city_id+"&company="+company;
+				window.location.href="insurance.uminfo.cn/index.html?city_id=" + city_id+"&company="+company;
 			}
 		});
 	</script>
@@ -302,7 +302,7 @@ var city_id = $.getUrlParam('city_id');
 		var user = $.session.get('userid');
 		alert(user);
 		if(user == null || user == "") {
-			window.location.href = "login.html";
+			window.location.href = "insurance.uminfo.cn/login.html";
 		}else{
 			insurance(city_id,company,page);
 		}

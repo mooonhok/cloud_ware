@@ -115,7 +115,7 @@
 							window.location.href = "index.html";
 						} else {
 							$.ajax({
-								url: "../sales.php/sales_tenant?sales_id=" + sales_id,
+								url: "api.uminfo.cn/sales.php/sales_tenant?sales_id=" + sales_id,
 								dataType: 'json',
 								type: 'get',
 								contentType: "application/json;charset=utf-8",
@@ -217,7 +217,7 @@
 							$(".box3").css("display", "none");
 							// alert(id);
 							$.ajax({
-								url: "../sales.php/tenantbyid?tenant_id=" + id,
+								url: "api.uminfo.cn/sales.php/tenantbyid?tenant_id=" + id,
 								dataType: 'json',
 								type: 'get',
 								contentType: "application/json;charset=utf-8",
@@ -299,10 +299,10 @@
 						var sales_id = $.session.get('userid');
 						// alert(sales_id);
 						if(sales_id == null || sales_id == "") {
-							window.location.href = "index.html";
+							window.location.href = "http://www.uminfo.cn/index.html";
 						} else {
 							$.ajax({
-								url: "../sales.php/tenantsum?sales_id=" + sales_id,
+								url: "api.uminfo.cn/sales.php/tenantsum?sales_id=" + sales_id,
 								dataType: 'json',
 								type: 'get',
 								contentType: "application/json;charset=utf-8",
@@ -459,7 +459,7 @@
 					
 						//修改用户信息
 						$.ajax({
-							url: "../sales.php/sales",
+							url: "api.uminfo.cn/sales.php/sales",
 							dataType: 'json',
 							type: 'put',
 							contentType: "application/json;charset=utf-8",
@@ -509,7 +509,7 @@
 					alert(sales_id+"<br>"+id);
 					// alert(id);
 					$.ajax({
-						url: "../sales.php/tenantchange",
+						url: "api.uminfo.cn/sales.php/tenantchange",
 						dataType: 'json',
 						type: 'put',
 						contentType: "application/json;charset=utf-8",
@@ -540,10 +540,10 @@
 		var sales_id = $.session.get('userid');
 		// alert(sales_id);
 		if(sales_id == null || sales_id == "") {
-			window.location.href = "index.html";
+			window.location.href = "http://www.uminfo.cn/index.html";
 		} else {
 			$.ajax({
-				url: "../sales.php/sales?sales_id="+sales_id,
+				url: "api.uminfo.cn/sales.php/sales?sales_id="+sales_id,
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/hson;charset=utf-8",
@@ -594,7 +594,7 @@
 					// 	alert("邮箱格式不对");
 					// } else {
 						$.ajax({
-							url: "../sales.php/addsales",
+							url: "api.uminfo.cn/sales.php/addsales",
 							dataType: 'json',
 							type: 'post',
 							contentType: "application/json;charset=utf-8",
@@ -628,10 +628,10 @@
 	</script>
 	<script type="text/javascript">
 		$(".head_1").on("click", function() {
-			window.location.href = "index.html";
+			window.location.href = "http://www.uminfo.cn/index.html";
 		})
 		$(".top_1").on("click", function() {
-			window.location.href = "index.html";
+			window.location.href = "http://www.uminfo.cn/index.html";
 		})
 	</script>
 
@@ -681,7 +681,7 @@
 			$(".xian4").css("display", "block");
 		})
 		$(".box3_2").on("click", function() {
-			window.location.href = "zhuce.html";
+			window.location.href = "http://www.uminfo.cn/zhuce.html";
 		})
 
 		$(".box4_12").on("click", function() {
