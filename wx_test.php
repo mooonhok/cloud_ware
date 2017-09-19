@@ -2,7 +2,9 @@
 require 'connect.php';
     header('Content-type:text/html;charset=utf-8');
     $database=localhost();
-    $tenant_id=$_SERVER['QUERY_STRING'];
+  //  $tenant_id=$_SERVER['QUERY_STRING'];
+$str=$_SERVER['QUERY_STRING'];
+   $tenant_id=strstr($str,'=');
     $selectStatement = $database->select()
         ->from('tenant')
         ->where('tenant_id','=',$tenant_id);
