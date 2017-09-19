@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-09-05 14:28:39
 * @Last Modified by:   boycui
-* @Last Modified time: 2017-09-18 16:29:19
+* @Last Modified time: 2017-09-19 09:51:18
 */
 *{
    margin: 0;
@@ -98,13 +98,13 @@ select{
 }
 .tab{
 	width: 1200px;
-	margin: 5px auto;
+	margin: 0 auto;
 	position: relative;
 	
 }
 .tab_1{
 	width: 1200px;
-	margin: 5px auto;
+	margin: 0 auto;
 	position: relative;
 }
 .affirm{
@@ -302,4 +302,19 @@ h2{
 	float: left;
 	margin-left: 100px;
 	margin-top: 20px;
+}
+.box5_5{
+	width: 800px;
+	float: left;
+	margin-left: 100px;
+	margin-top: 5px;
+}
+#table th{
+	text-align: left;
+}
+#tb3 td{
+	text-align: left;
+}
+.gps{
+
 }
