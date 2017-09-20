@@ -14,9 +14,7 @@ require 'connect.php';
 $app = new \Slim\Slim();
 //登录方法
 $app->post('/userlogin',function ()use($app){
-    $app->response->headers->set('Access-Control-Allow-Headers','Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With');
-    $app->response->headers->set('Access-Control-Allow-Origin','http://insurance.uminfo.cn');
-    $app->response->headers->set('Access-Control-Allow-Methods','POST');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
@@ -684,6 +682,7 @@ $app->get('/year_insurance',function()use($app){
 
 //点击历史保险的货物详情
 $app->get('/one_goods',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $insurance_id=$app->request->get('insurance_id');
     $database=localhost();
