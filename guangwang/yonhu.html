@@ -552,6 +552,7 @@
 								console.log(msg);
 								if(msg.result == 0) {
 									alert("请记住密码" + msg.sales.password);
+									window.location.reload();
 								} else {
 									alert(msg.desc);
 								}
