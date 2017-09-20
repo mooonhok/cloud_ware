@@ -16,7 +16,7 @@ $app = new \Slim\Slim();
 $app->post('/userlogin',function ()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Access-Control-Allow-Headers','Content-Type');
-    $app->response->headers->set('Access-Control-Allow-Methods','OPTIONS,POST');
+    $app->response->headers->set('Access-Control-Allow-Methods','POST');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();

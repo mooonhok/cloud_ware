@@ -8,9 +8,9 @@ require 'connect.php';
 $app = new \Slim\Slim();
 //业务员登录
 $app->post('/usersign',function ()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','http://www.uminfo.cn');
-    $app->response->headers->set('Access-Control-Allow-Headers','Content-Type');
-    $app->response->headers->set('Access-Control-Allow-Methods','POST');
+//    $app->response->headers->set('Access-Control-Allow-Origin','http://www.uminfo.cn');
+//    $app->response->headers->set('Access-Control-Allow-Headers','Content-Type');
+//    $app->response->headers->set('Access-Control-Allow-Methods','POST');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
