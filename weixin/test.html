@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script>
+		$.ajax({
+				url: "http://mooonhok-cloudware.daoapp.io/wx_test.php/getappid?tenant_id=" + tenant_id,
+				
+				dataType: 'json',
+				type: 'get',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({}),
+				success: function(msg) {
+				
+				},
+				error: function(e) {
+					alert("城市1列表信息出错!");
+				}
+			});
+	</script>
+</html>

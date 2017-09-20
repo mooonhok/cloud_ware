@@ -1,12 +1,21 @@
 <?php
 
+
+require 'Slim/Slim.php';
 require 'connect.php';
+
+
+\Slim\Slim::registerAutoloader();
+$app = new \Slim\Slim();
+$app->get('/getappid',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->get('teanat_id');
     header('Content-type:text/html;charset=utf-8');
     $database=localhost();
-  //  $tenant_id=$_SERVER['QUERY_STRING'];
-$str=$_SERVER['QUERY_STRING'];
-   $num=strstr($str,'tenant_id=');
-   $tenant_id=substr($str,$num+10,8);
+    //  $tenant_id=$_SERVER['QUERY_STRING'];
+ //   $str=$_SERVER['QUERY_STRING'];
+  //  $num=strstr($str,'tenant_id=');
+  //  $tenant_id=substr($str,$num+10,8);
     $selectStatement = $database->select()
         ->from('tenant')
         ->where('tenant_id','=',$tenant_id);
@@ -42,6 +51,8 @@ $str=$_SERVER['QUERY_STRING'];
     }else{
         echo json_encode(array('result'=>'1','desc'=>'访问错误'));
     }
+});
+
 
 function localhost(){
     return connect();
