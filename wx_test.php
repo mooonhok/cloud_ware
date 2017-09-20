@@ -25,3 +25,10 @@ $app->get('/tenant',function()use($app){
         echo json_encode(array('result'=>'1','desc'=>'尚未有数据','tenant'=>''));
     }
 });
+
+$app->run();
+
+function localhost(){
+    return connect();
+}
+?>
