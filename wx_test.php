@@ -28,8 +28,8 @@ $app->get('/getappid',function()use($app){
                 $redirect_uri = urlencode('http://mooonhok-cloudware.daoapp.io/wx_test.php?tenant_id='.$tenant_id);
                 $scope = 'snsapi_base';
                 $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
-                echo json_encode(array('result'=>'1','url'=>$url));
-             //   header('Location:' . $url);
+               // echo json_encode(array('result'=>'1','url'=>$url));
+                header('Location:' . $url);
             } else {
                 $appid=$data1['appid'];
                 $secret=$data1['secret'];
