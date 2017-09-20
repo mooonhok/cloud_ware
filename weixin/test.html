@@ -19,7 +19,7 @@
 		})(jQuery);
 		var tenant_id=$.getUrlParam('tenant_id');
 		$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/wx_test.php/tenant",
+				url: "http://api.uminfo.cn/wx_test.php/tenant",
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
@@ -30,7 +30,7 @@
 					}else{
 					for(var i=0;i<msg.tenant.length;i++){
 						if(msg.tenant[i].tenant_id==tenant_id){
-							window.location.href="http://mooonhok-cloudware.daoapp.io/test.php?tenant_id="
+							window.location.href="http://api.uminfo.cn/test.php?tenant_id="
 							+tenant_id+"&appid="+msg.tenant[i].appid+"&secret="+msg.tenant[i].secret;
 						}
 					}

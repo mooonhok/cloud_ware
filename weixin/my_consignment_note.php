@@ -5,7 +5,6 @@ $signPackage = $jssdk->GetSignPackage();
 ?>
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="UTF-8">
 		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1,minimum-scale=0.1,user-scalable=0" name="viewport">
@@ -20,55 +19,41 @@ $signPackage = $jssdk->GetSignPackage();
 		<script type="text/javascript" src="js/layer (2).js"></script>
 		<title>我的运单</title>
 	</head>
-
 	<body>
 		<div class="box">
 			<div class="top2">
-
 				<div class="yundanghao">
 					<div class="rongqi">
 						<div class="kuang">
 							<input id="yundanhao" type="number" placeholder="请输入要查询的运单号" pattern="[0-9]*">
 						</div>
-
 						<div class="tu" id="saoman">
 							<img src="images/saoma.png" alt="">
 						</div>
 					</div>
 				</div>
-
 			</div>
 			<!-- center -->
 			<div class="center">
-
 				<div class="BT">
 					<div class="center1">
 						<h3>我寄的</h3></div>
-
 					<div class="center2">
 						<h3>我收的</h3></div>
-
 				</div>
 				<div class="BT2">
 					<div class="center1_1"></div>
 					<div class="center2_1"></div>
 				</div>
-
 				<div class="box1" id="bo1">
 				</div>
-
 				<div class="box2" id="bo2">
-
 				</div>
-
 			</div>
-
 		</div>
-
 	</body>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
-	
 	<script type="text/javascript">
 		$(".box2").hide();
 		$(".center1_1").css("border", "1px solid #AAF0EB");
@@ -77,24 +62,20 @@ $signPackage = $jssdk->GetSignPackage();
 			$(".box2").show();
 			$(".center1_1").css("border", "1px solid white");
 			$(".center2_1").css("border", "1px solid #AAF0EB");
-
 		})
 		$(".center1").on("click", function() {
 			$(".box2").hide();
 			$(".box1").show();
 			$(".center2_1").css("border", "1px solid white");
 			$(".center1_1").css("border", "1px solid #AAF0EB");
-
 		})
 	</script>
 	<script type="text/javascript">
 		$(".tu").on("click", function() {
-			//		alert('ok')
 		})
 	</script>
 	<script type="text/javascript">
 		$(".yundan_3_1").on("click", function() {
-			//		alert('ok')
 		})
 	</script>
 	<script>
@@ -111,26 +92,23 @@ $signPackage = $jssdk->GetSignPackage();
 		var openid = $.cookie('openid');
 		if(openid != null) {
 			$.ajax({
-				url: "api.uminfo.cn/customer.php/wx_openid?wx_openid="+openid,
+				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid="+openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id",tenant_id);
 				},
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
-				data: JSON.stringify({
-					
+				data: JSON.stringify({					
 				}),
 				success: function(msg) {
-					//alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
 				if(msg.result == 0) {
-						window.location.href = "weixin.uminfo.cn/register.html?page=1&tenant_id="+tenant_id;
+						window.location.href = "http://weixin.uminfo.cn/register.html?page=1&tenant_id="+tenant_id;
 					}
 				},
 				error: function(xhr) {
 					alert("获取后台失败！");
 				}
-
 			});
 		}
 	</script>
@@ -141,11 +119,10 @@ $signPackage = $jssdk->GetSignPackage();
 			$("#bo2").html("");
 			$("#bo1").html("");
 			var order_id = $("#yundanhao").val();
-			//	alert(order_id);
 			$.ajax({
-				url: "http://mooonhok-cloudware.daoapp.io/order.php/wx_order",
+				url: "http://api.uminfo.cn/order.php/wx_order",
 				beforeSend: function(request) {
-					request.setRequestHeader("tenant-id", "1");
+					request.setRequestHeader("tenant-id", tenant_id);
 				},
 				dataType: 'json',
 				type: 'post',
@@ -155,12 +132,10 @@ $signPackage = $jssdk->GetSignPackage();
 					order_id: order_id
 				}),
 				success: function(msg) {
-					//alert("我寄的" + msg.result + "////" + msg.desc + "////" + msg.orders[0].order_id);
 					if(msg.result == 2) {
 						a == null;
 						layer.msg("没有订单");
-					} else {
-						
+					} else {						
 						for(var i = 0; i < msg.orders.fa.length; i++) {
 					var a="<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders.fa[i].order_id+"</span></p><p>订单价格:<span>"
@@ -170,8 +145,7 @@ $signPackage = $jssdk->GetSignPackage();
 					+"to.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
 					+msg.orders.fa[i].acceptcity+"</div><div class='name_2'>"
 					+msg.orders.fa[i].acceptname+"</div></div></div></div><div class='yundan_3'><div class='yundan_3_1'>"
-					+msg.orders.fa[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
-							
+					+msg.orders.fa[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";							
 								$("#bo1").append(a);
 						};
 							for(var i = 0; i < msg.orders.shou.length; i++) {
@@ -184,8 +158,7 @@ $signPackage = $jssdk->GetSignPackage();
 					+msg.orders.shou[i].acceptcity+"</div><div class='name_2'>"
 					+msg.orders.shou[i].acceptname+"</div></div></div></div><div class='yundan_3'><div class='yundan_3_1'>"
 					+msg.orders.shou[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
-								$("#bo2").append(b);
-								
+								$("#bo2").append(b);								
 						};
 						if($(".yundan_3_1").text() == "已签收") {
 						$(".sta").css("color", "#000000");
@@ -195,8 +168,7 @@ $signPackage = $jssdk->GetSignPackage();
 					//点击事件
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
-						//alert(sendid);
-					     window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+sendid;
+					     window.location.href = "http://weixin.uminfo.cn/waybill_details.html?order_id="+sendid;
 					});
 					}
 				},
@@ -212,9 +184,9 @@ $signPackage = $jssdk->GetSignPackage();
 	<script>
 		//我寄的
 		$.ajax({
-			url: "http://mooonhok-cloudware.daoapp.io/order.php/wx_orders_s",
+			url: "http://api.uminfo.cn/order.php/wx_orders_s",
 			beforeSend: function(request) {
-				request.setRequestHeader("tenant-id", "1");
+				request.setRequestHeader("tenant-id", tenant_id);
 			},
 			dataType: 'json',
 			type: 'post',
@@ -224,7 +196,6 @@ $signPackage = $jssdk->GetSignPackage();
 				order_id:''
 			}),
 			success: function(msg) {
-				//alert("我寄的" + msg.result + "////" + msg.desc + "////" + msg.orders[1].order_id);
 				for(var i = 0; i < msg.orders.length; i++) {
 					var a="<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders[i].order_id+"</span></p><p>订单价格:<span>"
@@ -244,8 +215,7 @@ $signPackage = $jssdk->GetSignPackage();
 					//点击事件
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
-					//	alert(sendid);
-					   window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+sendid;
+					   window.location.href = "http://weixin.uminfo.cn/waybill_details.html?order_id="+sendid;
 					});
 			},
 			error: function(xhr) {
@@ -256,9 +226,9 @@ $signPackage = $jssdk->GetSignPackage();
 	<script>
 		//我收的
 		$.ajax({
-			url: "http://mooonhok-cloudware.daoapp.io/order.php/wx_orders_r",
+			url: "http://api.uminfo.cn/order.php/wx_orders_r",
 			beforeSend: function(request) {
-				request.setRequestHeader("tenant-id", "1");
+				request.setRequestHeader("tenant-id", tenant_id);
 			},
 			dataType: 'json',
 			type: 'post',
@@ -268,7 +238,6 @@ $signPackage = $jssdk->GetSignPackage();
 				order_id:''
 			}),
 			success: function(msg) {
-				//alert("我收的" + msg.result + "////"+ msg.orders.length);
 				for(var i = 0; i < msg.orders.length; i++) {
 					var a="<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders[i].order_id+"</span></p><p>订单价格:<span>"
@@ -288,8 +257,7 @@ $signPackage = $jssdk->GetSignPackage();
 					//点击事件
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
-					//	alert(sendid);
-					     window.location.href = "http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+sendid;
+					     window.location.href = "http://weixin.uminfo.cn/waybill_details.html?order_id="+sendid;
 					});
 			},
 			error: function(xhr) {
@@ -314,16 +282,13 @@ $signPackage = $jssdk->GetSignPackage();
       needResult: 1,  
       desc: 'scanQRCode desc',  
       success: function (res) {    
-   //     alert(res.resultStr);
         var a=new Array();
         a=res.resultStr.split(",");
-      //  alert(a[1]);
-       window.location.href="http://mooonhok-cloudware.daoapp.io/weixin/waybill_details.html?order_id="+a[1];
+       window.location.href="http://weixin.uminfo.cn/waybill_details.html?order_id="+a[1];
       }  
     });  
   };  
 });  
-  
 wx.error(function (res) {  
   //alert(res.errMsg);  
 }); 

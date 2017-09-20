@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="UTF-8">
 		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1,minimum-scale=0.1,user-scalable=0" name="viewport">
@@ -13,16 +12,13 @@
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
 		<script type="text/javascript" src="js/layer.js"></script>
 		<script type="text/javascript" src="js/layer (2).js"></script>
-
 		<script type="text/javascript">
 			$(function() {
 				//改变div的高度
 				$(".content").css("height", $(window).height());
 			});
 		</script>
-
 	</head>
-
 	<body>
 		<div class="content">
 			<div class="box_top">
@@ -56,7 +52,7 @@
 		var openid = $.cookie('openid');
 		if(openid != null) {
 			$.ajax({
-				url: "api.uminfo.cn/customer.php/wx_openid?wx_openid=" + openid,
+				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid=" + openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
@@ -65,7 +61,6 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					// alert("用户注册成功"+msg.result+"/////"+msg.desc+"//////"+msg.customer);
 					if(msg.result == 1) {
 						layer.msg("你已经注册过了");
 						$("#submit").css("background", "gray");
@@ -80,18 +75,16 @@
 						})(jQuery);
 						$(function() {
 							var page = parseInt($.getUrlParam('page'));
-							// alert("//////" + page);
 							$("#submit").on('click', function() {
 								var customername = $("#customername").val();
 								var customertel = $("#customertel").val();
 								var openid = $.cookie('openid');
-								//alert(customername+customertel+openid);
 								if(!/^1[34578]\d{9}$/.test(customertel)) {
 									layer.msg("手机号码格式不对")
 									return false;
 								} else {
 									$.ajax({
-										url: "api.uminfo.cn/customer.php/wx_customer",
+										url: "http://api.uminfo.cn/customer.php/wx_customer",
 										beforeSend: function(request) {
 											request.setRequestHeader("tenant-id", tenant_id);
 										},
@@ -106,13 +99,12 @@
 										success: function(msg) {
 											layer.msg("用户注册成功");
 											$("#submit").removeAttr('onclick');
-											// alert("获取page值" + page);
 											if(page == 0) {
-												window.location.href = "api.uminfo.cn/wx_send.php?tenant_id";
+												window.location.href = "http://api.uminfo.cn/wx_send.php?tenant_id";
 											} else if(page == 1) {
-												window.location.href = "api.uminfo.cn/wx_my_consignment_note.php";
+												window.location.href = "http://api.uminfo.cn/wx_my_consignment_note.php";
 											} else if(page == 2) {
-												window.location.href = "api.uminfo.cn/wx_online_inquiry.php";
+												window.location.href = "http://api.uminfo.cn/wx_online_inquiry.php";
 											}
 										},
 										error: function(xhr) {
@@ -127,7 +119,6 @@
 				error: function(xhr) {
 					alert("获取后台失败！");
 				}
-
 			});
 		}
 	</script>

@@ -3,7 +3,6 @@ require_once "jssdk.php";
 $jssdk = new JSSDK("wx15ef051f9f0bba92", "57ea0ee4abf4f4c6d6e38c88a289e687");
 $signPackage = $jssdk->GetSignPackage();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -123,7 +122,6 @@ $signPackage = $jssdk->GetSignPackage();
 			color: white;
 			font-size: 24px;
 		}
-
 	</style>
 </head>
 <body>
@@ -165,7 +163,7 @@ $signPackage = $jssdk->GetSignPackage();
 		var order_id=$("#order_id").val();
 		if(order_id.length!=0){
 			$.ajax({
-				url: "api.uminfo.cn/order.php/wx_order_z",
+				url: "http://api.uminfo.cn/order.php/wx_order_z",
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
@@ -180,7 +178,7 @@ $signPackage = $jssdk->GetSignPackage();
 				       layer.msg("订单不存在");	
 					}else{
 					// alert(order_id);
-		            window.location.href="weixin.uminfo.cn/waybill_details.html?order_id="+order_id+"&tenant_id="+tenant_id;
+		            window.location.href="http://weixin.uminfo.cn/waybill_details.html?order_id="+order_id+"&tenant_id="+tenant_id;
 					}
 				},
 				error: function(xhr) {
@@ -198,30 +196,25 @@ $signPackage = $jssdk->GetSignPackage();
 		var openid = $.cookie('openid');
 		if(openid != null) {
 			$.ajax({
-				url: "api.uminfo.cn/customer.php/wx_openid?wx_openid="+openid,
+				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid="+openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
-				data: JSON.stringify({
-					
+				data: JSON.stringify({					
 				}),
 				success: function(msg) {
-					//					alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
 					if(msg.result == 0) {
-						window.location.href = "weixin.uminfo.cn/register.html?tenant_id="+tenant_id;
+						window.location.href = "http://weixin.uminfo.cn/register.html?tenant_id="+tenant_id;
 					} else {
-						//alert(openid);
 					}
 				},
 				error: function(xhr) {
 					alert("获取后台数据失败")
-					})
-					
+					})					
 				}
-
 			});
 		}
 </script>
@@ -254,7 +247,7 @@ $signPackage = $jssdk->GetSignPackage();
         a=res.resultStr.split(",");
         if(a[1].length!=0){
 			$.ajax({
-				url: "api.uminfo.cn/order.php/wx_order_z",
+				url: "http://api.uminfo.cn/order.php/wx_order_z",
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id",tenant_id);
 				},
@@ -268,8 +261,7 @@ $signPackage = $jssdk->GetSignPackage();
 					if(msg.result == 2) {
 				     layer.msg("订单不存在")  	
 					}else{
-					// alert(order_id);
-		            window.location.href="weixin.uminfo.cn/waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
+		            window.location.href="http://weixin.uminfo.cn/waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
 					}
 				},
 				error: function(xhr) {
@@ -283,7 +275,6 @@ $signPackage = $jssdk->GetSignPackage();
     });  
   };  
 });  
-  
 wx.error(function (res) {  
   //alert(res.errMsg);  
 }); 
