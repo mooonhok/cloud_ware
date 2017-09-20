@@ -8,9 +8,17 @@
 	</body>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script>
+		(function($) {
+			$.getUrlParam = function(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if(r != null) return decodeURI(r[2]);
+				return null;
+			}
+		})(jQuery);
+		var tenant_id=$.getUrlParam('tenant_id');
 		$.ajax({
 				url: "http://mooonhok-cloudware.daoapp.io/wx_test.php/getappid?tenant_id=" + tenant_id,
-				
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
