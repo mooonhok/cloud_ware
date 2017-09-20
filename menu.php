@@ -9,7 +9,7 @@ $secret=$arr[4];
 if ($_COOKIE['openid'] == null) {
     if (!isset($_GET['code'])) {
         //     $appid = 'wx15ef051f9f0bba92';
-        $redirect_uri = urlencode('http://api.uminfo.cn/test.php?tenant_id='.$tenant_id.'&page='.$page);
+        $redirect_uri = urlencode('http://api.uminfo.cn/menu.php?tenant_id='.$tenant_id.'&page='.$page);
         $scope = 'snsapi_base';
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
         header('Location:' . $url);
@@ -31,34 +31,34 @@ if ($_COOKIE['openid'] == null) {
         if ($page==7){
             header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
         }else if($page==6){
-            header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+            header('location:http://weixin.uminfo.cn/my_consignment_note.php?tenant_id='.$tenant_id);
         }else if($page==5){
-            header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+            header('location:http://weixin.uminfo.cn/register.html?tenant_id='.$tenant_id);
         }else if($page==4){
-            header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+            header('location:http://weixin.uminfo.cn/online_inquiry.html?tenant_id='.$tenant_id);
         }else if($page==3){
-            header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+            header('location:http://weixin.uminfo.cn/jsyouming.html?tenant_id='.$tenant_id);
         }else if($page==2){
-            header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+            header('location:http://weixin.uminfo.cn/query.php?tenant_id='.$tenant_id);
         }else if($page==1){
-            header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+            header('location:http://weixin.uminfo.cn/send.html?tenant_id='.$tenant_id);
         }
     }
 }else{
     if ($page==7){
         header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
     }else if($page==6){
-        header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+        header('location:http://weixin.uminfo.cn/my_consignment_note.php?tenant_id='.$tenant_id);
     }else if($page==5){
-        header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+        header('location:http://weixin.uminfo.cn/register.html?tenant_id='.$tenant_id);
     }else if($page==4){
-        header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+        header('location:http://weixin.uminfo.cn/online_inquiry.html?tenant_id='.$tenant_id);
     }else if($page==3){
-        header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+        header('location:http://weixin.uminfo.cn/jsyouming.html?tenant_id='.$tenant_id);
     }else if($page==2){
-        header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+        header('location:http://weixin.uminfo.cn/query.php?tenant_id='.$tenant_id);
     }else if($page==1){
-        header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+        header('location:http://weixin.uminfo.cn/send.html?tenant_id='.$tenant_id);
     }
 
 }
