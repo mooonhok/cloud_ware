@@ -1,8 +1,4 @@
 <?php
-header('content-type: application/json; charset=utf-8');
-header("Access-Control-Allow-Origin:*");
-header("Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS");
-header("Access-Control-Allow-Headers:Content-Type");
 require 'Slim/Slim.php';
 require 'connect.php';
 
@@ -24,7 +20,8 @@ $app = new \Slim\Slim();
 
 
 $app->delete('/order', function () use ($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $orderid = $app->request->get("orderid");
     $database = localhost();
@@ -71,7 +68,8 @@ $app->delete('/order', function () use ($app) {
 
 
 $app->post('/order', function () use ($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     $body = $app->request->getBody();
@@ -166,7 +164,8 @@ $app->post('/order', function () use ($app) {
 
 
 $app->put("/order", function () use ($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     $body = $app->request->getBody();
@@ -243,7 +242,8 @@ $app->put("/order", function () use ($app) {
 
 
 $app->get('/orders', function () use ($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $page = $app->request->get('page');
     $per_page = $app->request->get("per_page");
@@ -285,7 +285,8 @@ $app->get('/orders', function () use ($app) {
 
 
 $app->get('/order', function () use ($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $order_id = $app->request->get('orderid');
     $database = localhost();
@@ -329,7 +330,8 @@ $app->get('/order', function () use ($app) {
 
 //微信通过货主的openid，货主为发货方，获得订单总数
 $app->post('/wx_orders_s', function () use ($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $body = $app->request->getBody();
     $body = json_decode($body);
@@ -513,7 +515,8 @@ $app->post('/wx_orders_s', function () use ($app) {
 
 //微信通过货主的openid，货主为收货方，获得订单总数
 $app->post('/wx_orders_r', function () use ($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $body = $app->request->getBody();
     $body = json_decode($body);
@@ -705,7 +708,8 @@ $app->post('/wx_orders_r', function () use ($app) {
 
 //根据订单order_id和wx_openid查出对应的订单
 $app->post('/wx_order', function () use ($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $body = $app->request->getBody();
     $body = json_decode($body);
@@ -895,7 +899,8 @@ $app->post('/wx_order', function () use ($app) {
 
 //根据订单order_id查出对应的订单详细信息
 $app->post('/wx_order_z', function () use ($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $body = $app->request->getBody();
     $body = json_decode($body);
@@ -991,7 +996,8 @@ $app->post('/wx_order_z', function () use ($app) {
 
 //客户端对微信的订单受理
 $app->post('/wx_orders_accept', function () use ($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $body = $app->request->getBody();
     $body = json_decode($body);
@@ -1095,7 +1101,8 @@ $app->post('/wx_orders_accept', function () use ($app) {
 
 //获得微信下单受理总数
 $app->get('/wx_orders_num', function () use ($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     if ($tenant_id != null || $tenant_id != "") {
@@ -1127,7 +1134,8 @@ $app->get('/wx_orders_num', function () use ($app) {
 
 //分页显示微信的单子
 $app->post('/wx_orders_order_source', function () use ($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     $body = $app->request->getBody();
@@ -1190,7 +1198,8 @@ $app->post('/wx_orders_order_source', function () use ($app) {
 
 //受理的单子（更改order_status）
 $app->put('/order_status', function () use ($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     $body = $app->request->getBody();
@@ -1239,7 +1248,8 @@ $app->put('/order_status', function () use ($app) {
 
 //根据order_id获得orders、goods、customer
 $app->get('/orders_goods_customer', function () use ($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     $order_id = $app->request->get('order_id');
@@ -1328,7 +1338,8 @@ $app->get('/orders_goods_customer', function () use ($app) {
 });
 //客户端，根据order_id改金额
 $app->put('/update_order_cost',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     $body = $app->request->getBody();
@@ -1381,7 +1392,8 @@ $app->put('/update_order_cost',function()use($app){
 
 //批量上传，有改无增
 $app->post('/order_insert',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
     $body = $app->request->getBody();

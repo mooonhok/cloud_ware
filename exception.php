@@ -1,8 +1,4 @@
 <?php
-header('content-type: application/json; charset=utf-8');
-header("Access-Control-Allow-Origin:*");
-header("Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS");
-header("Access-Control-Allow-Headers:Content-Type");
 /**
  * Created by PhpStorm.
  * User: Administrator
@@ -19,7 +15,8 @@ $app = new \Slim\Slim();
 
 //批量上传，有改无增
 $app->post('/exception_insert',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
     $body = $app->request->getBody();

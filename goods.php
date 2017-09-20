@@ -1,8 +1,4 @@
 <?php
-header('content-type: application/json; charset=utf-8');
-header("Access-Control-Allow-Origin:*");
-header("Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS");
-header("Access-Control-Allow-Headers:Content-Type");
 require 'Slim/Slim.php';
 require 'connect.php';
 use Slim\PDO\Database;
@@ -12,7 +8,8 @@ use Slim\PDO\Statement\SelectStatement;
 \Slim\Slim::registerAutoloader();
     $app = new \Slim\Slim();
 $app->post('/goods',function()use($app){
-	$app->response->headers->set('Content-type','application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
 	$tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
 	$body=$app->request->getBody();
@@ -110,7 +107,8 @@ $app->post('/goods',function()use($app){
 
 
 $app->put('/goods',function()use($app){
-	$app->response->headers->set('Content-type','application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
 	$tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
     $body=$app->request->getBody();
@@ -173,7 +171,8 @@ $app->put('/goods',function()use($app){
 
 
 $app->delete('/goods',function()use($app){
-	$app->response->headers->set('Content-type','application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
 	$tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
 	$goods_id=$app->request->get('goodsid');
@@ -223,7 +222,8 @@ $app->delete('/goods',function()use($app){
 
 
 $app->get('/goods',function()use($app){
-	$app->response->headers->set('Content-type','application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
 	$tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
 	$goods_id=$app->request->get('goodsid');
@@ -262,7 +262,8 @@ $app->get('/goods',function()use($app){
 
 //批量上传，有改无增
 $app->post('/goods_insert',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
     $body = $app->request->getBody();

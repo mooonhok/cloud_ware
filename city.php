@@ -1,8 +1,4 @@
 <?php
-header('content-type: application/json; charset=utf-8');
-header("Access-Control-Allow-Origin:*");
-header("Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS");
-header("Access-Control-Allow-Headers:Content-Type");
 /**
  * Created by PhpStorm.
  * User: Administrator
@@ -17,7 +13,8 @@ use Slim\PDO\Database;
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 $app->get('/province',function ()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $selectStatement = $database->select()
         ->from('province');
@@ -27,7 +24,8 @@ $app->get('/province',function ()use($app){
 });
 
 $app->get('/city',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $pid=$app->request->get('pid');
     if($pid!=null||$pid!=""){

@@ -1,8 +1,4 @@
 <?php
-header('content-type: application/json; charset=utf-8');
-header("Access-Control-Allow-Origin:*");
-header("Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS");
-header("Access-Control-Allow-Headers:Content-Type");
 /**
  * Created by PhpStorm.
  * User: Administrator
@@ -17,7 +13,8 @@ use Slim\PDO\Database;
 \Slim\Slim::registerAutoloader();
     $app = new \Slim\Slim();
 $app->post('/lorry',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get("tenant-id");
     $body=$app->request->getBody();
     $body=json_decode($body);
@@ -106,7 +103,8 @@ $app->post('/lorry',function()use($app){
 });
 
 $app->put('/lorry',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get("tenant-id");
     $body=$app->request->getBody();
     $body=json_decode($body);
@@ -154,6 +152,7 @@ $app->put('/lorry',function()use($app){
 });
 
 $app->get('/lorry',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
@@ -194,6 +193,7 @@ $app->get('/lorry',function()use($app){
 });
 
 $app->delete('/lorry',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
@@ -265,7 +265,8 @@ $app->delete('/lorry',function()use($app){
 
 //批量上传，有改无增
 $app->post('/lorry_insert',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
     $body = $app->request->getBody();

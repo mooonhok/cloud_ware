@@ -1,8 +1,4 @@
 <?php
-header('content-type: application/json; charset=utf-8');
-header("Access-Control-Allow-Origin:*");
-header("Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS");
-header("Access-Control-Allow-Headers:Content-Type");
 /**
  * Created by PhpStorm.
  * User: Administrator
@@ -16,7 +12,8 @@ require 'connect.php';
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 $app->post('/agreement',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
     $body = $app->request->getBody();
@@ -111,7 +108,8 @@ $app->post('/agreement',function()use($app){
 });
 
 $app->put('/agreement',function()use($app){
-    $app->response->headers->set('Content-type','application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
     $body=$app->request->getBody();
@@ -225,7 +223,8 @@ $app->put('/agreement',function()use($app){
 
 
 $app->get('/agreements',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get("tenant-id");
     $page=$app->request->get('page');
     $per_page=$app->request->get("per_page");
@@ -324,6 +323,7 @@ $app->get('/agreements',function()use($app){
 });
 
 $app->get("/agreement",function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
     $agreement_id=$app->request->get("agreementid");
@@ -443,7 +443,8 @@ $app->get("/agreement",function()use($app){
 
 
 $app->delete('/agreement',function()use($app){
-    $app->response->headers->set('Content-type','application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
     $agreement_id=$app->request->get('agreementid');

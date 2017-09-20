@@ -1,15 +1,12 @@
 <?php
-header('content-type: application/json; charset=utf-8');
-header("Access-Control-Allow-Origin:*");
-header("Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS");
-header("Access-Control-Allow-Headers:Content-Type");
 use Slim\PDO\Database;
 
 \Slim\Slim::registerAutoloader();
     $app = new \Slim\Slim();
 
 $app->post('/customer',function()use($app){
-	$app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
 	$tenant_id=$app->request->headers->get("tenant-id");
 	$body = $app->request->getBody();
@@ -101,7 +98,8 @@ $app->post('/customer',function()use($app){
 
 
 $app->get('/customers',function()use($app){
-	$app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
 	$tenant_id=$app->request->headers->get("tenant-id");
 	$page=$app->request->get('page');
 	$per_page=$app->request->get("per_page");
@@ -142,7 +140,8 @@ $app->get('/customers',function()use($app){
 
 
 $app->get("/customer",function()use($app){
-	$app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
 	$tenant_id=$app->request->headers->get('tenant-id');
 	$customer_id=$app->request->get("customerid");
     $database=localhost();
@@ -180,7 +179,8 @@ $app->get("/customer",function()use($app){
 
 
 $app->put('/customer',function()use($app){
-	$app->response->headers->set('Content-type','application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
 	$tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
 	$body=$app->request->getBody();
@@ -230,7 +230,8 @@ $app->put('/customer',function()use($app){
 });
 
 $app->delete('/customer',function()use($app){
-	$app->response->headers->set('Content-type','application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
 	$tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
     $customer_id=$app->request->get('customerid');
@@ -274,7 +275,8 @@ $app->delete('/customer',function()use($app){
 
 //用户注册
 $app->post('/wx_customer',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
     $body = $app->request->getBody();
@@ -345,7 +347,8 @@ $app->post('/wx_customer',function()use($app){
 
 //微信，进入每个页面查询是否注册
 $app->get('/wx_openid',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
 //    $body = $app->request->getBody();
@@ -384,6 +387,7 @@ $app->get('/wx_openid',function()use($app){
 
 //微信获得所有地址
 $app->get('/wxaddress',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get('tenant-id');
@@ -436,7 +440,8 @@ $app->get('/wxaddress',function()use($app){
 
 //微信添加寄件人、收件人的地址详情
 $app->post('/plus_customer',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
     $body = $app->request->getBody();
@@ -553,7 +558,8 @@ $app->post('/plus_customer',function()use($app){
 //});
 //批量上传，有改无增
 $app->post('/customer_insert',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
     $body = $app->request->getBody();
@@ -623,6 +629,7 @@ $app->post('/customer_insert',function()use($app){
 
 //客户端添加customer
 $app->post('/khd_customer',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");

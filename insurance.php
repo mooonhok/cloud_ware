@@ -1,8 +1,4 @@
 <?php
-header('content-type: application/json; charset=utf-8');
-header("Access-Control-Allow-Origin:*");
-header("Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS");
-header("Access-Control-Allow-Headers:Content-Type");
 /**
  * Created by PhpStorm.
  * User: Administrator
@@ -17,6 +13,7 @@ require 'connect.php';
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 $app->post('/userlogin',function ()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
@@ -61,6 +58,7 @@ $app->post('/userlogin',function ()use($app){
 
 //客户端,生成去投保险
 $app->get('/to_one_insurance',function ()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $array2=array();
@@ -124,6 +122,7 @@ $app->get('/to_one_insurance',function ()use($app){
 
 //客户端，要做保险车辆总数
 $app->get('/lorry_insurance_count',function ()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $array2=array();
@@ -142,6 +141,7 @@ $app->get('/lorry_insurance_count',function ()use($app){
 
 //客户端，确认一个投保
 $app->post('/one_insurance',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
@@ -202,6 +202,7 @@ $app->post('/one_insurance',function()use($app){
 
 //客户端，未做保险时，获得该车的货物详情（总的不用）
 $app->post('/one_insurance_goods',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
@@ -224,6 +225,7 @@ $app->post('/one_insurance_goods',function()use($app){
 
 //客户端，获得该车的调度
 $app->post('/insurance_scheduling',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
@@ -256,6 +258,7 @@ $app->post('/insurance_scheduling',function()use($app){
 
 //客户端，通过该车的调度，获得goods
 $app->post('/insurance_scheduling_orders',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
@@ -277,6 +280,7 @@ $app->post('/insurance_scheduling_orders',function()use($app){
 
 //客户端，获取保险余额
 $app->get('/insurance_balance',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
@@ -291,6 +295,7 @@ $app->get('/insurance_balance',function()use($app){
 
 //客户端，获得历史保险
 $app->get('/insurances',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
@@ -306,6 +311,7 @@ $app->get('/insurances',function()use($app){
 
 //客户端，分页获得历史保险
 $app->get('/per_insurances',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
@@ -327,6 +333,7 @@ $app->get('/per_insurances',function()use($app){
 
 //客户端，通过调度id修改is_insurance
 $app->put('/is_insurance',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
@@ -351,6 +358,7 @@ $app->put('/is_insurance',function()use($app){
 
 //通过insuranceid查goods
 $app->get('/insurance_goods',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");

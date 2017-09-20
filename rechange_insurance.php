@@ -1,8 +1,4 @@
 <?php
-header('content-type: application/json; charset=utf-8');
-header("Access-Control-Allow-Origin:*");
-header("Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS");
-header("Access-Control-Allow-Headers:Content-Type");
 /**
  * Created by PhpStorm.
  * User: Administrator
@@ -18,6 +14,7 @@ require 'connect.php';
 $app = new \Slim\Slim();
 //登录方法
 $app->post('/userlogin',function ()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
@@ -62,6 +59,7 @@ $app->post('/userlogin',function ()use($app){
 
 //获取保险充值记录
 $app->get('/insurance_rechanges',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $city_id=$app->request->get('city_id');
@@ -265,6 +263,7 @@ $app->get('/insurance_rechanges',function()use($app){
 
 //获取保险充值记录总数每页显示10个的页数
 $app->get('/insurance_rechanges_count',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $arrays=array();
@@ -308,6 +307,7 @@ $app->get('/insurance_rechanges_count',function()use($app){
 
 //修改支付状态
 $app->put('/sure_rechanges',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
@@ -355,6 +355,7 @@ $app->put('/sure_rechanges',function()use($app){
 });
 //获取保险记录
 $app->get('/insurances',function ()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $company=$app->request->get('company');
     $city_id=$app->request->get('city_id');
@@ -659,6 +660,7 @@ $app->get('/insurances',function ()use($app){
 
 //点击合同详情
 $app->get('/year_insurance',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $id=$app->request->get('id');
     $database=localhost();
@@ -707,6 +709,7 @@ $app->get('/one_goods',function()use($app){
 
 //获取保险记录总数能分多少页
 $app->get('/insurances_count',function ()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $company=$app->request->get('company');
     $city_id=$app->request->get('city_id');
@@ -753,6 +756,7 @@ $app->get('/insurances_count',function ()use($app){
 
 //官网，xx公司支付的保险金额（通过id)
 $app->get('/rechange_insurance_id',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $id=$app->request->get('id');
     $database=localhost();
@@ -777,6 +781,7 @@ $app->get('/rechange_insurance_id',function()use($app){
 
 //获取该公司下的所有的历史保险记录
 $app->get('/lastinsurance',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->get('tenant_id');
 $page = $app->request->get('page');

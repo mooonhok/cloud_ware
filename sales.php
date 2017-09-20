@@ -1,8 +1,4 @@
 <?php
-//header('content-type: application/json; charset=utf-8');
-//header("Access-Control-Allow-Origin:*");
-//header("Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS");
-//header("Access-Control-Allow-Headers:Content-Type");
 
 require 'Slim/Slim.php';
 require 'connect.php';
@@ -13,8 +9,6 @@ $app = new \Slim\Slim();
 //业务员登录
 $app->post('/usersign',function ()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Access-Control-Allow-Headers','Content-Type');
-    $app->response->headers->set('Access-Control-Allow-Methods','POST');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
@@ -56,6 +50,7 @@ $app->post('/usersign',function ()use($app){
 });
 //获取该业务员名下的公司
 $app->get('/sales_tenant',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $sales_id = $app->request->get("sales_id");
     $page = $app->request->get('page');
@@ -166,6 +161,7 @@ $app->get('/sales_tenant',function()use($app){
 });
 // 修改租户信息
 $app->put('/tenantchange',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
@@ -229,6 +225,7 @@ $app->put('/tenantchange',function()use($app){
 });
 //统计业务员业务数据
 $app->get('/tenantsum',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $sales_id = $app->request->get("sales_id");
     $database=localhost();
@@ -277,6 +274,7 @@ $app->get('/tenantsum',function()use($app){
 });
 //具体显示公司信息
 $app->get('/tenantbyid',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->get("tenant_id");
     $database=localhost();
@@ -313,6 +311,7 @@ $app->get('/tenantbyid',function()use($app){
 });
 //业务员信息修改
 $app->put('/sales',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
@@ -346,6 +345,7 @@ $app->put('/sales',function()use($app){
 });
 //获取业务员信息
 $app->get('/sales',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $sales_id = $app->request->get("sales_id");
     $database=localhost();
@@ -367,6 +367,7 @@ $app->get('/sales',function()use($app){
 });
 //添加业务员
 $app->post('/addsales',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();

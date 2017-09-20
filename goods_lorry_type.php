@@ -1,8 +1,4 @@
 <?php
-header('content-type: application/json; charset=utf-8');
-header("Access-Control-Allow-Origin:*");
-header("Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS");
-header("Access-Control-Allow-Headers:Content-Type");
 /**
  * Created by PhpStorm.
  * User: Administrator
@@ -18,7 +14,8 @@ $app = new \Slim\Slim();
 
 //查货物清单
 $app->get('/goods_package',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $selectStatement = $database->select()
         ->from('goods_package');
@@ -30,7 +27,8 @@ $app->get('/goods_package',function()use($app){
 
 //查货物清单
 $app->get('/lorry_type',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $selectStatement = $database->select()
         ->from('lorry_type');

@@ -1,8 +1,4 @@
 <?php
-header('content-type: application/json; charset=utf-8');
-header("Access-Control-Allow-Origin:*");
-header("Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS");
-header("Access-Control-Allow-Headers:Content-Type");
 /**
  * Created by PhpStorm.
  * User: Administrator
@@ -101,6 +97,7 @@ $app = new \Slim\Slim();
 //});
 
 $app->put('/tenant',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
@@ -200,7 +197,8 @@ $app->put('/tenant',function()use($app){
 
 
 $app->get('/tenant',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $page=$app->request->get('page');
     $per_page=$app->request->get("per_page");
     $database=localhost();
@@ -249,7 +247,8 @@ $app->delete('/tenant',function()use($app){
 });
 
 $app->post('/tenant',function()use($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database = localhost();
     $qq = $app->request->params('qq');
     $address = $app->request->params('address');
@@ -383,7 +382,8 @@ $app->post('/tenant',function()use($app) {
 
 
 $app->get('/tenant_customer',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $page=$app->request->get('page');
     $per_page=$app->request->get("per_page");
     $database=localhost();
