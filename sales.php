@@ -8,9 +8,9 @@ require 'connect.php';
 $app = new \Slim\Slim();
 //业务员登录
 $app->post('/usersign',function ()use($app){
-    $app->response->headers->set('Access-Control-Allow-Headers','Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With');
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Access-Control-Allow-Methods','POST');
+//    $app->response->headers->set('Access-Control-Allow-Headers','Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With');
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Access-Control-Allow-Methods','POST');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
