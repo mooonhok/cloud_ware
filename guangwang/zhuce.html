@@ -10,7 +10,7 @@
 		<script type="text/javascript" src="js/jquery.session.js"></script>
 	</head>
 	<body>
-		<form id="myform" action="api.uminfo.cn/tenant.php/tenant" enctype="multipart/form-data"  onsubmit="return check()"  method="post" >
+		<form id="myform" action="http://api.uminfo.cn/tenant.php/tenant" enctype="multipart/form-data"  onsubmit="return check()"  method="post" >
 			<div class="box">
 				<!-- top -->
 				<div class="top">
@@ -33,7 +33,6 @@
 							<div class="wenzi">营业执照号码:</div>
 							<div class="wenzi2"><input type="text" name="business_l"></div>
 							<div class="cs"><input type="file"   value="拍照上传" name="file1" onchange="getPhotoSize(this)" accept="image/*"></div>
-							<!--<textarea name="business_l_p"  id="tupian" style="display: none;"></textarea>-->
 						</div>
 						<div class="center_4">
 							<div class="wenzi">负责人姓名:</div>
@@ -174,16 +173,15 @@
 	<script>
 		//获取省份和城市列表1
 		$.ajax({
-			url: "http://api.uminfo.cn /city.php/province",
+			url: "http://api.uminfo.cn/city.php/province",
 			beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", "Chenxizhang");
 			},
 			dataType: 'json',
 			type: 'get',
-            ContentType: "application/json;charset=utf-8",
+			contentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
-				//                        alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
 				for(var i = 0; i < msg.province.length; i++) {
 					$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
 				}
@@ -196,13 +194,13 @@
 			$("#city1").empty();
 			var pid = $("#province1 option:selected").val();
 			$.ajax({
-				url: "http://api.uminfo.cn /city.php/city?pid=" + pid,
+				url: "http://api.uminfo.cn/city.php/city?pid=" + pid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "Chenxizhang");
 				},
 				dataType: 'json',
 				type: 'get',
-                ContentType: "application/json;charset=utf-8",
+				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
 					for(var i = 0; i < msg.city.length; i++) {
@@ -224,7 +222,7 @@
 			},
 			dataType: 'json',
 			type: 'get',
-            ContentType: "application/json;charset=utf-8",
+			contentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
 				for(var i = 0; i < msg.province.length; i++) {
@@ -245,10 +243,9 @@
 				},
 				dataType: 'json',
 				type: 'get',
-                ContentType: "application/json;charset=utf-8",
+				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					//                      alert("city结果"+msg.result+"/////"+msg.desc+"//////"+msg.city);
 					for(var i = 0; i < msg.city.length; i++) {
 						$("#city2").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
 					}
