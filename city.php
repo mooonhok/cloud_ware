@@ -24,7 +24,7 @@ $app->get('/province',function ()use($app){
 });
 
 $app->get('/city',function()use($app){
-    $    $app->response->headers->set('Access-Control-Allow-Origin','*');
+      $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $pid=$app->request->get('pid');
