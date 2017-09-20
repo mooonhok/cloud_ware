@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-08-30 17:04:52
-* @Last Modified by:   boycui
-* @Last Modified time: 2017-09-19 15:08:18
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-09-20 10:51:57
 */
 *{
 	padding: 0;
@@ -129,12 +129,10 @@ html,body{
 	float: right;
 	background: white;
 	border-radius: 5px;
-	/* display: none; */
 }
 .box2_1{
 	width: 1050px;
 	height: 200px;
-	/* border: 1px solid red; */
 }
 .box2_2{
 	width: 1000px;
@@ -192,7 +190,6 @@ html,body{
 .box2_5{
 	width: 1050px;
 	height: 500px;
-	/* border: 1px solid red; */
 }
 .box2_5_1{
 	width: 1000px;
@@ -263,7 +260,6 @@ html,body{
 	margin-left: 20px;
 	float: left;
 	margin-top: 10px;
-	/* border: 1px solid red; */
 }
 .box2_10_1{
 	float: left;
@@ -326,15 +322,13 @@ html,body{
 .box3_1 table {
 	border-right: 1px solid #70ACC4;
 	border-bottom: 1px solid #70ACC4;
-}
-			
+}		
 .box3_1 table td {
 	border-left: 1px solid #70ACC4;
 	border-top: 1px solid #70ACC4;
 	height: 50px;
 	text-align: center;
-}
- 			
+}			
 .box3_1 table thead tr th {
 	height: 50px;
 	line-height: 50px;
@@ -343,7 +337,6 @@ html,body{
 	border-top: 1px solid #70ACC4;
     background: #70ACC4;
 }
-
 .box3_2{
 	height: 50px;
 	width: 120px;

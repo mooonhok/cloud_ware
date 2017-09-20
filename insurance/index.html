@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 	<head>
 		<meta charset="UTF-8">
-		<meta http-equiv="Access-Control-Allow-Origin" content="http://api.uminfo.cn/">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
 		<link rel="icon" href="head.ico" type="image/x-icon"/>
 		<link rel="stylesheet" href="css/safe.css">
 		<link rel="stylesheet" href="src/css/layui.css">
@@ -12,22 +11,19 @@
 			table {
 				border-right: 1px solid #DDDDDD;
 				border-bottom: 1px solid #DDDDDD;
-			}
-			
+			}			
 			table td {
 				border-left: 1px solid #DDDDDD;
 				border-top: 1px solid #DDDDDD;
 				height: 50px;
 				text-align: center;
-			}
-			
+			}			
 			table thead tr th {
 				height: 50px;
 				line-height: 50px;
 				text-align: center;
 				border-left: 1px solid #DDDDDD;
 				border-top: 1px solid #DDDDDD;
-				/* background: #9CBA60; */
 			}	
 			button {
 				width: 100px;
@@ -98,7 +94,6 @@
 					<select name="city" id="city1" class="cit">
 						<option value="0">请选择市</option>
 					</select>
-					<!-- <button class="hunt">选择搜索</button> -->
 				</div>
 				<div class="select_2">
 					<div class="select_2_1"><input id="coname" type="text"></div>
@@ -135,10 +130,7 @@
 						取消
 					</div>
 				</div>
-
 			</div>
-
-
 		</div>
 	</body>
 <script src="js/jquery-3.2.1.min.js"></script>
@@ -195,18 +187,14 @@
                   });
                   return arr.join('');
               }();
-
-
     }
   });
-});
-	
+});	
 		},error:function(xhr){
 			alert("获取保险记录后台失败！");
 		}
 	});
 }
-
 	function detil(id){
    	      	$.ajax({
    	      	   url: "api.uminfo.cn/rechange_insurance.php/one_goods?insurance_id=" + id,
@@ -215,7 +203,6 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					// alert(msg.goods);
 					$(".box2").css("display","block");
 				},
 				error: function(e) {
@@ -224,7 +211,6 @@
    	      	});
 	}
 	</script>
-
 <script>
 		(function($) {
 			$.getUrlParam = function(name) {
@@ -253,7 +239,6 @@
 				alert("省份列表1信息出错!");
 			}
 		});
-
 		function getPro1() {
 			$("#city1").empty();
 			var pid = $("#province1 option:selected").val();
@@ -300,15 +285,13 @@
 var city_id = $.getUrlParam('city_id');
 		 var company = $.getUrlParam('company');
 		 var page=null;
-
 		var user = $.session.get('userid');
 		alert(user);
 		if(user == null || user == "") {
 			window.location.href = "insurance.uminfo.cn/login.html";
 		}else{
 			insurance(city_id,company,page);
-		}
-	
+		}	
 		$(".det").on("click",function(){
 			$(".box2").css("display","block");
 		})

@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-08-29 09:48:59
-* @Last Modified by:   boycui
-* @Last Modified time: 2017-09-19 15:09:24
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-09-20 10:54:12
 */
 *{
 	padding: 0;margin: 0;
@@ -37,12 +37,9 @@ li{
 }
 .top_1{
 	float: left;
-	/* margin-left: 5%; */
 	color: white;
 	height: 60px;
 	line-height: 60px;
-	/* font-weight: bold; */
-	/* font-size:35px; */
 }
 .top_1_2{
 	height: 60px;
@@ -61,7 +58,6 @@ li{
 }
 .top_2{
 	float: right;
-	/* margin-right:10%; */
 	margin-right: 40px;
 }
 .top_2 a{
@@ -73,7 +69,6 @@ li{
 	width: 30px;
 }
 .top_2 ul{
-	/* display: inline-block; */
 	position: absolute;
 	width: 80px;
 	height: 125px;
@@ -112,7 +107,6 @@ li{
 .top1{
 	width: 1300px;
 	height: 70px;
-	/* border: 1px solid red; */
 	margin: 0 auto;
 }
 .top1_1{
@@ -161,7 +155,6 @@ li{
 	height: 70px;
 	float: right;
 	margin-right: 50px;
-	/* border: 1px solid red; */
 }
 .top1_3 img{
 	width: 70px;
@@ -171,14 +164,12 @@ li{
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	/* margin: 0 auto; */
 }
 /* center */
 .banner_box{
 	width: 1300px;
 	height: 600px;
 	margin: 0 auto;
-	/* border: 1px solid red; */
 	position: relative; 
 	top: 200px;
 	overflow: hidden;
@@ -218,12 +209,9 @@ li{
 	float: left;
 }
 .banner_box .points{
-	/*border: 1px solid blue;*/
-	/* text-align: center; */
 	position: absolute;
 	left: 30px;bottom:40px;
 	width: 100%; 
-	/*background: rgba(0,0,0,0.5);*/ 
 }
 .banner_box .points span{ 
 	display: inline-block; 
@@ -247,7 +235,6 @@ li{
  	margin-top: 10px;
  	margin-left: 10px;
  	height: 80px;
- 	/* border: 1px solid red; */
  }
  .chaxun1_1{
  	float: left;
@@ -289,7 +276,6 @@ li{
  .chaxun2{
  	width: 180px;
  	height: 150px;
- 	/* border: 1px solid red; */
  	float: left;
  	margin-left: 10px;
  	margin-top: 5px;
@@ -372,7 +358,6 @@ li{
  .center{
  	width: 1300px;
  	height: 800px;
- 	/* border: 1px solid red; */
  	margin: 0 auto;
  	position: relative;
  	top: 100px;
@@ -398,7 +383,6 @@ li{
  	width: 550px;
  	height: 400px;
  	margin: 25px 50px;
- 	/* border: 1px solid red; */
  	color: white;
  	line-height: 25px;
  }
@@ -429,7 +413,6 @@ li{
  .center_4_2_1{
  	width: 0;
  	height: 0;
- 	/* border-top: 0px solid transparent; */
     border-left: 20px solid #A3DEE4;
     border-bottom: 20px solid transparent;
  }
@@ -442,8 +425,6 @@ li{
  	width: 1300px;
  	height: 300px;
  	margin: 0 auto;
- 	/* border: 1px solid red; */
-
  }
  .show{
  	width: 1300px;
@@ -454,7 +435,6 @@ li{
  .show1{
  	width: 1300px;
  	height: 260px;
- 	/* border: 1px solid red; */
  }
  .show1_1{
  	width: 330px;
@@ -483,7 +463,6 @@ li{
 	width: 1300px;
 	height: 400px;
 	margin: 20px auto;
-	/* border: 1px solid red; */
 }
 .new{
 	width: 1300px;
@@ -495,7 +474,6 @@ li{
 	width: 330px;
 	height: 360px;
 	float: left;
-	/* border: 1px solid red; */
 }
 .shang1{
 	width: 330px;
@@ -522,7 +500,6 @@ li{
 	height: 360px;
 	float: left;
 	margin-left: 155px;
-	/* border: 1px solid red; */
 }
 .shang2{
 	width: 330px;
@@ -548,7 +525,6 @@ li{
 	width: 330px;
 	height: 360px;
 	float: right;
-	/* border: 1px solid red; */
 }
 .shang3{
 	width: 330px;
@@ -579,7 +555,6 @@ li{
 	width: 1300px;
 	height: 90px;
 	margin: 0 auto;
-	/* border: 1px solid red; */
 	background: #64B1B9;
 }
 .center3_1{
@@ -619,9 +594,7 @@ li{
 .foot_1{
 	width: 400px;
 	height: 55px;
-	/* border: 1px solid red; */
 	float: left;
-	/* margin-top: 50px; */
 	margin-left: 100px;
 }
 .foot_1_1{
@@ -639,9 +612,7 @@ li{
 .foot_2{
 	width: 400px;
 	height: 55px;
-	/* border: 1px solid red; */
 	float: left;
-	/* margin-top: 50px; */
 }
 .foot_2_1{
 	width: 400px;
@@ -658,9 +629,7 @@ li{
 .foot_3{
 	width: 400px;
 	height: 55px;
-	/* border: 1px solid red; */
 	float: left;
-	/* margin-top: 50px; */
 }
 .foot_3_1{
 	width: 400px;
@@ -677,13 +646,11 @@ li{
 .foot_4{
 	width: 700px;
 	height: 55px;
-	/* border: 1px solid red; */
 	float: left;
 }
 .foot_5{
 	width: 550px;
 	height: 50px;
-	/* border: 1px solid red; */
 	background: #1F333A;
 	float: left;
 	margin-top: 25px;
@@ -696,7 +663,6 @@ li{
 	line-height: 30px;
 	font-size: 14px;
 	float: left;
-	/* margin-top: 5px; */
 }
 .foot_6{
 	width: 0;
@@ -756,7 +722,6 @@ li{
 	display: inline-block;
 	float: left;
 	margin-left: 20px;
-	/* border-radius: 5px; */
 }
 .box3_4{
 	width: 300px;
@@ -775,7 +740,6 @@ li{
 	border: 0;
 	list-style: none;
 	outline-style: none;
-	/* border-radius: 5px; */
 	display: inline-block;
 	float: left;
 	margin-left: 20px;
@@ -832,9 +796,6 @@ li{
 	margin: 150px auto;
 	background: white;
 }
-.box5_1{
-	
-}
 .qx{
 	width:40px;
 	height: 20px;
@@ -848,5 +809,3 @@ li{
 	margin-right: 10px;
 	margin-top: 10px;
 }
-
-

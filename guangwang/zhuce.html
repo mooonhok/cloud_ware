@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -9,12 +8,9 @@
 		<link rel="stylesheet" href="css/zhuce.css">
 		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery.session.js"></script>
-
 	</head>
-
 	<body>
 		<form id="myform" action="api.uminfo.cn/tenant.php/tenant" enctype="multipart/form-data"  onsubmit="return check()"  method="post" >
-			<!--onsubmit="return check()-->
 			<div class="box">
 				<!-- top -->
 				<div class="top">
@@ -27,7 +23,6 @@
 					<div class="center_1">
 						<h2>基 本 信 息</h2>
 						<div class="xian"></div>
-
 						<div class="center_1_1">
 							<div class="center_1_2">
 								公 司 名 称: <input type="text" name="company">
@@ -58,8 +53,7 @@
 						</div>
 						<div class="center_8">
 							<div class="center_8_1">经 营 地 址:<input type="text" name="address"></div>
-							<div style="width: 918px;height: 1px;background: black;float: left;margin-left: 82px;"></div>
-							
+							<div style="width: 918px;height: 1px;background: black;float: left;margin-left: 82px;"></div>							
 						</div>
 						<div class="center_9">
 							<div class="wenzi8">发货城市:</div>
@@ -97,8 +91,6 @@
 						</div>
 					</div>
 				</div>
-				
-
 				<div class="foot">
 					<div class="foot_1">
 						<h2>特 殊 需 求</h2>
@@ -106,17 +98,13 @@
 						<div class="foot_2">
 							<div class="wenzi3">运单模版:</div>
 							<div class="wenzi4">
-
 								<input type="file" value="上传文件" name="order_t_p">
-
 							</div>
 						</div>
 						<div class="foot_3">
 							<div class="wenzi3">运输合同模版:</div>
 							<div class="wenzi5">
-
 								<input type="file" value="上传文件" name="trans_contract_p">
-
 							</div>
 						</div>
 						<div class="foot_4">
@@ -137,11 +125,9 @@
 				</div>
 			</div>
 		</form>
-
 	</body>
 	<script src="http://www.itakeo.com/down/calender2.js"></script>
-	<script type="text/javascript">
-		
+	<script type="text/javascript">		
 		$("#phone").on('change',function(){
 			var phone = $("#phone").val();
 			// alert(phone);
@@ -203,12 +189,9 @@
 				}
 			},
 			error: function(e) {
-
 				alert("省份列表1信息出错!");
-
 			}
 		});
-
 		function getPro1() {
 			$("#city1").empty();
 			var pid = $("#province1 option:selected").val();
@@ -227,7 +210,6 @@
 					}
 				},
 				error: function(e) {
-
 					alert("城市1列表信息出错!");
 				}
 			});
@@ -253,7 +235,6 @@
 				alert("省份列表2信息出错!");
 			}
 		});
-
 		function getPro2() {
 			$("#city2").empty();
 			var pid = $("#province2 option:selected").val();
@@ -283,7 +264,6 @@
    photoExt=obj.value.substr(obj.value.lastIndexOf(".")).toLowerCase();//获得文件后缀名
     if(photoExt!='.jpg'||photoExt!='.png'||photoExt!='.jpeg'||photoExt!='jpg'){
         alert("请上传正确的照片!");
-      //  $(".file1").empty();
         return false;
     }
    }
@@ -312,8 +292,7 @@
 			var sales_id = document.getElementsByName("sales_id")[0].value;
 			var service_items = document.getElementsByName("service_items")[0].value;
 			var trans_contract_p = document.getElementsByName("trans_contract_p")[0].value;
-			 photoExt=obj.value.substr(obj.value.lastIndexOf(".")).toLowerCase();//获得文件后缀名
-          
+			 photoExt=obj.value.substr(obj.value.lastIndexOf(".")).toLowerCase();//获得文件后缀名          
            alert(trans_contract_p);
 			if(address == null || address == "") {
 				alert("地址不能为空");
@@ -354,13 +333,11 @@
 		if(telephone==null||telephone==""){
 			alert("缺少公司联系人电话");
 			return false;
-	       }
-		
+	       }		
 			alert("提交成功");
 			return true;
 			window.location.href="http://www.uminfo.cn/yonhu.html";
 	}
 }
 	</script>
-
 </html>

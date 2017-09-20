@@ -6,7 +6,6 @@
 	<title>江苏酉铭主页</title>
 	<link rel="stylesheet" href="css/index.css">
 	<link rel="icon" href="head.ico" type="image/x-icon"/>
-	<!-- <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script> -->
 	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="js/jquery.session.js"></script>
     <script type="text/javascript" src="js/banner.js"></script>
@@ -15,15 +14,12 @@
     <script src="js/jquery.path.js" type="text/javascript" charset="utf-8"></script>  
     <script type="text/javascript">  
     	function mouseWheel(){
-
         if(document.addEventListener){
-
             document.body.addEventListener('mousewheel',function(e){
                 Detail(e);
                 e.stopPropagation();
                 e.preventDefalut();
             });
-
             document.body.addEventListener('DOMMouseScroll',function(e){
                 Detail(e);
                 e.stopPropagation();
@@ -36,21 +32,14 @@
                 event.returnValue=false;
             })
         }
-
         function Detail(e){
             ((-e.detail || e.wheelDelta)>0)?alert('top'):alert('down');
         }
     }
         $(document).ready(function(){  
-            //得到鼠标滚轮的事件处理  
             var nowPage = 0;  
             var lock = true;//函数节流的锁  
             $(document).mousewheel(function(event,delta){  
-                //console.log(delta);滚轮往上滚delta=1，往下滚delta=-1  
-                //问题？  
-                //鼠标向上滚delta=1，是数值增大的过程，而用户的习惯是序号减小的过程  
-                //鼠标向下滚delta=-1，是数值减小的过程，而用户的习惯是序号增大的过程  
-                //解决：相反数  
                 if(lock){  
                 nowPage = nowPage - delta;  
                 if(nowPage<0){  
@@ -58,21 +47,13 @@
                 }  
                 if(nowPage>2){  
                     nowPage=2;  
-                }  
-                // console.log(nowPage);     
-                //让container进行动画      
+                }     
                 $(".container").animate({"top": nowPage * -100 +"%"});  
-                /*easieEaseInQuint这个属性就是引用了jquery.easie.js插件所起到的效果，当然也可以使用innear属性，Jquery默认的匀速效果。*/  
-  
-  
-                //current属性交替在标签中  
                 $(".page").eq(nowPage).addClass("current").siblings().removeClass('current');  
                 lock = false;  
-                /*函数节流，知道两秒钟后，才能执行该函数*/  
                 setTimeout(function(){  
                         lock = true;  
                     },500);  
-  
                 }  
             });  
         });  
@@ -84,7 +65,6 @@
         }  
         html,body{  
             height: 100%;  
-            /* 没有滚动条设置 overflow:hidden*/  
             overflow: hidden;  
         }  
         .container{  
@@ -97,9 +77,6 @@
         .page{  
             width: 100%;  
             height: 100%;  
-            /* background:url(images/page0_bg.jpg) center top no-repeat; */   
-            /* background-size: cover  这个是css3的属性，表示拉伸为盒子大小 */  
-            /* background-size: cover; */  
         }  
         @-webkit-keyframes tiao{  
             from{  
@@ -113,12 +90,10 @@
                 background-color: green;  
                 transform: rotate(30deg) translateX(500px) translateY(50px);   
             }  
-        }  
-  
+        }    
         .page0 .current div:nth-of-type(1){  
             transform: rotate(30deg) translateX(500px) translateY(50px);  
-        }  
-  
+        }    
     </style>  
 </head>
 <body>
@@ -136,10 +111,8 @@
 				<li class="l1">
                  <a href="" class="a1"><img src="images/dl.png" alt="" class="img1"></a>
 				<ul>
-					<!-- <li><div id="name">用户名</div></li> -->
-					<li><a href="yonhu.html">客户信息</a></li>
+					<li><a href="http://www.uminfo.cn/yonhu.html">客户信息</a></li>
 					<li><a href="http://www.uminfo.cn/zhuce.html">企业登记</a></li>
-					<!-- <li><a href="test.html">费用结算</a></li> -->
 					<li class="tc"><a href="">退出登录</a></li>
 				</ul>
                </li>
@@ -150,11 +123,6 @@
 		</div>
 	<!-- top1 -->
 		<div class="top1">
-			<!-- <div class="top1_1"><h2></h2></div> -->
-			
-			<!-- <div class="top1_3">
-				<img src="images/ym_03.png" alt="">
-			</div> -->
 			<div class="top1_2">
 				<div class="top1_2_1"><a href="">首页</a></div>
 				<div class="xian"></div>
@@ -167,8 +135,7 @@
 				<div class="top1_2_2"><a href="">公司招聘</a></div>
 				<div class="top1_2_2"></div>
 				<div class="top1_2_3"></div>
-			</div>
-			
+			</div>			
 		</div>
 		</div>
 <!-- banner_box -->
@@ -190,14 +157,11 @@
 </div>			
 </div>
 </div>	 
-
 <!-- center -->
-
 <div class="page page1">
 <div class="cen">
 	<div class="center">
-		<div class="center_1">
-			
+		<div class="center_1">			
 		</div>
 		<div class="center_2">
 			<div class="center_2_1">
@@ -207,18 +171,14 @@
 			</div>
 		</div>
 		<div class="center_3">
-
 		<div class="center_4">
 		<div class="center_4_1"></div>
 		<div class="center_4_2">
-			<div class="center_4_2_1">
-				
+			<div class="center_4_2_1">				
 			</div>
 		</div>	
-		</div>
-		
-		</div>
-		
+		</div>		
+		</div>		
 	</div>
 </div>	
 </div>
@@ -234,9 +194,7 @@
 			<div class="show1_2"></div>
 			<div class="show1_3"></div>
 		</div>
-
 	</div>
-
 <!-- center2 -->
 	<div class="center2">
 		<div class="new">
@@ -281,13 +239,10 @@
 	<div class="foot_3">
 		<div class="foot_3_1">公司传真</div>
 		<div class="foot_3_2">88888888</div>
-	</div>
-	
+	</div>	
 	<div class="foot_4">
-		
 	</div>
-	<div class="foot_6">
-		
+	<div class="foot_6">		
 	</div>
 	<div class="foot_5">
 		<div class="foot_5_1">使用条款</div>
@@ -296,14 +251,11 @@
 		<div class="foot_5_1">网站地图</div>
 		<div class="foot_5_1">支持</div>
 	</div>
-
 	</div>
 	<div style="clear: both;"></div>
 </div>
-	</div>
-	
+	</div>	
 </div>
-
 	<div class="box2">
 		<div class="box3">
 			<div class="box3_1">
@@ -327,11 +279,7 @@
 			</div>
 		</div>
 	</div>
-
-
 </body>
-
-
 	<script type="text/javascript">
 		$(".top_2_2_1").on("click",function(){
 			$(".box2").css("display","block");
@@ -373,8 +321,7 @@
    		  	  	    $.session.set('user',msg.user.telephone);
    		  	  	    var user=$.session.get('userid');
    		  	  	//    $("#name").val(msg.user.telephone);	  
-   		  	  	    $(".top_2_2").html(msg.user.telephone);
-                     
+   		  	  	    $(".top_2_2").html(msg.user.telephone);                     
    		  	  	}else{
    		  	  		alert(msg.desc);
    		  	  	}
@@ -389,7 +336,6 @@
 		$(".tc").on('click',function(){
 			$.session.remove('userid');
 			$.session.remove('user');
-			// $.session.remove('username');
 		});
 	</script>
 </html>

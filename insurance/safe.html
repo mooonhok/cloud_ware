@@ -1,9 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
 	<head>
 		<meta charset="UTF-8">
-		<meta http-equiv="Access-Control-Allow-Origin" content="http://api.uminfo.cn/">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
 		<link rel="icon" href="head.ico" type="image/x-icon"/>
 		<link rel="stylesheet" href="css/safe.css">
 		<link rel="stylesheet" href="src/css/layui.css">
@@ -12,15 +11,13 @@
 			table {
 				border-right: 1px solid #DDDDDD;
 				border-bottom: 1px solid #DDDDDD;
-			}
-			
+			}			
 			table td {
 				border-left: 1px solid #DDDDDD;
 				border-top: 1px solid #DDDDDD;
 				height: 50px;
 				text-align: center;
-			}
-			
+			}			
 			table thead tr th {
 				height: 50px;
 				line-height: 50px;
@@ -28,12 +25,10 @@
 				border-left: 1px solid #DDDDDD;
 				border-top: 1px solid #DDDDDD;
 				/* background: #9CBA60; */
-			}
-			
+			}			
 			a {
 				text-decoration: none;
-			}
-			
+			}			
 			button {
 				width: 100px;
 				height: 30px;
@@ -76,7 +71,6 @@
            }
 		</style>
 	</head>
-
 	<body>
 		<div class="box">
 			<div class="top">
@@ -104,7 +98,6 @@
 					<select name="city" id="city1" class="cit">
 						<option value="0">请选择市</option>
 					</select>
-					<!-- <button class="hunt">选择搜索</button> -->
 				</div>
 				<div class="select_2">
 					<div class="select_2_1"><input id="coname" type="text"></div>
@@ -125,15 +118,13 @@
 							<th>操作</th>
 						</tr>
 					</thead>
-					<tbody id="tb1">
-						
+					<tbody id="tb1">						
 					</tbody>
 				</table>
 				<div id="demo20"></div>
 				<div class="box3">
 					<div class="box3_1">
 						<input id="makesure" type="hidden">
-						<!--	<p><span>xxx</span>已支付:<span>xxx</span>元保费</p>-->
 						<div id="suremessage"></div>
 					</div>
 					<div class="box3_2">
@@ -302,7 +293,6 @@
 				alert("省份列表1信息出错!");
 			}
 		});
-
 		function getPro1() {
 			$("#city1").empty();
 			var pid = $("#province1 option:selected").val();
@@ -327,7 +317,6 @@
 			});
 		}
 	</script>
-
 		<script>
 		function loadrechanges(city_id, company,page) {
 			if(page==null){
@@ -339,15 +328,13 @@
 			if(company == null) {
 				company = "";
 			}
-			//alert("1");
 			$.ajax({
 				url: "api.uminfo.cn/rechange_insurance.php/insurance_rechanges?city_id=" + city_id + "&company=" + company+"&page="+page+"&per_page=10",
 				dataType: 'json',
 				type: 'get',
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
-				success: function(msg) {
-					
+				success: function(msg) {					
 						$("#tb1").html("");
 						  //调用分页
   layui.use(['laypage', 'layer'], function(){
@@ -446,7 +433,6 @@
 		});
 		function ins(id) {
 			$(".box5").css("display", "block");
-                        // alert(id);
 			$.ajax({
 				url: "api.uminfo.cn/rechange_insurance.php/lastinsurance?tenant_id=" + id,
 				dataType: 'json',
@@ -454,7 +440,6 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					// alert(id);
 					console.log(msg);
 					TablePage('#table', 7);
 					function TablePage(id, size) {
@@ -482,7 +467,6 @@
 
 						for(var page = 0; page < numPages; page++) {
 							//为分页标签加上链接  
-							//if(page==0){$("<a href='javascript:void(0)'><span id='1' class="click_page"></span></a>")}  
 							$("<a href='javascript:void(0)'><span id='" + (page + 1) + "'>" + (page + 1) + "</span></a>").bind("click", { "newPage": page }, function(event) {
 									currentPage = event.data["newPage"];
 									$(this).children("span").attr("class", "click_page");
@@ -492,13 +476,11 @@
 									$table.trigger("repaginate");
 								})
 								.appendTo($pager);
-
 							$pager.append("  ");
 						}
 						var next = $("<a href='javascript:void(0)'><span id='Next'>下一页</span></a>");
 						$pager.append(next);
 						$('.page_out').append($pager);
-						//$pager.insertAfter($table);//分页div插入table  
 						$("#1").attr("class", "click_page");
 						$("#1").css({ "color": "red" });
 						$table.trigger("repaginate");
@@ -551,9 +533,7 @@
 		//选择搜索按钮的事件
 		$("#city1").on('change', function() {
 			city_id = $("#city1 option:selected").val();
-			window.location.href="insurance.uminfo.cn/safe.html?city_id=" + city_id+"&company="+"&page=";
-			//loadrechanges(city_id, company);
-		
+			window.location.href="insurance.uminfo.cn/safe.html?city_id=" + city_id+"&company="+"&page=";	
 		})
 		//搜索框
 		$(".select_2_2").on('click', function() {
@@ -564,7 +544,6 @@
 			}else{
 				window.location.href="insurance.uminfo.cn/safe.html?city_id=" + city_id+"&company="+company+"&page=";			
 			}
-
 		});
 		</script>
 	<script type="text/javascript">
@@ -572,7 +551,6 @@
 			$(".box3").css("display", "block");
 		})
 	</script>
-
 	<script type="text/javascript">
 		$(".compact").on("click", function() {
 			$(".bigbox").css("display", "block");
@@ -585,7 +563,6 @@
 			window.location.reload();
 		})
 	</script>
-
 	<script type="text/javascript">
 		$(".box3_3").on("click", function() {
 			$(".box3").css("display", "none");
@@ -608,6 +585,4 @@
          $('.box5_4').printArea();
         }
 	</script>
-
-
 </html>

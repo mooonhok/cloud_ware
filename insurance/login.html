@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta http-equiv="Access-Control-Allow-Origin" content="http://api.uminfo.cn/">
+	<meta http-equiv="Access-Control-Allow-Origin" content="*">
 	<link rel="icon" href="head.ico" type="image/x-icon"/>
 	<title>保险公司人员登录</title>
 	<link rel="stylesheet" href="css/login.css">
@@ -21,20 +21,13 @@
 		</div>
 		<div class="top_3"></div>	
 		<div class="center">
-			<div class="center_1">保险公司人员登录</div>
-		
+			<div class="center_1">保险公司人员登录</div>		
 		<div class="center_2">
-			<!--<div class="center_2_1">
-				<label for="">姓名</label>
-			</div>-->
 			<div class="center_2_2">
 				<input type="text" id="username" placeholder="姓名">
 			</div>
 		</div>
 		<div class="center_3">
-			<!--<div class="center_3_1">
-				<label for="">密码</label>
-			</div>-->
 			<div class="center_3_2">
 				<input type="password" id="password" placeholder="密码">
 			</div>
@@ -55,7 +48,6 @@
 			确 认 登 录
 		</div>	
 		</div>
-
 		<div style="clear: both;"></div>	
 	</div>	
 </body>
@@ -64,8 +56,7 @@
 	var context;
 	var width;
 	var height;
-	var code="";
-	
+	var code="";	
 	function randomNum(min,max){		
 		return Math.floor(Math.random()*(max-min)+min);
 	}
@@ -74,7 +65,6 @@
 		var g = randomNum(min,max);
 		var b = randomNum(min,max);
 		return "rgb("+r+","+g+","+b+")";
-
 	}
 	//生成随机数
 	function randomCode(){
@@ -103,7 +93,6 @@
 		context.arc(randomNum(0,width),randomNum(0,height), 1, 0, 2*Math.PI);
 		context.fill();
 		}
-
 	}
 	function randomLine(){
 		for (var i = 0; i < 8 ; i++) {
@@ -112,9 +101,7 @@
 			context.moveTo(randomNum(0,width),randomNum(0,height));
 			context.lineTo(randomNum(0,width),randomNum(0,height));
 			context.stroke();
-
 		}
-
 	}
 	function draw(){
 		canvas = document.getElementById('canvas');
@@ -138,19 +125,17 @@
 		if(input.length <= 0){
 			alert("请输入验证码")
 		}else if(input.toUpperCase() != code.toUpperCase()){
-			alert("验证码输入错误"); 
-			// createCode();  	
+			alert("验证码输入错误"); 	
         document.getElementById("identify").value = "";//清空文本框  
          }else if(input.toUpperCase() == code.toUpperCase()){		
 			alert('验证通过');
 			var name=$("#username").val();
 			var pwd=$("#password").val();
-			//alert(name+pwd);
 			if(name==null ||name==""||pwd==null||pwd==""){
 				alert("用户名或密码不能为空");
 			}else{
 			$.ajax({
-   		  	  url:"http://api.uminfo.cn/rechange_insurance.php/userlogin",
+   		  	  url:"api.uminfo.cn/rechange_insurance.php/userlogin",
    		  	  dataType:'json',
    		  	  type:'post',
    		  	  contentType:"application/json;charset=utf-8",
@@ -159,12 +144,11 @@
    		  	       password:pwd
    		  	  }),
    		  	  success:function(msg){
-   		  	  //	alert(msg.result);
    		  	  	if(msg.result==0){	
    		  	  	    $.session.set('userid',msg.user.id);
    		  	  	    var user=$.session.get('userid');
    		  	  	    if(user!=null||user!=""){
-   		  	  	    	window.location.href = "http://insurance.uminfo.cn/index.html";
+   		  	  	    	window.location.href = "insurance.uminfo.cn/index.html";
    		  	  	    }
    		  	  	}else{
    		  	  		alert(msg.desc);
