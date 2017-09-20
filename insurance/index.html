@@ -223,9 +223,6 @@
 		//获取省份和城市列表1
 		$.ajax({
 			url: "http://api.uminfo.cn/city.php/province",
-			beforeSend: function(request) {
-				request.setRequestHeader("tenant-id", "Chenxizhang");
-			},
 			dataType: 'json',
 			type: 'get',
 			ContentType: "application/json;charset=utf-8",
@@ -244,9 +241,6 @@
 			var pid = $("#province1 option:selected").val();
 			$.ajax({
 				url: "http://api.uminfo.cn/city.php/city?pid=" + pid,
-				beforeSend: function(request) {
-					request.setRequestHeader("tenant-id", "Chenxizhang");
-				},
 				dataType: 'json',
 				type: 'get',
 				ContentType: "application/json;charset=utf-8",
