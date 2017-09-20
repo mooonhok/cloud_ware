@@ -25,6 +25,7 @@
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
+					alert('11111'+msg.result);
 					$.cookie('openid',msg.openid);
 				    window.location.href=msg.url1;
 				},

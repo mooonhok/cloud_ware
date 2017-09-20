@@ -28,7 +28,7 @@ $app->get('/getappid',function()use($app){
                 $redirect_uri = urlencode('http://mooonhok-cloudware.daoapp.io/wx_test.php?tenant_id='.$tenant_id);
                 $scope = 'snsapi_base';
                 $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
-                echo json_encode(array('url'=>$url));
+                echo json_encode(array('result'=>'1','url'=>$url));
              //   header('Location:' . $url);
             } else {
                 $appid=$data1['appid'];
@@ -44,7 +44,8 @@ $app->get('/getappid',function()use($app){
                 curl_close($ch);
                 $json_obj = json_decode($output, true);
               //  setcookie('openid', $json_obj['openid']);
-                echo json_encode(array('url1'=>$url,'openid'=>$json_obj['openid']));
+                $url='http://mooonhok-cloudware.daoapp.io/weixin/build.html?tenant_id='.$tenant_id;
+                echo json_encode(array('result'=>'0','url1'=>$url,'openid'=>$json_obj['openid']));
           //      header('location:http://mooonhok-cloudware.daoapp.io/weixin/build.html?tenant_id='.$tenant_id);
             }
       //  }else{
@@ -53,7 +54,7 @@ $app->get('/getappid',function()use($app){
         //    echo json_encode(array('url'=>$url));
        // }
     }else{
-        echo json_encode(array('result'=>'1','desc'=>'访问错误'));
+        echo json_encode(array('result'=>'2','desc'=>'访问错误'));
     }
 });
 $app->run();
