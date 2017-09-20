@@ -9,7 +9,7 @@ require 'connect.php';
 $app = new \Slim\Slim();
 $app->get('/getappid',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
-    $tenant_id=$app->request->get('teanat_id');
+    $tenant_id=$app->request->get('tenant_id');
   //  header('Content-type:text/html;charset=utf-8');
     $database=localhost();
     //  $tenant_id=$_SERVER['QUERY_STRING'];
