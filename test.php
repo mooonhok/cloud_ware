@@ -2,13 +2,14 @@
 header('Content-type:text/html;charset=utf-8');
 $str=$_SERVER["QUERY_STRING"];
 $arr=explode("=",$str);
-$tenant_id=substr($arr[1],0,8);
-$appid=substr($arr[2],0,18);
-$secret=$arr[3];
+$tenant_id=substr($arr[1],0,10);
+$page=substr($arr[2],0,1);
+$appid=substr($arr[3],0,18);
+$secret=$arr[4];
 if ($_COOKIE['openid'] == null) {
     if (!isset($_GET['code'])) {
    //     $appid = 'wx15ef051f9f0bba92';
-        $redirect_uri = urlencode('http://mooonhok-cloudware.daoapp.io/test.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+        $redirect_uri = urlencode('http://api.uminfo.cn/test.php?tenant_id='.$tenant_id.'&page='.$page);
         $scope = 'snsapi_base';
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
         header('Location:' . $url);
@@ -27,11 +28,38 @@ if ($_COOKIE['openid'] == null) {
         $json_obj = json_decode($output, true);
         // echo $json_obj['openid'];
         setcookie('openid', $json_obj['openid']);
-        $num=rand(1,100);
-        header('location:http://mooonhok-cloudware.daoapp.io/weixin/build.html?tenant_id='.$tenant_id);
+        if ($page==7){
+            header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+        }else if($page==6){
+            header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+        }else if($page==5){
+            header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+        }else if($page==4){
+            header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+        }else if($page==3){
+            header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+        }else if($page==2){
+            header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+        }else if($page==1){
+            header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+        }
     }
 }else{
-    $num=rand(1,100);
-    header('location:http://mooonhok-cloudware.daoapp.io/weixin/build.html?tenant_id='.$tenant_id);
+    if ($page==7){
+        header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+    }else if($page==6){
+        header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+    }else if($page==5){
+        header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+    }else if($page==4){
+        header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+    }else if($page==3){
+        header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+    }else if($page==2){
+        header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+    }else if($page==1){
+        header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
+    }
+
 }
 ?>
