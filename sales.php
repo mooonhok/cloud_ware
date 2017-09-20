@@ -9,6 +9,8 @@ $app = new \Slim\Slim();
 //业务员登录
 $app->post('/usersign',function ()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Access-Control-Allow-Headers','Content-Type');
+    $app->response->headers->set('Access-Control-Allow-Methods','POST');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
@@ -51,7 +53,10 @@ $app->post('/usersign',function ()use($app){
 //获取该业务员名下的公司
 $app->get('/sales_tenant',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Access-Control-Allow-Headers','Content-Type');
+    $app->response->headers->set('Access-Control-Allow-Methods','GET');
     $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set('Access-Control-Allow-Credentials','true');
     $sales_id = $app->request->get("sales_id");
     $page = $app->request->get('page');
     $per_page=$app->request->get('per_page');
@@ -346,6 +351,8 @@ $app->put('/sales',function()use($app){
 //获取业务员信息
 $app->get('/sales',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Access-Control-Allow-Headers','Content-Type');
+    $app->response->headers->set('Access-Control-Allow-Methods','get');
     $app->response->headers->set('Content-Type','application/json');
     $sales_id = $app->request->get("sales_id");
     $database=localhost();
@@ -368,6 +375,8 @@ $app->get('/sales',function()use($app){
 //添加业务员
 $app->post('/addsales',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Access-Control-Allow-Headers','Content-Type');
+    $app->response->headers->set('Access-Control-Allow-Methods','POST');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
