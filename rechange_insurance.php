@@ -727,7 +727,7 @@ $app->get('/insurances_count',function ()use($app){
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
         //    $num=ceil(count($data1)/10);
-            echo json_encode(array('result'=>'1','desc'=>'success','count'=>$num));
+            echo json_encode(array('result'=>'1','desc'=>'success','count'=>count($data1)));
         }else{
             $selectStatement = $database->select()
                 ->from('tenant')
