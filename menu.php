@@ -10,7 +10,7 @@ $page=$arr[4];
 if ($_COOKIE['openid'] == null) {
     if (!isset($_GET['code'])) {
    //     $appid = 'wx15ef051f9f0bba92';
-        $redirect_uri = urlencode('http://api.uminfo.cn/menu.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret.'&page='.$page);
+        $redirect_uri = urlencode('http://api.uminfo.cn/menu.php?tenant_id='.$tenant_id.'&page='.$page);
         $scope = 'snsapi_base';
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
         header('Location:' . $url);
