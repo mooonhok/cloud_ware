@@ -348,8 +348,6 @@ $app->put('/sales',function()use($app){
 //获取业务员信息
 $app->get('/sales',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Access-Control-Allow-Headers','Content-Type');
-    $app->response->headers->set('Access-Control-Allow-Methods','get');
     $app->response->headers->set('Content-Type','application/json');
     $sales_id = $app->request->get("sales_id");
     $database=localhost();
