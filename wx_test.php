@@ -10,7 +10,7 @@ $app = new \Slim\Slim();
 $app->get('/getappid',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->get('teanat_id');
-    header('Content-type:text/html;charset=utf-8');
+  //  header('Content-type:text/html;charset=utf-8');
     $database=localhost();
     //  $tenant_id=$_SERVER['QUERY_STRING'];
  //   $str=$_SERVER['QUERY_STRING'];
@@ -22,13 +22,14 @@ $app->get('/getappid',function()use($app){
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetch();
     if($data1!=null||$data1!=""){
-        if ($_COOKIE['openid'] == null) {
+        //if ($_COOKIE['openid'] == null) {
             if (!isset($_GET['code'])) {
                 $appid=$data1['appid'];
                 $redirect_uri = urlencode('http://mooonhok-cloudware.daoapp.io/wx_test.php?tenant_id='.$tenant_id);
                 $scope = 'snsapi_base';
                 $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
-                header('Location:' . $url);
+                echo json_encode(array('url'=>$url));
+             //   header('Location:' . $url);
             } else {
                 $appid=$data1['appid'];
                 $secret=$data1['secret'];
@@ -42,12 +43,15 @@ $app->get('/getappid',function()use($app){
                 $output = curl_exec($ch);
                 curl_close($ch);
                 $json_obj = json_decode($output, true);
-                setcookie('openid', $json_obj['openid']);
-                header('location:http://mooonhok-cloudware.daoapp.io/weixin/build.html?tenant_id='.$tenant_id);
+              //  setcookie('openid', $json_obj['openid']);
+                echo json_encode(array('url1'=>$url,'openid'=>$json_obj['openid']));
+          //      header('location:http://mooonhok-cloudware.daoapp.io/weixin/build.html?tenant_id='.$tenant_id);
             }
-        }else{
-            header('location:http://mooonhok-cloudware.daoapp.io/weixin/build.html?tenant_id='.$tenant_id);
-        }
+      //  }else{
+            //header('location:http://mooonhok-cloudware.daoapp.io/weixin/build.html?tenant_id='.$tenant_id);
+         //   $url='http://mooonhok-cloudware.daoapp.io/weixin/build.html?tenant_id='.$tenant_id;
+        //    echo json_encode(array('url'=>$url));
+       // }
     }else{
         echo json_encode(array('result'=>'1','desc'=>'访问错误'));
     }
