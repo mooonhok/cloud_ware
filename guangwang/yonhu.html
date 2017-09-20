@@ -108,7 +108,7 @@
 								url: "http://api.uminfo.cn/sales.php/sales_tenant?sales_id=" + sales_id,
 								dataType: 'json',
 								type: 'get',
-								contentType: "application/json;charset=utf-8",
+                                ContentType: "application/json;charset=utf-8",
 								data: JSON.stringify({}),
 								success: function(msg) {
 									TablePage('#tables', 6);
@@ -192,7 +192,7 @@
 								url: "http://api.uminfo.cn/sales.php/tenantbyid?tenant_id=" + id,
 								dataType: 'json',
 								type: 'get',
-								contentType: "application/json;charset=utf-8",
+                                ContentType: "application/json;charset=utf-8",
 								data: JSON.stringify({}),
 								success: function(msg) {
 									console.log(msg);
@@ -275,7 +275,7 @@
 								url: "http://api.uminfo.cn/sales.php/tenantsum?sales_id=" + sales_id,
 								dataType: 'json',
 								type: 'get',
-								contentType: "application/json;charset=utf-8",
+                                ContentType: "application/json;charset=utf-8",
 								data: JSON.stringify({}),
 								success: function(msg) {
 									if(msg.result == 0) {
@@ -417,7 +417,7 @@
 							url: "http://api.uminfo.cn/sales.php/sales",
 							dataType: 'json',
 							type: 'put',
-							contentType: "application/json;charset=utf-8",
+                            ContentType: "application/json;charset=utf-8",
 							data: JSON.stringify({
 								sales_id: sales_id,
 								sales_name: sales_name,
@@ -461,7 +461,7 @@
 						url: "http://api.uminfo.cn/sales.php/tenantchange",
 						dataType: 'json',
 						type: 'put',
-						contentType: "application/json;charset=utf-8",
+                        ContentType: "application/json;charset=utf-8",
 						data: JSON.stringify({
 							sales_id: sales_id,
 							tenant_id: id,
@@ -494,7 +494,7 @@
 				url: "http://api.uminfo.cn/sales.php/sales?sales_id="+sales_id,
 				dataType: 'json',
 				type: 'get',
-				contentType: "application/hson;charset=utf-8",
+                ContentType: "application/hson;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
 					// console.log(msg);
@@ -540,7 +540,7 @@
 							url: "http://api.uminfo.cn/sales.php/addsales",
 							dataType: 'json',
 							type: 'post',
-							contentType: "application/json;charset=utf-8",
+                            ContentType: "application/json;charset=utf-8",
 							data: JSON.stringify({
 								sales_name: name_2,
 								telephone: tel_1,

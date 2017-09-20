@@ -151,7 +151,7 @@
 		url:"api.uminfo.cn/rechange_insurance.php/insurances?city_id=" + city_id + "&company=" + company+"&page="+page+"&per_page=10",
 		dataType:'json',
 		type:'get',
-		contentType: "application/json;charset=utf-8",
+        ContentType: "application/json;charset=utf-8",
 		data: JSON.stringify({}),
 		success:function(msg){
 	        $("#tb2").html("");
@@ -200,7 +200,7 @@
    	      	   url: "api.uminfo.cn/rechange_insurance.php/one_goods?insurance_id=" + id,
 				dataType: 'json',
 				type: 'get',
-				contentType: "application/json;charset=utf-8",
+                ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
 					$(".box2").css("display","block");
@@ -228,7 +228,7 @@
 			},
 			dataType: 'json',
 			type: 'get',
-			contentType: "application/json;charset=utf-8",
+            ContentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
 				for(var i = 0; i < msg.province.length; i++) {
@@ -249,7 +249,7 @@
 				},
 				dataType: 'json',
 				type: 'get',
-				contentType: "application/json;charset=utf-8",
+                ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg){	
 				$("#city1").append('<option value="0">请选择市</option>')	

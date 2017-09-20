@@ -180,7 +180,7 @@
 			},
 			dataType: 'json',
 			type: 'get',
-			contentType: "application/json;charset=utf-8",
+            ContentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
 				//                        alert("提交goods结果"+msg.result+"/////"+msg.desc+"//////"+msg.province);
@@ -202,7 +202,7 @@
 				},
 				dataType: 'json',
 				type: 'get',
-				contentType: "application/json;charset=utf-8",
+                ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
 					for(var i = 0; i < msg.city.length; i++) {
@@ -224,7 +224,7 @@
 			},
 			dataType: 'json',
 			type: 'get',
-			contentType: "application/json;charset=utf-8",
+            ContentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
 				for(var i = 0; i < msg.province.length; i++) {
@@ -245,7 +245,7 @@
 				},
 				dataType: 'json',
 				type: 'get',
-				contentType: "application/json;charset=utf-8",
+                ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
 					//                      alert("city结果"+msg.result+"/////"+msg.desc+"//////"+msg.city);
