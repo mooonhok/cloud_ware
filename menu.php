@@ -1,5 +1,6 @@
 <?php
 header('Content-type:text/html;charset=utf-8');
+header('Access-Control-Allow-Origin','*');
 $str=$_SERVER["QUERY_STRING"];
 $arr=explode("=",$str);
 $tenant_id=substr($arr[1],0,10);

@@ -7,6 +7,7 @@ $signPackage = $jssdk->GetSignPackage();
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
 		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1,minimum-scale=0.1,user-scalable=0" name="viewport">
 		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
@@ -98,7 +99,7 @@ $signPackage = $jssdk->GetSignPackage();
 				},
 				dataType: 'json',
 				type: 'get',
-				contentType: "application/json;charset=utf-8",
+				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({					
 				}),
 				success: function(msg) {
@@ -126,7 +127,7 @@ $signPackage = $jssdk->GetSignPackage();
 				},
 				dataType: 'json',
 				type: 'post',
-				contentType: "application/json;charset=utf-8",
+				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({
 					wx_openid: openid,
 					order_id: order_id
@@ -190,7 +191,7 @@ $signPackage = $jssdk->GetSignPackage();
 			},
 			dataType: 'json',
 			type: 'post',
-			contentType: "application/json;charset=utf-8",
+			ContentType: "application/json;charset=utf-8",
 			data: JSON.stringify({
 				wx_openid:openid,
 				order_id:''
@@ -232,7 +233,7 @@ $signPackage = $jssdk->GetSignPackage();
 			},
 			dataType: 'json',
 			type: 'post',
-			contentType: "application/json;charset=utf-8",
+			ContentType: "application/json;charset=utf-8",
 			data: JSON.stringify({
 				wx_openid: openid,
 				order_id:''

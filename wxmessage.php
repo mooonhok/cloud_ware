@@ -14,7 +14,8 @@ $app = new \Slim\Slim();
 
 //微信添加
 $app->post('/wxmessage_insert',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get("tenant-id");
     $body=$app->request->getBody();
     $body=json_decode($body);
@@ -252,7 +253,8 @@ $app->post('/wxmessage_insert',function()use($app){
 
 
 $app->post('/wxmessage',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get("tenant-id");
     $body=$app->request->getBody();
     $body=json_decode($body);
@@ -317,6 +319,7 @@ $app->post('/wxmessage',function()use($app){
 
 //获得所有微信下的单
 $app->post('/wxmessages',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
@@ -461,6 +464,7 @@ $app->post('/wxmessages',function()use($app){
 
 
 $app->get('/wxmessage/isread',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
@@ -488,6 +492,7 @@ $app->get('/wxmessage/isread',function()use($app){
 });
 
 $app->get('/wxmessage/set-read',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
@@ -521,6 +526,7 @@ $app->get('/wxmessage/set-read',function()use($app){
 });
 
 $app->delete("/wxmessage",function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant_id');
     $database=localhost();
@@ -568,6 +574,7 @@ $app->delete("/wxmessage",function()use($app){
 
 //is_read的修改0至1
 $app->put("/wxmessage_isread",function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant_id');
     $body=$app->request->getBody();
@@ -619,6 +626,7 @@ $app->put("/wxmessage_isread",function()use($app){
 
 //根据message_id查出已读is_read
 $app->post("/wxmessage_isread",function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant_id');
     $body=$app->request->getBody();
@@ -676,6 +684,7 @@ $app->post("/wxmessage_isread",function()use($app){
 
 //order_source为1的所有订单数
 $app->get("/wx_message_source",function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant_id');
     $database=localhost();

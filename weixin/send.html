@@ -2,6 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 		<link rel="stylesheet" href="css/woyaojijian.css">
@@ -284,7 +285,7 @@
 				},
 				dataType: 'json',
 				type: 'get',
-				contentType: "application/json;charset=utf-8",
+				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
 					if(msg.result == 0) {
@@ -390,7 +391,7 @@
 			},
 			dataType: 'json',
 			type: 'get',
-			contentType: "application/json;charset=utf-8",
+			ContentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
 				for(var i = 0; i < msg.province.length; i++) {
@@ -411,7 +412,7 @@
 				},
 				dataType: 'json',
 				type: 'get',
-				contentType: "application/json;charset=utf-8",
+				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
 					for(var i = 0; i < msg.city.length; i++) {
@@ -433,7 +434,7 @@
 			},
 			dataType: 'json',
 			type: 'get',
-			contentType: "application/json;charset=utf-8",
+			ContentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
 				for(var i = 0; i < msg.province.length; i++) {
@@ -454,7 +455,7 @@
 				},
 				dataType: 'json',
 				type: 'get',
-				contentType: "application/json;charset=utf-8",
+				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
 					for(var i = 0; i < msg.city.length; i++) {
@@ -477,7 +478,7 @@
 				},
 				dataType: 'json',
 				type: 'get',
-				contentType: "application/json;charset=utf-8",
+				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
 					$("#box101").html("");
@@ -519,7 +520,7 @@
 				},
 				dataType: 'json',
 				type: 'delete',
-				contentType: "application/json;charset=utf-8",
+				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({
 					customerid: id
 				}),
@@ -544,7 +545,7 @@
 				},
 				dataType: 'json',
 				type: 'get',
-				contentType: "application/json;charset=utf-8",
+				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
 					$("#box111").html("");
@@ -599,7 +600,7 @@
 					},
 					dataType: 'json',
 					type: 'post',
-					contentType: "application/json;charset=utf-8",
+					ContentType: "application/json;charset=utf-8",
 					data: JSON.stringify({
 						customer_name: name_1,
 						customer_phone: phone_1,
@@ -640,7 +641,7 @@
 					},
 					dataType: 'json',
 					type: 'post',
-					contentType: "application/json;charset=utf-8",
+					ContentType: "application/json;charset=utf-8",
 					data: JSON.stringify({
 						customer_name: name_2,
 						customer_phone: phone_2,
@@ -709,7 +710,7 @@
 					},
 					dataType: 'json',
 					type: 'post',
-					contentType: "application/json;charset=utf-8",
+					ContentType: "application/json;charset=utf-8",
 					data: JSON.stringify({
 						customer_send_id: customer_send_id,
 						customer_accept_id: customer_accept_id,

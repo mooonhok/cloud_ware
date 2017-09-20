@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
 		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1,minimum-scale=0.1,user-scalable=0" name="viewport">
 		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 		<link rel="stylesheet" href="css/zhuce.css">
@@ -58,7 +59,7 @@
 				},
 				dataType: 'json',
 				type: 'get',
-				contentType: "application/json;charset=utf-8",
+				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
 					if(msg.result == 1) {
@@ -90,7 +91,7 @@
 										},
 										dataType: 'json',
 										type: 'post',
-										contentType: "application/json;charset=utf-8",
+										ContentType: "application/json;charset=utf-8",
 										data: JSON.stringify({
 											customer_name: customername,
 											customer_phone: customertel,

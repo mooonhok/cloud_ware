@@ -107,7 +107,7 @@
 								url: "http://api.uminfo.cn/sales.php/sales_tenant?sales_id=" + sales_id,
 								dataType: 'json',
 								type: 'get',
-								contentType: "application/json;charset=utf-8",
+								ContentType: "application/json;charset=utf-8",
 								data: JSON.stringify({}),
 								success: function(msg) {
 									TablePage('#tables', 6);
@@ -191,7 +191,7 @@
 								url: "http://api.uminfo.cn/sales.php/tenantbyid?tenant_id=" + id,
 								dataType: 'json',
 								type: 'get',
-								contentType: "application/json;charset=utf-8",
+								ContentType: "application/json;charset=utf-8",
 								data: JSON.stringify({}),
 								success: function(msg) {
 									console.log(msg);

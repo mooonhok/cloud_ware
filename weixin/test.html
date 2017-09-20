@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
 		<title></title>
 	</head>
 	<body>
@@ -23,7 +24,7 @@
 				url: "http://api.uminfo.cn/wx_test.php/tenant",
 				dataType: 'json',
 				type: 'get',
-				contentType: "application/json;charset=utf-8",
+				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
 					if(msg.result==0){
