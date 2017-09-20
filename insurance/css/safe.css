@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-09-05 14:28:39
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-09-20 10:49:37
+* @Last Modified time: 2017-09-20 16:36:44
 */
 *{
    margin: 0;
@@ -312,4 +312,7 @@ h2{
 }
 .quxiao{
 	 cursor:pointer;
+	 float: right;
+	 margin-right: 20px;
+	 margin-top: 20px;
 }
