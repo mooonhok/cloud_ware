@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-09-05 14:28:39
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-09-20 16:36:44
+* @Last Modified time: 2017-09-21 10:28:30
 */
 *{
    margin: 0;
@@ -53,7 +53,17 @@ select{
 	float: left;
 	width: 310px;
 	height: 30px;
-	margin-left: 650px;
+	margin-left: 570px;
+}
+.all{
+	float: left;
+	width: 80px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	background: #424F63;
+	color: white;
+	 cursor:pointer;
 }
 .select_2{
 	float: right;
@@ -316,3 +326,4 @@ h2{
 	 margin-right: 20px;
 	 margin-top: 20px;
 }
+

@@ -87,6 +87,7 @@
 				<div class="gps_2">历史保单</div>
 			</div>
 			<div class="select">
+				<div class="all">显示全部</div>
 				<div class="select_1">
 					<select name="province" id="province1" onchange="getPro1()" class="pro">
 						<option value="0">请选择省</option>
@@ -223,6 +224,9 @@
 		//获取省份和城市列表1
 		$.ajax({
 			url: "http://api.uminfo.cn/city.php/province",
+			beforeSend: function(request) {
+				request.setRequestHeader("tenant-id", "Chenxizhang");
+			},
 			dataType: 'json',
 			type: 'get',
 			ContentType: "application/json;charset=utf-8",
@@ -241,6 +245,9 @@
 			var pid = $("#province1 option:selected").val();
 			$.ajax({
 				url: "http://api.uminfo.cn/city.php/city?pid=" + pid,
+				beforeSend: function(request) {
+					request.setRequestHeader("tenant-id", "Chenxizhang");
+				},
 				dataType: 'json',
 				type: 'get',
 				ContentType: "application/json;charset=utf-8",
@@ -274,6 +281,14 @@
 				window.location.href="http://insurance.uminfo.cn/index.html?city_id=" + city_id+"&company="+company;
 			}
 		});
+	</script>
+	<script type="text/javascript">
+		$(".all").on("click",function(){
+			page=null;
+			city_id=null;
+			company=null;
+			window.location.href="http://insurance.uminfo.cn/safe.html?city_id=" + city_id+"&company="+company+"&page="+page+;
+		})
 	</script>
 <script>	
 var city_id = $.getUrlParam('city_id');
