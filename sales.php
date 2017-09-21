@@ -251,22 +251,23 @@ $app->get('/tenantsum',function()use($app){
                date_default_timezone_set("PRC");
               $time=$data2[$x]['begin_time'];
               $timestrap=strtotime($time);
-               $date=date('m', $timestrap);
-                $key1=$date.'月';
-                $arrays[$key1]=(int)$arrays[$key1]+1;
+             if($date!=null||$date!=""){
+                    $key1=$date.'月';
+                    $arrays[$key1]=(int)$arrays[$key1]+1;
+                }
            }
            for($y=1;$y<=12;$y++){
                if($y<10){
-                   $key='0'.$y;
+                   $key='0'.$y.'月';
                }else{
-                   $key=$y;
+                   $key=$y.'月';
                }
                if($arrays[$key]==null||$arrays[$key]==""){
                    $arrays[$key]=0;
                }
                $arrays1[$y]=$arrays[$key];
-
            }
+
             echo json_encode(array('result'=>'0','desc'=>'','count'=>$arrays1));
         }else{
             echo json_encode(array('result'=>'1','desc'=>'该业务员还没有数据','count'=>''));
