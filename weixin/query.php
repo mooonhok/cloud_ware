@@ -155,7 +155,6 @@ $signPackage = $jssdk->GetSignPackage();
 <script type="text/javascript" src="js/layer.js"></script>
 <script>
 	alert(location.href.split('#')[0]);
-
 		(function($) {
 			$.getUrlParam = function(name) {
 				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
