@@ -248,25 +248,35 @@ $app->get('/tenantsum',function()use($app){
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
            for($x=0;$x<count($data2);$x++){
-               date_default_timezone_set("PRC");
-              $time=$data2[$x]['begin_time'];
-              $timestrap=strtotime($time);
-              $date=date('m', $timestrap);
-             if($date!=null||$date!=""){
-                    $key1=$date.'月';
-                    $arrays[$key1]=(int)$arrays[$key1]+1;
-                }
-           }
-           for($y=1;$y<=12;$y++){
-               if($y<10){
-                   $key='0'.$y.'月';
-               }else{
-                   $key=$y.'月';
-               }
-               if($arrays[$key]==null||$arrays[$key]==""){
-                   $arrays[$key]=0;
-               }
-               $arrays1[$y]=$arrays[$key];
+             date_default_timezone_set("PRC");
+             $time=$data2[$x]['begin_time'];
+             $timestrap=strtotime($time);
+             $date=date('m', $timestrap);
+             if($date=='01'){
+                 $arrays['1']=(int)$arrays['1']+1;
+             }else if($date=='02'){
+                 $arrays['2']=(int)$arrays['2']+1;
+             }else if($date=='03'){
+                 $arrays['3']=(int)$arrays['3']+1;
+             }else if($date=='04'){
+                 $arrays['4']=(int)$arrays['4']+1;
+             }else if($date=='05'){
+                 $arrays['5']=(int)$arrays['5']+1;
+             }else if($date=='06'){
+                 $arrays['6']=(int)$arrays['6']+1;
+             }else if($date=='07'){
+                 $arrays['7']=(int)$arrays['7']+1;
+             }else if($date=='08'){
+                 $arrays['8']=(int)$arrays['8']+1;
+             }else if($date=='09'){
+                 $arrays['9']=(int)$arrays['9']+1;
+             }else if($date=='10'){
+                 $arrays['10']=(int)$arrays['10']+1;
+             }else if($date=='11'){
+                 $arrays['11']=(int)$arrays['11']+1;
+             }else if($date=='12') {
+                 $arrays['12'] = (int)$arrays['12'] + 1;
+             }
            }
 
             echo json_encode(array('result'=>'0','desc'=>'','count'=>$arrays1));
