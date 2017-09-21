@@ -394,7 +394,7 @@
 				url: "http://api.uminfo.cn/rechange_insurance.php/rechange_insurance_id?id=" + id,
 				dataType: 'json',
 				type: 'get',
-				ContentType: "application/json;charset=utf-8;raw",
+				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
 					$("#suremessage").html(msg.data);
