@@ -252,32 +252,31 @@ $app->get('/tenantsum',function()use($app){
              $time=$data2[$x]['begin_time'];
              $timestrap=strtotime($time);
              $date=date('m', $timestrap);
-             if($date=='01'){
-                 $arrays['1']=(int)$arrays['1']+1;
+                if($date=='01'){
+                 $arrays['a']=(int)$arrays['a']+1;
              }else if($date=='02'){
-                 $arrays['2']=(int)$arrays['2']+1;
+                 $arrays['b']=(int)$arrays['b']+1;
              }else if($date=='03'){
-                 $arrays['3']=(int)$arrays['3']+1;
+                 $arrays['c']=(int)$arrays['c']+1;
              }else if($date=='04'){
-                 $arrays['4']=(int)$arrays['4']+1;
+                 $arrays['d']=(int)$arrays['d']+1;
              }else if($date=='05'){
-                 $arrays['5']=(int)$arrays['5']+1;
+                 $arrays['e']=(int)$arrays['e']+1;
              }else if($date=='06'){
-                 $arrays['6']=(int)$arrays['6']+1;
+                 $arrays['f']=(int)$arrays['f']+1;
              }else if($date=='07'){
-                 $arrays['7']=(int)$arrays['7']+1;
+                 $arrays['g']=(int)$arrays['g']+1;
              }else if($date=='08'){
-                 $arrays['8']=(int)$arrays['8']+1;
+                 $arrays['h']=(int)$arrays['h']+1;
              }else if($date=='09'){
-                 $arrays['9']=(int)$arrays['9']+1;
+                 $arrays['i']=(int)$arrays['i']+1;
              }else if($date=='10'){
-                 $arrays['10']=(int)$arrays['10']+1;
+                 $arrays['j']=(int)$arrays['j']+1;
              }else if($date=='11'){
-                 $arrays['11']=(int)$arrays['11']+1;
+                 $arrays['k']=(int)$arrays['k']+1;
              }else if($date=='12') {
-                 $arrays['12'] = (int)$arrays['12'] + 1;
+                 $arrays['m'] = (int)$arrays['m'] + 1;
              }
-           }
 
             echo json_encode(array('result'=>'0','desc'=>'','count'=>$arrays1));
         }else{
