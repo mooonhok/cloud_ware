@@ -308,7 +308,7 @@ $app->get('/insurance_rechanges_count',function()use($app){
 //修改支付状态
 $app->put('/sure_rechanges',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set('Content-Type','application/json','raw');
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
