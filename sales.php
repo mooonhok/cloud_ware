@@ -252,7 +252,8 @@ $app->get('/tenantsum',function()use($app){
               $time=$data2[$x]['begin_time'];
               $timestrap=strtotime($time);
                $date=date('m', $timestrap);
-                $arrays[''.$date.'']=(int)$arrays[''.$date.'']+1;
+                $key1=$date.'月';
+                $arrays[$key1]=(int)$arrays[$key1]+1;
            }
            for($y=1;$y<=12;$y++){
                if($y<10){
