@@ -841,7 +841,7 @@ if($per_page==null||$page==null) {
                     $stmt = $selectStatement->execute();
                     $data6 = $stmt->fetch();
                     $arrays1['customer_phone'] = $data6['customer_phone'];
-                    $arrays1['goods_name'] = $data2['g_type'];
+                    $arrays1['goods_name'] = $data2[$i]['g_type'];
                     array_push($arrays, $arrays1);
                 }
                 echo json_encode(array('result' => '0', 'desc' => '', 'rechanges' => $arrays,'count'=>$num));
@@ -912,7 +912,7 @@ if($per_page==null||$page==null) {
                     $stmt = $selectStatement->execute();
                     $data6 = $stmt->fetch();
                     $arrays1['customer_phone'] = $data6['customer_phone'];
-                    $arrays1['goods_name'] = $data2['g_type'];
+                    $arrays1['goods_name'] = $data2[$i]['g_type'];
                     array_push($arrays, $arrays1);
                 }
                 echo json_encode(array('result' => '0', 'desc' => '', 'rechanges' => $arrays,'count'=>$num));
