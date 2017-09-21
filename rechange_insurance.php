@@ -818,13 +818,13 @@ if($per_page==null||$page==null) {
                     $arrays1['insurance_id'] = $data2[$i]['insurance_id'];
                     $selectStatement = $database->select()
                         ->from('city')
-                        ->where('id', '=', $data2[$i]['from_city_id']);
+                        ->where('id', '=', $data2[$i]['from_c_id']);
                     $stmt = $selectStatement->execute();
                     $data3 = $stmt->fetch();
                     $arrays1['from_city'] = $data3['name'];
                     $selectStatement = $database->select()
                         ->from('city')
-                        ->where('id', '=', $data2[$i]['receive_city_id']);
+                        ->where('id', '=', $data2[$i]['receive_c_id']);
                     $stmt = $selectStatement->execute();
                     $data4 = $stmt->fetch();
                     $arrays1['receive_city'] = $data4['name'];
@@ -889,13 +889,13 @@ if($per_page==null||$page==null) {
                     $arrays1['insurance_id'] = $data2[$i]['insurance_id'];
                     $selectStatement = $database->select()
                         ->from('city')
-                        ->where('id', '=', $data2[$i]['from_city_id']);
+                        ->where('id', '=', $data2[$i]['from_c_id']);
                     $stmt = $selectStatement->execute();
                     $data3 = $stmt->fetch();
                     $arrays1['from_city'] = $data3['name'];
                     $selectStatement = $database->select()
                         ->from('city')
-                        ->where('id', '=', $data2[$i]['receive_city_id']);
+                        ->where('id', '=', $data2[$i]['receive_c_id']);
                     $stmt = $selectStatement->execute();
                     $data4 = $stmt->fetch();
                     $arrays1['receive_city'] = $data4['name'];
