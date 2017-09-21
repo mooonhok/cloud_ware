@@ -325,7 +325,7 @@ $app->get('/tenantbyid',function()use($app){
     }
 });
 
-$app->option('/sales',function()use($app){
+$app->options('/sales',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $app->response->headers->set("Access-Control-Allow-Methods", "PUT");
