@@ -33,7 +33,7 @@ $signPackage = $jssdk->GetSignPackage();
 			width: 80%;
 			height: 180px;
 			background: white;
-			float: left;
+			float: left;`
 			margin-left: 10%;
 			margin-top: 50px;
 			border-radius: 10px;
