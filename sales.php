@@ -252,31 +252,23 @@ $app->get('/tenantsum',function()use($app){
              $time=$data2[$x]['begin_time'];
              $timestrap=strtotime($time);
              $date=date('m', $timestrap);
-                if($date=='01'){
-                 $arrays['a']=(int)$arrays['a']+1;
-             }else if($date=='02'){
-                 $arrays['b']=(int)$arrays['b']+1;
-             }else if($date=='03'){
-                 $arrays['c']=(int)$arrays['c']+1;
-             }else if($date=='04'){
-                 $arrays['d']=(int)$arrays['d']+1;
-             }else if($date=='05'){
-                 $arrays['e']=(int)$arrays['e']+1;
-             }else if($date=='06'){
-                 $arrays['f']=(int)$arrays['f']+1;
-             }else if($date=='07'){
-                 $arrays['g']=(int)$arrays['g']+1;
-             }else if($date=='08'){
-                 $arrays['h']=(int)$arrays['h']+1;
-             }else if($date=='09'){
-                 $arrays['i']=(int)$arrays['i']+1;
-             }else if($date=='10'){
-                 $arrays['j']=(int)$arrays['j']+1;
-             }else if($date=='11'){
-                 $arrays['k']=(int)$arrays['k']+1;
-             }else if($date=='12') {
-                 $arrays['m'] = (int)$arrays['m'] + 1;
-             }
+            if($arrays[$key]==null||$arrays[$key]==""){
+            	$arrays[''.$date.'']=1;
+            }else{
+            	$arrays[''.$date.'']++;
+            }
+             for($y=1;$y<=12;$y++){
+               if($y<10){
+                   $key='0'.$y;
+               }else{
+                   $key=$y;
+               }
+               if($arrays[$key]==null||$arrays[$key]==""){
+                   $arrays[$key]=0;
+               }
+               $arrays1[$y]=$arrays[$key];
+
+           }
            }
 
             echo json_encode(array('result'=>'0','desc'=>'','count'=>$arrays));
