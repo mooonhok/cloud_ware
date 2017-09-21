@@ -1,10 +1,10 @@
 <?php
 require_once "jssdk.php";
-$str=$_SERVER["QUERY_STRING"];
-$arr=explode("=",$str);
-$appid=substr($arr[2],0,18);
-$secret=$arr[3];
-$jssdk = new JSSDK($appid, $secret);
+//$str=$_SERVER["QUERY_STRING"];
+//$arr=explode("=",$str);
+//$appid=substr($arr[2],0,18);
+//$secret=$arr[3];
+$jssdk = new JSSDK("wx81d659de6151801e", "a777207a723e6f5ce885687caa5198e3");
 $signPackage = $jssdk->GetSignPackage();
 ?>
 <!DOCTYPE html>
