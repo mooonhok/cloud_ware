@@ -108,7 +108,7 @@ $signPackage = $jssdk->GetSignPackage();
 				}),
 				success: function(msg) {
 				if(msg.result == 0) {
-						window.location.href = "http://weixin.uminfo.cn/register.html?page=1&tenant_id="+tenant_id;
+						window.location.href = "http://api.uminfo.cn/weixin/register.html?page=1&tenant_id="+tenant_id;
 					}
 				},
 				error: function(xhr) {
@@ -173,7 +173,7 @@ $signPackage = $jssdk->GetSignPackage();
 					//点击事件
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
-					     window.location.href = "http://weixin.uminfo.cn/waybill_details.html?order_id="+sendid;
+					     window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid;
 					});
 					}
 				},
@@ -220,7 +220,7 @@ $signPackage = $jssdk->GetSignPackage();
 					//点击事件
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
-					   window.location.href = "http://weixin.uminfo.cn/waybill_details.html?order_id="+sendid;
+					   window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid;
 					});
 			},
 			error: function(xhr) {
@@ -262,7 +262,7 @@ $signPackage = $jssdk->GetSignPackage();
 					//点击事件
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
-					     window.location.href = "http://weixin.uminfo.cn/waybill_details.html?order_id="+sendid;
+					     window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid;
 					});
 			},
 			error: function(xhr) {
@@ -289,7 +289,7 @@ $signPackage = $jssdk->GetSignPackage();
       success: function (res) {    
         var a=new Array();
         a=res.resultStr.split(",");
-       window.location.href="http://weixin.uminfo.cn/waybill_details.html?order_id="+a[1];
+       window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a[1];
       }  
     });  
   };  

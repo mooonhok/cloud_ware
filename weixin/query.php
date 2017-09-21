@@ -154,6 +154,8 @@ $signPackage = $jssdk->GetSignPackage();
 <script type="text/javascript" src="js/layer (2).js"></script>
 <script type="text/javascript" src="js/layer.js"></script>
 <script>
+	alert(location.href.split('#')[0]);
+
 		(function($) {
 			$.getUrlParam = function(name) {
 				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -182,7 +184,7 @@ $signPackage = $jssdk->GetSignPackage();
 				       layer.msg("订单不存在");	
 					}else{
 					// alert(order_id);
-		            window.location.href="http://weixin.uminfo.cn/waybill_details.html?order_id="+order_id+"&tenant_id="+tenant_id;
+		            window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+order_id+"&tenant_id="+tenant_id;
 					}
 				},
 				error: function(xhr) {
@@ -211,7 +213,7 @@ $signPackage = $jssdk->GetSignPackage();
 				}),
 				success: function(msg) {
 					if(msg.result == 0) {
-						window.location.href = "http://weixin.uminfo.cn/register.html?tenant_id="+tenant_id;
+						window.location.href = "http://api.uminfo.cn/weixin/register.html?tenant_id="+tenant_id;
 					} else {
 					}
 				},
@@ -264,7 +266,7 @@ $signPackage = $jssdk->GetSignPackage();
 					if(msg.result == 2) {
 				     layer.msg("订单不存在")  	
 					}else{
-		            window.location.href="http://weixin.uminfo.cn/waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
+		            window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
 					}
 				},
 				error: function(xhr) {

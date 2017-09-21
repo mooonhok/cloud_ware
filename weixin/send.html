@@ -290,7 +290,7 @@
 				data: JSON.stringify({}),
 				success: function(msg) {
 					if(msg.result == 0) {
-						window.location.href = "http://weixin.uminfo.cn/register.html?page=0&tenant_id="+tenant_id;
+						window.location.href = "http://api.uminfo.cn/weixin/register.html?page=0&tenant_id="+tenant_id;
 				}
 				},
 				error: function(xhr) {
@@ -716,9 +716,9 @@
 					}),
 					success: function(msg) {
 					 layer.msg("提交订单成功");
-						  window.location.href = "http://weixin.uminfo.cn/my_consignment_note.php?tenant_id="+tenant_id;
+						  window.location.href = "http://api.uminfo.cn/weixin/my_consignment_note.php?tenant_id="+tenant_id;
 					},
-					error: function(xhr) {
+					error: function(xhr) {刷
 						layer.msg("提交订单失败");
 					},
 				})

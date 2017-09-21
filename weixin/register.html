@@ -101,11 +101,11 @@
 											layer.msg("用户注册成功");
 											$("#submit").removeAttr('onclick');
 											if(page == 0) {
-												window.location.href = "http://api.uminfo.cn/wx_send.php?tenant_id";
+												window.location.href = "http://api.uminfo.cn/weixin/wx_send.php?tenant_id";
 											} else if(page == 1) {
-												window.location.href = "http://api.uminfo.cn/wx_my_consignment_note.php";
+												window.location.href = "http://api.uminfo.cn/weixin/wx_my_consignment_note.php";
 											} else if(page == 2) {
-												window.location.href = "http://api.uminfo.cn/wx_online_inquiry.php";
+												window.location.href = "http://api.uminfo.cn/weixin/wx_online_inquiry.php";
 											}
 										},
 										error: function(xhr) {
