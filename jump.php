@@ -6,7 +6,7 @@
  * Time: 16:27
  */
 function local(){
-     header('location:http://www.uminfo.cn/yonhu.html');
+     header('Location:http://www.uminfo.cn/yonhu.html');
 }
 
 ?>
