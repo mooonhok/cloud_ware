@@ -13,8 +13,7 @@ $signPackage = $jssdk->GetSignPackage();
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
-	<link rel="stylesheet" href="css/layer.css">
-	<link rel="stylesheet" href="css/layer (2).css">
+
 	<title>运单号查询</title>
 	<style type="text/css">
 		*{
@@ -151,8 +150,7 @@ $signPackage = $jssdk->GetSignPackage();
 </body>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
-<script type="text/javascript" src="js/layer (2).js"></script>
-<script type="text/javascript" src="js/layer.js"></script>
+<script type="text/javascript" src="layer/layer.js"></script>
 <script>
 	alert(location.href.split('#')[0]);
 		(function($) {

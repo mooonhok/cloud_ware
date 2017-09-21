@@ -17,11 +17,8 @@ $signPackage = $jssdk->GetSignPackage();
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
 		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-		<link rel="stylesheet" href="css/layer.css">
-		<link rel="stylesheet" href="css/layer (2).css">
 		<link rel="stylesheet" href="css/wodeyundan.css">
-		<script type="text/javascript" src="js/layer.js"></script>
-		<script type="text/javascript" src="js/layer (2).js"></script>
+		<script type="text/javascript" src="layer/layer.js"></script>
 		<title>我的运单</title>
 	</head>
 	<body>
