@@ -251,6 +251,7 @@ $app->get('/tenantsum',function()use($app){
                date_default_timezone_set("PRC");
               $time=$data2[$x]['begin_time'];
               $timestrap=strtotime($time);
+              $date=date('m', $timestrap);
              if($date!=null||$date!=""){
                     $key1=$date.'月';
                     $arrays[$key1]=(int)$arrays[$key1]+1;
