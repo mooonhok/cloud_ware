@@ -224,9 +224,6 @@
 		//获取省份和城市列表1
 		$.ajax({
 			url: "http://api.uminfo.cn/city.php/province",
-			beforeSend: function(request) {
-				request.setRequestHeader("tenant-id", "Chenxizhang");
-			},
 			dataType: 'json',
 			type: 'get',
 			ContentType: "application/json;charset=utf-8",
@@ -245,9 +242,6 @@
 			var pid = $("#province1 option:selected").val();
 			$.ajax({
 				url: "http://api.uminfo.cn/city.php/city?pid=" + pid,
-				beforeSend: function(request) {
-					request.setRequestHeader("tenant-id", "Chenxizhang");
-				},
 				dataType: 'json',
 				type: 'get',
 				ContentType: "application/json;charset=utf-8",
@@ -287,7 +281,7 @@
 			page=null;
 			city_id=null;
 			company=null;
-			window.location.href="http://insurance.uminfo.cn/safe.html?city_id=" + city_id+"&company="+company+"&page="+page;
+			window.location.href="http://insurance.uminfo.cn/index.html?city_id=" + city_id+"&company="+company+"&page="+page;
 		})
 	</script>
 <script>	
