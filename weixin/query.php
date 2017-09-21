@@ -219,8 +219,7 @@ $signPackage = $jssdk->GetSignPackage();
 					alert("获取后台数据失败")
 					}				
 				})	
-			});
-		}
+			};
 </script>
 <script>
     /*
