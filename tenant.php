@@ -7,6 +7,7 @@
  */
 require 'Slim/Slim.php';
 require 'connect.php';
+require 'jump.php';
 
 
 \Slim\Slim::registerAutoloader();
@@ -335,7 +336,8 @@ $app->post('/tenant',function()use($app) {
                                                                             ->where('customer_id','=',$num);
                                                                         $affectedRows = $updateStatement->execute();
                                                                         //echo json_encode(array('result'=>'0','desc'=>'添加成功'));
-                                                                        echo "window.location.href=http://www.uminfo.cn/yonhu.html";
+                                                                        jump();
+                                                                       
                                                                     }else{
                                                                         echo json_encode(array("result"=>"1","desc"=>"添加租户信息失败"));
                                                                     }
@@ -506,5 +508,9 @@ $app->run();
 
 function localhost(){
     return connect();
+}
+
+function jump(){
+	  return local();
 }
 ?>
