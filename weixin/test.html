@@ -21,7 +21,7 @@
 		var tenant_id=$.getUrlParam('tenant_id');
 		var page=$.getUrlParam('page');
 		if(page==null||page==""){
-			window.history.go(-2);
+			window.history.go(-1);
 		}
 		$.ajax({
 				url: "http://api.uminfo.cn/wx_test.php/tenant",
@@ -39,7 +39,7 @@
 							+tenant_id+"&page="+page+"&appid="+msg.tenant[i].appid+"&secret="+msg.tenant[i].secret;
 						}
 					}
-					}
+					} 
 				},
 				error: function(e) {
 					alert("获取后台数据出错!");
