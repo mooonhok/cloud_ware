@@ -338,7 +338,6 @@ $app->post('/tenant',function()use($app) {
                                                                     }else{
                                                                         echo json_encode(array("result"=>"1","desc"=>"添加租户信息失败"));
                                                                     }
-                                                                    echo json_encode(array("result"=>"2","desc"=>"添加成功"));
                                                                 }else{
                                                                     echo json_encode(array("result"=>"3","desc"=>"添加负责人信息失败"));
                                                                 }
