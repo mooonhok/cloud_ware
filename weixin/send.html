@@ -467,7 +467,7 @@
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
 				dataType: 'json',
-				type: 'post',
+				type: 'get',
 				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
@@ -530,11 +530,11 @@
 		function loadaccept(openid,tenant_id) {
 			$.ajax({ 
 				url: "http://api.uminfo.cn/customer.php/wxaddress?wx_openid=" + openid,
-			//	beforeSend: function(request) {
-			//		request.setRequestHeader("tenant-id", tenant_id);
-				//},
+				beforeSend: function(request) {
+				request.setRequestHeader("tenant-id", tenant_id);
+			},
 				dataType: 'json',
-				type: 'post',
+				type: 'get',
 				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
