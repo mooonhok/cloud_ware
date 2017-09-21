@@ -277,8 +277,9 @@ $app->get('/tenantsum',function()use($app){
              }else if($date=='12') {
                  $arrays['m'] = (int)$arrays['m'] + 1;
              }
+           }
 
-            echo json_encode(array('result'=>'0','desc'=>'','count'=>$arrays1));
+            echo json_encode(array('result'=>'0','desc'=>'','count'=>$arrays));
         }else{
             echo json_encode(array('result'=>'1','desc'=>'该业务员还没有数据','count'=>''));
         }
