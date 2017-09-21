@@ -324,10 +324,17 @@ $app->get('/tenantbyid',function()use($app){
         echo json_encode(array('result'=>'2','desc'=>'公司id为空','tenant'=>''));
     }
 });
+
+$app->option('/sales',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set("Access-Control-Allow-Methods", "PUT");
+});
 //业务员信息修改
 $app->put('/sales',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set("Access-Control-Allow-Methods", "PUT");
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
