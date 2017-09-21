@@ -277,6 +277,9 @@
 		})(jQuery);
 		$.ajax({
 			url: "http://api.uminfo.cn/city.php/province",
+			beforeSend: function(request) {
+				request.setRequestHeader("tenant-id", "Chenxizhang");
+			},
 			dataType: 'json',
 			type: 'get',
 			ContentType: "application/json;charset=utf-8",
@@ -295,6 +298,9 @@
 			var pid = $("#province1 option:selected").val();
 			$.ajax({
 				url: "http://api.uminfo.cn/city.php/city?pid=" + pid,
+				beforeSend: function(request) {
+					request.setRequestHeader("tenant-id", "Chenxizhang");
+				},
 				dataType: 'json',
 				type: 'get',
 				ContentType: "application/json;charset=utf-8",
@@ -349,9 +355,9 @@
                   layui.each(thisData, function(index, item){
                   	var sure = null;
                   	if(item.status == 0) {
-                  		 arr.push( '<tr><td>'+item.company+'</td><td>'+item.time+'</td><td>'+item.money+'</td><td>'+item.rechange_insurance_id+'</td><td>'+item.insurance_balance+'</td><td onclick="ins('+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">扣费详情</span></td><td><button class="but" onclick="makesure(' +item.rechange_insurance_id + ')" style="cursor:pointer;">确认支付</button></td></tr>');
+                  		 arr.push( '<tr><td>'+item.company+'</td><td>'+item.time+'</td><td>'+item.money+'</td><td onclick="agree('+item.rechange_insurance_id+')">合同详情</td><td>'+item.insurance_balance+'</td><td onclick="ins('+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">扣费详情</span></td><td><button class="but" onclick="makesure(' +item.rechange_insurance_id + ')" style="cursor:pointer;">确认支付</button></td></tr>');
 					} else {
-						 arr.push( '<tr><td>'+item.company+'</td><td>'+item.time+'</td><td>'+item.money+'</td><td>'+item.rechange_insurance_id+'</td><td>'+item.insurance_balance+'</td><td onclick="ins('+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">扣费详情</span></td><td><button class="but" disabled="true">已经支付</button></td></tr>');
+						 arr.push( '<tr><td>'+item.company+'</td><td>'+item.time+'</td><td>'+item.money+'</td><td onclick="agree('+item.rechange_insurance_id+')">合同详情</td><td>'+item.insurance_balance+'</td><td onclick="ins('+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">扣费详情</span></td><td><button class="but" disabled="true">已经支付</button></td></tr>');
 					}
                   });
                   return arr.join('');
@@ -398,7 +404,7 @@
 					$("#suremessage").html(msg.data);
 				},
 				error: function(e) {
-					alert("获取合同详情信息出错!");                       
+					alert("获取充值信息失败!");                       
 				}
 			});
 		}
@@ -509,7 +515,7 @@
 					}						
 				},
 				error: function(e) {
-					alert("获取合同详情信息出错!");
+					alert("获取扣费信息出错!");
 				}
 			});
 		}
