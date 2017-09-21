@@ -812,7 +812,7 @@ if($per_page==null||$page==null) {
                 for ($i = 0; $i < count($data2); $i++) {
                     $arrays1['company'] = $data1['company'];
                     $arrays1['insurance_start_time'] = $data2[$i]['insurance_start_time'];
-                    $arrays1['duration'] = $data1['duration'];
+                    $arrays1['duration'] = $data2[$i]['duration'];
                     $arrays1['insurance_amount'] = $data2[$i]['insurance_amount'];
                     $arrays1['insurance_price'] = $data2[$i]['insurance_price'];
                     $arrays1['insurance_id'] = $data2[$i]['insurance_id'];
@@ -883,7 +883,7 @@ if($per_page==null||$page==null) {
                 for ($i = 0; $i < count($data2); $i++) {
                     $arrays1['company'] = $data1['company'];
                     $arrays1['insurance_start_time'] = $data2[$i]['insurance_start_time'];
-                    $arrays1['duration'] = $data1['duration'];
+                    $arrays1['duration'] = $data2[$i]['duration'];
                     $arrays1['insurance_amount'] = $data2[$i]['insurance_amount'];
                     $arrays1['insurance_price'] = $data2[$i]['insurance_price'];
                     $arrays1['insurance_id'] = $data2[$i]['insurance_id'];
