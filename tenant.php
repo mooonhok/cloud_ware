@@ -334,7 +334,8 @@ $app->post('/tenant',function()use($app) {
                                                                             ->table('customer')
                                                                             ->where('customer_id','=',$num);
                                                                         $affectedRows = $updateStatement->execute();
-                                                                        echo json_encode(array('result'=>'0','desc'=>'添加成功'));
+                                                                        //echo json_encode(array('result'=>'0','desc'=>'添加成功'));
+                                                                        header('location:http://www.uminfo.cn/yonhu.html');
                                                                     }else{
                                                                         echo json_encode(array("result"=>"1","desc"=>"添加租户信息失败"));
                                                                     }
