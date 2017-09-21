@@ -384,16 +384,11 @@ $app->get('/wx_openid',function()use($app){
     }
 });
 
-$app->options('/wxaddress',function()use($app){
-	    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $app->response->headers->set("Access-Control-Allow-Methods", "get");
-	});
 //微信获得所有地址
-$app->get('/wxaddress',function()use($app){
+$app->post('/wxaddress',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $app->response->headers->set("Access-Control-Allow-Methods", "get");
+    $app->response->headers->set("Access-Control-Allow-Methods", "post");
     $database=localhost();
     $tenant_id=$app->request->headers->get('tenant-id');
     $wx_openid=$app->request->get('wx_openid');

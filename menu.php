@@ -31,7 +31,7 @@ if ($_COOKIE['openid'] == null) {
         if ($page==7){
             header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
         }else if($page==6){
-            header('location:http://weixin.uminfo.cn/my_consignment_note.php?tenant_id='.$tenant_id);
+            header('location:http://weixin.uminfo.cn/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==5){
             header('location:http://weixin.uminfo.cn/register.html?tenant_id='.$tenant_id);
         }else if($page==4){
@@ -39,7 +39,7 @@ if ($_COOKIE['openid'] == null) {
         }else if($page==3){
             header('location:http://weixin.uminfo.cn/jiangsuyouming.html?tenant_id='.$tenant_id);
         }else if($page==2){
-            header('location:http://weixin.uminfo.cn/query.php?tenant_id='.$tenant_id);
+            header('location:http://weixin.uminfo.cn/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==1){
             header('location:http://weixin.uminfo.cn/send.html?tenant_id='.$tenant_id);
         }
@@ -48,7 +48,7 @@ if ($_COOKIE['openid'] == null) {
     if ($page==7){
         header('location:http://weixin.uminfo.cn/build.html?tenant_id='.$tenant_id);
     }else if($page==6){
-        header('location:http://weixin.uminfo.cn/my_consignment_note.php?tenant_id='.$tenant_id);
+        header('location:http://weixin.uminfo.cn/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
     }else if($page==5){
         header('location:http://weixin.uminfo.cn/register.html?tenant_id='.$tenant_id);
     }else if($page==4){
@@ -56,7 +56,7 @@ if ($_COOKIE['openid'] == null) {
     }else if($page==3){
         header('location:http://weixin.uminfo.cn/jiangsuyouming.html?tenant_id='.$tenant_id);
     }else if($page==2){
-        header('location:http://weixin.uminfo.cn/query.php?tenant_id='.$tenant_id);
+        header('location:http://weixin.uminfo.cn/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
     }else if($page==1){
         header('location:http://weixin.uminfo.cn/send.html?tenant_id='.$tenant_id);
     }
