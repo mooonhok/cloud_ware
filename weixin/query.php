@@ -217,8 +217,8 @@ $signPackage = $jssdk->GetSignPackage();
 				},
 				error: function(xhr) {
 					alert("获取后台数据失败")
-					})					
-				}
+					}				
+				})	
 			});
 		}
 </script>
