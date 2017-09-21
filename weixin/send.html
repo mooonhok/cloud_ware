@@ -281,6 +281,7 @@
 			$.ajax({
 				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid=" + openid,
 				beforeSend: function(request) {
+					request.setRequestHeader("Access-Control-Allow-Origin", "*");
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
 				dataType: 'json',
@@ -463,6 +464,7 @@
 			$.ajax({
 				url: "http://api.uminfo.cn/customer.php/wxaddress?wx_openid=" + openid,
 				beforeSend: function(request) {
+					request.setRequestHeader("Access-Control-Allow-Origin", "*");
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
 				dataType: 'json',
