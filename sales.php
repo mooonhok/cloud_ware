@@ -252,7 +252,7 @@ $app->get('/tenantsum',function()use($app){
              $time=$data2[$x]['begin_time'];
              $timestrap=strtotime($time);
              $date=date('m', $timestrap);
-            if($arrays[$key]==null||$arrays[$key]==""){
+            if($arrays[$date]==null||$arrays[$date]==""){
             	$arrays[''.$date.'']=1;
             }else{
             	$arrays[''.$date.'']++;
@@ -267,7 +267,6 @@ $app->get('/tenantsum',function()use($app){
                    $arrays[$key]=0;
                }
                $arrays1[$y]=$arrays[$key];
-
            }
            }
 
