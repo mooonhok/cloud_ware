@@ -9,14 +9,14 @@ class JSSDK {
     public function getSignPackage() {
         $jsapiTicket = $this->getJsApiTicket();
 
-        // ×¢Òâ URL Ò»¶¨Òª¶¯Ì¬»ñÈ¡£¬²»ÄÜ hardcode.
+        // ×¢ï¿½ï¿½ URL Ò»ï¿½ï¿½Òªï¿½ï¿½Ì¬ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ hardcode.
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
         $url = "$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
         $timestamp = time();
         $nonceStr = $this->createNonceStr();
 
-        // ÕâÀï²ÎÊýµÄË³ÐòÒª°´ÕÕ key Öµ ASCII ÂëÉýÐòÅÅÐò
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ key Öµ ASCII ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         $string = "jsapi_ticket=$jsapiTicket&noncestr=$nonceStr&timestamp=$timestamp&url=$url";
 
         $signature = sha1($string);
@@ -42,11 +42,11 @@ class JSSDK {
     }
 
     private function getJsApiTicket() {
-        // jsapi_ticket Ó¦¸ÃÈ«¾Ö´æ´¢Óë¸üÐÂ£¬ÒÔÏÂ´úÂëÒÔÐ´Èëµ½ÎÄ¼þÖÐ×öÊ¾Àý
+        // jsapi_ticket Ó¦ï¿½ï¿½È«ï¿½Ö´æ´¢ï¿½ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ëµ½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½
         $data = json_decode($this->get_php_file("jsapi_ticket.php"));
         if ($data->expire_time < time()) {
             $accessToken = $this->getAccessToken();
-            // Èç¹ûÊÇÆóÒµºÅÓÃÒÔÏÂ URL »ñÈ¡ ticket
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ URL ï¿½ï¿½È¡ ticket
             // $url = "https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=$accessToken";
             $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=$accessToken";
             $res = json_decode($this->httpGet($url));
@@ -64,10 +64,10 @@ class JSSDK {
     }
 
     private function getAccessToken() {
-        // access_token Ó¦¸ÃÈ«¾Ö´æ´¢Óë¸üÐÂ£¬ÒÔÏÂ´úÂëÒÔÐ´Èëµ½ÎÄ¼þÖÐ×öÊ¾Àý
+        // access_token Ó¦ï¿½ï¿½È«ï¿½Ö´æ´¢ï¿½ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ëµ½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½
         $data = json_decode($this->get_php_file("access_token.php"));
         if ($data->expire_time < time()) {
-            // Èç¹ûÊÇÆóÒµºÅÓÃÒÔÏÂURL»ñÈ¡access_token
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½URLï¿½ï¿½È¡access_token
             // $url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=$this->appId&corpsecret=$this->appSecret";
             $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$this->appId&secret=$this->appSecret";
             $res = json_decode($this->httpGet($url));
@@ -87,10 +87,10 @@ class JSSDK {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_TIMEOUT, 500);
-        // Îª±£Ö¤µÚÈý·½·þÎñÆ÷ÓëÎ¢ÐÅ·þÎñÆ÷Ö®¼äÊý¾Ý´«ÊäµÄ°²È«ÐÔ£¬ËùÓÐÎ¢ÐÅ½Ó¿Ú²ÉÓÃhttps·½Ê½µ÷ÓÃ£¬±ØÐëÊ¹ÓÃÏÂÃæ2ÐÐ´úÂë´ò¿ªssl°²È«Ð£Ñé¡£
-        // Èç¹ûÔÚ²¿Êð¹ý³ÌÖÐ´úÂëÔÚ´Ë´¦ÑéÖ¤Ê§°Ü£¬Çëµ½ http://curl.haxx.se/ca/cacert.pem ÏÂÔØÐÂµÄÖ¤ÊéÅÐ±ðÎÄ¼þ¡£
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, true);
+        // Îªï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¢ï¿½Å·ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½Ä°ï¿½È«ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½Î¢ï¿½Å½Ó¿Ú²ï¿½ï¿½ï¿½httpsï¿½ï¿½Ê½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½Ð´ï¿½ï¿½ï¿½ï¿½sslï¿½ï¿½È«Ð£ï¿½é¡£
+        // ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ú´Ë´ï¿½ï¿½ï¿½Ö¤Ê§ï¿½Ü£ï¿½ï¿½ëµ½ http://curl.haxx.se/ca/cacert.pem ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½Ö¤ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_URL, $url);
 
         $res = curl_exec($curl);
