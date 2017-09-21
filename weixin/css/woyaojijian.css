@@ -1,8 +1,8 @@
 /*
 * @Author: Administrator
 * @Date:   2017-08-18 09:58:43
-* @Last Modified by:   boycui
-* @Last Modified time: 2017-09-04 15:57:27
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-09-21 13:45:02
 */
 *{
 	margin: 0;padding: 0;
@@ -638,6 +638,14 @@ html,body{height:100%; width:100%;
 	border-radius: 5px;
 	color: white;
 }
+.h5{
+	width: 50%;
+	height: 25px;
+	text-align: center;
+	margin-top: 20px;
+	float: left;
+	margin-left: 25%;
+}
 .qx2{
 	width: 10%;
 	float: right;
@@ -645,7 +653,7 @@ html,body{height:100%; width:100%;
 	height: 20px;
 	line-height: 20px;
 	background: #24D9C9;
-	margin-top: -30px;
+	margin-top:5px;
 	margin-right: 5px;
 	border-radius: 5px;
 	color: white;
@@ -657,7 +665,7 @@ html,body{height:100%; width:100%;
 	height: 20px;
 	line-height: 20px;
 	background: #24D9C9;
-	margin-top: -30px;
+	margin-top: 5px;
 	margin-right: 5px;
 	border-radius: 5px;
 	color: white;

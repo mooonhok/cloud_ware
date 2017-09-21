@@ -233,8 +233,9 @@
 		<!-- box4 -->
 		<div class="box4">
 			<div class="box4-1">
-				<h5>包装类型</h5>
 				<div class="qx2">取消</div>
+				<div class="h5"><h5>包装类型</h5></div>
+				
 				<div class="box4-2">
 					<div class="box4-2-1" value="1">纸箱</div>
 					<div class="box4-2-2" value="2">木箱</div>
@@ -249,8 +250,8 @@
 		</div>
 		<div class="box6">
 			<div class="box6-1">
-				<h5>付款方式</h5>
 				<div class="qx3">取消</div>
+				<div class="h5"><h5>付款方式</h5></div>			
 				<div class="box6-2">
 					<div class="box6-2-1" value="到付">到付</div>
 					<div class="box6-2-2" value="现付">现付</div>
@@ -281,7 +282,6 @@
 			$.ajax({
 				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid=" + openid,
 				beforeSend: function(request) {
-					request.setRequestHeader("Access-Control-Allow-Origin", "*");
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
 				dataType: 'json',
@@ -464,7 +464,6 @@
 			$.ajax({
 				url: "http://api.uminfo.cn/customer.php/wxaddress?wx_openid=" + openid,
 				beforeSend: function(request) {
-					request.setRequestHeader("Access-Control-Allow-Origin", "*");
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
 				dataType: 'json',
@@ -535,7 +534,7 @@
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
 				dataType: 'json',
-				type: 'get',
+				type: 'post',
 				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
