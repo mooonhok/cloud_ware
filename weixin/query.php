@@ -195,30 +195,30 @@ $signPackage = $jssdk->GetSignPackage();
 </script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
 <script>
-		//判断openid是否已经被注册
-		var openid = $.cookie('openid');
-		if(openid != null) {
-			$.ajax({
-				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid="+openid,
-				beforeSend: function(request) {
-					request.setRequestHeader("tenant-id", tenant_id);
-				},
-				dataType: 'json',
-				type: 'get',
-				contentType: "application/json;charset=utf-8",
-				data: JSON.stringify({					
-				}),
-				success: function(msg) {
-					if(msg.result == 0) {
-						window.location.href = "http://api.uminfo.cn/weixin/register.html?tenant_id="+tenant_id;
-					} else {
-					}
-				},
-				error: function(xhr) {
-					alert("获取后台数据失败")
-					}				
-				})	
-			};
+//		//判断openid是否已经被注册
+//		var openid = $.cookie('openid');
+//		if(openid != null) {
+//			$.ajax({
+//				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid="+openid,
+//				beforeSend: function(request) {
+//					request.setRequestHeader("tenant-id", tenant_id);
+//				},
+//				dataType: 'json',
+//				type: 'get',
+//				contentType: "application/json;charset=utf-8",
+//				data: JSON.stringify({					
+//				}),
+//				success: function(msg) {
+//					if(msg.result == 0) {
+//						window.location.href = "http://api.uminfo.cn/weixin/register.html?tenant_id="+tenant_id;
+//					} else {
+//					}
+//				},
+//				error: function(xhr) {
+//					alert("获取后台数据失败")
+//					}				
+//				})	
+//			};
 </script>
 <script>
     /*
