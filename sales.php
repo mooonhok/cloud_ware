@@ -281,7 +281,7 @@ $app->get('/tenantsum',function()use($app){
                if($arrays[$key]==null||$arrays[$key]==""){
                    $arrays[$key]=0;
                }
-               $arrays1[$y]=$arrays[$key];
+              array_push($arrays1,$arrays[$key]);
            }
            }
 
