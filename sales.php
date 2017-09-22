@@ -161,10 +161,17 @@ $app->get('/sales_tenant',function()use($app){
         }
     }
 });
+
+$app->options('/tenantchange',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+        $app->response->headers->set("Access-Control-Allow-Methods", "PUT");
+  }
 // 修改租户信息
 $app->put('/tenantchange',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
+        $app->response->headers->set("Access-Control-Allow-Methods", "PUT");
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
