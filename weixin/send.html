@@ -299,7 +299,7 @@
 		}
 		$(document).ready(function() {
 			$(".top1").on("click", function() {
-				loadsend(openid);
+				loadsend(openid,tenant_id);
 				$("#box10").css("display", "block");
 				$("#box10").css("z-index", "100");
 				$(".box").css("display","none");
@@ -316,7 +316,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$(".top2").on("click", function() {
-				loadaccept(openid);
+				loadaccept(openid,tenant_id);
 				$("#box11").css("display", "block");
 				$("#box11").css("z-index", "100");
 				$(".box").css("display","none");
@@ -641,7 +641,7 @@
 					}),
 					success: function(msg) {
 					  layer.msg("添加地址成功");
-						loadaccept(openid);
+						loadaccept(openid,tenant_id);
 						$(".box3").css("display", "none");
 						$("#box11").css("display", "block");
 						$("#box11").css("z-index", "100");
