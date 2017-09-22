@@ -5,13 +5,13 @@ header('Content-type:text/html;charset=utf-8');
 $str=$_SERVER["QUERY_STRING"];
 $arr=explode("=",$str);
 $tenant_id=substr($arr[1],0,10);
-//$page=substr($arr[2],0,1);
+$page=$arr[4];
 $appid=substr($arr[2],0,18);
-$secret=$arr[3];
+$secret=substr($arr[3],0,32);
 if ($_COOKIE['openid'] == null) {
     if (!isset($_GET['code'])) {
       //  $appid = 'wx81d659de6151801e';
-        $redirect_uri = urlencode('http://api.uminfo.cn/weixin/menu.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+        $redirect_uri = urlencode('http://api.uminfo.cn/weixin/menu.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret.'&page='.$page);
         $scope = 'snsapi_base';
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
         header('Location:' . $url);
@@ -30,37 +30,37 @@ if ($_COOKIE['openid'] == null) {
         $json_obj = json_decode($output, true);
         // echo $json_obj['openid'];
         setcookie('openid', $json_obj['openid']);
-//        if ($page==7){
-            header('location:http://api.uminfo.cn/weixin/build.html');
-//        }else if($page==6){
-//            header('location:http://api.uminfo.cn/weixin/my_consignment_note.php?tenant_id='.$tenant_id);
-//        }else if($page==5){
-//            header('location:http://api.uminfo.cn/weixin/register.html?tenant_id='.$tenant_id);
-//        }else if($page==4){
-//            header('location:http://api.uminfo.cn/weixin/online_inquiry.html?tenant_id='.$tenant_id);
-//        }else if($page==3){
-//            header('location:http://api.uminfo.cn/weixin/jiangsuyouming.html?tenant_id='.$tenant_id);
-//        }else if($page==2){
-//            header('location:http://api.uminfo.cn/weixin/query.php?tenant_id='.$tenant_id);
-//        }else if($page==1){
-//            header('location:http://api.uminfo.cn/weixin/send.html?tenant_id='.$tenant_id);
-//        }
+        if ($page==7){
+            header('location:http://api.uminfo.cn/weixin/build.html?tenant_id='.$tenant_id);
+        }else if($page==6){
+            header('location:http://api.uminfo.cn/weixin/my_consignment_note.php?tenant_id='.$tenant_id);
+        }else if($page==5){
+            header('location:http://api.uminfo.cn/weixin/register.html?tenant_id='.$tenant_id);
+        }else if($page==4){
+            header('location:http://api.uminfo.cn/weixin/online_inquiry.html?tenant_id='.$tenant_id);
+       }else if($page==3){
+            header('location:http://api.uminfo.cn/weixin/jiangsuyouming.html?tenant_id='.$tenant_id);
+        }else if($page==2){
+           header('location:http://api.uminfo.cn/weixin/query.php?tenant_id='.$tenant_id);
+        }else if($page==1){
+            header('location:http://api.uminfo.cn/weixin/send.html?tenant_id='.$tenant_id);
+        }
     }
 }else{
-//    if ($page==7){
-        header('location:http://api.uminfo.cn/weixin/build.html');
-//    }else if($page==6){
-//        header('location:http://api.uminfo.cn/weixin/my_consignment_note.php?tenant_id='.$tenant_id);
-//    }else if($page==5){
-//        header('location:http://api.uminfo.cn/weixin/register.html?tenant_id='.$tenant_id);
-//    }else if($page==4){
-//        header('location:http://api.uminfo.cn/weixin/online_inquiry.html?tenant_id='.$tenant_id);
-//    }else if($page==3){
-//        header('location:http://api.uminfo.cn/weixin/jiangsuyouming.html?tenant_id='.$tenant_id);
-//    }else if($page==2){
-//        header('location:http://api.uminfo.cn/weixin/query.php?tenant_id='.$tenant_id);
-//    }else if($page==1){
-//        header('location:http://api.uminfo.cn/weixin/send.html?tenant_id='.$tenant_id);
-//    }
+        if ($page==7){
+            header('location:http://api.uminfo.cn/weixin/build.html?tenant_id='.$tenant_id);
+        }else if($page==6){
+            header('location:http://api.uminfo.cn/weixin/my_consignment_note.php?tenant_id='.$tenant_id);
+        }else if($page==5){
+            header('location:http://api.uminfo.cn/weixin/register.html?tenant_id='.$tenant_id);
+        }else if($page==4){
+            header('location:http://api.uminfo.cn/weixin/online_inquiry.html?tenant_id='.$tenant_id);
+       }else if($page==3){
+            header('location:http://api.uminfo.cn/weixin/jiangsuyouming.html?tenant_id='.$tenant_id);
+        }else if($page==2){
+           header('location:http://api.uminfo.cn/weixin/query.php?tenant_id='.$tenant_id);
+        }else if($page==1){
+            header('location:http://api.uminfo.cn/weixin/send.html?tenant_id='.$tenant_id);
+        }
 }
 ?>
