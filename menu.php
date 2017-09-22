@@ -29,37 +29,51 @@ if ($_COOKIE['openid'] == null) {
         curl_close($ch);
         $json_obj = json_decode($output, true);
         // echo $json_obj['openid'];
-        setcookie('openid', $json_obj['openid']);
+        
         if ($page==7){
+        	  setcookie('openid', $json_obj['openid']);
             header('location:http://api.uminfo.cn/weixin/build.html?tenant_id='.$tenant_id);
         }else if($page==6){
+        	setcookie('openid', $json_obj['openid']);
             header('location:http://api.uminfo.cn/weixin/my_consignment_note.php?tenant_id='.$tenant_id);
         }else if($page==5){
+        	setcookie('openid', $json_obj['openid']);
             header('location:http://api.uminfo.cn/weixin/register.html?tenant_id='.$tenant_id);
         }else if($page==4){
+        	setcookie('openid', $json_obj['openid']);
             header('location:http://api.uminfo.cn/weixin/online_inquiry.html?tenant_id='.$tenant_id);
         }else if($page==3){
+        	setcookie('openid', $json_obj['openid']);
             header('location:http://api.uminfo.cn/weixin/jiangsuyouming.html?tenant_id='.$tenant_id);
         }else if($page==2){
+        	setcookie('openid', $json_obj['openid']);
             header('location:http://api.uminfo.cn/weixin/query.php?tenant_id='.$tenant_id);
         }else if($page==1){
+        	setcookie('openid', $json_obj['openid']);
             header('location:http://api.uminfo.cn/weixin/send.html?tenant_id='.$tenant_id);
         }
     }
 }else{
     if ($page==7){
+    	setcookie('openid', $json_obj['openid']);
         header('location:http://api.uminfo.cn/weixin/build.html?tenant_id='.$tenant_id);
     }else if($page==6){
+    	setcookie('openid', $json_obj['openid']);
         header('location:http://api.uminfo.cn/weixin/my_consignment_note.php?tenant_id='.$tenant_id);
     }else if($page==5){
+    	setcookie('openid', $json_obj['openid']);
         header('location:http://api.uminfo.cn/weixin/register.html?tenant_id='.$tenant_id);
     }else if($page==4){
+    	setcookie('openid', $json_obj['openid']);
         header('location:http://api.uminfo.cn/weixin/online_inquiry.html?tenant_id='.$tenant_id);
     }else if($page==3){
+    	setcookie('openid', $json_obj['openid']);
         header('location:http://api.uminfo.cn/weixin/jiangsuyouming.html?tenant_id='.$tenant_id);
     }else if($page==2){
+    	setcookie('openid', $json_obj['openid']);
         header('location:http://api.uminfo.cn/weixin/query.php?tenant_id='.$tenant_id);
     }else if($page==1){
+    	setcookie('openid', $json_obj['openid']);
         header('location:http://api.uminfo.cn/weixin/send.html?tenant_id='.$tenant_id);
     }
 
