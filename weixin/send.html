@@ -510,9 +510,7 @@
 				dataType: 'json',
 				type: 'delete',
 				ContentType: "application/json;charset=utf-8",
-				data: JSON.stringify({
-					customerid: id
-				}),
+				data: JSON.stringify({}),
 				success: function(msg) {
 					layer.msg("删除成功");					
 					loadsend(openid,tenant_id);

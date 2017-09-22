@@ -707,7 +707,7 @@ $app->get('/one_goods',function()use($app){
        // $value="";
        // for($i=0;$i<count($data1);$i++){
       //     $value.=$data1[$i]['goods_name'].',';
-       // }
+       //j }
         echo json_encode(array('result'=>'0','desc'=>'success','goods'=>$data1,'count'=>count($data1)));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'单个保险id为空','goods'=>''));
