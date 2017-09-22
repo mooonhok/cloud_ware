@@ -254,12 +254,7 @@ $app->get('/tenantsum',function()use($app){
                 ->where('sales_id', '=', $sales_id);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
-           for($x=0;$x<count($data2);$x++){
-             date_default_timezone_set("PRC");
-             $time=$data2[$x]['begin_time'];
-             $timestrap=strtotime($time);
-             $date=date('m', $timestrap);
-              for($x=1;$x<=12;$x++){
+            for($x=1;$x<=12;$x++){
                if($x<10){
                    $key='0'.$x;
                }else{
@@ -267,6 +262,11 @@ $app->get('/tenantsum',function()use($app){
                }
                $arrays[$key]=null;
            }
+           for($x=0;$x<count($data2);$x++){
+             date_default_timezone_set("PRC");
+             $time=$data2[$x]['begin_time'];
+             $timestrap=strtotime($time);
+             $date=date('m', $timestrap);
             if($arrays[''.$date.'']==null||$arrays[''.$date.'']==""){
             	$arrays[''.$date.'']=1;
             }else{
