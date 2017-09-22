@@ -162,7 +162,7 @@
 			$.ajax({
 				url: "http://api.uminfo.cn/order.php/wx_order_z",
 				beforeSend: function(request) {
-					request.setRequestHeader("tenant-id", "1");
+					request.setRequestHeader("tenant-id",tenant_id);
 				},
 				dataType: 'json',
 				type: 'post',
