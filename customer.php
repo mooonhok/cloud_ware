@@ -183,12 +183,11 @@ $app->get("/customer",function()use($app){
 $app->put('/customer',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-	$tenant_id=$app->request->headers->get('tenant-id');
+    $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
 	$body=$app->request->getBody();
     $body=json_decode($body);
-	$customer_id=$body->customer_id;
-	$customer_comment=$body->customer_comment;
+
 	if($tenant_id!=null||$tenant_id!=""){
         $selectStatement = $database->select()
             ->from('tenant')
@@ -228,6 +227,56 @@ $app->put('/customer',function()use($app){
         }
     }else{
         echo json_encode(array("result"=>"5","desc"=>"缺少租户id"));
+    }
+});
+
+//修改客户的寄件和收件地址
+$app->put('/customer_address',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+	  $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    $customer_id=$app->request->get('customerid');
+    $body=json_decode($body);
+    $array=array();
+    foreach($body as $key=>$value){
+    	$array[$key]=$value;
+    }
+    if($tenant_id!=null||$tenant_id!=""){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        if($data2!=null){
+        if($customer_id!=null||$customer_id!=""){
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('customer_id','=',$customer_id)
+                ->where('exist',"=",0);
+            $stmt = $selectStatement->execute();
+            $data = $stmt->fetch();
+            if($data!=null){
+                $updateStatement = $database->update($array)
+                    ->table('customer')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('customer_id','=',$customer_id)
+                    ->where('exist',"=",0);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array("result"=>"0","desc"=>"success"));
+            }else{
+                echo json_encode(array("result"=>"1","desc"=>"客户不存在"));
+            }
+        }else{
+            echo json_encode(array("result"=>"2",'desc'=>'缺少客户id'));
+        }
+        }else{
+            echo json_encode(array("result"=>"3","desc"=>"租户不存在"));
+        }
+    }else{
+        echo json_encode(array("result"=>"4",'desc'=>'缺少租户id'));
     }
 });
 

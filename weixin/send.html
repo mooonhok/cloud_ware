@@ -460,6 +460,8 @@
 	<script type="text/javascript">
 		//加载寄件人信息
 		function loadsend(openid,tenant_id) {
+			alert(openid)
+			alert(tenant_id)
 			$.ajax({
 				url: "http://api.uminfo.cn/customer.php/wxaddress?wx_openid=" + openid,
 				beforeSend: function(request) {
@@ -524,9 +526,12 @@
 			});
 		}
 	</script>
+	
 	<script type="text/javascript">
 		//加载收货地址
 		function loadaccept(openid,tenant_id) {
+			alert(openid)
+			alert(tenant_id)
 			$.ajax({
 				url: "http://api.uminfo.cn/customer.php/wxaddress?wx_openid=" + openid,
 				beforeSend: function(request) {
