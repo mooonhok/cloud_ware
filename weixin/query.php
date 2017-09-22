@@ -1,5 +1,5 @@
 <?php
-require_once "jssdk.php";
+require_once "api.uminfo.cn/weixin/jssdk.php";
 //$str=$_SERVER["QUERY_STRING"];
 //$arr=explode("=",$str);
 //$appid=substr($arr[2],0,18);
@@ -26,13 +26,13 @@ $signPackage = $jssdk->GetSignPackage();
 		.box{
 			width: 100%;
 			height: 100%;
-			background:#E7E7E7; 
+			background:#E7E7E7;
 		}
 		.box1{
 			width: 80%;
 			height: 180px;
 			background: white;
-			float: left;`
+			float: left;
 			margin-left: 10%;
 			margin-top: 50px;
 			border-radius: 10px;
@@ -143,10 +143,10 @@ $signPackage = $jssdk->GetSignPackage();
 		<div  id="sumbit"  class="foot">
 			查   询
 		</div>
-       
+
 		</div>
-	</div>		
-	
+	</div>
+
 </body>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
@@ -178,7 +178,7 @@ $signPackage = $jssdk->GetSignPackage();
 				}),
 				success: function(msg) {
 					if(msg.result == 2) {
-				       layer.msg("订单不存在");	
+				       layer.msg("订单不存在");
 					}else{
 					// alert(order_id);
 		            window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+order_id+"&tenant_id="+tenant_id;
@@ -206,7 +206,7 @@ $signPackage = $jssdk->GetSignPackage();
 //				dataType: 'json',
 //				type: 'get',
 //				contentType: "application/json;charset=utf-8",
-//				data: JSON.stringify({					
+//				data: JSON.stringify({
 //				}),
 //				success: function(msg) {
 //					if(msg.result == 0) {
@@ -216,8 +216,8 @@ $signPackage = $jssdk->GetSignPackage();
 //				},
 //				error: function(xhr) {
 //					alert("获取后台数据失败")
-//					}				
-//				})	
+//					}
+//				})
 //			};
 </script>
 <script>
@@ -238,12 +238,12 @@ $signPackage = $jssdk->GetSignPackage();
             'checkJsApi', 'scanQRCode'
         ]
     });
-    wx.ready(function () { 
-  document.querySelector('#saoman').onclick = function () {  
-    wx.scanQRCode({  
-      needResult: 1,  
-      desc: 'scanQRCode desc',  
-      success: function (res) {    
+    wx.ready(function () {
+  document.querySelector('#saoman').onclick = function () {
+    wx.scanQRCode({
+      needResult: 1,
+      desc: 'scanQRCode desc',
+      success: function (res) {
        // alert(res.resultStr);
         var a=new Array();
         a=res.resultStr.split(",");
@@ -261,7 +261,7 @@ $signPackage = $jssdk->GetSignPackage();
 				}),
 				success: function(msg) {
 					if(msg.result == 2) {
-				     layer.msg("订单不存在")  	
+				     layer.msg("订单不存在")
 					}else{
 		            window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
 					}
@@ -273,12 +273,12 @@ $signPackage = $jssdk->GetSignPackage();
 		}else{
 			 layer.msg("没有扫描到条形码");
 		}
-      }  
-    });  
-  };  
-});  
-wx.error(function (res) {  
-  //alert(res.errMsg);  
-}); 
+      }
+    });
+  };
+});
+wx.error(function (res) {
+  //alert(res.errMsg);
+});
 </script>
 </html>
