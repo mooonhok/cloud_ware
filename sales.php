@@ -166,7 +166,7 @@ $app->options('/tenantchange',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
         $app->response->headers->set("Access-Control-Allow-Methods", "PUT");
-  }
+  });
 // 修改租户信息
 $app->put('/tenantchange',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
