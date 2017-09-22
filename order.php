@@ -353,6 +353,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                 ->where('customer.customer_address','!=','-1')
                 ->where('customer.customer_city_id','!=','-1')
                 ->where('customer.wx_openid','=',$wx_openid)
+                ->where('orders.tenant_id', '=', $tenant_id)
                 ->where('customer.tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetchAll();
@@ -547,6 +548,7 @@ $app->post('/wx_orders_r', function () use ($app) {
                 ->where('customer_address','!=',-1)
                 ->where('customer_city_id','>',0)
                 ->where('customer.customer_phone','=',$dataa['customer_phone'])
+                ->where('orders.tenant_id', '=', $tenant_id)
                 ->where('customer.tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetchAll();
@@ -737,6 +739,7 @@ $app->post('/wx_order', function () use ($app) {
                         ->where('customer.customer_address','!=','-1')
                         ->where('customer.customer_city_id','>',0)
                         ->where('customer.wx_openid','=',$wx_openid)
+                        ->where('customer.tenant_id', '=', $tenant_id)
                         ->where('orders.tenant_id', '=', $tenant_id);
                     $stmt = $selectStatement->execute();
                     $data2a= $stmt->fetchAll();
@@ -757,6 +760,7 @@ $app->post('/wx_order', function () use ($app) {
                         ->where('customer.customer_address','!=','-1')
                         ->where('customer.customer_city_id','>',0)
                         ->where('customer.customer_phone','=',$dataa['customer_phone'])
+                        ->where('customer.tenant_id', '=', $tenant_id)
                         ->where('customer.tenant_id', '=', $tenant_id);
                     $stmt = $selectStatement->execute();
                     $data2b= $stmt->fetchAll();
@@ -1157,6 +1161,7 @@ $app->post('/wx_orders_order_source', function () use ($app) {
                 ->join('orders', 'wx_message.order_id', '=', 'orders.order_id','right')
                 ->where('wx_message.exist', "=", 0)
                 ->where('wx_message.tenant_id', '=', $tenant_id)
+                ->where('orders.tenant_id', '=', $tenant_id)
                 ->where('orders.order_status','=',0)
                 ->orderBy("wx_message.ms_date")
                 ->limit((int)$size,(int)$offset);
