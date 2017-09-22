@@ -259,6 +259,14 @@ $app->get('/tenantsum',function()use($app){
              $time=$data2[$x]['begin_time'];
              $timestrap=strtotime($time);
              $date=date('m', $timestrap);
+              for($x=1;$x<=12;$x++){
+               if($x<10){
+                   $key='0'.$x;
+               }else{
+                   $key=$x.'';
+               }
+               $arrays[$key]=null;
+           }
             if($arrays[''.$date.'']==null||$arrays[''.$date.'']==""){
             	$arrays[''.$date.'']=1;
             }else{
@@ -268,7 +276,7 @@ $app->get('/tenantsum',function()use($app){
                if($y<10){
                    $key='0'.$y;
                }else{
-                   $key=$y;
+                   $key=$y.'';
                }
                if($arrays[$key]==null||$arrays[$key]==""){
                    $arrays[$key]=0;
@@ -277,7 +285,7 @@ $app->get('/tenantsum',function()use($app){
            }
            }
 
-            echo json_encode(array('result'=>'0','desc'=>'','count'=>$arrays));
+            echo json_encode(array('result'=>'0','desc'=>'','count'=>$arrays1));
         }else{
             echo json_encode(array('result'=>'1','desc'=>'该业务员还没有数据','count'=>''));
         }
