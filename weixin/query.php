@@ -1,5 +1,5 @@
 <?php
-require_once "api.uminfo.cn/weixin/jssdk.php";
+require_once "jssdk.php";
 //$str=$_SERVER["QUERY_STRING"];
 //$arr=explode("=",$str);
 //$appid=substr($arr[2],0,18);
