@@ -504,6 +504,9 @@
 	<script type="text/javascript">
 		//删除方法
 		function delet(id,tenant_id) {
+			if(tenant_id.length=0){
+				 tenant_id=$.getUrlParam('tenant_id');
+			}
 			$.ajax({
 				url: "http://api.uminfo.cn/customer.php/customer?customerid=" + id,
 				beforeSend: function(request) {
