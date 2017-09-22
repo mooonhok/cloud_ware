@@ -272,6 +272,7 @@ $app->get('/tenantsum',function()use($app){
             }else{
             	$arrays[''.$date.'']++;
             }
+           }
              for($y=1;$y<=12;$y++){
                if($y<10){
                    $key='0'.$y;
@@ -283,8 +284,6 @@ $app->get('/tenantsum',function()use($app){
                }
               array_push($arrays1,$arrays[$key]);
            }
-           }
-
             echo json_encode(array('result'=>'0','desc'=>'','count'=>$arrays1));
         }else{
             echo json_encode(array('result'=>'1','desc'=>'该业务员还没有数据','count'=>''));
@@ -309,7 +308,8 @@ $app->get('/tenantbyid',function()use($app){
         if($data2!=null||$data2!=""){
             $selectStatement = $database->select()
                 ->from('customer')
-                ->where('customer_id', '=', $data2['contact_id']);
+                ->where('customer_id', '=', $data2['contact_id'])
+                ->where('tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data3 = $stmt->fetch();
             $array['customer_name']=$data3['customer_name'];
