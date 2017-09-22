@@ -234,7 +234,7 @@
 			<div class="box4-1">
 				<div class="qx2">取消</div>
 				<div class="h5"><h5>包装类型</h5></div>
-				
+
 				<div class="box4-2">
 					<div class="box4-2-1" value="1">纸箱</div>
 					<div class="box4-2-2" value="2">木箱</div>
@@ -250,7 +250,7 @@
 		<div class="box6">
 			<div class="box6-1">
 				<div class="qx3">取消</div>
-				<div class="h5"><h5>付款方式</h5></div>			
+				<div class="h5"><h5>付款方式</h5></div>
 				<div class="box6-2">
 					<div class="box6-2-1" value="到付">到付</div>
 					<div class="box6-2-2" value="现付">现付</div>
@@ -512,11 +512,13 @@
 				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					layer.msg("删除成功");					
+					alert(1)
+				//	layer.msg("删除成功");
 					loadsend(openid,tenant_id);
 					loadaccept(openid,tenant_id);
 				},
 				error: function(xhr) {
+					alert(2)
 					layer.msg("获取后台失败！");
 				}
 			});
@@ -525,7 +527,7 @@
 	<script type="text/javascript">
 		//加载收货地址
 		function loadaccept(openid,tenant_id) {
-			$.ajax({ 
+			$.ajax({
 				url: "http://api.uminfo.cn/customer.php/wxaddress?wx_openid=" + openid,
 				beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", tenant_id);
