@@ -1,4 +1,6 @@
 <?php
+require 'Slim/Slim.php';
+require 'connect.php';
 use Slim\PDO\Database;
 
 \Slim\Slim::registerAutoloader();
