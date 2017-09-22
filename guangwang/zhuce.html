@@ -111,7 +111,7 @@
 							<div class="wenzi7">
 								<textarea class="text1" name="service_items"></textarea>
 							</div>
-						</div>刷
+						</div>
 						<div class="foot_5">
 							<div class="wenzi6">公司介绍：</div>
 							<div class="wenzi7">
@@ -312,12 +312,13 @@
 				alert("发货城市不能为空");
 				return false;
 			}
-		if(telephone==null||telephone==""){
-			alert("缺少公司联系人电话");
+		if(telephone==null||telephone==""||!/^1[34578]\d{9}$/.test(phone)){
+			alert("缺少公司联系人电话或电话号码格式错误");
 			return false;
 	       }		
 			alert("提交成功");
 			return true;
+			window.location.href="http://www.uminfo.cn/yonhu.html";
 	}
 }
 	</script>

@@ -704,11 +704,11 @@ $app->get('/one_goods',function()use($app){
             ->where('insurance.insurance_id','=',$insurance_id);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
-        $value="";
-        for($i=0;$i<count($data1);$i++){
-           $value.=$data1[$i]['goods_name'].',';
-        }
-        echo json_encode(array('result'=>'0','desc'=>'success','goods'=>$value,'count'=>count($data1)));
+       // $value="";
+       // for($i=0;$i<count($data1);$i++){
+      //     $value.=$data1[$i]['goods_name'].',';
+       // }
+        echo json_encode(array('result'=>'0','desc'=>'success','goods'=>$data1,'count'=>count($data1)));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'单个保险id为空','goods'=>''));
     }

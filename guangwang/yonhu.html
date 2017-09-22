@@ -448,8 +448,10 @@
 			var id = $("#gsid").val();
 			if(!/^1[34578]\d{9}$/.test(phone)) {
 				alert("电话号码格式不对");
+				return false;
 			 }else if(!/^((?:19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/.test(end_time)){
-			 alert("日期格式不正确(例：2017-06-03)")}
+			 alert("日期格式不正确(例：2017-06-03)");
+			}
 			 else{	
 					//修改公司信息
 					alert(sales_id+"<br>"+id);
@@ -471,6 +473,15 @@
 						success: function(msg) {
 							alert("修改公司信息成功");
 							alert(msg.desc);
+							$(".box2").css("display", "none");
+			                $(".box3").css("display", "block");
+			                $(".box4").css("display", "none");
+			                $(".box5").css("display", "none");
+			                $(".box6").css("display", "none");
+			                $(".xian1").css("display", "none");
+			                $(".xian2").css("display", "block");
+			                $(".xian3").css("display", "none");
+			                $(".xian4").css("display", "none");
 							window.location.reload();
 						},
 						error: function(xhr) {
@@ -621,16 +632,6 @@
 		$(".box3_2").on("click", function() {
 			window.location.href = "http://www.uminfo.cn/zhuce.html";
 		})
-		$(".box4_12").on("click", function() {
-			$(".box2").css("display", "none");
-			$(".box3").css("display", "block");
-			$(".box4").css("display", "none");
-			$(".box5").css("display", "none");
-			$(".box6").css("display", "none");
-			$(".xian1").css("display", "none");
-			$(".xian2").css("display", "block");
-			$(".xian3").css("display", "none");
-			$(".xian4").css("display", "none");
-		})
+
 	</script>
 </html>
