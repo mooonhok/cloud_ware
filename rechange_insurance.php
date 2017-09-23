@@ -380,6 +380,7 @@ $app->get('/insurances',function ()use($app){
                     ->from('insurance')
                     ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
                     ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
+                    ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
                     ->where('tenant.from_city_id', '=', $city_id)
                     ->where('insurance.sure_insurance', '=', '1')
                     ->where('tenant.company', '=', $company)
@@ -421,6 +422,7 @@ $app->get('/insurances',function ()use($app){
                     ->from('insurance')
                     ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
                     ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
+                    ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
                     ->where('insurance.sure_insurance', '=', '1')
                     ->where('tenant.from_city_id', '=', $city_id)
                     ->orderBy('insurance.insurance_start_time', 'desc');
@@ -463,6 +465,7 @@ $app->get('/insurances',function ()use($app){
                 ->from('insurance')
                 ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
                 ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
+                ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
                 ->where('insurance.sure_insurance', '=', '1')
                 ->orderBy('insurance.insurance_start_time', 'desc');
             //         ->limit((int)10, (int)10 * (int)$page);
@@ -507,6 +510,7 @@ $app->get('/insurances',function ()use($app){
                     ->from('insurance')
                     ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
                     ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
+                    ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
                     ->where('insurance.sure_insurance', '=', '1')
                     ->where('tenant.from_city_id', '=', $city_id)
                     ->where('tenant.company', '=', $company)
@@ -519,6 +523,7 @@ $app->get('/insurances',function ()use($app){
                     ->from('insurance')
                     ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
                     ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
+                    ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
                     ->where('tenant.from_city_id', '=', $city_id)
                     ->where('insurance.sure_insurance', '=', '1')
                     ->where('tenant.company', '=', $company)
@@ -559,6 +564,7 @@ $app->get('/insurances',function ()use($app){
                     ->from('insurance')
                     ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
                     ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
+                    ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
                     ->where('insurance.sure_insurance', '=', '1')
                     ->where('tenant.from_city_id', '=', $city_id)
                     ->orderBy('insurance.insurance_start_time', 'desc');
@@ -570,6 +576,7 @@ $app->get('/insurances',function ()use($app){
                     ->from('insurance')
                     ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
                     ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
+                    ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
                     ->where('insurance.sure_insurance', '=', '1')
                     ->where('tenant.from_city_id', '=', $city_id)
                     ->orderBy('insurance.insurance_start_time', 'desc')
@@ -610,6 +617,7 @@ $app->get('/insurances',function ()use($app){
                 ->from('insurance')
                 ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
                 ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
+                ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
                 ->where('insurance.sure_insurance', '=', '1')
                 ->orderBy('insurance.insurance_start_time', 'desc');
             $stmt = $selectStatement->execute();
@@ -620,6 +628,7 @@ $app->get('/insurances',function ()use($app){
                 ->from('insurance')
                 ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
                 ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
+                ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
                 ->where('insurance.sure_insurance', '=', '1')
                 ->orderBy('insurance.insurance_start_time', 'desc')
                 ->limit((int)$per_page, (int)$per_page * (int)$page);
