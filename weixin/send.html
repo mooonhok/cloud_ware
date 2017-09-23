@@ -502,19 +502,30 @@
 	</script>
 	<script type="text/javascript">
 		function edit(id){
-			
-			var j_name = $(this).html();
-			alert(j_name)
-			var j_phone = $(".j_phone").html();
-			var shen = $(".shen").html();
-			var shi = $(".shi").html();
-			var xx = $(".xx").html();
-			$(".box2").css("display","block");
-			$(".name_1").val(j_name);
-			$(".phone_1").val(j_phone);
-			$(".province1").val(shen);
-			$(".city1").val(shi);
-			$(".dizhi_1").text(xx);
+					$.ajax({
+					url: "http://api.uminfo.cn/customer.php/onewxaddress",
+					beforeSend: function(request) {
+						request.setRequestHeader("tenant-id", tenant_id);
+					},
+					dataType: 'json',
+					type: 'post',
+					ContentType: "application/json;charset=utf-8",
+					data: JSON.stringify({
+						wx_openid:openid,
+						customer_id:id,
+					}),
+					success: function(msg) {
+			    $(".box2").css("display","block");
+			    $(".name_1").val(msg.wxmessage.customer_name);
+			    $(".phone_1").val(msg.wxmessage.customer_phone);
+			    $(".province1").val(msg.wxmessage.customer_province);
+			    $(".city1").val(msg.wxmessage.customer_city);
+			    $(".dizhi_1").text(msg.wxmessage.customer_address);
+					},
+					error: function(xhr) {
+						alert("获取数据失败");
+					}
+				});
 			$("#subaddress3").on("click",function(){
 			var name_3 = $(".name_1").val();
 			var phone_3 = $(".phone_1").val();
@@ -557,6 +568,7 @@
 		})
 		}
 		
+
 	</script>
 	<script type="text/javascript">
 		//删除方法
@@ -635,17 +647,30 @@
 	</script>
 	<script type="text/javascript">
 		function edit1(id){
-			var s_name = $(".s_name").html();
-			var s_phone = $(".s_phone").html();
-			var shen1 = $(".shen1").html();
-			var shi1 = $(".shi1").html();
-			var xx1 = $(".xx1").html();
-			$(".box3").css("display","block");
-			$(".name_2").val(s_name);
-			$(".phone_2").val(s_phone);
-			$(".province2").val(shen1);
-			$(".city2").val(shi1);
-			$(".dizhi_2").text(xx1);
+					$.ajax({
+					url: "http://api.uminfo.cn/customer.php/onewxaddress",
+					beforeSend: function(request) {
+						request.setRequestHeader("tenant-id", tenant_id);
+					},
+					dataType: 'json',
+					type: 'post',
+					ContentType: "application/json;charset=utf-8",
+					data: JSON.stringify({
+						wx_openid:openid,
+						customer_id:id,
+					}),
+					success: function(msg) {
+			    $(".box3").css("display","block");
+			    $(".name_2").val(msg.wxmessage.customer_name);
+			    $(".phone_2").val(msg.wxmessage.customer_phone);
+			    $(".province2").val(msg.wxmessage.customer_province);
+			    $(".city2").val(msg.wxmessage.customer_city);
+			    $(".dizhi_2").text(msg.wxmessage.customer_address);
+					},
+					error: function(xhr) {
+						alert("获取数据失败");
+					}
+				});
 			$("#subaddress5").on("click", function() {
 			var name_4 = $(".name_2").val();
 			var phone_4 = $(".phone_2").val();
@@ -674,7 +699,7 @@
 						customer_id:id,
 					}),
 					success: function(msg) {
-					  layer.msg("添加地址成功");
+					  layer.msg("修改地址成功");
 						loadaccept(openid,tenant_id);
 						$(".box3").css("display", "none");
 						$("#box11").css("display", "block");

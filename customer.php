@@ -230,6 +230,59 @@ $app->put('/customer',function()use($app){
     }
 });
 
+//微信获得一个customerid的地址
+$app->post('/onewxaddress',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set("Access-Control-Allow-Methods", "POST");
+    $database=localhost();
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $wx_openid=$app->request->get('wx_openid');
+    $customer_id=$app->request->get('customer_id');
+    if($tenant_id!=null||$tenant_id!=''){
+           if($wx_openid!=null||$wx_openid!=''){
+               $selectStatement = $database->select()
+                   ->from('tenant')
+                   ->where('exist',"=",0)
+                   ->where('tenant_id','=',$tenant_id);
+               $stmt = $selectStatement->execute();
+               $data1 = $stmt->fetch();
+               if($data1!=null){
+                   $selectStatement = $database->select()
+                       ->from('customer')
+                       ->where('exist',"=",0)
+                       ->where('customer_address','!=',-1)
+                       ->where('customer_city_id','!=',-1)
+                       ->where('customer_id','=',$customer_id)
+                       ->where('wx_openid','=',$wx_openid)
+                       ->where('tenant_id','=',$tenant_id);
+                   $stmt = $selectStatement->execute();
+                   $data2 = $stmt->fetch();
+                       $selectStatement = $database->select()
+                           ->from('city')
+                           ->where('id',"=",$data2['customer_city_id']);
+                       $stmt = $selectStatement->execute();
+                       $data3 = $stmt->fetch();
+                       $selectStatement = $database->select()
+                           ->from('province')
+                           ->where('id',"=",$data3['pid']);
+                       $stmt = $selectStatement->execute();
+                       $data4 = $stmt->fetch();
+                       $data2['customer_city']=$data3['name'];
+                       $data2['customer_province']=$data4['name'];
+                   
+                   echo json_encode(array("result"=>"1","desc"=>"success","wxmessage"=>$data2));
+               }else{
+                   echo json_encode(array("result"=>"2","desc"=>"租户不存在"));
+               }
+           }else{
+               echo json_encode(array("result"=>"3","desc"=>"openid为空"));
+           }
+    }else{
+        echo json_encode(array("result"=>"4","desc"=>"租户为空"));
+    }
+});
+
 //修改客户的寄件和收件地址
 $app->put('/customer_address',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
