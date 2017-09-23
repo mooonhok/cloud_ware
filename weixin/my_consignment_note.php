@@ -170,7 +170,7 @@ $signPackage = $jssdk->GetSignPackage();
 					//点击事件
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
-					     window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid;
+					     window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
 					});
 					}
 				},
@@ -217,7 +217,7 @@ $signPackage = $jssdk->GetSignPackage();
 					//点击事件
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
-					   window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid;
+					   window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
 					});
 			},
 			error: function(xhr) {
@@ -259,7 +259,7 @@ $signPackage = $jssdk->GetSignPackage();
 					//点击事件
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
-					     window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid;
+					     window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
 					});
 			},
 			error: function(xhr) {
