@@ -235,10 +235,13 @@ $app->post('/onewxaddress',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $app->response->headers->set("Access-Control-Allow-Methods", "POST");
-    $database=localhost();
     $tenant_id=$app->request->headers->get('tenant-id');
-    $wx_openid=$app->request->get('wx_openid');
-    $customer_id=$app->request->get('customer_id');
+    $database=localhost();
+    	$body=$app->request->getBody();
+    $body=json_decode($body);
+    $tenant_id=$body->tenant-id;
+    $wx_openid=$body->customer_id;
+    
     if($tenant_id!=null||$tenant_id!=''){
            if($wx_openid!=null||$wx_openid!=''){
                $selectStatement = $database->select()
@@ -289,6 +292,7 @@ $app->put('/customer_address',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
 	  $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
+    	$body=$app->request->getBody();
     $body=json_decode($body);
     $array=array();
     $customer_id=$body->customer_id;;
