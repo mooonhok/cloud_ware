@@ -37,8 +37,9 @@
  			return null;
  		}
  	})(jQuery);
- var openid = $.cookie('openid');
+ 
  var tenant_id=$.getUrlParam('tenant_id');
+ var openid = $.cookie('openid'+tenant_id);
  alert(openid+"/////"+tenant_id);
 </script>
 </html>

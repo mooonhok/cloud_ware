@@ -142,7 +142,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="tijiao2" id="subaddress3">添加新地址</div>
+			<div class="tijiao2" id="subaddress3">保存地址</div>
 			<div class="kbox"></div>
 		</div>
 		<!--  -->
@@ -214,7 +214,7 @@
 				</form>
 			</div>
 
-			<div class="tijiao2" id="subaddress5">添加新地址</div>
+			<div class="tijiao2" id="subaddress5">保存地址</div>
 			<div class="kbox"></div>
 		</div>
 		<!--  -->
@@ -477,13 +477,13 @@
 						layer.msg("地址记录为空，请添加地址");
 					}else{
 					for(var i = 0; i < msg.wxmessage.length; i++) {
-						var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
-							msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
-							msg.wxmessage[i].customer_city + '</span>' +
-							msg.wxmessage[i].customer_address + '</p></div><div class="xian"></div><div class="tu"><input type="radio" class="rad1" name="rad" value=' +
+						var a = '<div class="name"><p class="j_name">' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
+							msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span class="shen">'+msg.wxmessage[i].customer_province+'</span><span class="shi">' +
+							msg.wxmessage[i].customer_city + '</span><span class=xx>' +
+							msg.wxmessage[i].customer_address + '</span></p></div><div class="xian"></div><div class="tu"><input type="radio" class="rad1" name="rad" value=' +
 							msg.wxmessage[i].customer_id + '>' +
-							'</div><div class="tu2"><div class="bj"></div>' +
-							'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" onclick="delet(' +
+							'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>' +
+							'<div class="bj1" onclick=edit('+msg.wxmessage[i].customer_id+')>编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" onclick="delet(' +
 							msg.wxmessage[i].customer_id + ')">删除</div></div><div class="xian1"></div>';
 						$("#box101").append(a);
 						$("#subaddress2").on('click', function() {
@@ -500,6 +500,62 @@
 				}
 			});
 		}
+		
+	</script>
+	<script type="text/javascript">
+		function edit(id){
+			var j_name = $(".j_name").html();
+			var j_phone = $(".j_phone").html();
+			var shen = $(".shen").html();
+			var shi = $(".shi").html();
+			var xx = $(".xx").html();
+			$(".box2").css("display","block");
+			$(".name_1").val(j_name);
+			$(".phone_1").val(j_phone);
+			$(".province1").val(shen);
+			$(".city1").val(shi);
+			$(".dizhi_1").text(xx);
+		}
+		$("#subaddress3").on("click",function(){
+			var name_3 = $(".name_1").val();
+			var phone_3 = $(".phone_1").val();
+			var cit3 = $("#city1").val();
+			var dizhi_3 = $("#dizhi_1").val();
+			var province_3 =$("#province1").val();
+			if(!/^1[34578]\d{9}$/.test(phone_3)){
+				layer.msg("手机号码格式不对");
+				return false;
+			}else{
+				$.ajax({
+					url: "http://api.uminfo.cn/customer.php/customer_address",
+					beforeSend: function(request) {
+						request.setRequestHeader("tenant-id", tenant_id);
+					},
+					dataType: 'json',
+					type: 'put',
+					ContentType: "application/json;charset=utf-8",
+					data: JSON.stringify({
+						customer_name: name_3,
+						customer_phone: phone_3,
+						city_id: cit3,
+						address: dizhi_3,
+						type: 1,
+						wx_openid: openid,
+						customer_id:id,
+					}),
+					success: function(msg) {
+					  layer.msg("修改地址成功");
+						loadsend(openid,tenant_id);
+						$(".box2").css("display", "none");
+						$("#box10").css("display", "block");
+						$("#box10").css("z-index", "100");
+					},
+					error: function(xhr) {
+						alert("获取数据失败");
+					}
+				});
+			}
+		})
 	</script>
 	<script type="text/javascript">
 		//删除方法
@@ -550,13 +606,13 @@
 						layer.msg("地址记录为空，请添加地址");
 					}else{
 					for(var i = 0; i < msg.wxmessage.length; i++) {
-						var a = '<div class="name"><p>' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
-							msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span>' +
-							msg.wxmessage[i].customer_city + '</span>' +
-							msg.wxmessage[i].customer_address + '</p></div><div class="xian"></div><div class="tu"><input type="radio" class="rad2" name="rad" value=' +
+						var a = '<div class="name"><p class="s_name">' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
+							msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span class=shen1>'+msg.wxmessage[i].customer_province+'</span><span class="shi1">' +
+							msg.wxmessage[i].customer_city + '</span><span class="xx1">' +
+							msg.wxmessage[i].customer_address + '</span></p></div><div class="xian"></div><div class="tu"><input type="radio" class="rad2" name="rad" value=' +
 							msg.wxmessage[i].customer_id + '>' +
-							'</div><div class="tu2"><div class="bj"></div>' +
-							'<div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" onclick="delet(' +
+							'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>' +
+							'<div class="bj1" onclick=edit1('+msg.wxmessage[i].customer_id+')>编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" onclick="delet(' +
 							msg.wxmessage[i].customer_id + ')">删除</div></div><div class="xian1"></div>';
 						$("#box111").append(a);
 						$("#subaddress4").on('click', function() {
@@ -579,12 +635,68 @@
 		}
 	</script>
 	<script type="text/javascript">
-		//添加寄件地址
+		function edit1(id){
+			var s_name = $(".s_name").html();
+			var s_phone = $(".s_phone").html();
+			var shen1 = $(".shen1").html();
+			var shi1 = $(".shi1").html();
+			var xx1 = $(".xx1").html();
+			$(".box3").css("display","block");
+			$(".name_2").val(s_name);
+			$(".phone_2").val(s_phone);
+			$(".province2").val(shen1);
+			$(".city2").val(shi1);
+			$(".dizhi_2").text(xx1);
+		}
+		$("#subaddress5").on("click", function() {
+			var name_4 = $(".name_2").val();
+			var phone_4 = $(".phone_2").val();
+			var cit4 = $("#city2").val();
+			var dizhi_4 = $("#dizhi_2").val();
+			var province_4 =$("#province2").val();
+			if(!/^1[34578]\d{9}$/.test(phone_4)) {
+				layer.msg("手机号码格式不对");
+				return false;
+			} else {
+				$.ajax({
+					url: "http://api.uminfo.cn/customer.php/customer_address",
+					beforeSend: function(request) {
+						request.setRequestHeader("tenant-id", tenant_id);
+					},
+					dataType: 'json',
+					type: 'put',
+					ContentType: "application/json;charset=utf-8",
+					data: JSON.stringify({
+						customer_name: name_4,
+						customer_phone: phone_4,
+						city_id: cit4,
+						address: dizhi_4,
+						type: 2,
+						wx_openid: openid,
+						customer_id:id,
+					}),
+					success: function(msg) {
+					  layer.msg("添加地址成功");
+						loadaccept(openid,tenant_id);
+						$(".box3").css("display", "none");
+						$("#box11").css("display", "block");
+						$("#box11").css("z-index", "100");
+					},
+					error: function(xhr) {
+						alert("获取数据失败");
+					}
+				});
+			}
+		});
+	</script>
+	<script type="text/javascript">
+		//添加寄件地址s
 		$("#subaddress3").on("click", function() {
 			var name_1 = $(".name_1").val();
 			var phone_1 = $(".phone_1").val();
 			var cit = $("#city1").val();
 			var dizhi_1 = $("#dizhi_1").val();
+			var province_1 =$("#province1").val();
 
 			if(!/^1[34578]\d{9}$/.test(phone_1)) {
 				layer.msg("手机号码格式不对");
@@ -627,6 +739,7 @@
 			var phone_2 = $(".phone_2").val();
 			var cit1 = $("#city2").val();
 			var dizhi_2 = $("#dizhi_2").val();
+			var province_2 =$("#province2").val();
 			if(!/^1[34578]\d{9}$/.test(phone_2)) {
 				layer.msg("手机号码格式不对");
 				return false;
@@ -758,5 +871,4 @@
 			$(".box").css("display","block");
 		})
 	</script>
-
 </html>
