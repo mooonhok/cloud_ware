@@ -502,7 +502,7 @@
 	</script>
 	<script type="text/javascript">
 		function edit(id){
-			alert(openid+'///'+tenant_id)
+			alert(openid+'///'+tenant_id+"///"+id)
 					$.ajax({
 					url: "http://api.uminfo.cn/customer.php/onewxaddress",
 					beforeSend: function(request) {
@@ -516,7 +516,7 @@
 						customer_id:id,
 					}),
 					success: function(msg) {
-			    $(".box2").css("display","block");
+			    
 			    $(".name_1").val(msg.wxmessage.customer_name);
 			    $(".phone_1").val(msg.wxmessage.customer_phone);
 			    $(".province1").val(msg.wxmessage.customer_province);
@@ -527,6 +527,7 @@
 						alert("获取数据失败");
 					}
 				});
+				$(".box2").css("display","block");
 			$("#subaddress3").on("click",function(){
 			var name_3 = $(".name_1").val();
 			var phone_3 = $(".phone_1").val();
