@@ -122,7 +122,7 @@
 		</div>
 		</div>
 	<!-- top1 -->
-		<div class="top1">
+		<!-- <div class="top1">
 			<div class="top1_2">
 				<div class="top1_2_1"><a href="">首页</a></div>
 				<div class="xian"></div>
@@ -136,7 +136,7 @@
 				<div class="top1_2_2"></div>
 				<div class="top1_2_3"></div>
 			</div>			
-		</div>
+		</div> -->
 		</div>
 <!-- banner_box -->
 <div class="page page0 current">
@@ -148,9 +148,9 @@
 			<img src="images/5.jpg" alt="">
 		</div>
 		<div class="points">
-		    <span><img src="images/2.jpg" alt=""></span>
-			<span><img src="images/3.jpg" alt=""></span>
-			<span><img src="images/5.jpg" alt=""></span>		
+		    <span></span>
+			<span></span>
+			<span></span>		
 		</div>
 		<span class="left_btn">&lt;</span>
 		<span class="right_btn">&gt;</span>	
@@ -161,7 +161,8 @@
 <div class="page page1">
 <div class="cen">
 	<div class="center">
-		<div class="center_1">			
+		<div class="center_1">	
+		<img src="images/opcnn.jpg" alt="">		
 		</div>
 		<div class="center_2">
 			<div class="center_2_1">
@@ -172,12 +173,17 @@
 		</div>
 		<div class="center_3">
 		<div class="center_4">
-		<div class="center_4_1"></div>
+		<div class="center_4_1">
+			<p><span class="pspan"></span>公司地址:江苏省南通市港闸区幸余路</p>
+			<p><span class="pspan"></span>公司电话:1888888888</p>
+			<p><span class="pspan"></span>公司传真:88888888</p>
+		</div>
 		<div class="center_4_2">
 			<div class="center_4_2_1">				
 			</div>
 		</div>	
-		</div>		
+		</div>	
+		<div class="center_5"></div>	
 		</div>		
 	</div>
 </div>	
@@ -227,7 +233,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="foot">
+	<!-- <div class="foot">
 	<div class="foot_1">
 		<div class="foot_1_1">公司地址</div>
 		<div class="foot_1_2">江苏省南通市港闸区幸余路</div>
@@ -243,15 +249,15 @@
 	<div class="foot_4">
 	</div>
 	<div class="foot_6">		
-	</div>
-	<div class="foot_5">
+	</div> -->
+	<!-- <div class="foot_5">
 		<div class="foot_5_1">使用条款</div>
 		<div class="foot_5_1">法律声明</div>
 		<div class="foot_5_1">隐私权政策</div>
 		<div class="foot_5_1">网站地图</div>
 		<div class="foot_5_1">支持</div>
 	</div>
-	</div>
+	</div> -->
 	<div style="clear: both;"></div>
 </div>
 	</div>	
@@ -316,15 +322,19 @@
    		  	  }),
    		  	  success:function(msg){
    		  	  	// alert(msg.result);
-   		  	  	if(msg.result==0){	
+   		  	  	if(msg.result==0){
    		  	  	    $.session.set('userid',msg.user.id);
    		  	  	    $.session.set('user',msg.user.telephone);
    		  	  	    var user=$.session.get('userid');
    		  	  	//    $("#name").val(msg.user.telephone);	  
-   		  	  	    $(".top_2_2").html(msg.user.telephone);                     
+   		  	  	    $(".top_2_2").html(msg.user.telephone);
+   		  	  	    $(".top_2 .li").hover(function(){
+			        $("ul").css("display","block");
+		            })
+
    		  	  	}else{
    		  	  		alert(msg.desc);
-   		  	  	}
+   		  	  	} 
    		  	  },
    		  	  error:function(xhr) {
    		  	  	alert(xhr.responseText);

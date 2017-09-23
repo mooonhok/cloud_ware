@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-29 09:48:59
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-09-22 11:49:40
+* @Last Modified time: 2017-09-23 16:35:02
 */
 *{
 	padding: 0;margin: 0;
@@ -17,8 +17,9 @@ li{
 }
 .shang{
 	position:fixed;top:0;left:0;
-	height: 15px;
+	height: 13%;
 	width: 100%;
+	z-index: 100;
 }
 #name{
 	text-decoration: none;
@@ -32,7 +33,7 @@ li{
 /* top */
 .top{
 	width: 100%;
-	background: #1F333A;
+	background: rgba(31, 55, 58, 0.3);
 	height: 60px;
 }
 .top_1{
@@ -79,7 +80,7 @@ li{
 	font-size: 12px;
 	display: none;
 }
-.top_2 .l1:hover ul{display: block;}  
+/* .top_2 .l1:hover ul{display: block;}   */
 .top_2_2{
 	float: left;
 	margin-left: 10px;
@@ -167,19 +168,19 @@ li{
 }
 /* center */
 .banner_box{
-	width: 1300px;
-	height: 600px;
+	width: 100%;
+	height: 100%;
 	margin: 0 auto;
 	position: relative; 
-	top: 200px;
+	/* top: 200px; */
 	overflow: hidden;
 }
 .imgs{
-	width: 3900px;
+	width: 400%;
 }
 .imgs img{
-	width: 1300px;
-	height: 600px;
+	width: 25%;
+	height: 100%;
 	float: left;
 	display:none;
 }
@@ -203,21 +204,21 @@ li{
 .banner_box .left_btn:hover, .banner_box .right_btn:hover{
 	opacity: 1
  }
-.points img{
-	width: 200px;
-	height: 100px;
-	float: left;
-}
+
 .banner_box .points{
 	position: absolute;
-	left: 30px;bottom:40px;
-	width: 100%; 
+	width: 50%;
+	height: 20px;
+	left: 25%;bottom:40px;
+	text-align: center;
 }
 .banner_box .points span{ 
 	display: inline-block; 
-	width: 200px;
+	width: 20px;
     margin:2px;
-	height: 100px;
+	height: 20px;
+	border-radius: 100px;
+	background: rgba(0, 0, 0, 0.5);
  }
  .banner_box .points span.current{ border:1px solid grey;}
  .chaxun{
@@ -356,11 +357,11 @@ li{
  }
  /* center */
  .center{
- 	width: 1300px;
- 	height: 800px;
+ 	width: 100%;
+ 	height: 100%;
  	margin: 0 auto;
  	position: relative;
- 	top: 100px;
+ 	/* top: 100px; */
  }
  .cen{
  	width: 100%;
@@ -368,27 +369,31 @@ li{
  	overflow: hidden;
  }
  .center_1{
- 	width: 650px;
- 	height: 800px;
- 	background: url('../images/opcnn.jpg');
+ 	width:40%;
+ 	height: 100%;
  	float: left;
  }
+ .center_1 img{
+ 	width: 100%;
+ 	height: 100%;
+ }
  .center_2{
- 	width: 650px;
- 	height: 450px;
+ 	width: 60%;
+ 	height: 65%;
  	background: #2E4B53;
  	float: left;
  }
  .center_2_1{
- 	width: 550px;
- 	height: 400px;
- 	margin: 25px 50px;
+ 	width: 80%;
+ 	height: 80%;
+ 	margin: 10%;
  	color: white;
  	line-height: 25px;
+ 	overflow: auto;
  }
  .center_3{
- 	width: 650px;
- 	height: 350px;
+ 	width:60%;
+ 	height: 35%;
  	background: #C1C2BC;
  	float: left;
  }
@@ -396,13 +401,21 @@ li{
  	width: 300px;
  	height: 120px;
  	float: left;
- 	background: #A3DEE4;
+ 	background: rgba(0, 0, 0, 0.5);
  	margin-left: 50px;
  	margin-top:-60px;
  }
  .center_4_1{
  	width: 300px;
  	height: 100px;
+ 	line-height: 35px;
+ 	font-size: 14px;
+ 	color: white;
+ }
+ .pspan{
+ 	width: 10px;
+ 	height: 14px;
+ 	display: inline-block;
  }
  .center_4_2{
  	width: 300px;
@@ -413,138 +426,153 @@ li{
  .center_4_2_1{
  	width: 0;
  	height: 0;
-    border-left: 20px solid #A3DEE4;
+    border-left: 20px solid rgba(0, 0, 0, 0.5);
     border-bottom: 20px solid transparent;
+ }
+ .center_5{
+ 	width: 90%;
+ 	height: 70%;
+ 	/* border: 1px solid red; */
+ 	float: left;
+ 	margin-left: 5%;
+	overflow: auto;
  }
  .cent{
  	width: 100%;
  	float: left;
- 	margin-top: 125px;
+ 	height: 100%;
  }
  .center1{
- 	width: 1300px;
- 	height: 300px;
+ 	width: 100%;
+ 	height: 50%;
  	margin: 0 auto;
  }
  .show{
- 	width: 1300px;
- 	height: 40px;
+ 	width: 100%;
+	height: 20%;
+	line-height: 200%;
  	text-align: center;
- 	line-height: 40px;
  }
  .show1{
- 	width: 1300px;
- 	height: 260px;
+ 	width: 100%;
+ 	height: 80%;
  }
  .show1_1{
- 	width: 330px;
- 	height: 250px;
+ 	width: 30%;
+ 	height: 100%;
  	float: left;
- 	margin-top: 10px;
+ 	/* margin-top: 10px; */
  	background: #A3DEE4;
  }
  .show1_2{
- 	width: 330px;
- 	height: 250px;
+ 	width: 30%;
+ 	height: 100%;
  	float: left;
- 	margin-top: 10px;
+ 	/* margin-top: 10px; */
  	background: #A3DEE4;
- 	margin-left: 155px;
+ 	margin-left: 5%;
  }
 
 .show1_3{
- 	width: 330px;
- 	height: 250px;
+ 	width: 30%;
+ 	height: 100%;
  	float: right;
- 	margin-top: 10px;
+ 	/* margin-top: 10px; */
  	background: #A3DEE4;
  }
 .center2{
-	width: 1300px;
-	height: 400px;
-	margin: 20px auto;
+	width: 100%;
+	height: 50%;
+	/* margin: 20px auto; */
 }
 .new{
-	width: 1300px;
-	height: 40px;
-	line-height: 40px;
+	width: 100%;
+	height:10%;
+	/* line-height: 100%; */
 	text-align: center;
 }
+.new1{
+	width: 100%;
+	height: 90%;
+}
 .new1_1{
-	width: 330px;
-	height: 360px;
+	width: 30%;
+	height: 100%;
 	float: left;
 }
 .shang1{
-	width: 330px;
-	height: 200px;
+	width: 100%;
+	height: 70%;
 }
 .shang1 img{
-	width: 330px;
-	height: 200px;
+	width:100%;
+	height: 100%;
 }
 .xia1{
-	width: 330px;
-	height: 160px;
+	width: 100%;
+	height: 30%;
 	background: #A3DEE4;
 }
 .xia1_1{
-	width: 230px;
-	height: 120px;
+	width: 90%;
+	height:90%;
 	float: left;
-	margin-top: 20px;
-	margin-left: 50px;
+	margin-left: 5%;
+	margin-top: 5%;
+	overflow: auto;
 }
 .new1_2{
-	width: 330px;
-	height: 360px;
+	width: 30%;
+	height: 100%;
 	float: left;
-	margin-left: 155px;
+	margin-left: 5%;
 }
 .shang2{
-	width: 330px;
-	height: 200px;
+	width: 100%;
+	height: 70%;
 }
 .shang2 img{
-	width: 330px;
-	height: 200px;
+	width:100%;
+	height: 100%;
 }
 .xia2{
-	width: 330px;
-	height: 160px;
+	width: 100%;
+	height: 30%;
 	background: #A3DEE4;
 }
 .xia2_1{
-	width: 230px;
-	height: 120px;
+	width: 90%;
+	height:90%;
 	float: left;
-	margin-top: 20px;
-	margin-left: 50px;
+	margin-left: 5%;
+	margin-top: 5%;
+	overflow: auto;
 }
 .new1_3{
-	width: 330px;
-	height: 360px;
+	width: 30%;
+	height: 100%;
 	float: right;
 }
 .shang3{
-	width: 330px;
-	height: 200px;
+	width: 100%;
+	height: 70%;
 }
 .shang3 img{
-	width: 330px;
-	height: 200px;
+	width:100%;
+	height: 100%;
 }
 .xia3{
-	width: 330px;
-	height: 160px;
+	width: 100%;
+	height: 30%;
 	background: #A3DEE4;
 }
 .xia3_1{
-	width: 230px;
-	height: 120px;
+	width: 90%;
+	height:90%;
 	float: left;
-	margin-top: 20px;
-	margin-left: 50px;
+	margin-left: 5%;
+	margin-top: 5%;
+	overflow: auto;
 }
 .cente{
 	width: 100%;
