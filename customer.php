@@ -240,7 +240,7 @@ $app->post('/onewxaddress',function()use($app){
     	$body=$app->request->getBody();
     $body=json_decode($body);
     $wx_openid=$body->wx_openid;
-    $wx_openid=$body->customer_id; 
+    $customer_id=$body->customer_id; 
     if($tenant_id!=null||$tenant_id!=''){
            if($wx_openid!=null||$wx_openid!=''){
                $selectStatement = $database->select()
