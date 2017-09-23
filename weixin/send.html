@@ -460,8 +460,6 @@
 	<script type="text/javascript">
 		//加载寄件人信息
 		function loadsend(openid,tenant_id) {
-			alert(openid)
-			alert(tenant_id)
 			$.ajax({
 				url: "http://api.uminfo.cn/customer.php/wxaddress?wx_openid=" + openid,
 				beforeSend: function(request) {
@@ -504,8 +502,9 @@
 	</script>
 	<script type="text/javascript">
 		function edit(id){
-			alert(1)
-			var j_name = $(".j_name").html();
+			
+			var j_name = $(this).html();
+			alert(j_name)
 			var j_phone = $(".j_phone").html();
 			var shen = $(".shen").html();
 			var shi = $(".shi").html();
@@ -591,8 +590,6 @@
 	<script type="text/javascript">
 		//加载收货地址
 		function loadaccept(openid,tenant_id) {
-			alert(openid)
-			alert(tenant_id)
 			$.ajax({
 				url: "http://api.uminfo.cn/customer.php/wxaddress?wx_openid=" + openid,
 				beforeSend: function(request) {
