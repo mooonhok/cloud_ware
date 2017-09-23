@@ -239,9 +239,8 @@ $app->post('/onewxaddress',function()use($app){
     $database=localhost();
     	$body=$app->request->getBody();
     $body=json_decode($body);
-    $tenant_id=$body->tenant-id;
-    $wx_openid=$body->customer_id;
-    
+    $wx_openid=$body->wx_openid;
+    $wx_openid=$body->customer_id; 
     if($tenant_id!=null||$tenant_id!=''){
            if($wx_openid!=null||$wx_openid!=''){
                $selectStatement = $database->select()
