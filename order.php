@@ -534,7 +534,7 @@ $app->post('/wx_orders_r', function () use ($app) {
         if ($data1 != null) {
             $selectStatement = $database->select()
                 ->from('customer')
-                ->where('exist', "=", 0)
+                //->where('exist', "=", 0)
                 ->where('customer_address','=',-1)
                 ->where('customer_city_id','<',0)
                 ->where('wx_openid','=',$wx_openid)
@@ -544,7 +544,7 @@ $app->post('/wx_orders_r', function () use ($app) {
             $selectStatement = $database->select()
                 ->from('customer')
                 ->join('orders','orders.receiver_id','=','customer.customer_id','INNER')
-                ->where('customer.exist', "=", 0)
+                //->where('customer.exist', "=", 0)
                 ->where('customer_address','!=',-1)
                 ->where('customer_city_id','>',0)
                 ->where('customer.customer_phone','=',$dataa['customer_phone'])
@@ -603,7 +603,7 @@ $app->post('/wx_orders_r', function () use ($app) {
                         }
                         $selectStatement = $database->select()
                             ->from('customer')
-                            ->where('exist', "=", 0)
+                           // ->where('exist', "=", 0)
                             ->where('customer_id','=', $data2[$i]['sender_id'])
                             ->where('tenant_id', '=', $tenant_id);
                         $stmt = $selectStatement->execute();
@@ -665,7 +665,7 @@ $app->post('/wx_orders_r', function () use ($app) {
                         }
                         $selectStatement = $database->select()
                             ->from('customer')
-                            ->where('exist', "=", 0)
+                           // ->where('exist', "=", 0)
                             ->where('customer_id','=',$data3['receiver_id'])
                             ->where('tenant_id', '=', $tenant_id);
                         $stmt = $selectStatement->execute();
@@ -679,7 +679,7 @@ $app->post('/wx_orders_r', function () use ($app) {
                         $array1['acceptcity']=$data5['name'];
                         $selectStatement = $database->select()
                             ->from('customer')
-                            ->where('exist', "=", 0)
+                            //->where('exist', "=", 0)
                             ->where('customer_id','=',$data3['sender_id'])
                             ->where('tenant_id', '=', $tenant_id);
                         $stmt = $selectStatement->execute();

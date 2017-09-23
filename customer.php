@@ -236,9 +236,9 @@ $app->put('/customer_address',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
 	  $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
-    $customer_id=$app->request->get('customerid');
     $body=json_decode($body);
     $array=array();
+    $customer_id=$body->customer_id;;
     $wx_openid=$body->wx_openid;
     $type=$body->type;
     $adress=$body->address;
