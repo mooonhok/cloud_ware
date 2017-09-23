@@ -663,7 +663,7 @@
 						customer_id:id,
 					}),
 					success: function(msg) {
-			    $(".box3").css("display","block");
+			    
 			    $(".name_2").val(msg.wxmessage.customer_name);
 			    $(".phone_2").val(msg.wxmessage.customer_phone);
 			    $(".province2").val(msg.wxmessage.customer_province);
@@ -674,6 +674,8 @@
 						alert("获取数据失败");
 					}
 				});
+				$(".box3").css("display","block");
+				$("#box11").css("display", "none");
 			$("#subaddress5").on("click", function() {
 			var name_4 = $(".name_2").val();
 			var phone_4 = $(".phone_2").val();
