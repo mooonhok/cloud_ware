@@ -393,7 +393,6 @@
 		var openid = $.cookie('openid'+tenant_id);
 		var customer_send_id = null;
 		var customer_accept_id = null;
-		alert(openid);
 		if(openid != null) {
 			$.ajax({
 				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid=" + openid,
@@ -693,7 +692,6 @@
 	</script>
 	<script type="text/javascript">
 		function edit(id){
-			alert(openid+'///'+tenant_id+"///"+id)
 					$.ajax({
 					url: "http://api.uminfo.cn/customer.php/onewxaddress",
 					beforeSend: function(request) {
