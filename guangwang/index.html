@@ -333,7 +333,11 @@
    		  	  	    var user=$.session.get('userid');
    		  	  	//    $("#name").val(msg.user.telephone);	  
    		  	  	    $(".top_2_2").html(msg.user.telephone);
-   		  	  	  	
+   		  	  	  				$(".top_2 li").hover(function() {
+		  	            $(".top_2 ul").css("display","block");
+		            }, function() {
+		  	            $(".top_2 ul").css("display","none");
+		            });
 
    		  	  	}else{
    		  	  		alert(msg.desc);
