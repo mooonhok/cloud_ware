@@ -239,9 +239,12 @@ $app->put('/customer_address',function()use($app){
     $customer_id=$app->request->get('customerid');
     $body=json_decode($body);
     $array=array();
-    foreach($body as $key=>$value){
-    	$array[$key]=$value;
-    }
+    $wx_openid=$body->wx_openid;
+    $type=$body->type;
+    $adress=$body->address;
+    $city_id=$body->city_id;
+    $customer_name=$body->customer_name;
+    $phone=$body->customer_phone;
     if($tenant_id!=null||$tenant_id!=""){
         $selectStatement = $database->select()
             ->from('tenant')
@@ -259,12 +262,21 @@ $app->put('/customer_address',function()use($app){
             $stmt = $selectStatement->execute();
             $data = $stmt->fetch();
             if($data!=null){
-                $updateStatement = $database->update($array)
+                $updateStatement = $database->update(array('exist'=>1))
                     ->table('customer')
                     ->where('tenant_id','=',$tenant_id)
                     ->where('customer_id','=',$customer_id)
                     ->where('exist',"=",0);
                 $affectedRows = $updateStatement->execute();
+               $selectStatement = $database->select()
+                   ->from('customer')
+                   ->where('tenant_id','=',$tenant_id);
+               $stmt = $selectStatement->execute();
+               $data3 = $stmt->fetchAll();
+                $insertStatement = $database->insert(array('exist','tenant_id','wx_openid','type','customer_id','customer_address','customer_city_id','customer_name','customer_phone'))
+                   ->into('customer')
+                   ->values(array(0,$tenant_id,$wx_openid,$type,count($data3)+10000001,$adress,$city_id,$customer_name,$phone));
+               $insertId = $insertStatement->execute(false);
                 echo json_encode(array("result"=>"0","desc"=>"success"));
             }else{
                 echo json_encode(array("result"=>"1","desc"=>"客户不存在"));

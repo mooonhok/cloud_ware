@@ -349,7 +349,7 @@ $app->post('/wx_orders_s', function () use ($app) {
             $selectStatement = $database->select()
                 ->from('customer')
                 ->join('orders','orders.sender_id','=','customer.customer_id','INNER')
-                ->where('customer.exist', "=", 0)
+                //->where('customer.exist', "=", 0)
                 ->where('customer.customer_address','!=','-1')
                 ->where('customer.customer_city_id','!=','-1')
                 ->where('customer.wx_openid','=',$wx_openid)
@@ -408,7 +408,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                         }
                         $selectStatement = $database->select()
                             ->from('customer')
-                            ->where('exist', "=", 0)
+                           // ->where('exist', "=", 0)
                             ->where('customer_id','=',$data2[$i]['receiver_id'])
                             ->where('tenant_id', '=', $tenant_id);
                         $stmt = $selectStatement->execute();
@@ -472,7 +472,7 @@ $app->post('/wx_orders_s', function () use ($app) {
 
                         $selectStatement = $database->select()
                             ->from('customer')
-                            ->where('exist', "=", 0)
+                            //->where('exist', "=", 0)
                             ->where('customer_id','=',$data3['receiver_id'])
                             ->where('tenant_id', '=', $tenant_id);
                         $stmt = $selectStatement->execute();
@@ -486,7 +486,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                         $array1['acceptcity']=$data5['name'];
                         $selectStatement = $database->select()
                             ->from('customer')
-                            ->where('exist', "=", 0)
+                            //->where('exist', "=", 0)
                             ->where('customer_id','=',$data3['sender_id'])
                             ->where('tenant_id', '=', $tenant_id);
                         $stmt = $selectStatement->execute();
@@ -745,7 +745,7 @@ $app->post('/wx_order', function () use ($app) {
                     $data2a= $stmt->fetchAll();
                     $selectStatement = $database->select()
                         ->from('customer')
-                        ->where('exist', "=", 0)
+                        //->where('exist', "=", 0)
                         ->where('customer_address','=',-1)
                         ->where('customer_city_id','<',0)
                         ->where('wx_openid','=',$wx_openid)
@@ -755,12 +755,12 @@ $app->post('/wx_order', function () use ($app) {
                     $selectStatement = $database->select()
                         ->from('customer')
                         ->join('orders','orders.receiver_id','=','customer.customer_id','INNER')
-                        ->where('customer.exist', "=", 0)
+                        //->where('customer.exist', "=", 0)
                         ->whereLike('orders.order_id',$order_id.'%')
                         ->where('customer.customer_address','!=','-1')
                         ->where('customer.customer_city_id','>',0)
                         ->where('customer.customer_phone','=',$dataa['customer_phone'])
-                        ->where('customer.tenant_id', '=', $tenant_id)
+                        ->where('orders.tenant_id', '=', $tenant_id)
                         ->where('customer.tenant_id', '=', $tenant_id);
                     $stmt = $selectStatement->execute();
                     $data2b= $stmt->fetchAll();
@@ -810,7 +810,7 @@ $app->post('/wx_order', function () use ($app) {
                             }
                             $selectStatement = $database->select()
                                 ->from('customer')
-                                ->where('exist', "=", 0)
+                                //->where('exist', "=", 0)
                                 ->where('customer_id', '=', $data2b[$i]['sender_id'])
                                 ->where('tenant_id', '=', $tenant_id);
                             $stmt = $selectStatement->execute();
@@ -872,7 +872,7 @@ $app->post('/wx_order', function () use ($app) {
                                 }
                                 $selectStatement = $database->select()
                                     ->from('customer')
-                                    ->where('exist', "=", 0)
+                                    //->where('exist', "=", 0)
                                     ->where('customer_id','=',$data2a[$i]['receiver_id'])
                                     ->where('tenant_id', '=', $tenant_id);
                                 $stmt = $selectStatement->execute();
