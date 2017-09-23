@@ -273,7 +273,7 @@
 		})(jQuery);
 		var tenant_id=$.getUrlParam('tenant_id');
 		//判断openid是否已经被注册
-		var openid = $.cookie('openid');
+		var openid = $.cookie('openid'+tenant_id);
 		var customer_send_id = null;
 		var customer_accept_id = null;
 		alert(openid);

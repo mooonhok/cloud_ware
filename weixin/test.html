@@ -35,7 +35,7 @@
 					}else{
 					for(var i=0;i<msg.tenant.length;i++){
 						if(msg.tenant[i].tenant_id==tenant_id){
-							alert(msg.tenant[i].appid)
+						//	alert(msg.tenant[i].appid)
 							window.location.href="http://api.uminfo.cn/weixin/menu.php?tenant_id="
 							+tenant_id+"&appid="+msg.tenant[i].appid+"&secret="+msg.tenant[i].secret+"&page="+page;
 						}
