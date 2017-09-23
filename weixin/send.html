@@ -265,7 +265,7 @@
 					<div class="jj1">
 						<h5>修改寄件地址</h5>
 					</div>
-					<div class="qx">取消</div>
+					<div class="qx10">取消</div>
 				</div>
 				<form>
 					<div class="name1">
@@ -273,7 +273,7 @@
 							<label for="">姓名:</label>
 						</div>
 						<div class="name2">
-							<input type="text" class="name_1">
+							<input type="text" class="name_1" id="name_1">
 						</div>
 					</div>
 					<div class="bor"></div>
@@ -282,7 +282,7 @@
 							<label for="">联系方式:</label>
 						</div>
 						<div class="phone2">
-							<input type="tel" class="phone_1">
+							<input type="tel" class="phone_1" id="phone_1">
 						</div>
 					</div>
 					<div class="bor"></div>
@@ -291,7 +291,7 @@
 							<label for="">地址:</label>
 						</div>
 						<div class="dizhi2">
-							<select name="province" id="province3" onchange="getPro1()" class="pro">
+							<select name="province" id="province3" onchange="getPro3()" class="pro">
 								<option value="">请选择</option>
 							</select>
 							<select name="city" id="city3" class="cit">
@@ -305,7 +305,7 @@
 							<label for="">详细地址:</label>
 						</div>
 						<div class="dizhi3-1">
-							<textarea id="dizhi_1"></textarea>
+							<textarea id="dizhi_3" ></textarea>
 						</div>
 					</div>
 				</form>
@@ -320,7 +320,7 @@
 					<div class="jj1">
 						<h5>修改收件地址</h5>
 					</div>
-					<div class="qx1">取消</div>
+					<div class="qx11">取消</div>
 				</div>
 				<form>
 					<div class="name1">
@@ -328,7 +328,7 @@
 							<label for="">姓名</label>
 						</div>
 						<div class="name2">
-							<input type="text" class="name_2">
+							<input type="text" class="name_2" id="name_2">
 						</div>
 					</div>
 					<div class="bor"></div>
@@ -337,7 +337,7 @@
 							<label for="">联系方式</label>
 						</div>
 						<div class="phone2">
-							<input type="tel" class="phone_2">
+							<input type="tel" class="phone_2" id="phone_2">
 						</div>
 					</div>
 					<div class="bor"></div>
@@ -346,7 +346,7 @@
 							<label for="">地址</label>
 						</div>
 						<div class="dizhi2">
-							<select name="province" id="province4" onchange="getPro2()" class="pro1">
+							<select name="province" id="province4" onchange="getPro4()" class="pro1">
 								<option value="">请选择</option>
 							</select>
 							<select name="city" id="city4" class="cit1">
@@ -361,7 +361,7 @@
 							<label for="">详细地址:</label>
 						</div>
 						<div class="dizhi3-1">
-							<textarea id="dizhi_2"></textarea>
+							<textarea id="dizhi_4"></textarea>
 						</div>
 					</div>
 					<!-- <div class="tijiao2" id="subaddress4">
@@ -574,6 +574,80 @@
 			});
 		}
 	</script>
+	<script>
+		//获取城市列表2
+		$.ajax({
+			url: "http://api.uminfo.cn/city.php/province",
+			dataType: 'json',
+			type: 'get',
+			ContentType: "application/json;charset=utf-8",
+			data: JSON.stringify({}),
+			success: function(msg) {
+				for(var i = 0; i < msg.province.length; i++) {
+					$("#province3").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+				}
+			},
+			error: function(e) {
+				layer.msg("省份列表3信息出错!");
+			}
+		});
+		function getPro3() {
+			$("#city3").empty();
+			var pid = $("#province3 option:selected").val();
+			$.ajax({
+				url: "http://api.uminfo.cn/city.php/city?pid=" + pid,
+				dataType: 'json',
+				type: 'get',
+				ContentType: "application/json;charset=utf-8",
+				data: JSON.stringify({}),
+				success: function(msg) {
+					for(var i = 0; i < msg.city.length; i++) {
+						$("#city3").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
+					}
+				},
+				error: function(e) {
+					layer.msg("城市3列表信息出错!");
+				}
+			});
+		}
+	</script>
+	<script>
+		//获取城市列表2
+		$.ajax({
+			url: "http://api.uminfo.cn/city.php/province",
+			dataType: 'json',
+			type: 'get',
+			ContentType: "application/json;charset=utf-8",
+			data: JSON.stringify({}),
+			success: function(msg) {
+				for(var i = 0; i < msg.province.length; i++) {
+					$("#province4").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+				}
+			},
+			error: function(e) {
+				layer.msg("省份列表4信息出错!");
+			}
+		});
+		function getPro4() {
+			$("#city4").empty();
+			var pid = $("#province4 option:selected").val();
+			$.ajax({
+				url: "http://api.uminfo.cn/city.php/city?pid=" + pid,
+				dataType: 'json',
+				type: 'get',
+				ContentType: "application/json;charset=utf-8",
+				data: JSON.stringify({}),
+				success: function(msg) {
+					for(var i = 0; i < msg.city.length; i++) {
+						$("#city4").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
+					}
+				},
+				error: function(e) {
+					layer.msg("城市4列表信息出错!");
+				}
+			});
+		}
+	</script>
 	<script type="text/javascript">
 		//加载寄件人信息
 		function loadsend(openid,tenant_id) {
@@ -634,11 +708,11 @@
 					}),
 					success: function(msg) {
 			    
-			    $(".name_1").val(msg.wxmessage.customer_name);
-			    $(".phone_1").val(msg.wxmessage.customer_phone);
+			    $("#name_1").val(msg.wxmessage.customer_name);
+			    $("#phone_1").val(msg.wxmessage.customer_phone);
 			    $("#province3").val(msg.wxmessage.customer_province);
 			    $("#city3").val(msg.wxmessage.customer_city);
-			    $(".dizhi_1").text(msg.wxmessage.customer_address);
+			    $("#dizhi_3").text(msg.wxmessage.customer_address);
 					},
 					error: function(xhr) {
 						alert("获取数据失败");
@@ -647,11 +721,11 @@
 				$(".box7").css("display","block");
 				$("#box10").css("display", "none");
 			$("#subaddress10").on("click",function(){
-			var name_3 = $(".name_1").val();
-			var phone_3 = $(".phone_1").val();
-			var cit3 = $("#city1").val();
-			var dizhi_3 = $("#dizhi_1").val();
-			var province_3 =$("#province1").val();
+			var name_3 = $("#name_1").val();
+			var phone_3 = $("#phone_1").val();
+			var cit3 = $("#city3").val();
+			var dizhi_3 = $("#dizhi_3").val();
+			var province_3 =$("#province3").val();
 			if(!/^1[34578]\d{9}$/.test(phone_3)){
 				layer.msg("手机号码格式不对");
 				return false;
@@ -781,11 +855,11 @@
 					}),
 					success: function(msg) {
 			    
-			    $(".name_2").val(msg.wxmessage.customer_name);
-			    $(".phone_2").val(msg.wxmessage.customer_phone);
-			    $("#province2").val(msg.wxmessage.customer_province);
-			    $("#city2").val(msg.wxmessage.customer_city);
-			    $(".dizhi_2").text(msg.wxmessage.customer_address);
+			    $("#name_2").val(msg.wxmessage.customer_name);
+			    $("#phone_2").val(msg.wxmessage.customer_phone);
+			    $("#province4").val(msg.wxmessage.customer_province);
+			    $("#city4").val(msg.wxmessage.customer_city);
+			    $("#dizhi_4").text(msg.wxmessage.customer_address);
 					},
 					error: function(xhr) {
 						alert("获取数据失败");
@@ -794,11 +868,11 @@
 				$(".box8").css("display","block");
 				$("#box11").css("display", "none");
 			$("#subaddress11").on("click", function() {
-			var name_4 = $(".name_2").val();
-			var phone_4 = $(".phone_2").val();
-			var cit4 = $("#city2").val();
-			var dizhi_4 = $("#dizhi_2").val();
-			var province_4 =$("#province2").val();
+			var name_4 = $("#name_2").val();
+			var phone_4 = $("#phone_2").val();
+			var cit4 = $("#city4").val();
+			var dizhi_4 = $("#dizhi_4").val();
+			var province_4 =$("#province4").val();
 			if(!/^1[34578]\d{9}$/.test(phone_4)) {
 				layer.msg("手机号码格式不对");
 				return false;
@@ -998,8 +1072,18 @@
 			$("#box10").css("display", "block");
 			$("#box10").css("z-index", "100");
 		})
+		$(".qx10").on("click", function() {
+			$(".box7").css("display", "none");
+			$("#box10").css("display", "block");
+			$("#box10").css("z-index", "100");
+		})
 		$(".qx1").on("click", function() {
 			$(".box3").css("display", "none");
+			$("#box11").css("display", "block");
+			$("#box11").css("z-index", "100");
+		})
+		$(".qx11").on("click", function() {
+			$(".box8").css("display", "none");
 			$("#box11").css("display", "block");
 			$("#box11").css("z-index", "100");
 		})
