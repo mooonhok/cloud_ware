@@ -21,8 +21,8 @@
 		var tenant_id=$.getUrlParam('tenant_id');
 		var page=$.getUrlParam('page');
 		if(page==null||page==""){
-			window.history.go(-1);
-		}
+			window.history.go(-2);
+		}else{
 		$.ajax({
 				url: "http://api.uminfo.cn/wx_test.php/tenant",
 				dataType: 'json',
@@ -46,5 +46,6 @@
 					alert("获取后台数据出错!");
 				}
 			});
+		}
 	</script>
 </html>

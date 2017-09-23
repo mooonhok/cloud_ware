@@ -138,7 +138,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="center">
 			<div   class="center1">运单号</div>
 			<div class="center2"><input id="order_id" type="number" placeholder="请输入运单号" pattern="[0-9]*"></div>
-			<div class="center3" id="saoman"><img src="images/saoma.png" alt=""></div>
+			<!--<div class="center3" id="saoman"><img src="images/saoma.png" alt=""></div>-->
 		</div>
 		<div  id="sumbit"  class="foot">
 			查   询
