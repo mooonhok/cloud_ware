@@ -270,8 +270,8 @@ $app->post('/onewxaddress',function()use($app){
                            ->where('id',"=",$data3['pid']);
                        $stmt = $selectStatement->execute();
                        $data4 = $stmt->fetch();
-                       $data2['customer_city']=$data3['name'];
-                       $data2['customer_province']=$data4['name'];
+                       $data2['customer_city']=$data3['id'];
+                       $data2['customer_province']=$data4['id'];
                    
                    echo json_encode(array("result"=>"1","desc"=>"success","wxmessage"=>$data2));
                }else{
