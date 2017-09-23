@@ -258,6 +258,128 @@
 				</div>
 			</div>
 		</div>
+
+	<div class="box7">
+			<div class="box2-1">
+				<div class="jj">
+					<div class="jj1">
+						<h5>修改寄件地址</h5>
+					</div>
+					<div class="qx1">取消</div>
+				</div>
+				<form>
+					<div class="name1">
+						<div class="lab">
+							<label for="">姓名</label>
+						</div>
+						<div class="name2">
+							<input type="text" class="name_2">
+						</div>
+					</div>
+					<div class="bor"></div>
+					<div class="phone1">
+						<div class="lab">
+							<label for="">联系方式</label>
+						</div>
+						<div class="phone2">
+							<input type="tel" class="phone_2">
+						</div>
+					</div>
+					<div class="bor"></div>
+					<div class="dizhi1">
+						<div class="lab">
+							<label for="">地址</label>
+						</div>
+						<div class="dizhi2">
+							<select name="province" id="province2" onchange="getPro2()" class="pro1">
+								<option value="">请选择</option>
+							</select>
+							<select name="city" id="city2" class="cit1">
+								<option value="">请选择</option>
+							</select>
+						</div>
+					</div>
+					<div class="bor"></div>
+					<div class="dizhi3">
+
+						<div class="lab">
+							<label for="">详细地址:</label>
+						</div>
+						<div class="dizhi3-1">
+							<textarea id="dizhi_2"></textarea>
+						</div>
+					</div>
+					<!-- <div class="tijiao2" id="subaddress4">
+						添加新地址
+					</div> -->
+				</form>
+			</div>
+
+			<div class="tijiao2" id="subaddress10">保存地址</div>
+			<div class="kbox"></div>
+		</div>
+
+		<div class="box8">
+			<div class="box2-1">
+				<div class="jj">
+					<div class="jj1">
+						<h5>修改收件地址</h5>
+					</div>
+					<div class="qx1">取消</div>
+				</div>
+				<form>
+					<div class="name1">
+						<div class="lab">
+							<label for="">姓名</label>
+						</div>
+						<div class="name2">
+							<input type="text" class="name_2">
+						</div>
+					</div>
+					<div class="bor"></div>
+					<div class="phone1">
+						<div class="lab">
+							<label for="">联系方式</label>
+						</div>
+						<div class="phone2">
+							<input type="tel" class="phone_2">
+						</div>
+					</div>
+					<div class="bor"></div>
+					<div class="dizhi1">
+						<div class="lab">
+							<label for="">地址</label>
+						</div>
+						<div class="dizhi2">
+							<select name="province" id="province2" onchange="getPro2()" class="pro1">
+								<option value="">请选择</option>
+							</select>
+							<select name="city" id="city2" class="cit1">
+								<option value="">请选择</option>
+							</select>
+						</div>
+					</div>
+					<div class="bor"></div>
+					<div class="dizhi3">
+
+						<div class="lab">
+							<label for="">详细地址:</label>
+						</div>
+						<div class="dizhi3-1">
+							<textarea id="dizhi_2"></textarea>
+						</div>
+					</div>
+					<!-- <div class="tijiao2" id="subaddress4">
+						添加新地址
+					</div> -->
+				</form>
+			</div>
+
+			<div class="tijiao2" id="subaddress11">保存地址</div>
+			<div class="kbox"></div>
+		</div>
+
+
 	</body>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
@@ -482,7 +604,7 @@
 							msg.wxmessage[i].customer_id + '>' +
 							'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>' +
 							'<div class="bj1" onclick="edit('+msg.wxmessage[i].customer_id+')">编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" onclick="delet(' +
-							msg.wxmessage[i].customer_id + ')">删除</div></div><div class="xian1"></div>';
+							msg.wxmessage[i].customer_id + ')">删除</div></div><div class="xian1"><div class="kbai"></div></div>';
 						$("#box101").append(a);
 						$("#subaddress2").on('click', function() {
 							customer_send_id = $("input[class='rad1']:checked").val();
@@ -527,9 +649,9 @@
 						alert("获取数据失败");
 					}
 				});
-				$(".box2").css("display","block");
+				$(".box7").css("display","block");
 				$("#box10").css("display", "none");
-			$("#subaddress3").on("click",function(){
+			$("#subaddress10").on("click",function(){
 			var name_3 = $(".name_1").val();
 			var phone_3 = $(".phone_1").val();
 			var cit3 = $("#city1").val();
@@ -559,7 +681,7 @@
 					success: function(msg) {
 					  layer.msg("修改地址成功");
 						loadsend(openid,tenant_id);
-						$(".box2").css("display", "none");
+						$(".box7").css("display", "none");
 						$("#box10").css("display", "block");
 						$("#box10").css("z-index", "100");
 					},
@@ -627,7 +749,7 @@
 							msg.wxmessage[i].customer_id + '>' +
 							'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>' +
 							'<div class="bj1" onclick="edit1('+msg.wxmessage[i].customer_id+')">编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" onclick="delet(' +
-							msg.wxmessage[i].customer_id + ')">删除</div></div><div class="xian1"></div>';
+							msg.wxmessage[i].customer_id + ')">删除</div></div><div class="xian1"><div class="kbai"></div></div>';
 						$("#box111").append(a);
 						$("#subaddress4").on('click', function() {
 							customer_accept_id = $("input[class='rad2']:checked").val();
@@ -674,9 +796,9 @@
 						alert("获取数据失败");
 					}
 				});
-				$(".box3").css("display","block");
+				$(".box8").css("display","block");
 				$("#box11").css("display", "none");
-			$("#subaddress5").on("click", function() {
+			$("#subaddress11").on("click", function() {
 			var name_4 = $(".name_2").val();
 			var phone_4 = $(".phone_2").val();
 			var cit4 = $("#city2").val();
@@ -706,7 +828,7 @@
 					success: function(msg) {
 					  layer.msg("修改地址成功");
 						loadaccept(openid,tenant_id);
-						$(".box3").css("display", "none");
+						$(".box8").css("display", "none");
 						$("#box11").css("display", "block");
 						$("#box11").css("z-index", "100");
 					},
