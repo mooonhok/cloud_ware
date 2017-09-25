@@ -5,7 +5,7 @@ require_once "jssdk.php";
 //$appid=substr($arr[2],0,18);
 //$secret=$arr[3];
 $jssdk = new JSSDK("wx81d659de6151801e","a777207a723e6f5ce885687caa5198e3");
-echo $jssdk;
+//echo $jssdk;
 $signPackage = $jssdk->GetSignPackage();
 ?>
 <!DOCTYPE html>
@@ -229,6 +229,8 @@ $signPackage = $jssdk->GetSignPackage();
      * 3. 常见问题及完整 JS-SDK 文档地址：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
      *
      */
+    alert(location.href.split('#')[0];
+    alert('<?php echo $jssdk;?>');
     wx.config({
         debug: true,
         appId: '<?php echo $signPackage["appId"];?>',
