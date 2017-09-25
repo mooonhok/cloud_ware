@@ -4,7 +4,7 @@ require_once "jssdk.php";
 //$arr=explode("=",$str);
 //$appid=substr($arr[2],0,18);
 //$secret=$arr[3];
-$jssdk = new JSSDK("wx15ef051f9f0bba92","57ea0ee4abf4f4c6d6e38c88a289e687");
+$jssdk = new JSSDK("wx81d659de6151801e","a777207a723e6f5ce885687caa5198e3");
 $signPackage = $jssdk->GetSignPackage();
 ?>
 <!DOCTYPE html>
