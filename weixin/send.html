@@ -859,13 +859,13 @@
 				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					alert(1)
+				//	alert(1)
 				//	layer.msg("删除成功");
 					loadsend(openid,tenant_id);
 					loadaccept(openid,tenant_id);
 				},
 				error: function(xhr) {
-					alert(2)
+			//		alert(2)
 					layer.msg("获取后台失败！");
 				}
 			});
