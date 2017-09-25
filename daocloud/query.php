@@ -229,7 +229,7 @@ $signPackage = $jssdk->GetSignPackage();
      * 3. 常见问题及完整 JS-SDK 文档地址：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
      *
      */
-    alert(location.href.split('#')[0];
+    alert(location.href.split('#')[0]);
     alert('<?php echo $jssdk;?>');
     wx.config({
         debug: true,
