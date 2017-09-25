@@ -112,8 +112,8 @@
 						window.location.href = "http://api.uminfo.cn/weixin/register.html?page=2&tenant_id="+tenant_id;
 					} 
 				},
-				error: function(xhr) {
-					alert("获取后台失败！"+xhr.responseText)					
+				error: function(e) {
+					alert("获取后台失败！")					
 				}
 			});
 		}

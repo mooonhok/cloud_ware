@@ -152,7 +152,7 @@ $signPackage = $jssdk->GetSignPackage();
 <script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
 <script type="text/javascript" src="layer/layer.js"></script>
 <script>
-	alert(location.href.split('#')[0]);
+	//alert(location.href.split('#')[0]);
 		(function($) {
 			$.getUrlParam = function(name) {
 				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -211,8 +211,7 @@ $signPackage = $jssdk->GetSignPackage();
 				success: function(msg) {
 					if(msg.result == 0) {
 						window.location.href = "http://api.uminfo.cn/weixin/register.html?tenant_id="+tenant_id;
-					} else {
-					}
+					} 
 				},
 				error: function(xhr) {
 					alert("获取后台数据失败")
@@ -229,7 +228,7 @@ $signPackage = $jssdk->GetSignPackage();
      *
      */
     wx.config({
-        debug: true,
+        debug: false,
         appId: '<?php echo $signPackage["appId"];?>',
         timestamp: <?php echo $signPackage["timestamp"];?>,
         nonceStr: '<?php echo $signPackage["nonceStr"];?>',

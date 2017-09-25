@@ -44,6 +44,8 @@ if ($_COOKIE['openid'.$tenant_id] == null) {
            header('location:http://api.uminfo.cn/weixin/query.php?tenant_id='.$tenant_id);
         }else if($page==1){
             header('location:http://api.uminfo.cn/weixin/send.html?tenant_id='.$tenant_id);
+        }else{
+        	echo '<script>window.close();</script>'; 
         }
     }
 }else{
@@ -61,6 +63,8 @@ if ($_COOKIE['openid'.$tenant_id] == null) {
            header('location:http://api.uminfo.cn/weixin/query.php?tenant_id='.$tenant_id);
         }else if($page==1){
             header('location:http://api.uminfo.cn/weixin/send.html?tenant_id='.$tenant_id);
+        }else{
+        	echo '<script>window.close();</script>'; 
         }
 }
 ?>
