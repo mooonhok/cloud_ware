@@ -271,14 +271,23 @@
 				<img src="images/close.png" alt="">
 			</div>	
 			<div class="box3_2"></div>
+
 			<div class="box3_3">
 				<input type="text" id="username" placeholder="手机号">
 			</div>	
 			<div class="box3_4">
 				<input type="password" id="password"  placeholder="密码">
 			</div>	
-			<div class="box3_5">
-				<a href="">忘记密码</a>
+			
+			<div class="box3_8">
+				<div class="box3_8_1"><input type="text" placeholder="请输入验证码" id="identify"></div>
+				<div class="box3_8_2">
+					<canvas id="canvas" width="120" height="35">		
+					</canvas>
+				</div>
+			</div>
+			<div class="box3_5" id="changeImg">
+				看不清楚换一张
 			</div>
 			<div class="box3_6" id="signin">
 				登 录
@@ -286,6 +295,75 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	var canvas;
+	var context;
+	var width;
+	var height;
+	var code="";	
+	function randomNum(min,max){		
+		return Math.floor(Math.random()*(max-min)+min);
+	}
+	function randomColor(min,max){
+		var r = randomNum(min,max);
+		var g = randomNum(min,max);
+		var b = randomNum(min,max);
+		return "rgb("+r+","+g+","+b+")";
+	}
+	//生成随机数
+	function randomCode(){
+		var code1 = "";
+		var str = 'ABCEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789';
+		for(var i = 0;i<4;i++){
+			var txt = str[randomNum(0,str.length)];
+			context.font = "20px simHei";
+			context.fillStyle = randomColor(35,120);
+			var x = 10+i*25;
+			var y = randomNum(25,30);
+			var deg = randomNum(-15,15);
+			context.rotate(deg*Math.PI/180);
+			context.fillText(txt,x,y);
+			context.rotate(-deg*Math.PI/180);
+			code1 +=txt;
+			code = code1;
+		}
+		 console.log(code1);
+	}	
+	function randomArc(){
+
+		for(var i = 0;i<=100;i++){
+		context.fillStyle = randomColor(0,255);
+		context.beginPath();
+		context.arc(randomNum(0,width),randomNum(0,height), 1, 0, 2*Math.PI);
+		context.fill();
+		}
+	}
+	function randomLine(){
+		for (var i = 0; i < 8 ; i++) {
+			context.strokeStyle = randomColor(50,160);
+			context.beginPath();
+			context.moveTo(randomNum(0,width),randomNum(0,height));
+			context.lineTo(randomNum(0,width),randomNum(0,height));
+			context.stroke();
+		}
+	}
+	function draw(){
+		canvas = document.getElementById('canvas');
+		context = canvas.getContext('2d');
+		width = canvas.width;
+		height = canvas.height;
+		context.fillStyle =randomColor(150,220);
+	    context.fillRect(0,0,width,height);
+		randomCode();
+		randomArc();
+		randomLine();
+	}	
+	draw();
+  document.getElementById("changeImg").onclick = function(e){
+    e.preventDefault();
+    draw();
+  }	
+	</script>
 	<script type="text/javascript">
 		$(".top_2_2_1").on("click",function(){
 			$(".box2").css("display","block");
@@ -312,9 +390,11 @@
     	$("#signin").on('click',function(){
 			var name=$("#username").val();
 			var pwd=$("#password").val();
-			//alert(name+pwd);
+			var input = document.getElementById('identify').value;
 			if(!/^1[34578]\d{9}$/.test(name)){
 				alert("手机号码格式不对");
+			}else if(input.length<=3||input.toUpperCase() != code.toUpperCase()){
+				alert("验证码错误")
 			}else{
 			$.ajax({
    		  	  url:"http://api.uminfo.cn/sales.php/usersign",
@@ -326,7 +406,6 @@
    		  	       password:pwd
    		  	  }),
    		  	  success:function(msg){
-   		  	  	// alert(msg.result);
    		  	  	if(msg.result==0){
    		  	  	    $.session.set('userid',msg.user.id);
    		  	  	    $.session.set('user',msg.user.telephone);
@@ -352,9 +431,6 @@
 		$(".tc").on('click',function(){
 			$.session.remove('userid');
 			$.session.remove('user');
-		});
-	
-		  
-		    
+		});	    
 	</script>
 </html>

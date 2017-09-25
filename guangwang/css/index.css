@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-29 09:48:59
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-09-23 16:35:02
+* @Last Modified time: 2017-09-25 11:41:28
 */
 *{
 	padding: 0;margin: 0;
@@ -733,7 +733,7 @@ li{
 .box3_3{
 	width: 300px;
 	height: 35px;
-	margin-top:30px;
+	margin-top:20px;
 	margin-left: 50px;
 	float: left;	
 	background: #DEDEDE;
@@ -754,7 +754,7 @@ li{
 .box3_4{
 	width: 300px;
 	height: 35px;
-	margin-top: 30px;
+	margin-top: 20px;
 	margin-left: 50px;	
 	float: left;
 	background: #DEDEDE;
@@ -775,19 +775,20 @@ li{
 .box3_5{
 	width: 300px;
 	height: 25px;
-	margin-top: 10px;
+	margin-top: 5px;
 	margin-left: 50px;	
 	float: left;
 	text-align: right;	
 }
-.box3_5 a{
+.box3_5{
 	color: black;
 	font-size: 12px;
+	cursor: pointer;
 }
 .box3_6{
 	width: 300px;
 	height: 30px;
-	margin-top: 15px;
+	margin-top: 10px;
 	margin-left: 50px;	
 	float: left;
 	text-align: center;
@@ -809,6 +810,40 @@ li{
 	float: right;
 	font-size: 12px;
 	color: red;
+}
+.box3_8{
+	width: 300px;
+	height: 35px;
+	margin-top: 20px;
+	margin-left: 50px;	
+	float: left;
+	border-radius: 5px;
+}
+.box3_8_1{
+	width: 120px;
+	height: 35px;
+	float: left;
+	background: #DEDEDE;
+	border-radius: 5px;
+}
+.box3_8_1 input{
+	width: 120px;
+	height: 35px;
+	background: #DEDEDE;
+	text-align: center;
+	border: 0;
+	outline-style: none;
+	list-style: none;
+	border-radius: 5px;
+}
+.box3_8_2{
+	width: 120px;
+	height: 35px;
+	float: right;
+	background: #DEDEDE;
+}
+#canvas{
+	border-radius: 5px;
 }
 
 .box4{
