@@ -623,7 +623,7 @@
 		}
 	</script>
 	<script>
-		//获取城市列表2
+		//获取城市列表3
 		$.ajax({
 			url: "http://api.uminfo.cn/city.php/province",
 			dataType: 'json',
@@ -633,6 +633,21 @@
 			success: function(msg) {
 				for(var i = 0; i < msg.province.length; i++) {
 					$("#province3").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+				}
+			},
+			error: function(e) {
+				layer.msg("省份列表3信息出错!");
+			}
+		});
+		$.ajax({
+			url: "http://api.uminfo.cn/city.php/citys",
+			dataType: 'json',
+			type: 'get',
+			ContentType: "application/json;charset=utf-8",
+			data: JSON.stringify({}),
+			success: function(msg) {
+				for(var i = 0; i < msg.city.length; i++) {
+					$("#city3").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
 				}
 			},
 			error: function(e) {
@@ -660,7 +675,7 @@
 		}
 	</script>
 	<script>
-		//获取城市列表2
+		//获取城市列表4
 		$.ajax({
 			url: "http://api.uminfo.cn/city.php/province",
 			dataType: 'json',
@@ -676,6 +691,23 @@
 				layer.msg("省份列表4信息出错!");
 			}
 		});
+
+        $.ajax({
+			url: "http://api.uminfo.cn/city.php/citys",
+			dataType: 'json',
+			type: 'get',
+			ContentType: "application/json;charset=utf-8",
+			data: JSON.stringify({}),
+			success: function(msg) {
+				for(var i = 0; i < msg.city.length; i++) {
+					$("#city4").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
+				}
+			},
+			error: function(e) {
+				layer.msg("省份列表4信息出错!");
+			}
+		});
+
 		function getPro4() {
 			$("#city4").empty();
 			var pid = $("#province4 option:selected").val();
@@ -758,7 +790,7 @@
 			    $("#name_1").val(msg.wxmessage.customer_name);
 			    $("#phone_1").val(msg.wxmessage.customer_phone);
 			    $("#province3").val(msg.wxmessage.customer_province);
-			    $("#city3 option").val(msg.wxmessage.customer_city);
+			    $("#city3").val(msg.wxmessage.customer_city);
 			    $("#dizhi_3").text(msg.wxmessage.customer_address);
 					},
 					error: function(xhr) {
@@ -905,7 +937,7 @@
 			    $("#name_2").val(msg.wxmessage.customer_name);
 			    $("#phone_2").val(msg.wxmessage.customer_phone);
 			    $("#province4").val(msg.wxmessage.customer_province);
-			    $("#city4 option").val(msg.wxmessage.customer_city);
+			    $("#city4").val(msg.wxmessage.customer_city);
 			    $("#dizhi_4").text(msg.wxmessage.customer_address);
 					},
 					error: function(xhr) {
