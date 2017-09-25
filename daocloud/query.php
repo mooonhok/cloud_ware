@@ -230,7 +230,7 @@ $signPackage = $jssdk->GetSignPackage();
      *
      */
     alert(location.href.split('#')[0]);
-    alert('<?php echo $jssdk;?>');
+  //  alert('<?php echo $jssdk;?>');
     wx.config({
         debug: true,
         appId: '<?php echo $signPackage["appId"];?>',
