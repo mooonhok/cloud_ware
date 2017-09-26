@@ -453,11 +453,9 @@
 				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					if(msg.result == 0) {
-					window.location.href = "http://api.uminfo.cn/weixin/test.html?tenant_id="+tenant_id+"&page=5";
-				}else{
-				    window.location.reload();
-				}
+				   if(msg.result == 0) {
+					   window.location.href = "http://api.uminfo.cn/weixin/test.html?tenant_id="+tenant_id+"&page=5";
+				  }
 				},
 				error: function(xhr) {
 					layer.msg("获取后台失败");
