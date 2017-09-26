@@ -485,7 +485,7 @@ $app->get('/wx_openid',function()use($app){
                 ->from('customer')
                 ->where('exist',"=",0)
                 ->where('customer_address','=',"-1")
-                ->where('customer_city_id','=','-1')
+                ->where('customer_city_id','<',0)
                 ->where('wx_openid','=',$wx_openid)
                 ->where('tenant_id','=',$tenant_id);
             $stmt = $selectStatement->execute();
