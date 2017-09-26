@@ -12,8 +12,8 @@
 //define your token
 define("TOKEN", "weixin");
 $wechatObj = new wechatCallbackapiTest();
-//$wechatObj->valid();
-$wechatObj->reponseMsg();
+$wechatObj->valid();
+
 class wechatCallbackapiTest
 {
     public function valid()
@@ -34,79 +34,34 @@ class wechatCallbackapiTest
 
         //extract post data
         if (!empty($postStr)){
-            /* libxml_disable_entity_loader is to prevent XML eXternal Entity Injection,
-             the best way is to check the validity of xml by yourself */
-            libxml_disable_entity_loader(true);
+
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
             $fromUsername = $postObj->FromUserName;
             $toUsername = $postObj->ToUserName;
             $keyword = trim($postObj->Content);
             $time = time();
-            $msgType = $postObj->MsgType;//消息类型
-            $event = $postObj->Event;//时间类型，subscribe（订阅）、unsubscribe（取消订阅）
-            $textTpl = "%s0";
-
-            switch($msgType){
-                case "event":
-                    if($event=="subscribe"){
-                        $contentStr = "Hi,欢迎关注海仙日用百货!"."\n"."回复数字'1',了解店铺地址."."\n"."回复数字'2',了解商品种类.";
-                    }
-                    break;
-                case "text":
-                    switch($keyword){
-                        case "1":
-                            $contentStr = "店铺地址："."\n"."杭州市江干艮山西路233号新东升市场地下室第一排.";
-                            break;
-                        case "2":
-                            $contentStr = "商品种类:"."\n"."杯子、碗、棉签、水桶、垃圾桶、洗碗巾(刷)、拖把、扫把、"
-                                ."衣架、粘钩、牙签、垃圾袋、保鲜袋(膜)、剪刀、水果刀、饭盒等.";
-                            break;
-                        default:
-                            $contentStr = "对不起,你的内容我会稍后回复";
-                    }
-                    break;
+            $textTpl = "<xml>
+							<ToUserName><![CDATA[%s]]></ToUserName>
+							<FromUserName><![CDATA[%s]]></FromUserName>
+							<CreateTime>%s</CreateTime>
+							<MsgType><![CDATA[%s]]></MsgType>
+							<Content><![CDATA[%s]]></Content>
+							<FuncFlag>0</FuncFlag>
+							</xml>";
+            if(!empty( $keyword ))
+            {
+                $msgType = "text";
+                $contentStr = "Welcome to wechat world!";
+                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+                echo $resultStr;
+            }else{
+                echo "Input something...";
             }
-            $msgType = "text";
-            $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-            echo $resultStr;
+
         }else {
             echo "";
             exit;
         }
-
-//        //get post data, May be due to the different environments
-//        $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
-//
-//        //extract post data
-//        if (!empty($postStr)){
-//
-//            $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
-//            $fromUsername = $postObj->FromUserName;
-//            $toUsername = $postObj->ToUserName;
-//            $keyword = trim($postObj->Content);
-//            $time = time();
-//            $textTpl = "<xml>
-//							<ToUserName><![CDATA[%s]]></ToUserName>
-//							<FromUserName><![CDATA[%s]]></FromUserName>
-//							<CreateTime>%s</CreateTime>
-//							<MsgType><![CDATA[%s]]></MsgType>
-//							<Content><![CDATA[%s]]></Content>
-//							<FuncFlag>0</FuncFlag>
-//							</xml>";
-//            if(!empty( $keyword ))
-//            {
-//                $msgType = "text";
-//                $contentStr = "Welcome to wechat world!";
-//                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-//                echo $resultStr;
-//            }else{
-//                echo "Input something...";
-//            }
-//
-//        }else {
-//            echo "";
-//            exit;
-//        }
     }
 
     private function checkSignature()
