@@ -86,6 +86,7 @@ $app->post('/lorrysign',function()use($app){
         $selectStament=$database->select()
             ->from('lorry')
             ->where('exist','=',0)
+            ->where('tenant_id','=',null)
             ->where('driver_phone','=',$driver_phone);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
@@ -109,7 +110,7 @@ $app->get('/sbylorry',function()use($app){
     $lorry_id = $app->request->get("lorry_id");
     $database=localhost();
     $arrays=array();
-    $arr=array();
+
     if($lorry_id!=null||$lorry_id!=""){
         $selectStament=$database->select()
             ->from('lorry')
@@ -137,9 +138,8 @@ $app->get('/sbylorry',function()use($app){
                     $arrays1['customer_name']=$data3[$i]['customer_name'];
                     array_push($arrays,$arrays1);
                 }
-                array_push($arr,$arrays);
             }
-            echo json_encode(array('result' => '0', 'desc' => '','sch'=>$arrays,'sch2'=>$arr));
+            echo json_encode(array('result' => '0', 'desc' => '','sch'=>$arrays));
         }else{
             echo json_encode(array('result' => '2', 'desc' => '司机不存在','sch'=>''));
         }
