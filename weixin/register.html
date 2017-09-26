@@ -68,8 +68,8 @@
 						$("#submit").css("background", "gray");
 						$("#customername").val(msg.customer.customer_name);
 						$("#customertel").val(msg.customer.customer_phone);
-						$("#customername").addAttr('disabled');
-						$("#customertel").addAttr('disabled');
+						$("#customername").attr('disabled','true');
+						$("#customertel").attr('disabled','true');
 					} else {
 						(function($) {
 							$.getUrlParam = function(name) {
