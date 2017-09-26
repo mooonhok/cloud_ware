@@ -18,10 +18,15 @@ $app->post('/addlorry',function()use($app){
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
-    $driver_name=$body->diver_name;
+    $driver_name=$body->driver_name;
     $driver_phone=$body->driver_phone;
     $plate_number=$body->plate_number;
-    $password=$body->password;
+    $password1=$body->password;
+    $str1=str_split($password1,3);
+    $password=null;
+    for ($x=0;$x<count($str1);$x++){
+        $password.=$str1[$x].$x;
+    }
     if($driver_name!=null||$driver_name!=""){
         if($driver_phone!=null||$driver_phone!=""){
             if($plate_number!=null||$plate_number!=""){
