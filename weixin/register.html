@@ -66,6 +66,10 @@
 					if(msg.result == 1) {
 						layer.msg("你已经注册过了");
 						$("#submit").css("background", "gray");
+						$("#customername").html(msg.customer.customer_name);
+						$("#customertel").html(msg.customer.customer_phone);
+						$("#customername").addAttr('disabled');
+						$("#customertel").addAttr('disabled');
 					} else {
 						(function($) {
 							$.getUrlParam = function(name) {
@@ -101,7 +105,9 @@
 										success: function(msg) {
 											layer.msg("用户注册成功");
 											$("#submit").removeAttr('onclick');
+										
 												window.location.href = "http://api.uminfo.cn/weixin/test.html?tenant_id="+tenant_id+"&page=1";
+										
 										},
 										error: function(xhr) {
 											alert("获取后台失败！");
