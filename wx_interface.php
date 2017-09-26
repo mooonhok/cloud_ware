@@ -12,7 +12,11 @@
 //define your token
 define("TOKEN", "weixin");
 $wechatObj = new wechatCallbackapiTest();
-$wechatObj->valid();
+if($_GET['echostr']){
+    $wechatObj->valid();//如果发来了echostr则进行验证
+}else{
+    $wechatObj->responseMsg(); //如果没有echostr，则返回消息
+}
 
 class wechatCallbackapiTest
 {
@@ -39,6 +43,7 @@ class wechatCallbackapiTest
             $fromUsername = $postObj->FromUserName;
             $toUsername = $postObj->ToUserName;
             $keyword = trim($postObj->Content);
+            $ev = $postObj->Event;
             $time = time();
             $textTpl = "<xml>
 							<ToUserName><![CDATA[%s]]></ToUserName>
@@ -48,6 +53,13 @@ class wechatCallbackapiTest
 							<Content><![CDATA[%s]]></Content>
 							<FuncFlag>0</FuncFlag>
 							</xml>";
+            if ($ev == "subscribe"){
+                $msgType = "text";
+                $contentStr = "欢迎关注！江苏酉铭开发微信公众号";
+                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+                echo $resultStr;
+            }
+
             if(!empty( $keyword ))
             {
                 $msgType = "text";
@@ -57,7 +69,6 @@ class wechatCallbackapiTest
             }else{
                 echo "Input something...";
             }
-
         }else {
             echo "";
             exit;
