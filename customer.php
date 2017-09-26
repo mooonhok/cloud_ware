@@ -187,7 +187,8 @@ $app->put('/customer',function()use($app){
     $database=localhost();
 	$body=$app->request->getBody();
     $body=json_decode($body);
-
+    $customer_comment=$body->customer_comment;
+	$customer_id=$body->customer_id;
 	if($tenant_id!=null||$tenant_id!=""){
         $selectStatement = $database->select()
             ->from('tenant')
