@@ -78,7 +78,7 @@
 							$("#submit").on('click', function() {
 								var customername = $("#customername").val();
 								var customertel = $("#customertel").val();
-								var openid = $.cookie('openid');
+								var openid = $.cookie('openid'+tenant_id);
 								if(!/^1[34578]\d{9}$/.test(customertel)) {
 									layer.msg("手机号码格式不对")
 									return false;
@@ -100,7 +100,7 @@
 											layer.msg("用户注册成功");
 											$("#submit").removeAttr('onclick');
 											//(page == 0) {
-												window.location.href = "http://api.uminfo.cn/weixin/test.html";
+												window.location.href = "http://api.uminfo.cn/weixin/send.html?tenant_id="+tenant_id;
 											//} else if(page == 1) {
 											//	window.location.href = "http://api.uminfo.cn/weixin/wx_my_consignment_note.php";
 											//} else if(page == 2) {
