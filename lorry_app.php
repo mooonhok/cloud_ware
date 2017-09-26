@@ -31,7 +31,6 @@ $app->post('/addlorry',function()use($app){
         if($driver_phone!=null||$driver_phone!=""){
             if($plate_number!=null||$plate_number!=""){
                   if($password!=null||$password!=""){
-
                       $selectStatement = $database->select()
                           ->from('lorry')
                           ->where('exist','=',0)
@@ -128,7 +127,7 @@ $app->get('/sbylorry',function()use($app){
             for($x=0;$x<count($data2);$x++){
                 $selectStament=$database->select()
                     ->from('scheduling')
-                    ->join('customer','scheduling.customer_id','=','customer.customer','INNER')
+                    ->join('customer','scheduling.receiver_id','=','customer.customer_id','INNER')
                     ->where('lorry_id','=',$data2[$x]['lorry_id']);
                 $stmt=$selectStament->execute();
                 $data3=$stmt->fetchAll();
