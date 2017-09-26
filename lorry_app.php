@@ -36,8 +36,8 @@ $app->post('/addlorry',function()use($app){
                           ->where('exist','=',0)
                           ->where('driver_phone','=',$driver_phone)
                           ->where('plate_number','=',$plate_number)
-                          ->where('tenant_id','=',null)
-                          ->where('password','!=',null)
+                          ->where('tenant_id','=','')
+                          ->where('password','!=','')
                           ->where('driver_name', '=', $driver_name);
                       $stmt = $selectStatement->execute();
                       $data1 = $stmt->fetch();
@@ -86,7 +86,7 @@ $app->post('/lorrysign',function()use($app){
         $selectStament=$database->select()
             ->from('lorry')
             ->where('exist','=',0)
-            ->where('tenant_id','=',null)
+            ->where('tenant_id','=','')
             ->where('driver_phone','=',$driver_phone);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
@@ -265,8 +265,8 @@ $app->put('/suresch',function()use($app){
                 $selectStatement = $database->select()
                     ->from('lorry')
                     ->where('exist','=',0)
-                    ->where('tenant_id','=',null)
-                    ->where('password','!=',null);
+                    ->where('tenant_id','=','')
+                    ->where('password','!=','');
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
                 if($data1!=null||$data1!=""){
