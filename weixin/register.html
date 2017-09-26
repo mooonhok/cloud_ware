@@ -48,6 +48,7 @@
 		})(jQuery);
 		var tenant_id=$.getUrlParam('tenant_id');
 		var openid = $.cookie('openid'+tenant_id);
+		alert(openid)
 		if(openid != null) {
 			$.ajax({
 				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid=" + openid,
