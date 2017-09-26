@@ -66,8 +66,8 @@
 					if(msg.result == 1) {
 						layer.msg("你已经注册过了");
 						$("#submit").css("background", "gray");
-						$("#customername").html(msg.customer.customer_name);
-						$("#customertel").html(msg.customer.customer_phone);
+						$("#customername").val(msg.customer.customer_name);
+						$("#customertel").val(msg.customer.customer_phone);
 						$("#customername").addAttr('disabled');
 						$("#customertel").addAttr('disabled');
 					} else {
