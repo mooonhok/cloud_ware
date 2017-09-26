@@ -54,10 +54,8 @@ class wechatCallbackapiTest
 							<FuncFlag>0</FuncFlag>
 							</xml>";
             if ($ev == "subscribe"){
-                $msgType = "image";  //image,text
-                $contentStr =  array("Title" =>"大学英语四六级成绩查询",
-                    "Description" =>"点击图片进入",
-                    "PicUrl" =>"http://api.uminfo.cn/timg.jpg");
+                $msgType = "text";
+                $contentStr = "欢迎关注！江苏酉铭开发微信公众号";
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
             }
