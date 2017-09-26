@@ -109,6 +109,7 @@ $app->get('/sbylorry',function()use($app){
     $lorry_id = $app->request->get("lorry_id");
     $database=localhost();
     $arrays=array();
+    $arr=array();
     if($lorry_id!=null||$lorry_id!=""){
         $selectStament=$database->select()
             ->from('lorry')
@@ -131,11 +132,14 @@ $app->get('/sbylorry',function()use($app){
                     ->where('lorry_id','=',$data2[$x]['lorry_id']);
                 $stmt=$selectStament->execute();
                 $data3=$stmt->fetchAll();
-                $arrays1['scheduling_id']=$data3['scheduling_id'];
-                $arrays1['customer_name']=$data3['customer_name'];
-                array_push($arrays,$arrays1);
+                for($i=0;$i<count($data3);$i++){
+                    $arrays1['scheduling_id']=$data3[$i]['scheduling_id'];
+                    $arrays1['customer_name']=$data3[$i]['customer_name'];
+                    array_push($arrays,$arrays1);
+                }
+                array_push($arr,$arrays);
             }
-            echo json_encode(array('result' => '0', 'desc' => '','sch'=>$arrays));
+            echo json_encode(array('result' => '0', 'desc' => '','sch'=>$arrays,'sch2'=>$arr));
         }else{
             echo json_encode(array('result' => '2', 'desc' => '司机不存在','sch'=>''));
         }
