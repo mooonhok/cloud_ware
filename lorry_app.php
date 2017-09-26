@@ -36,8 +36,7 @@ $app->post('/addlorry',function()use($app){
                           ->where('exist','=',0)
                           ->where('driver_phone','=',$driver_phone)
                           ->where('plate_number','=',$plate_number)
-                          ->where('tenant_id','=','')
-                          ->where('password','!=','')
+                          ->where('tenant_id','=',0)
                           ->where('driver_name', '=', $driver_name);
                       $stmt = $selectStatement->execute();
                       $data1 = $stmt->fetch();
@@ -46,9 +45,9 @@ $app->post('/addlorry',function()use($app){
                               ->from('lorry');
                           $stmt=$selectStatement->execute();
                           $data2=$stmt->fetch();
-                          $insertStatement = $database->insert(array('lorry_id','driver_name','plate_number','driver_phone','password','exist'))
+                          $insertStatement = $database->insert(array('lorry_id','driver_name','plate_number','driver_phone','password','exist','tenant_id'))
                               ->into('lorry')
-                              ->values(array(count($data2)+1,$driver_name,$plate_number,$driver_phone,$password,0));
+                              ->values(array(count($data2)+1,$driver_name,$plate_number,$driver_phone,$password,0,0));
                           $insertId = $insertStatement->execute(false);
                           echo json_encode(array('result' => '0', 'desc' => '注册成功','lorry'=>''));
                       }else{
@@ -86,7 +85,7 @@ $app->post('/lorrysign',function()use($app){
         $selectStament=$database->select()
             ->from('lorry')
             ->where('exist','=',0)
-            ->where('tenant_id','=','')
+            ->where('tenant_id','=',0)
             ->where('driver_phone','=',$driver_phone);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
@@ -265,8 +264,8 @@ $app->put('/suresch',function()use($app){
                 $selectStatement = $database->select()
                     ->from('lorry')
                     ->where('exist','=',0)
-                    ->where('tenant_id','=','')
-                    ->where('password','!=','');
+                    ->where('tenant_id','=',0);
+
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
                 if($data1!=null||$data1!=""){
