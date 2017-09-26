@@ -494,7 +494,7 @@ $app->get('/wx_openid',function()use($app){
             if($data3==null){
                 echo json_encode(array("result"=>"0","desc"=>"去注册"));
             }else{
-                echo json_encode(array("result"=>"1","desc"=>"用户已注册"));
+                echo json_encode(array("result"=>"1","desc"=>"用户已注册","customer"=>$data3));
             }
         }else{
             echo json_encode(array("result"=>"2","desc"=>"租户不存在"));
