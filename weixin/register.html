@@ -80,7 +80,7 @@
 							$("#submit").on('click', function() {
 								var customername = $("#customername").val();
 								var customertel = $("#customertel").val();
-								var openid = $.cookie('openid');
+								var openid = $.cookie('openid'+tenant_id);
 								if(!/^1[34578]\d{9}$/.test(customertel)) {
 									layer.msg("手机号码格式不对")
 									return false;
