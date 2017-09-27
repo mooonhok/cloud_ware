@@ -57,7 +57,7 @@ class wechatCallbackapiTest
                 $msgType = "image";  //image,text
               //  $contentStr = "欢迎关注！江苏酉铭开发微信公众号"; //http://api.uminfo.cn/timg.jpg
                 $contentStr = array();
-                $content[] = array("Title"=>"公司介绍",  "Description"=>"万事鑫联公司专业从事物流运输行业",
+                $contentStr[] = array("Title"=>"公司介绍",  "Description"=>"万事鑫联公司专业从事物流运输行业",
                     "PicUrl"=>"http://api.uminfo.cn/timg.jpg", "Url" =>"http://api.uminfo.cn/weixin/jiangsuyouming.html");
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
