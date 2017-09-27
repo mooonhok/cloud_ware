@@ -187,6 +187,7 @@ $app->get('/sandoandg',function()use($app){
                              ->where('schedule_id','=',$schedule_id);
                          $stmt=$selectStament->execute();
                          $data4=$stmt->fetchAll();
+                         $num=count($data4);
                          for($x=0;$x<count($data4);$x++){
                              $selectStament=$database->select()
                                  ->from('goods')
@@ -226,7 +227,7 @@ $app->get('/sandoandg',function()use($app){
                         $arrays2['phone']=$data9['customer_phone'];
                         $arrays2['sendcity']=$data7['name'];
                         $arrays2['receivecity']=$data8['name'];
-                         echo json_encode(array('result' => '0', 'desc' => '','goods'=>$arrays,'customer'=>$arrays2));
+                         echo json_encode(array('result' => '0', 'desc' => '','goods'=>$arrays,'customer'=>$arrays2,'count'=>$num));
                      }else{
                          echo json_encode(array('result' => '5', 'desc' => '该清单不是您的','goods'=>''));
                      }
@@ -299,6 +300,10 @@ $app->put('/suresch',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '清单号为空'));
     }
 });
+
+//清单交付
+
+
 
 $app->run();
 
