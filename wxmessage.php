@@ -55,7 +55,6 @@ $app->post('/wxmessage_insert',function()use($app){
                                                     if($goods_capacity!=''||$goods_capacity!=null){
                                                         if($goods_package!=''||$goods_package!=null){
                                                             if($goods_count!=''||$goods_count!=null){
-                                                                if($special_need!=''||$special_need!=null){
                                                                     if($good_worth!=''||$good_worth!=null){
                                                                             if($wx_openid!=''||$wx_openid!=null){
                                                                                 $selectStatement = $database->select()
@@ -191,9 +190,7 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                     }else{
                                                                         echo json_encode(array("result"=>"10","desc"=>"缺少订单创建人电话"));
                                                                     }
-                                                                }else{
-                                                                    echo json_encode(array("result"=>"11","desc"=>"缺少订单创建人"));
-                                                                }
+
                                                             }else{
                                                                 echo json_encode(array("result"=>"12","desc"=>"缺少运单id"));
                                                             }
