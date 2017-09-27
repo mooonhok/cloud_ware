@@ -101,13 +101,7 @@ class wechatCallbackapiTest
                                 <Description><![CDATA[%s]]></Description>  
                                 <PicUrl><![CDATA[%s]]></PicUrl>  
                                 <Url><![CDATA[%s]]></Url>  
-                                </item>  
-                                <item>  
-                                <Title><![CDATA[%s]]></Title>  
-                                <Description><![CDATA[%s]]></Description>  
-                                <PicUrl><![CDATA[%s]]></PicUrl>  
-                                <Url><![CDATA[%s]]></Url>  
-                                </item>  
+                                </item>   
                                 </Articles>  
                                 </xml>";
             $textTpl = "<xml>
@@ -119,7 +113,6 @@ class wechatCallbackapiTest
 							<FuncFlag>0</FuncFlag>
 							</xml>";
             if ($ev == "subscribe"){
-
                 $msgType = "news";
                 $contentStr = array();
                 $contentStr[] = array("Title"=>"公司介绍",  "Description"=>"万事鑫联公司专业从事物流运输行业",
