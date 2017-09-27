@@ -112,7 +112,6 @@ class wechatCallbackapiTest
 							<FuncFlag>0</FuncFlag>
 							</xml>";
             if ($ev == "subscribe"){
-                echo '123456';
                 $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news',$ArticleCount,"公司介绍","万事鑫联公司专业从事物流运输行业","http://api.uminfo.cn/timg.jpg","http://api.uminfo.cn/weixin/jiangsuyouming.html");
                 echo $resultStr;
             }
