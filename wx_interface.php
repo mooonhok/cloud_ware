@@ -31,6 +31,49 @@ class wechatCallbackapiTest
         }
     }
 
+//    public function responseMsg()
+//    {
+//        //get post data, May be due to the different environments
+//        $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+//
+//        //extract post data
+//        if (!empty($postStr)){
+//
+//            $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+//            $fromUsername = $postObj->FromUserName;
+//            $toUsername = $postObj->ToUserName;
+//            $keyword = trim($postObj->Content);
+//            $ev = $postObj->Event;
+//            $time = time();
+//            $textTpl = "<xml>
+//							<ToUserName><![CDATA[%s]]></ToUserName>
+//							<FromUserName><![CDATA[%s]]></FromUserName>
+//							<CreateTime>%s</CreateTime>
+//							<MsgType><![CDATA[%s]]></MsgType>
+//							<Content><![CDATA[%s]]></Content>
+//							<FuncFlag>0</FuncFlag>
+//							</xml>";
+//            if ($ev == "subscribe"){
+////                $msgType = "text";  //image,text
+////               $contentStr = "欢迎关注！万事鑫联微信公众号"; //http://api.uminfo.cn/timg.jpg
+//                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+//                echo $resultStr;
+//            }
+//
+//            if(!empty( $keyword ))
+//            {
+//                $msgType = "text";
+//                $contentStr = "请联系qq客服：1026413232";
+//                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+//                echo $resultStr;
+//            }else{
+//                echo "Input something...";
+//            }
+//        }else {
+//            echo "";
+//            exit;
+//        }
+//    }
     public function responseMsg()
     {
         //get post data, May be due to the different environments
@@ -45,21 +88,43 @@ class wechatCallbackapiTest
             $keyword = trim($postObj->Content);
             $ev = $postObj->Event;
             $time = time();
+            $ArticleCount = 1;
+            $newsTpl = "<xml>  
+                                <ToUserName><![CDATA[%s]]></ToUserName>  
+                                <FromUserName><![CDATA[%s]]></FromUserName>  
+                                <CreateTime>%s</CreateTime>  
+                                <MsgType><![CDATA[%s]]></MsgType>  
+                                <ArticleCount>%s</ArticleCount>  
+                                <Articles>  
+                                <item>  
+                                <Title><![CDATA[%s]]></Title>   
+                                <Description><![CDATA[%s]]></Description>  
+                                <PicUrl><![CDATA[%s]]></PicUrl>  
+                                <Url><![CDATA[%s]]></Url>  
+                                </item>  
+                                <item>  
+                                <Title><![CDATA[%s]]></Title>  
+                                <Description><![CDATA[%s]]></Description>  
+                                <PicUrl><![CDATA[%s]]></PicUrl>  
+                                <Url><![CDATA[%s]]></Url>  
+                                </item>  
+                                </Articles>  
+                                </xml>";
             $textTpl = "<xml>
-							<ToUserName><![CDATA[%s]]></ToUserName>
-							<FromUserName><![CDATA[%s]]></FromUserName>
+						<ToUserName><![CDATA[%s]]></ToUserName>
+						<FromUserName><![CDATA[%s]]></FromUserName>
 							<CreateTime>%s</CreateTime>
 							<MsgType><![CDATA[%s]]></MsgType>
 							<Content><![CDATA[%s]]></Content>
 							<FuncFlag>0</FuncFlag>
 							</xml>";
             if ($ev == "subscribe"){
-                $msgType = "image";  //image,text
-              //  $contentStr = "欢迎关注！江苏酉铭开发微信公众号"; //http://api.uminfo.cn/timg.jpg
+
+                $msgType = "news";
                 $contentStr = array();
                 $contentStr[] = array("Title"=>"公司介绍",  "Description"=>"万事鑫联公司专业从事物流运输行业",
                     "PicUrl"=>"http://api.uminfo.cn/timg.jpg", "Url" =>"http://api.uminfo.cn/weixin/jiangsuyouming.html");
-                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+                $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, $msgType,$ArticleCount, $contentStr);
                 echo $resultStr;
             }
 
@@ -77,6 +142,9 @@ class wechatCallbackapiTest
             exit;
         }
     }
+
+
+
 
     private function checkSignature()
     {
