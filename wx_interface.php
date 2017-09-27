@@ -113,11 +113,11 @@ class wechatCallbackapiTest
 							<FuncFlag>0</FuncFlag>
 							</xml>";
             if ($ev == "subscribe"){
-                $msgType = "news";
-                $contentStr = array();
-                $contentStr[] = array("Title"=>"公司介绍",  "Description"=>"万事鑫联公司专业从事物流运输行业",
-                    "PicUrl"=>"http://api.uminfo.cn/timg.jpg", "Url" =>"http://api.uminfo.cn/weixin/jiangsuyouming.html");
-                $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, $msgType,$ArticleCount, $contentStr);
+               // $msgType = "news";
+              //  $contentStr = array();
+               // $contentStr[] = array("Title"=>"公司介绍",  "Description"=>"万事鑫联公司专业从事物流运输行业",
+               //     "PicUrl"=>"http://api.uminfo.cn/timg.jpg", "Url" =>"http://api.uminfo.cn/weixin/jiangsuyouming.html");
+                $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news',$ArticleCount,"公司介绍","万事鑫联公司专业从事物流运输行业","http://api.uminfo.cn/timg.jpg","http://api.uminfo.cn/weixin/jiangsuyouming.html");
                 echo $resultStr;
             }
 
