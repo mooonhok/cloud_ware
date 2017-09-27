@@ -54,7 +54,7 @@ class wechatCallbackapiTest
 //							</xml>";
 //            if ($ev == "subscribe"){
 ////                $msgType = "text";  //image,text
-////               $contentStr = "欢迎关注！万事鑫联微信公众号"; //http://api.uminfo.cn/timg.jpg
+////               $contentStr = "欢迎关注！万事鑫微信公众号"; //http://api.uminfo.cn/timg.jpg
 //                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
 //                echo $resultStr;
 //            }
