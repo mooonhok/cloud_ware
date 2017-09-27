@@ -808,6 +808,15 @@
 			if(!/^1[34578]\d{9}$/.test(phone_3)){
 				layer.msg("手机号码格式不对");
 				return false;
+				}else if(name_3==null||name_3==""){
+					layer.msg("姓名为空");
+				return false;
+				}else if(cit3==null||cit3==""){
+					layer.msg("未选择城市");
+				return false;
+				}else if(dizhi_3==null||dizhi_3==""){
+					layer.msg("地址为空");
+				return false;
 			}else{
 				$.ajax({
 					url: "http://api.uminfo.cn/customer.php/customer_address",
@@ -955,6 +964,15 @@
 			if(!/^1[34578]\d{9}$/.test(phone_4)) {
 				layer.msg("手机号码格式不对");
 				return false;
+			}else if(name_4==null||name_4==""){
+				layer.msg("姓名不能为空");
+				return false;
+			}else if(cit4==null||cit4==""){
+				layer.msg("未选择城市");
+				return false;
+			}else if(dizhi_4==null||dizhi_4==""){
+				layer.msg("地址为空");
+				return false;
 			} else {
 				$.ajax({
 					url: "http://api.uminfo.cn/customer.php/customer_address",
@@ -1001,6 +1019,15 @@
 			if(!/^1[34578]\d{9}$/.test(phone_1)) {
 				layer.msg("手机号码格式不对");
 				return false;
+				}else if(name_1==null||name_1==""){
+					layer.msg("寄件人姓名为空");
+				return false;
+				}else if(cit==null||cit==""){
+					layer.msg("未选择城市");
+				return false;
+				}else if(dizhi_1==null||dizhi==""){
+					layer.msg("地址为空");
+				return false;
 			} else {
 				$.ajax({
 					url: "http://api.uminfo.cn/customer.php/plus_customer",
@@ -1042,6 +1069,15 @@
 			var province_2 =$("#province2").val();
 			if(!/^1[34578]\d{9}$/.test(phone_2)) {
 				layer.msg("手机号码格式不对");
+				return false;
+			}else if(name_2==null||name_2==""){
+				layer.msg("收货人姓名为空");
+				return false;
+			}else if(cit1==null||cit1==""){
+				layer.msg("未选择城市");
+				return false;
+			}else if(dizhi_2==null||dizhi_2==""){
+				layer.msg("地址不能为空");
 				return false;
 			} else {
 				$.ajax({
