@@ -330,7 +330,8 @@ $app->post('/wxmessages',function()use($app){
                              ->where('wx_message.tenant_id','=',$tenant_id)
                              ->where('orders.tenant_id','=',$tenant_id)
                              ->where('orders.order_source','=',1)
-                             ->where('exist',"=",0)
+                             ->where('orders.exist',"=",0)
+                             ->where('wx_message.exist',"=",0)
                              ->where('orders.is_read','=',$is_read)
                              ->orderBy('wx_message.ms_date','desc')
                              ->orderBy('orders.order_status');
