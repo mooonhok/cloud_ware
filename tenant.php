@@ -456,7 +456,7 @@ $app->get('/tenant_customer',function()use($app){
 
 $app->get('/one_tenant_customer',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
-    $tenant_id=$app->request->headers->get('tenant-id');
+    $tenant_id=$app->request->get('tenant_id');
     $database=localhost();
     $array=array();
     if($tenant_id!=null||$tenant_id!=''){
