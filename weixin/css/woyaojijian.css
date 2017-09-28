@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-18 09:58:43
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-09-25 11:02:32
+* @Last Modified time: 2017-09-28 17:05:18
 */
 *{
 	margin: 0;padding: 0;
@@ -718,6 +718,7 @@ html,body{height:100%; width:100%;
 	float: left;
 	margin-top: 10px;
 	text-align: center;
+	font-size: 18px;
 }
 .phone1{
 	width: 100%;
@@ -742,6 +743,7 @@ html,body{height:100%; width:100%;
 	float: left;
 	margin-top: 10px;
 	text-align: center;
+	font-size: 18px;
 }
 .dizhi1{
 	width: 100%;
@@ -785,6 +787,7 @@ select{
 	border: 0;
     resize:none;
     text-align: center;
+    font-size: 18px;
     /* font-size: 16px; */
 }
 .bor{
