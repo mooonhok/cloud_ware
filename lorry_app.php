@@ -245,6 +245,29 @@ $app->get('/sandoandg',function()use($app){
     }
 });
 
+//根据orderid获取信息
+$app->get('/byorderid',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $order_id = $app->request->get("order_id");
+    $database=localhost();
+    if($order_id!=null||$order_id!=""){
+        $selectStament=$database->select()
+            ->from('goods')
+            ->where('exist','=',0)
+            ->where('order_id','=',$order_id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetch();
+        if($data!=null||$data!=""){
+            echo json_encode(array('result' => '0', 'desc' => '','order'=>$data));
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '运单不存在','order'=>''));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '运单号为空','order'=>''));
+    }
+});
+
 //司机确认
 $app->put('/suresch',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -266,7 +289,6 @@ $app->put('/suresch',function()use($app){
                     ->from('lorry')
                     ->where('exist','=',0)
                     ->where('tenant_id','=',0);
-
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
                 if($data1!=null||$data1!=""){
