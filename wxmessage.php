@@ -333,8 +333,7 @@ $app->post('/wxmessages',function()use($app){
                              ->where('orders.exist',"=",0)
                              ->where('wx_message.exist',"=",0)
                              ->where('orders.is_read','=',$is_read)
-                             ->orderBy('wx_message.ms_date','desc')
-                             ->orderBy('orders.order_status');
+                             ->orderBy('wx_message.ms_date','desc');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
             $num1=count($data);
