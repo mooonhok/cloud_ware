@@ -326,10 +326,14 @@ $app->post('/wxmessages',function()use($app){
         if($page==null||$per_page==null){
             $selectStatement = $database->select()
                              ->from('wx_message')
-                             ->where('tenant_id','=',$tenant_id)
+                             ->join('orders','orders.order_id','=','wx_message.order_id','INNER')
+                             ->where('wx_message.tenant_id','=',$tenant_id)
+                             ->where('orders.tenant_id','=',$tenant_id)
+                             ->where('orders.order_source','=',1)
                              ->where('exist',"=",0)
-                             ->where('is_read','=',$is_read)
-                             ->orderBy('ms_date');
+                             ->where('orders.is_read','=',$is_read)
+                             ->orderBy('wx_message.ms_date','desc')
+                             ->orderBy('orders.order_status');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
             $num1=count($data);
