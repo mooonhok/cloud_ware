@@ -1,9 +1,9 @@
 <?php
 require_once "jssdk.php";
 //测试号
-$jssdk = new JSSDK("wx15ef051f9f0bba92","57ea0ee4abf4f4c6d6e38c88a289e687");
+//$jssdk = new JSSDK("wx15ef051f9f0bba92","57ea0ee4abf4f4c6d6e38c88a289e687");
 //万事鑫
-//$jssdk = new JSSDK("wx5666849a1bdb2e5c","2e4fe57c0f6d285ee06ef1cd6644f9db");
+$jssdk = new JSSDK("wx5666849a1bdb2e5c","2e4fe57c0f6d285ee06ef1cd6644f9db");
 $signPackage = $jssdk->GetSignPackage();
 ?>
 <!DOCTYPE html>
