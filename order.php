@@ -349,12 +349,15 @@ $app->post('/wx_orders_s', function () use ($app) {
             $selectStatement = $database->select()
                 ->from('customer')
                 ->join('orders','orders.sender_id','=','customer.customer_id','INNER')
+				->join('wx_message','orders.order_id','=','wx_message.order_id','INNER')
                 //->where('customer.exist', "=", 0)
                 ->where('customer.customer_address','!=','-1')
                 ->where('customer.customer_city_id','!=','-1')
                 ->where('customer.wx_openid','=',$wx_openid)
                 ->where('orders.tenant_id', '=', $tenant_id)
-                ->where('customer.tenant_id', '=', $tenant_id);
+                ->where('customer.tenant_id', '=', $tenant_id)
+				->where('wx_message.tenant_id', '=', $tenant_id)
+				->orderBy('wx_message.ms_date','DESC');
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetchAll();
             if($data2==null){
@@ -544,12 +547,15 @@ $app->post('/wx_orders_r', function () use ($app) {
             $selectStatement = $database->select()
                 ->from('customer')
                 ->join('orders','orders.receiver_id','=','customer.customer_id','INNER')
+				->join('wx_message','orders.order_id','=','wx_message.order_id','INNER')
                 //->where('customer.exist', "=", 0)
                 ->where('customer_address','!=',-1)
                 ->where('customer_city_id','>',0)
                 ->where('customer.customer_phone','=',$dataa['customer_phone'])
                 ->where('orders.tenant_id', '=', $tenant_id)
-                ->where('customer.tenant_id', '=', $tenant_id);
+				->where('wx_message.tenant_id', '=', $tenant_id)
+                ->where('customer.tenant_id', '=', $tenant_id)
+				->orderBy('wx_message.ms_date','DESC');
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetchAll();
             if($data2==null){
@@ -1407,7 +1413,7 @@ $app->post('/order_insert',function()use($app){
     $array=array();
     $order_id=$body->order_id;
     foreach($body as $key=>$value){
-        $array[$key]=$value;
+        $array[$key]=$value; 
     }
     $selectStatement = $database->select()
         ->from('orders')
