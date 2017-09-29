@@ -54,7 +54,7 @@ class wechatCallbackapiTest
 //							</xml>";
 //            if ($ev == "subscribe"){
 ////                $msgType = "text";  //image,text
-////               $contentStr = "欢迎关注！万事鑫微信公众号"; //http://api.uminfo.cn/timg.jpg
+////               $contentStr = "欢迎关注！万事鑫联微信公众号"; //http://api.uminfo.cn/timg.jpg
 //                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
 //                echo $resultStr;
 //            }
@@ -80,7 +80,6 @@ class wechatCallbackapiTest
 
         //extract post data
         if (!empty($postStr)){
-
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
             $fromUsername = $postObj->FromUserName;
             $toUsername = $postObj->ToUserName;
@@ -112,14 +111,15 @@ class wechatCallbackapiTest
 							<FuncFlag>0</FuncFlag>
 							</xml>";
             if ($ev == "subscribe"){
-                $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news',$ArticleCount,"公司介绍","万事鑫联公司专业从事物流运输行业","http://api.uminfo.cn/timg.jpg","http://api.uminfo.cn/weixin/jiangsuyouming.html");
+         //       echo '123456';
+                $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news',$ArticleCount,"公司介绍","万事鑫公司专业从事物流运输行业","http://api.uminfo.cn/timg.jpg","http://api.uminfo.cn/weixin/jiangsuyouming.html");
                 echo $resultStr;
             }
 
             if(!empty( $keyword ))
             {
                 $msgType = "text";
-                $contentStr = "请联系qq客服：1026413232";
+                $contentStr = "请联系客服电话：15862790779";
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
             }else{
@@ -130,8 +130,6 @@ class wechatCallbackapiTest
             exit;
         }
     }
-
-
 
 
     private function checkSignature()

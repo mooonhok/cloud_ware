@@ -109,7 +109,6 @@ $app->get('/sbylorry',function()use($app){
     $lorry_id = $app->request->get("lorry_id");
     $database=localhost();
     $arrays=array();
-
     if($lorry_id!=null||$lorry_id!=""){
         $selectStament=$database->select()
             ->from('lorry')
@@ -129,7 +128,8 @@ $app->get('/sbylorry',function()use($app){
                 $selectStament=$database->select()
                     ->from('scheduling')
                     ->join('customer','scheduling.receiver_id','=','customer.customer_id','INNER')
-                    ->where('lorry_id','=',$data2[$x]['lorry_id']);
+                    ->where('lorry_id','=',$data2[$x]['lorry_id'])
+                    ->orderBy('scheduling_datetime','desc');
                 $stmt=$selectStament->execute();
                 $data3=$stmt->fetchAll();
                 for($i=0;$i<count($data3);$i++){
