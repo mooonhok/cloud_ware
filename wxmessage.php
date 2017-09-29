@@ -354,7 +354,6 @@ $app->post('/wxmessages',function()use($app){
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('tenant_id','=',$tenant_id)
-                    ->where('exist',"=",0)
                     ->where('customer_id','=',$data1['sender_id']);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetch();
@@ -368,7 +367,6 @@ $app->post('/wxmessages',function()use($app){
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('tenant_id','=',$tenant_id)
-                    ->where('exist',"=",0)
                     ->where('customer_id','=',$data1['receiver_id']);
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetch();
@@ -415,7 +413,6 @@ $app->post('/wxmessages',function()use($app){
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('tenant_id', '=', $tenant_id)
-                    ->where('exist', "=", 0)
                     ->where('customer_id', '=', $data1['sender_id']);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetch();
@@ -430,7 +427,6 @@ $app->post('/wxmessages',function()use($app){
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('tenant_id', '=', $tenant_id)
-                    ->where('exist', "=", 0)
                     ->where('customer_id', '=', $data1['receiver_id']);
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetch();
