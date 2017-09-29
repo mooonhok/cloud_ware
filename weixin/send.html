@@ -52,7 +52,7 @@
 				<div class="center_4">
 					<div class="wenzi">包装</div>
 					<div class="text1">
-						<input type="text" placeholder="必填项" class="baozhuang" disabled="disabled">
+						<input type="text" placeholder="必填项" class="baozhuang" disabled="disabled" style="color: black;">
 					</div>
 				</div>
 				<div class="center_5">
@@ -79,7 +79,7 @@
 				<div class="foot2">
 					<div class="wenzi">付款方式</div>
 					<div class="text2">
-						<input type="text" placeholder="必填项" class="money" disabled="disabled">
+						<input type="text" placeholder="必填项" class="money" disabled="disabled" style="color: black;">
 					</div>
 				</div>
 			</div>
@@ -760,6 +760,7 @@
 						$("#subaddress2").on('click', function() {
 							customer_send_id = $("input[class='rad1']:checked").val();
 							$(".shuru").html($("input[class='rad1']:checked").parent().prev().prev().text());
+							$(".box2").css("display","none");
 							$("#box10").css("display", "none");
 							$(".box").css("display","block");
 						});
@@ -914,6 +915,7 @@
 							customer_accept_id = $("input[class='rad2']:checked").val();
 							if(customer_accept_id != customer_send_id) {
 								$(".shuru1").html($("input[class='rad2']:checked").parent().prev().prev().text());
+								$(".box3").css("display","none");
 								$("#box11").css("display", "none");
 								$(".box").css("display","block");
 							} else {
@@ -1176,7 +1178,7 @@
 					 layer.msg("提交订单成功");
 						  window.location.href = "http://api.uminfo.cn/weixin/my_consignment_note.php?tenant_id="+tenant_id;
 					},
-					error: function(xhr) {刷
+					error: function(xhr) {
 						layer.msg("提交订单失败");
 					},
 				})
