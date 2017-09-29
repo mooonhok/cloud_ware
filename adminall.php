@@ -50,9 +50,8 @@ $app->post('/sign',function()use($app){
 $app->get('/dbadmin',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
+    $scheduling_id= $app->request->get("sch_id");
     $database=localhost();
-    $body=$app->request->getBody();
-    $scheduling_id=$body->sch_id;
     $array=arrays();
     $selectStament=$database->select()
         ->from('scheduling')
