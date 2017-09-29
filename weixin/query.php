@@ -1,11 +1,10 @@
 <?php
 require_once "jssdk.php";
-//$str=$_SERVER["QUERY_STRING"];
-//$arr=explode("=",$str);
-//$appid=substr($arr[2],0,18);
-//$secret=$arr[3];
-//$jssdk = new JSSDK("","");
-//$signPackage = $jssdk->GetSignPackage();
+//测试号
+$jssdk = new JSSDK("wx15ef051f9f0bba92","57ea0ee4abf4f4c6d6e38c88a289e687");
+//万事鑫
+//$jssdk = new JSSDK("wx5666849a1bdb2e5c","2e4fe57c0f6d285ee06ef1cd6644f9db");
+$signPackage = $jssdk->GetSignPackage();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -138,7 +137,7 @@ require_once "jssdk.php";
 		<div class="center">
 			<div   class="center1">运单号</div>
 			<div class="center2"><input id="order_id" type="number" placeholder="请输入运单号" pattern="[0-9]*"></div>
-			<!--<div class="center3" id="saoman"><img src="images/saoma.png" alt=""></div>-->
+			<div class="center3" id="saoman"><img src="images/saoma.png" alt=""></div>
 		</div>
 		<div  id="sumbit"  class="foot">
 			查   询
