@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-18 09:58:43
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-09-29 16:13:06
+* @Last Modified time: 2017-09-29 17:03:33
 */
 *{
 	margin: 0;padding: 0;
@@ -962,7 +962,24 @@ label{
 	width: 30%;
 	font-size: 14px;
 }
-
+input[disabled],input:disabled,input.disabled{  
+    color: black;  
+    -webkit-text-fill-color:black;  
+    -webkit-opacity:1;  
+    opacity: 1;  
+} 
+ ::-webkit-input-placeholder {
+  color: black;
+}
+:-moz-placeholder {/* Firefox 18- */
+   color: black;
+}
+::-moz-placeholder{/* Firefox 19+ */
+  color: black;
+}
+:-ms-input-placeholder {
+   color: black;
+}
 
 
 
