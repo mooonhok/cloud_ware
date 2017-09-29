@@ -52,7 +52,7 @@ $app->get('/dbadmin',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $scheduling_id= $app->request->get("sch_id");
     $database=localhost();
-    $array=arrays();
+    $array=array();
     $selectStament=$database->select()
         ->from('scheduling')
         ->where('scheduling_id','=',$scheduling_id);
