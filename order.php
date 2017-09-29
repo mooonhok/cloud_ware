@@ -1170,7 +1170,7 @@ $app->post('/wx_orders_order_source', function () use ($app) {
                 ->where('wx_message.tenant_id', '=', $tenant_id)
                 ->where('orders.tenant_id', '=', $tenant_id)
                 ->where('orders.order_status','=',0)
-                ->orderBy("wx_message.ms_date")
+                ->orderBy("wx_message.ms_date",'DESC')
                 ->limit((int)$size,(int)$offset);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetchAll();
