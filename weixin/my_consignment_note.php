@@ -29,9 +29,9 @@ $signPackage = $jssdk->GetSignPackage();
 						<div class="kuang">
 							<input id="yundanhao" type="number" placeholder="请输入要查询的运单号" pattern="[0-9]*">
 						</div>
-						<div class="tu" id="saoman">
-							<img src="images/saoma.png" alt="">
-						</div>
+<!--						<div class="tu" id="saoman">-->
+<!--							<img src="images/saoma.png" alt="">-->
+<!--						</div>-->
 					</div>
 				</div>
 			</div>
