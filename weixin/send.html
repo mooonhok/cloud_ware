@@ -1069,6 +1069,7 @@
 			var name_2 = $(".name_2").val();
 			var phone_2 = $(".phone_2").val();
 			var cit1 = $("#city2").val();
+			var cit1_v=$('#city2').html();
 			var dizhi_2 = $("#dizhi_2").val();
 			var province_2 =$("#province2").val();
 			if(!/^1[34578]\d{9}$/.test(phone_2)) {
@@ -1102,7 +1103,7 @@
 					}),
 					success: function(msg) {
 					  layer.msg("添加地址成功");
-					    $(".shuru1").html(cit1+ dizhi_2);
+					    $(".shuru1").html(cit1_v+ dizhi_2);
 						loadaccept(openid,tenant_id);
 						$(".box3").css("display", "none");
 						$(".box").css("display","block");
