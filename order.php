@@ -740,7 +740,8 @@ $app->post('/wx_order', function () use ($app) {
                         ->where('customer.customer_city_id','>',0)
                         ->where('customer.wx_openid','=',$wx_openid)
                         ->where('customer.tenant_id', '=', $tenant_id)
-                        ->where('orders.tenant_id', '=', $tenant_id);
+                        ->where('orders.tenant_id', '=', $tenant_id)
+						->orderBy('orders.order_datetime0','DESC');
                     $stmt = $selectStatement->execute();
                     $data2a= $stmt->fetchAll();
                     $selectStatement = $database->select()
