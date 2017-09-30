@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-18 09:58:43
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-09-29 17:03:33
+* @Last Modified time: 2017-09-30 13:47:10
 */
 *{
 	margin: 0;padding: 0;
@@ -18,6 +18,7 @@ html,body{height:100%; width:100%;
 	background: #E7E7E7;
 	position: absolute;
 	height: 100%;
+	z-index: 100;
 }
 .kbox{
 	width: 100%;
@@ -120,7 +121,7 @@ html,body{height:100%; width:100%;
 }
 .text{
 	float: right;
-	width: 42%;
+	width: 40%;
 	margin-top: 14px;
 	margin-right: 10%;
 }
@@ -236,28 +237,32 @@ html,body{height:100%; width:100%;
 	height: 100%;
 	background: #EEEEEE;	
 	position: absolute;
-	display: none;
+	/* display: none; */
+	z-index: 0;
 }
 .box7{
 	width: 100%;
 	height: 100%;
 	background: #EEEEEE;	
 	position: absolute;
-	display: none;
+	/* display: none; */
+	z-index: 0;
 }
 .box8{
 	width: 100%;
 	height: 100%;
 	background: #EEEEEE;	
 	position: absolute;
-	display: none;
+	/* display: none; */
+	z-index: 0;
 }
 .box3{
 	width: 100%;
 	height: 100%;
 	background: #EEEEEE;	
 	position: absolute;
-	display: none;
+	/* display: none; */
+	z-index: 0;
 }
 
 
@@ -268,6 +273,7 @@ html,body{height:100%; width:100%;
 	position: absolute;
 	z-index: 100;
 	display: none;
+
 }
 .box4-1{
 	width: 100%;
@@ -843,14 +849,16 @@ label{
 	width: 100%;
 	height: 100%;
 	position: absolute;
-	display: none;
+	/* display: none; */
+	z-index: 0;
 	background: white;
 }
 #box11{
 	width: 100%;
 	height: 100%;
 	position: absolute;
-	display: none;
+	/* display: none; */
+	z-index: 0;
 	background: white;
 }
 .box10_1{
@@ -971,10 +979,10 @@ input[disabled],input:disabled,input.disabled{
  ::-webkit-input-placeholder {
   color: black;
 }
-:-moz-placeholder {/* Firefox 18- */
+:-moz-placeholder {
    color: black;
 }
-::-moz-placeholder{/* Firefox 19+ */
+::-moz-placeholder{
   color: black;
 }
 :-ms-input-placeholder {
