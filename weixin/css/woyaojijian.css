@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-18 09:58:43
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-09-30 14:33:39
+* @Last Modified time: 2017-09-29 17:03:33
 */
 *{
 	margin: 0;padding: 0;
@@ -18,7 +18,6 @@ html,body{height:100%; width:100%;
 	background: #E7E7E7;
 	position: absolute;
 	height: 100%;
-	z-index: 100;
 }
 .kbox{
 	width: 100%;
@@ -121,7 +120,7 @@ html,body{height:100%; width:100%;
 }
 .text{
 	float: right;
-	width: 40%;
+	width: 42%;
 	margin-top: 14px;
 	margin-right: 10%;
 }
@@ -237,32 +236,28 @@ html,body{height:100%; width:100%;
 	height: 100%;
 	background: #EEEEEE;	
 	position: absolute;
-	/* display: none; */
-	z-index: 0;
+	display: none;
 }
 .box7{
 	width: 100%;
 	height: 100%;
 	background: #EEEEEE;	
 	position: absolute;
-	/* display: none; */
-	z-index: 0;
+	display: none;
 }
 .box8{
 	width: 100%;
 	height: 100%;
 	background: #EEEEEE;	
 	position: absolute;
-	/* display: none; */
-	z-index: 0;
+	display: none;
 }
 .box3{
 	width: 100%;
 	height: 100%;
 	background: #EEEEEE;	
 	position: absolute;
-	/* display: none; */
-	z-index: 0;
+	display: none;
 }
 
 
@@ -273,7 +268,6 @@ html,body{height:100%; width:100%;
 	position: absolute;
 	z-index: 100;
 	display: none;
-
 }
 .box4-1{
 	width: 100%;
@@ -716,13 +710,13 @@ html,body{height:100%; width:100%;
 }
 .name2 input{
 	width: 100%;
-	height: 30px;
+	height: 20px;
 	list-style: none;
 	outline-style: none;
 	border: 0;
 	display: inline-block;
 	float: left;
-	margin-top: 5px;
+	margin-top: 10px;
 	text-align: center;
 	font-size: 18px;
 }
@@ -741,13 +735,13 @@ html,body{height:100%; width:100%;
 }
 .phone2 input{
 	width: 100%;
-	height: 30px;
+	height: 20px;
 	list-style: none;
 	outline-style: none;
 	border: 0;
 	display: inline-block;
 	float: left;
-	margin-top: 5px;
+	margin-top: 10px;
 	text-align: center;
 	font-size: 18px;
 }
@@ -779,14 +773,15 @@ select{
 .dizhi3-1{
 	width: 100%;
 	float: left;
-	height: 30px;
-	margin-top: 5px;
+	height: 20px;
+	margin-top: 10px;
 
 }
 .dizhi3-1 textarea{
 	width: 100%;
-	height: 30px;
-	line-height: 30px;
+	font-size: 14px;
+	height: 20px;
+	line-height: 20px;
 	list-style: none;
 	outline-style: none;
 	border: 0;
@@ -848,19 +843,15 @@ label{
 	width: 100%;
 	height: 100%;
 	position: absolute;
-	/* display: none; */
-	z-index: 0;
+	display: none;
 	background: white;
-	overflow: auto;
 }
 #box11{
 	width: 100%;
 	height: 100%;
 	position: absolute;
-	/* display: none; */
-	z-index: 0;
+	display: none;
 	background: white;
-	overflow: auto;
 }
 .box10_1{
 	width: 100%;
@@ -950,16 +941,12 @@ label{
 #box101{
 	width: 100%;
 	float: left;
-	/* height: 80%; */
 	margin-top: 40px;
-	overflow: auto;
 }
 #box111{
 	width: 100%;
 	float: left;
-	/* height: 80%; */
 	margin-top: 40px;
-	overflow: auto;
 }
 .kbai{
 	width: 100%;
@@ -984,10 +971,10 @@ input[disabled],input:disabled,input.disabled{
  ::-webkit-input-placeholder {
   color: black;
 }
-:-moz-placeholder {
+:-moz-placeholder {/* Firefox 18- */
    color: black;
 }
-::-moz-placeholder{
+::-moz-placeholder{/* Firefox 19+ */
   color: black;
 }
 :-ms-input-placeholder {
