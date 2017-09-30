@@ -52,7 +52,7 @@
 				<div class="center_4">
 					<div class="wenzi">包装</div>
 					<div class="text1">
-						<input type="text" placeholder="必填项" class="baozhuang" disabled="disabled">
+						<input type="text" placeholder="必填项" class="baozhuang" disabled="disabled" style="color: black;">
 					</div>
 				</div>
 				<div class="center_5">
@@ -79,7 +79,7 @@
 				<div class="foot2">
 					<div class="wenzi">付款方式</div>
 					<div class="text2">
-						<input type="text" placeholder="必填项" class="money" disabled="disabled">
+						<input type="text" placeholder="必填项" class="money" disabled="disabled" style="color: black;">
 					</div>
 				</div>
 			</div>
@@ -167,10 +167,10 @@
 				<div class="qx5">取消</div>
 			</div>
 			<div id="box101">
-				<div style="clear:both;"></div>
+			
 			</div>
 			<div class="box10_2" id="subaddress2">确认</div>
-			<div style="clear:both;"></div>
+			
 		</div>
 		<!-- box3 -->
 		<div class="box3">
@@ -252,7 +252,7 @@
 				<div class="qx6">取消</div>
 			</div>
 			<div id="box111">
-			
+				
 			</div>
 			<div class="box11_2" id="subaddress4">确认</div>
 		</div>
@@ -477,10 +477,8 @@
 		$(document).ready(function() {
 			$(".top2").on("click", function() {
 				loadaccept(openid,tenant_id);
-			
 				$(".box3").css("z-index", "100");
 				$(".box").css("z-index", "10");
-	
 			})
 		})
 	</script>
@@ -830,7 +828,7 @@
 					success: function(msg) {
 					  layer.msg("修改地址成功");
 						loadsend(openid,tenant_id);
-						$(".box7").css("z-index", "10");
+							$(".box7").css("z-index", "10");
 						// $("#box10").css("display", "block");
 						$("#box10").css("z-index", "100");
 					},
@@ -987,7 +985,7 @@
 					success: function(msg) {
 					  layer.msg("修改地址成功");
 						loadaccept(openid,tenant_id);
-						$(".box8").css("z-index", "10");
+					$(".box8").css("z-index", "10");
 						// $("#box11").css("display", "block");
 						$("#box11").css("z-index", "100");
 					},
@@ -1005,7 +1003,8 @@
 		$("#subaddress3").on("click", function() {
 			var name_1 = $(".name_1").val();
 			var phone_1 = $(".phone_1").val();
-			var cit = $("#city1").val();
+			var cit =$('#city1 option:selected').val();
+			var cit_v=$('#city1 option:selected').text();
 			var dizhi_1 = $("#dizhi_1").val();
 			var province_1 =$("#province1").val();
 
@@ -1040,9 +1039,10 @@
 					}),
 					success: function(msg) {
 				  layer.msg("添加地址成功");
-				  		$(".shuru").html(dizhi_1);
+				  		$(".shuru").html(cit_v+ dizhi_1);
+				  		customer_send_id=msg.customer_id;
 						loadsend(openid,tenant_id);
-						$(".box2").css("z-index", "10");
+					$(".box2").css("z-index", "10");
 						$(".box").css("z-index", "100");
 					},
 					error: function(xhr) {
@@ -1057,7 +1057,8 @@
 		$("#subaddress5").on("click", function() {
 			var name_2 = $(".name_2").val();
 			var phone_2 = $(".phone_2").val();
-			var cit1 = $("#city2").val();
+			var cit1 = $('#city2 option:selected').val();
+			var cit1_v=$('#city2 option:selected').text();
 			var dizhi_2 = $("#dizhi_2").val();
 			var province_2 =$("#province2").val();
 			if(!/^1[34578]\d{9}$/.test(phone_2)) {
@@ -1091,7 +1092,8 @@
 					}),
 					success: function(msg) {
 					  layer.msg("添加地址成功");
-					    $(".shuru1").html(dizhi_2);
+					  customer_accept_id=msg.customer_id;
+					    $(".shuru1").html(cit1_v+ dizhi_2);
 						loadaccept(openid,tenant_id);
 						$(".box3").css("z-index", "10");
 						$(".box").css("z-index", "100");
@@ -1215,5 +1217,8 @@
 			// $("#box11").css("display","block");
 			$("#box11").css("z-index", "100");
 		})
+$(document).ready(function(){
+　　$('body').height($('body')[0].clientHeight);
+});
 	</script>
 </html>
