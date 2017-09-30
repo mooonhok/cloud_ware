@@ -238,7 +238,7 @@ $app->post('/onewxaddress',function()use($app){
     $app->response->headers->set("Access-Control-Allow-Methods", "POST");
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
-    	$body=$app->request->getBody();
+    $body=$app->request->getBody();
     $body=json_decode($body);
     $wx_openid=$body->wx_openid;
     $customer_id=$body->customer_id; 
@@ -606,7 +606,7 @@ $app->post('/plus_customer',function()use($app){
 //                       ->where('tenant_id','=',$tenant_id);
 //                   $stmt = $selectStatement->execute();
 //                   $data2 = $stmt->fetchAll();
-                   echo json_encode(array("result"=>"1","desc"=>"success"));
+                   echo json_encode(array("result"=>"1","desc"=>"success",'customer_id'=>count($data2)+10000001));
                }else{
                    echo json_encode(array("result"=>"2","desc"=>"添加未执行"));
                }
