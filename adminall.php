@@ -63,16 +63,34 @@ $app->get('/dbadmin',function()use($app){
         ->where('customer_id','=',$data['receiver_id']);
     $stmt=$selectStament->execute();
     $data2=$stmt->fetch();
+    $arrays2['customer_id']=$data2['customer_id'];
+    $arrays2['customer_name']=$data2['customer_name'];
+    $arrays2['customer_phone']=$data2['customer_phone'];
     $selectStament=$database->select()
         ->from('tenant')
         ->where('tenant_id','=',$data['tenant_id']);
     $stmt=$selectStament->execute();
     $data3=$stmt->fetch();
+    $arrays3['tenant_id']=$data3['tenant_id'];
+    $arrays3['company']=$data3['company'];
+    $arrays3['address']=$data3['address'];
+    $selectStament=$database->select()
+        ->from('customer')
+        ->where('customer_id','=',$data3['contact_id']);
+    $stmt=$selectStament->execute();
+    $data32=$stmt->fetch();
+    $arrays3['contact_id']=$data3['contact_id'];
+    $arrays3['contant_name']=$data32['customer_name'];
+    $arrays3['contant_tel']=$data32['customer_phone'];
     $selectStament=$database->select()
         ->from('lorry')
         ->where('lorry_id','=',$data['lorry_id']);
     $stmt=$selectStament->execute();
     $data4=$stmt->fetch();
+    $arrays4['lorry_id']=$data4['lorry_id'];
+    $arrays4['plate_number']=$data4['plate_number'];
+    $arrays4['driver_name']=$data4['driver_name'];
+    $arrays4['driver_phone']=$data4['driver_phone'];
     if($data!=null||$data!=""){
         $selectStament=$database->select()
             ->from('schedule_order')
@@ -82,21 +100,50 @@ $app->get('/dbadmin',function()use($app){
         if($data5!=null||$data5!=""){
             for($x=0;$x<count($data5);$x++){
                 $selectStament=$database->select()
-                    ->from('order')
+                    ->from('orders')
                     ->where('order_id','=',$data5[$x]['order_id']);
                 $stmt=$selectStament->execute();
                 $data6=$stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('customer')
+                    ->where('customer_id','=',$data6['sender_id']);
+                $stmt=$selectStament->execute();
+                $data62=$stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('city')
+                    ->where('id','=',$data62['customer_city_id']);
+                $stmt=$selectStament->execute();
+                $data622=$stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('customer')
+                    ->where('customer_id','=',$data6['receiver_id']);
+                $stmt=$selectStament->execute();
+                $data63=$stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('city')
+                    ->where('id','=',$data63['customer_city_id']);
+                $stmt=$selectStament->execute();
+                $data632=$stmt->fetch();
                 $selectStament=$database->select()
                     ->from('goods')
                     ->where('order_id','=',$data5[$x]['order_id']);
                 $stmt=$selectStament->execute();
                 $data7=$stmt->fetch();
-                $arrays1['order']=$data6;
-                $arrays1['goods']=$data7;
+                $arrays1['order_id']=$data6['order_id'];
+               $arrays1['sender_id']=$data62['customer_id'];
+               $arrays1['sender_phone']=$data62['customer_phone'];
+               $arrays1['sender_name']=$data62['customer_name'];
+               $arrays1['sendcity']=$data622['name'];
+               $arrays1['receiver_id']=$data63['customer_id'];
+               $arrays1['receiver_name']=$data63['customer_name'];
+               $arrays1['receiver_phone']=$data63['receiver_phone'];
+                $arrays1['receiver_city']=$data632['name'];
+                $arrays1['goods_id']=$data7['goods_id'];
+                $arrays1['goods_name']=$data7['goods_name'];
                 array_push($array,$arrays1);
             }
-            echo json_encode(array('result' => '0', 'desc' => '','scheduling_order'=>$array,'scheduling_receive'=>$data2,'scheduling_tenant_id'=>$data3,
-                 'scheduling_lorry_id'=>$data4));
+            echo json_encode(array('result' => '0', 'desc' => '','scheduling_order'=>$array,'scheduling_receive'=>$arrays2,'scheduling_tenant_id'=>$arrays3,
+                 'scheduling_lorry_id'=>$arrays4));
         }else{
             echo json_encode(array('result' => '2', 'desc' => '清单没有关联运单'));
         }
