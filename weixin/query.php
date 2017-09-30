@@ -137,7 +137,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="center">
 			<div   class="center1">运单号</div>
 			<div class="center2"><input id="order_id" type="number" placeholder="请输入运单号" pattern="[0-9]*"></div>
-			<div class="center3" id="saoman"><img src="images/saoma.png" alt=""></div>
+<!--			<div class="center3" id="saoman"><img src="images/saoma.png" alt=""></div>-->
 		</div>
 		<div  id="sumbit"  class="foot">
 			查   询
@@ -151,7 +151,7 @@ $signPackage = $jssdk->GetSignPackage();
 <script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
 <script type="text/javascript" src="layer/layer.js"></script>
 <script>
-	alert(location.href.split('#')[0]);
+//	alert(location.href.split('#')[0]);
 		(function($) {
 			$.getUrlParam = function(name) {
 				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
