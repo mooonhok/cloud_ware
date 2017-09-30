@@ -114,9 +114,6 @@ class wechatCallbackapiTest
          //       echo '123456';
                 $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news',$ArticleCount,"公司介绍","万事鑫公司专业从事物流运输行业","http://api.uminfo.cn/timg.jpg","http://api.uminfo.cn/weixin/jiangsuyouming.html");
                 echo $resultStr;
-            }else{
-                $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news',$ArticleCount,"公司介绍","万事鑫公司专业从事物流运输行业","http://api.uminfo.cn/timg.jpg","http://api.uminfo.cn/weixin/jiangsuyouming.html");
-                echo $resultStr;
             }
 
             if(!empty( $keyword ))
