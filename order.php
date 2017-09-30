@@ -1299,7 +1299,7 @@ $app->get('/orders_goods_customer', function () use ($app) {
                 $array['goods']=$data3;
                 $selectStatement = $database->select()
                     ->from('customer')
-                    ->where('exist', "=", 0)
+//                    ->where('exist', "=", 0)
                     ->where('customer_id','=',$data2['sender_id'])
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
@@ -1318,7 +1318,7 @@ $app->get('/orders_goods_customer', function () use ($app) {
                 $array['sender_province']=$data7;
                 $selectStatement = $database->select()
                     ->from('customer')
-                    ->where('exist', "=", 0)
+//                    ->where('exist', "=", 0)
                     ->where('customer_id','=',$data2['receiver_id'])
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
