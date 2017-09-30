@@ -467,14 +467,8 @@
 		$(document).ready(function() {
 			$(".top1").on("click", function() {
 				loadsend(openid,tenant_id);
-				$(".box2").css("display", "block");
 				$(".box2").css("z-index", "100");
-				$(".box").css("display","none");
-				// $(".box10_1_1").on("click", function() {
-				// 	$("#box10").css("display", "none");
-				// 	$(".box2").css("display", "block");
-				// 	$(".box2").css("z-index", "100");
-				// })
+				$(".box").css("z-index","10");
 			})
 		})
 	</script>
@@ -484,14 +478,8 @@
 		$(document).ready(function() {
 			$(".top2").on("click", function() {
 				loadaccept(openid,tenant_id);
-				$(".box3").css("display", "block");
 				$(".box3").css("z-index", "100");
-				$(".box").css("display","none");
-				// $(".box11_1_1").on("click", function() {
-				// 	$(".box3").css("display", "block");
-				// 	$(".box3").css("z-index", "100");
-				// 	$("#box11").css("display", "none");
-				// })
+				$(".box").css("z-index", "10");
 			})
 		})
 	</script>
@@ -760,9 +748,9 @@
 						$("#subaddress2").on('click', function() {
 							customer_send_id = $("input[class='rad1']:checked").val();
 							$(".shuru").html($("input[class='rad1']:checked").parent().prev().prev().text());
-							$(".box2").css("display","none");
-							$("#box10").css("display", "none");
-							$(".box").css("display","block");
+							$(".box2").css("z-index", "10");
+							$("#box10").css("z-index", "10");
+							$(".box").css("z-index", "100");
 						});
 					}
 				}
@@ -800,8 +788,8 @@
 						alert("获取数据失败");
 					}
 				});
-				$(".box7").css("display","block");
-				$("#box10").css("display", "none");
+				$(".box7").css("z-index","100");
+				$("#box10").css("z-index", "10");
 			$("#subaddress10").on("click",function(){
 			var name_3 = $("#name_1").val();
 			var phone_3 = $("#phone_1").val();
@@ -841,8 +829,8 @@
 					success: function(msg) {
 					  layer.msg("修改地址成功");
 						loadsend(openid,tenant_id);
-						$(".box7").css("display", "none");
-						$("#box10").css("display", "block");
+							$(".box7").css("z-index", "10");
+						// $("#box10").css("display", "block");
 						$("#box10").css("z-index", "100");
 					},
 					error: function(xhr) {
@@ -915,9 +903,9 @@
 							customer_accept_id = $("input[class='rad2']:checked").val();
 							if(customer_accept_id != customer_send_id) {
 								$(".shuru1").html($("input[class='rad2']:checked").parent().prev().prev().text());
-								$(".box3").css("display","none");
-								$("#box11").css("display", "none");
-								$(".box").css("display","block");
+								$(".box3").css("z-index", "10");
+								$("#box11").css("z-index", "10");
+								$(".box").css("z-index", "100");
 							} else {
 								layer.msg("寄件人不能和收件人相同");
 							}
@@ -998,8 +986,8 @@
 					success: function(msg) {
 					  layer.msg("修改地址成功");
 						loadaccept(openid,tenant_id);
-						$(".box8").css("display", "none");
-						$("#box11").css("display", "block");
+					$(".box8").css("z-index", "10");
+						// $("#box11").css("display", "block");
 						$("#box11").css("z-index", "100");
 					},
 					error: function(xhr) {
@@ -1055,8 +1043,8 @@
 				  		$(".shuru").html(cit_v+ dizhi_1);
 				  		customer_send_id=msg.customer_id;
 						loadsend(openid,tenant_id);
-						$(".box2").css("display", "none");
-						$(".box").css("display","block");
+					$(".box2").css("z-index", "10");
+						$(".box").css("z-index", "100");
 					},
 					error: function(xhr) {
 						alert("获取数据失败");
@@ -1108,8 +1096,8 @@
 					  customer_accept_id=msg.customer_id;
 					    $(".shuru1").html(cit1_v+ dizhi_2);
 						loadaccept(openid,tenant_id);
-						$(".box3").css("display", "none");
-						$(".box").css("display","block");
+						$(".box3").css("z-index", "10");
+						$(".box").css("z-index", "100");
 					},
 					error: function(xhr) {
 						alert("获取数据失败");
@@ -1191,21 +1179,21 @@
 	</script>
 	<script type="text/javascript">
 		$(".qx").on("click", function() {
-			$(".box2").css("display", "none");
-			$(".box").css("display", "block");
+			$(".box2").css("z-index", "10");
+			$(".box").css("z-index", "100");
 		})
 		$(".qx10").on("click", function() {
-			$(".box7").css("display", "none");
-			$("#box10").css("display", "block");
+			$(".box7").css("z-index", "10");
+			// $("#box10").css("display", "block");
 			$("#box10").css("z-index", "100");
 		})
 		$(".qx1").on("click", function() {
-			$(".box3").css("display", "none");
-			$(".box").css("display", "block");
+			$(".box3").css("z-index", "10");
+			$(".box").css("z-index", "100");
 		})
 		$(".qx11").on("click", function() {
-			$(".box8").css("display", "none");
-			$("#box11").css("display", "block");
+			$(".box8").css("z-index", "10");
+			// $("#box11").css("display", "block");
 			$("#box11").css("z-index", "100");
 		})
 		$(".qx2").on("click", function() {
@@ -1215,19 +1203,19 @@
 			$(".box6").css("display", "none");
 		})
 		$(".qx6").on("click", function() {
-			$("#box11").css("display", "none");
-			$(".box").css("display","block");
+			$("#box11").css("z-index", "10");
+			$(".box").css("z-index", "100");
 		})
 		$(".qx5").on("click", function() {
-			$("#box10").css("display", "none");
-			$(".box").css("display","block");
+			$("#box10").css("z-index", "10");
+			$(".box").css("z-index", "100");
 		})
 		$(".ls").on("click",function(){
-			$("#box10").css("display","block");
+			// $("#box10").css("display","block");
 			$("#box10").css("z-index", "100");
 		})
 		$(".ls1").on("click",function(){
-			$("#box11").css("display","block");
+			// $("#box11").css("display","block");
 			$("#box11").css("z-index", "100");
 		})
 	</script>
