@@ -57,6 +57,8 @@ $app->post('/wxmessage_insert',function()use($app){
                                                             if($goods_count!=''||$goods_count!=null){
                                                                     if($good_worth!=''||$good_worth!=null){
                                                                             if($wx_openid!=''||$wx_openid!=null){
+                                                                                date_default_timezone_set("PRC");
+                                                                                $shijian=date("Y-m-d H:i:s",time());
                                                                                 $selectStatement = $database->select()
                                                                                     ->from('customer')
                                                                                     ->where('tenant_id','=',$tenant_id)
@@ -97,9 +99,9 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                                     $stmt = $selectStatement->execute();
                                                                                                     $data4= $stmt->fetchAll();
                                                                                                 }while($data4!=null);
-                                                                                    $insertStatement = $database->insert(array('order_id', 'tenant_id', 'pay_method','exist','order_status','sender_id','order_source','receiver_id'))
+                                                                                    $insertStatement = $database->insert(array('order_id', 'tenant_id', 'pay_method','exist','order_status','sender_id','order_source','receiver_id','order_datetime0'))
                                                                                         ->into('orders')
-                                                                                        ->values(array($str,$tenant_id, $pay_method,0,-2,$data["customer_id"],1,$data1['customer_id']));
+                                                                                        ->values(array($str,$tenant_id, $pay_method,0,-2,$data["customer_id"],1,$data1['customer_id'],$shijian));
                                                                                     $insertId = $insertStatement->execute(false);
                                                                                     if($insertId!=null){
 //                                                                                        $selectStatement = $database->select()
@@ -132,8 +134,7 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                         $stmt = $selectStatement->execute();
                                                                                         $data6 = $stmt->fetch();
                                                                                         if($data6!=null){
-                                                                                            date_default_timezone_set("PRC");
-                                                                                            $shijian=date("Y-m-d H:i:s",time());
+
                                                                                             $insertStatement = $database->insert(array('order_id', 'tenant_id', 'message_id','exist','from_user','mobilephone','is_read','ms_date','title'))
                                                                                                 ->into('wx_message')
                                                                                                 ->values(array($str,$tenant_id, $str1,0,$data6['customer_name'],$data6["customer_phone"],0,$shijian,'消息'));
