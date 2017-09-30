@@ -116,7 +116,6 @@ $app->get('/to_one_insurance',function ()use($app){
 //            $array1['goods']=$array3;
 //            array_push($array2,$array1);
 //        }
-//
 //    }
     echo json_encode(array('result'=>'1','desc'=>'success','lorrys'=>$array2));
 });
