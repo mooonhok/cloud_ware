@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-18 09:58:43
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-09-29 17:03:33
+* @Last Modified time: 2017-10-08 14:45:57
 */
 *{
 	margin: 0;padding: 0;
@@ -517,15 +517,18 @@ html,body{height:100%; width:100%;
 
 .name{
 	float: left;
-	width: 30%;
+	width: 60%;
 	height: 30px;
 	line-height: 30px;
 	margin-left: 3%;
 	font-size: 15px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .phone{
 	float: right;
-	width: 60%;
+	width: 35%;
 	height: 30px;
 	line-height: 30px;
 	text-align: right;
@@ -710,13 +713,13 @@ html,body{height:100%; width:100%;
 }
 .name2 input{
 	width: 100%;
-	height: 20px;
+	height: 30px;
 	list-style: none;
 	outline-style: none;
 	border: 0;
 	display: inline-block;
 	float: left;
-	margin-top: 10px;
+	margin-top: 5px;
 	text-align: center;
 	font-size: 18px;
 }
@@ -735,13 +738,13 @@ html,body{height:100%; width:100%;
 }
 .phone2 input{
 	width: 100%;
-	height: 20px;
+	height: 30px;
 	list-style: none;
 	outline-style: none;
 	border: 0;
 	display: inline-block;
 	float: left;
-	margin-top: 10px;
+	margin-top: 5px;
 	text-align: center;
 	font-size: 18px;
 }
@@ -773,15 +776,15 @@ select{
 .dizhi3-1{
 	width: 100%;
 	float: left;
-	height: 20px;
-	margin-top: 10px;
+	height: 30px;
+	margin-top: 5px;
 
 }
 .dizhi3-1 textarea{
 	width: 100%;
 	font-size: 14px;
-	height: 20px;
-	line-height: 20px;
+	height: 30px;
+	line-height: 30px;
 	list-style: none;
 	outline-style: none;
 	border: 0;
@@ -916,6 +919,30 @@ label{
 	color: white;
 }
 .qx5{
+	width: 10%;
+	float: right;
+	text-align: center;
+	height: 20px;
+	line-height: 20px;
+	background: #24D9C9;
+	margin-top: 5px;
+	margin-right: 5px;
+	border-radius: 5px;
+	color: white;
+}
+.qx10{
+	width: 10%;
+	float: right;
+	text-align: center;
+	height: 20px;
+	line-height: 20px;
+	background: #24D9C9;
+	margin-top: 5px;
+	margin-right: 5px;
+	border-radius: 5px;
+	color: white;
+}
+.qx11{
 	width: 10%;
 	float: right;
 	text-align: center;
