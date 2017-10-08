@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-08-18 09:58:43
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-10-08 14:45:57
+* @Last Modified time: 2017-10-08 15:04:56
 */
 *{
 	margin: 0;padding: 0;
@@ -524,15 +524,14 @@ html,body{height:100%; width:100%;
 	font-size: 15px;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	white-space: nowrap;
 }
 .phone{
-	float: right;
+	float: left;
+	margin-left: 4%;
 	width: 35%;
 	height: 30px;
 	line-height: 30px;
 	text-align: right;
-	margin-right: 3%;
 	font-size: 15px;
 }
 .dizhi{
@@ -606,12 +605,10 @@ html,body{height:100%; width:100%;
 	float: left;
 	margin-top: 3px;
 }
-
 .box2-1{
 	width: 100%;
 	height: 250px;
 	background: white;
-	
 }
 .jj{
 	width: 100%;
@@ -629,6 +626,15 @@ html,body{height:100%; width:100%;
 	float: left;
 	text-align: center;
 	color: white;
+}
+.jj2{
+	width: 40%;
+	height: 40px;
+	line-height: 40px;
+	float: left;
+	text-align: center;
+	color: white;
+	margin-left: 30%;
 }
 .qx{
 	width: 10%;
