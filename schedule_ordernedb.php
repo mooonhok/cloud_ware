@@ -1,0 +1,80 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Administrator
+ * Date: 2017/9/27
+ * Time: 14:39
+ */
+require 'Slim/Slim.php';
+require 'connect.php';
+
+\Slim\Slim::registerAutoloader();
+$app = new \Slim\Slim();
+
+$app->post('/addScheduleOrder',function()use($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $scheduling_id = $body->scheduling_id;
+    $order_id= $body->order_id;
+    $array = array();
+    foreach ($body as $key => $value) {
+        $array[$key] = $value;
+    }
+    if($scheduling_id!=null||$scheduling_id!=''){
+        if($order_id!=null||$order_id!=''){
+            $array['tenant_id']=$tenant_id;
+            $array['exist']=0;
+            $insertStatement = $database->insert(array_keys($array))
+                ->into('schedule_order')
+                ->values(array_values($array));
+            $insertId = $insertStatement->execute(false);
+            echo json_encode(array("result" => "0", "desc" => "success"));
+        }else{
+            echo json_encode(array("result" => "1", "desc" => "缺少运单id"));
+        }
+    }else{
+        echo json_encode(array("result" => "2", "desc" => "缺少租户id"));
+    }
+});
+
+$app->get('/getScheduleOrders0',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('schedule_order')
+            ->where('tenant_id', '=', $tenant_id);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        echo json_encode(array("result" => "0", "desc" => "success",'schedule_order'=>$data));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
+$app->get('/getScheduleOrders1',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('schedule_order')
+            ->where('tenant_id', '=', $tenant_id)
+            ->where('exist', '=', 0);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        echo json_encode(array("result" => "0", "desc" => "success",'schedule_order'=>$data));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
+$app->run();
+function localhost(){
+    return connect();
+}
+?>
