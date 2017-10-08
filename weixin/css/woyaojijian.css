@@ -520,7 +520,7 @@ html,body{height:100%; width:100%;
 	width: 60%;
 	height: 30px;
 	line-height: 30px;
-	margin-left: 3%;
+	margin-left: 1%;
 	font-size: 15px;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -528,7 +528,7 @@ html,body{height:100%; width:100%;
 .phone{
 	float: left;
 	margin-left: 4%;
-	width: 35%;
+	width: 34%;
 	height: 30px;
 	line-height: 30px;
 	text-align: right;
