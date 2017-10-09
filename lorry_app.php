@@ -519,8 +519,8 @@ $app->get('/obycourier',function()use($app){
                        $data5=$stmt->fetch();
                        $arrays1['customer_name']=$data5['customer_name'];
                        array_push($arrays,$arrays1);
-                    echo json_encode(array('result' => '0', 'desc' => '','orders'=>$arrays));
             }
+             echo json_encode(array('result' => '0', 'desc' => '','orders'=>$arrays));
          }else{
              echo json_encode(array('result' => '3', 'desc' => '配送员没有配送记录'));
          }
@@ -576,10 +576,10 @@ $app->get('/obycouriern',function()use($app){
                     $data5=$stmt->fetch();
                     $arrays1['customer_name']=$data5['customer_name'];
                     array_push($arrays,$arrays1);
-                    echo json_encode(array('result' => '0', 'desc' => '','orders'=>$arrays));
                 }
+                echo json_encode(array('result' => '0', 'desc' => '','orders'=>$arrays));
             }else{
-                echo json_encode(array('result' => '3', 'desc' => '配送员没有配送记录'));
+                echo json_encode(array('result' => '3', 'desc' => '配送员没有送到的配送记录'));
             }
         }else{
             echo json_encode(array('result' => '2', 'desc' => '配送员不存在'));
