@@ -178,7 +178,7 @@ $app->post('/lorrysign',function()use($app){
         echo json_encode(array('result' => '5', 'desc' => '未选择登录类型','lorry'=>''));
     }
 });
-//获取司机的清单列表
+//获取司机的未确认清单列表
 $app->get('/sbylorry',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -205,6 +205,7 @@ $app->get('/sbylorry',function()use($app){
                     ->from('scheduling')
                     ->join('customer','scheduling.receiver_id','=','customer.customer_id','INNER')
                     ->where('lorry_id','=',$data2[$x]['lorry_id'])
+                    ->where('is_sure','=',0)
                     ->orderBy('scheduling_datetime','desc');
                 $stmt=$selectStament->execute();
                 $data3=$stmt->fetchAll();
@@ -222,7 +223,51 @@ $app->get('/sbylorry',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '司机信息为空','sch'=>''));
     }
 });
-
+//获取司机的已确认清单列表
+$app->get('/sbylorryn',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $lorry_id = $app->request->get("lorry_id");
+    $database=localhost();
+    $arrays=array();
+    if($lorry_id!=null||$lorry_id!=""){
+        $selectStament=$database->select()
+            ->from('lorry')
+            ->where('exist','=',0)
+            ->where('lorry_id','=',$lorry_id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetch();
+        if($data!=null||$data!=""){
+            $selectStament=$database->select()
+                ->from('lorry')
+                ->where('plate_number','=',$data['plate_number'])
+                ->where('driver_phone','=',$data['driver_phone'])
+                ->where('driver_name','=',$data['driver_name']);
+            $stmt=$selectStament->execute();
+            $data2=$stmt->fetchAll();
+            for($x=0;$x<count($data2);$x++){
+                $selectStament=$database->select()
+                    ->from('scheduling')
+                    ->join('customer','scheduling.receiver_id','=','customer.customer_id','INNER')
+                    ->where('lorry_id','=',$data2[$x]['lorry_id'])
+                    ->where('is_sure','=',1)
+                    ->orderBy('scheduling_datetime','desc');
+                $stmt=$selectStament->execute();
+                $data3=$stmt->fetchAll();
+                for($i=0;$i<count($data3);$i++){
+                    $arrays1['scheduling_id']=$data3[$i]['scheduling_id'];
+                    $arrays1['customer_name']=$data3[$i]['customer_name'];
+                    array_push($arrays,$arrays1);
+                }
+            }
+            echo json_encode(array('result' => '0', 'desc' => '','sch'=>$arrays));
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '司机不存在','sch'=>''));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '司机信息为空','sch'=>''));
+    }
+});
 
 //根据清单号拿运单的具体信息
 $app->get('/sandoandg',function()use($app){
@@ -387,6 +432,7 @@ $app->put('/suresch',function()use($app){
         $selectStament=$database->select()
             ->from('scheduling')
             ->where('exist','=',0)
+            ->where('is_sure','=',0)
             ->where('scheduling_id','=',$schedule_id);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
