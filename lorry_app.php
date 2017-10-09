@@ -362,7 +362,7 @@ $app->get('/byorderid',function()use($app){
             ->where('id','=',$data5['customer_city_id']);
         $stmt=$selectStament->execute();
         $data8=$stmt->fetch();
-        $arrays['address']=$data8.$data5['customer_address'];
+        $arrays['address']=$data8['name'].$data5['customer_address'];
         if($data!=null||$data!=""){
             echo json_encode(array('result' => '0', 'desc' => '','order'=>$arrays));
         }else{
