@@ -140,7 +140,8 @@ $app->post('/lorrysign',function()use($app){
                 $data=$stmt->fetch();
                 if($data!=null||$data!=""){
                     if($data['password']==$password){
-                        echo json_encode(array('result' => '0', 'desc' => '登录成功','lorry'=>$data));
+                        $arrays['lorry_id']=$data['lorry_id'];
+                        echo json_encode(array('result' => '0', 'desc' => '登录成功','lorry'=>$arrays));
                     }else{
                         echo json_encode(array('result' => '3', 'desc' => '密码错误','lorry'=>''));
                     }
@@ -158,9 +159,11 @@ $app->post('/lorrysign',function()use($app){
                     ->where('courier_phone','=',$driver_phone);
                 $stmt=$selectStament->execute();
                 $data=$stmt->fetch();
+
                 if($data!=null||$data!=""){
                     if($data['password']==$password){
-                        echo json_encode(array('result' => '0', 'desc' => '登录成功','lorry'=>$data));
+                        $arrays['lorry_id']=$data['courier_id'];
+                        echo json_encode(array('result' => '0', 'desc' => '登录成功','lorry'=>$arrays));
                     }else{
                         echo json_encode(array('result' => '3', 'desc' => '密码错误','lorry'=>''));
                     }
@@ -487,7 +490,6 @@ $app->put('/ordersure',function()use($app){
                 ->where('order_id','=',$order_id);
             $stmt=$selectStament->execute();
             $data=$stmt->fetch();
-
            if($data!=null||$data!=""){
                $selectStament=$database->select()
                    ->from('delivery_order')
@@ -515,10 +517,10 @@ $app->put('/ordersure',function()use($app){
                        $insertId = $insertStatement->execute(false);
                        echo json_encode(array('result' => '0', 'desc' => '确认成功'));
                }else{
-                       echo json_encode(array('result' => '5', 'desc' => '运单已经配送'));
+                       echo json_encode(array('result' => '5', 'desc' => '配送员不存在'));
                }
                }else{
-                   echo json_encode(array('result' => '4', 'desc' => '配送员不存在'));
+                   echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
                }
            }else{
                echo json_encode(array('result' => '3', 'desc' => '运单不存在'));
