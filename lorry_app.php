@@ -493,6 +493,7 @@ $app->get('/obycourier',function()use($app){
          $selectStament=$database->select()
              ->from('delivery')
              ->where('exist','=',0)
+             ->where('is_receive','=',0)
              ->where('courier_id','=',$courier_id);
          $stmt=$selectStament->execute();
          $data2=$stmt->fetchAll();
@@ -503,9 +504,7 @@ $app->get('/obycourier',function()use($app){
                     ->where('exist','=',0)
                     ->where('delivery_id','=',$data2[$x]['delivery_id']);
                 $stmt=$selectStament->execute();
-                $data3=$stmt->fetchAll();
-                if($data3!=null||$data3!=""){
-                   for($y=0;$y<count($data3);$y++){
+                $data3=$stmt->fetch();
                        $selectStament=$database->select()
                            ->from('orders')
                            ->where('order_status','!=',5)
@@ -520,11 +519,7 @@ $app->get('/obycourier',function()use($app){
                        $data5=$stmt->fetch();
                        $arrays1['customer_name']=$data5['customer_name'];
                        array_push($arrays,$arrays1);
-                   }
                     echo json_encode(array('result' => '0', 'desc' => '','orders'=>$arrays));
-                }else{
-                    echo json_encode(array('result' => '4', 'desc' => '没有配送记录'));
-                }
             }
          }else{
              echo json_encode(array('result' => '3', 'desc' => '配送员没有配送记录'));
@@ -555,6 +550,7 @@ $app->get('/obycouriern',function()use($app){
             $selectStament=$database->select()
                 ->from('delivery')
                 ->where('exist','=',0)
+                ->where('is_receive','=',1)
                 ->where('courier_id','=',$courier_id);
             $stmt=$selectStament->execute();
             $data2=$stmt->fetchAll();
@@ -565,28 +561,22 @@ $app->get('/obycouriern',function()use($app){
                         ->where('exist','=',0)
                         ->where('delivery_id','=',$data2[$x]['delivery_id']);
                     $stmt=$selectStament->execute();
-                    $data3=$stmt->fetchAll();
-                    if($data3!=null||$data3!=""){
-                        for($y=0;$y<count($data3);$y++){
-                            $selectStament=$database->select()
-                                ->from('orders')
-                                ->where('order_status','=',5)
-                                ->where('order_id','=',$data3[$y]['delivery_order_id']);
-                            $stmt=$selectStament->execute();
-                            $data4=$stmt->fetch();
-                            $arrays1['order_id']=$data4['order_id'];
-                            $selectStament=$database->select()
-                                ->from('customer')
-                                ->where('customer_id','=',$data4['receiver_id']);
-                            $stmt=$selectStament->execute();
-                            $data5=$stmt->fetch();
-                            $arrays1['customer_name']=$data5['customer_name'];
-                            array_push($arrays,$arrays1);
-                        }
-                        echo json_encode(array('result' => '0', 'desc' => '','orders'=>$arrays));
-                    }else{
-                        echo json_encode(array('result' => '4', 'desc' => '没有配送记录'));
-                    }
+                    $data3=$stmt->fetch();
+                    $selectStament=$database->select()
+                        ->from('orders')
+                        ->where('order_status','!=',5)
+                        ->where('order_id','=',$data3[$y]['delivery_order_id']);
+                    $stmt=$selectStament->execute();
+                    $data4=$stmt->fetch();
+                    $arrays1['order_id']=$data4['order_id'];
+                    $selectStament=$database->select()
+                        ->from('customer')
+                        ->where('customer_id','=',$data4['receiver_id']);
+                    $stmt=$selectStament->execute();
+                    $data5=$stmt->fetch();
+                    $arrays1['customer_name']=$data5['customer_name'];
+                    array_push($arrays,$arrays1);
+                    echo json_encode(array('result' => '0', 'desc' => '','orders'=>$arrays));
                 }
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '配送员没有配送记录'));
