@@ -418,7 +418,7 @@ $app->get('/obycourier',function()use($app){
     $courier_id=$app->request->get('courierid');
     $database=localhost();
     $arrays=array();
-    if($courier_id==null||$courier_id==""){
+    if($courier_id!=null||$courier_id!=""){
         $selectStament=$database->select()
             ->from('courier')
             ->where('exist','=',0)
