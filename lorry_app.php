@@ -11,8 +11,8 @@ use Slim\PDO\Database;
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
-//app注册司机
-$app->post('/addlorry',function()use($app){
+//app注册司机和派件员
+$app->post('/addlorryaexpress',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
@@ -27,47 +27,88 @@ $app->post('/addlorry',function()use($app){
     for ($x=0;$x<count($str1);$x++){
         $password.=$str1[$x].$x;
     }
-    if($driver_name!=null||$driver_name!=""){
-        if($driver_phone!=null||$driver_phone!=""){
-            if($plate_number!=null||$plate_number!=""){
-                  if($password!=null||$password!=""){
-                      $selectStatement = $database->select()
-                          ->from('lorry')
-                          ->where('exist','=',0)
-                          ->where('driver_phone','=',$driver_phone)
-                          ->where('plate_number','=',$plate_number)
-                          ->where('tenant_id','=',0)
-                          ->where('driver_name', '=', $driver_name);
-                      $stmt = $selectStatement->execute();
-                      $data1 = $stmt->fetch();
-                      if($data1==null||$data1==""){
-                          $selectStatement=$database->select()
-                              ->from('lorry');
-                          $stmt=$selectStatement->execute();
-                          $data2=$stmt->fetch();
-                          $insertStatement = $database->insert(array('lorry_id','driver_name','plate_number','driver_phone','password','exist','tenant_id'))
-                              ->into('lorry')
-                              ->values(array(count($data2)+1,$driver_name,$plate_number,$driver_phone,$password,0,0));
-                          $insertId = $insertStatement->execute(false);
-                          echo json_encode(array('result' => '0', 'desc' => '注册成功','lorry'=>''));
-                      }else{
-                          echo json_encode(array('result' => '5', 'desc' => '该司机已经存在','lorry'=>''));
-                      }
-                  }else{
-                      echo json_encode(array('result' => '4', 'desc' => '密码为空','lorry'=>''));
-                  }
+    $type=$body->type;
+    if($type==0){
+        if($driver_name!=null||$driver_name!=""){
+            if($driver_phone!=null||$driver_phone!=""){
+                if($plate_number!=null||$plate_number!=""){
+                    if($password!=null||$password!=""){
+                        $selectStatement = $database->select()
+                            ->from('lorry')
+                            ->where('exist','=',0)
+                            ->where('driver_phone','=',$driver_phone)
+                            ->where('plate_number','=',$plate_number)
+                            ->where('tenant_id','=',0)
+                            ->where('driver_name', '=', $driver_name);
+                        $stmt = $selectStatement->execute();
+                        $data1 = $stmt->fetch();
+                        if($data1==null||$data1==""){
+                            $selectStatement=$database->select()
+                                ->from('lorry');
+                            $stmt=$selectStatement->execute();
+                            $data2=$stmt->fetch();
+                            $insertStatement = $database->insert(array('lorry_id','driver_name','plate_number','driver_phone','password','exist','tenant_id'))
+                                ->into('lorry')
+                                ->values(array(count($data2)+1,$driver_name,$plate_number,$driver_phone,$password,0,0));
+                            $insertId = $insertStatement->execute(false);
+                            echo json_encode(array('result' => '0', 'desc' => '注册成功','lorry'=>''));
+                        }else{
+                            echo json_encode(array('result' => '5', 'desc' => '该司机已经存在','lorry'=>''));
+                        }
+                    }else{
+                        echo json_encode(array('result' => '4', 'desc' => '密码为空','lorry'=>''));
+                    }
+                }else{
+                    echo json_encode(array('result' => '3', 'desc' => '车牌号为空','lorry'=>''));
+                }
             }else{
-                echo json_encode(array('result' => '3', 'desc' => '车牌号为空','lorry'=>''));
+                echo json_encode(array('result' => '2', 'desc' => '司机电话为空','lorry'=>''));
             }
         }else{
-            echo json_encode(array('result' => '2', 'desc' => '司机电话为空','lorry'=>''));
+            echo json_encode(array('result' => '1', 'desc' => '司机姓名为空','lorry'=>''));
         }
     }else{
-        echo json_encode(array('result' => '1', 'desc' => '司机姓名为空','lorry'=>''));
+        if($driver_name!=null||$driver_name!=""){
+            if($driver_phone!=null||$driver_phone!=""){
+                if($plate_number!=null||$plate_number!=""){
+                    if($password!=null||$password!=""){
+                        $selectStatement = $database->select()
+                            ->from('courier')
+                            ->where('exist','=',0)
+                            ->where('courier_name','=',$driver_name)
+                            ->where('courier_phone','=',$driver_phone)
+                            ->where('courier_plate', '=', $plate_number);
+                        $stmt = $selectStatement->execute();
+                        $data1 = $stmt->fetch();
+                        if($data1==null||$data1==""){
+                            $selectStatement=$database->select()
+                                ->from('courier');
+                            $stmt=$selectStatement->execute();
+                            $data2=$stmt->fetch();
+                            $insertStatement = $database->insert(array('courier_id','courier_name','courier_plate','courier_phone','password','exist'))
+                                ->into('courier')
+                                ->values(array(count($data2)+1,$driver_name,$plate_number,$driver_phone,$password,0));
+                            $insertId = $insertStatement->execute(false);
+                            echo json_encode(array('result' => '0', 'desc' => '注册成功','lorry'=>''));
+                        }else{
+                            echo json_encode(array('result' => '5', 'desc' => '该配件员已经存在','lorry'=>''));
+                        }
+                    }else{
+                        echo json_encode(array('result' => '4', 'desc' => '密码为空','lorry'=>''));
+                    }
+                }else{
+                    echo json_encode(array('result' => '3', 'desc' => '车牌号为空','lorry'=>''));
+                }
+            }else{
+                echo json_encode(array('result' => '2', 'desc' => '司机电话为空','lorry'=>''));
+            }
+        }else{
+            echo json_encode(array('result' => '1', 'desc' => '司机姓名为空','lorry'=>''));
+        }
     }
 });
 
-//司机登录方法
+//登录方法
 $app->post('/lorrysign',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -81,26 +122,50 @@ $app->post('/lorrysign',function()use($app){
     for ($x=0;$x<count($str1);$x++){
         $password.=$str1[$x].$x;
     }
-    if($driver_phone!=null||$driver_phone!=""){
-        $selectStament=$database->select()
-            ->from('lorry')
-            ->where('exist','=',0)
-            ->where('tenant_id','=',0)
-            ->where('driver_phone','=',$driver_phone);
-        $stmt=$selectStament->execute();
-        $data=$stmt->fetch();
-        if($data!=null||$data!=""){
-            if($data['password']==$password){
-                 echo json_encode(array('result' => '0', 'desc' => '登录成功','lorry'=>$data));
+    $type=$body->type;
+    if($type==0){
+        if($driver_phone!=null||$driver_phone!=""){
+            $selectStament=$database->select()
+                ->from('lorry')
+                ->where('exist','=',0)
+                ->where('tenant_id','=',0)
+                ->where('driver_phone','=',$driver_phone);
+            $stmt=$selectStament->execute();
+            $data=$stmt->fetch();
+            if($data!=null||$data!=""){
+                if($data['password']==$password){
+                    echo json_encode(array('result' => '0', 'desc' => '登录成功','lorry'=>$data));
+                }else{
+                    echo json_encode(array('result' => '3', 'desc' => '密码错误','lorry'=>''));
+                }
             }else{
-                echo json_encode(array('result' => '3', 'desc' => '密码错误','lorry'=>''));
+                echo json_encode(array('result' => '2', 'desc' => '该帐号不存在','lorry'=>''));
             }
         }else{
-            echo json_encode(array('result' => '2', 'desc' => '该帐号不存在','lorry'=>''));
+            echo json_encode(array('result' => '1', 'desc' => '电话为空','lorry'=>''));
         }
     }else{
-        echo json_encode(array('result' => '1', 'desc' => '电话为空','lorry'=>''));
+        if($driver_phone!=null||$driver_phone!=""){
+            $selectStament=$database->select()
+                ->from('courier')
+                ->where('exist','=',0)
+                ->where('courier_phone','=',$driver_phone);
+            $stmt=$selectStament->execute();
+            $data=$stmt->fetch();
+            if($data!=null||$data!=""){
+                if($data['password']==$password){
+                    echo json_encode(array('result' => '0', 'desc' => '登录成功','lorry'=>$data));
+                }else{
+                    echo json_encode(array('result' => '3', 'desc' => '密码错误','lorry'=>''));
+                }
+            }else{
+                echo json_encode(array('result' => '2', 'desc' => '该帐号不存在','lorry'=>''));
+            }
+        }else{
+            echo json_encode(array('result' => '1', 'desc' => '电话为空','lorry'=>''));
+        }
     }
+
 });
 //获取司机的清单列表
 $app->get('/sbylorry',function()use($app){
@@ -253,13 +318,27 @@ $app->get('/byorderid',function()use($app){
     $database=localhost();
     if($order_id!=null||$order_id!=""){
         $selectStament=$database->select()
+            ->from('orders')
+            ->where('order_id','=',$order_id);
+        $stmt=$selectStament->execute();
+        $data4=$stmt->fetch();
+        $selectStament=$database->select()
+            ->from('customer')
+            ->where('customer_id','=',$data4['receiver_id']);
+        $stmt=$selectStament->execute();
+        $data5=$stmt->fetch();
+        $selectStament=$database->select()
             ->from('goods')
             ->where('exist','=',0)
             ->where('order_id','=',$order_id);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
+        $arrays['order_id']=$data4['order'];
+        $arrays['customer_name']=$data5['customer_name'];
+        $arrays['customer_phone']=$data5['customer_phone'];
+        $arrays['goods_name']=$data['goods_name'];
         if($data!=null||$data!=""){
-            echo json_encode(array('result' => '0', 'desc' => '','order'=>$data));
+            echo json_encode(array('result' => '0', 'desc' => '','order'=>$arrays));
         }else{
             echo json_encode(array('result' => '2', 'desc' => '运单不存在','order'=>''));
         }
@@ -272,8 +351,10 @@ $app->get('/byorderid',function()use($app){
 $app->put('/suresch',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $schedule_id = $app->request->get("schedule_id");
-    $lorry_id = $app->request->get("lorry_id");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $schedule_id = $body->schedule_id;
+    $lorry_id = $body->lorry_id;
     $database=localhost();
     $arrays['is_sure']=0;
     if($schedule_id!=null||$schedule_id!=""){
@@ -322,9 +403,125 @@ $app->put('/suresch',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '清单号为空'));
     }
 });
+//orders
+$app->get('obycourier',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $courier_id=$app->request->get('courierid');
+    $database=localhost();
+    $arrays=array();
+    if($courier_id==null||$courier_id==""){
+        $selectStament=$database->select()
+            ->from('courier')
+            ->where('exist','=',0)
+            ->where('courier_id','=',$courier_id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetch();
+     if($data!=null||$data!=""){
+         $selectStament=$database->select()
+             ->from('delivery')
+             ->where('exist','=',0)
+             ->where('courier_id','=',$courier_id);
+         $stmt=$selectStament->execute();
+         $data2=$stmt->fetchAll();
+         if($data2!=null||$data2!=""){
+            for($x=0;$x<count($data2);$x++){
+                $selectStament=$database->select()
+                    ->from('delivery_order')
+                    ->where('exist','=',0)
+                    ->where('delivery_id','=',$data2[$x]['delivery_id']);
+                $stmt=$selectStament->execute();
+                $data3=$stmt->fetchAll();
+                if($data3!=null||$data3!=""){
+                   for($y=0;$y<count($data3);$y++){
+                       $selectStament=$database->select()
+                           ->from('orders')
+                           ->where('order_id','=',$data3[$y]['delivery_order_id']);
+                       $stmt=$selectStament->execute();
+                       $data4=$stmt->fetch();
+                       $arrays1['order_id']=$data4['order_id'];
+                       $selectStament=$database->select()
+                           ->from('customer')
+                           ->where('customer_id','=',$data4['receiver_id']);
+                       $stmt=$selectStament->execute();
+                       $data5=$stmt->fetch();
+                       $arrays1['customer_name']=$data5['customer_name'];
+                       array_push($arrays,$arrays1);
+                   }
+                    echo json_encode(array('result' => '0', 'desc' => '','orders'=>$arrays));
+                }else{
+                    echo json_encode(array('result' => '4', 'desc' => '没有配送记录'));
+                }
+            }
+         }else{
+             echo json_encode(array('result' => '3', 'desc' => '配送员没有配送记录'));
+         }
+     }else{
+         echo json_encode(array('result' => '2', 'desc' => '配送员不存在'));
+     }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '配送员为空'));
+    }
+});
+//ordersure
+$app->put('ordersure',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $order_id=$body->order_id;
+    $courier_id=$body->courier_id;
+    $database=localhost();
+    if($order_id!=null||$order_id!=""){
+        if($courier_id!=null||$courier_id!=""){
+            $selectStament=$database->select()
+                ->from('orders')
+                ->where('order_id','=',$order_id);
+            $stmt=$selectStament->execute();
+            $data=$stmt->fetch();
 
-//清单交付
-
+           if($data!=null||$data!=""){
+               $selectStament=$database->select()
+                   ->from('delivery_order')
+                   ->where('delivery_order_id','=',$order_id);
+               $stmt=$selectStament->execute();
+               $data9=$stmt->fetch();
+               if($data9==null||$data9==""){
+                   $selectStament=$database->select()
+                       ->from('courier')
+                       ->where('courier_id','=',$courier_id);
+                   $stmt=$selectStament->execute();
+                   $data2=$stmt->fetch();
+                   if($data2!=null||$data2!=""){
+                       $selectStament=$database->select()
+                           ->from('courier');
+                       $stmt=$selectStament->execute();
+                       $data3=$stmt->fetchAll();
+                       $insertStatement = $database->insert(array('delivery_id','courier_id','delivery_cost','exist','tenant_id'))
+                           ->into('delivery')
+                           ->values(array(count($data3),$courier_id,0,0,$data['tenant_id']));
+                       $insertId = $insertStatement->execute(false);
+                       $insertStatement = $database->insert(array('delivery_order_id','delivery_id','exist','tenant_id'))
+                           ->into('delivery_order')
+                           ->values(array($order_id,count($data3),0,$data['tenant_id']));
+                       $insertId = $insertStatement->execute(false);
+                       echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+               }else{
+                       echo json_encode(array('result' => '5', 'desc' => '运单已经配送'));
+               }
+               }else{
+                   echo json_encode(array('result' => '4', 'desc' => '配送员不存在'));
+               }
+           }else{
+               echo json_encode(array('result' => '3', 'desc' => '运单不存在'));
+           }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '配送员id为空'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '运单号不能为空'));
+    }
+});
 
 
 $app->run();
