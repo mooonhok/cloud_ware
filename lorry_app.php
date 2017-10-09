@@ -412,7 +412,7 @@ $app->put('/suresch',function()use($app){
     }
 });
 //orders
-$app->get('obycourier',function()use($app){
+$app->get('/obycourier',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $courier_id=$app->request->get('courierid');
@@ -472,7 +472,7 @@ $app->get('obycourier',function()use($app){
     }
 });
 //ordersure
-$app->put('ordersure',function()use($app){
+$app->put('/ordersure',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $body=$app->request->getBody();
