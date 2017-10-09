@@ -507,7 +507,6 @@ $app->get('/obycourier',function()use($app){
                 $data3=$stmt->fetch();
                        $selectStament=$database->select()
                            ->from('orders')
-                           ->where('order_status','!=',5)
                            ->where('order_id','=',$data3['delivery_order_id']);
                        $stmt=$selectStament->execute();
                        $data4=$stmt->fetch();
@@ -554,7 +553,7 @@ $app->get('/obycouriern',function()use($app){
                 ->where('courier_id','=',$courier_id);
             $stmt=$selectStament->execute();
             $data2=$stmt->fetchAll();
-            if($data2!=null||$data2!=""){
+            if($data2!=null){
                 for($x=0;$x<count($data2);$x++){
                     $selectStament=$database->select()
                         ->from('delivery_order')
@@ -564,7 +563,6 @@ $app->get('/obycouriern',function()use($app){
                     $data3=$stmt->fetch();
                     $selectStament=$database->select()
                         ->from('orders')
-                        ->where('order_status','!=',5)
                         ->where('order_id','=',$data3['delivery_order_id']);
                     $stmt=$selectStament->execute();
                     $data4=$stmt->fetch();
