@@ -341,7 +341,7 @@ $app->get('/byorderid',function()use($app){
             ->where('order_id','=',$order_id);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
-        $arrays['order_id']=$data4['order'];
+        $arrays['order_id']=$data4['order_id'];
         $arrays['customer_name']=$data5['customer_name'];
         $arrays['customer_phone']=$data5['customer_phone'];
         $arrays['goods_name']=$data['goods_name'];
