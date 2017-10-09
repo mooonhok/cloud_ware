@@ -348,6 +348,21 @@ $app->get('/byorderid',function()use($app){
         $arrays['customer_name']=$data5['customer_name'];
         $arrays['customer_phone']=$data5['customer_phone'];
         $arrays['goods_name']=$data['goods_name'];
+        $arrays['goods_count']=$data['goods_count'];
+        $arrays['goods_weight']=$data['goods_weight'];
+        $arrays['goods_capacity']=$data['goods_capacity'];
+        $selectStament=$database->select()
+            ->from('goods_package')
+            ->where('goods_package_id','=',$data['goods_package_id']);
+        $stmt=$selectStament->execute();
+        $data7=$stmt->fetch();
+        $arrays['goods_package']=$data7['goods_package'];
+        $selectStament=$database->select()
+            ->from('city')
+            ->where('id','=',$data5['customer_city_id']);
+        $stmt=$selectStament->execute();
+        $data8=$stmt->fetch();
+        $arrays['address']=$data8.$data5['customer_address'];
         if($data!=null||$data!=""){
             echo json_encode(array('result' => '0', 'desc' => '','order'=>$arrays));
         }else{

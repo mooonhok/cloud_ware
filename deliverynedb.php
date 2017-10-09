@@ -138,7 +138,6 @@ $app->put('/alterDelivery0',function()use($app){
     $body = json_decode($body);
     $delivery_id = $body->delivery_id;
     $delivery_comment = $body->delivery_comment;
-    $delivery_id=$app->request->get('delivery_id');
     if($tenant_id!=null||$tenant_id!=''){
         if($delivery_id!=null||$delivery_id!=''){
             $updateStatement = $database->update(array('delivery_comment'=>$delivery_comment))
