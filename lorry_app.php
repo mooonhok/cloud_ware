@@ -475,7 +475,7 @@ $app->put('/suresch',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '清单号为空'));
     }
 });
-//orders
+//orders未送到
 $app->get('/obycourier',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -508,6 +508,7 @@ $app->get('/obycourier',function()use($app){
                    for($y=0;$y<count($data3);$y++){
                        $selectStament=$database->select()
                            ->from('orders')
+                           ->where('order_status','!=',5)
                            ->where('order_id','=',$data3[$y]['delivery_order_id']);
                        $stmt=$selectStament->execute();
                        $data4=$stmt->fetch();
@@ -535,6 +536,69 @@ $app->get('/obycourier',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '配送员为空'));
     }
 });
+
+//orders送到
+$app->get('/obycouriern',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $courier_id=$app->request->get('courierid');
+    $database=localhost();
+    $arrays=array();
+    if($courier_id!=null||$courier_id!=""){
+        $selectStament=$database->select()
+            ->from('courier')
+            ->where('exist','=',0)
+            ->where('courier_id','=',$courier_id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetch();
+        if($data!=null||$data!=""){
+            $selectStament=$database->select()
+                ->from('delivery')
+                ->where('exist','=',0)
+                ->where('courier_id','=',$courier_id);
+            $stmt=$selectStament->execute();
+            $data2=$stmt->fetchAll();
+            if($data2!=null||$data2!=""){
+                for($x=0;$x<count($data2);$x++){
+                    $selectStament=$database->select()
+                        ->from('delivery_order')
+                        ->where('exist','=',0)
+                        ->where('delivery_id','=',$data2[$x]['delivery_id']);
+                    $stmt=$selectStament->execute();
+                    $data3=$stmt->fetchAll();
+                    if($data3!=null||$data3!=""){
+                        for($y=0;$y<count($data3);$y++){
+                            $selectStament=$database->select()
+                                ->from('orders')
+                                ->where('order_status','=',5)
+                                ->where('order_id','=',$data3[$y]['delivery_order_id']);
+                            $stmt=$selectStament->execute();
+                            $data4=$stmt->fetch();
+                            $arrays1['order_id']=$data4['order_id'];
+                            $selectStament=$database->select()
+                                ->from('customer')
+                                ->where('customer_id','=',$data4['receiver_id']);
+                            $stmt=$selectStament->execute();
+                            $data5=$stmt->fetch();
+                            $arrays1['customer_name']=$data5['customer_name'];
+                            array_push($arrays,$arrays1);
+                        }
+                        echo json_encode(array('result' => '0', 'desc' => '','orders'=>$arrays));
+                    }else{
+                        echo json_encode(array('result' => '4', 'desc' => '没有配送记录'));
+                    }
+                }
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '配送员没有配送记录'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '配送员不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '配送员为空'));
+    }
+});
+
 //ordersure
 $app->put('/ordersure',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
