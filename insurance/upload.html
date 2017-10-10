@@ -235,7 +235,7 @@
               }();
               $(".but").on('click',function(){
                   alert(1);
-                  var tt=$(this).html();
+                  var tt=$(this).parent().prev().html();
                   alert(tt)
 			  });
     }
