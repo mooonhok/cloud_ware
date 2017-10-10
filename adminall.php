@@ -91,13 +91,13 @@ $app->get('/dbadmin',function()use($app){
     $arrays4['plate_number']=$data4['plate_number'];
     $arrays4['driver_name']=$data4['driver_name'];
     $arrays4['driver_phone']=$data4['driver_phone'];
-    if($data!=null||$data!=""){
+    if($data!=null){
         $selectStament=$database->select()
             ->from('schedule_order')
             ->where('schedule_id','=',$scheduling_id);
         $stmt=$selectStament->execute();
         $data5=$stmt->fetchAll();
-        if($data5!=null||$data5!=""){
+        if($data5!=null){
             for($x=0;$x<count($data5);$x++){
                 $selectStament=$database->select()
                     ->from('orders')
