@@ -38,7 +38,7 @@ $app->get('/getSkins0',function()use($app){
     $selectStatement = $database->select()
         ->from('skin');
     $stmt = $selectStatement->execute();
-    $data = $stmt->fetch();
+    $data = $stmt->fetchAll();
     echo  json_encode(array("result"=>"0","desc"=>"success","skins"=>$data));
 });
 
@@ -51,7 +51,7 @@ $app->get('/getSkins1',function()use($app){
         ->where('exist','=',0)
         ->orderBy('skin_id');
     $stmt = $selectStatement->execute();
-    $data = $stmt->fetch();
+    $data = $stmt->fetchAll();
     echo  json_encode(array("result"=>"0","desc"=>"success","skins"=>$data));
 });
 
