@@ -59,13 +59,13 @@ $app->get('/getSkin',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database = localhost();
-    $skin_id=$app->request->get('skin_ip');
+    $skin_id=$app->request->get('skin_id');
     $selectStatement = $database->select()
         ->from('skin')
         ->where('skin_id','=',$skin_id);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
-    echo  json_encode(array("result"=>"0","desc"=>"success","skins"=>$data));
+    echo  json_encode(array("result"=>"0","desc"=>"success","skin"=>$data));
 });
 
 $app->run();
