@@ -43,7 +43,7 @@ $app->post('/addlorryaexpress',function()use($app){
                                 ->where('driver_name', '=', $driver_name);
                             $stmt = $selectStatement->execute();
                             $data1 = $stmt->fetch();
-                            if($data1==null||$data1==""){
+                            if($data1==null){
                                 $selectStatement=$database->select()
                                     ->from('lorry');
                                 $stmt=$selectStatement->execute();
@@ -81,7 +81,7 @@ $app->post('/addlorryaexpress',function()use($app){
                                 ->where('courier_plate', '=', $plate_number);
                             $stmt = $selectStatement->execute();
                             $data1 = $stmt->fetch();
-                            if($data1==null||$data1==""){
+                            if($data1==null){
                                 $selectStatement=$database->select()
                                     ->from('courier');
                                 $stmt=$selectStatement->execute();
@@ -138,7 +138,7 @@ $app->post('/lorrysign',function()use($app){
                     ->where('driver_phone','=',$driver_phone);
                 $stmt=$selectStament->execute();
                 $data=$stmt->fetch();
-                if($data!=null||$data!=""){
+                if($data!=null){
                     if($data['password']==$password){
                         $arrays['lorry_id']=$data['lorry_id'];
                         echo json_encode(array('result' => '0', 'desc' => '登录成功','lorry'=>$arrays));
@@ -160,7 +160,7 @@ $app->post('/lorrysign',function()use($app){
                 $stmt=$selectStament->execute();
                 $data=$stmt->fetch();
 
-                if($data!=null||$data!=""){
+                if($data!=null){
                     if($data['password']==$password){
                         $arrays['lorry_id']=$data['courier_id'];
                         echo json_encode(array('result' => '0', 'desc' => '登录成功','lorry'=>$arrays));
@@ -192,7 +192,7 @@ $app->get('/sbylorry',function()use($app){
             ->where('lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
-        if($data!=null||$data!=""){
+        if($data!=null){
             $selectStament=$database->select()
                 ->from('lorry')
                 ->where('plate_number','=',$data['plate_number'])
@@ -237,7 +237,7 @@ $app->get('/sbylorryn',function()use($app){
             ->where('lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
-        if($data!=null||$data!=""){
+        if($data!=null){
             $selectStament=$database->select()
                 ->from('lorry')
                 ->where('plate_number','=',$data['plate_number'])
@@ -286,14 +286,14 @@ $app->get('/sandoandg',function()use($app){
                  ->where('lorry_id','=',$lorry_id);
              $stmt=$selectStament->execute();
              $data=$stmt->fetch();
-             if($data!=null||$data!=""){
+             if($data!=null){
                  $selectStament=$database->select()
                      ->from('scheduling')
                      ->where('exist','=',0)
                      ->where('scheduling_id','=',$schedule_id);
                  $stmt=$selectStament->execute();
                  $data1=$stmt->fetch();
-                 if($data1!=null||$data1!=""){
+                 if($data1!=null){
                      $selectStament=$database->select()
                          ->from('lorry')
                          ->where('exist','=',0)
@@ -436,7 +436,7 @@ $app->put('/suresch',function()use($app){
             ->where('scheduling_id','=',$schedule_id);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
-        if($data!=null||$data!=""){
+        if($data!=null){
             if($lorry_id!=null||$lorry_id!=""){
                 $selectStatement = $database->select()
                     ->from('lorry')
@@ -444,7 +444,7 @@ $app->put('/suresch',function()use($app){
                     ->where('tenant_id','=',0);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
-                if($data1!=null||$data1!=""){
+                if($data1!=null){
                     $selectStament=$database->select()
                         ->from('lorry')
                         ->where('plate_number','=',$data1['plate_number'])
@@ -453,7 +453,7 @@ $app->put('/suresch',function()use($app){
                         ->where('driver_name','=',$data1['driver_name']);
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetch();
-                    if($data2!=null||$data2!="") {
+                    if($data2!=null) {
                         $updateStatement = $database->update($arrays)
                             ->table('scheduling')
                             ->where('scheduling_id', '=', $schedule_id);
@@ -489,7 +489,7 @@ $app->get('/obycourier',function()use($app){
             ->where('courier_id','=',$courier_id);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
-     if($data!=null||$data!=""){
+     if($data!=null){
          $selectStament=$database->select()
              ->from('delivery')
              ->where('exist','=',0)
@@ -497,7 +497,7 @@ $app->get('/obycourier',function()use($app){
              ->where('courier_id','=',$courier_id);
          $stmt=$selectStament->execute();
          $data2=$stmt->fetchAll();
-         if($data2!=null||$data2!=""){
+         if($data2!=null){
             for($x=0;$x<count($data2);$x++){
                 $selectStament=$database->select()
                     ->from('delivery_order')
@@ -545,7 +545,7 @@ $app->get('/obycouriern',function()use($app){
             ->where('courier_id','=',$courier_id);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
-        if($data!=null||$data!=""){
+        if($data!=null){
             $selectStament=$database->select()
                 ->from('delivery')
                 ->where('exist','=',0)
@@ -563,6 +563,7 @@ $app->get('/obycouriern',function()use($app){
                     $data3=$stmt->fetch();
                     $selectStament=$database->select()
                         ->from('orders')
+
                         ->where('order_id','=',$data3['delivery_order_id']);
                     $stmt=$selectStament->execute();
                     $data4=$stmt->fetch();
@@ -603,19 +604,19 @@ $app->put('/ordersure',function()use($app){
                 ->where('order_id','=',$order_id);
             $stmt=$selectStament->execute();
             $data=$stmt->fetch();
-           if($data!=null||$data!=""){
+           if($data!=null){
                $selectStament=$database->select()
                    ->from('delivery_order')
                    ->where('delivery_order_id','=',$order_id);
                $stmt=$selectStament->execute();
                $data9=$stmt->fetch();
-               if($data9==null||$data9==""){
+               if($data9==null){
                    $selectStament=$database->select()
                        ->from('courier')
                        ->where('courier_id','=',$courier_id);
                    $stmt=$selectStament->execute();
                    $data2=$stmt->fetch();
-                   if($data2!=null||$data2!=""){
+                   if($data2!=null){
                        $selectStament=$database->select()
                            ->from('courier');
                        $stmt=$selectStament->execute();
