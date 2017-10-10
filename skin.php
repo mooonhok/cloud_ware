@@ -5,6 +5,8 @@
  * Date: 2017/10/10
  * Time: 9:50
  */
+require 'Slim/Slim.php';
+require 'connect.php';
 $app->post('/addSkin',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -29,6 +31,32 @@ $app->get('/getSkins0',function()use($app){
     $database = localhost();
     $selectStatement = $database->select()
         ->from('skin');
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetch();
+    echo  json_encode(array("result"=>"0","desc"=>"success","skins"=>$data));
+});
+
+$app->get('/getSkins1',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database = localhost();
+    $selectStatement = $database->select()
+        ->from('skin')
+        ->where('exist','=',0)
+        ->orderBy('skin_id');
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetch();
+    echo  json_encode(array("result"=>"0","desc"=>"success","skins"=>$data));
+});
+
+$app->get('/getSkin',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database = localhost();
+    $skin_id=$app->request->get('skin_ip');
+    $selectStatement = $database->select()
+        ->from('skin')
+        ->where('skin_id','=',$skin_id);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
     echo  json_encode(array("result"=>"0","desc"=>"success","skins"=>$data));
