@@ -229,10 +229,15 @@
                       ,thisData = msg.tenants;
                   layui.each(thisData, function(index, item){
                   	var sure = null;
-                  		 arr.push( '<tr><td>'+item.company+'</td><td>'+item.from_city+'</td><td><input type="file"/></td><td><button class="but" onclick="makesure(' +item.tenant_id + ')" style="cursor:pointer;">确认上传</button></td></tr>');
+                  		 arr.push( '<tr><td>'+item.company+'</td><td>'+item.from_city+'</td><td><input type="file"/></td><td><button class="but" style="cursor:pointer;">确认上传</button></td></tr>');
                   });
                   return arr.join('');
               }();
+              $(".but").on('click',function(){
+                  alert(1);
+                  var tt=$(this).html();
+                  alert(tt)
+			  });
     }
   });
 });
@@ -244,9 +249,7 @@
 		}
 
 		function makesure(id) {
-		    alert(1);
-		    var tt=$(this).html();
-		    alert(tt)
+
 //			$(".box3").css("display", "block");
 //			$("#makesure").val(id);
 //			$.ajax({
