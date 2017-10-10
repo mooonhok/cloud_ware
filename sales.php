@@ -68,14 +68,14 @@ $app->get('/sales_tenant',function()use($app){
                 ->where('id', '=', $sales_id);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetch();
-            if($data1!=null||$data1!=""){
+            if($data1!=null){
                 $selectStatement = $database->select()
                     ->from('tenant')
                     ->where('exist','=',0)
                     ->where('sales_id', '=', $sales_id);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetchAll();
-                if($data2!=null||$data2!=""){
+                if($data2!=null){
                     for($x=0;$x<count($data2);$x++){
                         $selectStatement = $database->select()
                             ->from('customer')
@@ -114,7 +114,7 @@ $app->get('/sales_tenant',function()use($app){
                 ->where('id', '=', $sales_id);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetch();
-            if($data1!=null||$data1!=""){
+            if($data1!=null){
                 $selectStatement = $database->select()
                     ->from('tenant')
                     ->where('exist','=',0)
@@ -130,7 +130,7 @@ $app->get('/sales_tenant',function()use($app){
                     ->limit((int)$per_page, (int)$per_page * (int)$page);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetchAll();
-                if($data2!=null||$data2!=""){
+                if($data2!=null){
                     for($x=0;$x<count($data2);$x++){
                         $selectStatement = $database->select()
                             ->from('customer')
@@ -199,14 +199,14 @@ $app->put('/tenantchange',function()use($app){
                 ->where('id', '=', $sales_id);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetch();
-            if ($data1 != null || $data1 != "") {
+            if ($data1 != null) {
                 $selectStatement = $database->select()
                     ->from('tenant')
                     ->where('exist','=',0)
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetch();
-                if ($data2 != null || $data2 != "") {
+                if ($data2 != null ) {
                     $updateStatement = $database->update($arrays)
                         ->table('tenant')
                         ->where('tenant_id', '=', $tenant_id)
@@ -247,7 +247,7 @@ $app->get('/tenantsum',function()use($app){
             ->where('sales_id', '=', $sales_id);
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetch();
-        if($data2!=null||$data2!=""){
+        if($data2!=null){
             $selectStatement = $database->select()
                 ->from('tenant')
                 ->where('exist','=',0)
@@ -305,7 +305,7 @@ $app->get('/tenantbyid',function()use($app){
             ->where('tenant_id', '=', $tenant_id);
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetch();
-        if($data2!=null||$data2!=""){
+        if($data2!=null){
             $selectStatement = $database->select()
                 ->from('customer')
                 ->where('customer_id', '=', $data2['contact_id'])
@@ -358,7 +358,7 @@ $app->put('/sales',function()use($app){
             ->where('id', '=', $sales_id);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetch();
-        if($data1!=null||$data1!=""){
+        if($data1!=null){
             $updateStatement = $database->update($arrays)
                 ->table('sales')
                 ->where('id', '=', $sales_id);
@@ -384,7 +384,7 @@ $app->get('/sales',function()use($app){
             ->where('id', '=', $sales_id);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetch();
-        if($data1!=null||$data1!=""){
+        if($data1!=null){
             echo json_encode(array('result'=>'0','desc'=>'','sales'=>$data1));
         }else{
             echo json_encode(array('result' => '1', 'desc' => '业务员不存在','sales'=>''));
@@ -420,7 +420,7 @@ $app->post('/addsales',function()use($app){
                       ->where('card_id', '=', $card_id);
                   $stmt = $selectStatement->execute();
                   $data1 = $stmt->fetch();
-                  if($data1==null||$data1==""){
+                  if($data1==null){
                        if($telephone!=null||$telephone!=""){
                            if($address!=null||$address!=""){
                                if($zip_code!=null||$zip_code!=""){
