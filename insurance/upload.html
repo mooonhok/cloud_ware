@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
+		<link rel="icon" href="head.ico" type="image/x-icon"/>
+		<link rel="stylesheet" href="css/safe.css">
+		<link rel="stylesheet" href="src/css/layui.css">
+		<title>保险</title>
+		<style>
+			table {
+				border-right: 1px solid #DDDDDD;
+				border-bottom: 1px solid #DDDDDD;
+			}			
+			table td {
+				border-left: 1px solid #DDDDDD;
+				border-top: 1px solid #DDDDDD;
+				height: 50px;
+				text-align: center;
+			}			
+			table thead tr th {
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+				border-left: 1px solid #DDDDDD;
+				border-top: 1px solid #DDDDDD;
+				/* background: #9CBA60; */
+			}			
+			a {
+				text-decoration: none;
+			}			
+			button {
+				width: 100px;
+				height: 30px;
+				background: #FF8903;
+				border: 0;
+				border-radius: 5px;
+				color: white;
+			}
+			.top_4_3{
+				width: 100px;
+				height: 10px;
+				background:#E0E1E7;
+				float: left;
+			}
+			.top_4_2{
+				width: 100px;
+				height: 10px;
+				background:white;
+				float: left;
+			}
+			.top_4_1{
+				width: 100px;
+				height: 10px;
+				background:white;
+				float: left;
+			}
+			.gps_3{
+	            width: 100px;
+	            height: 40px;
+	            text-align: center;
+	            line-height: 40px;
+	            float: left;
+	            color:#A2A49E;
+	            background: #E0E1E7;
+	             cursor:pointer;
+           }
+			.gps_2{
+	            width: 100px;
+	            height: 40px;
+	            text-align: center;
+	            line-height: 40px;
+	            float: left;
+	            color:white;
+	            background: #424F63;
+	             cursor:pointer;
+            }
+            .gps_1{
+	            width: 100px;
+	            height: 40px;
+	            text-align: center;
+	            line-height: 40px;
+	            float: left;
+	            color:white;
+	            background: #424F63;
+	             cursor:pointer;
+           }
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="top">
+				<div class="top_1">
+					<img src="images/1.jpg" alt="">
+				</div>
+				<div class="top_2">
+					<img src="images/2.jpg" alt="">
+				</div>
+			</div>
+			<div class="top_3"></div>
+			<div class="top_4">
+				<div class="top_4_1"></div>
+				<div class="top_4_2"></div>
+				<div class="top_4_3"></div>
+			</div>
+			<div class="gps">
+				<div class="gps_1" onclick="window.location.href='http://insurance.uminfo.cn/safe.html'">支付信息</div>
+				<div class="gps_2" onclick="window.location.href='http://insurance.uminfo.cn/index.html'">历史保单</div>
+				<div class="gps_3">上传保单</div>
+			</div>
+
+			<div class="select">
+				<div class="all">显示全部</div>
+				<div class="select_1">
+					<select name="province" id="province1" onchange="getPro1()" class="pro">
+						<option value="0">请选择省</option>
+					</select>
+					<select name="city" id="city1" class="cit">
+						<option value="0">请选择市</option>
+					</select>
+				</div>
+				<div class="select_2">
+					<div class="select_2_1"><input id="coname" type="text"></div>
+					<div class="select_2_2"><img src="images/seek.png" alt="" width="30" height="30"></div>
+				</div>
+			</div>
+			<!-- 上传文件 -->
+			<div class="tab">
+				<table id="tables" width="1200" border="0" cellspacing="0" cellpadding="0">
+					<thead>
+						<tr>
+							<th>公司名</th>
+							<th>所在城市</th>
+							<th>上传文件</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody id="tb1">						
+					</tbody>
+				</table>
+				<div id="demo20"></div>
+			</div>
+        </div>
+	</body>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/jquery.session.js"></script>
+	<script type="text/javascript" src="src/layui.js"></script>
+	<script type="text/javascript" src="js/jquery.PrintArea.js"></script>
+	<script type="text/javascript">
+			(function($) {
+			$.getUrlParam = function(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if(r != null) return decodeURI(r[2]);
+				return null;
+			}
+		})(jQuery);
+		$.ajax({
+			url: "http://api.uminfo.cn/city.php/province",
+			dataType: 'json',
+			type: 'get',
+			ContentType: "application/json;charset=utf-8",
+			data: JSON.stringify({}),
+			success: function(msg) {
+				for(var i = 0; i < msg.province.length; i++) {
+					$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+				}
+			},
+			error: function(e) {
+				alert("省份列表1信息出错!");
+			}
+		});
+		function getPro1() {
+			$("#city1").empty();
+			var pid = $("#province1 option:selected").val();
+			$.ajax({
+				url: "http://api.uminfo.cn/city.php/city?pid=" + pid,
+				dataType: 'json',
+				type: 'get',
+				ContentType: "application/json;charset=utf-8",
+				data: JSON.stringify({}),
+				success: function(msg) {
+					$("#city1").append('<option value="0">请选择市</option>')
+					for(var i = 0; i < msg.city.length; i++) {
+					$("#city1").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
+					}
+				},
+				error: function(e) {
+					alert("城市1列表信息出错!");
+				}
+			});
+		}
+	</script>
+		<script>
+		function loadrechanges(city_id, company,page) {
+			if(page==null){
+				page=1;
+			}
+			if(city_id == null) {
+				city_id = "";
+			}
+			if(company == null) {
+				company = "";
+			}
+			$.ajax({
+				url: "http://api.uminfo.cn/tenant.php/tenant?from_city_id=" + city_id + "&company=" + company+"&page="+page+"&per_page=10",
+				dataType: 'json',
+				type: 'get',
+				ContentType: "application/json;charset=utf-8",
+				data: JSON.stringify({}),
+				success: function(msg) {					
+						$("#tb1").html("");
+						  //调用分页
+  layui.use(['laypage', 'layer'], function(){
+  var laypage = layui.laypage;
+  laypage.render({
+    elem: 'demo20'
+    ,count:msg.count
+	  ,curr:page
+    ,limit: 10
+    ,jump: function(obj,first){
+          if(!first){
+              loadrechanges(city_id,company,obj.curr);
+          }
+              //模拟渲染
+              document.getElementById('tb1').innerHTML = function(){
+                  var arr = []
+                      ,thisData = msg.insurance_rechanges;
+                  layui.each(thisData, function(index, item){
+                  	var sure = null;
+                  		 arr.push( '<tr><td>'+item.company+'</td><td>'+item.from_city+'</td><td><input type="file"/></td><td><button class="but" onclick="makesure(' +item.tenant_id + ')" style="cursor:pointer;">确认上传</button></td></tr>');
+                  });
+                  return arr.join('');
+              }();
+    }
+  });
+});
+				},
+				error: function(xhr) {
+					alert("获取后台失败！");
+				}
+			});
+		}
+
+		function makesure(id) {
+			$(".box3").css("display", "block");
+			$("#makesure").val(id);
+			$.ajax({
+				url: "http://api.uminfo.cn/rechange_insurance.php/rechange_insurance_id?id=" + id,
+				dataType: 'json',
+				type: 'get',
+				ContentType: "application/json;charset=utf-8",
+				data: JSON.stringify({}),
+				success: function(msg) {
+					$("#suremessage").html(msg.data);
+				},
+				error: function(e) {
+					alert("获取合同详情信息出错!");                       
+				}
+			});
+		}
+		$(".box3_2").on("click", function() {
+			var id = $("#makesure").val();
+			$.ajax({
+				url: "http://api.uminfo.cn/rechange_insurance.php/sure_rechanges",
+				dataType: 'json',
+				type: 'put',
+				ContentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					id: id,
+					user_id: user
+				}),
+				success: function(msg) {
+					city_id = $("#city1 option:selected").val();
+					company = $("#coname").val();
+					alert("修改成功");
+					$(".box3").css("display", "none");
+					window.location.reload();
+				},
+				error: function(xhr) {
+					alert("修改支付状态后台错误"+xhr.responseText);
+				}
+			});
+		});
+		
+         var city_id = $.getUrlParam('from_city_id');
+		 var company = $.getUrlParam('company');
+		 var page=null;		
+		//获取session值
+		var user = $.session.get('userid');
+		alert(user);
+		if(user == null || user == "") {
+			window.location.href = "http://insurance.uminfo.cn/login.html";
+		} else {
+			loadrechanges(city_id, company,page);
+		}	
+		//搜索框
+		$(".select_2_2").on('click', function() {
+			company = $("#coname").val();
+			city_id = $("#city1 option:selected").val();
+			if(city_id==null||city_id==""){
+				alert("请先选择城市");
+			}else{
+				window.location.href="http://insurance.uminfo.cn/upload.html?from_city_id=" + city_id+"&company="+company+"&page=";			
+			}
+		});
+		</script>
+	<script type="text/javascript">
+		$(".all").on("click",function(){
+			window.location.href="http://insurance.uminfo.cn/upload.html";
+		})
+	</script>
+	<script type="text/javascript">
+		$(".pay").on("click", function() {
+			$(".box3").css("display", "block");
+		})
+	</script>
+	<script type="text/javascript">
+		$(".compact").on("click", function() {
+			$(".bigbox").css("display", "block");
+		})
+		$(".money").on("click", function() {
+			$(".box5").css("display", "block");
+		})
+		$(".but_1").on("click", function() {
+			$(".box5").css("display", "none");
+			window.location.reload();
+		})
+	</script>
+	<script type="text/javascript">
+		$(".box3_3").on("click", function() {
+			$(".box3").css("display", "none");
+		})
+		$(".box2_2").on("click", function() {
+			$(".box2").css("display", "none");
+		})
+	</script>
+	<script>
+		$(".quxiao").on("click", function() {
+			$(".bigbox").css("display", "none");
+		})
+	</script>
+	<script>
+       $('.but_2').on('click',function(){
+       	 
+       	    doPrint();
+       });
+       function doPrint(){
+         $('.box5_4').printArea();
+        }
+	</script>
+</html>
