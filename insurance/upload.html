@@ -249,9 +249,10 @@
                       cache: false,
                       processData: false,
                       ContentType: "application/json;charset=utf-8",
-                  }).done(function(ret){
-                      console.log(ret);
-                  });
+                      error: function(xhr) {
+                          alert(xhr);
+                      }
+                  })
               });
     }
   });
