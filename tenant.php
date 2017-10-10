@@ -214,6 +214,14 @@ $app->get('/tenant',function()use($app){
             ->limit((int)$per_page,(int)$per_page*(int)$page);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->where('from_city_id',"=",$from_city_id)
+            ->whereLike('company','%'.$company.'%');
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetchAll();
+        $num=count($data2);
         for($i=0;$i<count($data);$i++){
             $selectStatement = $database->select()
                 ->from('city')
@@ -222,7 +230,7 @@ $app->get('/tenant',function()use($app){
             $data1 = $stmt->fetch();
             $data[$i]['from_city']=$data1['name'];
         }
-        echo  json_encode(array("result"=>"0","desc"=>"success","tenants"=>$data));
+        echo  json_encode(array("result"=>"0","desc"=>"success","tenants"=>$data,'count'=>$num));
     }else if(($from_city_id==null||$from_city_id=='')&&($company!=null||$company!='')){
         $selectStatement = $database->select()
             ->from('tenant')
@@ -231,6 +239,13 @@ $app->get('/tenant',function()use($app){
             ->limit((int)$per_page,(int)$per_page*(int)$page);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->whereLike('company','%'.$company.'%');
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetchAll();
+        $num=count($data2);
         for($i=0;$i<count($data);$i++){
             $selectStatement = $database->select()
                 ->from('city')
@@ -239,7 +254,7 @@ $app->get('/tenant',function()use($app){
             $data1 = $stmt->fetch();
             $data[$i]['from_city']=$data1['name'];
         }
-        echo  json_encode(array("result"=>"0","desc"=>"success","tenants"=>$data));
+        echo  json_encode(array("result"=>"0","desc"=>"success","tenants"=>$data,'count'=>$num));
     }else if(($from_city_id!=null||$from_city_id!='')&&($company==null||$company=='')){
         $selectStatement = $database->select()
             ->from('tenant')
@@ -248,6 +263,13 @@ $app->get('/tenant',function()use($app){
             ->limit((int)$per_page,(int)$per_page*(int)$page);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->where('from_city_id',"=",$from_city_id);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetchAll();
+        $num=count($data2);
         for($i=0;$i<count($data);$i++){
             $selectStatement = $database->select()
                 ->from('city')
@@ -256,7 +278,7 @@ $app->get('/tenant',function()use($app){
             $data1 = $stmt->fetch();
             $data[$i]['from_city']=$data1['name'];
         }
-        echo  json_encode(array("result"=>"0","desc"=>"success","tenants"=>$data));
+        echo  json_encode(array("result"=>"0","desc"=>"success","tenants"=>$data,'count'=>$num));
     }else if(($from_city_id==null||$from_city_id=='')&&($company==null||$company=='')){
         $selectStatement = $database->select()
             ->from('tenant')
@@ -264,6 +286,12 @@ $app->get('/tenant',function()use($app){
             ->limit((int)$per_page,(int)$per_page*(int)$page);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetchAll();
+        $num=count($data2);
         for($i=0;$i<count($data);$i++){
             $selectStatement = $database->select()
                 ->from('city')
@@ -272,7 +300,7 @@ $app->get('/tenant',function()use($app){
             $data1 = $stmt->fetch();
             $data[$i]['from_city']=$data1['name'];
         }
-        echo  json_encode(array("result"=>"0","desc"=>"success","tenants"=>$data));
+        echo  json_encode(array("result"=>"0","desc"=>"success","tenants"=>$data,'count'=>$num));
     }
 });
 
