@@ -226,7 +226,7 @@
               //模拟渲染
               document.getElementById('tb1').innerHTML = function(){
                   var arr = []
-                      ,thisData = msg.insurance_rechanges;
+                      ,thisData = msg.tenants;
                   layui.each(thisData, function(index, item){
                   	var sure = null;
                   		 arr.push( '<tr><td>'+item.company+'</td><td>'+item.from_city+'</td><td><input type="file"/></td><td><button class="but" onclick="makesure(' +item.tenant_id + ')" style="cursor:pointer;">确认上传</button></td></tr>');
