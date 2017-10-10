@@ -70,10 +70,9 @@ $app->post('/addstaff',function()use($app){
 $app->get('/getStaff0',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
+    $tenant_id=$app->request->headers->get('tenant-id');
     $username=$app->request->get('username');
-    if($tenant_id!=null||$tenant_id!=''){
         if($username!=null||$username!=''){
             $selectStatement = $database->select()
                 ->from('staff')
@@ -86,28 +85,22 @@ $app->get('/getStaff0',function()use($app){
         }else{
             echo json_encode(array('result'=>'1','desc'=>'缺少员工名字'));
         }
-    }else{
-        echo json_encode(array('result'=>'2','desc'=>'缺少租户'));
-    }
 });
 
 
 $app->get('/getStaff1',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
     $username=$app->request->get('username');
     $password=$app->request->get('password');
-    if($tenant_id!=null||$tenant_id!=''){
         if($username!=null||$username!=''){
             if($password!=null||$password!=''){
                 $selectStatement = $database->select()
                     ->from('staff')
                     ->where('exist',"=",0)
                     ->where('username','=',$username)
-                    ->where('password','=',sha1($password))
-                    ->where('tenant_id','=',$tenant_id);
+                    ->where('password','=',sha1($password));
                 $stmt = $selectStatement->execute();
                 $data = $stmt->fetch();
                 echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data));
@@ -117,15 +110,12 @@ $app->get('/getStaff1',function()use($app){
         }else{
             echo json_encode(array('result'=>'2','desc'=>'缺少员工名字'));
         }
-    }else{
-        echo json_encode(array('result'=>'3','desc'=>'缺少租户'));
-    }
 });
 
 $app->get('/getStaff2',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $tenant_id=$app->request->headers->get('tenant-id');
+
     $database=localhost();
     $telephone=$app->request->get('telephone');
     $password=$app->request->get('password');
@@ -135,8 +125,7 @@ $app->get('/getStaff2',function()use($app){
                 ->from('staff')
                 ->where('exist',"=",0)
                 ->where('telephone','=',$telephone)
-                ->where('password','=',sha1($password))
-                ->where('tenant_id','=',$tenant_id);
+                ->where('password','=',sha1($password));
             $stmt = $selectStatement->execute();
             $data = $stmt->fetch();
             echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data));
