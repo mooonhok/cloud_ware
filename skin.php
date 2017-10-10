@@ -7,6 +7,12 @@
  */
 require 'Slim/Slim.php';
 require 'connect.php';
+
+
+\Slim\Slim::registerAutoloader();
+$app = new \Slim\Slim();
+
+
 $app->post('/addSkin',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
