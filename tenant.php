@@ -197,6 +197,7 @@ $app->put('/tenant',function()use($app){
 
 
 $app->get('/tenant',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type', 'application/json');
     $page=$app->request->get('page');
     $page=(int)$page-1;
