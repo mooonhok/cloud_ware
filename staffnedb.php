@@ -115,7 +115,6 @@ $app->get('/getStaff1',function()use($app){
 $app->get('/getStaff2',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-
     $database=localhost();
     $telephone=$app->request->get('telephone');
     $password=$app->request->get('password');
