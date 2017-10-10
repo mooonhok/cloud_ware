@@ -148,6 +148,32 @@ $app->get('/getStaff2',function()use($app){
     }
 });
 
+$app->get('/getStaff3',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    $telephone=$app->request->get('telephone_username');
+    $password=$app->request->get('password');
+    if($telephone!=null||$telephone!=''){
+        if($password!=null||$password!=''){
+            $selectStatement = $database->select()
+                ->from('staff')
+                ->where('exist',"=",0)
+                ->where('telephone','=',$telephone)
+                ->where('password','=',sha1($password))
+                ->where('tenant_id','=',$tenant_id);
+            $stmt = $selectStatement->execute();
+            $data = $stmt->fetch();
+            echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data));
+        }else{
+            echo json_encode(array('result'=>'1','desc'=>'缺少密码'));
+        }
+    }else{
+        echo json_encode(array('result'=>'2','desc'=>'缺少员工名字'));
+    }
+});
+
 $app->get('/getStaffs0',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
