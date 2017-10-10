@@ -235,12 +235,24 @@
               }();
               $(".but").on('click',function(){
                   alert(1);
-                  var tt=$(this).next().html();
-                  alert(tt);
-				  var ff=$(this).parent().prev().children('.afile')[0].files[0];
-                  alert(ff);
-				  console.log(ff);
-			  });
+                  var tenant_id=$(this).next().html();
+				  var file=$(this).parent().prev().children('.afile')[0].files[0];
+                  var data = new FormData();
+                  data.append('file', file);
+                  data.append('tenant_id', tenant_id);
+                  console.log(data);
+                  $.ajax({
+                      url:"http://api.uminfo.cn/tenant_insurancepolicy.php/tenant_insurancepolicy",
+                      type: 'POST',
+                      data: data,
+                      dataType: 'JSON',
+                      cache: false,
+                      processData: false,
+                      contentType: false
+                  }).done(function(ret){
+                      console.log(ret);
+                  });
+              });
     }
   });
 });

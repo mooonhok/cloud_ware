@@ -25,7 +25,7 @@ $app->get('/goods_package',function()use($app){
 });
 
 
-//查货物清单
+//查车辆类型
 $app->get('/lorry_type',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
