@@ -419,15 +419,79 @@ $app->get('/byorderid',function()use($app){
 });
 
 //司机确认
+//$app->put('/suresch',function()use($app){
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
+////    $qq = $app->request->params('qq');
+////    $address = $app->request->params('address');
+//    $body=$app->request->getBody();
+//    $body=json_decode($body);
+//    $schedule_id = $body->schedule_id;
+//    $lorry_id = $body->lorry_id;
+//    $database=localhost();
+//    $arrays['is_sure']=0;
+//    if($schedule_id!=null||$schedule_id!=""){
+//        $selectStament=$database->select()
+//            ->from('scheduling')
+//            ->where('exist','=',0)
+//            ->where('is_sure','=',0)
+//            ->where('scheduling_id','=',$schedule_id);
+//        $stmt=$selectStament->execute();
+//        $data=$stmt->fetch();
+//        if($data!=null){
+//            if($lorry_id!=null||$lorry_id!=""){
+//                $selectStatement = $database->select()
+//                    ->from('lorry')
+//                    ->where('exist','=',0)
+//                    ->where('tenant_id','=',0);
+//                $stmt = $selectStatement->execute();
+//                $data1 = $stmt->fetch();
+//                if($data1!=null){
+//                    $selectStament=$database->select()
+//                        ->from('lorry')
+//                        ->where('plate_number','=',$data1['plate_number'])
+//                        ->where('driver_phone','=',$data1['driver_phone'])
+//                        ->where('lorry_id','=',$data['lorry_id'])
+//                        ->where('driver_name','=',$data1['driver_name']);
+//                    $stmt=$selectStament->execute();
+//                    $data2=$stmt->fetch();
+//                    if($data2!=null) {
+//                        $updateStatement = $database->update($arrays)
+//                            ->table('scheduling')
+//                            ->where('scheduling_id', '=', $schedule_id);
+//                        $affectedRows = $updateStatement->execute();
+//                        echo json_encode(array('result' => '0', 'desc' => '接单成功'));
+//                    }else{
+//                        echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在'));
+//                    }
+//                }else{
+//                    echo json_encode(array('result' => '5', 'desc' => '驾驶员不存在'));
+//                }
+//            }else{
+//                echo json_encode(array('result' => '3', 'desc' => '驾驶员未登录'));
+//            }
+//        }else{
+//            echo json_encode(array('result' => '2', 'desc' => '清单不存在'));
+//        }
+//    }else{
+//        echo json_encode(array('result' => '1', 'desc' => '清单号为空'));
+//    }
+//});
+
+
 $app->put('/suresch',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $schedule_id = $body->schedule_id;
-    $lorry_id = $body->lorry_id;
+   $schedule_id = $app->request->params('schedule_id');
+    $lorry_id = $app->request->params('lorry_id');
+    $name= $_FILES["sure"]["name"];
+    $name=iconv("UTF-8","UTF-8", $name);
+    $name=rand(1,100000).$name;
+    move_uploaded_file($_FILES["sure"]["tmp_name"], 'sure/'.$name);
+    $lujing= 'sure/'.$name.'';
     $database=localhost();
     $arrays['is_sure']=0;
+    $arrays['sure_img']=$lujing;
     if($schedule_id!=null||$schedule_id!=""){
         $selectStament=$database->select()
             ->from('scheduling')
@@ -563,7 +627,6 @@ $app->get('/obycouriern',function()use($app){
                     $data3=$stmt->fetch();
                     $selectStament=$database->select()
                         ->from('orders')
-
                         ->where('order_id','=',$data3['delivery_order_id']);
                     $stmt=$selectStament->execute();
                     $data4=$stmt->fetch();
@@ -578,7 +641,7 @@ $app->get('/obycouriern',function()use($app){
                 }
                 echo json_encode(array('result' => '0', 'desc' => '','orders'=>$arrays));
             }else{
-                echo json_encode(array('result' => '3', 'desc' => '配送员没有配送记录'));
+                echo json_encode(array('result' => '3', 'desc' => '配送员没有送到的配送记录'));
             }
         }else{
             echo json_encode(array('result' => '2', 'desc' => '配送员不存在'));
@@ -589,13 +652,76 @@ $app->get('/obycouriern',function()use($app){
 });
 
 //ordersure
+//$app->put('/ordersure',function()use($app){
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
+////    $qq = $app->request->params('qq');
+////    $address = $app->request->params('address');
+//    $body=$app->request->getBody();
+//    $body=json_decode($body);
+//    $order_id=$body->order_id;
+//    $courier_id=$body->courier_id;
+//    $database=localhost();
+//    if($order_id!=null||$order_id!=""){
+//        if($courier_id!=null||$courier_id!=""){
+//            $selectStament=$database->select()
+//                ->from('orders')
+//                ->where('order_id','=',$order_id);
+//            $stmt=$selectStament->execute();
+//            $data=$stmt->fetch();
+//           if($data!=null){
+//               $selectStament=$database->select()
+//                   ->from('delivery_order')
+//                   ->where('delivery_order_id','=',$order_id);
+//               $stmt=$selectStament->execute();
+//               $data9=$stmt->fetch();
+//               if($data9==null){
+//                   $selectStament=$database->select()
+//                       ->from('courier')
+//                       ->where('courier_id','=',$courier_id);
+//                   $stmt=$selectStament->execute();
+//                   $data2=$stmt->fetch();
+//                   if($data2!=null){
+//                       $selectStament=$database->select()
+//                           ->from('courier');
+//                       $stmt=$selectStament->execute();
+//                       $data3=$stmt->fetchAll();
+//                       $insertStatement = $database->insert(array('delivery_id','courier_id','delivery_cost','exist','tenant_id'))
+//                           ->into('delivery')
+//                           ->values(array(count($data3),$courier_id,0,0,$data['tenant_id']));
+//                       $insertId = $insertStatement->execute(false);
+//                       $insertStatement = $database->insert(array('delivery_order_id','delivery_id','exist','tenant_id'))
+//                           ->into('delivery_order')
+//                           ->values(array($order_id,count($data3),0,$data['tenant_id']));
+//                       $insertId = $insertStatement->execute(false);
+//                       echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+//               }else{
+//                       echo json_encode(array('result' => '5', 'desc' => '配送员不存在'));
+//               }
+//               }else{
+//                   echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
+//               }
+//           }else{
+//               echo json_encode(array('result' => '3', 'desc' => '运单不存在'));
+//           }
+//        }else{
+//            echo json_encode(array('result' => '2', 'desc' => '配送员id为空'));
+//        }
+//    }else{
+//        echo json_encode(array('result' => '1', 'desc' => '运单号不能为空'));
+//    }
+//});
+
 $app->put('/ordersure',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $order_id=$body->order_id;
-    $courier_id=$body->courier_id;
+    $courier_id = $app->request->params('courier_id');
+    $order_id = $app->request->params('order_id');
+   $name= $_FILES["sure"]["name"];
+    $name=iconv("UTF-8","UTF-8", $name);
+    $name=rand(1,100000).$name;
+    move_uploaded_file($_FILES["sure"]["tmp_name"], 'sure/'.$name);
+    $lujing= 'sure/'.$name.'';
     $database=localhost();
     if($order_id!=null||$order_id!=""){
         if($courier_id!=null||$courier_id!=""){
@@ -604,41 +730,41 @@ $app->put('/ordersure',function()use($app){
                 ->where('order_id','=',$order_id);
             $stmt=$selectStament->execute();
             $data=$stmt->fetch();
-           if($data!=null){
-               $selectStament=$database->select()
-                   ->from('delivery_order')
-                   ->where('delivery_order_id','=',$order_id);
-               $stmt=$selectStament->execute();
-               $data9=$stmt->fetch();
-               if($data9==null){
-                   $selectStament=$database->select()
-                       ->from('courier')
-                       ->where('courier_id','=',$courier_id);
-                   $stmt=$selectStament->execute();
-                   $data2=$stmt->fetch();
-                   if($data2!=null){
-                       $selectStament=$database->select()
-                           ->from('courier');
-                       $stmt=$selectStament->execute();
-                       $data3=$stmt->fetchAll();
-                       $insertStatement = $database->insert(array('delivery_id','courier_id','delivery_cost','exist','tenant_id'))
-                           ->into('delivery')
-                           ->values(array(count($data3),$courier_id,0,0,$data['tenant_id']));
-                       $insertId = $insertStatement->execute(false);
-                       $insertStatement = $database->insert(array('delivery_order_id','delivery_id','exist','tenant_id'))
-                           ->into('delivery_order')
-                           ->values(array($order_id,count($data3),0,$data['tenant_id']));
-                       $insertId = $insertStatement->execute(false);
-                       echo json_encode(array('result' => '0', 'desc' => '确认成功'));
-               }else{
-                       echo json_encode(array('result' => '5', 'desc' => '配送员不存在'));
-               }
-               }else{
-                   echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
-               }
-           }else{
-               echo json_encode(array('result' => '3', 'desc' => '运单不存在'));
-           }
+            if($data!=null){
+                $selectStament=$database->select()
+                    ->from('delivery_order')
+                    ->where('delivery_order_id','=',$order_id);
+                $stmt=$selectStament->execute();
+                $data9=$stmt->fetch();
+                if($data9==null){
+                    $selectStament=$database->select()
+                        ->from('courier')
+                        ->where('courier_id','=',$courier_id);
+                    $stmt=$selectStament->execute();
+                    $data2=$stmt->fetch();
+                    if($data2!=null){
+                        $selectStament=$database->select()
+                            ->from('courier');
+                        $stmt=$selectStament->execute();
+                        $data3=$stmt->fetchAll();
+                        $insertStatement = $database->insert(array('delivery_id','courier_id','delivery_cost','exist','tenant_id','sure_img'))
+                            ->into('delivery')
+                            ->values(array(count($data3),$courier_id,0,0,$data['tenant_id'],$lujing));
+                        $insertId = $insertStatement->execute(false);
+                        $insertStatement = $database->insert(array('delivery_order_id','delivery_id','exist','tenant_id'))
+                            ->into('delivery_order')
+                            ->values(array($order_id,count($data3),0,$data['tenant_id']));
+                        $insertId = $insertStatement->execute(false);
+                        echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+                    }else{
+                        echo json_encode(array('result' => '5', 'desc' => '配送员不存在'));
+                    }
+                }else{
+                    echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
+                }
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '运单不存在'));
+            }
         }else{
             echo json_encode(array('result' => '2', 'desc' => '配送员id为空'));
         }
@@ -646,8 +772,6 @@ $app->put('/ordersure',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '运单号不能为空'));
     }
 });
-
-
 $app->run();
 
 function localhost(){
