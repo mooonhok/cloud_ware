@@ -229,7 +229,7 @@
                       ,thisData = msg.tenants;
                   layui.each(thisData, function(index, item){
                   	var sure = null;
-                  		 arr.push( '<tr><td>'+item.company+'</td><td>'+item.from_city+'</td><td><input type="file"/></td><td><button class="but" style="cursor:pointer;">确认上传</button><span style="display:none">'+item.tenant_id+'</span></td></tr>');
+                  		 arr.push( '<tr><td>'+item.company+'</td><td>'+item.from_city+'</td><td><input type="file" class="afile"/></td><td><button class="but" style="cursor:pointer;">确认上传</button><span style="display:none">'+item.tenant_id+'</span></td></tr>');
                   });
                   return arr.join('');
               }();
@@ -237,6 +237,8 @@
                   alert(1);
                   var tt=$(this).next().html();
                   alert(tt)
+				  var ff=$(this).parent().prev().children('.afile').files[0];
+                  alert(ff)
 			  });
     }
   });
