@@ -258,7 +258,7 @@ $app->get('/searchStaff0',function()use($app){
                 ->where('staff_id','=',$staff_id)
                 ->where('tenant_id','=',$tenant_id);
             $stmt = $selectStatement->execute();
-            $data = $stmt->fetch();
+            $data = $stmt->fetchAll();
             echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data));
         }else{
             echo json_encode(array('result'=>'1','desc'=>'租户为空'));
