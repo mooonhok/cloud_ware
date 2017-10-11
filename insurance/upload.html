@@ -237,14 +237,14 @@
                   alert(1);
                   var tenant_id=$(this).next().html();
 				  var file1=$(this).parent().prev().children('.afile')[0].files[0];
-                  var data = new FormData();
+                  var formdata = new FormData();
                   console.log(file1);
                   data.append('file1', file1);
-                  console.log(data);
+                  console.log(formdata);
                   $.ajax({
                       url:"http://api.uminfo.cn/tenant_insurancepolicy.php/upload?tenant_id="+tenant_id,
                       type: 'POST',
-                      data: data,
+                      data: formdata,
 //                      dataType: 'JSON',
                       dataType:'text',
                       cache: false,
