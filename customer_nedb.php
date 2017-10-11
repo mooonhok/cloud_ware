@@ -176,7 +176,7 @@ $app->get('/limitCustomers0',function()use($app){
             ->where('type', '=', 1)
             ->where('exist', '=', 0)
             ->orderBy('customer_id')
-            ->limit($size,$offset);
+            ->limit((int)$size,(int)$offset);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$data));

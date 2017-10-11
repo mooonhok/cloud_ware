@@ -138,7 +138,7 @@ $app->get('/limitLorrys',function()use($app){
             ->where('exist', '=', 0)
             ->where('tenant_id', '=', $tenant_id)
             ->orderBy('lorry_id','desc')
-            ->limit($size,$offset);
+            ->limit((int)$size,(int)$offset);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         echo json_encode(array("result" => "0", "desc" => "success",'lorrys'=>$data));

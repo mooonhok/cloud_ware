@@ -106,7 +106,7 @@ $app->get('/limitGoods',function()use($app){
             ->where('tenant_id', '=', $tenant_id)
             ->where('exist','=',0)
             ->orderBy('goods_id')
-            ->limit($size,$offset);
+            ->limit((int)$size,(int)$offset);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         echo json_encode(array("result" => "0", "desc" => "success",'goods'=>$data));
