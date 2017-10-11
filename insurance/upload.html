@@ -240,10 +240,9 @@
                   var data = new FormData();
                   console.log(file1);
                   data.append('file1', file1);
-                  data.append('tenant_id', tenant_id);
                   console.log(data);
                   $.ajax({
-                      url:"http://api.uminfo.cn/tenant_insurancepolicy.php/upload",
+                      url:"http://api.uminfo.cn/tenant_insurancepolicy.php/upload?tenant_id="+tenant_id,
                       type: 'POST',
                       data: data,
 //                      dataType: 'JSON',

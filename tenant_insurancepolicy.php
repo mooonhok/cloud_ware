@@ -17,8 +17,8 @@ $app->post('/upload',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin', '*');
 //    $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
-    $tenant_id = $app->request->params('tenant_id');
-    $name3 = $_POST["file1"];
+    $tenant_id = $app->request->get('tenant_id');
+    $name3 = $_FILES["file1"];
 //        $name3 = $_FILES["file1"]["name"];
 //        $name3 = iconv("UTF-8", "UTF-8", $name3);
 //        date_default_timezone_set("PRC");
