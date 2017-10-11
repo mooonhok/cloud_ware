@@ -236,10 +236,10 @@
               $(".but").on('click',function(){
                   alert(1);
                   var tenant_id=$(this).next().html();
-				  var file1=$(this).parent().prev().children('.afile')[0].files[0];
+//				  var file1=$(this).parent().prev().children('.afile')[0].files[0];
                   var data = new FormData();
-                  console.log(file1);
-                  data.append('file1', file1);
+//                  console.log(file1);
+                  data.append('file1', $(this).parent().prev().children('.afile')[0].files[0]);
                   data.append('tenant_id', tenant_id);
                   console.log(data);
                   $.ajax({
