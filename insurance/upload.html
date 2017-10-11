@@ -239,7 +239,7 @@
 				  var file1=$(this).parent().prev().children('.afile')[0].files[0];
                   var formdata = new FormData();
                   console.log(file1);
-                  data.append('file1', file1);
+                  formdata.append('file1', file1);
                   console.log(formdata);
                   $.ajax({
                       url:"http://api.uminfo.cn/tenant_insurancepolicy.php/upload?tenant_id="+tenant_id,
