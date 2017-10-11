@@ -39,6 +39,7 @@ $app->post('/addstaff',function()use($app){
                                 $array['exist']=0;
                                 $array['password']=sha1(123456);
                                 $array['tenant_id']=$tenant_id;
+                                $array['bg_img']="http://api.uminfo.cn/skin/bg1.jpg";
                                 $insertStatement = $database->insert(array_keys($array))
                                     ->into('staff')
                                     ->values(array_values($array));
