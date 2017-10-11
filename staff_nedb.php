@@ -80,8 +80,8 @@ $app->get('/getStaff0',function()use($app){
                 ->where('username','=',$username)
                 ->where('tenant_id','=',$tenant_id);
             $stmt = $selectStatement->execute();
-            $data = $stmt->fetch();
-            echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data));
+            $data = $stmt->fetchAll();
+            echo json_encode(array('result'=>'0','desc'=>'success','staffs'=>$data));
         }else{
             echo json_encode(array('result'=>'1','desc'=>'缺少员工名字'));
         }
