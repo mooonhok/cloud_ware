@@ -18,8 +18,7 @@ $app->post('/upload',function()use($app) {
 //    $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
     $tenant_id = $app->request->params('tenant_id');
-    if( isset( $_REQUEST['do']) ){
-        $name3=$_FILES["file"]["name"];
+        $name3=$_FILES["file1"]["name"];
         $name3=iconv("UTF-8","UTF-8", $name3);
         date_default_timezone_set("PRC");
         $shijian=time();
@@ -34,9 +33,6 @@ $app->post('/upload',function()use($app) {
         }else{
             echo  json_encode(array("result"=>"1","desc"=>"缺少租户id"));
         }
-        die();
-    }
-
 });
 
 $app->run();

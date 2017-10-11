@@ -236,11 +236,11 @@
               $(".but").on('click',function(){
                   alert(1);
                   var tenant_id=$(this).next().html();
-				  var file=$(this).parent().prev().children('.afile')[0].files[0];
+				  var file1=$(this).parent().prev().children('.afile')[0].files[0];
                   var data = new FormData();
-                  data.append('file', file);
+                  console.log(file1);
+                  data.append('file1', file1);
                   data.append('tenant_id', tenant_id);
-                  data.append("do", "submit");
                   console.log(data);
                   $.ajax({
                       url:"http://api.uminfo.cn/tenant_insurancepolicy.php/upload",
