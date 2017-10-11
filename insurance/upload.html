@@ -240,6 +240,7 @@
                   var data = new FormData();
                   data.append('file', file);
                   data.append('tenant_id', tenant_id);
+                  data.append("do", "submit");
                   console.log(data);
                   $.ajax({
                       url:"http://api.uminfo.cn/tenant_insurancepolicy.php/upload",
