@@ -135,9 +135,10 @@ $app->get('/limitLorrys',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('lorry')
-            ->where('exist', '=', 0)
-            ->where('tenant_id', '=', $tenant_id)
-            ->orderBy('lorry_id','desc')
+            ->leftJoin('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id')
+            ->where('lorry.exist', '=', 0)
+            ->where('lorry.tenant_id', '=', $tenant_id)
+            ->orderBy('lorry.lorry_id','desc')
             ->limit((int)$size,(int)$offset);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
