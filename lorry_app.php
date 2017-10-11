@@ -479,7 +479,7 @@ $app->get('/byorderid',function()use($app){
 //});
 
 
-$app->put('/suresch',function()use($app){
+$app->post('/suresch',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
    $schedule_id = $app->request->params('schedule_id');
@@ -712,7 +712,7 @@ $app->get('/obycouriern',function()use($app){
 //    }
 //});
 
-$app->put('/ordersure',function()use($app){
+$app->post('/ordersure',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $courier_id = $app->request->params('courier_id');
