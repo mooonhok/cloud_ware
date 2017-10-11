@@ -23,9 +23,6 @@ $app->post('/addLorry',function()use($app) {
     $plate_number= $body->plate_number;
     $driver_name= $body->driver_name;
     $driver_phone= $body->driver_phone;
-    $driving_license=$body->driving_license;
-    $vehicle_travel_license=$body->vehicle_travel_license;
-    $lorry_type_id=$body->lorry_type_id;
     $array = array();
     foreach ($body as $key => $value) {
         $array[$key] = $value;
@@ -35,25 +32,16 @@ $app->post('/addLorry',function()use($app) {
             if($plate_number!=null||$plate_number!=''){
                 if($driver_name!=null||$driver_name!=''){
                     if($driver_phone!=null||$driver_phone!=''){
-                        if($driving_license!=null||$driving_license!=''){
-                            if($vehicle_travel_license!=null||$vehicle_travel_license!=''){
-                                if($lorry_type_id!=null||$lorry_type_id!=''){
                                     $array['tenant_id']=$tenant_id;
                                     $array['exist']=0;
+                                    $array['driving_license']="images/common/photo1.png";
+                                    $array['vehicle_travel_license']="images/common/photo2.png";
+                                    $array['lorry_type_id']="";
                                     $insertStatement = $database->insert(array_keys($array))
                                         ->into('lorry')
                                         ->values(array_values($array));
                                     $insertId = $insertStatement->execute(false);
                                     echo json_encode(array("result" => "0", "desc" => "success"));
-                                }else{
-                                    echo json_encode(array("result" => "1", "desc" => "缺少车辆类型"));
-                                }
-                            }else{
-                                echo json_encode(array("result" => "2", "desc" => "缺少行驶证"));
-                            }
-                        }else{
-                            echo json_encode(array("result" => "3", "desc" => "缺少驾驶证"));
-                        }
                     }else{
                         echo json_encode(array("result" => "4", "desc" => "缺少驾驶员手机号码"));
                     }
