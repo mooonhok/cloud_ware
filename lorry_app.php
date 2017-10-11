@@ -720,7 +720,7 @@ $app->put('/ordersure',function()use($app){
    $name= $_FILES["sure"]["name"];
     $name=iconv("UTF-8","UTF-8", $name);
     $name=rand(1,100000).$name;
-    move_uploaded_file($_FILES["sure"]["tmp_name"], 'sure/'.$name);
+    move_uploaded_file($_FILES["sure"]["tmp_name"], 'sureone/'.$name);
     $lujing= 'sure/'.$name.'';
     $database=localhost();
     if($order_id!=null||$order_id!=""){
