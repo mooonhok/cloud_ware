@@ -11,11 +11,11 @@ require 'connect.php';
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
-$app->get('/city',function()use($app){
+$app->get('/getCitys1',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
-    $pid=$app->request->get('pid');
+    $pid=$app->request->get('province_id');
     if($pid!=null||$pid!=""){
         $selectStatement = $database->select()
             ->from('city')
@@ -23,11 +23,13 @@ $app->get('/city',function()use($app){
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
+    }else{
+        echo  json_encode(array("result"=>"1","desc"=>"省份的id为空"));
     }
 });
 
 //获得所有city
-$app->get('/citys',function()use($app){
+$app->get('/getCitys0',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
@@ -38,6 +40,23 @@ $app->get('/citys',function()use($app){
     echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
 });
 
+//根据名字获得城市
+$app->get('/getCity',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $name=$app->request->get('city_name');
+    if($name!=null||$name!=""){
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('name','=',$name);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetch();
+        echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
+    }else{
+        echo  json_encode(array("result"=>"1","desc"=>"城市名字为空"));
+    }
+});
 
 $app->run();
 

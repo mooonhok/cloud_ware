@@ -12,7 +12,7 @@ require 'connect.php';
 $app = new \Slim\Slim();
 
 //查车辆类型
-$app->get('/lorry_type',function()use($app){
+$app->get('/getLorryTypes',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
