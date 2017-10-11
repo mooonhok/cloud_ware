@@ -161,7 +161,6 @@ $app->get('/searchLorry',function()use($app){
         if($lorry_id!=null||$lorry_id!=''){
             $selectStatement = $database->select()
                 ->from('lorry')
-                ->leftJoin('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id')
                 ->where('tenant_id', '=', $tenant_id)
                 ->where('lorry_id', '=', $lorry_id);
             $stmt = $selectStatement->execute();
