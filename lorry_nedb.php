@@ -36,7 +36,6 @@ $app->post('/addLorry',function()use($app) {
                                     $array['exist']=0;
                                     $array['driving_license']="images/common/photo1.png";
                                     $array['vehicle_travel_license']="images/common/photo2.png";
-                                    $array['lorry_type_id']="";
                                     $insertStatement = $database->insert(array_keys($array))
                                         ->into('lorry')
                                         ->values(array_values($array));
