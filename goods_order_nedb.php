@@ -21,7 +21,7 @@ $app->get('/getGoodsOrders1',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('orders')
-            ->join('goods', 'goods.orders_id', '=', 'orders.orders_id', 'INNER')
+            ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
             ->where('goods.tenant_id','=',$tenant_id)
             ->where('orders.tenant_id','=',$tenant_id)
             ->where('orders.exist','=',0);
