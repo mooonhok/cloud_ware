@@ -18,13 +18,12 @@ $app->post('/upload',function()use($app) {
 //    $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
     $tenant_id = $app->request->get('tenant_id');
-    $name3 = $_FILES["file1"];
         $name3 = $_FILES["file1"]["name"];
         $name3 = iconv("UTF-8", "UTF-8", $name3);
         date_default_timezone_set("PRC");
         $shijian = time();
         $name3 = $shijian . $name3;
-        move_uploaded_file($_FILES["file"]["tmp_name"], "tenant/insurance/" . $name3);
+        move_uploaded_file($_FILES["file1"]["tmp_name"], "tenant/insurance/" . $name3);
         if ($tenant_id != null || $tenant_id != '') {
             $insertStatement = $database->insert(array('tenant_id', 'tenant_insurancepolicy'))
                 ->into('tenant_insurancepolicy')
