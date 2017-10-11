@@ -24,7 +24,7 @@ $app->post('/addstaff',function()use($app){
     $telephone=$body->telephone;
     $position=$body->position;
     $status=$body->status;
-    $permissions=$body->permissions;
+    $permission=$body->permission;
     $array=array();
     foreach($body as $key=>$value){
         $array[$key]=$value;
@@ -35,7 +35,7 @@ $app->post('/addstaff',function()use($app){
                 if($telephone!=null||$telephone!=''){
                     if($position!=null||$position!=''){
                         if($status!=null||$status!=''){
-                            if($permissions!=null||$permissions!=''){
+                            if($permission!=null||$permission!=''){
                                 $array['exist']=0;
                                 $array['password']=sha1(123456);
                                 $array['tenant_id']=$tenant_id;
