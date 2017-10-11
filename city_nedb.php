@@ -1,0 +1,47 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Administrator
+ * Date: 2017/10/11
+ * Time: 13:28
+ */
+require 'Slim/Slim.php';
+require 'connect.php';
+
+
+\Slim\Slim::registerAutoloader();
+$app = new \Slim\Slim();
+$app->get('/city',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $pid=$app->request->get('pid');
+    if($pid!=null||$pid!=""){
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('pid','=',$pid);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
+    }
+});
+
+//获得所有city
+$app->get('/citys',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $selectStatement = $database->select()
+        ->from('city');
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
+});
+
+
+$app->run();
+
+function localhost(){
+    return connect();
+}
+?>
