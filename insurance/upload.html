@@ -241,22 +241,31 @@
                   console.log(file1);
                   formdata.append('file1', file1);
                   console.log(formdata);
-                  $.ajax({
-                      url:"http://api.uminfo.cn/tenant_insurancepolicy.php/upload?tenant_id="+tenant_id,
-                      type: 'POST',
-                      data: formdata,
-//                      dataType: 'JSON',
-                      dataType:'text',
-                      cache: false,
-                      processData: false,
-                      ContentType: false,
-                      error: function(xhr) {
-                          alert(xhr.responseText);
-                      },
-                      success: function(ee) {
-                          console.log(ee);
-                      }
-                  })
+//                  $.ajax({
+//                      url:"http://api.uminfo.cn/tenant_insurancepolicy.php/upload?tenant_id="+tenant_id,
+//                      type: 'POST',
+//                      data: formdata,
+////                      dataType: 'JSON',
+//                      dataType:'text',
+//                      cache: false,
+//                      processData: false,
+//                      ContentType: false,
+//                      error: function(xhr) {
+//                          alert(xhr.responseText);
+//                      },
+//                      success: function(ee) {
+//                          console.log(ee);
+//                      }
+//                  })
+                  var xhr = new XMLHttpRequest();
+                  xhr.open("POST" ,"http://api.uminfo.cn/tenant_insurancepolicy.php/upload?tenant_id="+tenant_id , true);
+                  xhr.send(formdata);
+                  xhr.onload = function(e) {
+                      if (this.status == 200) {
+                          alert(123123);
+                      };
+                  };
+                  return;
               });
     }
   });
