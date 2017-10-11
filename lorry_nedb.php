@@ -186,7 +186,6 @@ $app->put('/alterLorry',function()use($app){
     $driver_phone= $body->driver_phone;
     $driving_license=$body->driving_license;
     $vehicle_travel_license=$body->vehicle_travel_license;
-    $lorry_type_id=$body->lorry_type_id;
     $array = array();
     foreach ($body as $key => $value) {
         $array[$key] = $value;
@@ -198,16 +197,12 @@ $app->put('/alterLorry',function()use($app){
                     if($driver_phone!=null||$driver_phone!=''){
                         if($driving_license!=null||$driving_license!=''){
                             if($vehicle_travel_license!=null||$vehicle_travel_license!=''){
-                                if($lorry_type_id!=null||$lorry_type_id!=''){
                                     $updateStatement = $database->update($array)
                                         ->table('lorry')
                                         ->where('tenant_id','=',$tenant_id)
                                         ->where('lorry_id','=',$lorry_id);
                                     $affectedRows = $updateStatement->execute();
                                     echo json_encode(array("result" => "0", "desc" => "success"));
-                                }else{
-                                    echo json_encode(array("result" => "1", "desc" => "缺少车辆类型id"));
-                                }
                             }else{
                                 echo json_encode(array("result" => "2", "desc" => "缺少行驶证"));
                             }

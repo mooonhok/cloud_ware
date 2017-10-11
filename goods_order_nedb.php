@@ -336,17 +336,15 @@ $app->get('/getGoodsOrder',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get('tenant-id');
-    $offset=$app->request->get('offset');
-    $size=$app->request->get('size');
+    $order_id=$app->request->get('order_id');
     if($tenant_id!=null||$tenant_id!=''){
-        if($size!=null||$size!=''){
-            if($offset!=null||$offset!=''){
+        if($order_id!=null||$order_id!=''){
                 $selectStatement = $database->select()
                     ->from('orders')
                     ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
                     ->where('goods.tenant_id','=',$tenant_id)
                     ->where('orders.tenant_id','=',$tenant_id)
-                    ->where('orders.order_status','=',1)
+                    ->where('orders.order_id','=',1)
                     ->where('orders.inventory_type','=',4)
                     ->where('orders.exist','=',0)
                     ->orderBy('orders.order_id')
@@ -354,9 +352,6 @@ $app->get('/getGoodsOrder',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
                 echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
-            }else{
-                echo json_encode(array('result'=>'1','desc'=>'偏移量为空'));
-            }
         }else{
             echo json_encode(array('result'=>'2','desc'=>'size为空'));
         }
