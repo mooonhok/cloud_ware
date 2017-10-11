@@ -172,7 +172,7 @@ $app->get('/getStaffs0',function()use($app){
                 ->where('tenant_id','=',$tenant_id);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
-            echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data));
+            echo json_encode(array('result'=>'0','desc'=>'success','staffs'=>$data));
 });
 
 $app->get('/getStaffs1',function()use($app){
