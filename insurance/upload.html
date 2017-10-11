@@ -242,18 +242,26 @@
                   data.append('file1', file1);
                   data.append('tenant_id', tenant_id);
                   console.log(data);
-                  $.ajax({
-                      url:"http://api.uminfo.cn/tenant_insurancepolicy.php/upload",
-                      type: 'POST',
-                      data: data,
-                      dataType: 'JSON',
-                      cache: false,
-                      processData: false,
-                      ContentType: false,
-                      error: function(xhr) {
-                          alert(xhr.responseText);
-                      }
-                  })
+                  var xhr = new XMLHttpRequest();
+                  xhr.open("POST" ,"http://api.uminfo.cn/tenant_insurancepolicy.php/upload" , true);
+                  xhr.send(data);
+                  xhr.onload = function(e) {
+                      if (this.status == 200) {
+                          alert(this.responseText);
+                      };
+                  };
+//                  $.ajax({
+//                      url:"http://api.uminfo.cn/tenant_insurancepolicy.php/upload",
+//                      type: 'POST',
+//                      data: data,
+//                      dataType: 'JSON',
+//                      cache: false,
+//                      processData: false,
+//                      ContentType: false,
+//                      error: function(xhr) {
+//                          alert(xhr.responseText);
+//                      }
+//                  })
               });
     }
   });
