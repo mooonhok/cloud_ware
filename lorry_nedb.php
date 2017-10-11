@@ -164,8 +164,8 @@ $app->get('/searchLorry',function()use($app){
                 ->where('tenant_id', '=', $tenant_id)
                 ->where('lorry_id', '=', $lorry_id);
             $stmt = $selectStatement->execute();
-            $data = $stmt->fetch();
-            echo json_encode(array("result" => "0", "desc" => "success",'lorry'=>$data));
+            $data = $stmt->fetchAll();
+            echo json_encode(array("result" => "0", "desc" => "success",'lorrys'=>$data));
         }else{
             echo json_encode(array("result" => "1", "desc" => "缺少车辆id"));
         }
