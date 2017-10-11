@@ -12,17 +12,25 @@ require 'connect.php';
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 
-//查货物清单
+
 $app->get('/getGoodsOrders1',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get('tenant-id');
-    $selectStatement = $database->select()
-        ->from('goods_package');
-    $stmt = $selectStatement->execute();
-    $data1 = $stmt->fetchAll();
-    echo json_encode(array('result'=>'1','desc'=>'','goods_package'=>$data1));
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('orders')
+            ->join('goods', 'goods.orders_id', '=', 'orders.orders_id', 'INNER')
+            ->where('goods.tenant_id','=',$tenant_id)
+            ->where('orders.tenant_id','=',$tenant_id)
+            ->where('orders.exist','=',0);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetchAll();
+        echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'租户id为空'));
+    }
 });
 
 $app->run();
