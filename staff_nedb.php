@@ -339,7 +339,7 @@ $app->get('/limitStaffs0',function()use($app){
                         ->where('tenant_id','=',$tenant_id)
                         ->where('staff_id','=',$staff_id)
                         ->orderBy('staff_id')
-                        ->limit($size,$offset);
+                        ->limit((int)$size,(int)$offset);
                     $stmt = $selectStatement->execute();
                     $data = $stmt->fetchAll();
                     echo json_encode(array('result'=>'0','desc'=>'success','staffs'=>$data));
@@ -397,7 +397,7 @@ $app->get('/limitStaffs1',function()use($app){
                         ->where('tenant_id','=',$tenant_id)
                         ->where('name','=',$name)
                         ->orderBy('staff_id')
-                        ->limit($size,$offset);
+                        ->limit((int)$size,(int)$offset);
                     $stmt = $selectStatement->execute();
                     $data = $stmt->fetchAll();
                     echo json_encode(array('result'=>'0','desc'=>'success','staffs'=>$data));
