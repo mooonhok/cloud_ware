@@ -672,7 +672,7 @@ $app->post("/wxmessage_isread",function()use($app){
 });
 
 
-//order_source为1的所有订单数
+//获得微信端的所有订单数
 $app->get("/wx_message_source",function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');

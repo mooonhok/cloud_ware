@@ -422,15 +422,30 @@ $app->get('/byorderid',function()use($app){
 $app->post('/suresch',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-   $schedule_id = $app->request->params('schedule_id');
-    $lorry_id = $app->request->params('lorry_id');
-    if(!isset($_FILES["sure"]["name"])){
-    $name= $_FILES["sure"]["name"];
-    $name=iconv("UTF-8","UTF-8", $name);
-    $name=rand(1,100000).$name;
-    move_uploaded_file($_FILES["sure"]["tmp_name"], 'sure/'.$name);
-    $lujing= 'sure/'.$name.'';
     $database=localhost();
+ //  $schedule_id = $app->request->params('schedule_id');
+//    $lorry_id = $app->request->params('lorry_id');
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $schedule_id=$body->schedule_id;
+    $lorry_id=$body->lorry_id;
+    $pic=$body->pic;
+    $lujing=null;
+    $base64_image_content = $pic;
+//匹配出图片的格式
+    if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)){
+        $type = $result[2];
+        $new_file = "sure/".date('Ymd',time())."/";
+        if(!file_exists($new_file))
+        {
+//检查是否有该文件夹，如果没有就创建，并给予最高权限
+            mkdir($new_file, 0700);
+        }
+        $new_file = $new_file.time().".{$type}";
+        if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))){
+            $lujing= $new_file;
+        }
+    }
     $arrays['is_sure']=0;
     $arrays['sure_img']=$lujing;
     if($schedule_id!=null||$schedule_id!=""){
@@ -480,9 +495,7 @@ $app->post('/suresch',function()use($app){
     }else{
         echo json_encode(array('result' => '1', 'desc' => '清单号为空'));
     }
-    }else{
-        echo json_encode(array('result' => '6', 'desc' => '图片不存在'));
-    }
+
 });
 //orders未送到
 $app->get('/obycourier',function()use($app){
