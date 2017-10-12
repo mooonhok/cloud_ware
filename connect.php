@@ -15,7 +15,8 @@ function connect(){
     $databaseName = env("MYSQL_INSTANCE_NAME", "cloud_ware");
     $username = env("MYSQL_USERNAME", "root");
     $password = env("MYSQL_PASSWORD", "jsym_20170607");
-    $database=new database("mysql:host=".$serverName.";port=3306;dbname=".$databaseName.";charset=utf8",$username,$password);
+    $port=env('60212','3306');
+    $database=new database("mysql:host=".$serverName.";port=".$port.";dbname=".$databaseName.";charset=utf8",$username,$password);
     return  $database;
 }
 function env($key, $default = null)

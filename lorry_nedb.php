@@ -226,8 +226,76 @@ $app->put('/alterLorry',function()use($app){
     }
 });
 
-$app->run();
+$app->get('/getLorrys2',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    if($tenant_id!=null||$tenant_id!=''){
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('exist','=',1);
+            $stmt = $selectStatement->execute();
+            $data = $stmt->fetchAll();
+            echo json_encode(array("result" => "0", "desc" => "success",'lorrys'=>$data));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
 
+$app->get('/limitLorrys2',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $size = $app->request->get("size");
+    $offset = $app->request->get("offset");
+    if($tenant_id!=null||$tenant_id!=''){
+        if($size!=null||$size!=''){
+            if($offset!=null||$offset!=''){
+                $selectStatement = $database->select()
+                    ->from('lorry')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('exist','=',1)
+                    ->orderBy('lorry_id','DESC')
+                    ->limit((int)$size,(int)$offset);
+                $stmt = $selectStatement->execute();
+                $data = $stmt->fetchAll();
+                echo json_encode(array("result" => "0", "desc" => "success",'lorrys'=>$data));
+            }else{
+                echo json_encode(array("result" => "1", "desc" => "缺少偏移量"));
+            }
+        }else{
+            echo json_encode(array("result" => "2", "desc" => "缺少size"));
+        }
+    }else{
+        echo json_encode(array("result" => "3", "desc" => "缺少租户id"));
+    }
+});
+
+$app->put('/recoverLorry',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $lorry_id= $body->lorry_id;
+    if($tenant_id!=null||$tenant_id!=''){
+        if($lorry_id!=null||$lorry_id!=''){
+                                $updateStatement = $database->update(array('exist'=>0))
+                                    ->table('lorry')
+                                    ->where('tenant_id','=',$tenant_id)
+                                    ->where('lorry_id','=',$lorry_id);
+                                $affectedRows = $updateStatement->execute();
+                                echo json_encode(array("result" => "0", "desc" => "success"));
+        }else{
+            echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+        }
+    }else{
+        echo json_encode(array("result" => "2", "desc" => "缺少租户id"));
+    }
+});
+
+$app->run();
 
 function localhost(){
     return connect();
