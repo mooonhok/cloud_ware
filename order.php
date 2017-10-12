@@ -1070,7 +1070,6 @@ $app->post('/wx_orders_accept', function () use ($app) {
                 $selectStatement = $database->select()
                     ->from('orders')
                     ->where('exist', "=", 0)
-                    ->where('tenant_id','=',$tenant_id)
                     ->where('order_id','=',$data2['order_id']);
                 $stmt = $selectStatement->execute();
                 $data3= $stmt->fetch();
