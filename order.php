@@ -1427,7 +1427,6 @@ $app->put('/update_order_cost',function()use($app){
            if($data1!=null){
                $selectStatement = $database->select()
                    ->from('orders')
-                   ->where('tenant_id', "=",$tenant_id)
                    ->where('order_id','=',$order_id)
                    ->where('exist','=',0);
                $stmt = $selectStatement->execute();
@@ -1435,7 +1434,6 @@ $app->put('/update_order_cost',function()use($app){
                if($data2!=null){
                    $updateStatement = $database->update(array('order_cost' => $order_cost))
                        ->table('orders')
-                       ->where('tenant_id', '=', $tenant_id)
                        ->where('exist','=',0)
                        ->where('order_id', '=', $order_id);
                    $affectedRows = $updateStatement->execute();
