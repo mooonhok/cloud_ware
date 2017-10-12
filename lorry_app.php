@@ -447,7 +447,7 @@ $app->post('/suresch',function()use($app){
             $lujing= $new_file;
         }
     }
-    $arrays['is_sure']=0;
+    $arrays['is_sure']=1;
     $arrays['sure_img']=$lujing;
     if($schedule_id!=null||$schedule_id!=""){
         $selectStament=$database->select()
