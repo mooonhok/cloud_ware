@@ -85,7 +85,7 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                         $stmt = $selectStatement->execute();
                                                                                         $data1 = $stmt->fetch();
                                                                                             if($data1!=null) {
-                                                                                                $str=null;
+                                                                                                $str=$tenant_id;
                                                                                                 do{
                                                                                                     $time=time();
 //                                                                                                    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -93,7 +93,6 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                                     $str.=$time;
                                                                                                     $selectStatement = $database->select()
                                                                                                         ->from('orders')
-                                                                                                        ->where('tenant_id','=',$tenant_id)
                                                                                                         ->where('order_id','=',$str)
                                                                                                         ->where('exist',"=",0);
                                                                                                     $stmt = $selectStatement->execute();
@@ -342,8 +341,6 @@ $app->post('/wxmessages',function()use($app){
                 $array['wxmessage']=$data[$i];
                 $selectStatement = $database->select()
                     ->from('orders')
-                    ->where('tenant_id','=',$tenant_id)
-                    ->where('order_source','=','1')
                     ->where('exist',"=",0)
                     ->where('order_id','=',$data[$i]['order_id']);
                 $stmt = $selectStatement->execute();
