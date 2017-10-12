@@ -425,65 +425,65 @@ $app->post('/suresch',function()use($app){
    $schedule_id = $app->request->params('schedule_id');
     $lorry_id = $app->request->params('lorry_id');
     echo json_encode(array('result' => '1', 'desc' => $lorry_id));
-//    if(!isset($_FILES["sure"]["name"])){
-//    $name= $_FILES["sure"]["name"];
-//    $name=iconv("UTF-8","UTF-8", $name);
-//    $name=rand(1,100000).$name;
-//    move_uploaded_file($_FILES["sure"]["tmp_name"], 'sure/'.$name);
-//    $lujing= 'sure/'.$name.'';
-//    $database=localhost();
-//    $arrays['is_sure']=0;
-//    $arrays['sure_img']=$lujing;
-//    if($schedule_id!=null||$schedule_id!=""){
-//        $selectStament=$database->select()
-//            ->from('scheduling')
-//            ->where('exist','=',0)
-//            ->where('is_sure','=',0)
-//            ->where('scheduling_id','=',$schedule_id);
-//        $stmt=$selectStament->execute();
-//        $data=$stmt->fetch();
-//        if($data!=null){
-//            if($lorry_id!=null||$lorry_id!=""){
-//                $selectStatement = $database->select()
-//                    ->from('lorry')
-//                    ->where('exist','=',0)
-//                    ->where('lorry_id','=',$lorry_id)
-//                    ->where('tenant_id','=',0);
-//                $stmt = $selectStatement->execute();
-//                $data1 = $stmt->fetch();
-//                if($data1!=null){
-//                    $selectStament=$database->select()
-//                        ->from('lorry')
-//                        ->where('plate_number','=',$data1['plate_number'])
-//                        ->where('driver_phone','=',$data1['driver_phone'])
-//                        ->where('lorry_id','=',$data['lorry_id'])
-//                        ->where('driver_name','=',$data1['driver_name']);
-//                    $stmt=$selectStament->execute();
-//                    $data2=$stmt->fetch();
-//                    if($data2!=null) {
-//                        $updateStatement = $database->update($arrays)
-//                            ->table('scheduling')
-//                            ->where('scheduling_id', '=', $schedule_id);
-//                        $affectedRows = $updateStatement->execute();
-//                        echo json_encode(array('result' => '0', 'desc' => '接单成功'));
-//                    }else{
-//                        echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在'));
-//                    }
-//                }else{
-//                    echo json_encode(array('result' => '5', 'desc' => '驾驶员不存在'));
-//                }
-//            }else{
-//                echo json_encode(array('result' => '3', 'desc' => '驾驶员未登录'));
-//            }
-//        }else{
-//            echo json_encode(array('result' => '2', 'desc' => '清单不存在'));
-//        }
-//    }else{
-//        echo json_encode(array('result' => '1', 'desc' => '清单号为空'));
-//    }
-//    }else{
-//        echo json_encode(array('result' => '1', 'desc' => '图片不存在'));
-//    }
+    if(!isset($_FILES["sure"]["name"])){
+    $name= $_FILES["sure"]["name"];
+    $name=iconv("UTF-8","UTF-8", $name);
+    $name=rand(1,100000).$name;
+    move_uploaded_file($_FILES["sure"]["tmp_name"], 'sure/'.$name);
+    $lujing= 'sure/'.$name.'';
+    $database=localhost();
+    $arrays['is_sure']=0;
+    $arrays['sure_img']=$lujing;
+    if($schedule_id!=null||$schedule_id!=""){
+        $selectStament=$database->select()
+            ->from('scheduling')
+            ->where('exist','=',0)
+            ->where('is_sure','=',0)
+            ->where('scheduling_id','=',$schedule_id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetch();
+        if($data!=null){
+            if($lorry_id!=null||$lorry_id!=""){
+                $selectStatement = $database->select()
+                    ->from('lorry')
+                    ->where('exist','=',0)
+                    ->where('lorry_id','=',$lorry_id)
+                    ->where('tenant_id','=',0);
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetch();
+                if($data1!=null){
+                    $selectStament=$database->select()
+                        ->from('lorry')
+                        ->where('plate_number','=',$data1['plate_number'])
+                        ->where('driver_phone','=',$data1['driver_phone'])
+                        ->where('lorry_id','=',$data['lorry_id'])
+                        ->where('driver_name','=',$data1['driver_name']);
+                    $stmt=$selectStament->execute();
+                    $data2=$stmt->fetch();
+                    if($data2!=null) {
+                        $updateStatement = $database->update($arrays)
+                            ->table('scheduling')
+                            ->where('scheduling_id', '=', $schedule_id);
+                        $affectedRows = $updateStatement->execute();
+                        echo json_encode(array('result' => '0', 'desc' => '接单成功'));
+                    }else{
+                        echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在'));
+                    }
+                }else{
+                    echo json_encode(array('result' => '5', 'desc' => '驾驶员不存在'));
+                }
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '驾驶员未登录'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '清单不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '清单号为空'));
+    }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '图片不存在'));
+    }
 });
 //orders未送到
 $app->get('/obycourier',function()use($app){
