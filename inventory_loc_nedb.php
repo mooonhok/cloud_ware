@@ -86,7 +86,7 @@ $app->delete('/deleteInventoryLoc',function()use($app){
     $database = localhost();
     $inventory_loc_id=$app->request->get('inventory_loc_id;');
     if($tenant_id!=null||$tenant_id!=''){
-        $updateStatement = $database->update()
+        $updateStatement = $database->update(array('exist'=>1))
             ->table('inventory_loc')
             ->where('tenant_id','=',$tenant_id)
             ->where('inventory_loc_id','=',$inventory_loc_id);

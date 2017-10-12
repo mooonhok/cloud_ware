@@ -684,8 +684,9 @@ $app->get("/wx_message_source",function()use($app){
     if($tenant_id!=null){
         $selectStatement = $database->select()
             ->from('orders')
-            ->where('tenant_id','=',$tenant_id)
-            ->where('order_source','=',1)
+            ->join('wx_message','orders.order_id','=','wx_message.order_id','INNER')
+            ->where('wx_message.tenant_id','=',$tenant_id)
+            ->where('wx_message.tenant_id','=',$tenant_id)
             ->where('exist',"=",0);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
