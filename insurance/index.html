@@ -358,7 +358,7 @@ var city_id = $.getUrlParam('city_id');
 					TablePage('#table', 7);
 					function TablePage(id, size) {
 					$("#tb3").html("");
-					for(var i = 0; i < msg.goods; i++) {
+					for(var i = 0; i < msg.goods.length; i++) {
 						var c = "<tr><td>" + msg.goods[i].order_id + "</td><td>" +
 							msg.goods[i].goods_name + "</td><td>" +
 							msg.goods[i].goods_weight + "</td><td>" +
