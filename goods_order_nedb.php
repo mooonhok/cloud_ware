@@ -498,8 +498,8 @@ $app->get('/limitGoodsOrders6',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get('tenant-id');
-    $offset = $app->request->headers->get('offset');
-    $size= $app->request->headers->get('size');
+    $offset = $app->request->get('offset');
+    $size= $app->request->get('size');
     if($tenant_id!=null||$tenant_id!=''){
         if($offset!=null||$offset!=''){
             if($size!=null||$size!=''){
@@ -525,6 +525,34 @@ $app->get('/limitGoodsOrders6',function()use($app){
         echo json_encode(array('result'=>'3','desc'=>'租户id为空'));
     }
 });
+
+$app->get('/getGoodsOrderList',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $order_id = $app->request->get('order_id');
+    if($tenant_id!=null||$tenant_id!=''){
+        if($order_id!=null||$order_id!=''){
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+                    ->where('goods.tenant_id','=',$tenant_id)
+                    ->where('orders.tenant_id','=',$tenant_id)
+                    ->where('orders.exist','=',0)
+                    ->where('orders.order_id','=',$order_id);
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetchAll();
+                echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
+        }else{
+            echo json_encode(array('result'=>'1','desc'=>'运单id为空'));
+        }
+    }else{
+        echo json_encode(array('result'=>'2','desc'=>'租户id为空'));
+    }
+});
+
+
 
 $app->run();
 function localhost(){
