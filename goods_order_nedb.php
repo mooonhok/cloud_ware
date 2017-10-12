@@ -350,10 +350,10 @@ $app->get('/getGoodsOrder',function()use($app){
                 $data1 = $stmt->fetchAll();
                 echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
         }else{
-            echo json_encode(array('result'=>'2','desc'=>'size为空'));
+            echo json_encode(array('result'=>'1','desc'=>'size为空'));
         }
     }else{
-        echo json_encode(array('result'=>'3','desc'=>'租户id为空'));
+        echo json_encode(array('result'=>'2','desc'=>'租户id为空'));
     }
 });
 
@@ -362,9 +362,7 @@ $app->get('/searchGoodsOrders0',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get('tenant-id');
-    $order_id=$app->request->get('order_id');
     if($tenant_id!=null||$tenant_id!=''){
-        if($order_id!=null||$order_id!=''){
             $selectStatement = $database->select()
                 ->from('orders')
                 ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
@@ -377,11 +375,8 @@ $app->get('/searchGoodsOrders0',function()use($app){
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
             echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
-        }else{
-            echo json_encode(array('result'=>'2','desc'=>'size为空'));
-        }
     }else{
-        echo json_encode(array('result'=>'3','desc'=>'租户id为空'));
+        echo json_encode(array('result'=>'2','desc'=>'租户id为空'));
     }
 });
 
@@ -390,9 +385,7 @@ $app->get('/searchGoodsOrders1',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get('tenant-id');
-    $order_id=$app->request->get('order_id');
     if($tenant_id!=null||$tenant_id!=''){
-        if($order_id!=null||$order_id!=''){
             $selectStatement = $database->select()
                 ->from('orders')
                 ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
@@ -405,11 +398,8 @@ $app->get('/searchGoodsOrders1',function()use($app){
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
             echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
-        }else{
-            echo json_encode(array('result'=>'2','desc'=>'size为空'));
-        }
     }else{
-        echo json_encode(array('result'=>'3','desc'=>'租户id为空'));
+        echo json_encode(array('result'=>'2','desc'=>'租户id为空'));
     }
 });
 
@@ -418,9 +408,7 @@ $app->get('/searchGoodsOrders2',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get('tenant-id');
-    $order_id=$app->request->get('order_id');
     if($tenant_id!=null||$tenant_id!=''){
-        if($order_id!=null||$order_id!=''){
             $selectStatement = $database->select()
                 ->from('orders')
                 ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
@@ -433,11 +421,8 @@ $app->get('/searchGoodsOrders2',function()use($app){
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
             echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
-        }else{
-            echo json_encode(array('result'=>'2','desc'=>'size为空'));
-        }
     }else{
-        echo json_encode(array('result'=>'3','desc'=>'租户id为空'));
+        echo json_encode(array('result'=>'2','desc'=>'租户id为空'));
     }
 });
 
@@ -446,9 +431,7 @@ $app->get('/searchGoodsOrders3',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get('tenant-id');
-    $order_id=$app->request->get('order_id');
     if($tenant_id!=null||$tenant_id!=''){
-        if($order_id!=null||$order_id!=''){
             $selectStatement = $database->select()
                 ->from('orders')
                 ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
@@ -461,11 +444,8 @@ $app->get('/searchGoodsOrders3',function()use($app){
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
             echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
-        }else{
-            echo json_encode(array('result'=>'2','desc'=>'size为空'));
-        }
     }else{
-        echo json_encode(array('result'=>'3','desc'=>'租户id为空'));
+        echo json_encode(array('result'=>'2','desc'=>'租户id为空'));
     }
 });
 
@@ -474,9 +454,7 @@ $app->get('/searchGoodsOrders3',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get('tenant-id');
-    $order_id=$app->request->get('order_id');
     if($tenant_id!=null||$tenant_id!=''){
-        if($order_id!=null||$order_id!=''){
             $selectStatement = $database->select()
                 ->from('orders')
                 ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
@@ -489,15 +467,64 @@ $app->get('/searchGoodsOrders3',function()use($app){
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
             echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
+    }else{
+        echo json_encode(array('result'=>'2','desc'=>'租户id为空'));
+    }
+});
+
+$app->get('/getGoodsOrdersNum5',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get('tenant-id');
+    if($tenant_id!=null||$tenant_id!=''){
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+                ->where('goods.tenant_id','=',$tenant_id)
+                ->where('orders.tenant_id','=',$tenant_id)
+                ->where('orders.order_status','=',5)
+                ->where('orders.exist','=',0);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetchAll();
+            echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
+    }else{
+        echo json_encode(array('result'=>'2','desc'=>'租户id为空'));
+    }
+});
+
+$app->get('/limitGoodsOrders6',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $offset = $app->request->headers->get('offset');
+    $size= $app->request->headers->get('size');
+    if($tenant_id!=null||$tenant_id!=''){
+        if($offset!=null||$offset!=''){
+            if($size!=null||$size!=''){
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+                    ->where('goods.tenant_id','=',$tenant_id)
+                    ->where('orders.tenant_id','=',$tenant_id)
+                    ->where('orders.order_status','=',5)
+                    ->where('orders.exist','=',0)
+                    ->orderBy("orders.order_id")
+                    ->limit((int)$size,(int)$offset);
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetchAll();
+                echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
+            }else{
+                echo json_encode(array('result'=>'1','desc'=>'size为空'));
+            }
         }else{
-            echo json_encode(array('result'=>'2','desc'=>'size为空'));
+            echo json_encode(array('result'=>'2','desc'=>'offset为空'));
         }
     }else{
         echo json_encode(array('result'=>'3','desc'=>'租户id为空'));
     }
 });
-
-$app->
 
 $app->run();
 function localhost(){

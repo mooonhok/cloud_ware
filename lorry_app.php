@@ -424,7 +424,6 @@ $app->post('/suresch',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
    $schedule_id = $app->request->params('schedule_id');
     $lorry_id = $app->request->params('lorry_id');
-    echo json_encode(array('result' => '1', 'desc' => $lorry_id));
     if(!isset($_FILES["sure"]["name"])){
     $name= $_FILES["sure"]["name"];
     $name=iconv("UTF-8","UTF-8", $name);
@@ -482,7 +481,7 @@ $app->post('/suresch',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '清单号为空'));
     }
     }else{
-        echo json_encode(array('result' => '1', 'desc' => '图片不存在'));
+        echo json_encode(array('result' => '6', 'desc' => '图片不存在'));
     }
 });
 //orders未送到
