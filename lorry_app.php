@@ -435,6 +435,7 @@ $app->post('/suresch',function()use($app){
 //匹配出图片的格式
     if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)){
         $type = $result[2];
+        date_default_timezone_set("PRC");
         $new_file = "sure/".date('Ymd',time())."/";
         if(!file_exists($new_file))
         {
