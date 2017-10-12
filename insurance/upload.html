@@ -132,6 +132,7 @@
 						<tr>
 							<th>公司名</th>
 							<th>所在城市</th>
+							<th>上传文件</th>
 							<th>操作</th>
 						</tr>
 					</thead>
@@ -141,7 +142,6 @@
 				<div id="demo20"></div>
 			</div>
         </div>
-
 	</body>
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/jquery.session.js"></script>
@@ -229,7 +229,7 @@
                       ,thisData = msg.tenants;
                   layui.each(thisData, function(index, item){
                   	var sure = null;
-                  		 arr.push( '<tr><td>'+item.company+'</td><td>'+item.from_city+'</td><td><button class="but" style="cursor:pointer;">上传保单</button><span style="display:none">'+item.tenant_id+'</span></td></tr>');
+                  		 arr.push( '<tr><td>'+item.company+'</td><td>'+item.from_city+'</td><td><input type="file" class="afile"/></td><td><button class="but" style="cursor:pointer;">确认上传</button><span style="display:none">'+item.tenant_id+'</span></td></tr>');
                   });
                   return arr.join('');
               }();
