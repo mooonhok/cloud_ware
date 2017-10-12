@@ -99,9 +99,9 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                                     $stmt = $selectStatement->execute();
                                                                                                     $data4= $stmt->fetchAll();
                                                                                                 }while($data4!=null);
-                                                                                    $insertStatement = $database->insert(array('order_id', 'tenant_id', 'pay_method','exist','order_status','sender_id','order_source','receiver_id','order_datetime0'))
+                                                                                    $insertStatement = $database->insert(array('order_id', 'pay_method','exist','order_status','sender_id','order_source','receiver_id','order_datetime0'))
                                                                                         ->into('orders')
-                                                                                        ->values(array($str,$tenant_id, $pay_method,0,-2,$data["customer_id"],1,$data1['customer_id'],$shijian));
+                                                                                        ->values(array($str, $pay_method,0,-2,$data["customer_id"],1,$data1['customer_id'],$shijian));
                                                                                     $insertId = $insertStatement->execute(false);
                                                                                     if($insertId!=null){
 //                                                                                        $selectStatement = $database->select()
@@ -329,10 +329,7 @@ $app->post('/wxmessages',function()use($app){
                              ->from('wx_message')
                              ->join('orders','orders.order_id','=','wx_message.order_id','INNER')
                              ->where('wx_message.tenant_id','=',$tenant_id)
-                             ->where('orders.tenant_id','=',$tenant_id)
-                             ->where('orders.order_source','=',1)
                              ->where('orders.exist',"=",0)
-                             ->where('wx_message.exist',"=",0)
                              ->where('wx_message.is_read','=',$is_read)
 							 ->orderBy('orders.order_status')
                              ->orderBy('wx_message.ms_date','DESC');
