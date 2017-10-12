@@ -1204,7 +1204,6 @@ $app->post('/wx_orders_order_source', function () use ($app) {
                 ->join('orders', 'wx_message.order_id', '=', 'orders.order_id','right')
                 ->where('wx_message.exist', "=", 0)
                 ->where('wx_message.tenant_id', '=', $tenant_id)
-                ->where('orders.tenant_id', '=', $tenant_id)
                 ->where('orders.order_status','=',0)
                 ->orderBy("wx_message.ms_date",'DESC')
                 ->limit((int)$size,(int)$offset);
@@ -1265,14 +1264,12 @@ $app->put('/order_status', function () use ($app) {
             $selectStatement = $database->select()
                 ->from('orders')
                 ->where('exist', "=", 0)
-                ->where('order_id','=',$order_id)
-                ->where('tenant_id', '=', $tenant_id);
+                ->where('order_id','=',$order_id);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetch();
             if($data2!=null){
-                $updateStatement = $database->update(array('order_status' => $order_status))
+                $updateStatement = $database->update(array('order_status' => $order_status,'tenant_id'=>$tenant_id))
                     ->table('orders')
-                    ->where('tenant_id', '=', $tenant_id)
                     ->where('exist','=',0)
                     ->where('order_id', '=', $order_id);
                 $affectedRows = $updateStatement->execute();
