@@ -615,13 +615,30 @@ $app->get('/obycouriern',function()use($app){
 $app->post('/ordersure',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $courier_id = $app->request->params('courier_id');
-    $order_id = $app->request->params('order_id');
-   $name= $_FILES["sure"]["name"];
-    $name=iconv("UTF-8","UTF-8", $name);
-    $name=rand(1,100000).$name;
-    move_uploaded_file($_FILES["sure"]["tmp_name"], 'sureone/'.$name);
-    $lujing= 'sure/'.$name.'';
+ //   $courier_id = $app->request->params('courier_id');
+   // $order_id = $app->request->params('order_id');
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $order_id=$body->order_id;
+    $courier_id=$body->courier_id;
+    $pic=$body->pic;
+    $lujing=null;
+    $base64_image_content = $pic;
+//匹配出图片的格式
+    if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)){
+        $type = $result[2];
+        date_default_timezone_set("PRC");
+        $new_file = "sure1/".date('Ymd',time())."/";
+        if(!file_exists($new_file))
+        {
+//检查是否有该文件夹，如果没有就创建，并给予最高权限
+            mkdir($new_file, 0700);
+        }
+        $new_file = $new_file.time().".{$type}";
+        if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))){
+            $lujing= $new_file;
+        }
+    }
     $database=localhost();
     if($order_id!=null||$order_id!=""){
         if($courier_id!=null||$courier_id!=""){
