@@ -45,7 +45,25 @@ $app->post('/addInventoryLoc',function()use($app) {
     }
 });
 
-$app->get('/getInventoryLocs',function()use($app){
+$app->get('/getInventoryLocs0',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('inventory_loc')
+            ->where('tenant_id', '=', $tenant_id)
+            ->where('exist','=',0)
+            ->orderBy('inventory_loc_name');
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        echo json_encode(array("result" => "0", "desc" => "success",'inventory_locs'=>$data));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
+$app->get('/getInventoryLocs1',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
@@ -56,7 +74,24 @@ $app->get('/getInventoryLocs',function()use($app){
             ->orderBy('inventory_loc_name');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        echo json_encode(array("result" => "0", "desc" => "success",'inventory_loc'=>$data));
+        echo json_encode(array("result" => "0", "desc" => "success",'inventory_locs'=>$data));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
+$app->delete('/deleteInventoryLoc',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $inventory_loc_id=$app->request->get('inventory_loc_id;');
+    if($tenant_id!=null||$tenant_id!=''){
+        $updateStatement = $database->update()
+            ->table('inventory_loc')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('inventory_loc_id','=',$inventory_loc_id);
+        $affectedRows = $updateStatement->execute();
+        echo json_encode(array("result" => "0", "desc" => "success"));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
