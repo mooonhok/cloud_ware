@@ -1165,8 +1165,7 @@ $app->get('/wx_orders_num', function () use ($app) {
                 ->join('wx_message','wx_message.order_id','=','orders.order_id','INNER')
                 ->where('orders.exist', "=", 0)
                 ->where('orders.order_status','=',0)
-                ->where('wx_message.tenant_id','=',$tenant_id)
-                ->where('orders.tenant_id','=',$tenant_id);
+                ->where('wx_message.tenant_id','=',$tenant_id);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetchAll();
             $num1=count($data2);
@@ -1268,11 +1267,19 @@ $app->put('/order_status', function () use ($app) {
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetch();
             if($data2!=null){
-                $updateStatement = $database->update(array('order_status' => $order_status,'tenant_id'=>$tenant_id))
-                    ->table('orders')
-                    ->where('exist','=',0)
-                    ->where('order_id', '=', $order_id);
-                $affectedRows = $updateStatement->execute();
+                if($order_status>0){
+                    $updateStatement = $database->update(array('order_status' => $order_status,'tenant_id'=>$tenant_id))
+                        ->table('orders')
+                        ->where('exist','=',0)
+                        ->where('order_id', '=', $order_id);
+                    $affectedRows = $updateStatement->execute();
+                }else{
+                    $updateStatement = $database->update(array('order_status' => $order_status))
+                        ->table('orders')
+                        ->where('exist','=',0)
+                        ->where('order_id', '=', $order_id);
+                    $affectedRows = $updateStatement->execute();
+                }
                 if($affectedRows!=null){
                     echo json_encode(array("result" => "1", "desc" => "success"));
                 }else{
