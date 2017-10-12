@@ -84,7 +84,7 @@ $app->delete('/deleteInventoryLoc',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
-    $inventory_loc_id=$app->request->get('inventory_loc_id;');
+    $inventory_loc_id=$app->request->get('inventory_loc_id');
     if($tenant_id!=null||$tenant_id!=''){
         if($inventory_loc_id!=null||$inventory_loc_id!=''){
             $updateStatement = $database->update(array('exist'=>1))
