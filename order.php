@@ -1163,19 +1163,20 @@ $app->get('/wx_orders_num', function () use ($app) {
             $array1=array();
             $selectStatement = $database->select()
                 ->from('orders')
-                ->where('exist', "=", 0)
-                ->where('order_source','=','1')
-                ->where('order_status','=',0)
-                ->where('tenant_id', '=', $tenant_id);
+                ->join('wx_message','wx_message.order_id','=','orders.order_id','INNER')
+                ->where('orders.exist', "=", 0)
+                ->where('orders.order_status','=',0)
+                ->where('wx_message.tenant_id','=',$tenant_id)
+                ->where('orders.tenant_id','=',$tenant_id);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetchAll();
             $num1=count($data2);
             echo json_encode(array("result" => "1", "desc" => "success", "num" => $num1));
         }else{
-            echo json_encode(array("result" => "2", "desc" => "没有该租户", "orders" => ""));
+            echo json_encode(array("result" => "2", "desc" => "没有该租户"));
         }
     } else {
-        echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => ""));
+        echo json_encode(array("result" => "3", "desc" => "缺少租户id"));
     }
 });
 
@@ -1234,13 +1235,13 @@ $app->post('/wx_orders_order_source', function () use ($app) {
                  }
                 echo json_encode(array("result" => "1", "desc" => "success", "orders" => $array));
             }else{
-                echo json_encode(array("result" => "2", "desc" => "success", "orders" => ""));
+                echo json_encode(array("result" => "2", "desc" => "success"));
             }
         }else{
-            echo json_encode(array("result" => "3", "desc" => "没有该租户", "orders" => ""));
+            echo json_encode(array("result" => "3", "desc" => "没有该租户"));
         }
     } else {
-        echo json_encode(array("result" => "4", "desc" => "缺少租户id", "orders" => ""));
+        echo json_encode(array("result" => "4", "desc" => "缺少租户id"));
     }
 });
 
