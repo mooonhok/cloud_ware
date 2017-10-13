@@ -184,8 +184,8 @@ $app->put('/alterLorry',function()use($app){
     $plate_number= $body->plate_number;
     $driver_name= $body->driver_name;
     $driver_phone= $body->driver_phone;
-    $driving_license=$body->driving_license;
-    $vehicle_travel_license=$body->vehicle_travel_license;
+//    $driving_license=$body->driving_license;
+//    $vehicle_travel_license=$body->vehicle_travel_license;
     $array = array();
     foreach ($body as $key => $value) {
         $array[$key] = $value;
@@ -195,20 +195,20 @@ $app->put('/alterLorry',function()use($app){
             if($plate_number!=null||$plate_number!=''){
                 if($driver_name!=null||$driver_name!=''){
                     if($driver_phone!=null||$driver_phone!=''){
-                        if($driving_license!=null||$driving_license!=''){
-                            if($vehicle_travel_license!=null||$vehicle_travel_license!=''){
+//                        if($driving_license!=null||$driving_license!=''){
+//                            if($vehicle_travel_license!=null||$vehicle_travel_license!=''){
                                     $updateStatement = $database->update($array)
                                         ->table('lorry')
                                         ->where('tenant_id','=',$tenant_id)
                                         ->where('lorry_id','=',$lorry_id);
                                     $affectedRows = $updateStatement->execute();
                                     echo json_encode(array("result" => "0", "desc" => "success"));
-                            }else{
-                                echo json_encode(array("result" => "2", "desc" => "缺少行驶证"));
-                            }
-                        }else{
-                            echo json_encode(array("result" => "3", "desc" => "缺少驾驶证"));
-                        }
+//                            }else{
+//                                echo json_encode(array("result" => "2", "desc" => "缺少行驶证"));
+//                            }
+//                        }else{
+//                            echo json_encode(array("result" => "3", "desc" => "缺少驾驶证"));
+//                        }
                     }else{
                         echo json_encode(array("result" => "4", "desc" => "缺少驾驶员手机号码"));
                     }
@@ -221,6 +221,33 @@ $app->put('/alterLorry',function()use($app){
         }else{
             echo json_encode(array("result" => "7", "desc" => "缺少车辆id"));
         }
+    }else{
+        echo json_encode(array("result" => "8", "desc" => "缺少租户id"));
+    }
+});
+
+$app->post('/uploadLorry',function()use($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $lorry_id=$app->request->get('lorry_id');
+    $database = localhost();
+    $name1 = $_FILES["driving_license"]["name"];
+    $name1 = iconv("UTF-8", "UTF-8", $name1);
+    $shijian = time();
+    $name1 = $shijian . $name1;
+    move_uploaded_file($_FILES["driving_license"]["tmp_name"], "lorry/" . $name1);
+    $name2 = $_FILES["vehicle_travel_license"]["name"];
+    $name2 = iconv("UTF-8", "UTF-8", $name2);
+    $shijian = time();
+    $name2 = $shijian . $name2;
+    move_uploaded_file($_FILES["vehicle_travel_license"]["tmp_name"], "lorry/" . $name2);
+    if($tenant_id!=null||$tenant_id!=''){
+        $updateStatement = $database->update(array('driving_license'=>$name1,'vehicle_travel_license'=>$name2))
+            ->table('lorry')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('lorry_id','=',$lorry_id);
+        $affectedRows = $updateStatement->execute();
+        echo json_encode(array("result" => "0", "desc" => "success"));
     }else{
         echo json_encode(array("result" => "8", "desc" => "缺少租户id"));
     }
