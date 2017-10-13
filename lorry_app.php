@@ -700,6 +700,8 @@ $app->post('/ordersure',function()use($app){
             $lujing= $new_file;
         }
     }
+    $arrays['is_receive']=1;
+    $arrays['sure_img']=$lujing;
     $database=localhost();
     if($order_id!=null||$order_id!=""){
         if($courier_id!=null||$courier_id!=""){
@@ -721,18 +723,10 @@ $app->post('/ordersure',function()use($app){
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetch();
                     if($data2!=null){
-                        $selectStament=$database->select()
-                            ->from('courier');
-                        $stmt=$selectStament->execute();
-                        $data3=$stmt->fetchAll();
-                        $insertStatement = $database->insert(array('delivery_id','courier_id','delivery_cost','exist','tenant_id','sure_img'))
-                            ->into('delivery')
-                            ->values(array(count($data3),$courier_id,0,0,$data['tenant_id'],$lujing));
-                        $insertId = $insertStatement->execute(false);
-                        $insertStatement = $database->insert(array('delivery_order_id','delivery_id','exist','tenant_id'))
-                            ->into('delivery_order')
-                            ->values(array($order_id,count($data3),0,$data['tenant_id']));
-                        $insertId = $insertStatement->execute(false);
+                        $updateStatement = $database->update($arrays)
+                            ->table('delivery')
+                            ->where('delivery_id', '=', $data9['delivery_id']);
+                        $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '确认成功'));
                     }else{
                         echo json_encode(array('result' => '5', 'desc' => '配送员不存在'));
@@ -760,6 +754,8 @@ $app->post('/ordersuretwo',function()use($app){
     $body=json_decode($body);
     $order_id=$body->order_id;
     $courier_id=$body->courier_id;
+
+    $arrays['is_receive']=1;
     $database=localhost();
     if($order_id!=null||$order_id!=""){
         if($courier_id!=null||$courier_id!=""){
@@ -781,18 +777,10 @@ $app->post('/ordersuretwo',function()use($app){
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetch();
                     if($data2!=null){
-                        $selectStament=$database->select()
-                            ->from('courier');
-                        $stmt=$selectStament->execute();
-                        $data3=$stmt->fetchAll();
-                        $insertStatement = $database->insert(array('delivery_id','courier_id','delivery_cost','exist','tenant_id'))
-                            ->into('delivery')
-                            ->values(array(count($data3),$courier_id,0,0,$data['tenant_id']));
-                        $insertId = $insertStatement->execute(false);
-                        $insertStatement = $database->insert(array('delivery_order_id','delivery_id','exist','tenant_id'))
-                            ->into('delivery_order')
-                            ->values(array($order_id,count($data3),0,$data['tenant_id']));
-                        $insertId = $insertStatement->execute(false);
+                        $updateStatement = $database->update($arrays)
+                            ->table('delivery')
+                            ->where('delivery_id', '=', $data9['delivery_id']);
+                        $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '确认成功'));
                     }else{
                         echo json_encode(array('result' => '5', 'desc' => '配送员不存在'));
