@@ -228,8 +228,8 @@ $app->put('/alterLorry',function()use($app){
 
 $app->post('/uploadLorry',function()use($app) {
     $app->response->headers->set('Content-Type', 'application/json');
-    $tenant_id = $app->request->headers->get("tenant-id");
-    $lorry_id=$app->request->get('lorry_id');
+    $lorry_id=$app->request->params('lorry_id');
+    $tenant_id=$app->request->params('tenant_id');
     $database = localhost();
     $name1 = $_FILES["driving_license"]["name"];
     $name1 = iconv("UTF-8", "UTF-8", $name1);
