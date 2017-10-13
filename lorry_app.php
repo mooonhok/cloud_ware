@@ -204,15 +204,18 @@ $app->get('/sbylorry',function()use($app){
             for($x=0;$x<count($data2);$x++){
                 $selectStament=$database->select()
                     ->from('scheduling')
-                    ->join('customer','scheduling.receiver_id','=','customer.customer_id','INNER')
-                    ->where('lorry_id','=',$data2[$x]['lorry_id'])
-                    ->where('is_sure','=',0)
-                    ->orderBy('scheduling_datetime','desc');
+                    ->where('lorry_id','=',$data2[$x]['lorry_id']);
                 $stmt=$selectStament->execute();
                 $data3=$stmt->fetchAll();
                 for($i=0;$i<count($data3);$i++){
+                    $selectStament=$database->select()
+                        ->from('customer')
+                        ->where('tenant_id','=',$data3[$i]['tenant_id'])
+                        ->where('customer_id','=',$data3[$i]['receiver_id']);
+                    $stmt=$selectStament->execute();
+                    $data4=$stmt->fetch();
                     $arrays1['scheduling_id']=$data3[$i]['scheduling_id'];
-                    $arrays1['customer_name']=$data3[$i]['customer_name'];
+                    $arrays1['customer_name']=$data4['customer_name'];
                     array_push($arrays,$arrays1);
                 }
             }
@@ -250,15 +253,18 @@ $app->get('/sbylorryn',function()use($app){
             for($x=0;$x<count($data2);$x++){
                 $selectStament=$database->select()
                     ->from('scheduling')
-                    ->join('customer','scheduling.receiver_id','=','customer.customer_id','INNER')
-                    ->where('lorry_id','=',$data2[$x]['lorry_id'])
-                    ->where('is_sure','=',1)
-                    ->orderBy('scheduling_datetime','desc');
+                    ->where('lorry_id','=',$data2[$x]['lorry_id']);
                 $stmt=$selectStament->execute();
                 $data3=$stmt->fetchAll();
                 for($i=0;$i<count($data3);$i++){
+                    $selectStament=$database->select()
+                        ->from('customer')
+                        ->where('tenant_id','=',$data3[$i]['tenant_id'])
+                        ->where('customer_id','=',$data3[$i]['receiver_id']);
+                    $stmt=$selectStament->execute();
+                    $data4=$stmt->fetch();
                     $arrays1['scheduling_id']=$data3[$i]['scheduling_id'];
-                    $arrays1['customer_name']=$data3[$i]['customer_name'];
+                    $arrays1['customer_name']=$data4['customer_name'];
                     array_push($arrays,$arrays1);
                 }
             }
@@ -721,7 +727,7 @@ $app->post('/ordersure',function()use($app){
                 $selectStament=$database->select()
                     ->from('delivery')
                     ->where('is_receive','=',0)
-                    ->where('delivery_order_id','=',$data9['delivery_id']);
+                    ->where('delivery_id','=',$data9['delivery_id']);
                 $stmt=$selectStament->execute();
                 $data10=$stmt->fetch();
                 if($data10==null){
@@ -780,7 +786,7 @@ $app->post('/ordersuretwo',function()use($app){
                 $selectStament=$database->select()
                     ->from('delivery')
                     ->where('is_receive','=',0)
-                    ->where('delivery_order_id','=',$data9['delivery_id']);
+                    ->where('delivery_id','=',$data9['delivery_id']);
                 $stmt=$selectStament->execute();
                 $data10=$stmt->fetch();
                 if($data10==null){
