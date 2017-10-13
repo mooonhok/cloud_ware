@@ -195,6 +195,7 @@ $app->get('/sbylorry',function()use($app){
         if($data!=null){
             $selectStament=$database->select()
                 ->from('lorry')
+                ->where('tenant_id','!=',0)
                 ->where('plate_number','=',$data['plate_number'])
                 ->where('driver_phone','=',$data['driver_phone'])
                 ->where('driver_name','=',$data['driver_name']);
@@ -240,6 +241,7 @@ $app->get('/sbylorryn',function()use($app){
         if($data!=null){
             $selectStament=$database->select()
                 ->from('lorry')
+                ->where('tenant_id','!=',0)
                 ->where('plate_number','=',$data['plate_number'])
                 ->where('driver_phone','=',$data['driver_phone'])
                 ->where('driver_name','=',$data['driver_name']);
@@ -716,7 +718,13 @@ $app->post('/ordersure',function()use($app){
                     ->where('delivery_order_id','=',$order_id);
                 $stmt=$selectStament->execute();
                 $data9=$stmt->fetch();
-                if($data9==null){
+                $selectStament=$database->select()
+                    ->from('delivery')
+                    ->where('is_receive','=',0)
+                    ->where('delivery_order_id','=',$data9['delivery_id']);
+                $stmt=$selectStament->execute();
+                $data10=$stmt->fetch();
+                if($data10==null){
                     $selectStament=$database->select()
                         ->from('courier')
                         ->where('courier_id','=',$courier_id);
@@ -754,7 +762,6 @@ $app->post('/ordersuretwo',function()use($app){
     $body=json_decode($body);
     $order_id=$body->order_id;
     $courier_id=$body->courier_id;
-
     $arrays['is_receive']=1;
     $database=localhost();
     if($order_id!=null||$order_id!=""){
@@ -770,7 +777,13 @@ $app->post('/ordersuretwo',function()use($app){
                     ->where('delivery_order_id','=',$order_id);
                 $stmt=$selectStament->execute();
                 $data9=$stmt->fetch();
-                if($data9==null){
+                $selectStament=$database->select()
+                    ->from('delivery')
+                    ->where('is_receive','=',0)
+                    ->where('delivery_order_id','=',$data9['delivery_id']);
+                $stmt=$selectStament->execute();
+                $data10=$stmt->fetch();
+                if($data10==null){
                     $selectStament=$database->select()
                         ->from('courier')
                         ->where('courier_id','=',$courier_id);
