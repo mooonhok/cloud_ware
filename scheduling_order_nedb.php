@@ -261,6 +261,7 @@ $app->get('/getSchedulingOrders2',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
     $tenant_id = $app->request->headers->get("tenant-id");
+    $lorry_id=$app->request->get('lorry_id');
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('schedule_order')
@@ -271,7 +272,7 @@ $app->get('/getSchedulingOrders2',function()use($app){
             ->where('scheduling.tenant_id', '=', $tenant_id)
             ->where('orders.tenant_id', '=', $tenant_id)
             ->where('lorry.tenant_id', '=', $tenant_id)
-            ->where('lorry.lorry_id', '=', 0)
+            ->where('lorry.lorry_id', '=', $lorry_id)
             ->where('schedule_order.exist', '=', 0)
             ->where('scheduling.exist', '=', 0)
             ->where('orders.exist', '=', 0);
