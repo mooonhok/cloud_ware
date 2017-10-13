@@ -730,7 +730,7 @@ $app->post('/ordersure',function()use($app){
                     ->where('delivery_id','=',$data9['delivery_id']);
                 $stmt=$selectStament->execute();
                 $data10=$stmt->fetch();
-                if($data10==null){
+                if($data10!=null){
                     $selectStament=$database->select()
                         ->from('courier')
                         ->where('courier_id','=',$courier_id);
@@ -789,7 +789,7 @@ $app->post('/ordersuretwo',function()use($app){
                     ->where('delivery_id','=',$data9['delivery_id']);
                 $stmt=$selectStament->execute();
                 $data10=$stmt->fetch();
-                if($data10==null){
+                if($data10!=null){
                     $selectStament=$database->select()
                         ->from('courier')
                         ->where('courier_id','=',$courier_id);
