@@ -231,18 +231,26 @@ $app->post('/uploadLorry',function()use($app) {
     $lorry_id=$app->request->params('lorry_id');
     $tenant_id=$app->request->params('tenant_id');
     $database = localhost();
-    $name1 = $_FILES["driving_license"]["name"];
-    $name1 = iconv("UTF-8", "UTF-8", $name1);
-    $shijian = time();
-    $name1 = $shijian . $name1;
-    move_uploaded_file($_FILES["driving_license"]["tmp_name"], "http://api.uminfo.cn/lorry/" . $name1);
-    $name2 = $_FILES["vehicle_travel_license"]["name"];
-    $name2 = iconv("UTF-8", "UTF-8", $name2);
-    $shijian = time();
-    $name2 = $shijian . $name2;
-    move_uploaded_file($_FILES["vehicle_travel_license"]["tmp_name"], "http://api.uminfo.cn/lorry/" . $name2);
+    $array=null;
+    if(isset($_FILES["driving_license"])){
+        $name1 = $_FILES["driving_license"]["name"];
+        $name1 = iconv("UTF-8", "UTF-8", $name1);
+        $shijian = time();
+        $name1 = $shijian . $name1;
+        move_uploaded_file($_FILES["driving_license"]["tmp_name"], "http://api.uminfo.cn/lorry/" . $name1);
+        $array['driving_license']=$name1;
+    }
+    if(isset($_FILES["vehicle_travel_license"])){
+        $name2 = $_FILES["vehicle_travel_license"]["name"];
+        $name2 = iconv("UTF-8", "UTF-8", $name2);
+        $shijian = time();
+        $name2 = $shijian . $name2;
+        move_uploaded_file($_FILES["vehicle_travel_license"]["tmp_name"], "http://api.uminfo.cn/lorry/" . $name2);
+        $array['vehicle_travel_license']=$name2;
+    }
+
     if($tenant_id!=null||$tenant_id!=''){
-        $updateStatement = $database->update(array('driving_license'=>$name1,'vehicle_travel_license'=>$name2))
+        $updateStatement = $database->update($array)
             ->table('lorry')
             ->where('tenant_id','=',$tenant_id)
             ->where('lorry_id','=',$lorry_id);
