@@ -21,14 +21,24 @@ $app->get('/getTenant1',function()use($app){
     $selectStatement = $database->select()
         ->from('tenant')
         ->join('customer','customer.customer_id','=','tenant.contact_id','INNER')
-        ->join('city','city.id','=','customer.customer_city_id','INNER')
-        ->join('province','city.pid','=','province.id','INNER')
         ->where('tenant.tenant_id','=',$tenant_id)
         ->where('customer.tenant_id','=',$tenant_id)
         ->where('tenant.exist',"=",0);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
-    echo  json_encode(array("result"=>"0","desc"=>"success","tenants"=>$data));
+    $selectStatement = $database->select()
+        ->from('city')
+        ->where('id', '=', $data['customer_city_id']);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetch();
+    $selectStatement = $database->select()
+        ->from('province')
+        ->where('id', '=', $data1['pid']);
+    $stmt = $selectStatement->execute();
+    $data2 = $stmt->fetch();
+    $data['city']=$data1;
+    $data['province']=$data2;
+    echo  json_encode(array("result"=>"0","desc"=>"success","tenant"=>$data));
 });
 
 $app->run();
