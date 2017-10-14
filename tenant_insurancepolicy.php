@@ -23,7 +23,7 @@ $app->post('/upload',function()use($app) {
         $shijian = time();
         $name3 = $shijian . $name3;
 //        move_uploaded_file($_FILES["file1"]["tmp_name"], "tenant/insurance/" . $name3);
-    $url="http://files.uminfo.cn:8000/";
+    $url="/files";
     move_uploaded_file($_FILES["file1"]["tmp_name"], $url . $name3);
         if ($tenant_id != null || $tenant_id != '') {
             $insertStatement = $database->insert(array('tenant_id', 'tenant_insurancepolicy'))
