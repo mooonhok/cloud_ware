@@ -178,34 +178,34 @@ $app->put('/alterOrder1', function () use ($app) {
     }
 });
 
-$app->put('/alterOrder1', function () use ($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
-    $tenant_id = $app->request->headers->get("tenant-id");
-    $body = $app->request->getBody();
-    $body = json_decode($body);
-    $order_id = $body->order_id;
-    $inventory_type = $body->inventory_type;
-    $inventory_loc_id=$body->inventory_loc_id;
-    $database = localhost();
-    if ($tenant_id != null || $tenant_id != "") {
-        if($order_id!=null||$order_id!=''){
-            if($inventory_loc_id!=null||$inventory_loc_id!=''){
-                $updateStatement = $database->update(array('inventory_type'=>$inventory_type,'inventory_loc_id'=>$inventory_loc_id))
-                    ->table('orders')
-                    ->where('tenant_id','=',$tenant_id)
-                    ->where('order_id','=',$order_id);
-                $affectedRows = $updateStatement->execute();
-                echo json_encode(array("result" => "0", "desc" => "success"));
-            }else {
-                echo json_encode(array("result" => "1", "desc" => "库位id", "orders" => ""));
-            }
-        }else{
-            echo json_encode(array("result" => "2", "desc" => "缺少运单id", "orders" => ""));
-        }
-    } else {
-        echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => ""));
-    }
-});
+//$app->put('/alterOrder1', function () use ($app) {
+//    $app->response->headers->set('Content-Type', 'application/json');
+//    $tenant_id = $app->request->headers->get("tenant-id");
+//    $body = $app->request->getBody();
+//    $body = json_decode($body);
+//    $order_id = $body->order_id;
+//    $inventory_type = $body->inventory_type;
+//    $inventory_loc_id=$body->inventory_loc_id;
+//    $database = localhost();
+//    if ($tenant_id != null || $tenant_id != "") {
+//        if($order_id!=null||$order_id!=''){
+//            if($inventory_loc_id!=null||$inventory_loc_id!=''){
+//                $updateStatement = $database->update(array('inventory_type'=>$inventory_type,'inventory_loc_id'=>$inventory_loc_id))
+//                    ->table('orders')
+//                    ->where('tenant_id','=',$tenant_id)
+//                    ->where('order_id','=',$order_id);
+//                $affectedRows = $updateStatement->execute();
+//                echo json_encode(array("result" => "0", "desc" => "success"));
+//            }else {
+//                echo json_encode(array("result" => "1", "desc" => "库位id", "orders" => ""));
+//            }
+//        }else{
+//            echo json_encode(array("result" => "2", "desc" => "缺少运单id", "orders" => ""));
+//        }
+//    } else {
+//        echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => ""));
+//    }
+//});
 
 $app->put('/alterOrder2',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
