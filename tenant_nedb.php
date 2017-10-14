@@ -20,9 +20,12 @@ $app->get('/getTenant1',function()use($app){
     $tenant_id=$app->request->get('tenant_id');
     $selectStatement = $database->select()
         ->from('tenant')
-        ->
-        ->where('tenant_id','=',$tenant_id)
-        ->where('exist',"=",0);
+        ->join('customer','customer.customer_id','=','tenant.contact_id','INNER')
+        ->join('city','city.id','=','customer.customer_city_id','INNER')
+        ->join('province','city.pid','=','province.id','INNER')
+        ->where('tenant.tenant_id','=',$tenant_id)
+        ->where('customer.tenant_id','=',$tenant_id)
+        ->where('tenant.exist',"=",0);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
     echo  json_encode(array("result"=>"0","desc"=>"success","tenants"=>$data));
