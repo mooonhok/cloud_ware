@@ -5,6 +5,7 @@ require_once "jssdk.php";
 //万事鑫
 $jssdk = new JSSDK("wx5666849a1bdb2e5c","2e4fe57c0f6d285ee06ef1cd6644f9db");
 $signPackage = $jssdk->GetSignPackage();
+echo $signPackage;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -259,7 +260,7 @@ $signPackage = $jssdk->GetSignPackage();
 				}),
 				success: function(msg) {
 					if(msg.result == 2) {
-				     layer.msg("订单不存在")
+				     layer.msg("订单不存在");
 					}else{
 		            window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
 					}
