@@ -23,7 +23,7 @@ $app->get('/getTenant1',function()use($app){
         ->where('tenant_id','=',$tenant_id)
         ->where('exist',"=",0);
     $stmt = $selectStatement->execute();
-    $data = $stmt->fetchAll();
+    $data = $stmt->fetch();
     echo  json_encode(array("result"=>"0","desc"=>"success","tenants"=>$data));
 });
 
