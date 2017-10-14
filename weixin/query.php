@@ -235,7 +235,6 @@ $signPackage = $jssdk->GetSignPackage();
         timestamp: <?php echo $signPackage["timestamp"];?>,
         nonceStr: '<?php echo $signPackage["nonceStr"];?>',
         signature: '<?php echo $signPackage["signature"];?>',
-        name:'<?php echo $signPackage['rawString'];?>',
         jsApiList: [
             'checkJsApi', 'scanQRCode'
         ]
