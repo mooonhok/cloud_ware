@@ -378,17 +378,17 @@ $app->post('/tenant',function()use($app) {
     $name= $_FILES["order_t_p"]["name"];
     $name=iconv("UTF-8","UTF-8", $name);
     $name=rand(1,100000).$name;
-   move_uploaded_file($_FILES["order_t_p"]["tmp_name"], 'order_t_p/'.$name);
+   move_uploaded_file($_FILES["order_t_p"]["tmp_name"], '/files/order_t_p/'.$name);
    $order_t_p= 'order_t_p/'.$name.'';
     $name2=$_FILES["trans_contract_p"]["name"];
     $name2=iconv("UTF-8","UTF-8", $name2);
     $name2=rand(1,100000).$name2;
-   move_uploaded_file($_FILES["trans_contract_p"]["tmp_name"],"trans_contract_p/".$name2);
+   move_uploaded_file($_FILES["trans_contract_p"]["tmp_name"],"/files/trans_contract_p/".$name2);
    $trans_c_p='trans_contract_p/'.$name2.'';
     $name3=$_FILES["file1"]["name"];
     $name3=iconv("UTF-8","UTF-8", $name3);
     $name3=rand(1,100000).$name3;
-    move_uploaded_file($_FILES["file1"]["tmp_name"],"business_l_p/".$name3);
+    move_uploaded_file($_FILES["file1"]["tmp_name"],"/files/business_l_p/".$name3);
     $business_l_p='business_l_p/'.$name3.'';
     if($company!=null||$company!=""){
         if($business_l!=""||$business_l!=null){

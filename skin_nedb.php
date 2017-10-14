@@ -24,7 +24,8 @@ $app->post('/addSkin',function()use($app) {
     $img= $_FILES["img"]["name"];
     $img=iconv("UTF-8","UTF-8", $img);
     $img=$shijian.$img;
-    move_uploaded_file($_FILES["img"]["tmp_name"], 'skin/'.$img);
+    move_uploaded_file($_FILES["img"]["tmp_name"], '/files/skin/'.$img);
+    $img="http://files.uminfo.cn:8000/files/skin/".$img;
     $insertStatement = $database->insert(array('skin_id','img','name','used_num','exist'))
         ->into('skin')
         ->values(array($skin_id,$img,$name,0,0));

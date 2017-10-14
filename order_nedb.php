@@ -157,21 +157,19 @@ $app->put('/alterOrder1', function () use ($app) {
     $body = $app->request->getBody();
     $body = json_decode($body);
     $order_id = $body->order_id;
-    $inventory_type = $body->inventory_type;
-    $inventory_loc_id=$body->inventory_loc_id;
     $database = localhost();
+    $array=array();
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
     if ($tenant_id != null || $tenant_id != "") {
         if($order_id!=null||$order_id!=''){
-            if($inventory_loc_id!=null||$inventory_loc_id!=''){
-                $updateStatement = $database->update(array('inventory_type'=>$inventory_type,'inventory_loc_id'=>$inventory_loc_id))
+                $updateStatement = $database->update($array)
                     ->table('orders')
                     ->where('tenant_id','=',$tenant_id)
                     ->where('order_id','=',$order_id);
                 $affectedRows = $updateStatement->execute();
                 echo json_encode(array("result" => "0", "desc" => "success"));
-            }else {
-                echo json_encode(array("result" => "1", "desc" => "库位id", "orders" => ""));
-            }
         }else{
             echo json_encode(array("result" => "2", "desc" => "缺少运单id", "orders" => ""));
         }

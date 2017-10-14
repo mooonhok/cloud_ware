@@ -446,7 +446,7 @@ $app->post('/suresch',function()use($app){
     if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)){
         $type = $result[2];
         date_default_timezone_set("PRC");
-        $new_file = "sure/".date('Ymd',time())."/";
+        $new_file = "/files/sure/".date('Ymd',time())."/";
         if(!file_exists($new_file))
         {
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
@@ -699,7 +699,7 @@ $app->post('/ordersure',function()use($app){
     if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)){
         $type = $result[2];
         date_default_timezone_set("PRC");
-        $new_file = "sureone/".date('Ymd',time())."/";
+        $new_file = "/files/sureone/".date('Ymd',time())."/";
         if(!file_exists($new_file))
         {
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
