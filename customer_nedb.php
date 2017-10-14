@@ -86,7 +86,8 @@ $app->get('/getCustomer',function()use($app){
                             ->where('customer_phone', '=', $customer_phone)
                             ->where('customer_city_id', '=', $customer_city_id)
                             ->where('customer_address', '=', $customer_address)
-                            ->where('contact_tenant_id', "=", $contact_tenant_id);
+                            ->where('contact_tenant_id', "=", $contact_tenant_id)
+                            ->whereNull('wx_openid');
                         $stmt = $selectStatement->execute();
                         $data = $stmt->fetch();
                         echo json_encode(array("result" => "0", "desc" => "success",'customer'=>$data));
@@ -117,6 +118,7 @@ $app->get('/getCustomer1',function()use($app){
             $selectStatement = $database->select()
                 ->from('customer')
                 ->where('tenant_id', '=', $tenant_id)
+                ->whereNull('wx_openid')
                 ->where('customer_name', '=', $customer_id);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetch();
@@ -136,6 +138,7 @@ $app->get("/getCustomers0",function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
             $selectStatement = $database->select()
                 ->from('customer')
+                ->whereNull('wx_openid')
                 ->where('tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
@@ -153,6 +156,7 @@ $app->get('/getCustomers1',function()use($app){
         $selectStatement = $database->select()
             ->from('customer')
             ->where('tenant_id', '=', $tenant_id)
+            ->whereNull('wx_openid')
             ->where('type', '=', 1)
             ->where('exist', '=', 0);
         $stmt = $selectStatement->execute();
@@ -172,6 +176,7 @@ $app->get('/getCustomers2',function()use($app){
             ->from('customer')
             ->where('tenant_id', '=', $tenant_id)
             ->where('type', '=', 3)
+            ->whereNull('wx_openid')
             ->where('exist', '=', 0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
@@ -192,6 +197,7 @@ $app->get('/limitCustomers0',function()use($app){
             ->from('customer')
             ->where('tenant_id', '=', $tenant_id)
             ->where('type', '=', 1)
+            ->whereNull('wx_openid')
             ->where('exist', '=', 0)
             ->orderBy('customer_id')
             ->limit((int)$size,(int)$offset);
@@ -214,6 +220,7 @@ $app->get('/limitCustomers1',function()use($app){
             ->from('customer')
             ->where('tenant_id', '=', $tenant_id)
             ->where('type', '=', 3)
+            ->whereNull('wx_openid')
             ->where('exist', '=', 0)
             ->orderBy('customer_id')
             ->limit((int)$size,(int)$offset);
