@@ -79,18 +79,33 @@ $app->get('/getCustomer',function()use($app){
             if($customer_phone!=null||$customer_phone!=''){
                 if($customer_city_id!=null||$customer_city_id!=''){
                     if($customer_address!=null||$customer_address!=''){
-                        $selectStatement = $database->select()
-                            ->from('customer')
-                            ->where('tenant_id', '=', $tenant_id)
-                            ->where('customer_name', '=', $customer_name)
-                            ->where('customer_phone', '=', $customer_phone)
-                            ->where('customer_city_id', '=', $customer_city_id)
-                            ->where('customer_address', '=', $customer_address)
-                            ->where('contact_tenant_id', "=", $contact_tenant_id)
-                            ->whereNull('wx_openid');
-                        $stmt = $selectStatement->execute();
-                        $data = $stmt->fetch();
-                        echo json_encode(array("result" => "0", "desc" => "success",'customer'=>$data));
+                        if($contact_tenant_id!=null||$contact_tenant_id!=''){
+                            $selectStatement = $database->select()
+                                ->from('customer')
+                                ->where('tenant_id', '=', $tenant_id)
+                                ->where('customer_name', '=', $customer_name)
+                                ->where('customer_phone', '=', $customer_phone)
+                                ->where('customer_city_id', '=', $customer_city_id)
+                                ->where('customer_address', '=', $customer_address)
+                                ->where('contact_tenant_id', "=", $contact_tenant_id)
+                                ->whereNull('wx_openid');
+                            $stmt = $selectStatement->execute();
+                            $data = $stmt->fetch();
+                            echo json_encode(array("result" => "0", "desc" => "success",'customer'=>$data));
+                        }else{
+                            $selectStatement = $database->select()
+                                ->from('customer')
+                                ->where('tenant_id', '=', $tenant_id)
+                                ->where('customer_name', '=', $customer_name)
+                                ->where('customer_phone', '=', $customer_phone)
+                                ->where('customer_city_id', '=', $customer_city_id)
+                                ->where('customer_address', '=', $customer_address)
+                                ->whereNull('contact_tenant_id')
+                                ->whereNull('wx_openid');
+                            $stmt = $selectStatement->execute();
+                            $data = $stmt->fetch();
+                            echo json_encode(array("result" => "0", "desc" => "success",'customer'=>$data));
+                        }
                     }else{
                         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
                     }
