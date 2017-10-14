@@ -354,7 +354,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                 ->where('customer.customer_address','!=','-1')
                 ->where('customer.customer_city_id','!=','-1')
                 ->where('customer.wx_openid','=',$wx_openid)
-                ->where('orders.tenant_id', '=', $tenant_id)
+//                ->where('orders.tenant_id', '=', $tenant_id)
                 ->where('customer.tenant_id', '=', $tenant_id)
 				->where('wx_message.tenant_id', '=', $tenant_id)
 				->orderBy('wx_message.ms_date','DESC');
@@ -439,8 +439,8 @@ $app->post('/wx_orders_s', function () use ($app) {
                     $selectStatement = $database->select()
                         ->from('orders')
                         ->where('exist', "=", 0)
-                        ->where('order_id','=',$order_id)
-                        ->where('tenant_id', '=', $tenant_id);
+                        ->where('order_id','=',$order_id);
+//                        ->where('tenant_id', '=', $tenant_id);
                     $stmt = $selectStatement->execute();
                     $data3= $stmt->fetch();
                     if($data3!=null){
