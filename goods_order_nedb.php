@@ -1498,9 +1498,85 @@ $app->get('/getGoodsOrders2',function()use($app){
             $selectStatement = $database->select()
                 ->from('orders')
                 ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+                ->join('customer', 'customer.customer_id', '=', 'orders.sender_id', 'INNER')
+                ->where('customer.tenant_id','=',$tenant_id)
+                ->where('customer.customer_name','=',$customer_name)
                 ->where('goods.tenant_id','=',$tenant_id)
                 ->where('orders.tenant_id','=',$tenant_id)
                 ->where('orders.exist','=',0);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetchAll();
+            for($i=0;$i<count($data1);$i++){
+                $selectStament=$database->select()
+                    ->from('goods_package')
+                    ->where('goods_package_id','=',$data1[$i]['goods_package_id']);
+                $stmt=$selectStament->execute();
+                $data2=$stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('customer')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('customer_id','=',$data1[$i]['sender_id']);
+                $stmt=$selectStament->execute();
+                $data3=$stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data3['customer_city_id']);
+                $stmt = $selectStatement->execute();
+                $data6 = $stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('customer')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('customer_id','=',$data1[$i]['receiver_id']);
+                $stmt=$selectStament->execute();
+                $data4=$stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data4['customer_city_id']);
+                $stmt = $selectStatement->execute();
+                $data7 = $stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('inventory_loc')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('inventory_loc_id','=',$data1[$i]['inventory_loc_id']);
+                $stmt=$selectStament->execute();
+                $data5=$stmt->fetch();
+                $data1[$i]['goods_package']=$data2;
+                $data1[$i]['sender']=$data3;
+                $data1[$i]['sender']['sender_city']=$data6;
+                $data1[$i]['receiver']=$data4;
+                $data1[$i]['receiver']['receiver_city']=$data7;
+                $data1[$i]['inventory_loc']=$data5;
+            }
+            echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
+        }else{
+            echo json_encode(array('result'=>'1','desc'=>'运单id为空'));
+        }
+    }else{
+        echo json_encode(array('result'=>'2','desc'=>'租户id为空'));
+    }
+});
+
+$app->get('/limitGoodsOrders7',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $customer_name = $app->request->get('customer_name');
+    $offset = $app->request->get('offset');
+    $size= $app->request->get('size');
+    if($tenant_id!=null||$tenant_id!=''){
+        if($customer_name!=null||$customer_name!=''){
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+                ->join('customer', 'customer.customer_id', '=', 'orders.sender_id', 'INNER')
+                ->where('customer.tenant_id','=',$tenant_id)
+                ->where('customer.customer_name','=',$customer_name)
+                ->where('goods.tenant_id','=',$tenant_id)
+                ->where('orders.tenant_id','=',$tenant_id)
+                ->where('orders.exist','=',0)
+                ->orderBy('orders.order_id')
+                ->limit((int)$size,(int)$offset);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
             for($i=0;$i<count($data1);$i++){
