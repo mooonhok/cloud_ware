@@ -50,7 +50,7 @@ if ($_COOKIE['openid'.$tenant_id] == null) {
         if ($page==7){
             header('location:http://api.uminfo.cn/weixin/build.html?tenant_id='.$tenant_id);
         }else if($page==6){
-            header('location:http://api.uminfo.cn/weixin/my_consignment_note.php?tenant_id='.$tenant_id);
+            header('location:http://api.uminfo.cn/weixin/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==5){
             header('location:http://api.uminfo.cn/weixin/register.html?tenant_id='.$tenant_id);
         }else if($page==4){
@@ -58,7 +58,7 @@ if ($_COOKIE['openid'.$tenant_id] == null) {
        }else if($page==3){
             header('location:http://api.uminfo.cn/weixin/jiangsuyouming.html?tenant_id='.$tenant_id);
         }else if($page==2){
-           header('location:http://api.uminfo.cn/weixin/query.php?tenant_id='.$tenant_id);
+           header('location:http://api.uminfo.cn/weixin/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==1){
             header('location:http://api.uminfo.cn/weixin/send.html?tenant_id='.$tenant_id);
         }

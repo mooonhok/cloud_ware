@@ -20,6 +20,7 @@ $app->get('/getTenant1',function()use($app){
     $tenant_id=$app->request->get('tenant_id');
     $selectStatement = $database->select()
         ->from('tenant')
+        ->
         ->where('tenant_id','=',$tenant_id)
         ->where('exist',"=",0);
     $stmt = $selectStatement->execute();
