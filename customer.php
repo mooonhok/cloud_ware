@@ -421,6 +421,8 @@ $app->post('/wx_customer',function()use($app){
                             ->from('customer')
                             ->where('exist',"=",0)
                             ->where('customer_phone',"=",$customer_phone)
+                            ->where('customer_address','=',"-1")
+                            ->where('customer_city_id','<',1)
                             ->where('tenant_id','=',$tenant_id);
                         $stmt = $selectStatement->execute();
                         $data3 = $stmt->fetch();
