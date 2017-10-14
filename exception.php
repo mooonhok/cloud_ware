@@ -13,6 +13,9 @@ require 'connect.php';
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 
+
+
+
 //批量上传，有改无增
 $app->post('/exception_insert',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
