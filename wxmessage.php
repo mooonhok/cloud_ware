@@ -155,7 +155,7 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                                 }while($data4!=null);
                                                                                                 $selectStatement = $database->select()
                                                                                                     ->from('goods_package')
-                                                                                                    ->where('goods_package  ','=',$goods_package);
+                                                                                                    ->where('goods_package_id','=',$goods_package);
                                                                                                 $stmt = $selectStatement->execute();
                                                                                                 $data7= $stmt->fetch();
                                                                                                 $insertStatement = $database->insert(array('order_id', 'tenant_id', 'goods_id','exist','goods_package_id','goods_name','goods_weight','goods_capacity','goods_count','special_need','goods_value'))
