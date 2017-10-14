@@ -119,7 +119,7 @@ $app->get('/getCustomer1',function()use($app){
                 ->from('customer')
                 ->where('tenant_id', '=', $tenant_id)
                 ->whereNull('wx_openid')
-                ->where('customer_name', '=', $customer_id);
+                ->where('customer_id', '=', $customer_id);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetch();
             echo json_encode(array("result" => "0", "desc" => "success",'customer'=>$data));
@@ -245,6 +245,7 @@ $app->put('/alterCustomer1',function()use($app){
             $updateStatement = $database->update(array('times'=>$times))
                 ->table('customer')
                 ->where('tenant_id','=',$tenant_id)
+                ->whereNull('wx_openid')
                 ->where('customer_id','=',$customer_id);
             $affectedRows = $updateStatement->execute();
             echo json_encode(array("result" => "0", "desc" => "success"));
@@ -269,6 +270,7 @@ $app->put('/alterCustomer2',function()use($app){
             $updateStatement = $database->update(array('customer_comment'=>$customer_comment))
                 ->table('customer')
                 ->where('tenant_id','=',$tenant_id)
+                ->whereNull('wx_openid')
                 ->where('customer_id','=',$customer_id);
             $affectedRows = $updateStatement->execute();
             echo json_encode(array("result" => "0", "desc" => "success"));
@@ -298,6 +300,7 @@ $app->delete('/deleteCustomer',function()use($app){
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('tenant_id','=',$tenant_id)
+                    ->whereNull('wx_openid')
                     ->where('customer_id','=',$customer_id)
                     ->where('exist',"=",0);
                 $stmt = $selectStatement->execute();
@@ -306,6 +309,7 @@ $app->delete('/deleteCustomer',function()use($app){
                     $updateStatement = $database->update(array('exist'=>1))
                         ->table('customer')
                         ->where('tenant_id','=',$tenant_id)
+                        ->whereNull('wx_openid')
                         ->where('customer_id','=',$customer_id)
                         ->where('exist',"=",0);
                     $affectedRows = $updateStatement->execute();
