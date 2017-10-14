@@ -204,6 +204,7 @@ $app->get('/sbylorry',function()use($app){
             for($x=0;$x<count($data2);$x++){
                 $selectStament=$database->select()
                     ->from('scheduling')
+                    ->where('is_sure','=',0)
                     ->where('lorry_id','=',$data2[$x]['lorry_id']);
                 $stmt=$selectStament->execute();
                 $data3=$stmt->fetchAll();
@@ -253,6 +254,7 @@ $app->get('/sbylorryn',function()use($app){
             for($x=0;$x<count($data2);$x++){
                 $selectStament=$database->select()
                     ->from('scheduling')
+                    ->where('is_sure','=',0)
                     ->where('lorry_id','=',$data2[$x]['lorry_id']);
                 $stmt=$selectStament->execute();
                 $data3=$stmt->fetchAll();
