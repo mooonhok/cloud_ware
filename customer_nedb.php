@@ -163,6 +163,24 @@ $app->get('/getCustomers1',function()use($app){
     }
 });
 
+$app->get('/getCustomers2',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('customer')
+            ->where('tenant_id', '=', $tenant_id)
+            ->where('type', '=', 3)
+            ->where('exist', '=', 0);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$data));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
 $app->get('/limitCustomers0',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
@@ -174,6 +192,28 @@ $app->get('/limitCustomers0',function()use($app){
             ->from('customer')
             ->where('tenant_id', '=', $tenant_id)
             ->where('type', '=', 1)
+            ->where('exist', '=', 0)
+            ->orderBy('customer_id')
+            ->limit((int)$size,(int)$offset);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$data));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
+$app->get('/limitCustomers1',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $size=$app->request->get('size');
+    $offset=$app->request->get('offset');
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('customer')
+            ->where('tenant_id', '=', $tenant_id)
+            ->where('type', '=', 3)
             ->where('exist', '=', 0)
             ->orderBy('customer_id')
             ->limit((int)$size,(int)$offset);
@@ -230,6 +270,50 @@ $app->put('/alterCustomer2',function()use($app){
         }
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
+$app->delete('/deleteCustomer',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    $customer_id=$app->request->get('customer_id');
+    if($tenant_id!=null||$tenant_id!=""){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        if($data2!=null){
+            if($customer_id!=null||$customer_id!=""){
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('customer_id','=',$customer_id)
+                    ->where('exist',"=",0);
+                $stmt = $selectStatement->execute();
+                $data = $stmt->fetch();
+                if($data!=null){
+                    $updateStatement = $database->update(array('exist'=>1))
+                        ->table('customer')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('customer_id','=',$customer_id)
+                        ->where('exist',"=",0);
+                    $affectedRows = $updateStatement->execute();
+                    echo json_encode(array("result"=>"0","desc"=>"success"));
+                }else{
+                    echo json_encode(array("result"=>"1","desc"=>"客户不存在"));
+                }
+            }else{
+                echo json_encode(array("result"=>"2",'desc'=>'缺少客户id'));
+            }
+        }else{
+            echo json_encode(array("result"=>"3","desc"=>"租户不存在"));
+        }
+    }else{
+        echo json_encode(array("result"=>"4",'desc'=>'缺少租户id'));
     }
 });
 
