@@ -1057,12 +1057,12 @@ $app->post('/wx_order_z', function () use ($app) {
                 $stmt = $selectStatement->execute();
                 $data6= $stmt->fetch();
                 $array['plate_number']=$data6['plate_number'];
-                echo json_encode(array("result" => "1", "desc" => "租户不存在", "orders" => $array));
+                echo json_encode(array("result" => "0", "desc" => "success", "orders" => $array));
             }else{
-                echo json_encode(array("result" => "2", "desc" => "租户不存在", "orders" => ""));
+                echo json_encode(array("result" => "1", "desc" => "租户不存在", "orders" => ""));
             }
         } else {
-            echo json_encode(array("result" => "3", "desc" => "租户不存在", "orders" => ""));
+            echo json_encode(array("result" => "2", "desc" => "租户不存在", "orders" => ""));
         }
     } else {
         echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => ""));
