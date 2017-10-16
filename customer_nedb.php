@@ -74,7 +74,7 @@ $app->get('/getCustomer',function()use($app){
     $customer_city_id = $app->request->get('customer_city_id');
     $customer_address = $app->request->get('customer_address');
     $contact_tenant_id=$app->request->get('contact_tenant_id');
-    $type=$app->request->get('');
+    $type=$app->request->get('type');
     if($tenant_id!=null||$tenant_id!=''){
         if($customer_name!=null||$customer_name!=''){
             if($customer_phone!=null||$customer_phone!=''){
@@ -89,6 +89,7 @@ $app->get('/getCustomer',function()use($app){
                                 ->where('customer_city_id', '=', $customer_city_id)
                                 ->where('customer_address', '=', $customer_address)
                                 ->where('contact_tenant_id', "=", $contact_tenant_id)
+                                ->where('type', "=", $type)
                                 ->whereNull('wx_openid');
                             $stmt = $selectStatement->execute();
                             $data = $stmt->fetch();
@@ -101,6 +102,7 @@ $app->get('/getCustomer',function()use($app){
                                 ->where('customer_phone', '=', $customer_phone)
                                 ->where('customer_city_id', '=', $customer_city_id)
                                 ->where('customer_address', '=', $customer_address)
+                                ->where('type', "=", $type)
                                 ->whereNull('contact_tenant_id')
                                 ->whereNull('wx_openid');
                             $stmt = $selectStatement->execute();
