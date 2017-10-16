@@ -113,9 +113,9 @@
                }),
                success: function(msg) {
                    $('.box1').text(msg.tenant.company);
-                   $('#introduction').text(msg.tenant.c_introduction);
-                   $('#address').text(msg.tenant.address);
-                   $('#phone').text(msg.contact.customer_phone);
+                   $('#introduction').text('公司介绍：'+msg.tenant.c_introduction);
+                   $('#address').text('地址：'+msg.tenant.address);
+                   $('#phone').text('电话：'+msg.contact.customer_phone);
                },
                error: function(e) {
                    alert("获取后台失败！")
