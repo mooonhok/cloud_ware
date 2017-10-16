@@ -86,11 +86,12 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                         $data1 = $stmt->fetch();
                                                                                             if($data1!=null) {
                                                                                                 $str=$tenant_id;
-                                                                                                do{
-                                                                                                    $time=time();
+                                                                                                $time=time();
 //                                                                                                    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 //                                                                                                    $str = substr($chars, mt_rand(0, strlen($chars) - 3), 2);
-                                                                                                    $str.=$time;
+                                                                                                $str.=$time;
+                                                                                                do{
+
                                                                                                     $selectStatement = $database->select()
                                                                                                         ->from('orders')
                                                                                                         ->where('order_id','=',$str)
@@ -100,7 +101,7 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                                 }while($data4!=null);
                                                                                     $insertStatement = $database->insert(array('order_id', 'pay_method','exist','order_status','sender_id','receiver_id','order_datetime0'))
                                                                                         ->into('orders')
-                                                                                        ->values(array($tenant_id.$str, $pay_method,0,-2,$data["customer_id"],$data1['customer_id'],$shijian));
+                                                                                        ->values(array($str, $pay_method,0,-2,$data["customer_id"],$data1['customer_id'],$shijian));
                                                                                     $insertId = $insertStatement->execute(false);
                                                                                     if($insertId!=null){
 //                                                                                        $selectStatement = $database->select()
@@ -136,7 +137,7 @@ $app->post('/wxmessage_insert',function()use($app){
 
                                                                                             $insertStatement = $database->insert(array('order_id', 'tenant_id', 'message_id','exist','from_user','mobilephone','is_read','ms_date','title'))
                                                                                                 ->into('wx_message')
-                                                                                                ->values(array($tenant_id.$str,$tenant_id, $str1,0,$data6['customer_name'],$data6["customer_phone"],0,$shijian,'消息'));
+                                                                                                ->values(array($str,$tenant_id, $str1,0,$data6['customer_name'],$data6["customer_phone"],0,$shijian,'消息'));
                                                                                             $insertId = $insertStatement->execute(false);
                                                                                             if($insertId!=null){
                                                                                                 $str2=null;
@@ -160,7 +161,7 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                                 $data7= $stmt->fetch();
                                                                                                 $insertStatement = $database->insert(array('order_id', 'tenant_id', 'goods_id','exist','goods_package_id','goods_name','goods_weight','goods_capacity','goods_count','special_need','goods_value'))
                                                                                                     ->into('goods')
-                                                                                                    ->values(array($tenant_id.$str,$tenant_id, $str2,0,$data7['goods_package_id'],$goods_name,$goods_weight,$goods_capacity,$goods_count,$special_need,$good_worth));
+                                                                                                    ->values(array($str,$tenant_id, $str2,0,$data7['goods_package_id'],$goods_name,$goods_weight,$goods_capacity,$goods_count,$special_need,$good_worth));
                                                                                                 $insertId = $insertStatement->execute(false);
                                                                                                 if($insertId!=null){
                                                                                                     echo json_encode(array("result"=>"1","desc"=>"success"));
