@@ -117,22 +117,22 @@
                    var company='';
                    var address='';
                    var customer_phone='';
-                   if(msg.tenant.c_introduction!=null||msg.tenant.c_introduction!=''){
+                   if(isNull(msg.tenant.c_introduction)){
                        introduction=msg.tenant.c_introduction;
 				   }else{
                        introduction='暂无';
 				   }
-                   if(msg.tenant.company!=null||msg.tenant.company!=''){
+                   if(msg.tenant.company!=null||msg.tenant.company!=0){
                        company=msg.tenant.company;
                    }else{
                        company='暂无';
                    }
-                   if(msg.tenant.address!=null||msg.tenant.address!=''){
+                   if(msg.tenant.address!=null||msg.tenant.address!=0){
                        address=msg.tenant.address;
                    }else{
                        address='暂无';
                    }
-                   if(msg.contact.customer_phone!=null||msg.contact.customer_phone!=''){
+                   if(msg.contact.customer_phone!=null||msg.contact.customer_phone!=0){
                        customer_phone=msg.contact.customer_phone;
                    }else{
                        customer_phone='暂无';
