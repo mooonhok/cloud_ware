@@ -304,28 +304,17 @@ $app->get('/tenant',function()use($app){
     }
 });
 
-$app->get('/tenant',function()use($app){
+$app->get('/tenant_introduction',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $page=$app->request->get('page');
-    $per_page=$app->request->get("per_page");
+    $tenant_id=$app->request->get('tenant_id');
     $database=localhost();
-        if($page==null||$per_page==null){
             $selectStatement = $database->select()
                 ->from('tenant')
-                ->where('exist',"=",0);
+                ->where('tenant_id',"=",$tenant_id);
             $stmt = $selectStatement->execute();
-            $data = $stmt->fetchAll();
-            echo  json_encode(array("result"=>"0","desc"=>"success","tenants"=>$data));
-        }else{
-            $selectStatement = $database->select()
-                ->from('tenant')
-                ->where('exist',"=",0)
-                ->limit((int)$per_page,(int)$per_page*(int)$page);
-            $stmt = $selectStatement->execute();
-            $data = $stmt->fetchAll();
-            echo  json_encode(array("result"=>"0","desc"=>"success","tenants"=>$data));
-        }
+            $data = $stmt->fetch();
+            echo  json_encode(array("result"=>"0","desc"=>"success","tenant"=>$data));
 });
 
 $app->delete('/tenant',function()use($app){

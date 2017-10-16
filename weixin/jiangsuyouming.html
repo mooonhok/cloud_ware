@@ -49,11 +49,11 @@
 	<div class="box2">
 	<div class="box3">
 		<br>
-		<p>
+		<p id="introduction">
 			公司介绍: 本公司主要从普通货运、大型物件运输、货物专用运输、综合货运站；水路货物代理、船舶代理；港口货物装卸、仓储和港口驳运服务。
 		</p>
 		<br>
-		<p>
+		<p id="address">
 			公司地址: 江苏省泰州市靖江经济开发区康桥路2号港城大厦。
 		</p>
 		<br>
@@ -64,22 +64,37 @@
    </div>
    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
    <script type="text/javascript">
-       $(".box2").css("display","none");
-       $(".box3").css("display","none");
-       $(".foot_1").on("click",function(){
-           $(".box2").css("display","block");
-           $(".box2").css("z-index","100");
-       })
-       $(".foot_2").on("click",function(){
-           $(".box3").css("display","block");
-           $(".box3").css("z-index","100");
-       })
-       $(".ok1").on("click",function(){
-           $(".box2").css("display","none");
-       })
-       $(".ok2").on("click",function(){
-           $(".box3").css("display","none");
-       })
+       (function($) {
+       $.getUrlParam = function(name) {
+           var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+           var r = window.location.search.substr(1).match(reg);
+           if(r != null) return decodeURI(r[2]);
+           return null;
+       }
+       })(jQuery);
+       var tenant_id=$.getUrlParam('tenant_id');
+       //判断openid是否已经被注册
+       var openid = $.cookie('openid'+tenant_id);
+       $.ajax({
+           url: "http://api.uminfo.cn/tenant.php/tenant_introduction?wx_openid="+openid,
+           beforeSend: function(request) {
+               request.setRequestHeader("tenant-id", tenant_id);
+           },
+           dataType: 'json',
+           type: 'get',
+           ContentType: "application/json;charset=utf-8",
+           data: JSON.stringify({
+
+           }),
+           success: function(msg) {
+               $('.box1').text(msg.tenant.company);
+              $('#introduction').text(msg.tenant.c_introduction);
+               $('#address').text(msg.tenant.address);
+           },
+           error: function(e) {
+               alert("获取后台失败！")
+           }
+       });
    </script>
 </body>
 </html>
