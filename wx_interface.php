@@ -143,7 +143,7 @@ class wechatCallbackapiTest
                     echo $resultStr;
                 }else{
                     $msgType = "text";
-                    $contentStr = "您可以在下方菜单中选择您所需要的服务,如果需要查询寄件收费标准：1.价格列表；2.电话查询";
+                    $contentStr = "您可以回复‘1’获取价格列表，回复‘2’获得联系电话";
                     $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                     echo $resultStr;
                 }
