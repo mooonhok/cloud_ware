@@ -389,7 +389,7 @@ $app->get('/byorderid',function()use($app){
         $stmt=$selectStament->execute();
         $data4=$stmt->fetch();
         $selectStament=$database->select()
-            ->from('delivery_orders')
+            ->from('delivery_order')
             ->where('delivery_order_id','=',$order_id);
         $stmt=$selectStament->execute();
         $data6=$stmt->fetch();
