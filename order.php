@@ -789,7 +789,7 @@ $app->post('/wx_order', function () use ($app) {
                         ->where('customer.customer_city_id','>',0)
                         ->where('customer.wx_openid','=',$wx_openid)
                         ->where('customer.tenant_id', '=', $tenant_id)
-//                        ->where('orders.tenant_id', '=', $tenant_id)
+                        ->where('orders.tenant_id', '=', $tenant_id)
 						->orderBy('orders.order_datetime0','DESC');
                     $stmt = $selectStatement->execute();
                     $data2a= $stmt->fetchAll();
@@ -810,7 +810,7 @@ $app->post('/wx_order', function () use ($app) {
                         ->where('customer.customer_address','!=','-1')
                         ->where('customer.customer_city_id','>',0)
                         ->where('customer.customer_phone','=',$dataa['customer_phone'])
-//                        ->where('orders.tenant_id', '=', $tenant_id)
+                        ->where('orders.tenant_id', '=', $tenant_id)
                         ->where('customer.tenant_id', '=', $tenant_id);
                     $stmt = $selectStatement->execute();
                     $data2b= $stmt->fetchAll();
@@ -897,7 +897,7 @@ $app->post('/wx_order', function () use ($app) {
                                 $data7= $stmt->fetch();
                                 $array1['sendcity']=$data7['name'];
                                 $array1['sendname']=$data2a[$i]['customer_name'];
-//                                $array1['order_id']=$data2a[$i]['order_id'];
+                                $array1['order_id']=$data2a[$i]['order_id'];
                                 if($data2a[$i]['tenant_id']!=null||$data2a[$i]['order_id']!=''){
                                     $array1['order_id']= $data2a[$i]['order_id'];
                                 }else{
