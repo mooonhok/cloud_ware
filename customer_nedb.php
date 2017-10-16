@@ -93,7 +93,7 @@ $app->get('/getCustomer',function()use($app){
                                 ->whereNull('wx_openid');
                             $stmt = $selectStatement->execute();
                             $data = $stmt->fetch();
-                            echo json_encode(array("result" => "0", "desc" => "success",'customer'=>$data,'dd'=>$contact_tenant_id));
+                            echo json_encode(array("result" => "0", "desc" => "success",'customer'=>$data));
                         }else{
                             $selectStatement = $database->select()
                                 ->from('customer')
@@ -107,7 +107,7 @@ $app->get('/getCustomer',function()use($app){
                                 ->whereNull('wx_openid');
                             $stmt = $selectStatement->execute();
                             $data = $stmt->fetch();
-                            echo json_encode(array("result" => "0", "desc" => "success",'customer'=>$data,'dd'=>$contact_tenant_id));
+                            echo json_encode(array("result" => "0", "desc" => "success",'customer'=>$data));
                         }
                     }else{
                         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
