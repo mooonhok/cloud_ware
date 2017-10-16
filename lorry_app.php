@@ -358,7 +358,7 @@ $app->get('/sandoandg',function()use($app){
                         $arrays2['phone']=$data9['customer_phone'];
                         $arrays2['sendcity']=$data7['name'];
                         $arrays2['receivecity']=$data8['name'];
-                         echo json_encode(array('result' => '0', 'desc' => '','goods'=>$arrays,'customer'=>$arrays2,'count'=>$num));
+                         echo json_encode(array('result' => '0', 'desc' => '','goods'=>$arrays,'customer'=>$arrays2,'count'=>$num,'isreceive'=>$data3['is_sure']));
                      }else{
                          echo json_encode(array('result' => '5', 'desc' => '该清单不是您的','goods'=>''));
                      }
@@ -388,6 +388,16 @@ $app->get('/byorderid',function()use($app){
             ->where('order_id','=',$order_id);
         $stmt=$selectStament->execute();
         $data4=$stmt->fetch();
+        $selectStament=$database->select()
+            ->from('delivery_orders')
+            ->where('delivery_order_id','=',$order_id);
+        $stmt=$selectStament->execute();
+        $data6=$stmt->fetch();
+        $selectStament=$database->select()
+            ->from('delivery')
+            ->where('delivery_id','=',$data6['delivery_id']);
+        $stmt=$selectStament->execute();
+        $data9=$stmt->fetch();
         $selectStament=$database->select()
             ->from('customer')
             ->where('customer_id','=',$data4['receiver_id']);
@@ -419,7 +429,7 @@ $app->get('/byorderid',function()use($app){
         $data8=$stmt->fetch();
         $arrays['address']=$data8['name'].$data5['customer_address'];
         if($data!=null||$data!=""){
-            echo json_encode(array('result' => '0', 'desc' => '','order'=>$arrays));
+            echo json_encode(array('result' => '0', 'desc' => '','order'=>$arrays,'is_sure'=>$data9['is_receive']));
         }else{
             echo json_encode(array('result' => '2', 'desc' => '运单不存在','order'=>''));
         }
@@ -939,6 +949,7 @@ $app->put('/updatelac',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '没有类型信息'));
     }
 });
+
 
 
 $app->run();
