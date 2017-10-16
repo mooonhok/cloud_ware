@@ -260,6 +260,7 @@ $signPackage = $jssdk->GetSignPackage();
 					//点击事件
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
+						alert(sendid)
 						if(sendid!='暂无'){
                             window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
                         }
@@ -290,7 +291,12 @@ $signPackage = $jssdk->GetSignPackage();
       success: function (res) {    
         var a=new Array();
         a=res.resultStr.split(",");
-       window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a[1];
+          if(a[1].length!=0){
+              window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a[1];
+          }else{
+              layer.msg("没有扫描到条形码");
+          }
+
       }  
     });  
   };  
