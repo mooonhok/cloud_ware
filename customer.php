@@ -592,6 +592,7 @@ $app->post('/plus_customer',function()use($app){
            if($data1==null){
                $selectStatement = $database->select()
                    ->from('customer')
+                   ->whereNotNull('wx_openid')
                    ->where('tenant_id','=',$tenant_id);
                $stmt = $selectStatement->execute();
                $data2 = $stmt->fetchAll();

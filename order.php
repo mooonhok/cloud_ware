@@ -432,7 +432,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                         $array1['acceptcity']=$data5['name'];
                         array_push($array,$array1);
                     }
-                    echo json_encode(array("result" => "1", "desc" => "success", "orders" => $array));
+                    echo json_encode(array("result" => "1", "desc" => "success", "orders" => $array,"data"=>$data2));
                 }else{
                     $array=array();
                     $array1=array();
