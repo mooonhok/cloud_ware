@@ -40,7 +40,7 @@ $app->post('/addLorry',function()use($app) {
                                         ->into('lorry')
                                         ->values(array_values($array));
                                     $insertId = $insertStatement->execute(false);
-                        $insertStatement = $database->insert(array_keys(array('lorry_id'=>$lorry_id,'plate_number'=>$plate_number,'driver_name'=>$driver_name,'driver_phone'=>$driver_phone,'passwoe')))
+                        $insertStatement = $database->insert(array_keys(array('lorry_id'=>$lorry_id,'plate_number'=>$plate_number,'driver_name'=>$driver_name,'driver_phone'=>$driver_phone,'password'=>sha1)))
                             ->into('lorry')
                             ->values(array_values($array));
                         $insertId = $insertStatement->execute(false);

@@ -74,6 +74,7 @@ $app->get('/getCustomer',function()use($app){
     $customer_city_id = $app->request->get('customer_city_id');
     $customer_address = $app->request->get('customer_address');
     $contact_tenant_id=$app->request->get('contact_tenant_id');
+    $type=$app->request->get('');
     if($tenant_id!=null||$tenant_id!=''){
         if($customer_name!=null||$customer_name!=''){
             if($customer_phone!=null||$customer_phone!=''){
