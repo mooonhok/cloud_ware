@@ -783,6 +783,7 @@ $app->post('/wx_order', function () use ($app) {
                     $selectStatement = $database->select()
                         ->from('orders')
                         ->join('customer','orders.sender_id','=','customer.customer_id','INNER')
+                        ->join('wx_message','orders.order_id','=','wx_message.order_id','INNER')
                         ->where('orders.exist', "=", 0)
                         ->whereLike('orders.order_id',$order_id.'%')
                         ->where('customer.customer_address','!=','-1')
@@ -790,6 +791,7 @@ $app->post('/wx_order', function () use ($app) {
                         ->where('customer.wx_openid','=',$wx_openid)
                         ->where('customer.tenant_id', '=', $tenant_id)
                         ->where('orders.tenant_id', '=', $tenant_id)
+                        ->where('wx_message.tenant_id', '=', $tenant_id)
 						->orderBy('orders.order_datetime0','DESC');
                     $stmt = $selectStatement->execute();
                     $data2a= $stmt->fetchAll();
