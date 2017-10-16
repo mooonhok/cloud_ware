@@ -309,12 +309,17 @@ $app->get('/tenant_introduction',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->get('tenant_id');
     $database=localhost();
-            $selectStatement = $database->select()
-                ->from('tenant')
-                ->where('tenant_id',"=",$tenant_id);
-            $stmt = $selectStatement->execute();
-            $data = $stmt->fetch();
-            echo  json_encode(array("result"=>"0","desc"=>"success","tenant"=>$data));
+    $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('tenant_id',"=",$tenant_id);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetch();
+    $selectStatement = $database->select()
+        ->from('customer')
+        ->where('customer_id',"=",$data['contact_id']);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetch();
+    echo  json_encode(array("result"=>"0","desc"=>"success","tenant"=>$data,'contact'=>$data1));
 });
 
 $app->delete('/tenant',function()use($app){
