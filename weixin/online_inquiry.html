@@ -13,7 +13,7 @@
 	<div class="top">
 		<div class="wenzi">货物类型</div> 
 		<div class="text">
-			<input type="text" placeholder="必填项">
+			<input type="text" id="goods_name" placeholder="必填项">
 		</div>			
 	</div>
 	<div class="center">
@@ -21,13 +21,13 @@
 		<div class="wenzi">体积(m³)</div>
 		
 		<div class="text">
-		<input type="number" placeholder="必填项">
+		<input type="number" id="vol" placeholder="必填项">
 		</div>		
 	</div>
 	<div class="center_2">
 		<div class="wenzi">重量(吨)</div>
 		<div class="text">
-		<input type="number" placeholder="必填项">
+		<input type="number" id="weight" placeholder="必填项">
 		</div>	
 	</div>		
 	</div>
@@ -211,7 +211,36 @@
 </script>
 <script type="text/javascript">
 		$(".xunjia").on("click",function(){
-			alert('ok');
+//			alert('ok');
+            var type=$("#goods_name").val();
+            var big=$("#vol").val();
+            var weight=$("#weight").val();
+            var sendcity=$("#city1 option:selected").val();
+            var receive=$("#city2 option:selected").val();
+            alert(type+"///"+big+"$$$"+weight+"****"+sendcity+"^^^^"+receive+"!!!!"+tenant_id+"%%%%"+openid);
+            $.ajax({
+            	  url :"http://api.uminfo.cn/secectpay.php/pay",
+		           beforeSend: function(request) {
+                       request.setRequestHeader("tenant-id", tenant_id);  
+                    },
+			        dataType:'json',
+			        type:'post',
+			        ContentType:"application/json;charset=utf-8",
+			        data:JSON.stringify({
+			        	type:type,
+			        	big:big,
+			        	weight:weight,
+			        	sendcity:sendcity,
+			        	receive:receive,
+			        	openid:openid
+			        }),
+			        success:function(msg){
+                     alert(msg.desc);
+				    },
+			        error:function(e){
+		            alert("提交失败！");
+			        }
+            });
 		})
 	</script>
 </html>
