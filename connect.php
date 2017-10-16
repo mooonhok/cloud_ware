@@ -16,7 +16,9 @@ function connect(){
     $username = env("MYSQL_USERNAME", "root");
     $password = env("MYSQL_PASSWORD", "jsym_20170607");
     $port=env(60212,3306);
-    $database=new database("mysql:host=".$serverName.";port=".$port.";dbname=".$databaseName.";charset=utf8",$username,$password);
+//    $database=new database("mysql:host=".$serverName.";port=".$port.";dbname=".$databaseName.";charset=utf8",$username,$password);
+    $database=new database("mysql:host=".$serverName.";port=60212;dbname=".$databaseName.";charset=utf8",$username,$password);
+
     return  $database;
 }
 function env($key, $default = null)
