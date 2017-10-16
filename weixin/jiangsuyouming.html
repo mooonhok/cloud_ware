@@ -63,6 +63,41 @@
 </div>
    </div>
    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+   <script>
+       (function($) {
+           $.getUrlParam = function(name) {
+               var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+               var r = window.location.search.substr(1).match(reg);
+               if(r != null) return decodeURI(r[2]);
+               return null;
+           }
+       })(jQuery);
+       var tenant_id=$.getUrlParam('tenant_id');
+       //判断openid是否已经被注册
+       var openid = $.cookie('openid'+tenant_id);
+       if(openid != null) {
+           $.ajax({
+               url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid="+openid,
+               beforeSend: function(request) {
+                   request.setRequestHeader("tenant-id", tenant_id);
+               },
+               dataType: 'json',
+               type: 'get',
+               ContentType: "application/json;charset=utf-8",
+               data: JSON.stringify({
+
+               }),
+               success: function(msg) {
+                   if(msg.result == 0) {
+                       window.location.href = "http://api.uminfo.cn/weixin/test.html?tenant_id="+tenant_id+"&page=5";
+                   }
+               },
+               error: function(e) {
+                   alert("获取后台失败！")
+               }
+           });
+       }
+   </script>
    <script type="text/javascript">
        (function($) {
        $.getUrlParam = function(name) {
@@ -76,7 +111,7 @@
        //判断openid是否已经被注册
        var openid = $.cookie('openid'+tenant_id);
        $.ajax({
-           url: "http://api.uminfo.cn/tenant.php/tenant_introduction?wx_openid="+openid,
+           url: "http://api.uminfo.cn/tenant.php/tenant_introduction?tenant_id="+tenant_id,
            beforeSend: function(request) {
                request.setRequestHeader("tenant-id", tenant_id);
            },
