@@ -866,7 +866,79 @@ $app->get('/lacx',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '没有类型信息'));
     }
 });
-
+//修改个人信息（密码）
+$app->put('/updatelac',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $id=$body->id;
+    $type=$body->type;
+    $password1=$body->password;
+    $str1=str_split($password1,3);
+    $password=null;
+    for ($x=0;$x<count($str1);$x++){
+        $password.=$str1[$x].$x;
+    }
+    $arrays['password']=$password;
+    if($type!=null||$type!=""){
+       if($type==0){
+           if($id!=null||$id!=""){
+               $selectStatement = $database->select()
+                   ->from('lorry')
+                   ->where('exist','=',0)
+                   ->where('tenant_id','=',0)
+                   ->where('lorry_id', '=', $id);
+               $stmt = $selectStatement->execute();
+               $data1 = $stmt->fetch();
+               if($data1!=null){
+                    if($password1!=null||$password1!=""){
+                        $updateStatement = $database->update($arrays)
+                            ->from('lorry')
+                            ->where('plate_number','=',$data1['plate_number'])
+                            ->where('driver_phone','=',$data1['driver_phone'])
+                            ->where('driver_name','=',$data1['driver_name']);
+                        $affectedRows = $updateStatement->execute();
+                        echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
+                    }else{
+                        echo json_encode(array('result' => '4', 'desc' => '密码不能为空'));
+                    }
+               }else{
+                   echo json_encode(array('result' => '3', 'desc' => '该司机不存在'));
+               }
+           }else{
+               echo json_encode(array('result' => '2', 'desc' => '没有id'));
+           }
+       }else{
+           if($id!=null||$id!=""){
+               $selectStatement = $database->select()
+                   ->from('courier')
+                   ->where('exist','=',0)
+                   ->where('courier_id', '=', $id);
+               $stmt = $selectStatement->execute();
+               $data1 = $stmt->fetch();
+               if($data1!=null){
+                   if($password1!=null||$password1!=""){
+                       $updateStatement = $database->update($arrays)
+                           ->from('courier_id')
+                           ->where('courier_id','=',$id);
+                       $affectedRows = $updateStatement->execute();
+                       echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
+                   }else{
+                       echo json_encode(array('result' => '4', 'desc' => '密码不能为空'));
+                   }
+               }else{
+                   echo json_encode(array('result' => '3', 'desc' => '该配送员不存在'));
+               }
+           }else{
+               echo json_encode(array('result' => '2', 'desc' => '没有配送员id'));
+           }
+       }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '没有类型信息'));
+    }
+});
 
 
 $app->run();
