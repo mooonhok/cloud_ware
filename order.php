@@ -375,7 +375,12 @@ $app->post('/wx_orders_s', function () use ($app) {
                         $data7= $stmt->fetch();
                         $array1['sendcity']=$data7['name'];
                         $array1['sendname']=$data2[$i]['customer_name'];
-                        $array1['order_id']=$data2[$i]['order_id'];
+                        if($data2[$i]['order_status']==-1||$data2[$i]['order_status']==-2||$data2[$i]['order_status']==0){
+                            $array1['order_id']='暂无';
+                        }else{
+                            $array1['order_id']=$data2[$i]['order_id'];
+                        }
+
                         $array1['status']=$data2[$i]['order_status'];
                         $array1['order_cost']=$data2[$i]['order_cost'];
                         if($array1['status']==0&&$array1['order_cost']==null){
@@ -444,6 +449,11 @@ $app->post('/wx_orders_s', function () use ($app) {
                     $stmt = $selectStatement->execute();
                     $data3= $stmt->fetch();
                     if($data3!=null){
+                        if($data3['tenant_id']!=null||$data3['tenant_id']!=''){
+                            $array1['order_id']='暂无';
+                        }else{
+                            $array1['order_id']=$data3['order_id'];
+                        }
                         $array1['order_id']=$data3['order_id'];
                         $array1['status']=$data3['order_status'];
                         $array1['order_cost']=$data3['order_cost'];
@@ -583,10 +593,10 @@ $app->post('/wx_orders_r', function () use ($app) {
                             ->where('id', '=', $data2[$i]['customer_city_id']);
                         $stmt = $selectStatement->execute();
                         $data7= $stmt->fetch();
-                        if($data2[$i]['tenant_id']!=null||$data2[$i]['order_id']!=''){
-                            $array1['order_id']= $data2[$i]['order_id'];
-                        }else{
+                        if($data2[$i]['order_status']==-1||$data2[$i]['order_status']==-2||$data2[$i]['order_status']==0){
                             $array1['order_id']='暂无';
+                        }else{
+                            $array1['order_id']= $data2[$i]['order_id'];
                         }
                         $array1['acceptcity']=$data7['name'];
                         $array1['acceptname']= $data2[$i]['customer_name'];
@@ -657,7 +667,7 @@ $app->post('/wx_orders_r', function () use ($app) {
                     $stmt = $selectStatement->execute();
                     $data3= $stmt->fetch();
                     if($data3!=null){
-                        if($data3['tenant_id']!=null||$data3['order_id']!=''){
+                        if($data3['tenant_id']!=null||$data3['tenant_id']!=''){
                             $array1['order_id']= $data3['order_id'];
                         }else{
                             $array1['order_id']='暂无';
