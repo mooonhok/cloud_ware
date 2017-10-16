@@ -99,36 +99,27 @@
        }
    </script>
    <script type="text/javascript">
-       (function($) {
-       $.getUrlParam = function(name) {
-           var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-           var r = window.location.search.substr(1).match(reg);
-           if(r != null) return decodeURI(r[2]);
-           return null;
-       }
-       })(jQuery);
-       var tenant_id=$.getUrlParam('tenant_id');
-       //判断openid是否已经被注册
-       var openid = $.cookie('openid'+tenant_id);
-       alert(tenant_id)
-       $.ajax({
-           url: "http://api.uminfo.cn/tenant.php/tenant_introduction?tenant_id="+tenant_id,
-           beforeSend: function(request) {
-           },
-           dataType: 'json',
-           type: 'get',
-           ContentType: "application/json;charset=utf-8",
-           data: JSON.stringify({
-           }),
-           success: function(msg) {
-               $('.box1').text(msg.tenant.company);
-              $('#introduction').text(msg.tenant.c_introduction);
-               $('#address').text(msg.tenant.address);
-           },
-           error: function(e) {
-               alert("获取后台失败！")
-           }
+       $(document).ready(function(){
+           $.ajax({
+               url: "http://api.uminfo.cn/tenant.php/tenant_introduction?tenant_id="+tenant_id,
+               beforeSend: function(request) {
+               },
+               dataType: 'json',
+               type: 'get',
+               ContentType: "application/json;charset=utf-8",
+               data: JSON.stringify({
+               }),
+               success: function(msg) {
+                   $('.box1').text(msg.tenant.company);
+                   $('#introduction').text(msg.tenant.c_introduction);
+                   $('#address').text(msg.tenant.address);
+               },
+               error: function(e) {
+                   alert("获取后台失败！")
+               }
+           });
        });
+
    </script>
 </body>
 </html>
