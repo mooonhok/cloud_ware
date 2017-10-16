@@ -110,17 +110,43 @@ class wechatCallbackapiTest
 							<Content><![CDATA[%s]]></Content> 
 							<FuncFlag>0</FuncFlag>
 							</xml>";
+            $imageTpl = "<xml>  
+                                    <ToUserName><![CDATA[%s]]></ToUserName>  
+                                    <FromUserName><![CDATA[%s]]></FromUserName>  
+                                    <CreateTime>%s</CreateTime>  
+                                    <MsgType><![CDATA[%s]]></MsgType>  
+                                    <Image>  
+                                    <MediaId><![CDATA[%s]]></MediaId>  
+                                    </Image>  
+                                    </xml>";
+
+
             if ($ev == "subscribe") {
                 //       echo '123456';
                 $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news', $ArticleCount, "公司介绍", "万事鑫公司专业从事物流运输行业", "http://api.uminfo.cn/timg.jpg", "http://api.uminfo.cn/weixin/jiangsuyouming.html");
                 echo $resultStr;
             }
-
             if (!empty($keyword)) {
-                $msgType = "text";
-                $contentStr = "请联系客服电话：15862790779";
-                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                echo $resultStr;
+                if($keyword==1){
+//                    $msgType = "text";
+//                    $contentStr = "请联系客服电话：15862790779";
+//                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+//                    echo $resultStr;
+                    $MsgType="image";
+                    $MediaId="";
+                    $resultStr = sprintf($imageTpl, $fromUsername, $toUsername, $time, $MsgType, $MediaId);
+                    echo $resultStr;
+                }else if($keyword==2){
+                    $msgType = "text";
+                    $contentStr = "请联系客服电话：15862790779";
+                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+                    echo $resultStr;
+                }else{
+                    $msgType = "text";
+                    $contentStr = "您可以在下方菜单中选择您所需要的服务,如果需要查询寄件收费标准：1.价格列表；2.电话查询";
+                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+                    echo $resultStr;
+                }
             } else {
                 echo "Input something...";
             }
