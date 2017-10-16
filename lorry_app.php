@@ -819,6 +819,56 @@ $app->post('/ordersuretwo',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '运单号不能为空'));
     }
 });
+
+//获取个人信息
+$app->get('/lacx',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $id=$app->request->get('id');
+    $type=$app->request->get('type');
+    $database=localhost();
+    if($type!=null||$type!=""){
+         if($type==0){
+             if($id!=null||$id!=""){
+                 $selectStatement = $database->select()
+                     ->from('lorry')
+                     ->where('exist','=',0)
+                     ->where('tenant_id','=',0)
+                     ->where('lorry_id', '=', $id);
+                 $stmt = $selectStatement->execute();
+                 $data1 = $stmt->fetch();
+                 if($data1!=null){
+                     echo json_encode(array('result' => '0', 'desc' => '','lorry'=>$data1));
+                 }else{
+                     echo json_encode(array('result' => '5', 'desc' => '该司机不存在'));
+                 }
+             }else{
+                 echo json_encode(array('result' => '4', 'desc' => '没有司机id'));
+             }
+         }else{
+             if($id!=null||$id!=""){
+                 $selectStatement = $database->select()
+                     ->from('courier')
+                     ->where('exist','=',0)
+                     ->where('courier_id', '=', $id);
+                 $stmt = $selectStatement->execute();
+                 $data1 = $stmt->fetch();
+                 if($data1!=null){
+                     echo json_encode(array('result' => '0', 'desc' => '','lorry'=>$data1));
+                 }else{
+                     echo json_encode(array('result' => '3', 'desc' => '该配送员不存在'));
+                 }
+             }else{
+                 echo json_encode(array('result' => '2', 'desc' => '没有配送员id'));
+             }
+         }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '没有类型信息'));
+    }
+});
+
+
+
 $app->run();
 
 function localhost(){

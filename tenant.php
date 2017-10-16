@@ -408,11 +408,9 @@ $app->post('/tenant',function()use($app) {
                                                      $stmt = $selectStatement->execute();
                                                             $data1 = $stmt->fetch();
                                                             if($data1!=null||$data1!=""){
-                                                                $selectStatement = $database->select()
-                                                                    ->from('customer');
-                                                                $stmt = $selectStatement->execute();
-                                                                $data3 = $stmt->fetch();
-                                                                $num=count($data3);
+                                                                $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                                                                $str1 = substr($chars, mt_rand(0, strlen($chars) - 3), 2);
+                                                                $num=time().$str1;
                                                                 $insertStatement = $database->insert(array('customer_id','customer_name','customer_phone','exist'
                                                                 ,'customer_city_id','customer_address'))
                                                                     ->into('customer')
