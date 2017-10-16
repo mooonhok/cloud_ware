@@ -151,9 +151,15 @@ $app->get("/getCustomers0",function()use($app){
     $database = localhost();
     $tenant_id = $app->request->headers->get("tenant-id");
     if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('tenant_id', '=', $tenant_id);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
             $selectStatement = $database->select()
                 ->from('customer')
                 ->whereNull('wx_openid')
+                ->where('customer_id', '!=', $data1['contact_id'])
                 ->where('tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
@@ -169,9 +175,15 @@ $app->get('/getCustomers1',function()use($app){
     $tenant_id = $app->request->headers->get("tenant-id");
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('tenant_id', '=', $tenant_id);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        $selectStatement = $database->select()
             ->from('customer')
             ->where('tenant_id', '=', $tenant_id)
             ->whereNull('wx_openid')
+            ->where('customer_id', '!=', $data1['contact_id'])
             ->where('type', '=', 1)
             ->where('exist', '=', 0);
         $stmt = $selectStatement->execute();
@@ -188,8 +200,14 @@ $app->get('/getCustomers2',function()use($app){
     $tenant_id = $app->request->headers->get("tenant-id");
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('tenant_id', '=', $tenant_id);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        $selectStatement = $database->select()
             ->from('customer')
             ->where('tenant_id', '=', $tenant_id)
+            ->where('customer_id', '!=', $data1['contact_id'])
             ->where('type', '=', 3)
             ->whereNull('wx_openid')
             ->where('exist', '=', 0);
@@ -209,8 +227,14 @@ $app->get('/limitCustomers0',function()use($app){
     $offset=$app->request->get('offset');
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('tenant_id', '=', $tenant_id);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        $selectStatement = $database->select()
             ->from('customer')
             ->where('tenant_id', '=', $tenant_id)
+            ->where('customer_id', '!=', $data1['contact_id'])
             ->where('type', '=', 1)
             ->whereNull('wx_openid')
             ->where('exist', '=', 0)
@@ -232,8 +256,14 @@ $app->get('/limitCustomers1',function()use($app){
     $offset=$app->request->get('offset');
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('tenant_id', '=', $tenant_id);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        $selectStatement = $database->select()
             ->from('customer')
             ->where('tenant_id', '=', $tenant_id)
+            ->where('customer_id', '!=', $data1['contact_id'])
             ->where('type', '=', 3)
             ->whereNull('wx_openid')
             ->where('exist', '=', 0)
