@@ -80,7 +80,7 @@ $app->get('/getCustomer',function()use($app){
             if($customer_phone!=null||$customer_phone!=''){
                 if($customer_city_id!=null||$customer_city_id!=''){
                     if($customer_address!=null||$customer_address!=''){
-                        if($contact_tenant_id!=null){
+                        if($contact_tenant_id!=null||$contact_tenant_id!=''){
                             $selectStatement = $database->select()
                                 ->from('customer')
                                 ->where('tenant_id', '=', $tenant_id)
