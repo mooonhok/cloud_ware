@@ -440,7 +440,7 @@ $app->put('/alterStaff1',function()use($app){
                     $affectedRows = $updateStatement->execute();
                     echo json_encode(array('result'=>'0','desc'=>'success'));
                 }else{
-                    echo json_encode(array('result'=>'1','desc'=>'背景图为空'));
+                    echo json_encode(array('result'=>'1','desc'=>'员工id为空'));
                 }
             }else{
                 echo json_encode(array('result'=>'2','desc'=>'背景图为空'));

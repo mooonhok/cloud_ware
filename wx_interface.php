@@ -30,49 +30,6 @@ class wechatCallbackapiTest
         }
     }
 
-//    public function responseMsg()
-//    {
-//        //get post data, May be due to the different environments
-//        $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
-//
-//        //extract post data
-//        if (!empty($postStr)){
-//
-//            $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
-//            $fromUsername = $postObj->FromUserName;
-//            $toUsername = $postObj->ToUserName;
-//            $keyword = trim($postObj->Content);
-//            $ev = $postObj->Event;
-//            $time = time();
-//            $textTpl = "<xml>
-//							<ToUserName><![CDATA[%s]]></ToUserName>
-//							<FromUserName><![CDATA[%s]]></FromUserName>
-//							<CreateTime>%s</CreateTime>
-//							<MsgType><![CDATA[%s]]></MsgType>
-//							<Content><![CDATA[%s]]></Content>
-//							<FuncFlag>0</FuncFlag>
-//							</xml>";
-//            if ($ev == "subscribe"){
-////                $msgType = "text";  //image,text
-////               $contentStr = "欢迎关注！万事鑫联微信公众号"; //http://api.uminfo.cn/timg.jpg
-//                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-//                echo $resultStr;
-//            }
-//
-//            if(!empty( $keyword ))
-//            {
-//                $msgType = "text";
-//                $contentStr = "请联系qq客服：1026413232";
-//                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-//                echo $resultStr;
-//            }else{
-//                echo "Input something...";
-//            }
-//        }else {
-//            echo "";
-//            exit;
-//        }
-//    }
     public function responseMsg()
     {
         //get post data, May be due to the different environments
@@ -127,26 +84,10 @@ class wechatCallbackapiTest
                 echo $resultStr;
             }
             if (!empty($keyword)) {
-                if($keyword==1){
-//                    $msgType = "text";
-//                    $contentStr = "请联系客服电话：15862790779";
-//                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-//                    echo $resultStr;
-                    $MsgType="image";
-                    $MediaId="";
-                    $resultStr = sprintf($imageTpl, $fromUsername, $toUsername, $time, $MsgType, $MediaId);
-                    echo $resultStr;
-                }else if($keyword==2){
                     $msgType = "text";
-                    $contentStr = "请联系客服电话：15862790779";
+                    $contentStr = "请在菜单中选择电话询价，拨打电话咨询需要的信息";
                     $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                     echo $resultStr;
-                }else{
-                    $msgType = "text";
-                    $contentStr = "您可以回复‘1’获取价格列表，回复‘2’获得联系电话";
-                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                    echo $resultStr;
-                }
             } else {
                 echo "Input something...";
             }
