@@ -30,7 +30,7 @@
 				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					if(msg.result==0){
+					if(msg.result==1){
 						alert("系统尚未有租户");
 					}else{
 					for(var i=0;i<msg.tenant.length;i++){

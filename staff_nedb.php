@@ -424,23 +424,29 @@ $app->put('/alterStaff1',function()use($app){
     $body=$app->request->getBody();
     $body=json_decode($body);
     $bg_img=$body->bg_img;
+    $staff_id=$body->staff_id;
     $array=array();
     foreach($body as $key=>$value){
         $array[$key]=$value;
     }
         if($tenant_id!=null||$tenant_id!=''){
             if($bg_img!=null||$bg_img!=''){
-               $updateStatement = $database->update($array)
-                            ->table('staff')
-                            ->where('tenant_id','=',$tenant_id)
-                            ->where('exist',"=",0);
-              $affectedRows = $updateStatement->execute();
-              echo json_encode(array('result'=>'0','desc'=>'success'));
+                if($staff_id!=null||$staff_id!=''){
+                    $updateStatement = $database->update($array)
+                        ->table('staff')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('staff_id','=',$staff_id)
+                        ->where('exist',"=",0);
+                    $affectedRows = $updateStatement->execute();
+                    echo json_encode(array('result'=>'0','desc'=>'success'));
+                }else{
+                    echo json_encode(array('result'=>'1','desc'=>'背景图为空'));
+                }
             }else{
-                echo json_encode(array('result'=>'1','desc'=>'背景图为空'));
+                echo json_encode(array('result'=>'2','desc'=>'背景图为空'));
             }
         }else{
-            echo json_encode(array('result'=>'2','desc'=>'租户为空'));
+            echo json_encode(array('result'=>'3','desc'=>'租户为空'));
         }
 });
 
