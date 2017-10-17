@@ -68,20 +68,19 @@ class wechatCallbackapiTest
 							<FuncFlag>0</FuncFlag>
 							</xml>";
             $imageTpl = "<xml>
-<ToUserName><![CDATA[toUser]]></ToUserName>
-<FromUserName><![CDATA[fromUser]]></FromUserName>
-<CreateTime>%s</CreateTime>
-<MsgType><![CDATA[image]]></MsgType>
-<Image>
-<MediaId><![CDATA[media_id]]></MediaId>
-</Image>
-</xml>";
+            <ToUserName><![CDATA[toUser]]></ToUserName>
+            <FromUserName><![CDATA[fromUser]]></FromUserName>
+            <CreateTime>%s</CreateTime>
+            <MsgType><![CDATA[image]]></MsgType>
+            <Image>
+            <MediaId><![CDATA[media_id]]></MediaId>
+            </Image>
+            </xml>";
             
             if ($ev == "subscribe") {
-               
-                $MsgType="image";
-                $MediaId="http://api.uminfo.cn/timg.jpg";
-                $resultStr = sprintf($imageTpl, $fromUsername, $toUsername, $time, $MsgType, $MediaId);
+                $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news',
+                    $ArticleCount,'公司简介','靖江万事鑫联运服务有限公司','http://api.uminfo.cn/timg.jpg',
+                    '');
                 echo $resultStr;
             }
             if (!empty($keyword)) {
