@@ -402,9 +402,10 @@ $app->post('/tenant',function()use($app) {
                                                      $stmt = $selectStatement->execute();
                                                             $data1 = $stmt->fetch();
                                                             if($data1!=null||$data1!=""){
-                                                                $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                                                                $str1 = substr($chars, mt_rand(0, strlen($chars) - 3), 2);
-                                                                $num=time().$str1;
+                                                                $chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+                                                                $str1 = substr($chars, mt_rand(0, strlen($chars) - 5), 4);
+                                                                $time=base_convert(time(), 10, 32);
+                                                                $num=$time.$str1;
                                                                 $insertStatement = $database->insert(array('customer_id','customer_name','customer_phone','exist'
                                                                 ,'customer_city_id','customer_address'))
                                                                     ->into('customer')
@@ -608,5 +609,6 @@ $app->run();
 function localhost(){
     return connect();
 }
+
 
 ?>
