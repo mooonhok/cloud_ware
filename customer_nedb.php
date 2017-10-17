@@ -23,7 +23,6 @@ $app->post('/addCustomer',function()use($app) {
     $customer_phone = $body->customer_phone;
     $customer_city_id = $body->customer_city_id;
     $customer_address = $body->customer_address;
-	$contact_tenant_id=$body->contact_tenant_id;
     $array=array();
     foreach($body as $key=>$value){
         $array[$key]=$value;
@@ -34,7 +33,6 @@ $app->post('/addCustomer',function()use($app) {
               if($customer_phone!=null||$customer_phone!=''){
                   if($customer_city_id!=null||$customer_city_id!=''){
                       if($customer_address!=null||$customer_address!=''){
-                          if($contact_tenant_id!=null||$contact_tenant_id!=''){
                               $array['tenant_id']=$tenant_id;
                               $array['exist']=0;
                               $insertStatement = $database->insert(array_keys($array))
@@ -42,9 +40,6 @@ $app->post('/addCustomer',function()use($app) {
                                   ->values(array_values($array));
                               $insertId = $insertStatement->execute(false);
                               echo json_encode(array("result" => "0", "desc" => "success"));
-                          }else{
-                              echo json_encode(array("result" => "1", "desc" => "缺少合作租户id"));
-                          }
                       }else{
                           echo json_encode(array("result" => "2", "desc" => "缺少用户城市的地址"));
                       }
