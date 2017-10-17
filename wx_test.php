@@ -27,16 +27,6 @@ $app->get('/tenant',function()use($app){
     }
 });
 
-$app->post('/testme',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $openid=$body->openid;
-    $orderid=$body->orderid;
-    $wechatObj = new wechatCallbackapiTest();
-    $wechatObj->responseMsg2($openid,$orderid);
-});
 
 $app->run();
 

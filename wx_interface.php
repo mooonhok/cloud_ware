@@ -175,33 +175,5 @@ class wechatCallbackapiTest
             return false;
         }
     }
-
-//业务消息方法
-    public function responseMsg2($openid,$order_id)
-    {
-        //get post data, May be due to the different environments
-        $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
-
-        //extract post data
-
-        $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
-        $fromUsername = $postObj->FromUserName;
-        $toUsername = $postObj->ToUserName;
-        $keyword = trim($postObj->Content);
-        $ev = $postObj->Event;
-        $time = time();
-        $textTpl = "<xml>
-							<ToUserName><![CDATA[%s]]></ToUserName>
-							<FromUserName><![CDATA[%s]]></FromUserName>
-							<CreateTime>%s</CreateTime>
-							<MsgType><![CDATA[%s]]></MsgType>
-							<Content><![CDATA[%s]]></Content>
-							<FuncFlag>0</FuncFlag>
-							</xml>";
-        $msgType = "text";
-        $contentStr = "您的订单已经生成，正在等待前台确认,订单号为".$order_id;
-        $resultStr = sprintf($textTpl, $fromUsername, $openid, $time, $msgType, $contentStr);
-        echo $resultStr;
-    }
 }
 ?>
