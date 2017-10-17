@@ -8,7 +8,7 @@
 
 require 'Slim/Slim.php';
 require 'connect.php';
-require  'wx_interface.php';
+
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
@@ -21,7 +21,7 @@ $app->get('/tenant',function()use($app){
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
     if($data1!=null||$data1!=""){
-        echo json_encode(array('result'=>'1','desc'=>'尚未有数据','tenant'=>$data1));
+        echo json_encode(array('result'=>'0','desc'=>'','tenant'=>$data1));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'尚未有数据','tenant'=>''));
     }

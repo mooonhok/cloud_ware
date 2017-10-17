@@ -28,7 +28,7 @@ $app->post('/upload',function()use($app) {
         if ($tenant_id != null || $tenant_id != '') {
             $insertStatement = $database->insert(array('tenant_id', 'tenant_insurancepolicy'))
                 ->into('tenant_insurancepolicy')
-                ->values(array($tenant_id, $name3));
+                ->values(array($tenant_id,"http://files.uminfo.cn:8000/insurance_policy/".$name3));
             $insertId = $insertStatement->execute(false);
             echo json_encode(array("result" => "0", "desc" => "success"));
         } else {
