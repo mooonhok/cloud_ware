@@ -67,15 +67,15 @@ class wechatCallbackapiTest
 							<Content><![CDATA[%s]]></Content> 
 							<FuncFlag>0</FuncFlag>
 							</xml>";
-            $imageTpl = "<xml>  
-                                    <ToUserName><![CDATA[%s]]></ToUserName>  
-                                    <FromUserName><![CDATA[%s]]></FromUserName>  
-                                    <CreateTime>%s</CreateTime>  
-                                    <MsgType><![CDATA[%s]]></MsgType>  
-                                    <Image>  
-                                    <MediaId><![CDATA[%s]]></MediaId>  
-                                    </Image>  
-                                    </xml>";
+            $imageTpl = "<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[fromUser]]></FromUserName>
+<CreateTime>%s</CreateTime>
+<MsgType><![CDATA[image]]></MsgType>
+<Image>
+<MediaId><![CDATA[media_id]]></MediaId>
+</Image>
+</xml>";
             
             if ($ev == "subscribe") {
                
