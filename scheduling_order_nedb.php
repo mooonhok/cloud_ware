@@ -699,7 +699,7 @@ $app->get('/getSchedulingOrders5',function()use($app){
             $data[$j]['sender']['province']=$data7;
             $data[$j]['receiver']['province']=$data9;
         }
-        echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data,'ii'=>$i));
+        echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data,'i'=>$i));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
@@ -873,7 +873,7 @@ $app->get('/getSchedulingOrders7',function()use($app){
             $data[$j]['sender']['province']=$data7;
             $data[$j]['receiver']['province']=$data9;
         }
-        echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data,'ii'=>$i));
+        echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data,'i'=>$i));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
@@ -1047,7 +1047,7 @@ $app->get('/getSchedulingOrderList1',function()use($app){
             $data[$j]['sender']['province']=$data7;
             $data[$j]['receiver']['province']=$data9;
         }
-        echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data,'ii'=>$i));
+        echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data,'i'=>$i));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
