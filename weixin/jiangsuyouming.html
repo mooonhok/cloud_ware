@@ -64,6 +64,7 @@
 </div>
    </div>
    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+   <script type="text/javascript" src="js/jquery.cookie.js"></script>
    <script>
        (function($) {
            $.getUrlParam = function(name) {
@@ -117,7 +118,7 @@
                    var address='';
                    var customer_phone='';
                    alert(msg.tenant.c_introduction+"xxx"+msg.tenant.company+"////"+msg.tenant.address+"***"+msg.contact.customer_phone);
-                   if(isNull(msg.tenant.c_introduction)){
+                   if(msg.tenant.c_introduction!=null||msg.tenant.c_introduction!=""){
                        introduction=msg.tenant.c_introduction;
 				   }else{
                        introduction='暂无';
