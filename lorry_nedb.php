@@ -72,8 +72,8 @@ $app->get('/getLorry',function()use($app){
             $selectStatement = $database->select()
                 ->from('lorry')
                 ->join('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id','INNER')
-                ->where('tenant_id', '=', $tenant_id)
-                ->where('plate_number', '=', $plate_number);
+                ->where('lorry.tenant_id', '=', $tenant_id)
+                ->where('lorry.plate_number', '=', $plate_number);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
             echo json_encode(array("result" => "0", "desc" => "success",'lorrys'=>$data));
@@ -93,7 +93,7 @@ $app->get('/getLorrys0',function()use($app){
             $selectStatement = $database->select()
                 ->from('lorry')
                 ->join('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id','INNER')
-                ->where('tenant_id', '=', $tenant_id);
+                ->where('lorry.tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
             echo json_encode(array("result" => "0", "desc" => "success",'lorrys'=>$data));
@@ -110,8 +110,8 @@ $app->get('/getLorrys1',function()use($app){
         $selectStatement = $database->select()
             ->from('lorry')
             ->join('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id','INNER')
-            ->where('exist', '=', 0)
-            ->where('tenant_id', '=', $tenant_id);
+            ->where('lorry.exist', '=', 0)
+            ->where('lorry.tenant_id', '=', $tenant_id);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         echo json_encode(array("result" => "0", "desc" => "success",'lorrys'=>$data));
@@ -150,7 +150,6 @@ $app->delete('/deleteLorry',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
         $updateStatement = $database->update(array('exist'=>1))
             ->table('lorry')
-            ->join('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id','INNER')
             ->where('tenant_id','=',$tenant_id)
             ->where('lorry_id','=',$lorry_id);
         $affectedRows = $updateStatement->execute();
@@ -169,8 +168,9 @@ $app->get('/searchLorry',function()use($app){
         if($lorry_id!=null||$lorry_id!=''){
             $selectStatement = $database->select()
                 ->from('lorry')
-                ->where('tenant_id', '=', $tenant_id)
-                ->where('lorry_id', '=', $lorry_id);
+                ->join('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id','INNER')
+                ->where('lorry.tenant_id', '=', $tenant_id)
+                ->where('lorry.lorry_id', '=', $lorry_id);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
             echo json_encode(array("result" => "0", "desc" => "success",'lorrys'=>$data));
@@ -178,7 +178,7 @@ $app->get('/searchLorry',function()use($app){
             echo json_encode(array("result" => "1", "desc" => "缺少车辆id"));
         }
     }else{
-        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+        echo json_encode(array("result" => "2", "desc" => "缺少租户id"));
     }
 });
 
@@ -276,8 +276,9 @@ $app->get('/getLorrys2',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
             $selectStatement = $database->select()
                 ->from('lorry')
-                ->where('tenant_id', '=', $tenant_id)
-                ->where('exist','=',1);
+                ->join('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id','INNER')
+                ->where('lorry.tenant_id', '=', $tenant_id)
+                ->where('lorry.exist','=',1);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
             echo json_encode(array("result" => "0", "desc" => "success",'lorrys'=>$data));
@@ -297,9 +298,10 @@ $app->get('/limitLorrys2',function()use($app){
             if($offset!=null||$offset!=''){
                 $selectStatement = $database->select()
                     ->from('lorry')
-                    ->where('tenant_id', '=', $tenant_id)
-                    ->where('exist','=',1)
-                    ->orderBy('lorry_id','DESC')
+                    ->join('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id','INNER')
+                    ->where('lorry.tenant_id', '=', $tenant_id)
+                    ->where('lorry.exist','=',1)
+                    ->orderBy('lorry.lorry_id','DESC')
                     ->limit((int)$size,(int)$offset);
                 $stmt = $selectStatement->execute();
                 $data = $stmt->fetchAll();
