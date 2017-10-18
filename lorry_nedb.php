@@ -71,7 +71,7 @@ $app->get('/getLorry',function()use($app){
         if($plate_number!=null||$plate_number!=''){
             $selectStatement = $database->select()
                 ->from('lorry')
-                ->join('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id','INNER')
+                ->leftJoin('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id')
                 ->where('lorry.tenant_id', '=', $tenant_id)
                 ->where('lorry.plate_number', '=', $plate_number);
             $stmt = $selectStatement->execute();
@@ -92,7 +92,7 @@ $app->get('/getLorrys0',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
             $selectStatement = $database->select()
                 ->from('lorry')
-                ->join('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id','INNER')
+                ->leftJoin('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id')
                 ->where('lorry.tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
@@ -109,7 +109,7 @@ $app->get('/getLorrys1',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('lorry')
-            ->join('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id','INNER')
+            ->leftJoin('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id')
             ->where('lorry.exist', '=', 0)
             ->where('lorry.tenant_id', '=', $tenant_id);
         $stmt = $selectStatement->execute();
@@ -168,7 +168,7 @@ $app->get('/searchLorry',function()use($app){
         if($lorry_id!=null||$lorry_id!=''){
             $selectStatement = $database->select()
                 ->from('lorry')
-                ->join('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id','INNER')
+                ->leftJoin('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id')
                 ->where('lorry.tenant_id', '=', $tenant_id)
                 ->where('lorry.lorry_id', '=', $lorry_id);
             $stmt = $selectStatement->execute();
@@ -276,7 +276,7 @@ $app->get('/getLorrys2',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
             $selectStatement = $database->select()
                 ->from('lorry')
-                ->join('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id','INNER')
+                ->leftJoin('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id')
                 ->where('lorry.tenant_id', '=', $tenant_id)
                 ->where('lorry.exist','=',1);
             $stmt = $selectStatement->execute();
@@ -298,7 +298,7 @@ $app->get('/limitLorrys2',function()use($app){
             if($offset!=null||$offset!=''){
                 $selectStatement = $database->select()
                     ->from('lorry')
-                    ->join('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id','INNER')
+                    ->leftJoin('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id')
                     ->where('lorry.tenant_id', '=', $tenant_id)
                     ->where('lorry.exist','=',1)
                     ->orderBy('lorry.lorry_id','DESC')
