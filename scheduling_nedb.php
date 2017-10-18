@@ -71,6 +71,34 @@ $app->get('/getSchedulings0',function()use($app){
                 ->where('tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
+           for($i=0;$i<count($data);$i++){
+               $selectStatement = $database->select()
+                   ->from('customer')
+                   ->where('tenant_id', '=', $tenant_id)
+                   ->where('customer_id', '=', $data[$i]['receiver_id']);
+               $stmt = $selectStatement->execute();
+               $data1 = $stmt->fetch();
+               $selectStatement = $database->select()
+                   ->from('city')
+                   ->where('id', '=', $data[$i]['send_city_id']);
+               $stmt = $selectStatement->execute();
+               $data2 = $stmt->fetch();
+               $selectStatement = $database->select()
+                   ->from('city')
+                   ->where('id', '=', $data[$i]['receive_city_id']);
+               $stmt = $selectStatement->execute();
+               $data3 = $stmt->fetch();
+               $selectStatement = $database->select()
+                   ->from('lorry')
+                   ->where('tenant_id', '=', $tenant_id)
+                   ->where('lorry_id', '=', $data[$i]['lorry_id']);
+               $stmt = $selectStatement->execute();
+               $data4 = $stmt->fetch();
+               $data[$i]['receiver']=$data1;
+               $data[$i]['send_city']=$data2;
+               $data[$i]['receive_city']=$data3;
+               $data[$i]['lorry']=$data4;
+            }
             echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
@@ -108,6 +136,32 @@ $app->get('/getScheduling',function()use($app){
                 ->where('scheduling_id', '=', $scheduling_id);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('customer_id', '=', $data['receiver_id']);
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data['send_city_id']);
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data['receive_city_id']);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('lorry')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('lorry_id', '=', $data['lorry_id']);
+                $stmt = $selectStatement->execute();
+                $data4 = $stmt->fetch();
+                $data['receiver']=$data1;
+                $data['send_city']=$data2;
+                $data['receive_city']=$data3;
+                $data['lorry']=$data4;
             echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
         }else{
             echo json_encode(array("result" => "1", "desc" => "调度id为空"));
@@ -132,6 +186,34 @@ $app->get('/getSchedulings2',function()use($app){
                 ->orderBy('scheduling.scheduling_id');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
+        for($i=0;$i<count($data);$i++){
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('customer_id', '=', $data[$i]['receiver_id']);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data[$i]['send_city_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data[$i]['receive_city_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('lorry_id', '=', $data[$i]['lorry_id']);
+            $stmt = $selectStatement->execute();
+            $data4 = $stmt->fetch();
+            $data[$i]['receiver']=$data1;
+            $data[$i]['send_city']=$data2;
+            $data[$i]['receive_city']=$data3;
+            $data[$i]['lorry']=$data4;
+        }
             echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "租户id为空"));
@@ -153,6 +235,34 @@ $app->get('/getSchedulings3',function()use($app){
             ->orderBy('scheduling.scheduling_id');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
+        for($i=0;$i<count($data);$i++){
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('customer_id', '=', $data[$i]['receiver_id']);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data[$i]['send_city_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data[$i]['receive_city_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('lorry_id', '=', $data[$i]['lorry_id']);
+            $stmt = $selectStatement->execute();
+            $data4 = $stmt->fetch();
+            $data[$i]['receiver']=$data1;
+            $data[$i]['send_city']=$data2;
+            $data[$i]['receive_city']=$data3;
+            $data[$i]['lorry']=$data4;
+        }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "租户id为空"));
@@ -172,6 +282,34 @@ $app->get('/getSchedulings4',function()use($app){
             ->orderBy('scheduling_id');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
+        for($i=0;$i<count($data);$i++){
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('customer_id', '=', $data[$i]['receiver_id']);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data[$i]['send_city_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data[$i]['receive_city_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('lorry_id', '=', $data[$i]['lorry_id']);
+            $stmt = $selectStatement->execute();
+            $data4 = $stmt->fetch();
+            $data[$i]['receiver']=$data1;
+            $data[$i]['send_city']=$data2;
+            $data[$i]['receive_city']=$data3;
+            $data[$i]['lorry']=$data4;
+        }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "租户id为空"));
@@ -193,6 +331,34 @@ $app->get('/limitSchedulings0',function()use($app){
             ->limit((int)$size,(int)$offset);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
+        for($i=0;$i<count($data);$i++){
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('customer_id', '=', $data[$i]['receiver_id']);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data[$i]['send_city_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data[$i]['receive_city_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('lorry_id', '=', $data[$i]['lorry_id']);
+            $stmt = $selectStatement->execute();
+            $data4 = $stmt->fetch();
+            $data[$i]['receiver']=$data1;
+            $data[$i]['send_city']=$data2;
+            $data[$i]['receive_city']=$data3;
+            $data[$i]['lorry']=$data4;
+        }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
