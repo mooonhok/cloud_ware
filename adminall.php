@@ -46,7 +46,7 @@ $app->post('/sign',function()use($app){
     }
 
 });
-
+//清单模块
 $app->get('/dbadmin',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -151,6 +151,87 @@ $app->get('/dbadmin',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '清单不存在'));
     }
 });
+//公司信息
+$app->get('/tenants',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+   // $arrayinsurance=array();
+    $selectStament=$database->select()
+        ->from('tenant');
+    $stmt=$selectStament->execute();
+    $data=$stmt->fetchAll();
+    if($data!=null){
+        for($x=0;$x<count($data);$x++){
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('tenant_id','=',$data[$x]['tenant_id'])
+                    ->where('customer_id','=',$data[$x]['contact_id'])
+                    ->where('exist',"=",0);
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id','=',$data2['customer_city_id']);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetch();
+                $data2['customer_city']=$data3['name'];
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id','=',$data[$x]['from_city_id']);
+                $stmt = $selectStatement->execute();
+                $data4 = $stmt->fetch();
+                $data[$x]['from_city']=$data4['name'];
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id','=',$data[$x]['receive_city_id']);
+                $stmt = $selectStatement->execute();
+                $data5 = $stmt->fetch();
+                $data[$x]['receive_city']=$data5['name'];
+                $data[$x]['customer']=$data2;
+             //   array_push($arrayt,$array1);
+            $selectStatement = $database->select()
+                ->from('insurance')
+                ->where('tenant_id','=',$data[$x]['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data6 = $stmt->fetchAll();
+            for($y=0;$y<count($data6);$y++){
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id','=',$data6[$y]['from_c_id']);
+                $stmt = $selectStatement->execute();
+                $data7 = $stmt->fetch();
+                $data6[$y]['from_city']=$data7['name'];
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id','=',$data6[$y]['receive_c_id']);
+                $stmt = $selectStatement->execute();
+                $data8 = $stmt->fetch();
+                $data6[$y]['receive_city']=$data8['name'];
+                $selectStatement = $database->select()
+                    ->from('lorry')
+                    ->where('lorry_id','=',$data6[$y]['insurance_lorry_id']);
+                $stmt = $selectStatement->execute();
+                $data9 = $stmt->fetch();
+                $data6[$y]['plate_number']=$data9['plate_number'];
+                $data6[$y]['driver_name']=$data9['driver_number'];
+                $data6[$y]['driver_phone']=$data9['driver_phone'];
+            }
+            $data[$x]['insurance']=$data6;
+            $selectStatement = $database->select()
+                ->from('rechanges_insurance')
+                ->where('tenant_id','=',$data[$x]['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data10 = $stmt->fetchAll();
+            $data[$x]['rechanges']=$data10;
+        }
+        echo json_encode(array('result' => '0', 'desc' => '','tenants'=>$data));
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '尚未有公司'));
+    }
+
+});
+
 
 $app->run();
 
