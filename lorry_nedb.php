@@ -71,6 +71,7 @@ $app->get('/getLorry',function()use($app){
         if($plate_number!=null||$plate_number!=''){
             $selectStatement = $database->select()
                 ->from('lorry')
+                ->join('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id','INNER')
                 ->where('tenant_id', '=', $tenant_id)
                 ->where('plate_number', '=', $plate_number);
             $stmt = $selectStatement->execute();
@@ -91,6 +92,7 @@ $app->get('/getLorrys0',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
             $selectStatement = $database->select()
                 ->from('lorry')
+                ->join('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id','INNER')
                 ->where('tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
@@ -107,6 +109,7 @@ $app->get('/getLorrys1',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('lorry')
+            ->join('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id','INNER')
             ->where('exist', '=', 0)
             ->where('tenant_id', '=', $tenant_id);
         $stmt = $selectStatement->execute();
@@ -147,6 +150,7 @@ $app->delete('/deleteLorry',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
         $updateStatement = $database->update(array('exist'=>1))
             ->table('lorry')
+            ->join('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id','INNER')
             ->where('tenant_id','=',$tenant_id)
             ->where('lorry_id','=',$lorry_id);
         $affectedRows = $updateStatement->execute();

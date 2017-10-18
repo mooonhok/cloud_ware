@@ -326,17 +326,19 @@ $app->get('/insurance',function()use($app){
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
         if($data!=null){
+            $num=0;
             $selectStatement = $database->select()
                 ->from('insurance')
                 ->where('tenant_id','=',$data['tenant_id']);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
             if($data2!=null){
-              $num=0;
+
               for($x=0;$x<count($data2);$x++){
                   $num+=$data2[$x]['insurance_price'];
               }
             }
+            $sum=0;
             $selectStatement = $database->select()
                 ->from('rechanges_insurance')
                 ->where('status','=',1)
@@ -344,11 +346,12 @@ $app->get('/insurance',function()use($app){
             $stmt = $selectStatement->execute();
             $data3 = $stmt->fetchAll();
            if($data3!=null){
-               $sum=0;
+
                for($y=0;$y<count($data3);$y++){
                    $sum+=$data3[$y]['money'];
                }
            }
+            $nsum=0;
             $selectStatement = $database->select()
                 ->from('rechanges_insurance')
                 ->where('status','=',0)
@@ -356,12 +359,11 @@ $app->get('/insurance',function()use($app){
             $stmt = $selectStatement->execute();
             $data4 = $stmt->fetchAll();
             if($data4!=null){
-                $nosum=0;
                 for($i=0;$i<count($data4);$i++){
-                    $nosum+=$data4[$i]['money'];
+                    $nsum+=$data4[$i]['money'];
                 }
             }
-            echo json_encode(array('result' => '0', 'desc' => '','insurancecount'=>$num,'rechangescountsure'=>$sum,'rechangescountnot'=>$nosum,'balance'=>$data['insurance_balance']));
+            echo json_encode(array('result' => '0', 'desc' => '','insurancecount'=>$num,'rechangescountsure'=>$sum,'rechangescountnot'=>$nsum,'balance'=>$data['insurance_balance']));
         }else{
             echo json_encode(array('result' => '2', 'desc' => '公司不存在'));
         }
