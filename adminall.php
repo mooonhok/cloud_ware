@@ -231,7 +231,144 @@ $app->get('/tenants',function()use($app){
     }
 
 });
-
+//根据tenant_id查询
+$app->get('/tenantbyid',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id = $app->request->get("tenant_id");
+    if($tenant_id!=null||$tenant_id!=""){
+        $selectStament=$database->select()
+            ->from('tenant')
+            ->where('tenant_id','=',$tenant_id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetch();
+        if($data!=null){
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$data['tenant_id'])
+                ->where('customer_id','=',$data['contact_id'])
+                ->where('exist',"=",0);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data2['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            $data2['customer_city']=$data3['name'];
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data['from_city_id']);
+            $stmt = $selectStatement->execute();
+            $data4 = $stmt->fetch();
+            $data['from_city']=$data4['name'];
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data['receive_city_id']);
+            $stmt = $selectStatement->execute();
+            $data5 = $stmt->fetch();
+            $data['receive_city']=$data5['name'];
+            $data['customer']=$data2;
+            //   array_push($arrayt,$array1);
+            $selectStatement = $database->select()
+                ->from('insurance')
+                ->where('tenant_id','=',$data['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data6 = $stmt->fetchAll();
+            for($y=0;$y<count($data6);$y++){
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id','=',$data6[$y]['from_c_id']);
+                $stmt = $selectStatement->execute();
+                $data7 = $stmt->fetch();
+                $data6[$y]['from_city']=$data7['name'];
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id','=',$data6[$y]['receive_c_id']);
+                $stmt = $selectStatement->execute();
+                $data8 = $stmt->fetch();
+                $data6[$y]['receive_city']=$data8['name'];
+                $selectStatement = $database->select()
+                    ->from('lorry')
+                    ->where('lorry_id','=',$data6[$y]['insurance_lorry_id']);
+                $stmt = $selectStatement->execute();
+                $data9 = $stmt->fetch();
+                $data6[$y]['plate_number']=$data9['plate_number'];
+                $data6[$y]['driver_name']=$data9['driver_number'];
+                $data6[$y]['driver_phone']=$data9['driver_phone'];
+            }
+            $data['insurance']=$data6;
+            $selectStatement = $database->select()
+                ->from('rechanges_insurance')
+                ->where('tenant_id','=',$data['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data10 = $stmt->fetchAll();
+            $data['rechanges']=$data10;
+            echo json_encode(array('result' => '0', 'desc' => '','tenants'=>$data));
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '公司不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => 'id为空'));
+    }
+});
+//保险记录统计
+$app->get('/insurance',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id = $app->request->get("tenant_id");
+    if($tenant_id!=null||$tenant_id!=""){
+        $selectStament=$database->select()
+            ->from('tenant')
+            ->where('tenant_id','=',$tenant_id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetch();
+        if($data!=null){
+            $selectStatement = $database->select()
+                ->from('insurance')
+                ->where('tenant_id','=',$data['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetchAll();
+            if($data2!=null){
+              $num=0;
+              for($x=0;$x<count($data2);$x++){
+                  $num+=$data2[$x]['insurance_price'];
+              }
+            }
+            $selectStatement = $database->select()
+                ->from('rechanges_insurance')
+                ->where('status','=',1)
+                ->where('tenant_id','=',$data['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetchAll();
+           if($data3!=null){
+               $sum=0;
+               for($y=0;$y<count($data3);$y++){
+                   $sum+=$data3[$y]['money'];
+               }
+           }
+            $selectStatement = $database->select()
+                ->from('rechanges_insurance')
+                ->where('status','=',0)
+                ->where('tenant_id','=',$data['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data4 = $stmt->fetchAll();
+            if($data4!=null){
+                $nosum=0;
+                for($i=0;$i<count($data4);$i++){
+                    $nosum+=$data4[$i]['money'];
+                }
+            }
+            echo json_encode(array('result' => '0', 'desc' => '','insurancecount'=>$num,'rechangescountsure'=>$sum,'rechangescountnot'=>$nosum,'balance'=>$data['insurance_balance']));
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '公司不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => 'id为空'));
+    }
+});
 
 $app->run();
 

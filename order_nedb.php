@@ -98,6 +98,7 @@ $app->get('/getOrder1', function () use ($app) {
                     $selectStatement = $database->select()
                         ->from('orders')
                         ->where('tenant_id', '=', $tenant_id)
+                        ->where('exist', "=", 0)
                         ->where('order_id', '=', $order_id);
                     $stmt = $selectStatement->execute();
                     $data = $stmt->fetch();
@@ -140,6 +141,7 @@ $app->put('/alterOrder0', function () use ($app) {
             $updateStatement = $database->update(array('inventory_type'=>$inventory_type))
                 ->table('orders')
                 ->where('tenant_id','=',$tenant_id)
+                ->where('exist','=',0)
                 ->where('order_id','=',$order_id);
             $affectedRows = $updateStatement->execute();
             echo json_encode(array("result" => "0", "desc" => "success"));
