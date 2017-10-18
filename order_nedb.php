@@ -167,6 +167,7 @@ $app->put('/alterOrder1', function () use ($app) {
                 $updateStatement = $database->update($array)
                     ->table('orders')
                     ->where('tenant_id','=',$tenant_id)
+                    ->where('exist','=',0)
                     ->where('order_id','=',$order_id);
                 $affectedRows = $updateStatement->execute();
                 echo json_encode(array("result" => "0", "desc" => "success"));
@@ -221,6 +222,7 @@ $app->put('/alterOrder2',function()use($app){
            $updateStatement = $database->update(array('is_schedule'=>$is_schedule,'is_transfer'=>$is_transfer))
                ->table('orders')
                ->where('tenant_id','=',$tenant_id)
+               ->where('exist','=',0)
                ->where('order_id','=',$order_id);
            $affectedRows = $updateStatement->execute();
            echo json_encode(array("result" => "0", "desc" => "success"));
@@ -244,6 +246,7 @@ $app->put('/alterOrders0',function()use($app){
             $updateStatement = $database->update(array('is_transfer'=>$is_transfer,'is_schedule'=>$is_schedule))
                 ->table('orders')
                 ->where('tenant_id','=',$tenant_id)
+                ->where('exist','=',0)
                 ->where('is_schedule','=',1);
             $affectedRows = $updateStatement->execute();
             echo json_encode(array("result" => "0", "desc" => "success"));
@@ -264,6 +267,7 @@ $app->put('/alterOrder3',function()use($app){
         $updateStatement = $database->update(array('exception_id'=>$exception_id,'order_status'=>5))
             ->table('orders')
             ->where('tenant_id','=',$tenant_id)
+            ->where('exist','=',0)
             ->where('order_id','=',$order_id);
         $affectedRows = $updateStatement->execute();
         echo json_encode(array("result" => "0", "desc" => "success"));
@@ -285,6 +289,7 @@ $app->put('/alterOrder4',function()use($app){
             $updateStatement = $database->update(array('order_comment'=>$order_comment))
                 ->table('orders')
                 ->where('tenant_id','=',$tenant_id)
+                ->where('exist','=',0)
                 ->where('order_id','=',$order_id);
             $affectedRows = $updateStatement->execute();
             echo json_encode(array("result" => "0", "desc" => "success"));
@@ -312,6 +317,7 @@ $app->put('/alterOrder5',function()use($app){
             $updateStatement = $database->update($array)
                 ->table('orders')
                 ->where('tenant_id','=',$tenant_id)
+                ->where('exist','=',0)
                 ->where('order_id','=',$order_id);
             $affectedRows = $updateStatement->execute();
             echo json_encode(array("result" => "0", "desc" => "success"));
@@ -340,6 +346,122 @@ $app->put('/alterOrder6',function()use($app){
             $updateStatement = $database->update($array)
                 ->table('orders')
                 ->where('tenant_id','=',$tenant_id)
+                ->where('exist','=',0)
+                ->where('order_id','=',$order_id);
+            $affectedRows = $updateStatement->execute();
+            echo json_encode(array("result" => "0", "desc" => "success"));
+        }else{
+            echo json_encode(array("result" => "1", "desc" => "缺少运单id", "orders" => ""));
+        }
+    }else{
+        echo json_encode(array("result" => "2", "desc" => "缺少租户id", "orders" => ""));
+    }
+});
+
+$app->put('/alterOrder7',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $order_id = $body->order_id;
+    $array=array();
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+    if($tenant_id!=null||$tenant_id!=''){
+        if($order_id!=null||$order_id!=''){
+            $array['order_status']=2;
+            $updateStatement = $database->update($array)
+                ->table('orders')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('exist','=',0)
+                ->where('order_id','=',$order_id);
+            $affectedRows = $updateStatement->execute();
+            echo json_encode(array("result" => "0", "desc" => "success"));
+        }else{
+            echo json_encode(array("result" => "1", "desc" => "缺少运单id", "orders" => ""));
+        }
+    }else{
+        echo json_encode(array("result" => "2", "desc" => "缺少租户id", "orders" => ""));
+    }
+});
+
+$app->put('/alterOrder8',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $order_id = $body->order_id;
+    $array=array();
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+    if($tenant_id!=null||$tenant_id!=''){
+        if($order_id!=null||$order_id!=''){
+            $array['order_status']=3;
+            $updateStatement = $database->update($array)
+                ->table('orders')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('exist','=',0)
+                ->where('order_id','=',$order_id);
+            $affectedRows = $updateStatement->execute();
+            echo json_encode(array("result" => "0", "desc" => "success"));
+        }else{
+            echo json_encode(array("result" => "1", "desc" => "缺少运单id", "orders" => ""));
+        }
+    }else{
+        echo json_encode(array("result" => "2", "desc" => "缺少租户id", "orders" => ""));
+    }
+});
+
+$app->put('/alterOrder9',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $order_id = $body->order_id;
+    $array=array();
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+    if($tenant_id!=null||$tenant_id!=''){
+        if($order_id!=null||$order_id!=''){
+            $updateStatement = $database->update($array)
+                ->table('orders')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('exist','=',0)
+                ->where('order_id','=',$order_id);
+            $affectedRows = $updateStatement->execute();
+            echo json_encode(array("result" => "0", "desc" => "success"));
+        }else{
+            echo json_encode(array("result" => "1", "desc" => "缺少运单id", "orders" => ""));
+        }
+    }else{
+        echo json_encode(array("result" => "2", "desc" => "缺少租户id", "orders" => ""));
+    }
+});
+
+$app->put('/alterOrder10',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $order_id = $body->order_id;
+    $array=array();
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+    if($tenant_id!=null||$tenant_id!=''){
+        if($order_id!=null||$order_id!=''){
+            $array['order_status']=3;
+            $updateStatement = $database->update($array)
+                ->table('orders')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('exist','=',0)
                 ->where('order_id','=',$order_id);
             $affectedRows = $updateStatement->execute();
             echo json_encode(array("result" => "0", "desc" => "success"));
