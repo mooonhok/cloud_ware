@@ -136,7 +136,7 @@ $app->get('/dbadmin',function()use($app){
                $arrays1['sendcity']=$data622['name'];
                $arrays1['receiver_id']=$data63['customer_id'];
                $arrays1['receiver_name']=$data63['customer_name'];
-               $arrays1['receiver_phone']=$data63['coustomer_phone'];
+               $arrays1['receiver_phone']=$data63['customer_phone'];
                 $arrays1['receiver_city']=$data632['name'];
                 $arrays1['goods_id']=$data7['goods_id'];
                 $arrays1['goods_name']=$data7['goods_name'];
