@@ -85,20 +85,13 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                         $stmt = $selectStatement->execute();
                                                                                         $data1 = $stmt->fetch();
                                                                                             if($data1!=null) {
-                                                                                                $str=$tenant_id;
-                                                                                                $time=time();
-//                                                                                                    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-//                                                                                                    $str = substr($chars, mt_rand(0, strlen($chars) - 3), 2);
-                                                                                                $str.=$time;
+                                                                                                $chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+                                                                                                $strr = substr($chars, mt_rand(0, strlen($chars) - 2), 1);
                                                                                                 do{
-
-                                                                                                    $selectStatement = $database->select()
-                                                                                                        ->from('orders')
-                                                                                                        ->where('order_id','=',$str)
-                                                                                                        ->where('exist',"=",0);
-                                                                                                    $stmt = $selectStatement->execute();
-                                                                                                    $data4= $stmt->fetchAll();
-                                                                                                }while($data4!=null);
+                                                                                                    $strr.= substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+                                                                                                }while(strlen($strr)<4);
+                                                                                                $time=base_convert(time(), 10, 32);
+                                                                                                $str=$time.$strr;
                                                                                     $insertStatement = $database->insert(array('order_id', 'pay_method','exist','order_status','sender_id','receiver_id','order_datetime0'))
                                                                                         ->into('orders')
                                                                                         ->values(array($str, $pay_method,0,-2,$data["customer_id"],$data1['customer_id'],$shijian));
@@ -110,20 +103,12 @@ $app->post('/wxmessage_insert',function()use($app){
 //                                                                                        $stmt = $selectStatement->execute();
 //                                                                                        $data5= $stmt->fetchAll();
 //                                                                                        $wx_message_id=count($data5);
-                                                                                        $str1=null;
-                                                                                        do{$time=time();
-//                                                                                            $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-//                                                                                            $str1 = substr($chars, mt_rand(0, strlen($chars) - 3), 2);
-//                                                                                            $str=rand(10,99);
-                                                                                            $str1.=$time;
-                                                                                            $selectStatement = $database->select()
-                                                                                                ->from('wx_message')
-                                                                                                ->where('tenant_id','=',$tenant_id)
-                                                                                                ->where('message_id','=',$str)
-                                                                                                ->where('exist',"=",0);
-                                                                                            $stmt = $selectStatement->execute();
-                                                                                            $data4= $stmt->fetchAll();
-                                                                                        }while($data4!=null);
+                                                                                        $strrr = substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+                                                                                        do{
+                                                                                            $strrr.= substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+                                                                                        }while(strlen($strrr)<4);
+                                                                                        $time1=base_convert(time(), 10, 32);
+                                                                                        $str1=$time1.$strrr;
                                                                                         $selectStatement = $database->select()
                                                                                             ->from('customer')
                                                                                             ->where('tenant_id','=',$tenant_id)
@@ -140,20 +125,12 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                                 ->values(array($str,$tenant_id, $str1,0,$data6['customer_name'],$data6["customer_phone"],0,$shijian,'消息'));
                                                                                             $insertId = $insertStatement->execute(false);
                                                                                             if($insertId!=null){
-                                                                                                $str2=null;
+                                                                                                $strrrr = substr($chars, mt_rand(0, strlen($chars) - 2), 1);
                                                                                                 do{
-                                                                                                    $time=time();
-//                                                                                                    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-//                                                                                                    $str2 = substr($chars, mt_rand(0, strlen($chars) - 3), 2);
-                                                                                                    $str2.=$time;
-                                                                                                    $selectStatement = $database->select()
-                                                                                                        ->from('goods')
-                                                                                                        ->where('tenant_id','=',$tenant_id)
-                                                                                                        ->where('goods_id','=',$str2)
-                                                                                                        ->where('exist',"=",0);
-                                                                                                    $stmt = $selectStatement->execute();
-                                                                                                    $data4= $stmt->fetchAll();
-                                                                                                }while($data4!=null);
+                                                                                                    $strrrr.= substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+                                                                                                }while(strlen($strrrr)<4);
+                                                                                                $time2=base_convert(time(), 10, 32);
+                                                                                                $str2=$time2.$strrrr;
                                                                                                 $selectStatement = $database->select()
                                                                                                     ->from('goods_package')
                                                                                                     ->where('goods_package','=',$goods_package);

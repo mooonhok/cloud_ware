@@ -350,6 +350,7 @@ $app->get('/getSchedulingOrders3',function()use($app){
     $database = localhost();
     $tenant_id = $app->request->headers->get("tenant-id");
     $scheduling_id=$app->request->get('scheduling_id');
+    $ii=$app->request->get('i');
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('schedule_order')
@@ -427,7 +428,7 @@ $app->get('/getSchedulingOrders3',function()use($app){
             $data[$i]['sender']['province']=$data7;
             $data[$i]['receiver']['province']=$data9;
         }
-        echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
+        echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data,'i'=>$ii));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
