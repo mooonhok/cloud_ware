@@ -160,7 +160,6 @@ $app->post('/lorrysign',function()use($app){
                     ->where('courier_phone','=',$driver_phone);
                 $stmt=$selectStament->execute();
                 $data=$stmt->fetch();
-
                 if($data!=null){
                     if($data['password']==$password){
                         $arrays['lorry_id']=$data['courier_id'];
@@ -206,7 +205,7 @@ $app->get('/sbylorry',function()use($app){
             for($x=0;$x<count($data2);$x++){
                 $selectStament=$database->select()
                     ->from('scheduling')
-                    ->where('scheduling_status','=',3)
+                    ->where('scheduling_status','=',4)
                     ->where('lorry_id','=',$data2[$x]['lorry_id']);
                 $stmt=$selectStament->execute();
                 $data3=$stmt->fetchAll();

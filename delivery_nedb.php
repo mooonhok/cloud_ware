@@ -22,20 +22,43 @@ $app->post('/addDelivery',function()use($app) {
     $delivery_cost = $body->delivery_cost;
     $array = array();
     foreach ($body as $key => $value) {
-        $array[$key] = $value;
+        if($key!="delivery_name"||$key!="delivery_phone"){
+            $array[$key]=$value;
+        }
     }
     if($tenant_id!=null||$tenant_id){
         if($delivery_id!=null||$delivery_id!=''){
             if($delivery_name!=null||$delivery_name!=''){
                 if($delivery_phone!=null||$delivery_phone!=''){
                     if($delivery_cost!=null||$delivery_cost!=''){
-                        $array['tenant_id']=$tenant_id;
-                        $array['exist']=0;
-                        $insertStatement = $database->insert(array_keys($array))
-                            ->into('delivery')
-                            ->values(array_values($array));
-                        $insertId = $insertStatement->execute(false);
-                        echo json_encode(array("result" => "0", "desc" => "success"));
+                        $selectStatement = $database->select()
+                            ->from('courier')
+                            ->where('courier_name', '=', $delivery_name)
+                            ->where('courier_phone', '=', $delivery_phone)
+                            ->where('tenant_id', '=', $tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data = $stmt->fetch();
+                        if($data!=null){
+                            $array['tenant_id']=$tenant_id;
+                            $array['exist']=0;
+                            $array['courier_id']=$data['courier_id'];
+                            $insertStatement = $database->insert(array_keys($array))
+                                ->into('delivery')
+                                ->values(array_values($array));
+                            $insertId = $insertStatement->execute(false);
+                            echo json_encode(array("result" => "0", "desc" => "success"));
+                        }else{
+                            $selectStatement = $database->select()
+                                ->from('courier')
+                                ->where('tenant_id', '=', $tenant_id);
+                            $stmt = $selectStatement->execute();
+                            $data1 = $stmt->fetchAll();
+                            $insertStatement = $database->insert(array('courier_id','courier_name','courier_phone','password'))
+                                ->into('courier')
+                                ->values(array(count($data1)+1,$delivery_name,$delivery_phone,$password));
+                            $insertId = $insertStatement->execute(false);
+                        }
+
                     }else{
                         echo json_encode(array("result" => "1", "desc" => "缺少派送费"));
                     }

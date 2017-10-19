@@ -46,9 +46,14 @@ $app->post('/addLorry',function()use($app) {
                                         ->into('lorry')
                                         ->values(array_values($array));
                                     $insertId = $insertStatement->execute(false);
-                        $insertStatement = $database->insert(array_keys(array('lorry_id'=>$lorry_id,'plate_number'=>$plate_number,'driver_name'=>$driver_name,'driver_phone'=>$driver_phone,'password'=>$password)))
+                        $selectStatement = $database->select()
+                            ->from('lorry')
+                            ->where('tenant_id', '=', 0);
+                        $stmt = $selectStatement->execute();
+                        $data = $stmt->fetchAll();
+                        $insertStatement = $database->insert(array_keys(array('lorry_id'=>count($data)+1,'plate_number'=>$plate_number,'driver_name'=>$driver_name,'driver_phone'=>$driver_phone,'password'=>$password)))
                             ->into('lorry')
-                            ->values(array_values(array('lorry_id'=>$lorry_id,'plate_number'=>$plate_number,'driver_name'=>$driver_name,'driver_phone'=>$driver_phone,'password'=>$password)));
+                            ->values(array_values(array('lorry_id'=>count($data)+1,'plate_number'=>$plate_number,'driver_name'=>$driver_name,'driver_phone'=>$driver_phone,'password'=>$password)));
                         $insertId = $insertStatement->execute(false);
                                     echo json_encode(array("result" => "0", "desc" => "success"));
                     }else{
