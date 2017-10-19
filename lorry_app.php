@@ -564,7 +564,7 @@ $app->post('/sureschfor',function()use($app){
                             ->table('scheduling')
                             ->where('scheduling_id', '=', $schedule_id);
                         $affectedRows = $updateStatement->execute();
-                        echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+                        echo json_encode(array('result' => '0', 'desc' => '取消成功'));
                     }else{
                         echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在'));
                     }
@@ -651,12 +651,12 @@ $app->post('/sureschtwo',function()use($app){
     $body=json_decode($body);
     $schedule_id=$body->schedule_id;
     $lorry_id=$body->lorry_id;
-    $arrays['scheduling_status']=3;
+    $arrays['scheduling_status']=5;
     if($schedule_id!=null||$schedule_id!=""){
         $selectStament=$database->select()
             ->from('scheduling')
             ->where('exist','=',0)
-            ->where('scheduling_status','=',2)
+            ->where('scheduling_status','=',4)
             ->where('scheduling_id','=',$schedule_id);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
@@ -778,7 +778,8 @@ $app->get('/obycouriern',function()use($app){
             $selectStament=$database->select()
                 ->from('delivery')
                 ->where('exist','=',0)
-                ->where('is_receive','=',1)
+                ->where('is_receive','!=',2)
+                ->where('is_receive','!=',0)
                 ->where('courier_id','=',$courier_id);
             $stmt=$selectStament->execute();
             $data2=$stmt->fetchAll();
@@ -895,7 +896,64 @@ $app->post('/ordersure',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '运单号不能为空'));
     }
 });
-
+$app->post('/ordersurefor',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    //   $courier_id = $app->request->params('courier_id');
+    // $order_id = $app->request->params('order_id');
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $order_id=$body->order_id;
+    $courier_id=$body->courier_id;
+    $arrays['is_receive']=4;
+    $database=localhost();
+    if($order_id!=null||$order_id!=""){
+        if($courier_id!=null||$courier_id!=""){
+            $selectStament=$database->select()
+                ->from('orders')
+                ->where('order_id','=',$order_id);
+            $stmt=$selectStament->execute();
+            $data=$stmt->fetch();
+            if($data!=null){
+                $selectStament=$database->select()
+                    ->from('delivery_order')
+                    ->where('delivery_order_id','=',$order_id);
+                $stmt=$selectStament->execute();
+                $data9=$stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('delivery')
+                    ->where('is_receive','!=',1)
+                    ->where('delivery_id','=',$data9['delivery_id']);
+                $stmt=$selectStament->execute();
+                $data10=$stmt->fetch();
+                if($data10!=null){
+                    $selectStament=$database->select()
+                        ->from('courier')
+                        ->where('courier_id','=',$courier_id);
+                    $stmt=$selectStament->execute();
+                    $data2=$stmt->fetch();
+                    if($data2!=null){
+                        $updateStatement = $database->update($arrays)
+                            ->table('delivery')
+                            ->where('delivery_id', '=', $data9['delivery_id']);
+                        $affectedRows = $updateStatement->execute();
+                        echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+                    }else{
+                        echo json_encode(array('result' => '5', 'desc' => '配送员不存在'));
+                    }
+                }else{
+                    echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
+                }
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '运单不存在'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '配送员id为空'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '运单号不能为空'));
+    }
+});
 $app->post('/ordersurethree',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
