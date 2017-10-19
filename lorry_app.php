@@ -254,7 +254,10 @@ $app->get('/sbylorryn',function()use($app){
             for($x=0;$x<count($data2);$x++){
                 $selectStament=$database->select()
                     ->from('scheduling')
-                    ->where('scheduling_status','=',5)
+                    ->where('scheduling_status','!=',1)
+                    ->where('scheduling_status','!=',2)
+                    ->where('scheduling_status','!=',3)
+                    ->where('scheduling_status','!=',4)
                     ->where('lorry_id','=',$data2[$x]['lorry_id']);
                 $stmt=$selectStament->execute();
                 $data3=$stmt->fetchAll();
@@ -501,6 +504,65 @@ $app->post('/suresch',function()use($app){
                             ->where('scheduling_id', '=', $schedule_id);
                         $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '接单成功'));
+                    }else{
+                        echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在'));
+                    }
+                }else{
+                    echo json_encode(array('result' => '5', 'desc' => '驾驶员不存在'));
+                }
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '驾驶员未登录'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '清单不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '清单号为空'));
+    }
+
+});
+//清单取消
+$app->post('/sureschfor',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $schedule_id=$body->schedule_id;
+    $lorry_id=$body->lorry_id;
+    $arrays['scheduling_status']=6;
+    if($schedule_id!=null||$schedule_id!=""){
+        $selectStament=$database->select()
+            ->from('scheduling')
+            ->where('exist','=',0)
+            ->where('scheduling_status','=',2)
+            ->where('scheduling_id','=',$schedule_id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetch();
+        if($data!=null){
+            if($lorry_id!=null||$lorry_id!=""){
+                $selectStatement = $database->select()
+                    ->from('lorry')
+                    ->where('exist','=',0)
+                    ->where('lorry_id','=',$lorry_id)
+                    ->where('tenant_id','=',0);
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetch();
+                if($data1!=null){
+                    $selectStament=$database->select()
+                        ->from('lorry')
+                        ->where('plate_number','=',$data1['plate_number'])
+                        ->where('driver_phone','=',$data1['driver_phone'])
+                        ->where('lorry_id','=',$data['lorry_id'])
+                        ->where('driver_name','=',$data1['driver_name']);
+                    $stmt=$selectStament->execute();
+                    $data2=$stmt->fetch();
+                    if($data2!=null) {
+                        $updateStatement = $database->update($arrays)
+                            ->table('scheduling')
+                            ->where('scheduling_id', '=', $schedule_id);
+                        $affectedRows = $updateStatement->execute();
+                        echo json_encode(array('result' => '0', 'desc' => '确认成功'));
                     }else{
                         echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在'));
                     }
