@@ -407,7 +407,6 @@ $app->post('/tenant',function()use($app) {
                                                                 do{
                                                                     $str1.= substr($chars, mt_rand(0, strlen($chars) - 2), 1);
                                                                 }while(strlen($str1)<4);
-
                                                                 $time=base_convert(time(), 10, 32);
                                                                 $num=$time.$str1;
                                                                 $insertStatement = $database->insert(array('customer_id','customer_name','customer_phone','exist'
