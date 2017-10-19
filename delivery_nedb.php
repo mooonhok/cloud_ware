@@ -120,8 +120,8 @@ $app->get('/getDelivery',function()use($app){
                 ->where('exist','=',0)
                 ->where('delivery_id','=',$delivery_id);
             $stmt = $selectStatement->execute();
-            $data = $stmt->fetch();
-            echo json_encode(array("result" => "0", "desc" => "success",'delivery'=>$data));
+            $data = $stmt->fetchAll();
+            echo json_encode(array("result" => "0", "desc" => "success",'deliverys'=>$data));
         }else{
             echo json_encode(array("result" => "1", "desc" => "缺少派送单id"));
         }
