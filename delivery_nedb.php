@@ -98,7 +98,7 @@ $app->get('/limitDeliverys',function()use($app){
             ->where('tenant_id', '=', $tenant_id)
             ->where('exist','=',0)
             ->orderBy('delivery_id')
-            ->limit($size,$offset);
+            ->limit((int)$size,(int)$offset);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         echo json_encode(array("result" => "0", "desc" => "success",'deliverys'=>$data));
