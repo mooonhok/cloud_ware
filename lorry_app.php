@@ -204,7 +204,7 @@ $app->get('/sbylorry',function()use($app){
             for($x=0;$x<count($data2);$x++){
                 $selectStament=$database->select()
                     ->from('scheduling')
-                    ->where('is_sure','=',0)
+                    ->where('scheduling_status','=',3)
                     ->where('lorry_id','=',$data2[$x]['lorry_id']);
                 $stmt=$selectStament->execute();
                 $data3=$stmt->fetchAll();
@@ -254,7 +254,7 @@ $app->get('/sbylorryn',function()use($app){
             for($x=0;$x<count($data2);$x++){
                 $selectStament=$database->select()
                     ->from('scheduling')
-                    ->where('is_sure','=',1)
+                    ->where('scheduling_status','=',5)
                     ->where('lorry_id','=',$data2[$x]['lorry_id']);
                 $stmt=$selectStament->execute();
                 $data3=$stmt->fetchAll();
@@ -358,7 +358,7 @@ $app->get('/sandoandg',function()use($app){
                         $arrays2['phone']=$data9['customer_phone'];
                         $arrays2['sendcity']=$data7['name'];
                         $arrays2['receivecity']=$data8['name'];
-                         echo json_encode(array('result' => '0', 'desc' => '','goods'=>$arrays,'customer'=>$arrays2,'count'=>$num,'isreceive'=>$data1['is_sure']));
+                         echo json_encode(array('result' => '0', 'desc' => '','goods'=>$arrays,'customer'=>$arrays2,'count'=>$num,'isreceive'=>$data1['scheduling_status']));
                      }else{
                          echo json_encode(array('result' => '5', 'desc' => '该清单不是您的','goods'=>''));
                      }
@@ -467,13 +467,13 @@ $app->post('/suresch',function()use($app){
             $lujing= $new_file;
         }
     }
-    $arrays['is_sure']=1;
+    $arrays['scheduling_status']=5;
     $arrays['sure_img']=$lujing;
     if($schedule_id!=null||$schedule_id!=""){
         $selectStament=$database->select()
             ->from('scheduling')
             ->where('exist','=',0)
-            ->where('is_sure','=',0)
+            ->where('scheduling_status','=',4)
             ->where('scheduling_id','=',$schedule_id);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
@@ -527,12 +527,12 @@ $app->post('/sureschthree',function()use($app){
     $body=json_decode($body);
     $schedule_id=$body->schedule_id;
     $lorry_id=$body->lorry_id;
-    $arrays['is_sure']=0;
+    $arrays['scheduling_status']=3;
     if($schedule_id!=null||$schedule_id!=""){
         $selectStament=$database->select()
             ->from('scheduling')
             ->where('exist','=',0)
-            ->where('is_sure','=',2)
+            ->where('scheduling_status','=',2)
             ->where('scheduling_id','=',$schedule_id);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
@@ -587,12 +587,12 @@ $app->post('/sureschtwo',function()use($app){
     $body=json_decode($body);
     $schedule_id=$body->schedule_id;
     $lorry_id=$body->lorry_id;
-    $arrays['is_sure']=1;
+    $arrays['scheduling_status']=5;
     if($schedule_id!=null||$schedule_id!=""){
         $selectStament=$database->select()
             ->from('scheduling')
             ->where('exist','=',0)
-            ->where('is_sure','=',0)
+            ->where('scheduling_status','=',4)
             ->where('scheduling_id','=',$schedule_id);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
@@ -831,6 +831,7 @@ $app->post('/ordersure',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '运单号不能为空'));
     }
 });
+
 $app->post('/ordersurethree',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');

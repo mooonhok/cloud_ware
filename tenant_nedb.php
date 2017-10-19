@@ -48,7 +48,7 @@ $app->get('/getTenant1',function()use($app){
             $data1['province']=$data3;
             echo  json_encode(array("result"=>"0","desc"=>"success","tenant"=>$data1));
         }else{
-            echo  json_encode(array("result"=>"1","desc"=>"租户不存在"));
+            echo  json_encode(array("result"=>"1","desc"=>"租户不存在",));
         }
     }else{
         echo  json_encode(array("result"=>"2","desc"=>"租户id不存在"));
