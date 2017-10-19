@@ -46,25 +46,33 @@ $app->post('/addDelivery',function()use($app) {
                                 ->into('delivery')
                                 ->values(array_values($array));
                             $insertId = $insertStatement->execute(false);
-                            echo json_encode(array("result" => "0", "desc" => "success"));
                         }else{
+                            $selectStatement = $database->select()
+                                ->from('courier')
+                                ->where('tenant_id', '=', 0);
+                            $stmt = $selectStatement->execute();
+                            $data1 = $stmt->fetchAll();
                             $selectStatement = $database->select()
                                 ->from('courier')
                                 ->where('tenant_id', '=', $tenant_id);
                             $stmt = $selectStatement->execute();
-                            $data1 = $stmt->fetchAll();
+                            $data2 = $stmt->fetchAll();
                             $password1=123456;
                             $str1=str_split($password1,3);
                             $password=null;
-                            for ($x=0;$x<count($str1);$x++){
+                            for($x=0;$x<count($str1);$x++){
                                 $password.=$str1[$x].$x;
                             }
                             $insertStatement = $database->insert(array('courier_id','courier_name','courier_phone','password'))
                                 ->into('courier')
-                                ->values(array(count($data1)+1,$delivery_name,$delivery_phone,$password));
+                                ->values(array(count($data1)+10000001,$delivery_name,$delivery_phone,$password));
+                            $insertId = $insertStatement->execute(false);
+                            $insertStatement = $database->insert(array('courier_id','courier_name','courier_phone','tenant_id'))
+                                ->into('courier')
+                                ->values(array(count($data1)+10000001,$delivery_name,$delivery_phone,$tenant_id));
                             $insertId = $insertStatement->execute(false);
                         }
-
+                        echo json_encode(array("result" => "0", "desc" => "success"));
                     }else{
                         echo json_encode(array("result" => "1", "desc" => "缺少派送费"));
                     }

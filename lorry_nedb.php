@@ -27,12 +27,7 @@ $app->post('/addLorry',function()use($app) {
     foreach ($body as $key => $value) {
         $array[$key] = $value;
     }
-    $password1=123456;
-    $str1=str_split($password1,3);
-    $password=null;
-    for ($x=0;$x<count($str1);$x++){
-        $password.=$str1[$x].$x;
-    }
+
     if($tenant_id!=null||$tenant_id!=''){
         if($lorry_id!=null||$lorry_id!=''){
             if($plate_number!=null||$plate_number!=''){
@@ -51,9 +46,15 @@ $app->post('/addLorry',function()use($app) {
                             ->where('tenant_id', '=', 0);
                         $stmt = $selectStatement->execute();
                         $data = $stmt->fetchAll();
+                        $password1=123456;
+                        $str1=str_split($password1,3);
+                        $password=null;
+                        for ($x=0;$x<count($str1);$x++){
+                            $password.=$str1[$x].$x;
+                        }
                         $insertStatement = $database->insert(array_keys(array('lorry_id'=>count($data)+1,'plate_number'=>$plate_number,'driver_name'=>$driver_name,'driver_phone'=>$driver_phone,'password'=>$password)))
                             ->into('lorry')
-                            ->values(array_values(array('lorry_id'=>count($data)+1,'plate_number'=>$plate_number,'driver_name'=>$driver_name,'driver_phone'=>$driver_phone,'password'=>$password)));
+                            ->values(array_values(array('lorry_id'=>count($data)+10000001,'plate_number'=>$plate_number,'driver_name'=>$driver_name,'driver_phone'=>$driver_phone,'password'=>$password)));
                         $insertId = $insertStatement->execute(false);
                                     echo json_encode(array("result" => "0", "desc" => "success"));
                     }else{
