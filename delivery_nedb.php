@@ -53,6 +53,12 @@ $app->post('/addDelivery',function()use($app) {
                                 ->where('tenant_id', '=', $tenant_id);
                             $stmt = $selectStatement->execute();
                             $data1 = $stmt->fetchAll();
+                            $password1=123456;
+                            $str1=str_split($password1,3);
+                            $password=null;
+                            for ($x=0;$x<count($str1);$x++){
+                                $password.=$str1[$x].$x;
+                            }
                             $insertStatement = $database->insert(array('courier_id','courier_name','courier_phone','password'))
                                 ->into('courier')
                                 ->values(array(count($data1)+1,$delivery_name,$delivery_phone,$password));
