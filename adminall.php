@@ -161,6 +161,7 @@ $app->get('/tenants',function()use($app){
         ->from('tenant');
     $stmt=$selectStament->execute();
     $data=$stmt->fetchAll();
+    $num=count($data);
     if($data!=null){
         for($x=0;$x<count($data);$x++){
                 $selectStatement = $database->select()
@@ -214,7 +215,7 @@ $app->get('/tenants',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data9 = $stmt->fetch();
                 $data6[$y]['plate_number']=$data9['plate_number'];
-                $data6[$y]['driver_name']=$data9['driver_number'];
+                $data6[$y]['driver_name']=$data9['driver_name'];
                 $data6[$y]['driver_phone']=$data9['driver_phone'];
             }
             $data[$x]['insurance']=$data6;
@@ -225,7 +226,7 @@ $app->get('/tenants',function()use($app){
             $data10 = $stmt->fetchAll();
             $data[$x]['rechanges']=$data10;
         }
-        echo json_encode(array('result' => '0', 'desc' => '','tenants'=>$data));
+        echo json_encode(array('result' => '0', 'desc' => '','tenants'=>$data,'count'=>$num));
     }else{
         echo json_encode(array('result' => '1', 'desc' => '尚未有公司'));
     }
@@ -371,6 +372,7 @@ $app->get('/insurance',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => 'id为空'));
     }
 });
+
 
 $app->run();
 
