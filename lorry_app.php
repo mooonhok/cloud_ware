@@ -537,7 +537,7 @@ $app->post('/sureschfor',function()use($app){
         $selectStament=$database->select()
             ->from('scheduling')
             ->where('exist','=',0)
-            ->where('scheduling_status','=',2)
+            ->where('scheduling_status','!=',5)
             ->where('scheduling_id','=',$schedule_id);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
@@ -651,12 +651,12 @@ $app->post('/sureschtwo',function()use($app){
     $body=json_decode($body);
     $schedule_id=$body->schedule_id;
     $lorry_id=$body->lorry_id;
-    $arrays['scheduling_status']=5;
+    $arrays['scheduling_status']=3;
     if($schedule_id!=null||$schedule_id!=""){
         $selectStament=$database->select()
             ->from('scheduling')
             ->where('exist','=',0)
-            ->where('scheduling_status','=',4)
+            ->where('scheduling_status','=',2)
             ->where('scheduling_id','=',$schedule_id);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
