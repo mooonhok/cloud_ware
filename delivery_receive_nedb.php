@@ -19,7 +19,13 @@ $app->get('/getDeliveryReceives0',function()use($app) {
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('delivery_order')
-            ->where('tenant_id', '=', $tenant_id);
+            ->join('delivery','delivery_order.delivery_id','=','delivery.delivery_id','INNER')
+            ->join('orders','orders.order_id','=','delivery_order.delivery_order_id','INNER')
+            ->join('customer','customer.customer_id','=','orders.receiver_id','INNER')
+            ->where('delivery.tenant_id', '=', $tenant_id)
+            ->where('customer.tenant_id', '=', $tenant_id)
+            ->where('orders.tenant_id', '=', $tenant_id)
+            ->where('delivery_order.tenant_id', '=', $tenant_id);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         echo json_encode(array("result" => "0", "desc" => "success",'delivery_orders'=>$data));
