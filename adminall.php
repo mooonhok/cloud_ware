@@ -374,7 +374,7 @@ $app->get('/tenantbyid',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data9 = $stmt->fetch();
                 $data6[$y]['plate_number']=$data9['plate_number'];
-                $data6[$y]['driver_name']=$data9['driver_number'];
+                $data6[$y]['driver_name']=$data9['driver_name'];
                 $data6[$y]['driver_phone']=$data9['driver_phone'];
             }
             $data['insurance']=$data6;
@@ -618,8 +618,6 @@ $app->get('/insurance_rechanges',function()use($app){
         }
 
 });
-
-
 
 //保险记录统计数据
 $app->get('/insurance',function()use($app){
