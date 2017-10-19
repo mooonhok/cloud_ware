@@ -135,33 +135,35 @@ $app->get('/getScheduling',function()use($app){
                 ->where('tenant_id', '=', $tenant_id)
                 ->where('scheduling_id', '=', $scheduling_id);
             $stmt = $selectStatement->execute();
-            $data = $stmt->fetch();
+            $data = $stmt->fetchAll();
+            for($i=0;$i<count($data);$i++){
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('tenant_id', '=', $tenant_id)
-                    ->where('customer_id', '=', $data['receiver_id']);
+                    ->where('customer_id', '=', $data[$i]['receiver_id']);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('city')
-                    ->where('id', '=', $data['send_city_id']);
+                    ->where('id', '=', $data[$i]['send_city_id']);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('city')
-                    ->where('id', '=', $data['receive_city_id']);
+                    ->where('id', '=', $data[$i]['receive_city_id']);
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('lorry')
                     ->where('tenant_id', '=', $tenant_id)
-                    ->where('lorry_id', '=', $data['lorry_id']);
+                    ->where('lorry_id', '=', $data[$i]['lorry_id']);
                 $stmt = $selectStatement->execute();
                 $data4 = $stmt->fetch();
-                $data['receiver']=$data1;
-                $data['send_city']=$data2;
-                $data['receive_city']=$data3;
-                $data['lorry']=$data4;
+                $data[$i]['receiver']=$data1;
+                $data[$i]['send_city']=$data2;
+                $data[$i]['receive_city']=$data3;
+                $data[$i]['lorry']=$data4;
+            }
             echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
         }else{
             echo json_encode(array("result" => "1", "desc" => "调度id为空"));
