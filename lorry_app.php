@@ -726,6 +726,7 @@ $app->get('/obycourier',function()use($app){
              ->where('courier_id','=',$courier_id);
          $stmt=$selectStament->execute();
          $data2=$stmt->fetchAll();
+         $num=count($data2);
          if($data2!=null){
             for($x=0;$x<count($data2);$x++){
                 $selectStament=$database->select()
@@ -748,7 +749,7 @@ $app->get('/obycourier',function()use($app){
                        $arrays1['customer_name']=$data5['customer_name'];
                        array_push($arrays,$arrays1);
             }
-             echo json_encode(array('result' => '0', 'desc' => '','orders'=>$arrays));
+             echo json_encode(array('result' => '0', 'desc' => '','orders'=>$arrays,'count'=>$num));
          }else{
              echo json_encode(array('result' => '3', 'desc' => '配送员没有配送记录'));
          }
