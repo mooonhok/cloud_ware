@@ -151,86 +151,164 @@ $app->get('/dbadmin',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '清单不存在'));
     }
 });
-//公司信息
+//公司信息分页查询
 $app->get('/tenants',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
+    $page = $app->request->get('page');
+    $per_page=$app->request->get('per_page');
     $database=localhost();
-   // $arrayinsurance=array();
-    $selectStament=$database->select()
-        ->from('tenant');
-    $stmt=$selectStament->execute();
-    $data=$stmt->fetchAll();
-    $num=count($data);
-    if($data!=null){
-        for($x=0;$x<count($data);$x++){
-                $selectStatement = $database->select()
-                    ->from('customer')
-                    ->where('tenant_id','=',$data[$x]['tenant_id'])
-                    ->where('customer_id','=',$data[$x]['contact_id'])
-                    ->where('exist',"=",0);
-                $stmt = $selectStatement->execute();
-                $data2 = $stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id','=',$data2['customer_city_id']);
-                $stmt = $selectStatement->execute();
-                $data3 = $stmt->fetch();
-                $data2['customer_city']=$data3['name'];
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id','=',$data[$x]['from_city_id']);
-                $stmt = $selectStatement->execute();
-                $data4 = $stmt->fetch();
-                $data[$x]['from_city']=$data4['name'];
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id','=',$data[$x]['receive_city_id']);
-                $stmt = $selectStatement->execute();
-                $data5 = $stmt->fetch();
-                $data[$x]['receive_city']=$data5['name'];
-                $data[$x]['customer']=$data2;
-             //   array_push($arrayt,$array1);
-            $selectStatement = $database->select()
-                ->from('insurance')
-                ->where('tenant_id','=',$data[$x]['tenant_id']);
-            $stmt = $selectStatement->execute();
-            $data6 = $stmt->fetchAll();
-            for($y=0;$y<count($data6);$y++){
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id','=',$data6[$y]['from_c_id']);
-                $stmt = $selectStatement->execute();
-                $data7 = $stmt->fetch();
-                $data6[$y]['from_city']=$data7['name'];
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id','=',$data6[$y]['receive_c_id']);
-                $stmt = $selectStatement->execute();
-                $data8 = $stmt->fetch();
-                $data6[$y]['receive_city']=$data8['name'];
-                $selectStatement = $database->select()
-                    ->from('lorry')
-                    ->where('lorry_id','=',$data6[$y]['insurance_lorry_id']);
-                $stmt = $selectStatement->execute();
-                $data9 = $stmt->fetch();
-                $data6[$y]['plate_number']=$data9['plate_number'];
-                $data6[$y]['driver_name']=$data9['driver_name'];
-                $data6[$y]['driver_phone']=$data9['driver_phone'];
-            }
-            $data[$x]['insurance']=$data6;
-            $selectStatement = $database->select()
-                ->from('rechanges_insurance')
-                ->where('tenant_id','=',$data[$x]['tenant_id']);
-            $stmt = $selectStatement->execute();
-            $data10 = $stmt->fetchAll();
-            $data[$x]['rechanges']=$data10;
-        }
-        echo json_encode(array('result' => '0', 'desc' => '','tenants'=>$data,'count'=>$num));
-    }else{
-        echo json_encode(array('result' => '1', 'desc' => '尚未有公司'));
-    }
-
+   if($page==null||$per_page==null){
+       $selectStament=$database->select()
+           ->from('tenant');
+       $stmt=$selectStament->execute();
+       $data=$stmt->fetchAll();
+       $num=count($data);
+       if($data!=null){
+           for($x=0;$x<count($data);$x++){
+               $selectStatement = $database->select()
+                   ->from('customer')
+                   ->where('tenant_id','=',$data[$x]['tenant_id'])
+                   ->where('customer_id','=',$data[$x]['contact_id'])
+                   ->where('exist',"=",0);
+               $stmt = $selectStatement->execute();
+               $data2 = $stmt->fetch();
+               $selectStatement = $database->select()
+                   ->from('city')
+                   ->where('id','=',$data2['customer_city_id']);
+               $stmt = $selectStatement->execute();
+               $data3 = $stmt->fetch();
+               $data2['customer_city']=$data3['name'];
+               $selectStatement = $database->select()
+                   ->from('city')
+                   ->where('id','=',$data[$x]['from_city_id']);
+               $stmt = $selectStatement->execute();
+               $data4 = $stmt->fetch();
+               $data[$x]['from_city']=$data4['name'];
+               $selectStatement = $database->select()
+                   ->from('city')
+                   ->where('id','=',$data[$x]['receive_city_id']);
+               $stmt = $selectStatement->execute();
+               $data5 = $stmt->fetch();
+               $data[$x]['receive_city']=$data5['name'];
+               $data[$x]['customer']=$data2;
+               //   array_push($arrayt,$array1);
+               $selectStatement = $database->select()
+                   ->from('insurance')
+                   ->where('tenant_id','=',$data[$x]['tenant_id']);
+               $stmt = $selectStatement->execute();
+               $data6 = $stmt->fetchAll();
+               for($y=0;$y<count($data6);$y++){
+                   $selectStatement = $database->select()
+                       ->from('city')
+                       ->where('id','=',$data6[$y]['from_c_id']);
+                   $stmt = $selectStatement->execute();
+                   $data7 = $stmt->fetch();
+                   $data6[$y]['from_city']=$data7['name'];
+                   $selectStatement = $database->select()
+                       ->from('city')
+                       ->where('id','=',$data6[$y]['receive_c_id']);
+                   $stmt = $selectStatement->execute();
+                   $data8 = $stmt->fetch();
+                   $data6[$y]['receive_city']=$data8['name'];
+                   $selectStatement = $database->select()
+                       ->from('lorry')
+                       ->where('lorry_id','=',$data6[$y]['insurance_lorry_id']);
+                   $stmt = $selectStatement->execute();
+                   $data9 = $stmt->fetch();
+                   $data6[$y]['plate_number']=$data9['plate_number'];
+                   $data6[$y]['driver_name']=$data9['driver_name'];
+                   $data6[$y]['driver_phone']=$data9['driver_phone'];
+               }
+               $data[$x]['insurance']=$data6;
+               $selectStatement = $database->select()
+                   ->from('rechanges_insurance')
+                   ->where('tenant_id','=',$data[$x]['tenant_id']);
+               $stmt = $selectStatement->execute();
+               $data10 = $stmt->fetchAll();
+               $data[$x]['rechanges']=$data10;
+           }
+           echo json_encode(array('result' => '0', 'desc' => '','tenants'=>$data,'count'=>$num));
+       }else{
+           echo json_encode(array('result' => '1', 'desc' => '尚未有公司'));
+       }
+   }else {
+       $page=(int)$page-1;
+       $selectStament=$database->select()
+           ->limit((int)$per_page, (int)$per_page * (int)$page)
+           ->from('tenant');
+       $stmt=$selectStament->execute();
+       $data=$stmt->fetchAll();
+       $num=count($data);
+       if($data!=null){
+           for($x=0;$x<count($data);$x++){
+               $selectStatement = $database->select()
+                   ->from('customer')
+                   ->where('tenant_id','=',$data[$x]['tenant_id'])
+                   ->where('customer_id','=',$data[$x]['contact_id'])
+                   ->where('exist',"=",0);
+               $stmt = $selectStatement->execute();
+               $data2 = $stmt->fetch();
+               $selectStatement = $database->select()
+                   ->from('city')
+                   ->where('id','=',$data2['customer_city_id']);
+               $stmt = $selectStatement->execute();
+               $data3 = $stmt->fetch();
+               $data2['customer_city']=$data3['name'];
+               $selectStatement = $database->select()
+                   ->from('city')
+                   ->where('id','=',$data[$x]['from_city_id']);
+               $stmt = $selectStatement->execute();
+               $data4 = $stmt->fetch();
+               $data[$x]['from_city']=$data4['name'];
+               $selectStatement = $database->select()
+                   ->from('city')
+                   ->where('id','=',$data[$x]['receive_city_id']);
+               $stmt = $selectStatement->execute();
+               $data5 = $stmt->fetch();
+               $data[$x]['receive_city']=$data5['name'];
+               $data[$x]['customer']=$data2;
+               //   array_push($arrayt,$array1);
+               $selectStatement = $database->select()
+                   ->from('insurance')
+                   ->where('tenant_id','=',$data[$x]['tenant_id']);
+               $stmt = $selectStatement->execute();
+               $data6 = $stmt->fetchAll();
+               for($y=0;$y<count($data6);$y++){
+                   $selectStatement = $database->select()
+                       ->from('city')
+                       ->where('id','=',$data6[$y]['from_c_id']);
+                   $stmt = $selectStatement->execute();
+                   $data7 = $stmt->fetch();
+                   $data6[$y]['from_city']=$data7['name'];
+                   $selectStatement = $database->select()
+                       ->from('city')
+                       ->where('id','=',$data6[$y]['receive_c_id']);
+                   $stmt = $selectStatement->execute();
+                   $data8 = $stmt->fetch();
+                   $data6[$y]['receive_city']=$data8['name'];
+                   $selectStatement = $database->select()
+                       ->from('lorry')
+                       ->where('lorry_id','=',$data6[$y]['insurance_lorry_id']);
+                   $stmt = $selectStatement->execute();
+                   $data9 = $stmt->fetch();
+                   $data6[$y]['plate_number']=$data9['plate_number'];
+                   $data6[$y]['driver_name']=$data9['driver_name'];
+                   $data6[$y]['driver_phone']=$data9['driver_phone'];
+               }
+               $data[$x]['insurance']=$data6;
+               $selectStatement = $database->select()
+                   ->from('rechanges_insurance')
+                   ->where('tenant_id','=',$data[$x]['tenant_id']);
+               $stmt = $selectStatement->execute();
+               $data10 = $stmt->fetchAll();
+               $data[$x]['rechanges']=$data10;
+           }
+           echo json_encode(array('result' => '0', 'desc' => '','tenants'=>$data,'count'=>$num));
+       }else{
+           echo json_encode(array('result' => '1', 'desc' => '尚未有公司'));
+       }
+   }
 });
 //根据tenant_id查询
 $app->get('/tenantbyid',function()use($app){
@@ -314,7 +392,236 @@ $app->get('/tenantbyid',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => 'id为空'));
     }
 });
-//保险记录统计
+//根据tenant_id查询保险记录分页
+$app->get('/lastinsurance',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->get('tenant_id');
+    $page = $app->request->get('page');
+    $per_page=$app->request->get('per_page');
+    $database = localhost();
+    if($per_page==null||$page==null) {
+        $page=(int)$page-1;
+        $arrays = array();
+        if ($tenant_id != null || $tenant_id != "") {
+            $selectStatement = $database->select()
+                ->from('tenant')
+                ->where('tenant_id', '=', $tenant_id);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            if ($data1 != null || $data1 != "") {
+                $selectStatement = $database->select()
+                    ->from('insurance')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->orderBy('insurance_start_time', 'desc');
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetchAll();
+                $num=count($data2);
+                //  $arrays['count']=ceil($num/(int)$per_page);
+                if ($data2 != null || $data2 != "") {
+                    for ($i = 0; $i < count($data2); $i++) {
+                        $arrays1['company'] = $data1['company'];
+                        $arrays1['insurance_start_time'] = $data2[$i]['insurance_start_time'];
+                        $arrays1['duration'] = $data2[$i]['duration'];
+                        $arrays1['insurance_amount'] = $data2[$i]['insurance_amount'];
+                        $arrays1['insurance_price'] = $data2[$i]['insurance_price'];
+                        $arrays1['insurance_id'] = $data2[$i]['insurance_id'];
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data2[$i]['from_c_id']);
+                        $stmt = $selectStatement->execute();
+                        $data3 = $stmt->fetch();
+                        $arrays1['from_city'] = $data3['name'];
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data2[$i]['receive_c_id']);
+                        $stmt = $selectStatement->execute();
+                        $data4 = $stmt->fetch();
+                        $arrays1['receive_city'] = $data4['name'];
+                        $selectStatement = $database->select()
+                            ->from('lorry')
+                            ->where('lorry_id', '=', $data2[$i]['insurance_lorry_id']);
+                        $stmt = $selectStatement->execute();
+                        $data5 = $stmt->fetch();
+                        $arrays1['plate_number'] = $data5['plate_number'];
+                        $arrays1['driver_name'] = $data5['driver_name'];
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id', '=', $data1['contact_id']);
+                        $stmt = $selectStatement->execute();
+                        $data6 = $stmt->fetch();
+                        $arrays1['customer_phone'] = $data6['customer_phone'];
+                        $arrays1['goods_name'] = $data2[$i]['g_type'];
+                        array_push($arrays, $arrays1);
+                    }
+                    echo json_encode(array('result' => '0', 'desc' => '', 'rechanges' => $arrays,'count'=>$num));
+                } else {
+                    echo json_encode(array('result' => '3', 'desc' => '该公司无历史保单', 'rechanges' => ''));
+                }
+            } else {
+                echo json_encode(array('result' => '2', 'desc' => '该公司不存在', 'rechanges' => ''));
+            }
+        } else {
+            echo json_encode(array('result' => '1', 'desc' => '租户id为空', 'rechanges' => ''));
+        }
+    }else{
+        $page=(int)$page-1;
+        $arrays = array();
+        if ($tenant_id != null || $tenant_id != "") {
+            $selectStatement = $database->select()
+                ->from('tenant')
+                ->where('tenant_id', '=', $tenant_id);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            if ($data1 != null || $data1 != "") {
+                $selectStatement = $database->select()
+                    ->from('insurance')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->orderBy('insurance_start_time', 'desc');
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetchAll();
+                $num=count($data2);
+                $sum=ceil($num/(int)$per_page);
+                $selectStatement = $database->select()
+                    ->from('insurance')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->orderBy('insurance_start_time', 'desc')
+                    ->limit((int)$per_page, (int)$per_page * (int)$page);
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetchAll();
+                if ($data2 != null || $data2 != "") {
+                    for ($i = 0; $i < count($data2); $i++) {
+                        $arrays1['company'] = $data1['company'];
+                        $arrays1['insurance_start_time'] = $data2[$i]['insurance_start_time'];
+                        $arrays1['duration'] = $data2[$i]['duration'];
+                        $arrays1['insurance_amount'] = $data2[$i]['insurance_amount'];
+                        $arrays1['insurance_price'] = $data2[$i]['insurance_price'];
+                        $arrays1['insurance_id'] = $data2[$i]['insurance_id'];
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data2[$i]['from_c_id']);
+                        $stmt = $selectStatement->execute();
+                        $data3 = $stmt->fetch();
+                        $arrays1['from_city'] = $data3['name'];
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data2[$i]['receive_c_id']);
+                        $stmt = $selectStatement->execute();
+                        $data4 = $stmt->fetch();
+                        $arrays1['receive_city'] = $data4['name'];
+                        $selectStatement = $database->select()
+                            ->from('lorry')
+                            ->where('lorry_id', '=', $data2[$i]['insurance_lorry_id']);
+                        $stmt = $selectStatement->execute();
+                        $data5 = $stmt->fetch();
+                        $arrays1['plate_number'] = $data5['plate_number'];
+                        $arrays1['driver_name'] = $data5['driver_name'];
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id', '=', $data1['contact_id']);
+                        $stmt = $selectStatement->execute();
+                        $data6 = $stmt->fetch();
+                        $arrays1['customer_phone'] = $data6['customer_phone'];
+                        $arrays1['goods_name'] = $data2[$i]['g_type'];
+                        array_push($arrays, $arrays1);
+                    }
+                    echo json_encode(array('result' => '0', 'desc' => '', 'rechanges' => $arrays,'count'=>$num));
+                } else {
+                    echo json_encode(array('result' => '3', 'desc' => '该公司无历史保单', 'rechanges' => ''));
+                }
+            } else {
+                echo json_encode(array('result' => '2', 'desc' => '该公司不存在', 'rechanges' => ''));
+            }
+        } else {
+            echo json_encode(array('result' => '1', 'desc' => '租户id为空', 'rechanges' => ''));
+        }
+    }
+});
+//根据tenant_id查询保险充值记录分页
+$app->get('/insurance_rechanges',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->get('tenant_id');
+    $page = $app->request->get('page');
+    $per_page=$app->request->get('per_page');
+    if($page==null||$per_page==null){
+        //  $page=(int)$page-1;
+            if ($tenant_id != null || $tenant_id != '') {
+                $arrays=array();
+                $selectStatement = $database->select()
+                    ->from('rechanges_insurance')
+                    ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'left')
+                    ->where('tenant.tenant_id', '=', $tenant_id)
+                    ->orderBy('rechanges_insurance.sure_time', 'desc');
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetchAll();
+                if ($data1 != null || $data1 != "") {
+                    for ($x = 0; $x < count($data1); $x++) {
+                        $arrays1['tenant_id'] = $data1[$x]['tenant_id'];
+                        $arrays1['company'] = $data1[$x]['company'];
+                        $arrays1['money'] = $data1[$x]['money'];
+                        $arrays1['insurance_balance'] = $data1[$x]['insurance_balance'];
+                        $arrays1['status'] = $data1[$x]['status'];
+                        $arrays1['rechange_insurance_id'] = $data1[$x]['rechange_insurance_id'];
+                        date_default_timezone_set("PRC");
+                        $end = date("Y-m-d H:i:s", strtotime("+1 year", strtotime($data1[$x]['sure_time'])));
+                        $arrays1['time'] = $data1[$x]['sure_time'] . '到' . $end;
+                        array_push($arrays, $arrays1);
+                    }
+                }
+                $num=count($data1);
+                //       $sum=ceil($num/(int)$per_page);
+                echo json_encode(array('result' => '0', 'desc' =>'', 'insurance_rechanges' => $arrays,'count'=>$num));
+            } else {
+                echo json_encode(array('result' => '1', 'desc' => '没有输入tenant_id'));
+            }
+    }else {
+        $page=(int)$page-1;
+            if ($tenant_id != null || $tenant_id != '') {
+                $arrays=array();
+                $selectStatement = $database->select()
+                    ->from('rechanges_insurance')
+                    ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'left')
+                    ->where('tenant.tenant_id', '=', $tenant_id)
+                    ->orderBy('rechanges_insurance.sure_time', 'desc');
+                $stmt = $selectStatement->execute();
+                $data4 = $stmt->fetchAll();
+                $num=count($data4);
+                //      $sum=ceil($num/(int)$per_page);
+                $selectStatement = $database->select()
+                    ->from('rechanges_insurance')
+                    ->join('tenant', 'tenant.tenant_id', '=', 'rechanges_insurance.tenant_id', 'left')
+                    ->where('tenant.tenant_id', '=', $tenant_id)
+                    ->orderBy('rechanges_insurance.sure_time', 'desc')
+                    ->limit((int)$per_page, (int)$per_page * (int)$page);
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetchAll();
+                if ($data1 != null || $data1 != "") {
+                    for ($x = 0; $x < count($data1); $x++) {
+                        $arrays1['tenant_id'] = $data1[$x]['tenant_id'];
+                        $arrays1['company'] = $data1[$x]['company'];
+                        $arrays1['money'] = $data1[$x]['money'];
+                        $arrays1['insurance_balance'] = $data1[$x]['insurance_balance'];
+                        $arrays1['status'] = $data1[$x]['status'];
+                        $arrays1['rechange_insurance_id'] = $data1[$x]['rechange_insurance_id'];
+                        date_default_timezone_set("PRC");
+                        $end = date("Y-m-d H:i:s", strtotime("+1 year", strtotime($data1[$x]['sure_time'])));
+                        $arrays1['time'] = $data1[$x]['sure_time'] . '到' . $end;
+                        array_push($arrays, $arrays1);
+                    }
+                }
+                echo json_encode(array('result' => '0', 'desc' => '', 'insurance_rechanges' => $arrays,'count'=>$num));
+            } else {
+                echo json_encode(array('result' => '1', 'desc' => '没有tenant_id'));
+            }
+        }
+
+});
+
+
+
+//保险记录统计数据
 $app->get('/insurance',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
