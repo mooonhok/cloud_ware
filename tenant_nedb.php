@@ -44,8 +44,8 @@ $app->get('/getTenant1',function()use($app){
                 ->where('id', '=', $data2['pid']);
             $stmt = $selectStatement->execute();
             $data3 = $stmt->fetch();
-            $data['city']=$data2;
-            $data['province']=$data3;
+            $data1['city']=$data2;
+            $data1['province']=$data3;
             echo  json_encode(array("result"=>"0","desc"=>"success","tenant"=>$data1));
         }else{
             echo  json_encode(array("result"=>"1","desc"=>"租户不存在"));
