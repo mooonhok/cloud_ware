@@ -69,7 +69,7 @@ $app->post('/addDelivery',function()use($app) {
                             $insertId = $insertStatement->execute(false);
                             $insertStatement = $database->insert(array('courier_id','courier_name','courier_phone','tenant_id'))
                                 ->into('courier')
-                                ->values(array(count($data1)+10000001,$delivery_name,$delivery_phone,$tenant_id));
+                                ->values(array(count($data2)+10000001,$delivery_name,$delivery_phone,$tenant_id));
                             $insertId = $insertStatement->execute(false);
                         }
                         echo json_encode(array("result" => "0", "desc" => "success"));
