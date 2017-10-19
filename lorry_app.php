@@ -201,6 +201,7 @@ $app->get('/sbylorry',function()use($app){
                 ->where('driver_name','=',$data['driver_name']);
             $stmt=$selectStament->execute();
             $data2=$stmt->fetchAll();
+            $sum=0;
             for($x=0;$x<count($data2);$x++){
                 $selectStament=$database->select()
                     ->from('scheduling')
@@ -208,6 +209,7 @@ $app->get('/sbylorry',function()use($app){
                     ->where('lorry_id','=',$data2[$x]['lorry_id']);
                 $stmt=$selectStament->execute();
                 $data3=$stmt->fetchAll();
+                $sum+=count($data3);
                 for($i=0;$i<count($data3);$i++){
                     $selectStament=$database->select()
                         ->from('customer')
@@ -220,7 +222,7 @@ $app->get('/sbylorry',function()use($app){
                     array_push($arrays,$arrays1);
                 }
             }
-            echo json_encode(array('result' => '0', 'desc' => '','sch'=>$arrays));
+            echo json_encode(array('result' => '0', 'desc' => '','sch'=>$arrays,'count'=>$sum));
         }else{
             echo json_encode(array('result' => '2', 'desc' => '司机不存在','sch'=>''));
         }
