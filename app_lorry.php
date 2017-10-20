@@ -684,7 +684,7 @@ $app->get('/obycouriern',function()use($app){
                     ->where('exist', '=', 0)
                     ->where('is_receive', '!=', 2)
                     ->where('is_receive', '!=', 0)
-                    ->where('lorry_id', '=', $data6[$x]['courier_id']);
+                    ->where('lorry_id', '=', $data6[$x]['lorry_id']);
                 $stmt = $selectStament->execute();
                 $data2 = $stmt->fetchAll();
                 for ($x = 0; $x < count($data2); $x++) {
