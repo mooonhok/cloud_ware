@@ -23,6 +23,7 @@ $app->post('/addLorry',function()use($app) {
     $plate_number= $body->plate_number;
     $driver_name= $body->driver_name;
     $driver_phone= $body->driver_phone;
+    $flag=$body->flag;
     $array = array();
     foreach ($body as $key => $value) {
         $array[$key] = $value;
@@ -52,9 +53,9 @@ $app->post('/addLorry',function()use($app) {
                         for ($x=0;$x<count($str1);$x++){
                             $password.=$str1[$x].$x;
                         }
-                        $insertStatement = $database->insert(array_keys(array('lorry_id'=>count($data)+1,'plate_number'=>$plate_number,'driver_name'=>$driver_name,'driver_phone'=>$driver_phone,'password'=>$password)))
+                        $insertStatement = $database->insert(array_keys(array('lorry_id','plate_number','driver_name','driver_phone','password','flag')))
                             ->into('lorry')
-                            ->values(array_values(array('lorry_id'=>count($data)+10000001,'plate_number'=>$plate_number,'driver_name'=>$driver_name,'driver_phone'=>$driver_phone,'password'=>$password)));
+                            ->values(array_values(array(count($data)+10000001,$plate_number,$driver_name,$driver_phone,$password,$flag)));
                         $insertId = $insertStatement->execute(false);
                                     echo json_encode(array("result" => "0", "desc" => "success"));
                     }else{
@@ -79,12 +80,14 @@ $app->get('/getLorry',function()use($app){
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     $plate_number= $app->request->get('plate_number');
+    $flag=$app->request->get('flag');
     if($tenant_id!=null||$tenant_id!=''){
         if($plate_number!=null||$plate_number!=''){
             $selectStatement = $database->select()
                 ->from('lorry')
                 ->leftJoin('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id')
                 ->where('lorry.tenant_id', '=', $tenant_id)
+                ->where('lorry.flag', '=', $flag)
                 ->where('lorry.plate_number', '=', $plate_number);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
