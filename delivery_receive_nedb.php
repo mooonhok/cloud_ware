@@ -20,11 +20,13 @@ $app->get('/getDeliveryReceives0',function()use($app) {
         $selectStatement = $database->select()
             ->from('delivery_order')
             ->join('delivery','delivery_order.delivery_id','=','delivery.delivery_id','INNER')
+            ->join('lorry','lorry.lorry_id','=','delivery.lorry_id','INNER')
             ->join('orders','orders.order_id','=','delivery_order.delivery_order_id','INNER')
             ->join('customer','customer.customer_id','=','orders.receiver_id','INNER')
             ->where('delivery.tenant_id', '=', $tenant_id)
             ->where('customer.tenant_id', '=', $tenant_id)
             ->where('orders.tenant_id', '=', $tenant_id)
+            ->where('lorry.tenant_id', '=', $tenant_id)
             ->where('delivery_order.tenant_id', '=', $tenant_id);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
@@ -44,6 +46,8 @@ $app->get('/getDeliveryReceives1',function()use($app) {
             ->join('delivery','delivery_order.delivery_id','=','delivery.delivery_id','INNER')
             ->join('orders','orders.order_id','=','delivery_order.delivery_order_id','INNER')
             ->join('customer','customer.customer_id','=','orders.receiver_id','INNER')
+            ->join('lorry','lorry.lorry_id','=','delivery.lorry_id','INNER')
+            ->where('lorry.tenant_id', '=', $tenant_id)
             ->where('delivery.tenant_id', '=', $tenant_id)
             ->where('customer.tenant_id', '=', $tenant_id)
             ->where('orders.tenant_id', '=', $tenant_id)
@@ -70,6 +74,8 @@ $app->get('/getDeliveryReceives2',function()use($app) {
                 ->join('delivery','delivery_order.delivery_id','=','delivery.delivery_id','INNER')
                 ->join('orders','orders.order_id','=','delivery_order.delivery_order_id','INNER')
                 ->join('customer','customer.customer_id','=','orders.receiver_id','INNER')
+                ->join('lorry','lorry.lorry_id','=','delivery.lorry_id','INNER')
+                ->where('lorry.tenant_id', '=', $tenant_id)
                 ->where('delivery.tenant_id', '=', $tenant_id)
                 ->where('delivery.delivery_id', '=', $delivery_id)
                 ->where('delivery_order.delivery_id', '=', $delivery_id)
