@@ -24,7 +24,6 @@ $app->post('/addLorry',function()use($app) {
     $driver_name= $body->driver_name;
     $driver_phone= $body->driver_phone;
     $flag=$body->flag;
-    $lorry_type_id=$body->lorry_type_id;
     $array = array();
     foreach ($body as $key => $value) {
         $array[$key] = $value;
@@ -54,9 +53,9 @@ $app->post('/addLorry',function()use($app) {
                         for ($x=0;$x<count($str1);$x++){
                             $password.=$str1[$x].$x;
                         }
-                        $insertStatement = $database->insert(array_keys(array('lorry_id','plate_number','driver_name','driver_phone','password','flag','lorry_type_id')))
+                        $insertStatement = $database->insert(array_keys(array('lorry_id','plate_number','driver_name','driver_phone','password','flag')))
                             ->into('lorry')
-                            ->values(array_values(array(count($data)+10000001,$plate_number,$driver_name,$driver_phone,$password,$flag,$lorry_type_id)));
+                            ->values(array_values(array(count($data)+10000001,$plate_number,$driver_name,$driver_phone,$password,$flag)));
                         $insertId = $insertStatement->execute(false);
                         echo json_encode(array("result" => "0", "desc" => "success"));
                     }else{
