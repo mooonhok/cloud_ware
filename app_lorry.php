@@ -161,6 +161,7 @@ $app->get('/byorderid',function()use($app){
             ->where('order_id','=',$order_id);
         $stmt=$selectStament->execute();
         $data4=$stmt->fetch();
+        if($data4!=null||$data4!=""){
         $selectStament=$database->select()
             ->from('delivery_order')
             ->where('delivery_order_id','=',$order_id);
@@ -201,7 +202,6 @@ $app->get('/byorderid',function()use($app){
         $stmt=$selectStament->execute();
         $data8=$stmt->fetch();
         $arrays['address']=$data8['name'].$data5['customer_address'];
-        if($data!=null||$data!=""){
             echo json_encode(array('result' => '0', 'desc' => '','order'=>$arrays,'is_sure'=>$data9['is_receive']));
         }else{
             echo json_encode(array('result' => '2', 'desc' => '运单不存在','order'=>''));
@@ -576,7 +576,7 @@ $app->post('/sureschtwo',function()use($app){
                     echo json_encode(array('result' => '5', 'desc' => '驾驶员不存在'));
                 }
             }else{
-                echo json_encode(array('result' => '3', 'desc' => '驾驶员未登录'));
+                echo json_encode(array('result' => '3', 'desc'=> '驾驶员未登录'));
             }
         }else{
             echo json_encode(array('result' => '2', 'desc' => '清单不存在'));
