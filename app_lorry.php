@@ -972,7 +972,68 @@ $app->post('/ordersuretwo',function()use($app){
     }
 });
 
-
+//统计
+$app->get('/tongji',function()use($app){
+    $lorry_id = $app->request->get("lorry_id");
+    $database=localhost();
+    if($lorry_id!=null||$lorry_id!="") {
+        $selectStament = $database->select()
+            ->from('lorry')
+            ->where('exist', '=', 0)
+            ->where('flag', '=', 0)
+            ->where('lorry_id', '=', $lorry_id);
+        $stmt = $selectStament->execute();
+        $data = $stmt->fetch();
+            $selectStament = $database->select()
+                ->from('lorry')
+                ->where('tenant_id', '!=', 0)
+                ->where('flag', '=', 0)
+                ->where('plate_number', '=', $data['plate_number'])
+                ->where('driver_phone', '=', $data['driver_phone'])
+                ->where('driver_name', '=', $data['driver_name']);
+            $stmt = $selectStament->execute();
+            $data2 = $stmt->fetchAll();
+            $sum = 0;
+            for ($x = 0; $x < count($data2); $x++) {
+                $selectStament = $database->select()
+                    ->from('scheduling')
+                    ->where('scheduling_status', '=', 4)
+                    ->where('lorry_id', '=', $data2[$x]['lorry_id']);
+                $stmt = $selectStament->execute();
+                $data3 = $stmt->fetchAll();
+                $sum += count($data3);
+            }
+        $selectStament=$database->select()
+            ->from('lorry')
+            ->where('exist','=',0)
+            ->where('flag','=',1)
+            ->where('lorry_id','=',$lorry_id);
+        $stmt=$selectStament->execute();
+        $data5=$stmt->fetch();
+        $selectStament=$database->select()
+            ->from('lorry')
+            ->where('exist','=',0)
+            ->where('flag','=',1)
+            ->where('plate_number','=',$data5['plate_number'])
+            ->where('driver_phone','=',$data5['driver_phone'])
+            ->where('driver_name','=',$data5['driver_name']);
+        $stmt=$selectStament->execute();
+        $data6=$stmt->fetchAll();
+        for($x=0;$x<count($data6);$x++) {
+            $selectStament = $database->select()
+                ->from('delivery')
+                ->where('exist', '=', 0)
+                ->where('is_receive', '=', 0)
+                ->where('lorry_id', '=', $data6[$x]['lorry_id']);
+            $stmt = $selectStament->execute();
+            $data7 = $stmt->fetchAll();
+            $sum += count($data7);
+        }
+        echo json_encode(array('result' => '0', 'desc' => '','count' => $sum));
+        }else{
+        echo json_encode(array('result' => '0', 'desc' => '尚未登录'));
+    }
+});
 
 
 
