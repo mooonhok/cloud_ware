@@ -119,14 +119,12 @@ $app->get('/getLorrys0',function()use($app){
 $app->get('/getLorrys1',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
-    $flag=$app->request->get('flag');
     $database = localhost();
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('lorry')
             ->leftJoin('lorry_type','lorry_type.lorry_type_id','=','lorry.lorry_type_id')
             ->where('lorry.exist', '=', 0)
-            ->where('lorry.flag', '=', $flag)
             ->where('lorry.tenant_id', '=', $tenant_id);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
