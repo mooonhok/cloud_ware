@@ -46,12 +46,7 @@ $app->post('/addLorry',function()use($app) {
                             ->where('tenant_id', '=', 0);
                         $stmt = $selectStatement->execute();
                         $data = $stmt->fetchAll();
-                        $password1=123456;
-                        $str1=str_split($password1,3);
-                        $password=null;
-                        for ($x=0;$x<count($str1);$x++){
-                            $password.=$str1[$x].$x;
-                        }
+
                         $selectStatement = $database->select()
                             ->from('lorry')
                             ->where('tenant_id', '=', 0)
@@ -60,6 +55,12 @@ $app->post('/addLorry',function()use($app) {
                         $stmt = $selectStatement->execute();
                         $data1 = $stmt->fetch();
                         if(!$data1){
+                            $password1=123456;
+                            $str1=str_split($password1,3);
+                            $password=null;
+                            for ($x=0;$x<count($str1);$x++){
+                                $password.=$str1[$x].$x;
+                            }
                             $insertStatement = $database->insert(array('lorry_id','plate_number','driver_name','driver_phone','password','flag'))
                                 ->into('lorry')
                                 ->values(array((count($data)+10000001),$plate_number,$driver_name,$driver_phone,$password,$flag));
