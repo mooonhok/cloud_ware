@@ -52,10 +52,20 @@ $app->post('/addLorry',function()use($app) {
                         for ($x=0;$x<count($str1);$x++){
                             $password.=$str1[$x].$x;
                         }
-                        $insertStatement = $database->insert(array('lorry_id','plate_number','driver_name','driver_phone','password','flag'))
-                            ->into('lorry')
-                            ->values(array((count($data)+10000001),$plate_number,$driver_name,$driver_phone,$password,$flag));
-                        $insertId = $insertStatement->execute(false);
+                        $selectStatement = $database->select()
+                            ->from('lorry')
+                            ->where('tenant_id', '=', 0)
+                            ->where('flag', '=', $flag)
+                            ->where('plate_number', '=', $plate_number);
+                        $stmt = $selectStatement->execute();
+                        $data1 = $stmt->fetch();
+                        if(!$data1){
+                            $insertStatement = $database->insert(array('lorry_id','plate_number','driver_name','driver_phone','password','flag'))
+                                ->into('lorry')
+                                ->values(array((count($data)+10000001),$plate_number,$driver_name,$driver_phone,$password,$flag));
+                            $insertId = $insertStatement->execute(false);
+                        }
+
                         echo json_encode(array("result" => "0", "desc" => "success"));
                     }else{
                         echo json_encode(array("result" => "4", "desc" => "缺少驾驶员手机号码"));
