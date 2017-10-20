@@ -855,6 +855,7 @@ $app->post('/ordersurefor',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '运单号不能为空'));
     }
 });
+//配送员确认
 $app->post('/ordersurethree',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -916,8 +917,6 @@ $app->post('/ordersurethree',function()use($app){
 $app->post('/ordersuretwo',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    //   $courier_id = $app->request->params('courier_id');
-    // $order_id = $app->request->params('order_id');
     $body=$app->request->getBody();
     $body=json_decode($body);
     $order_id=$body->order_id;
@@ -974,6 +973,8 @@ $app->post('/ordersuretwo',function()use($app){
 
 //统计
 $app->get('/tongji',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $lorry_id = $app->request->get("lorry_id");
     $database=localhost();
     if($lorry_id!=null||$lorry_id!="") {
