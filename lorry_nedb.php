@@ -162,8 +162,9 @@ $app->delete('/deleteLorry',function()use($app){
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     $lorry_id= $app->request->get('lorry_id');
+    $exist= $app->request->get('exist');
     if($tenant_id!=null||$tenant_id!=''){
-        $updateStatement = $database->update(array('exist'=>1))
+        $updateStatement = $database->update(array('exist'=>$exist))
             ->table('lorry')
             ->where('tenant_id','=',$tenant_id)
             ->where('lorry_id','=',$lorry_id);
