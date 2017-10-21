@@ -38,7 +38,7 @@ $signPackage = $jssdk->GetSignPackage();
 </body>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
-<script>
+
 <script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
 	<script>
 	wx.config({
@@ -67,5 +67,4 @@ $signPackage = $jssdk->GetSignPackage();
   //alert(res.errMsg);
 });	
 	</script>
-</script>
 </html>

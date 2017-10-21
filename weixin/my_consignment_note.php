@@ -308,7 +308,6 @@ $signPackage = $jssdk->GetSignPackage();
 
 pushHistory(); 
    window.addEventListener("popstate", function(e) { 
-     	alert("123456789");
         wx.closeWindow();
    }, false); 
    function pushHistory() { 
