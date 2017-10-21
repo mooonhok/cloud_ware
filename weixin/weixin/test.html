@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+	<script>
+		(function($) {
+			$.getUrlParam = function(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg);
+				if(r != null) return decodeURI(r[2]);
+				return null;
+			}
+		})(jQuery);
+		var tenant_id=$.getUrlParam('tenant_id');
+		var page=$.getUrlParam('page');
+		if(page==null||page==""){
+			WeixinJSBridge.call('closeWindow');
+		}else{
+		$.ajax({
+				url: "http://api.uminfo.cn/wx_test.php/tenant",
+				dataType: 'json',
+				type: 'get',
+				ContentType: "application/json;charset=utf-8",
+				data: JSON.stringify({}),
+				success: function(msg) {
+					if(msg.result==0){
+						alert("系统尚未有租户");
+					}else{
+					for(var i=0;i<msg.tenant.length;i++){
+						if(msg.tenant[i].tenant_id==tenant_id){
+							//alert(msg.tenant[i].appid+"/////"+msg.tenant[i].tenant_id+"/////"+msg.tenant[i].secret);
+							window.location.href="http://api.uminfo.cn/weixin/menu.php?tenant_id="
+							+tenant_id+"&appid="+msg.tenant[i].appid+"&secret="+msg.tenant[i].secret+"&page="+page;
+						}
+					}
+					} 
+				},
+				error: function(e) {
+					alert("获取后台数据出错!");
+				}
+			});
+		}
+	</script>
+</html>

@@ -1,3 +1,13 @@
+<?php
+require_once "jssdk.php";
+$str=$_SERVER["QUERY_STRING"];
+$arr=explode("=",$str);
+$tenant_id=substr($arr[1],0,6);
+$appid=substr($arr[2],0,18);
+$secret=substr($arr[3],0,32);
+$jssdk = new JSSDK($appid,$secret);
+$signPackage = $jssdk->GetSignPackage();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -129,5 +139,35 @@
        });
 
    </script>
+   <script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
+	<script>
+	wx.config({
+        debug: false,
+        appId: '<?php echo $signPackage["appId"];?>',
+        timestamp: <?php echo $signPackage["timestamp"];?>,
+        nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+        signature: '<?php echo $signPackage["signature"];?>',
+        jsApiList: [
+            'checkJsApi', 'scanQRCode'
+        ]
+    });
+    pushHistory(); 
+   window.addEventListener("popstate", function(e) { 
+     	//alert("123456789");
+        wx.closeWindow();
+   }, false); 
+   function pushHistory() { 
+     var state = { 
+       title: "title", 
+       url: "#"
+     }; 
+     window.history.pushState(state, "title", "#"); 
+   }
+   wx.error(function (res) {
+  //alert(res.errMsg);
+});
+		
+		
+	</script>
 </body>
 </html>

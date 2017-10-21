@@ -1,11 +1,9 @@
 <?php
 require_once "jssdk.php";
-$str=$_SERVER["QUERY_STRING"];
-$arr=explode("=",$str);
-$tenant_id=substr($arr[1],0,6);
-$appid=substr($arr[2],0,18);
-$secret=substr($arr[3],0,32);
-$jssdk = new JSSDK($appid,$secret);
+//测试号
+//$jssdk = new JSSDK("wx15ef051f9f0bba92","57ea0ee4abf4f4c6d6e38c88a289e687");
+//万事鑫
+$jssdk = new JSSDK("wx5666849a1bdb2e5c","2e4fe57c0f6d285ee06ef1cd6644f9db");
 $signPackage = $jssdk->GetSignPackage();
 ?>
 <!DOCTYPE html>
@@ -139,7 +137,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="center">
 			<div   class="center1">运单号</div>
 			<div class="center2"><input id="order_id" type="number" placeholder="请输入运单号" pattern="[0-9]*"></div>
-			<div class="center3" id="saoman"><img src="images/saoma.png" alt=""></div>
+<!--			<div class="center3" id="saoman"><img src="images/saoma.png" alt=""></div>-->
 		</div>
 		<div  id="sumbit"  class="foot">
 			查   询
@@ -219,7 +217,6 @@ $signPackage = $jssdk->GetSignPackage();
 					}
 				})
 			};
-
 </script>
 <script>
     /*
@@ -262,7 +259,7 @@ $signPackage = $jssdk->GetSignPackage();
 				}),
 				success: function(msg) {
 					if(msg.result == 2) {
-				     layer.msg("订单不存在");
+				     layer.msg("订单不存在")
 					}else{
 		            window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
 					}
@@ -278,19 +275,6 @@ $signPackage = $jssdk->GetSignPackage();
     });
   };
 });
-pushHistory(); 
-   window.addEventListener("popstate", function(e) { 
-     	//alert("123456789");
-        wx.closeWindow();
-   }, false); 
-   function pushHistory() { 
-     var state = { 
-       title: "title", 
-       url: "#"
-     }; 
-     window.history.pushState(state, "title", "#"); 
-   }
-
 wx.error(function (res) {
   //alert(res.errMsg);
 });

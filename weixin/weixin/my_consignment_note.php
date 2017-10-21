@@ -1,11 +1,10 @@
 <?php
 require_once "jssdk.php";
-$str=$_SERVER["QUERY_STRING"];
-$arr=explode("=",$str);
-$tenant_id=substr($arr[1],0,6);
-$appid=substr($arr[2],0,18);
-$secret=substr($arr[3],0,32);
-$jssdk = new JSSDK($appid,$secret);
+//$str=$_SERVER["QUERY_STRING"];
+//$arr=explode("=",$str);
+//$appid=substr($arr[2],0,18);
+//$secret=$arr[3];
+$jssdk = new JSSDK("wx81d659de6151801e","a777207a723e6f5ce885687caa5198e3");
 $signPackage = $jssdk->GetSignPackage();
 ?>
 <!DOCTYPE html>
@@ -30,9 +29,9 @@ $signPackage = $jssdk->GetSignPackage();
 						<div class="kuang">
 							<input id="yundanhao" type="number" placeholder="请输入要查询的运单号" pattern="[0-9]*">
 						</div>
-						<div class="tu" id="saoman">
-							<img src="images/saoma.png" alt="">
-						</div>
+<!--						<div class="tu" id="saoman">-->
+<!--							<img src="images/saoma.png" alt="">-->
+<!--						</div>-->
 					</div>
 				</div>
 			</div>
@@ -171,10 +170,7 @@ $signPackage = $jssdk->GetSignPackage();
 					//点击事件
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
-//					     window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
-                        if(sendid!='暂无'){
-                            window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
-                        }
+					     window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
 					});
 					}
 				},
@@ -221,10 +217,7 @@ $signPackage = $jssdk->GetSignPackage();
 					//点击事件
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
-                        if(sendid!='暂无'){
-                            window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
-                        }
-//					   window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
+					   window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
 					});
 			},
 			error: function(xhr) {
@@ -266,9 +259,7 @@ $signPackage = $jssdk->GetSignPackage();
 					//点击事件
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
-						if(sendid!='暂无'){
-                            window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
-                        }
+					     window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
 					});
 			},
 			error: function(xhr) {
@@ -295,30 +286,11 @@ $signPackage = $jssdk->GetSignPackage();
       success: function (res) {    
         var a=new Array();
         a=res.resultStr.split(",");
-          if(a[1].length!=0){
-              window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a[1];
-          }else{
-              layer.msg("没有扫描到条形码");
-          }
-
+       window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a[1];
       }  
     });  
   };  
 });  
-
-pushHistory(); 
-   window.addEventListener("popstate", function(e) { 
-     	alert("123456789");
-        wx.closeWindow();
-   }, false); 
-   function pushHistory() { 
-     var state = { 
-       title: "title", 
-       url: "#"
-     }; 
-     window.history.pushState(state, "title", "#"); 
-   }
-   
 wx.error(function (res) {  
   //alert(res.errMsg);  
 }); 
