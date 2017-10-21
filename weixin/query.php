@@ -278,6 +278,19 @@ $signPackage = $jssdk->GetSignPackage();
     });
   };
 });
+pushHistory(); 
+   window.addEventListener("popstate", function(e) { 
+     	alert("123456789");
+        wx.closeWindow();
+   }, false); 
+   function pushHistory() { 
+     var state = { 
+       title: "title", 
+       url: "#"
+     }; 
+     window.history.pushState(state, "title", "#"); 
+   }
+
 wx.error(function (res) {
   //alert(res.errMsg);
 });

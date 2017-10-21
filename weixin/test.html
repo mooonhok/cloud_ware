@@ -20,12 +20,6 @@
 		})(jQuery);
 		var tenant_id=$.getUrlParam('tenant_id');
 		var page=$.getUrlParam('page');
-		if(page==null||page==""){
-//			WeixinJSBridge.call('closeWindow');
-           alert(page+"////");
-			window.close();
-			wx.closeWindow();
-		}else{
 		$.ajax({
 				url: "http://api.uminfo.cn/wx_test.php/tenant",
 				dataType: 'json',
@@ -49,6 +43,5 @@
 					alert("获取后台数据出错!");
 				}
 			});
-		}
 	</script>
 </html>
