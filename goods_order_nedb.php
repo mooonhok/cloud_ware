@@ -1114,6 +1114,12 @@ $app->get('/getGoodsOrder',function()use($app){
                     ->where('inventory_loc_id','=',$data1[$i]['inventory_loc_id']);
                 $stmt=$selectStament->execute();
                 $data5=$stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('exception')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('exception_id','=',$data1[$i]['exception_id']);
+                $stmt=$selectStament->execute();
+                $data10=$stmt->fetch();
                 $data1[$i]['goods_package']=$data2;
                 $data1[$i]['sender']=$data3;
                 $data1[$i]['sender']['sender_city']=$data6;
@@ -1122,6 +1128,7 @@ $app->get('/getGoodsOrder',function()use($app){
                 $data1[$i]['receiver']['receiver_city']=$data7;
                 $data1[$i]['receiver']['receiver_province']=$data9;
                 $data1[$i]['inventory_loc']=$data5;
+                $data1[$i]['exception']=$data10;
             }
                 echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
         }else{
@@ -1613,6 +1620,7 @@ $app->get('/limitGoodsOrders6',function()use($app){
                         ->where('goods_package_id','=',$data1[$i]['goods_package_id']);
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetch();
+
                     $selectStament=$database->select()
                         ->from('customer')
                         ->where('tenant_id','=',$tenant_id)
@@ -1651,6 +1659,12 @@ $app->get('/limitGoodsOrders6',function()use($app){
                         ->where('inventory_loc_id','=',$data1[$i]['inventory_loc_id']);
                     $stmt=$selectStament->execute();
                     $data5=$stmt->fetch();
+                    $selectStament=$database->select()
+                        ->from('exception')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('exception_id','=',$data1[$i]['exception_id']);
+                    $stmt=$selectStament->execute();
+                    $data10=$stmt->fetch();
                     $data1[$i]['goods_package']=$data2;
                     $data1[$i]['sender']=$data3;
                     $data1[$i]['sender']['sender_city']=$data6;
@@ -1659,6 +1673,7 @@ $app->get('/limitGoodsOrders6',function()use($app){
                     $data1[$i]['receiver']['receiver_city']=$data7;
                     $data1[$i]['receiver']['receiver_province']=$data9;
                     $data1[$i]['inventory_loc']=$data5;
+                    $data1[$i]['exception']=$data10;
                 }
                 echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
             }else{

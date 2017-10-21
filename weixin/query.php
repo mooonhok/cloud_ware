@@ -211,7 +211,7 @@ $signPackage = $jssdk->GetSignPackage();
 				}),
 				success: function(msg) {
 					if(msg.result == 0) {
-						window.location.href = "http://api.uminfo.cn/weixin/register.html?tenant_id="+tenant_id;
+						 window.location.href = "http://api.uminfo.cn/weixin/test.html?tenant_id="+tenant_id+"&page=5";
 					} 
 				},
 				error: function(xhr) {
