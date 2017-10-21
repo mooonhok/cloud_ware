@@ -21,7 +21,9 @@
 		var tenant_id=$.getUrlParam('tenant_id');
 		var page=$.getUrlParam('page');
 		if(page==null||page==""){
-			WeixinJSBridge.call('closeWindow');
+//			WeixinJSBridge.call('closeWindow');
+           alert(page+"////");
+			window.close();
 		}else{
 		$.ajax({
 				url: "http://api.uminfo.cn/wx_test.php/tenant",
