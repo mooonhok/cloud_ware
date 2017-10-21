@@ -240,7 +240,8 @@ $app->get('/sbylorry',function()use($app){
                 $selectStament=$database->select()
                     ->from('scheduling')
                     ->where('scheduling_status','=',4)
-                    ->where('lorry_id','=',$data2[$x]['lorry_id']);
+                    ->where('lorry_id','=',$data2[$x]['lorry_id'])
+                    ->orderBy('change_datetime','desc');
                 $stmt=$selectStament->execute();
                 $data3=$stmt->fetchAll();
                 $sum+=count($data3);
@@ -296,7 +297,8 @@ $app->get('/sbylorryn',function()use($app){
                     ->where('scheduling_status','!=',2)
                     ->where('scheduling_status','!=',3)
                     ->where('scheduling_status','!=',4)
-                    ->where('lorry_id','=',$data2[$x]['lorry_id']);
+                    ->where('lorry_id','=',$data2[$x]['lorry_id'])
+                    ->orderBy('change_datetime','desc');
                 $stmt=$selectStament->execute();
                 $data3=$stmt->fetchAll();
                 for($i=0;$i<count($data3);$i++){
@@ -351,6 +353,7 @@ $app->post('/suresch',function()use($app){
     }
     $arrays['scheduling_status']=5;
     $arrays['sure_img']=$lujing;
+    $arrays['change_datetime']=time();
     if($schedule_id!=null||$schedule_id!=""){
         $selectStament=$database->select()
             ->from('scheduling')
@@ -412,6 +415,7 @@ $app->post('/sureschfor',function()use($app){
     $schedule_id=$body->schedule_id;
     $lorry_id=$body->lorry_id;
     $arrays['scheduling_status']=6;
+    $arrays['change_datetime']=time();
     if($schedule_id!=null||$schedule_id!=""){
         $selectStament=$database->select()
             ->from('scheduling')
@@ -473,6 +477,7 @@ $app->post('/sureschthree',function()use($app){
     $schedule_id=$body->schedule_id;
     $lorry_id=$body->lorry_id;
     $arrays['scheduling_status']=4;
+    $arrays['change_datetime']=time();
     if($schedule_id!=null||$schedule_id!=""){
         $selectStament=$database->select()
             ->from('scheduling')
@@ -534,6 +539,7 @@ $app->post('/sureschtwo',function()use($app){
     $schedule_id=$body->schedule_id;
     $lorry_id=$body->lorry_id;
     $arrays['scheduling_status']=5;
+    $arrays['change_datetime']=time();
     if($schedule_id!=null||$schedule_id!=""){
         $selectStament=$database->select()
             ->from('scheduling')
@@ -618,7 +624,8 @@ $app->get('/obycourier',function()use($app){
                     ->from('delivery')
                     ->where('exist', '=', 0)
                     ->where('is_receive', '=', 0)
-                    ->where('lorry_id', '=', $data6[$x]['lorry_id']);
+                    ->where('lorry_id', '=', $data6[$x]['lorry_id'])
+                    ->orderBy('change_datetime','desc');
                 $stmt = $selectStament->execute();
                 $data2 = $stmt->fetchAll();
                 $num += count($data2);
@@ -684,7 +691,8 @@ $app->get('/obycouriern',function()use($app){
                     ->where('exist', '=', 0)
                     ->where('is_receive', '!=', 2)
                     ->where('is_receive', '!=', 0)
-                    ->where('lorry_id', '=', $data6[$x]['lorry_id']);
+                    ->where('lorry_id', '=', $data6[$x]['lorry_id'])
+                    ->orderBy('change_datetime','desc');
                 $stmt = $selectStament->execute();
                 $data2 = $stmt->fetchAll();
                 for ($x = 0; $x < count($data2); $x++) {
@@ -749,6 +757,7 @@ $app->post('/ordersure',function()use($app){
     }
     $arrays['is_receive']=1;
     $arrays['sure_img']=$lujing;
+    $arrays['change_datetime']=time();
     $database=localhost();
     if($order_id!=null||$order_id!=""){
         if($lorry_id!=null||$lorry_id!=""){
@@ -808,6 +817,7 @@ $app->post('/ordersurefor',function()use($app){
     $lorry_id=$body->lorry_id;
     $arrays['is_receive']=4;
     $database=localhost();
+    $arrays['change_datetime']=time();
     if($order_id!=null||$order_id!=""){
         if($lorry_id!=null||$lorry_id!=""){
             $selectStament=$database->select()
@@ -866,6 +876,7 @@ $app->post('/ordersurethree',function()use($app){
     $order_id=$body->order_id;
     $lorry_id=$body->lorry_id;
     $arrays['is_receive']=0;
+    $arrays['change_datetime']=time();
     $database=localhost();
     if($order_id!=null||$order_id!=""){
         if($lorry_id!=null||$lorry_id!=""){
@@ -922,6 +933,7 @@ $app->post('/ordersuretwo',function()use($app){
     $order_id=$body->order_id;
     $lorry_id=$body->lorry_id;
     $arrays['is_receive']=1;
+    $arrays['change_datetime']=time();
     $database=localhost();
     if($order_id!=null||$order_id!=""){
         if($lorry_id!=null||$lorry_id!=""){
