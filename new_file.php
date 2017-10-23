@@ -44,6 +44,9 @@ $app->get('/testPage', function() use ($app) {
     echo $app->request->get('name');
 });
 
+$app->post("/testqianduan",function() use ($app) {
+    $app->redirect('http://www.uminfo.cn/yonhu.html');
+});
 
 $app->get("/",function() use ($app) {
     $tablename=$app->request->get('name');
