@@ -7,7 +7,6 @@
  *
  * If you are using Composer, you can skip this step.
  */
-require 'test.php';
 require 'Slim/Slim.php';
 
 use Slim\PDO\Database;
@@ -126,10 +125,7 @@ function getAllBook()
 }
 
 
-function getopenid(){
 
-getBaseInfo();
-}
 function localhost(){
     return connect();
 }
