@@ -18,13 +18,13 @@ $input = new WxPayUnifiedOrder();
 $input->SetBody("test");
 $input->SetAttach("test");
 $input->SetOut_trade_no(WxPayConfig::MCHID.date("YmdHis"));
-$input->SetTotal_fee("6000");
+$input->SetTotal_fee("60000");
 $input->SetTime_start(date("YmdHis"));
 $input->SetTime_expire(date("YmdHis", time() + 600));
 $input->SetGoods_tag("test");
 $input->SetNotify_url("notify.php");
 $input->SetTrade_type("NATIVE");
-$input->SetProduct_id("1515151515151515");
+$input->SetProduct_id("123456");
 $result = $notify->GetPayUrl($input);
 $url2 = $result["code_url"];
 ?>
