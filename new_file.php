@@ -44,7 +44,9 @@ $app->get('/testPage', function() use ($app) {
     echo $app->request->get('name');
 });
 
-$app->get("/testqianduan",function() use ($app) {
+$app->post("/testqianduan",function() use ($app) {
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $app->redirect('http://www.uminfo.cn/yonhu.html');
 });
 
