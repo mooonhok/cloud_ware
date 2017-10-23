@@ -5,7 +5,6 @@ ini_set('date.timezone','Asia/Shanghai');
 require_once "../lib/WxPay.Api.php";
 require_once "WxPay.NativePay.php";
 require_once 'log.php';
-require_once 'notify.php';
 
 
 //模式二
@@ -26,7 +25,7 @@ $input->SetTime_expire(date("YmdHis", time() + 600));
 $input->SetGoods_tag("test");
 $input->SetNotify_url("http://paysdk.weixin.qq.com/example/notify.php");
 $input->SetTrade_type("NATIVE");
-$input->SetProduct_id("1555555555");
+$input->SetProduct_id("123456789");
 $result = $notify->GetPayUrl($input);
 $url2 = $result["code_url"];
 ?>
@@ -41,6 +40,6 @@ $url2 = $result["code_url"];
 
 	<div style="margin-left: 10px;color:#556B2F;font-size:30px;font-weight: bolder;">扫描支付模式二</div><br/>
 	<img alt="模式二扫码支付" src="http://paysdk.weixin.qq.com/example/qrcode.php?data=<?php echo urlencode($url2);?>" style="width:150px;height:150px;"/>
-    <div style=""><?php echo Queryorder($transaction_id)?></div>
+
 </body>
 </html>
