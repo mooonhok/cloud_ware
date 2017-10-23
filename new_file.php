@@ -8,14 +8,11 @@
  * If you are using Composer, you can skip this step.
  */
 require 'Slim/Slim.php';
-
-use Slim\PDO\Database;
-require 'Slim/Slim.php';
 require 'connect.php';
+use Slim\PDO\Database;
 
 
-\Slim\Slim::registerAutoloader();
-$app = new \Slim\Slim();
+
 
 \Slim\Slim::registerAutoloader();
 
