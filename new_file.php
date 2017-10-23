@@ -11,8 +11,12 @@ require 'test.php';
 require 'Slim/Slim.php';
 
 use Slim\PDO\Database;
-use Slim\PDO\Statement;
-use Slim\PDO\Statement\SelectStatement;
+require 'Slim/Slim.php';
+require 'connect.php';
+
+
+\Slim\Slim::registerAutoloader();
+$app = new \Slim\Slim();
 
 \Slim\Slim::registerAutoloader();
 
@@ -125,4 +129,7 @@ function getAllBook()
 function getopenid(){
 
 getBaseInfo();
+}
+function localhost(){
+    return connect();
 }
