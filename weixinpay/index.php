@@ -55,11 +55,11 @@
 <body>
 	<div align="center">
         <ul>
-            <li style="background-color:#8B6914"><a href="../example/native.php">扫码支付</a></li>
-            <li style="background-color:#CDCD00"><a href="../example/orderquery.php">订单查询</a></li>
-            <li style="background-color:#8EE5EE"><a href="../example/download.php">下载订单</a></li>
-            <li style="background-color:#CD3278"><a href="../example/refund.php">订单退款</a></li>
-            <li style="background-color:#848484"><a href="../example/refundquery.php">退款查询</a></li>
+            <li style="background-color:#8B6914"><a href="../weixinpay/example/native.php">扫码支付</a></li>
+            <li style="background-color:#CDCD00"><a href="../weixinpay/example/orderquery.php">订单查询</a></li>
+            <li style="background-color:#8EE5EE"><a href="../weixinpay/example/download.php">下载订单</a></li>
+            <li style="background-color:#CD3278"><a href="../weixinpay/example/refund.php">订单退款</a></li>
+            <li style="background-color:#848484"><a href="../weixinpay/example/refundquery.php">退款查询</a></li>
         </ul>
 	</div>
 </body>
