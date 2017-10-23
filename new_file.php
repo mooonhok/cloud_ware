@@ -126,3 +126,4 @@ function getAllBook()
 function localhost(){
     return connect();
 }
+?>
