@@ -17,7 +17,7 @@ $app->post('/addScheduleOrder',function()use($app) {
     $tenant_id = $app->request->headers->get("tenant-id");
     $body = $app->request->getBody();
     $body = json_decode($body);
-    $scheduling_id = $body->scheduling_id;
+    $scheduling_id = $body->schedule_id;
     $order_id= $body->order_id;
     $array = array();
     foreach ($body as $key => $value) {
