@@ -36,7 +36,7 @@ $app->get('/tenant',function()use($app){
     $input->SetProduct_id("123456789");
     $result = $notify->GetPayUrl($input);
     $url2 = $result["code_url"];
-    echo urlencode($url2);
+    echo json_encode(array('result' => '0', 'desc' => '','lorry'=>urlencode($url2)));
 });
 
 $app->run();

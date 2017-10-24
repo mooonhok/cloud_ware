@@ -13,7 +13,7 @@ require 'connect.php';
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 
-$app->post('/scheduling',function()use($app) {
+$app->post('/addScheduling',function()use($app) {
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
     $tenant_id = $app->request->headers->get("tenant-id");
