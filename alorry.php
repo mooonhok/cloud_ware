@@ -1027,7 +1027,7 @@ $app->get('/lorry_type',function()use($app){
     $selectStament = $database->select()
         ->from('lorry_type');
     $stmt = $selectStament->execute();
-    $data = $stmt->fetch();
+    $data = $stmt->fetchAll();
     if($data!=null){
         echo json_encode(array('result' => '0', 'desc' => '','lorry_type'=>$data));
     }else{
@@ -1063,6 +1063,7 @@ $app->post('/addplate_number',function()use($app){
                 ->into('lorry')
                 ->values(array(count($data3),$plate_number,$data['driver_name'],$data['driver_phone'],$lorry_size,$lorry_age,$lorry_text,$lorry_type,$data['password']));
             $insertId = $insertStatement->execute(false);
+            echo json_encode(array('result' => '0', 'desc' => '添加成功'));
         }else{
             echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
         }
