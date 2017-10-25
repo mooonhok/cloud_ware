@@ -129,6 +129,34 @@ $app->put('/alterScheduleOrders0',function()use($app){
 //    }
 //});
 
+$app->get('/getScheduleOrder',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $schedule_id= $app->request->get('schedule_id');
+    $order_id= $app->request->get('order_id');
+    if($tenant_id!=null||$tenant_id!=''){
+        if($schedule_id!=null||$schedule_id!=''){
+            if($order_id!=null||$order_id!=''){
+                $selectStatement = $database->select()
+                    ->from('schedule_order')
+                    ->where('schedule_id', '=', $schedule_id)
+                    ->where('order_id', '=', $order_id)
+                    ->where('tenant_id', '=', $tenant_id);
+                $stmt = $selectStatement->execute();
+                $data = $stmt->fetchAll();
+                echo json_encode(array("result" => "0", "desc" => "success",'schedule_order'=>$data));
+            }else{
+                echo json_encode(array("result" => "3", "desc" => "缺少运单id"));
+            }
+        }else{
+            echo json_encode(array("result" => "2", "desc" => "缺少调度id"));
+        }
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
 $app->run();
 function localhost(){
     return connect();

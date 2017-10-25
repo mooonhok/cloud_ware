@@ -582,13 +582,14 @@ $app->put('/alterScheduling6',function()use($app){
     $body = $app->request->getBody();
     $body = json_decode($body);
     $scheduling_id=$body->scheduling_id;
-    $scheduling_datetime=$body->scheduling_datetime;
     $array = array();
     foreach ($body as $key => $value) {
         $array[$key] = $value;
     }
     if($tenant_id!=null||$tenant_id!=''){
-        $updateStatement = $database->update(array('scheduling_datetime'=>$scheduling_datetime))
+        $array['is_alter']=0;
+        $array['exist']=0;
+        $updateStatement = $database->update($array)
             ->table('scheduling')
             ->where('tenant_id','=',$tenant_id)
             ->where('scheduling_id','=',$scheduling_id)
