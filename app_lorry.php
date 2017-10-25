@@ -97,12 +97,12 @@ $app->post('/lorry_sign',function()use($app){
             $data=$stmt->fetch();
             if($data!=null){
                 if($password==$data['password']){
-                    echo json_encode(array('result' => '0','desc' => '登录成功','lorry'=>$data));
+                    echo json_encode(array('result'=>'0','desc'=>'登录成功','lorry'=>$data));
                 }else{
-                    echo json_encode(array('result' => '4','desc' => '密码不对','lorry'=>''));
+                    echo json_encode(array('result'=>'4','desc'=>'密码不对','lorry'=>''));
                 }
             }else{
-                echo json_encode(array('result' => '3','desc' => '用户不存在','lorry'=>''));
+                echo json_encode(array('result'=>'3','desc'=>'用户不存在','lorry'=>''));
             }
         }else{
             echo json_encode(array('result' => '2','desc' => '密码为空','lorry'=>''));
@@ -1275,5 +1275,4 @@ $app->run();
 function localhost(){
     return connect();
 }
-?>
 ?>
