@@ -318,6 +318,53 @@ $app->get('/getSchedulings4',function()use($app){
     }
 });
 
+$app->get('/getSchedulings5',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('scheduling')
+            ->where('exist', '=', 1)
+            ->where('is_alter','=',2)
+            ->where('tenant_id', '=', $tenant_id)
+            ->orderBy('scheduling_id');
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        for($i=0;$i<count($data);$i++){
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('customer_id', '=', $data[$i]['receiver_id']);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data[$i]['send_city_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data[$i]['receive_city_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('lorry_id', '=', $data[$i]['lorry_id']);
+            $stmt = $selectStatement->execute();
+            $data4 = $stmt->fetch();
+            $data[$i]['receiver']=$data1;
+            $data[$i]['send_city']=$data2;
+            $data[$i]['receive_city']=$data3;
+            $data[$i]['lorry']=$data4;
+        }
+        echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "租户id为空"));
+    }
+});
+
 $app->get('/limitSchedulings0',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
@@ -528,16 +575,58 @@ $app->put('/alterScheduling5',function()use($app){
     }
 });
 
+$app->put('/alterScheduling6',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $scheduling_id=$body->scheduling_id;
+    $scheduling_datetime=$body->scheduling_datetime;
+    $array = array();
+    foreach ($body as $key => $value) {
+        $array[$key] = $value;
+    }
+    if($tenant_id!=null||$tenant_id!=''){
+        $updateStatement = $database->update(array('scheduling_datetime'=>$scheduling_datetime))
+            ->table('scheduling')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('scheduling_id','=',$scheduling_id)
+            ->where('exist','=',0);
+        $affectedRows = $updateStatement->execute();
+        echo json_encode(array("result" => "0", "desc" => "success"));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
+//$app->put('/alterSchedulings0',function()use($app){
+//    $app->response->headers->set('Content-Type', 'application/json');
+//    $tenant_id = $app->request->headers->get("tenant-id");
+//    $database = localhost();
+//    if($tenant_id!=null||$tenant_id!=''){
+//        $updateStatement = $database->update(array('is_alter'=>1))
+//            ->table('scheduling')
+//            ->where('tenant_id','=',$tenant_id)
+//            ->where('is_alter','=',2)
+//            ->where('exist','=',0);
+//        $affectedRows = $updateStatement->execute();
+//        echo json_encode(array("result" => "0", "desc" => "success"));
+//    }else{
+//        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+//    }
+//});
+
 $app->put('/alterSchedulings0',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     if($tenant_id!=null||$tenant_id!=''){
-        $updateStatement = $database->update(array('is_alter'=>1))
+        $updateStatement = $database->update(array('is_alter'=>1,'exist'=>0))
             ->table('scheduling')
             ->where('tenant_id','=',$tenant_id)
             ->where('is_alter','=',2)
-            ->where('exist','=',0);
+            ->where('exist','=',1);
         $affectedRows = $updateStatement->execute();
         echo json_encode(array("result" => "0", "desc" => "success"));
     }else{
