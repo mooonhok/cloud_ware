@@ -555,6 +555,7 @@ $app->post('/sureschthree',function()use($app){
             if($lorry_id!=null||$lorry_id!=""){
                 $selectStatement = $database->select()
                     ->from('lorry')
+                    ->where('app_chose','=',1)
                     ->where('exist','=',0)
                     ->where('flag','=',0)
                     ->where('lorry_id','=',$lorry_id)
@@ -986,11 +987,257 @@ $app->get('/tongji',function()use($app){
         }
         echo json_encode(array('result' => '0', 'desc' => '','count' => $sum));
     }else{
-        echo json_encode(array('result' => '0', 'desc' => '尚未登录'));
+        echo json_encode(array('result' => '1', 'desc' => '尚未登录'));
     }
 });
 //获取车辆列表
+$app->get('/getplate',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $lorry_id = $app->request->get("lorry_id");
+    $database=localhost();
+    if($lorry_id!=null||$lorry_id!=""){
+        $selectStament = $database->select()
+            ->from('lorry')
+            ->where('exist', '=', 0)
+            ->where('lorry_id', '=', $lorry_id);
+        $stmt = $selectStament->execute();
+        $data = $stmt->fetch();
+        if($data!=null){
+            $selectStament = $database->select()
+                ->from('lorry')
+                ->where('exist', '=', 0)
+                ->where('driver_phone', '=', $data['driver_phone'])
+                ->where('driver_name','=',$data['driver_name']);
+            $stmt = $selectStament->execute();
+            $data1 = $stmt->fetchAll();
+            echo json_encode(array('result' => '0', 'desc' => '','lorrys'=>$data1));
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
+    }
+});
+//获取车辆类型列表
+$app->get('/lorry_type',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $selectStament = $database->select()
+        ->from('lorry_type');
+    $stmt = $selectStament->execute();
+    $data = $stmt->fetch();
+    if($data!=null){
+        echo json_encode(array('result' => '0', 'desc' => '','lorry_type'=>$data));
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '尚未有车辆类型数据'));
+    }
+});
 //添加车辆
+$app->post('/addplate_number',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $lorry_id = $body->lorry_id;
+    $plate_number=$body->plate_number;
+    $lorry_size=$body->lorry_size;
+    $lorry_age=$body->lorry_age;
+    $lorry_text=$body->lorry_text;
+    $lorry_type=$body->lorry_type;
+    if($lorry_id!=null||$lorry_id!=""){
+        $selectStament = $database->select()
+            ->from('lorry')
+            ->where('exist', '=', 0)
+            ->where('lorry_id', '=', $lorry_id);
+        $stmt = $selectStament->execute();
+        $data = $stmt->fetch();
+        if($data!=null){
+            $selectStament=$database->select()
+                ->from('lorry');
+            $stmt=$selectStament->execute();
+            $data3=$stmt->fetchAll();
+            $insertStatement = $database->insert(array('lorry_id','plate_number','driver_name','driver_phone','lorry_size','lorry_age','lorry_tx','lorry_type_id','password'))
+                ->into('lorry')
+                ->values(array(count($data3),$plate_number,$data['driver_name'],$data['driver_phone'],$lorry_size,$lorry_age,$lorry_text,$lorry_type,$data['password']));
+            $insertId = $insertStatement->execute(false);
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
+    }
+});
+//选择默认车辆
+$app->put('/upplate_number',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $lorry_id = $body->lorry_id;
+    $database=localhost();
+    $lorry2=$app->lorry_id2;
+    if($lorry_id!=null||$lorry_id!=""){
+        if($lorry2!=null||$lorry2!=""){
+            $selectStament = $database->select()
+                ->from('lorry')
+                ->where('tenant_id','=',0)
+                ->where('exist', '=', 0)
+                ->where('lorry_id', '=', $lorry_id);
+            $stmt = $selectStament->execute();
+            $data9 = $stmt->fetch();
+            $selectStament = $database->select()
+                ->from('lorry')
+                ->where('exist', '=', 0)
+                ->where('flag', '=', 0)
+                ->where('lorry_id', '=', $lorry_id);
+            $stmt = $selectStament->execute();
+            $data = $stmt->fetch();
+            $selectStament = $database->select()
+                ->from('lorry')
+                ->where('tenant_id', '!=', 0)
+                ->where('flag', '=', 0)
+                ->where('plate_number', '=', $data['plate_number'])
+                ->where('driver_phone', '=', $data['driver_phone'])
+                ->where('driver_name', '=', $data['driver_name']);
+            $stmt = $selectStament->execute();
+            $data2 = $stmt->fetchAll();
+            $sum = 0;
+            for ($x = 0; $x < count($data2); $x++) {
+                $selectStament = $database->select()
+                    ->from('scheduling')
+                    ->where('scheduling_status', '=', 4)
+                    ->where('lorry_id', '=', $data2[$x]['lorry_id']);
+                $stmt = $selectStament->execute();
+                $data3 = $stmt->fetchAll();
+                $sum += count($data3);
+            }
+            $selectStament=$database->select()
+                ->from('lorry')
+                ->where('exist','=',0)
+                ->where('flag','=',1)
+                ->where('lorry_id','=',$lorry_id);
+            $stmt=$selectStament->execute();
+            $data5=$stmt->fetch();
+            $selectStament=$database->select()
+                ->from('lorry')
+                ->where('exist','=',0)
+                ->where('flag','=',1)
+                ->where('plate_number','=',$data5['plate_number'])
+                ->where('driver_phone','=',$data5['driver_phone'])
+                ->where('driver_name','=',$data5['driver_name']);
+            $stmt=$selectStament->execute();
+            $data6=$stmt->fetchAll();
+            for($x=0;$x<count($data6);$x++) {
+                $selectStament = $database->select()
+                    ->from('delivery')
+                    ->where('exist', '=', 0)
+                    ->where('is_receive', '=', 0)
+                    ->where('lorry_id', '=', $data6[$x]['lorry_id']);
+                $stmt = $selectStament->execute();
+                $data7 = $stmt->fetchAll();
+                $sum += count($data7);
+            }
+            if($sum>0){
+                if($data9!=null){
+                    $selectStament = $database->select()
+                        ->from('lorry')
+                        ->where('tenant_id','=',0)
+                        ->where('exist', '=', 0)
+                        ->where('lorry_id', '=', $lorry2);
+                    $stmt = $selectStament->execute();
+                    $data10 = $stmt->fetch();
+                    if($data10!=null){
+                        if($data9['driver_name']==$data10['driver_name']&&$data9['driver_phone']==$data10['driver_phone']){
+                            $arrays['app_chose']=1;
+                            $updateStatement = $database->update($arrays)
+                                ->table('lorry')
+                                ->where('lorry_id', '=', $data10['lorry_id']);
+                            $affectedRows = $updateStatement->execute();
+                            $arrays1['app_chose']=0;
+                            $updateStatement = $database->update($arrays1)
+                                ->table('lorry')
+                                ->where('lorry_id', '=', $data10['lorry_id']);
+                            $affectedRows = $updateStatement->execute();
+                            $selectStament = $database->select()
+                                ->from('lorry')
+                                ->where('lorry_id', '=', $lorry2);
+                            $stmt = $selectStament->execute();
+                            $data11 = $stmt->fetch();
+                            echo json_encode(array('result' => '0', 'desc' => '','lorry'=>$data11));
+                        }else{
+                            echo json_encode(array('result' => '5', 'desc' => '该车辆不是你的'));
+                        }
+                    }else{
+                        echo json_encode(array('result' => '4', 'desc' => '车辆不存在'));
+                    }
+                }else{
+                    echo json_encode(array('result' => '3', 'desc' => '司机不存在'));
+                }
+            }else{
+                echo json_encode(array('result' => '6', 'desc' => '您还有未处理单子'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '未选择车辆'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
+    }
+});
+//删除车辆
+$app->put('/upplate',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $lorry_id = $body->lorry_id;
+    $lorry2=$app->lorry_id2;
+    if($lorry_id!=null||$lorry_id!=""){
+        if($lorry2!=null||$lorry2!=""){
+            $selectStament = $database->select()
+                ->from('lorry')
+                ->where('tenant_id','=',0)
+                ->where('exist', '=', 0)
+                ->where('lorry_id', '=', $lorry_id);
+            $stmt = $selectStament->execute();
+            $data = $stmt->fetch();
+            if($data!=null){
+                $selectStament = $database->select()
+                    ->from('lorry')
+                    ->where('tenant_id','=',0)
+                    ->where('exist', '=', 0)
+                    ->where('lorry_id', '=', $lorry2);
+                $stmt = $selectStament->execute();
+                $data2 = $stmt->fetch();
+                if($data2!=null){
+                    if($data2['app_chose']!=1){
+                       $arrays['exist']=1;
+                        $updateStatement = $database->update($arrays)
+                            ->table('lorry')
+                            ->where('plate_number','=',$data2['plate_number'])
+                            ->where('driver_phone','=',$data2['driver_phone'])
+                            ->where('driver_name', '=', $data2['driver_name']);
+                        $affectedRows = $updateStatement->execute();
+                        echo json_encode(array('result' => '0', 'desc' => '删除成功'));
+                    }else{
+                        echo json_encode(array('result' => '5', 'desc' => '该车辆为默认车辆不能删除'));
+                    }
+                }else{
+                    echo json_encode(array('result' => '4', 'desc' => '车辆不存在'));
+                }
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '该司机不存在'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '未选择车辆'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
+    }
+});
 //司机个人信息
 //修改个人信息
 
