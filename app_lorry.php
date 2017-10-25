@@ -492,6 +492,7 @@ $app->post('/sureschfor',function()use($app){
             if($lorry_id!=null||$lorry_id!=""){
                 $selectStatement = $database->select()
                     ->from('lorry')
+                    ->where('app_chose','=',1)
                     ->where('exist','=',0)
                     ->where('flag','=',0)
                     ->where('lorry_id','=',$lorry_id)
@@ -501,7 +502,6 @@ $app->post('/sureschfor',function()use($app){
                 if($data1!=null){
                     $selectStament=$database->select()
                         ->from('lorry')
-                        ->where('app_chose','=',1)
                         ->where('flag','=',0)
                         ->where('driver_phone','=',$data1['driver_phone'])
                         ->where('lorry_id','=',$data['lorry_id'])
@@ -564,7 +564,6 @@ $app->post('/sureschthree',function()use($app){
                 if($data1!=null){
                     $selectStament=$database->select()
                         ->from('lorry')
-                        ->where('app_chose','=',1)
                         ->where('driver_phone','=',$data1['driver_phone'])
                         ->where('lorry_id','=',$data['lorry_id'])
                         ->where('flag','=',0)
