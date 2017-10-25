@@ -277,7 +277,7 @@ $app->get('/sbylorry',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $lorry_id = $app->request->get("lorry_id");
-    $plate_number=$app->request->get('plate_number');
+
     $database=localhost();
     $arrays=array();
     if($lorry_id!=null||$lorry_id!=""){
@@ -291,7 +291,6 @@ $app->get('/sbylorry',function()use($app){
         if($data!=null){
             $selectStament=$database->select()
                 ->from('lorry')
-                ->where('plate_number','=',$plate_number)
                 ->where('tenant_id','!=',0)
                 ->where('flag','=',0)
                 ->where('driver_phone','=',$data['driver_phone'])
