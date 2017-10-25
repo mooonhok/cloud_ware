@@ -1239,8 +1239,37 @@ $app->put('/upplate',function()use($app){
     }
 });
 //司机个人信息
+$app->get('lorrymessage',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $lorry_id = $app->request->get("lorry_id");
+    if($lorry_id!=null||$lorry_id!=""){
+        $selectStament = $database->select()
+            ->from('lorry')
+            ->where('tenant_id','=',0)
+            ->where('exist', '=', 0)
+            ->where('lorry_id', '=', $lorry_id);
+        $stmt = $selectStament->execute();
+        $data = $stmt->fetch();
+        if($data!=null){
+            echo json_encode(array('result' => '0', 'desc' => '','lorry'=>$data));
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
+    }
+});
 //修改个人信息
-
+//$app->put('/uplorry',function()use($app){
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
+//    $body=$app->request->getBody();
+//    $body=json_decode($body);
+//    $lorry_id = $body->lorry_id;
+//
+//});
 
 
 $app->run();
