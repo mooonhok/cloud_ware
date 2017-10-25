@@ -1141,7 +1141,7 @@ $app->put('/upplate_number',function()use($app){
                 $data7 = $stmt->fetchAll();
                 $sum += count($data7);
             }
-            if($sum>0){
+            if($sum==0){
                 if($data9!=null){
                     $selectStament = $database->select()
                         ->from('lorry')
