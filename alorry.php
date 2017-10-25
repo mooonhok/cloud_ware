@@ -1079,7 +1079,7 @@ $app->put('/upplate_number',function()use($app){
     $body=json_decode($body);
     $lorry_id = $body->lorry_id;
     $database=localhost();
-    $lorry2=$app->lorry_id2;
+    $lorry2=$body->lorry_id2;
     if($lorry_id!=null||$lorry_id!=""){
         if($lorry2!=null||$lorry2!=""){
             $selectStament = $database->select()
@@ -1195,7 +1195,7 @@ $app->put('/upplate',function()use($app){
     $body=$app->request->getBody();
     $body=json_decode($body);
     $lorry_id = $body->lorry_id;
-    $lorry2=$app->lorry_id2;
+    $lorry2=$body->lorry_id2;
     if($lorry_id!=null||$lorry_id!=""){
         if($lorry2!=null||$lorry2!=""){
             $selectStament = $database->select()
