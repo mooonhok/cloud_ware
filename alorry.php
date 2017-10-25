@@ -1155,19 +1155,19 @@ $app->put('/upplate_number',function()use($app){
                             $arrays['app_chose']=1;
                             $updateStatement = $database->update($arrays)
                                 ->table('lorry')
-                                ->where('lorry_id', '=', $data10['lorry_id']);
+                                ->where('lorry_id', '=', $lorry2);
                             $affectedRows = $updateStatement->execute();
                             $arrays1['app_chose']=0;
                             $updateStatement = $database->update($arrays1)
                                 ->table('lorry')
-                                ->where('lorry_id', '=', $data10['lorry_id']);
+                                ->where('lorry_id', '=', $lorry_id);
                             $affectedRows = $updateStatement->execute();
                             $selectStament = $database->select()
                                 ->from('lorry')
                                 ->where('lorry_id', '=', $lorry2);
                             $stmt = $selectStament->execute();
                             $data11 = $stmt->fetch();
-                            echo json_encode(array('result' => '0', 'desc' => '','lorry'=>$data11));
+                            echo json_encode(array('result' => '0', 'desc' => '修改默认车辆成功','lorry'=>$data11));
                         }else{
                             echo json_encode(array('result' => '5', 'desc' => '该车辆不是你的'));
                         }
