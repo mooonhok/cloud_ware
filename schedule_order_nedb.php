@@ -145,7 +145,7 @@ $app->get('/getScheduleOrder',function()use($app){
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
                 $data = $stmt->fetchAll();
-                echo json_encode(array("result" => "0", "desc" => "success",'schedule_order'=>$data));
+                echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
             }else{
                 echo json_encode(array("result" => "3", "desc" => "缺少运单id"));
             }

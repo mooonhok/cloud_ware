@@ -582,6 +582,10 @@ $app->put('/alterScheduling6',function()use($app){
     $body = $app->request->getBody();
     $body = json_decode($body);
     $scheduling_id=$body->scheduling_id;
+    $send_city_id=$body->send_city_id;
+    $receive_city_id=$body->
+    lorry_id
+    receiver_id
     $array = array();
     foreach ($body as $key => $value) {
         $array[$key] = $value;
