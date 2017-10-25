@@ -73,22 +73,41 @@ $app->get('/getScheduleOrders1',function()use($app){
     }
 });
 
+
 $app->delete('/deleteScheduleOrders',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
     $tenant_id = $app->request->headers->get("tenant-id");
     $schedule_id= $app->request->get('schedule_id');
     if($tenant_id!=null||$tenant_id!=''){
-        $deleteStatement = $database->delete()
-            ->from('schedule_order')
+        $updateStatement = $database->update(array('exist'=>1))
+            ->table('schedule_order')
             ->where('tenant_id','=',$tenant_id)
-            ->where('exist','=',0)
-            ->where('schedule_id','=',$schedule_id);
+            ->where('schedule_id','=',$schedule_id)
+            ->where('exist','=',0);
+        $affectedRows = $updateStatement->execute();
         echo json_encode(array("result" => "0", "desc" => "success"));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
 });
+
+//$app->delete('/deleteScheduleOrders',function()use($app){
+//    $app->response->headers->set('Content-Type', 'application/json');
+//    $database = localhost();
+//    $tenant_id = $app->request->headers->get("tenant-id");
+//    $schedule_id= $app->request->get('schedule_id');
+//    if($tenant_id!=null||$tenant_id!=''){
+//        $deleteStatement = $database->delete()
+//            ->from('schedule_order')
+//            ->where('tenant_id','=',$tenant_id)
+//            ->where('exist','=',0)
+//            ->where('schedule_id','=',$schedule_id);
+//        echo json_encode(array("result" => "0", "desc" => "success"));
+//    }else{
+//        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+//    }
+//});
 
 $app->run();
 function localhost(){
