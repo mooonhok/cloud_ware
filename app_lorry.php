@@ -51,24 +51,24 @@ $app->post('/addlorry',function()use($app){
                                 ->into('lorry')
                                 ->values(array(count($data3),$plate_number,$name,$tel,$password,1));
                             $insertId = $insertStatement->execute(false);
-                            echo json_encode(array("result" => "0","desc" => "注册成功"));
+                            echo json_encode(array("result"=>"0","desc"=>"注册成功"));
                         }else{
-                            echo json_encode(array("result" => "4","desc" => "密码为空"));
+                            echo json_encode(array("result"=>"4","desc"=>"密码为空"));
                         }
                     }else{
-                        echo json_encode(array("result" => "6","desc" => "车牌号已经被注册"));
+                        echo json_encode(array("result"=>"6","desc"=>"车牌号已经被注册"));
                     }
                 }else{
-                    echo json_encode(array("result" => "3","desc" => "车牌号为空"));
+                    echo json_encode(array("result"=>"3","desc"=>"车牌号为空"));
                 }
             }else{
-                echo json_encode(array("result" => "5","desc" => "手机号已经被注册"));
+                echo json_encode(array("result"=>"5","desc"=>"手机号已经被注册"));
             }
         }else{
-            echo json_encode(array("result" => "2","desc" => "电话为空"));
+            echo json_encode(array("result"=>"2","desc"=>"电话为空"));
         }
     }else{
-        echo json_encode(array("result" => "1","desc" => "姓名为空"));
+        echo json_encode(array("result"=>"1","desc"=>"姓名为空"));
     }
 });
 //登录
