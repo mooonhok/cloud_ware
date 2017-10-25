@@ -583,25 +583,45 @@ $app->put('/alterScheduling6',function()use($app){
     $body = json_decode($body);
     $scheduling_id=$body->scheduling_id;
     $send_city_id=$body->send_city_id;
-    $receive_city_id=$body->
-    lorry_id
-    receiver_id
+    $receive_city_id=$body->receive_city_id;
+    $lorry_id=$body->lorry_id;
+    $receiver_id=$body->receiver_id;
     $array = array();
     foreach ($body as $key => $value) {
         $array[$key] = $value;
     }
     if($tenant_id!=null||$tenant_id!=''){
-        $array['is_alter']=0;
-        $array['exist']=0;
-        $updateStatement = $database->update($array)
-            ->table('scheduling')
-            ->where('tenant_id','=',$tenant_id)
-            ->where('scheduling_id','=',$scheduling_id)
-            ->where('exist','=',0);
-        $affectedRows = $updateStatement->execute();
-        echo json_encode(array("result" => "0", "desc" => "success"));
+        if($send_city_id!=null||$send_city_id!=''){
+            if($receive_city_id!=null||$receive_city_id!=''){
+                if($lorry_id!=null||$lorry_id!=''){
+                    if($receiver_id!=null||$receiver_id!=''){
+                        if($scheduling_id!=null||$scheduling_id!=''){
+                            $array['is_alter']=0;
+                            $array['exist']=0;
+                            $updateStatement = $database->update($array)
+                                ->table('scheduling')
+                                ->where('tenant_id','=',$tenant_id)
+                                ->where('scheduling_id','=',$scheduling_id)
+                                ->where('exist','=',0);
+                            $affectedRows = $updateStatement->execute();
+                            echo json_encode(array("result" => "0", "desc" => "success"));
+                        }else{
+                            echo json_encode(array("result" => "1", "desc" => "缺少调度id"));
+                        }
+                    }else{
+                        echo json_encode(array("result" => "2", "desc" => "缺少收货人id"));
+                    }
+                }else{
+                    echo json_encode(array("result" => "3", "desc" => "缺少车辆id"));
+                }
+            }else{
+                echo json_encode(array("result" => "4", "desc" => "缺少收货城市id"));
+            }
+        }else{
+            echo json_encode(array("result" => "5", "desc" => "缺少发货城市id"));
+        }
     }else{
-        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+        echo json_encode(array("result" => "6", "desc" => "缺少租户id"));
     }
 });
 

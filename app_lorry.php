@@ -1006,6 +1006,7 @@ $app->get('/getplate',function()use($app){
             $selectStament = $database->select()
                 ->from('lorry')
                 ->where('exist', '=', 0)
+                ->where('tenant_id','=',0)
                 ->where('driver_phone', '=', $data['driver_phone'])
                 ->where('driver_name','=',$data['driver_name']);
             $stmt = $selectStament->execute();
