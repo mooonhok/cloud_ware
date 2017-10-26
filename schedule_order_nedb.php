@@ -50,7 +50,7 @@ $app->get('/getScheduleOrders0',function()use($app){
             ->where('tenant_id', '=', $tenant_id);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        echo json_encode(array("result" => "0", "desc" => "success",'schedule_order'=>$data));
+        echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
@@ -67,7 +67,7 @@ $app->get('/getScheduleOrders1',function()use($app){
             ->where('exist', '=', 0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        echo json_encode(array("result" => "0", "desc" => "success",'schedule_order'=>$data));
+        echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
@@ -87,7 +87,7 @@ $app->get('/getScheduleOrders2',function()use($app){
                 ->where('exist', '=', 0);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
-            echo json_encode(array("result" => "0", "desc" => "success",'schedule_order'=>$data));
+            echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
         }else{
             echo json_encode(array("result" => "2", "desc" => "缺少调度id"));
         }
