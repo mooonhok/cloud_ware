@@ -184,8 +184,8 @@ $signPackage = $jssdk->GetSignPackage();
 				       layer.msg("订单不存在");
 					}else{
 					// alert(order_id);
-		            window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?tenant_id="+tenant_id
-		            +"&appid="+appid+"&secret="+secret+"order_id="+order_id;
+		            window.location.href="http://api.uminfo.cn/weixin/waybill_details.php?tenant_id="+tenant_id
+		            +"&appid="+appid+"&secret="+secret+"&order_id="+order_id;
 					}
 				},
 				error: function(xhr) {
