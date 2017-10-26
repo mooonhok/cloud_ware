@@ -185,6 +185,7 @@ $app->delete('/deleteScheduleOrders1',function()use($app){
             ->where('schedule_id', '=', $schedule_id)
             ->where('tenant_id','=',$tenant_id)
             ->where('exist','=',1);
+        $affectedRows = $deleteStatement->execute();
         echo json_encode(array("result" => "0", "desc" => "success"));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));

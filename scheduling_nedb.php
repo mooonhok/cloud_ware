@@ -481,8 +481,6 @@ $app->put('/deleteScheduling',function()use($app){
     }
 });
 
-
-
 //$app->delete('/deleteScheduling',function()use($app){
 //    $app->response->headers->set('Content-Type', 'application/json');
 //    $tenant_id = $app->request->headers->get("tenant-id");
