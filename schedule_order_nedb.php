@@ -136,6 +136,27 @@ $app->put('/alterScheduleOrders0',function()use($app){
     }
 });
 
+$app->put('/alterScheduleOrder0',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $schedule_id=$body->schedule_id;
+    $order_id=$body->order_id;
+    if($tenant_id!=null||$tenant_id!=''){
+        $updateStatement = $database->update(array('exist'=>0))
+            ->table('schedule_order')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('schedule_id','=',$schedule_id)
+            ->where('order_id','=',$order_id);
+        $affectedRows = $updateStatement->execute();
+        echo json_encode(array("result" => "0", "desc" => "success"));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
 //$app->delete('/deleteScheduleOrders',function()use($app){
 //    $app->response->headers->set('Content-Type', 'application/json');
 //    $database = localhost();
