@@ -1288,7 +1288,7 @@ $app->put('/uplorry',function()use($app){
             $arrays['lorry_size']=$lorry_size;
             $arrays['lorry_age']=$lorry_age;
             $arrays['lorry_type_id']=$lorry_type;
-            $arrays['lorry_text']=$lorry_text;
+            $arrays['lorry_tx']=$lorry_text;
             $updateStatement = $database->update($arrays)
                 ->table('lorry')
                 ->where('driver_name','=',$data['driver_name'])
