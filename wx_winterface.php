@@ -80,9 +80,9 @@ class wechatCallbackapiTest
                 echo $resultStr;
             }
             if (!empty($keyword)) {
-                if($keyword=="联系我们") {
+                if($keyword=="1") {
                     $msgType = "text";
-                    $contentStr = "请联系客服电话：15365580443";
+                    $contentStr = "客服电话：15365580443";
                     $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                     echo $resultStr;
                 }else{
