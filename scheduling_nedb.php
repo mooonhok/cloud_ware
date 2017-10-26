@@ -450,7 +450,12 @@ $app->put('/alterScheduling1',function()use($app){
             ->where('scheduling_id','=',$scheduling_id)
             ->where('exist','=',0);
         $affectedRows = $updateStatement->execute();
-        echo json_encode(array("result" => "0", "desc" => "success"));
+        if($affectedRows>0){
+            echo json_encode(array("result" => "0", "desc" => "success"));
+        }else{
+            echo json_encode(array("result" => "2", "desc" => "success"));
+        }
+
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
