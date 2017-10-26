@@ -540,6 +540,8 @@ $app->post('/sureschthree',function()use($app){
     $schedule_id=$body->schedule_id;
     $lorry_id=$body->lorry_id;
     $arrays['scheduling_status']=3;
+    $arrays['is_contract']=1;
+    $arrays['is_insurance']=1;
     $arrays['change_datetime']=time();
     if($schedule_id!=null||$schedule_id!=""){
         $selectStament=$database->select()
@@ -1305,8 +1307,10 @@ $app->put('/uplorry',function()use($app){
     }else{
         echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
     }
-
 });
+
+
+
 
 $app->run();
 function localhost(){
