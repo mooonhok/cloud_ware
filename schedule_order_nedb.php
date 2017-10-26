@@ -174,6 +174,23 @@ $app->put('/alterScheduleOrder0',function()use($app){
 //    }
 //});
 
+$app->delete('/deleteScheduleOrders1',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $schedule_id= $app->request->get('schedule_id');
+    if($tenant_id!=null||$tenant_id!=''){
+        $deleteStatement = $database->delete()
+            ->from('schedule_order')
+            ->where('schedule_id', '=', $schedule_id)
+            ->where('tenant_id','=',$tenant_id)
+            ->where('exist','=',1);
+        echo json_encode(array("result" => "0", "desc" => "success"));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
 $app->get('/getScheduleOrder',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
