@@ -478,6 +478,8 @@ $app->post('/sureschfor',function()use($app){
     $schedule_id=$body->schedule_id;
     $lorry_id=$body->lorry_id;
     $arrays['scheduling_status']=6;
+    $arrays['is_contract']=1;
+    $arrays['is_insurance']=1;
     $arrays['change_datetime']=time();
     if($schedule_id!=null||$schedule_id!=""){
         $selectStament=$database->select()
