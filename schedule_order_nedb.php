@@ -122,12 +122,12 @@ $app->put('/alterScheduleOrders0',function()use($app){
     $database = localhost();
     $body = $app->request->getBody();
     $body = json_decode($body);
-    $scheduling_id=$body->scheduling_id;
+    $schedule_id=$body->schedule_id;
     if($tenant_id!=null||$tenant_id!=''){
         $updateStatement = $database->update(array('exist'=>0))
             ->table('schedule_order')
             ->where('tenant_id','=',$tenant_id)
-            ->where('scheduling_id','=',$scheduling_id)
+            ->where('schedule_id','=',$schedule_id)
             ->where('exist','=',1);
         $affectedRows = $updateStatement->execute();
         echo json_encode(array("result" => "0", "desc" => "success"));

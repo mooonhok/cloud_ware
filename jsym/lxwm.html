@@ -90,8 +90,11 @@ input:-moz-placeholder { color:white; }*/
    		  	  success:function(msg){
    		  	  //	alert(msg.result);
    		  	  	if(msg.result==0){	
-                   layer.msg('感谢您的信任，我们会尽快与您取得联系', {time:2000}); 
-                   window.location.reload();
+                   layer.msg('感谢您的信任，我们会尽快与您取得联系', {time:2000});
+                    $("#company").val("");
+                    $("#name").val("");
+                    $("#telephone").val("");
+                    $("#address").val("");
    		  	  	}else{
    		  	  		layer.msg(msg.desc);
    		  	  	}
