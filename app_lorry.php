@@ -1240,7 +1240,7 @@ $app->put('/upplate',function()use($app){
     }
 });
 //司机个人信息
-$app->get('lorrymessage',function()use($app){
+$app->get('/lorrymessage',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
