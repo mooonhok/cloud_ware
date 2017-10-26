@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -86,7 +87,7 @@
 
 				<div class="xian1"></div>
 				<div class="ditu">
-					<div id="allmap"></div>
+					<!--<img src="images/ditu.png" alt="">-->
 				</div>
 				<div style="clear:both;"></div>
 			</div>
@@ -275,7 +276,7 @@
 		});
 	</script>
 	<script type="text/javascript">
-//     对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
+    // 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
     var useragent = navigator.userAgent;
     if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
         // 这里警告框会阻塞当前页面继续加载
@@ -285,26 +286,5 @@
         opened.opener = null;
         opened.close();
     }
-</script>
-<script type="text/javascript">
-	function loadJScript() {
-		var script = document.createElement("script");
-		script.type = "text/javascript";
-		script.src = "http://api.map.baidu.com/api?v=2.0&ak=aKMGz9RQH6WGZuRYO4NvU1lC06Z6dpz5&callback=init";
-		document.body.appendChild(script);
-	}
-	function init() {
-		var map = new BMap.Map("allmap");            // 创建Map实例
-		var point = new BMap.Point(116.404, 39.915); // 创建点坐标
-		map.centerAndZoom(point,15);                 
-		map.enableScrollWheelZoom();     //启用滚轮放大缩小
-		map.enableScrollWheelZoom(true);
-        var p1 = new BMap.Point(116.301934,39.977552);
-        var p2 = new BMap.Point(116.508328,39.919141);
-        var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});
-        driving.search(p1, p2,{waypoints:["北京科技大学","北京国际会议中心"]});//waypoints表示途经点
-	}  
-	window.onload = loadJScript;  //异步加载地图
-
 </script>
 </html>
