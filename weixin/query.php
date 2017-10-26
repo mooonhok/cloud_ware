@@ -162,6 +162,8 @@ $signPackage = $jssdk->GetSignPackage();
 				return null;
 			}
 		})(jQuery);
+		var appid=$.getUrlParam('appid');
+		var secret=$.getUrlParam('secret');
 		var tenant_id=$.getUrlParam('tenant_id');
 	$("#sumbit").click(function(){
 		var order_id=$("#order_id").val();
@@ -182,7 +184,8 @@ $signPackage = $jssdk->GetSignPackage();
 				       layer.msg("订单不存在");
 					}else{
 					// alert(order_id);
-		            window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+order_id+"&tenant_id="+tenant_id;
+		            window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?tenant_id="+tenant_id
+		            +"&appid="+appid+"&secret="+secret+"order_id="+order_id;
 					}
 				},
 				error: function(xhr) {
@@ -300,7 +303,7 @@ wx.error(function (res) {
     var useragent = navigator.userAgent;
     if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
         // 这里警告框会阻塞当前页面继续加载
-        alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+        alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面!');
         // 以下代码是用javascript强行关闭当前页面
         var opened = window.open('http://www.uminfo.cn', '_self');
         opened.opener = null;
