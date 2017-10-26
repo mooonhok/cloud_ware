@@ -4,7 +4,7 @@
 	 <meta charset="UTF-8">
 	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	 <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
-	 <title>我要合作</title>
+	 <title>我要加入</title>
 	 	<style>
 		.srk{
 		margin: 0 auto;
@@ -57,13 +57,13 @@ input:-moz-placeholder { color:white; }*/
 		<div class="srk"><img src="img/name.png"><input type="text" placeholder="负责人名字" id="name"/></div>
 		<div class="srk"><img src="img/telephone.png"><input type="text" placeholder="手机号" id="telephone"/></div>
 		<div class="srk"><img src="img/address.png"><input type="text" placeholder="公司地址" id="address"/></div>
-		<div id="hezuo">要求合作</div>
+		<div id="hezuo">确认</div>
 	</body>
 	<script language=javascript>
        $(function(){
 
        	$("#hezuo").on("click",function(){
-       		       	var company=$("#company").val();
+       	var company=$("#company").val();
        	var name=$("#name").val();
        	var telephone=$("#telephone").val();
        	var address=$("#address").val();
@@ -90,11 +90,8 @@ input:-moz-placeholder { color:white; }*/
    		  	  success:function(msg){
    		  	  //	alert(msg.result);
    		  	  	if(msg.result==0){	
-                   layer.msg('感谢您的信任，我们会尽快与您取得联系', {time:2000});
-                    $("#company").val("");
-                    $("#name").val("");
-                    $("#telephone").val("");
-                    $("#address").val("");
+                   layer.msg('感谢您的信任，我们会尽快与您取得联系', {time:2000}); 
+                   window.location.reload();
    		  	  	}else{
    		  	  		layer.msg(msg.desc);
    		  	  	}
