@@ -73,7 +73,12 @@ class wechatCallbackapiTest
             <MediaId><![CDATA[media_id]]></MediaId>
             </Image>
             </xml>";
-
+            $xmlTpl2 = "<xml>
+<ToUserName><![CDATA[%s]]></ToUserName>
+<FromUserName><![CDATA[%s]]></FromUserName>
+<CreateTime>%s</CreateTime>
+<MsgType><![CDATA[transfer_customer_service]]></MsgType>
+</xml>";
             if ($ev == "subscribe") {
                 $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news',
                     $ArticleCount,'公司简介','江苏酉铭信息技术有限公司','',
@@ -81,11 +86,14 @@ class wechatCallbackapiTest
                 echo $resultStr;
             }
             if (!empty($keyword)) {
-                if($keyword=="联系我们"){
+                if($keyword=="联系我们") {
                     $msgType = "text";
                     $contentStr = "请联系客服电话：15365580443";
                     $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                     echo $resultStr;
+                }else if($keyword=="客服"){
+                    $result = sprintf($xmlTpl2, $fromUsername, $toUsername, time());
+                    return $result;
                 }else{
                     $msgType = "text";
                     $contentStr = "请查看菜单";
