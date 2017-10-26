@@ -627,11 +627,11 @@ $app->get('/obycourier',function()use($app){
                 $stmt = $selectStament->execute();
                 $data2 = $stmt->fetchAll();
                 $num += count($data2);
-                for ($x = 0; $x < count($data2); $x++) {
+                for ($y = 0; $y < count($data2); $y++) {
                     $selectStament = $database->select()
                         ->from('delivery_order')
                         ->where('exist', '=', 0)
-                        ->where('delivery_id', '=', $data2[$x]['delivery_id']);
+                        ->where('delivery_id', '=', $data2[$y]['delivery_id']);
                     $stmt = $selectStament->execute();
                     $data3 = $stmt->fetch();
                     $selectStament = $database->select()
@@ -691,11 +691,11 @@ $app->get('/obycouriern',function()use($app){
                     ->orderBy('change_datetime','desc');
                 $stmt = $selectStament->execute();
                 $data2 = $stmt->fetchAll();
-                for ($x = 0; $x < count($data2); $x++) {
+                for ($y = 0; $y < count($data2); $y++) {
                     $selectStament = $database->select()
                         ->from('delivery_order')
                         ->where('exist', '=', 0)
-                        ->where('delivery_id', '=', $data2[$x]['delivery_id']);
+                        ->where('delivery_id', '=', $data2[$y]['delivery_id']);
                     $stmt = $selectStament->execute();
                     $data3 = $stmt->fetch();
                     $selectStament = $database->select()
