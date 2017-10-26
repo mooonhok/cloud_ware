@@ -456,11 +456,13 @@ $app->put('/alterScheduling1',function()use($app){
     }
 });
 
-$app->delete('/deleteScheduling',function()use($app){
+$app->put('/deleteScheduling',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
-    $scheduling_id= $app->request->get('scheduling_id');
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $scheduling_id = $body->scheduling_id;
     if($tenant_id!=null||$tenant_id!=''){
         $updateStatement = $database->update(array('exist'=>1))
             ->table('scheduling')

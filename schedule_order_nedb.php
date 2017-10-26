@@ -96,11 +96,13 @@ $app->get('/getScheduleOrders2',function()use($app){
     }
 });
 
-$app->delete('/deleteScheduleOrders',function()use($app){
+$app->put('/deleteScheduleOrders',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
     $tenant_id = $app->request->headers->get("tenant-id");
-    $schedule_id= $app->request->get('schedule_id');
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $schedule_id = $body->schedule_id;
     if($tenant_id!=null||$tenant_id!=''){
         $updateStatement = $database->update(array('exist'=>1))
             ->table('schedule_order')
