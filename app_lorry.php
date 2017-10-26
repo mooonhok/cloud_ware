@@ -1045,6 +1045,7 @@ $app->post('/addplate_number',function()use($app){
     $lorry_age=$body->lorry_age;
     $lorry_text=$body->lorry_text;
     $lorry_type=$body->lorry_type;
+    $lorry_weight=$body->lorry_weight;
     if($lorry_id!=null||$lorry_id!=""){
         $selectStament = $database->select()
             ->from('lorry')
@@ -1057,9 +1058,10 @@ $app->post('/addplate_number',function()use($app){
                 ->from('lorry');
             $stmt=$selectStament->execute();
             $data3=$stmt->fetchAll();
-            $insertStatement = $database->insert(array('lorry_id','plate_number','driver_name','driver_phone','lorry_size','lorry_age','lorry_tx','lorry_type_id','password'))
+            $insertStatement = $database->insert(array('lorry_id','plate_number','driver_name','driver_phone','lorry_size','lorry_age','lorry_tx','lorry_type_id',
+                'password','lorry_weight'))
                 ->into('lorry')
-                ->values(array(count($data3),$plate_number,$data['driver_name'],$data['driver_phone'],$lorry_size,$lorry_age,$lorry_text,$lorry_type,$data['password']));
+                ->values(array(count($data3),$plate_number,$data['driver_name'],$data['driver_phone'],$lorry_size,$lorry_age,$lorry_text,$lorry_type,$data['password'],$lorry_weight));
             $insertId = $insertStatement->execute(false);
             echo json_encode(array('result' => '0', 'desc' => '添加成功'));
         }else{
@@ -1271,6 +1273,7 @@ $app->put('/uplorry',function()use($app){
     $lorry_age=$body->lorry_age;
     $lorry_text=$body->lorry_text;
     $lorry_type=$body->lorry_type;
+    $lorry_weight=$body->lorry_weight;
     $database=localhost();
     if($lorry_id!=null||$lorry_id!=""){
         $selectStament = $database->select()
@@ -1289,6 +1292,7 @@ $app->put('/uplorry',function()use($app){
             $arrays['lorry_age']=$lorry_age;
             $arrays['lorry_type_id']=$lorry_type;
             $arrays['lorry_tx']=$lorry_text;
+            $arrays['lorry_weight']=$lorry_weight;
             $updateStatement = $database->update($arrays)
                 ->table('lorry')
                 ->where('driver_name','=',$data['driver_name'])
