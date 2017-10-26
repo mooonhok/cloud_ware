@@ -277,7 +277,6 @@ $app->get('/sbylorry',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $lorry_id = $app->request->get("lorry_id");
-
     $database=localhost();
     $arrays=array();
     if($lorry_id!=null||$lorry_id!=""){
@@ -1261,15 +1260,49 @@ $app->get('lorrymessage',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
     }
 });
-//修改个人信息
-//$app->put('/uplorry',function()use($app){
-//    $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
-//    $body=$app->request->getBody();
-//    $body=json_decode($body);
-//    $lorry_id = $body->lorry_id;
-//
-//});
+//修改车辆信息信息
+$app->put('/uplorry',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $lorry_id = $body->lorry_id;
+    $lorry_size=$body->lorry_size;
+    $lorry_age=$body->lorry_age;
+    $lorry_text=$body->lorry_text;
+    $lorry_type=$body->lorry_type;
+    $database=localhost();
+    if($lorry_id!=null||$lorry_id!=""){
+        $selectStament = $database->select()
+            ->from('lorry')
+            ->where('tenant_id','=',0)
+            ->where('exist', '=', 0)
+            ->where('app_chose','=',1)
+            ->whereNull('lorry_size')
+            ->whereNull('lorry_age')
+            ->whereNull('lorry_type_id')
+            ->where('lorry_id', '=', $lorry_id);
+        $stmt = $selectStament->execute();
+        $data = $stmt->fetch();
+        if($data!=null){
+            $arrays['lorry_size']=$lorry_size;
+            $arrays['lorry_age']=$lorry_age;
+            $arrays['lorry_type_id']=$lorry_type;
+            $arrays['lorry_text']=$lorry_text;
+            $updateStatement = $database->update($arrays)
+                ->table('lorry')
+                ->where('driver_name','=',$data['driver_name'])
+                ->where('plate_number','=',$data['plate_number']);
+            $affectedRows = $updateStatement->execute();
+            echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '该车辆已经填写过信息'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
+    }
+
+});
 
 $app->run();
 function localhost(){
