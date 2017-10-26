@@ -451,26 +451,26 @@ $signPackage = $jssdk->GetSignPackage();
 		var openid = $.cookie('openid'+tenant_id);
 		var customer_send_id = null;
 		var customer_accept_id = null;
-		if(openid != null) {
-			$.ajax({
-				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid=" + openid,
-				beforeSend: function(request) {
-					request.setRequestHeader("tenant-id", tenant_id);
-				},
-				dataType: 'json',
-				type: 'get',
-				ContentType: "application/json;charset=utf-8",
-				data: JSON.stringify({}),
-				success: function(msg) {
-				   if(msg.result == 0) {
-					   window.location.href = "http://api.uminfo.cn/weixin/test.html?tenant_id="+tenant_id+"&page=5";
-				  }
-				},
-				error: function(xhr) {
-					layer.msg("获取后台失败");
-				}
-			});
-		}
+//		if(openid != null) {
+//			$.ajax({
+//				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid=" + openid,
+//				beforeSend: function(request) {
+//					request.setRequestHeader("tenant-id", tenant_id);
+//				},
+//				dataType: 'json',
+//				type: 'get',
+//				ContentType: "application/json;charset=utf-8",
+//				data: JSON.stringify({}),
+//				success: function(msg) {
+//				   if(msg.result == 0) {
+//					   window.location.href = "http://api.uminfo.cn/weixin/test.html?tenant_id="+tenant_id+"&page=5";
+//				  }
+//				},
+//				error: function(xhr) {
+//					layer.msg("获取后台失败");
+//				}
+//			});
+//		}
 		$(document).ready(function() {
 			$(".top1").on("click", function() {
 				loadsend(openid,tenant_id);
