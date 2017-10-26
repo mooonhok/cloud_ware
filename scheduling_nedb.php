@@ -603,8 +603,7 @@ $app->put('/alterScheduling6',function()use($app){
                             $updateStatement = $database->update($array)
                                 ->table('scheduling')
                                 ->where('tenant_id','=',$tenant_id)
-                                ->where('scheduling_id','=',$scheduling_id)
-                                ->where('exist','=',0);
+                                ->where('scheduling_id','=',$scheduling_id);
                             $affectedRows = $updateStatement->execute();
                             echo json_encode(array("result" => "0", "desc" => "success"));
                         }else{
