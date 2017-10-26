@@ -590,15 +590,22 @@ $app->post('/plus_customer',function()use($app){
            $stmt = $selectStatement->execute();
            $data1 = $stmt->fetch();
            if($data1==null){
-               $selectStatement = $database->select()
-                   ->from('customer')
-                   ->whereNotNull('wx_openid')
-                   ->where('tenant_id','=',$tenant_id);
-               $stmt = $selectStatement->execute();
-               $data2 = $stmt->fetchAll();
+//               $selectStatement = $database->select()
+//                   ->from('customer')
+//                   ->whereNotNull('wx_openid')
+//                   ->where('tenant_id','=',$tenant_id);
+//               $stmt = $selectStatement->execute();
+//               $data2 = $stmt->fetchAll();
+               $chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+               $strr = substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+               do{
+                   $strr.= substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+               }while(strlen($strr)<4);
+               $time=base_convert(time(), 10, 32);
+               $str=$time.$strr;
                $insertStatement = $database->insert(array('exist','tenant_id','wx_openid','type','customer_id','customer_address','customer_city_id','customer_name','customer_phone'))
                    ->into('customer')
-                   ->values(array(0,$tenant_id,$wx_openid,$type,count($data2)+10000001,$adress,$city_id,$customer_name,$phone));
+                   ->values(array(0,$tenant_id,$wx_openid,$type,$str,$adress,$city_id,$customer_name,$phone));
                $insertId = $insertStatement->execute(false);
                if($insertId!=null){
 //                   $selectStatement = $database->select()
