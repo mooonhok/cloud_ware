@@ -107,7 +107,7 @@ $app->post('/addmap',function()use($app){
 });
 
 //根据orderid获取地理位置
-$app->get('/maps',function()use($app){
+$app->get('/mapsbyor',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
