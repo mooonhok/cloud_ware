@@ -80,17 +80,17 @@ class wechatCallbackapiTest
                 echo $resultStr;
             }
             if (!empty($keyword)) {
-                if($keyword=="1") {
+//                if($keyword=="1") {
                     $msgType = "text";
                     $contentStr = "客服电话：15365580443";
                     $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                     echo $resultStr;
-                }else{
-                    $msgType = "text";
-                    $contentStr = "请查看菜单";
-                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                    echo $resultStr;
-                }
+//                }else{
+//                    $msgType = "text";
+//                    $contentStr = "请查看菜单";
+//                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+//                    echo $resultStr;
+//                }
             } else {
                 echo "Input something...";
             }
