@@ -1,6 +1,6 @@
 $(function(){
 var adminid=$.session.get('adminid');
-
+    loadtenants(adminid,page);
 });
 
 function loadtenants(adminid,page) {
