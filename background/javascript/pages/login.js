@@ -23,12 +23,14 @@ $(function(){
 				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({
 					name:name,
-					password:password
+					password:password,
+					type:1
 				}),
 				success: function(msg) {
 				   if(msg.result == 0) {
                        $('.mask,.dialog').hide();
-					   window.location.href = "http://api.uminfo.cn/background/tenant.html"
+					   window.location.href = "http://api.uminfo.cn/background/tenant.html";
+                       $.session.set('adminid',msg.admin);
 				  }
 				},
 				error: function(xhr) {
