@@ -20,9 +20,6 @@ $app->post('/addAgreement',function()use($app) {
     $agreement_id=$body->agreement_id;
     $secondparty_id = $body->secondparty_id;
     $freight = $body->freight;
-	$pay_method=$body->pay_method;
-	$deadline=$body->deadline;
-	$agreement_require=$body->agreement_require;
 	$agreement_time=$body->agreement_time;
     $array = array();
     foreach ($body as $key => $value) {
@@ -32,9 +29,6 @@ $app->post('/addAgreement',function()use($app) {
         if($agreement_id!=null||$agreement_id!=''){
             if($secondparty_id!=null||$secondparty_id!=''){
                 if($freight!=null||$freight!=''){
-                    if($pay_method!=null||$pay_method!=''){
-                        if($deadline!=null||$deadline!=''){
-                            if($agreement_require!=null||$agreement_require!=''){
                                 if($agreement_time!=null||$agreement_time!=''){
                                     $array['tenant_id']=$tenant_id;
                                     $array['exist']=0;
@@ -46,15 +40,6 @@ $app->post('/addAgreement',function()use($app) {
                                 }else{
                                     echo json_encode(array("result" => "1", "desc" => "缺少合同生成时间"));
                                 }
-                            }else{
-                                echo json_encode(array("result" => "2", "desc" => "缺少合同需要"));
-                            }
-                        }else{
-                            echo json_encode(array("result" => "3", "desc" => "缺少合同过期时间"));
-                        }
-                    }else{
-                        echo json_encode(array("result" => "4", "desc" => "缺少支付方式"));
-                    }
                 }else{
                     echo json_encode(array("result" => "5", "desc" => "缺少运费"));
                 }

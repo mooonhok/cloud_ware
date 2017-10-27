@@ -1,3 +1,4 @@
 $(function(){
-alert($.session.get('adminid'))
+alert($.session.get('adminid'));
+
 });
