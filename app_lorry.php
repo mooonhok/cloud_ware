@@ -1063,10 +1063,10 @@ $app->post('/addplate_number',function()use($app){
             $stmt=$selectStament->execute();
             $data3=$stmt->fetchAll();
             $insertStatement = $database->insert(array('lorry_id','plate_number','driver_name','driver_phone','lorry_size','lorry_age','lorry_tx','lorry_type_id',
-                'password','lorry_weight','driver_identycard','driver_license','vehicle_travel_license	','driver_address','driver_email'))
+                'password','lorry_weight','driver_identycard','driving_license','vehicle_travel_license','driver_address','driver_email'))
                 ->into('lorry')
                 ->values(array(count($data3),$plate_number,$data['driver_name'],$data['driver_phone'],$lorry_size,$lorry_age,$lorry_text,$lorry_type,$data['password']
-                ,$lorry_weight,$data['driver_identycard'],$data['driver_license'],$data['vehicle_travel_license'],$data['driver_address'],$data['driver_email']));
+                ,$lorry_weight,$data['driver_identycard'],$data['driving_license'],$data['vehicle_travel_license'],$data['driver_address'],$data['driver_email']));
             $insertId = $insertStatement->execute(false);
             echo json_encode(array('result' => '0', 'desc' => '添加成功'));
         }else{
@@ -1340,7 +1340,7 @@ $app->put('/updriver',function()use($app){
             $lujing= $new_file;
         }
     }
-    $arrays['driver_license']=$lujing;
+    $arrays['driving_license']=$lujing;
     $arrays['driver_address']=$driver_address;
     $arrays['driver_identycard']=$driver_identycard;
     $arrays['driver_email']=$driver_email;
