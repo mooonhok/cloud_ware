@@ -129,7 +129,7 @@ $app->get('/getAgreementScheduling0',function()use($app) {
                 ->where('lorry.tenant_id','=',$tenant_id)
                 ->where('agreement_schedule.tenant_id','=',$tenant_id);
             $stmt = $selectStatement->execute();
-            $data = $stmt->fetch();
+            $data = $stmt->fetchAll();
                 $selectStatement = $database->select()
                     ->from('city')
                     ->where('id', '=', $data['send_city_id']);

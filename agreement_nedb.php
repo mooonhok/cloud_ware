@@ -144,6 +144,34 @@ $app->put('/alterAgreement0',function()use($app) {
     }
 });
 
+$app->get('/limitAgreements',function()use($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database=localhost();
+    $offset=$app->request->get('offset');
+    $size=$app->request->get('size');
+    if($tenant_id!=''||$tenant_id!=null){
+        if($offset!=null||$offset!=''){
+            if($size!=null||$size!=''){
+                $selectStatement = $database->select()
+                    ->from('agreement')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('exist','=',0)
+                    ->orderBy("agreement_id")
+                    ->limit((int)$size,(int)$offset);
+                $stmt = $selectStatement->execute();
+                $data = $stmt->fetchAll();
+                echo json_encode(array("result" => "0", "desc" => 'success','agreements'=>$data));
+            }else{
+                echo json_encode(array("result" => "1", "desc" => "size缺失"));
+            }
+        }else{
+            echo json_encode(array("result" => "2", "desc" => "偏移量缺失"));
+        }
+    }else{
+        echo json_encode(array("result" => "3", "desc" => "缺少租户id"));
+    }
+});
 
 $app->run();
 
