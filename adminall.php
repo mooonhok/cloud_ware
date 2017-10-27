@@ -201,6 +201,13 @@ $app->get('/tenants',function()use($app){
                     $data5 = $stmt->fetch();
                     $data[$x]['receive_city']=$data5['name'];
                     $data[$x]['customer']=$data2;
+                    $selectStament=$database->select()
+                        ->from('sales')
+                        ->where('id','=',$data[$x]['sales_id']);
+                    $stmt=$selectStament->execute();
+                    $data11=$stmt->fetch();
+                    $data[$x]['sales_name']=$data11['sales_name'];
+                    $data[$x]['sales_phone']=$data11['telephone'];
                     //   array_push($arrayt,$array1);
                     $selectStatement = $database->select()
                         ->from('insurance')
@@ -236,13 +243,8 @@ $app->get('/tenants',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data10 = $stmt->fetchAll();
                     $data[$x]['rechanges']=$data10;
-                    $selectStament=$database->select()
-                        ->from('sales')
-                        ->where('id','=',$data[$x]['sales_id']);
-                    $stmt=$selectStament->execute();
-                    $data11=$stmt->fetch();
                 }
-                echo json_encode(array('result' => '0', 'desc' => '','tenants'=>$data,'count'=>$num,'sales'=>$data11));
+                echo json_encode(array('result' => '0', 'desc' => '','tenants'=>$data,'count'=>$num));
             }else{
                 echo json_encode(array('result' => '1', 'desc' => '尚未有公司'));
             }
@@ -282,6 +284,13 @@ $app->get('/tenants',function()use($app){
                     $data5 = $stmt->fetch();
                     $data[$x]['receive_city']=$data5['name'];
                     $data[$x]['customer']=$data2;
+                    $selectStament=$database->select()
+                        ->from('sales')
+                        ->where('id','=',$data[$x]['sales_id']);
+                    $stmt=$selectStament->execute();
+                    $data11=$stmt->fetch();
+                    $data[$x]['sales_name']=$data11['sales_name'];
+                    $data[$x]['sales_phone']=$data11['telephone'];
                     //   array_push($arrayt,$array1);
                     $selectStatement = $database->select()
                         ->from('insurance')
@@ -317,13 +326,8 @@ $app->get('/tenants',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data10 = $stmt->fetchAll();
                     $data[$x]['rechanges']=$data10;
-                    $selectStament=$database->select()
-                        ->from('sales')
-                        ->where('id','=',$data[$x]['sales_id']);
-                    $stmt=$selectStament->execute();
-                    $data11=$stmt->fetch();
                 }
-                echo json_encode(array('result' => '0', 'desc' => '','tenants'=>$data,'count'=>$num,'sales'=>$data11));
+                echo json_encode(array('result' => '0', 'desc' => '','tenants'=>$data,'count'=>$num));
             }else{
                 echo json_encode(array('result' => '1', 'desc' => '尚未有公司'));
             }
