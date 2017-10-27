@@ -28,7 +28,7 @@ $app->get('/maps',function()use($app){
             $selectStament=$database->select()
                 ->from('map')
                 ->where('scheduling_id','=',$scheduling_id)
-                ->orderBy('accept_time','desc');
+                ->orderBy('accept_time');
             $stmt=$selectStament->execute();
             $data2=$stmt->fetchAll();
             if($data2!=null){
@@ -129,7 +129,7 @@ $app->get('/mapsbyor',function()use($app){
                $selectStament=$database->select()
                    ->from('map')
                    ->where('scheduling_id','=',$data5['schedule_id'])
-                   ->orderBy('accept_time','desc');
+                   ->orderBy('accept_time');
                $stmt=$selectStament->execute();
                $data2=$stmt->fetchAll();
                if($data2!=null){
