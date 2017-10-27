@@ -238,7 +238,7 @@ $app->get('/tenants',function()use($app){
                     $data[$x]['rechanges']=$data10;
                     $selectStament=$database->select()
                         ->from('sales')
-                        ->where('sales_id','=',$data[$x]['id']);
+                        ->where('id','=',$data[$x]['sales_id']);
                     $stmt=$selectStament->execute();
                     $data11=$stmt->fetch();
                 }
@@ -319,7 +319,7 @@ $app->get('/tenants',function()use($app){
                     $data[$x]['rechanges']=$data10;
                     $selectStament=$database->select()
                         ->from('sales')
-                        ->where('sales_id','=',$data[$x]['id']);
+                        ->where('id','=',$data[$x]['sales_id']);
                     $stmt=$selectStament->execute();
                     $data11=$stmt->fetch();
                 }
