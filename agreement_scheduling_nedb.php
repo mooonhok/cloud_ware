@@ -130,9 +130,10 @@ $app->get('/getAgreementScheduling0',function()use($app) {
                 ->where('agreement_schedule.tenant_id','=',$tenant_id);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
+            for($i=0;$i<count($data);$i++){
                 $selectStatement = $database->select()
                     ->from('city')
-                    ->where('id', '=', $data['send_city_id']);
+                    ->where('id', '=', $data[$i]['send_city_id']);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
                 $selectStatement = $database->select()
@@ -142,7 +143,7 @@ $app->get('/getAgreementScheduling0',function()use($app) {
                 $data3 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('city')
-                    ->where('id', '=', $data['receive_city_id']);
+                    ->where('id', '=', $data[$i]['receive_city_id']);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetch();
                 $selectStatement = $database->select()
@@ -150,11 +151,12 @@ $app->get('/getAgreementScheduling0',function()use($app) {
                     ->where('id', '=', $data2['pid']);
                 $stmt = $selectStatement->execute();
                 $data4 = $stmt->fetch();
-                $data['send_city']=$data1;
-                $data['receive_city']=$data2;
-                $data['send_province']=$data3;
-                $data['receive_province']=$data4;
-            echo json_encode(array("result" => "1", "desc" => 'success','agreement_schedule'=>$data));
+                $data[$i]['send_city']=$data1;
+                $data[$i]['receive_city']=$data2;
+                $data[$i]['send_province']=$data3;
+                $data[$i]['receive_province']=$data4;
+            }
+            echo json_encode(array("result" => "1", "desc" => 'success','agreement_schedules'=>$data));
         }else{
             echo json_encode(array("result" => "1", "desc" => "缺少合同id"));
         }

@@ -155,6 +155,7 @@ $app->get('/limitAgreements',function()use($app) {
             if($size!=null||$size!=''){
                 $selectStatement = $database->select()
                     ->from('agreement')
+                    ->join('lorry','lorry.lorry_id','=','agreement.secondparty_id','INNER')
                     ->where('tenant_id','=',$tenant_id)
                     ->where('exist','=',0)
                     ->orderBy("agreement_id")
