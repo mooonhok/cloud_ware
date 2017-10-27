@@ -14,8 +14,6 @@ $(function(){
 			$('.dialog .dialog-bd p').html('验证码输入有误');
 			createCode();
 		}else{
-			$('.mask,.dialog').hide();
-			location.href='index1.html';
 			var name=$('#adminName').val();
 			var password=$('#adminPwd').val();
 			$.ajax({
@@ -29,7 +27,8 @@ $(function(){
 				}),
 				success: function(msg) {
 				   if(msg.result == 0) {
-					   window.location.href = "http://api.uminfo.cn/background/tenant.html;
+                       $('.mask,.dialog').hide();
+					   window.location.href = "http://api.uminfo.cn/background/tenant.html"
 				  }
 				},
 				error: function(xhr) {
