@@ -115,7 +115,7 @@ $app->get('/getAgreementScheduling0',function()use($app) {
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database=localhost();
-    $agreement_id=$app->request->headers->get("agreement_id");
+    $agreement_id=$app->request->get("agreement_id");
     if($tenant_id!=''||$tenant_id!=null){
         if($agreement_id!=''||$agreement_id!=null){
             $selectStatement = $database->select()
