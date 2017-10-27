@@ -1063,9 +1063,10 @@ $app->post('/addplate_number',function()use($app){
             $stmt=$selectStament->execute();
             $data3=$stmt->fetchAll();
             $insertStatement = $database->insert(array('lorry_id','plate_number','driver_name','driver_phone','lorry_size','lorry_age','lorry_tx','lorry_type_id',
-                'password','lorry_weight'))
+                'password','lorry_weight','driver_identycard','driver_license','vehicle_travel_license	','driver_address','driver_email'))
                 ->into('lorry')
-                ->values(array(count($data3),$plate_number,$data['driver_name'],$data['driver_phone'],$lorry_size,$lorry_age,$lorry_text,$lorry_type,$data['password'],$lorry_weight));
+                ->values(array(count($data3),$plate_number,$data['driver_name'],$data['driver_phone'],$lorry_size,$lorry_age,$lorry_text,$lorry_type,$data['password']
+                ,$lorry_weight,$data['driver_identycard'],$data['driver_license'],$data['vehicle_travel_license'],$data['driver_address'],$data['driver_email']));
             $insertId = $insertStatement->execute(false);
             echo json_encode(array('result' => '0', 'desc' => '添加成功'));
         }else{
@@ -1310,7 +1311,61 @@ $app->put('/uplorry',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
     }
 });
-
+//修改司机个人信息
+$app->put('/updriver',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $lorry_id=$body->lorry_id;
+    $driver_email=$body->email;
+    $driver_identycard=$body->idcard;
+    $driver_address=$body->driver_address;
+    $pic=$body->pic;
+    $lujing=null;
+    $base64_image_content = $pic;
+//匹配出图片的格式
+    if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)){
+        $type = $result[2];
+        date_default_timezone_set("PRC");
+        $new_file = "/files/lorry/".date('Ymd',time())."/";
+        if(!file_exists($new_file))
+        {
+//检查是否有该文件夹，如果没有就创建，并给予最高权限
+            mkdir($new_file, 0700);
+        }
+        $new_file = $new_file.time().".{$type}";
+        if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))){
+            $lujing= $new_file;
+        }
+    }
+    $arrays['driver_license']=$lujing;
+    $arrays['driver_address']=$driver_address;
+    $arrays['driver_identycard']=$driver_identycard;
+    $arrays['driver_email']=$driver_email;
+   if($lorry_id!=null||$lorry_id!=""){
+       $selectStament = $database->select()
+           ->from('lorry')
+           ->where('tenant_id','=',0)
+           ->where('exist', '=', 0)
+           ->where('lorry_id', '=', $lorry_id);
+       $stmt = $selectStament->execute();
+       $data = $stmt->fetch();
+       if($data!=null){
+           $updateStatement = $database->update($arrays)
+               ->table('lorry')
+               ->where('driver_name','=',$data['driver_name'])
+               ->where('driver_phone','=',$data['driver_phone']);
+           $affectedRows = $updateStatement->execute();
+           echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
+       }else{
+           echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+       }
+   }else{
+       echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
+   }
+});
 
 
 
