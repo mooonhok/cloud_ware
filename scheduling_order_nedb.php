@@ -874,7 +874,6 @@ $app->get('/getSchedulingOrderList0',function()use($app){
     $database = localhost();
     $tenant_id = $app->request->headers->get("tenant-id");
     $scheduling_id=$app->request->get('scheduling_id');
-    $i=$app->request->get('i');
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('schedule_order')
@@ -949,7 +948,7 @@ $app->get('/getSchedulingOrderList0',function()use($app){
             $data[$i]['receiver_city']=$data7;
             $data[$i]['receiver_province']=$data9;
         }
-        echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data,'ii'=>$i));
+        echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
@@ -960,7 +959,6 @@ $app->get('/getSchedulingOrderList1',function()use($app){
     $database = localhost();
     $tenant_id = $app->request->headers->get("tenant-id");
     $scheduling_id=$app->request->get('scheduling_id');
-    $i=$app->request->get('i');
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('schedule_order')
@@ -1035,7 +1033,7 @@ $app->get('/getSchedulingOrderList1',function()use($app){
             $data[$i]['receiver_city']=$data7;
             $data[$i]['receiver_province']=$data9;
         }
-        echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data,'i'=>$i));
+        echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
