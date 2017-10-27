@@ -58,6 +58,8 @@ function loadtenants(adminid,page) {
 
 
 function tenant_xq(id){
+    $(".tenant_tk").css("display","block");
+    $(".tenant_tk div input").val("");
     $.ajax({
         url: "http://api.uminfo.cn/tenant_nedb.php/getTenant1?tenant_id="+id,
         dataType: 'json',
