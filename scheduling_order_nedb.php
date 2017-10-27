@@ -873,17 +873,19 @@ $app->get('/getSchedulingOrderList0',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
     $tenant_id = $app->request->headers->get("tenant-id");
-    $scheduling_id=$app->request->get('scheduling_id');
+    $lorry_id=$app->request->get('lorry_id');
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('schedule_order')
             ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
             ->join('scheduling','scheduling.scheduling_id','=','schedule_order.schedule_id','INNER')
+            ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
             ->where('schedule_order.tenant_id', '=', $tenant_id)
             ->where('scheduling.tenant_id', '=', $tenant_id)
             ->where('orders.tenant_id', '=', $tenant_id)
-            ->where('scheduling.scheduling_id', '=', $scheduling_id)
-            ->where('scheduling.scheduling_status', '=',1)
+            ->where('lorry.tenant_id', '=', $tenant_id)
+            ->where('lorry.lorry_id', '=', $lorry_id)
+            ->where('scheduling.scheduling_status', '=', 1)
             ->where('schedule_order.exist', '=', 0)
             ->where('scheduling.exist', '=', 0)
             ->where('orders.exist', '=', 0);
@@ -958,17 +960,19 @@ $app->get('/getSchedulingOrderList1',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
     $tenant_id = $app->request->headers->get("tenant-id");
-    $scheduling_id=$app->request->get('scheduling_id');
+    $lorry_id=$app->request->get('lorry_id');
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('schedule_order')
             ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
             ->join('scheduling','scheduling.scheduling_id','=','schedule_order.schedule_id','INNER')
+            ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
             ->where('schedule_order.tenant_id', '=', $tenant_id)
             ->where('scheduling.tenant_id', '=', $tenant_id)
             ->where('orders.tenant_id', '=', $tenant_id)
-            ->where('scheduling.scheduling_id', '=', $scheduling_id)
-            ->where('scheduling.is_contract', '=',1)
+            ->where('lorry.tenant_id', '=', $tenant_id)
+            ->where('lorry.lorry_id', '=', $lorry_id)
+            ->where('scheduling.is_contract', '=', 1)
             ->where('schedule_order.exist', '=', 0)
             ->where('scheduling.exist', '=', 0)
             ->where('orders.exist', '=', 0);
