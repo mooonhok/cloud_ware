@@ -9,6 +9,7 @@
 		<title>运单详情</title>
 		<link rel="stylesheet" href="css/wodeyundan2.css">
 		<script type="text/javascript"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=v54hrKaFQGG4ew0tKEiddNCTxMcdcfme"></script>
 	</head>
 
 	<body>
@@ -86,7 +87,7 @@
 				<div class="center1-2"></div>
 
 				<div class="xian1"></div>
-				<div class="ditu">
+				<div class="ditu" id="allmap">
 					<!--<img src="images/ditu.png" alt="">-->
 				</div>
 				<div style="clear:both;"></div>
@@ -287,4 +288,9 @@
         opened.close();
     }
 </script>
+	<script type="text/javascript">
+        // 百度地图API功能
+        var map = new BMap.Map("allmap");  // 创建Map实例
+        map.centerAndZoom("上海",15);      // 初始化地图,用城市名设置地图中心点
+	</script>
 </html>
