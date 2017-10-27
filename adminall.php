@@ -34,7 +34,7 @@ $app->post('/sign',function()use($app){
         $data=$stmt->fetch();
         if($data!=null||$data!=""){
            if($data['password']==$password){
-               echo json_encode(array('result' => '0', 'desc' => '登录成功'));
+               echo json_encode(array('result' => '0', 'desc' => '登录成功',"admin"=>$data['id']));
            }else{
                echo json_encode(array('result' => '3', 'desc' => '密码错误'));
            }
