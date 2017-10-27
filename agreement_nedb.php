@@ -101,8 +101,8 @@ $app->get('/getAgreement',function()use($app) {
                 ->where('tenant_id','=',$tenant_id)
                 ->where('agreement_id',"=",$agreement_id);
             $stmt = $selectStatement->execute();
-            $data = $stmt->fetch();
-            echo json_encode(array("result" => "0", "desc" => 'success','agreement'=>$data));
+            $data = $stmt->fetchAll();
+            echo json_encode(array("result" => "0", "desc" => 'success','agreements'=>$data));
         }else{
             echo json_encode(array("result" => "1", "desc" => "缺少合同id"));
         }
