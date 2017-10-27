@@ -156,9 +156,10 @@ $app->get('/limitAgreements',function()use($app) {
                 $selectStatement = $database->select()
                     ->from('agreement')
                     ->join('lorry','lorry.lorry_id','=','agreement.secondparty_id','INNER')
-                    ->where('tenant_id','=',$tenant_id)
-                    ->where('exist','=',0)
-                    ->orderBy("agreement_id")
+                    ->where('agreement.tenant_id','=',$tenant_id)
+                    ->where('lorry.tenant_id','=',$tenant_id)
+                    ->where('agreement.exist','=',0)
+                    ->orderBy("agreement.agreement_id")
                     ->limit((int)$size,(int)$offset);
                 $stmt = $selectStatement->execute();
                 $data = $stmt->fetchAll();
