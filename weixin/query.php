@@ -178,7 +178,7 @@ $signPackage = $jssdk->GetSignPackage();
 					order_id: order_id
 				}),
 				success: function(msg) {
-					if(msg.result == 2) {
+					if(msg.result == 1) {
 				       layer.msg("订单不存在");
 					}else{
 					// alert(order_id);
@@ -261,7 +261,7 @@ $signPackage = $jssdk->GetSignPackage();
 					order_id: a[1]
 				}),
 				success: function(msg) {
-					if(msg.result == 2) {
+					if(msg.result == 1) {
 				     layer.msg("订单不存在");
 					}else{
 		            window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
