@@ -159,7 +159,7 @@
 			success: function(msg) {
 				alert(msg.result);
 				var map = new BMap.Map("allmap");
-				map.centerAndZoom(new BMap.Point(msg.map[msg.map.length - 1].longitude, msg.map[msg.map.length - 1].latitude), 5);
+				map.centerAndZoom(new BMap.Point(msg.map[msg.map.length - 1].longitude, msg.map[msg.map.length - 1].latitude), 6);
 				map.enableScrollWheelZoom(true);
 				var p1 = new BMap.Point(msg.map[0].longitude, msg.map[0].latitude);
 				var p3 = new BMap.Point(msg.map[msg.map.length - 1].longitude, msg.map[msg.map.length - 1].latitude);
@@ -168,7 +168,7 @@
 					var p2 = new BMap.Point(msg.map[x + 1].longitude, msg.map[x + 1].latitude);
 					a.push(p2);
 				}
-				var driving = new BMap.DrivingRoute(map, { renderOptions: { map: map, autoViewport: true } });
+				var driving = new BMap.DrivingRoute(map, { renderOptions: { map: map, autoViewport:false} });
 				driving.search(p1, p3, { waypoints: a });
 			},
 			error: function(xhr) {
