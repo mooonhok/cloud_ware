@@ -2,6 +2,9 @@ $(function(){
 var adminid=$.session.get('adminid');
     var page = $.getUrlParam('page');
     loadtenants(adminid,page);
+    $("#tenant_sure").on("click",function(){
+        tenant_ensure(adminid);
+    });
 });
 
 (function($) {
@@ -67,8 +70,45 @@ function tenant_xq(id){
         ContentType: "application/json;charset=utf-8",
         data: JSON.stringify({}),
         success: function(msg) {
-            console.log(msg)
+            console.log(msg);
+            $("#tenant_id").val(msg.tenant.tenant_id);
+            $("#tenant_num").val(msg.tenant.tenant_num);
+            $("#app_id").val(msg.tenant.app_id);
+            $("#secret").val(msg.tenant.secret);
+            $("#customer_name").val(msg.tenant.customer_name);
+            $("#customer_phone").val(msg.tenant.customer_phone);
+            $("#end_time").val(msg.tenant.end_time);
+            $("#address").val(msg.tenant.address);
+            $("#qq").val(msg.tenant.qq);
+            $("#email").val(msg.tenant.email);
+        },
+        error: function(xhr) {
+            alert("获取后台失败！");
+        }
+    });
+}
 
+function tenant_ensure(adminid){
+    $.ajax({
+        url: "http://api.uminfo.cn/adminall.php/uptenant",
+        dataType: 'json',
+        type: 'put',
+        ContentType: "application/json;charset=utf-8",
+        data: JSON.stringify({
+            tenant_id:$("#tenant_id").val(),
+            admin_id:adminid,
+            appid:$("#app_id").val(),
+            secret:$("#secret").val(),
+            customer_name:$("#customer_name").val(),
+            customer_phone:$("#customer_phone").val(),
+            address:$("#address").val(),
+            end_time:$("#end_time").val(),
+            qq:$("#qq").val(),
+            email:$("#email").val()
+        }),
+        success: function(msg) {
+            console.log(msg);
+layer.msg(msg.desc);
         },
         error: function(xhr) {
             alert("获取后台失败！");

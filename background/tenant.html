@@ -130,26 +130,28 @@
 			<div class="tenant_tk">
 				<h1 style="text-align:center;">详情</h1>
 				<div>
-					<div id="">租户编号</div>
-					<div id="">运单号开头</div>
-					<div id="">微信appid</div>
-					<div id="">微信secret</div>
-					<div id="">租户负责人</div>
-					<div id="">租户电话</div>
-					<div id="">租户邮箱</div>
-					<div id="">租户qq</div>
+					<div>租户编号</div>
+					<div>运单号开头</div>
+					<div>微信appid</div>
+					<div>微信secret</div>
+					<div>租户负责人</div>
+					<div>租户电话</div>
+					<div>到期时间</div>
+					<div>租户地址</div>
 				</div>
 				<div>
-					<input type="" name="" id="" value="" disabled="disabled"/>
-					<input type="" name="" id="" value="" />
-					<input type="" name="" id="" value="" />
-					<input type="" name="" id="" value="" />
-					<input type="" name="" id="" value="" />
-					<input type="" name="" id="" value="" />
-					<input type="" name="" id="" value="" />
-					<input type="" name="" id="" value="" />
+					<input type="text" id="tenant_id" disabled="disabled"/>
+					<input type="text" id="tenant_num" disabled="disabled"/>
+					<input type="text" id="app_id"/>
+					<input type="text" id="secret"/>
+					<input type="text" id="customer_name"/>
+					<input type="text" id="customer_phone"/>
+					<input type="text" id="end_time"/>
+					<input type="text" id="address"/>
+                    <input type="text" id="qq" style="display: none;"/>
+                    <input type="text" id="email" style="display: none;"/>
 				</div>
-				<button>确认</button>
+				<button id="tenant_sure">确认</button>
 			</div>
 			<!--开始::内容-->
 			<div  style="width:100%;height:100px;">	
