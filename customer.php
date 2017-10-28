@@ -427,19 +427,16 @@ $app->post('/wx_customer',function()use($app){
                         $stmt = $selectStatement->execute();
                         $data3 = $stmt->fetch();
                         if($data3==null) {
-                            $selectStatement = $database->select()
-                                ->from('customer')
-                                ->where('tenant_id', '=', $tenant_id);
-                            $stmt = $selectStatement->execute();
-                            $data = $stmt->fetchAll();
-                            if ($data == null) {
-                                $customer_id = 10000001;
-                            } else {
-                                $customer_id = count($data) + 10000001;
-                            }
+                            $chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+                            $strr = substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+                            do{
+                                $strr.= substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+                            }while(strlen($strr)<4);
+                            $time=base_convert(time(), 10, 32);
+                            $str=$time.$strr;
                             $array['customer_address']='-1';
                             $array['customer_city_id']='-1';
-                            $array["customer_id"] = $customer_id;
+                            $array["customer_id"] = $str;
                             $array["tenant_id"] = $tenant_id;
                             $array["exist"] = 0;
                             $insertStatement = $database->insert(array_keys($array))
