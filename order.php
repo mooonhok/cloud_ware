@@ -244,43 +244,43 @@ $app->put("/order", function () use ($app) {
 $app->get('/orders', function () use ($app) {
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $tenant_id = $app->request->headers->get("tenant-id");
     $page = $app->request->get('page');
+    $page=$page-1;
     $per_page = $app->request->get("per_page");
     $database = localhost();
-    if ($tenant_id != null || $tenant_id != "") {
-        $selectStatement = $database->select()
-            ->from('tenant')
-            ->where('exist', "=", 0)
-            ->where('tenant_id', '=', $tenant_id);
-        $stmt = $selectStatement->execute();
-        $data4= $stmt->fetch();
-        if ($data4 != null) {
-        if ($page == null || $per_page == null) {
+    $selectStatement = $database->select()
+        ->from('orders');
+    $stmt1 = $selectStatement->count();
             $selectStatement = $database->select()
                 ->from('orders')
-                ->where('tenant_id', '=', $tenant_id)
-                ->where('exist', "=", 0);
-            $stmt = $selectStatement->execute();
-            $data = $stmt->fetchAll();
-            echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
-        } else {
-            $selectStatement = $database->select()
-                ->from('orders')
-                ->where('tenant_id', '=', $tenant_id)
-                ->where('exist', "=", 0)
+                ->orderBy('exist')
+                ->orderBy('id','DESC')
                 ->limit((int)$per_page, (int)$per_page * (int)$page);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
-            echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
-        }
-        } else {
-            echo json_encode(array("result" => "1", "desc" => "租户不存在", "orders" => ""));
-        }
-    } else {
-        echo json_encode(array("result" => "2", "desc" => "缺少租户id", "orders" => ""));
-    }
-
+            for($i=0;$i<count($data);$i++){
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('tenant_id', "=", $data['$i']['tenant_id'])
+                    ->where('customer_id', "=", $data['$i']['sender_id']);
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('tenant_id', "=", $data['$i']['tenant_id'])
+                    ->where('customer_id', "=", $data['$i']['receiver_id']);
+                $stmt = $selectStatement->execute();
+                $data2= $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('tenant')
+                    ->where('tenant_id', "=", $data['$i']['tenant_id']);
+                $stmt = $selectStatement->execute();
+                $data3= $stmt->fetch();
+                $data[$i]['tenant']=$data3;
+                $data[$i]['receiver']=$data2;
+                $data[$i]['sender']=$data1;
+            }
+            echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data,'count'=>$stmt1));
 });
 
 
