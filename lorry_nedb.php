@@ -317,7 +317,7 @@ $app->post('/uploadLorry',function()use($app) {
         $shijian = time();
         $name1 = $shijian .".". $name1;
         move_uploaded_file($_FILES["driving_license"]["tmp_name"], "/files/lorry/" . $name1);
-        $array['driving_license']="http://files.uminfo.cn:8000/lorry/".$name11;
+        $array['driving_license']="http://files.uminfo.cn:8000/lorry/".$name1;
     }
     if(isset($_FILES["vehicle_travel_license"])){
         $name21 = $_FILES["vehicle_travel_license"]["name"];
@@ -326,7 +326,7 @@ $app->post('/uploadLorry',function()use($app) {
         $shijian = time();
         $name2 = $shijian .'.'. $name2;
         move_uploaded_file($_FILES["vehicle_travel_license"]["tmp_name"], "/files/lorry/" . $name2);
-        $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/".$name21;
+        $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/".$name2;
     }
 
     if($tenant_id!=null||$tenant_id!=''){
