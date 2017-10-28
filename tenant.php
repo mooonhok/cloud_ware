@@ -369,21 +369,24 @@ $app->post('/tenant',function()use($app) {
     $service_items = $app->request->params('service_items');
  //   $trans_contract_p = $app->request->params('trans_contract_p');
     $telephone=$app->request->params('telephone');
+    $time1=time();
     $name= $_FILES["order_t_p"]["name"];
-    $name=iconv("UTF-8","gb2312", $name);
-    $name=rand(1,100000).$name;
-   move_uploaded_file($_FILES["order_t_p"]["tmp_name"], '/files/order_t_p/'.$name);
-   $order_t_p= 'http://files.uminfo.cn:8000/order_t_p/'.$name.'';
-    $name2=$_FILES["trans_contract_p"]["name"];
-    $name2=iconv("UTF-8","gb2312", $name2);
-    $name2=rand(1,100000).$name2;
+    $name1=iconv("UTF-8","gb2312", $name);
+    $name1=$time1.$name1;
+   move_uploaded_file($_FILES["order_t_p"]["tmp_name"], '/files/order_t_p/'.$name1);
+   $order_t_p= 'http://files.uminfo.cn:8000/order_t_p/'.$time1.$name.'';
+    $time2=time();
+    $name21=$_FILES["trans_contract_p"]["name"];
+    $name2=iconv("UTF-8","gb2312", $name21);
+    $name2=$time2.$name2;
    move_uploaded_file($_FILES["trans_contract_p"]["tmp_name"],"/files/trans_contract_p/".$name2);
-   $trans_c_p='http://files.uminfo.cn:8000/trans_contract_p/'.$name2.'';
-    $name3=$_FILES["file1"]["name"];
-    $name3=iconv("UTF-8","gb2312", $name3);
-    $name3=rand(1,100000).$name3;
+   $trans_c_p='http://files.uminfo.cn:8000/trans_contract_p/'.$time2.$name21.'';
+    $time3=time();
+    $name31=$_FILES["file1"]["name"];
+    $name3=iconv("UTF-8","gb2312", $name31);
+    $name3=$time3.$name3;
     move_uploaded_file($_FILES["file1"]["tmp_name"],"/files/business_l_p/".$name3);
-    $business_l_p='http://files.uminfo.cn:8000/business_l_p/'.$name3.'';
+    $business_l_p='http://files.uminfo.cn:8000/business_l_p/'.$time3.$name31.'';
     if($company!=null||$company!=""){
         if($business_l!=""||$business_l!=null){
              if($business_l_p!=""||$business_l_p!=null){

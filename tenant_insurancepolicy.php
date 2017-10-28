@@ -18,8 +18,8 @@ $app->post('/upload',function()use($app) {
 //    $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
     $tenant_id = $app->request->get('tenant_id');
-        $name3 = $_FILES["file1"]["name"];
-        $name3 = iconv("UTF-8", "gb2312", $name3);
+        $name31 = $_FILES["file1"]["name"];
+        $name3 = iconv("UTF-8", "gb2312", $name31);
         $shijian = time();
         $name3 = $shijian . $name3;
 //        move_uploaded_file($_FILES["file1"]["tmp_name"], "tenant/insurance/" . $name3);
@@ -28,7 +28,7 @@ $app->post('/upload',function()use($app) {
         if ($tenant_id != null || $tenant_id != '') {
             $insertStatement = $database->insert(array('tenant_id', 'tenant_insurancepolicy'))
                 ->into('tenant_insurancepolicy')
-                ->values(array($tenant_id,"http://files.uminfo.cn:8000/insurance_policy/".$name3));
+                ->values(array($tenant_id,"http://files.uminfo.cn:8000/insurance_policy/".$shijian.$name31));
             $insertId = $insertStatement->execute(false);
             echo json_encode(array("result" => "0", "desc" => "success"));
         } else {

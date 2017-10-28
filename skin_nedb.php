@@ -22,10 +22,10 @@ $app->post('/addSkin',function()use($app) {
     date_default_timezone_set("PRC");
     $shijian=time();
     $img= $_FILES["img"]["name"];
-    $img=iconv("UTF-8","gb2312", $img);
-    $img=$shijian.$img;
-    move_uploaded_file($_FILES["img"]["tmp_name"], '/files/skin/'.$img);
-    $img="http://files.uminfo.cn:8000/files/skin/".$img;
+    $img1=iconv("UTF-8","gb2312", $img);
+    $img1=$shijian.$img1;
+    move_uploaded_file($_FILES["img"]["tmp_name"], '/files/skin/'.$img1);
+    $img="http://files.uminfo.cn:8000/files/skin/".$shijian.$img;
     $insertStatement = $database->insert(array('skin_id','img','name','used_num','exist'))
         ->into('skin')
         ->values(array($skin_id,$img,$name,0,0));
