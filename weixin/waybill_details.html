@@ -9,7 +9,6 @@
 		<title>运单详情</title>
 		<link rel="stylesheet" href="css/wodeyundan2.css">
 		<script type="text/javascript"></script>
-		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=v54hrKaFQGG4ew0tKEiddNCTxMcdcfme"></script>
 	</head>
 
 	<body>
@@ -33,7 +32,6 @@
 			<div class="foot">
 				<div class="foot1">
 					<div class="foot1-1">
-
 						<div class="syuan1"></div>
 						<div class="sxian1"></div>
 						<div class="syuan2"></div>
@@ -47,7 +45,6 @@
 						<div class="syuan6"></div>
 						<div class="sxian6"></div>
 						<div class="syuan7"></div>
-
 						<div style="clear:both;"></div>
 					</div>
 					<div style="clear:both;"></div>
@@ -87,17 +84,17 @@
 				<div class="center1-2"></div>
 
 				<div class="xian1"></div>
-				<div class="ditu" id="allmap">
-					<!--<img src="images/ditu.png" alt="">-->
+				<div class="ditu">
+					<div id="allmap"></div>
 				</div>
 				<div style="clear:both;"></div>
 			</div>
-
 		</div>
 	</body>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=eYf9sA6yVTFHlh9ytU4a0EYY"></script>
 	<script type="text/javascript">
-		$(".top1-3").hide();
+		$(".top1-4").show();
 		$(".center").css("display", "none");
 		$(".top1-1").on("click", function() {
 			$(".top1-4").hide();
@@ -114,7 +111,7 @@
 	</script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script>
-			(function($) {
+		(function($) {
 			$.getUrlParam = function(name) {
 				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
 				var r = window.location.search.substr(1).match(reg);
@@ -122,9 +119,10 @@
 				return null;
 			}
 		})(jQuery);
-		var tenant_id=$.getUrlParam('tenant_id');
-		//判断openid是否已经被注册
-		var openid = $.cookie('openid'+tenant_id);
+		var order_id = $.getUrlParam('order_id');
+		var tenant_id = $.getUrlParam('tenant_id');
+		var openid = $.cookie('openid' + tenant_id);
+		//判断openid
 		if(openid != null) {
 			$.ajax({
 				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid=" + openid,
@@ -134,12 +132,11 @@
 				dataType: 'json',
 				type: 'get',
 				ContentType: "application/json;charset=utf-8",
-				data: JSON.stringify({
-				}),
+				data: JSON.stringify({}),
 				success: function(msg) {
 					//	alert("用户注册成功" + msg.result + "/////" + msg.desc + "//////" + msg.customer);
 					if(msg.result == 0) {
-						window.location.href = "http://api.uminfo.cn/weixin/wx_register.php?tenant_id="+tenant_id;
+						window.location.href = "http://api.uminfo.cn/weixin/wx_register.php?tenant_id=" + tenant_id;
 					}
 				},
 				error: function(xhr) {
@@ -153,144 +150,161 @@
 
 			});
 		}
-		//获取order——id
-
-		$(function() {
-			var order_id = $.getUrlParam('order_id');
-			//alert(order_id);   
-			$.ajax({
-				url: "http://api.uminfo.cn/order.php/wx_order_z",
-				beforeSend: function(request) {
-					request.setRequestHeader("tenant-id",tenant_id);
-				},
-				dataType: 'json',
-				type: 'post',
-				ContentType: "application/json;charset=utf-8",
-				data: JSON.stringify({
-					order_id: order_id
-				}),
-				success: function(msg) {
-					//alert(tenant_id+"////"+order_id);
-					if(msg.orders.order_status == -2) {
-						var a = "<p>运单号 :<span>" + order_id + "</span></p>";
-						$(".top").html(a);
-						if(msg.orders.sendcity == null) {
-							msg.orders.sendcity = "";
-						}
-						var sendcity = "发站:<span>" + msg.orders.sendcity + "</span>";
-						$(".center1-1").html(sendcity);
-						if(msg.orders.receivercity == null) {
-							msg.orders.receivercity = "";
-						}
-						var acceptcity = "到站:<span>" + msg.orders.receivercity + "</span>";
-						$(".center1-2").html(acceptcity);
-						var xiadan = "<div class='foot2-1'>订单状态</div><div class='foot2-2'>" +
-							"未受理" + "</div>";
-						$(".foot2").html(xiadan);
-						$(".syuan1").css("background", "#02F78E");
-						var ruku = "<div class='foot3-1'>入库</div><div class='foot3-2'>" +
-							"</div>";
-						$(".foot3").html(ruku);
-						var chuku = "<div class='foot4-1'>出库</div><div class='foot4-2'>" +
-							"</div>";
-						$(".foot4").html(chuku);
-						var zaitu = "<div class='foot5-1'><p>在途 <span>" + "</span></p></div><div class='foot5-2'>" +
-							"</div>";
-						$(".foot5").html(zaitu);
-						var daoda = "<div class='foot6-1'>到达</div><div class='foot6-2'>" +
-							"</div>";
-						$(".foot6").html(daoda);
-						var shouhuo = "<div class='foot7-1'>收货</div><div class='foot7-2'>" +
-							"</div>";
-						$(".foot7").html(shouhuo);
-					//	var wc = "<div class='foot8-1'>运输完成</div>";
-						$(".foot8").html(wc);
-
-					} else {
-						var a = "<p>运单号 :<span>" + order_id + "</span></p>";
-						$(".top").html(a);
-						if(msg.orders.sendcity == null) {
-							msg.orders.sendcity = "";
-						}
-						var sendcity = "发站:<span>" + msg.orders.sendcity + "</span>";
-						$(".center1-1").html(sendcity);
-						if(msg.orders.receivercity == null) {
-							msg.orders.receivercity = "";
-						}
-						var acceptcity = "到站:<span>" + msg.orders.receivercity + "</span>";
-						$(".center1-2").html(acceptcity);
-
-						if(msg.orders.plate_number == null) {
-							msg.orders.plate_number = "";
-						}
-						if(msg.orders.order_time0 != null) {
-							var xiadan = "<div class='foot2-1'>下单成功</div><div class='foot2-2'>" +
-								msg.orders.order_time0 + "</div>";
-							$(".foot2").html(xiadan);
-							$(".syuan1").css("background", "#02F78E");
-							if(msg.orders.order_time1 != null) {
+		$.ajax({
+			url: "http://api.uminfo.cn/mapselect.php/mapsbyor?order_id="+order_id,
+			dataType: 'json',
+			type: 'get',
+			ContentType: "application/json;charset=utf-8",
+			data: JSON.stringify({}),
+			success: function(msg) {
+				alert(msg.result);
+				var map = new BMap.Map("allmap");
+				map.centerAndZoom(new BMap.Point(msg.map[msg.map.length - 1].longitude, msg.map[msg.map.length - 1].latitude), 5);
+				map.enableScrollWheelZoom(true);
+				var p1 = new BMap.Point(msg.map[0].longitude, msg.map[0].latitude);
+				var p3 = new BMap.Point(msg.map[msg.map.length - 1].longitude, msg.map[msg.map.length - 1].latitude);
+				var a = [];
+				for(var x = 0; x < msg.map.length - 2; x++) {
+					var p2 = new BMap.Point(msg.map[x + 1].longitude, msg.map[x + 1].latitude);
+					a.push(p2);
+				}
+				var driving = new BMap.DrivingRoute(map, { renderOptions: { map: map, autoViewport: true } });
+				driving.search(p1, p3, { waypoints: a });
+			},
+			error: function(xhr) {
+				alert("获取后台失败");
+			}
+		});
+	   	$.ajax({
+						url: "http://api.uminfo.cn/order.php/wx_order_z",
+						beforeSend: function(request) {
+							request.setRequestHeader("tenant-id",tenant_id);
+						},
+						dataType: 'json',
+						type: 'post',
+						ContentType: "application/json;charset=utf-8",
+						data: JSON.stringify({
+							order_id: order_id
+						}),
+						success: function(msg) {
+							//alert(tenant_id+"////"+order_id);
+							if(msg.orders.order_status == -2) {
+								var a = "<p>运单号 :<span>" + order_id + "</span></p>";
+								$(".top").html(a);
+								if(msg.orders.sendcity == null) {
+									msg.orders.sendcity = "";
+								}
+								var sendcity = "发站:<span>" + msg.orders.sendcity + "</span>";
+								$(".center1-1").html(sendcity);
+								if(msg.orders.receivercity == null) {
+									msg.orders.receivercity = "";
+								}
+								var acceptcity = "到站:<span>" + msg.orders.receivercity + "</span>";
+								$(".center1-2").html(acceptcity);
+								var xiadan = "<div class='foot2-1'>订单状态</div><div class='foot2-2'>" +
+									"未受理" + "</div>";
+								$(".foot2").html(xiadan);
+								$(".syuan1").css("background", "#02F78E");
 								var ruku = "<div class='foot3-1'>入库</div><div class='foot3-2'>" +
-									msg.orders.order_time1 + "</div>";
+									"</div>";
 								$(".foot3").html(ruku);
-								$(".syuan2").css("background", "#02F78E");
-								$(".sxian1").css("background", "#02F78E");
-								if(msg.orders.order_time2 != null) {
-									var chuku = "<div class='foot4-1'>出库</div><div class='foot4-2'>" +
-										msg.orders.order_time2 + "</div>";
-									$(".foot4").html(chuku);
-									$(".syuan3").css("background", "#02F78E");
-									$(".sxian2").css("background", "#02F78E");
-									if(msg.orders.order_time3 != null) {
-										var zaitu = "<div class='foot5-1'><p>在途 <span>" + msg.orders.plate_number + "</span></p></div><div class='foot5-2'>" +
-											msg.orders.order_time3 + "</div>";
-										$(".foot5").html(zaitu);
-										$(".syuan4").css("background", "#02F78E");
-										$(".sxian3").css("background", "#02F78E");
-										if(msg.orders.order_time4 != null) {
-											var daoda = "<div class='foot6-1'>到达</div><div class='foot6-2'>" +
-												msg.orders.order_time4 + "</div>";
-											$(".foot6").html(daoda);
-											$(".syuan5").css("background", "#02F78E");
-											$(".sxian4").css("background", "#02F78E");
-											if(msg.orders.order_time5 != null) {
-												var shouhuo = "<div class='foot7-1'>收货</div><div class='foot7-2'>" +
-													msg.orders.order_time5 + "</div>";
-												$(".foot7").html(shouhuo);
-												$(".syuan6").css("background", "#02F78E");
-												$(".sxian5").css("background", "#02F78E");
-												$(".sxian6").css("background", "#02F78E");
-												$(".syuan7").css("background", "#02F78E");
-												var wc = "<div class='foot8-1'>运输完成</div>";
-												$(".foot8").html(wc);
+								var chuku = "<div class='foot4-1'>出库</div><div class='foot4-2'>" +
+									"</div>";
+								$(".foot4").html(chuku);
+								var zaitu = "<div class='foot5-1'><p>在途 <span>" + "</span></p></div><div class='foot5-2'>" +
+									"</div>";
+								$(".foot5").html(zaitu);
+								var daoda = "<div class='foot6-1'>到达</div><div class='foot6-2'>" +
+									"</div>";
+								$(".foot6").html(daoda);
+								var shouhuo = "<div class='foot7-1'>收货</div><div class='foot7-2'>" +
+									"</div>";
+								$(".foot7").html(shouhuo);
+							//	var wc = "<div class='foot8-1'>运输完成</div>";
+								$(".foot8").html(wc);
+		
+							} else {
+								var a = "<p>运单号 :<span>" + order_id + "</span></p>";
+								$(".top").html(a);
+								if(msg.orders.sendcity == null) {
+									msg.orders.sendcity = "";
+								}
+								var sendcity = "发站:<span>" + msg.orders.sendcity + "</span>";
+								$(".center1-1").html(sendcity);
+								if(msg.orders.receivercity == null) {
+									msg.orders.receivercity = "";
+								}
+								var acceptcity = "到站:<span>" + msg.orders.receivercity + "</span>";
+								$(".center1-2").html(acceptcity);
+		
+								if(msg.orders.plate_number == null) {
+									msg.orders.plate_number = "";
+								}
+								if(msg.orders.order_time0 != null) {
+									var xiadan = "<div class='foot2-1'>下单成功</div><div class='foot2-2'>" +
+										msg.orders.order_time0 + "</div>";
+									$(".foot2").html(xiadan);
+									$(".syuan1").css("background", "#02F78E");
+									if(msg.orders.order_time1 != null) {
+										var ruku = "<div class='foot3-1'>入库</div><div class='foot3-2'>" +
+											msg.orders.order_time1 + "</div>";
+										$(".foot3").html(ruku);
+										$(".syuan2").css("background", "#02F78E");
+										$(".sxian1").css("background", "#02F78E");
+										if(msg.orders.order_time2 != null) {
+											var chuku = "<div class='foot4-1'>出库</div><div class='foot4-2'>" +
+												msg.orders.order_time2 + "</div>";
+											$(".foot4").html(chuku);
+											$(".syuan3").css("background", "#02F78E");
+											$(".sxian2").css("background", "#02F78E");
+											if(msg.orders.order_time3 != null) {
+												var zaitu = "<div class='foot5-1'><p>在途 <span>" + msg.orders.plate_number + "</span></p></div><div class='foot5-2'>" +
+													msg.orders.order_time3 + "</div>";
+												$(".foot5").html(zaitu);
+												$(".syuan4").css("background", "#02F78E");
+												$(".sxian3").css("background", "#02F78E");
+												if(msg.orders.order_time4 != null) {
+													var daoda = "<div class='foot6-1'>到达</div><div class='foot6-2'>" +
+														msg.orders.order_time4 + "</div>";
+													$(".foot6").html(daoda);
+													$(".syuan5").css("background", "#02F78E");
+													$(".sxian4").css("background", "#02F78E");
+													if(msg.orders.order_time5 != null) {
+														var shouhuo = "<div class='foot7-1'>收货</div><div class='foot7-2'>" +
+															msg.orders.order_time5 + "</div>";
+														$(".foot7").html(shouhuo);
+														$(".syuan6").css("background", "#02F78E");
+														$(".sxian5").css("background", "#02F78E");
+														$(".sxian6").css("background", "#02F78E");
+														$(".syuan7").css("background", "#02F78E");
+														var wc = "<div class='foot8-1'>运输完成</div>";
+														$(".foot8").html(wc);
+													}
+												}
 											}
 										}
 									}
 								}
-							}
+							};
+						},
+						error: function(xhr) {
+							alert("获取后台失败");
 						}
-					};
-				},
-				error: function(xhr) {
-					alert("获取后台失败");
-				}
-			});
-		});
+					});
 	</script>
 	<script type="text/javascript">
-    // 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
-    var useragent = navigator.userAgent;
-    if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
-        // 这里警告框会阻塞当前页面继续加载
-        alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
-        // 以下代码是用javascript强行关闭当前页面
-      var opened = window.open('http://www.uminfo.cn', '_self');
-        opened.opener = null;
-        opened.close();
-    }
-</script>
-	<script type="text/javascript">
-        // 百度地图API功能
-        var map = new BMap.Map("allmap");  // 创建Map实例
-        map.centerAndZoom("上海",15);      // 初始化地图,用城市名设置地图中心点
+		  // 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
+		  var useragent = navigator.userAgent;
+		  if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+		      // 这里警告框会阻塞当前页面继续加载
+		      alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+		      // 以下代码是用javascript强行关闭当前页面
+		    var opened = window.open('http://www.uminfo.cn', '_self');
+		      opened.opener = null;
+		      opened.close();
+		  }
 	</script>
+	<script>
+	</script>
+
 </html>
