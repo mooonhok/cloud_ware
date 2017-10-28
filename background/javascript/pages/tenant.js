@@ -73,7 +73,7 @@ function tenant_xq(id){
             console.log(msg);
             $("#tenant_id").val(msg.tenant.tenant_id);
             $("#tenant_num").val(msg.tenant.tenant_num);
-            $("#app_id").val(msg.tenant.app_id);
+            $("#app_id").val(msg.tenant.appid);
             $("#secret").val(msg.tenant.secret);
             $("#customer_name").val(msg.tenant.customer_name);
             $("#customer_phone").val(msg.tenant.customer_phone);
@@ -108,7 +108,8 @@ function tenant_ensure(adminid){
         }),
         success: function(msg) {
             console.log(msg);
-layer.msg(msg.desc);
+           layer.msg(msg.desc);
+            $(".tenant_tk").css("display","none");
         },
         error: function(xhr) {
             alert("获取后台失败！");
