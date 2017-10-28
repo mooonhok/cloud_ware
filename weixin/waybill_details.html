@@ -150,6 +150,12 @@
 
 			});
 		}
+		var map = new BMap.Map("allmap");
+				map.centerAndZoom(new BMap.Point(113.60328, 34.739741), 6);
+				var p1 = new BMap.Point(msg.map[0].longitude, msg.map[0].latitude);
+				var p3 = new BMap.Point(msg.map[msg.map.length - 1].longitude, msg.map[msg.map.length - 1].latitude);
+				var a = [];
+				map.reset();
 		$.ajax({
 			url: "http://api.uminfo.cn/mapselect.php/mapsbyor?order_id="+order_id,
 			dataType: 'json',
@@ -157,13 +163,7 @@
 			ContentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
-				alert("1111")
-				var map = new BMap.Map("allmap");
-				map.centerAndZoom(new BMap.Point(113.60328, 34.739741), 6);
-				map.enableScrollWheelZoom(false);
-				var p1 = new BMap.Point(msg.map[0].longitude, msg.map[0].latitude);
-				var p3 = new BMap.Point(msg.map[msg.map.length - 1].longitude, msg.map[msg.map.length - 1].latitude);
-				var a = [];
+			   map.clearOverlays();
 				for(var x = 0; x < msg.map.length - 2; x++) {
 					var p2 = new BMap.Point(msg.map[x + 1].longitude, msg.map[x + 1].latitude);
 					a.push(p2);
