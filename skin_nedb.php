@@ -22,7 +22,7 @@ $app->post('/addSkin',function()use($app) {
     date_default_timezone_set("PRC");
     $shijian=time();
     $img= $_FILES["img"]["name"];
-    $img=iconv("UTF-8","UTF-8", $img);
+    $img=iconv("UTF-8","gb2312", $img);
     $img=$shijian.$img;
     move_uploaded_file($_FILES["img"]["tmp_name"], '/files/skin/'.$img);
     $img="http://files.uminfo.cn:8000/files/skin/".$img;

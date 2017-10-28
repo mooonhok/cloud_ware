@@ -93,22 +93,7 @@
 	</body>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=eYf9sA6yVTFHlh9ytU4a0EYY"></script>
-	<script type="text/javascript">
-		$(".top1-4").show();
-		$(".center").css("display", "none");
-		$(".top1-1").on("click", function() {
-			$(".top1-4").hide();
-			$(".foot").css("display", "none");
-			$(".top1-3").show();
-			$(".center").css("display", "block");
-		})
-		$(".top1-2").on("click", function() {
-			$(".top1-3").hide();
-			$(".center").css("display", "none");
-			$(".top1-4").show();
-			$(".foot").css("display", "block");
-		})
-	</script>
+	
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script>
 		(function($) {
@@ -160,7 +145,7 @@
 			ContentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
-			    map.setCenter(new BMap.Point(113.60328, 34.739741));
+			 
 			   var p1 = new BMap.Point(msg.map[0].longitude, msg.map[0].latitude);
 				var p3 = new BMap.Point(msg.map[msg.map.length - 1].longitude, msg.map[msg.map.length - 1].latitude);
 				for(var x = 0; x < msg.map.length - 2; x++) {
@@ -303,5 +288,21 @@
 		      opened.close();
 		  }
 	</script>
-
+<script type="text/javascript">
+		$(".top1-3").hide();
+		$(".center").css("display", "none");
+		$(".top1-1").on("click", function() {
+			$(".top1-4").hide();
+			$(".foot").css("display", "none");
+			$(".top1-3").show();
+			$(".center").css("display", "block");
+	    map.setCenter(new BMap.Point(113.60328, 34.739741),6);
+		})
+		$(".top1-2").on("click", function() {
+			$(".top1-3").hide();
+			$(".center").css("display", "none");
+			$(".top1-4").show();
+			$(".foot").css("display", "block");
+		})
+	</script>
 </html>

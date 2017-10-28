@@ -312,7 +312,7 @@ $app->post('/uploadLorry',function()use($app) {
     $array=null;
     if(isset($_FILES["driving_license"])){
         $name1 = $_FILES["driving_license"]["name"];
-        $name1 = iconv("UTF-8", "UTF-8", $name1);
+        $name1 = iconv("UTF-8", "gb2312", $name1);
         $shijian = time();
         $name1 = $shijian . $name1;
         move_uploaded_file($_FILES["driving_license"]["tmp_name"], "/files/lorry/" . $name1);
@@ -320,7 +320,7 @@ $app->post('/uploadLorry',function()use($app) {
     }
     if(isset($_FILES["vehicle_travel_license"])){
         $name2 = $_FILES["vehicle_travel_license"]["name"];
-        $name2 = iconv("UTF-8", "UTF-8", $name2);
+        $name2 = iconv("UTF-8", "gb2312", $name2);
         $shijian = time();
         $name2 = $shijian . $name2;
         move_uploaded_file($_FILES["vehicle_travel_license"]["tmp_name"], "/files/lorry/" . $name2);
