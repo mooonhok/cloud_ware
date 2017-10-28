@@ -157,10 +157,10 @@
 			ContentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
-				
+				alert("1111")
 				var map = new BMap.Map("allmap");
-				map.centerAndZoom(new BMap.Point(113.60328, 34.739741),6);
-				map.enableScrollWheelZoom(true);
+				map.centerAndZoom(new BMap.Point(113.60328, 34.739741), 6);
+				map.enableScrollWheelZoom(false);
 				var p1 = new BMap.Point(msg.map[0].longitude, msg.map[0].latitude);
 				var p3 = new BMap.Point(msg.map[msg.map.length - 1].longitude, msg.map[msg.map.length - 1].latitude);
 				var a = [];
@@ -293,16 +293,16 @@
 					});
 	</script>
 	<script type="text/javascript">
-//		  // 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
-//		  var useragent = navigator.userAgent;
-//		  if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
-//		      // 这里警告框会阻塞当前页面继续加载
-//		      alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
-//		      // 以下代码是用javascript强行关闭当前页面
-//		    var opened = window.open('http://www.uminfo.cn', '_self');
-//		      opened.opener = null;
-//		      opened.close();
-//		  }
+		  // 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
+		  var useragent = navigator.userAgent;
+		  if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+		      // 这里警告框会阻塞当前页面继续加载
+		      alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+		      // 以下代码是用javascript强行关闭当前页面
+		    var opened = window.open('http://www.uminfo.cn', '_self');
+		      opened.opener = null;
+		      opened.close();
+		  }
 	</script>
 
 </html>
