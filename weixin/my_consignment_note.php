@@ -93,27 +93,27 @@ $signPackage = $jssdk->GetSignPackage();
 		var tenant_id=$.getUrlParam('tenant_id');
 		//判断openid是否已经被注册
 		var openid = $.cookie('openid'+tenant_id);
-		if(openid != null) {
-			$.ajax({
-				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid="+openid,
-				beforeSend: function(request) {
-					request.setRequestHeader("tenant-id",tenant_id);
-				},
-				dataType: 'json',
-				type: 'get',
-				ContentType: "application/json;charset=utf-8",
-				data: JSON.stringify({					
-				}),
-				success: function(msg) {
-				if(msg.result == 0) {
-						window.location.href = "http://api.uminfo.cn/weixin/test.html?tenant_id="+tenant_id+"&page=5";
-					}
-				},
-				error: function(xhr) {
-					alert("获取后台失败！");
-				}
-			});
-		}
+//		if(openid != null) {
+//			$.ajax({
+//				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid="+openid,
+//				beforeSend: function(request) {
+//					request.setRequestHeader("tenant-id",tenant_id);
+//				},
+//				dataType: 'json',
+//				type: 'get',
+//				ContentType: "application/json;charset=utf-8",
+//				data: JSON.stringify({
+//				}),
+//				success: function(msg) {
+//				if(msg.result == 0) {
+//						window.location.href = "http://api.uminfo.cn/weixin/test.html?tenant_id="+tenant_id+"&page=5";
+//					}
+//				},
+//				error: function(xhr) {
+//					alert("获取后台失败！");
+//				}
+//			});
+//		}
 	</script>
 	<script>
 		//查询运单
