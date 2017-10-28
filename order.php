@@ -261,19 +261,19 @@ $app->get('/orders', function () use ($app) {
             for($i=0;$i<count($data);$i++){
                 $selectStatement = $database->select()
                     ->from('customer')
-                    ->where('tenant_id', "=", $data['$i']['tenant_id'])
-                    ->where('customer_id', "=", $data['$i']['sender_id']);
+                    ->where('tenant_id', "=", $data[$i]['tenant_id'])
+                    ->where('customer_id', "=", $data[$i]['sender_id']);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('customer')
-                    ->where('tenant_id', "=", $data['$i']['tenant_id'])
-                    ->where('customer_id', "=", $data['$i']['receiver_id']);
+                    ->where('tenant_id', "=", $data[$i]['tenant_id'])
+                    ->where('customer_id', "=", $data[$i]['receiver_id']);
                 $stmt = $selectStatement->execute();
                 $data2= $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('tenant')
-                    ->where('tenant_id', "=", $data['$i']['tenant_id']);
+                    ->where('tenant_id', "=", $data[$i]['tenant_id']);
                 $stmt = $selectStatement->execute();
                 $data3= $stmt->fetch();
                 $data[$i]['tenant']=$data3;
