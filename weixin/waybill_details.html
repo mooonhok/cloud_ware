@@ -151,15 +151,15 @@
 			});
 		}
 		$.ajax({
-			url: "http://api.uminfo.cn/mapselect.php/mapsbyor?order_id="+order_id,
+			url: "http://api.uminfo.cn/mapselect.php/mapsbyor?order_id="+orderid,
 			dataType: 'json',
 			type: 'get',
 			ContentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
-				alert(msg.result);
+				alert(msg.map[msg.map.length - 1].longitude+"%%%%"+msg.map[msg.map.length - 1].latitude);
 				var map = new BMap.Map("allmap");
-				map.centerAndZoom(new BMap.Point(msg.map[msg.map.length - 1].longitude, msg.map[msg.map.length - 1].latitude), 6);
+				map.centerAndZoom(new BMap.Point(113.60328, 34.739741),8);
 				map.enableScrollWheelZoom(true);
 				var p1 = new BMap.Point(msg.map[0].longitude, msg.map[0].latitude);
 				var p3 = new BMap.Point(msg.map[msg.map.length - 1].longitude, msg.map[msg.map.length - 1].latitude);
@@ -168,7 +168,7 @@
 					var p2 = new BMap.Point(msg.map[x + 1].longitude, msg.map[x + 1].latitude);
 					a.push(p2);
 				}
-				var driving = new BMap.DrivingRoute(map, { renderOptions: { map: map, autoViewport:false} });
+				var driving = new BMap.DrivingRoute(map, { renderOptions: { map: map, autoViewport:true} });
 				driving.search(p1, p3, { waypoints: a });
 			},
 			error: function(xhr) {
@@ -303,8 +303,6 @@
 		      opened.opener = null;
 		      opened.close();
 		  }
-	</script>
-	<script>
 	</script>
 
 </html>
