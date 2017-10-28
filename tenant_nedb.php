@@ -28,7 +28,7 @@ $app->get('/getTenant1',function()use($app){
         if($data!=null){
             $selectStatement = $database->select()
                 ->from('tenant')
-                ->join('customer','customer.customer_id','=','tenant.contact_id','INNER')
+                ->leftJoin('customer','customer.customer_id','=','tenant.contact_id')
                 ->where('tenant.tenant_id','=',$tenant_id)
                 ->where('customer.tenant_id','=',$tenant_id)
                 ->where('tenant.exist',"=",0);
