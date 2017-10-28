@@ -109,16 +109,16 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                         }while(strlen($strrr)<4);
                                                                                         $time1=base_convert(time(), 10, 32);
                                                                                         $str1=$time1.$strrr;
-                                                                                        $selectStatement = $database->select()
-                                                                                            ->from('customer')
-                                                                                            ->where('tenant_id','=',$tenant_id)
-                                                                                            ->where('exist',"=",0)
-                                                                                            ->where('customer_address','=','-1')
-                                                                                            ->where('customer_city_id','=','-1')
-                                                                                            ->where('wx_openid','=',$wx_openid);
-                                                                                        $stmt = $selectStatement->execute();
-                                                                                        $data6 = $stmt->fetch();
-                                                                                        if($data6!=null){
+//                                                                                        $selectStatement = $database->select()
+//                                                                                            ->from('customer')
+//                                                                                            ->where('tenant_id','=',$tenant_id)
+//                                                                                            ->where('exist',"=",0)
+//                                                                                            ->where('customer_address','=','-1')
+//                                                                                            ->where('customer_city_id','=','-1')
+//                                                                                            ->where('wx_openid','=',$wx_openid);
+//                                                                                        $stmt = $selectStatement->execute();
+//                                                                                        $data6 = $stmt->fetch();
+//                                                                                        if($data6!=null){
 
                                                                                             $insertStatement = $database->insert(array('order_id', 'tenant_id', 'message_id','exist','from_user','mobilephone','is_read','ms_date','title'))
                                                                                                 ->into('wx_message')
@@ -148,9 +148,9 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                             }else{
                                                                                                 echo json_encode(array("result"=>"3","desc"=>"微信添加微信消息失败"));
                                                                                             }
-                                                                                        }else{
+                                                       /*                                 }else{
                                                                                             echo json_encode(array("result"=>"4","desc"=>"订单填写人信息不存在"));
-                                                                                        }
+                                                                                        }*/
 
                                                                                     }else{
                                                                                         echo json_encode(array("result"=>"5","desc"=>"微信添加订单执行失败"));
