@@ -312,19 +312,21 @@ $app->post('/uploadLorry',function()use($app) {
     $array=null;
     if(isset($_FILES["driving_license"])){
         $name11 = $_FILES["driving_license"]["name"];
-        $name1 = iconv("UTF-8", "gb2312", $name11);
+        $name1=substr(strrchr($name11, '.'), 1);
+//        $name1 = iconv("UTF-8", "gb2312", $name11);
         $shijian = time();
-        $name1 = $shijian . $name1;
+        $name1 = $shijian .".". $name1;
         move_uploaded_file($_FILES["driving_license"]["tmp_name"], "/files/lorry/" . $name1);
-        $array['driving_license']="http://files.uminfo.cn:8000/files/lorry/".$shijian.$name11;
+        $array['driving_license']="http://files.uminfo.cn:8000/lorry/".$name11;
     }
     if(isset($_FILES["vehicle_travel_license"])){
         $name21 = $_FILES["vehicle_travel_license"]["name"];
-        $name2 = iconv("UTF-8", "gb2312", $name21);
+        $name2=substr(strrchr($name21, '.'), 1);
+//        $name2 = iconv("UTF-8", "gb2312", $name21);
         $shijian = time();
-        $name2 = $shijian . $name2;
+        $name2 = $shijian .'.'. $name2;
         move_uploaded_file($_FILES["vehicle_travel_license"]["tmp_name"], "/files/lorry/" . $name2);
-        $array['vehicle_travel_license']="http://files.uminfo.cn:8000/files/lorry/".$shijian.$name21;
+        $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/".$name21;
     }
 
     if($tenant_id!=null||$tenant_id!=''){
