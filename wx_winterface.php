@@ -67,28 +67,24 @@ class wechatCallbackapiTest
 							<Content><![CDATA[%s]]></Content> 
 							<FuncFlag>0</FuncFlag>
 							</xml>";
-            $imageTpl = "<xml>
-            <ToUserName><![CDATA[toUser]]></ToUserName>
-            <FromUserName><![CDATA[fromUser]]></FromUserName>
-            <CreateTime>%s</CreateTime>
-            <MsgType><![CDATA[image]]></MsgType>
-            <Image>
-            <MediaId><![CDATA[media_id]]></MediaId>
-            </Image>
-            </xml>";
 
             if ($ev == "subscribe") {
                 $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news',
                     $ArticleCount,'公司简介','江苏酉铭信息技术有限公司','',
                     '');
                 echo $resultStr;
-            }
-            if (!empty($keyword)) {
+            }else if($ev=="click"){
                 $msgType = "text";
                 $contentStr = "客服电话：15365580443";
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
-            } else {
+            }
+           if (!empty($keyword)) {
+               $msgType = "text";
+               $contentStr = "客服电话：15365580443";
+               $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+               echo $resultStr;
+           }else {
                 echo "Input something...";
             }
        } else {
