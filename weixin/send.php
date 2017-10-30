@@ -1166,7 +1166,6 @@ $signPackage = $jssdk->GetSignPackage();
 			} else if(str == 4) {
 				layer.msg("未选择付款方式");
 			} else {
-			    alert(customer_send_id)
 //			    alert(customer_send_id+"////"+customer_accept_id+"////"+huowu+"////"+zhong+"////"+tiji+"////"+baozhuang+"////"+jianshu+"////"+needs+"////"+jiazhi+"////"+str+"////"+openid);
 				$.ajax({
 					url: "http://api.uminfo.cn/wxmessage.php/wxmessage_insert",
