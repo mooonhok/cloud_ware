@@ -140,32 +140,32 @@ $app->put('/alterStaffMac0',function()use($app){
 });
 
 $app->put('/alterStaffMac1',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
     $id=$body->id;
     $is_remember=$body->is_remember;
-    $array=array();
-    foreach($body as $key=>$value){
-        $array[$key]=$value;
-    }
-    if($id!=null||$id!=''){
-        $updateStatement = $database->update($array)
-            ->table('staff_mac')
-            ->where('id','=',$id)
-            ->where('is_remember',"=",$is_remember);
-        $affectedRows = $updateStatement->execute();
-        if($affectedRows>0){
-            echo json_encode(array("result"=>"0","desc"=>"success"));
-        }else{
-            echo json_encode(array("result"=>"2","desc"=>"flase"));
-        }
-
-    }else{
-        echo json_encode(array('result'=>'5','desc'=>'缺少租户id'));
-    }
+    echo $id;
+//    $array=array();
+//    foreach($body as $key=>$value){
+//        $array[$key]=$value;
+//    }
+//    if($id!=null||$id!=''){
+//        $updateStatement = $database->update($array)
+//            ->table('staff_mac')
+//            ->where('id','=',$id)
+//            ->where('is_remember',"=",$is_remember);
+//        $affectedRows = $updateStatement->execute();
+//        if($affectedRows>0){
+//            echo json_encode(array("result"=>"0","desc"=>"success"));
+//        }else{
+//            echo json_encode(array("result"=>"2","desc"=>"flase"));
+//        }
+//      }else{
+//        echo json_encode(array('result'=>'5','desc'=>'缺少租户id'));
+//    }
 });
 
 $app->get('/getStaffMacs0',function()use($app){
