@@ -92,7 +92,7 @@ class wechatCallbackapiTest
                 echo "Input something...";
             }
        } else {
-           echo "客服电话：15365580443";
+           echo "";
            exit;
        }
     }
