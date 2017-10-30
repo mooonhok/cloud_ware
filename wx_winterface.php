@@ -36,7 +36,7 @@ class wechatCallbackapiTest
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
 
         //extract post data
-        if (!empty($postStr)) {
+       if (!empty($postStr)) {
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
             $fromUsername = $postObj->FromUserName;
             $toUsername = $postObj->ToUserName;
@@ -91,10 +91,10 @@ class wechatCallbackapiTest
             } else {
                 echo "Input something...";
             }
-        } else {
-            echo "";
-            exit;
-        }
+       } else {
+           echo "客服电话：15365580443";
+           exit;
+       }
     }
 
 
