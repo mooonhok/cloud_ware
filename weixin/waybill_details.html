@@ -272,9 +272,7 @@
 			$(".foot").css("display", "none");
 			$(".top1-3").show();
 			$(".center").css("display", "block");
-	        	var map = new BMap.Map("allmap");
-				map.centerAndZoom(new BMap.Point(113.60328, 34.739741), 6);
-				var a = [];
+	        	
 		$.ajax({
 			url: "http://api.uminfo.cn/mapselect.php/mapsbyor?order_id="+order_id,
 			dataType: 'json',
@@ -282,6 +280,10 @@
 			ContentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
+				if(msg.result==0){
+					var map = new BMap.Map("allmap");
+				map.centerAndZoom(new BMap.Point(113.60328, 34.739741), 6);
+				var a = [];
 			   var p1 = new BMap.Point(msg.map[0].longitude, msg.map[0].latitude);
 				var p3 = new BMap.Point(msg.map[msg.map.length - 1].longitude, msg.map[msg.map.length - 1].latitude);
 				for(var x = 0; x < msg.map.length - 2; x++) {
@@ -290,17 +292,21 @@
 				}
 				var driving = new BMap.DrivingRoute(map, { renderOptions: { map: map, autoViewport:true} });
 				driving.search(p1, p3, { waypoints: a });
+				}else{
+					alert(msg.desc);
+				}
+				
 			},
 			error: function(xhr) {
 				alert("获取后台失败");
 			}
 		});
-		})
+		});
 		$(".top1-2").on("click", function() {
 			$(".top1-3").hide();
 			$(".center").css("display", "none");
 			$(".top1-4").show();
 			$(".foot").css("display", "block");
-		})
+		});
 	</script>
 </html>

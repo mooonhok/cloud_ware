@@ -37,7 +37,7 @@ $app->get('/maps',function()use($app){
                    $arrays1['latitude']=$data2[$x]['latitude'];
                    array_push($arrays,$arrays1);
                  }
-                echo json_encode(array('result' => '4', 'desc' => '','map'=>$arrays));
+                echo json_encode(array('result' => '0', 'desc' => '','map'=>$arrays));
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '清单还未出发或清单已到达'));
             }
@@ -138,7 +138,7 @@ $app->get('/mapsbyor',function()use($app){
                        $arrays1['latitude']=$data2[$x]['latitude'];
                        array_push($arrays,$arrays1);
                    }
-                   echo json_encode(array('result' => '4', 'desc' => '','map'=>$arrays));
+                   echo json_encode(array('result' => '0', 'desc' => '','map'=>$arrays));
                }else{
                    echo json_encode(array('result' => '3', 'desc' => '清单还未出发或清单已到达'));
                }
