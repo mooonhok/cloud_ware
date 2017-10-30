@@ -16,7 +16,6 @@ $app = new \Slim\Slim();
 $app->post('/addStaffMac',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
