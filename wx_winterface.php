@@ -73,7 +73,7 @@ class wechatCallbackapiTest
                     $ArticleCount,'公司简介','江苏酉铭信息技术有限公司','',
                     '');
                 echo $resultStr;
-            }else if($ev=="click"){
+            }else if($ev=="CLICK"){
                 $msgType = "text";
                 $contentStr = "客服电话：15365580443";
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
