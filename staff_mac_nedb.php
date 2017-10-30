@@ -152,7 +152,7 @@ $app->put('/alterStaffMac1',function()use($app){
         $array[$key]=$value;
     }
     if($id!=null||$id!=''){
-        $updateStatement = $database->update($array)
+        $updateStatement = $database->update(array('is_remember'=>$is_remember))
             ->table('staff_mac')
             ->where('id','=',$id)
             ->where('is_remember',"=",$is_remember);
