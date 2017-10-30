@@ -449,8 +449,8 @@ $signPackage = $jssdk->GetSignPackage();
 		var tenant_id=$.getUrlParam('tenant_id');
 		//判断openid是否已经被注册
 		var openid = $.cookie('openid'+tenant_id);
-		var customer_send_id = null;
-		var customer_accept_id = null;
+		var customer_send_id = "";
+		var customer_accept_id = "";
 //		if(openid != null) {
 //			$.ajax({
 //				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid=" + openid,
@@ -870,7 +870,7 @@ $signPackage = $jssdk->GetSignPackage();
 				 tenant_id=$.getUrlParam('tenant_id');
 			}
 			$.ajax({
-				url: "http://api.uminfo.cn/customer.php/customer?customerid=" + id,
+				url: "http://api.uminfo.cn/customer.php/customer?customerid=" + id+"",
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
