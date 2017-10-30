@@ -63,7 +63,7 @@ $app->get('/getStaffMac0',function()use($app){
                     ->where('tenant_id','=',$tenant_id);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
-                echo json_encode(array("result"=>"0","desc"=>"缺少租户id","staff_macs"=>$data1));
+                echo json_encode(array("result"=>"0","desc"=>"success","staff_macs"=>$data1));
             }else{
                 echo json_encode(array("result"=>"1","desc"=>"缺少staff_id"));
             }
@@ -106,7 +106,7 @@ $app->get('/getStaffMac1',function()use($app){
                     ->where('tenant_id','=',$tenant_id);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
-                echo json_encode(array("result"=>"0","desc"=>"缺少租户id","staff_macs"=>$data1));
+                echo json_encode(array("result"=>"0","desc"=>"success","staff_macs"=>$data1));
             }else{
                 echo json_encode(array("result"=>"1","desc"=>"缺少staff_id"));
             }
@@ -153,7 +153,7 @@ $app->get('/getStaffMacs0',function()use($app){
                     ->where('tenant_id','=',$tenant_id);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
-                echo json_encode(array("result"=>"0","desc"=>"缺少租户id","staff_macs"=>$data1));
+                echo json_encode(array("result"=>"0","desc"=>"success","staff_macs"=>$data1));
         }else{
             echo json_encode(array("result"=>"2","desc"=>"缺少mac"));
         }
