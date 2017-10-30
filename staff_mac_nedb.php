@@ -157,7 +157,12 @@ $app->put('/alterStaffMac1',function()use($app){
             ->where('id','=',$id)
             ->where('is_remember',"=",$is_remember);
         $affectedRows = $updateStatement->execute();
-        echo json_encode(array("result"=>"0","desc"=>"success"));
+        if($affectedRows>0){
+            echo json_encode(array("result"=>"0","desc"=>"success"));
+        }else{
+            echo json_encode(array("result"=>"2","desc"=>"flase"));
+        }
+
     }else{
         echo json_encode(array('result'=>'5','desc'=>'缺少租户id'));
     }
