@@ -2,8 +2,11 @@
 /**
  * Created by PhpStorm.
  * User: Administrator
- * Date: 2017/10/25
- * Time: 13:31
+ * Date: 2017/8/9
+ * Time: 8:50
+ */
+/**
+ * wechat php test
  */
 
 //define your token
@@ -73,6 +76,7 @@ class wechatCallbackapiTest
             <MediaId><![CDATA[media_id]]></MediaId>
             </Image>
             </xml>";
+
             if ($ev == "subscribe") {
                 $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news',
                     $ArticleCount,'公司简介','江苏酉铭信息技术有限公司','',
@@ -80,17 +84,10 @@ class wechatCallbackapiTest
                 echo $resultStr;
             }
             if (!empty($keyword)) {
-                if($keyword=="1") {
-                    $msgType = "text";
-                    $contentStr = "客服电话：15365580443";
-                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                    echo $resultStr;
-                }else{
-                    $msgType = "text";
-                    $contentStr = "请查看菜单";
-                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                    echo $resultStr;
-                }
+                $msgType = "text";
+                $contentStr = "客服电话：15365580443";
+                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+                echo $resultStr;
             } else {
                 echo "Input something...";
             }
