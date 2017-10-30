@@ -122,7 +122,6 @@ $app->put('/alterStaffMac0',function()use($app){
     $body=$app->request->getBody();
     $body=json_decode($body);
     $id=$body->id;
-    $is_login=$body->is_login;
     $array=array();
     foreach($body as $key=>$value){
         $array[$key]=$value;
@@ -130,8 +129,7 @@ $app->put('/alterStaffMac0',function()use($app){
     if($id!=null||$id!=''){
                         $updateStatement = $database->update($array)
                             ->table('staff_mac')
-                            ->where('id','=',$id)
-                            ->where('is_login',"=",$is_login);
+                            ->where('id','=',$id);
                         $affectedRows = $updateStatement->execute();
                         echo json_encode(array("result"=>"0","desc"=>"success"));
     }else{
@@ -154,14 +152,10 @@ $app->put('/alterStaffMac1',function()use($app){
     if($id!=null||$id!=''){
         $updateStatement = $database->update(array('is_remember'=>$is_remember))
             ->table('staff_mac')
-            ->where('id','=',$id)
-            ->where('is_remember',"=",$is_remember);
+            ->where('id','=',$id);
         $affectedRows = $updateStatement->execute();
-        if($affectedRows>0){
             echo json_encode(array("result"=>"0","desc"=>"success"));
-        }else{
-            echo json_encode(array("result"=>"2","desc"=>"flase"));
-        }
+
       }else{
         echo json_encode(array('result'=>'5','desc'=>'缺少租户id'));
     }
