@@ -1316,7 +1316,7 @@ $app->put('/uplorry',function()use($app){
 //修改司机个人信息
 $app->post('/updriver',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $lorry_id = $app->request->get('lorry_id');
     $driver_email=$app->request->params('email');
@@ -1332,28 +1332,27 @@ $app->post('/updriver',function()use($app){
     $arrays['driver_address']=$driver_address;
     $arrays['driver_identycard']=$driver_identycard;
     $arrays['driver_email']=$driver_email;
-    echo $lorry_id."%%".$name3;
-//   if($lorry_id!=null||$lorry_id!=""){
-//       $selectStament = $database->select()
-//           ->from('lorry')
-//           ->where('tenant_id','=',0)
-//           ->where('exist', '=', 0)
-//           ->where('lorry_id', '=', $lorry_id);
-//       $stmt = $selectStament->execute();
-//       $data = $stmt->fetch();
-//       if($data!=null){
-//           $updateStatement = $database->update($arrays)
-//               ->table('lorry')
-//               ->where('driver_name','=',$data['driver_name'])
-//               ->where('driver_phone','=',$data['driver_phone']);
-//           $affectedRows = $updateStatement->execute();
-//           echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
-//       }else{
-//           echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
-//       }
-//   }else{
-//       echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
-//   }
+   if($lorry_id!=null||$lorry_id!=""){
+       $selectStament = $database->select()
+           ->from('lorry')
+           ->where('tenant_id','=',0)
+           ->where('exist', '=', 0)
+           ->where('lorry_id', '=', $lorry_id);
+       $stmt = $selectStament->execute();
+       $data = $stmt->fetch();
+       if($data!=null){
+           $updateStatement = $database->update($arrays)
+               ->table('lorry')
+               ->where('driver_name','=',$data['driver_name'])
+               ->where('driver_phone','=',$data['driver_phone']);
+           $affectedRows = $updateStatement->execute();
+           echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
+       }else{
+           echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+       }
+   }else{
+       echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
+   }
 });
 
 
