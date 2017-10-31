@@ -1328,7 +1328,7 @@ $app->post('/updriver',function()use($app){
     $name3 = $shijian .'.'. $name3;
     $url="/files/lorry/";
     move_uploaded_file($_FILES["file1"]["tmp_name"], $url . $name3);
-    $arrays['driving_license']="http://files.uminfo.cn:8000/insurance_policy/".$name3;
+    $arrays['driving_license']="http://files.uminfo.cn:8000/lorry/".$name3;
     $arrays['driver_address']=$driver_address;
     $arrays['driver_identycard']=$driver_identycard;
     $arrays['driver_email']=$driver_email;
