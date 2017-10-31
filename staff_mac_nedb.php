@@ -185,6 +185,24 @@ $app->get('/getStaffMacs0',function()use($app){
     }
 });
 
+$app->get("/getStaffMac2",function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $id=$app->request->get("id");
+    $database=localhost();
+    if($id!=null||$id!=""){
+            $selectStatement = $database->select()
+                ->from('staff_mac')
+                ->leftJoin("staff","staff.staff_id","=","staff_mac.staff_id")
+                ->where('staff_mac.id',"=",$id);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetchAll();
+            echo json_encode(array("result"=>"0","desc"=>"success","staff_macs"=>$data1));
+    }else{
+        echo json_encode(array("result"=>"2","desc"=>"缺少租户id"));
+    }
+});
+
 $app->run();
 
 function localhost(){
