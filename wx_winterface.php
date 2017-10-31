@@ -70,8 +70,8 @@ class wechatCallbackapiTest
 
             if ($ev == "subscribe") {
                 $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news',
-                    $ArticleCount,'公司简介','江苏酉铭信息技术有限公司','',
-                    '');
+                    $ArticleCount,'公司简介','江苏酉铭信息技术有限公司','http://files.uminfo.cn:8000/weixinguanggao/uminfo.jpg',
+                    'http://www.uminfo.cn');
                 echo $resultStr;
             }else if($ev=="CLICK"){
                 $msgType = "text";
