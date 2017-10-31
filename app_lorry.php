@@ -1314,9 +1314,9 @@ $app->put('/uplorry',function()use($app){
     }
 });
 //修改司机个人信息
-$app->put('/updriver',function()use($app){
+$app->post('/updriver',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
+//    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $lorry_id = $app->request->get('lorry_id');
     $driver_email=$app->request->params('email');
