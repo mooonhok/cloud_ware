@@ -201,6 +201,25 @@ $app->put('/alterStaffMac2',function()use($app){
     }
 });
 
+$app->put('/alterStaffMac3',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $id=$body->id;
+    $login_time=$body->login_time;
+    if($id!=null||$id!=''){
+                $updateStatement = $database->update(array('login_time'=>$login_time))
+                    ->table('staff_mac')
+                    ->where('id','=',$id);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array("result"=>"0","desc"=>"success"));
+    }else{
+        echo json_encode(array('result'=>'5','desc'=>'缺少租户id'));
+    }
+});
+
 $app->get('/getStaffMacs0',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
