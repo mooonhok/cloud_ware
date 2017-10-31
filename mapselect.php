@@ -90,7 +90,7 @@ $app->post('/addmap',function()use($app){
                     for ($y = 0; $y < count($data3); $y++) {
                         $selectStament=$database->select()
                             ->from('map')
-                            ->where('scheduling_id','=',$data3[$y]['schedule_id'])
+                            ->where('scheduling_id','=',$data3[$y]['scheduling_id'])
                             ->orderBy('accept_time');
                         $stmt=$selectStament->execute();
                         $data4=$stmt->fetchAll();
