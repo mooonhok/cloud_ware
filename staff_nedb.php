@@ -104,7 +104,7 @@ $app->get('/getStaff1',function()use($app){
                     ->where('password','=',encode($password , 'cxphp'));
                 $stmt = $selectStatement->execute();
                 $data = $stmt->fetch();
-                echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data,'password'=>encode($password , 'cxphp')));
+                echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data));
             }else{
                 echo json_encode(array('result'=>'1','desc'=>'缺少密码'));
             }
