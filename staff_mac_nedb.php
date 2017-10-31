@@ -235,7 +235,7 @@ $app->get('/getStaffMacs0',function()use($app){
 
 $app->get("/getStaffMac2",function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set('Content-Type','application/json');
     $id=$app->request->get("id");
     $database=localhost();
     if($id!=null||$id!=""){
