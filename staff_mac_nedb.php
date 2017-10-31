@@ -199,7 +199,7 @@ $app->get("/getStaffMac2",function()use($app){
             $data1 = $stmt->fetchAll();
             echo json_encode(array("result"=>"0","desc"=>"success","staff_macs"=>$data1));
     }else{
-        echo json_encode(array("result"=>"2","desc"=>"缺少租户id"));
+        echo json_encode(array("result"=>"2","desc"=>"缺少id"));
     }
 });
 
