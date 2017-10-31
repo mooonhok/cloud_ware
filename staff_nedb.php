@@ -37,7 +37,7 @@ $app->post('/addstaff',function()use($app){
                         if($status!=null||$status!=''){
                             if($permission!=null||$permission!=''){
                                 $array['exist']=0;
-                                $array['password']=encode('888888' , 'cxphp');
+                                $array['password']=encode('123456' , 'cxphp');
                                 $array['tenant_id']=$tenant_id;
                                 $array['bg_img']="http://files.uminfo.cn:8000/skin/bg1.jpg";
                                 $insertStatement = $database->insert(array_keys($array))
@@ -101,10 +101,10 @@ $app->get('/getStaff1',function()use($app){
                     ->from('staff')
                     ->where('exist',"=",0)
                     ->where('username','=',$username)
-                    ->where('password','=',sha1($password));
+                    ->where('password','=',encode($password , 'cxphp'));
                 $stmt = $selectStatement->execute();
                 $data = $stmt->fetch();
-                echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data));
+                echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data,'password'=>encode($password , 'cxphp')));
             }else{
                 echo json_encode(array('result'=>'1','desc'=>'缺少密码'));
             }
@@ -125,33 +125,7 @@ $app->get('/getStaff2',function()use($app){
                 ->from('staff')
                 ->where('exist',"=",0)
                 ->where('telephone','=',$telephone)
-                ->where('password','=',sha1($password));
-            $stmt = $selectStatement->execute();
-            $data = $stmt->fetch();
-            echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data));
-        }else{
-            echo json_encode(array('result'=>'1','desc'=>'缺少密码'));
-        }
-    }else{
-        echo json_encode(array('result'=>'2','desc'=>'缺少员工名字'));
-    }
-});
-
-$app->get('/getStaff3',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $tenant_id=$app->request->headers->get('tenant-id');
-    $database=localhost();
-    $telephone=$app->request->get('telephone_username');
-    $password=$app->request->get('password');
-    if($telephone!=null||$telephone!=''){
-        if($password!=null||$password!=''){
-            $selectStatement = $database->select()
-                ->from('staff')
-                ->where('exist',"=",0)
-                ->where('telephone','=',$telephone)
-                ->where('password','=',sha1($password))
-                ->where('tenant_id','=',$tenant_id);
+                ->where('password','=',encode($password , 'cxphp'));
             $stmt = $selectStatement->execute();
             $data = $stmt->fetch();
             echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data));
@@ -455,6 +429,7 @@ $app->run();
 function localhost(){
     return connect();
 }
+//加密
 function encode($string , $skey ) {
     $strArr = str_split(base64_encode($string));
     $strCount = count($strArr);

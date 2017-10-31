@@ -212,7 +212,8 @@ $app->get('/getStaffMacs0',function()use($app){
                 $selectStatement = $database->select()
                     ->from('staff_mac')
                     ->where('mac',"=",$mac)
-                    ->where('tenant_id','=',$tenant_id);
+                    ->where('tenant_id','=',$tenant_id)
+                    ->orderBy('login_time');
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
                 for($i=0;$i<count($data1);$i++){
@@ -259,6 +260,8 @@ $app->run();
 function localhost(){
     return connect();
 }
+
+//解密
 function decode($string, $skey) {
     $strArr = str_split(str_replace(array('O0O0O', 'o000o', 'oo00o'), array('=', '+', '/'), $string), 2);
     $strCount = count($strArr);
