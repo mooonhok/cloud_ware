@@ -22,6 +22,7 @@ $app->post('/addStaffMac',function()use($app){
     $mac=$body->mac;
     $staff_id=$body->staff_id;
     $tenant_id=$body->tenant_id;
+    $login_time=$body->login_time;
     $array=array();
     foreach($body as $key=>$value){
         $array[$key]=$value;
@@ -29,19 +30,23 @@ $app->post('/addStaffMac',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
         if($mac!=null||$mac!=''){
             if($staff_id!=null||$staff_id!=''){
-                $insertStatement = $database->insert(array_keys($array))
-                    ->into('staff_mac')
-                    ->values(array_values($array));
-                $insertId = $insertStatement->execute(false);
-                echo json_encode(array("result"=>"0","desc"=>"success"));
+                if($login_time!=null||$login_time!=''){
+                    $insertStatement = $database->insert(array_keys($array))
+                        ->into('staff_mac')
+                        ->values(array_values($array));
+                    $insertId = $insertStatement->execute(false);
+                    echo json_encode(array("result"=>"0","desc"=>"success"));
+                }else{
+                    echo json_encode(array('result'=>'1','desc'=>'缺少登陆时间'));
+                }
             }else{
-                echo json_encode(array('result'=>'1','desc'=>'缺少员工id'));
+                echo json_encode(array('result'=>'2','desc'=>'缺少员工id'));
             }
         }else{
-            echo json_encode(array('result'=>'2','desc'=>'缺少mac'));
+            echo json_encode(array('result'=>'3','desc'=>'缺少mac'));
         }
     }else{
-        echo json_encode(array('result'=>'3','desc'=>'缺少租户id'));
+        echo json_encode(array('result'=>'4','desc'=>'缺少租户id'));
     }
 });
 
@@ -205,6 +210,10 @@ $app->get("/getStaffMac2",function()use($app){
                 ->where('staff_mac.id',"=",$id);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
+            for($i=0;$i<count($data1);$i++){
+
+                $data1[$i]['password']=decrypt($data1[$i]['password'], '123');
+            }
             echo json_encode(array("result"=>"0","desc"=>"success","staff_macs"=>$data1));
     }else{
         echo json_encode(array("result"=>"2","desc"=>"缺少id"));
@@ -215,5 +224,37 @@ $app->run();
 
 function localhost(){
     return connect();
+}
+
+function decrypt($data, $key)
+{
+    $key = md5($key);
+    $x = 0;
+    $data = base64_decode($data);
+    $len = strlen($data);
+    $l = strlen($key);
+    $str='';
+    for ($i = 0; $i < $len; $i++)
+    {
+        if ($x == $l)
+        {
+            $x = 0;
+        }
+        $char='';
+        $char .= substr($key, $x, 1);
+        $x++;
+    }
+    for ($i = 0; $i < $len; $i++)
+    {
+        if (ord(substr($data, $i, 1)) < ord(substr($char, $i, 1)))
+        {
+            $str .= chr((ord(substr($data, $i, 1)) + 256) - ord(substr($char, $i, 1)));
+        }
+        else
+        {
+            $str .= chr(ord(substr($data, $i, 1)) - ord(substr($char, $i, 1)));
+        }
+    }
+    return $str;
 }
 ?>
