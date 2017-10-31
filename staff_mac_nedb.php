@@ -211,7 +211,7 @@ $app->get("/getStaffMac2",function()use($app){
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
 //            for($i=0;$i<count($data1);$i++){
-               echo decrypt($data1[0]['password'], '123');
+               echo decrypt($data1[0]['password'], '123').'';
 //            }
 //            echo json_encode(array("result"=>"0","desc"=>"success","staff_macs"=>$data1));
     }else{
