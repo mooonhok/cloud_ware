@@ -37,7 +37,7 @@ $app->post('/addstaff',function()use($app){
                         if($status!=null||$status!=''){
                             if($permission!=null||$permission!=''){
                                 $array['exist']=0;
-                                $array['password']=urlencode('123456');
+                                $array['password']=encode('123456' , 'cxphp');
                                 $array['tenant_id']=$tenant_id;
                                 $array['bg_img']="http://files.uminfo.cn:8000/skin/bg1.jpg";
                                 $insertStatement = $database->insert(array_keys($array))
@@ -455,7 +455,11 @@ $app->run();
 function localhost(){
     return connect();
 }
-function addmima($data,$key){
-
+function encode($string , $skey ) {
+    $strArr = str_split(base64_encode($string));
+    $strCount = count($strArr);
+    foreach (str_split($skey) as $key => $value)
+        $key < $strCount && $strArr[$key].=$value;
+    return str_replace(array('=', '+', '/'), array('O0O0O', 'o000o', 'oo00o'), join('', $strArr));
 }
 ?>

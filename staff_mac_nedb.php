@@ -246,7 +246,7 @@ $app->get("/getStaffMac2",function()use($app){
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
             for($i=0;$i<count($data1);$i++){
-                $data1[$i]['password']=urldecode($data1[$i]['password']);
+                $data1[$i]['password']=decode($data1[$i]['password'],'cxphp');
             }
             echo json_encode(array("result"=>"0","desc"=>"success","staff_macs"=>$data1));
     }else{
@@ -258,6 +258,13 @@ $app->run();
 
 function localhost(){
     return connect();
+}
+function decode($string, $skey) {
+    $strArr = str_split(str_replace(array('O0O0O', 'o000o', 'oo00o'), array('=', '+', '/'), $string), 2);
+    $strCount = count($strArr);
+    foreach (str_split($skey) as $key => $value)
+        $key <= $strCount  && isset($strArr[$key]) && $strArr[$key][1] === $value && $strArr[$key] = $strArr[$key][0];
+    return base64_decode(join('', $strArr));
 }
 
 ?>
