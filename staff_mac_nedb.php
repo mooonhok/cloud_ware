@@ -171,6 +171,7 @@ $app->get('/getStaffMacs0',function()use($app){
         if($mac!=null||$mac!=""){
                 $selectStatement = $database->select()
                     ->from('staff_mac')
+                    ->leftJoin("staff","staff.staff_id","=","staff_mac.staff_id")
                     ->where('mac',"=",$mac)
                     ->where('tenant_id','=',$tenant_id);
                 $stmt = $selectStatement->execute();
