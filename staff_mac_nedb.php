@@ -210,9 +210,9 @@ $app->get("/getStaffMac2",function()use($app){
                 ->where('staff_mac.id',"=",$id);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
-//            for($i=0;$i<count($data1);$i++){
-//                $data1[0]['password']=decrypt($data1[0]['password'], '123');
-//            }
+            for($i=0;$i<count($data1);$i++){
+                $data1[0]['password']=decrypt($data1[0]['password'], '123');
+            }
             echo json_encode(array("result"=>"0","desc"=>"success","staff_macs"=>$data1));
     }else{
         echo json_encode(array("result"=>"2","desc"=>"缺少id"));
