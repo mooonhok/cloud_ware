@@ -210,11 +210,11 @@ $app->put('/alterStaffMac3',function()use($app){
     $id=$body->id;
     $login_time=$body->login_time;
     if($id!=null||$id!=''){
-                $updateStatement = $database->update(array('login_time'=>$login_time))
-                    ->table('staff_mac')
-                    ->where('id','=',$id);
-                $affectedRows = $updateStatement->execute();
-                echo json_encode(array("result"=>"0","desc"=>"success"));
+        $updateStatement = $database->update(array('login_time'=>$login_time))
+            ->table('staff_mac')
+            ->where('id','=',$id);
+        $affectedRows = $updateStatement->execute();
+        echo json_encode(array("result"=>"0","desc"=>"success"));
     }else{
         echo json_encode(array('result'=>'5','desc'=>'缺少租户id'));
     }
@@ -232,7 +232,7 @@ $app->get('/getStaffMacs0',function()use($app){
                     ->from('staff_mac')
                     ->where('mac',"=",$mac)
                     ->where('tenant_id','=',$tenant_id)
-                    ->orderBy('login_time');
+                    ->orderBy('login_time','DESC');
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
                 for($i=0;$i<count($data1);$i++){
