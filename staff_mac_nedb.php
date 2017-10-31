@@ -172,8 +172,8 @@ $app->get('/getStaffMacs0',function()use($app){
                 $selectStatement = $database->select()
                     ->from('staff_mac')
                     ->leftJoin("staff","staff.staff_id","=","staff_mac.staff_id")
-                    ->where('mac',"=",$mac)
-                    ->where('tenant_id','=',$tenant_id);
+                    ->where('staff_mac.mac',"=",$mac)
+                    ->where('staff_mac.tenant_id','=',$tenant_id);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
                 echo json_encode(array("result"=>"0","desc"=>"success","staff_macs"=>$data1));
