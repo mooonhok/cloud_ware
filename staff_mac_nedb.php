@@ -171,11 +171,19 @@ $app->get('/getStaffMacs0',function()use($app){
         if($mac!=null||$mac!=""){
                 $selectStatement = $database->select()
                     ->from('staff_mac')
-                    ->leftJoin("staff","staff.staff_id","=","staff_mac.staff_id")
-                    ->where('staff_mac.mac',"=",$mac)
-                    ->where('staff_mac.tenant_id','=',$tenant_id);
+                    ->where('mac',"=",$mac)
+                    ->where('tenant_id','=',$tenant_id);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
+                for($i=0;$i<count($data1);$i++){
+                    $selectStatement = $database->select()
+                        ->from('staff')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('staff_id','=',$data1[$i]['staff_id']);
+                    $stmt = $selectStatement->execute();
+                    $data2 = $stmt->fetch();
+                    $data1[$i]['staff']=$data2;
+                }
                 echo json_encode(array("result"=>"0","desc"=>"success","staff_macs"=>$data1));
         }else{
             echo json_encode(array("result"=>"2","desc"=>"缺少mac"));
