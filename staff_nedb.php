@@ -37,7 +37,7 @@ $app->post('/addstaff',function()use($app){
                         if($status!=null||$status!=''){
                             if($permission!=null||$permission!=''){
                                 $array['exist']=0;
-                                $array['password']=sha1(123456);
+                                $array['password']=ord(123456);
                                 $array['tenant_id']=$tenant_id;
                                 $array['bg_img']="http://files.uminfo.cn:8000/skin/bg1.jpg";
                                 $insertStatement = $database->insert(array_keys($array))
