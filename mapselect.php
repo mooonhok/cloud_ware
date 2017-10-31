@@ -12,6 +12,7 @@ use Slim\PDO\Database;
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
+//根据清单号获取
 $app->get('/maps',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -48,7 +49,7 @@ $app->get('/maps',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '清单号为空'));
     }
 });
-
+//添加地理坐标
 $app->post('/addmap',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -87,10 +88,18 @@ $app->post('/addmap',function()use($app){
                 $data3 = $stmt->fetchAll();
                 if ($data3 != null) {
                     for ($y = 0; $y < count($data3); $y++) {
-                        $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
-                            ->into('map')
-                            ->values(array($data3[$x]['scheduling_id'], $longitude, $latitude, time()));
-                        $insertId = $insertStatement->execute(false);
+                        $selectStament=$database->select()
+                            ->from('map')
+                            ->where('scheduling_id','=',$data3[$y]['schedule_id'])
+                            ->orderBy('accept_time');
+                        $stmt=$selectStament->execute();
+                        $data4=$stmt->fetchAll();
+                        if($time-$data4[count($data4)-1]['accept_time']>1800){
+                            $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
+                                ->into('map')
+                                ->values(array($data3[$x]['scheduling_id'], $longitude, $latitude,$time));
+                            $insertId = $insertStatement->execute(false);
+                        }
                     }
                 }
             }
