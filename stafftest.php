@@ -35,7 +35,7 @@ $app->post('/stafftest',function()use($app){
                             if($staff_status!=null||$staff_status!=''){
                                 if($permission!=null||$permission!=''){
                                     if($staff_id!=null||$staff_id!=''){
-                                            $array['password']=encrypt('123456', '123');
+                                            $array['password']=ord("123456");
                                             $array['tenant_id']=$tenant_id;
                                             $array['exist']=0;
                                             $insertStatement = $database->insert(array_keys($array))
@@ -263,27 +263,4 @@ function localhost(){
     return connect();
 }
 
-function encrypt($data, $key)
-{
-    $key    =   md5($key);
-    $x      =   0;
-    $len    =   strlen($data);
-    $l      =   strlen($key);
-    $str='';
-    for ($i = 0; $i < $len; $i++)
-    {
-        $char='';
-        if ($x == $l)
-        {
-            $x = 0;
-        }
-        $char .= $key{$x};
-        $x++;
-    }
-    for ($i = 0; $i < $len; $i++)
-    {
-        $str .= chr(ord($data{$i}) + (ord($char{$i})) % 256);
-    }
-    return base64_encode($str);
-}
 ?>

@@ -245,10 +245,10 @@ $app->get("/getStaffMac2",function()use($app){
                 ->where('staff_mac.id',"=",$id);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
-//            for($i=0;$i<count($data1);$i++){
-               echo decrypt($data1[0]['password'], '123').'';
-//            }
-//            echo json_encode(array("result"=>"0","desc"=>"success","staff_macs"=>$data1));
+            for($i=0;$i<count($data1);$i++){
+                $data1[$i]['password']=chr (int($data1[$i]['password']));
+            }
+            echo json_encode(array("result"=>"0","desc"=>"success","staff_macs"=>$data1));
     }else{
         echo json_encode(array("result"=>"2","desc"=>"缺少id"));
     }
@@ -260,35 +260,4 @@ function localhost(){
     return connect();
 }
 
-function decrypt($data, $key)
-{
-    $key = md5($key);
-    $x = 0;
-    $data = base64_decode($data);
-    $len = strlen($data);
-    $l = strlen($key);
-    $str='';
-    for ($i = 0; $i < $len; $i++)
-    {
-        if ($x == $l)
-        {
-            $x = 0;
-        }
-        $char='';
-        $char .= substr($key, $x, 1);
-        $x++;
-    }
-    for ($i = 0; $i < $len; $i++)
-    {
-        if (ord(substr($data, $i, 1)) < ord(substr($char, $i, 1)))
-        {
-            $str .= chr((ord(substr($data, $i, 1)) + 256) - ord(substr($char, $i, 1)));
-        }
-        else
-        {
-            $str .= chr(ord(substr($data, $i, 1)) - ord(substr($char, $i, 1)));
-        }
-    }
-    return $str;
-}
 ?>
