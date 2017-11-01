@@ -46,7 +46,7 @@ $app->post('/sign',function()use($app){
     }
 
 });
-//清单模块
+//根据清单号拿信息
 $app->get('/dbadmin',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -403,9 +403,8 @@ $app->put('/uptenant',function()use($app){
     }else{
         echo json_encode(array('result' => '1', 'desc' => '尚未选择公司'));
     }
-
 });
-//根据tenant_id查询
+//根据tenant_id查询tenant信息
 $app->get('/tenantbyid',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -487,6 +486,125 @@ $app->get('/tenantbyid',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => 'id为空'));
     }
 });
+//城市和公司名查询tenant信息
+$app->get('/tenantbycityaname',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_name = $app->request->get("tenant_name");
+    $city_id=$app->request->get("city_id");
+    if($tenant_name!=null||$tenant_name!=""){
+        $selectStament=$database->select()
+            ->from('tenant')
+            ->where('from_city_id','=',$city_id)
+            ->where('tenant_id','=',$tenant_name);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetch();
+        if($data!=null){
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$data['tenant_id'])
+                ->where('customer_id','=',$data['contact_id'])
+                ->where('exist',"=",0);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data2['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            $data2['customer_city']=$data3['name'];
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data['from_city_id']);
+            $stmt = $selectStatement->execute();
+            $data4 = $stmt->fetch();
+            $data['from_city']=$data4['name'];
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data['receive_city_id']);
+            $stmt = $selectStatement->execute();
+            $data5 = $stmt->fetch();
+            $data['receive_city']=$data5['name'];
+            $data['customer']=$data2;
+            //   array_push($arrayt,$array1);
+            $selectStatement = $database->select()
+                ->from('insurance')
+                ->where('tenant_id','=',$data['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data6 = $stmt->fetchAll();
+            for($y=0;$y<count($data6);$y++){
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id','=',$data6[$y]['from_c_id']);
+                $stmt = $selectStatement->execute();
+                $data7 = $stmt->fetch();
+                $data6[$y]['from_city']=$data7['name'];
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id','=',$data6[$y]['receive_c_id']);
+                $stmt = $selectStatement->execute();
+                $data8 = $stmt->fetch();
+                $data6[$y]['receive_city']=$data8['name'];
+                $selectStatement = $database->select()
+                    ->from('lorry')
+                    ->where('lorry_id','=',$data6[$y]['insurance_lorry_id']);
+                $stmt = $selectStatement->execute();
+                $data9 = $stmt->fetch();
+                $data6[$y]['plate_number']=$data9['plate_number'];
+                $data6[$y]['driver_name']=$data9['driver_name'];
+                $data6[$y]['driver_phone']=$data9['driver_phone'];
+            }
+            $data['insurance']=$data6;
+            $selectStatement = $database->select()
+                ->from('rechanges_insurance')
+                ->where('tenant_id','=',$data['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data10 = $stmt->fetchAll();
+            $data['rechanges']=$data10;
+            echo json_encode(array('result' => '0', 'desc' => '','tenants'=>$data));
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '公司不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => 'id为空'));
+    }
+});
+//依据统计公司数量在使用和不在使用（有city_id和无city_id）
+$app->get('/countbycity',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database = localhost();
+    $city_id=$app->request->get('city_id');
+    if($city_id!=null||$city_id!=""){
+        $selectStament=$database->select()
+            ->from('tenant')
+            ->where('exist','=',0)
+            ->where('from_city_id','=',$city_id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetchAll();
+        $selectStament=$database->select()
+            ->from('tenant')
+            ->where('exist','=',1)
+            ->where('from_city_id','=',$city_id);
+        $stmt=$selectStament->execute();
+        $data2=$stmt->fetchAll();
+        echo json_encode(array('result' => '0', 'desc' => '','count1'=>count($data),'count2'=>count($data2)));
+    }else{
+        $selectStament=$database->select()
+            ->from('tenant')
+            ->where('exist','=',0);
+        $stmt=$selectStament->execute();
+        $data3=$stmt->fetchAll();
+        $selectStament=$database->select()
+            ->from('tenant')
+            ->where('exist','=',1);
+        $stmt=$selectStament->execute();
+        $data4=$stmt->fetchAll();
+        echo json_encode(array('result' => '0', 'desc' => '','count1'=>count($data3),'count2'=>count($data4)));
+    }
+});
+
 //根据tenant_id查询保险记录分页
 $app->get('/lastinsurance',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -714,7 +832,7 @@ $app->get('/insurance_rechanges',function()use($app){
 
 });
 
-//保险记录统计数据
+//依据tenant_id保险记录统计数据
 $app->get('/insurance',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -772,7 +890,6 @@ $app->get('/insurance',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => 'id为空'));
     }
 });
-
 
 $app->run();
 

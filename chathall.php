@@ -83,6 +83,7 @@ $app->get('/bycity',function()use($app){
                       $data3=$stmt->fetch();
                       $data2[$x]['send_name']=$data3['driver_name'];
                       $data2[$x]['send_tel']=$data3['driver_phone'];
+                      $data2[$x]['send_tenant']=null;
                       $data2[$x]['send_plate']=$data3['plate_number'];
                   }else{
                       $selectStament=$database->select()
@@ -97,6 +98,7 @@ $app->get('/bycity',function()use($app){
                       $data5=$stmt->fetch();
                       $data2[$x]['send_name']=$data5['customer_name'];
                       $data2[$x]['send_tel']=$data5['customer_phone'];
+                      $data2[$x]['send_tenant']=$data4['company'];
                       $data2[$x]['send_plate']=null;
                   }
                 }
