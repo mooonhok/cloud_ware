@@ -62,13 +62,13 @@ $app->get('/schs',function()use($app){
         for($i=0;$i<count($data);$i++){
             $selectStament=$database->select()
                 ->from('city')
-                ->where('city_id','=',$data[$i]['send_city_id']);
+                ->where('id','=',$data[$i]['send_city_id']);
             $stmt=$selectStament->execute();
             $datam=$stmt->fetch();
             $data[$i]['send_city']=$datam['name'];
             $selectStament=$database->select()
                 ->from('city')
-                ->where('city_id','=',$data[$i]['receive_city_id']);
+                ->where('id','=',$data[$i]['receive_city_id']);
             $stmt=$selectStament->execute();
             $dataf=$stmt->fetch();
             $data[$i]['receive_city']=$dataf['name'];
@@ -176,13 +176,13 @@ $app->get('/schs',function()use($app){
         for($i=0;$i<count($data);$i++){
             $selectStament=$database->select()
                 ->from('city')
-                ->where('city_id','=',$data[$i]['send_city_id']);
+                ->where('id','=',$data[$i]['send_city_id']);
             $stmt=$selectStament->execute();
             $datam=$stmt->fetch();
             $data[$i]['send_city']=$datam['name'];
             $selectStament=$database->select()
                 ->from('city')
-                ->where('city_id','=',$data[$i]['receive_city_id']);
+                ->where('id','=',$data[$i]['receive_city_id']);
             $stmt=$selectStament->execute();
             $dataf=$stmt->fetch();
             $data[$i]['receive_city']=$dataf['name'];
@@ -290,13 +290,13 @@ $app->get('/dbadmin',function()use($app){
     $data=$stmt->fetch();
     $selectStament=$database->select()
         ->from('city')
-        ->where('city_id','=',$data['send_city_id']);
+        ->where('id','=',$data['send_city_id']);
     $stmt=$selectStament->execute();
     $datam=$stmt->fetch();
     $data['send_city']=$datam['name'];
     $selectStament=$database->select()
         ->from('city')
-        ->where('city_id','=',$data['receive_city_id']);
+        ->where('id','=',$data['receive_city_id']);
     $stmt=$selectStament->execute();
     $dataf=$stmt->fetch();
     $data['receive_city']=$dataf['name'];
