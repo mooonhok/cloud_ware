@@ -841,6 +841,7 @@ $app->get('/lastinsurance',function()use($app){
                 //  $arrays['count']=ceil($num/(int)$per_page);
                 if ($data2 != null || $data2 != "") {
                     for ($i = 0; $i < count($data2); $i++) {
+                        $arrays1['tenant_id']=$data1['tenant_id'];
                         $arrays1['company'] = $data1['company'];
                         $arrays1['insurance_start_time'] = $data2[$i]['insurance_start_time'];
                         $arrays1['duration'] = $data2[$i]['duration'];
@@ -912,6 +913,7 @@ $app->get('/lastinsurance',function()use($app){
                 $data2 = $stmt->fetchAll();
                 if ($data2 != null || $data2 != "") {
                     for ($i = 0; $i < count($data2); $i++) {
+                        $arrays1['tenant_id']=$data1['tenant_id'];
                         $arrays1['company'] = $data1['company'];
                         $arrays1['insurance_start_time'] = $data2[$i]['insurance_start_time'];
                         $arrays1['duration'] = $data2[$i]['duration'];
