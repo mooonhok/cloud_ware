@@ -159,7 +159,7 @@ $app->get('/limitAgreements',function()use($app) {
                     ->where('agreement.tenant_id','=',$tenant_id)
                     ->where('lorry.tenant_id','=',$tenant_id)
                     ->where('agreement.exist','=',0)
-                    ->orderBy("agreement.agreement_id")
+                    ->orderBy("agreement.agreement_id",'DESC')
                     ->limit((int)$size,(int)$offset);
                 $stmt = $selectStatement->execute();
                 $data = $stmt->fetchAll();

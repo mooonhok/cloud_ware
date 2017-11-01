@@ -983,7 +983,7 @@ $app->get('/limitGoodsOrders5',function()use($app){
                     ->where('goods.tenant_id','=',$tenant_id)
                     ->where('orders.tenant_id','=',$tenant_id)
                     ->where('orders.exist','=',0)
-                    ->orderBy('orders.order_id')
+                    ->orderBy('orders.order_id','DESC')
                     ->limit((int)$size,(int)$offset);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();

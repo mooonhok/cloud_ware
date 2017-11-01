@@ -176,7 +176,7 @@ $app->get('/limitDeliverys',function()use($app){
             ->join('lorry','lorry.lorry_id','=','delivery.lorry_id','INNER')
             ->where('lorry.tenant_id','=',$tenant_id)
             ->where('delivery.tenant_id', '=', $tenant_id)
-            ->orderBy('delivery.delivery_id')
+            ->orderBy('delivery.delivery_id','DESC')
             ->limit((int)$size,(int)$offset);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
