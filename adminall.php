@@ -61,6 +61,18 @@ $app->get('/schs',function()use($app){
         $data=$stmt->fetchAll();
         for($i=0;$i<count($data);$i++){
             $selectStament=$database->select()
+                ->from('city')
+                ->where('city_id','=',$data[$i]['send_city_id']);
+            $stmt=$selectStament->execute();
+            $datam=$stmt->fetch();
+            $data[$i]['send_city']=$datam['name'];
+            $selectStament=$database->select()
+                ->from('city')
+                ->where('city_id','=',$data[$i]['receive_city_id']);
+            $stmt=$selectStament->execute();
+            $dataf=$stmt->fetch();
+            $data[$i]['receive_city']=$dataf['name'];
+            $selectStament=$database->select()
                 ->from('customer')
                 ->where('customer_id','=',$data[$i]['receiver_id']);
             $stmt=$selectStament->execute();
@@ -160,7 +172,20 @@ $app->get('/schs',function()use($app){
             ->orderBy('scheduling_id');
         $stmt=$selectStament->execute();
         $data=$stmt->fetchAll();
+
         for($i=0;$i<count($data);$i++){
+            $selectStament=$database->select()
+                ->from('city')
+                ->where('city_id','=',$data[$i]['send_city_id']);
+            $stmt=$selectStament->execute();
+            $datam=$stmt->fetch();
+            $data[$i]['send_city']=$datam['name'];
+            $selectStament=$database->select()
+                ->from('city')
+                ->where('city_id','=',$data[$i]['receive_city_id']);
+            $stmt=$selectStament->execute();
+            $dataf=$stmt->fetch();
+            $data[$i]['receive_city']=$dataf['name'];
             $selectStament=$database->select()
                 ->from('customer')
                 ->where('customer_id','=',$data[$i]['receiver_id']);
@@ -263,6 +288,18 @@ $app->get('/dbadmin',function()use($app){
         ->where('scheduling_id','=',$scheduling_id);
     $stmt=$selectStament->execute();
     $data=$stmt->fetch();
+    $selectStament=$database->select()
+        ->from('city')
+        ->where('city_id','=',$data['send_city_id']);
+    $stmt=$selectStament->execute();
+    $datam=$stmt->fetch();
+    $data['send_city']=$datam['name'];
+    $selectStament=$database->select()
+        ->from('city')
+        ->where('city_id','=',$data['receive_city_id']);
+    $stmt=$selectStament->execute();
+    $dataf=$stmt->fetch();
+    $data['receive_city']=$dataf['name'];
     $selectStament=$database->select()
         ->from('customer')
         ->where('customer_id','=',$data['receiver_id']);
