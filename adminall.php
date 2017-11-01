@@ -45,12 +45,14 @@ $app->post('/sign',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '名字为空'));
     }
 });
+
 $app->get('/schs',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $page = $app->request->get('page');
     $per_page=$app->request->get('per_page');
+    $array=array();
     if($page==null||$per_page==null){
         $selectStament=$database->select()
             ->from('scheduling')
