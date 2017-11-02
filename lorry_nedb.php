@@ -322,7 +322,7 @@ $app->post('/uploadLorry',function()use($app) {
     }
     if(isset($_FILES["driving_license"])){
         $name11 = $_FILES["driving_license"]["name"];
-        if($name11!=null){
+        if($name11){
             $name1=substr(strrchr($name11, '.'), 1);
 //        $name1 = iconv("UTF-8", "gb2312", $name11);
             $shijian = time();
@@ -333,7 +333,7 @@ $app->post('/uploadLorry',function()use($app) {
     }
     if(isset($_FILES["vehicle_travel_license"])){
         $name21 = $_FILES["vehicle_travel_license"]["name"];
-        if($name21!=null){
+        if($name21){
             $name2=substr(strrchr($name21, '.'), 1);
 //        $name2 = iconv("UTF-8", "gb2312", $name21);
             $shijian = time().'a';
