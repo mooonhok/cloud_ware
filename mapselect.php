@@ -94,11 +94,14 @@ $app->post('/addmap',function()use($app){
                             ->orderBy('accept_time');
                         $stmt=$selectStament->execute();
                         $data4=$stmt->fetchAll();
-                        if($time-$data4[count($data4)-1]['accept_time']>1800){
-                            $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
-                                ->into('map')
-                                ->values(array($data3[$x]['scheduling_id'], $longitude, $latitude,$time));
-                            $insertId = $insertStatement->execute(false);
+                     //   $num=count($data4)-1;
+                        if($data4!=null) {
+                            if ($time - $data4[count($data4) - 1]['accept_time'] > 1800) {
+                                $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
+                                    ->into('map')
+                                    ->values(array($data3[$x]['scheduling_id'], $longitude, $latitude, $time));
+                                $insertId = $insertStatement->execute(false);
+                            }
                         }
                     }
                 }
