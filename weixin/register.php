@@ -34,7 +34,8 @@ $signPackage = $jssdk->GetSignPackage();
 			</div>
 			<div class="box_center">
 
-				<div class="box_center1"><span>注<span class="kong"></span>册</span>
+<!--				<div class="box_center1"><span>注<span class="kong"></span>册</span>-->
+                <div class="box_center1">您可否留下姓名和电话</span>
 				</div>
 
 				<div class="box_center1"><input id="customername" placeholder="姓名"></div>

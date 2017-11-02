@@ -243,6 +243,7 @@
                       var xhr = new XMLHttpRequest();
                       xhr.open("POST" ,"http://api.uminfo.cn/tenant_insurancepolicy.php/upload?tenant_id="+tenant_id , true);
                       xhr.send(formdata);
+                      xhr.upload.onprogress = progressFunction;
                       xhr.onload = function(e) {
                           if (this.status == 200) {
                               layer.msg('上传成功');
