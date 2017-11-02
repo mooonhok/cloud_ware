@@ -1165,8 +1165,8 @@ $app->put('/upplate_number',function()use($app){
                                 ->where('driver_phone','=',$data10['driver_name'])
                                 ->where('driver_name','=',$data10['driver_name']);
                             $affectedRows1 = $updateStatement->execute();
-                            $arrays1['app_chose']=0;
-                            $updateStatement = $database->update($arrays1)
+//                            $arrays1['app_chose']=0;
+                            $updateStatement = $database->update(array("app_chose"=>0))
                                 ->table('lorry')
                                 ->where('plate_number','=',$data9['plate_number'])
                                 ->where('driver_phone','=',$data9['driver_name'])
@@ -1177,7 +1177,7 @@ $app->put('/upplate_number',function()use($app){
                                 ->where('lorry_id', '=', $lorry2);
                             $stmt = $selectStament->execute();
                             $data11 = $stmt->fetch();
-                            echo json_encode(array('result' => '0', 'desc' => '修改默认车辆成功','lorry'=>$data11,"up1"=>$affectedRows1,"up2"=>$affectedRows2));
+                            echo json_encode(array('result' => '0', 'desc' => '修改默认车辆成功','lorry'=>$data11,"data9"=>$data9,"data10"=>$data10,"up1"=>$affectedRows1,"up2"=>$affectedRows2));
                         }else{
                             echo json_encode(array('result' => '5', 'desc' => '该车辆不是你的'));
                         }
