@@ -1088,8 +1088,8 @@ $app->put('/upplate_number',function()use($app){
     $lorry_id = $body->lorry_id;
     $database=localhost();
     $lorry2=$body->lorry_id2;
-//    if($lorry_id!=null||$lorry_id!=""){
-//        if($lorry2!=null||$lorry2!=""){
+    if($lorry_id!=null||$lorry_id!=""){
+        if($lorry2!=null||$lorry2!=""){
             $selectStament = $database->select()
                 ->from('lorry')
                 ->where('tenant_id','=',0)
@@ -1097,58 +1097,58 @@ $app->put('/upplate_number',function()use($app){
                 ->where('lorry_id', '=', $lorry_id);
             $stmt = $selectStament->execute();
             $data9 = $stmt->fetch();
-//            $selectStament = $database->select()
-//                ->from('lorry')
-//                ->where('exist', '=', 0)
-//                ->where('lorry_id', '=', $lorry_id);
-//            $stmt = $selectStament->execute();
-//            $data = $stmt->fetch();
-//            $selectStament = $database->select()
-//                ->from('lorry')
-//                ->where('tenant_id', '!=', 0)
-//                ->where('flag', '=', 0)
-//                ->where('plate_number', '=', $data['plate_number'])
-//                ->where('driver_phone', '=', $data['driver_phone'])
-//                ->where('driver_name', '=', $data['driver_name']);
-//            $stmt = $selectStament->execute();
-//            $data2 = $stmt->fetchAll();
-//            $sum = 0;
-//            for ($x = 0; $x < count($data2); $x++) {
-//                $selectStament = $database->select()
-//                    ->from('scheduling')
-//                    ->where('scheduling_status', '=', 4)
-//                    ->where('lorry_id', '=', $data2[$x]['lorry_id']);
-//                $stmt = $selectStament->execute();
-//                $data3 = $stmt->fetchAll();
-//                $sum += count($data3);
-//            }
-//            $selectStament=$database->select()
-//                ->from('lorry')
-//                ->where('exist','=',0)
-//                ->where('lorry_id','=',$lorry_id);
-//            $stmt=$selectStament->execute();
-//            $data5=$stmt->fetch();
-//            $selectStament=$database->select()
-//                ->from('lorry')
-//                ->where('exist','=',0)
-//                ->where('flag','=',1)
-//                ->where('plate_number','=',$data5['plate_number'])
-//                ->where('driver_phone','=',$data5['driver_phone'])
-//                ->where('driver_name','=',$data5['driver_name']);
-//            $stmt=$selectStament->execute();
-//            $data6=$stmt->fetchAll();
-//            for($x=0;$x<count($data6);$x++) {
-//                $selectStament = $database->select()
-//                    ->from('delivery')
-//                    ->where('exist', '=', 0)
-//                    ->where('is_receive', '=', 0)
-//                    ->where('lorry_id', '=', $data6[$x]['lorry_id']);
-//                $stmt = $selectStament->execute();
-//                $data7 = $stmt->fetchAll();
-//                $sum += count($data7);
-//            }
-//            if($sum==0){
-//                if($data9!=null){
+            $selectStament = $database->select()
+                ->from('lorry')
+                ->where('exist', '=', 0)
+                ->where('lorry_id', '=', $lorry_id);
+            $stmt = $selectStament->execute();
+            $data = $stmt->fetch();
+            $selectStament = $database->select()
+                ->from('lorry')
+                ->where('tenant_id', '!=', 0)
+                ->where('flag', '=', 0)
+                ->where('plate_number', '=', $data['plate_number'])
+                ->where('driver_phone', '=', $data['driver_phone'])
+                ->where('driver_name', '=', $data['driver_name']);
+            $stmt = $selectStament->execute();
+            $data2 = $stmt->fetchAll();
+            $sum = 0;
+            for ($x = 0; $x < count($data2); $x++) {
+                $selectStament = $database->select()
+                    ->from('scheduling')
+                    ->where('scheduling_status', '=', 4)
+                    ->where('lorry_id', '=', $data2[$x]['lorry_id']);
+                $stmt = $selectStament->execute();
+                $data3 = $stmt->fetchAll();
+                $sum += count($data3);
+            }
+            $selectStament=$database->select()
+                ->from('lorry')
+                ->where('exist','=',0)
+                ->where('lorry_id','=',$lorry_id);
+            $stmt=$selectStament->execute();
+            $data5=$stmt->fetch();
+            $selectStament=$database->select()
+                ->from('lorry')
+                ->where('exist','=',0)
+                ->where('flag','=',1)
+                ->where('plate_number','=',$data5['plate_number'])
+                ->where('driver_phone','=',$data5['driver_phone'])
+                ->where('driver_name','=',$data5['driver_name']);
+            $stmt=$selectStament->execute();
+            $data6=$stmt->fetchAll();
+            for($x=0;$x<count($data6);$x++) {
+                $selectStament = $database->select()
+                    ->from('delivery')
+                    ->where('exist', '=', 0)
+                    ->where('is_receive', '=', 0)
+                    ->where('lorry_id', '=', $data6[$x]['lorry_id']);
+                $stmt = $selectStament->execute();
+                $data7 = $stmt->fetchAll();
+                $sum += count($data7);
+            }
+            if($sum==0){
+                if($data9!=null){
                     $selectStament = $database->select()
                         ->from('lorry')
                         ->where('tenant_id','=',0)
@@ -1156,47 +1156,44 @@ $app->put('/upplate_number',function()use($app){
                         ->where('lorry_id', '=', $lorry2);
                     $stmt = $selectStament->execute();
                     $data10 = $stmt->fetch();
-//                    if($data10!=null){
-//                        if($data9['driver_name']==$data10['driver_name']&&$data9['driver_phone']==$data10['driver_phone']){
-//                            $arrays['app_chose']=1;
+                    if($data10!=null){
+                        if($data9['driver_name']==$data10['driver_name']&&$data9['driver_phone']==$data10['driver_phone']){
                             $updateStatement = $database->update(array("app_chose"=>1))
                                 ->table('lorry')
-                                ->where('lorry_id', '=', $lorry2);
-//                                ->where('plate_number','=',$data10['plate_number'])
-//                                ->where('driver_phone','=',$data10['driver_name'])
-//                                ->where('driver_name','=',$data10['driver_name']);
+                                ->where('plate_number','=',$data10['plate_number'])
+                                ->where('driver_phone','=',$data10['driver_phone'])
+                                ->where('driver_name','=',$data10['driver_name']);
                             $affectedRows1 = $updateStatement->execute();
-//                            $arrays1['app_chose']=0;
-//                            $updateStatement = $database->update(array("app_chose"=>'0'))
-//                                ->table('lorry')
-//                                ->where('plate_number','=',$data9['plate_number'])
-//                                ->where('driver_phone','=',$data9['driver_name'])
-//                               ->where('driver_name','=',$data9['driver_name']);
-//                            $affectedRows2 = $updateStatement->execute();
-//                            $selectStament = $database->select()
-//                                ->from('lorry')
-//                                ->where('lorry_id', '=', $lorry2);
-//                            $stmt = $selectStament->execute();
-//                            $data11 = $stmt->fetch();
+                            $updateStatement = $database->update(array("app_chose"=>'0'))
+                                ->table('lorry')
+                                ->where('plate_number','=',$data9['plate_number'])
+                                ->where('driver_phone','=',$data9['driver_phone'])
+                               ->where('driver_name','=',$data9['driver_name']);
+                            $affectedRows2 = $updateStatement->execute();
+                            $selectStament = $database->select()
+                                ->from('lorry')
+                                ->where('lorry_id', '=', $lorry2);
+                            $stmt = $selectStament->execute();
+                            $data11 = $stmt->fetch();
                             echo json_encode(array('result' => '0', 'desc' => '修改默认车辆成功',"data9"=>$data9,"data10"=>$data10,"up1"=>$affectedRows1,"up2"=>0));
-//                        }else{
-//                            echo json_encode(array('result' => '5', 'desc' => '该车辆不是你的'));
-//                        }
-//                    }else{
-//                        echo json_encode(array('result' => '4', 'desc' => '车辆不存在'));
-//                    }
-//                }else{
-//                    echo json_encode(array('result' => '3', 'desc' => '司机不存在'));
-//                }
-//            }else{
-//                echo json_encode(array('result' => '6', 'desc' => '您还有未处理单子'));
-//            }
-//        }else{
-//            echo json_encode(array('result' => '2', 'desc' => '未选择车辆'));
-//        }
-//    }else{
-//        echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
-//    }
+                        }else{
+                            echo json_encode(array('result' => '5', 'desc' => '该车辆不是你的'));
+                        }
+                    }else{
+                        echo json_encode(array('result' => '4', 'desc' => '车辆不存在'));
+                    }
+                }else{
+                    echo json_encode(array('result' => '3', 'desc' => '司机不存在'));
+                }
+            }else{
+                echo json_encode(array('result' => '6', 'desc' => '您还有未处理单子'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '未选择车辆'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
+    }
 });
 //删除车辆
 $app->put('/upplate',function()use($app){
