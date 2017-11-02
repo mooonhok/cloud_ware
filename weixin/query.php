@@ -245,7 +245,7 @@ $signPackage = $jssdk->GetSignPackage();
       needResult: 1,
       desc: 'scanQRCode desc',
       success: function (res) {
-       // alert(res.resultStr);
+        alert(res.resultStr);
         var a=new Array();
         a=res.resultStr.split(",");
         alert(a[1]);
