@@ -310,16 +310,6 @@ $app->post('/uploadLorry',function()use($app) {
     $tenant_id=$app->request->params('tenant_id');
     $database = localhost();
     $array=array();
-    if($_FILES["driving_license"]){
-        $array['driving_license']=0;
-    }else{
-        $array['driving_license']=1;
-    }
-    if($_FILES["vehicle_travel_license"]){
-        $array['vehicle_travel_license']=0;
-    }else{
-        $array['vehicle_travel_license']=1;
-    }
     if(isset($_FILES["driving_license"])){
         $name11 = $_FILES["driving_license"]["name"];
         if($name11){
