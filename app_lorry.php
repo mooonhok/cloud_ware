@@ -1161,9 +1161,10 @@ $app->put('/upplate_number',function()use($app){
 //                            $arrays['app_chose']=1;
                             $updateStatement = $database->update(array("app_chose"=>1))
                                 ->table('lorry')
-                                ->where('plate_number','=',$data10['plate_number'])
-                                ->where('driver_phone','=',$data10['driver_name'])
-                                ->where('driver_name','=',$data10['driver_name']);
+                                ->where('lorry_id', '=', $lorry2);
+//                                ->where('plate_number','=',$data10['plate_number'])
+//                                ->where('driver_phone','=',$data10['driver_name'])
+//                                ->where('driver_name','=',$data10['driver_name']);
                             $affectedRows1 = $updateStatement->execute();
 //                            $arrays1['app_chose']=0;
 //                            $updateStatement = $database->update(array("app_chose"=>'0'))
