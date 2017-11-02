@@ -339,7 +339,7 @@ $app->post('/uploadLorry',function()use($app) {
             ->where('tenant_id','=',$tenant_id)
             ->where('lorry_id','=',$lorry_id);
         $affectedRows = $updateStatement->execute();
-        echo json_encode(array("result" => "0", "desc" => "success",'aa'=>$aa));
+        echo json_encode(array("result" => "0", "desc" => "success"));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }

@@ -248,7 +248,8 @@ $signPackage = $jssdk->GetSignPackage();
        // alert(res.resultStr);
         var a=new Array();
         a=res.resultStr.split(",");
-      //  if(a[1].length!=0){
+        alert(a[1]);
+       if(a[1].length!=0){
 			$.ajax({
 				url: "http://api.uminfo.cn/order.php/wx_order_z",
 				beforeSend: function(request) {
@@ -271,9 +272,9 @@ $signPackage = $jssdk->GetSignPackage();
 					alert("获取后台失败");
 				}
 			});
-		//}else{
+		}else{
 			 layer.msg("没有扫描到条形码");
-		//}
+	   }
       }
     });
   };
