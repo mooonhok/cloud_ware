@@ -379,7 +379,7 @@ $app->get('/sbylorryn',function()use($app){
                     $arrays1['customer_name']=$data4['customer_name'];
                     $arrays1['plate_number']=$data5['plate_number'];
                     $arrays1['pic']=$data3[$i]['sure_img'];
-                    $arrays1['status']=$data3[$i]['sheduling_status'];
+                    $arrays1['status']=$data3[$i]['scheduling_status'];
                     array_push($arrays,$arrays1);
                 }
             }
