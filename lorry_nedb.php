@@ -322,16 +322,16 @@ $app->post('/uploadLorry',function()use($app) {
         }
     }
     if(isset($_FILES["vehicle_travel_license"])){
-        $name21 = $_FILES["vehicle_travel_license"]["name"];
-        if($name21!=null){
-            $name2=substr(strrchr($name21, '.'), 1);
-//        $name2 = iconv("UTF-8", "gb2312", $name21);
-            $shijian = time();
-            $name2 = $shijian .'.'. $name2;
-            move_uploaded_file($_FILES["vehicle_travel_license"]["tmp_name"], "/files/lorry/" . $name2);
-            $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/".$name2;
-        }
-
+//        $name21 = $_FILES["vehicle_travel_license"]["name"];
+//        if($name21!=null){
+//            $name2=substr(strrchr($name21, '.'), 1);
+////        $name2 = iconv("UTF-8", "gb2312", $name21);
+//            $shijian = time().'a';
+//            $name2 = $shijian .'.'. $name2;
+//            move_uploaded_file($_FILES["vehicle_travel_license"]["tmp_name"], "/files/lorry/" . $name2);
+//            $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/".$name2;
+//        }
+         $aa=0;
     }
 
     if($tenant_id!=null||$tenant_id!=''){
@@ -340,7 +340,7 @@ $app->post('/uploadLorry',function()use($app) {
             ->where('tenant_id','=',$tenant_id)
             ->where('lorry_id','=',$lorry_id);
         $affectedRows = $updateStatement->execute();
-        echo json_encode(array("result" => "0", "desc" => "success"));
+        echo json_encode(array("result" => "0", "desc" => "success",'aa'=>$aa));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
