@@ -424,6 +424,42 @@ $app->put('/alterStaff1',function()use($app){
         }
 });
 
+$app->put('/alterStaff2',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $staff_id=$body->staff_id;
+    $password=$body->password;
+    $array=array();
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+    if($tenant_id!=null||$tenant_id!=''){
+            if($staff_id!=null||$staff_id!=''){
+                if($password!=null||$password!=''){
+                    $password=encode($password , 'cxphp');
+                    $array['password']=$password;
+                    $updateStatement = $database->update($array)
+                        ->table('staff')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('staff_id','=',$staff_id)
+                        ->where('exist',"=",0);
+                    $affectedRows = $updateStatement->execute();
+                    echo json_encode(array('result'=>'0','desc'=>'success'));
+                }else{
+                    echo json_encode(array('result'=>'1','desc'=>'员工id为空'));
+                }
+            }else{
+                echo json_encode(array('result'=>'1','desc'=>'员工id为空'));
+            }
+    }else{
+        echo json_encode(array('result'=>'2','desc'=>'租户为空'));
+    }
+});
+
 $app->run();
 
 function localhost(){
