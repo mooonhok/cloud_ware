@@ -450,13 +450,13 @@ $app->put('/alterStaff2',function()use($app){
                     $affectedRows = $updateStatement->execute();
                     echo json_encode(array('result'=>'0','desc'=>'success'));
                 }else{
-                    echo json_encode(array('result'=>'1','desc'=>'员工id为空'));
+                    echo json_encode(array('result'=>'1','desc'=>'密码为空'));
                 }
             }else{
-                echo json_encode(array('result'=>'1','desc'=>'员工id为空'));
+                echo json_encode(array('result'=>'2','desc'=>'员工id为空'));
             }
     }else{
-        echo json_encode(array('result'=>'2','desc'=>'租户为空'));
+        echo json_encode(array('result'=>'3','desc'=>'租户为空'));
     }
 });
 
