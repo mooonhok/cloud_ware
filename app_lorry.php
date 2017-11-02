@@ -404,7 +404,7 @@ $app->post('/suresch',function()use($app){
         $type = $result[2];
         date_default_timezone_set("PRC");
         $time1=time();
-        $new_file = "/files/sure/".$time1;
+        $new_file = "/files/sure/".date('Ymd',$time1)."/";
         if(!file_exists($new_file))
         {
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
@@ -412,7 +412,7 @@ $app->post('/suresch',function()use($app){
         }
         $new_file = $new_file.time().".{$type}";
         if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))){
-            $lujing="http://files.uminfo.cn:8000/sure/".$time1;
+            $lujing="http://files.uminfo.cn:8000/sure/".date('Ymd',$time1)."/".$time1.".{$type}";
         }
     }
     $arrays['scheduling_status']=5;
@@ -753,7 +753,7 @@ $app->post('/ordersure',function()use($app){
         }
         $new_file = $new_file.time().".{$type}";
         if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))){
-            $lujing="http://files.uminfo.cn:8000/sureone/".date('Ymd',$time1)."/".$time1.".{$type}.";
+            $lujing="http://files.uminfo.cn:8000/sureone/".date('Ymd',$time1)."/".$time1.".{$type}";
         }
     }
     $arrays['is_receive']=1;
