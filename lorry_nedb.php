@@ -309,7 +309,7 @@ $app->post('/uploadLorry',function()use($app) {
     $lorry_id=$app->request->params('lorry_id');
     $tenant_id=$app->request->params('tenant_id');
     $database = localhost();
-    $array=null;
+    $array=array();
     if(isset($_FILES["driving_license"])){
         $name11 = $_FILES["driving_license"]["name"];
         $name1=substr(strrchr($name11, '.'), 1);
