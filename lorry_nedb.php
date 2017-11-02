@@ -310,7 +310,17 @@ $app->post('/uploadLorry',function()use($app) {
     $tenant_id=$app->request->params('tenant_id');
     $database = localhost();
     $array=array();
-//    if(isset($_FILES["driving_license"])){
+    if($_FILES["driving_license"]){
+        $array['driving_license']=0;
+    }else{
+        $array['driving_license']=1;
+    }
+    if($_FILES["vehicle_travel_license"]){
+        $array['vehicle_travel_license']=0;
+    }else{
+        $array['vehicle_travel_license']=1;
+    }
+    if(isset($_FILES["driving_license"])){
         $name11 = $_FILES["driving_license"]["name"];
         if($name11!=null){
             $name1=substr(strrchr($name11, '.'), 1);
@@ -320,8 +330,8 @@ $app->post('/uploadLorry',function()use($app) {
             move_uploaded_file($_FILES["driving_license"]["tmp_name"], "/files/lorry/" . $name1);
             $array['driving_license']="http://files.uminfo.cn:8000/lorry/".$name1;
         }
-//    }
-//    if(isset($_FILES["vehicle_travel_license"])){
+    }
+    if(isset($_FILES["vehicle_travel_license"])){
         $name21 = $_FILES["vehicle_travel_license"]["name"];
         if($name21!=null){
             $name2=substr(strrchr($name21, '.'), 1);
@@ -331,7 +341,7 @@ $app->post('/uploadLorry',function()use($app) {
             move_uploaded_file($_FILES["vehicle_travel_license"]["tmp_name"], "/files/lorry/" . $name2);
             $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/".$name2;
         }
-//    }
+    }
 
     if($tenant_id!=null||$tenant_id!=''){
         $updateStatement = $database->update($array)
