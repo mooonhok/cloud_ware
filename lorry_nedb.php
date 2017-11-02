@@ -322,16 +322,15 @@ $app->post('/uploadLorry',function()use($app) {
         }
     }
     if(isset($_FILES["vehicle_travel_license"])){
-//        $name21 = $_FILES["vehicle_travel_license"]["name"];
-//        if($name21!=null){
-//            $name2=substr(strrchr($name21, '.'), 1);
-////        $name2 = iconv("UTF-8", "gb2312", $name21);
-//            $shijian = time().'a';
-//            $name2 = $shijian .'.'. $name2;
-//            move_uploaded_file($_FILES["vehicle_travel_license"]["tmp_name"], "/files/lorry/" . $name2);
-//            $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/".$name2;
-//        }
-         $aa=0;
+        $name21 = $_FILES["vehicle_travel_license"]["name"];
+        if($name21!=null){
+            $name2=substr(strrchr($name21, '.'), 1);
+//        $name2 = iconv("UTF-8", "gb2312", $name21);
+            $shijian = time().'a';
+            $name2 = $shijian .'.'. $name2;
+            move_uploaded_file($_FILES["vehicle_travel_license"]["tmp_name"], "/files/lorry/" . $name2);
+            $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/".$name2;
+        }
     }
 
     if($tenant_id!=null||$tenant_id!=''){
