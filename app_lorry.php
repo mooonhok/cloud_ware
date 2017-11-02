@@ -192,6 +192,7 @@ $app->get('/sandoandg',function()use($app){
                         $arrays2['phone']=$data9['customer_phone'];
                         $arrays2['sendcity']=$data7['name'];
                         $arrays2['receivecity']=$data8['name'];
+                        $arrays2['pic']=$data1['sure_img'];
                         echo json_encode(array('result' => '0', 'desc' => '','goods'=>$arrays,'customer'=>$arrays2,'count'=>$num,'isreceive'=>$data1['scheduling_status']));
                     }else{
                         echo json_encode(array('result' => '5', 'desc' => '该清单不是您的','goods'=>''));
@@ -263,6 +264,7 @@ $app->get('/byorderid',function()use($app){
             $stmt=$selectStament->execute();
             $data8=$stmt->fetch();
             $arrays['address']=$data8['name'].$data5['customer_address'];
+            $arrays['pic']=$data9['sure_img'];
             echo json_encode(array('result' => '0', 'desc' => '','order'=>$arrays,'is_sure'=>$data9['is_receive']));
         }else{
             echo json_encode(array('result' => '2', 'desc' => '运单不存在','order'=>''));
@@ -376,6 +378,8 @@ $app->get('/sbylorryn',function()use($app){
                     $arrays1['scheduling_id']=$data3[$i]['scheduling_id'];
                     $arrays1['customer_name']=$data4['customer_name'];
                     $arrays1['plate_number']=$data5['plate_number'];
+                    $arrays1['pic']=$data3[$i]['sure_img'];
+                    $arrays1['status']=$data3[$i]['sheduling_status'];
                     array_push($arrays,$arrays1);
                 }
             }
@@ -715,6 +719,8 @@ $app->get('/obycouriern',function()use($app){
                     $stmt = $selectStament->execute();
                     $data5 = $stmt->fetch();
                     $arrays1['customer_name'] = $data5['customer_name'];
+                    $arrays1['pic']=$data2[$y]['sure_img'];
+                    $arrays1['status']=$data2[$y]['is_receive'];
                     array_push($arrays, $arrays1);
                 }
             }
