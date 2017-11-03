@@ -293,10 +293,10 @@ $signPackage = $jssdk->GetSignPackage();
       needResult: 1,  
       desc: 'scanQRCode desc',  
       success: function (res) {    
-        var a=new Array();
-        a=res.resultStr.split(",");
-          if(a[1].length!=0){
-              window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a[1];
+        
+       var a=res.resultStr;
+          if(a!=null){
+              window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a;
           }else{
               layer.msg("没有扫描到条形码");
           }

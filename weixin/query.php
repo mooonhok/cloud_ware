@@ -198,6 +198,7 @@ $signPackage = $jssdk->GetSignPackage();
 <script>
 		//判断openid是否已经被注册
 		var openid = $.cookie('openid'+tenant_id);
+	//	alert(openid);
 		if(openid != null) {
 			$.ajax({
 				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid="+openid,
@@ -246,10 +247,8 @@ $signPackage = $jssdk->GetSignPackage();
       desc: 'scanQRCode desc',
       success: function (res) {
         alert(res.resultStr);
-        var a=new Array();
-        a=res.resultStr.split(",");
-        alert(a[1]);
-       if(a[1].length!=0){
+        var a=res.resultStr;
+       if(a!=null){
 			$.ajax({
 				url: "http://api.uminfo.cn/order.php/wx_order_z",
 				beforeSend: function(request) {
@@ -259,13 +258,13 @@ $signPackage = $jssdk->GetSignPackage();
 				type: 'post',
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({
-					order_id: a[1]
+					order_id: a
 				}),
 				success: function(msg) {
 					if(msg.result == 1) {
 				     layer.msg("订单不存在");
 					}else{
-		            window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
+		            window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a+"&tenant_id="+tenant_id;
 					}
 				},
 				error: function(xhr) {
