@@ -283,8 +283,14 @@ $app->get('/orders', function () use ($app) {
                     ->where('id', '=', $data3['from_city_id']);
                 $stmt = $selectStatement->execute();
                 $data4= $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data2['customer_city_id']);
+                $stmt = $selectStatement->execute();
+                $data5= $stmt->fetch();
                 $data[$i]['tenant']=$data3;
                 $data[$i]['receiver']=$data2;
+                $data[$i]['receiver']['receiver_city']=$data5['name'];
                 $data[$i]['sender']=$data1;
                 $data[$i]['from_city']=$data4;
             }

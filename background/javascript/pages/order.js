@@ -43,7 +43,7 @@ function loadorders(order_id,page) {
                             var arr = []
                                 ,thisData = msg.orders;
                             layui.each(thisData, function(index, item){
-                                arr.push( '<tr><td>'+item.order_id+'</td><td>'+item.tenant.company+'</td><td>'+item.receive_city+'</td><td>'+item.tenant_num+'</td><td>'+item.customer.customer_name+'</td><td>'+item.sales_name+'</td><td>'+item.begin_time+'</td><td>'+item.end_date+'</td><td onclick="tenant_xq('+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
+                                arr.push( '<tr><td>'+item.order_id+'</td><td>'+item.tenant.company+'</td><td>'+item.from_city.name+'</td><td>'+item.tenant_num+'</td><td>'+item.customer.customer_name+'</td><td>'+item.sales_name+'</td><td>'+item.begin_time+'</td><td>'+item.end_date+'</td><td onclick="tenant_xq('+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
                             });
                             return arr.join('');
                         }();
