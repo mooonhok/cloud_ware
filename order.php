@@ -1283,7 +1283,7 @@ $app->post('/wx_orders_order_source', function () use ($app) {
                  }
                 echo json_encode(array("result" => "1", "desc" => "success", "orders" => $array));
             }else{
-                echo json_encode(array("result" => "2", "desc" => "success"));
+                echo json_encode(array("result" => "2", "desc" => "不存在"));
             }
         }else{
             echo json_encode(array("result" => "3", "desc" => "没有该租户"));

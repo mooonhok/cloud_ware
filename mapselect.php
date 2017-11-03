@@ -35,7 +35,7 @@ $app->get('/maps',function()use($app){
             if($data2!=null){
                  for($x=0;$x<count($data2);$x++){
                      date_default_timezone_set("PRC");
-                     $time=date("Y-m-d H:i:s",$data2[$x]['accept_time']);
+                     $time=date("Y-m-d H",$data2[$x]['accept_time']);
                    $arrays1['longitude']=$data2[$x]['longitude'];
                    $arrays1['latitude']=$data2[$x]['latitude'];
                      $arrays1['time']=$time;
@@ -150,7 +150,7 @@ $app->get('/mapsbyor',function()use($app){
                if($data2!=null){
                    for($x=0;$x<count($data2);$x++){
                        date_default_timezone_set("PRC");
-                       $time=date("Y-m-d H:i:s",$data2[$x]['accept_time']);
+                       $time=date("Y-m-d H",$data2[$x]['accept_time']);
                        $arrays1['longitude']=$data2[$x]['longitude'];
                        $arrays1['latitude']=$data2[$x]['latitude'];
                        $arrays1['time']=$time;
