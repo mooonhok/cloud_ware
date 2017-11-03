@@ -297,7 +297,7 @@ $app->get('/orders', function () use ($app) {
                 $data[$i]['sender']=$data1;
                 $data[$i]['from_city']=$data4;
             }
-            echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data,'count'=>count($count)));
+            echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data,'count'=>count($data)));
 });
 
 
