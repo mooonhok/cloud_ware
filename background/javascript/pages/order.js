@@ -1,7 +1,8 @@
 $(function(){
     var adminid=$.session.get('adminid');
     var page = $.getUrlParam('page');
-    loadorders(adminid,page);
+    var order_id=$(".order_id").val();
+    loadorders(order_id,page);
 });
 
 (function($) {
