@@ -1,274 +1,193 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="Access-Control-Allow-Origin" content="*">
-	<title>江苏酉铭主页</title>
-	<link rel="stylesheet" href="css/index.css">
-	<link rel="icon" href="head.ico" type="image/x-icon"/>
-	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="js/jquery.session.js"></script>
-    <script type="text/javascript" src="js/banner.js"></script>
-     <script src="js/jquery.mousewheel.min.js" type="text/javascript" charset="utf-8"></script>  
-    <script src="js/jquery.easie.js" type="text/javascript" charset="utf-8"></script>  
-    <script src="js/jquery.path.js" type="text/javascript" charset="utf-8"></script>  
-    <script type="text/javascript">  
-    	function mouseWheel(){
-        if(document.addEventListener){
-            document.body.addEventListener('mousewheel',function(e){
-                Detail(e);
-                e.stopPropagation();
-                e.preventDefalut();
-            });
-            document.body.addEventListener('DOMMouseScroll',function(e){
-                Detail(e);
-                e.stopPropagation();
-                e.preventDefault();
-            })
-        }else{
-            document.body.attachEvent('onmousewheel',function(event){
-                Detail(event);
-                event.cancelBubble=true;
-                event.returnValue=false;
-            })
-        }
-        function Detail(e){
-            ((-e.detail || e.wheelDelta)>0)?alert('top'):alert('down');
-        }
-    }
-        $(document).ready(function(){  
-            var nowPage = 0;  
-            var lock = true;//函数节流的锁  
-            $(document).mousewheel(function(event,delta){  
-                if(lock){  
-                nowPage = nowPage - delta;  
-                if(nowPage<0){  
-                    nowPage=0;  
-                }  
-                if(nowPage>2){  
-                    nowPage=2;  
-                }     
-                $(".container").animate({"top": nowPage * -100 +"%"});  
-                $(".page").eq(nowPage).addClass("current").siblings().removeClass('current');  
-                lock = false;  
-                setTimeout(function(){  
-                        lock = true;  
-                    },500);  
-                }  
-            });  
-        });  
-    </script>  
-    <style type="text/css">  
-        *{  
-            margin: 0;  
-            padding: 0;  
-        }  
-        html,body{  
-            height: 100%;  
-            overflow: hidden;  
-        }  
-        .container{  
-            width: 100%;  
-            height: 100%;  
-            position: absolute;/* absolute定位脱离了标准流，不具备将宽度扩展为父盒子的100%，所以需要重写宽度 */  
-            top: 0%;  
-            left: 0;  
-        }  
-        .page{  
-            width: 100%;  
-            height: 100%;  
-        }  
-        @-webkit-keyframes tiao{  
-            from{  
-                width: 200px;  
-                height: 200px;  
-                background-color: red;  
-            }  
-            to{  
-                width: 0px;  
-                height: 0px;  
-                background-color: green;  
-                transform: rotate(30deg) translateX(500px) translateY(50px);   
-            }  
-        }    
-        .page0 .current div:nth-of-type(1){  
-            transform: rotate(30deg) translateX(500px) translateY(50px);  
-        }    
-    </style>  
-</head>
-<body>
-	<div class="container">
-	<!-- top -->
-	<div class="shang">
-		<div class="top">
-		<div class="top_1_1">
-			<div class="top_1">
-				<div class="top_1_2"><h1>酉 铭</h1></div>
-			    <div class="top_1_3"><h2>Unitary</h2></div>
-			</div>
-			<div class="top_2">
-				<div class="top_2_1">
-				<li class="l1">
-                 <a href="" class="a1"><img src="images/dl.png" alt="" class="img1"></a>
-				<ul>
-					<li><a href="http://www.uminfo.cn/yonhu.html">客户信息</a></li>
-					<li><a href="http://www.uminfo.cn/zhuce.html">企业登记</a></li>
-					<li class="tc"><a href="">退出登录</a></li>
-				</ul>
-               </li>
-				</div>
-				<div class="top_2_2" style="color: white;"><a href="#" class="top_2_2_1">登录</a></div>
-			</div>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+         <link rel="stylesheet" href="css/bootstrap.css">
+         <link rel="stylesheet" href="css/index.css">
+       	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    </head>
+    <body>
+    	<div class="box">
+    	<div class="box_1">
+    		<nav class="navbar navbar-default" role="navigation">
+	<div class="container-fluid"> 
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#example-navbar-collapse">
+			<span class="sr-only"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="#">酉铭</a>
+
+	</div>
+
+	<div class="collapse navbar-collapse" id="example-navbar-collapse">
+		<ul class="nav navbar-nav" id="ull">
+			<li><a href="#">客户信息</a></li>
+			<li><a href="#">企业登记</a></li>
+			<li><a href="#" class="tc">退出登录</a></li>
+		</ul>
+		<div class="login">
+			<div class="l1"><img src="image/login.png" alt=""></div>
+			<div class="l2">登录</div>
 		</div>
-		</div>
-	<!-- top1 -->
-		<!-- <div class="top1">
-			<div class="top1_2">
-				<div class="top1_2_1"><a href="">首页</a></div>
-				<div class="xian"></div>
-				<div class="top1_2_1"><a href="">公司概况</a></div>
-				<div class="xian"></div>
-				<div class="top1_2_1"><a href="">产品简报</a></div>
-				<div class="xian"></div>
-				<div class="top1_2_1"><a href="">服务范围</a></div>
-				<div class="xian"></div>
-				<div class="top1_2_2"><a href="">公司招聘</a></div>
-				<div class="top1_2_2"></div>
-				<div class="top1_2_3"></div>
-			</div>			
-		</div> -->
-		</div>
-<!-- banner_box -->
-<div class="page page0 current">
-<div class="banner">
-	<div class="banner_box">
-		<div class="imgs">
-			<img src="images/2.jpg" alt="">
-			<img src="images/3.jpg" alt="">
-			<img src="images/5.jpg" alt="">
-		</div>
-		<div class="points">
-		    <span></span>
-			<span></span>
-			<span></span>		
-		</div>
-		<span class="left_btn">&lt;</span>
-		<span class="right_btn">&gt;</span>	
-</div>			
+	</div>
+	</div>
+	
+</nav>
+	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox" >
+
+    <div class="item active" >
+      <img src="image/banner01.png" alt="" >
+      <div class="carousel-caption" >
+      </div>
+    </div>
+    <div class="item" >
+      <img src="image/banner02.png" alt="" >
+      <div class="carousel-caption" >
+      </div>
+    </div>
+    <div class="item" >
+      <img src="image/banner03.png" alt="" >
+      <div class="carousel-caption" >
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+ <!--  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a> -->
 </div>
-</div>	 
-<!-- center -->
-<div class="page page1">
-<div class="cen">
-	<div class="center">
-		<div class="center_1">	
-		<img src="images/opcnn.jpg" alt="">		
 		</div>
-		<div class="center_2">
-			<div class="center_2_1">
-				<h5>关于我们</h5>
-				<h3>关于江苏酉铭科技有限公司</h3>
-				<p>————————————————————————</p>
-			</div>
+		<div class="kb"></div>
+	<div class="box_1">
+	<div class="row">
+		 <div class="col-md-12">
+		 	<p class="p1">货车智能终端，专用货运数据，业务执行终端</p>
+		 	<p class="p2">货运专用导航，无缝业务协同。专用路线算法，提高配送效率</p>
+		 </div>
+	</div>
+	<div style="clear: both;"></div>
+	<div class="kb"></div>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="bimg"><img src="image/123.png" alt="" class="center-block"></div>
+			<div class="text">货车智能终端</div>
+			<div class="con">客服电话:0513-88888888</div>
 		</div>
-		<div class="center_3">
-		<div class="center_4">
-		<div class="center_4_1">
-			<p><span class="pspan"></span>公司地址:江苏省南通市港闸区幸余路</p>
-			<p><span class="pspan"></span>公司电话:1888888888</p>
-			<p><span class="pspan"></span>公司传真:88888888</p>
+		<div class="col-md-4">
+			<div class="bimg"><img src="image/123.png" alt="" class="center-block" id="image"></div>
+			<div class="text">手机导航货车版</div>
+			<div class="con1" id="con2">查看二维码</div>
 		</div>
-		<div class="center_4_2">
-			<div class="center_4_2_1">				
-			</div>
-		</div>	
-		</div>	
-		<div class="center_5"></div>	
+		<div class="col-md-4">
+			<div class="bimg"><img src="image/123.png" alt="" class="center-block" id="image2"></div>
+			<div class="text">微信轻应用</div>
+			<div class="con1" id="con3">查看二维码</div>
+		</div>
+	</div>
+	<div class="kb"></div>
+	<div class="row">
+		<div class="col-md-12">
+		 	<p class="p1">物流云服务，更高效、更节省！</p>
+		 	<p class="p2">物理云平台+货车智能终端，全面提升您的管理！</p>
+		 </div>		
+	</div>
+	<div class="kb"></div>
+	<div class="row">
+		<div class="col-md-6">
+			<img src="image/cop.png" alt="" class="center-block" id="img">
+		</div>
+		<div class="col-md-6">
+			<div class="pctext"><img src="image/yuan.png" alt=""> 资源管理</div>
+			<div class="pctext"><img src="image/yuan.png" alt=""> 订单管理</div>
+			<div class="pctext"><img src="image/yuan.png" alt=""> 智能排单</div>
+			<div class="pctext"><img src="image/yuan.png" alt=""> 在线协同</div>
+			<div class="pctext"><img src="image/yuan.png" alt=""> 运输计划</div>
+			<div class="pctext"><img src="image/yuan.png" alt=""> 业务执行</div>
+			<div class="pctext"><img src="image/yuan.png" alt=""> 实时追踪</div>
+			<div class="pctext"><img src="image/yuan.png" alt=""> 过程管控</div>
+			<div class="pctext"><img src="image/yuan.png" alt=""> 辅助决策</div>
+			<div class="pctext"><img src="image/yuan.png" alt=""> 数据分析</div>
+			<div class="apply">申请试用</div>
+		</div>
+	</div>
+<div class="kb"></div>
+	<div class="row">
+		<div class="col-md-12">
+		 	<p class="p1">我们能做什么</p>
+		 	<p class="p2">互联网+物流，功能全面的物流服务云体系！</p>
+		 </div>		
+	</div>
+<div class="kb"></div>
+	<div class="row">
+		<div class="col-md-4">
+			<div><img src="image/wuliu.png" alt="" class="center-block"></div>
+			<p class="p3">货车司机</p>
+			<p class="p4">专业 <span>专用路线规划</span></p>
+			<p class="p4">省钱 <span>减少罚款违章</span></p>
+			<p class="p4">安全 <span>安全导航引导</span></p>
+			<p class="p4">业务 <span>高效业务协同</span></p>
+		</div>		
+		<div class="col-md-4">
+			<div><img src="image/qiye.png" alt="" class="center-block"></div>
+			<p class="p3">物流企业</p>
+			<p class="p4">透明 <span>运输全程管控</span></p>
+			<p class="p4">效率 <span>便携高效配载</span></p>
+			<p class="p4">成本 <span>物流路线优化</span></p>
+			<p class="p4">决策 <span>辅助决策管理</span></p>
+		</div>		
+		<div class="col-md-4">
+			<div><img src="image/yunying.png" alt="" class="center-block"></div>
+			<p class="p3">服务运营商</p>
+			<p class="p4">数据 <span>货运地图数据</span></p>
+			<p class="p4">技术 <span>物流配送优化</span></p>
+			<p class="p4">协作 <span>运力网络协作</span></p>
+			<p class="p4">分析 <span>综合运营分析</span></p>
 		</div>		
 	</div>
-</div>	
-</div>
-<!-- center1 -->
-<div class="page page2">
-<div class="cent">
-	<div class="center1">
-		<div class="show">
-			<h3>产品展示</h3>
-		</div>
-		<div class="show1">
-			<div class="show1_1"></div>
-			<div class="show1_2"></div>
-			<div class="show1_3"></div>
-		</div>
-	</div>
-<!-- center2 -->
-	<div class="center2">
-		<div class="new">
-			<h3>公司新闻</h3>
-		</div>
-		<div class="new1">
-			<div class="new1_1">
-				<div class="shang1"><img src="images/dbg.png" alt=""></div>
-				<div class="xia1">
-					<div class="xia1_1">
-						新闻一
-					</div>
-				</div>
-			</div>
-			<div class="new1_2">
-				<div class="shang2"><img src="images/dbg.png" alt=""></div>
-				<div class="xia2">
-					<div class="xia2_1">
-						新闻二
-					</div>
-				</div>
-			</div>
-			<div class="new1_3">
-				<div class="shang3"><img src="images/dbg.png" alt=""></div>
-				<div class="xia3">
-					<div class="xia3_1">
-					    新闻三
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- <div class="foot">
+	<div class="kb"></div>
+	<div class="foot">
 	<div class="foot_1">
-		<div class="foot_1_1">公司地址</div>
-		<div class="foot_1_2">江苏省南通市港闸区幸余路</div>
-	</div>
-	<div class="foot_2">
-		<div class="foot_2_1">公司电话</div>
-		<div class="foot_2_2">18888888888</div>
-	</div>
-	<div class="foot_3">
-		<div class="foot_3_1">公司传真</div>
-		<div class="foot_3_2">88888888</div>
+		<div class="kb2"></div>
+		<span class="f1">About Us</span>
+		<p class="p10">关于我们</p>
+		<div class="xian"></div>
+		<div class="kb2"></div>
+		<p class="p11">江苏酉铭科技有限公司</p>
+		<p>电话:0513-88888888</p>
+		<p>传真:0513-88888888</p>
 	</div>	
-	<div class="foot_4">
 	</div>
-	<div class="foot_6">		
-	</div> -->
-	<!-- <div class="foot_5">
-		<div class="foot_5_1">使用条款</div>
-		<div class="foot_5_1">法律声明</div>
-		<div class="foot_5_1">隐私权政策</div>
-		<div class="foot_5_1">网站地图</div>
-		<div class="foot_5_1">支持</div>
-	</div>
-	</div> -->
-	<div style="clear: both;"></div>
 </div>
-	</div>	
 </div>
-	<div class="box2">
+<div class="box2">
 		<div class="box3">
 			<div class="box3_1">
 				<h4>业 务 员 登 录</h4>
 			</div>
 			<div class="qx">
-				<img src="images/close.png" alt="">
+				<img src="image/close.png" alt="">
 			</div>	
 			<div class="box3_2"></div>
 
@@ -294,9 +213,10 @@
 			</div>
 		</div>
 	</div>
-</body>
-<script type="text/javascript">
-	var canvas;
+    </body>
+<script type="text/javascript" src="js/jquery.session.js"></script>
+    <script type="text/javascript">
+    var canvas;
 	var context;
 	var width;
 	var height;
@@ -363,29 +283,22 @@
     e.preventDefault();
     draw();
   }	
-	</script>
-	<script type="text/javascript">
-		$(".top_2_2_1").on("click",function(){
-			$(".box2").css("display","block");
-		})
-		$(".box3_6").on("click",function(){
+    </script>
+    <script type="text/javascript">
+    	$(".login").on("click",function(){
+    		$(".box2").css("display","block");
+    	})
+    	$(".qx").on("click",function(){
 			$(".box2").css("display","none");
 		})
-		$(".qx").on("click",function(){
-			$(".box2").css("display","none");
-		})
-	</script>
-	<script type="text/javascript">
-		var tel=$.session.get('user');
+    </script>
+    <script type="text/javascript">
+    	var tel=$.session.get('user');
 		//alert(tel);
 		if(tel!=null&&tel!=""){
 			alert("用户已经登录");
-			$(".top_2 li").hover(function() {
-		  	     $(".top_2 ul").css("display","block");
-		     }, function() {
-		  	     $(".top_2 ul").css("display","none");
-		     });
-	   $(".top_2_2").html(tel);
+			$(".login").css("display","none");
+			$("#ull").css("display","block");
 		}else{
     	$("#signin").on('click',function(){
 			var name=$("#username").val();
@@ -410,13 +323,10 @@
    		  	  	    $.session.set('userid',msg.user.id);
    		  	  	    $.session.set('user',msg.user.telephone);
    		  	  	    var user=$.session.get('userid');
-   		  	  	//    $("#name").val(msg.user.telephone);	  
-   		  	  	    $(".top_2_2").html(msg.user.telephone);
-   		  	  	  	$(".top_2 li").hover(function() {
-		  	             $(".top_2 ul").css("display","block");
-		             }, function() {
-		  	             $(".top_2 ul").css("display","none");
-		             });			
+   		  	  		alert("登录成功"); 
+   		  	  	    $(".login").css("display","none");
+			        $("#ull").css("display","block");
+			        $(".box2").css("display","none");			
    		  	  	}else{
    		  	  		alert(msg.desc);
    		  	  	} 
@@ -427,10 +337,17 @@
 		});
 		}
 		});
-		}
+		}                                                                                                                                                                        
 		$(".tc").on('click',function(){
 			$.session.remove('userid');
 			$.session.remove('user');
-		});	    
-	</script>
+			window.location.reload();
+		});	
+		$("#con2").on("click",function(){
+			$("#image").attr('src','image/erweima1.png');
+		})
+		$("#con3").on("click",function(){
+			$("#image2").attr('src','image/erweima1.png');
+		})
+    </script>
 </html>
