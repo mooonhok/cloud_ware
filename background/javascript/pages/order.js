@@ -1,10 +1,15 @@
 $(function(){
     var adminid=$.session.get('adminid');
     var page = $.getUrlParam('page');
-    var order_id=$(".order_id").val();
+    var order_id='';
     loadorders(order_id,page);
     $('#order_close').on("click",function () {
         $(".tenant_tk").css("display","none");
+    })
+
+    $(".sousuo_z").on("click",function(){
+        var order_id=$(".order_id").val();
+        loadorders(order_id,page);
     })
 });
 
