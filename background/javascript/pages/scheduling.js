@@ -31,7 +31,7 @@ function loadschedulings(scheduling_id,page) {
         page=1;
     }
     $.ajax({
-        url: "http://api.uminfo.cn/adminall.php/schs?scheduling_id="+scheduling_id+"&page="+page+"&per_page=10",
+        url: "http://api.uminfo.cn/scheduling.php/schedulings_scheduling_id?scheduling_id="+scheduling_id+"&page="+page+"&per_page=10",
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -70,7 +70,7 @@ function loadschedulings(scheduling_id,page) {
                                 }else if(item.order_status==5){
                                     info='收货';
                                 }
-                                arr.push( '<tr><td>'+item.scheduling_id+'</td><td>'+item.company+'</td><td>'+item.send_city+'</td><td>'+item.receive_city+'</td><td>'+item.sender.customer_name+'</td><td>'+item.receiver.customer_name+'</td><td>'+item.order_datetime1+'</td><td>'+info+'</td><td onclick="order_xq('+item.order_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
+                                arr.push( '<tr><td>'+item.scheduling_id+'</td><td>'+item.tenant.company+'</td><td>'+item.send_city+'</td><td>'+item.receive_city+'</td><td>'+item.sender.customer_name+'</td><td>'+item.receiver.customer_name+'</td><td>'+item.order_datetime1+'</td><td>'+info+'</td><td onclick="order_xq('+item.order_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
                             });
                             return arr.join('');
                         }();

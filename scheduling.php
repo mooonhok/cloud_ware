@@ -304,6 +304,64 @@ $app->put('/scheduling',function()use($app){
     }
 });
 
+//控制后台，获取调度
+$app->get('/schedulings_scheduling_id',function()use($app) {
+    $app->response->headers->set('Access-Control-Allow-Origin', '*');
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $page = $app->request->get('page');
+    $page=$page-1;
+    $per_page = $app->request->get("per_page");
+    $database = localhost();
+    $scheduling_id=$app->request->get('scheduling_id');
+    $selectStatement = $database->select()
+        ->from('scheduling')
+        ->whereLike('scheduling_id','%'.$scheduling_id.'%');
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    $selectStatement = $database->select()
+        ->from('scheduling')
+        ->whereLike('scheduling_id','%'.$scheduling_id.'%')
+        ->orderBy('id','DESC')
+        ->limit((int)$per_page, (int)$per_page * (int)$page);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetchAll();
+    for($i=0;$i<count($data1);$i++){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('tenant_id','=',$data1[$i]['tenant_id']);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id','=',$data2['from_city_id']);
+        $stmt = $selectStatement->execute();
+        $data3 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id','=',$data1[$i]['send_city_id']);
+        $stmt = $selectStatement->execute();
+        $data4 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id','=',$data1[$i]['receive_city_id']);
+        $stmt = $selectStatement->execute();
+        $data5 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('customer')
+            ->where('tenant_id','=',$data1[$i]['tenant_id'])
+            ->where('id','=',$data1[$i]['receiver_id']);
+        $stmt = $selectStatement->execute();
+        $data6 = $stmt->fetch();
+        $data1[$i]['tenant']=$data2;
+        $data1[$i]['tenant_suoshu']=$data3;
+        $data1[$i]['send_city']=$data4;
+        $data1[$i]['receive_city']=$data5;
+        $data1[$i]['receiver']=$data6;
+    }
+    echo json_encode(array("result"=>"0","desc"=>"success","schedulings"=>$data1,'count'=>count($data)));
+});
+
 $app->get('/scheduling',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');

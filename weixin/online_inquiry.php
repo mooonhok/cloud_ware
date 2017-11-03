@@ -66,9 +66,10 @@ $signPackage = $jssdk->GetSignPackage();
 			</div>
 		</div>
 	</div>
+	<div class="foot3">联系电话<input class="foot3_1" id="tel"></div>
 	<div class="xunjia">
 		询价
-	</div>	
+	</div>
 </div>	
 </body>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
@@ -227,6 +228,7 @@ $signPackage = $jssdk->GetSignPackage();
             var weight=$("#weight").val();
             var sendcity=$("#city1 option:selected").val();
             var receive=$("#city2 option:selected").val();
+            var tel=$("#tel").val();
             alert(type+"///"+big+"$$$"+weight+"****"+sendcity+"^^^^"+receive+"!!!!"+tenant_id+"%%%%"+openid);
             $.ajax({
             	  url :"http://api.uminfo.cn/secectpay.php/pay",
@@ -242,7 +244,8 @@ $signPackage = $jssdk->GetSignPackage();
 			        	weight:weight,
 			        	sendcity:sendcity,
 			        	receive:receive,
-			        	openid:openid
+			        	openid:openid,
+			        	tel:tel
 			        }),
 			        success:function(msg){
                      alert(msg.desc);
