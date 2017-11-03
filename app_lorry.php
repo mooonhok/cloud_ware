@@ -420,6 +420,8 @@ $app->post('/suresch',function()use($app){
         }
     }
     $arrays['scheduling_status']=5;
+    $arrays['is_contract']=0;
+    $arrays['is_insurance']=0;
     $arrays['sure_img']=$lujing;
     $arrays['change_datetime']=time();
     if($schedule_id!=null||$schedule_id!=""){
@@ -483,8 +485,8 @@ $app->post('/sureschfor',function()use($app){
     $schedule_id=$body->schedule_id;
     $lorry_id=$body->lorry_id;
     $arrays['scheduling_status']=6;
-    $arrays['is_contract']=1;
-    $arrays['is_insurance']=1;
+    $arrays['is_contract']=0;
+    $arrays['is_insurance']=0;
     $arrays['change_datetime']=time();
     if($schedule_id!=null||$schedule_id!=""){
         $selectStament=$database->select()
@@ -1090,6 +1092,7 @@ $app->put('/upplate_number',function()use($app){
     $lorry2=$body->lorry_id2;
     if($lorry_id!=null||$lorry_id!=""){
         if($lorry2!=null||$lorry2!=""){
+            if($lorry_id==$lorry2){
             $selectStament = $database->select()
                 ->from('lorry')
                 ->where('tenant_id','=',0)
@@ -1158,13 +1161,15 @@ $app->put('/upplate_number',function()use($app){
                     $data10 = $stmt->fetch();
                     if($data10!=null){
                         if($data9['driver_name']==$data10['driver_name']&&$data9['driver_phone']==$data10['driver_phone']){
-                            $updateStatement = $database->update(array("app_chose"=>1))
+                           // $arrays['app_chose']=1;
+                            $updateStatement = $database->update(array('app_chose'=>1))
                                 ->table('lorry')
                                 ->where('plate_number','=',$data10['plate_number'])
                                 ->where('driver_phone','=',$data10['driver_phone'])
                                 ->where('driver_name','=',$data10['driver_name']);
                             $affectedRows1 = $updateStatement->execute();
-                            $updateStatement = $database->update(array("app_chose"=>'0'))
+//                            $arrays1['app_chose']=0;
+                            $updateStatement = $database->update(array('app_chose'=>0))
                                 ->table('lorry')
                                 ->where('plate_number','=',$data9['plate_number'])
                                 ->where('driver_phone','=',$data9['driver_phone'])
@@ -1175,7 +1180,7 @@ $app->put('/upplate_number',function()use($app){
                                 ->where('lorry_id', '=', $lorry2);
                             $stmt = $selectStament->execute();
                             $data11 = $stmt->fetch();
-                            echo json_encode(array('result' => '0', 'desc' => '修改默认车辆成功',"lorry"=>$data11));
+                            echo json_encode(array('result' => '0', 'desc' => '修改默认车辆成功','lorry'=>$data11));
                         }else{
                             echo json_encode(array('result' => '5', 'desc' => '该车辆不是你的'));
                         }
@@ -1188,6 +1193,9 @@ $app->put('/upplate_number',function()use($app){
             }else{
                 echo json_encode(array('result' => '6', 'desc' => '您还有未处理单子'));
             }
+        }else{
+                echo json_encode(array('result' => '3', 'desc' => '车辆相同无法修改'));
+        }
         }else{
             echo json_encode(array('result' => '2', 'desc' => '未选择车辆'));
         }
