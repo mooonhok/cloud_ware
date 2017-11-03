@@ -85,6 +85,11 @@ $app->get('/schs',function()use($app){
                 ->where('tenant_id','=',$data[$i]['tenant_id']);
             $stmt=$selectStament->execute();
             $data3=$stmt->fetch();
+            $selectStament=$database->select()
+                ->from('city')
+                ->where('id','=',$data3['from_city_id']);
+            $stmt=$selectStament->execute();
+            $datasushu=$stmt->fetch();
             $data[$i]['tenant_id']=$data3['tenant_id'];
             $data[$i]['company']=$data3['company'];
             $data[$i]['address']=$data3['address'];

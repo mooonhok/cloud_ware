@@ -272,30 +272,41 @@
 			$(".foot").css("display", "none");
 			$(".top1-3").show();
 			$(".center").css("display", "block");
-	        	
-		$.ajax({
+	      	$.ajax({
 			url: "http://api.uminfo.cn/mapselect.php/mapsbyor?order_id="+order_id,
 			dataType: 'json',
 			type: 'get',
 			ContentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
-				if(msg.result==0){
-					var map = new BMap.Map("allmap");
-				map.centerAndZoom(new BMap.Point(113.60328, 34.739741), 6);
+				if(msg.result==0){	
 				var a = [];
-			   var p1 = new BMap.Point(msg.map[0].longitude, msg.map[0].latitude);
-				var p3 = new BMap.Point(msg.map[msg.map.length - 1].longitude, msg.map[msg.map.length - 1].latitude);
-				for(var x = 0; x < msg.map.length - 2; x++) {
-					var p2 = new BMap.Point(msg.map[x + 1].longitude, msg.map[x + 1].latitude);
-					a.push(p2);
+	 			var map = new BMap.Map("allmap");
+				map.centerAndZoom(new BMap.Point(114.278, 30.915), 6);
+				for(var x = 0; x < msg.map.length; x++) {
+					var p= new BMap.Point(msg.map[x].longitude, msg.map[x].latitude);
+					a.push(p);
+					var marker = new BMap.Marker(p);
+					var opts = {
+	                    position : p,    // 指定文本标注所在的地理位置
+	                   offset   : new BMap.Size(-30,0)    //设置文本偏移量
+	                    }
+	           	     var label = new BMap.Label(msg.map[x].time+"时", opts);  // 创建文本标注对象
+		              label.setStyle({
+				       color : "black",
+				       fontSize : "12px",
+			  	       height : "20px",
+					   lineHeight : "20px",
+		          	    fontFamily:"微软雅黑"
+		           });
+					map.addOverlay(marker);  
+					map.addOverlay(label);   
 				}
-				var driving = new BMap.DrivingRoute(map, { renderOptions: { map: map, autoViewport:true} });
-				driving.search(p1, p3, { waypoints: a });
+				var polyline = new BMap.Polyline(a, {strokeColor:"#0E1A49", strokeWeight:4, strokeOpacity:0.5});
+				map.addOverlay(polyline);
 				}else{
-					alert(msg.desc);
+				alert(msg.desc);
 				}
-				
 			},
 			error: function(xhr) {
 				alert("获取后台失败");
