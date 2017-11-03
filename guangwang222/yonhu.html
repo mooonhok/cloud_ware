@@ -1,0 +1,638 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
+		<link rel="icon" href="head.ico" type="image/x-icon"/>
+		<title>用户信息</title>
+		<link rel="stylesheet" href="css/yonhu.css">
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/jquery.session.js"></script>
+		<script src="js/highcharts.js"></script>
+		<script src="js/modules/exporting.js"></script>
+		<script src="js/highcharts-zh_CN.js"></script>
+	</head>
+	<body>
+		<div class="box">
+			<!-- top -->
+			<div class="top">
+				<div class="top_1">
+					<h2>酉 铭</h2>
+				</div>
+			</div>
+			<!--  -->
+			<div class="box_1">
+				<div class="head">
+					<div class="head_1"><img src="images/dl.png" alt=""></div>
+					<div class="head_2">
+						<h3 id="h3"></h3>
+						<h5>ID:<span id="span"></span></h5>
+					</div>
+				</div>
+				<!-- box2 -->
+				<div class="box2">
+					<div class="box2_1">
+						<div class="box2_1_1">
+							<h4>基本信息</h4></div>
+						<div class="box2_2">
+							<div class="box2_2_1"><label for="">用户名</label></div>
+							<div class="box2_2_2"><input type="text" id="name_1"></div>
+						</div>
+						<div class="box2_3">
+							<div class="box2_3_1"><label for="">性别</label></div>
+							<div class="box2_3_2"><input type="radio" value="1" name="sex">&nbsp;男&nbsp;&nbsp;&nbsp;<input type="radio" value="0" name="sex">&nbsp;女</div>
+						</div>
+						<div class="box2_4">
+							<div class="box2_4_1"><label for="">身份证号</label></div>
+							<div class="box2_4_2"><input type="text" id="number"></div>
+						</div>
+					</div>
+					<div class="box2_5">
+						<div class="box2_5_1">
+							<h4>联系方式</h4></div>
+						<div class="box2_6">
+							<div class="box2_6_1"><label for="">手机号</label></div>
+							<div class="box2_6_2"><input type="text" id="tel"></div>
+						</div>
+						<div class="box2_7">
+							<div class="box2_7_1"><label for="">QQ</label></div>
+							<div class="box2_7_2"><input type="text" id="qq_1"></div>
+						</div>
+						<div class="box2_8">
+							<div class="box2_8_1"><label for="">微信</label></div>
+							<div class="box2_8_2"><input type="text" id="wx"></div>
+						</div>
+						<div class="box2_9">
+							<div class="box2_9_1"><label for="">邮箱</label></div>
+							<div class="box2_9_2"><input type="text" id="email"></div>
+						</div>
+						<div class="box2_10">
+							<div class="box2_10_1"><label for="">地址</label></div>
+							<div class="box2_10_2"><textarea class="text1" id="dizhi"></textarea></div>
+						</div>
+						<div class="box2_12" id="save_1">保存</div>
+					</div>
+				</div>
+				<!-- box3 -->
+				<div class="box3">
+					<div class="box3_1">
+						<table width="950" class="tables" id="tables" border="0" cellspacing="0" cellpadding="0">
+							<thead>
+								<tr>
+									<th>公司名称</th>
+									<th>公司负责人</th>
+									<th>公司负责人电话</th>
+									<th>开始时间</th>
+									<th>结束时间</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody id="tb">
+							</tbody>
+						</table>
+						<div class="tables_footer clearfix" style="width: 500px;">
+							<div class="page_out fr"></div>
+						</div>
+					</div>
+					<div class="box3_2">添加</div>
+					<script type="text/javascript">
+						var sales_id = $.session.get('userid');
+						var sales_name=$.session.get('user');
+						$("#span").html(sales_name);
+						alert(sales_id);
+						if(sales_id == null || sales_id == "") {
+							window.location.href = "http://www.uminfo.cn/index.html";
+						} else {
+							$.ajax({
+								url: "http://api.uminfo.cn/sales.php/sales_tenant?sales_id=" + sales_id,
+								dataType: 'json',
+								type: 'get',
+								ContentType: "application/json;charset=utf-8",
+								data: JSON.stringify({}),
+								success: function(msg) {
+									TablePage('#tables', 6);
+									function TablePage(id, size) {
+										$("#tb").html("");
+										for(var i = 0; i < msg.company.length; i++) {
+											var a = "<tr><td>" + msg.company[i].company + "</td><td>" + msg.company[i].customer_name + "</td><td>" + msg.company[i].customer_phone + "</td><td>" + msg.company[i].begin_time + "</td><td>" + msg.company[i].end_time + "</td><td><button class='but_1' onclick='updata(" + msg.company[i].tenant_id + ")' style=' cursor:pointer;'>编辑</button></td></tr>"
+											$("#tb").append(a);
+										}
+										var $table = $(id);
+										var currentPage = 0; //当前页  
+										var pageSize = 7; //每页行数（不包括表头）  
+										$table.bind("repaginate", function() {
+											$table.find("tbody tr").hide().slice(currentPage * pageSize, (currentPage + 1) * pageSize).show();
+										});
+										var numRows = $table.find("tbody tr").length; //记录宗条数  
+										var numPages = Math.ceil(numRows / pageSize); //总页数  
+										var $pager = $("<div class='page'><a href='javascript:void(0)'><span id='Prev' style='margin-right:4px;'>上一页</span></a></div>"); //分页div  
+										for(var page = 0; page < numPages; page++) {
+											//为分页标签加上链接  
+											$("<a href='javascript:void(0)'><span id='" + (page + 1) + "'>" + (page + 1) + "</span></a>")
+												.bind("click", { "newPage": page }, function(event) {
+													currentPage = event.data["newPage"]; 
+													$(this).children("span").attr("class", "click_page");
+													$(this).children("span").css({ "color": "red" });
+													$(".page a span").not($(this).children("span")).attr("class", "");
+													$(".page a span").not($(this).children("span")).css({ "color": "#1155BB" });
+													$table.trigger("repaginate");
+												})
+												.appendTo($pager);
+
+											$pager.append("  ");
+										}
+										var next = $("<a href='javascript:void(0)'><span id='Next'>下一页</span></a>");
+										$pager.append(next);
+										$('.page_out').append($pager);
+										$("#1").attr("class", "click_page");
+										$("#1").css({ "color": "red" });
+										$table.trigger("repaginate"); 
+										$("#Prev").bind("click", function() {
+											var prev = Number($(".click_page").text()) - 2;
+											currentPage = prev;
+											$(this).css({ "background": "white" });
+											if(currentPage < 0) {
+												$(this).css({ "background": "white" });
+												return;
+											}
+											$("#" + (prev + 1)).attr("class", "click_page");
+											$("#" + (prev + 1)).css({ "color": "red" });
+											$(".page a span").not($("#" + (prev + 1))).attr("class", "");
+											$(".page a span").not($("#" + (prev + 1))).css({ "color": "#1155BB" });
+											$table.trigger("repaginate");
+										});
+										$("#Next").bind("click", function() {
+											var next = $(".click_page").attr("id");
+											currentPage = Number(next); 
+											$(this).css({ "background": "#FFFFFF" });
+											if((currentPage + 1) > numPages) {
+												$(this).css({ "background": "white" });
+												return;
+											}
+											$("#" + (currentPage + 1)).attr("class", "click_page");
+											$("#" + (currentPage + 1)).css({ "color": "red" });
+											$(".page a span").not($("#" + (currentPage + 1))).attr("class", "");
+											$(".page a span").not($("#" + (currentPage + 1))).css({ "color": "#1155BB" });
+											$table.trigger("repaginate");
+										});
+									}
+								},
+								error: function(xhr) {
+									alert("获取保险记录后台失败！");
+								}
+							})
+						}
+					</script>
+					<script type="text/javascript">
+						function updata(id) {
+							$(".box4").css("display", "block");
+							$(".box3").css("display", "none");
+							$.ajax({
+								url: "http://api.uminfo.cn/sales.php/tenantbyid?tenant_id=" + id,
+								dataType: 'json',
+								type: 'get',
+								ContentType: "application/json;charset=utf-8",
+								data: JSON.stringify({}),
+								success: function(msg) {
+									console.log(msg);
+									$("#name").val(msg.tenant.company);
+									$("#rname").val(msg.tenant.customer_name);
+									$("#endTime").val(msg.tenant.end_time);
+									$("#phone").val(msg.tenant.customer_phone);
+									$("#email").val(msg.tenant.email);
+									$("#qq").val(msg.tenant.qq);
+									$("#site").text(msg.tenant.address);
+									$("#gsid").val(id);
+								},
+								error: function(xhr) {
+									alert("获取后台失败");
+								}
+							})
+						}
+					</script>
+				</div>
+				<!-- box4 -->
+				<div class="box4">
+					<div class="box4_1">
+						<div class="box4_1_1">
+							<h4>公司信息</h4></div>
+						<div class="box4_2">
+							<div class="box4_2_1"><label for="">公司名称</label></div>
+							<div class="box4_2_2"><input type="text" disabled="disabled" id="name"></div>
+						</div>
+						<div class="box4_3">
+							<div class="box4_3_1"><label for="">负责人姓名</label></div>
+							<div class="box4_3_2"><input type="text" id="rname"></div>
+						</div>
+					</div>
+					<div class="box4_4"></div>
+					<div class="box4_5">
+						<div class="box4_5_1">
+							<h4>使用情况</h4></div>
+						<div class="box4_6">
+							<div class="box4_6_1"><label for="">结束时间</label></div>
+							<div class="box4_6_2"><input type="text" id="endTime" placeholder="例：2017-06-03"></div>
+						</div>
+					</div>
+					<div class="box4_7"></div>
+					<div class="box4_8">
+						<div class="box4_8_1">
+							<h4>联系方式</h4></div>
+						<div class="box4_9">
+							<div class="box4_9_1"><label for="">电话</label></div>
+							<div class="box4_9_2"><input type="text" id="phone"></div>
+						</div>
+						<div class="box4_9" style="display:none">
+							<div class="box4_9_1"><label for="">公司id</label></div>
+							<div class="box4_9_2"><input type="text" id="gsid"></div>
+						</div>
+						<div class="box4_10">
+							<div class="box4_10_1"><label for="">邮件</label></div>
+							<div class="box4_10_2"><input type="text" id="email" name="email"></div>
+						</div>
+						<div class="box4_10">
+							<div class="box4_10_1"><label for="">QQ</label></div>
+							<div class="box4_10_2"><input type="text" id="qq"></div>
+						</div>
+						<div class="box4_11">
+							<div class="box4_11_1"><label for="">地址</label></div>
+							<div class="box4_11_2"><textarea class="text2" id="site"></textarea></div>
+						</div>
+					</div>
+					<div class="box4_12" id="save">保存</div>
+				</div>
+				<!-- box5 -->
+				<div class="box5">
+					<div id="container" style="width: 900px;height: 400px;margin:0 auto;"></div>
+					<script>
+						var sales_id = $.session.get('userid');
+						if(sales_id == null || sales_id == "") {
+							window.location.href = "http://www.uminfo.cn/index.html";
+						} else {
+							$.ajax({
+								url: "http://api.uminfo.cn/sales.php/tenantsum?sales_id=" + sales_id,
+								dataType: 'json',
+								type: 'get',
+								ContentType: "application/json;charset=utf-8",
+								data: JSON.stringify({}),
+								success: function(msg) {
+									if(msg.result == 0) {
+										var chart = new Highcharts.Chart('container', {
+											title: {
+												text: '业务员月份业务统计',
+												x: -20
+											},
+											xAxis: {
+												categories: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+											},
+											yAxis: {
+												title: {
+													text: '商家数量（个）'
+												},
+												plotLines: [{
+													value: 0,
+													width: 1,
+													color: '#808080'
+												}]
+											},
+											tooltip: {
+												valueSuffix: '个'
+											},
+											legend: {
+												layout: 'vertical',
+												align: 'right',
+												verticalAlign: 'middle',
+												borderWidth: 0
+											},
+											series: [{
+												name: '商家数量',
+												data: [msg.count[0], msg.count[1], msg.count[2], msg.count[3], msg.count[4], msg.count[5], msg.count[6], msg.count[7], msg.count[8], msg.count[9], msg.count[10], msg.count[11]]
+											}]
+										});
+
+									} else {
+										alert(msg.desc);
+									}
+								},
+								error: function(xhr) {
+									alert(xhr.responseText);
+								}
+							});
+						}
+					</script>
+				</div>
+				<!-- box6 -->
+				<div class="box6">
+					<div class="box2_1">
+						<div class="box2_1_1">
+							<h4>基本信息</h4></div>
+						<div class="box2_2">
+							<div class="box2_2_1"><label for="">用户名</label></div>
+							<div class="box2_2_2"><input type="text" id="name_2"></div>
+						</div>
+						<div class="box2_3">
+							<div class="box2_3_1"><label for="">性别</label></div>
+							<div class="box2_3_2"><input type="radio" value="1" name="sex" id="rad3">&nbsp;男&nbsp;&nbsp;&nbsp;<input type="radio" value="0" name="sex" id="rad4">&nbsp;女</div>
+						</div>
+						<div class="box2_4">
+							<div class="box2_4_1"><label for="">身份证号</label></div>
+							<div class="box2_4_2"><input type="text" id="number_1"></div>
+						</div>
+					</div>
+					<div class="box2_5">
+						<div class="box2_5_1">
+							<h4>联系方式</h4></div>
+						<div class="box2_6">
+							<div class="box2_6_1"><label for="">手机号</label></div>
+							<div class="box2_6_2"><input type="text" id="tel_1"></div>
+						</div>
+						<div class="box2_7">
+							<div class="box2_7_1"><label for="">QQ</label></div>
+							<div class="box2_7_2"><input type="text" id="qq_2"></div>
+						</div>
+						<div class="box2_8">
+							<div class="box2_8_1"><label for="">微信</label></div>
+							<div class="box2_8_2"><input type="text" id="wx_1"></div>
+						</div>
+						<div class="box2_9">
+							<div class="box2_9_1"><label for="">邮箱</label></div>
+							<div class="box2_9_2"><input type="text" id="email_1" name="email"></div>
+						</div>
+						<div class="box2_10">
+							<div class="box2_10_1"><label for="">地址</label></div>
+							<div class="box2_10_2"><textarea class="text1" id="dizhi_1"></textarea></div>
+						</div>
+						<div class="box2_12" id="register">注册</div>
+					</div>
+				</div>
+				<!-- daohang -->
+				<div class="daohang">
+					<div class="dian1">
+						<div class="wenzi">个人资料</div>
+						<div class="xian1"></div>
+					</div>
+					<div class="wire"></div>
+					<div class="dian2">
+						<div class="wenzi">客户信息</div>
+						<div class="xian2"></div>
+					</div>
+					<div class="wire"></div>
+					<div class="dian3">
+						<div class="wenzi">账户信息</div>
+						<div class="xian3"></div>
+					</div>
+					<div class="wire"></div>
+					<div class="dian4">
+						<div class="wenzi">推荐业务员注册</div>
+						<div class="xian4"></div>
+					</div>
+					<div class="wire"></div>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$("#save_1").on("click", function() {
+			var sales_name = $("#name_1").val();
+			var numb = $("#number").val();
+			var tel = $("#tel").val();
+			var qq1 = $("#qq_1").val();
+			var wx1 = $("#wx").val();
+			var em = $("#email").val();
+			var di = $("#dizhi").text();
+			var sales_id = $.session.get('userid');
+			var sex = $("input[name='sex']:checked").val();
+			if(!/^1[34578]\d{9}$/.test(tel)) {
+				alert("电话号码格式不对");
+			} else if(!/^\d{15}|\d{18}$/.test(numb)){
+				alert("身份证格式不对");		
+				}else {			
+						//修改用户信息
+						$.ajax({
+							url: "http://api.uminfo.cn/sales.php/sales",
+							dataType: 'json',
+							type: 'put',
+							ContentType: "application/json;charset=utf-8",
+							data: JSON.stringify({
+								sales_id: sales_id,
+								sales_name: sales_name,
+								sex: sex,
+								card_id: numb,
+								telephone: tel,
+								address: di,
+								zip_code: em,
+								qq: qq1,
+								weixin: wx1
+							}),
+							success: function(msg) {
+								alert("修改个人信息成功");
+								window.location.reload();
+							},
+							error: function(xhr) {
+								alert(xhr.responseText);
+							}
+						});
+					}
+		})
+	</script>
+	<script type="text/javascript">
+		$("#save").on("click", function() {
+			var name = $("#name").val();
+			var customer = $("#rname").val();
+			var phone = $("#phone").val();
+			var email = $("#email").val();
+			var qq = $("#qq").val();
+			var site = $("#site").val();
+			var end_time = $("#endTime").val();
+			var sales_id = $.session.get('userid');
+			var id = $("#gsid").val();
+			if(!/^1[34578]\d{9}$/.test(phone)) {
+				alert("电话号码格式不对");
+				return false;
+			 }else if(!/^((?:19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/.test(end_time)){
+			 alert("日期格式不正确(例：2017-06-03)");
+			}
+			 else{	
+					//修改公司信息
+					alert(sales_id+"<br>"+id);
+					$.ajax({
+						url: "http://api.uminfo.cn/sales.php/tenantchange",
+						dataType: 'json',
+						type: 'put',
+						ContentType: "application/json;charset=utf-8",
+						data: JSON.stringify({
+							sales_id: sales_id,
+							tenant_id: id,
+							customer_name: customer,
+							customer_phone: phone,
+							address: site,
+							end_time: end_time,
+							qq: qq,
+							email: email
+						}),
+						success: function(msg) {
+							alert("修改公司信息成功");
+							alert(msg.desc);
+							$(".box2").css("display", "none");
+			                $(".box3").css("display", "block");
+			                $(".box4").css("display", "none");
+			                $(".box5").css("display", "none");
+			                $(".box6").css("display", "none");
+			                $(".xian1").css("display", "none");
+			                $(".xian2").css("display", "block");
+			                $(".xian3").css("display", "none");
+			                $(".xian4").css("display", "none");
+							window.location.reload();
+						},
+						error: function(xhr) {
+							alert(xhr.responseText);
+						}
+					});
+				}
+			})
+		
+	</script>
+	<script type="text/javascript">
+		var sales_id = $.session.get('userid');
+		if(sales_id == null || sales_id == "") {
+			window.location.href = "http://www.uminfo.cn/index.html";
+		} else {
+			$.ajax({
+				url: "http://api.uminfo.cn/sales.php/sales?sales_id="+sales_id,
+				dataType: 'json',
+				type: 'get',
+				ContentType: "application/hson;charset=utf-8",
+				data: JSON.stringify({}),
+				success: function(msg) {
+					// console.log(msg);
+					$("#h3").html(msg.sales.sales_name);	
+					$("#name_1").val(msg.sales.sales_name);
+					$("#number").val(msg.sales.card_id);
+					$("#tel").val(msg.sales.telephone);
+					$("#qq_1").val(msg.sales.qq);
+					$("#wx").val(msg.sales.weixin);
+					$("#email").val(msg.sales.zip_code);
+					$("#dizhi").text(msg.sales.address);
+					if(msg.sales.sex == 0) {
+						$('input:radio:last').attr('checked', 'checked');
+					} else {
+						$('input:radio:first').attr('checked', 'checked');
+					}
+				},
+				error: function(xhr) {
+					alert("获取后台失败");
+				}
+			})
+		}
+	</script>
+	<script type="text/javascript">
+		$("#register").on("click", function() {
+			var sales_id = $.session.get('userid');
+			var name_2 = $("#name_1").val();
+			var sex_1 = $("input[name='sex']:checked").val();
+			var number_1 = $("#number_1").val();
+			var tel_1 = $("#tel_1").val();
+			var qq_2 = $("#qq_2").val();
+			var wx_1 = $("#wx_1").val();
+			var email_1 = $("#email_1").val();
+			var dizhi_1 = $("#dizhi_1").val();
+			if(!/^1[34578]\d{9}$/.test(tel_1)) {
+				alert("电话号码格式不对");
+			} else {
+				if(!/^\d{15}|\d{18}$/.test(number_1)) {
+					alert("身份证格式不对");
+				} else {
+						$.ajax({
+							url: "http://api.uminfo.cn/sales.php/addsales",
+							dataType: 'json',
+							type: 'post',
+							ContentType: "application/json;charset=utf-8",
+							data: JSON.stringify({
+								sales_name: name_2,
+								telephone: tel_1,
+								sex: sex_1,
+								card_id: number_1,
+								address: dizhi_1,
+								zip_code: email_1,
+								qq: qq_2,
+								weixin: wx_1,
+								higherlevel: sales_id
+							}),
+							success: function(msg) {
+								console.log(msg);
+								if(msg.result == 0) {
+									alert("请记住密码" + msg.sales.password);
+									window.location.reload();
+								} else {
+									alert(msg.desc);
+								}
+							},
+							error: function(xhr) {
+								alert(xhr.responseText);
+							}
+						});
+				}
+			}
+		})
+	</script>
+	<script type="text/javascript">
+		$(".head_1").on("click", function() {
+			window.location.href = "http://www.uminfo.cn/index.html";
+		})
+		$(".top_1").on("click", function() {
+			window.location.href = "http://www.uminfo.cn/index.html";
+		})
+	</script>
+	<script type="text/javascript">
+		$(".dian1").on("click", function() {
+			$(".box2").css("display", "block");
+			$(".box3").css("display", "none");
+			$(".box4").css("display", "none");
+			$(".box5").css("display", "none");
+			$(".box6").css("display", "none");
+			$(".xian1").css("display", "block");
+			$(".xian2").css("display", "none");
+			$(".xian3").css("display", "none");
+			$(".xian4").css("display", "none");
+		})
+		$(".dian2").on("click", function() {
+			$(".box2").css("display", "none");
+			$(".box3").css("display", "block");
+			$(".box4").css("display", "none");
+			$(".box5").css("display", "none");
+			$(".box6").css("display", "none");
+			$(".xian1").css("display", "none");
+			$(".xian2").css("display", "block");
+			$(".xian3").css("display", "none");
+			$(".xian4").css("display", "none");
+		})
+		$(".dian3").on("click", function() {
+			$(".box2").css("display", "none");
+			$(".box3").css("display", "none");
+			$(".box4").css("display", "none");
+			$(".box5").css("display", "block");
+			$(".box6").css("display", "none");
+			$(".xian1").css("display", "none");
+			$(".xian2").css("display", "none");
+			$(".xian3").css("display", "block");
+			$(".xian4").css("display", "none");
+		})
+		$(".dian4").on("click", function() {
+			$(".box2").css("display", "none");
+			$(".box3").css("display", "none");
+			$(".box4").css("display", "none");
+			$(".box5").css("display", "none");
+			$(".box6").css("display", "block");
+			$(".xian1").css("display", "none");
+			$(".xian2").css("display", "none");
+			$(".xian3").css("display", "none");
+			$(".xian4").css("display", "block");
+		})
+		$(".box3_2").on("click", function() {
+			window.location.href = "http://www.uminfo.cn/zhuce.html";
+		})
+
+	</script>
+</html>
