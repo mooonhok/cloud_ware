@@ -14,6 +14,7 @@ $(function(){
 })(jQuery);
 
 function loadorders(order_id,page) {
+    alert(page)
     if(page==null){
         page=1;
     }
