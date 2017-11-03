@@ -15,6 +15,9 @@ $(function(){
 
 function loadorders(order_id,page) {
     alert(page)
+    if(order_id==null){
+       order_id="";
+    }
     if(page==null){
         page=1;
     }
