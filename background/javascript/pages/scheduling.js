@@ -1,8 +1,8 @@
 $(function(){
     var adminid=$.session.get('adminid');
     var page = $.getUrlParam('page');
-    var order_id='';
-    loadorders(order_id,page);
+    var scheduling_id='';
+    loadschedulings(scheduling_id,page) ;
     $('#order_close').on("click",function () {
         $(".tenant_tk").css("display","none");
     })
