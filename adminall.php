@@ -52,11 +52,11 @@ $app->get('/schs',function()use($app){
     $database=localhost();
     $page = $app->request->get('page');
     $per_page=$app->request->get('per_page');
-
+    $scheduling_id=$app->request->get('scheduling_id');
     if($page==null||$per_page==null){
         $selectStament=$database->select()
             ->from('scheduling')
-            ->orderBy('scheduling_id');
+            ->orderBy('scheduling_id','DESC');
         $stmt=$selectStament->execute();
         $data=$stmt->fetchAll();
         for($i=0;$i<count($data);$i++){

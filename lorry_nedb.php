@@ -61,9 +61,9 @@ $app->post('/addLorry',function()use($app) {
                             for ($x=0;$x<count($str1);$x++){
                                 $password.=$str1[$x].$x;
                             }
-                            $insertStatement = $database->insert(array('lorry_id','plate_number','driver_name','driver_phone','password','flag','app_chose'))
+                            $insertStatement = $database->insert(array('lorry_id','plate_number','driver_name','driver_phone','password','flag','app_chose','driving_license','vehicle_travel_license'))
                                 ->into('lorry')
-                                ->values(array((count($data)+10000001),$plate_number,$driver_name,$driver_phone,$password,$flag,'1'));
+                                ->values(array((count($data)+10000001),$plate_number,$driver_name,$driver_phone,$password,$flag,'1',"http://files.uminfo.cn:8000/lorry/photo1.png","http://files.uminfo.cn:8000/lorry/photo2.png"));
                             $insertId = $insertStatement->execute(false);
                         }
 
