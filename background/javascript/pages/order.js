@@ -3,6 +3,10 @@ $(function(){
     var page = $.getUrlParam('page');
     var order_id=$(".order_id").val();
     loadorders(order_id,page);
+    $('#order_close').on("click",function () {
+        alert(1)
+        $(".tenant_tk").css("display","none");
+    })
 });
 
 (function($) {
@@ -93,35 +97,6 @@ function order_xq(id){
             $("#secret").val(msg.goods.goods_count);
             $("#customer_name").val(msg.goods.goods_value);
             $("#customer_phone").val(msg.goods.goods_package);
-        },
-        error: function(xhr) {
-            alert("获取后台失败！");
-        }
-    });
-}
-
-function tenant_ensure(adminid){
-    $.ajax({
-        url: "http://api.uminfo.cn/adminall.php/uptenant",
-        dataType: 'json',
-        type: 'put',
-        ContentType: "application/json;charset=utf-8",
-        data: JSON.stringify({
-            tenant_id:$("#tenant_id").val(),
-            admin_id:adminid,
-            appid:$("#app_id").val(),
-            secret:$("#secret").val(),
-            customer_name:$("#customer_name").val(),
-            customer_phone:$("#customer_phone").val(),
-            address:$("#address").val(),
-            end_time:$("#end_time").val(),
-            qq:$("#qq").val(),
-            email:$("#email").val()
-        }),
-        success: function(msg) {
-            console.log(msg);
-            layer.msg(msg.desc);
-            $(".tenant_tk").css("display","none");
         },
         error: function(xhr) {
             alert("获取后台失败！");
