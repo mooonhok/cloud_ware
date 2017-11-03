@@ -234,6 +234,9 @@ $app->get('/searchStaff0',function()use($app){
                 ->where('tenant_id','=',$tenant_id);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
+            for($i=0;$i<count($data);$i++){
+                 $data[$i]['password']=decode($data[$i]['password']);
+            }
             echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data));
         }else{
             echo json_encode(array('result'=>'1','desc'=>'租户为空'));
@@ -472,5 +475,14 @@ function encode($string , $skey ) {
     foreach (str_split($skey) as $key => $value)
         $key < $strCount && $strArr[$key].=$value;
     return str_replace(array('=', '+', '/'), array('O0O0O', 'o000o', 'oo00o'), join('', $strArr));
+}
+
+//解密
+function decode($string, $skey) {
+    $strArr = str_split(str_replace(array('O0O0O', 'o000o', 'oo00o'), array('=', '+', '/'), $string), 2);
+    $strCount = count($strArr);
+    foreach (str_split($skey) as $key => $value)
+        $key <= $strCount  && isset($strArr[$key]) && $strArr[$key][1] === $value && $strArr[$key] = $strArr[$key][0];
+    return base64_decode(join('', $strArr));
 }
 ?>

@@ -4,7 +4,6 @@ $(function(){
     var order_id=$(".order_id").val();
     loadorders(order_id,page);
     $('#order_close').on("click",function () {
-        alert(1)
         $(".tenant_tk").css("display","none");
     })
 });
