@@ -251,7 +251,8 @@ $app->get('/orders', function () use ($app) {
     $database = localhost();
     $selectStatement = $database->select()
         ->from('orders');
-    $stmt1 = $selectStatement->count('*');
+    $stmt = $selectStatement->execute();
+    $count=$stmt->fetchAll();
             $selectStatement = $database->select()
                 ->from('orders')
                 ->whereLike('order_id',"%".$order_id."%")
@@ -294,7 +295,7 @@ $app->get('/orders', function () use ($app) {
                 $data[$i]['sender']=$data1;
                 $data[$i]['from_city']=$data4;
             }
-            echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data,'count'=>$stmt1));
+            echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data,'count'=>count($count)));
 });
 
 
