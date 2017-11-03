@@ -13,7 +13,7 @@ $(function(){
     }
 })(jQuery);
 
-function loadtenants(order_id,page) {
+function loadorders(order_id,page) {
     if(page==null){
         page=1;
     }
