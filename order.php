@@ -278,9 +278,15 @@ $app->get('/orders', function () use ($app) {
                     ->where('tenant_id', "=", $data[$i]['tenant_id']);
                 $stmt = $selectStatement->execute();
                 $data3= $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data3['from_city_id']);
+                $stmt = $selectStatement->execute();
+                $data4= $stmt->fetch();
                 $data[$i]['tenant']=$data3;
                 $data[$i]['receiver']=$data2;
                 $data[$i]['sender']=$data1;
+                $data[$i]['from_city']=$data4;
             }
             echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data,'count'=>$stmt1));
 });
