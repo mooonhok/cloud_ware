@@ -43,7 +43,21 @@ function loadorders(order_id,page) {
                             var arr = []
                                 ,thisData = msg.orders;
                             layui.each(thisData, function(index, item){
-                                arr.push( '<tr><td>'+item.order_id+'</td><td>'+item.tenant.company+'</td><td>'+item.from_city.name+'</td><td>'+item.tenant_num+'</td><td>'+item.customer.customer_name+'</td><td>'+item.sales_name+'</td><td>'+item.begin_time+'</td><td>'+item.end_date+'</td><td onclick="tenant_xq('+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
+                                var info='-';
+                                if(item.order_status==0){
+                                      info='下单';
+                                }else if(item.order_status==1){
+                                     info='入库';
+                                }else if(item.order_status==2){
+                                      info='出库';
+                                }else if(item.order_status==3){
+                                      info='在途';
+                                }else if(item.order_status==4){
+                                      info='到达';
+                                }else if(item.order_status==5){
+                                      info='收货';
+                                }
+                                arr.push( '<tr><td>'+item.order_id+'</td><td>'+item.tenant.company+'</td><td>'+item.from_city.name+'</td><td>'+item.receiver.receiver_city+'</td><td>'+item.sender.customer_name+'</td><td>'+item.receiver.customer_name+'</td><td>'+item.order_datetime1+'</td><td>'+info+'</td><td onclick="tenant_xq('+item.order_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
                             });
                             return arr.join('');
                         }();
