@@ -251,13 +251,13 @@ $app->get('/orders', function () use ($app) {
     $database = localhost();
     $selectStatement = $database->select()
         ->from('orders')
-        ->where('tenant_id','!=',0);
+        ->whereNotNull('tenant_id');
     $stmt = $selectStatement->execute();
     $count=$stmt->fetchAll();
             $selectStatement = $database->select()
                 ->from('orders')
                 ->whereLike('order_id',"%".$order_id."%")
-                ->where('tenant_id','!=',0)
+                ->whereNotNull('tenant_id')
                 ->orderBy('exist')
                 ->orderBy('id','DESC')
                 ->limit((int)$per_page, (int)$per_page * (int)$page);
