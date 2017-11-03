@@ -89,7 +89,7 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                                 $strr = substr($chars, mt_rand(0, strlen($chars) - 2), 1);
                                                                                                 do{
                                                                                                     $strr.= substr($chars, mt_rand(0, strlen($chars) - 2), 1);
-                                                                                                }while(strlen($strr)<4);
+                                                                                                }while(strlen($strr)<6);
                                                                                                 $time=base_convert(time(), 10, 32);
                                                                                                 $str=$time.$strr;
                                                                                     $insertStatement = $database->insert(array('order_id', 'pay_method','exist','order_status','sender_id','receiver_id','order_datetime0'))
@@ -106,7 +106,7 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                         $strrr = substr($chars, mt_rand(0, strlen($chars) - 2), 1);
                                                                                         do{
                                                                                             $strrr.= substr($chars, mt_rand(0, strlen($chars) - 2), 1);
-                                                                                        }while(strlen($strrr)<4);
+                                                                                        }while(strlen($strrr)<6);
                                                                                         $time1=base_convert(time(), 10, 32);
                                                                                         $str1=$time1.$strrr;
                                                                                         $selectStatement = $database->select()
