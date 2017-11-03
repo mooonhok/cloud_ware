@@ -31,7 +31,7 @@ function loadschedulings(scheduling_id,page) {
         page=1;
     }
     $.ajax({
-        url: "http://api.uminfo.cn/aadminall.php/schs?scheduling_id="+scheduling_id+"&page="+page+"&per_page=10",
+        url: "http://api.uminfo.cn/adminall.php/schs?scheduling_id="+scheduling_id+"&page="+page+"&per_page=10",
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
