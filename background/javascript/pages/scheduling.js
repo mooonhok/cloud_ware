@@ -85,11 +85,11 @@ function loadschedulings(scheduling_id,page) {
 }
 
 
-function order_xq(id){
+function scheduling_xq(id){
     $(".tenant_tk").css("display","block");
     $(".tenant_tk div input").val("");
     $.ajax({
-        url: "http://api.uminfo.cn/goods.php/goods_order_id?order_id="+id,
+        url: "http://api.uminfo.cn/goods.php/goods_order_id?order_id="+id+"",
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",

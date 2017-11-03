@@ -66,7 +66,13 @@ $signPackage = $jssdk->GetSignPackage();
 			</div>
 		</div>
 	</div>
-	<div class="foot3">联系电话<input class="foot3_1" id="tel"></div>
+	<div class="top">
+		<div class="wenzi">联系电话</div> 
+		<div class="text">
+			<input type="text" id="tel" placeholder="必填项">
+		</div>			
+	</div>
+	<div class="center">
 	<div class="xunjia">
 		询价
 	</div>
