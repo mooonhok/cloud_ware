@@ -93,6 +93,7 @@ $app->get('/schs',function()use($app){
             $data[$i]['tenant_id']=$data3['tenant_id'];
             $data[$i]['company']=$data3['company'];
             $data[$i]['address']=$data3['address'];
+            $data[$i]['from_city']=$datasushu['name'];
             $selectStament=$database->select()
                 ->from('customer')
                 ->where('customer_id','=',$data3['contact_id']);
