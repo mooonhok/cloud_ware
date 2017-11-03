@@ -1092,7 +1092,7 @@ $app->put('/upplate_number',function()use($app){
     $lorry2=$body->lorry_id2;
     if($lorry_id!=null||$lorry_id!=""){
         if($lorry2!=null||$lorry2!=""){
-            if($lorry_id==$lorry2){
+            if($lorry_id!=$lorry2){
             $selectStament = $database->select()
                 ->from('lorry')
                 ->where('tenant_id','=',0)
