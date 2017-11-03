@@ -251,6 +251,7 @@ $app->get('/orders', function () use ($app) {
     $database = localhost();
     $selectStatement = $database->select()
         ->from('orders')
+        ->whereLike('order_id',"%".$order_id."%")
         ->whereNotNull('tenant_id');
     $stmt = $selectStatement->execute();
     $count=$stmt->fetchAll();
@@ -297,7 +298,7 @@ $app->get('/orders', function () use ($app) {
                 $data[$i]['sender']=$data1;
                 $data[$i]['from_city']=$data4;
             }
-            echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data,'count'=>count($data)));
+            echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data,'count'=>count($count)));
 });
 
 
