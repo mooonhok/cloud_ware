@@ -246,7 +246,7 @@ $signPackage = $jssdk->GetSignPackage();
       needResult: 1,
       desc: 'scanQRCode desc',
       success: function (res) {
-        alert(res.resultStr);
+
         var a=res.resultStr;
        if(a!=null){
 			$.ajax({

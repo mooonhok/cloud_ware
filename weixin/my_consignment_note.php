@@ -296,7 +296,7 @@ $signPackage = $jssdk->GetSignPackage();
         
        var a=res.resultStr;
           if(a!=null){
-              window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a;
+              window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a+"&tenant_id="+tenant_id;
           }else{
               layer.msg("没有扫描到条形码");
           }
