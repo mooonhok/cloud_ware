@@ -189,6 +189,11 @@ $app->post('/scheduling',function()use($app){
     }
 });
 
+//控制后台，通过单个scheduling_id,查出对应的orders和lorry
+$app->get('/scheduling_orders_scheduling_id',function()use($app){
+
+});
+
 $app->put('/scheduling',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');

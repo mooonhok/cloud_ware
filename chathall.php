@@ -55,7 +55,7 @@ $app->get('/bycity',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $city_id = $app->request->get("city_id");
-    $time1=time()-84600;
+    $time1=time()-592200;
     if($city_id!=null||$city_id!=""){
         $selectStament=$database->select()
             ->from('chathall')
