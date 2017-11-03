@@ -8,6 +8,7 @@ $(function(){
     })
 
     $(".sousuo_z").on("click",function(){
+        alert(1)
         var order_id=$(".order_id").val();
         loadorders(order_id,page);
     })
