@@ -235,7 +235,7 @@ $app->get('/searchStaff0',function()use($app){
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
             for($i=0;$i<count($data);$i++){
-                 $data[$i]['password']=decode($data[$i]['password']);
+                 $data[$i]['password']=decode($data1[$i]['password'],'cxphp');
             }
             echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data));
         }else{
