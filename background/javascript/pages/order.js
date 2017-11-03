@@ -15,7 +15,6 @@ $(function(){
 })(jQuery);
 
 function loadorders(order_id,page) {
-    alert(page)
     if(order_id==null){
        order_id="";
     }
@@ -62,7 +61,7 @@ function loadorders(order_id,page) {
                                 }else if(item.order_status==5){
                                       info='收货';
                                 }
-                                arr.push( '<tr><td>'+item.order_id+'</td><td>'+item.tenant.company+'</td><td>'+item.from_city.name+'</td><td>'+item.receiver.receiver_city+'</td><td>'+item.sender.customer_name+'</td><td>'+item.receiver.customer_name+'</td><td>'+item.order_datetime1+'</td><td>'+info+'</td><td onclick="tenant_xq('+item.order_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
+                                arr.push( '<tr><td>'+item.order_id+'</td><td>'+item.tenant.company+'</td><td>'+item.from_city.name+'</td><td>'+item.receiver.receiver_city+'</td><td>'+item.sender.customer_name+'</td><td>'+item.receiver.customer_name+'</td><td>'+item.order_datetime1+'</td><td>'+info+'</td><td onclick="order_xq('+item.order_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
                             });
                             return arr.join('');
                         }();
@@ -77,27 +76,23 @@ function loadorders(order_id,page) {
 }
 
 
-function tenant_xq(id){
+function order_xq(id){
     $(".tenant_tk").css("display","block");
     $(".tenant_tk div input").val("");
     $.ajax({
-        url: "http://api.uminfo.cn/tenant_nedb.php/getTenant1?tenant_id="+id,
+        url: "http://api.uminfo.cn/goods.php/goods_order_id?order_id="+id,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
         data: JSON.stringify({}),
         success: function(msg) {
             console.log(msg);
-            $("#tenant_id").val(msg.tenant.tenant_id);
-            $("#tenant_num").val(msg.tenant.tenant_num);
-            $("#app_id").val(msg.tenant.appid);
-            $("#secret").val(msg.tenant.secret);
-            $("#customer_name").val(msg.tenant.customer_name);
-            $("#customer_phone").val(msg.tenant.customer_phone);
-            $("#end_time").val(msg.tenant.end_time);
-            $("#address").val(msg.tenant.address);
-            $("#qq").val(msg.tenant.qq);
-            $("#email").val(msg.tenant.email);
+            $("#tenant_id").val(msg.goods.goods_name);
+            $("#tenant_num").val(msg.goods.goods_weight);
+            $("#app_id").val(msg.goods.goods_capacity);
+            $("#secret").val(msg.goods.goods_count);
+            $("#customer_name").val(msg.goods.goods_value);
+            $("#customer_phone").val(msg.goods.goods_package);
         },
         error: function(xhr) {
             alert("获取后台失败！");

@@ -101,8 +101,6 @@ $app->post('/goods',function()use($app){
         } else {
             echo json_encode(array("result" => "11", 'desc' => '租户id不能为空'));
         }
-
-
 });
 
 
@@ -258,6 +256,34 @@ $app->get('/goods',function()use($app){
           echo json_encode(array('result'=>'4','desc'=>'缺少租户id','goods'=>''));
       }
 
+});
+
+//控制后台，根据order_id查询货物
+$app->get("/goods_order_id",function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $order_id=$app->request->get('order_id');
+    $selectStatement=$database->select()
+        ->from('orders')
+        ->where('order_id','=',$order_id)
+        ->where('exist','=',0);
+    $stmt=$selectStatement->execute();
+    $data1=$stmt->fetch();
+    $selectStatement=$database->select()
+        ->from('goods')
+        ->where('order_id','=',$order_id)
+        ->where('tenant_id','=',$data1['tenant_id'])
+        ->where('exist','=',0);
+    $stmt=$selectStatement->execute();
+    $data2=$stmt->fetch();
+    $selectStament=$database->select()
+        ->from('goods_package')
+        ->where('goods_package_id','=',$data2['goods_package_id']);
+    $stmt=$selectStament->execute();
+    $data3=$stmt->fetch();
+    $data2['goods_package']=$data3['goods_package'];
+    echo json_encode(array('result'=>'1','desc'=>'success','goods'=>$data2));
 });
 
 //批量上传，有改无增
