@@ -251,7 +251,7 @@ $app->get('/orders', function () use ($app) {
     $database = localhost();
     $selectStatement = $database->select()
         ->from('orders');
-    $stmt1 = $selectStatement->count();
+    $stmt1 = $selectStatement->count('*');
             $selectStatement = $database->select()
                 ->from('orders')
                 ->whereLike('order_id',"%".$order_id."%")
