@@ -1275,6 +1275,8 @@ $app->post('/wx_orders_order_source', function () use ($app) {
                         ->where('tenant_id', '=', $tenant_id);
                     $stmt = $selectStatement->execute();
                     $data4= $stmt->fetch();
+                    $num=$offset+$i+1;
+                        $array1['num']=$num;
                         $array1["orders"]=$data3;
                         $array1['message']=$data4;
                         array_push($array,$array1);
