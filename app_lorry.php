@@ -632,7 +632,7 @@ $app->get('/obycourier',function()use($app){
         $selectStament=$database->select()
             ->from('lorry')
             ->where('exist','=',0)
-            ->where('flag','=',1)
+//            ->where('flag','=',1)
             ->where('driver_phone','=',$data['driver_phone'])
             ->where('driver_name','=',$data['driver_name']);
         $stmt=$selectStament->execute();
@@ -696,7 +696,7 @@ $app->get('/obycouriern',function()use($app){
         $selectStament=$database->select()
             ->from('lorry')
             ->where('exist','=',0)
-            ->where('flag','=',1)
+//            ->where('flag','=',1)
             ->where('driver_phone','=',$data['driver_phone'])
             ->where('driver_name','=',$data['driver_name']);
         $stmt=$selectStament->execute();
