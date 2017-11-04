@@ -127,6 +127,36 @@ $app->get('/getOrders0', function () use ($app) {
     }
 });
 
+$app->get('/getOrders1', function () use ($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $order_id= $app->request->get('order_id');
+    if ($order_id != null || $order_id != "") {
+        $selectStatement = $database->select()
+            ->from('orders')
+            ->where('order_id', '=', $order_id)
+            ->orderBy('order_datetime1');
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        for($i=0;$i<count($data);$i++){
+            $selectStatement = $database->select()
+                ->from('tenant')
+                ->where('tenant_id', '=', $data[$i]['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data1['from_city_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $data[$i]['tenant']=$data1;
+            $data[$i]['from_city']=$data2;
+        }
+        echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
+    } else {
+        echo json_encode(array("result" => "1", "desc" => "缺少运单id"));
+    }
+});
 
 $app->put('/alterOrder0', function () use ($app) {
     $app->response->headers->set('Content-Type', 'application/json');
