@@ -821,17 +821,32 @@ $app->put('/customer_order_id',function()use($app){
     $body=$app->request->getBody();
     $body=json_decode($body);
     $array=array();
-    $order_id=$body->order_id;;
-    $wx_openid=$body->wx_openid;
-    $type=$body->type;
-    $adress=$body->address;
-    $city_id=$body->city_id;
-    $customer_name=$body->customer_name;
-    $phone=$body->customer_phone;
+    $order_id=$body->order_id;
     if($tenant_id!=null||$tenant_id!=""){
-
+        if($order_id!=null||$order_id!=""){
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('order_id','=',$order_id)
+                ->whereNull('tenant_id');
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('customer_id','=',$data1['sender_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $updateStatement = $database->update(array('type'=>0,($data2['times']+1)))
+                ->table('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('customer_id','=',$data1['sender_id']);
+            $affectedRows = $updateStatement->execute();
+            echo json_encode(array("result"=>"0",'desc'=>'success'));
+        }else{
+            echo json_encode(array("result"=>"1",'desc'=>'缺少运单id'));
+        }
     }else{
-        echo json_encode(array("result"=>"4",'desc'=>'缺少租户id'));
+        echo json_encode(array("result"=>"2",'desc'=>'缺少租户id'));
     }
 });
 
