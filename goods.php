@@ -304,7 +304,7 @@ $app->put('/goods_order_id',function()use($app){
                     $updateStatement = $database->update(array('goods_id'=>$goods_id,'order_id'=>$order_id2))
                         ->table('goods')
                         ->where('tenant_id','=',$tenant_id)
-                        ->where('orders_id','=',$order_id1);
+                        ->where('order_id','=',$order_id1);
                     $affectedRows = $updateStatement->execute();
                     echo json_encode(array('result'=>'0','desc'=>'success'));
                 }else{
