@@ -812,6 +812,28 @@ $app->post('/khd_customer',function()use($app){
     }
 });
 
+//微信端的customer更改type和times
+$app->put('/customer_order_id',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $array=array();
+    $order_id=$body->order_id;;
+    $wx_openid=$body->wx_openid;
+    $type=$body->type;
+    $adress=$body->address;
+    $city_id=$body->city_id;
+    $customer_name=$body->customer_name;
+    $phone=$body->customer_phone;
+    if($tenant_id!=null||$tenant_id!=""){
+
+    }else{
+        echo json_encode(array("result"=>"4",'desc'=>'缺少租户id'));
+    }
+});
 
 $app->run();
 

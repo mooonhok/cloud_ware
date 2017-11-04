@@ -1304,6 +1304,7 @@ $app->put('/uplorry',function()use($app){
     $body=$app->request->getBody();
     $body=json_decode($body);
     $lorry_id = $body->lorry_id;
+    $lorry_id2=$body->lorry_id2;
     $lorry_size=$body->lorry_size;
     $lorry_age=$body->lorry_age;
     $lorry_text=$body->lorry_text;
@@ -1315,73 +1316,81 @@ $app->put('/uplorry',function()use($app){
             ->from('lorry')
             ->where('tenant_id','=',0)
             ->where('exist', '=', 0)
-            ->where('app_chose','=',1)
-            ->whereNull('lorry_size')
-            ->whereNull('lorry_age')
-            ->whereNull('lorry_type_id')
             ->where('lorry_id', '=', $lorry_id);
         $stmt = $selectStament->execute();
         $data = $stmt->fetch();
+        $selectStament = $database->select()
+            ->from('lorry')
+            ->where('tenant_id','=',0)
+            ->where('exist', '=', 0)
+            ->where('lorry_id', '=', $lorry_id2);
+        $stmt = $selectStament->execute();
+        $data4 = $stmt->fetch();
         if($data!=null){
-            $arrays['lorry_size']=$lorry_size;
-            $arrays['lorry_age']=$lorry_age;
-            $arrays['lorry_type_id']=$lorry_type;
-            $arrays['lorry_tx']=$lorry_text;
-            $arrays['lorry_weight']=$lorry_weight;
-            $updateStatement = $database->update($arrays)
-                ->table('lorry')
-                ->where('driver_name','=',$data['driver_name'])
-                ->where('plate_number','=',$data['plate_number']);
-            $affectedRows = $updateStatement->execute();
-            echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
+            if($data4['driver_name']==$data['driver_name']&&$data4['driver_phone']==$data['driver_phone']){
+                $arrays['lorry_size']=$lorry_size;
+                $arrays['lorry_age']=$lorry_age;
+                $arrays['lorry_type_id']=$lorry_type;
+                $arrays['lorry_tx']=$lorry_text;
+                $arrays['lorry_weight']=$lorry_weight;
+                $updateStatement = $database->update($arrays)
+                    ->table('lorry')
+                    ->where('driver_name','=',$data4['driver_name'])
+                    ->where('driver_phone','=',$data4['driver_phone'])
+                    ->where('plate_number','=',$data4['plate_number']);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '车辆不是你的'));
+            }
         }else{
-            echo json_encode(array('result' => '2', 'desc' => '该车辆已经填写过信息'));
+            echo json_encode(array('result' => '2', 'desc' => '车辆不存在'));
         }
     }else{
         echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
     }
 });
 //formdata修改司机个人信息
-$app->post('/updriver1',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $database=localhost();
-    $lorry_id = $app->request->get('lorry_id');
-    $driver_email=$app->request->params('email');
-    $driver_identycard=$app->request->params('idcard');
-    $driver_address=$app->request->params('driver_address');
-    $name31 = $_FILES["file1"]["name"];
-    $name3=substr(strrchr($name31, '.'), 1);
-    $shijian = time();
-    $name3 = $shijian .'.'. $name3;
-    $url="/files/lorry/";
-    move_uploaded_file($_FILES["file1"]["tmp_name"], $url . $name3);
-    $arrays['driving_license']="http://files.uminfo.cn:8000/lorry/".$name3;
-    $arrays['driver_address']=$driver_address;
-    $arrays['driver_identycard']=$driver_identycard;
-    $arrays['driver_email']=$driver_email;
-   if($lorry_id!=null||$lorry_id!=""){
-       $selectStament = $database->select()
-           ->from('lorry')
-           ->where('tenant_id','=',0)
-           ->where('exist', '=', 0)
-           ->where('lorry_id', '=', $lorry_id);
-       $stmt = $selectStament->execute();
-       $data = $stmt->fetch();
-       if($data!=null){
-           $updateStatement = $database->update($arrays)
-               ->table('lorry')
-               ->where('driver_name','=',$data['driver_name'])
-               ->where('driver_phone','=',$data['driver_phone']);
-           $affectedRows = $updateStatement->execute();
-           echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
-       }else{
-           echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
-       }
-   }else{
-       echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
-   }
-});
+//$app->post('/updriver1',function()use($app){
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
+//    $database=localhost();
+//    $lorry_id = $app->request->get('lorry_id');
+//    $driver_email=$app->request->params('email');
+//    $driver_identycard=$app->request->params('idcard');
+//    $driver_address=$app->request->params('driver_address');
+//    $name31 = $_FILES["file1"]["name"];
+//    $name3=substr(strrchr($name31, '.'), 1);
+//    $shijian = time();
+//    $name3 = $shijian .'.'. $name3;
+//    $url="/files/lorry/";
+//    move_uploaded_file($_FILES["file1"]["tmp_name"], $url . $name3);
+//    $arrays['driving_license']="http://files.uminfo.cn:8000/lorry/".$name3;
+//    $arrays['driver_address']=$driver_address;
+//    $arrays['driver_identycard']=$driver_identycard;
+//    $arrays['driver_email']=$driver_email;
+//   if($lorry_id!=null||$lorry_id!=""){
+//       $selectStament = $database->select()
+//           ->from('lorry')
+//           ->where('tenant_id','=',0)
+//           ->where('exist', '=', 0)
+//           ->where('lorry_id', '=', $lorry_id);
+//       $stmt = $selectStament->execute();
+//       $data = $stmt->fetch();
+//       if($data!=null){
+//           $updateStatement = $database->update($arrays)
+//               ->table('lorry')
+//               ->where('driver_name','=',$data['driver_name'])
+//               ->where('driver_phone','=',$data['driver_phone']);
+//           $affectedRows = $updateStatement->execute();
+//           echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
+//       }else{
+//           echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+//       }
+//   }else{
+//       echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
+//   }
+//});
 //ajax修改个人信息
 $app->put('/updriver',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
