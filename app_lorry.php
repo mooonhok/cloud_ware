@@ -424,6 +424,9 @@ $app->post('/suresch',function()use($app){
     $arrays['is_insurance']=0;
     $arrays['sure_img']=$lujing;
     $arrays['change_datetime']=time();
+    date_default_timezone_set("PRC");
+    $arrays1['order_status']=4;
+    $arrays1['order_datetime4']=date("Y-m-d H:i:s",time());
     if($schedule_id!=null||$schedule_id!=""){
         $selectStament=$database->select()
             ->from('scheduling')
@@ -456,6 +459,15 @@ $app->post('/suresch',function()use($app){
                         $updateStatement = $database->update($arrays)
                             ->table('scheduling')
                             ->where('scheduling_id', '=', $schedule_id);
+                        $affectedRows = $updateStatement->execute();
+                        $selectStament=$database->select()
+                            ->from('schedule_order')
+                            ->where('schedule_id','=',$schedule_id);
+                        $stmt=$selectStament->execute();
+                        $data3=$stmt->fetch();
+                        $updateStatement = $database->update($arrays1)
+                            ->table('orders')
+                            ->where('order_id', '=', $data3['order_id']);
                         $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '接单成功'));
                     }else{
@@ -765,6 +777,9 @@ $app->post('/ordersure',function()use($app){
     $arrays['is_receive']=1;
     $arrays['sure_img']=$lujing;
     $arrays['change_datetime']=time();
+    date_default_timezone_set("PRC");
+    $arrays1['order_status']=7;
+    $arrays1['order_datetime5']=date("Y-m-d H:i:s",time());
     $database=localhost();
     if($order_id!=null||$order_id!=""){
         if($lorry_id!=null||$lorry_id!=""){
@@ -796,6 +811,10 @@ $app->post('/ordersure',function()use($app){
                         $updateStatement = $database->update($arrays)
                             ->table('delivery')
                             ->where('delivery_id', '=', $data9['delivery_id']);
+                        $affectedRows = $updateStatement->execute();
+                        $updateStatement = $database->update($arrays1)
+                            ->table('orders')
+                            ->where('order_id', '=', $order_id);
                         $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '确认成功'));
                     }else{
