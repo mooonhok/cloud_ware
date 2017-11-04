@@ -286,6 +286,40 @@ $app->get("/goods_order_id",function()use($app){
     echo json_encode(array('result'=>'1','desc'=>'success','goods'=>$data2));
 });
 
+$app->put('/goods',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $goods_id=$body->goods_id;
+    $order_id1=$body->order_id_o;
+    $order_id2=$body->order_id_n;
+    if($tenant_id!=null||$tenant_id!=""){
+        if($goods_id!=null||$goods_id!=""){
+            if($order_id1!=null||$order_id1!=""){
+                if($order_id2!=null||$order_id2!=""){
+                    $updateStatement = $database->update(array('goods_id'=>$goods_id,'order_id'=>$order_id2))
+                        ->table('goods')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('orders_id','=',$order_id1);
+                    $affectedRows = $updateStatement->execute();
+                    echo json_encode(array('result'=>'0','desc'=>'success'));
+                }else{
+                    echo json_encode(array('result'=>'1','desc'=>'缺少新运单id'));
+                }
+            }else{
+                echo json_encode(array('result'=>'2','desc'=>'缺少旧运单id'));
+            }
+        }else{
+            echo json_encode(array('result'=>'3','desc'=>'缺少新货物id'));
+        }
+    }else{
+        echo json_encode(array('result'=>'4','desc'=>'缺少租户id'));
+    }
+});
+
 //批量上传，有改无增
 $app->post('/goods_insert',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');

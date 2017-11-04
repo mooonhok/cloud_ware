@@ -672,7 +672,36 @@ $app->get("/wx_message_source",function()use($app){
     }
 });
 
-
+//根据客户端order_id更改微信message的数据
+$app->put("/wxmessage_order_id",function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant_id');
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $database=localhost();
+    $order_id1=$body->order_id_o;
+    $order_id2=$body->order_id_n;
+    if($tenant_id!=''||$tenant_id!=null){
+        if($order_id1!=''||$order_id1!=null){
+            if($order_id2!=''||$order_id2!=null){
+                $updateStatement = $database->update(array('order_id' => $order_id2))
+                    ->table('wx_message')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('order_id','=',$order_id1)
+                    ->where('exist',"=",0);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array("result"=>"0","desc"=>"success"));
+            }else{
+                echo json_encode(array("result"=>"1","desc"=>"缺少新运单id"));
+            }
+        }else{
+            echo json_encode(array("result"=>"2","desc"=>"缺少旧运单id"));
+        }
+    }else{
+        echo json_encode(array("result"=>"3","desc"=>"缺少租户id"));
+    }
+});
 
 
 

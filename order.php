@@ -1488,7 +1488,46 @@ $app->put('/update_order_cost',function()use($app){
     }
 });
 
-
+//客户端，根据order_id更改微信的下单数据
+$app->put('/update_order_id',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $order_id1=$body->order_id_o;
+    $order_id2=$body->order_id_n;
+    $order_cost=$body->order_cost;
+    $order_status=$body->order_status;
+    $order_datetime1=$body->order_datetime1;
+    if($tenant_id!=null||$tenant_id!=''){
+        if($order_id1!=null||$order_id1!=''){
+            if($order_id2!=null||$order_id2!=''){
+                if($order_cost!=null||$order_cost!=''){
+                    if($order_datetime1!=null||$order_datetime1!=''){
+                        $updateStatement = $database->update(array('order_id' => $order_id2,'order_cost' => $order_cost,'order_status' => $order_status,'order_datetime1' => $order_datetime1,'inventory_type' => 0))
+                            ->table('orders')
+                            ->where('exist','=',0)
+                            ->where('order_id', '=', $order_id1);
+                        $affectedRows = $updateStatement->execute();
+                        echo json_encode(array("result" => "0", "desc" => "success"));
+                    }else{
+                        echo json_encode(array("result" => "1", "desc" => "缺少入库时间"));
+                    }
+                }else{
+                    echo json_encode(array("result" => "2", "desc" => "缺少运费"));
+                }
+            }else{
+                echo json_encode(array("result" => "3", "desc" => "缺少新运单id"));
+            }
+        }else{
+            echo json_encode(array("result" => "4", "desc" => "缺少旧运单id"));
+        }
+    }else{
+        echo json_encode(array("result" => "5", "desc" => "缺少租户id"));
+    }
+});
 
 //批量上传，有改无增
 $app->post('/order_insert',function()use($app){
