@@ -286,7 +286,8 @@ $app->get("/goods_order_id",function()use($app){
     echo json_encode(array('result'=>'1','desc'=>'success','goods'=>$data2));
 });
 
-$app->put('/goods',function()use($app){
+//客户端根据order_id修改微信的goods
+$app->put('/goods_order_id',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
