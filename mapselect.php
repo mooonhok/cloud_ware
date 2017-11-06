@@ -172,6 +172,40 @@ $app->get('/mapsbyor',function()use($app){
     }
 });
 
+//交付上传地理坐标
+$app->post('/getmap',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $scheduling_id=$body->scheduling_id;
+    $longitude=$body->longitude;
+    $latitude=$body->latitude;
+    $time=time();
+    if($scheduling_id){
+        $selectStament=$database->select()
+            ->from('scheduling')
+            ->where('scheduling_id','=',$scheduling_id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetch();
+        if($data!=null){
+            if($longitude!=null||$longitude!=""||$latitude!=null||$latitude!=""){
+            $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
+                ->into('map')
+                ->values(array($scheduling_id, $longitude, $latitude, $time));
+            $insertId = $insertStatement->execute(false);
+                echo json_encode(array('result' => '0', 'desc' => '上传成功'));
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '缺少地理位置'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '清单不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '清单号为空'));
+    }
+});
 $app->run();
 
 function localhost(){
