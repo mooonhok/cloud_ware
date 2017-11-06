@@ -836,7 +836,10 @@ $app->put('/customer_order_id',function()use($app){
                 ->where('customer_id','=',$data1['sender_id']);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetch();
-            $updateStatement = $database->update(array('type'=>0,($data2['times']+1)))
+            if($data2['times']==null||$data2['times']==""){
+                 $data2['times']=0;
+            }
+            $updateStatement = $database->update(array('type'=>0,((int)$data2['times']+1)))
                 ->table('customer')
                 ->where('tenant_id','=',$tenant_id)
                 ->where('customer_id','=',$data1['sender_id']);

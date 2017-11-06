@@ -1109,7 +1109,7 @@ $signPackage = $jssdk->GetSignPackage();
 						customer_phone: phone_2,
 						city_id: cit1,
 						address: dizhi_2,
-						type: 2,
+						type: 0,
 						wx_openid: openid,
 					}),
 					success: function(msg) {
