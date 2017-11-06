@@ -292,10 +292,10 @@ $signPackage = $jssdk->GetSignPackage();
     wx.scanQRCode({  
       needResult: 1,  
       desc: 'scanQRCode desc',  
-      success: function (res) {
-
-          var a=new Array();
+      success: function (res) {    
+      	 var a=new Array();
           a=res.resultStr.split(",");
+          alert(a[1]);
           if(a[1]!=null){
               window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
           }else{
