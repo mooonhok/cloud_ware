@@ -844,7 +844,7 @@ $app->put('/customer_order_id',function()use($app){
                 ->where('tenant_id','=',$tenant_id)
                 ->where('customer_id','=',$data1['sender_id']);
             $affectedRows = $updateStatement->execute();
-            echo json_encode(array("result"=>"0",'desc'=>'success',"data2"=>$data2['times']));
+            echo json_encode(array("result"=>"0",'desc'=>'success'));
         }else{
             echo json_encode(array("result"=>"1",'desc'=>'缺少运单id'));
         }
