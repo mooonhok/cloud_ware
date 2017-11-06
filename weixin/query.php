@@ -248,6 +248,7 @@ $signPackage = $jssdk->GetSignPackage();
       success: function (res) {
           var a=new Array();
           a=res.resultStr.split(",");
+          alert(a[1]);
        if(a[1]!=null){
            alert(a)
 			$.ajax({
@@ -259,13 +260,13 @@ $signPackage = $jssdk->GetSignPackage();
 				type: 'post',
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({
-					order_id: a+""
+					order_id: a[1]
 				}),
 				success: function(msg) {
 					if(msg.result == 1) {
 				     layer.msg("订单不存在");
 					}else{
-		            window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a+"&tenant_id="+tenant_id;
+		            window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
 					}
 				},
 				error: function(xhr) {
