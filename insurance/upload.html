@@ -236,6 +236,7 @@
           var bgstr = '<div id="ImgZoomInBG" style="position:fixed;filter:Alpha(Opacity=70); opacity:0.7;z-index: 10000;background-color: #000;display: none;top:0;left:0;"></div>';
           var imgstr = '<img id="ImgZoomInImage" src="" style="cursor:pointer; display:none; position:fixed; z-index:10001;top:0;left:0;" />';
               $(".but").on('click',function(){
+                  alert(1)
                   var window_w = $("body").outerWidth();
                   var window_h = $("body").outerHeight();
                   $('body').append(bgstr);
