@@ -256,9 +256,10 @@
                       var xhr = new XMLHttpRequest();
                       xhr.open("POST" ,"http://api.uminfo.cn/tenant_insurancepolicy.php/upload?tenant_id="+tenant_id , true);
                       xhr.send(formdata);
-                      xhr.upload.onprogress = progressFunction;
+//                      xhr.upload.onprogress = progressFunction;
                       xhr.onload = function(e) {
                           if (this.status == 200) {
+                              $("#ImgZoomInBG").hide();
                               layer.msg('上传成功');
                               file2.val("");
                           };
@@ -391,12 +392,12 @@ var i=0;
 		}
 
 
-		function progressFunction(evet){
-            alert(evt.loaded)
-           if(evt.total==evt.loaded){
-              $("#ImgZoomInBG").hide();
+//		function progressFunction(evet){
+//            alert(evt.loaded)
+//           if(evt.total==evt.loaded){
+
 //               $("#ImgZoomInBG").hide();
-		   }
-		}
+//		   }
+//		}
 	</script>
 </html>
