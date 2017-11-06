@@ -839,7 +839,7 @@ $app->put('/customer_order_id',function()use($app){
             if($data2['times']==null||$data2['times']==""){
                  $data2['times']=0;
             }
-            $updateStatement = $database->update(array('type'=>0,'times'=>($data2['times']+1)))
+            $updateStatement = $database->update(array('type'=>1,'times'=>($data2['times']+1)))
                 ->table('customer')
                 ->where('tenant_id','=',$tenant_id)
                 ->where('customer_id','=',$data1['sender_id']);
