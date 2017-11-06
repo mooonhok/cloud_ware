@@ -97,7 +97,6 @@ $app->post('/addmap',function()use($app){
                             ->orderBy('accept_time');
                         $stmt=$selectStament->execute();
                         $data4=$stmt->fetchAll();
-                     //   $num=count($data4)-1;
                         if($data4!=null) {
                             if ($time - $data4[count($data4) - 1]['accept_time'] > 1800) {
                                 $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
@@ -139,32 +138,34 @@ $app->get('/mapsbyor',function()use($app){
                ->from('scheduling')
                ->where('scheduling_id','=',$data5['schedule_id']);
            $stmt=$selectStament->execute();
-           $data=$stmt->fetch();
+           $data=$stmt->fetchAll();
            if($data!=null){
-               $selectStament=$database->select()
-                   ->from('map')
-                   ->where('scheduling_id','=',$data5['schedule_id'])
-                   ->orderBy('accept_time');
-               $stmt=$selectStament->execute();
-               $data2=$stmt->fetchAll();
-               if($data2!=null){
-                   for($x=0;$x<count($data2);$x++){
-                       date_default_timezone_set("PRC");
-                       $time=date("Y-m-d H",$data2[$x]['accept_time']);
-                       $arrays1['longitude']=$data2[$x]['longitude'];
-                       $arrays1['latitude']=$data2[$x]['latitude'];
-                       $arrays1['time']=$time;
-                       array_push($arrays,$arrays1);
+               for($y=0;$y<count($data);$y++){
+                   $selectStament = $database->select()
+                       ->from('map')
+                       ->where('scheduling_id', '=', $data5['schedule_id'])
+                       ->orderBy('accept_time');
+                   $stmt = $selectStament->execute();
+                   $data2 = $stmt->fetchAll();
+                   if ($data2 != null) {
+                       for ($x = 0; $x < count($data2); $x++) {
+                           date_default_timezone_set("PRC");
+                           $time = date("Y-m-d H", $data2[$x]['accept_time']);
+                           $arrays1['longitude'] = $data2[$x]['longitude'];
+                           $arrays1['latitude'] = $data2[$x]['latitude'];
+                           $arrays1['time'] = $time;
+                           array_push($arrays, $arrays1);
+                       }
+                       echo json_encode(array('result' => '0', 'desc' => '', 'map' => $arrays));
+                   } else {
+                       echo json_encode(array('result' => '3', 'desc' => '运单还未出发或运单已到达'));
                    }
-                   echo json_encode(array('result' => '0', 'desc' => '','map'=>$arrays));
-               }else{
-                   echo json_encode(array('result' => '3', 'desc' => '清单还未出发或清单已到达'));
                }
            }else{
                echo json_encode(array('result' => '2', 'desc' => '清单不存在'));
            }
        }else{
-           echo json_encode(array('result' => '2', 'desc' => '运单未出发'));
+           echo json_encode(array('result' => '4', 'desc' => '运单未出发'));
        }
     }else {
         echo json_encode(array('result' => '1', 'desc' => '运单号为空'));
