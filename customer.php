@@ -830,21 +830,21 @@ $app->put('/customer_order_id',function()use($app){
                 ->whereNull('tenant_id');
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('customer')
-                ->where('tenant_id','=',$tenant_id)
-                ->where('customer_id','=',$data1['sender_id']);
-            $stmt = $selectStatement->execute();
-            $data2 = $stmt->fetch();
-            if($data2['times']==null||$data2['times']==""){
-                 $data2['times']=0;
-            }
-            $updateStatement = $database->update(array('type'=>0,((int)$data2['times']+1)))
-                ->table('customer')
-                ->where('tenant_id','=',$tenant_id)
-                ->where('customer_id','=',$data1['sender_id']);
-            $affectedRows = $updateStatement->execute();
-            echo json_encode(array("result"=>"0",'desc'=>'success'));
+//            $selectStatement = $database->select()
+//                ->from('customer')
+//                ->where('tenant_id','=',$tenant_id)
+//                ->where('customer_id','=',$data1['sender_id']);
+//            $stmt = $selectStatement->execute();
+//            $data2 = $stmt->fetch();
+//            if($data2['times']==null||$data2['times']==""){
+//                 $data2['times']=0;
+//            }
+//            $updateStatement = $database->update(array('type'=>0,((int)$data2['times']+1)))
+//                ->table('customer')
+//                ->where('tenant_id','=',$tenant_id)
+//                ->where('customer_id','=',$data1['sender_id']);
+//            $affectedRows = $updateStatement->execute();
+            echo json_encode(array("result"=>"0",'desc'=>'success',"data1"=>$data1['sender_id']));
         }else{
             echo json_encode(array("result"=>"1",'desc'=>'缺少运单id'));
         }
