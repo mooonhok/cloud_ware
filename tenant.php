@@ -315,6 +315,12 @@ $app->get('/tenant_introduction',function()use($app){
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
     $selectStatement = $database->select()
+        ->from('city')
+        ->where('id',"=",$data['from_city_id']);
+    $stmt = $selectStatement->execute();
+    $data2 = $stmt->fetch();
+    $data['ad']=$data2['name'].$data['address'];
+    $selectStatement = $database->select()
         ->from('customer')
         ->where('customer_id',"=",$data['contact_id']);
     $stmt = $selectStatement->execute();
