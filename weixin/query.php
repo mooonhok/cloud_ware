@@ -249,7 +249,6 @@ $signPackage = $jssdk->GetSignPackage();
 
         var a=res.resultStr;
        if(a!=null){
-           alert(a)
 			$.ajax({
 				url: "http://api.uminfo.cn/order.php/wx_order_z",
 				beforeSend: function(request) {
@@ -259,7 +258,7 @@ $signPackage = $jssdk->GetSignPackage();
 				type: 'post',
 				contentType: "application/json;charset=utf-8",
 				data: JSON.stringify({
-					order_id: a
+					order_id: a+""
 				}),
 				success: function(msg) {
 					if(msg.result == 1) {
