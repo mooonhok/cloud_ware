@@ -239,14 +239,15 @@
 
                   var window_w = $(window).width();
                   var window_h = $(window).height();
-                  alert(window_w)
-                  alert(window_h)
+
                   $('body').append(bgstr);
                   $('body').append(imgstr);
                   $("#ImgZoomInBG").css('width',window_w);
                   $("#ImgZoomInBG").css('height',window_h);
                   $("#ImgZoomInBG").css('display','block');
                   $("#ImgZoomInImage").attr('src','images/xuanzhuan.gif');
+                  alert($("#ImgZoomInImage").outerWidth/2)
+                  alert($("#ImgZoomInImage").outerHeight/2)
                   $("#ImgZoomInImage").css('left',window_w/2-$("#ImgZoomInImage").outerWidth/2);
                   $("#ImgZoomInImage").css('top',window_h/2-$("#ImgZoomInImage").outerHeight/2);
                   $("#ImgZoomInImage").css('display','block');
