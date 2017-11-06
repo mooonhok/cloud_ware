@@ -322,7 +322,7 @@ $app->get('/sbylorry',function()use($app){
             }
             echo json_encode(array('result' => '0', 'desc' => '','sch'=>$arrays,'count'=>$sum));
         }else{
-            echo json_encode(array('result' => '2', 'desc' => '司机不存在','sch'=>''));
+            echo json_encode(array('result' => '2', 'desc' => '司机不存在或该车辆不是默认车辆','sch'=>''));
         }
     }else{
         echo json_encode(array('result' => '1', 'desc' => '司机信息为空','sch'=>''));
@@ -471,7 +471,7 @@ $app->post('/suresch',function()use($app){
                         $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '接单成功'));
                     }else{
-                        echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在'));
+                        echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在或车辆不是默认车辆'));
                     }
                 }else{
                     echo json_encode(array('result' => '5', 'desc' => '驾驶员不存在'));
@@ -535,7 +535,7 @@ $app->post('/sureschfor',function()use($app){
                         $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '取消成功'));
                     }else{
-                        echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在'));
+                        echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在或车辆不是默认车辆'));
                     }
                 }else{
                     echo json_encode(array('result' => '5', 'desc' => '驾驶员不存在'));
@@ -602,7 +602,7 @@ $app->post('/sureschthree',function()use($app){
                         echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在'));
                     }
                 }else{
-                    echo json_encode(array('result' => '5', 'desc' => '驾驶员不存在'));
+                    echo json_encode(array('result' => '5', 'desc' => '驾驶员不存在或车辆不是默认车'));
                 }
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '驾驶员未登录'));
@@ -632,7 +632,8 @@ $app->get('/obycourier',function()use($app){
         $selectStament=$database->select()
             ->from('lorry')
             ->where('exist','=',0)
-//            ->where('flag','=',1)
+            ->where('flag','=',1)
+            ->where('app_chose','=',1)
             ->where('driver_phone','=',$data['driver_phone'])
             ->where('driver_name','=',$data['driver_name']);
         $stmt=$selectStament->execute();
@@ -696,7 +697,7 @@ $app->get('/obycouriern',function()use($app){
         $selectStament=$database->select()
             ->from('lorry')
             ->where('exist','=',0)
-//            ->where('flag','=',1)
+            ->where('flag','=',1)
             ->where('driver_phone','=',$data['driver_phone'])
             ->where('driver_name','=',$data['driver_name']);
         $stmt=$selectStament->execute();
@@ -803,6 +804,7 @@ $app->post('/ordersure',function()use($app){
                 if($data10!=null){
                     $selectStament=$database->select()
                         ->from('lorry')
+                        ->where('flag','=',1)
                         ->where('app_chose','=',1)
                         ->where('lorry_id','=',$lorry_id);
                     $stmt=$selectStament->execute();
@@ -818,7 +820,7 @@ $app->post('/ordersure',function()use($app){
                         $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '确认成功'));
                     }else{
-                        echo json_encode(array('result' => '5', 'desc' => '配送员不存在'));
+                        echo json_encode(array('result' => '5', 'desc' => '配送员不存在或车辆不是默认车辆'));
                     }
                 }else{
                     echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
@@ -866,6 +868,7 @@ $app->post('/ordersurefor',function()use($app){
                 if($data10!=null){
                     $selectStament=$database->select()
                         ->from('lorry')
+                        ->where('flag','=',1)
                         ->where('app_chose','=',1)
                         ->where('lorry_id','=',$lorry_id);
                     $stmt=$selectStament->execute();
@@ -877,7 +880,7 @@ $app->post('/ordersurefor',function()use($app){
                         $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '确认成功'));
                     }else{
-                        echo json_encode(array('result' => '5', 'desc' => '配送员不存在'));
+                        echo json_encode(array('result' => '5', 'desc' => '配送员不存在或车辆不是默认车辆'));
                     }
                 }else{
                     echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
@@ -926,6 +929,7 @@ $app->post('/ordersurethree',function()use($app){
                 if($data10!=null){
                     $selectStament=$database->select()
                         ->from('lorry')
+                        ->where('flag','=',1)
                         ->where('app_chose','=',1)
                         ->where('lorry_id','=',$lorry_id);
                     $stmt=$selectStament->execute();
@@ -937,7 +941,7 @@ $app->post('/ordersurethree',function()use($app){
                         $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '确认成功'));
                     }else{
-                        echo json_encode(array('result' => '5', 'desc' => '配送员不存在'));
+                        echo json_encode(array('result' => '5', 'desc' => '配送员不存在或车辆不是默认车辆'));
                     }
                 }else{
                     echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
