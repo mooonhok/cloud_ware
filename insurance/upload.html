@@ -246,6 +246,8 @@
                   $("#ImgZoomInBG").css('width',window_w);
                   $("#ImgZoomInBG").css('height',window_h);
                   $("#ImgZoomInBG").css('display','block');
+                  $("#ImgZoomInImage").attr('src','img/xuanzhuan.gif');
+                  $("#ImgZoomInImage").css('display','block');
 //                  $(this).parent().append("<progress value='0' max='100' style='width: 100px;'></progress>");
                   var tenant_id=$(this).next().html();
 				  var file1=$(this).parent().prev().children('.afile')[0].files[0];
@@ -266,6 +268,7 @@
                       };
                       return;
 				  }else{
+                      $("#ImgZoomInBG").hide();
                       layer.msg('文件信息不全');
 				  }
               });
