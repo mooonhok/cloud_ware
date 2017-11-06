@@ -234,6 +234,7 @@
                   return arr.join('');
               }();
               $(".but").on('click',function(){
+                  $(this).parent().append("<progress value='0' max='100' style='width: 100px;'></progress>");
                   var tenant_id=$(this).next().html();
 				  var file1=$(this).parent().prev().children('.afile')[0].files[0];
 				  var file2=$(this).parent().prev().children('.afile');
