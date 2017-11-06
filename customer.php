@@ -839,11 +839,11 @@ $app->put('/customer_order_id',function()use($app){
 //            if($data2['times']==null||$data2['times']==""){
 //                 $data2['times']=0;
 //            }
-//            $updateStatement = $database->update(array('type'=>0,((int)$data2['times']+1)))
-//                ->table('customer')
-//                ->where('tenant_id','=',$tenant_id)
-//                ->where('customer_id','=',$data1['sender_id']);
-//            $affectedRows = $updateStatement->execute();
+            $updateStatement = $database->update(array('type'=>0,((int)$data2['times']+1)))
+                ->table('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('customer_id','=',$data1['sender_id']);
+            $affectedRows = $updateStatement->execute();
             echo json_encode(array("result"=>"0",'desc'=>'success',"data2"=>$data2));
         }else{
             echo json_encode(array("result"=>"1",'desc'=>'缺少运单id'));
