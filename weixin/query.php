@@ -246,9 +246,9 @@ $signPackage = $jssdk->GetSignPackage();
       needResult: 1,
       desc: 'scanQRCode desc',
       success: function (res) {
-
-        var a=res.resultStr;
-       if(a!=null){
+          var a=new Array();
+          a=res.resultStr.split(",");
+       if(a[1]!=null){
            alert(a)
 			$.ajax({
 				url: "http://api.uminfo.cn/order.php/wx_order_z",

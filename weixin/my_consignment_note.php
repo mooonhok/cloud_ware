@@ -292,10 +292,11 @@ $signPackage = $jssdk->GetSignPackage();
     wx.scanQRCode({  
       needResult: 1,  
       desc: 'scanQRCode desc',  
-      success: function (res) {    
-        
-       var a=res.resultStr;
-          if(a!=null){
+      success: function (res) {
+
+          var a=new Array();
+          a=res.resultStr.split(",");
+          if(a[1]!=null){
               window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a+"&tenant_id="+tenant_id;
           }else{
               layer.msg("没有扫描到条形码");
