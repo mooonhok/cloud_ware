@@ -237,8 +237,8 @@
           var imgstr = '<img id="ImgZoomInImage" src="" style="cursor:pointer; display:none; position:fixed; z-index:10001;top:0;left:0;" />';
               $(".but").on('click',function(){
 
-                  var window_w = $("body").outerWidth();
-                  var window_h = $("body").outerHeight();
+                  var window_w = $(window).width();
+                  var window_h = $(window).height();
                   alert(window_w)
                   alert(window_h)
                   $('body').append(bgstr);
