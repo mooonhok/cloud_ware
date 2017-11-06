@@ -129,7 +129,7 @@ $signPackage = $jssdk->GetSignPackage();
                  // alert(msg.tenant.c_introduction+"xxx"+msg.tenant.company+"////"+msg.tenant.address+"***"+msg.contact.customer_phone);
                    $('.box1').text(msg.tenant.company);
                    $('#introduction').html('公司介绍：'+msg.tenant.c_introduction);
-                   $('#address').html('地址：'+msg.tenant.address);
+                   $('#address').html('地址：'+msg.tenant.ad);
                    $('#phone').html('电话：'+msg.contact.customer_phone);
                },
                error: function(e) {
