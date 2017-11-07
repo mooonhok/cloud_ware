@@ -27,7 +27,7 @@ $app->post('/addFeedback',function()use($app) {
     if($tenant_id!=null||$tenant_id!=''){
         if($staff_id!=null||$staff_id!=''){
             if($content!=null||$content!=''){
-                if($times!=null||$times!=''){
+                if($time!=null||$time!=''){
                             $insertStatement = $database->insert(array_keys($array))
                                 ->into('feedback')
                                 ->values(array_values($array));
