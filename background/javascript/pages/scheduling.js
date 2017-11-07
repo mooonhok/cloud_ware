@@ -70,7 +70,7 @@ function loadschedulings(scheduling_id,page) {
                                 }else if(item.scheduling_status==6){
                                     info='取消';
                                 }
-                                arr.push( '<tr><td>'+item.scheduling_id+'</td><td>'+item.tenant.company+'</td><td>'+item.tenant_suoshu.name+'</td><td>'+item.send_city.name+'</td><td>'+item.receive_city.name+'</td><td>'+item.receiver.customer_name+'</td><td>'+item.scheduling_datetime+'</td><td>'+info+'</td><td onclick="scheduling_xq('+item.scheduling_id +""+ ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
+                                arr.push( '<tr><td>'+item.scheduling_id+'</td><td>'+item.tenant.company+'</td><td>'+item.tenant_suoshu.name+'</td><td>'+item.send_city.name+'</td><td>'+item.receive_city.name+'</td><td>'+item.receiver.customer_name+'</td><td>'+item.scheduling_datetime+'</td><td>'+info+'</td><td onclick="scheduling_xq('+item.scheduling_id +')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
                             });
                             return arr.join('');
                         }();
@@ -88,8 +88,9 @@ function loadschedulings(scheduling_id,page) {
 function scheduling_xq(id){
     $(".tenant_tk").css("display","block");
     $(".tenant_tk div input").val("");
+    var dd=id+"";
     $.ajax({
-        url: "http://api.uminfo.cn/scheduling.php/scheduling_orders_scheduling_id?scheduling_id="+id+"",
+        url: "http://api.uminfo.cn/scheduling.php/scheduling_orders_scheduling_id?scheduling_id="+dd+"",
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
