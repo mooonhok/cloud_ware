@@ -359,6 +359,7 @@ $app->get('/sbylorryn',function()use($app){
                     ->where('scheduling_status','!=',2)
                     ->where('scheduling_status','!=',3)
                     ->where('scheduling_status','!=',4)
+                    ->where('tenant_id','=',$data2[$x]['tenant_id'])
                     ->where('lorry_id','=',$data2[$x]['lorry_id'])
                     ->orderBy('change_datetime','desc');
                 $stmt=$selectStament->execute();
@@ -1184,14 +1185,12 @@ $app->put('/upplate_number',function()use($app){
                     $data10 = $stmt->fetch();
                     if($data10!=null){
                         if($data9['driver_name']==$data10['driver_name']&&$data9['driver_phone']==$data10['driver_phone']){
-                           // $arrays['app_chose']=1;
                             $updateStatement = $database->update(array('app_chose'=>1))
                                 ->table('lorry')
                                 ->where('plate_number','=',$data10['plate_number'])
                                 ->where('driver_phone','=',$data10['driver_phone'])
                                 ->where('driver_name','=',$data10['driver_name']);
                             $affectedRows1 = $updateStatement->execute();
-//                            $arrays1['app_chose']=0;
                             $updateStatement = $database->update(array('app_chose'=>0))
                                 ->table('lorry')
                                 ->where('plate_number','=',$data9['plate_number'])
