@@ -303,6 +303,7 @@ $app->get('/sbylorry',function()use($app){
                 $selectStament=$database->select()
                     ->from('scheduling')
                     ->where('scheduling_status','=',4)
+                    ->where('tenant_id','=',$data2[$x]['tenant_id'])
                     ->where('lorry_id','=',$data2[$x]['lorry_id'])
                     ->orderBy('change_datetime','desc');
                 $stmt=$selectStament->execute();
