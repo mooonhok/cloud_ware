@@ -986,6 +986,7 @@ $app->get('/tongji',function()use($app){
             $selectStament = $database->select()
                 ->from('scheduling')
                 ->where('scheduling_status', '=', 4)
+                ->where('tenant_id','=',$data2[$x]['tenant_id'])
                 ->where('lorry_id', '=', $data2[$x]['lorry_id']);
             $stmt = $selectStament->execute();
             $data3 = $stmt->fetchAll();
