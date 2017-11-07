@@ -191,7 +191,37 @@ $app->post('/scheduling',function()use($app){
 
 //控制后台，通过单个scheduling_id,查出对应的orders和lorry
 $app->get('/scheduling_orders_scheduling_id',function()use($app){
-
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $scheduling_id=$app->request->get('scheduling_id');
+    $selectStatement = $database->select()
+        ->from('scheduling')
+        ->where('scheduling_id','=',$scheduling_id);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetch();
+    $selectStatement = $database->select()
+        ->from('schedule_order')
+        ->where('tenant_id','=',$data1['tenant_id'])
+        ->where('schedule_id','=',$scheduling_id);
+    $stmt = $selectStatement->execute();
+    $data2 = $stmt->fetchAll();
+    $selectStatement = $database->select()
+        ->from('lorry')
+        ->where('tenant_id','=',$data1['tenant_id'])
+        ->where('lorry_id','=',$data1['lorry_id']);
+    $stmt = $selectStatement->execute();
+    $data3 = $stmt->fetch();
+    for($i=0;$i<count($data2);$i++){
+        $selectStatement = $database->select()
+            ->from('goods')
+            ->where('tenant_id','=',$data2[$i]['tenant_id'])
+            ->where('order_id','=',$data2[$i]['order_id']);
+        $stmt = $selectStatement->execute();
+        $data4 = $stmt->fetch();
+        $data2[$i]['goods']=$data4;
+    }
+    echo json_encode(array("result"=>"0","desc"=>"success",'order_goods'=>$data2,'lorry'=>$data3));
 });
 
 $app->put('/scheduling',function()use($app){
