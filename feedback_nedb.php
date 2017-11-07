@@ -19,7 +19,7 @@ $app->post('/addFeedback',function()use($app) {
     $staff_id=$body->staff_id;
     $tenant_id = $body->tenant_id;
     $content = $body->content;
-    $times= $body->times;
+    $time= $body->time;
     $array=array();
     foreach($body as $key=>$value){
         $array[$key]=$value;
