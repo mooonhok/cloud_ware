@@ -97,7 +97,7 @@ $signPackage = $jssdk->GetSignPackage();
 				<div class="box1_1">可否留下您的</div>
 				<div class="box1_2"><span class="sp">姓名:</span><input type="text" id="customername" placeholder="请输入您的姓名"></div>
 				<div class="box1_2"><span class="sp">电话:</span><input type="tel" id="customertel" placeholder="请输入您的手机号码"></div>
-			<div id="sumbit" class="submit">确<span class="kong"></span>认</div>
+			<div id="submit" class="submit">确<span class="kong"></span>认</div>
 			</div>
 		</div>
     </body>
@@ -188,7 +188,7 @@ $signPackage = $jssdk->GetSignPackage();
 	</script>
 	<script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
 	<script>
-	wx.config({
+		wx.config({
         debug: false,
         appId: '<?php echo $signPackage["appId"];?>',
         timestamp: <?php echo $signPackage["timestamp"];?>,
@@ -211,7 +211,7 @@ $signPackage = $jssdk->GetSignPackage();
      window.history.pushState(state, "title", "#"); 
    }
    wx.error(function (res) {
-});	
+});
 	</script>
 	<script type="text/javascript">
        对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
