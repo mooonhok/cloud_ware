@@ -308,7 +308,7 @@ $app->get('/lorrys_lorry_id',function()use($app){
     $selectStatement = $database->select()
         ->from('lorry')
         ->whereLike('lorry_id','%'.$lorry_id.'%');
-    $stmt1 = $selectStatement->count('id','=','*');
+    $stmt1 = $selectStatement->count();
 //    $data0 = $stmt->fetch();
     $selectStatement = $database->select()
         ->from('lorry')
@@ -318,7 +318,7 @@ $app->get('/lorrys_lorry_id',function()use($app){
         ->orderBy('id','DESC');
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetch();
-    echo json_encode(array("result"=>"0","desc"=>"success",'lorrys'=>$data1,'coutn'=>$stmt1));
+    echo json_encode(array("result"=>"0","desc"=>"success",'lorrys'=>$data1,'coutn'=>$stmt));
 });
 
 $app->run();
