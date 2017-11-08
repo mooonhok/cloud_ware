@@ -296,6 +296,32 @@ $app->post('/lorry_insert',function()use($app){
         $insertId = $insertStatement->execute(false);
     }
 });
+
+//控制后台，通过lorry_id获得车辆信息
+$app->get('/lorrys_lorry_id',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $page=$app->request->get("page");
+    $per_page=$app->request->get("per_page");
+    $lorry_id=$app->request->get('lorry_id');
+    $selectStatement = $database->select()
+        ->from('lorry')
+        ->whereLike('lorry_id','%'.$lorry_id.'%')
+        ->havingCount("*");
+    $stmt = $selectStatement->execute();
+    $data0 = $stmt->fetch();
+    $selectStatement = $database->select()
+        ->from('lorry')
+        ->leftJoin('tenant','tenant.tenant_id','=','lorry.tenant_id')
+        ->whereLike('lorry_id','%'.$lorry_id.'%')
+        ->limit((int)$per_page,(int)$per_page*(int)$page)
+        ->orderBy('id','DESC');
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetch();
+    echo json_encode(array("result"=>"0","desc"=>"success",'lorrys'=>$data1,'count'=>$data0));
+});
+
 $app->run();
 
 

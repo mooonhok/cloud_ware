@@ -528,9 +528,19 @@ $app->get("/agreements_suoyou",function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $agreement_id=$app->request->get('agreement_id');
+    $page=$app->request->get("page");
+    $per_page=$app->request->get("per_page");
+    $page=$page-1;
     $selectStatement = $database->select()
         ->from('agreement')
         ->whereLike('agreement_id','%'.$agreement_id.'%');
+    $stmt = $selectStatement->execute();
+    $data0= $stmt->fetchAll();
+    $selectStatement = $database->select()
+        ->from('agreement')
+        ->whereLike('agreement_id','%'.$agreement_id.'%')
+        ->limit((int)$per_page,(int)$per_page*(int)$page)
+        ->orderBy('id','DESC');
     $stmt = $selectStatement->execute();
     $data1= $stmt->fetchAll();
     for($i=0;$i<count($data1);$i++){
@@ -554,7 +564,7 @@ $app->get("/agreements_suoyou",function()use($app){
         $data1[$i]['tenant']=$data3;
         $data1[$i]['tenant']['from_city']=$data4;
     }
-    echo json_encode(array("result"=>"0",'desc'=>'success','agreement'=>$data1));
+    echo json_encode(array("result"=>"0",'desc'=>'success','agreement'=>$data1,'count'=>count($data0)));
 });
 
 $app->run();
