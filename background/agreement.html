@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>后台管理系统-HTML5后台管理系统</title>
+    <meta name="keywords"  content="设置关键词..." />
+    <meta name="description" content="设置描述..." />
+    <meta name="author" content="DeathGhost" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <link rel="icon" href="images/icon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="javascript/layui/css/layui.css" />
+    <style>
+        table {
+            border-right: 1px solid #DDDDDD;
+            border-bottom: 1px solid #DDDDDD;
+        }
+        table td {
+            border-left: 1px solid #DDDDDD;
+            border-top: 1px solid #DDDDDD;
+            height: 50px;
+            text-align: center;
+        }
+        table thead tr th {
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border-left: 1px solid #DDDDDD;
+            border-top: 1px solid #DDDDDD;
+            /* background: #9CBA60; */
+        }
+        .tenant_tk{
+            z-index:1000;
+            width:40%;
+            height:400px;
+            top:100px;
+            left:20%;
+            position:absolute;
+            background-color:rgb(215,211,218);
+            display: none;
+        }
+        .tenant_tk>h1{
+            width:100%;
+            height:10%;
+            font-size: 20px;
+        }
+        .tenant_tk>div{
+            float:left;
+            width:30%;
+            height:80%;
+            margin-left:10%;
+            margin-right:10%;
+        }
+        .tenant_tk>div>div{
+            float:left;
+            width:100%;
+            height:10%;
+            margin-top:2.5%;
+            text-align:right;
+            vertical-align:middle;
+        }
+        .tenant_tk>div>input{
+            float:left;
+            width:100%;
+            height:10%;
+            margin-top:2.5%;
+        }
+        button{
+            width:100%;
+            height:10%;
+        }
+    </style>
+    <script src="javascript/jquery.js"></script>
+    <script src="javascript/plug-ins/customScrollbar.min.js"></script>
+    <script src="javascript/plug-ins/echarts.min.js"></script>
+    <script src="javascript/plug-ins/layerUi/layer.js"></script>
+    <script src="editor/ueditor.config.js"></script>
+    <script src="editor/ueditor.all.js"></script>
+    <script src="javascript/plug-ins/pagination.js"></script>
+    <script src="javascript/public.js"></script>
+    <script src="javascript/jquery.session.js"></script>
+    <script src="javascript/pages/scheduling.js"></script>
+    <script src="javascript/layui/layui.js"></script>
+</head>
+<body>
+<div class="main-wrap">
+    <div class="side-nav">
+        <div class="side-logo">
+            <div class="logo">
+				<span class="logo-ico">
+					<i class="i-l-1"></i>
+					<i class="i-l-2"></i>
+					<i class="i-l-3"></i>
+				</span>
+                <strong>江苏酉铭后台管理</strong>
+            </div>
+        </div>
+
+        <nav class="side-menu content mCustomScrollbar" data-mcs-theme="minimal-dark">
+            <h2>
+                <a href="tenant.html" class="InitialPage"><i class="icon-dashboard"></i>租户概况</a>
+            </h2>
+            <h2>
+                <a href="order.html" class="InitialPage"><i class="icon-dashboard"></i>运单概况</a>
+                <h2>
+                    <a href="scheduling.html" class="InitialPage"><i class="icon-dashboard"></i>调度单概况</a>
+                </h2>
+            </h2>
+            <ul>
+
+            </ul>
+        </nav>
+        <footer class="side-footer">© unimfo 版权所有</footer>
+    </div>
+    <div class="content-wrap">
+        <header class="top-hd">
+            <div class="hd-lt">
+                <a class="icon-reorder"></a>
+            </div>
+            <div class="hd-rt">
+                <ul>
+                    <li>
+                        <a><i class="icon-user"></i>管理员:<em>unimfo</em></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" id="JsSignOut"><i class="icon-signout"></i>安全退出</a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <main class="main-cont content mCustomScrollbar">
+            <div class="tenant_tk">
+                <h1 style="text-align:center;">详情</h1>
+                <div>
+                    <div>货物名称</div>
+                    <div>货物重量(吨)</div>
+                    <div>货物体积(立方)</div>
+                    <div>货物数量</div>
+                    <div>货物价值(万元)</div>
+                    <div>货物包装</div>
+                </div>
+                <div>
+                    <input type="text" id="tenant_id" disabled="disabled"/>
+                    <input type="text" id="tenant_num" disabled="disabled"/>
+                    <input type="text" id="app_id" disabled="disabled"/>
+                    <input type="text" id="secret" disabled="disabled"/>
+                    <input type="text" id="customer_name" disabled="disabled"/>
+                    <input type="text" id="customer_phone" disabled="disabled"/>
+                </div>
+                <button id="order_close">关闭</button>
+            </div>
+            <!--开始::内容-->
+            <div  style="width:100%;height:100px;">
+                <div class="sousuo">
+                    <div style="background-color:rgb(216,221,218);float:right;" class="sousuo_z">搜索</div>
+                    <input type="text" style="float:right;" class="scheduling_id"/>
+                    <div style="float:right;">调度单号：</div>
+                </div>
+                <table style="width:100%;">
+                    <thead>
+                    <tr>
+                        <th>合同号</th>
+                        <th>调度单号</th>
+                        <th>公司名称</th>
+                        <th>公司所属城市</th>
+                        <th>车辆号</th>
+                        <th>合同开始时间</th>
+                        <th>约定到达时间</th>
+                        <th>调度单状态</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tb1">
+                    </tbody>
+                </table>
+                <div id="demo20"></div>
+            </div>
+            <script>
+
+            </script>
+            <!--开始::结束-->
+        </main>
+        <footer class="btm-ft">
+            <p class="clear">
+                <span class="fl">©Copyright 2017 <a href="#" title="unimfo" target="_blank">unimfo.cn</a></span>
+            </p>
+        </footer>
+    </div>
+</div>
+<div>11</div>
+
+</body>
+</html>

@@ -522,6 +522,28 @@ $app->delete('/agreement',function()use($app){
     }
 });
 
+//控制后台，查询所有的合同
+$app->get("/agreements_suoyou",function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $agreement_id=$app->request->get('agreement_id');
+    $selectStatement = $database->select()
+        ->from('agreement')
+        ->whereLike('agreement_id','%'.$agreement_id.'%');
+    $stmt = $selectStatement->execute();
+    $data1= $stmt->fetchAll();
+    for($i=0;$i<count($data1);$i++){
+        $selectStatement = $database->select()
+            ->from('lorry')
+            ->where('tenant_id','=',$data1[$i]['tenant_id'])
+            ->where('lorry_id','=',$data1[$i]['secondparty_id']);
+        $stmt = $selectStatement->execute();
+        $data2= $stmt->fetch();
+        $data1[$i]['lorry']=$data2;
+    }
+    echo json_encode(array("result"=>"0",'desc'=>'success','agreement'=>$data1));
+});
 
 $app->run();
 
