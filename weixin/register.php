@@ -71,6 +71,12 @@ $signPackage = $jssdk->GetSignPackage();
 				outline-style: none;
 				border: none;
 				background: none;
+				display: inline-block;
+				height: 30px;
+				line-height: 30px;
+				float: left;
+				margin-top: 10px;
+				margin-left: 10px;
 			}
 			.submit{
 				border-radius:50px;
@@ -89,14 +95,21 @@ $signPackage = $jssdk->GetSignPackage();
 				display: inline-block;
 				width: 20px;
 			}
+			.sp1{
+				display: inline-block;
+				width:1px;
+				height:50px;
+				float:left;
+				background: white;
+			}
 		</style>
     </head>
     <body>
 		<div class="box">
 			<div class="box1">
 				<div class="box1_1">可否留下您的</div>
-				<div class="box1_2"><span class="sp">姓名:</span><input type="text" id="customername" placeholder="请输入您的姓名"></div>
-				<div class="box1_2"><span class="sp">电话:</span><input type="tel" id="customertel" placeholder="请输入您的手机号码"></div>
+				<div class="box1_2"><span class="sp">姓名:</span><span class="sp1"></span><input type="text" id="customername" placeholder="请输入您的姓名"></div>
+				<div class="box1_2"><span class="sp">电话:</span><span class="sp1"></span><input type="tel" id="customertel" placeholder="请输入您的手机号码"></div>
 			<div id="submit" class="submit">确<span class="kong"></span>认</div>
 			</div>
 		</div>
@@ -214,15 +227,15 @@ $signPackage = $jssdk->GetSignPackage();
 });
 	</script>
 	<script type="text/javascript">
-       对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
-    var useragent = navigator.userAgent;
-    if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
-        // 这里警告框会阻塞当前页面继续加载
-        alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
-        // 以下代码是用javascript强行关闭当前页面
-       var opened = window.open('http://www.uminfo.cn', '_self');
-        opened.opener = null;
-        opened.close();
-    }
+//     对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
+//  var useragent = navigator.userAgent;
+//  if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+//      // 这里警告框会阻塞当前页面继续加载
+//      alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+//      // 以下代码是用javascript强行关闭当前页面
+//     var opened = window.open('http://www.uminfo.cn', '_self');
+//      opened.opener = null;
+//      opened.close();
+//  }
 </script>
 </html>
