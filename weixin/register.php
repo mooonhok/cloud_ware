@@ -20,31 +20,171 @@ $signPackage = $jssdk->GetSignPackage();
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
 		<script type="text/javascript" src="layer/layer.js"></script>
-		<script type="text/javascript">
-			$(function() {
-				//改变div的高度
-				$(".content").css("height", $(window).height());
-			});
-		</script>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			 .box{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background: url('images/come.png');
+            background-size: 100% 100%;
+        }
+			.box2 {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				z-index: 100;
+				background: rgba(0, 0, 0, 0.3);
+			}
+			.box2_1 {
+				width: 80%;
+				height: 150px;
+				float: left;
+				margin-left: 10%;
+				text-align: center;
+				margin-top: 50px;
+				font: 24px "微软雅黑";
+				text-align: center;
+                color:white;
+			}
+			.box3 {
+				width: 70%;
+				float: left;
+				margin-left: 15%;
+				/* border: 1px solid red; */
+				margin-top: 50px;
+			}
+			.box3_1 {
+				width: 100%;
+				height: 40px;
+				float: left;
+				background: rgba(0, 0, 0, 0.7);
+			}
+			.box3_2 {
+				width: 100%;
+				height: 40px;
+				float: left;
+				margin-top: 20px;
+				background: rgba(0, 0, 0, 0.7);
+			}
+			.box3_1 input {
+				width: 100%;
+				height: 40px;
+				line-height: 40px;
+				background: rgba(0, 0, 0, 0.0);
+				color: white;
+				outline-style: none;
+				list-style: none;
+				border: 0;
+			}
+			.box3_2 input {
+				width: 100%;
+				height: 40px;
+				line-height: 40px;
+				background: rgba(0, 0, 0, 0.0);
+				color: white;
+				outline-style: none;
+				list-style: none;
+				border: 0;
+			}
+			.kon {
+				width: 5%;
+				height: 40px;
+				float: left;
+			}
+			.in {
+				width: 95%;
+				height: 40px;
+				float: left;
+			}
+			.login {
+				width: 80%;
+				float: left;
+				margin-left: 10%;
+				height: 25px;
+				border-radius: 50px;
+				background: #FECD07;
+				color: white;
+				font-size: 18px;
+				text-align: center;
+				margin-top: 30px;
+				line-height: 25px;
+			}
+			.box4 {
+				width: 100%;
+				height: 20px;
+				text-align: center;
+				float: left;
+				margin-top: 20px;
+			}
+			.box4 a {
+				color: white;
+				font-size: 14px;
+			}
+			.xian {
+				width: 100%;
+				background: white;
+				height: 1px;
+			}
+::-webkit-input-placeholder{
+  color: white;
+}
+:-moz-placeholder {/* Firefox 18- */
+   color: white;
+}
+::-moz-placeholder{/* Firefox 19+ */
+  color: white;
+}
+:-ms-input-placeholder {
+   color: white;
+}
+ .box3_5{
+        	width: 100%;
+        	height: 40px;
+        	float: left;
+        	margin-top: 20px;
+        	/* background: rgba(0, 0, 0, 0.7); */
+        	line-height: 40px;
+        }
+        .b1{
+        	width: 50%;
+        	float: left;
+        	height: 50px;
+        	line-height: 50px;
+        	color: white;
+        	text-align: center;
+        }
+        .b2{
+        	width: 50%;
+        	float: left;
+        	height: 50px;
+        	line-height: 50px;
+        	color: white;
+        	text-align: center;
+        }
+		</style>
 	</head>
 	<body>
-		<div class="content">
-			<div class="box_top">
-				<div class="box_top1">Welcome</div>
+		<div class="box">
+			<div class="box2_1">
+			    您可否留下您的姓名和电话
 			</div>
-			<div class="box_center">
-
-<!--				<div class="box_center1"><span>注<span class="kong"></span>册</span>-->
-                <div class="box_center1">您可否留下姓名和电话</span>
+			<div class="box3">
+				<div class="box3_1">
+					<div class="kon"></div>
+					<div class="in"><input type="tel" id="customername" placeholder="姓名"></div>
 				</div>
-
-				<div class="box_center1"><input id="customername" placeholder="姓名"></div>
-
-				<div class="box_center1"><input id="customertel" placeholder="手机号码" pattern="[0-9]*" type="tel"></div>
-
-			</div>
-			<div class="box_buttom">
-				<div id="submit">注<span class="kong"></span>册</div>
+				<div class="box3_2">
+					<div class="kon"></div>
+					<div class="in"><input type="text" id="customertel" placeholder="手机号"></div>
+				</div>
+				<div class="login" id="submit">
+					注册
+				</div>
+				<div style="clear: both;"></div>
 			</div>
 		</div>
 	</body>
@@ -59,8 +199,6 @@ $signPackage = $jssdk->GetSignPackage();
 		})(jQuery);
 		var tenant_id=$.getUrlParam('tenant_id');
 		var openid = $.cookie('openid'+tenant_id);
-	//	alert(tenant_id)
-	//	alert(openid)
 		if(openid != null) {
 			$.ajax({
 				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid=" + openid,
