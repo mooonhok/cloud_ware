@@ -308,8 +308,8 @@ $app->get('/lorrys_lorry_id',function()use($app){
     $selectStatement = $database->select()
         ->from('lorry')
         ->whereLike('lorry_id','%'.$lorry_id.'%');
-    $stmt = $selectStatement->count();
-    $data0 = $stmt->rowCount();
+    $stmt = $selectStatement->count('id','=','*');
+    $data0 = $stmt->fetch();
     $selectStatement = $database->select()
         ->from('lorry')
         ->leftJoin('tenant','tenant.tenant_id','=','lorry.tenant_id')
