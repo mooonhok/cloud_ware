@@ -309,7 +309,7 @@ $app->get('/lorrys_lorry_id',function()use($app){
         ->from('lorry')
         ->whereLike('lorry_id','%'.$lorry_id.'%')
         ->havingCount("*");
-    $stmt = $selectStatement->havingCount("*");
+    $stmt = $selectStatement->count();
     $data0 = $stmt->fetch();
     $selectStatement = $database->select()
         ->from('lorry')
