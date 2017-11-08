@@ -564,7 +564,7 @@ $app->get("/agreements_suoyou",function()use($app){
         $data1[$i]['tenant']=$data3;
         $data1[$i]['tenant']['from_city']=$data4;
     }
-    echo json_encode(array("result"=>"0",'desc'=>'success','agreement'=>$data1,'count'=>count($data0)));
+    echo json_encode(array("result"=>"0",'desc'=>'success','agreements'=>$data1,'count'=>count($data0)));
 });
 
 $app->run();

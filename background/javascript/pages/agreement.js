@@ -49,12 +49,12 @@ function loadagreements(agreement_id,page) {
                     ,limit: 10
                     ,jump: function(obj,first){
                         if(!first){
-                            loadschedulings(scheduling_id,obj.curr);
+                            loadagreements(agreement_id,obj.curr);
                         }
                         //模拟渲染
                         document.getElementById('tb1').innerHTML = function(){
                             var arr = []
-                                ,thisData = msg.schedulings;
+                                ,thisData = msg.agreements;
                             layui.each(thisData, function(index, item){
                                 var info='-';
                                 if(item.scheduling_status==1){
