@@ -15,179 +15,92 @@ $signPackage = $jssdk->GetSignPackage();
 		<meta http-equiv="Access-Control-Allow-Origin" content="*">
 		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1,minimum-scale=0.1,user-scalable=0" name="viewport">
 		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-		<link rel="stylesheet" href="css/zhuce.css">
 		<title>注册</title>
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
 		<script type="text/javascript" src="layer/layer.js"></script>
+		   <script type="text/javascript">
+    	$(function() {
+				//改变div的高度
+				$(".content").css("height", $(window).height());
+			});
+    </script>
 		<style>
-			* {
+			*{
 				margin: 0;
 				padding: 0;
+				font-family: "微软雅黑";
 			}
-			 .box{
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            background: url('images/come.png');
-            background-size: 100% 100%;
-        }
-			.box2 {
+			body{
+				width: 100%;
+				height: 100%;
+			}
+			.box{
 				width: 100%;
 				height: 100%;
 				position: absolute;
-				z-index: 100;
-				background: rgba(0, 0, 0, 0.3);
-			}
-			.box2_1 {
-				width: 80%;
-				height: 150px;
-				float: left;
-				margin-left: 10%;
-				text-align: center;
-				margin-top: 50px;
-				font: 24px "微软雅黑";
-				text-align: center;
-                color:white;
-			}
-			.box3 {
-				width: 70%;
-				float: left;
-				margin-left: 15%;
-				/* border: 1px solid red; */
-				margin-top: 50px;
-			}
-			.box3_1 {
-				width: 100%;
-				height: 40px;
-				float: left;
-				background: rgba(0, 0, 0, 0.7);
-			}
-			.box3_2 {
-				width: 100%;
-				height: 40px;
-				float: left;
-				margin-top: 20px;
-				background: rgba(0, 0, 0, 0.7);
-			}
-			.box3_1 input {
-				width: 100%;
-				height: 40px;
-				line-height: 40px;
-				background: rgba(0, 0, 0, 0.0);
-				color: white;
-				outline-style: none;
-				list-style: none;
-				border: 0;
-			}
-			.box3_2 input {
-				width: 100%;
-				height: 40px;
-				line-height: 40px;
-				background: rgba(0, 0, 0, 0.0);
-				color: white;
-				outline-style: none;
-				list-style: none;
-				border: 0;
-			}
-			.kon {
-				width: 5%;
-				height: 40px;
-				float: left;
-			}
-			.in {
-				width: 95%;
-				height: 40px;
-				float: left;
-			}
-			.login {
-				width: 80%;
-				float: left;
-				margin-left: 10%;
-				height: 25px;
-				border-radius: 50px;
-				background: #FECD07;
-				color: white;
-				font-size: 18px;
-				text-align: center;
-				margin-top: 30px;
-				line-height: 25px;
-			}
-			.box4 {
-				width: 100%;
-				height: 20px;
-				text-align: center;
-				float: left;
-				margin-top: 20px;
-			}
-			.box4 a {
-				color: white;
-				font-size: 14px;
-			}
-			.xian {
-				width: 100%;
 				background: white;
-				height: 1px;
 			}
-::-webkit-input-placeholder{
-  color: white;
-}
-:-moz-placeholder {/* Firefox 18- */
-   color: white;
-}
-::-moz-placeholder{/* Firefox 19+ */
-  color: white;
-}
-:-ms-input-placeholder {
-   color: white;
-}
- .box3_5{
-        	width: 100%;
-        	height: 40px;
-        	float: left;
-        	margin-top: 20px;
-        	/* background: rgba(0, 0, 0, 0.7); */
-        	line-height: 40px;
-        }
-        .b1{
-        	width: 50%;
-        	float: left;
-        	height: 50px;
-        	line-height: 50px;
-        	color: white;
-        	text-align: center;
-        }
-        .b2{
-        	width: 50%;
-        	float: left;
-        	height: 50px;
-        	line-height: 50px;
-        	color: white;
-        	text-align: center;
-        }
+			.box1{
+				width: 80%;
+				float: left;
+				margin-top: 100px;
+				margin-left: 10%;
+				text-align: center;
+			}
+			.box1_1{
+				width: 100%;
+				height: 50px;
+				text-align: center;
+			}
+			.box1_2{
+				width: 100%;
+				height: 50px;
+				line-height: 50px;
+				border-radius: 50px;
+				background: #00DDDD;
+				margin-top: 30px;
+			}
+			.sp{
+				display: inline-block;
+				float: left;
+				margin-left: 10px;
+			}
+			input{
+				list-style: none;
+				outline-style: none;
+				border: none;
+				background: none;
+			}
+			.sumbit{
+				border-radius:50px;
+				width: 50%;
+				height:40px;
+				margin-top: 22px;
+                font-size: 25px;
+                line-height: 40px;
+                text-align: center;
+                 float: left;
+                 margin-left:25%;
+                /*border-style: solid;*/
+               background: #00DDDD;
+			}
+			.kong{
+				display: inline-block;
+				width: 20px;
+			}
 		</style>
-	</head>
-	<body>
+    </head>
+    <body>
 		<div class="box">
-			<div class="box2_1">
-			    您可否留下您的姓名和电话
-			</div>
-			<div class="box3">
-				<div class="box3_1">
-					<div class="kon"></div>
-					<div class="in"><input type="tel" id="customername" placeholder="姓名"></div>
-				</div>
-				<div class="box3_2">
-					<div class="kon"></div>
-					<div class="in"><input type="text" id="customertel" placeholder="手机号"></div>
-				</div>
-				<div class="login" id="submit">
-					注册
-				</div>
-				<div style="clear: both;"></div>
+			<div class="box1">
+				<div class="box1_1">可否留下您的</div>
+				<div class="box1_2"><span class="sp">姓名:</span><input type="text" id="customername" placeholder="请输入您的姓名"></div>
+				<div class="box1_2"><span class="sp">电话:</span><input type="tel" id="customertel" placeholder="请输入您的手机号码"></div>
+			<div id="sumbit" class="sumbit">确<span class="kong"></span>认</div>
 			</div>
 		</div>
-	</body>
+    </body>
 	<script>
 			(function($) {
 			$.getUrlParam = function(name) {
@@ -199,6 +112,8 @@ $signPackage = $jssdk->GetSignPackage();
 		})(jQuery);
 		var tenant_id=$.getUrlParam('tenant_id');
 		var openid = $.cookie('openid'+tenant_id);
+	//	alert(tenant_id)
+	//	alert(openid)
 		if(openid != null) {
 			$.ajax({
 				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid=" + openid,
