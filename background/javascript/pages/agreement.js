@@ -1,16 +1,16 @@
 $(function(){
     var adminid=$.session.get('adminid');
     var page = $.getUrlParam('page');
-    var scheduling_id='';
-    loadschedulings(scheduling_id,page) ;
+    var agreement_id='';
+    loadagreements(agreement_id,page) ;
     $('#order_close').on("click",function () {
         $(".tenant_tk").css("display","none");
     })
 
     $(".sousuo_z").on("click",function(){
         alert(1)
-        var scheduling_id=$(".scheduling_id").val();
-        loadschedulings(scheduling_id,page) ;
+        var agreement_id=$(".agreement_id").val();
+        loadagreements(agreement_id,page) ;
     })
 });
 
@@ -23,15 +23,15 @@ $(function(){
     }
 })(jQuery);
 
-function loadschedulings(scheduling_id,page) {
-    if(scheduling_id==null){
-        scheduling_id="";
+function loadagreements(agreement_id,page) {
+    if(agreement_id==null){
+        agreement_id="";
     }
     if(page==null){
         page=1;
     }
     $.ajax({
-        url: "http://api.uminfo.cn/scheduling.php/schedulings_scheduling_id?scheduling_id="+scheduling_id+"&page="+page+"&per_page=10",
+        url: "http://api.uminfo.cn/agreement.php/agreements_suoyou?agreement_id="+agreement_id+"&page="+page+"&per_page=10",
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",

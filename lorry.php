@@ -303,14 +303,14 @@ $app->get('/lorrys_lorry_id',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $page=$app->request->get("page");
+    $page=$page-1;
     $per_page=$app->request->get("per_page");
     $lorry_id=$app->request->get('lorry_id');
     $selectStatement = $database->select()
         ->from('lorry')
-        ->whereLike('lorry_id','%'.$lorry_id.'%')
-        ->havingCount('id','>','0');
+        ->whereLike('lorry_id','%'.$lorry_id.'%');
     $stmt = $selectStatement->execute();
-    $data0 = $stmt->fetch();
+    $data0 = $stmt->fetchAll();
     $selectStatement = $database->select()
         ->from('lorry')
         ->leftJoin('tenant','tenant.tenant_id','=','lorry.tenant_id')
@@ -319,11 +319,10 @@ $app->get('/lorrys_lorry_id',function()use($app){
         ->orderBy('id','DESC');
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetch();
-    echo json_encode(array("result"=>"0","desc"=>"success",'lorrys'=>$data1,'coutn'=>$data0));
+    echo json_encode(array("result"=>"0","desc"=>"success",'lorrys'=>$data1,'count'=>count($data0)));
 });
 
 $app->run();
-
 
 function localhost(){
     return connect();
