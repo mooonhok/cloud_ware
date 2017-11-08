@@ -129,7 +129,7 @@ $signPackage = $jssdk->GetSignPackage();
 				success: function(msg) {
 					if(msg.result == 1) {
 						layer.msg("你已经注册过了");
-						$("#submit").css("background", "gray");
+						$("#submit").css("background", "black");
 						$("#customername").val(msg.customer.customer_name);
 						$("#customertel").val(msg.customer.customer_phone);
 						$("#customername").attr('disabled','true');
