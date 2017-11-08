@@ -540,7 +540,19 @@ $app->get("/agreements_suoyou",function()use($app){
             ->where('lorry_id','=',$data1[$i]['secondparty_id']);
         $stmt = $selectStatement->execute();
         $data2= $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('tenant_id','=',$data1[$i]['tenant_id']);
+        $stmt = $selectStatement->execute();
+        $data3= $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id','=',$data3['from_city_id']);
+        $stmt = $selectStatement->execute();
+        $data4= $stmt->fetch();
         $data1[$i]['lorry']=$data2;
+        $data1[$i]['tenant']=$data3;
+        $data1[$i]['tenant']['from_city']=$data4;
     }
     echo json_encode(array("result"=>"0",'desc'=>'success','agreement'=>$data1));
 });
