@@ -305,10 +305,11 @@ $app->get('/lorrys_lorry_id',function()use($app){
     $page=$app->request->get("page");
     $per_page=$app->request->get("per_page");
     $lorry_id=$app->request->get('lorry_id');
-    $selectStatement = $database->havingCount("*")
+    $selectStatement = $database->select()
         ->from('lorry')
-        ->whereLike('lorry_id','%'.$lorry_id.'%');
-    $stmt = $selectStatement->execute();
+        ->whereLike('lorry_id','%'.$lorry_id.'%')
+        ->havingCount("*");
+    $stmt = $selectStatement->havingCount("*");
     $data0 = $stmt->fetch();
     $selectStatement = $database->select()
         ->from('lorry')
@@ -318,7 +319,7 @@ $app->get('/lorrys_lorry_id',function()use($app){
         ->orderBy('id','DESC');
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetch();
-    echo json_encode(array("result"=>"0","desc"=>"success",'lorrys'=>$data1,'count'=>$data0));
+    echo json_encode(array("result"=>"0","desc"=>"success",'lorrys'=>$data1,'count'=>$data0,'coutn'=>$stmt));
 });
 
 $app->run();
