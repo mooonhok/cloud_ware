@@ -97,7 +97,7 @@ $signPackage = $jssdk->GetSignPackage();
 				<div class="box1_1">可否留下您的</div>
 				<div class="box1_2"><span class="sp">姓名:</span><input type="text" id="customername" placeholder="请输入您的姓名"></div>
 				<div class="box1_2"><span class="sp">电话:</span><input type="tel" id="customertel" placeholder="请输入您的手机号码"></div>
-			<div id="sumbit" class="sumbit">确<span class="kong"></span>认</div>
+			<div id="sumbit" class="submit">确<span class="kong"></span>认</div>
 			</div>
 		</div>
     </body>
@@ -129,7 +129,7 @@ $signPackage = $jssdk->GetSignPackage();
 				success: function(msg) {
 					if(msg.result == 1) {
 						layer.msg("你已经注册过了");
-						$("#submit").css("background", "black");
+						$("#submit").css("background", "gray");
 						$("#customername").val(msg.customer.customer_name);
 						$("#customertel").val(msg.customer.customer_phone);
 						$("#customername").attr('disabled','true');
