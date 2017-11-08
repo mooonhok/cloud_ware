@@ -305,10 +305,9 @@ $app->get('/lorrys_lorry_id',function()use($app){
     $page=$app->request->get("page");
     $per_page=$app->request->get("per_page");
     $lorry_id=$app->request->get('lorry_id');
-    $selectStatement = $database->select()
+    $selectStatement = $database->havingCount("*")
         ->from('lorry')
-        ->whereLike('lorry_id','%'.$lorry_id.'%')
-        ->havingCount("*");
+        ->whereLike('lorry_id','%'.$lorry_id.'%');
     $stmt = $selectStatement->execute();
     $data0 = $stmt->fetch();
     $selectStatement = $database->select()
