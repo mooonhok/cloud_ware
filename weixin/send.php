@@ -770,6 +770,9 @@ $signPackage = $jssdk->GetSignPackage();
 							$(".box2").css("display","none");
 							$("#box10").css("display", "none");
 							$(".box").css("display","block");
+							if(customer_send_id==customer_accept_id){
+								layer.msg("选择收货人有误，请重新选择");
+							}
 						});
 					}
 				}
@@ -1165,7 +1168,9 @@ $signPackage = $jssdk->GetSignPackage();
 				layer.msg("缺少货物价值或货物价值不能为0");
 			} else if(str == 4) {
 				layer.msg("未选择付款方式");
-			} else {
+			} else if(customer_accept_id==customer_send_id){
+				layer.msg("收货人与寄件人相同");
+			}else{
 //			    alert(customer_send_id+"////"+customer_accept_id+"////"+huowu+"////"+zhong+"////"+tiji+"////"+baozhuang+"////"+jianshu+"////"+needs+"////"+jiazhi+"////"+str+"////"+openid);
 				$.ajax({
 					url: "http://api.uminfo.cn/wxmessage.php/wxmessage_insert",

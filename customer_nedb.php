@@ -165,7 +165,7 @@ $app->get("/getCustomers0",function()use($app){
         }
 });
 
-//
+
 $app->get('/getCustomers1',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
