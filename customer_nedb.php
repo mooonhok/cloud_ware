@@ -98,8 +98,7 @@ $app->get('/getCustomer',function()use($app){
                                 ->where('customer_city_id', '=', $customer_city_id)
                                 ->where('customer_address', '=', $customer_address)
                                 ->where('type', "=", $type)
-                                ->whereNull('contact_tenant_id')
-                                ->whereNull('wx_openid');
+                                ->whereNull('contact_tenant_id');
                             $stmt = $selectStatement->execute();
                             $data = $stmt->fetch();
                             echo json_encode(array("result" => "0", "desc" => "success",'customer'=>$data));
@@ -131,7 +130,6 @@ $app->get('/getCustomer1',function()use($app){
             $selectStatement = $database->select()
                 ->from('customer')
                 ->where('tenant_id', '=', $tenant_id)
-                ->whereNull('wx_openid')
                 ->where('customer_id', '=', $customer_id);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetch();
@@ -144,6 +142,7 @@ $app->get('/getCustomer1',function()use($app){
     }
 });
 
+//
 $app->get("/getCustomers0",function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
@@ -167,6 +166,7 @@ $app->get("/getCustomers0",function()use($app){
         }
 });
 
+//
 $app->get('/getCustomers1',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
@@ -180,7 +180,6 @@ $app->get('/getCustomers1',function()use($app){
         $selectStatement = $database->select()
             ->from('customer')
             ->where('tenant_id', '=', $tenant_id)
-            ->whereNull('wx_openid')
             ->where('customer_id', '!=', $data1['contact_id'])
             ->where('type', '=', 1)
             ->where('exist', '=', 0);
@@ -207,7 +206,6 @@ $app->get('/getCustomers2',function()use($app){
             ->where('tenant_id', '=', $tenant_id)
             ->where('customer_id', '!=', $data1['contact_id'])
             ->where('type', '=', 3)
-            ->whereNull('wx_openid')
             ->where('exist', '=', 0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
@@ -234,7 +232,6 @@ $app->get('/limitCustomers0',function()use($app){
             ->where('tenant_id', '=', $tenant_id)
             ->where('customer_id', '!=', $data1['contact_id'])
             ->where('type', '=', 1)
-            ->whereNull('wx_openid')
             ->where('exist', '=', 0)
             ->orderBy('customer_id')
             ->limit((int)$size,(int)$offset);
@@ -263,7 +260,6 @@ $app->get('/limitCustomers1',function()use($app){
             ->where('tenant_id', '=', $tenant_id)
             ->where('customer_id', '!=', $data1['contact_id'])
             ->where('type', '=', 3)
-            ->whereNull('wx_openid')
             ->where('exist', '=', 0)
             ->orderBy('customer_id')
             ->limit((int)$size,(int)$offset);
@@ -288,7 +284,6 @@ $app->put('/alterCustomer1',function()use($app){
             $updateStatement = $database->update(array('times'=>$times))
                 ->table('customer')
                 ->where('tenant_id','=',$tenant_id)
-                ->whereNull('wx_openid')
                 ->where('customer_id','=',$customer_id);
             $affectedRows = $updateStatement->execute();
             echo json_encode(array("result" => "0", "desc" => "success"));
@@ -313,7 +308,6 @@ $app->put('/alterCustomer2',function()use($app){
             $updateStatement = $database->update(array('customer_comment'=>$customer_comment))
                 ->table('customer')
                 ->where('tenant_id','=',$tenant_id)
-                ->whereNull('wx_openid')
                 ->where('customer_id','=',$customer_id);
             $affectedRows = $updateStatement->execute();
             echo json_encode(array("result" => "0", "desc" => "success"));
@@ -343,7 +337,6 @@ $app->delete('/deleteCustomer',function()use($app){
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('tenant_id','=',$tenant_id)
-                    ->whereNull('wx_openid')
                     ->where('customer_id','=',$customer_id)
                     ->where('exist',"=",0);
                 $stmt = $selectStatement->execute();
@@ -352,7 +345,6 @@ $app->delete('/deleteCustomer',function()use($app){
                     $updateStatement = $database->update(array('exist'=>1))
                         ->table('customer')
                         ->where('tenant_id','=',$tenant_id)
-                        ->whereNull('wx_openid')
                         ->where('customer_id','=',$customer_id)
                         ->where('exist',"=",0);
                     $affectedRows = $updateStatement->execute();
