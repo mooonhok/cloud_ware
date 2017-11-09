@@ -1932,6 +1932,92 @@ $app->get('/limitGoodsOrders7',function()use($app){
     }
 });
 
+$app->get('/getGoodsOrder1',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $order_id=$app->request->get('order_id');
+        if($order_id!=null||$order_id!=''){
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('order_id','=',$order_id)
+                ->where('exist','=',0);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetchAll();
+            for($i=0;$i<count($data1);$i++){
+                $selectStatement = $database->select()
+                    ->from('goods')
+                    ->where('tenant_id','=',$data1[$i]['tenant_id'])
+                    ->where('order_id','=',$order_id);
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('goods_package')
+                    ->where('goods_package_id','=',$data2['goods_package_id']);
+                $stmt=$selectStament->execute();
+                $data3=$stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('customer')
+                    ->where('tenant_id','=',$data1[$i]['tenant_id'])
+                    ->where('customer_id','=',$data1[$i]['sender_id']);
+                $stmt=$selectStament->execute();
+                $data4=$stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data4['customer_city_id']);
+                $stmt = $selectStatement->execute();
+                $data5 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('province')
+                    ->where('id', '=', $data5['pid']);
+                $stmt = $selectStatement->execute();
+                $data6 = $stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('customer')
+                    ->where('tenant_id','=',$data1[$i]['tenant_id'])
+                    ->where('customer_id','=',$data1[$i]['receiver_id']);
+                $stmt=$selectStament->execute();
+                $data7=$stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data7['customer_city_id']);
+                $stmt = $selectStatement->execute();
+                $data8 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('province')
+                    ->where('id', '=', $data8['pid']);
+                $stmt = $selectStatement->execute();
+                $data9 = $stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('inventory_loc')
+                    ->where('tenant_id','=',$data1[$i]['tenant_id'])
+                    ->where('inventory_loc_id','=',$data1[$i]['inventory_loc_id']);
+                $stmt=$selectStament->execute();
+                $data10=$stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('exception')
+                    ->where('tenant_id','=',$data1[$i]['tenant_id'])
+                    ->where('exception_id','=',$data1[$i]['exception_id']);
+                $stmt=$selectStament->execute();
+                $data11=$stmt->fetch();
+                $data1[$i] = $data1[$i] + $data2;
+                $data1[$i]['goods_package']=$data3;
+                $data1[$i]['sender']=$data4;
+                $data1[$i]['sender']['sender_city']=$data5;
+                $data1[$i]['sender']['sender_province']=$data6;
+                $data1[$i]['receiver']=$data7;
+                $data1[$i]['receiver']['receiver_city']=$data8;
+                $data1[$i]['receiver']['receiver_province']=$data9;
+                $data1[$i]['inventory_loc']=$data10;
+                $data1[$i]['exception']=$data11;
+            }
+            echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
+        }else{
+            echo json_encode(array('result'=>'1','desc'=>'size为空'));
+        }
+
+});
+
 $app->run();
 function localhost(){
     return connect();

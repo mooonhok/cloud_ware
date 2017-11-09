@@ -1136,7 +1136,8 @@ $app->get('/getSchedulingOrders9',function()use($app){
     if($scheduling_id!=null||$scheduling_id!=''){
         $selectStatement = $database->select()
             ->from('schedule_order')
-            ->where('schedule_id', '=', $scheduling_id);
+            ->where('schedule_id', '=', $scheduling_id)
+            ->where('exist','=',0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         for($i=0;$i<count($data);$i++){
