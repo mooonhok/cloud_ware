@@ -1129,6 +1129,81 @@ $app->get('/getSchedulingOrders8',function()use($app){
     }
 });
 
+$app->get('/getSchedulingOrders9',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $scheduling_id=$app->request->get('scheduling_id');
+    if($scheduling_id!=null||$scheduling_id!=''){
+        $selectStatement = $database->select()
+            ->from('schedule_order')
+            ->where('schedule_id', '=', $scheduling_id);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        for($i=0;$i<count($data);$i++){
+            $selectStatement = $database->select()
+                ->from('goods')
+                ->where('tenant_id', '=', $data[$i]['tenant_id'])
+                ->where('order_id', '=', $data[$i]['order_id']);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('scheduling')
+                ->where('tenant_id', '=', $data[$i]['tenant_id'])
+                ->where('scheduling_id', '=', $scheduling_id);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id', '=', $data[$i]['tenant_id'])
+                ->where('customer_id', '=', $data2['receiver_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data2['send_city_id']);
+            $stmt = $selectStatement->execute();
+            $data4 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data2['receive_city_id']);
+            $stmt = $selectStatement->execute();
+            $data5 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id', '=', $data4['pid']);
+            $stmt = $selectStatement->execute();
+            $data6 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id', '=', $data5['pid']);
+            $stmt = $selectStatement->execute();
+            $data7 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('goods_package')
+                ->where('goods_package_id', '=', $data1['goods_package_id']);
+            $stmt = $selectStatement->execute();
+            $data8 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('tenant_id', '=', $data[$i]['tenant_id'])
+                ->where('lorry_id', '=', $data2['lorry_id']);
+            $stmt = $selectStatement->execute();
+            $data9 = $stmt->fetch();
+            $data[$i]['lorry']=$data9;
+            $data[$i]['goods']=$data1;
+            $data[$i]['goods']['goods_package']=$data8;
+            $data[$i]['receiver']=$data3;
+            $data[$i]['sender_city']=$data4;
+            $data[$i]['sender_province']=$data6;
+            $data[$i]['receiver_city']=$data5;
+            $data[$i]['receiver_province']=$data7;
+        }
+        echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少调度id"));
+    }
+});
+
 $app->run();
 function localhost(){
     return connect();
