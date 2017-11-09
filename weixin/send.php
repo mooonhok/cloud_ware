@@ -1226,11 +1226,11 @@ $signPackage = $jssdk->GetSignPackage();
 		})
 		$(".qx6").on("click", function() {
 			$("#box11").css("display", "none");
-			$(".box").css("display","block");
+//			$(".box").css("display","block");
 		})
 		$(".qx5").on("click", function() {
 			$("#box10").css("display", "none");
-			$(".box").css("display","block");
+//			$(".box").css("display","block");
 		})
 		$(".ls").on("click",function(){
 			$("#box10").css("display","block");
