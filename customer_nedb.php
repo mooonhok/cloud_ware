@@ -84,8 +84,7 @@ $app->get('/getCustomer',function()use($app){
                                 ->where('customer_city_id', '=', $customer_city_id)
                                 ->where('customer_address', '=', $customer_address)
                                 ->where('contact_tenant_id', "=", $contact_tenant_id)
-                                ->where('type', "=", $type)
-                                ->whereNull('wx_openid');
+                                ->where('type', "=", $type);
                             $stmt = $selectStatement->execute();
                             $data = $stmt->fetch();
                             echo json_encode(array("result" => "0", "desc" => "success",'customer'=>$data));
