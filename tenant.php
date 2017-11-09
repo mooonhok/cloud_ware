@@ -635,37 +635,6 @@ $app->get('/one_tenant_customer',function()use($app){
     }
 });
 
-$app->post('/tenant_orders',function()use($app) {
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $database = localhost();
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $from_city_id=$body->from_city_id;
-    $selectStatement = $database->select()
-        ->from('city')
-        ->where('id','=',$from_city_id);
-    $stmt = $selectStatement->execute();
-    $data1 = $stmt->fetch();
-
-    $selectStatement = $database->select()
-        ->from('tenant');
-    $stmt = $selectStatement->execute();
-    $data2 = $stmt->fetchAll();
-    $num1=0;
-    for($i=0;$i<count($data2);$i++){
-       if(substr($data2[$i]['tenant_num'],0,3)==$data1['area_code']){
-           $num1++;
-       }
-    }
-    $num1++;
-    while(strlen($num1)<4){
-        $num1='0'.$num1;
-    }
-    $tenant_num=$data1['area_code'].$num1;
-    echo  json_encode(array("result"=>"0","desc"=>"success","tenant"=>$tenant_num));
-
-});
 
 $app->run();
 
