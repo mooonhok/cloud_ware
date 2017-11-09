@@ -424,14 +424,34 @@ $app->post('/tenant',function()use($app) {
                                                                     ->values(array($num,$contact_name,$telephone,0,$from_city_id,$address));
                                                                 $insertId = $insertStatement->execute(false);
                                                                 if($insertId!=null||$insertId!=""){
+                                                                    $selectStatement = $database->select()
+                                                                        ->from('city')
+                                                                        ->where('id','=',$from_city_id);
+                                                                    $stmt = $selectStatement->execute();
+                                                                    $data01 = $stmt->fetch();
+                                                                    $selectStatement = $database->select()
+                                                                        ->from('tenant');
+                                                                    $stmt = $selectStatement->execute();
+                                                                    $data02 = $stmt->fetchAll();
+                                                                    $num01=0;
+                                                                    for($i=0;$i<count($data02);$i++){
+                                                                        if(substr($data02[$i]['tenant_num'],0,3)==$data01['area_code']){
+                                                                            $num01++;
+                                                                        }
+                                                                    }
+                                                                    $num01++;
+                                                                    while(strlen($num01)<4){
+                                                                        $num01='0'.$num01;
+                                                                    }
+                                                                    $tenant_num=$data1['area_code'].$num01;
                                                                     $insertStatement = $database->insert(array('company','from_city_id','receive_city_id','contact_id','exist','business_l'
                                                                     ,'sales_id','address','business_l_p','order_t_p','trans_contract_p','service_items','c_introduction','end_date'
-                                                                    ,'begin_time','qq','email','insurance_balance'))
+                                                                    ,'begin_time','qq','email','insurance_balance','tenant_num'))
                                                                         ->into('tenant')
                                                                         ->values(array($company,$from_city_id,$receive_city_id,$num,0,$business_l
                                                                         ,$sales_id,$address,$business_l_p,$order_t_p, $trans_c_p
                                                                         ,$service_items,$c_introduction,$end_time,
-                                                                            $begin_time,$qq,$email,0));
+                                                                            $begin_time,$qq,$email,0,$tenant_num));
                                                                     $insertId = $insertStatement->execute(false);
                                                                     if($insertId!=""||$insertId!=null){
                                                                         $selectStatement = $database->select()
@@ -638,10 +658,11 @@ $app->post('/tenant_orders',function()use($app) {
            $num1++;
        }
     }
+    $num1++;
     while(strlen($num1)<4){
         $num1='0'.$num1;
     }
-    $gg=$data1['area_code'].$num1;
+    $tenant_num=$data1['area_code'].$num1;
     echo  json_encode(array("result"=>"0","desc"=>"success","tenant"=>$gg));
 
 });
