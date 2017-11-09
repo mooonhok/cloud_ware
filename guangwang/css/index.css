@@ -345,6 +345,49 @@
 	width: 100px;
 	height: 60px;
 }
+
+.applica{
+	width:50%;
+	height:600px;
+	margin:0 auto;
+}
+
+.applica_h{
+	font-size:20px;
+	text-align:center;
+	margin-bottom:50px;
+}
+
+.srk{
+	height:100px;
+	width:100%;
+}
+
+.srk>img{
+	margin-left:8%;
+	width:5%;
+}
+
+.srk>input{
+	margin-left:8%;
+	width:70%;
+	height:50px;
+	border:1px solid rgb(74,164,169);
+	border-radius:5px;
+	font-size:20px;
+}
+
+#hezuo{
+	text-align:center;
+	font-size:25px;
+	width:80%;
+	margin:0 auto;
+	height:50px;
+	line-height:50px;
+	background-color:rgb(74,164,169);
+	border-radius:5px;
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
 .img10{
 	display: inline-block;
@@ -487,7 +530,10 @@
 	height: 20px;
 	cursor:pointer;
 }
-
+.applica{
+	width:75%;
+	height:600px;
+}
 
 }
 @media (max-width: 767px) {
@@ -643,5 +689,8 @@
 	height: 20px;
 	cursor:pointer;
 }
-
+.applica{
+	width:90%;
+	height:600px;
+}
 }
