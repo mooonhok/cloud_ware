@@ -444,14 +444,15 @@ $app->post('/tenant',function()use($app) {
                                                                         $num01='0'.$num01;
                                                                     }
                                                                     $tenant_num=$data1['area_code'].$num01;
+                                                                    $tenant_id=count($data02)+1000000001;
                                                                     $insertStatement = $database->insert(array('company','from_city_id','receive_city_id','contact_id','exist','business_l'
                                                                     ,'sales_id','address','business_l_p','order_t_p','trans_contract_p','service_items','c_introduction','end_date'
-                                                                    ,'begin_time','qq','email','insurance_balance','tenant_num'))
+                                                                    ,'begin_time','qq','email','insurance_balance','tenant_num','tenant_id'))
                                                                         ->into('tenant')
                                                                         ->values(array($company,$from_city_id,$receive_city_id,$num,0,$business_l
                                                                         ,$sales_id,$address,$business_l_p,$order_t_p, $trans_c_p
                                                                         ,$service_items,$c_introduction,$end_time,
-                                                                            $begin_time,$qq,$email,0,$tenant_num));
+                                                                            $begin_time,$qq,$email,0,$tenant_num,$tenant_id));
                                                                     $insertId = $insertStatement->execute(false);
                                                                     if($insertId!=""||$insertId!=null){
                                                                         $selectStatement = $database->select()
