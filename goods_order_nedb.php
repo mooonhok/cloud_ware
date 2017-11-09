@@ -2000,6 +2000,9 @@ $app->get('/getGoodsOrder1',function()use($app){
                     ->where('exception_id','=',$data1[$i]['exception_id']);
                 $stmt=$selectStament->execute();
                 $data11=$stmt->fetch();
+                if($data2==null){
+                    $data2=array();
+                }
                 $data1[$i] = array_merge($data1[$i], $data2);
                 $data1[$i]['goods_package']=$data3;
                 $data1[$i]['sender']=$data4;
