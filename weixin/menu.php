@@ -4,7 +4,7 @@
 header('Content-type:text/html;charset=utf-8');
 $str=$_SERVER["QUERY_STRING"];
 $arr=explode("=",$str);
-$tenant_id=substr($arr[1],0,6);
+$tenant_id=substr($arr[1],0,10);
 $page=$arr[4];
 $appid=substr($arr[2],0,18);
 $secret=substr($arr[3],0,32);

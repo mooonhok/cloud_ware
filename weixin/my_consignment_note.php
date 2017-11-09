@@ -2,7 +2,7 @@
 require_once "jssdk.php";
 $str=$_SERVER["QUERY_STRING"];
 $arr=explode("=",$str);
-$tenant_id=substr($arr[1],0,6);
+$tenant_id=substr($arr[1],0,10);
 $appid=substr($arr[2],0,18);
 $secret=substr($arr[3],0,32);
 $jssdk = new JSSDK($appid,$secret);
