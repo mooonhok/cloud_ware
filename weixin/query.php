@@ -248,9 +248,9 @@ $signPackage = $jssdk->GetSignPackage();
       success: function (res) {
           var a=new Array();
           a=res.resultStr.split(",");
-          alert(a[1]);
+         // alert(a[1]);
        if(a[1]!=null){
-           alert(a)
+          // alert(a)
 			$.ajax({
 				url: "http://api.uminfo.cn/order.php/wx_order_z",
 				beforeSend: function(request) {
