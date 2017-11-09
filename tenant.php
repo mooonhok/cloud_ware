@@ -663,7 +663,7 @@ $app->post('/tenant_orders',function()use($app) {
         $num1='0'.$num1;
     }
     $tenant_num=$data1['area_code'].$num1;
-    echo  json_encode(array("result"=>"0","desc"=>"success","tenant"=>$gg));
+    echo  json_encode(array("result"=>"0","desc"=>"success","tenant"=>$tenant_num));
 
 });
 
