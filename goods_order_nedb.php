@@ -1942,7 +1942,7 @@ $app->get('/getGoodsOrder1',function()use($app){
                 ->from('orders')
                 ->where('order_id','=',$order_id)
                 ->where('exist','=',0)
-                ->orderBy('datetime1','DESC');
+                ->orderBy('order_datetime1');
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
             for($i=0;$i<count($data1);$i++){
