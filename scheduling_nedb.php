@@ -661,12 +661,7 @@ $app->put('/alterScheduling8',function()use($app){
     $body = json_decode($body);
     $scheduling_id=$body->scheduling_id;
     $is_scan=$body->is_scan;
-    $array = array();
-    foreach ($body as $key => $value) {
-        $array[$key] = $value;
-    }
         if($scheduling_id!=null||$scheduling_id!=''){
-            $array['scheduling_status']=5;
             $updateStatement = $database->update(array('is_scan'=>$is_scan))
                 ->table('scheduling')
                 ->where('scheduling_id','=',$scheduling_id);
