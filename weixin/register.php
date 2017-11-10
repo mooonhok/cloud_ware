@@ -44,7 +44,7 @@ $signPackage = $jssdk->GetSignPackage();
 			.box1{
 				width: 80%;
 				float: left;
-				margin-top: 100px;
+				margin-top: 50px;
 				margin-left: 10%;
 				text-align: center;
 			}
@@ -52,13 +52,16 @@ $signPackage = $jssdk->GetSignPackage();
 				width: 100%;
 				height: 50px;
 				text-align: center;
+				 
 			}
 			.box1_2{
 				width: 100%;
 				height: 50px;
 				line-height: 50px;
-				border-radius: 50px;
-				background: #00DDDD;
+				/*border-radius: 50px;*/
+				/*background: #00DDDD;*/
+				color:#999999 ;
+				border-bottom-style:solid;
 				margin-top: 30px;
 			}
 			.sp{
@@ -88,8 +91,9 @@ $signPackage = $jssdk->GetSignPackage();
                 text-align: center;
                  float: left;
                  margin-left:25%;
+                 color:white;
                 /*border-style: solid;*/
-               background: #00DDDD;
+               background: #2fb8c3;
 			}
 			.kong{
 				display: inline-block;
@@ -103,12 +107,16 @@ $signPackage = $jssdk->GetSignPackage();
 				float:left;
 				background: white;
 			}
+			.pic{
+			    width:70%;
+			    height:70px;
+			}
 		</style>
     </head>
     <body>
 		<div class="box">
 			<div class="box1">
-				<div class="box1_1">可否留下您的</div>
+				<div class="box1_1"><img class="pic" src="images/5.png"></div>
 				<div class="box1_2"><span class="sp">姓名:</span><span class="sp1"></span><input type="text" id="customername" placeholder="请输入您的姓名"></div>
 				<div class="box1_2"><span class="sp">电话:</span><span class="sp1"></span><input type="tel" id="customertel" placeholder="请输入您的手机号码"></div>
 			<div id="submit" class="submit">确<span class="kong"></span>认</div>
@@ -228,15 +236,15 @@ $signPackage = $jssdk->GetSignPackage();
 });
 	</script>
 	<script type="text/javascript">
-//     对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
-    var useragent = navigator.userAgent;
-    if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
-        // 这里警告框会阻塞当前页面继续加载
-        alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
-        // 以下代码是用javascript强行关闭当前页面
-       var opened = window.open('http://www.uminfo.cn', '_self');
-        opened.opener = null;
-        opened.close();
-    }
+////     对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
+//  var useragent = navigator.userAgent;
+//  if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+//      // 这里警告框会阻塞当前页面继续加载
+//      alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+//      // 以下代码是用javascript强行关闭当前页面
+//     var opened = window.open('http://www.uminfo.cn', '_self');
+//      opened.opener = null;
+//      opened.close();
+//  }
 </script>
 </html>
