@@ -172,7 +172,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<!--  -->
 		<div class="box1" id="box10">
 			<div class="box10_1">
-				<div class="box10_1_1">添加地址</div>
+				<div class="box10_1_1">历史地址</div>
 				<div class="qx5">取消</div>
 			</div>
 			<div id="box101">
@@ -255,7 +255,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<!--  -->
 		<div class="box1" id="box11">
 			<div class="box11_1">
-				<div class="box11_1_1">添加地址</div>
+				<div class="box11_1_1">历史地址</div>
 				<div class="qx6">取消</div>
 			</div>
 			<div id="box111">
