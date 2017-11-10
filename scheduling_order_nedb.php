@@ -1190,6 +1190,18 @@ $app->get('/getSchedulingOrders9',function()use($app){
                 ->where('lorry_id', '=', $data2['lorry_id']);
             $stmt = $selectStatement->execute();
             $data9 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('tenant_id', '=', $data[$i]['tenant_id'])
+                ->where('order_id', '=', $data[$i]['order_id']);
+            $stmt = $selectStatement->execute();
+            $data10 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id', '=', $data[$i]['tenant_id'])
+                ->where('customer_id', '=', $data2['receiver_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
             $data[$i]['lorry']=$data9;
             $data[$i]['goods']=$data1;
             $data[$i]['goods']['goods_package']=$data8;
