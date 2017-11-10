@@ -148,7 +148,6 @@ $app->get('/sandoandg',function()use($app){
                 if($data1!=null){
                     $selectStament=$database->select()
                         ->from('lorry')
-                        ->where('exist','=',0)
                         ->where('flag','=',0)
                         ->where('tenant_id','=',$data1['tenant_id'])
                         ->where('lorry_id','=',$data1['lorry_id']);

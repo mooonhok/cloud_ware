@@ -90,21 +90,19 @@ function loadschedulings(scheduling_id,page) {
 
 
 function scheduling_xq(id){
-    alert(id)
     $(".tenant_tk").css("display","block");
     $(".tenant_tk div input").val("");
-    var gg=id+"";
     $.ajax({
-        url: "http://api.uminfo.cn/scheduling.php/scheduling_orders_scheduling_id?scheduling_id="+gg+"",
+        url: "http://api.uminfo.cn/scheduling.php/scheduling_orders_scheduling_id?scheduling_id="+id+"",
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
         data: JSON.stringify({}),
         success: function(msg) {
             console.log(msg);
-            $("#tenant_id").val(msg.goods.goods_name);
-            $("#tenant_num").val(msg.goods.goods_weight);
-            $("#app_id").val(msg.goods.goods_capacity);
+            $("#tenant_id").val(msg.lorry.lorry_id);
+            $("#tenant_num").val(msg.lorry.driver_name);
+            $("#app_id").val(msg.lorry.plate_number);
             $("#secret").val(msg.goods.goods_count);
             $("#customer_name").val(msg.goods.goods_value);
             $("#customer_phone").val(msg.goods.goods_package);
