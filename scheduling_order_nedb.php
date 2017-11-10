@@ -1201,7 +1201,7 @@ $app->get('/getSchedulingOrders9',function()use($app){
             if($data2==null){
                 $data2=array();
             }
-            $data1[$i] = array_merge($data1[$i], $data2);
+            $data[$i] = array_merge($data[$i], $data2);
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
     }else{
