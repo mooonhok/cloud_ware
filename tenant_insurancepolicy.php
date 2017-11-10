@@ -53,7 +53,7 @@ $app->get('/news',function()use($app) {
             ->whereIn('tenant_id', array( 0, $tenant_id ))
             ->orderBy('datetime','DESC');
         $stmt = $selectStatement->execute();
-        $data1 = $stmt->fetch();
+        $data1 = $stmt->fetchAll();
         echo json_encode(array("result" => "0", "desc" => "success","tenant_insurancepolicy"=>$data1));
     } else {
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
