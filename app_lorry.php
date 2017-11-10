@@ -82,6 +82,7 @@ $app->post('/lorry_sign',function()use($app){
     $password1=$body->password;
     $str1=str_split($password1,3);
     $password=null;
+    $time=time();
     for ($x=0;$x<count($str1);$x++){
         $password.=$str1[$x].$x;
     }
@@ -97,7 +98,13 @@ $app->post('/lorry_sign',function()use($app){
             $data=$stmt->fetch();
             if($data!=null){
                 if($password==$data['password']){
-                    echo json_encode(array('result'=>'0','desc'=>'登录成功','lorry'=>$data));
+                    $arrays['signtime']=time();
+                    $updateStatement = $database->update($arrays)
+                        ->table('lorry')
+                        ->where('driver_name','=',$data['driver_name'])
+                        ->where('driver_phone','=',$data['driver_phone']);
+                    $affectedRows = $updateStatement->execute();
+                    echo json_encode(array('result'=>'0','desc'=>'登录成功','lorry'=>$data,'time'=>$time));
                 }else{
                     echo json_encode(array('result'=>'4','desc'=>'密码不对','lorry'=>''));
                 }
@@ -117,6 +124,7 @@ $app->get('/sandoandg',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $schedule_id = $app->request->get("schedule_id");
     $lorry_id = $app->request->get("lorry_id");
+    $time=$app->request->get("time1");
     $database=localhost();
     $arrays=array();
     $arrays2=array();
@@ -130,6 +138,7 @@ $app->get('/sandoandg',function()use($app){
             $stmt=$selectStament->execute();
             $data=$stmt->fetch();
             if($data!=null){
+                if($data['signtime']==$time){
                 $selectStament=$database->select()
                     ->from('scheduling')
                     ->where('exist','=',0)
@@ -199,6 +208,9 @@ $app->get('/sandoandg',function()use($app){
                     }
                 }else{
                     echo json_encode(array('result' => '4', 'desc' => '该清单不存在','goods'=>''));
+                }
+                }else{
+                    echo json_encode(array('result' => '9', 'desc' => '您的帐号已经在其他地方登录，请重新登录','goods'=>''));
                 }
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '司机不存在','goods'=>''));
@@ -279,6 +291,7 @@ $app->get('/sbylorry',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $lorry_id = $app->request->get("lorry_id");
+    $time=$app->request->get("time1");
     $database=localhost();
     $arrays=array();
     if($lorry_id!=null||$lorry_id!=""){
@@ -290,6 +303,7 @@ $app->get('/sbylorry',function()use($app){
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
         if($data!=null){
+            if($data['signtime']==$time){
             $selectStament=$database->select()
                 ->from('lorry')
                 ->where('tenant_id','!=',0)
@@ -323,6 +337,9 @@ $app->get('/sbylorry',function()use($app){
             }
             echo json_encode(array('result' => '0', 'desc' => '','sch'=>$arrays,'count'=>$sum));
         }else{
+                echo json_encode(array('result' => '9', 'desc' => '您的帐号已经在其他地方登录，请重新登录','sch'=>''));
+        }
+        }else{
             echo json_encode(array('result' => '2', 'desc' => '司机不存在或该车辆不是默认车辆','sch'=>''));
         }
     }else{
@@ -334,6 +351,7 @@ $app->get('/sbylorryn',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $lorry_id = $app->request->get("lorry_id");
+    $time=$app->request->get("time1");
     $database=localhost();
     $arrays=array();
     if($lorry_id!=null||$lorry_id!=""){
@@ -345,6 +363,7 @@ $app->get('/sbylorryn',function()use($app){
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
         if($data!=null){
+            if($time==$data['signtime']){
             $selectStament=$database->select()
                 ->from('lorry')
                 ->where('tenant_id','!=',0)
@@ -387,6 +406,9 @@ $app->get('/sbylorryn',function()use($app){
             }
             echo json_encode(array('result' => '0', 'desc' => '','sch'=>$arrays));
         }else{
+                echo json_encode(array('result' => '9', 'desc' => '您的帐号已经在其他地方登录请重新登录','sch'=>''));
+        }
+        }else{
             echo json_encode(array('result' => '2', 'desc' => '司机不存在','sch'=>''));
         }
     }else{
@@ -400,6 +422,7 @@ $app->post('/suresch',function()use($app){
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
+    $time=$body->time1;
     $schedule_id=$body->schedule_id;
     $lorry_id=$body->lorry_id;
     $pic=$body->pic;
@@ -448,6 +471,7 @@ $app->post('/suresch',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
                 if($data1!=null){
+                    if($data1['signtime']==$time){
                     $selectStament=$database->select()
                         ->from('lorry')
                         ->where('app_chose','=',1)
@@ -475,6 +499,9 @@ $app->post('/suresch',function()use($app){
                     }else{
                         echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在或车辆不是默认车辆'));
                     }
+                    }else{
+                        echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
+                    }
                 }else{
                     echo json_encode(array('result' => '5', 'desc' => '驾驶员不存在'));
                 }
@@ -496,6 +523,7 @@ $app->post('/sureschfor',function()use($app){
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
+    $time=$body->time1;
     $schedule_id=$body->schedule_id;
     $lorry_id=$body->lorry_id;
     $arrays['scheduling_status']=6;
@@ -522,6 +550,7 @@ $app->post('/sureschfor',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
                 if($data1!=null){
+                    if($data1['signtime']==$time){
                     $selectStament=$database->select()
                         ->from('lorry')
                         ->where('flag','=',0)
@@ -538,6 +567,9 @@ $app->post('/sureschfor',function()use($app){
                         echo json_encode(array('result' => '0', 'desc' => '取消成功'));
                     }else{
                         echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在或车辆不是默认车辆'));
+                    }
+                    }else{
+                        echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
                     }
                 }else{
                     echo json_encode(array('result' => '5', 'desc' => '驾驶员不存在'));
@@ -560,6 +592,7 @@ $app->post('/sureschthree',function()use($app){
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
+    $time=$body->time1;
     $schedule_id=$body->schedule_id;
     $lorry_id=$body->lorry_id;
     $arrays['scheduling_status']=3;
@@ -586,6 +619,7 @@ $app->post('/sureschthree',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
                 if($data1!=null){
+                    if($time==$data1['signtime']){
                     $selectStament=$database->select()
                         ->from('lorry')
                         ->where('driver_phone','=',$data1['driver_phone'])
@@ -602,6 +636,9 @@ $app->post('/sureschthree',function()use($app){
                         echo json_encode(array('result' => '0', 'desc' => '确认成功'));
                     }else{
                         echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在'));
+                    }
+                    }else{
+                        echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
                     }
                 }else{
                     echo json_encode(array('result' => '5', 'desc' => '驾驶员不存在或车辆不是默认车'));
@@ -622,6 +659,7 @@ $app->get('/obycourier',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $lorry_id=$app->request->get('lorry_id');
+    $time=$app->request->get('time1');
     $database=localhost();
     $arrays=array();
     if($lorry_id!=null||$lorry_id!=""){
@@ -631,6 +669,7 @@ $app->get('/obycourier',function()use($app){
             ->where('lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
+        if($time==$data['signtime']){
         $selectStament=$database->select()
             ->from('lorry')
             ->where('exist','=',0)
@@ -678,6 +717,9 @@ $app->get('/obycourier',function()use($app){
         }else{
             echo json_encode(array('result' => '2', 'desc' => '配送员不存在'));
         }
+        }else{
+            echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
+        }
     }else{
         echo json_encode(array('result' => '1', 'desc' => '配送员为空'));
     }
@@ -687,32 +729,34 @@ $app->get('/obycouriern',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $lorry_id=$app->request->get('lorry_id');
+    $time=$app->request->get('time1');
     $database=localhost();
     $arrays=array();
-    if($lorry_id!=null||$lorry_id!=""){
-        $selectStament=$database->select()
+    if($lorry_id!=null||$lorry_id!="") {
+        $selectStament = $database->select()
             ->from('lorry')
-            ->where('exist','=',0)
-            ->where('lorry_id','=',$lorry_id);
-        $stmt=$selectStament->execute();
-        $data=$stmt->fetch();
-        $selectStament=$database->select()
+            ->where('exist', '=', 0)
+            ->where('lorry_id', '=', $lorry_id);
+        $stmt = $selectStament->execute();
+        $data = $stmt->fetch();
+        if ($time == $data['signtime']) {
+        $selectStament = $database->select()
             ->from('lorry')
-            ->where('exist','=',0)
-            ->where('flag','=',1)
-            ->where('driver_phone','=',$data['driver_phone'])
-            ->where('driver_name','=',$data['driver_name']);
-        $stmt=$selectStament->execute();
-        $data6=$stmt->fetchAll();
-        if($data6!=null) {
-            for($x=0;$x<count($data6);$x++) {
+            ->where('exist', '=', 0)
+            ->where('flag', '=', 1)
+            ->where('driver_phone', '=', $data['driver_phone'])
+            ->where('driver_name', '=', $data['driver_name']);
+        $stmt = $selectStament->execute();
+        $data6 = $stmt->fetchAll();
+        if ($data6 != null) {
+            for ($x = 0; $x < count($data6); $x++) {
                 $selectStament = $database->select()
                     ->from('delivery')
                     ->where('exist', '=', 0)
                     ->where('is_receive', '!=', 2)
                     ->where('is_receive', '!=', 0)
                     ->where('lorry_id', '=', $data6[$x]['lorry_id'])
-                    ->orderBy('change_datetime','desc');
+                    ->orderBy('change_datetime', 'desc');
                 $stmt = $selectStament->execute();
                 $data2 = $stmt->fetchAll();
                 for ($y = 0; $y < count($data2); $y++) {
@@ -734,15 +778,18 @@ $app->get('/obycouriern',function()use($app){
                     $stmt = $selectStament->execute();
                     $data5 = $stmt->fetch();
                     $arrays1['customer_name'] = $data5['customer_name'];
-                    $arrays1['pic']=$data2[$y]['sure_img'];
-                    $arrays1['status']=$data2[$y]['is_receive'];
+                    $arrays1['pic'] = $data2[$y]['sure_img'];
+                    $arrays1['status'] = $data2[$y]['is_receive'];
                     array_push($arrays, $arrays1);
                 }
             }
             echo json_encode(array('result' => '0', 'desc' => '', 'orders' => $arrays));
 
-        }else{
+        } else {
             echo json_encode(array('result' => '2', 'desc' => '配送员不存在'));
+        }
+        }else{
+            echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
         }
     }else{
         echo json_encode(array('result' => '1', 'desc' => '配送员为空'));
@@ -756,6 +803,7 @@ $app->post('/ordersure',function()use($app){
     // $order_id = $app->request->params('order_id');
     $body=$app->request->getBody();
     $body=json_decode($body);
+    $time=$body->time1;
     $order_id=$body->order_id;
     $lorry_id=$body->lorry_id;
     $pic=$body->pic;
@@ -812,15 +860,19 @@ $app->post('/ordersure',function()use($app){
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetch();
                     if($data2!=null){
-                        $updateStatement = $database->update($arrays)
-                            ->table('delivery')
-                            ->where('delivery_id', '=', $data9['delivery_id']);
-                        $affectedRows = $updateStatement->execute();
-                        $updateStatement = $database->update($arrays1)
-                            ->table('orders')
-                            ->where('order_id', '=', $order_id);
-                        $affectedRows = $updateStatement->execute();
-                        echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+                        if($time==$data2['signtime']) {
+                            $updateStatement = $database->update($arrays)
+                                ->table('delivery')
+                                ->where('delivery_id', '=', $data9['delivery_id']);
+                            $affectedRows = $updateStatement->execute();
+                            $updateStatement = $database->update($arrays1)
+                                ->table('orders')
+                                ->where('order_id', '=', $order_id);
+                            $affectedRows = $updateStatement->execute();
+                            echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+                        }else{
+                            echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
+                        }
                     }else{
                         echo json_encode(array('result' => '5', 'desc' => '配送员不存在或车辆不是默认车辆'));
                     }
@@ -845,6 +897,7 @@ $app->post('/ordersurefor',function()use($app){
     $body=json_decode($body);
     $order_id=$body->order_id;
     $lorry_id=$body->lorry_id;
+    $time=$body->time1;
     $arrays['is_receive']=4;
     $database=localhost();
     $arrays['change_datetime']=time();
@@ -876,11 +929,15 @@ $app->post('/ordersurefor',function()use($app){
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetch();
                     if($data2!=null){
-                        $updateStatement = $database->update($arrays)
-                            ->table('delivery')
-                            ->where('delivery_id', '=', $data9['delivery_id']);
-                        $affectedRows = $updateStatement->execute();
-                        echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+                        if($time==$data2['signtime']) {
+                            $updateStatement = $database->update($arrays)
+                                ->table('delivery')
+                                ->where('delivery_id', '=', $data9['delivery_id']);
+                            $affectedRows = $updateStatement->execute();
+                            echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+                        }else{
+                            echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
+                        }
                     }else{
                         echo json_encode(array('result' => '5', 'desc' => '配送员不存在或车辆不是默认车辆'));
                     }
@@ -906,6 +963,7 @@ $app->post('/ordersurethree',function()use($app){
     $body=json_decode($body);
     $order_id=$body->order_id;
     $lorry_id=$body->lorry_id;
+    $time=$body->time1;
     $arrays['is_receive']=0;
     $arrays['change_datetime']=time();
     $database=localhost();
@@ -937,11 +995,15 @@ $app->post('/ordersurethree',function()use($app){
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetch();
                     if($data2!=null){
-                        $updateStatement = $database->update($arrays)
-                            ->table('delivery')
-                            ->where('delivery_id', '=', $data9['delivery_id']);
-                        $affectedRows = $updateStatement->execute();
-                        echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+                        if($time==$data2['signtime']) {
+                            $updateStatement = $database->update($arrays)
+                                ->table('delivery')
+                                ->where('delivery_id', '=', $data9['delivery_id']);
+                            $affectedRows = $updateStatement->execute();
+                            echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+                        }else{
+                            echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
+                        }
                     }else{
                         echo json_encode(array('result' => '5', 'desc' => '配送员不存在或车辆不是默认车辆'));
                     }
@@ -963,6 +1025,7 @@ $app->get('/tongji',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $lorry_id = $app->request->get("lorry_id");
+    $time=$app->request->get('time1');
     $database=localhost();
     if($lorry_id!=null||$lorry_id!="") {
         $selectStament = $database->select()
@@ -972,52 +1035,56 @@ $app->get('/tongji',function()use($app){
             ->where('lorry_id', '=', $lorry_id);
         $stmt = $selectStament->execute();
         $data = $stmt->fetch();
-        $selectStament = $database->select()
-            ->from('lorry')
-            ->where('tenant_id', '!=', 0)
-            ->where('flag', '=', 0)
-            ->where('plate_number', '=', $data['plate_number'])
-            ->where('driver_phone', '=', $data['driver_phone'])
-            ->where('driver_name', '=', $data['driver_name']);
-        $stmt = $selectStament->execute();
-        $data2 = $stmt->fetchAll();
-        $sum = 0;
-        for ($x = 0; $x < count($data2); $x++) {
+        if($time==$data['signtime']) {
             $selectStament = $database->select()
-                ->from('scheduling')
-                ->where('scheduling_status', '=', 4)
-                ->where('tenant_id','=',$data2[$x]['tenant_id'])
-                ->where('lorry_id', '=', $data2[$x]['lorry_id']);
+                ->from('lorry')
+                ->where('tenant_id', '!=', 0)
+                ->where('flag', '=', 0)
+                ->where('plate_number', '=', $data['plate_number'])
+                ->where('driver_phone', '=', $data['driver_phone'])
+                ->where('driver_name', '=', $data['driver_name']);
             $stmt = $selectStament->execute();
-            $data3 = $stmt->fetchAll();
-            $sum += count($data3);
-        }
-        $selectStament=$database->select()
-            ->from('lorry')
-            ->where('exist','=',0)
-            ->where('lorry_id','=',$lorry_id);
-        $stmt=$selectStament->execute();
-        $data5=$stmt->fetch();
-        $selectStament=$database->select()
-            ->from('lorry')
-            ->where('exist','=',0)
-            ->where('flag','=',1)
-            ->where('plate_number','=',$data5['plate_number'])
-            ->where('driver_phone','=',$data5['driver_phone'])
-            ->where('driver_name','=',$data5['driver_name']);
-        $stmt=$selectStament->execute();
-        $data6=$stmt->fetchAll();
-        for($x=0;$x<count($data6);$x++) {
+            $data2 = $stmt->fetchAll();
+            $sum = 0;
+            for ($x = 0; $x < count($data2); $x++) {
+                $selectStament = $database->select()
+                    ->from('scheduling')
+                    ->where('scheduling_status', '=', 4)
+                    ->where('tenant_id', '=', $data2[$x]['tenant_id'])
+                    ->where('lorry_id', '=', $data2[$x]['lorry_id']);
+                $stmt = $selectStament->execute();
+                $data3 = $stmt->fetchAll();
+                $sum += count($data3);
+            }
             $selectStament = $database->select()
-                ->from('delivery')
+                ->from('lorry')
                 ->where('exist', '=', 0)
-                ->where('is_receive', '=', 0)
-                ->where('lorry_id', '=', $data6[$x]['lorry_id']);
+                ->where('lorry_id', '=', $lorry_id);
             $stmt = $selectStament->execute();
-            $data7 = $stmt->fetchAll();
-            $sum += count($data7);
+            $data5 = $stmt->fetch();
+            $selectStament = $database->select()
+                ->from('lorry')
+                ->where('exist', '=', 0)
+                ->where('flag', '=', 1)
+                ->where('plate_number', '=', $data5['plate_number'])
+                ->where('driver_phone', '=', $data5['driver_phone'])
+                ->where('driver_name', '=', $data5['driver_name']);
+            $stmt = $selectStament->execute();
+            $data6 = $stmt->fetchAll();
+            for ($x = 0; $x < count($data6); $x++) {
+                $selectStament = $database->select()
+                    ->from('delivery')
+                    ->where('exist', '=', 0)
+                    ->where('is_receive', '=', 0)
+                    ->where('lorry_id', '=', $data6[$x]['lorry_id']);
+                $stmt = $selectStament->execute();
+                $data7 = $stmt->fetchAll();
+                $sum += count($data7);
+            }
+            echo json_encode(array('result' => '0', 'desc' => '', 'count' => $sum));
+        }else{
+            echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
         }
-        echo json_encode(array('result' => '0', 'desc' => '','count' => $sum));
     }else{
         echo json_encode(array('result' => '1', 'desc' => '尚未登录'));
     }
@@ -1027,6 +1094,7 @@ $app->get('/getplate',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $lorry_id = $app->request->get("lorry_id");
+    $time=$app->request->get("time1");
     $database=localhost();
     if($lorry_id!=null||$lorry_id!=""){
         $selectStament = $database->select()
@@ -1036,15 +1104,19 @@ $app->get('/getplate',function()use($app){
         $stmt = $selectStament->execute();
         $data = $stmt->fetch();
         if($data!=null){
-            $selectStament = $database->select()
-                ->from('lorry')
-                ->where('exist', '=', 0)
-                ->where('tenant_id','=',0)
-                ->where('driver_phone', '=', $data['driver_phone'])
-                ->where('driver_name','=',$data['driver_name']);
-            $stmt = $selectStament->execute();
-            $data1 = $stmt->fetchAll();
-            echo json_encode(array('result' => '0', 'desc' => '','lorrys'=>$data1));
+            if($data['signtime']==$time) {
+                $selectStament = $database->select()
+                    ->from('lorry')
+                    ->where('exist', '=', 0)
+                    ->where('tenant_id', '=', 0)
+                    ->where('driver_phone', '=', $data['driver_phone'])
+                    ->where('driver_name', '=', $data['driver_name']);
+                $stmt = $selectStament->execute();
+                $data1 = $stmt->fetchAll();
+                echo json_encode(array('result' => '0', 'desc' => '', 'lorrys' => $data1));
+            }else{
+                echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
+            }
         }else{
             echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
         }
@@ -1081,6 +1153,7 @@ $app->post('/addplate_number',function()use($app){
     $lorry_text=$body->lorry_text;
     $lorry_type=$body->lorry_type;
     $lorry_weight=$body->lorry_weight;
+    $time=$body->time1;
     if($lorry_id!=null||$lorry_id!=""){
         $selectStament = $database->select()
             ->from('lorry')
@@ -1089,17 +1162,21 @@ $app->post('/addplate_number',function()use($app){
         $stmt = $selectStament->execute();
         $data = $stmt->fetch();
         if($data!=null){
-            $selectStament=$database->select()
-                ->from('lorry');
-            $stmt=$selectStament->execute();
-            $data3=$stmt->fetchAll();
-            $insertStatement = $database->insert(array('lorry_id','plate_number','driver_name','driver_phone','lorry_size','lorry_age','lorry_tx','lorry_type_id',
-                'password','lorry_weight','driver_identycard','driving_license','vehicle_travel_license','driver_address','driver_email'))
-                ->into('lorry')
-                ->values(array(count($data3),$plate_number,$data['driver_name'],$data['driver_phone'],$lorry_size,$lorry_age,$lorry_text,$lorry_type,$data['password']
-                ,$lorry_weight,$data['driver_identycard'],$data['driving_license'],$data['vehicle_travel_license'],$data['driver_address'],$data['driver_email']));
-            $insertId = $insertStatement->execute(false);
-            echo json_encode(array('result' => '0', 'desc' => '添加成功'));
+            if($time==$data['signtime']) {
+                $selectStament = $database->select()
+                    ->from('lorry');
+                $stmt = $selectStament->execute();
+                $data3 = $stmt->fetchAll();
+                $insertStatement = $database->insert(array('lorry_id', 'plate_number', 'driver_name', 'driver_phone', 'lorry_size', 'lorry_age', 'lorry_tx', 'lorry_type_id',
+                    'password', 'lorry_weight', 'driver_identycard', 'driving_license', 'vehicle_travel_license', 'driver_address', 'driver_email'))
+                    ->into('lorry')
+                    ->values(array(count($data3), $plate_number, $data['driver_name'], $data['driver_phone'], $lorry_size, $lorry_age, $lorry_text, $lorry_type, $data['password']
+                    , $lorry_weight, $data['driver_identycard'], $data['driving_license'], $data['vehicle_travel_license'], $data['driver_address'], $data['driver_email']));
+                $insertId = $insertStatement->execute(false);
+                echo json_encode(array('result' => '0', 'desc' => '添加成功'));
+            }else{
+                echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
+            }
         }else{
             echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
         }
@@ -1113,6 +1190,7 @@ $app->put('/upplate_number',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $body=$app->request->getBody();
     $body=json_decode($body);
+    $time=$body->time1;
     $lorry_id = $body->lorry_id;
     $database=localhost();
     $lorry2=$body->lorry_id2;
@@ -1126,96 +1204,100 @@ $app->put('/upplate_number',function()use($app){
                 ->where('lorry_id', '=', $lorry_id);
             $stmt = $selectStament->execute();
             $data9 = $stmt->fetch();
-            $selectStament = $database->select()
-                ->from('lorry')
-                ->where('exist', '=', 0)
-                ->where('lorry_id', '=', $lorry_id);
-            $stmt = $selectStament->execute();
-            $data = $stmt->fetch();
-            $selectStament = $database->select()
-                ->from('lorry')
-                ->where('tenant_id', '!=', 0)
-                ->where('flag', '=', 0)
-                ->where('plate_number', '=', $data['plate_number'])
-                ->where('driver_phone', '=', $data['driver_phone'])
-                ->where('driver_name', '=', $data['driver_name']);
-            $stmt = $selectStament->execute();
-            $data2 = $stmt->fetchAll();
-            $sum = 0;
-            for ($x = 0; $x < count($data2); $x++) {
+            if($time==$data9['signtime']) {
                 $selectStament = $database->select()
-                    ->from('scheduling')
-                    ->where('scheduling_status', '=', 4)
-                    ->where('lorry_id', '=', $data2[$x]['lorry_id']);
-                $stmt = $selectStament->execute();
-                $data3 = $stmt->fetchAll();
-                $sum += count($data3);
-            }
-            $selectStament=$database->select()
-                ->from('lorry')
-                ->where('exist','=',0)
-                ->where('lorry_id','=',$lorry_id);
-            $stmt=$selectStament->execute();
-            $data5=$stmt->fetch();
-            $selectStament=$database->select()
-                ->from('lorry')
-                ->where('exist','=',0)
-                ->where('flag','=',1)
-                ->where('plate_number','=',$data5['plate_number'])
-                ->where('driver_phone','=',$data5['driver_phone'])
-                ->where('driver_name','=',$data5['driver_name']);
-            $stmt=$selectStament->execute();
-            $data6=$stmt->fetchAll();
-            for($x=0;$x<count($data6);$x++) {
-                $selectStament = $database->select()
-                    ->from('delivery')
+                    ->from('lorry')
                     ->where('exist', '=', 0)
-                    ->where('is_receive', '=', 0)
-                    ->where('lorry_id', '=', $data6[$x]['lorry_id']);
+                    ->where('lorry_id', '=', $lorry_id);
                 $stmt = $selectStament->execute();
-                $data7 = $stmt->fetchAll();
-                $sum += count($data7);
-            }
-            if($sum==0){
-                if($data9!=null){
+                $data = $stmt->fetch();
+                $selectStament = $database->select()
+                    ->from('lorry')
+                    ->where('tenant_id', '!=', 0)
+                    ->where('flag', '=', 0)
+                    ->where('plate_number', '=', $data['plate_number'])
+                    ->where('driver_phone', '=', $data['driver_phone'])
+                    ->where('driver_name', '=', $data['driver_name']);
+                $stmt = $selectStament->execute();
+                $data2 = $stmt->fetchAll();
+                $sum = 0;
+                for ($x = 0; $x < count($data2); $x++) {
                     $selectStament = $database->select()
-                        ->from('lorry')
-                        ->where('tenant_id','=',0)
-                        ->where('exist', '=', 0)
-                        ->where('lorry_id', '=', $lorry2);
+                        ->from('scheduling')
+                        ->where('scheduling_status', '=', 4)
+                        ->where('lorry_id', '=', $data2[$x]['lorry_id']);
                     $stmt = $selectStament->execute();
-                    $data10 = $stmt->fetch();
-                    if($data10!=null){
-                        if($data9['driver_name']==$data10['driver_name']&&$data9['driver_phone']==$data10['driver_phone']){
-                            $updateStatement = $database->update(array('app_chose'=>1))
-                                ->table('lorry')
-                                ->where('plate_number','=',$data10['plate_number'])
-                                ->where('driver_phone','=',$data10['driver_phone'])
-                                ->where('driver_name','=',$data10['driver_name']);
-                            $affectedRows1 = $updateStatement->execute();
-                            $updateStatement = $database->update(array('app_chose'=>0))
-                                ->table('lorry')
-                                ->where('plate_number','=',$data9['plate_number'])
-                                ->where('driver_phone','=',$data9['driver_phone'])
-                               ->where('driver_name','=',$data9['driver_name']);
-                            $affectedRows2 = $updateStatement->execute();
-                            $selectStament = $database->select()
-                                ->from('lorry')
-                                ->where('lorry_id', '=', $lorry2);
-                            $stmt = $selectStament->execute();
-                            $data11 = $stmt->fetch();
-                            echo json_encode(array('result' => '0', 'desc' => '修改默认车辆成功','lorry'=>$data11));
-                        }else{
-                            echo json_encode(array('result' => '5', 'desc' => '该车辆不是你的'));
+                    $data3 = $stmt->fetchAll();
+                    $sum += count($data3);
+                }
+                $selectStament = $database->select()
+                    ->from('lorry')
+                    ->where('exist', '=', 0)
+                    ->where('lorry_id', '=', $lorry_id);
+                $stmt = $selectStament->execute();
+                $data5 = $stmt->fetch();
+                $selectStament = $database->select()
+                    ->from('lorry')
+                    ->where('exist', '=', 0)
+                    ->where('flag', '=', 1)
+                    ->where('plate_number', '=', $data5['plate_number'])
+                    ->where('driver_phone', '=', $data5['driver_phone'])
+                    ->where('driver_name', '=', $data5['driver_name']);
+                $stmt = $selectStament->execute();
+                $data6 = $stmt->fetchAll();
+                for ($x = 0; $x < count($data6); $x++) {
+                    $selectStament = $database->select()
+                        ->from('delivery')
+                        ->where('exist', '=', 0)
+                        ->where('is_receive', '=', 0)
+                        ->where('lorry_id', '=', $data6[$x]['lorry_id']);
+                    $stmt = $selectStament->execute();
+                    $data7 = $stmt->fetchAll();
+                    $sum += count($data7);
+                }
+                if ($sum == 0) {
+                    if ($data9 != null) {
+                        $selectStament = $database->select()
+                            ->from('lorry')
+                            ->where('tenant_id', '=', 0)
+                            ->where('exist', '=', 0)
+                            ->where('lorry_id', '=', $lorry2);
+                        $stmt = $selectStament->execute();
+                        $data10 = $stmt->fetch();
+                        if ($data10 != null) {
+                            if ($data9['driver_name'] == $data10['driver_name'] && $data9['driver_phone'] == $data10['driver_phone']) {
+                                $updateStatement = $database->update(array('app_chose' => 1))
+                                    ->table('lorry')
+                                    ->where('plate_number', '=', $data10['plate_number'])
+                                    ->where('driver_phone', '=', $data10['driver_phone'])
+                                    ->where('driver_name', '=', $data10['driver_name']);
+                                $affectedRows1 = $updateStatement->execute();
+                                $updateStatement = $database->update(array('app_chose' => 0))
+                                    ->table('lorry')
+                                    ->where('plate_number', '=', $data9['plate_number'])
+                                    ->where('driver_phone', '=', $data9['driver_phone'])
+                                    ->where('driver_name', '=', $data9['driver_name']);
+                                $affectedRows2 = $updateStatement->execute();
+                                $selectStament = $database->select()
+                                    ->from('lorry')
+                                    ->where('lorry_id', '=', $lorry2);
+                                $stmt = $selectStament->execute();
+                                $data11 = $stmt->fetch();
+                                echo json_encode(array('result' => '0', 'desc' => '修改默认车辆成功', 'lorry' => $data11));
+                            } else {
+                                echo json_encode(array('result' => '5', 'desc' => '该车辆不是你的'));
+                            }
+                        } else {
+                            echo json_encode(array('result' => '4', 'desc' => '车辆不存在'));
                         }
-                    }else{
-                        echo json_encode(array('result' => '4', 'desc' => '车辆不存在'));
+                    } else {
+                        echo json_encode(array('result' => '3', 'desc' => '司机不存在'));
                     }
-                }else{
-                    echo json_encode(array('result' => '3', 'desc' => '司机不存在'));
+                } else {
+                    echo json_encode(array('result' => '6', 'desc' => '您还有未处理单子'));
                 }
             }else{
-                echo json_encode(array('result' => '6', 'desc' => '您还有未处理单子'));
+                echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
             }
         }else{
                 echo json_encode(array('result' => '3', 'desc' => '车辆相同无法修改'));
@@ -1234,6 +1316,7 @@ $app->put('/upplate',function()use($app){
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
+    $time=$body->time1;
     $lorry_id = $body->lorry_id;
     $lorry2=$body->lorry_id2;
     if($lorry_id!=null||$lorry_id!=""){
@@ -1246,28 +1329,32 @@ $app->put('/upplate',function()use($app){
             $stmt = $selectStament->execute();
             $data = $stmt->fetch();
             if($data!=null){
-                $selectStament = $database->select()
-                    ->from('lorry')
-                    ->where('tenant_id','=',0)
-                    ->where('exist', '=', 0)
-                    ->where('lorry_id', '=', $lorry2);
-                $stmt = $selectStament->execute();
-                $data2 = $stmt->fetch();
-                if($data2!=null){
-                    if($data2['app_chose']!=1){
-                       $arrays['exist']=1;
-                        $updateStatement = $database->update($arrays)
-                            ->table('lorry')
-                            ->where('plate_number','=',$data2['plate_number'])
-                            ->where('driver_phone','=',$data2['driver_phone'])
-                            ->where('driver_name', '=', $data2['driver_name']);
-                        $affectedRows = $updateStatement->execute();
-                        echo json_encode(array('result' => '0', 'desc' => '删除成功'));
-                    }else{
-                        echo json_encode(array('result' => '5', 'desc' => '该车辆为默认车辆不能删除'));
+                if($data['signtime']==$time) {
+                    $selectStament = $database->select()
+                        ->from('lorry')
+                        ->where('tenant_id', '=', 0)
+                        ->where('exist', '=', 0)
+                        ->where('lorry_id', '=', $lorry2);
+                    $stmt = $selectStament->execute();
+                    $data2 = $stmt->fetch();
+                    if ($data2 != null) {
+                        if ($data2['app_chose'] != 1) {
+                            $arrays['exist'] = 1;
+                            $updateStatement = $database->update($arrays)
+                                ->table('lorry')
+                                ->where('plate_number', '=', $data2['plate_number'])
+                                ->where('driver_phone', '=', $data2['driver_phone'])
+                                ->where('driver_name', '=', $data2['driver_name']);
+                            $affectedRows = $updateStatement->execute();
+                            echo json_encode(array('result' => '0', 'desc' => '删除成功'));
+                        } else {
+                            echo json_encode(array('result' => '5', 'desc' => '该车辆为默认车辆不能删除'));
+                        }
+                    } else {
+                        echo json_encode(array('result' => '4', 'desc' => '车辆不存在'));
                     }
                 }else{
-                    echo json_encode(array('result' => '4', 'desc' => '车辆不存在'));
+                    echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
                 }
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '该司机不存在'));
@@ -1285,6 +1372,7 @@ $app->get('/lorrymessage',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $lorry_id = $app->request->get("lorry_id");
+    $time=$app->request->get("time1");
     if($lorry_id!=null||$lorry_id!=""){
         $selectStament = $database->select()
             ->from('lorry')
@@ -1294,7 +1382,11 @@ $app->get('/lorrymessage',function()use($app){
         $stmt = $selectStament->execute();
         $data = $stmt->fetch();
         if($data!=null){
-            echo json_encode(array('result' => '0', 'desc' => '','lorry'=>$data));
+            if($time==$data['signtime']) {
+                echo json_encode(array('result' => '0', 'desc' => '', 'lorry' => $data));
+            }else{
+                echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
+            }
         }else{
             echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
         }
@@ -1315,6 +1407,7 @@ $app->put('/uplorry',function()use($app){
     $lorry_text=$body->lorry_text;
     $lorry_type=$body->lorry_type;
     $lorry_weight=$body->lorry_weight;
+    $time=$body->time1;
     $database=localhost();
     if($lorry_id!=null||$lorry_id!=""){
         $selectStament = $database->select()
@@ -1324,78 +1417,42 @@ $app->put('/uplorry',function()use($app){
             ->where('lorry_id', '=', $lorry_id);
         $stmt = $selectStament->execute();
         $data = $stmt->fetch();
-        $selectStament = $database->select()
-            ->from('lorry')
-            ->where('tenant_id','=',0)
-            ->where('exist', '=', 0)
-            ->where('lorry_id', '=', $lorry_id2);
-        $stmt = $selectStament->execute();
-        $data4 = $stmt->fetch();
-        if($data!=null){
-            if($data4['driver_name']==$data['driver_name']&&$data4['driver_phone']==$data['driver_phone']){
-                $arrays['lorry_size']=$lorry_size;
-                $arrays['lorry_age']=$lorry_age;
-                $arrays['lorry_type_id']=$lorry_type;
-                $arrays['lorry_tx']=$lorry_text;
-                $arrays['lorry_weight']=$lorry_weight;
-                $updateStatement = $database->update($arrays)
-                    ->table('lorry')
-                    ->where('driver_name','=',$data4['driver_name'])
-                    ->where('driver_phone','=',$data4['driver_phone'])
-                    ->where('plate_number','=',$data4['plate_number']);
-                $affectedRows = $updateStatement->execute();
-                echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
-            }else{
-                echo json_encode(array('result' => '3', 'desc' => '车辆不是你的'));
+        if($data['signtime']==$time) {
+            $selectStament = $database->select()
+                ->from('lorry')
+                ->where('tenant_id', '=', 0)
+                ->where('exist', '=', 0)
+                ->where('lorry_id', '=', $lorry_id2);
+            $stmt = $selectStament->execute();
+            $data4 = $stmt->fetch();
+            if ($data != null) {
+                if ($data4['driver_name'] == $data['driver_name'] && $data4['driver_phone'] == $data['driver_phone']) {
+                    $arrays['lorry_size'] = $lorry_size;
+                    $arrays['lorry_age'] = $lorry_age;
+                    $arrays['lorry_type_id'] = $lorry_type;
+                    $arrays['lorry_tx'] = $lorry_text;
+                    $arrays['lorry_weight'] = $lorry_weight;
+                    $updateStatement = $database->update($arrays)
+                        ->table('lorry')
+                        ->where('driver_name', '=', $data4['driver_name'])
+                        ->where('driver_phone', '=', $data4['driver_phone'])
+                        ->where('plate_number', '=', $data4['plate_number']);
+                    $affectedRows = $updateStatement->execute();
+                    echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
+                } else {
+                    echo json_encode(array('result' => '3', 'desc' => '车辆不是你的'));
+                }
+            } else {
+                echo json_encode(array('result' => '2', 'desc' => '车辆不存在'));
             }
         }else{
-            echo json_encode(array('result' => '2', 'desc' => '车辆不存在'));
+            echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
         }
     }else{
         echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
     }
 });
-//formdata修改司机个人信息
-//$app->post('/updriver1',function()use($app){
-//    $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
-//    $database=localhost();
-//    $lorry_id = $app->request->get('lorry_id');
-//    $driver_email=$app->request->params('email');
-//    $driver_identycard=$app->request->params('idcard');
-//    $driver_address=$app->request->params('driver_address');
-//    $name31 = $_FILES["file1"]["name"];
-//    $name3=substr(strrchr($name31, '.'), 1);
-//    $shijian = time();
-//    $name3 = $shijian .'.'. $name3;
-//    $url="/files/lorry/";
-//    move_uploaded_file($_FILES["file1"]["tmp_name"], $url . $name3);
-//    $arrays['driving_license']="http://files.uminfo.cn:8000/lorry/".$name3;
-//    $arrays['driver_address']=$driver_address;
-//    $arrays['driver_identycard']=$driver_identycard;
-//    $arrays['driver_email']=$driver_email;
-//   if($lorry_id!=null||$lorry_id!=""){
-//       $selectStament = $database->select()
-//           ->from('lorry')
-//           ->where('tenant_id','=',0)
-//           ->where('exist', '=', 0)
-//           ->where('lorry_id', '=', $lorry_id);
-//       $stmt = $selectStament->execute();
-//       $data = $stmt->fetch();
-//       if($data!=null){
-//           $updateStatement = $database->update($arrays)
-//               ->table('lorry')
-//               ->where('driver_name','=',$data['driver_name'])
-//               ->where('driver_phone','=',$data['driver_phone']);
-//           $affectedRows = $updateStatement->execute();
-//           echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
-//       }else{
-//           echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
-//       }
-//   }else{
-//       echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
-//   }
-//});
+
 //ajax修改个人信息
 $app->put('/updriver',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -1409,6 +1466,7 @@ $app->put('/updriver',function()use($app){
     $driver_address=$body->driver_address;
     $pic=$body->pic;
     $lujing=null;
+    $time=$body->time1;
     $base64_image_content = $pic;
 //匹配出图片的格式
     if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)){
@@ -1438,15 +1496,19 @@ $app->put('/updriver',function()use($app){
             ->where('lorry_id', '=', $lorry_id);
         $stmt = $selectStament->execute();
         $data = $stmt->fetch();
-        if($data!=null){
-            $updateStatement = $database->update($arrays)
-                ->table('lorry')
-                ->where('driver_name','=',$data['driver_name'])
-                ->where('driver_phone','=',$data['driver_phone']);
-            $affectedRows = $updateStatement->execute();
-            echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
+        if($data['signtime']==$time) {
+            if ($data != null) {
+                $updateStatement = $database->update($arrays)
+                    ->table('lorry')
+                    ->where('driver_name', '=', $data['driver_name'])
+                    ->where('driver_phone', '=', $data['driver_phone']);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
+            } else {
+                echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+            }
         }else{
-            echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+            echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
         }
     }else{
         echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
