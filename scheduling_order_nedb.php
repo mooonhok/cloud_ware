@@ -1199,9 +1199,35 @@ $app->get('/getSchedulingOrders9',function()use($app){
             $selectStatement = $database->select()
                 ->from('customer')
                 ->where('tenant_id', '=', $data[$i]['tenant_id'])
-                ->where('customer_id', '=', $data2['receiver_id']);
+                ->where('customer_id', '=', $data10['sender_id']);
             $stmt = $selectStatement->execute();
-            $data3 = $stmt->fetch();
+            $data11 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data11['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data13 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id', '=', $data13['pid']);
+            $stmt = $selectStatement->execute();
+            $data14 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id', '=', $data[$i]['tenant_id'])
+                ->where('customer_id', '=', $data10['receiver_id']);
+            $stmt = $selectStatement->execute();
+            $data12 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data12['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data15 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id', '=', $data15['pid']);
+            $stmt = $selectStatement->execute();
+            $data16 = $stmt->fetch();
             $data[$i]['lorry']=$data9;
             $data[$i]['goods']=$data1;
             $data[$i]['goods']['goods_package']=$data8;
@@ -1214,6 +1240,13 @@ $app->get('/getSchedulingOrders9',function()use($app){
                 $data2=array();
             }
             $data[$i] = array_merge($data[$i], $data2);
+            $data[$i]['order']=$data10;
+            $data[$i]['order']['order_receiver']=$data12;
+            $data[$i]['order']['order_sender']=$data11;
+            $data[$i]['order']['sender_city']=$data13;
+            $data[$i]['order']['receiver_city']=$data15;
+            $data[$i]['order']['receiver_province']=$data15;
+            $data[$i]['order']['sender_province']=$data14;
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
     }else{
