@@ -70,10 +70,14 @@ function loadschedulings(scheduling_id,page) {
                                 }else if(item.scheduling_status==6){
                                     info='取消';
                                 }
-                                arr.push( '<tr><td>'+item.scheduling_id+'</td><td>'+item.tenant.company+'</td><td>'+item.tenant_suoshu.name+'</td><td>'+item.send_city.name+'</td><td>'+item.receive_city.name+'</td><td>'+item.receiver.customer_name+'</td><td>'+item.scheduling_datetime+'</td><td>'+info+'</td><td onclick="scheduling_xq("'+item.scheduling_id+'")"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
+                                arr.push( '<tr><td>'+item.scheduling_id+'</td><td>'+item.tenant.company+'</td><td>'+item.tenant_suoshu.name+'</td><td>'+item.send_city.name+'</td><td>'+item.receive_city.name+'</td><td>'+item.receiver.customer_name+'</td><td>'+item.scheduling_datetime+'</td><td>'+info+'</td><td class="look"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
                             });
                             return arr.join('');
                         }();
+                        $(".look").on("click",function(){
+                           var sche_id=$(this).parent().firstChild().text();
+                            scheduling_xq(sche_id);
+                        })
                     }
                 });
             });
