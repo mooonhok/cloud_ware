@@ -103,9 +103,9 @@ function scheduling_xq(id){
             $("#tenant_id").val(msg.lorry.lorry_id);
             $("#tenant_num").val(msg.lorry.driver_name);
             $("#app_id").val(msg.lorry.plate_number);
-            $("#secret").val(msg.goods.goods_count);
-            $("#customer_name").val(msg.goods.goods_value);
-            $("#customer_phone").val(msg.goods.goods_package);
+            for(var i=0;i<msg.order_goods.length;i++){
+                var a='<div></div>'
+            }
         },
         error: function(xhr) {
             alert("获取后台失败！");

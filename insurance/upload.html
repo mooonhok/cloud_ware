@@ -257,7 +257,7 @@
                       var formdata = new FormData();
                       formdata.append('file1', file1);
                       var xhr = new XMLHttpRequest();
-                      xhr.open("POST" ,"http://api.uminfo.cn/tenant_insurancepolicy.php/upload?tenant_id="+tenant_id , true);
+                      xhr.open("POST" ,"http://api.uminfo.cn/message.php/upload?tenant_id="+tenant_id , true);
                       xhr.send(formdata);
 //                      xhr.upload.onprogress = progressFunction;
                       xhr.onload = function(e) {
