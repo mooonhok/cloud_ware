@@ -62,6 +62,7 @@ $app->post('/addmap',function()use($app){
     $lorry_id=$body->lorry_id;
     $longitude=$body->longitude;
     $latitude=$body->latitude;
+    $time2=$body->time1;
     $time=time();
     if($longitude!=null||$longitude!=""||$latitude!=null||$latitude!=""){
     if($lorry_id!=null||$lorry_id!=""){
@@ -73,6 +74,7 @@ $app->post('/addmap',function()use($app){
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
         if($data!=null){
+            if($data['signtime']==$time2){
             $selectStament=$database->select()
                 ->from('lorry')
                 ->where('tenant_id','!=',0)
@@ -109,6 +111,9 @@ $app->post('/addmap',function()use($app){
                 }
             }
             echo json_encode(array('result' => '0', 'desc' => '上传地理位置成功'));
+            }else{
+                echo json_encode(array('result' => '9', 'desc' => '您的帐号已经在其他地方登录，请重新登录'));
+            }
         }else{
             echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
         }
