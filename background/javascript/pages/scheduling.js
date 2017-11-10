@@ -86,6 +86,7 @@ function loadschedulings(scheduling_id,page) {
 
 
 function scheduling_xq(id){
+    alert(id)
     $(".tenant_tk").css("display","block");
     $(".tenant_tk div input").val("");
     var gg=id+"";
