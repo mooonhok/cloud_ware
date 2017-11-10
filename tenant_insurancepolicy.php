@@ -41,6 +41,23 @@ $app->post('/upload',function()use($app) {
         }
 });
 
+$app->get('/news',function()use($app) {
+    $app->response->headers->set('Access-Control-Allow-Origin', '*');
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->get('tenant_id');
+    if ($tenant_id != null || $tenant_id != '') {
+        $selectStatement = $database->select()
+            ->from('tenant_insurancepolicy')
+            ->where('tenant_id', '=', $tenant_id)
+            ->whereIn('tenant_id', array( 110, 120, 130, 140 ));
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+    } else {
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
 $app->run();
 function localhost(){
     return connect();

@@ -1198,6 +1198,10 @@ $app->get('/getSchedulingOrders9',function()use($app){
             $data[$i]['sender_province']=$data6;
             $data[$i]['receiver_city']=$data5;
             $data[$i]['receiver_province']=$data7;
+            if($data2==null){
+                $data2=array();
+            }
+            $data1[$i] = array_merge($data1[$i], $data2);
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
     }else{
