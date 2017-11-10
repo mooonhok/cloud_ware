@@ -29,11 +29,12 @@ $app->post('/upload',function()use($app) {
         $url="/files/insurance_policy/";
         move_uploaded_file($_FILES["file1"]["tmp_name"], $url . $name3);
     }
-
+    date_default_timezone_set("PRC");
+    $shijian=date("Y-m-d H:i:s",time());
         if ($tenant_id != null || $tenant_id != '') {
-            $insertStatement = $database->insert(array('tenant_id', 'tenant_insurancepolicy'))
+            $insertStatement = $database->insert(array('tenant_id', 'tenant_insurancepolicy','datetime'))
                 ->into('tenant_insurancepolicy')
-                ->values(array($tenant_id,"http://files.uminfo.cn:8000/insurance_policy/".$name3));
+                ->values(array($tenant_id,"http://files.uminfo.cn:8000/insurance_policy/".$name3,$shijian));
             $insertId = $insertStatement->execute(false);
             echo json_encode(array("result" => "0", "desc" => "success"));
         } else {
@@ -49,10 +50,11 @@ $app->get('/news',function()use($app) {
     if ($tenant_id != null || $tenant_id != '') {
         $selectStatement = $database->select()
             ->from('tenant_insurancepolicy')
-            ->where('tenant_id', '=', $tenant_id)
-            ->whereIn('tenant_id', array( 110, 120, 130, 140 ));
+            ->whereIn('tenant_id', array( 0, $tenant_id ))
+            ->orderBy('datetime','DESC');
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetch();
+        echo json_encode(array("result" => "0", "desc" => "success","tenant_insurancepolicy"=>$data1));
     } else {
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
