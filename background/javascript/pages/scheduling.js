@@ -74,6 +74,7 @@ function loadschedulings(scheduling_id,page) {
                             });
                             return arr.join('');
                             $(".look").on("click",function(){
+                                alert(1)
                                 var sche_id=$(this).parent().firstChild().text();
                                 scheduling_xq(sche_id);
                             })
