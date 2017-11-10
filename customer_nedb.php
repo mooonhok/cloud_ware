@@ -264,6 +264,14 @@ $app->get('/limitCustomers1',function()use($app){
             ->limit((int)$size,(int)$offset);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
+        for($i=0;$i<count($data);$i++){
+            $selectStatement = $database->select()
+                ->from('tenant')
+                ->where('tenant_id', '=', $data[$i]['contact_tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $data[$i]['contact_tenant']=$data2;
+        }
         echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
