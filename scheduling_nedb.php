@@ -631,6 +631,34 @@ $app->put('/alterScheduling6',function()use($app){
     }
 });
 
+$app->put('/alterScheduling7',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $scheduling_id=$body->scheduling_id;
+    $sure_img=$body->sure_img;
+    $array = array();
+    foreach ($body as $key => $value) {
+        $array[$key] = $value;
+    }
+    if($tenant_id!=null||$tenant_id!=''){
+           if($scheduling_id!=null||$scheduling_id!=''){
+                            $array['scheduling_status']=5;
+                            $updateStatement = $database->update($array)
+                                ->table('scheduling')
+                                ->where('scheduling_id','=',$scheduling_id);
+                            $affectedRows = $updateStatement->execute();
+                            echo json_encode(array("result" => "0", "desc" => "success"));
+                        }else{
+                  echo json_encode(array("result" => "1", "desc" => "缺少调度id"));
+          }
+    }else{
+        echo json_encode(array("result" => "2", "desc" => "缺少租户id"));
+    }
+});
+
 //$app->put('/alterSchedulings0',function()use($app){
 //    $app->response->headers->set('Content-Type', 'application/json');
 //    $tenant_id = $app->request->headers->get("tenant-id");
