@@ -1941,7 +1941,8 @@ $app->get('/getGoodsOrder1',function()use($app){
             $selectStatement = $database->select()
                 ->from('orders')
                 ->where('order_id','=',$order_id)
-                ->where('exist','=',0);
+                ->where('exist','=',0)
+                ->orderBy('datetime1','DESC');
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
             for($i=0;$i<count($data1);$i++){
