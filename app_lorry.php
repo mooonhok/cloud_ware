@@ -1459,7 +1459,6 @@ $app->put('/updriver',function()use($app){
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
-    $driver_name=$body->name;
     $lorry_id = $body->lorry_id;
     $driver_email=$body->email;
     $driver_identycard=$body->idcard;
@@ -1467,28 +1466,28 @@ $app->put('/updriver',function()use($app){
     $pic=$body->pic;
     $lujing=null;
     $time=$body->time1;
-    $base64_image_content = $pic;
+    if($pic!=null){
+        $base64_image_content = $pic;
 //匹配出图片的格式
-    if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)){
-        $type = $result[2];
-        date_default_timezone_set("PRC");
-        $time1=time();
-        $new_file = "/files/lorry/".date('Ymd',$time1)."/";
-        if(!file_exists($new_file))
-        {
+        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+            $type = $result[2];
+            date_default_timezone_set("PRC");
+            $time1 = time();
+            $new_file = "/files/lorry/" . date('Ymd', $time1) . "/";
+            if (!file_exists($new_file)) {
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
-            mkdir($new_file, 0700);
+                mkdir($new_file, 0700);
+            }
+            $new_file = $new_file . time() . ".{$type}";
+            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                $lujing = "http://files.uminfo.cn:8000/lorry/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+            }
         }
-        $new_file = $new_file.time().".{$type}";
-        if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))){
-            $lujing="http://files.uminfo.cn:8000/lorry/".date('Ymd',$time1)."/".$time1.".{$type}";
-        }
+        $arrays['driving_license']=$lujing;
     }
-    $arrays['driving_license']=$lujing;
     $arrays['driver_address']=$driver_address;
     $arrays['driver_identycard']=$driver_identycard;
     $arrays['driver_email']=$driver_email;
-    $arrays['driver_name']=$driver_name;
     if($lorry_id!=null||$lorry_id!=""){
         $selectStament = $database->select()
             ->from('lorry')
