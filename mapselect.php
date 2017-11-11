@@ -100,11 +100,11 @@ $app->post('/addmap',function()use($app){
                         $stmt=$selectStament->execute();
                         $data4=$stmt->fetchAll();
                             if ($data4 != null) {
-                                if($data4[count($data4)]['longitude']==$longitude&&$data4[count($data4)]['latitude']==$latitude) {
+                                if($data4[count($data4)-1]['longitude']==$longitude&&$data4[count($data4)-1]['latitude']==$latitude) {
                                     $arrays['accept_time'] = $time;
                                     $updateStatement = $database->update($arrays)
                                         ->table('lorry')
-                                        ->where('id', '=', $data4[count($data4)]['id']);
+                                        ->where('id', '=', $data4[count($data4)-1]['id']);
                                     $affectedRows = $updateStatement->execute();
                                 } else {
                                     if ($time - $data4[count($data4) - 1]['accept_time'] > 3600) {
