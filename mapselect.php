@@ -103,7 +103,7 @@ $app->post('/addmap',function()use($app){
                                 if($data4[count($data4)-1]['longitude']==$longitude&&$data4[count($data4)-1]['latitude']==$latitude) {
                                     $arrays['accept_time'] = $time;
                                     $updateStatement = $database->update($arrays)
-                                        ->table('lorry')
+                                        ->table('map')
                                         ->where('id', '=', $data4[count($data4)-1]['id']);
                                     $affectedRows = $updateStatement->execute();
                                 } else {
