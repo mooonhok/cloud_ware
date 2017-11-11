@@ -1459,6 +1459,7 @@ $app->put('/updriver',function()use($app){
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
+    $driver_name=$body->name;
     $lorry_id = $body->lorry_id;
     $driver_email=$body->email;
     $driver_identycard=$body->idcard;
@@ -1487,6 +1488,7 @@ $app->put('/updriver',function()use($app){
     $arrays['driver_address']=$driver_address;
     $arrays['driver_identycard']=$driver_identycard;
     $arrays['driver_email']=$driver_email;
+    $arrays['driver_name']=$driver_name;
     if($lorry_id!=null||$lorry_id!=""){
         $selectStament = $database->select()
             ->from('lorry')
