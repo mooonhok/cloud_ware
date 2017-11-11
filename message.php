@@ -30,7 +30,7 @@ $app->post('/upload',function()use($app) {
         move_uploaded_file($_FILES["file1"]["tmp_name"], $url . $name3);
     }
     date_default_timezone_set("PRC");
-    $shijian=date("Y-m-d H:i:s",time());
+    $shijian=date("Y-m-d",time());
         if ($tenant_id != null || $tenant_id != '') {
             $insertStatement = $database->insert(array('tenant_id', 'url','datetime','from_user','content'))
                 ->into('message')
@@ -51,7 +51,7 @@ $app->get('/news',function()use($app) {
         $selectStatement = $database->select()
             ->from('message')
             ->whereIn('tenant_id', array( 0, $tenant_id ))
-            ->orderBy('datetime','DESC');
+            ->orderBy('id','DESC');
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
         echo json_encode(array("result" => "0", "desc" => "success","messages"=>$data1));
@@ -74,12 +74,33 @@ $app->post('/upnotice',function()use($app) {
         move_uploaded_file($_FILES["file1"]["tmp_name"], $url . $name3);
     }
     date_default_timezone_set("PRC");
-    $shijian=date("Y-m-d H:i:s",time());
+    $shijian=date("Y-m-d",time());
     $insertStatement = $database->insert(array( 'url','datetime','from_user','content'))
             ->into('message')
             ->values(array("http://files.uminfo.cn:8000/insurance_policy/".$name3,$shijian,'江苏酉铭','您有一条新的公告'));
     $insertId = $insertStatement->execute(false);
     echo json_encode(array("result" => "0", "desc" => "success"));
+});
+
+$app->get('/news_page',function()use($app) {
+    $app->response->headers->set('Access-Control-Allow-Origin', '*');
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->get('tenant_id');
+    $size= $app->request->get('size');
+    $offset= $app->request->get('offset');
+    if ($tenant_id != null || $tenant_id != '') {
+        $selectStatement = $database->select()
+            ->from('message')
+            ->whereIn('tenant_id', array( 0, $tenant_id ))
+            ->orderBy('id','DESC')
+            ->limit((int)$size,(int)$offset);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetchAll();
+        echo json_encode(array("result" => "0", "desc" => "success","messages"=>$data1));
+    } else {
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
 });
 
 $app->run();
