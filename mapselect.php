@@ -106,19 +106,19 @@ $app->post('/addmap',function()use($app){
                                         ->into('map')
                                         ->values(array($data3[$x]['scheduling_id'], $longitude, $latitude, $time));
                                     $insertId = $insertStatement->execute(false);
-                                } else {
-                                    $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
-                                        ->into('map')
-                                        ->values(array($data3[$x]['scheduling_id'], $longitude, $latitude, $time));
-                                    $insertId = $insertStatement->execute(false);
                                 }
-                            } else {
-                                $arrays['accept_time'] = $time;
-                                $updateStatement = $database->update($arrays)
-                                    ->table('lorry')
-                                    ->where('id', '=', $data4[count($data4)]['id']);
-                                $affectedRows = $updateStatement->execute();
+                            }else {
+                                $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
+                                    ->into('map')
+                                    ->values(array($data3[$x]['scheduling_id'], $longitude, $latitude, $time));
+                                $insertId = $insertStatement->execute(false);
                             }
+                            } else {
+                            $arrays['accept_time'] = $time;
+                            $updateStatement = $database->update($arrays)
+                                ->table('lorry')
+                                ->where('id', '=', $data4[count($data4)]['id']);
+                            $affectedRows = $updateStatement->execute();
                         }
                     }
                 }
