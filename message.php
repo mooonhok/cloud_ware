@@ -32,9 +32,9 @@ $app->post('/upload',function()use($app) {
     date_default_timezone_set("PRC");
     $shijian=date("Y-m-d H:i:s",time());
         if ($tenant_id != null || $tenant_id != '') {
-            $insertStatement = $database->insert(array('tenant_id', 'url','datetime','from_user','content'))
+            $insertStatement = $database->insert(array('tenant_id', 'url','datetime','from_user','content','is_read'))
                 ->into('message')
-                ->values(array($tenant_id,"http://files.uminfo.cn:8000/insurance_policy/".$name3,$shijian,'保险公司','您有一条新的保险单'));
+                ->values(array($tenant_id,"http://files.uminfo.cn:8000/insurance_policy/".$name3,$shijian,'保险公司','您有一条新的保险单','1'));
             $insertId = $insertStatement->execute(false);
             echo json_encode(array("result" => "0", "desc" => "success"));
         } else {
@@ -75,9 +75,9 @@ $app->post('/upnotice',function()use($app) {
     }
     date_default_timezone_set("PRC");
     $shijian=date("Y-m-d H:i:s",time());
-    $insertStatement = $database->insert(array( 'url','datetime','from_user','content'))
+    $insertStatement = $database->insert(array( 'url','datetime','from_user','content','is_read'))
             ->into('message')
-            ->values(array("http://files.uminfo.cn:8000/insurance_policy/".$name3,$shijian,'江苏酉铭','您有一条新的公告'));
+            ->values(array("http://files.uminfo.cn:8000/insurance_policy/".$name3,$shijian,'江苏酉铭','您有一条新的公告','1'));
     $insertId = $insertStatement->execute(false);
     echo json_encode(array("result" => "0", "desc" => "success"));
 });
