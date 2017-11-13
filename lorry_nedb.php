@@ -33,27 +33,23 @@ $app->post('/addLorry',function()use($app) {
             if($plate_number!=null||$plate_number!=''){
                 if($driver_name!=null||$driver_name!=''){
                     if($driver_phone!=null||$driver_phone!=''){
-                                    $array['tenant_id']=$tenant_id;
-                                    $array['exist']=0;
-                                    $array['driving_license']="http://files.uminfo.cn:8000/lorry/photo1.png";
-                                    $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/photo2.png";
-                                    $insertStatement = $database->insert(array_keys($array))
-                                        ->into('lorry')
-                                        ->values(array_values($array));
-                                    $insertId = $insertStatement->execute(false);
+                        $selectStatement = $database->select()
+                            ->from('lorry')
+                            ->where('tenant_id', '=', 0)
+                            ->where('driver_name', '=', $driver_name)
+                            ->where('driver_phone', '=', $driver_phone)
+                            ->where('flag', '=', $flag)
+                            ->where('plate_number', '=', $plate_number);
+                        $stmt = $selectStatement->execute();
+                        $data1 = $stmt->fetch();
+
                         $selectStatement = $database->select()
                             ->from('lorry')
                             ->where('tenant_id', '=', 0);
                         $stmt = $selectStatement->execute();
                         $data = $stmt->fetchAll();
 
-                        $selectStatement = $database->select()
-                            ->from('lorry')
-                            ->where('tenant_id', '=', 0)
-                            ->where('flag', '=', $flag)
-                            ->where('plate_number', '=', $plate_number);
-                        $stmt = $selectStatement->execute();
-                        $data1 = $stmt->fetch();
+                        $array['chose']=0;
                         if(!$data1){
                             $password1=123456;
                             $str1=str_split($password1,3);
@@ -63,9 +59,19 @@ $app->post('/addLorry',function()use($app) {
                             }
                             $insertStatement = $database->insert(array('lorry_id','plate_number','driver_name','driver_phone','password','flag','app_chose','driving_license','vehicle_travel_license'))
                                 ->into('lorry')
-                                ->values(array((count($data)+10000001),$plate_number,$driver_name,$driver_phone,$password,$flag,'1',"http://files.uminfo.cn:8000/lorry/photo1.png","http://files.uminfo.cn:8000/lorry/photo2.png"));
+                                ->values(array((count($data)+10000001),$plate_number,$driver_name,$driver_phone,$password,$flag,'0',"http://files.uminfo.cn:8000/lorry/photo1.png","http://files.uminfo.cn:8000/lorry/photo2.png"));
                             $insertId = $insertStatement->execute(false);
+                        }else{
+                            $array['chose']=$data1['chose'];
                         }
+                        $array['tenant_id']=$tenant_id;
+                        $array['exist']=0;
+                        $array['driving_license']="http://files.uminfo.cn:8000/lorry/photo1.png";
+                        $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/photo2.png";
+                        $insertStatement = $database->insert(array_keys($array))
+                            ->into('lorry')
+                            ->values(array_values($array));
+                        $insertId = $insertStatement->execute(false);
 
                         echo json_encode(array("result" => "0", "desc" => "success"));
                     }else{
