@@ -49,7 +49,7 @@ $app->post('/addLorry',function()use($app) {
                         $stmt = $selectStatement->execute();
                         $data = $stmt->fetchAll();
 
-                        $array['chose']=0;
+                        $array['app_chose']=0;
                         if(!$data1){
                             $password1=123456;
                             $str1=str_split($password1,3);
@@ -62,7 +62,7 @@ $app->post('/addLorry',function()use($app) {
                                 ->values(array((count($data)+10000001),$plate_number,$driver_name,$driver_phone,$password,$flag,'0',"http://files.uminfo.cn:8000/lorry/photo1.png","http://files.uminfo.cn:8000/lorry/photo2.png"));
                             $insertId = $insertStatement->execute(false);
                         }else{
-                            $array['chose']=$data1['chose'];
+                            $array['app_chose']=$data1['app_chose'];
                         }
                         $array['tenant_id']=$tenant_id;
                         $array['exist']=0;
