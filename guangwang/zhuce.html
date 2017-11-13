@@ -151,12 +151,15 @@
 		$("#phone").on('change',function(){
 			var phone = $("#phone").val();
 			// alert(phone);
+            var ff=0;
 			if(!(/^1[34578]\d{9}$/.test(phone))&&phone.length==11){
-				alert("手机号码格式不对");
-				return;
-			}else if(!(/^(0\d{2,3}-?)?\d{8}$/.test(phone))){
-                alert("电话号码格式不对");
-                return;
+				ff++;
+			}
+			if(!(/^(0\d{2,3}-?)?\d{8}$/.test(phone))){
+                ff++;
+            }
+            if(ff>0){
+               alert('电话号码格式不对');
             }
 		})
 	</script>
