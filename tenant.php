@@ -403,7 +403,7 @@ $app->post('/tenant',function()use($app) {
                                  if($receive_city_id!=null||$receive_city_id!=""){
                                      if($begin_time!=null||$begin_time!=""){
                                          if($end_time!=null||$end_time!=""){
-                                             if($sales_id!=null||$sales_id!="")
+                                             if($sales_id!=null||$sales_id!=""){
                                               $selectStatement = $database->select()
                                                      ->from('tenant')
                                                      ->where('company','=',$company)
@@ -524,9 +524,9 @@ $app->post('/tenant',function()use($app) {
         }else{
             echo json_encode(array("result"=>"14","desc"=>"缺少营业执照号码"));
         }
-    }else{
-        echo json_encode(array("result"=>"15","desc"=>"缺少公司名称"));
-    }
+}else{
+    echo json_encode(array("result"=>"15","desc"=>"缺少公司名称"));
+}
 });
 
 
