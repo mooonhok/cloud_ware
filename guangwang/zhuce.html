@@ -151,7 +151,7 @@
 		$("#phone").on('change',function(){
 			var phone = $("#phone").val();
 			// alert(phone);
-			if(!((/^1[34578]\d{9}$/.test(phone))||(/^(0\d{2,3}-?)?\d{7,8}$/.test(phone)))){
+			if(!((/^1[34578]\d{9}$/.test(phone))||(/^(0\d{2,3}-?)?\d{8}$/.test(phone)))){
 				alert("电话号码格式不对")
 			}
 		})
