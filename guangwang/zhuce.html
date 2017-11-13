@@ -10,7 +10,7 @@
 		<script type="text/javascript" src="js/jquery.session.js"></script> 
 	</head>
 	<body>
-		<form id="myform" action="http://api.uminfo.cn/tenant.php/tenant" enctype="multipart/form-data"  onsubmit="return check()"  method="post" >
+		<form id="myform" action="http://api.uminfo.cn/tenant.php/tenant" enctype="multipart/form-data"   method="post" >
 			<div class="box">
 				<!-- top -->
 				<div class="top">
@@ -119,7 +119,7 @@
 							</div>
 						</div>
 						<input name="sales_id" style="display: none;" id="userid">
-						<input class="tijiao" type="submit" value="提     交">
+						<input class="tijiao" type="submit" onclick="check()" value="提     交">
 					</div>
 				</div>
 			</div>
