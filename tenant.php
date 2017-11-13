@@ -477,7 +477,7 @@ $app->post('/tenant',function()use($app) {
                                                                  ->where('customer_id','=',$num);
                                                              $affectedRows = $updateStatement->execute();
                                                              //echo json_encode(array('result'=>'0','desc'=>'添加成功'));
-                                                             $app->redirect('http://www.uminfo.cn/yonhu.html');
+                                                             $app->redirect('http://www.uminfo.cn/zhuce.html?desc=企业登记成功');
                                                          }else{
                                                              $app->redirect('http://www.uminfo.cn/zhuce.html?desc=添加租户信息失败');
 //                                                                        echo json_encode(array("result"=>"1","desc"=>"添加租户信息失败"));

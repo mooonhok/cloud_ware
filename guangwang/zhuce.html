@@ -138,6 +138,9 @@
         var desc=$.getUrlParam('desc');
         if(desc!=null&&desc!=''){
             alert(desc);
+            if(desc=='企业登记成功'){
+               window.location.href='http://www.uminfo.cn/yonghu.html';
+			}
 		}
 		$(".center").on("click",function(){
 			$(".calender-wrap ").css("display","none");
@@ -148,8 +151,8 @@
 		$("#phone").on('change',function(){
 			var phone = $("#phone").val();
 			// alert(phone);
-			if(!/^1[34578]\d{9}$/.test(phone)){
-				alert("手机号码格式不对")
+			if((!/^1[34578]\d{9}$/.test(phone))||(!/^(0\d{2,3}-?)?\d{7,8}$/.test(phone))){
+				alert("电话号码格式不对")
 			}
 		})
 	</script>
