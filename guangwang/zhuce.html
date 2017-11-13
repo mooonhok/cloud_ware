@@ -267,71 +267,70 @@
 		$("#userid").val(userid);
 			if(userid == null || userid == "") {
 				window.location.href = "http://www.uminfo.cn/index.html";
-			} else {
-		function check(){
-			var address = document.getElementsByName("address")[0].value;
-			var begin_time = document.getElementsByName("begin_time")[0].value;
-			var end_time = document.getElementsByName("end_time")[0].value;
-			var business_l = document.getElementsByName("business_l")[0].value;
-			var telephone = document.getElementsByName("telephone")[0].value;
-			var company = document.getElementsByName("company")[0].value;
-			var contact_name = document.getElementsByName("contact_name")[0].value;
-			var business_l_p = document.getElementsByName("file1")[0].value;
-			var c_introduction = document.getElementsByName("c_introduction")[0].value;
-			var email = document.getElementsByName("email")[0].value;
-			var order_t_p = document.getElementsByName("order_t_p")[0].value;
-			var qq = document.getElementsByName("qq")[0].value;
-			var receive_city_id = document.getElementsByName("receive_city_id")[0].value;
-			var from_city_id = document.getElementsByName("from_city_id")[0].value;
-			var sales_id = document.getElementsByName("sales_id")[0].value;
-			var service_items = document.getElementsByName("service_items")[0].value;
-			var trans_contract_p = document.getElementsByName("trans_contract_p")[0].value;
-			 photoExt=obj.value.substr(obj.value.lastIndexOf(".")).toLowerCase();//获得文件后缀名          
-           alert(trans_contract_p);
-			if(address == null || address == "") {
-				alert("地址不能为空");
-				return false;
 			}
-			if(begin_time==null || begin_time=="") {
-				alert("开始时间不能为空");
-				return false;
-			}
-			if(end_time==null || end_time=="") {
-				alert("结束时间不能为空");
-				return false;
-			}
-			if(business_l==null || business_l=="") {
-				alert("营业执照不能为空");
-				return false;
-			}
-			if(company==null || company=="") {
-				alert("公司名称不能为空");
-				return false;
-			}
-			if(contact_name==null || contact_name=="") {
-				alert("公司联系人不能为空");
-				return false;
-			}
-			if(business_l_p==null || business_l_p=="") {
-				alert("公司营业执照照片不能为空");
-				return false;
-			}
-			if(receive_city_id==0 || receive_city_id=="") {
-				alert("收货城市不能为空");
-				return false;
-			}
-			if(from_city_id==0 || from_city_id=="") {
-				alert("发货城市不能为空");
-				return false;
-			}
-		if(telephone==null||telephone==""||!/^1[34578]\d{9}$/.test(phone)){
-			alert("缺少公司联系人电话或电话号码格式错误");
-			return false;
-	       }		
-			alert("提交成功");
-			return true;
-			window.location.href="http://www.uminfo.cn/yonhu.html";
-	}
-}
+        function check(){
+            var address = document.getElementsByName("address")[0].value;
+            var begin_time = document.getElementsByName("begin_time")[0].value;
+            var end_time = document.getElementsByName("end_time")[0].value;
+            var business_l = document.getElementsByName("business_l")[0].value;
+            var telephone = document.getElementsByName("telephone")[0].value;
+            var company = document.getElementsByName("company")[0].value;
+            var contact_name = document.getElementsByName("contact_name")[0].value;
+            var business_l_p = document.getElementsByName("file1")[0].value;
+            var c_introduction = document.getElementsByName("c_introduction")[0].value;
+            var email = document.getElementsByName("email")[0].value;
+            var order_t_p = document.getElementsByName("order_t_p")[0].value;
+            var qq = document.getElementsByName("qq")[0].value;
+            var receive_city_id = document.getElementsByName("receive_city_id")[0].value;
+            var from_city_id = document.getElementsByName("from_city_id")[0].value;
+            var sales_id = document.getElementsByName("sales_id")[0].value;
+            var service_items = document.getElementsByName("service_items")[0].value;
+            var trans_contract_p = document.getElementsByName("trans_contract_p")[0].value;
+            photoExt=obj.value.substr(obj.value.lastIndexOf(".")).toLowerCase();//获得文件后缀名
+            alert(trans_contract_p);
+            if(address == null || address == "") {
+                alert("地址不能为空");
+                return false;
+            }
+            if(begin_time==null || begin_time=="") {
+                alert("开始时间不能为空");
+                return false;
+            }
+            if(end_time==null || end_time=="") {
+                alert("结束时间不能为空");
+                return false;
+            }
+            if(business_l==null || business_l=="") {
+                alert("营业执照不能为空");
+                return false;
+            }
+            if(company==null || company=="") {
+                alert("公司名称不能为空");
+                return false;
+            }
+            if(contact_name==null || contact_name=="") {
+                alert("公司联系人不能为空");
+                return false;
+            }
+            if(business_l_p==null || business_l_p=="") {
+                alert("公司营业执照照片不能为空");
+                return false;
+            }
+            if(receive_city_id==0 || receive_city_id=="") {
+                alert("收货城市不能为空");
+                return false;
+            }
+            if(from_city_id==0 || from_city_id=="") {
+                alert("发货城市不能为空");
+                return false;
+            }
+            if(telephone==null||telephone==""||!/^1[34578]\d{9}$/.test(phone)){
+                alert("缺少公司联系人电话或电话号码格式错误");
+                return false;
+            }
+            alert("提交成功");
+            return true;
+            window.location.href="http://www.uminfo.cn/yonhu.html";
+        }
 	</script>
 </html>
