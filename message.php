@@ -42,7 +42,7 @@ $app->post('/upload',function()use($app) {
         }
 });
 
-$app->get('/news',function()use($app) {
+$app->get('/getMessages0',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin', '*');
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
@@ -82,7 +82,7 @@ $app->post('/upnotice',function()use($app) {
     echo json_encode(array("result" => "0", "desc" => "success"));
 });
 
-$app->get('/news_page',function()use($app) {
+$app->get('/limitMessages0',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin', '*');
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
@@ -100,6 +100,60 @@ $app->get('/news_page',function()use($app) {
         echo json_encode(array("result" => "0", "desc" => "success","messages"=>$data1));
     } else {
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
+$app->get('/getMessages1',function()use($app) {
+    $app->response->headers->set('Access-Control-Allow-Origin', '*');
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->get('tenant_id');
+    if ($tenant_id != null || $tenant_id != '') {
+        $selectStatement = $database->select()
+            ->from('message')
+            ->whereIn('tenant_id', array( 0, $tenant_id ))
+            ->where('is_read', '=', 0)
+            ->orderBy('id','DESC');
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetchAll();
+        echo json_encode(array("result" => "0", "desc" => "success","messages"=>$data1));
+    } else {
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
+$app->put('/alterMessage0',function()use($app) {
+    $app->response->headers->set('Access-Control-Allow-Origin', '*');
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $id = $body->id;
+    $is_read= $body->is_read;
+    if ($id != null || $id != '') {
+        $updateStatement = $database->update(array('is_read'=>$is_read))
+            ->table('message')
+            ->where('id', '=', $id);
+        $affectedRows = $updateStatement->execute();
+        echo json_encode(array("result" => "0", "desc" => "success"));
+    } else {
+        echo json_encode(array("result" => "1", "desc" => "缺少id"));
+    }
+});
+
+$app->delete('/deleteMessage',function()use($app) {
+    $app->response->headers->set('Access-Control-Allow-Origin', '*');
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $id = $app->request->get('id');
+    if ($id != null || $id != '') {
+        $deleteStatement = $database->delete()
+            ->from('message')
+            ->where('id', '=', $id);
+        $affectedRows = $deleteStatement->execute();
+        echo json_encode(array("result" => "0", "desc" => "success"));
+    } else {
+        echo json_encode(array("result" => "1", "desc" => "缺少id"));
     }
 });
 
