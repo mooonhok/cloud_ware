@@ -443,7 +443,7 @@ $app->post('/tenant',function()use($app) {
                                                                     while(strlen($num01)<4){
                                                                         $num01='0'.$num01;
                                                                     }
-                                                                    $tenant_num=$data1['area_code'].$num01;
+                                                                    $tenant_num=$data01['area_code'].$num01;
                                                                     $tenant_id=count($data02)+1000000001;
                                                                     $insertStatement = $database->insert(array('company','from_city_id','receive_city_id','contact_id','exist','business_l'
                                                                     ,'sales_id','address','business_l_p','order_t_p','trans_contract_p','service_items','c_introduction','end_date'
