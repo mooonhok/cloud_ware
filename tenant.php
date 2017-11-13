@@ -406,7 +406,6 @@ $app->post('/tenant',function()use($app) {
                                              if($sales_id!=null||$sales_id!=""){
                                               $selectStatement = $database->select()
                                                      ->from('tenant')
-                                                     ->where('company','=',$company)
                                                      ->where('business_l','=',$business_l)
                                                      ->where('exist','=',0);
                                              $stmt = $selectStatement->execute();
