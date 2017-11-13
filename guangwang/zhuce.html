@@ -127,6 +127,18 @@
 	</body>
 	<script src="http://www.itakeo.com/down/calender2.js"></script>
 	<script type="text/javascript">
+        (function($) {
+            $.getUrlParam = function(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if(r != null) return decodeURI(r[2]);
+                return null;
+            }
+        })(jQuery);
+        var desc=$.getUrlParam('desc');
+        if(desc!=null&&desc!=''){
+            alert(desc);
+		}
 		$(".center").on("click",function(){
 			$(".calender-wrap ").css("display","none");
 		})
