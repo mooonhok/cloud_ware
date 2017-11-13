@@ -50,7 +50,7 @@ $app->get('/getMessages0',function()use($app) {
     if ($tenant_id != null || $tenant_id != '') {
         $selectStatement = $database->select()
             ->from('message')
-            ->whereIn('tenant_id', array( 0, $tenant_id ))
+            ->where('tenant_id','=',$tenant_id)
             ->orderBy('id','DESC');
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
@@ -75,10 +75,17 @@ $app->post('/upnotice',function()use($app) {
     }
     date_default_timezone_set("PRC");
     $shijian=date("Y-m-d",time());
-    $insertStatement = $database->insert(array( 'url','datetime','from_user','content','is_read'))
+    $selectStatement = $database->select()
+        ->from('tenant');
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetchAll();
+    for($i=0;$i<count($data1);$i++){
+        $insertStatement = $database->insert(array( 'tenant_id','url','datetime','from_user','content','is_read'))
             ->into('message')
-            ->values(array("http://files.uminfo.cn:8000/insurance_policy/".$name3,$shijian,'江苏酉铭','您有一条新的公告','1'));
-    $insertId = $insertStatement->execute(false);
+            ->values(array($data1[$i]['tenant_id'],"http://files.uminfo.cn:8000/insurance_policy/".$name3,$shijian,'江苏酉铭','您有一条新的公告','1'));
+        $insertId = $insertStatement->execute(false);
+    }
+
     echo json_encode(array("result" => "0", "desc" => "success"));
 });
 
@@ -92,7 +99,7 @@ $app->get('/limitMessages0',function()use($app) {
     if ($tenant_id != null || $tenant_id != '') {
         $selectStatement = $database->select()
             ->from('message')
-            ->whereIn('tenant_id', array( 0, $tenant_id ))
+            ->where('tenant_id','=',$tenant_id)
             ->orderBy('id','DESC')
             ->limit((int)$size,(int)$offset);
         $stmt = $selectStatement->execute();
@@ -111,7 +118,7 @@ $app->get('/getMessages1',function()use($app) {
     if ($tenant_id != null || $tenant_id != '') {
         $selectStatement = $database->select()
             ->from('message')
-            ->whereIn('tenant_id', array( 0, $tenant_id ))
+            ->where('tenant_id','=',$tenant_id)
             ->where('is_read', '=', 0)
             ->orderBy('id','DESC');
         $stmt = $selectStatement->execute();
