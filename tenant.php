@@ -403,85 +403,97 @@ $app->post('/tenant',function()use($app) {
                                  if($receive_city_id!=null||$receive_city_id!=""){
                                      if($begin_time!=null||$begin_time!=""){
                                          if($end_time!=null||$end_time!=""){
-                                             if($sales_id!=null||$sales_id!=""){
+                                             if($sales_id!=null||$sales_id!="")
+                                              $selectStatement = $database->select()
+                                                     ->from('tenant')
+                                                     ->where('company','=',$company)
+                                                     ->where('business_l','=',$business_l)
+                                                     ->where('exist','=',0);
+                                             $stmt = $selectStatement->execute();
+                                             $data5 = $stmt->fetch();
+                                             if($data5==null) {
                                                  $selectStatement = $database->select()
                                                      ->from('sales')
                                                      ->where('id','=',$sales_id)
                                                      ->where('exist',"=",0);
-                                                     $stmt = $selectStatement->execute();
-                                                            $data1 = $stmt->fetch();
-                                                            if($data1!=null||$data1!=""){
-                                                                $chars = "0123456789abcdefghijklmnopqrstuvwxyz";
-                                                                $str1 = substr($chars, mt_rand(0, strlen($chars) - 2), 1);
-                                                                do{
-                                                                    $str1.= substr($chars, mt_rand(0, strlen($chars) - 2), 1);
-                                                                }while(strlen($str1)<4);
-                                                                $time=base_convert(time(), 10, 32);
-                                                                $num=$time.$str1;
-                                                                $insertStatement = $database->insert(array('customer_id','customer_name','customer_phone','exist'
-                                                                ,'customer_city_id','customer_address'))
-                                                                    ->into('customer')
-                                                                    ->values(array($num,$contact_name,$telephone,0,$from_city_id,$address));
-                                                                $insertId = $insertStatement->execute(false);
-                                                                if($insertId!=null||$insertId!=""){
-                                                                    $selectStatement = $database->select()
-                                                                        ->from('city')
-                                                                        ->where('id','=',$from_city_id);
-                                                                    $stmt = $selectStatement->execute();
-                                                                    $data01 = $stmt->fetch();
-                                                                    $selectStatement = $database->select()
-                                                                        ->from('tenant');
-                                                                    $stmt = $selectStatement->execute();
-                                                                    $data02 = $stmt->fetchAll();
-                                                                    $num01=0;
-                                                                    for($i=0;$i<count($data02);$i++){
-                                                                        if(substr($data02[$i]['tenant_num'],0,3)==$data01['area_code']){
-                                                                            $num01++;
-                                                                        }
-                                                                    }
-                                                                    $num01++;
-                                                                    while(strlen($num01)<4){
-                                                                        $num01='0'.$num01;
-                                                                    }
-                                                                    $tenant_num=$data01['area_code'].$num01;
-                                                                    $tenant_id=count($data02)+1000000001;
-                                                                    $insertStatement = $database->insert(array('company','from_city_id','receive_city_id','contact_id','exist','business_l'
-                                                                    ,'sales_id','address','business_l_p','order_t_p','trans_contract_p','service_items','c_introduction','end_date'
-                                                                    ,'begin_time','qq','email','insurance_balance','tenant_num','tenant_id'))
-                                                                        ->into('tenant')
-                                                                        ->values(array($company,$from_city_id,$receive_city_id,$num,0,$business_l
-                                                                        ,$sales_id,$address,$business_l_p,$order_t_p, $trans_c_p
-                                                                        ,$service_items,$c_introduction,$end_time,
-                                                                            $begin_time,$qq,$email,0,$tenant_num,$tenant_id));
-                                                                    $insertId = $insertStatement->execute(false);
-                                                                    if($insertId!=""||$insertId!=null){
-                                                                        $selectStatement = $database->select()
-                                                                            ->from('tenant')
-                                                                            ->where('company','=',$company)
-                                                                            ->where('business_l','=',$business_l);
-                                                                        $stmt = $selectStatement->execute();
-                                                                        $data4 = $stmt->fetch();
-                                                                        $array=array();
-                                                                        $key='tenant_id';
-                                                                        $array[$key]=$data4['tenant_id'];
-                                                                        $updateStatement = $database->update($array)
-                                                                            ->table('customer')
-                                                                            ->where('customer_id','=',$num);
-                                                                        $affectedRows = $updateStatement->execute();
-                                                                        //echo json_encode(array('result'=>'0','desc'=>'添加成功'));
-                                                                        $app->redirect('http://www.uminfo.cn/yonhu.html');
-                                                                    }else{
-                                                                        $app->redirect('http://www.uminfo.cn/zhuce.html?desc=添加租户信息失败');
+                                                 $stmt = $selectStatement->execute();
+                                                 $data1 = $stmt->fetch();
+                                                 if($data1!=null||$data1!=""){
+                                                     $chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+                                                     $str1 = substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+                                                     do{
+                                                         $str1.= substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+                                                     }while(strlen($str1)<4);
+                                                     $time=base_convert(time(), 10, 32);
+                                                     $num=$time.$str1;
+                                                     $insertStatement = $database->insert(array('customer_id','customer_name','customer_phone','exist'
+                                                     ,'customer_city_id','customer_address'))
+                                                         ->into('customer')
+                                                         ->values(array($num,$contact_name,$telephone,0,$from_city_id,$address));
+                                                     $insertId = $insertStatement->execute(false);
+                                                     if($insertId!=null||$insertId!=""){
+                                                         $selectStatement = $database->select()
+                                                             ->from('city')
+                                                             ->where('id','=',$from_city_id);
+                                                         $stmt = $selectStatement->execute();
+                                                         $data01 = $stmt->fetch();
+                                                         $selectStatement = $database->select()
+                                                             ->from('tenant');
+                                                         $stmt = $selectStatement->execute();
+                                                         $data02 = $stmt->fetchAll();
+                                                         $num01=0;
+                                                         for($i=0;$i<count($data02);$i++){
+                                                             if(substr($data02[$i]['tenant_num'],0,3)==$data01['area_code']){
+                                                                 $num01++;
+                                                             }
+                                                         }
+                                                         $num01++;
+                                                         while(strlen($num01)<4){
+                                                             $num01='0'.$num01;
+                                                         }
+                                                         $tenant_num=$data01['area_code'].$num01;
+                                                         $tenant_id=count($data02)+1000000001;
+                                                         $insertStatement = $database->insert(array('company','from_city_id','receive_city_id','contact_id','exist','business_l'
+                                                         ,'sales_id','address','business_l_p','order_t_p','trans_contract_p','service_items','c_introduction','end_date'
+                                                         ,'begin_time','qq','email','insurance_balance','tenant_num','tenant_id'))
+                                                             ->into('tenant')
+                                                             ->values(array($company,$from_city_id,$receive_city_id,$num,0,$business_l
+                                                             ,$sales_id,$address,$business_l_p,$order_t_p, $trans_c_p
+                                                             ,$service_items,$c_introduction,$end_time,
+                                                                 $begin_time,$qq,$email,0,$tenant_num,$tenant_id));
+                                                         $insertId = $insertStatement->execute(false);
+                                                         if($insertId!=""||$insertId!=null){
+                                                             $selectStatement = $database->select()
+                                                                 ->from('tenant')
+                                                                 ->where('company','=',$company)
+                                                                 ->where('business_l','=',$business_l);
+                                                             $stmt = $selectStatement->execute();
+                                                             $data4 = $stmt->fetch();
+                                                             $array=array();
+                                                             $key='tenant_id';
+                                                             $array[$key]=$data4['tenant_id'];
+                                                             $updateStatement = $database->update($array)
+                                                                 ->table('customer')
+                                                                 ->where('customer_id','=',$num);
+                                                             $affectedRows = $updateStatement->execute();
+                                                             //echo json_encode(array('result'=>'0','desc'=>'添加成功'));
+                                                             $app->redirect('http://www.uminfo.cn/yonhu.html');
+                                                         }else{
+                                                             $app->redirect('http://www.uminfo.cn/zhuce.html?desc=添加租户信息失败');
 //                                                                        echo json_encode(array("result"=>"1","desc"=>"添加租户信息失败"));
-                                                                    }
-                                                                }else{
-                                                                    $app->redirect('http://www.uminfo.cn/zhuce.html?desc=添加负责人信息失败');
+                                                         }
+                                                     }else{
+                                                         $app->redirect('http://www.uminfo.cn/zhuce.html?desc=添加负责人信息失败');
 //                                                                    echo json_encode(array("result"=>"3","desc"=>"添加负责人信息失败"));
-                                                                }
-                                                            }else {
-                                                                $app->redirect('http://www.uminfo.cn/zhuce.html?desc=该业务员不存在');
+                                                     }
+                                                 }else {
+                                                     $app->redirect('http://www.uminfo.cn/zhuce.html?desc=该业务员不存在');
 //                                                                echo json_encode(array("result"=>"4","desc"=>"该业务员不存在"));
-                                                            }
+                                                 }
+                                             }else {
+                                                 $app->redirect('http://www.uminfo.cn/zhuce.html?desc=该公司已存在');
+                                             }
+
                                                         }else{
                                                             echo json_encode(array("result"=>"5","desc"=>"缺少sales_id"));
                                                         }
