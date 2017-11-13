@@ -327,7 +327,7 @@
                 alert("发货城市不能为空");
                 return false;
             }
-            if(telephone==null||telephone==""||!/^1[34578]\d{9}$/.test(phone)){
+            if(telephone==null||telephone==""||!/^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/.test(telephone)){
                 alert("缺少公司联系人电话或电话号码格式错误");
                 return false;
             }
