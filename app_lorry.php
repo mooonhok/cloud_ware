@@ -554,6 +554,7 @@ $app->post('/sureschfor',function()use($app){
                         ->from('lorry')
                         ->where('flag','=',0)
                         ->where('exist','=',0)
+                        ->where('tenant_id','=',$data['tenant_id'])
                         ->where('lorry_id','=',$data['lorry_id']);
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetch();
@@ -624,6 +625,7 @@ $app->post('/sureschthree',function()use($app){
                     if($time==$data1['signtime']){
                     $selectStament=$database->select()
                         ->from('lorry')
+                        ->where('tenant_id','=',$data['tenant_id'])
                         ->where('lorry_id','=',$data['lorry_id'])
                         ->where('exist','=',0)
                         ->where('flag','=',0);
