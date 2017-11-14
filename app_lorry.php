@@ -555,6 +555,7 @@ $app->post('/sureschfor',function()use($app){
                         ->where('flag','=',0)
                         ->where('driver_phone','=',$data1['driver_phone'])
                         ->where('lorry_id','=',$data['lorry_id'])
+                        ->where('plate_number','=',$data['plate_number'])
                         ->where('driver_name','=',$data1['driver_name']);
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetch();
@@ -624,6 +625,7 @@ $app->post('/sureschthree',function()use($app){
                         ->where('driver_phone','=',$data1['driver_phone'])
                         ->where('lorry_id','=',$data['lorry_id'])
                         ->where('flag','=',0)
+                        ->where('plate_number','=',$data['plate_number'])
                         ->where('driver_name','=',$data1['driver_name']);
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetch();
@@ -634,13 +636,13 @@ $app->post('/sureschthree',function()use($app){
                         $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '确认成功'));
                     }else{
-                        echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在'));
+                        echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在或车辆不是默认车'));
                     }
                     }else{
                         echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
                     }
                 }else{
-                    echo json_encode(array('result' => '5', 'desc' => '驾驶员不存在或车辆不是默认车'));
+                    echo json_encode(array('result' => '5', 'desc' => '驾驶员不存在'));
                 }
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '驾驶员未登录'));
