@@ -553,20 +553,22 @@ $app->post('/sureschfor',function()use($app){
                     $selectStament=$database->select()
                         ->from('lorry')
                         ->where('flag','=',0)
-                        ->where('driver_phone','=',$data1['driver_phone'])
-                        ->where('lorry_id','=',$data['lorry_id'])
-                        ->where('plate_number','=',$data['plate_number'])
-                        ->where('driver_name','=',$data1['driver_name']);
+                        ->where('exist','=',0)
+                        ->where('lorry_id','=',$data['lorry_id']);
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetch();
                     if($data2!=null) {
+                        if($data2['plate_number']==$data1['plate_number']){
                         $updateStatement = $database->update($arrays)
                             ->table('scheduling')
                             ->where('scheduling_id', '=', $schedule_id);
                         $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '取消成功'));
+                        }else{
+                            echo json_encode(array('result' => '6', 'desc' => '车牌不是默认车牌'));
+                        }
                     }else{
-                        echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在或车辆不是默认车辆'));
+                        echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在'));
                     }
                     }else{
                         echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
@@ -622,19 +624,21 @@ $app->post('/sureschthree',function()use($app){
                     if($time==$data1['signtime']){
                     $selectStament=$database->select()
                         ->from('lorry')
-                        ->where('driver_phone','=',$data1['driver_phone'])
                         ->where('lorry_id','=',$data['lorry_id'])
-                        ->where('flag','=',0)
-                        ->where('plate_number','=',$data['plate_number'])
-                        ->where('driver_name','=',$data1['driver_name']);
+                        ->where('exist','=',0)
+                        ->where('flag','=',0);
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetch();
                     if($data2!=null) {
-                        $updateStatement = $database->update($arrays)
-                            ->table('scheduling')
-                            ->where('scheduling_id', '=', $schedule_id);
-                        $affectedRows = $updateStatement->execute();
-                        echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+                        if($data2['plate_number']==$data1['plate_number']) {
+                            $updateStatement = $database->update($arrays)
+                                ->table('scheduling')
+                                ->where('scheduling_id', '=', $schedule_id);
+                            $affectedRows = $updateStatement->execute();
+                            echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+                        }else{
+                            echo json_encode(array('result' => '6', 'desc' => '车牌不是默认车牌'));
+                        }
                     }else{
                         echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在或车辆不是默认车'));
                     }
