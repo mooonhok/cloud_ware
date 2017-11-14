@@ -179,7 +179,7 @@
 									}
 								},
 								error: function(xhr) {
-									alert("获取保险记录后台失败！");
+									alert("获取保险记录后台失败！"+xhr.responseText);
 								}
 							})
 						}
@@ -206,7 +206,7 @@
 									$("#gsid").val(id);
 								},
 								error: function(xhr) {
-									alert("获取后台失败");
+									alert("获取后台失败"+xhr.responseText);
 								}
 							})
 						}
@@ -316,7 +316,7 @@
 									}
 								},
 								error: function(xhr) {
-									alert(xhr.responseText);
+									alert("获取后台失败"+xhr.responseText);
 								}
 							});
 						}
@@ -427,11 +427,11 @@
 								weixin: wx1
 							}),
 							success: function(msg) {
-								alert("修改个人信息成功");
+								alert(msg.desc);
 								window.location.reload();
 							},
 							error: function(xhr) {
-								alert(xhr.responseText);
+								alert("获取后台信息失败"+xhr.responseText);
 							}
 						});
 					}
@@ -456,7 +456,7 @@
 			}
 			 else{	
 					//修改公司信息
-					alert(sales_id+"<br>"+id);
+					//alert(sales_id+"<br>"+id);
 					$.ajax({
 						url: "http://api.uminfo.cn/sales.php/tenantchange",
 						dataType: 'json',
@@ -473,7 +473,7 @@
 							email: email
 						}),
 						success: function(msg) {
-							alert("修改公司信息成功");
+							//alert("修改公司信息成功");
 							alert(msg.desc);
 							$(".box2").css("display", "none");
 			                $(".box3").css("display", "block");
@@ -487,7 +487,7 @@
 							window.location.reload();
 						},
 						error: function(xhr) {
-							alert(xhr.responseText);
+							alert("获取后台失败"+xhr.responseText);
 						}
 					});
 				}
@@ -522,7 +522,7 @@
 					}
 				},
 				error: function(xhr) {
-					alert("获取后台失败");
+					alert("获取后台失败"+xhr.responseText);
 				}
 			})
 		}
@@ -570,7 +570,7 @@
 								}
 							},
 							error: function(xhr) {
-								alert(xhr.responseText);
+								alert("获取后台失败"+xhr.responseText);
 							}
 						});
 				}
