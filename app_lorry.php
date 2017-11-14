@@ -714,7 +714,7 @@ $app->get('/obycourier',function()use($app){
             }
             echo json_encode(array('result' => '0', 'desc' => '', 'orders' => $arrays, 'count' => $num));
         }else{
-            echo json_encode(array('result' => '2', 'desc' => '配送员不存在'));
+            echo json_encode(array('result' => '2', 'desc' => '您还不是配送员'));
         }
         }else{
             echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
@@ -785,7 +785,7 @@ $app->get('/obycouriern',function()use($app){
             echo json_encode(array('result' => '0', 'desc' => '', 'orders' => $arrays));
 
         } else {
-            echo json_encode(array('result' => '2', 'desc' => '配送员不存在'));
+            echo json_encode(array('result' => '2', 'desc' => '您还不是配送员'));
         }
         }else{
             echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
@@ -873,7 +873,7 @@ $app->post('/ordersure',function()use($app){
                             echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
                         }
                     }else{
-                        echo json_encode(array('result' => '5', 'desc' => '配送员不存在或车辆不是默认车辆'));
+                        echo json_encode(array('result' => '5', 'desc' => '您还不是配送员或车辆不是默认车辆'));
                     }
                 }else{
                     echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
@@ -938,7 +938,7 @@ $app->post('/ordersurefor',function()use($app){
                             echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
                         }
                     }else{
-                        echo json_encode(array('result' => '5', 'desc' => '配送员不存在或车辆不是默认车辆'));
+                        echo json_encode(array('result' => '5', 'desc' => '您还不是配送员或车辆不是默认车辆'));
                     }
                 }else{
                     echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
@@ -1004,7 +1004,7 @@ $app->post('/ordersurethree',function()use($app){
                             echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
                         }
                     }else{
-                        echo json_encode(array('result' => '5', 'desc' => '配送员不存在或车辆不是默认车辆'));
+                        echo json_encode(array('result' => '5', 'desc' => '您还不是配送员或车辆不是默认车辆'));
                     }
                 }else{
                     echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
