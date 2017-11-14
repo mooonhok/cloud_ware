@@ -1031,19 +1031,13 @@ $app->get('/getSchedulingOrderList1',function()use($app){
     $lorry_id=$app->request->get('lorry_id');
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
-            ->from('schedule_order')
-            ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
-            ->join('scheduling','scheduling.scheduling_id','=','schedule_order.schedule_id','INNER')
+            ->from('scheduling')
             ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
-            ->where('schedule_order.tenant_id', '=', $tenant_id)
-            ->where('scheduling.tenant_id', '=', $tenant_id)
-            ->where('orders.tenant_id', '=', $tenant_id)
             ->where('lorry.tenant_id', '=', $tenant_id)
+            ->where('scheduling.tenant_id', '=', $tenant_id)
             ->where('lorry.lorry_id', '=', $lorry_id)
             ->where('scheduling.is_contract', '=', 1)
-            ->where('schedule_order.exist', '=', 0)
-            ->where('scheduling.exist', '=', 0)
-            ->where('orders.exist', '=', 0);
+            ->where('scheduling.exist', '=', 0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         for($i=0;$i<count($data);$i++){
@@ -1053,17 +1047,6 @@ $app->get('/getSchedulingOrderList1',function()use($app){
                 ->where('lorry_id', '=', $data[$i]['lorry_id']);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('goods')
-                ->where('tenant_id', '=', $tenant_id)
-                ->where('order_id', '=', $data[$i]['order_id']);
-            $stmt = $selectStatement->execute();
-            $data2 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('goods_package')
-                ->where('goods_package_id', '=', $data2['goods_package_id']);
-            $stmt = $selectStatement->execute();
-            $data5 = $stmt->fetch();
             $selectStatement = $database->select()
                 ->from('scheduling')
                 ->where('tenant_id', '=', $tenant_id)
@@ -1097,8 +1080,6 @@ $app->get('/getSchedulingOrderList1',function()use($app){
             $stmt = $selectStatement->execute();
             $data9 = $stmt->fetch();
             $data[$i]['lorry']=$data1;
-            $data[$i]['goods']=$data2;
-            $data[$i]['goods']['goods_package']=$data5;
             $data[$i]['receiver']=$data4;
             $data[$i]['sender_city']=$data6;
             $data[$i]['sender_province']=$data8;
