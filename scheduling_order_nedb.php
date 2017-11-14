@@ -972,6 +972,15 @@ $app->get('/getSchedulingOrderList0',function()use($app){
             ->where('scheduling.exist', '=', 0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
+        for($i=0;$i<count($data);$i++){
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('lorry_id', '=', $data[$i]['lorry_id']);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            $data[$i]['lorry']=$data1;
+        }
         echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
