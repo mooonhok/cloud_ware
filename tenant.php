@@ -369,7 +369,11 @@ $app->post('/tenant',function()use($app) {
     $from_city_id = $app->request->params('from_city_id');
     $c_introduction = $app->request->params('c_introduction');
     $email = $app->request->params('email');
-  //  $order_t_p = $app->request->params('order_t_p');
+    $loca = $app->request->params('loca');
+    $arr=explode(",",$loca);
+    $longitude=$arr[0];
+    $latitude=$arr[1];
+    //  $order_t_p = $app->request->params('order_t_p');
     $receive_city_id = $app->request->params('receive_city_id');
     $sales_id = $app->request->params('sales_id');
     $service_items = $app->request->params('service_items');
@@ -454,12 +458,12 @@ $app->post('/tenant',function()use($app) {
                                                          $tenant_id=count($data02)+1000000001;
                                                          $insertStatement = $database->insert(array('company','from_city_id','receive_city_id','contact_id','exist','business_l'
                                                          ,'sales_id','address','business_l_p','order_t_p','trans_contract_p','service_items','c_introduction','end_date'
-                                                         ,'begin_time','qq','email','insurance_balance','tenant_num','tenant_id'))
+                                                         ,'begin_time','qq','email','insurance_balance','tenant_num','tenant_id','longitude','latitude'))
                                                              ->into('tenant')
                                                              ->values(array($company,$from_city_id,$receive_city_id,$num,0,$business_l
                                                              ,$sales_id,$address,$business_l_p,$order_t_p, $trans_c_p
                                                              ,$service_items,$c_introduction,$end_time,
-                                                                 $begin_time,$qq,$email,0,$tenant_num,$tenant_id));
+                                                                 $begin_time,$qq,$email,0,$tenant_num,$tenant_id,$longitude,$latitude));
                                                          $insertId = $insertStatement->execute(false);
                                                          if($insertId!=""||$insertId!=null){
                                                              $selectStatement = $database->select()

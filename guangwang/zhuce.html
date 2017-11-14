@@ -88,10 +88,14 @@
 								<input type="text" id="inp2" placeholder="选择日期" name="end_time">
 							</div>
 						</div>
+						<div class="center_14">
+							<input id="showl" type="button" value="拾取公司地理坐标">
+							<input type="text" id="loca"  name="loca">
+						</div>
 					</div>
-                    <div style="color:red;float: left;width:100%;">以上为必填</div>
+                  <!--  <div style="color:red;float: left;width:100%;">以上为必填</div>-->
 				</div>
-
+               <div style="color:red;float: left;width:100%;margin-left:100px;">以上为必填</div>
 
 				<div class="foot">
 					<div class="foot_1">
@@ -147,7 +151,10 @@
 		}
 		$(".center").on("click",function(){
 			$(".calender-wrap ").css("display","none");
-		})
+		});
+		$("#showl").on("click",function(){
+			window.location.href="http://api.map.baidu.com/lbsapi/getpoint/index.html";
+		});
 	</script>
 
 	<script type="text/javascript">		
@@ -292,8 +299,8 @@
             var sales_id = document.getElementsByName("sales_id")[0].value;
             var service_items = document.getElementsByName("service_items")[0].value;
             var trans_contract_p = document.getElementsByName("trans_contract_p")[0].value;
-//            photoExt=obj.value.substr(obj.value.lastIndexOf(".")).toLowerCase();//获得文件后缀名
-//            alert(trans_contract_p);
+             var loca = document.getElementsByName("loca")[0].value;
+
             if(address == null || address == "") {
                 alert("地址不能为空");
                 return false;
@@ -337,6 +344,9 @@
             if(!/^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/.test(telephone)){
                 alert("电话号码格式错误");
                 return false;
+            }
+            if(loca==null||loca==""){
+            	alert("地理坐标为空");
             }
             alert("提交成功");
             return true;

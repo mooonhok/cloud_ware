@@ -291,6 +291,30 @@
 	float: left;
 	margin-left: 100px;
 }
+.center_14{
+		width:600px;
+	height: 40px;
+	line-height: 40px;
+	margin-top: 20px;
+	float: left;
+	margin-left: 100px;
+}
+#showl{
+	width:200px;
+	height:30px;
+	float: left;
+	vertical-align: top;
+}
+#loca{
+	margin-left: 50px;
+	width: 300px;
+	background: white;
+	outline-style: none;
+	border: 1px solid black;
+	height: 28px;
+	font-size: 16px;
+	vertical-align: top;
+}
 	.containter {
 	width: 320px;
 	margin: auto
