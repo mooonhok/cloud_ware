@@ -979,7 +979,44 @@ $app->get('/getSchedulingOrderList0',function()use($app){
                 ->where('lorry_id', '=', $data[$i]['lorry_id']);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data[$i]['send_city_id']);
+            $stmt = $selectStatement->execute();
+            $data6 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data[$i]['receive_city_id']);
+            $stmt = $selectStatement->execute();
+            $data7 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id', '=', $data6['pid']);
+            $stmt = $selectStatement->execute();
+            $data8 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id', '=', $data7['pid']);
+            $stmt = $selectStatement->execute();
+            $data9 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('scheduling')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('scheduling_id', '=', $data[$i]['scheduling_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('customer_id', '=', $data3['receiver_id']);
+            $stmt = $selectStatement->execute();
+            $data4 = $stmt->fetch();
             $data[$i]['lorry']=$data1;
+            $data[$i]['receiver']=$data4;
+            $data[$i]['sender_city']=$data6;
+            $data[$i]['sender_province']=$data8;
+            $data[$i]['receiver_city']=$data7;
+            $data[$i]['receiver_province']=$data9;
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
     }else{
