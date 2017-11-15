@@ -278,6 +278,7 @@ $app->get("/getStaffMac2",function()use($app){
                 ->where('tenant_id',"=",$data1[$i]['tenant_id']);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetch();
+            $data2['password']=decode($data2['password'] , 'cxphp');
             $data1[$i] = array_merge($data1[$i], $data2);
         }
             echo json_encode(array("result"=>"0","desc"=>"success","staff_macs"=>$data1));
