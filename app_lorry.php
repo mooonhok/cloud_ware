@@ -861,12 +861,19 @@ $app->post('/ordersure',function()use($app){
                 if($data10!=null){
                     $selectStament=$database->select()
                         ->from('lorry')
-                        ->where('flag','=',1)
-                        ->where('app_chose','=',1)
                         ->where('lorry_id','=',$lorry_id);
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetch();
-                    if($data2!=null){
+                    $selectStament=$database->select()
+                        ->from('lorry')
+                        ->where('app_chose','=',1)
+                        ->where('flag','=',1)
+                        ->where('plate_number','=',$data2['plate_number'])
+                        ->where('driver_phone','=',$data2['driver_phone'])
+                        ->where('driver_name','=',$data2['driver_name']);
+                    $stmt=$selectStament->execute();
+                    $data3=$stmt->fetch();
+                    if($data3!=null){
                         if($time==$data2['signtime']) {
                             $updateStatement = $database->update($arrays)
                                 ->table('delivery')
@@ -930,12 +937,19 @@ $app->post('/ordersurefor',function()use($app){
                 if($data10!=null){
                     $selectStament=$database->select()
                         ->from('lorry')
-                        ->where('flag','=',1)
-                        ->where('app_chose','=',1)
                         ->where('lorry_id','=',$lorry_id);
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetch();
-                    if($data2!=null){
+                    $selectStament=$database->select()
+                        ->from('lorry')
+                        ->where('app_chose','=',1)
+                        ->where('flag','=',1)
+                        ->where('plate_number','=',$data2['plate_number'])
+                        ->where('driver_phone','=',$data2['driver_phone'])
+                        ->where('driver_name','=',$data2['driver_name']);
+                    $stmt=$selectStament->execute();
+                    $data3=$stmt->fetch();
+                    if($data3!=null){
                         if($time==$data2['signtime']) {
                             $updateStatement = $database->update($arrays)
                                 ->table('delivery')
@@ -996,12 +1010,19 @@ $app->post('/ordersurethree',function()use($app){
                 if($data10!=null){
                     $selectStament=$database->select()
                         ->from('lorry')
-                        ->where('flag','=',1)
-                        ->where('app_chose','=',1)
                         ->where('lorry_id','=',$lorry_id);
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetch();
-                    if($data2!=null){
+                    $selectStament=$database->select()
+                        ->from('lorry')
+                        ->where('app_chose','=',1)
+                        ->where('flag','=',1)
+                        ->where('plate_number','=',$data2['plate_number'])
+                        ->where('driver_phone','=',$data2['driver_phone'])
+                        ->where('driver_name','=',$data2['driver_name']);
+                    $stmt=$selectStament->execute();
+                    $data3=$stmt->fetch();
+                    if($data3!=null){
                         if($time==$data2['signtime']) {
                             $updateStatement = $database->update($arrays)
                                 ->table('delivery')
