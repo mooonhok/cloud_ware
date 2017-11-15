@@ -8,8 +8,10 @@
 		<link rel="stylesheet" href="css/zhuce.css">
 		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery.session.js"></script> 
+			<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Z7ZjajqB1B4SRU895btxr6ZsLwGeKQOj"></script>
 	</head>
 	<body>
+	<div id="fromdata">
 		<form id="myform" action="http://api.uminfo.cn/tenant.php/tenant" enctype="multipart/form-data"  onsubmit="return check()" method="post" autocomplete="off">
 			<div class="box">
 				<!-- top -->
@@ -93,7 +95,7 @@
 							<input type="text" id="loca"  name="loca">
 						</div>
 					</div>
-                  <!--  <div style="color:red;float: left;width:100%;">以上为必填</div>-->
+                 
 				</div>
                <div style="color:red;float: left;width:100%;margin-left:100px;">以上为必填</div>
 
@@ -131,6 +133,12 @@
 				</div>
 			</div>
 		</form>
+		</div>
+		<div id="boxloc">
+			<input id="loc2" type="text" onfocus=this.blur()>
+			<div id="allmap"></div>
+			<input id="sure" type="button" value="确定"><input id="nsure" type="button" value="取消">
+		</div>
 	</body>
 	<script src="http://www.itakeo.com/down/calender2.js"></script>
 	<script type="text/javascript">
@@ -153,7 +161,33 @@
 			$(".calender-wrap ").css("display","none");
 		});
 		$("#showl").on("click",function(){
-			window.open("http://api.map.baidu.com/lbsapi/getpoint/index.html");
+			$("#boxloc").css("display","block");
+			$("#fromdata").css("display","none");
+			var from_city = $("#city1 option:selected").text();
+			//alert(from_city);
+			if(from_city!="请选择"){
+				var map = new BMap.Map("allmap");            
+				map.centerAndZoom(from_city,12);
+				map.enableScrollWheelZoom();
+	            //单击获取点击的经纬度
+				map.addEventListener("click",function(e){
+//					alert(e.point.lng + "," + e.point.lat);
+					$("#loc2").val(e.point.lng + "," + e.point.lat);
+				});
+			}else{
+                    alert("您还未选择发货城市");
+					$("#boxloc").css("display","none");
+			       $("#fromdata").css("display","block");
+			}
+		});
+		$("#nsure").on("click",function(){
+			$("#fromdata").css("display","block");
+			$("#boxloc").css("display","none");
+		});
+		$("#sure").on("click",function(){
+			$("#fromdata").css("display","block");
+			$("#loca").val($("#loc2").val());
+			$("#boxloc").css("display","none");
 		});
 	</script>
 
@@ -278,9 +312,9 @@
 	<script>
 		var userid = $.session.get('userid');
 		$("#userid").val(userid);
-			if(userid == null || userid == "") {
-				window.location.href = "http://www.uminfo.cn/index.html";
-			}
+//			if(userid == null || userid == "") {
+//				window.location.href = "http://www.uminfo.cn/index.html";
+//			}
         function check(){
             var address = document.getElementsByName("address")[0].value;
             var begin_time = document.getElementsByName("begin_time")[0].value;

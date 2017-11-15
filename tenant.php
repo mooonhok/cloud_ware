@@ -170,7 +170,6 @@ $app->put('/tenant',function()use($app){
                                         }
                                     }
                                 }
-
                             }else{
                                 echo json_encode(array("result"=>"6","desc"=>"该公司不存在"));
                             }
@@ -496,7 +495,6 @@ $app->post('/tenant',function()use($app) {
                                              }else {
                                                  $app->redirect('http://www.uminfo.cn/zhuce.html?desc=该公司已存在');
                                              }
-
                                                         }else{
                                                             echo json_encode(array("result"=>"5","desc"=>"缺少sales_id"));
                                                         }

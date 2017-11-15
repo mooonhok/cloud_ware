@@ -563,3 +563,36 @@
 .wenzi11{
 	float: left;
 }
+#boxloc{
+	height:750px;
+	width:810px;
+    display:none;
+    position: absolute;
+    z-index: 1000;
+    top:100px;
+   left:300px;
+}
+#allmap{
+	margin-top: 10px;
+	height:700px;
+	width:800px;
+	border-style:groove ;
+}
+#sure{
+	margin-top:10px;
+	height:40px;
+	width:60px;
+	margin-left: 70px;
+}
+#nsure{
+	margin-top:10px;
+	height:40px;
+	width:60px;
+	margin-left:100px;
+}
+#loc2{
+	margin-top: 10px;
+	height:40px;
+	width:300px;
+    margin-left:30px;
+}
