@@ -42,7 +42,15 @@ $app->post('/addLorry',function()use($app) {
                             ->where('plate_number', '=', $plate_number);
                         $stmt = $selectStatement->execute();
                         $data1 = $stmt->fetch();
-
+                        $selectStatement = $database->select()
+                            ->from('lorry')
+                            ->where('tenant_id', '=', $tenant_id)
+                            ->where('driver_name', '=', $driver_name)
+                            ->where('driver_phone', '=', $driver_phone)
+                            ->where('flag', '=', $flag)
+                            ->where('plate_number', '=', $plate_number);
+                        $stmt = $selectStatement->execute();
+                        $data2 = $stmt->fetch();
                         $selectStatement = $database->select()
                             ->from('lorry')
                             ->where('tenant_id', '=', 0);
@@ -61,9 +69,10 @@ $app->post('/addLorry',function()use($app) {
                                 ->into('lorry')
                                 ->values(array((count($data)+10000001),$plate_number,$driver_name,$driver_phone,$password,$flag,'1',"http://files.uminfo.cn:8000/lorry/photo1.png","http://files.uminfo.cn:8000/lorry/photo2.png"));
                             $insertId = $insertStatement->execute(false);
-                        }else{
-                            $array['app_chose']=$data1['app_chose'];
-                            $array['signtime']=$data1['signtime'];
+                        }
+                        if($data2){
+                            $array['app_chose']=$data2['app_chose'];
+                            $array['signtime']=$data2['signtime'];
                         }
                         $array['tenant_id']=$tenant_id;
                         $array['exist']=0;
