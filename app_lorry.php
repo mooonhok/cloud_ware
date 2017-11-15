@@ -1038,7 +1038,6 @@ $app->get('/tongji',function()use($app){
         $selectStament = $database->select()
             ->from('lorry')
             ->where('exist', '=', 0)
-            ->where('flag', '=', 0)
             ->where('lorry_id', '=', $lorry_id);
         $stmt = $selectStament->execute();
         $data = $stmt->fetch();
