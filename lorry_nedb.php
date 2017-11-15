@@ -52,12 +52,11 @@ $app->post('/addLorry',function()use($app) {
                         $stmt = $selectStatement->execute();
                         $data2 = $stmt->fetch();
                         $selectStatement = $database->select()
-                            ->from('lorry')
-                            ->where('tenant_id', '=', 0);
+                            ->from('lorry');
                         $stmt = $selectStatement->execute();
                         $data = $stmt->fetchAll();
 
-                        $array['app_chose']=1;
+                        $array['app_chose']=0;
                         if(!$data1){
                             $password1=123456;
                             $str1=str_split($password1,3);
