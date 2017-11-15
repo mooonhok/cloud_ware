@@ -63,6 +63,7 @@ $app->post('/addLorry',function()use($app) {
                             $insertId = $insertStatement->execute(false);
                         }else{
                             $array['app_chose']=$data1['app_chose'];
+                            $array['signtime']=$data1['signtime'];
                         }
                         $array['tenant_id']=$tenant_id;
                         $array['exist']=0;

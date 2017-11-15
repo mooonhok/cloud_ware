@@ -262,6 +262,7 @@ $app->get("/getStaffMac2",function()use($app){
             $selectStatement = $database->select()
                 ->from('staff_mac')
                 ->leftJoin("staff","staff.staff_id","=","staff_mac.staff_id")
+                ->where('staff_mac.tenant_id',"=",'staff.tenant_id')
                 ->where('staff_mac.id',"=",$id);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
