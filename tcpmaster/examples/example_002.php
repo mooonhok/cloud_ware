@@ -82,7 +82,7 @@ EOD;
 //Close and output PDF document
     $pdf->Output('example_002.pdf', 'I');
 
-    $myfile = fopen("../../../../../../files/app/example_002.pdf", "w") or die("Unable to open file!");
+    $myfile = fopen("../../../cloud/example_002.pdf", "w") or die("Unable to open file!");
 //move_uploaded_file('example_002.pdf',"trans_contract_p/11111.pdf");
 //============================================================+
 // END OF FILE
