@@ -259,16 +259,27 @@ $app->get("/getStaffMac2",function()use($app){
     $id=$app->request->get("id");
     $database=localhost();
     if($id!=null||$id!=""){
+//            $selectStatement = $database->select()
+//                ->from('staff_mac')
+//                ->leftJoin("staff","staff.staff_id","=","staff_mac.staff_id")
+//                ->where('staff_mac.tenant_id',"=",'staff.tenant_id')
+//                ->where('staff_mac.id',"=",$id);
+//            $stmt = $selectStatement->execute();
+//            $data1 = $stmt->fetchAll();
+        $selectStatement = $database->select()
+            ->from('staff_mac')
+            ->where('id',"=",$id);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetchAll();
+        for($i=0;$i<count($data1);$i++){
             $selectStatement = $database->select()
-                ->from('staff_mac')
-                ->leftJoin("staff","staff.staff_id","=","staff_mac.staff_id")
-                ->where('staff_mac.tenant_id',"=",'staff.tenant_id')
-                ->where('staff_mac.id',"=",$id);
+                ->from('staff')
+                ->where('staff_id',"=",$data1[$i]['staff_id'])
+                ->where('tenant_id',"=",$data1[$i]['tenant_id']);
             $stmt = $selectStatement->execute();
-            $data1 = $stmt->fetchAll();
-            for($i=0;$i<count($data1);$i++){
-                $data1[$i]['password']=decode($data1[$i]['password'],'cxphp');
-            }
+            $data2 = $stmt->fetch();
+            $data1[$i] = array_merge($data1[$i], $data2);
+        }
             echo json_encode(array("result"=>"0","desc"=>"success","staff_macs"=>$data1));
     }else{
         echo json_encode(array("result"=>"2","desc"=>"缺少id"));
