@@ -56,7 +56,7 @@ $app->post('/addLorry',function()use($app) {
                         $stmt = $selectStatement->execute();
                         $data = $stmt->fetchAll();
 
-                        $array['app_chose']=1;
+                        $array['app_chose']=0;
                         if(!$data1){
                             $password1=123456;
                             $str1=str_split($password1,3);
@@ -68,19 +68,30 @@ $app->post('/addLorry',function()use($app) {
                                 ->into('lorry')
                                 ->values(array((count($data)+10000001),$plate_number,$driver_name,$driver_phone,$password,$flag,'1',"http://files.uminfo.cn:8000/lorry/photo1.png","http://files.uminfo.cn:8000/lorry/photo2.png"));
                             $insertId = $insertStatement->execute(false);
-                        }
-                        if($data2){
+                            $array['tenant_id']=$tenant_id;
+                            $array['exist']=0;
+                            $array['driving_license']="http://files.uminfo.cn:8000/lorry/photo1.png";
+                            $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/photo2.png";
+                            $insertStatement = $database->insert(array_keys($array))
+                                ->into('lorry')
+                                ->values(array_values($array));
+                            $insertId = $insertStatement->execute(false);
+                        }else if($data2){
                             $array['app_chose']=$data2['app_chose'];
                             $array['signtime']=$data2['signtime'];
+                            $array['tenant_id']=$tenant_id;
+                            $array['exist']=0;
+                            $array['driving_license']="http://files.uminfo.cn:8000/lorry/photo1.png";
+                            $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/photo2.png";
+                            $insertStatement = $database->insert(array_keys($array))
+                                ->into('lorry')
+                                ->values(array_values($array));
+                            $insertId = $insertStatement->execute(false);
                         }
-                        $array['tenant_id']=$tenant_id;
-                        $array['exist']=0;
-                        $array['driving_license']="http://files.uminfo.cn:8000/lorry/photo1.png";
-                        $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/photo2.png";
-                        $insertStatement = $database->insert(array_keys($array))
-                            ->into('lorry')
-                            ->values(array_values($array));
-                        $insertId = $insertStatement->execute(false);
+//                        if($data2){
+//
+//                        }
+
 
                         echo json_encode(array("result" => "0", "desc" => "success"));
                     }else{
