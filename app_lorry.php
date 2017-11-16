@@ -193,6 +193,7 @@ $app->get('/sandoandg',function()use($app){
                         $data8=$stmt->fetch();
                         $selectStament=$database->select()
                             ->from('customer')
+                            ->where('tenant_id','=',$data1['tenant_id'])
                             ->where('customer_id','=',$data1['receiver_id']);
                         $stmt=$selectStament->execute();
                         $data9=$stmt->fetch();
@@ -247,6 +248,7 @@ $app->get('/byorderid',function()use($app){
             $data9=$stmt->fetch();
             $selectStament=$database->select()
                 ->from('customer')
+                ->where('tenant_id','=',$data4['tenant_id'])
                 ->where('customer_id','=',$data4['receiver_id']);
             $stmt=$selectStament->execute();
             $data5=$stmt->fetch();
@@ -714,6 +716,7 @@ $app->get('/obycourier',function()use($app){
                     $arrays1['order_id'] = $data4['order_id'];
                     $selectStament = $database->select()
                         ->from('customer')
+                        ->where('tenant_id','=',$data4['tenant_id'])
                         ->where('customer_id', '=', $data4['receiver_id']);
                     $stmt = $selectStament->execute();
                     $data5 = $stmt->fetch();
@@ -783,6 +786,7 @@ $app->get('/obycouriern',function()use($app){
                     $arrays1['order_id'] = $data4['order_id'];
                     $selectStament = $database->select()
                         ->from('customer')
+                        ->where('tenant_id','=',$data4['tenant_id'])
                         ->where('customer_id', '=', $data4['receiver_id']);
                     $stmt = $selectStament->execute();
                     $data5 = $stmt->fetch();

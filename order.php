@@ -411,23 +411,23 @@ $app->post('/wx_orders_s', function () use ($app) {
                         }else if($array1['status']==1){
                             $array1['receive']='未签收';
 //							$array1['order_cost']='未签收';
-                            $array1['status']='未签收';
+                            $array1['status']='托运中';
                         }else if($array1['status']==2){
                             $array1['receive']='未签收';
 //							$array1['order_cost']='未签收';
-                            $array1['status']='未签收';
+                            $array1['status']='托运中';
                         }else if($array1['status']==3){
                             $array1['receive']='未签收';
 							$array1['order_cost']='未签收';
-                            $array1['status']='未签收';
+                            $array1['status']='托运中';
                         }else if($array1['status']==4){
                             $array1['receive']='未签收';
 //							$array1['order_cost']='未签收';
-                            $array1['status']='未签收';
+                            $array1['status']='托运中';
                         }else if($array1['status']==5){
                             $array1['receive']='签收时间'.$data2[$i]['order_datetime5'];
 //							$array1['order_cost']='未签收';
-                            $array1['status']='已签收';
+                            $array1['status']='托运中';
                         }else if($array1['status']==-1){
 //                            $array1['order_cost']='拒受理';
                             $array1['receive']='拒受理';
@@ -436,9 +436,9 @@ $app->post('/wx_orders_s', function () use ($app) {
 //                            $array1['order_cost']='未受理';
                             $array1['receive']='未受理';
                             $array1['status']='未受理';
-                        }else if($array1['status']==0&&$array1['order_cost']!=null){
+                        }else if($array1['status']==0&&$array1['order_cost']!='暂无'){
                             $array1['receive']='未签收';
-                            $array1['status']='未签收';
+                            $array1['status']='已受理';
 //							$array1['order_cost']='未签收';
                         }
                         $selectStatement = $database->select()
