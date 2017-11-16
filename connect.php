@@ -11,11 +11,11 @@ function connect(){
 //    $databaseName = env("MYSQL_INSTANCE_NAME", "temp_db");
 //    $username = env("MYSQL_USERNAME", "root");
 //    $password = env("MYSQL_PASSWORD", "Gd6lhOSsY");
-    $serverName = env("MYSQL_PORT_3306_TCP_ADDR", "172.17.16.2");
+    $serverName = env("MYSQL_PORT_3306_TCP_ADDR", "172.17.16.8");
     $databaseName = env("MYSQL_INSTANCE_NAME", "cloud_ware");
     $username = env("MYSQL_USERNAME", "root");
     $password = env("MYSQL_PASSWORD", "jsym_20170607");
-    $port=env("MYSQL_PORT_3306_TCP_PORT","60026");
+    $port=env("MYSQL_PORT_3306_TCP_PORT","3306");
     $database=new database("mysql:host=".$serverName.";port=".$port.";dbname=".$databaseName.";charset=utf8",$username,$password);
     return  $database;
 }
