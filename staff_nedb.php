@@ -221,8 +221,7 @@ $app->delete('/deleteStaff',function()use($app){
 
 $app->get('/searchStaff0',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $app->response->headers->set('charset','utf-8');
+    $app->response->headers->set('Content-Type','application/json;charset=utf-8');
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
     $staff_id=$app->request->get('staff_id');

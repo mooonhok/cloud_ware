@@ -97,10 +97,10 @@ $app->run();
 
 function getConnection()
 {
-    $dbhost = "127.0.0.1";
+    $dbhost = "172.17.16.2";
     $dbuser = "root";
-    $dbpass = "";
-    $dbname = "its_youming";
+    $dbpass = "jsym_20170607";
+    $dbname = "cloud_ware";
     $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $dbh;
