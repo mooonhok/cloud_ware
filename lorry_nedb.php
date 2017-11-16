@@ -36,7 +36,7 @@ $app->post('/addLorry',function()use($app) {
                         $selectStatement = $database->select()
                             ->from('lorry')
                             ->where('tenant_id', '=', 0)
-                            ->where('driver_name', '=', $driver_name)
+//                            ->where('driver_name', '=', $driver_name)
                             ->where('driver_phone', '=', $driver_phone)
                             ->where('flag', '=', $flag);
 //                            ->where('plate_number', '=', $plate_number);
@@ -66,7 +66,7 @@ $app->post('/addLorry',function()use($app) {
                             }
                             $insertStatement = $database->insert(array('lorry_id','plate_number','driver_name','driver_phone','password','flag','app_chose','driving_license','vehicle_travel_license'))
                                 ->into('lorry')
-                                ->values(array((count($data)+10000001),$plate_number,$driver_name,$driver_phone,$password,$flag,'1',"http://files.uminfo.cn:8000/lorry/photo1.png","http://files.uminfo.cn:8000/lorry/photo2.png"));
+                                ->values(array((count($data)+100000001),$plate_number,$driver_name,$driver_phone,$password,$flag,'1',"http://files.uminfo.cn:8000/lorry/photo1.png","http://files.uminfo.cn:8000/lorry/photo2.png"));
                             $insertId = $insertStatement->execute(false);
                             $array['tenant_id']=$tenant_id;
                             $array['exist']=0;

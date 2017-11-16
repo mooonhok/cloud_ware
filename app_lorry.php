@@ -491,11 +491,13 @@ $app->post('/suresch',function()use($app){
                             ->from('schedule_order')
                             ->where('schedule_id','=',$schedule_id);
                         $stmt=$selectStament->execute();
-                        $data3=$stmt->fetch();
-                        $updateStatement = $database->update($arrays1)
-                            ->table('orders')
-                            ->where('order_id', '=', $data3['order_id']);
-                        $affectedRows = $updateStatement->execute();
+                        $data3=$stmt->fetchAll();
+                        for($x=0;$x<count($data3);$x++) {
+                            $updateStatement = $database->update($arrays1)
+                                ->table('orders')
+                                ->where('order_id', '=', $data3[$x]['order_id']);
+                            $affectedRows = $updateStatement->execute();
+                        }
                         echo json_encode(array('result' => '0', 'desc' => '接单成功'));
                     }else{
                         echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在或车辆不是默认车辆'));
@@ -1546,6 +1548,112 @@ $app->put('/updriver',function()use($app){
         }
     }else{
         echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
+    }
+});
+
+
+
+//货主签字确认送到图片
+$app->post('/sureschedule',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $time=$body->time1;
+    $schedule_id=$body->schedule_id;
+    $lorry_id=$body->lorry_id;
+    $pic=$body->pic;
+    $lujing=null;
+    $base64_image_content = $pic;
+//匹配出图片的格式
+    if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)){
+        $type = $result[2];
+        date_default_timezone_set("PRC");
+        $time1=time();
+        $new_file = "/files/sure/".date('Ymd',$time1)."/";
+        if(!file_exists($new_file))
+        {
+//检查是否有该文件夹，如果没有就创建，并给予最高权限
+            mkdir($new_file, 0700);
+        }
+        $new_file = $new_file.time().".{$type}";
+        if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))){
+            $lujing="http://files.uminfo.cn:8000/sure/".date('Ymd',$time1)."/".$time1.".{$type}";
+        }
+    }
+    $arrays['scheduling_status']=5;
+    $arrays['is_contract']=0;
+    $arrays['is_insurance']=0;
+    $arrays['sure_img']=$lujing;
+    $arrays['change_datetime']=time();
+    date_default_timezone_set("PRC");
+    $arrays1['order_status']=7;
+    $arrays1['order_datetime4']=date("Y-m-d H:i:s",time());
+    $arrays1['order_datetime5']=date("Y-m-d H:i:s",time());
+    if($schedule_id!=null||$schedule_id!=""){
+        $selectStament=$database->select()
+            ->from('scheduling')
+            ->where('exist','=',0)
+            ->where('scheduling_status','=',4)
+            ->where('scheduling_id','=',$schedule_id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetch();
+        if($data!=null){
+            if($lorry_id!=null||$lorry_id!=""){
+                $selectStatement = $database->select()
+                    ->from('lorry')
+                    ->where('exist','=',0)
+                    ->where('flag','=',0)
+                    ->where('lorry_id','=',$lorry_id)
+                    ->where('tenant_id','=',0);
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetch();
+                if($data1!=null){
+                    if($data1['signtime']==$time){
+                        $selectStament=$database->select()
+                            ->from('lorry')
+                            ->where('app_chose','=',1)
+                            ->where('driver_phone','=',$data1['driver_phone'])
+                            ->where('lorry_id','=',$data['lorry_id'])
+                            ->where('flag','=',0)
+                            ->where('driver_name','=',$data1['driver_name']);
+                        $stmt=$selectStament->execute();
+                        $data2=$stmt->fetch();
+                        if($data2!=null) {
+                            $updateStatement = $database->update($arrays)
+                                ->table('scheduling')
+                                ->where('scheduling_id', '=', $schedule_id);
+                            $affectedRows = $updateStatement->execute();
+                            $selectStament=$database->select()
+                                ->from('schedule_order')
+                                ->where('schedule_id','=',$schedule_id);
+                            $stmt=$selectStament->execute();
+                            $data3=$stmt->fetchAll();
+                            for($x=0;$x<count($data3);$x++) {
+                                $updateStatement = $database->update($arrays1)
+                                    ->table('orders')
+                                    ->where('order_id', '=', $data3[$x]['order_id']);
+                                $affectedRows = $updateStatement->execute();
+                            }
+                            echo json_encode(array('result' => '0', 'desc' => '接单成功'));
+                        }else{
+                            echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在或车辆不是默认车辆'));
+                        }
+                    }else{
+                        echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
+                    }
+                }else{
+                    echo json_encode(array('result' => '5', 'desc' => '驾驶员不存在'));
+                }
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '驾驶员未登录'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '清单不存在或清单已经处理了'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '清单号为空'));
     }
 });
 
