@@ -761,7 +761,7 @@ $signPackage = $jssdk->GetSignPackage();
 							msg.wxmessage[i].customer_address + '</span></p></div><div class="xian"></div><div class="tu"><input type="radio" class="rad1" name="rad" value=' +
 							msg.wxmessage[i].customer_id + '>' +
 							'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>' +
-							'<div class="bj1" id="c"'+msg.wxmessage[i].customer_id+'>编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" id="c"'+msg.wxmessage[i].customer_id+'>删除</div></div><div class="xian1"><div class="kbai"></div></div>';
+							'<div class="bj1" id="c"'+msg.wxmessage[i].customer_id+'>编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" id="d"'+msg.wxmessage[i].customer_id+'>删除</div></div><div class="xian1"><div class="kbai"></div></div>';
 						$("#box101").append(a);
 						$("#subaddress2").on('click', function() {
 							customer_send_id = $("input[class='rad1']:checked").val();
