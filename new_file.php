@@ -51,9 +51,9 @@ $app->post("/testqianduan",function() use ($app) {
     echo json_encode(array("result" => "1", "desc" => "http://www.uminfo.cn/yonhu.html", "orders" => ""));
 });
 
-$app->get("/",function() use ($app) {
-    $tablename=$app->request->get('name');
-    getAllBook($tablename);
+$app->get("/name",function() use ($app) {
+//    $tablename=$app->request->get('name');
+    getAllBook();
 });
 
 $app->get("/gettable",function(){
