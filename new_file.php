@@ -102,7 +102,7 @@ function getConnection()
     $dbpass = "jsym_20170607";
     $dbname = "cloud_ware";
     $port='60026';
-    $dbh = new PDO("{$dbhost}:{$port}","mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
+    $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname;port=$port;", $dbuser, $dbpass);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $dbh;
 }
