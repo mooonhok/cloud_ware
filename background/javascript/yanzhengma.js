@@ -22,7 +22,7 @@ function createCode()
 
 function validateCode() 
 {
-	replace(/(^\s*)|(\s*$)/g, '')
+	replace(/(^\s*)|(\s*$)/g, '');
  var inputCode=document.getElementById("inputCode").value;
  if(inputCode.length <= 0) 
  {
