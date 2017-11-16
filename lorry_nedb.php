@@ -87,6 +87,15 @@ $app->post('/addLorry',function()use($app) {
                                 ->into('lorry')
                                 ->values(array_values($array));
                             $insertId = $insertStatement->execute(false);
+                        }else if(!$data2){
+                            $array['tenant_id']=$tenant_id;
+                            $array['exist']=0;
+                            $array['driving_license']="http://files.uminfo.cn:8000/lorry/photo1.png";
+                            $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/photo2.png";
+                            $insertStatement = $database->insert(array_keys($array))
+                                ->into('lorry')
+                                ->values(array_values($array));
+                            $insertId = $insertStatement->execute(false);
                         }
 //                        if($data2){
 //
