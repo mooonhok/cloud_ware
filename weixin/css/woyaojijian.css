@@ -892,6 +892,7 @@ label{
 	color: white;
 	float: left;
 	margin-left: 20%;
+	font-size:20px;
 }
 .box11_1{
 	width: 100%;
@@ -935,6 +936,7 @@ label{
 	margin-right: 5px;
 	border-radius: 5px;
 	color: white;
+	font-size:18px;
 }
 .qx10{
 	width: 10%;
