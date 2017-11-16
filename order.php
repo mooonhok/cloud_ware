@@ -404,7 +404,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                         if($array1['order_cost']==null||$array1['order_cost']==''){
                             $array1['order_cost']='暂无';
                         }
-                        if($array1['status']==0&&$array1['order_cost']==null){
+                        if($array1['status']==0&&$array1['order_cost']=='暂无'){
 //                            $array1['order_cost']='受理中';
                             $array1['receive']='未签收';
                             $array1['status']='受理中';
@@ -705,7 +705,7 @@ $app->post('/wx_orders_r', function () use ($app) {
                         if($array1['order_cost']==null||$array1['order_cost']==''){
                             $array1['order_cost']='暂无';
                         }
-                        if($array1['status']==0&&$array1['order_cost']==null){
+                        if($array1['status']==0&&$array1['order_cost']=='暂无'){
 //                            $array1['order_cost']='受理中';
                             $array1['receive']='未签收';
                             $array1['status']='受理中';
@@ -868,7 +868,7 @@ $app->post('/wx_order', function () use ($app) {
                             if($array2['order_cost']==null||$array2['order_cost']==''){
                                 $array2['order_cost']='暂无';
                             }
-                            if ($array2['status'] == 0 && $array2['order_cost'] == null) {
+                            if ($array2['status'] == 0 && $array2['order_cost'] == '暂无') {
 //                                $array2['order_cost'] = '受理中';
                                 $array2['receive'] = '未签收';
                                 $array2['status'] = '受理中';
@@ -944,7 +944,7 @@ $app->post('/wx_order', function () use ($app) {
                                 if($array1['order_cost']==null||$array1['order_cost']==''){
                                     $array1['order_cost']='暂无';
                                 }
-                                if($array1['status']==0&&$array1['order_cost']==null){
+                                if($array1['status']==0&&$array1['order_cost']=='暂无'){
 //                                    $array1['order_cost']='受理中';
                                     $array1['receive']='未签收';
                                     $array1['status']='受理中';

@@ -30,6 +30,10 @@
 								公 司 名 称：<input type="text" name="company">
 							</div>
 							<div class="xian1"></div>
+							<div class="center_1_2" id="jc">
+								公司对外简称：<input type="text" name="jcompany">
+							</div>
+							<div class="xian1"></div>
 						</div>
 						<div class="center_3">
 							<div class="wenzi">营业执照号码：</div>
@@ -95,7 +99,6 @@
 							<input type="text" id="loca"  name="loca">
 						</div>
 					</div>
-                 
 				</div>
                <div style="color:red;float: left;width:100%;margin-left:100px;">以上为必填</div>
 
@@ -165,7 +168,7 @@
 			$("#fromdata").css("display","none");
 			var from_city = $("#city1 option:selected").text();
 			//alert(from_city);
-			if(from_city!="请选择"){
+			if(from_city!="请选择"||from_city!=""){
 				var map = new BMap.Map("allmap");            
 				map.centerAndZoom(from_city,12);
 				map.enableScrollWheelZoom();
@@ -192,6 +195,9 @@
 	</script>
 
 	<script type="text/javascript">		
+		$("top").on("click",function(){
+			window.location.href="index.html";
+		});
 		$("#phone").on('change',function(){
 			var phone = $("#phone").val();
 			// alert(phone);
