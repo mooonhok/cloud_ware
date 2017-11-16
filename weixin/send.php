@@ -787,6 +787,7 @@ $signPackage = $jssdk->GetSignPackage();
 	</script>
 	<script type="text/javascript">
 		function edit(id){
+		    alert(id)
 					$.ajax({
 					url: "http://api.uminfo.cn/customer.php/onewxaddress",
 					beforeSend: function(request) {
