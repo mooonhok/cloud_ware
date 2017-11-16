@@ -5,7 +5,7 @@
  * Date: 2017/11/16
  * Time: 18:40
  */
-$servername = "172.17.16.2";
+$servername = "115.159.31.49";
 $username = "root";
 $password = "jsym_20170607";
 $dbname = "cloud_ware";
