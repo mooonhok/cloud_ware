@@ -659,6 +659,7 @@ html,body{height:100%; width:100%;
 	margin-right: 5px;
 	border-radius: 5px;
 	color: white;
+	font-size:18px;
 }
 .h5{
 	width: 50%;
@@ -995,7 +996,7 @@ label{
 .ls1{
 	float: left;
 	width: 30%;
-	font-size: 14px;
+	font-size: 18px;
 }
 input[disabled],input:disabled,input.disabled{  
     color: black;  
