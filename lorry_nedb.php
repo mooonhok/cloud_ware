@@ -56,7 +56,7 @@ $app->post('/addLorry',function()use($app) {
                         $stmt = $selectStatement->execute();
                         $data = $stmt->fetchAll();
 
-                        $array['app_chose']=0;
+                        $array['app_chose']=1;
                         if(!$data1){
                             $password1=123456;
                             $str1=str_split($password1,3);
