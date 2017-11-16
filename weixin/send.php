@@ -787,7 +787,6 @@ $signPackage = $jssdk->GetSignPackage();
 	</script>
 	<script type="text/javascript">
 		function edit(id){
-		    alert(1)
 					$.ajax({
 					url: "http://api.uminfo.cn/customer.php/onewxaddress",
 					beforeSend: function(request) {
@@ -921,8 +920,7 @@ $signPackage = $jssdk->GetSignPackage();
 							msg.wxmessage[i].customer_address + '</span></p></div><div class="xian"></div><div class="tu"><input type="radio" class="rad2" name="rad" value=' +
 							msg.wxmessage[i].customer_id + '>' +
 							'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>' +
-							'<div class="bj1" onclick="edit1('+msg.wxmessage[i].customer_id+')">编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" onclick="delet(' +
-							msg.wxmessage[i].customer_id + ')">删除</div></div><div class="xian1"><div class="kbai"></div></div>';
+							'<div class="bj1" id="c'+msg.wxmessage[i].customer_id+'">编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" id="d'+msg.wxmessage[i].customer_id+'">删除</div></div><div class="xian1"><div class="kbai"></div></div>';
 						$("#box111").append(a);
 						$("#subaddress4").on('click', function() {
 							customer_accept_id = $("input[class='rad2']:checked").val();
@@ -935,6 +933,8 @@ $signPackage = $jssdk->GetSignPackage();
 								layer.msg("寄件人不能和收件人相同");
 							}
 						});
+                        $("#c"+msg.wxmessage[i].customer_id+"").attr('onclick',"edit1('"+msg.wxmessage[i].customer_id+"')");
+                        $("#d"+msg.wxmessage[i].customer_id+"").attr('onclick',"delet('"+msg.wxmessage[i].customer_id+"')");
 					}
 					}
 				},
