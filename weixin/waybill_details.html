@@ -200,12 +200,12 @@
 								if(msg.orders.plate_number == null) {
 									msg.orders.plate_number = "";
 								}
-								if(msg.orders.order_status == 0) {
+								if(msg.orders.order_status >= 0) {
 									var xiadan = "<div class='foot2-1'>下单成功</div><div class='foot2-2'>" +
 										msg.orders.order_time0 + "</div>";
 									$(".foot2").html(xiadan);
 									$(".syuan1").css("background", "#02F78E");
-									if(msg.orders.order_status == 1) {
+									if(msg.orders.order_status >= 1) {
                                         var time1=msg.orders.order_time1;
 									    if(time1==null){
                                            time1=msg.orders.order_time0;
@@ -215,7 +215,7 @@
 										$(".foot3").html(ruku);
 										$(".syuan2").css("background", "#02F78E");
 										$(".sxian1").css("background", "#02F78E");
-										if(msg.orders.order_status == 2) {
+										if(msg.orders.order_status >= 2) {
                                             var time2=msg.orders.order_time2;
                                             if(time2==null){
                                                 time2=time1;
@@ -225,7 +225,7 @@
 											$(".foot4").html(chuku);
 											$(".syuan3").css("background", "#02F78E");
 											$(".sxian2").css("background", "#02F78E");
-											if(msg.orders.order_status == 3) {
+											if(msg.orders.order_status >= 3) {
                                                 var time3=msg.orders.order_time3;
                                                 if(time3==null){
                                                     time3=time2;
@@ -235,7 +235,7 @@
 												$(".foot5").html(zaitu);
 												$(".syuan4").css("background", "#02F78E");
 												$(".sxian3").css("background", "#02F78E");
-												if(msg.orders.order_status == 4) {
+												if(msg.orders.order_status >= 4) {
                                                     var time4=msg.orders.order_time4;
                                                     if(time4==null){
                                                         time4=time3;
@@ -245,7 +245,7 @@
 													$(".foot6").html(daoda);
 													$(".syuan5").css("background", "#02F78E");
 													$(".sxian4").css("background", "#02F78E");
-													if(msg.orders.order_status == 5) {
+													if(msg.orders.order_status >= 5) {
                                                         var time5=msg.orders.order_time5;
                                                         if(time5==null){
                                                             time5=time4;
