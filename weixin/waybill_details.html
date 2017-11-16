@@ -215,31 +215,43 @@
 										$(".foot3").html(ruku);
 										$(".syuan2").css("background", "#02F78E");
 										$(".sxian1").css("background", "#02F78E");
-										if(msg.orders.order_time2 != null) {
+										if(msg.orders.order_status == 2) {
                                             var time2=msg.orders.order_time2;
                                             if(time2==null){
-                                                time2=msg.orders.order_time2;
+                                                time2=time1;
                                             }
 											var chuku = "<div class='foot4-1'>出库</div><div class='foot4-2'>" +
                                                 time2 + "</div>";
 											$(".foot4").html(chuku);
 											$(".syuan3").css("background", "#02F78E");
 											$(".sxian2").css("background", "#02F78E");
-											if(msg.orders.order_time3 != null) {
+											if(msg.orders.order_status == 3) {
+                                                var time3=msg.orders.order_time3;
+                                                if(time3==null){
+                                                    time3=time2;
+                                                }
 												var zaitu = "<div class='foot5-1'><p>在途 <span>" + msg.orders.plate_number + "</span></p></div><div class='foot5-2'>" +
-													msg.orders.order_time3 + "</div>";
+                                                    time3 + "</div>";
 												$(".foot5").html(zaitu);
 												$(".syuan4").css("background", "#02F78E");
 												$(".sxian3").css("background", "#02F78E");
-												if(msg.orders.order_time4 != null) {
+												if(msg.orders.order_status == 4) {
+                                                    var time4=msg.orders.order_time4;
+                                                    if(time4==null){
+                                                        time4=time3;
+                                                    }
 													var daoda = "<div class='foot6-1'>到达</div><div class='foot6-2'>" +
-														msg.orders.order_time4 + "</div>";
+                                                        time4 + "</div>";
 													$(".foot6").html(daoda);
 													$(".syuan5").css("background", "#02F78E");
 													$(".sxian4").css("background", "#02F78E");
-													if(msg.orders.order_time5 != null) {
+													if(msg.orders.order_status == 5) {
+                                                        var time5=msg.orders.order_time5;
+                                                        if(time5==null){
+                                                            time5=time4;
+                                                        }
 														var shouhuo = "<div class='foot7-1'>收货</div><div class='foot7-2'>" +
-															msg.orders.order_time5 + "</div>";
+															time5 + "</div>";
 														$(".foot7").html(shouhuo);
 														$(".syuan6").css("background", "#02F78E");
 														$(".sxian5").css("background", "#02F78E");
