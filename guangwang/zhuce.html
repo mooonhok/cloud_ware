@@ -195,7 +195,7 @@
 	</script>
 
 	<script type="text/javascript">		
-		$("top").on("click",function(){
+		$(".top").on("click",function(){
 			window.location.href="index.html";
 		});
 		$("#phone").on('change',function(){
@@ -318,9 +318,9 @@
 	<script>
 		var userid = $.session.get('userid');
 		$("#userid").val(userid);
-//			if(userid == null || userid == "") {
-//				window.location.href = "http://www.uminfo.cn/index.html";
-//			}
+			if(userid == null || userid == "") {
+				window.location.href = "http://www.uminfo.cn/index.html";
+			}
         function check(){
             var address = document.getElementsByName("address")[0].value;
             var begin_time = document.getElementsByName("begin_time")[0].value;

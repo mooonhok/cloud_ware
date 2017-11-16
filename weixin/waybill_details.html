@@ -200,20 +200,28 @@
 								if(msg.orders.plate_number == null) {
 									msg.orders.plate_number = "";
 								}
-								if(msg.orders.order_time0 != null) {
+								if(msg.orders.order_status == 0) {
 									var xiadan = "<div class='foot2-1'>下单成功</div><div class='foot2-2'>" +
 										msg.orders.order_time0 + "</div>";
 									$(".foot2").html(xiadan);
 									$(".syuan1").css("background", "#02F78E");
-									if(msg.orders.order_time1 != null) {
-										var ruku = "<div class='foot3-1'>入库</div><div class='foot3-2'>" +
-											msg.orders.order_time1 + "</div>";
+									if(msg.orders.order_status == 1) {
+                                        var time1=msg.orders.order_time1;
+									    if(time1==null){
+                                           time1=msg.orders.order_time0;
+										}
+                                        var ruku = "<div class='foot3-1'>入库</div><div class='foot3-2'>" +
+                                            time1 + "</div>";
 										$(".foot3").html(ruku);
 										$(".syuan2").css("background", "#02F78E");
 										$(".sxian1").css("background", "#02F78E");
 										if(msg.orders.order_time2 != null) {
+                                            var time2=msg.orders.order_time2;
+                                            if(time2==null){
+                                                time2=msg.orders.order_time2;
+                                            }
 											var chuku = "<div class='foot4-1'>出库</div><div class='foot4-2'>" +
-												msg.orders.order_time2 + "</div>";
+                                                time2 + "</div>";
 											$(".foot4").html(chuku);
 											$(".syuan3").css("background", "#02F78E");
 											$(".sxian2").css("background", "#02F78E");
