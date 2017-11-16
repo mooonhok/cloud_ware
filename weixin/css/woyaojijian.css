@@ -646,6 +646,7 @@ html,body{height:100%; width:100%;
 	margin-right: 5px;
 	border-radius: 5px;
 	color: white;
+	font-size:18px;
 }
 .qx1{
 	width: 10%;
@@ -987,7 +988,7 @@ label{
 .ls{
 	float: left;
 	width: 30%;
-	font-size: 14px;
+	font-size: 18px;
 }
 .ls1{
 	float: left;
