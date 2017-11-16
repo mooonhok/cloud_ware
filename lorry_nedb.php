@@ -38,8 +38,8 @@ $app->post('/addLorry',function()use($app) {
                             ->where('tenant_id', '=', 0)
                             ->where('driver_name', '=', $driver_name)
                             ->where('driver_phone', '=', $driver_phone)
-                            ->where('flag', '=', $flag)
-                            ->where('plate_number', '=', $plate_number);
+                            ->where('flag', '=', $flag);
+//                            ->where('plate_number', '=', $plate_number);
                         $stmt = $selectStatement->execute();
                         $data1 = $stmt->fetch();
                         $selectStatement = $database->select()
