@@ -33,7 +33,7 @@
 							<div class="center_1_2" id="jc">
 								公司对外简称：<input type="text" name="jcompany">
 							</div>
-							<div class="xian1"></div>
+							<div class="xian2"></div>
 						</div>
 						<div class="center_3">
 							<div class="wenzi">营业执照号码：</div>
@@ -56,10 +56,7 @@
 							<div class="wenzi">QQ：</div>
 							<div class="wenzi1"><input type="text" name="qq" id="qq"></div>
 						</div>
-						<div class="center_8">
-							<div class="center_8_1">经 营 地 址：<input type="text" name="address"></div>
-							<div style="width: 918px;height: 1px;background: black;float: left;margin-left: 82px;"></div>							
-						</div>
+						
 						<div class="center_9">
 							<div class="wenzi8">发货城市：</div>
 							<div class="wenzi9">
@@ -81,6 +78,10 @@
 									<option value="">请选择</option>
 								</select>
 							</div>
+						</div>
+						<div class="center_8">
+							<div class="center_8_1">详 细 地 址：<input type="text" name="address"></div>
+							<div style="width: 918px;height: 1px;background: black;float: left;margin-left: 82px;"></div>							
 						</div>
 						<div class="center_12">
 							<div class="wenzi11">使用开始时间：</div>
@@ -167,8 +168,9 @@
 			$("#boxloc").css("display","block");
 			$("#fromdata").css("display","none");
 			var from_city = $("#city1 option:selected").text();
-			//alert(from_city);
-			if(from_city!="请选择"||from_city!=""){
+			var from_pro=$("#province1 option:selected").text();
+//			alert(from_city);
+			if(from_city!="请选择"&&from_pro!="请选择"){
 				var map = new BMap.Map("allmap");            
 				map.centerAndZoom(from_city,12);
 				map.enableScrollWheelZoom();
@@ -273,7 +275,7 @@
 					}
 				},
 				error: function(e) {
-					alert("城市1列表信息出错!");
+				$("#city1").append('<option value="">请选择市</option>');
 				}
 			});
 		}
@@ -310,7 +312,7 @@
 					}
 				},
 				error: function(e) {
-					alert("城市2列表信息出错!");
+						$("#city2").append('<option value="">请选择市</option>');
 				}
 			});
 		}
@@ -318,9 +320,9 @@
 	<script>
 		var userid = $.session.get('userid');
 		$("#userid").val(userid);
-			if(userid == null || userid == "") {
-				window.location.href = "http://www.uminfo.cn/index.html";
-			}
+//			if(userid == null || userid == "") {
+//				window.location.href = "http://www.uminfo.cn/index.html";
+//			}
         function check(){
             var address = document.getElementsByName("address")[0].value;
             var begin_time = document.getElementsByName("begin_time")[0].value;

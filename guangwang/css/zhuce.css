@@ -70,6 +70,12 @@
 	height: 1px;
 	background: black;
 }
+.xian2{
+	width: 900px;
+	float: right;
+	height: 1px;
+	background: black;
+}
 .center_2{
 	width: 330px;
 	height: 40px;
@@ -158,7 +164,7 @@
 .center_8{
 	width: 1000px;
 	height: 22px;
-	margin-top: 60px;
+	margin-top: 40px;
 }
 .center_8{
 	width: 1000px;
