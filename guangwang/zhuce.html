@@ -138,11 +138,11 @@
 			</div>
 		</form>
 		</div>
-		<div id="boxloc">
+		<!--<div id="boxloc">
 			<input id="loc2" type="text" onfocus=this.blur()>
 			<div id="allmap"></div>
 			<input id="sure" type="button" value="确定"><input id="nsure" type="button" value="取消">
-		</div>
+		</div>-->
 	</body>
 	<script src="http://www.itakeo.com/down/calender2.js"></script>
 	<script type="text/javascript">
@@ -165,24 +165,25 @@
 			$(".calender-wrap ").css("display","none");
 		});
 		$("#showl").on("click",function(){
-			$("#boxloc").css("display","block");
-			$("#fromdata").css("display","none");
-			var from_city = $("#city1 option:selected").text();
-			var from_pro=$("#province1 option:selected").text();
-			var address=$("#loc3").val();
-//			alert(from_city+address);
-			if(from_city!="请选择"&&from_pro!="请选择"){
-				var map = new BMap.Map("allmap"); 
-				map.centerAndZoom(from_city+address,15);
-				map.enableScrollWheelZoom();
-				map.addEventListener("click",function(e){
-					$("#loc2").val(e.point.lng + "," + e.point.lat);
-				});
-			}else{
-                    alert("您还未选择发货城市");
-					$("#boxloc").css("display","none");
-			       $("#fromdata").css("display","block");
-			}
+			window.location.href="http://api.map.baidu.com/lbsapi/getpoint/index.html";
+//			$("#boxloc").css("display","block");
+//			$("#fromdata").css("display","none");
+//			var from_city = $("#city1 option:selected").text();
+//			var from_pro=$("#province1 option:selected").text();
+//			var address=$("#loc3").val();
+////			alert(from_city+address);
+//			if(from_city!="请选择"&&from_pro!="请选择"){
+//				var map = new BMap.Map("allmap"); 
+//				map.centerAndZoom(from_city+address,15);
+//				map.enableScrollWheelZoom();
+//				map.addEventListener("click",function(e){
+//					$("#loc2").val(e.point.lng + "," + e.point.lat);
+//				});
+//			}else{
+//                  alert("您还未选择发货城市");
+//					$("#boxloc").css("display","none");
+//			       $("#fromdata").css("display","block");
+//			}
 		});
 		$("#nsure").on("click",function(){
 			$("#fromdata").css("display","block");
