@@ -80,7 +80,7 @@
 							</div>
 						</div>
 						<div class="center_8">
-							<div class="center_8_1">详 细 地 址：<input type="text" name="address"></div>
+							<div class="center_8_1">详 细 地 址：<input type="text" id="loc3" name="address"></div>
 							<div style="width: 918px;height: 1px;background: black;float: left;margin-left: 82px;"></div>							
 						</div>
 						<div class="center_12">
@@ -169,14 +169,13 @@
 			$("#fromdata").css("display","none");
 			var from_city = $("#city1 option:selected").text();
 			var from_pro=$("#province1 option:selected").text();
-//			alert(from_city);
+			var address=$("#loc3").val();
+//			alert(from_city+address);
 			if(from_city!="请选择"&&from_pro!="请选择"){
-				var map = new BMap.Map("allmap");            
-				map.centerAndZoom(from_city,12);
+				var map = new BMap.Map("allmap"); 
+				map.centerAndZoom(from_city+address,15);
 				map.enableScrollWheelZoom();
-	            //单击获取点击的经纬度
 				map.addEventListener("click",function(e){
-//					alert(e.point.lng + "," + e.point.lat);
 					$("#loc2").val(e.point.lng + "," + e.point.lat);
 				});
 			}else{
@@ -320,9 +319,9 @@
 	<script>
 		var userid = $.session.get('userid');
 		$("#userid").val(userid);
-//			if(userid == null || userid == "") {
-//				window.location.href = "http://www.uminfo.cn/index.html";
-//			}
+			if(userid == null || userid == "") {
+				window.location.href = "http://www.uminfo.cn/index.html";
+			}
         function check(){
             var address = document.getElementsByName("address")[0].value;
             var begin_time = document.getElementsByName("begin_time")[0].value;
