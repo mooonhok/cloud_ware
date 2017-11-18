@@ -220,6 +220,39 @@ $app->put('/alterStaffMac3',function()use($app){
     }
 });
 
+$app->get('/alterStaffMac4',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $staff_id=$app->request->get("staff_id");
+    $mac=$app->request->get("mac");
+    $tenant_id=$app->request->get("tenant_id");
+    $is_login=$app->request->get("is_login");
+
+    if($tenant_id!=null||$tenant_id!=''){
+        if($mac!=null||$mac!=''){
+            if($staff_id!=null||$staff_id!=''){
+                $updateStatement = $database->update(array('is_login'=>$is_login))
+                    ->table('staff_mac')
+                    ->where('mac','=',$mac)
+                    ->where('staff_id','=',$staff_id)
+                    ->where('tenant_id','=',$tenant_id);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array("result"=>"0","desc"=>"success"));
+
+            }else{
+                echo json_encode(array('result'=>'5','desc'=>'缺少租户id'));
+            }
+
+        }else{
+            echo json_encode(array('result'=>'5','desc'=>'缺少租户id'));
+        }
+
+    }else{
+        echo json_encode(array('result'=>'5','desc'=>'缺少租户id'));
+    }
+});
+
 $app->get('/getStaffMacs0',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
