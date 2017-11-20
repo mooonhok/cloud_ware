@@ -159,7 +159,7 @@ $app->put('/alterStaffMac1',function()use($app){
             ->table('staff_mac')
             ->where('id','=',$id);
         $affectedRows = $updateStatement->execute();
-            echo json_encode(array("result"=>"0","desc"=>"success"));
+        echo json_encode(array("result"=>"0","desc"=>"success"));
 
       }else{
         echo json_encode(array('result'=>'5','desc'=>'缺少租户id'));
