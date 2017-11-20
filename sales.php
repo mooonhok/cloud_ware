@@ -50,9 +50,7 @@ $app->post('/usersign',function ()use($app){
 });
 //获取该业务员名下的公司
 $app->get('/sales_tenant',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','http://www.uminfo.cn');
-    $app->response->headers->set('Access-Control-Allow-Headers','Content-Type');
-    $app->response->headers->set('Access-Control-Allow-Methods','GET');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $sales_id = $app->request->get("sales_id");
     $page = $app->request->get('page');
@@ -172,7 +170,6 @@ $app->options('/tenantchange',function()use($app){
 $app->put('/tenantchange',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-        $app->response->headers->set("Access-Control-Allow-Methods", "PUT");
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
@@ -341,7 +338,6 @@ $app->options('/sales',function()use($app){
 $app->put('/sales',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $app->response->headers->set("Access-Control-Allow-Methods", "PUT");
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
@@ -397,8 +393,6 @@ $app->get('/sales',function()use($app){
 //添加业务员
 $app->post('/addsales',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Access-Control-Allow-Headers','Content-Type');
-    $app->response->headers->set('Access-Control-Allow-Methods','POST');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
