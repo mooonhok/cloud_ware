@@ -109,6 +109,16 @@
 	float: left;
 	font-size: 18px;
 }
+.pctext2{
+	width: 60%;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	float: left;
+	font-size: 18px;
+	color:red;
+}
+
 .apply{
 	width: 50%;
 	float: left;
