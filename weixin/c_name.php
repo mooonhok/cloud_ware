@@ -113,7 +113,7 @@ $signPackage = $jssdk->GetSignPackage();
 			 }
 			 #foot2{
 			 	width:96%;
-			 	height:200px;
+			 	height:150px;
 			 	margin-top:45px;
 			 	background-color:white;
 			 	word-wrap:break-word;
