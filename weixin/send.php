@@ -516,7 +516,7 @@ $signPackage = $jssdk->GetSignPackage();
 	<script type="text/javascript">
 		var a=null;
 		var c=null;
-		$(".center6").on("click",function(){
+		$(".center_6").on("click",function(){
 			$(".box12").css("display","block");
 		});
 			$(".qx5").on("click",function(){
