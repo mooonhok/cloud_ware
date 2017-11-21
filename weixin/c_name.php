@@ -32,6 +32,8 @@ $signPackage = $jssdk->GetSignPackage();
 				overflow: hidden;
 				margin: 0;
 				padding: 0;
+				background-color: #006699;
+				color:#333333;
 			}
 			.box{
 				height:90%;
@@ -40,6 +42,7 @@ $signPackage = $jssdk->GetSignPackage();
 				margin-top:5%;
 				/*background-color:rgb(238,238,238);*/
 				border-radius: 10px;
+				background-color:white;
 			}
 			.topleft{
 				float:left;
@@ -66,10 +69,10 @@ $signPackage = $jssdk->GetSignPackage();
 			}
 			
 			.tc{
-				height:45px;
+				height:40px;
 				width:100%;
 				word-wrap:break-word;
-				line-height:45px;
+				line-height:40px;
 				float:left;
 				
 			}
@@ -171,9 +174,9 @@ $signPackage = $jssdk->GetSignPackage();
                    $("#foot2").html(msg.tenant.service_items);   
                    if(msg.tenant.tenant_business_card!=null&&msg.tenant.tenant_business_card!=""){
                    	   $(".box").css("background","url("+msg.tenant.tenant_business_card+")");
-                   }else{
-                   	$(".box").css("background-color","rgb(238,238,238)");
                    }
+               
+                   
                },
                error: function(e) {
                    alert("获取后台失败！")
