@@ -69,7 +69,7 @@ $app->get('/to_one_insurance',function ()use($app){
         ->from('scheduling')
         ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
         ->where('scheduling.is_insurance', '=', 1)
-        ->where('scheduling.scheduling_status','=',2)
+        ->where('scheduling.scheduling_status','=',3)
         ->where('scheduling.tenant_id','=',$tenant_id)
         ->where('lorry.tenant_id','=',$tenant_id)
         ->limit((int)$per_page, (int)$offset)
@@ -131,7 +131,7 @@ $app->get('/lorry_insurance_count',function ()use($app){
         ->from('scheduling')
         ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
         ->where('scheduling.is_insurance', '=', 1)
-        ->where('scheduling.scheduling_status','=',2)
+        ->where('scheduling.scheduling_status','=',3)
         ->where('scheduling.tenant_id','=',$tenant_id)
         ->where('lorry.tenant_id','=',$tenant_id)
         ->groupBy('lorry.lorry_id');
