@@ -431,7 +431,18 @@ $signPackage = $jssdk->GetSignPackage();
 			<div class="tijiao2" id="subaddress11">保存地址</div>
 			<div class="kbox"></div>
 		</div>
-
+          <div class="box12">
+			<div class="box12_1">
+				<div class="qx5">取消</div>
+				<div class="h5">
+					<h5>备注</h5></div>
+				<div class="box12_a1"  id="j1"><div class="t1">寄</div>门店自寄</div>
+				<div class="box12_a2" id="j2"><div class="t1">收</div>门店自提</div>
+				<div class="box12_a1" id="r1"><div class="t1">寄</div>上门提货</div>
+				<div class="box12_a2" id="r2" ><div class="t1">收</div>送货上门</div>
+				<div class="box12_c3">确定</div>
+			</div>
+		</div>
 
 	</body>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
@@ -503,6 +514,49 @@ $signPackage = $jssdk->GetSignPackage();
 		})
 	</script>
 	<script type="text/javascript">
+		var a=null;
+		var c=null;
+		$(".center6").on("click",function(){
+			$(".box12").css("display","block");
+		});
+			$(".qx5").on("click",function(){
+			$(".box12").css("display","none");
+		});
+	     $("#j1").on("click",function(){
+	     	$("#j1").css("background-color","orange");
+	     	$("#r1").css("background-color","#24D9CA");
+	     });
+	     $("#j2").on("click",function(){
+	     	$("#r2").css("background-color","#24D9CA");
+	     	$("#j2").css("background-color","orange");
+	     });
+	     $("#r1").on("click",function(){
+	     	$("#r1").css("background-color","orange");
+	     	$("#j1").css("background-color","#24D9CA");
+	     });
+	     $("#r2").on("click",function(){
+	     	$("#r2").css("background-color","orange");
+	     	$("#j2").css("background-color","#24D9CA");
+	     });
+	     $(".box12_c3").on("click",function(){
+	     
+              for(var b=0;b<document.getElementsByClassName("box12_a1").length;b++){
+                if(document.getElementsByClassName("box12_a1")[b].style.backgroundColor=="orange"){
+                a=document.getElementsByClassName("box12_a1")[b].textContent;
+               }
+             }
+               for(var d=0;d<document.getElementsByClassName("box12_a2").length;d++){
+                if(document.getElementsByClassName("box12_a2")[d].style.backgroundColor=="orange"){
+                c=document.getElementsByClassName("box12_a2")[d].textContent;
+               }
+             } 
+             $(".needs").val(a+","+c);
+             if(a!=null&&c!=null){
+             $(".box12").css("display","none");
+             }else{
+             	layer.msg("您必须选择两个备注");
+             }
+	     });
 		$(".center_4").on("click", function() {
 			$(".box4").css("display", "block");
 		})
@@ -1172,6 +1226,8 @@ $signPackage = $jssdk->GetSignPackage();
 				layer.msg("未选择付款方式");
 			} else if(customer_accept_id==customer_send_id){
 				layer.msg("收货人与寄件人相同");
+			}else if(needs==""||needs==null){
+				layer.msg("您未选择备注");
 			}else{
 //			    alert(customer_send_id+"////"+customer_accept_id+"////"+huowu+"////"+zhong+"////"+tiji+"////"+baozhuang+"////"+jianshu+"////"+needs+"////"+jiazhi+"////"+str+"////"+openid);
 				$.ajax({
