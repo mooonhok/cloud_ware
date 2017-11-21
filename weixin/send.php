@@ -542,17 +542,17 @@ $signPackage = $jssdk->GetSignPackage();
 	     
               for(var b=0;b<document.getElementsByClassName("box12_a1").length;b++){
                 if(document.getElementsByClassName("box12_a1")[b].style.backgroundColor=="orange"){
-                a=document.getElementsByClassName("box12_a1")[b].textContent;
+                a=document.getElementsByClassName("box12_a1")[b].textContent.substring(1,5);
                }
              }
                for(var d=0;d<document.getElementsByClassName("box12_a2").length;d++){
                 if(document.getElementsByClassName("box12_a2")[d].style.backgroundColor=="orange"){
-                c=document.getElementsByClassName("box12_a2")[d].textContent;
+                c=document.getElementsByClassName("box12_a2")[d].textContent.substring(1,5);
                }
              } 
             
              if(a!=null&&c!=null){
-             $(".needs").val(a+","+c);
+             $(".needs").val("寄:"+a+",收:"+c);
              $(".box12").css("display","none");
              }else{
              	layer.msg("您必须选择两个备注");
