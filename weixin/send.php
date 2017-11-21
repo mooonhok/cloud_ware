@@ -73,7 +73,7 @@ $signPackage = $jssdk->GetSignPackage();
 				<div class="center_6">
 					<div class="wenzi">备注</div>
 					<div class="text1">
-						<input type="text" placeholder="门店自寄" class="needs">
+						<input type="text" placeholder="必填项" class="needs" disabled="disabled" style="color: black;">
 					</div>
 				</div>
 			</div>
@@ -550,8 +550,9 @@ $signPackage = $jssdk->GetSignPackage();
                 c=document.getElementsByClassName("box12_a2")[d].textContent;
                }
              } 
-             $(".needs").val(a+","+c);
+            
              if(a!=null&&c!=null){
+             $(".needs").val(a+","+c);
              $(".box12").css("display","none");
              }else{
              	layer.msg("您必须选择两个备注");
