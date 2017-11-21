@@ -552,7 +552,7 @@ $signPackage = $jssdk->GetSignPackage();
              } 
             
              if(a!=null&&c!=null){
-             $(".needs").val("寄:"+a+",收:"+c);
+             $(".needs").val("寄:"+a+";  收:"+c);
              $(".box12").css("display","none");
              }else{
              	layer.msg("您必须选择两个备注");
