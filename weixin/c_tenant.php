@@ -105,7 +105,7 @@ $signPackage = $jssdk->GetSignPackage();
                }),
                success: function(msg) {
                	if(msg.result==0){
-               		 $("company").html(msg.tenant.company);
+               		 $("#company").html(msg.tenant.company);
                		 $("#cimg").attr('src', msg.tenant.tenantimg);
                		 $("#c_text").html(msg.tenant.tenanttext);
                		 $(".foot").html(msg.tenant.c_introduction);
