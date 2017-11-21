@@ -238,7 +238,7 @@ $app->post('/insurance_scheduling',function()use($app){
     $selectStatement = $database->select()
         ->from('scheduling')
         ->where('scheduling.is_insurance', '=', 1)
-        ->where('scheduling.scheduling_status','=',2)
+        ->where('scheduling.scheduling_status','=',3)
         ->where('scheduling.lorry_id','=',$lorry_id)
         ->where('scheduling.tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
