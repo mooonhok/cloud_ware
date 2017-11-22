@@ -84,6 +84,7 @@ $signPackage = $jssdk->GetSignPackage();
 				line-height:40px;
 				float:left;
 				font-size:17px;
+				text-align: center;
 			}
 			.center{
 				width:96%;
