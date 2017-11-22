@@ -111,8 +111,8 @@ $signPackage = $jssdk->GetSignPackage();
 			 }
 			 .foot1{
 			 	height:40px;
-			 	width:12%;
-			 	margin-left:44%;
+			 	width:20%;
+			 	margin-left:32%;
 			 	line-height:40px;
 			 	background-color: white;
 			 	text-align: center;
@@ -129,12 +129,13 @@ $signPackage = $jssdk->GetSignPackage();
 			 #foot2{
 			 	width:96%;
 			 	height:150px;
-			 	margin-top:45px;
+			 	margin-top:60px;
 			 	background-color:white;
 			 	word-wrap:break-word;
 			 	border-radius: 10px;
 			 	margin-left:2%;
 			 	float:left;
+			 	text-indent:2em;
 			 }
 			
 		</style>
@@ -223,14 +224,14 @@ $signPackage = $jssdk->GetSignPackage();
 	</script>
 	<script type="text/javascript">
     // 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
-//  var useragent = navigator.userAgent;
-//  if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
-//      // 这里警告框会阻塞当前页面继续加载
-//      alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
-//      // 以下代码是用javascript强行关闭当前页面
-//      var opened = window.open('http://www.uminfo.cn', '_self');
-//      opened.opener = null;
-//      opened.close();
-//  }
+    var useragent = navigator.userAgent;
+    if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+        // 这里警告框会阻塞当前页面继续加载
+        alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+        // 以下代码是用javascript强行关闭当前页面
+        var opened = window.open('http://www.uminfo.cn', '_self');
+        opened.opener = null;
+        opened.close();
+    }
 </script>
 </html>
