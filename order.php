@@ -1024,17 +1024,17 @@ $app->post('/wx_order_z', function () use ($app) {
     $database = localhost();
     $array=array();
     if ($tenant_id != null || $tenant_id != "") {
-        $selectStatement = $database->select()
-            ->from('tenant')
-            ->where('exist', "=", 0)
-            ->where('tenant_id', '=', $tenant_id);
-        $stmt = $selectStatement->execute();
-        $data1= $stmt->fetch();
-        if ($data1 != null) {
+//        $selectStatement = $database->select()
+//            ->from('tenant')
+//            ->where('exist', "=", 0)
+//            ->where('tenant_id', '=', $tenant_id);
+//        $stmt = $selectStatement->execute();
+//        $data1= $stmt->fetch();
+//        if ($data1 != null) {
             $selectStatement = $database->select()
                 ->from('orders')
                 ->where('exist', "=", 0)
-                ->where('tenant_id','=',$tenant_id)
+//                ->where('tenant_id','=',$tenant_id)
                 ->where('order_id','=',$order_id);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetch();
@@ -1098,9 +1098,9 @@ $app->post('/wx_order_z', function () use ($app) {
             }else{
                 echo json_encode(array("result" => "1", "desc" => "订单不存在", "orders" => ""));
             }
-        } else {
-            echo json_encode(array("result" => "2", "desc" => "租户不存在", "orders" => ""));
-        }
+//        } else {
+//            echo json_encode(array("result" => "2", "desc" => "租户不存在", "orders" => ""));
+//        }
     } else {
         echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => ""));
     }
