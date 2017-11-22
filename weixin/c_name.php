@@ -180,7 +180,7 @@ $signPackage = $jssdk->GetSignPackage();
                    if(msg.tenant.c_introduction==""){
                        msg.tenant.c_introduction='暂无';
 				   }   
-                  $("#head").attr('src', msg.tenant.head_img);
+                  $("#head").attr('src', msg.tenant.tenantheadimg);
                    $('.tc').html(msg.tenant.company);
                     $("#name").html(msg.contact.customer_name);
                    $('#address').html(msg.tenant.ad);

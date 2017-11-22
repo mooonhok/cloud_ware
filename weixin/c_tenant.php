@@ -78,7 +78,7 @@ $signPackage = $jssdk->GetSignPackage();
 	</head>
 	<body>
 		<div class="top" id="company"></div>
-		<div class="center"><img id="cimg" src="images/q.jpg"><div id="c_text"></div></div>
+		<div class="center"><img id="cimg" src=""><div id="c_text"></div></div>
 		<div class="foot"></div>
 	</body>
 	<script>
