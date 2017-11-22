@@ -174,8 +174,8 @@ $signPackage = $jssdk->GetSignPackage();
                return null;
            }
        })(jQuery);
-//      var tenant_id=$.getUrlParam('tenant_id');
-      var tenant_id="1000000001";
+     var tenant_id=$.getUrlParam('tenant_id');
+//    var tenant_id="1000000001";
      var openid = $.cookie('openid'+tenant_id);
         $(document).ready(function(){
            $.ajax({
@@ -194,7 +194,7 @@ $signPackage = $jssdk->GetSignPackage();
                   $("#head").attr('src', msg.tenant.tenantheadimg);
                   var d=msg.tenant.company.split("");
                   var c=null;
-                  for(var f=0;f<msg.tenant.company.length;f++){
+                  for(var f=msg.tenant.company.length;f>0;f--){
                   	if(d[f]=="股"){
                   		c=msg.tenant.company.split("股");
                   		 $("#cname2").html("股"+c[1]);
