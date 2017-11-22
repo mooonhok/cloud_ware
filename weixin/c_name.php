@@ -32,7 +32,7 @@ $signPackage = $jssdk->GetSignPackage();
 				overflow: hidden;
 				margin: 0;
 				padding: 0;
-				background-color: #006699;
+				background-color: #EEEEEE;
 				color:#333333;
 			}
 			.box{
@@ -43,6 +43,7 @@ $signPackage = $jssdk->GetSignPackage();
 				/*background-color:rgb(238,238,238);*/
 				border-radius: 10px;
 				background-color:white;
+				border:1px solid grey;
 			}
 			.topleft{
 				float:left;
@@ -79,7 +80,7 @@ $signPackage = $jssdk->GetSignPackage();
 			.center{
 				width:96%;
 				margin-left:2%;
-				height:150px;
+				height:140px;
 				margin-top:10px;
 				float:left;
 			}
@@ -109,10 +110,21 @@ $signPackage = $jssdk->GetSignPackage();
 			 	margin-left:2%;
 			 }
 			 .foot1{
-			 	height:45px;
+			 	height:40px;
+			 	width:12%;
+			 	margin-left:44%;
+			 	line-height:40px;
+			 	background-color: white;
+			 	text-align: center;
+			 	position: absolute;
+			 	top:300px;
+			 }
+			 .xian{
+			 	height:1px;
 			 	width:98%;
-			 	margin-left:2%;
-			 	line-height:45px;
+			 	border:1px solid black;
+			 	position:relative;
+			    top:300px;
 			 }
 			 #foot2{
 			 	width:96%;
@@ -121,9 +133,10 @@ $signPackage = $jssdk->GetSignPackage();
 			 	background-color:white;
 			 	word-wrap:break-word;
 			 	border-radius: 10px;
-			 	 	margin-left:2%;
+			 	margin-left:2%;
 			 	float:left;
 			 }
+			
 		</style>
 	</head>
 	<body>
@@ -137,7 +150,7 @@ $signPackage = $jssdk->GetSignPackage();
             <div class="center1"><div class="tw2">电话:</div><div class="tf" id="tel"></div></div>
            	<div class="center1"><div class="tw2">地址：</div><div class="tf" id="address"></div></div>
            </div>
-            <div class="foot"><div class="foot1">经营项目:</div><div id="foot2"></div></div>
+            <div class="foot"><div class="xian"></div><div class="foot1">经营项目</div><div id="foot2"></div></div>
 		</div>
 	</body>
     <script>
@@ -149,9 +162,9 @@ $signPackage = $jssdk->GetSignPackage();
                return null;
            }
        })(jQuery);
-    var tenant_id=$.getUrlParam('tenant_id');
-       
-       var openid = $.cookie('openid'+tenant_id);
+ var tenant_id=$.getUrlParam('tenant_id');
+//     var tenant_id="1000000001";     
+//     var openid = $.cookie('openid'+tenant_id);
         $(document).ready(function(){
            $.ajax({
                url: "http://api.uminfo.cn/tenant.php/tenant_introduction?tenant_id="+tenant_id,
@@ -210,14 +223,14 @@ $signPackage = $jssdk->GetSignPackage();
 	</script>
 	<script type="text/javascript">
     // 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
-    var useragent = navigator.userAgent;
-    if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
-        // 这里警告框会阻塞当前页面继续加载
-        alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
-        // 以下代码是用javascript强行关闭当前页面
-        var opened = window.open('http://www.uminfo.cn', '_self');
-        opened.opener = null;
-        opened.close();
-    }
+//  var useragent = navigator.userAgent;
+//  if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+//      // 这里警告框会阻塞当前页面继续加载
+//      alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+//      // 以下代码是用javascript强行关闭当前页面
+//      var opened = window.open('http://www.uminfo.cn', '_self');
+//      opened.opener = null;
+//      opened.close();
+//  }
 </script>
 </html>
