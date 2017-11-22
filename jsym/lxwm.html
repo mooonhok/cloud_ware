@@ -78,7 +78,7 @@
 				line-height: 35px;
 				outline: 0;
 				float: left;
-				border-bottom-style: solid #eeeeee;
+				border-bottom-style:solid #eeeeee;
 				border-top-style: hidden;
 				border-left-style: hidden;
 				border-right-style: hidden;
@@ -111,6 +111,8 @@
 		</div>
 	</body>
 	<script language=javascript>
+        var height=$(window).height();
+        $(".box").css('height',height*0.9);
 		$(function() {
 
 			$("#hezuo").on("click", function() {
