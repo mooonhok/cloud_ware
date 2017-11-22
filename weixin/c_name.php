@@ -75,7 +75,15 @@ $signPackage = $jssdk->GetSignPackage();
 				word-wrap:break-word;
 				line-height:40px;
 				float:left;
-				
+				font-size:19px;
+			}
+			.tc2{
+				height:40px;
+				width:100%;
+				word-wrap:break-word;
+				line-height:40px;
+				float:left;
+				font-size:17px;
 			}
 			.center{
 				width:96%;
@@ -122,7 +130,7 @@ $signPackage = $jssdk->GetSignPackage();
 			 .xian{
 			 	height:1px;
 			 	width:98%;
-			 	border:1px solid black;
+			 	border:1px solid #999999;
 			 	position:relative;
 			    top:265px;
 			 }
@@ -145,6 +153,7 @@ $signPackage = $jssdk->GetSignPackage();
            <div class="topleft"><img src="" id="head"></div>
            <div class="topright">
            	<div id="cname" class="tc"></div>
+           	<div id="cname2" class="tc2"></div>
            </div>
            <div class="center">
            	<div class="center1"><div class="tw2">联系人:</div><div class="tf" id="name"></div></div>
@@ -163,8 +172,8 @@ $signPackage = $jssdk->GetSignPackage();
                return null;
            }
        })(jQuery);
- var tenant_id=$.getUrlParam('tenant_id');
-//     var tenant_id="1000000001";     
+        var tenant_id=$.getUrlParam('tenant_id');
+   
 //     var openid = $.cookie('openid'+tenant_id);
         $(document).ready(function(){
            $.ajax({
@@ -181,7 +190,11 @@ $signPackage = $jssdk->GetSignPackage();
                        msg.tenant.c_introduction='暂无';
 				   }   
                   $("#head").attr('src', msg.tenant.tenantheadimg);
-                   $('.tc').html(msg.tenant.company);
+                 
+                var a=msg.tenant.company.substr(0,msg.tenant.company.length-4);
+                var b=msg.tenant.company.substr(msg.tenant.company.length-4);
+                   $('#cname').html(a);
+                   $("#cname2").html(b);
                     $("#name").html(msg.contact.customer_name);
                    $('#address').html(msg.tenant.ad);
                    $('#tel').html(msg.contact.customer_phone);
