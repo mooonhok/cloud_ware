@@ -109,7 +109,7 @@ $signPackage = $jssdk->GetSignPackage();
 			 	width:96%;
 			 	margin-left:2%;
 			 }
-			 .foot1{
+			  .foot1{
 			 	height:40px;
 			 	width:20%;
 			 	margin-left:32%;
@@ -117,19 +117,19 @@ $signPackage = $jssdk->GetSignPackage();
 			 	background-color: white;
 			 	text-align: center;
 			 	position: absolute;
-			 	top:300px;
+			 	top:265px;
 			 }
 			 .xian{
 			 	height:1px;
 			 	width:98%;
 			 	border:1px solid black;
 			 	position:relative;
-			    top:300px;
+			    top:265px;
 			 }
 			 #foot2{
 			 	width:96%;
 			 	height:150px;
-			 	margin-top:60px;
+			 	margin-top:20px;
 			 	background-color:white;
 			 	word-wrap:break-word;
 			 	border-radius: 10px;
