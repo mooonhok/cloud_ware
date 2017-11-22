@@ -53,13 +53,11 @@ $signPackage = $jssdk->GetSignPackage();
          }
          #c_text{
          	width:100%;
-         	margin-left:5%;
          	height:30px;
          	line-height:30px;
-         	text-align: right;
             position: absolute;
             top:168px;
-            right:5%;
+            left:5%;
             color:white;
          }
          .foot{
@@ -90,7 +88,7 @@ $signPackage = $jssdk->GetSignPackage();
                return null;
            }
        })(jQuery);
-   var tenant_id=$.getUrlParam('tenant_id');
+var tenant_id=$.getUrlParam('tenant_id');
     
        //判断openid是否已经被注册
        var openid = $.cookie('openid'+tenant_id);
