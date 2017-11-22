@@ -76,6 +76,7 @@ $signPackage = $jssdk->GetSignPackage();
 				line-height:40px;
 				float:left;
 				font-size:19px;
+				text-align: center;
 			}
 			.tc2{
 				height:40px;
@@ -173,9 +174,9 @@ $signPackage = $jssdk->GetSignPackage();
                return null;
            }
        })(jQuery);
-        var tenant_id=$.getUrlParam('tenant_id');
-   
-//     var openid = $.cookie('openid'+tenant_id);
+//      var tenant_id=$.getUrlParam('tenant_id');
+      var tenant_id="1000000001";
+     var openid = $.cookie('openid'+tenant_id);
         $(document).ready(function(){
            $.ajax({
                url: "http://api.uminfo.cn/tenant.php/tenant_introduction?tenant_id="+tenant_id,
@@ -191,11 +192,18 @@ $signPackage = $jssdk->GetSignPackage();
                        msg.tenant.c_introduction='暂无';
 				   }   
                   $("#head").attr('src', msg.tenant.tenantheadimg);
-                 
-                var a=msg.tenant.company.substr(0,msg.tenant.company.length-4);
-                var b=msg.tenant.company.substr(msg.tenant.company.length-4);
-                   $('#cname').html(a);
-                   $("#cname2").html(b);
+                  var d=msg.tenant.company.split("");
+                  var c=null;
+                  for(var f=0;f<msg.tenant.company.length;f++){
+                  	if(d[f]=="股"){
+                  		c=msg.tenant.company.split("股");
+                  		 $("#cname2").html("股"+c[1]);
+                  	}else{
+                  	    c=msg.tenant.company.split("有");
+                  	     $("#cname2").html("有"+c[1]);
+                  	}
+                  }
+                   $('#cname').html(c[0]);
                     $("#name").html(msg.contact.customer_name);
                    $('#address').html(msg.tenant.ad);
                    $('#tel').html(msg.contact.customer_phone);
@@ -238,14 +246,14 @@ $signPackage = $jssdk->GetSignPackage();
 	</script>
 	<script type="text/javascript">
     // 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
-    var useragent = navigator.userAgent;
-    if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
-        // 这里警告框会阻塞当前页面继续加载
-        alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
-        // 以下代码是用javascript强行关闭当前页面
-        var opened = window.open('http://www.uminfo.cn', '_self');
-        opened.opener = null;
-        opened.close();
-    }
+//  var useragent = navigator.userAgent;
+//  if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+//      // 这里警告框会阻塞当前页面继续加载
+//      alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+//      // 以下代码是用javascript强行关闭当前页面
+//      var opened = window.open('http://www.uminfo.cn', '_self');
+//      opened.opener = null;
+//      opened.close();
+//  }
 </script>
 </html>
