@@ -149,8 +149,8 @@ $signPackage = $jssdk->GetSignPackage();
                return null;
            }
        })(jQuery);
-//     var tenant_id=$.getUrlParam('tenant_id');
-       var tenant_id="1000000001";
+    var tenant_id=$.getUrlParam('tenant_id');
+       
        var openid = $.cookie('openid'+tenant_id);
         $(document).ready(function(){
            $.ajax({
@@ -174,9 +174,7 @@ $signPackage = $jssdk->GetSignPackage();
                    $("#foot2").html(msg.tenant.service_items);   
                    if(msg.tenant.tenant_business_card!=null&&msg.tenant.tenant_business_card!=""){
                    	   $(".box").css("background","url("+msg.tenant.tenant_business_card+")");
-                   }
-               
-                   
+                   }   
                },
                error: function(e) {
                    alert("获取后台失败！")

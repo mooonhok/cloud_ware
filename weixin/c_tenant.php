@@ -63,14 +63,15 @@ $signPackage = $jssdk->GetSignPackage();
             color:white;
          }
          .foot{
-         	width:88%;
+         	width:90%;
          	margin-left:5%;
+         	color:#333333;
          	font-size:16px;
          	word-wrap:break-word;
          	float:left;
          	margin-top:10px;
-         	border:solid #333333;
-         		border-radius: 4px;
+         	border:1px solid #eeeeee;
+         	border-radius: 4px;
          	text-indent:2em;
          }
 		</style>
@@ -89,8 +90,8 @@ $signPackage = $jssdk->GetSignPackage();
                return null;
            }
        })(jQuery);
-     var tenant_id=$.getUrlParam('tenant_id');
-     
+   var tenant_id=$.getUrlParam('tenant_id');
+    
        //判断openid是否已经被注册
        var openid = $.cookie('openid'+tenant_id);
 		 $(document).ready(function(){
