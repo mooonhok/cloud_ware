@@ -110,10 +110,10 @@ $signPackage = $jssdk->GetSignPackage();
 			 	margin-left:2%;
 			 }
 			  .foot1{
-			 	height:40px;
+			 	height:35px;
 			 	width:20%;
 			 	margin-left:32%;
-			 	line-height:40px;
+			 	line-height:35px;
 			 	background-color: white;
 			 	text-align: center;
 			 	position: absolute;
