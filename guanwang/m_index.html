@@ -232,11 +232,16 @@ document.addEventListener('touchmove', function(event) {
                 break;
             case 1:
 //              alert("向上！")
-                nowPage++;
+				if(lock){
+                    nowPage++;
+				}
                 break;
             case 2:
 //              alert("向下！")+
-                nowPage--;
+//                nowPage--;
+                if(lock){
+                    nowPage++;
+                }
                 break;
             case 3:
 //              alert("向左！")
