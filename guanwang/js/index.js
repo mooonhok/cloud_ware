@@ -342,7 +342,7 @@ function mouseWheel(){
                 lock = false;  
                 setTimeout(function(){  
                         lock = true;  
-                    },500);  
+                    },1000);
                 }  
             });  
             
