@@ -105,7 +105,7 @@ function mouseWheel(){
         	    $(".img_d").css("height",height);
         	    $(".img_fade_i").css("width",(width/1920)*516+"px");
         	    $(".img_fade_i").css("margin-top","120px");
-                $(".img_fade_i").css("left","42%");
+                $(".img_fade_i").css("left","48%");
                   var first_g_w=$(".first_goods").width();
                   $(".first_goods").css("height",first_g_w);
                   $(".second_goods").css("height",first_g_w);
@@ -142,17 +142,15 @@ function mouseWheel(){
             var lock = true;//函数节流的锁  
             $(document).mousewheel(function(event,delta){  
 
-                if(lock){
-                    lock = false;
-                    nowPage = nowPage - delta;
+                if(lock){ 
+                	lock = false; 
+                nowPage = nowPage - delta;  
                 if(nowPage<0){  
                     nowPage=0;  
                 }  
                 if(nowPage>5){  
                     nowPage=5;  
                 }   
-               
-//             alert(nowPage)
                 
                 console.log(nowPage)
                 if(nowPage==0){
@@ -215,7 +213,8 @@ function mouseWheel(){
 //                  var img_fade_i_talka_top=img_fade_i_t+(218/547)*img_fade_i_h+120-(109/393)*img_fade_i_w;
 //                  var img_fade_i_talka_left=img_fade_i_l+img_fade_i_w*(84/393)-(width/1920)*530*0.4/2;
                     var img_fade_i_talka_top=img_fade_i_t+(218/547)*img_fade_i_h+120+(img_fade_i_w*(84/393)/2-553*(height/1080)*0.4);
-                    var img_fade_i_talka_left=img_fade_i_l+img_fade_i_w*(84/393)-(109/393)*img_fade_i_w/2;
+//                  var img_fade_i_talka_left=img_fade_i_l+img_fade_i_w*(84/393)-(109/393)*img_fade_i_w/2;
+                    var img_fade_i_talka_left=img_fade_i_l+img_fade_i_w*(84/393)/2-(109/393)*img_fade_i_w;
 //                  var canvas_a='<canvas id="myCanvas_a" style="z-index:1111;position:absolute;display:none;"></canvas>';
                     var img_talk_a='<img src="img/1.png" id="myCanvas_a" style="z-index:1111;position:absolute;display:none;"/>';
 //                  $(".page3 .page_bag").append(canvas_a);
@@ -249,7 +248,8 @@ function mouseWheel(){
 //                  $("#myDiv_a").css('left',img_fade_i_talka_left-myDiv_a_w+(109/393)*img_fade_i_w/2);
                     
                     var img_fade_i_talkb_top=img_fade_i_t+(310/547)*img_fade_i_h+120+(img_fade_i_w*(84/393))/2;
-                    var img_fade_i_talkb_left=img_fade_i_l+img_fade_i_w*(84/393)-(width/1920)*530*0.4/2;
+//                  var img_fade_i_talkb_left=img_fade_i_l+img_fade_i_w*(84/393)-(width/1920)*530*0.4/2;
+                    var img_fade_i_talkb_left=img_fade_i_l+img_fade_i_w*(84/393)/2-(109/393)*img_fade_i_w;
 //                  var canvas_b='<canvas id="myCanvas_b" style="z-index:1111;position:absolute;display:none;"></canvas>';
                     var img_talk_b='<img src="img/2.png" id="myCanvas_b" style="z-index:1111;position:absolute;display:none;"/>';
 //                  $(".page3 .page_bag").append(canvas_b);
@@ -284,7 +284,8 @@ function mouseWheel(){
 //                  $("#myDiv_b").css('top',img_fade_i_talkb_top+img_fade_i_w*(84/393)*3/2-myDiv_a_h);
 //                  $("#myDiv_b").css('left',img_fade_i_talkb_left-myDiv_a_w+(109/393)*img_fade_i_w/2);
                     var img_fade_i_talkc_top=img_fade_i_t+(218/547)*img_fade_i_h+120+(img_fade_i_w*(84/393)/2-553*(height/1080)*0.4);
-                    var img_fade_i_talkc_left=img_fade_i_l+img_fade_i_w/2+(109/393)*img_fade_i_w/2;
+//                  var img_fade_i_talkc_left=img_fade_i_l+img_fade_i_w/2+(109/393)*img_fade_i_w/2;
+                    var img_fade_i_talkc_left=img_fade_i_l+img_fade_i_w/2+(109/393)*img_fade_i_w;
 //                  var canvas_b='<canvas id="myCanvas_b" style="z-index:1111;position:absolute;display:none;"></canvas>';
                     var img_talk_c='<img src="img/33.png" id="myCanvas_c" style="z-index:1111;position:absolute;display:none;"/>';
 //                  $(".page3 .page_bag").append(canvas_b);
@@ -296,7 +297,8 @@ function mouseWheel(){
                     $("#myCanvas_c").css('top',img_fade_i_talkc_top);
                     $("#myCanvas_c").css('left',img_fade_i_talkc_left);
                     var img_fade_i_talkd_top=img_fade_i_t+(310/547)*img_fade_i_h+120+(img_fade_i_w*(84/393))/2;
-                    var img_fade_i_talkd_left=img_fade_i_l+img_fade_i_w/2+(109/393)*img_fade_i_w/2;
+//                  var img_fade_i_talkd_left=img_fade_i_l+img_fade_i_w/2+(109/393)*img_fade_i_w/2;
+                    var img_fade_i_talkd_left=img_fade_i_l+img_fade_i_w/2+(109/393)*img_fade_i_w;
 //                  var canvas_b='<canvas id="myCanvas_b" style="z-index:1111;position:absolute;display:none;"></canvas>';
                     var img_talk_d='<img src="img/3.png" id="myCanvas_d" style="z-index:1111;position:absolute;display:none;"/>';
 //                  $(".page3 .page_bag").append(canvas_b);
@@ -340,10 +342,10 @@ function mouseWheel(){
 //              $(".container").css("position", "absolute");
 //              $(".container").animate({"top":(nowPage-1) * -height});
                 $(".page").eq(nowPage).addClass("current").siblings().removeClass('current');  
-
+                 
                 setTimeout(function(){  
                         lock = true;  
-                    },1500);
+                    },1000);  
                 }  
             });  
             
