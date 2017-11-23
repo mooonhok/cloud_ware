@@ -1,0 +1,248 @@
+*{
+padding:0;
+margin:0;
+font-size:16px;
+/*overflow: hidden;*/
+}
+
+html,body{  
+            height: 100%;  
+            overflow: hidden;  
+}  
+.container{  
+            width: 100%;  
+            height: 100%;  
+            position: absolute;/* absolute定位脱离了标准流，不具备将宽度扩展为父盒子的100%，所以需要重写宽度 */  
+            top: 0%;  
+            left: 0;  
+}  
+.page{  
+            width: 100%;  
+            height: 100%;  
+        }  
+.top_nav{
+	position:fixed;
+	top:0;
+	left:0;
+	height:94px;
+	width:100%;
+	background-color:rgb(52,49,55);
+	filter:alpha(Opacity=80);
+	-moz-opacity:0.8;
+	opacity: 0.8;
+	z-index:9999;
+}
+.nav_div_f{
+	width:890px;
+	height:72px;
+	margin:11px auto;
+	/*background-color:red;*/
+}
+.top_logo{
+	height:72px;
+	float:left;
+}
+.first_page{
+	margin-left:200px;
+	float:left;
+	color:rgb(204,204,204);
+	width:50px;
+	font-size:25px;
+	line-height:72px;
+	cursor:pointer;
+}
+.first_page:hover,.down_load:hover,.assist_t:hover,.recruit_t:hover,.salesman_t:hover{
+	color:orange;
+}
+.down_load,.assist_t,.recruit_t{
+	float:left;
+	height:72px;
+	color:rgb(204,204,204);
+	width:50px;
+	font-size:25px;
+	line-height:72px;
+	margin-left:30px;
+	cursor:pointer;
+}
+.salesman_t{
+	float:left;
+	height:72px;
+	color:rgb(204,204,204);
+	width:75px;
+	font-size:25px;
+	line-height:72px;
+	margin-left:30px;
+	cursor:pointer;
+}
+.img_a_abus{
+	position:absolute;
+	z-index:11;
+}
+.page_bag{
+	width:100%;
+	height:100%;
+}
+.intra_a,.intrb_a,.intrc_a{
+	position:absolute;
+	left:100px;
+	width:200px;
+}
+.intra_a>div,.intrb_a>div,.intrb_c>div{
+	float:left;
+}
+.intra_a_s,.intrb_a_s,.intrc_a_s{
+	width:10px;
+	margin-right:290px;
+    background-color:rgb(204,204,204);
+}
+.intra_a_k,.intrb_a_k,.intrc_a_k{
+	width:10px;
+	margin-right:290px;
+    background-color:rgb(204,204,204);
+}
+.intra_a_d,.intrb_a_d,.intrc_a_d{
+	width:100%;
+	font-size:30px;
+	height:50px;
+	line-height:50px;
+	color:white;
+}
+.intra_a_l,.intra_a_zd,.intrb_a_l,.intrb_a_zd,.intrc_a_l,.intrc_a_zd{
+	width:100%;
+	font-size:25px;
+	height:40px;
+	line-height:40px;
+	color:white;
+}
+.back_sport{
+	position:absolute;
+	width:35px;
+	/*top:500px;*/
+	/*width:;*/
+}
+.img_sport_a{
+	float:left;
+	width:35px;
+}
+.img_sport_b{
+	float:left;
+	margin-top:10px;
+	width:25px;
+	margin-left:5px;
+	
+}
+.img_fade_a,.img_fade_b,.img_fade_c,.img_fade_d,.img_fade_e,.img_fade_f,.img_fade_g,.img_fade_h,.img_fade_i,.img_fade_j{
+	display:none;
+	position:absolute;
+}
+.img_fade_g,.img_fade_h,.img_fade_j{
+	border-radius:15px;
+}
+.one_point_download{
+	margin:0 auto;
+	margin-top:100px;
+	font-size:30px;
+	text-align:center;
+	height:40px;
+	line-height:40px;
+	font-weight:900;
+}
+.let_life_fun{
+	margin:0 auto;
+	font-size:20px;
+	text-align:center;
+	height:30px;
+	color:rgb(153,153,153);
+	line-height:30px;
+	font-weight:500;
+}
+.three_goods{
+	width:80%;
+	margin-top:80px;
+	margin-left:10%;
+	margin-right:10%;
+}
+.three_goods>div{
+	float:left;
+}
+.first_goods,.second_goods{
+	width:25%;
+	border:1px solid black;
+	margin-right:4%;
+}
+.third_goods{
+	width:40%;
+	border:1px solid black;
+}
+.third_goods>img{
+	float:left;
+}
+.iphone_a,.android_a,.iphone_b,.android_b{
+	position: relative;
+	font-size:25px;
+	text-align:center;
+	display:block;
+}
+.pc_a,.weixin_a,.plus_b{
+	font-size:25px;
+	text-align: top;
+	/*display:inline-block;*/
+}
+.qracore_a{
+	position:relative;
+	width:100%;
+	height:100%;
+	display:none;
+}
+.first_goods:hover .qracore_a{
+	display:block;
+}
+.first_goods:hover .iphone_a{
+	display:none;
+}
+.first_goods:hover .iphone_b{
+	display:none;
+}
+
+
+.qracore_b{
+	position:relative;
+	width:100%;
+	height:100%;
+	display:none;
+}
+.second_goods:hover .qracore_b{
+	display:block;
+}
+.second_goods:hover .android_a{
+	display:none;
+}
+.second_goods:hover .android_b{
+	display:none;
+}
+.pc_b{
+	float:left;
+	text-align:center;
+	font-size:25px;
+}
+.weixin_b{
+		float:left;
+		font-size:25px;
+	text-align:center;
+}
+
+.zs{
+	position:absolute;
+	width:100%;
+	height:100%;
+}
+@media (min-width: 768px) and (max-width: 991px){
+/*.top_nav{
+	display:none;
+}*/
+}
+@media (max-width: 768px){
+/*.top_nav{
+	display:none;
+}*/
+}

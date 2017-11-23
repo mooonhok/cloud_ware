@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+		<title></title>
+		<link rel="stylesheet" href="css/index.css">
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<script>
+//		$(document).ready(function(){
+           var ua = navigator.userAgent.toLowerCase();
+            var isMobile = false;
+            var browsers = ["android;", "android ", "android/", "ipod;", "ipad;", "iphone;", "iphone ", "iphone/"];
+            for (var _b = browsers.length; _b--; ) {
+                if (ua.indexOf(browsers[_b]) != -1) {
+                    isMobile = true;
+                    break;
+                }
+            }
+            if(isMobile){
+            	window.location.href="m_index.html";
+            }
+//         });
+		</script>
+		<script type="text/javascript" src="js/jquery.easie.js"></script>
+		<script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
+
+		<script type="text/javascript" src="js/index.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<nav class="top_nav">
+			    <div class="nav_div_f">
+				    <img src="img/logo.png" class="top_logo"/>
+				    <div class="first_page">首页</div>
+				    <div class="down_load">下载</div>
+				    <div class="assist_t">帮助</div>
+				    <div class="recruit_t">招聘</div>
+				    <div class="salesman_t">业务员</div>
+			    </div>
+		    </nav>
+		    <div class="page page0 current" id="page1">
+		    	<div class="page_bag">
+		    		<img class="img_a_abus" src="img/logistics.png"/>
+		    		<div class="back_sport">
+		    			<img class="img_sport_a" src="img/mouse.png"/>
+		    			<img class="img_sport_b" src="img/select.png"/>
+		    		</div>
+		    		<img class="img_a" src="img/1_bg.png"/>
+		    	</div>
+		    </div>
+		    <div class="page page1">
+		    	<div class="page_bag">
+		    		<div class="intra_a">
+		    			<div class="intra_a_s"></div>
+		    			<div class="intra_a_d">客户端</div>
+		    			<div class="intra_a_l">物流管理</div>
+		    			<div class="intra_a_zd">物流详情早知道</div>
+		    			<div class="intra_a_k"></div>
+		    		</div>
+		    		<img src="img/002.png" class="img_fade_a"/>
+		    		<img src="img/001.png" class="img_fade_b"/>
+		    		<img src="img/002.png" class="img_fade_c"/>
+		    		<img src="img/001.png" class="img_fade_d"/>
+		    		<img src="img/002.png" class="img_fade_e"/>
+		    		<img src="img/001.png" class="img_fade_f"/>
+		    		<img class="img_b" src="img/2_bg.png"/>
+		    	</div>
+		    </div>
+		    <div class="page page2">
+		    	<div class="page_bag">
+		    		<div class="intrb_a">
+		    			<div class="intrb_a_s"></div>
+		    			<div class="intra_a_d">微信端</div>
+		    			<div class="intra_a_l">寄件收件</div>
+		    			<div class="intra_a_zd">方便快捷</div>
+		    			<div class="intrb_a_k"></div>
+		    		</div>
+		    		<img src="img/3_wechat_left.png" class="img_fade_g"/>
+		    		<img src="img/3_wechat_right.png" class="img_fade_h"/>
+		    		<img src="img/3_wechat_right.png" class="img_fade_j"/>
+		    		<img class="img_c" src="img/3_bg.png"/>
+		    	</div>
+		    </div>
+		    <div class="page page3">
+		    	<div class="page_bag">
+		    		<div class="intrc_a">
+		    			<div class="intrc_a_s"></div>
+		    			<div class="intra_a_d">手机App</div>
+		    			<div class="intra_a_l">寄件收件</div>
+		    			<div class="intra_a_zd">方便快捷</div>
+		    			<div class="intrc_a_k"></div>
+		    		</div>
+		    		<img src="img/4_app.png" class="img_fade_i"/>
+		    		<img class="img_d" src="img/4_bg.png"/>
+		    	</div>
+		    </div>
+		    <div class="page page4">
+		    	<div class="page_bag">
+		    		<div class="img_d" style="background:url(img/5_bg.png);">
+		    			<img src="img/text.png" style="position:relative;top:15%;left:15%;width:70%;height:70%;float:left;" class="text"/>
+		    		</div>
+		    		<img src="img/zs.png" class="zs"/>
+		    	</div>
+		    </div>
+		    <div class="page page5">
+		    	<div class="page_bag">
+		    		<div class="img_d">
+		    			<div class="one_point_download">一键下载</div>
+		    			<div class="let_life_fun">让生活变得有趣起来</div>
+		    			<div class="three_goods">
+		    				<div class="first_goods">
+		    					<img src="img/iphone.png" class="qracore_a"/>
+		    					<img src="img/iphone.png" class="iphone_a"/>
+		    					<div class="iphone_b">iphone</div>
+		    				</div>
+		    				<div class="second_goods">
+		    					<img src="img/android.png" class="qracore_b"/>
+		    					<img src="img/android.png" class="android_a"/>
+		    					<div class="android_b">android</div>
+		    				</div>
+		    				<div class="third_goods">
+		    					<img src="img/PC.png" class="pc_a"/>
+		    					<img class="plus_a" src="img/plus.png"/>
+		    					<img src="img/weixin.png" class="weixin_a"/>
+		    					<div class="pc_b">pc</div><div class="weixin_b">公众号</div>
+		    				</div>
+		    			</div>
+		    		</div>
+		    	</div>
+		    </div>
+		</div>
+		
+	</body>
+</html>
