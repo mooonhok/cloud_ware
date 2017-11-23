@@ -182,7 +182,6 @@
 				height: 100%;
 				margin-left: 20%;
 				background: rgba(255, 255, 255, 0.5);
-				
 			}
 			
 			.center {
@@ -269,7 +268,7 @@
 	</head>
 
 	<body>
-		
+
 		<div class="top">
 			<div class="top1">登录</div>
 		</div>
@@ -316,12 +315,39 @@
 
 	</body>
 	<script type="text/javascript" src="js/canvas-nest.js"></script>
-	<script type="text/javascript" color="255,0,0" opacity="0.5" count="600" src="canvas-nest.js"></script>
+	<script type="text/javascript" color="255,0,0" opacity="0.5" count="200" src="canvas-nest.js"></script>
+	<script type="text/javascript">
+		//禁止鼠标右键菜单和F12打开控制台看源码
+		function click(e) {
+			if(document.all) {
+				if(event.button == 2 || event.button == 3) {
+					alert("欢迎光临寒舍，有什么需要帮忙的话，请与公司联系");
+					oncontextmenu = 'return false';
+				}
+			}
+			if(document.layers) {
+				if(e.which == 3) {
+					oncontextmenu = 'return false';
+				}
+			}
+		}
+	</script>
 	<script>
 		$(document).ready(function() {
+			if(document.layers) {
+				document.captureEvents(Event.MOUSEDOWN);
+			}
+			document.onmousedown = click;
+			document.oncontextmenu = new Function("return false;")
+			document.onkeydown = document.onkeyup = document.onkeypress = function() {
+				if(window.event.keyCode == 123) {
+					window.event.returnValue = false;
+					return(false);
+				}
+			}
 			var sales_name = $.session.get('username');
 			var sales_id = $.session.get('userid');
-			if(sales_id!=""||sales_id!=null){
+			if(sales_id != "" || sales_id != null) {
 				$(".top1").html(sales_name);
 			}
 			$("#register").addClass("style");
@@ -367,8 +393,9 @@
 				$("#back").removeClass("style");
 			});
 		});
-		var userid = null;
+		
 		var code;
+
 		function createCode() {
 			code = "";
 			var codeLength = 6; //验证码的长度
@@ -410,7 +437,7 @@
 						if(msg.result == 0) {
 							$.session.set('userid', msg.user.id);
 							$.session.set('username', msg.user.sales_name);
-							userid = msg.user.id;
+							
 							alert(msg.desc);
 							$(".top1").html(msg.user.sales_name);
 							$(".box2").css("display", "none");
@@ -444,8 +471,9 @@
 			$(".box").css("display", "block");
 
 		});
-
+   
 		$("#register").on("click", function() {
+			 var userid = $.session.get('userid');
 			if(userid == null || userid == "") {
 				alert("请登录");
 			} else {
@@ -459,7 +487,7 @@
 			window.location.href = "http://www.uminfo.cn/yindex.html";
 		});
 		$("#pmessage").on("click", function() {
-
+			 var userid = $.session.get('userid');
 			if(userid == null || userid == "") {
 				alert("请登录");
 			} else {
@@ -468,6 +496,7 @@
 
 		});
 		$("#rsales").on("click", function() {
+			 var userid = $.session.get('userid');
 			if(userid == null || userid == "") {
 				alert("请登录");
 			} else {
@@ -476,6 +505,7 @@
 
 		});
 		$("#tmessage").on("click", function() {
+			 var userid = $.session.get('userid');
 			if(userid == null || userid == "") {
 				alert("请登录");
 			} else {
@@ -484,6 +514,7 @@
 
 		});
 		$("#zmessage").on("click", function() {
+			 var userid = $.session.get('userid');
 			if(userid == null || userid == "") {
 				alert("请登录");
 			} else {
