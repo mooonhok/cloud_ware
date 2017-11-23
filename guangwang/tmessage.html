@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.session.js"></script>
+		<script type="text/javascript" src="src/layui.js"></script>
+				<link rel="stylesheet" href="src/css/layui.css">
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			.top {
+				width: 100%;
+				height: 50px;
+				background-color: #019ed5;
+			}
+			
+			.top1 {
+				width: 100px;
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+				float: right;
+				color: white;
+			}
+			
+			.center {
+				width: 60%;
+				height: 600px;
+				margin-top: 100px;
+				margin-left: 20%;
+				display: block;
+			}
+			
+			.center table {
+				height:600px;
+				width:800px;
+				border-right: 1px solid #70ACC4;
+				border-bottom: 1px solid #70ACC4;
+			}
+			
+			.center table td {
+				border-left: 1px solid #70ACC4;
+				border-top: 1px solid #70ACC4;
+				height: 50px;
+				width:120px;
+				text-align: center;
+			}
+			
+			.center table thead tr th {
+				height: 50px;
+				width:120px;
+				line-height: 50px;
+				text-align: center;
+				border-left: 1px solid #70ACC4;
+				border-top: 1px solid #70ACC4;
+				background: #70ACC4;
+			}
+			.box{
+				width: 60%;
+				height: 600px;
+				margin-top: 100px;
+				margin-left: 20%;
+				display: none;
+				text-align: center;
+			}
+			.box1{
+				width:50%;
+				height:40px;
+				line-height:40px;
+				margin-left:25%;
+				text-align:center;
+			}
+			.box3{
+				width:70%;
+				height:40px;
+				line-height:40px;
+				margin-left:15%;
+				text-align:center;
+				margin-top:10px;
+			}
+			.ts{
+				width:20%;
+				height:40px;
+				line-height: 40px;
+				font-size: 20px;
+				text-align: center;
+				float:left;
+			}
+			.tm{
+				width:20%;
+				height:40px;
+				line-height:40px;
+				font-size:20px;
+				float:left;
+			}
+			.box3 input{
+			   width:65%;
+			   height:40px;
+			   outline:0;
+			   border-bottom-style: solid;
+			   font-size:18px;
+			   float:left;
+			   line-height:40px;
+			   text-align: center;
+			   margin-left:2%;	
+			   border-top-style:hidden;
+			    border-left-style: hidden;
+			    border-right-style:hidden;
+			}
+			.box2{
+				width:30%;
+				height:40px;
+				margin-top:20px;
+				line-height:40px;
+				background: #019ed5;
+				margin-left:10%;
+				float:left;
+				border-radius: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="top">
+			<div class="top1">返回首页</div>
+		</div>
+		<div class="center">
+			<table id="tables">
+				<thead>
+					<tr>
+						<th>公司名称</th>
+						<th>公司负责人</th>
+						<th>公司负责人电话</th>
+						<th>开始时间</th>
+						<th>结束时间</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody id="tb2">
+				</tbody>
+			</table>
+			<div id="demo20"></div>
+		</div>
+			<!-- box4 -->
+				<div class="box">
+					<input type="text" id="gsid" style="display: none;">
+							<div class="box1">公司详细信息</div>
+						<div class="box3"><div class="ts">公司名称:</div><input type="text" disabled="disabled" id="name"></div>
+						<div class="box3"><div class="ts">负责人姓名:</div><input type="text" id="rname"></div>
+							<div class="box1">使用情况</div>
+						<div class="box3"><div class="ts">结束时间:</div><input type="text" id="endTime" placeholder="例：2017-06-03"></div>
+							<div class="box1">联系方式</div>
+					<div class="box3"><div class="tm">电话:</div><input type="text" id="phone"></div>
+					
+					<div class="box3"><div class="tm">邮件:</div><input type="text" id="email" name="email"></div>
+					<div class="box3"><div class="tm">QQ:</div><input type="text" id="qq"></div>
+					<div class="box3"><div class="tm">地址:</div><input type="text" id="site"></div>
+					
+					<div class="box3"><div id="save" class="box2">保存</div><div  id="cancel" class="box2">取消</div></div>
+					 
+				</div>
+	</body>
+		<script type="text/javascript" src="js/canvas-nest.js"></script>
+	<script type="text/javascript" color="255,0,0" opacity="0.5" count="600" src="canvas-nest.js"></script>
+	<script>
+		$(".top1").on("click", function() {
+			window.location.href = "http://www.uminfo.cn/yindex.html";
+		});
+	var sales_id = $.session.get('userid');
+//  var sales_id=1;
+		if(sales_id == null || sales_id == "") {
+			window.location.href = "http://www.uminfo.cn/yindex.html";
+		} else {
+			com();
+	   }
+		function com(page) {
+				if(page == null) {
+					page = 1;
+				}
+				$.ajax({
+						url: "http://api.uminfo.cn/sales.php/sales_tenant?sales_id=" + sales_id+"&page="+page+"&per_page=5",
+						dataType: 'json',
+						type: 'get',
+						ContentType: "application/json;charset=utf-8",
+						data: JSON.stringify({}),
+						success: function(msg) {
+							$("#tb2").html("");
+					
+							//调用分页
+							layui.use(['laypage', 'layer'], function() {
+										var laypage = layui.laypage;
+										laypage.render({
+												elem: 'demo20',
+												count: msg.count,
+												curr: page,
+												limit: 5,
+												jump: function(obj, first) {
+													if(!first) {
+														com(obj.curr);
+													}
+													//模拟渲染
+													document.getElementById('tb2').innerHTML = function() {
+														var arr = [],
+															thisData = msg.company;
+														layui.each(thisData, function(index, item) {
+																arr.push('<tr><td>' + item.company + '</td><td>' +
+																	item.customer_name + '</td><td>' +
+																	item.customer_phone + '</td><td>' +
+																	item.begin_time + '</td><td>' +
+																	item.end_time + '</td><td class="det" onclick="detil(' 
+																	+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">操作</span></td></tr>');
+																});
+															return arr.join('');
+														}();
+													}
+												});
+										});
+								},
+								error: function(xhr) {
+									alert("获取后台失败！"+ xhr.responseText);
+								}
+						});
+				}
+		
+		function detil(id){
+			              $(".box").css("display", "block");
+							$(".center").css("display", "none");
+							$.ajax({
+								url: "http://api.uminfo.cn/sales.php/tenantbyid?tenant_id=" + id,
+								dataType: 'json',
+								type: 'get',
+								ContentType: "application/json;charset=utf-8",
+								data: JSON.stringify({}),
+								success: function(msg) {
+									console.log(msg);
+									$("#name").val(msg.tenant.company);
+									$("#rname").val(msg.tenant.customer_name);
+									$("#endTime").val(msg.tenant.end_time);
+									$("#phone").val(msg.tenant.customer_phone);
+									$("#email").val(msg.tenant.email);
+									$("#qq").val(msg.tenant.qq);
+									$("#site").val(msg.tenant.address);
+									$("#gsid").val(id);
+								},
+								error: function(xhr) {
+									alert("获取后台失败"+xhr.responseText);
+								}
+							})
+		}
+		
+		$("#save").on("click", function() {
+			      $(".box").css("display", "none");
+			var name = $("#name").val();
+			var customer = $("#rname").val();
+			var phone = $("#phone").val();
+			var email = $("#email").val();
+			var qq = $("#qq").val();
+			var site = $("#site").val();
+			var end_time = $("#endTime").val();
+			var id = $("#gsid").val();
+			if(!/^1[34578]\d{9}$/.test(phone)) {
+				alert("电话号码格式不对");
+				return false;
+			 }else if(!/^((?:19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/.test(end_time)){
+			 alert("日期格式不正确(例：2017-06-03)");
+			}
+			 else{	
+					//修改公司信息
+					//alert(sales_id+"<br>"+id);
+					$.ajax({
+						url: "http://api.uminfo.cn/sales.php/tenantchange",
+						dataType: 'json',
+						type: 'put',
+						ContentType: "application/json;charset=utf-8",
+						data: JSON.stringify({
+							sales_id: sales_id,
+							tenant_id: id,
+							customer_name: customer,
+							customer_phone: phone,
+							address: site,
+							end_time: end_time,
+							qq: qq,
+							email: email
+						}),
+						success: function(msg) {
+							//alert("修改公司信息成功");
+							alert(msg.desc);
+							$(".box").css("display", "none");
+							window.location.reload();
+						},
+						error: function(xhr) {
+							alert("获取后台失败"+xhr.responseText);
+						}
+					});
+				}
+			});
+		$("#cancel").on("click",function(){
+			window.location.reload();
+		});
+	</script>
+</html>

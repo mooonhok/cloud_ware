@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.session.js"></script>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			.box2 {
+				width: 100%;
+				height: 100%;
+				background: rgba(255, 255, 255, 0.5);
+				position: absolute;
+				z-index: 100;
+				display: none;
+			}
+			
+			.box3 {
+				width: 400px;
+				height: 400px;
+				background: white;
+				margin: 300px auto;
+			}
+			
+			.box3_1 {
+				width: 300px;
+				float: left;
+				margin-left: 50px;
+				text-align: center;
+				height: 50px;
+				line-height: 50px;
+			}
+			
+			.box3_2 {
+				width: 300px;
+				height: 1px;
+				background: #DEDEDE;
+				float: left;
+				margin-left: 50px;
+			}
+			
+			.box3_3 {
+				width: 300px;
+				height: 35px;
+				margin-top: 20px;
+				margin-left: 50px;
+				float: left;
+				background: #DEDEDE;
+				border-radius: 5px;
+			}
+			
+			.box3_3 input {
+				width: 260px;
+				height: 35px;
+				background: #DEDEDE;
+				color: black;
+				border: 0;
+				list-style: none;
+				outline-style: none;
+				display: inline-block;
+				float: left;
+				margin-left: 20px;
+			}
+			
+			.box3_4 {
+				width: 300px;
+				height: 35px;
+				margin-top: 20px;
+				margin-left: 50px;
+				float: left;
+				background: #DEDEDE;
+				border-radius: 5px;
+			}
+			
+			.box3_4 input {
+				width: 260px;
+				height: 35px;
+				background: #DEDEDE;
+				color: black;
+				border: 0;
+				list-style: none;
+				outline-style: none;
+				display: inline-block;
+				float: left;
+				margin-left: 20px;
+			}
+			
+			.box3_5 {
+				width: 300px;
+				height: 25px;
+				margin-top: 5px;
+				margin-left: 50px;
+				float: left;
+				text-align: right;
+			}
+			
+			.box3_5 {
+				color: black;
+				font-size: 12px;
+				cursor: pointer;
+			}
+			
+			.box3_6 {
+				width: 300px;
+				height: 30px;
+				margin-top: 10px;
+				margin-left: 50px;
+				float: left;
+				text-align: center;
+				line-height: 30px;
+				background: #019ed5;
+				color: white;
+				border-radius: 5px;
+				font-size: 17px;
+				cursor: pointer;
+			}
+			
+			.box3_8 {
+				width: 300px;
+				height: 35px;
+				margin-top: 20px;
+				margin-left: 50px;
+				float: left;
+				border-radius: 5px;
+			}
+			
+			.box3_8_1 {
+				width: 120px;
+				height: 35px;
+				float: left;
+				background: #DEDEDE;
+				border-radius: 5px;
+			}
+			
+			.box3_8_1 input {
+				width: 120px;
+				height: 35px;
+				background: #DEDEDE;
+				text-align: center;
+				border: 0;
+				outline-style: none;
+				list-style: none;
+				border-radius: 5px;
+			}
+			
+			.box3_8_2 {
+				border-radius: 5px;
+				width: 120px;
+				height: 35px;
+				float: right;
+				font-size: 24px;
+				color: white;
+				line-height: 35px;
+				text-align: center;
+				background: #019ed5;
+			}
+			
+			.qx {
+				width: 40px;
+				height: 40px;
+				color: white;
+				float: right;
+				text-align: center;
+				margin-right: 10px;
+				margin-top: 10px;
+			}
+			
+			.qx img {
+				width: 30px;
+				height: 30px;
+				cursor: pointer;
+			}
+			
+			.box {
+				width: 50%;
+				height: 100%;
+				margin-left: 20%;
+				background: rgba(255, 255, 255, 0.5);
+				
+			}
+			
+			.center {
+				width: 1000px;
+				height: 200px;
+				line-height: 200px;
+				margin-top: 150px;
+				margin-left: 100px;
+			}
+			
+			.center1 {
+				width: 200px;
+				height: 150px;
+				font: 26px "微软雅黑";
+				margin-left: 5%;
+				background-color: #019ed5;
+				float: left;
+				border-radius: 10px;
+				line-height: 150px;
+				text-align: center;
+				/*box-shadow: 5px 5px 5px 5px #ADADAD;*/
+				color: white;
+			}
+			
+			.center2 {
+				width: 200px;
+				height: 150px;
+				font: 24px "微软雅黑";
+				margin-left: 6%;
+				background-color: #019ed5;
+				float: left;
+				border-radius: 10px;
+				line-height: 150px;
+				text-align: center;
+				/*box-shadow: 5px 5px 5px 5px #ADADAD;*/
+				color: white;
+			}
+			
+			.center3 {
+				width: 200px;
+				height: 150px;
+				font: 24px "微软雅黑";
+				margin-left: 6%;
+				background-color: #019ed5;
+				float: left;
+				border-radius: 10px;
+				line-height: 150px;
+				text-align: center;
+				color: white;
+			}
+			
+			#back {
+				width: 200px;
+				height: 150px;
+				font: 24px "微软雅黑";
+				margin-left: 6%;
+				background-color: #50a7c6;
+				float: left;
+				border-radius: 10px;
+				line-height: 150px;
+				text-align: center;
+				color: white;
+			}
+			
+			.top {
+				width: 100%;
+				height: 50px;
+				background-color: #019ed5;
+			}
+			
+			.top1 {
+				width: 100px;
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+				float: right;
+				color: white;
+			}
+			
+			.style {
+				box-shadow: 5px 5px 5px 5px #ADADAD;
+			}
+		</style>
+	</head>
+
+	<body>
+		
+		<div class="top">
+			<div class="top1">登录</div>
+		</div>
+		<div class="box">
+			<div class="center">
+				<div class="center1" id="register">(客户)企业注册</div>
+				<div class="center2" id="tmessage">客户信息</div>
+				<div class="center3" id="zmessage">帐号信息</div>
+			</div>
+			<div class="center">
+				<div class="center1" id="pmessage">个人信息</div>
+				<div class="center2" id="rsales">推荐业务员注册</div>
+				<div id="back">退出登录</div>
+			</div>
+		</div>
+		<div class="box2">
+			<div class="box3">
+				<div class="box3_1">
+					<h4>业 务 员 登 录</h4>
+				</div>
+				<div class="qx">
+					<img src="img/close.png" alt="">
+				</div>
+				<div class="box3_2"></div>
+				<div class="box3_3">
+					<input type="text" id="username" placeholder="手机号">
+				</div>
+				<div class="box3_4">
+					<input type="password" id="password" placeholder="密码">
+				</div>
+
+				<div class="box3_8">
+					<div class="box3_8_1"><input type="text" placeholder="请输入验证码" id="identify" /></div>
+					<div class="box3_8_2">
+						<div id="checkCode" onclick="createCode()"></div>
+					</div>
+				</div>
+				<div class="box3_5" id="kbq" onclick="createCode()">看不清？</div>
+				<div class="box3_6" id="signin">
+					登 录
+				</div>
+			</div>
+		</div>
+
+	</body>
+	<script type="text/javascript" src="js/canvas-nest.js"></script>
+	<script type="text/javascript" color="255,0,0" opacity="0.5" count="600" src="canvas-nest.js"></script>
+	<script>
+		$(document).ready(function() {
+			var sales_name = $.session.get('username');
+			var sales_id = $.session.get('userid');
+			if(sales_id!=""||sales_id!=null){
+				$(".top1").html(sales_name);
+			}
+			$("#register").addClass("style");
+			$("#tmessage").addClass("style");
+			$("#zmessage").addClass("style");
+			$("#pmessage").addClass("style");
+			$("#rsales").addClass("style");
+			$("#back").addClass("style");
+			$("#register").mouseout(function() {
+				$("#register").addClass("style");
+			});
+			$("#register").mouseover(function() {
+				$("#register").removeClass("style");
+			});
+			$("#tmessage").mouseout(function() {
+				$("#tmessage").addClass("style");
+			});
+			$("#tmessage").mouseover(function() {
+				$("#tmessage").removeClass("style");
+			});
+			$("#zmessage").mouseout(function() {
+				$("#zmessage").addClass("style");
+			});
+			$("#zmessage").mouseover(function() {
+				$("#zmessage").removeClass("style");
+			});
+			$("#pmessage").mouseout(function() {
+				$("#pmessage").addClass("style");
+			});
+			$("#pmessage").mouseover(function() {
+				$("#pmessage").removeClass("style");
+			});
+			$("#rsales").mouseout(function() {
+				$("#rsales").addClass("style");
+			});
+			$("#rsales").mouseover(function() {
+				$("#rsales").removeClass("style");
+			});
+			$("#back").mouseout(function() {
+				$("#back").addClass("style");
+			});
+			$("#back").mouseover(function() {
+				$("#back").removeClass("style");
+			});
+		});
+		var userid = null;
+		var code;
+		function createCode() {
+			code = "";
+			var codeLength = 6; //验证码的长度
+			var checkCode = document.getElementById("checkCode");
+			var codeChars = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+				'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+				'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); //所有候选组成验证码的字符，当然也可以用中文的
+			for(var i = 0; i < codeLength; i++) {
+				var charNum = Math.floor(Math.random() * 52);
+				code += codeChars[charNum];
+			}
+			if(checkCode) {
+				checkCode.className = "code";
+				checkCode.innerHTML = code;
+			}
+		}
+
+		function validateCode() {
+			var inputCode = document.getElementById("identify").value;
+			inputCode = inputCode.replace(/(^\s*)|(\s*$)/g, '');
+			if(inputCode.length <= 0) {
+				alert("请输入验证码！");
+			} else if(inputCode.toUpperCase() != code.toUpperCase()) {
+				alert("验证码输入有误！");
+				createCode();
+			} else {
+				var name = $("#username").val();
+				var pwd = $("#password").val();
+				$.ajax({
+					url: "http://api.uminfo.cn/sales.php/usersign",
+					dataType: 'json',
+					type: 'post',
+					ContentType: "application/json;charset=utf-8",
+					data: JSON.stringify({
+						username: name,
+						password: pwd
+					}),
+					success: function(msg) {
+						if(msg.result == 0) {
+							$.session.set('userid', msg.user.id);
+							$.session.set('username', msg.user.sales_name);
+							userid = msg.user.id;
+							alert(msg.desc);
+							$(".top1").html(msg.user.sales_name);
+							$(".box2").css("display", "none");
+							$(".box").css("display", "block");
+						} else {
+							alert(msg.desc);
+						}
+					},
+					error: function(xhr) {
+						alert("获取后台失败" + xhr.responseText);
+					}
+				});
+			}
+		}
+
+		$(function() {
+			createCode();
+		});
+		$("#signin").on('click', function() {
+			var name = $("#username").val();
+			var pwd = $("#password").val();
+			var rcode = $("#identify").val();
+			if(!/^1[34578]\d{9}$/.test(name)) {
+				alert("手机号码格式不对");
+			} else {
+				validateCode();
+			}
+		});
+		$(".qx").on("click", function() {
+			$(".box2").css("display", "none");
+			$(".box").css("display", "block");
+
+		});
+
+		$("#register").on("click", function() {
+			if(userid == null || userid == "") {
+				alert("请登录");
+			} else {
+				window.location.href = "http://www.uminfo.cn/zhuce.html";
+			}
+		});
+		$("#back").on("click", function() {
+			$.session.remove('userid');
+			$.session.remove('username');
+			$(".top1").html("登录");
+			window.location.href = "http://www.uminfo.cn/yindex.html";
+		});
+		$("#pmessage").on("click", function() {
+
+			if(userid == null || userid == "") {
+				alert("请登录");
+			} else {
+				window.location.href = "http://www.uminfo.cn/pmessage.html";
+			}
+
+		});
+		$("#rsales").on("click", function() {
+			if(userid == null || userid == "") {
+				alert("请登录");
+			} else {
+				window.location.href = "http://www.uminfo.cn/rsales.html";
+			}
+
+		});
+		$("#tmessage").on("click", function() {
+			if(userid == null || userid == "") {
+				alert("请登录");
+			} else {
+				window.location.href = "http://www.uminfo.cn/tmessage.html";
+			}
+
+		});
+		$("#zmessage").on("click", function() {
+			if(userid == null || userid == "") {
+				alert("请登录");
+			} else {
+				window.location.href = "http://www.uminfo.cn/zmessage.html";
+			}
+
+		});
+		$(".top1").on("click", function() {
+			$(".box2").css("display", "block");
+			$(".box").css("display", "none");
+		});
+	</script>
+
+</html>
