@@ -248,8 +248,9 @@ document.addEventListener('touchmove', function(event) {
                 break;
             default:
         }
-                if(lock){    
-                if(nowPage<0){  
+                if(lock){
+                    lock = false;
+                    if(nowPage<0){
                     nowPage=0;  
                 }  
 //              alert(nowPage)
@@ -258,10 +259,10 @@ document.addEventListener('touchmove', function(event) {
                 }     
                 $(".container").animate({"top": nowPage * -100 +"%"});  
                 $(".page").eq(nowPage).addClass("current").siblings().removeClass('current');  
-                lock = false;  
+
                 setTimeout(function(){  
                         lock = true;  
-                    },500);  
+                    },1500);
                 }  
     }, false);
          
