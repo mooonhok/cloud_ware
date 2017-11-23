@@ -142,8 +142,9 @@ function mouseWheel(){
             var lock = true;//函数节流的锁  
             $(document).mousewheel(function(event,delta){  
 
-                if(lock){  
-                nowPage = nowPage - delta;  
+                if(lock){
+                    lock = false;
+                    nowPage = nowPage - delta;
                 if(nowPage<0){  
                     nowPage=0;  
                 }  
@@ -339,10 +340,10 @@ function mouseWheel(){
 //              $(".container").css("position", "absolute");
 //              $(".container").animate({"top":(nowPage-1) * -height});
                 $(".page").eq(nowPage).addClass("current").siblings().removeClass('current');  
-                lock = false;  
+
                 setTimeout(function(){  
                         lock = true;  
-                    },1000);
+                    },1500);
                 }  
             });  
             
