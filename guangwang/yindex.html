@@ -260,6 +260,14 @@
 				float: right;
 				color: white;
 			}
+			.top2{
+				width: 100px;
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+				float: left;
+				color: white;
+			}
 			
 			.style {
 				box-shadow: 5px 5px 5px 5px #ADADAD;
@@ -270,6 +278,7 @@
 	<body>
 
 		<div class="top">
+			<div class="top2">返回官网</div>
 			<div class="top1">登录</div>
 		</div>
 		<div class="box">
@@ -525,6 +534,9 @@
 		$(".top1").on("click", function() {
 			$(".box2").css("display", "block");
 			$(".box").css("display", "none");
+		});
+		$(".top2").on("click",function(){
+			window.location.href = "http://www.uminfo.cn/index.html";
 		});
 	</script>
 
