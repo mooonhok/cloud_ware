@@ -19,7 +19,10 @@ html,body{
 	height:100%;
 }
 .bg_img_a,.bg_img_b,.bg_img_c,.bg_img_d,.bg_img_e,.bg_img_f{
-
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
 	background-repeat:no-repeat ;
     background-size:100% 100%; 
     background-attachment: fixed;
