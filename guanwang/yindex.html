@@ -316,9 +316,14 @@
 
 	</body>
 	<script type="text/javascript" src="js/canvas-nest.js"></script>
-	<script type="text/javascript" color="255,0,0" opacity="0.5" count="600" src="js/canvas-nest.js"></script>
+	<script type="text/javascript" color="255,0,0" opacity="0.5" count="600" src="canvas-nest.js"></script>
 	<script>
 		$(document).ready(function() {
+			var sales_name = $.session.get('username');
+			var sales_id = $.session.get('userid');
+			if(sales_id!=""||sales_id!=null){
+				$(".top1").html(sales_name);
+			}
 			$("#register").addClass("style");
 			$("#tmessage").addClass("style");
 			$("#zmessage").addClass("style");
@@ -404,6 +409,7 @@
 					success: function(msg) {
 						if(msg.result == 0) {
 							$.session.set('userid', msg.user.id);
+							$.session.set('username', msg.user.sales_name);
 							userid = msg.user.id;
 							alert(msg.desc);
 							$(".top1").html(msg.user.sales_name);
@@ -448,6 +454,8 @@
 		});
 		$("#back").on("click", function() {
 			$.session.remove('userid');
+			$.session.remove('username');
+			$(".top1").html("登录");
 			window.location.href = "http://www.uminfo.cn/yindex.html";
 		});
 		$("#pmessage").on("click", function() {

@@ -154,6 +154,7 @@
 		}
      		//修该sales个人信息
 		$("#save_1").on("click", function() {
+			var sales_id = $.session.get('userid');
 			var sales_name = $("#name").val();
 			var numb = $("#number").val();
 			var tel = $("#tel").val();
