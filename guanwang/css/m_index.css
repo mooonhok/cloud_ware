@@ -20,12 +20,10 @@ html,body{
 }
 .bg_img_a,.bg_img_b,.bg_img_c,.bg_img_d,.bg_img_e,.bg_img_f{
 	background-repeat:no-repeat ;
-	-webkit-background-size:100% 100%;
-	-moz-background-size:100% 100%;
-	background-size:100% 100%;
+    background-size:100% 100%; 
     background-attachment: fixed;
 }
-.bg_img_a{
+/*.bg_img_a{
 		background-image:url(../img/mobile_a.png);
 }
 .bg_img_b{
@@ -39,5 +37,12 @@ html,body{
 }
 .bg_img_e{
 		background-image:url(../img/mobile_e.png);
+}*/
+
+.img_a_bg,.img_b_bg,.img_c_bg,.img_d_bg,.img_e_bg{
+	position:absolute;
+	width:100%;
+	height:100%;
+	z-index:-1;
 }
 

@@ -14,7 +14,6 @@
   	  	$(".bg_img_f").css("width",width);
   	$(".bg_img_f").css("height",height);
   	$(".join").on("click",function(){
-  		boom($(".page").eq(nowPage).children("div").eq(0).children("div").eq(0).children("img").eq(0));
   		setTimeout("reload()",2000);
   	});
   });
