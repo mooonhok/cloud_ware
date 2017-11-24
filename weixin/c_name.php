@@ -102,6 +102,14 @@ $signPackage = $jssdk->GetSignPackage();
 				/*margin-top:2px;*/
 				margin-left:2%;
 			 }
+			 .tf1{
+			 	width:80%;
+			 	margin-left:3%;
+			 	height:35px;
+			 	/*margin-top:2px;*/
+			 	line-height: 35px;
+			 	float:left;
+			 }
 			 .tf{
 			 	width:67%;
 			 	margin-left:3%;
@@ -109,10 +117,6 @@ $signPackage = $jssdk->GetSignPackage();
 			 	/*margin-top:2px;*/
 			 	line-height: 35px;
 			 	float:left;
-			 }
-			 #address{
-			 	word-wrap:break-word;
-			 	
 			 }
 			 .foot{
 			 	height:300px;
@@ -127,14 +131,14 @@ $signPackage = $jssdk->GetSignPackage();
 			 	background-color: white;
 			 	text-align: center;
 			 	position: absolute;
-			 	top:265px;
+			 	top:300px;
 			 }
 			 .xian{
 			 	height:1px;
 			 	width:98%;
 			 	border:1px solid #999999;
 			 	position:relative;
-			    top:265px;
+			    top:300px;
 			 }
 			 #foot2{
 			 	width:96%;
@@ -161,6 +165,7 @@ $signPackage = $jssdk->GetSignPackage();
            	<div class="center1"><div class="tw2">联系人:</div><div class="tf" id="name"></div></div>
             <div class="center1"><div class="tw2">电话:</div><div class="tf" id="tel"></div></div>
            	<div class="center1"><div class="tw2">地址：</div><div class="tf" id="address"></div></div>
+           	<div class="tf1" id="address1"></div>
            </div>
             <div class="foot"><div class="xian"></div><div class="foot1">经营项目</div><div id="foot2"></div></div>
 		</div>
@@ -175,7 +180,7 @@ $signPackage = $jssdk->GetSignPackage();
            }
        })(jQuery);
      var tenant_id=$.getUrlParam('tenant_id');
-//    var tenant_id="1000000001";
+//var tenant_id="1000000005";
      var openid = $.cookie('openid'+tenant_id);
         $(document).ready(function(){
            $.ajax({
@@ -205,7 +210,14 @@ $signPackage = $jssdk->GetSignPackage();
                   }
                    $('#cname').html(c[0]);
                     $("#name").html(msg.contact.customer_name);
-                   $('#address').html(msg.tenant.ad);
+                    var m=null;
+                    var f=null;
+                    if(msg.tenant.ad.length>=12 ){
+                    	m=msg.tenant.ad.substr(12);
+                    	f=msg.tenant.ad.substr(0,12);
+                    }
+                   $('#address').html(f);
+                   $("#address1").html(m);
                    $('#tel').html(msg.contact.customer_phone);
                    $("#foot2").html(msg.tenant.service_items);   
                    if(msg.tenant.tenant_business_card!=null&&msg.tenant.tenant_business_card!=""){
