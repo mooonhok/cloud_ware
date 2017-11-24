@@ -1549,6 +1549,23 @@ $app->put('/update_order_id',function()use($app){
     }
 });
 
+//获得所有未受理的运单
+$app->get('/order_unaccept',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->get("tenant_id");
+    $selectStatement = $database->select()
+        ->from('wx_message')
+        ->rightJoin('orders', 'wx_message.order_id', '=', 'orders.order_id')
+        ->where('wx_message.exist', "=", 0)
+        ->where('wx_message.tenant_id', '=', $tenant_id)
+        ->where('orders.order_status','=',-2);
+    $stmt = $selectStatement->execute();
+    $data1= $stmt->fetchAll();
+    echo json_encode(array("result"=>"0","desc"=>"success","orders"=>$data1));
+});
+
 //批量上传，有改无增
 $app->post('/order_insert',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
