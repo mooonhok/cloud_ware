@@ -105,7 +105,7 @@ class wechatCallbackapiTest
             ->from('tenant')
             ->where('tenant_id','=',$a);
         $stmt = $selectStatement->execute();
-        $data1 = $stmt->fetchAll();
+        $data1 = $stmt->fetch();
         return $data1;
     }
 
