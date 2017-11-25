@@ -143,7 +143,7 @@ $signPackage = $jssdk->GetSignPackage();
 			 #foot2{
 			 	width:96%;
 			 	height:150px;
-			 	margin-top:20px;
+			 	margin-top:55px;
 			 	background-color:white;
 			 	word-wrap:break-word;
 			 	border-radius: 10px;
@@ -180,7 +180,7 @@ $signPackage = $jssdk->GetSignPackage();
            }
        })(jQuery);
      var tenant_id=$.getUrlParam('tenant_id');
-//var tenant_id="1000000005";
+
      var openid = $.cookie('openid'+tenant_id);
         $(document).ready(function(){
            $.ajax({
