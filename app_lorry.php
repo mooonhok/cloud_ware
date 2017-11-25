@@ -1260,6 +1260,7 @@ $app->put('/upplate_number',function()use($app){
                     $selectStament = $database->select()
                         ->from('scheduling')
                         ->where('scheduling_status', '=', 4)
+                        ->where('tenant_id','=',$data2[$x]['tenant_id'])
                         ->where('lorry_id', '=', $data2[$x]['lorry_id']);
                     $stmt = $selectStament->execute();
                     $data3 = $stmt->fetchAll();
@@ -1284,6 +1285,7 @@ $app->put('/upplate_number',function()use($app){
                     $selectStament = $database->select()
                         ->from('delivery')
                         ->where('exist', '=', 0)
+                        ->where('tenant_id','=',$data6[$x]['tenant_id'])
                         ->where('is_receive', '=', 0)
                         ->where('lorry_id', '=', $data6[$x]['lorry_id']);
                     $stmt = $selectStament->execute();
