@@ -1,25 +1,25 @@
 *{
-	padding:0;
-	margin:0;
-	font-size:16px;
-	/*overflow: hidden;*/
+padding:0;
+margin:0;
+font-size:16px;
+/*overflow: hidden;*/
 }
 
-html,body{
-	height: 100%;
-	overflow: hidden;
-}
-.container{
-	width: 100%;
-	height: 100%;
-	position: absolute;/* absolute定位脱离了标准流，不具备将宽度扩展为父盒子的100%，所以需要重写宽度 */
-	top: 0%;
-	left: 0;
-}
-.page{
-	width: 100%;
-	height: 100%;
-}
+html,body{  
+            height: 100%;  
+            overflow: hidden;  
+}  
+.container{  
+            width: 100%;  
+            height: 100%;  
+            position: absolute;/* absolute定位脱离了标准流，不具备将宽度扩展为父盒子的100%，所以需要重写宽度 */  
+            top: 0%;  
+            left: 0;  
+}  
+.page{  
+            width: 100%;  
+            height: 100%;  
+        }  
 .top_nav{
 	position:fixed;
 	top:0;
@@ -93,12 +93,12 @@ html,body{
 .intra_a_s,.intrb_a_s,.intrc_a_s{
 	width:10px;
 	margin-right:290px;
-	background-color:rgb(204,204,204);
+    background-color:rgb(204,204,204);
 }
 .intra_a_k,.intrb_a_k,.intrc_a_k{
 	width:10px;
 	margin-right:290px;
-	background-color:rgb(204,204,204);
+    background-color:rgb(204,204,204);
 }
 .intra_a_d,.intrb_a_d,.intrc_a_d{
 	width:100%;
@@ -129,7 +129,7 @@ html,body{
 	margin-top:10px;
 	width:25px;
 	margin-left:5px;
-
+	
 }
 .img_fade_a,.img_fade_b,.img_fade_c,.img_fade_d,.img_fade_e,.img_fade_f,.img_fade_g,.img_fade_h,.img_fade_i,.img_fade_j{
 	display:none;
@@ -140,7 +140,7 @@ html,body{
 }
 .one_point_download{
 	margin:0 auto;
-	margin-top:100px;
+	margin-top:150px;
 	font-size:30px;
 	text-align:center;
 	height:40px;
@@ -156,93 +156,75 @@ html,body{
 	line-height:30px;
 	font-weight:500;
 }
-.three_goods{
-	width:80%;
+.two_goods{
+	width:66%;
 	margin-top:80px;
-	margin-left:10%;
-	margin-right:10%;
+	margin-left:17%;
+	margin-right:17%;
 }
-.three_goods>div{
+.two_goods>div{
 	float:left;
 }
-.first_goods,.second_goods{
-	width:25%;
+.first_goods{
+	width:42%;
+	margin-right:8%;
+}
+.second_goods{
+	width:41%;
+	padding-left:8%;
+	border-left:1px solid black;
+}
+.sec_goods_a{
+	width:100%;
+	height:100%;
+}
+.pc_weixin_a{
+	width:100%;
+	height:70%;
 	border:1px solid black;
-	margin-right:4%;
+	/*background-color:red;*/
 }
-.third_goods{
-	width:40%;
+.pc_weixin_a>div{
+	float:left;
+}
+.try_a{
+	width:100%;
+	height:20px;
 	border:1px solid black;
-}
-.third_goods>img{
-	float:left;
-}
-.iphone_a,.android_a,.iphone_b,.android_b{
-	position: relative;
-	font-size:25px;
+	/*background-color:red;*/
+	/*margin-top:12%;*/
+	font-size:16px;
 	text-align:center;
-	display:block;
+	line-height:30px;
+	border-radius:15px;
 }
-.pc_a,.weixin_a,.plus_b{
-	font-size:25px;
-	text-align: top;
-	/*display:inline-block;*/
-}
-.qracore_a{
-	position:relative;
-	width:100%;
+.pc_a{
+	width:33%;
 	height:100%;
-	display:none;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
 }
-.first_goods:hover .qracore_a{
-	display:block;
-}
-.first_goods:hover .iphone_a{
-	display:none;
-}
-.first_goods:hover .iphone_b{
-	display:none;
-}
-
-
-.qracore_b{
-	position:relative;
-	width:100%;
+.plus_a{
+	width:33%;
 	height:100%;
-	display:none;
+	  display: flex;
+  justify-content: center;
+  align-items: center;  
 }
-.second_goods:hover .qracore_b{
-	display:block;
-}
-.second_goods:hover .android_a{
-	display:none;
-}
-.second_goods:hover .android_b{
-	display:none;
-}
-.pc_b{
-	float:left;
-	text-align:center;
-	font-size:25px;
-}
-.weixin_b{
-	float:left;
-	font-size:25px;
-	text-align:center;
-}
-
-.zs{
-	position:absolute;
-	width:100%;
+.weixin_a{
+	width:33%;
 	height:100%;
+	  display: flex;
+  justify-content: center;
+  align-items: center;  
 }
-@media (min-width: 768px) and (max-width: 991px){
-	/*.top_nav{
-        display:none;
-    }*/
+.pc_a>img{
+	width:30%;
 }
-@media (max-width: 768px){
-	/*.top_nav{
-        display:none;
-    }*/
+.weixin_a>img{
+	width:30%;
+}
+.plus>img{
+	width:30%;
 }

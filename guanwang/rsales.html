@@ -91,7 +91,6 @@
 			#chose input{
 				width:100px;
 			}
-			
 		</style>
 	</head>
 	<body>
@@ -111,17 +110,13 @@
 		<div class="center"><div class="tm">地址:</div><input id="dizhi"></div>
 		<div class="center2"><div  id="register">注册</div></div>
 	   <div>
-	
 	</body>
-	<script type="text/javascript" src="js/canvas-nest.js"></script>
-	<script type="text/javascript" color="255,0,0" opacity="0.5" count="600" src="canvas-nest.js"></script>
 	<script>
-		
 		$(".top1").on("click",function(){
 			window.location.href = "http://www.uminfo.cn/yindex.html";
 		});
 		var sales_id = $.session.get('userid');
-	//	var sales_id=1;
+//var sales_id=1;
 		if(sales_id=""||sales_id==null){
 			window.location.href = "http://www.uminfo.cn/yindex.html";
 		}
@@ -138,7 +133,7 @@
 			if(!/^1[34578]\d{9}$/.test(tel)) {
 				alert("电话号码格式不对");
 			} else {
-				if(!/^\d{15}|\d{18}$/.test(numb)) {
+				if(!/^\d{15}|\d{18}$/.test(number)) {
 					alert("身份证格式不对");
 				} else {
 					$.ajax({
@@ -157,9 +152,8 @@
 							weixin: wx,
 							higherlevel: sales_id
 						}),
-				
 						success: function(msg) {
-							
+							console.log(msg);
 							if(msg.result == 0) {
 								alert("请记住密码" + msg.sales.password);
 								window.location.reload();

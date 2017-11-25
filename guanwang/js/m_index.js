@@ -14,7 +14,7 @@
   	  	$(".bg_img_f").css("width",width);
   	$(".bg_img_f").css("height",height);
   	$(".join").on("click",function(){
-  		setTimeout("reload()",500);
+  		setTimeout("reload()",1000);
   	});
   });
   var reload=function(){
