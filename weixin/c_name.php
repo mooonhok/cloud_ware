@@ -215,6 +215,8 @@ $signPackage = $jssdk->GetSignPackage();
                     if(msg.tenant.ad.length>=12 ){
                     	m=msg.tenant.ad.substr(12);
                     	f=msg.tenant.ad.substr(0,12);
+                    }else{
+                    	f=msg.tenant.ad;
                     }
                    $('#address').html(f);
                    $("#address1").html(m);
