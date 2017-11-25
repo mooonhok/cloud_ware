@@ -335,7 +335,7 @@ function mouseWheel(){
 
 
 
-                $(".container").animate({"top": nowPage * -100 +"%"});  
+                $(".container").animate({"top": nowPage * -100 +"%"},50);
 //              $(".container").css("position", "absolute");
 //              $(".container").animate({"top":(nowPage-1) * -height});
 
