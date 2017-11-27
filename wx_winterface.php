@@ -103,7 +103,7 @@ class wechatCallbackapiTest
          $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname;port=$port;", $dbuser, $dbpass);
          $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
          $tablename="tenant";
-         $sql = "SELECT * FROM ".$tablename."WHERE (tenant_id=1000000001)";
+         $sql = "SELECT * FROM ".$tablename." "." WHERE (tenant_id=1000000001)";
          return $sql;
 //         try {
 //             $stmt = $dbh->query($sql);
