@@ -232,6 +232,8 @@ $app->get('/limitCustomers0',function()use($app){
             ->from('customer')
             ->where('tenant_id', '=', $tenant_id)
             ->where('customer_id', '!=', $data1['contact_id'])
+            ->where('times','!=',0)
+            ->whereNotNull('times')
             ->where('type', '=', 1)
             ->where('exist', '=', 0)
             ->orderBy('customer_id')
