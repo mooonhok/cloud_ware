@@ -98,8 +98,8 @@ function mouseWheel(){
 //      	    alert($(".img_fade_a").position().top)
         	    $(".img_fade_b").css("margin-top",(height/1080)*164*5/4+100+'px');
 //      	    $(".img_fade_c").css("margin-top","300px");
-        	    $(".img_fade_d").css("margin-top",(100+(height/1080)*266)+(height/1080)*164*3/4+(height/1080)*164*4/7+'px');
-        	    $(".img_fade_e").css("margin-top",(height/1080)*164/2+100+'px');
+        	    $(".img_fade_d").css("margin-top",(100+(height/1080)*266)+(height/1080)*164*3/4+(height/1080)*164*5/7+'px');
+        	    $(".img_fade_e").css("margin-top",(height/1080)*164*2/5+100+'px');
 //      	    $(".img_fade_f").css("margin-top","500px");
         	    $(".img_fade_b").css("right","0px");
         	    $('.img_fade_d').css("left","40%");
