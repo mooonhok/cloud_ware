@@ -104,15 +104,15 @@ class wechatCallbackapiTest
          $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
          $tablename="tenant";
          $sql = "SELECT * FROM ".$tablename." "." WHERE  (tenant_id=1000000001)";
-
-         try {
-             $stmt = $dbh->query($sql);
-             $tenant = $stmt->fetch(PDO::FETCH_OBJ);
-             $dbh = null;
-             return $tenant;
-         } catch (PDOException $e) {
-             return $e->getMessage().''.$sql;
-         }
+           return $sql;
+//         try {
+//             $stmt = $dbh->query($sql);
+//             $tenant = $stmt->fetch(PDO::FETCH_OBJ);
+//             $dbh = null;
+//             return $tenant;
+//         } catch (PDOException $e) {
+//             return $e->getMessage().''.$sql;
+//         }
      }
     private function checkSignature()
     {
