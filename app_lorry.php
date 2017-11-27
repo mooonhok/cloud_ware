@@ -49,7 +49,7 @@ $app->post('/addlorry',function()use($app){
                             $data3=$stmt->fetchAll();
                             $insertStatement = $database->insert(array('lorry_id','plate_number','driver_name','driver_phone','password','app_chose'))
                                 ->into('lorry')
-                                ->values(array(count($data3),$plate_number,$name,$tel,$password,1));
+                                ->values(array(count($data3)+1,$plate_number,$name,$tel,$password,1));
                             $insertId = $insertStatement->execute(false);
                             echo json_encode(array("result"=>"0","desc"=>"注册成功"));
                         }else{
