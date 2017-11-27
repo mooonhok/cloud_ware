@@ -12,11 +12,11 @@
 //define your token
 define("TOKEN", "youming");
 $wechatObj = new wechatCallbackapiTest();
-
+$a=$_GET['tenant_id'];
 if($_GET['echostr']){
     $wechatObj->valid();//如果发来了echostr则进行验证
 }else{
-    $wechatObj->responseMsg(); //如果没有echostr，则返回消息
+    $wechatObj->responseMsg($a); //如果没有echostr，则返回消息
 }
 
 class wechatCallbackapiTest
@@ -31,11 +31,11 @@ class wechatCallbackapiTest
         }
     }
 
-    public function responseMsg()
+    public function responseMsg($a)
     {
         //get post data, May be due to the different environments
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
-
+         $data=$this->getcompany($a);
         //extract post data
        if (!empty($postStr)) {
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
@@ -71,18 +71,18 @@ class wechatCallbackapiTest
 
             if ($ev == "subscribe") {
                 $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news',
-                    $ArticleCount,'公司简介','江苏酉铭信息技术有限公司','http://files.uminfo.cn:8000/weixinguanggao/uminfo.jpg',
+                    $ArticleCount,'公司简介','江苏酉铭信息技术有限公司'.$a.$data['company'],'http://files.uminfo.cn:8000/weixinguanggao/uminfo.jpg',
                     'http://www.uminfo.cn');
                 echo $resultStr;
             }else if($ev=="CLICK"){
                 $msgType = "text";
-                $contentStr = "客服电话：15365580443";
+                $contentStr = "客服电话：15365580443".$a.$data['company'];
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
             }
            if (!empty($keyword)) {
                $msgType = "text";
-               $contentStr = "客服电话：15365580443";
+               $contentStr = "客服电话：15365580443".$a.$data['company'];
                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                echo $resultStr;
            }else {
@@ -93,8 +93,13 @@ class wechatCallbackapiTest
            exit;
        }
     }
-
-
+     private function getcompany($a)
+     {
+         $pdo = new PDO("mysql:host=115.159.31.49;dbname=cloud_ware", "root", "jsym_20170607");
+         $rs = $pdo->query("select * from tenant where tenant_id=".$a);
+        $data=$rs;
+        return $data;
+     }
     private function checkSignature()
     {
         $signature = $_GET["signature"];
