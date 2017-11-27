@@ -76,7 +76,7 @@ class wechatCallbackapiTest
                 echo $resultStr;
             }else if($ev=="CLICK"){
                 $msgType = "text";
-                $contentStr = "客服电话：15365580443".$a.$data;
+                $contentStr = "客服电话：15365580443".$a.$data['company'];
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
             }
@@ -103,16 +103,16 @@ class wechatCallbackapiTest
          $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname;port=$port;", $dbuser, $dbpass);
          $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
          $tablename="tenant";
-         $sql = "SELECT * FROM ".$tablename." "." WHERE (tenant_id=1000000001)";
-         return $sql;
-//         try {
-//             $stmt = $dbh->query($sql);
-//             $tenant = $stmt->fetch(PDO::FETCH_OBJ);
-//             $dbh = null;
-//             return $tenant;
-//         } catch (PDOException $e) {
-//             return $e->getMessage();
-//         }
+         $sql = "SELECT * FROM ".$tablename." "." WHERE  tenant_id=1000000001";
+
+         try {
+             $stmt = $dbh->query($sql);
+             $tenant = $stmt->fetch(PDO::FETCH_OBJ);
+             $dbh = null;
+             return $tenant;
+         } catch (PDOException $e) {
+             return $e->getMessage();
+         }
      }
     private function checkSignature()
     {
