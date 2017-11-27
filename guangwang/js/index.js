@@ -172,13 +172,13 @@ function mouseWheel(){
 //              	$(".img_fade_a").css("z-index","1999");	
                 	$(".img_fade_d").fadeIn("fast");
                 	$(".img_fade_d").css("z-index","1999");	
-                	$('.img_fade_d').animate({left:"75%"},600);
+                	$('.img_fade_d').animate({left:"70%"},600);
                 	$(".img_fade_b").fadeIn("fast");
                 	$('.img_fade_b').animate({left:"45%"},600);
                 	$(".img_fade_b").css("z-index","9999");	
                 	$(".img_fade_e").fadeIn("fast");
                 	$(".img_fade_e").css("z-index","999");	
-                	$('.img_fade_e').animate({left:"75%"},600);
+                	$('.img_fade_e').animate({left:"70%"},600);
 //              	$(".img_fade_f").fadeIn("fast");
 //              	$('.img_fade_f').animate({right:"20%"},600);
                 }else{
