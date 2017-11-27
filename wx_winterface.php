@@ -71,7 +71,7 @@ class wechatCallbackapiTest
 
             if ($ev == "subscribe") {
                 $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news',
-                    $ArticleCount,'公司简介','江苏酉铭信息技术有限公司'.$a.$data['company'],'http://files.uminfo.cn:8000/weixinguanggao/uminfo.jpg',
+                    $ArticleCount,'公司简介','江苏酉铭信息技术有限公司'.$a.$data,'http://files.uminfo.cn:8000/weixinguanggao/uminfo.jpg',
                     'http://www.uminfo.cn');
                 echo $resultStr;
             }else if($ev=="CLICK"){
@@ -95,10 +95,24 @@ class wechatCallbackapiTest
     }
      private function getcompany($a)
      {
-         $pdo = new PDO("mysql:host=115.159.31.49;dbname=cloud_ware", "root", "jsym_20170607");
-         $rs = $pdo->query("select * from tenant where tenant_id=".$a);
-        $data=$rs;
-        return $data;
+         $dbhost = "115.159.31.49";
+         $dbuser = "root";
+         $dbpass = "jsym_20170607";
+         $dbname = "cloud_ware";
+         $port='60026';
+         $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname;port=$port;", $dbuser, $dbpass);
+         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+         $tablename="tenant";
+         $sql = "SELECT * FROM ".$tablename."where tenant_id=1000000001";
+         try {
+             $stmt = $dbh->query($sql);
+             $tenant = $stmt->fetch(PDO::FETCH_OBJ);
+             $dbh = null;
+            return $tenant;
+         } catch (PDOException $e) {
+             return "fail";
+         }
      }
     private function checkSignature()
     {
