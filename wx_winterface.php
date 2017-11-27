@@ -71,18 +71,18 @@ class wechatCallbackapiTest
 
             if ($ev == "subscribe") {
                 $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news',
-                    $ArticleCount,'公司简介','江苏酉铭信息技术有限公司'.$a.$data,'http://files.uminfo.cn:8000/weixinguanggao/uminfo.jpg',
+                    $ArticleCount,'公司简介','江苏酉铭信息技术有限公司'.$a,'http://files.uminfo.cn:8000/weixinguanggao/uminfo.jpg',
                     'http://www.uminfo.cn');
                 echo $resultStr;
             }else if($ev=="CLICK"){
                 $msgType = "text";
-                $contentStr = "客服电话：15365580443".$a.$data['company'];
+                $contentStr = "客服电话：15365580443".$a.$data;
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
             }
            if (!empty($keyword)) {
                $msgType = "text";
-               $contentStr = "客服电话：15365580443".$a.$data['company'];
+               $contentStr = "客服电话：15365580443".$a.$data;
                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                echo $resultStr;
            }else {
@@ -100,19 +100,24 @@ class wechatCallbackapiTest
          $dbpass = "jsym_20170607";
          $dbname = "cloud_ware";
          $port='60026';
-         $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname;port=$port;", $dbuser, $dbpass);
-         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-         $tablename="tenant";
-         $sql = "SELECT * FROM ".$tablename."where tenant_id=1000000001";
+//         $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname;port=$port;", $dbuser, $dbpass);
+//         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
          try {
-             $stmt = $dbh->query($sql);
-             $tenant = $stmt->fetch(PDO::FETCH_OBJ);
-             $dbh = null;
-            return $tenant;
+             $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname;port=$port;", $dbuser, $dbpass);
+//             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
          } catch (PDOException $e) {
-             return "fail";
+             return 'Connection failed: ' . $e->getMessage();
          }
+//         $tablename="tenant";
+//         $sql = "SELECT * FROM ".$tablename."WHERE tenant_id=1000000001";
+//         try {
+//             $stmt = $dbh->query($sql);
+//             $tenant = $stmt->fetch(PDO::FETCH_OBJ);
+//             $dbh = null;
+//            return $tenant;
+//         } catch (PDOException $e) {
+//             return "fail";
+//         }
      }
     private function checkSignature()
     {
