@@ -71,12 +71,12 @@ class wechatCallbackapiTest
 
             if ($ev == "subscribe") {
                 $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news',
-                    $ArticleCount,'公司简介','江苏酉铭信息技术有限公司'.$a,'http://files.uminfo.cn:8000/weixinguanggao/uminfo.jpg',
+                    $ArticleCount,'公司简介','江苏酉铭信息技术有限公司','http://files.uminfo.cn:8000/weixinguanggao/uminfo.jpg',
                     'http://www.uminfo.cn');
                 echo $resultStr;
             }else if($ev=="CLICK"){
                 $msgType = "text";
-                $contentStr = "客服电话：15365580443".$a.$data['company'];
+                $contentStr = "客服电话：15365580443".$a.$data;
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
             }
