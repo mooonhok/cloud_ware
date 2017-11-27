@@ -82,7 +82,7 @@ class wechatCallbackapiTest
             }
            if (!empty($keyword)) {
                $msgType = "text";
-               $contentStr = "客服电话：15365580443".$a.$data;
+               $contentStr = "客服电话：15365580443";
                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                echo $resultStr;
            }else {
