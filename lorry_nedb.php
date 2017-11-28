@@ -38,7 +38,7 @@ $app->post('/addLorry',function()use($app) {
                             ->where('tenant_id', '=', 0)
 //                            ->where('driver_name', '=', $driver_name)
                             ->where('driver_phone', '=', $driver_phone)
-                            ->where('flag', '=', $flag);
+                            ->where('flag', '=', $flag)
 //                            ->where('plate_number', '=', $plate_number);
                         $stmt = $selectStatement->execute();
                         $data1 = $stmt->fetch();
@@ -72,6 +72,7 @@ $app->post('/addLorry',function()use($app) {
                             $array['exist']=0;
                             $array['driving_license']="http://files.uminfo.cn:8000/lorry/photo1.png";
                             $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/photo2.png";
+                            $array['app_chose']=1;
                             $insertStatement = $database->insert(array_keys($array))
                                 ->into('lorry')
                                 ->values(array_values($array));
