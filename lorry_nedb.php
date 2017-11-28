@@ -89,6 +89,7 @@ $app->post('/addLorry',function()use($app) {
                                 ->values(array_values($array));
                             $insertId = $insertStatement->execute(false);
                         }else if(!$data2){
+                            $array['app_chose']=$data1['app_chose'];
                             $array['tenant_id']=$tenant_id;
                             $array['exist']=0;
                             $array['driving_license']="http://files.uminfo.cn:8000/lorry/photo1.png";
@@ -98,9 +99,6 @@ $app->post('/addLorry',function()use($app) {
                                 ->values(array_values($array));
                             $insertId = $insertStatement->execute(false);
                         }
-//                        if($data2){
-//
-//                        }
 
 
                         echo json_encode(array("result" => "0", "desc" => "success"));
