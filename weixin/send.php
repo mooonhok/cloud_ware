@@ -1121,7 +1121,7 @@ $signPackage = $jssdk->GetSignPackage();
 					}),
 					success: function(msg) {
 				  layer.msg("添加地址成功");
-				  		$(".shuru").html(name_l+"&nbsp;&nbsp;"+cit_v+ dizhi_1);
+				  		$(".shuru").html(name_1+"&nbsp;&nbsp;"+cit_v+ dizhi_1);
 				  		customer_send_id=msg.customer_id;
 						loadsend(openid,tenant_id);
 						$(".box2").css("display", "none");
