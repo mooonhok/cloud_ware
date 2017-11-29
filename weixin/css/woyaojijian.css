@@ -1101,16 +1101,16 @@ input[disabled],input:disabled,input.disabled{
 			}
 
 .name_1::-webkit-input-placeholder {
-	color: rgb(168,139,107);
+	color: rgb(161,161,161);
 }
 .name_1:-moz-placeholder {/* Firefox 18- */
-	color: rgb(168,139,107);
+	color: rgb(161,161,161);
 }
 .name_1::-moz-placeholder{/* Firefox 19+ */
-	color: rgb(168,139,107);
+	color: rgb(161,161,161);
 }
 .name_1:-ms-input-placeholder {
-	color: rgb(168,139,107);
+	color: rgb(161,161,161);
 }
 
 
