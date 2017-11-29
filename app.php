@@ -22,7 +22,7 @@ $app->get('/getApp',function()use($app){
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
     if($data!=null){
-        $app=$data[0]['url'];
+        $app=$data[0];
         echo  json_encode(array("result"=>"0","desc"=>"success","app"=>$app));
     }else{
         echo  json_encode(array("result"=>"1","desc"=>"无app版本"));
