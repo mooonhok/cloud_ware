@@ -602,15 +602,15 @@ $app->post('/sureschthree',function()use($app){
     $time=$body->time1;
     $schedule_id=$body->schedule_id;
     $lorry_id=$body->lorry_id;
-    $arrays['scheduling_status']=3;
-    $arrays['is_contract']=1;
-    $arrays['is_insurance']=1;
+    $arrays['scheduling_status']=2;
+//    $arrays['is_contract']=1;
+//    $arrays['is_insurance']=1;
     $arrays['change_datetime']=time();
     if($schedule_id!=null||$schedule_id!=""){
         $selectStament=$database->select()
             ->from('scheduling')
             ->where('exist','=',0)
-            ->where('scheduling_status','=',2)
+            ->where('scheduling_status','=',1)
             ->where('scheduling_id','=',$schedule_id);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
