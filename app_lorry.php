@@ -36,15 +36,6 @@ $app->post('/addlorry',function()use($app){
             $data1=$stmt->fetchAll();
             if($data1==null){
                 if($plate_number!=null||$plate_number!=""){
-                	 $selectStament=$database->select()
-                      ->from('lorry')
-                      ->where('exist','=',0)
-                      ->where('tenant_id','=',0)
-                      ->where('plate_number','=',$plate_number)
-                      ->where('driver_name','=',$name);
-                      $stmt=$selectStament->execute();
-                      $data4=$stmt->fetch();
-                	if($data4!=null){
                         if($password1!=null||$password1!=""){
                             $selectStament=$database->select()
                                 ->from('lorry');
@@ -58,9 +49,7 @@ $app->post('/addlorry',function()use($app){
                         }else{
                             echo json_encode(array("result"=>"4","desc"=>"密码为空"));
                         }
-                        }else{
-                        	 echo json_encode(array("result"=>"6","desc"=>"该车牌下车主同名"));
-                        }
+                       
                 }else{
                     echo json_encode(array("result"=>"3","desc"=>"车牌号为空"));
                 }
