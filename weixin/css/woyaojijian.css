@@ -1100,16 +1100,16 @@ input[disabled],input:disabled,input.disabled{
 				color:#000000;
 			}
 
-.name_1::-webkit-input-placeholder {
+.name_1::-webkit-input-placeholder,.name_2::-webkit-input-placeholder{
 	color: rgb(161,161,161);
 }
-.name_1:-moz-placeholder {/* Firefox 18- */
+.name_1:-moz-placeholder,.name_2:-moz-placeholder{/* Firefox 18- */
 	color: rgb(161,161,161);
 }
-.name_1::-moz-placeholder{/* Firefox 19+ */
+.name_1::-moz-placeholder,.name_2::-moz-placeholder{/* Firefox 19+ */
 	color: rgb(161,161,161);
 }
-.name_1:-ms-input-placeholder {
+.name_1:-ms-input-placeholder,.name_2:-ms-input-placeholder  {
 	color: rgb(161,161,161);
 }
 
