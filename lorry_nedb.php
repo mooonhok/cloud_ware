@@ -87,7 +87,8 @@ $app->post('/addLorry',function()use($app) {
                                 ->into('lorry')
                                 ->values(array_values($array));
                             $insertId = $insertStatement->execute(false);
-                        }else if(!$data2){
+                        }
+                        if((!$data2)&&$data1){
                             $array['app_chose']=$data1['app_chose'];
                             $array['signtime']=$data2['signtime'];
                             $array['tenant_id']=$tenant_id;
