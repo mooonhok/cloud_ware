@@ -311,7 +311,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<div class="bor"></div>
 					<div class="name1">
 						<div class="name2">
-							<input type="text" class="name_1" id="name_1" placeholder="不能超过20个字" maxlength="20">
+							<input type="text" class="name_1" id="name_1" placeholder="不能超过20个字">
 						</div>
 					</div>
 					<div class="bor"></div>
@@ -378,7 +378,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<div class="bor"></div>
 					<div class="name1">
 						<div class="name2">
-							<input type="text" class="name_2" id="name_2" placeholder="不能超过20个字" maxlength="20">
+							<input type="text" class="name_2" id="name_2" placeholder="不能超过20个字">
 						</div>
 					</div>
 					<div class="bor"></div>
@@ -1348,6 +1348,8 @@ $signPackage = $jssdk->GetSignPackage();
     }
 </script>
 <script type="text/javascript">
-
+    $(".name_1").on("keyup",function(){
+        alert(1)
+    });
 </script>
 </html>
