@@ -311,7 +311,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<div class="bor"></div>
 					<div class="name1">
 						<div class="name2">
-							<input type="text" class="name_1" id="name_1">
+							<input type="text" class="name_1" id="name_1" placeholder="不能超过20个字" maxlength="20">
 						</div>
 					</div>
 					<div class="bor"></div>
@@ -378,7 +378,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<div class="bor"></div>
 					<div class="name1">
 						<div class="name2">
-							<input type="text" class="name_2" id="name_2">
+							<input type="text" class="name_2" id="name_2" placeholder="不能超过20个字" maxlength="20">
 						</div>
 					</div>
 					<div class="bor"></div>
@@ -1346,5 +1346,8 @@ $signPackage = $jssdk->GetSignPackage();
         opened.opener = null;
         opened.close();
     }
+</script>
+<script type="text/javascript">
+
 </script>
 </html>
