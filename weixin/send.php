@@ -23,14 +23,14 @@ $signPackage = $jssdk->GetSignPackage();
 			<!-- top -->
 			<div class="top">
 				<div class="top1">
-					<div class="wenzi"><span class="span1">寄</span>件人详细地址</div>
+					<div class="wenzi"><span class="span1">寄</span>件人</div>
 					<div class="shuru">
 					</div>
 					<div class="fuhao"><img src="images/left_arrow.png" alt=""></div>
 				</div>
 
 				<div class="top2">
-					<div class="wenzi"><span class="span2">收</span>件人详细地址</div>
+					<div class="wenzi"><span class="span2">收</span>件人</div>
 					<div class="shuru1">
 					</div>
 					<div class="fuhao"><img src="images/left_arrow.png" alt=""></div>
@@ -820,7 +820,7 @@ $signPackage = $jssdk->GetSignPackage();
 						$("#box101").append(a);
 						$("#subaddress2").on('click', function() {
 							customer_send_id = $("input[class='rad1']:checked").val();
-							$(".shuru").html($("input[class='rad1']:checked").parent().prev().prev().text());
+							$(".shuru").html($("input[class='rad1']:checked").parent().prev().prev().prev().prev().text()+"&nbsp;&nbsp;"+$("input[class='rad1']:checked").parent().prev().prev().text());
 							$(".box2").css("display","none");
 							$("#box10").css("display", "none");
 							$(".box").css("display","block");
@@ -980,7 +980,7 @@ $signPackage = $jssdk->GetSignPackage();
 						$("#subaddress4").on('click', function() {
 							customer_accept_id = $("input[class='rad2']:checked").val();
 							if(customer_accept_id != customer_send_id) {
-								$(".shuru1").html($("input[class='rad2']:checked").parent().prev().prev().text());
+								$(".shuru1").html($("input[class='rad2']:checked").parent().prev().prev().prev().prev().text()+"&nbsp;&nbsp;"+$("input[class='rad2']:checked").parent().prev().prev().text());
 								$(".box3").css("display","none");
 								$("#box11").css("display", "none");
 								$(".box").css("display","block");
@@ -1121,7 +1121,7 @@ $signPackage = $jssdk->GetSignPackage();
 					}),
 					success: function(msg) {
 				  layer.msg("添加地址成功");
-				  		$(".shuru").html(cit_v+ dizhi_1);
+				  		$(".shuru").html(name_l+"&nbsp;&nbsp;"+cit_v+ dizhi_1);
 				  		customer_send_id=msg.customer_id;
 						loadsend(openid,tenant_id);
 						$(".box2").css("display", "none");
@@ -1175,7 +1175,7 @@ $signPackage = $jssdk->GetSignPackage();
 					success: function(msg) {
 					  layer.msg("添加地址成功");
 					  customer_accept_id=msg.customer_id;
-					    $(".shuru1").html(cit1_v+ dizhi_2);
+					    $(".shuru1").html(name_2+"&nbsp;&nbsp;"+cit1_v+ dizhi_2);
 						loadaccept(openid,tenant_id);
 						$(".box3").css("display", "none");
 						$(".box").css("display","block");
