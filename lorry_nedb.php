@@ -71,7 +71,6 @@ $app->post('/addLorry',function()use($app) {
                         $stmt = $selectStatement->execute();
                         $data = $stmt->fetchAll();
 
-                        $array['app_chose']=0;
                         if(!$data1){
                             $password1=123456;
                             $str1=str_split($password1,3);
@@ -79,22 +78,21 @@ $app->post('/addLorry',function()use($app) {
                             for ($x=0;$x<count($str1);$x++){
                                 $password.=$str1[$x].$x;
                             }
-                            $insertStatement = $database->insert(array('lorry_id','plate_number','driver_name','driver_phone','password','flag','app_chose','driving_license','vehicle_travel_license'))
+                            $insertStatement = $database->insert(array('lorry_id','plate_number','driver_name','driver_phone','password','flag','driving_license','vehicle_travel_license'))
                                 ->into('lorry')
-                                ->values(array((count($data)+100000001),$plate_number,$driver_name,$driver_phone,$password,$flag,'1',"http://files.uminfo.cn:8000/lorry/photo1.png","http://files.uminfo.cn:8000/lorry/photo2.png"));
+                                ->values(array((count($data)+100000001),$plate_number,$driver_name,$driver_phone,$password,$flag,"http://files.uminfo.cn:8000/lorry/photo1.png","http://files.uminfo.cn:8000/lorry/photo2.png"));
                             $insertId = $insertStatement->execute(false);
                             $array['tenant_id']=$tenant_id;
                             $array['exist']=0;
                             $array['driving_license']="http://files.uminfo.cn:8000/lorry/photo1.png";
                             $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/photo2.png";
-                            $array['app_chose']=1;
+
                             $insertStatement = $database->insert(array_keys($array))
                                 ->into('lorry')
                                 ->values(array_values($array));
                             $insertId = $insertStatement->execute(false);
                         }
                         if((!$data4)&&$data1){
-                            $array['app_chose']=$data1['app_chose'];
                             $array['signtime']=$data1['signtime'];
                             $array['tenant_id']=$tenant_id;
                             $array['exist']=0;
