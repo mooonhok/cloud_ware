@@ -39,7 +39,7 @@ $app->post('/addLorry',function()use($app) {
                             ->where('driver_phone', '=', $driver_phone);
                         $stmt = $selectStatement->execute();
                         $data1 = $stmt->fetch();
-                        
+
                         $selectStatement = $database->select()
                             ->from('lorry')
                             ->where('tenant_id', '=', $tenant_id)

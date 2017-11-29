@@ -36,12 +36,15 @@ $app->post('/addlorry',function()use($app){
             $data1=$stmt->fetchAll();
             if($data1==null){
                 if($plate_number!=null||$plate_number!=""){
-                    $selectStament=$database->select()
-                        ->from('lorry')
-                        ->where('plate_number','=',$plate_number);
-                    $stmt=$selectStament->execute();
-                    $data2=$stmt->fetchAll();
-                    if($data2==null){
+                	 $selectStament=$database->select()
+                      ->from('lorry')
+                      ->where('exist','=',0)
+                      ->where('tenant_id','=',0)
+                      ->where('plate_number','=',$plate_number)
+                      ->where('driver_name','=',$name);
+                      $stmt=$selectStament->execute();
+                      $data4=$stmt->fetch();
+                	if($data4!=null){
                         if($password1!=null||$password1!=""){
                             $selectStament=$database->select()
                                 ->from('lorry');
@@ -55,9 +58,9 @@ $app->post('/addlorry',function()use($app){
                         }else{
                             echo json_encode(array("result"=>"4","desc"=>"密码为空"));
                         }
-                    }else{
-                        echo json_encode(array("result"=>"6","desc"=>"车牌号已经被注册"));
-                    }
+                        }else{
+                        	 echo json_encode(array("result"=>"6","desc"=>"该车牌下车主同名"));
+                        }
                 }else{
                     echo json_encode(array("result"=>"3","desc"=>"车牌号为空"));
                 }
@@ -340,7 +343,7 @@ $app->get('/sbylorry',function()use($app){
                 echo json_encode(array('result' => '9', 'desc' => '您的帐号已经在其他地方登录，请重新登录','sch'=>''));
         }
         }else{
-            echo json_encode(array('result' => '2', 'desc' => '司机不存在或该车辆不是默认车辆','sch'=>''));
+            echo json_encode(array('result' => '2', 'desc' => '司机不存在','sch'=>''));
         }
     }else{
         echo json_encode(array('result' => '1', 'desc' => '司机信息为空','sch'=>''));
@@ -498,7 +501,7 @@ $app->post('/suresch',function()use($app){
                         }
                         echo json_encode(array('result' => '0', 'desc' => '接单成功'));
                     }else{
-                        echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在或车辆不是默认车辆'));
+                        echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在'));
                     }
                     }else{
                         echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
@@ -560,14 +563,14 @@ $app->post('/sureschfor',function()use($app){
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetch();
                     if($data2!=null) {
-                        if($data2['plate_number']==$data1['plate_number']){
+                        if($data2['plate_number']==$data1['plate_number']&&$data2['driver_phone']==$data1['driver_phone']){
                         $updateStatement = $database->update($arrays)
                             ->table('scheduling')
                             ->where('scheduling_id', '=', $schedule_id);
                         $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '取消成功'));
                         }else{
-                            echo json_encode(array('result' => '6', 'desc' => '车牌不是默认车牌'));
+                            echo json_encode(array('result' => '6', 'desc' => '清单不是该用户的'));
                         }
                     }else{
                         echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在'));
@@ -632,17 +635,17 @@ $app->post('/sureschthree',function()use($app){
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetch();
                     if($data2!=null) {
-                        if($data2['plate_number']==$data1['plate_number']) {
+                        if($data2['plate_number']==$data1['plate_number']&&$data2['driver_phone']==$data1['driver_phone']) {
                             $updateStatement = $database->update($arrays)
                                 ->table('scheduling')
                                 ->where('scheduling_id', '=', $schedule_id);
                             $affectedRows = $updateStatement->execute();
                             echo json_encode(array('result' => '0', 'desc' => '确认成功'));
                         }else{
-                            echo json_encode(array('result' => '6', 'desc' => '车牌不是默认车牌'));
+                            echo json_encode(array('result' => '6', 'desc' => '该青单不是该用户的'));
                         }
                     }else{
-                        echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在或车辆不是默认车'));
+                        echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在'));
                     }
                     }else{
                         echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
@@ -890,7 +893,7 @@ $app->post('/ordersure',function()use($app){
                             echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
                         }
                     }else{
-                        echo json_encode(array('result' => '5', 'desc' => '您还不是配送员或车辆不是默认车辆'));
+                        echo json_encode(array('result' => '5', 'desc' => '您还不是配送员'));
                     }
                 }else{
                     echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
@@ -961,7 +964,7 @@ $app->post('/ordersurefor',function()use($app){
                             echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
                         }
                     }else{
-                        echo json_encode(array('result' => '5', 'desc' => '您还不是配送员或车辆不是默认车辆'));
+                        echo json_encode(array('result' => '5', 'desc' => '您还不是配送员'));
                     }
                 }else{
                     echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
@@ -1033,7 +1036,7 @@ $app->post('/ordersurethree',function()use($app){
                             echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
                         }
                     }else{
-                        echo json_encode(array('result' => '5', 'desc' => '您还不是配送员或车辆不是默认车辆'));
+                        echo json_encode(array('result' => '5', 'desc' => '您还不是配送员'));
                     }
                 }else{
                     echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
@@ -1116,41 +1119,7 @@ $app->get('/tongji',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '尚未登录'));
     }
 });
-//获取车辆列表
-$app->get('/getplate',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $lorry_id = $app->request->get("lorry_id");
-    $time=$app->request->get("time1");
-    $database=localhost();
-    if($lorry_id!=null||$lorry_id!=""){
-        $selectStament = $database->select()
-            ->from('lorry')
-            ->where('exist', '=', 0)
-            ->where('lorry_id', '=', $lorry_id);
-        $stmt = $selectStament->execute();
-        $data = $stmt->fetch();
-        if($data!=null){
-            if($data['signtime']==$time) {
-                $selectStament = $database->select()
-                    ->from('lorry')
-                    ->where('exist', '=', 0)
-                    ->where('tenant_id', '=', 0)
-                    ->where('driver_phone', '=', $data['driver_phone'])
-                    ->where('driver_name', '=', $data['driver_name']);
-                $stmt = $selectStament->execute();
-                $data1 = $stmt->fetchAll();
-                echo json_encode(array('result' => '0', 'desc' => '', 'lorrys' => $data1));
-            }else{
-                echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
-            }
-        }else{
-            echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
-        }
-    }else{
-        echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
-    }
-});
+
 //获取车辆类型列表
 $app->get('/lorry_type',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -1164,50 +1133,6 @@ $app->get('/lorry_type',function()use($app){
         echo json_encode(array('result' => '0', 'desc' => '','lorry_type'=>$data));
     }else{
         echo json_encode(array('result' => '1', 'desc' => '尚未有车辆类型数据'));
-    }
-});
-//添加车辆
-$app->post('/addplate_number',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $database=localhost();
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $lorry_id = $body->lorry_id;
-    $plate_number=$body->plate_number;
-    $lorry_size=$body->lorry_size;
-    $lorry_text=$body->lorry_text;
-    $lorry_type=$body->lorry_type;
-    $lorry_weight=$body->lorry_weight;
-    $time=$body->time1;
-    if($lorry_id!=null||$lorry_id!=""){
-        $selectStament = $database->select()
-            ->from('lorry')
-            ->where('exist', '=', 0)
-            ->where('lorry_id', '=', $lorry_id);
-        $stmt = $selectStament->execute();
-        $data = $stmt->fetch();
-        if($data!=null){
-            if($time==$data['signtime']) {
-                $selectStament = $database->select()
-                    ->from('lorry');
-                $stmt = $selectStament->execute();
-                $data3 = $stmt->fetchAll();
-                $insertStatement = $database->insert(array('lorry_id', 'plate_number', 'driver_name', 'driver_phone', 'lorry_size', 'lorry_tx', 'lorry_type_id',
-                    'password', 'lorry_weight', 'driver_identycard', 'driving_license', 'vehicle_travel_license', 'driver_address', 'driver_email','signtime'))
-                    ->into('lorry')
-                    ->values(array(count($data3), $plate_number, $data['driver_name'], $data['driver_phone'], $lorry_size, $lorry_text, $lorry_type, $data['password']
-                    , $lorry_weight, $data['driver_identycard'], $data['driving_license'], $data['vehicle_travel_license'], $data['driver_address'], $data['driver_email'],$time));
-                $insertId = $insertStatement->execute(false);
-                echo json_encode(array('result' => '0', 'desc' => '添加成功'));
-            }else{
-                echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
-            }
-        }else{
-            echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
-        }
-    }else{
-        echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
     }
 });
 
