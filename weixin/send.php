@@ -1350,7 +1350,6 @@ $signPackage = $jssdk->GetSignPackage();
 <script type="text/javascript">
 $(".name_1").on("keyup",function () {
     var leng=$(this).val().length;
-    alert(leng)
     if(leng>15){
         $(this).val($(this).val().substr(0,15));
     }
