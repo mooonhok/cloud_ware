@@ -119,7 +119,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<div class="bor"></div>
 					<div class="name1">
 						<div class="name2">
-							<input type="text" class="name_1" placeholder="不能超过15个字" onkeyup="keyup1()">
+							<input type="text" class="name_1" placeholder="不能超过15个字">
 						</div>
 					</div>
 					<div class="bor"></div>
@@ -200,7 +200,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<div class="bor"></div>
 					<div class="name1">
 						<div class="name2">
-							<input type="text" class="name_2" placeholder="不能超过15个字" onkeyup="keyup1()">
+							<input type="text" class="name_2" placeholder="不能超过15个字">
 						</div>
 					</div>
 					<div class="bor"></div>
@@ -311,7 +311,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<div class="bor"></div>
 					<div class="name1">
 						<div class="name2">
-							<input type="text" class="name_1" id="name_1" placeholder="不能超过15个字" onkeyup="keyup1()">
+							<input type="text" class="name_1" id="name_1" placeholder="不能超过15个字">
 						</div>
 					</div>
 					<div class="bor"></div>
@@ -378,7 +378,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<div class="bor"></div>
 					<div class="name1">
 						<div class="name2">
-							<input type="text" class="name_2" id="name_2" placeholder="不能超过15个字" onkeyup="keyup1()">
+							<input type="text" class="name_2" id="name_2" placeholder="不能超过15个字">
 						</div>
 					</div>
 					<div class="bor"></div>
@@ -1357,7 +1357,6 @@ $(".name_1").on("keyup",function () {
 })
 $(".name_2").on("keyup",function () {
     var leng=$(this).val().length;
-    alert(leng)
     if(leng>15){
         $(this).val($(this).val().substr(0,15));
     }
