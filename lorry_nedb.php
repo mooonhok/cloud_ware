@@ -40,26 +40,31 @@ $app->post('/addLorry',function()use($app) {
                         $stmt = $selectStatement->execute();
                         $data1 = $stmt->fetch();
 
-                        $selectStatement = $database->select()
-                            ->from('lorry')
-                            ->where('tenant_id', '=', $tenant_id)
-                            ->where('driver_name', '=', $driver_name)
-                            ->where('driver_phone', '=', $driver_phone)
+//                        $selectStatement = $database->select()
+//                            ->from('lorry')
+//                            ->where('tenant_id', '=', $tenant_id)
+//                            ->where('driver_name', '=', $driver_name)
+//                            ->where('driver_phone', '=', $driver_phone)
+////                            ->where('flag', '=', $flag)
+//                            ->where('plate_number', '=', $plate_number);
+//                        $stmt = $selectStatement->execute();
+//                        $data2 = $stmt->fetch();
+//
+//                        $selectStatement = $database->select()
+//                            ->from('lorry')
+//                            ->where('tenant_id', '=', $tenant_id)
+//                            ->where('driver_name', '=', $driver_name)
+//                            ->where('driver_phone', '=', $driver_phone)
 //                            ->where('flag', '=', $flag)
-                            ->where('plate_number', '=', $plate_number);
-                        $stmt = $selectStatement->execute();
-                        $data2 = $stmt->fetch();
-
+//                            ->where('plate_number', '=', $plate_number);
+//                        $stmt = $selectStatement->execute();
+//                        $data3 = $stmt->fetch();
                         $selectStatement = $database->select()
                             ->from('lorry')
                             ->where('tenant_id', '=', $tenant_id)
-                            ->where('driver_name', '=', $driver_name)
-                            ->where('driver_phone', '=', $driver_phone)
-                            ->where('flag', '=', $flag)
-                            ->where('plate_number', '=', $plate_number);
+                            ->where('driver_phone', '=', $driver_phone);
                         $stmt = $selectStatement->execute();
-                        $data3 = $stmt->fetch();
-
+                        $data4 = $stmt->fetch();
 
                         $selectStatement = $database->select()
                             ->from('lorry');
@@ -88,9 +93,9 @@ $app->post('/addLorry',function()use($app) {
                                 ->values(array_values($array));
                             $insertId = $insertStatement->execute(false);
                         }
-                        if((!$data2)&&$data1){
+                        if((!$data4)&&$data1){
                             $array['app_chose']=$data1['app_chose'];
-                            $array['signtime']=$data2['signtime'];
+                            $array['signtime']=$data1['signtime'];
                             $array['tenant_id']=$tenant_id;
                             $array['exist']=0;
                             $array['driving_license']="http://files.uminfo.cn:8000/lorry/photo1.png";
