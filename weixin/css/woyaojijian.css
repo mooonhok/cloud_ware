@@ -783,14 +783,14 @@ select{
 .dizhi3-1{
 	width: 100%;
 	float: left;
-	height: 30px;
+	/*height: 30px;*/
 	margin-top: 5px;
 
 }
 .dizhi3-1 textarea{
 	width: 100%;
 	font-size: 14px;
-	height: 30px;
+	/*height: 30px;*/
 	line-height: 30px;
 	list-style: none;
 	outline-style: none;

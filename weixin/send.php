@@ -161,7 +161,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<div class="bor"></div>
 					<div class="dizhi3">
 						<div class="dizhi3-1">
-							<textarea id="dizhi_1"></textarea>
+							<textarea id="dizhi_1" rows="2"></textarea>
 						</div>
 					</div>
 				</form>
@@ -242,7 +242,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<div class="bor"></div>
 					<div class="dizhi3">
 						<div class="dizhi3-1">
-							<textarea id="dizhi_2"></textarea>
+							<textarea id="dizhi_2" rows="2"></textarea>
 						</div>
 					</div>
 				
@@ -352,7 +352,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<div class="bor"></div>
 					<div class="dizhi3">
 						<div class="dizhi3-1">
-							<textarea id="dizhi_3" ></textarea>
+							<textarea id="dizhi_3" rows="2"></textarea>
 						</div>
 					</div>
 				</form>
@@ -419,7 +419,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<div class="bor"></div>
 					<div class="dizhi3">
 						<div class="dizhi3-1">
-							<textarea id="dizhi_4"></textarea>
+							<textarea id="dizhi_4" rows="2"></textarea>
 						</div>
 					</div>
 					<!-- <div class="tijiao2" id="subaddress4">
