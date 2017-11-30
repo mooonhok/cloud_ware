@@ -820,7 +820,11 @@ $signPackage = $jssdk->GetSignPackage();
 						$("#box101").append(a);
 						$("#subaddress2").on('click', function() {
 							customer_send_id = $("input[class='rad1']:checked").val();
-							$(".shuru").html($("input[class='rad1']:checked").parent().prev().prev().prev().prev().text()+"&nbsp;&nbsp;"+$("input[class='rad1']:checked").parent().prev().prev().text());
+							var name_a=$("input[class='rad1']:checked").parent().prev().prev().prev().prev().text();
+							if(name_a>=8){
+							    name_a=name_a.substr(0,1)+"***"+name_a.substr(name_a.length-6,5);
+                            }
+							$(".shuru").html(name_a+"&nbsp;&nbsp;"+$("input[class='rad1']:checked").parent().prev().prev().text());
 							$(".box2").css("display","none");
 							$("#box10").css("display", "none");
 							$(".box").css("display","block");
@@ -980,6 +984,10 @@ $signPackage = $jssdk->GetSignPackage();
 						$("#subaddress4").on('click', function() {
 							customer_accept_id = $("input[class='rad2']:checked").val();
 							if(customer_accept_id != customer_send_id) {
+							    var name_a=$("input[class='rad2']:checked").parent().prev().prev().prev().prev().text();
+							    if(name_a>=8){
+                                        name_a=name_a.substr(0,1)+"***"+name_a.substr(name_a.length-6,5);
+                                }
 								$(".shuru1").html($("input[class='rad2']:checked").parent().prev().prev().prev().prev().text()+"&nbsp;&nbsp;"+$("input[class='rad2']:checked").parent().prev().prev().text());
 								$(".box3").css("display","none");
 								$("#box11").css("display", "none");
@@ -1175,6 +1183,9 @@ $signPackage = $jssdk->GetSignPackage();
 					success: function(msg) {
 					  layer.msg("添加地址成功");
 					  customer_accept_id=msg.customer_id;
+					  if(name_2>=10){
+                          name_2=name_2.substr(0,1)+"***"+name_2.substr(name_2.length-6,5);
+                      }
 					    $(".shuru1").html(name_2+"&nbsp;&nbsp;"+cit1_v+ dizhi_2);
 						loadaccept(openid,tenant_id);
 						$(".box3").css("display", "none");
