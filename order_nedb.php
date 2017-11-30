@@ -531,24 +531,7 @@ $app->put('/alterOrder11',function()use($app){
     }
 });
 
-$app->put('/alterOrder12',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
-    $database = localhost();
-    $body = $app->request->getBody();
-    $body = json_decode($body);
-    $order_id = $body->order_id;
-    $exception_id=$body->exception_id;
-    if($order_id!=null||$order_id!=''){
-        $updateStatement = $database->update(array('exception_id'=>$exception_id,'order_status'=>5))
-            ->table('orders')
-            ->where('exist','=',0)
-            ->where('order_id','=',$order_id);
-        $affectedRows = $updateStatement->execute();
-        echo json_encode(array("result" => "0", "desc" => "success"));
-    }else{
-        echo json_encode(array("result" => "1", "desc" => "缺少id", "orders" => ""));
-    }
-});
+
 
 $app->run();
 
