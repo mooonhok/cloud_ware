@@ -858,8 +858,20 @@ $app->get('/old_customers',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
-
+    $database=localhost();
+    $selectStatement = $database->select()
+        ->from('customer')
+        ->distinct('customer_name')
+        ->where('tenant_id','=',$tenant_id)
+        ->where('exist','=',0)
+        ->orderBy('id','DESC')
+        ->limit(5);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetchAll();
+    echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$data1));
 });
+
+
 
 $app->run();
 
