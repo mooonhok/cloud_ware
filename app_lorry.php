@@ -592,8 +592,8 @@ $app->post('/sureschthree',function()use($app){
     $schedule_id=$body->schedule_id;
     $lorry_id=$body->lorry_id;
     $arrays['scheduling_status']=2;
-//    $arrays['is_contract']=1;
-//    $arrays['is_insurance']=1;
+    $arrays['is_contract']=1;
+    $arrays['is_insurance']=1;
     $arrays['change_datetime']=time();
     date_default_timezone_set("PRC");
     $arrays1['order_datetime2']=date("Y-m-d H:i:s",time());
