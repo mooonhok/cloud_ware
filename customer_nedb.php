@@ -330,7 +330,7 @@ $app->put('/alterCustomer2',function()use($app){
     }
 });
 
-$app->delete('/deleteCustomer',function()use($app){
+$app->put('/deleteCustomer',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
