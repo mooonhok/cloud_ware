@@ -297,11 +297,16 @@ $app->put('/goods_order_id',function()use($app){
     $goods_id=$body->goods_id;
     $order_id1=$body->order_id_o;
     $order_id2=$body->order_id_n;
+    $goods_count=$body->goods_count;
+    $goods_capacity=$body->goods_capacity;
+    $goods_weight=$body->goods_weight;
+    $goods_package_id=$body->goods_package_id;
+    $goods_value=$body->goods_value;
     if($tenant_id!=null||$tenant_id!=""){
         if($goods_id!=null||$goods_id!=""){
             if($order_id1!=null||$order_id1!=""){
                 if($order_id2!=null||$order_id2!=""){
-                    $updateStatement = $database->update(array('goods_id'=>$goods_id,'order_id'=>$order_id2))
+                    $updateStatement = $database->update(array('goods_id'=>$goods_id,'order_id'=>$order_id2,'goods_count'=>$goods_count,'goods_capacity'=>$goods_capacity,'goods_weight'=>$goods_weight,'goods_package_id'=>$goods_package_id,'goods_value'=>$goods_value))
                         ->table('goods')
                         ->where('tenant_id','=',$tenant_id)
                         ->where('order_id','=',$order_id1);

@@ -1521,12 +1521,13 @@ $app->put('/update_order_id',function()use($app){
     $order_status=$body->order_status;
     $order_datetime1=$body->order_datetime1;
     $inventory_type=$body->inventory_type;
+    $pay_method=$body->pay_method;
     if($tenant_id!=null||$tenant_id!=''){
         if($order_id1!=null||$order_id1!=''){
             if($order_id2!=null||$order_id2!=''){
                 if($order_cost!=null||$order_cost!=''){
                     if($order_datetime1!=null||$order_datetime1!=''){
-                        $updateStatement = $database->update(array('order_id' => $order_id2,'order_cost' => $order_cost,'order_status' => $order_status,'order_datetime1' => $order_datetime1,'inventory_type' => $inventory_type,'tenant_id'=>$tenant_id))
+                        $updateStatement = $database->update(array('order_id' => $order_id2,'order_cost' => $order_cost,'order_status' => $order_status,'order_datetime1' => $order_datetime1,'inventory_type' => $inventory_type,'tenant_id'=>$tenant_id,'pay_method'=>$pay_method))
                             ->table('orders')
                             ->where('exist','=',0)
                             ->where('order_id', '=', $order_id1);
