@@ -289,7 +289,6 @@ $app->get('/allmap',function()use($app){
                   array_push($arrays2, $arrays5);
            }
             echo json_encode(array('result' => '0', 'desc' => '', 'map' => $arrays,'teant'=>$arrays2));
-        
 });
 
 
