@@ -284,7 +284,7 @@ $app->get('/allmap',function()use($app){
                 ->from('city')
                 ->where('id','=',$data3[$i]['from_city_id']);
                 $stmt=$selectStament->execute();
-                 $data5=$stmt->fetchAll();
+                 $data5=$stmt->fetch();
                  $arrays5['address']=$data5['name'].$data3[$i]['address'];
            }
             echo json_encode(array('result' => '0', 'desc' => '', 'map' => $arrays,'teant'=>$arrays2));
