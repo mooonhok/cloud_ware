@@ -519,7 +519,7 @@ $app->post('/sureschfor',function()use($app){
     $time=$body->time1;
     $schedule_id=$body->schedule_id;
     $lorry_id=$body->lorry_id;
-    $arrays['scheduling_status']=6;
+//  $arrays['scheduling_status']=6;
     $arrays['is_contract']=0;
     $arrays['is_insurance']=0;
     $arrays['change_datetime']=time();
@@ -553,10 +553,10 @@ $app->post('/sureschfor',function()use($app){
                     $data2=$stmt->fetch();
                     if($data2!=null) {
                         if($data2['plate_number']==$data1['plate_number']&&$data2['driver_phone']==$data1['driver_phone']){
-                        $updateStatement = $database->update($arrays)
-                            ->table('scheduling')
-                            ->where('scheduling_id', '=', $schedule_id);
-                        $affectedRows = $updateStatement->execute();
+//                      $updateStatement = $database->update($arrays)
+//                          ->table('scheduling')
+//                          ->where('scheduling_id', '=', $schedule_id);
+//                      $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '取消成功'));
                         }else{
                             echo json_encode(array('result' => '6', 'desc' => '清单不是该用户的'));
