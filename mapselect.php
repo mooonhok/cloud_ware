@@ -282,7 +282,7 @@ $app->get('/allmap',function()use($app){
            	    $arrays5['telephone']=$data4['customer_phone'];
            	     $selectStament=$database->select()
                 ->from('city')
-                ->where('city_id','=',$data3[$i]['from_city_id']);
+                ->where('id','=',$data3[$i]['from_city_id']);
                 $stmt=$selectStament->execute();
                  $data5=$stmt->fetchAll();
                  $arrays5['address']=$data5['name'].$data3[$i]['address'];
