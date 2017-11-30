@@ -236,7 +236,7 @@ $app->get('/allmap',function()use($app){
         $stmt=$selectStament->execute();
         $data=$stmt->fetchAll();
         if($data!=null){
-              for($x=0;x<count($data);$x++){
+              for($x=0;$x<count($data);$x++){
               	 $selectStament=$database->select()
                  ->from('map')
                  ->where('scheduling_id','=',$data[$x]['scheduling_id'])
@@ -257,11 +257,6 @@ $app->get('/allmap',function()use($app){
             echo json_encode(array('result' => '2', 'desc' => '尚未有出发的清单'));
         }
 });
-
-
-
-
-
 
 
 $app->run();
