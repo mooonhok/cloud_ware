@@ -251,7 +251,15 @@ $app->get('/allmap',function()use($app){
                     $arrays1['longitude'] = $data2['longitude'];
                     $arrays1['latitude'] = $data2['latitude'];
                     $arrays1['time'] = $time;
-                    array_push($arrays, $arrays1);
+                  
+                     $selectStament=$database->select()
+                 ->from('lorry')
+                 ->where('lorry_id','=',$data[$x]['lorry_id']);
+                   $stmt=$selectStament->execute();
+                $data6=$stmt->fetch();
+                    $arrays1['telephone']=$data6['driver_phone'];
+                    $arrays1['driver_name']=$data6['driver_name'];
+                      array_push($arrays, $arrays1);
           }
            $selectStament=$database->select()
             ->from('tenant');
@@ -265,6 +273,19 @@ $app->get('/allmap',function()use($app){
            	   $a=strtotime($data3[$i]["end_date"])-time();
            	    $arrays5['level']=$a;
            	    array_push($arrays2, $arrays5);
+           	     $selectStament=$database->select()
+                 ->from('customer')
+                 ->where('customer_id','=',$data3[$i]['contact_id']);
+                  $stmt=$selectStament->execute();
+                 $data4=$stmt->fetch();
+           	    $arrays5['customer_name']=$data4['customer_name'];
+           	    $arrays5['telephone']=$data4['customer_phone'];
+           	     $selectStament=$database->select()
+                ->from('city')
+                ->where('city_id','=',$data3[$i]['from_city_id']);
+                $stmt=$selectStament->execute();
+                 $data5=$stmt->fetchAll();
+                 $arrays5['address']=$data5['name'].$data3[$i]['address'];
            }
             echo json_encode(array('result' => '0', 'desc' => '', 'map' => $arrays,'teant'=>$arrays2));
         
