@@ -368,9 +368,11 @@ $app->put('/goods_order_id',function()use($app){
     $database=localhost();
     $selectStatement = $database->select()
         ->from('goods')
-        ->where('tenant_id','=',$tenant_id);
+        ->where('tenant_id','=',$tenant_id)
+        ->groupBy('goods_name');
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
+    echo json_encode(array('result'=>'0','desc'=>'success','goods'=>$data1));
 });
 
 $app->run();
