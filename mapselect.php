@@ -230,6 +230,7 @@ $app->get('/allmap',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $arrays=array();
+      $arrays2=array();
         $selectStament=$database->select()
             ->from('scheduling')
             ->where('scheduling_status','=',4);
@@ -252,7 +253,27 @@ $app->get('/allmap',function()use($app){
                     $arrays1['time'] = $time;
                     array_push($arrays, $arrays1);
           }
-            echo json_encode(array('result' => '0', 'desc' => '', 'map' => $arrays));
+           $selectStament=$database->select()
+            ->from('tenant');
+           $stmt=$selectStament->execute();
+           $data3=$stmt->fetchAll();
+           for($i=0;$i<count($data3);$i++){
+           	   $arrays5['longitude']=$data3['longitude'];
+           	   $arrays5['latitude']=$data3['latitude'];
+           	   $arrays5['company']=$data3['company'];
+           	    date_default_timezone_set("PRC");
+           	    $time2= date("Y-m-d", now());
+           	    if($time2>$data3['end_date']){
+           	    	$arrays5['leval']=1;
+           	    }else if($data3['end_date']-$time2>30){
+           	    		$arrays5['leval']=2;
+           	    }else{
+           	    	$arrays5['leval']=3;
+           	    }
+           	    array_push($arrays2, $arrays5);
+           }
+          
+            echo json_encode(array('result' => '0', 'desc' => '', 'map' => $arrays,'teant'=>$arrays2));
         }else{
             echo json_encode(array('result' => '2', 'desc' => '尚未有出发的清单'));
         }
