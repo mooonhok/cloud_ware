@@ -352,7 +352,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<div class="bor"></div>
 					<div class="dizhi3">
 						<div class="dizhi3-1">
-							<textarea id="dizhi_3" rows="2" cols="50"></textarea>
+							<textarea id="dizhi_3" rows="2"></textarea>
 						</div>
 					</div>
 				</form>
