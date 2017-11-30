@@ -118,6 +118,7 @@ $app->get('/getOrders0', function () use ($app) {
     if ($tenant_id != null || $tenant_id != "") {
             $selectStatement = $database->select()
                 ->from('orders')
+                ->whereNull('wx_openid')
                 ->where('tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();

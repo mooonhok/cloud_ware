@@ -245,7 +245,7 @@ $app->get('/allmap',function()use($app){
                 $stmt=$selectStament->execute();
                 $data2=$stmt->fetch();
                     date_default_timezone_set("PRC");
-                    $scheduling_id=$data2['scheduling_id'];
+                    $arrays1['scheduling_id']=$data2['scheduling_id'];
                     $time = date("Y-m-d H", $data2['accept_time']);
                     $arrays1['longitude'] = $data2['longitude'];
                     $arrays1['latitude'] = $data2['latitude'];

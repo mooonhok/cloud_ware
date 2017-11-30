@@ -92,9 +92,9 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                                 }while(strlen($strr)<6);
                                                                                                 $time=base_convert(time(), 10, 32);
                                                                                                 $str=$time.$strr;
-                                                                                    $insertStatement = $database->insert(array('order_id', 'pay_method','exist','order_status','sender_id','receiver_id','order_datetime0','pay_status'))
+                                                                                    $insertStatement = $database->insert(array('wx_openid','tenant_id','order_id', 'pay_method','exist','order_status','sender_id','receiver_id','order_datetime0','pay_status'))
                                                                                         ->into('orders')
-                                                                                        ->values(array($str, $pay_method,0,-2,$data["customer_id"],$data1['customer_id'],$shijian,'1'));
+                                                                                        ->values(array($wx_openid,$tenant_id,$str, $pay_method,0,-2,$data["customer_id"],$data1['customer_id'],$shijian,'1'));
                                                                                     $insertId = $insertStatement->execute(false);
                                                                                     if($insertId!=null){
 //                                                                                        $selectStatement = $database->select()
