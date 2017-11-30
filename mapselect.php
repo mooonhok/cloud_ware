@@ -106,7 +106,7 @@ $app->post('/addmap',function()use($app){
                                         ->where('id', '=', $data4[count($data4)-1]['id']);
                                     $affectedRows = $updateStatement->execute();
                                 } else {
-                                    if ($time - $data4[count($data4) - 1]['accept_time'] > 100) {
+                                    if ($time - $data4[count($data4) - 1]['accept_time'] > 600) {
                                         $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
                                             ->into('map')
                                             ->values(array($data3[$y]['scheduling_id'], $longitude, $latitude, $time));

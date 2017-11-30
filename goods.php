@@ -360,7 +360,13 @@ $app->post('/goods_insert',function()use($app){
     }
 });
 
-//
+//用户发的最多的货的排序
+$app->put('/goods_order_id',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+
+});
 
 $app->run();
 
