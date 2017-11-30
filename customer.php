@@ -853,6 +853,14 @@ $app->put('/customer_order_id',function()use($app){
     }
 });
 
+//获取最近5条信息
+$app->get('/old_customers',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+
+});
+
 $app->run();
 
 function localhost(){

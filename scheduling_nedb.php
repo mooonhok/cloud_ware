@@ -673,6 +673,25 @@ $app->put('/alterScheduling8',function()use($app){
         }
 });
 
+$app->put('/alterScheduling9',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $scheduling_id=$body->scheduling_id;
+    $is_load=$body->is_load;
+    if($scheduling_id!=null||$scheduling_id!=''){
+        $updateStatement = $database->update(array('is_load'=>$is_load))
+            ->table('scheduling')
+            ->where('exist','=',0)
+            ->where('scheduling_id','=',$scheduling_id);
+        $affectedRows = $updateStatement->execute();
+        echo json_encode(array("result" => "0", "desc" => "success"));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少调度id"));
+    }
+});
+
 //$app->put('/alterSchedulings0',function()use($app){
 //    $app->response->headers->set('Content-Type', 'application/json');
 //    $tenant_id = $app->request->headers->get("tenant-id");
