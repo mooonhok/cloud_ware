@@ -821,7 +821,7 @@ $signPackage = $jssdk->GetSignPackage();
 						$("#subaddress2").on('click', function() {
 							customer_send_id = $("input[class='rad1']:checked").val();
 							var name_a=$("input[class='rad1']:checked").parent().prev().prev().prev().prev().text();
-							if(name_a>=8){
+							if(name_a.length>=8){
 							    name_a=name_a.substr(0,1)+"***"+name_a.substr(name_a.length-6,5);
                             }
 							$(".shuru").html(name_a+"&nbsp;&nbsp;"+$("input[class='rad1']:checked").parent().prev().prev().text());
@@ -985,7 +985,7 @@ $signPackage = $jssdk->GetSignPackage();
 							customer_accept_id = $("input[class='rad2']:checked").val();
 							if(customer_accept_id != customer_send_id) {
 							    var name_a=$("input[class='rad2']:checked").parent().prev().prev().prev().prev().text();
-							    if(name_a>=8){
+							    if(name_a.length>=8){
                                         name_a=name_a.substr(0,1)+"***"+name_a.substr(name_a.length-6,5);
                                 }
 								$(".shuru1").html($("input[class='rad2']:checked").parent().prev().prev().prev().prev().text()+"&nbsp;&nbsp;"+$("input[class='rad2']:checked").parent().prev().prev().text());
@@ -1129,6 +1129,9 @@ $signPackage = $jssdk->GetSignPackage();
 					}),
 					success: function(msg) {
 				  layer.msg("添加地址成功");
+                        if(name_1.length>=10){
+                            name_1=name_1.substr(0,1)+"***"+name_1.substr(name_1.length-6,5);
+                        }
 				  		$(".shuru").html(name_1+"&nbsp;&nbsp;"+cit_v+ dizhi_1);
 				  		customer_send_id=msg.customer_id;
 						loadsend(openid,tenant_id);
@@ -1183,7 +1186,7 @@ $signPackage = $jssdk->GetSignPackage();
 					success: function(msg) {
 					  layer.msg("添加地址成功");
 					  customer_accept_id=msg.customer_id;
-					  if(name_2>=10){
+					  if(name_2.length>=10){
                           name_2=name_2.substr(0,1)+"***"+name_2.substr(name_2.length-6,5);
                       }
 					    $(".shuru1").html(name_2+"&nbsp;&nbsp;"+cit1_v+ dizhi_2);
