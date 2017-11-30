@@ -50,6 +50,9 @@ html,body{height:100%; width:100%;
 	line-height: 40px;
 	margin-left: 2%;
 	font-size: 12px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
 .shuru1{
 	width: 65%;
@@ -61,6 +64,9 @@ html,body{height:100%; width:100%;
 	margin-left: 2%;
 	margin-top: 5px;
 	font-size: 12px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
 .span2{
 	font-size: 20px;
