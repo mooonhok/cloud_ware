@@ -263,17 +263,11 @@ $app->get('/allmap',function()use($app){
            	   $arrays5['company']=$data3[$i]['company'];
            	    date_default_timezone_set("PRC");
            	   $a=strtotime($data3[$i]["end_date"]);
-           	   if($a<0){
-           	   	$arrays5['level']=1;
-           	   }else if($a<30){
-           	   	 	$arrays5['level']=2;
-           	   }else{
-           	   	 	$arrays5['level']=3;
-           	   }
+           	    $arrays5['level']=$a;
            	    array_push($arrays2, $arrays5);
            }
           
-            echo json_encode(array('result' => '0', 'desc' => '', 'map' => $arrays,'teant'=>$arrays2));
+            echo json_encode(array('result' => '0', 'desc' => '', 'map' => $arrays,'teant'=>$arrays2,''));
         }else{
             echo json_encode(array('result' => '2', 'desc' => '尚未有出发的清单'));
         }
