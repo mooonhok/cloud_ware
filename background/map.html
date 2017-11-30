@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+	body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Z7ZjajqB1B4SRU895btxr6ZsLwGeKQOj"></script>
+	<title>地图展示</title>
+</head>
+<body>
+	<div id="allmap"></div>
+</body>
+</html>
+	<script type="text/javascript" src="javascript/jquery.js"></script>
+<script type="text/javascript">
+	$.ajax({
+			url: "http://api.uminfo.cn/mapselect.php/allmap",
+			dataType: 'json',
+			type: 'get',
+			ContentType: "application/json;charset=utf-8",
+			data: JSON.stringify({}),
+			success: function(msg) {
+				if(msg.result==0){	
+				var a = [];
+	 			var map = new BMap.Map("allmap");
+				map.centerAndZoom(new BMap.Point(114.278, 30.915), 6);
+				for(var x = 0; x < msg.map.length; x++) {
+					alert(msg.map);
+					var p= new BMap.Point(msg.map[x].longitude, msg.map[x].latitude);
+					a.push(p);
+					var marker = new BMap.Marker(p);
+					var opts = {
+	                    position : p,    // 指定文本标注所在的地理位置
+	                   offset   : new BMap.Size(-30,0)    //设置文本偏移量
+	                    }
+	           	     var label = new BMap.Label(msg.map[x].scheduling_id+"/"+msg.map[x].time+"时", opts);  // 创建文本标注对象
+		              label.setStyle({
+				       color : "black",
+				       fontSize : "12px",
+			  	       height : "20px",
+					   lineHeight : "20px",
+		          	    fontFamily:"微软雅黑"
+		           });
+					map.addOverlay(marker);  
+					map.addOverlay(label);   
+				}
+//				var polyline = new BMap.Polyline(a, {strokeColor:"#0E1A49", strokeWeight:4, strokeOpacity:0.5});
+//				map.addOverlay(polyline);
+				}else{
+				alert(msg.desc);
+				}
+			},
+			error: function(xhr) {
+				alert("获取后台失败"+xhr.responseText);
+			}
+		});
+</script>
