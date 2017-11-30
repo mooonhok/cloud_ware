@@ -258,18 +258,18 @@ $app->get('/allmap',function()use($app){
            $stmt=$selectStament->execute();
            $data3=$stmt->fetchAll();
            for($i=0;$i<count($data3);$i++){
-           	   $arrays5['longitude']=$data3['longitude'];
-           	   $arrays5['latitude']=$data3['latitude'];
-           	   $arrays5['company']=$data3['company'];
+           	   $arrays5['longitude']=$data3[$i]['longitude'];
+           	   $arrays5['latitude']=$data3[$i]['latitude'];
+           	   $arrays5['company']=$data3[$i]['company'];
            	    date_default_timezone_set("PRC");
-           	    $time2= date("Y-m-d", now());
-           	    if($time2>$data3['end_date']){
-           	    	$arrays5['leval']=1;
-           	    }else if($data3['end_date']-$time2>30){
-           	    		$arrays5['leval']=2;
-           	    }else{
-           	    	$arrays5['leval']=3;
-           	    }
+           	   $a=strtotime($data3[$i]["end_date"]);
+           	   if($a<0){
+           	   	$arrays5['level']=1;
+           	   }else if($a<30){
+           	   	 	$arrays5['level']=2;
+           	   }else{
+           	   	 	$arrays5['level']=3;
+           	   }
            	    array_push($arrays2, $arrays5);
            }
           
