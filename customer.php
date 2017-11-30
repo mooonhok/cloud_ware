@@ -866,7 +866,7 @@ $app->get('/old_customers_f',function()use($app){
         ->where('exist','=',0)
         ->where('type','=',1)
         ->orderBy('id','DESC')
-        ->limit(5);
+        ->limit(10);
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$data1));
@@ -885,7 +885,7 @@ $app->get('/old_customers_s',function()use($app){
         ->where('exist','=',0)
         ->where('type','=',2)
         ->orderBy('id','DESC')
-        ->limit(5);
+        ->limit(10);
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$data1));
