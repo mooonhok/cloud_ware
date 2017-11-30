@@ -85,7 +85,9 @@ $app->post('/addmap',function()use($app){
             for($x=0;$x<count($data2);$x++) {
                 $selectStament = $database->select()
                     ->from('scheduling')
-                    ->where('scheduling_status', '=', 4)
+                    ->where('scheduling_status', '!=', 1)
+                    ->where('scheduling_status', '!=', 5)
+                    ->where('scheduling_status', '!=', 6)
                     ->where('lorry_id', '=', $data2[$x]['lorry_id'])
                     ->orderBy('change_datetime', 'desc');
                 $stmt = $selectStament->execute();

@@ -365,7 +365,12 @@ $app->put('/goods_order_id',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
-
+    $database=localhost();
+    $selectStatement = $database->select()
+        ->from('goods')
+        ->where('tenant_id','=',$tenant_id);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetchAll();
 });
 
 $app->run();
