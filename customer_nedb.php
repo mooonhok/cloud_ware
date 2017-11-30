@@ -335,7 +335,10 @@ $app->put('/deleteCustomer',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
-    $customer_id=$app->request->get('customer_id');
+//    $customer_id=$app->request->get('customer_id');
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $customer_id=$body->customer_id;
     if($tenant_id!=null||$tenant_id!=""){
         $selectStatement = $database->select()
             ->from('tenant')
