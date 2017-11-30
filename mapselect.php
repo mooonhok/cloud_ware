@@ -272,7 +272,7 @@ $app->get('/allmap',function()use($app){
            	    date_default_timezone_set("PRC");
            	   $a=strtotime($data3[$i]["end_date"])-time();
            	    $arrays5['level']=$a;
-           	    array_push($arrays2, $arrays5);
+           	   
            	     $selectStament=$database->select()
                  ->from('customer')
                  ->where('customer_id','=',$data3[$i]['contact_id']);
@@ -286,6 +286,7 @@ $app->get('/allmap',function()use($app){
                 $stmt=$selectStament->execute();
                  $data5=$stmt->fetch();
                  $arrays5['address']=$data5['name'].$data3[$i]['address'];
+                  array_push($arrays2, $arrays5);
            }
             echo json_encode(array('result' => '0', 'desc' => '', 'map' => $arrays,'teant'=>$arrays2));
         
