@@ -366,7 +366,7 @@ $app->get('/goods_old',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
-    $selectStatement = $database->select(array(count(),'goods_name'))
+    $selectStatement = $database->select(array(count('goods_name'),'goods_name'))
         ->from('goods')
         ->where('tenant_id','=',$tenant_id)
         ->groupBy('goods_name');
