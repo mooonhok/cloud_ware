@@ -223,6 +223,47 @@ $app->post('/getmap',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '清单号为空'));
     }
 });
+
+
+$app->get('/allmap',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $arrays=array();
+        $selectStament=$database->select()
+            ->from('scheduling')
+            ->where('scheduling_status','=',4);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetchAll();
+        if($data!=null){
+              for($x=0;x<count($data);$x++){
+              	 $selectStament=$database->select()
+                 ->from('map')
+                 ->where('scheduling_id','=',$data[$x]['scheduling_id'])
+                 ->orderBy('accept_time')
+                 ->limit(1);
+                $stmt=$selectStament->execute();
+                $data2=$stmt->fetch();
+                    date_default_timezone_set("PRC");
+                    $scheduling_id=$data2['scheduling_id'];
+                    $time = date("Y-m-d H", $data2['accept_time']);
+                    $arrays1['longitude'] = $data2['longitude'];
+                    $arrays1['latitude'] = $data2['latitude'];
+                    $arrays1['time'] = $time;
+                    array_push($arrays, $arrays1);
+          }
+            echo json_encode(array('result' => '0', 'desc' => '', 'map' => $arrays));
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '尚未有出发的清单'));
+        }
+});
+
+
+
+
+
+
+
 $app->run();
 
 function localhost(){
