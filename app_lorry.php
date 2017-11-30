@@ -595,6 +595,7 @@ $app->post('/sureschthree',function()use($app){
 //    $arrays['is_contract']=1;
 //    $arrays['is_insurance']=1;
     $arrays['change_datetime']=time();
+    date_default_timezone_set("PRC");
     $arrays1['order_datetime2']=date("Y-m-d H:i:s",time());
     if($schedule_id!=null||$schedule_id!=""){
         $selectStament=$database->select()
