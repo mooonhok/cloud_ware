@@ -1362,18 +1362,18 @@ $signPackage = $jssdk->GetSignPackage();
     }
 </script>
 <script type="text/javascript">
-$(".name_1").on("keyup",function () {
-    var leng=$(this).val().length;
-    if(leng>15){
-        $(this).val($(this).val().substr(0,15));
-    }
-})
-$(".name_2").on("keyup",function () {
-    var leng=$(this).val().length;
-    if(leng>15){
-        $(this).val($(this).val().substr(0,15));
-    }
-})
+// $(".name_1").on("keyup",function () {
+//     var leng=$(this).val().length;
+//     if(leng>15){
+//         $(this).val($(this).val().substr(0,15));
+//     }
+// })
+// $(".name_2").on("keyup",function () {
+//     var leng=$(this).val().length;
+//     if(leng>15){
+//         $(this).val($(this).val().substr(0,15));
+//     }
+// })
 
 </script>
 </html>
