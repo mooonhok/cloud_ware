@@ -1,58 +1,129 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<style type="text/css">
-	body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
-	</style>
-	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Z7ZjajqB1B4SRU895btxr6ZsLwGeKQOj"></script>
-	<title>地图展示</title>
-</head>
-<body>
-	<div id="allmap"></div>
-</body>
-</html>
-	<script type="text/javascript" src="javascript/jquery.js"></script>
-<script type="text/javascript">
-	$.ajax({
-			url: "http://api.uminfo.cn/mapselect.php/allmap",
-			dataType: 'json',
-			type: 'get',
-			ContentType: "application/json;charset=utf-8",
-			data: JSON.stringify({}),
-			success: function(msg) {
-				if(msg.result==0){	
-				var a = [];
-	 			var map = new BMap.Map("allmap");
-				map.centerAndZoom(new BMap.Point(114.278, 30.915), 6);
-				for(var x = 0; x < msg.map.length; x++) {
-					var p= new BMap.Point(msg.map[x].longitude, msg.map[x].latitude);
-					a.push(p);
-					var marker = new BMap.Marker(p);
-					var opts = {
-	                    position : p,    // 指定文本标注所在的地理位置
-	                   offset   : new BMap.Size(-30,0)    //设置文本偏移量
-	                    }
-	           	     var label = new BMap.Label(msg.map[x].scheduling_id+"/"+msg.map[x].time+"时", opts);  // 创建文本标注对象
-		              label.setStyle({
-				       color : "black",
-				       fontSize : "12px",
-			  	       height : "20px",
-					   lineHeight : "20px",
-		          	    fontFamily:"微软雅黑"
-		           });
-					map.addOverlay(marker);  
-					map.addOverlay(label);   
-				}
-//				var polyline = new BMap.Polyline(a, {strokeColor:"#0E1A49", strokeWeight:4, strokeOpacity:0.5});
-//				map.addOverlay(polyline);
-				}else{
-				alert(msg.desc);
-				}
-			},
-			error: function(xhr) {
-				alert("获取后台失败"+xhr.responseText);
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<style type="text/css">
+			body,
+			html,
+			#allmap {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				margin: 0;
+				font-family: "微软雅黑";
 			}
-		});
+		</style>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Z7ZjajqB1B4SRU895btxr6ZsLwGeKQOj"></script>
+		<title>地图展示</title>
+	</head>
+
+	<body>
+		<div id="allmap"></div>
+	</body>
+
+</html>
+<script type="text/javascript" src="javascript/jquery.js"></script>
+<script type="text/javascript">
+	var map = new BMap.Map("allmap");
+	map.centerAndZoom(new BMap.Point(114.278, 30.915), 6);
+	map.enableScrollWheelZoom(true);
+	$.ajax({
+		url: "http://api.uminfo.cn/mapselect.php/allmap",
+		dataType: 'json',
+		type: 'get',
+		ContentType: "application/json;charset=utf-8",
+		data: JSON.stringify({}),
+		success: function(msg) {
+			if(msg.result == 0) {
+				var data_info2 = [];
+				if(msg.map!=null){
+				for(var x = 0; x < msg.map.length; x++) {
+					var p3 = [msg.map[x].longitude, msg.map[x].latitude, msg.map[x].scheduling_id + "</br>"
+					+ msg.map[x].time+"</br>"+msg.map[x].driver_name+":"+msg.map[x].telephone];
+					alert(msg.map[x].scheduling_id);
+					data_info.push(p3);
+				}
+				var opts = {
+					width: 250, // 信息窗口宽度
+					height: 80, // 信息窗口高度
+					title: "", // 信息窗口标题
+					enableMessage: true //设置允许信息窗发送短息
+				};
+//				alert(data_info[1][0]);
+				for(var j = 0; j < data_info2.length; j++) {
+					var myIcon2 = new BMap.Icon("images/4.png", new BMap.Size(16, 16));
+					var marker2 = new BMap.Marker(new BMap.Point(data_info2[j][0], data_info2[j][1]),{myIcon2});// 创建标注
+					var content = data_info2[j][2];
+					map.addOverlay(marker2); // 将标注添加到地图中
+					addClickHandler(content, marker2);
+				}
+
+				function addClickHandler(content, marker) {
+					marker.addEventListener("click", function(e) {
+						openInfo(content, e)
+					});
+				}
+
+				function openInfo(content, e) {
+					var p4 = e.target;
+					var point2 = new BMap.Point(p4.getPosition().lng, p4.getPosition().lat);
+					var infoWindow = new BMap.InfoWindow(content, opts); // 创建信息窗口对象 
+					map.openInfoWindow(infoWindow, point2); //开启信息窗口
+				}
+				}
+				if(msg.teant!=null){
+     			var data_info = [];
+				for(var y = 0; y < msg.teant.length; y++) {
+					var p2 = [msg.teant[y].longitude, msg.teant[y].latitude,msg.teant[y].company+"</br>"+msg.teant[y].customer_name+
+					":"+msg.teant[y].telephone+"</br>"+msg.teant[y].address,msg.teant[y].level];
+					data_info.push(p2);
+					var c = 0;
+				}
+				var opts = {
+					width: 250, // 信息窗口宽度
+					height: 80, // 信息窗口高度
+					title: "", // 信息窗口标题
+					enableMessage: true //设置允许信息窗发送短息
+				};
+//				alert(data_info[1][0]);
+				for(var i = 0; i < data_info.length; i++) {
+					var level=data_info[i][3];
+					var c = 0;
+					if(level > 1296000) {
+						c = 3;
+					} else if(level < 0) {
+						c = 1;
+					} else {
+						c = 2;
+					}
+					var myIcon = new BMap.Icon("images/" + c + ".png", new BMap.Size(16, 16));
+					var marker = new BMap.Marker(new BMap.Point(data_info[i][0], data_info[i][1]),{icon: myIcon});// 创建标注
+					var content = data_info[i][2];
+					map.addOverlay(marker); // 将标注添加到地图中
+					addClickHandler(content, marker);
+				}
+
+				function addClickHandler(content, marker) {
+					marker.addEventListener("click", function(e) {
+						openInfo(content, e)
+					});
+				}
+
+				function openInfo(content, e) {
+					var p = e.target;
+					var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+					var infoWindow = new BMap.InfoWindow(content, opts); // 创建信息窗口对象 
+					map.openInfoWindow(infoWindow, point); //开启信息窗口
+				}
+				}
+			} else {
+				alert(msg.desc);
+			}
+		},
+		error: function(xhr) {
+			alert("获取后台失败" + xhr.responseText);
+		}
+	});
 </script>
