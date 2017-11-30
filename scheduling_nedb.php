@@ -36,6 +36,7 @@ $app->post('/addScheduling',function()use($app) {
                         if($lorry_id!=null||$lorry_id!=''){
                             $array['tenant_id']=$tenant_id;
                             $array['exist']=0;
+                            $array['is_load']=0;
                             $insertStatement = $database->insert(array_keys($array))
                                 ->into('scheduling')
                                 ->values(array_values($array));

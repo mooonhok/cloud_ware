@@ -969,6 +969,7 @@ $app->get('/getSchedulingOrderList0',function()use($app){
             ->where('scheduling.tenant_id', '=', $tenant_id)
             ->where('lorry.lorry_id', '=', $lorry_id)
             ->where('scheduling.scheduling_status', '=', 1)
+            ->where('scheduling.is_load','=',1)
             ->where('scheduling.exist', '=', 0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
