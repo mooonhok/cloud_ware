@@ -236,7 +236,7 @@ $app->get('/allmap',function()use($app){
             ->where('scheduling_status','=',4);
         $stmt=$selectStament->execute();
         $data=$stmt->fetchAll();
-        if($data!=null){
+
               for($x=0;$x<count($data);$x++){
               	 $selectStament=$database->select()
                  ->from('map')
@@ -267,9 +267,7 @@ $app->get('/allmap',function()use($app){
            	    array_push($arrays2, $arrays5);
            }
             echo json_encode(array('result' => '0', 'desc' => '', 'map' => $arrays,'teant'=>$arrays2));
-        }else{
-            echo json_encode(array('result' => '2', 'desc' => '尚未有出发的清单'));
-        }
+        
 });
 
 
