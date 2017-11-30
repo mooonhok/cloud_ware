@@ -1244,7 +1244,7 @@ $signPackage = $jssdk->GetSignPackage();
 			}else if(needs==""||needs==null){
 				layer.msg("您未选择备注");
 			}else{
-			    alert(customer_send_id+"////"+customer_accept_id+"////"+huowu+"////"+zhong+"////"+tiji+"////"+baozhuang+"////"+jianshu+"////"+needs+"////"+jiazhi+"////"+str+"////"+openid);
+			    // alert(customer_send_id+"////"+customer_accept_id+"////"+huowu+"////"+zhong+"////"+tiji+"////"+baozhuang+"////"+jianshu+"////"+needs+"////"+jiazhi+"////"+str+"////"+openid);
 				$.ajax({
 					url: "http://api.uminfo.cn/wxmessage.php/wxmessage_insert",
 					beforeSend: function(request) {
