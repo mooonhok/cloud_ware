@@ -27,7 +27,7 @@
 	 			var map = new BMap.Map("allmap");
 				map.centerAndZoom(new BMap.Point(114.278, 30.915), 6);
 				for(var x = 0; x < msg.map.length; x++) {
-					alert(msg.map);
+				
 					var p= new BMap.Point(msg.map[x].longitude, msg.map[x].latitude);
 					a.push(p);
 					var marker = new BMap.Marker(p);
