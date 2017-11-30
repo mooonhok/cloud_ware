@@ -262,7 +262,7 @@ $app->get('/allmap',function()use($app){
            	   $arrays5['latitude']=$data3[$i]['latitude'];
            	   $arrays5['company']=$data3[$i]['company'];
            	    date_default_timezone_set("PRC");
-           	   $a=strtotime($data3[$i]["end_date"]);
+           	   $a=strtotime($data3[$i]["end_date"])-strtotime(now());
            	    $arrays5['level']=$a;
            	    array_push($arrays2, $arrays5);
            }
