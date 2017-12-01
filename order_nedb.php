@@ -160,7 +160,7 @@ $app->get('/getOrder2', function () use ($app) {
                 $selectStatement = $database->select()
                     ->from('scheduling')
                     ->where('tenant_id', '=', $tenant_id)
-                    ->where('scheduling_id', '=', $data5['scheduling_id']);
+                    ->where('scheduling_id', '=', $data5['schedule_id']);
                 $stmt = $selectStatement->execute();
                 $data6 = $stmt->fetch();
                 $data[$i]['sender']=$data1;
