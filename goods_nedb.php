@@ -166,6 +166,39 @@ $app->put('/alterGood',function()use($app){
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
 });
+
+$app->put('/alterGood1',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $order_id=$body->order_id;
+    $special_need=$body->special_need;
+    $array=array();
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+    if($tenant_id!=null||$tenant_id!=''){
+        if($order_id!=null||$order_id!=''){
+            if($special_need!=null||$special_need!=''){
+                                $updateStatement = $database->update($array)
+                                    ->table('goods')
+                                    ->where('tenant_id','=',$tenant_id)
+                                    ->where('order_id','=',$order_id);
+                                $affectedRows = $updateStatement->execute();
+                                echo json_encode(array("result" => "0", "desc" => "success"));
+            }else{
+                echo json_encode(array("result" => "1", "desc" => "缺少特殊需求"));
+            }
+        }else{
+            echo json_encode(array("result" => "2", "desc" => "缺少运单id"));
+        }
+    }else{
+        echo json_encode(array("result" => "3", "desc" => "缺少租户id"));
+    }
+});
+
 $app->run();
 
 function localhost(){
