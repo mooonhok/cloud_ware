@@ -163,7 +163,7 @@ $app->get('/getOrder2', function () use ($app) {
                     ->where('scheduling_id', '=', $data5['schedule_id']);
                 $stmt = $selectStatement->execute();
                 $data6 = $stmt->fetch();
-                $data7=$data6['sure_img'];
+                $data7='';
                 if(substr($data6['sure_img'],0,4)!='http'){
                     $selectStatement = $database->select()
                         ->from('tenant')
