@@ -12,7 +12,7 @@ use Slim\PDO\Database;
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 
-$app->post('/addlorry',function()use($app) {
+$app->post('/addpickup',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin', '*');
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
