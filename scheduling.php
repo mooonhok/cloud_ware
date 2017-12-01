@@ -621,7 +621,7 @@ $app->post('/scheduling_insert',function()use($app){
     }
 });
 
-//调度里该公司常发货的公司，限制10个
+//调度里该公司常发货的城市，限制10个
 $app->get('/scheduling_old',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin', '*');
     $app->response->headers->set('Content-Type', 'application/json');
@@ -644,6 +644,33 @@ $app->get('/scheduling_old',function()use($app) {
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetch();
         $data1[$i]['send_city']=$data2['name'];
+    }
+    echo json_encode(array("result"=>"0","desc"=>"success",'scheduling'=>$data1));
+});
+
+//调度里该公司常收货的城市，限制10个
+$app->get('/scheduling_old',function()use($app) {
+    $app->response->headers->set('Access-Control-Allow-Origin', '*');
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $selectStatement = $database->select()
+        ->from('scheduling')
+        ->count('receive_city_id','cou')
+        ->where('tenant_id','=',$tenant_id)
+        ->groupBy('receive_city_id')
+        ->orderBy('cou','DESC')
+        ->orderBy('id','DESC')
+        ->limit(10);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetchAll();
+    for($i=0;$i<count($data1);$i++){
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id', '=', $data1[$i]['receive_city_id']);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        $data1[$i]['receive_city']=$data2['name'];
     }
     echo json_encode(array("result"=>"0","desc"=>"success",'scheduling'=>$data1));
 });
