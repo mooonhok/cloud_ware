@@ -1227,6 +1227,7 @@ $app->get('/searchGoodsOrders1',function()use($app){
                 ->from('orders')
                 ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
                 ->where('goods.tenant_id','=',$tenant_id)
+                ->whereLike('special_need',"%"."送货上门".'%')
                 ->where('orders.tenant_id','=',$tenant_id)
                 ->where('orders.order_status','=',1)
                 ->where('orders.is_schedule','=',0)
@@ -1235,7 +1236,6 @@ $app->get('/searchGoodsOrders1',function()use($app){
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
         for($i=0;$i<count($data1);$i++){
-            if(substr($data1[$i]['special_need'],11)=="送货上门"){
                 $selectStament=$database->select()
                     ->from('goods_package')
                     ->where('goods_package_id','=',$data1[$i]['goods_package_id']);
@@ -1287,7 +1287,6 @@ $app->get('/searchGoodsOrders1',function()use($app){
                 $data1[$i]['receiver']['receiver_city']=$data7;
                 $data1[$i]['receiver']['receiver_province']=$data9;
                 $data1[$i]['inventory_loc']=$data5;
-            }
         }
             echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
     }else{
