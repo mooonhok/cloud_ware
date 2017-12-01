@@ -360,7 +360,7 @@ $app->post('/goods_insert',function()use($app){
     }
 });
 
-//用户发的最多的货的排序
+//用户发的最多的货的排序,限制10个
 $app->get('/goods_old',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -370,10 +370,10 @@ $app->get('/goods_old',function()use($app){
         ->count('goods_name','cou')
         ->from('goods')
         ->where('tenant_id','=',$tenant_id)
-
         ->groupBy('goods_name')
-//        ->havingCount('goods_name');
-        ->orderBy('cou','DESC');
+        ->orderBy('cou','DESC')
+        ->orderBy('id','DESC')
+        ->limit(10);
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
     echo json_encode(array('result'=>'0','desc'=>'success','goods'=>$data1));
