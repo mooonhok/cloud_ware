@@ -32,6 +32,7 @@ $app->post('/addPickup',function()use($app) {
             if($pickup_name!=null||$pickup_name!=''){
                 if($pickup_phone!=null||$pickup_phone!=''){
                     if($pickup_number!=null||$pickup_number!=''){
+                        $array['tenant_id']=$tenant_id;
                         $insertStatement = $database->insert(array_keys($array))
                             ->into('pickup')
                             ->values(array_values($array));
