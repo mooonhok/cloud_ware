@@ -514,7 +514,7 @@ $app->post('/suresch',function()use($app){
                 echo json_encode(array('result' => '3', 'desc' => '驾驶员未登录'));
             }
         }else{
-            echo json_encode(array('result' => '2', 'desc' => '清单不存在或清单已经处理了'));
+            echo json_encode(array('result' => '2', 'desc' => '等待物流公司确认'));
         }
     }else{
         echo json_encode(array('result' => '1', 'desc' => '清单号为空'));
