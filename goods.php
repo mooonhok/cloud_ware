@@ -373,7 +373,7 @@ $app->get('/goods_old',function()use($app){
 
         ->groupBy('goods_name')
 //        ->havingCount('goods_name');
-        ->orderBy(count('goods_name'),'DESC');
+        ->orderBy('cou','DESC');
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
     echo json_encode(array('result'=>'0','desc'=>'success','goods'=>$data1));
