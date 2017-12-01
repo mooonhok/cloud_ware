@@ -370,8 +370,9 @@ $app->get('/goods_old',function()use($app){
         ->count()
         ->from('goods')
         ->where('tenant_id','=',$tenant_id)
-        ->havingCount('goods_name')
-        ->groupBy('goods_name');
+
+        ->groupBy('goods_name')
+        ->havingCount('goods_name');
 //        ->orderBy(count('goods_name'),'DESC');
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
