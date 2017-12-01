@@ -367,7 +367,7 @@ $app->get('/goods_old',function()use($app){
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
     $selectStatement = $database->select()
-        ->count()
+        ->count('goods_name','cou')
         ->from('goods')
         ->where('tenant_id','=',$tenant_id)
 
