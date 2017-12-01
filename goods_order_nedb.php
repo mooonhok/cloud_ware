@@ -1227,7 +1227,7 @@ $app->get('/searchGoodsOrders1',function()use($app){
                 ->from('orders')
                 ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
                 ->where('goods.tenant_id','=',$tenant_id)
-                ->whereLike('goods.special_need',"送货上门")
+                ->whereLike('goods.special_need',"%送货上门")
                 ->where('orders.tenant_id','=',$tenant_id)
                 ->where('orders.order_status','=',1)
                 ->where('orders.is_schedule','=',0)
