@@ -177,7 +177,7 @@ $app->get('/getOrder2', function () use ($app) {
                 $data[$i]['inventory_loc']=$data3;
                 $data[$i]['pickup']=$data4;
                 $data[$i]['scheduling']=$data6;
-                $data[$i]['sure_img']=$data7;
+                $data[$i]['sure_company']=$data7;
             }
 
             echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
