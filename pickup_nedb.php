@@ -12,7 +12,7 @@ use Slim\PDO\Database;
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 
-$app->post('/addpickup',function()use($app) {
+$app->post('/addPickup',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin', '*');
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
@@ -53,6 +53,19 @@ $app->post('/addpickup',function()use($app) {
         echo json_encode(array("result" => "5", "desc" => "缺少租户公司id"));
     }
    });
+
+$app->get('/getPickups0',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $selectStatement = $database->select()
+        ->from('pickup')
+        ->where('tenant_id', '=', $tenant_id);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    echo json_encode(array("result" => "0", "desc" => "success",'pickups'=>$data));
+});
+
 $app->run();
 
 function localhost(){
