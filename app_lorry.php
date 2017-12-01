@@ -1378,7 +1378,7 @@ $app->post('/sureschedule',function()use($app){
                             }
                             echo json_encode(array('result' => '0', 'desc' => '接单成功'));
                         }else{
-                            echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在或车辆不是默认车辆'));
+                            echo json_encode(array('result' => '4', 'desc' => '清单上驾驶员不存在'));
                         }
                     }else{
                         echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
