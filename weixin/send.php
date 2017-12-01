@@ -1226,6 +1226,8 @@ $signPackage = $jssdk->GetSignPackage();
 				str = 0;
 			} else if(money == "月付") {
 				str = 2;
+			}else if(money=="回单"){
+				str=3;
 			}
 			if(customer_send_id == "" || customer_send_id == null) {
 				layer.msg("发货人信息不全");
