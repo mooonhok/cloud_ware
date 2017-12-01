@@ -369,8 +369,8 @@ $app->get('/goods_old',function()use($app){
     $selectStatement = $database->select()
         ->from('goods')
         ->where('tenant_id','=',$tenant_id)
-        ->groupBy('goods_name');
-//        ->orderBy(count('goods_name'),'DESC');
+        ->groupBy('goods_name')
+        ->orderBy(count('goods_name'),'DESC');
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
     echo json_encode(array('result'=>'0','desc'=>'success','goods'=>$data1));
