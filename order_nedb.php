@@ -151,10 +151,23 @@ $app->get('/getOrder2', function () use ($app) {
                     ->where('pickup_id', '=', $data[$i]['pickup_id']);
                 $stmt = $selectStatement->execute();
                 $data4 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('schedule_order')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('order_id', '=', $data[$i]['order_id']);
+                $stmt = $selectStatement->execute();
+                $data5 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('scheduling')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('scheduling_id', '=', $data5['scheduling_id']);
+                $stmt = $selectStatement->execute();
+                $data6 = $stmt->fetch();
                 $data[$i]['sender']=$data1;
                 $data[$i]['receiver']=$data2;
                 $data[$i]['inventory_loc']=$data3;
                 $data[$i]['pickup']=$data4;
+                $data[$i]['scheduling']=$data6;
             }
 
             echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
