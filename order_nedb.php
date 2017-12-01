@@ -163,11 +163,21 @@ $app->get('/getOrder2', function () use ($app) {
                     ->where('scheduling_id', '=', $data5['schedule_id']);
                 $stmt = $selectStatement->execute();
                 $data6 = $stmt->fetch();
+                $data7=$data6['sure_img'];
+                if(substr($data6['sure_img'],0,4)!='http'){
+                    $selectStatement = $database->select()
+                        ->from('tenant')
+                        ->where('tenant_id', '=', $data6['sure_img']);
+                    $stmt = $selectStatement->execute();
+                    $data7 = $stmt->fetch();
+                }
+
                 $data[$i]['sender']=$data1;
                 $data[$i]['receiver']=$data2;
                 $data[$i]['inventory_loc']=$data3;
                 $data[$i]['pickup']=$data4;
                 $data[$i]['scheduling']=$data6;
+                $data[$i]['sure_img']=$data7;
             }
 
             echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
