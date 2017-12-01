@@ -622,7 +622,7 @@ $app->post('/scheduling_insert',function()use($app){
 });
 
 //调度里该公司常发货的城市，限制10个
-$app->get('/scheduling_old',function()use($app) {
+$app->get('/scheduling_old_s',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin', '*');
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
@@ -649,7 +649,7 @@ $app->get('/scheduling_old',function()use($app) {
 });
 
 //调度里该公司常收货的城市，限制10个
-$app->get('/scheduling_old',function()use($app) {
+$app->get('/scheduling_old_r',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin', '*');
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
