@@ -290,6 +290,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<div class="box6-2-1" value="到付">到付</div>
 					<div class="box6-2-2" value="现付">现付</div>
 					<div class="box6-2-3" value="月付">月付</div>
+					<div class="box6-2-4" value="回单">回单</div>
 				</div>
 			</div>
 		</div>
@@ -607,6 +608,11 @@ $signPackage = $jssdk->GetSignPackage();
 			$(".box6").css("display", "none");
 		})
 		$(".box6-2-3").on("click", function() {
+			var box4 = $(this).html();
+			$(".money").val(box4);
+			$(".box6").css("display", "none");
+		})
+			$(".box6-2-4").on("click", function() {
 			var box4 = $(this).html();
 			$(".money").val(box4);
 			$(".box6").css("display", "none");
