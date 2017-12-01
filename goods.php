@@ -366,11 +366,11 @@ $app->get('/goods_old',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
-    $selectStatement = $database->select(array(count('goods_name'),'goods_name'))
+    $selectStatement = $database->select()
         ->from('goods')
         ->where('tenant_id','=',$tenant_id)
-        ->groupBy('goods_name')
-        ->orderBy(count('goods_name'),'DESC');
+        ->groupBy('goods_name');
+//        ->orderBy(count('goods_name'),'DESC');
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
     echo json_encode(array('result'=>'0','desc'=>'success','goods'=>$data1));
