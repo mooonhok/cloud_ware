@@ -111,6 +111,57 @@ $app->get('/getOrder1', function () use ($app) {
     }
 });
 
+$app->get('/getOrder2', function () use ($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $order_id= $app->request->get('order_id');
+    if ($tenant_id != null || $tenant_id != "") {
+        if ($order_id != null||$order_id!='') {
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('exist', "=", 0)
+                ->where('order_id', '=', $order_id);
+            $stmt = $selectStatement->execute();
+            $data = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('customer_id', '=', $data['sender_id']);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('customer_id', '=', $data['receiver_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('inventory_loc')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('inventory_loc_id', '=', $data['inventory_loc_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('pickup')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('pickup_id', '=', $data['pickup_id']);
+            $stmt = $selectStatement->execute();
+            $data4 = $stmt->fetch();
+            $data['sender']=$data1;
+            $data['receiver']=$data2;
+            $data['inventory_loc']=$data3;
+            $data['pickup']=$data4;
+            echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
+        } else {
+            echo json_encode(array("result" => "3", "desc" => "缺少运单id", "orders" => ""));
+        }
+    } else {
+        echo json_encode(array("result" => "4", "desc" => "缺少租户id", "orders" => ""));
+    }
+});
+
 $app->get('/getOrders0', function () use ($app) {
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
@@ -158,6 +209,8 @@ $app->get('/getOrders1', function () use ($app) {
         echo json_encode(array("result" => "1", "desc" => "缺少运单id"));
     }
 });
+
+
 
 $app->put('/alterOrder0', function () use ($app) {
     $app->response->headers->set('Content-Type', 'application/json');
