@@ -125,38 +125,39 @@ $app->get('/getOrder2', function () use ($app) {
                 ->where('order_id', '=', $order_id);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
-            if($data!=null){
+            for($i=0;$i<count($data);$i++){
+
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('tenant_id', '=', $tenant_id)
-                    ->where('customer_id', '=', $data[0]['sender_id']);
+                    ->where('customer_id', '=', $data[$i]['sender_id']);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('tenant_id', '=', $tenant_id)
-                    ->where('customer_id', '=', $data[0]['receiver_id']);
+                    ->where('customer_id', '=', $data[$i]['receiver_id']);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('inventory_loc')
                     ->where('tenant_id', '=', $tenant_id)
-                    ->where('inventory_loc_id', '=', $data[0]['inventory_loc_id']);
+                    ->where('inventory_loc_id', '=', $data[$i]['inventory_loc_id']);
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('pickup')
                     ->where('tenant_id', '=', $tenant_id)
-                    ->where('pickup_id', '=', $data[0]['pickup_id']);
+                    ->where('pickup_id', '=', $data[$i]['pickup_id']);
                 $stmt = $selectStatement->execute();
                 $data4 = $stmt->fetch();
-                $data[0]['sender']=$data1;
-                $data[0]['receiver']=$data2;
-                $data[0]['inventory_loc']=$data3;
-                $data[0]['pickup']=$data4;
+                $data[$i]['sender']=$data1;
+                $data[$i]['receiver']=$data2;
+                $data[$i]['inventory_loc']=$data3;
+                $data[$i]['pickup']=$data4;
             }
 
-            echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data[0]));
+            echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
         } else {
             echo json_encode(array("result" => "3", "desc" => "缺少运单id"));
         }
