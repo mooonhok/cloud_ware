@@ -124,41 +124,44 @@ $app->get('/getOrder2', function () use ($app) {
                 ->where('exist', "=", 0)
                 ->where('order_id', '=', $order_id);
             $stmt = $selectStatement->execute();
-            $data = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('customer')
-                ->where('tenant_id', '=', $tenant_id)
-                ->where('customer_id', '=', $data['sender_id']);
-            $stmt = $selectStatement->execute();
-            $data1 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('customer')
-                ->where('tenant_id', '=', $tenant_id)
-                ->where('customer_id', '=', $data['receiver_id']);
-            $stmt = $selectStatement->execute();
-            $data2 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('inventory_loc')
-                ->where('tenant_id', '=', $tenant_id)
-                ->where('inventory_loc_id', '=', $data['inventory_loc_id']);
-            $stmt = $selectStatement->execute();
-            $data3 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('pickup')
-                ->where('tenant_id', '=', $tenant_id)
-                ->where('pickup_id', '=', $data['pickup_id']);
-            $stmt = $selectStatement->execute();
-            $data4 = $stmt->fetch();
-            $data['sender']=$data1;
-            $data['receiver']=$data2;
-            $data['inventory_loc']=$data3;
-            $data['pickup']=$data4;
-            echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
+            $data = $stmt->fetchAll();
+            if($data!=null){
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('customer_id', '=', $data[0]['sender_id']);
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('customer_id', '=', $data[0]['receiver_id']);
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('inventory_loc')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('inventory_loc_id', '=', $data[0]['inventory_loc_id']);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('pickup')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('pickup_id', '=', $data[0]['pickup_id']);
+                $stmt = $selectStatement->execute();
+                $data4 = $stmt->fetch();
+                $data[0]['sender']=$data1;
+                $data[0]['receiver']=$data2;
+                $data[0]['inventory_loc']=$data3;
+                $data[0]['pickup']=$data4;
+            }
+
+            echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data[0]));
         } else {
-            echo json_encode(array("result" => "3", "desc" => "缺少运单id", "orders" => ""));
+            echo json_encode(array("result" => "3", "desc" => "缺少运单id"));
         }
     } else {
-        echo json_encode(array("result" => "4", "desc" => "缺少租户id", "orders" => ""));
+        echo json_encode(array("result" => "4", "desc" => "缺少租户id"));
     }
 });
 
