@@ -1164,6 +1164,14 @@ $app->get('/getSchedulingOrders8',function()use($app){
                 ->where('id', '=', $data7['pid']);
             $stmt = $selectStatement->execute();
             $data9 = $stmt->fetch();
+            $data10=$data[$i]['sure_img'];
+            if(substr($data[$i]['sure_img'],0,4)!='http'){
+                $selectStatement = $database->select()
+                    ->from('tenant')
+                    ->where('tenant_id', '=',$data[$i]['sure_img']);
+                $stmt = $selectStatement->execute();
+                $data10 = $stmt->fetch();
+            }
             $data[$i]['lorry']=$data1;
             $data[$i]['goods']=$data2;
             $data[$i]['goods']['goods_package']=$data5;
@@ -1172,6 +1180,7 @@ $app->get('/getSchedulingOrders8',function()use($app){
             $data[$i]['sender_province']=$data8;
             $data[$i]['receiver_city']=$data7;
             $data[$i]['receiver_province']=$data9;
+            $data[$i]['sure_company']=$data10;
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
     }else{

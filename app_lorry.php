@@ -192,7 +192,17 @@ $app->get('/sandoandg',function()use($app){
                         $arrays2['phone']=$data9['customer_phone'];
                         $arrays2['sendcity']=$data7['name'];
                         $arrays2['receivecity']=$data8['name'];
-                        $arrays2['pic']=$data1['sure_img'];
+                      
+                        $selectStament=$database->select()
+                        ->from('tenant')
+                        ->where('tenant_id','=',$data1['sure_img']);
+                        $stmt=$selectStament->execute();
+                        $data10=$stmt->fetch();
+                        if($data10!=null){
+                        	  $arrays2['pic']=$data10['jcompany'];
+                        }else{
+                          $arrays2['pic']=$data1['sure_img'];
+                        }
                         echo json_encode(array('result' => '0', 'desc' => '','goods'=>$arrays,'customer'=>$arrays2,'count'=>$num,'isreceive'=>$data1['scheduling_status']));
                     }else{
                         echo json_encode(array('result' => '5', 'desc' => '该清单不是您的','goods'=>''));
