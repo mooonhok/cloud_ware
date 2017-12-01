@@ -69,7 +69,7 @@ $app->get('/to_one_insurance',function ()use($app){
         ->from('scheduling')
         ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
         ->where('scheduling.is_insurance', '=', 1)
-        ->whereIn('scheduling.scheduling_status',array(3,4))
+        ->whereIn('scheduling.scheduling_status',array(2,3,4))
         ->where('scheduling.tenant_id','=',$tenant_id)
         ->where('lorry.tenant_id','=',$tenant_id)
         ->limit((int)$per_page, (int)$offset)
@@ -131,7 +131,7 @@ $app->get('/lorry_insurance_count',function ()use($app){
         ->from('scheduling')
         ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
         ->where('scheduling.is_insurance', '=', 1)
-        ->whereIn('scheduling.scheduling_status',array(3,4))
+        ->whereIn('scheduling.scheduling_status',array(2,3,4))
         ->where('scheduling.tenant_id','=',$tenant_id)
         ->where('lorry.tenant_id','=',$tenant_id)
         ->groupBy('lorry.lorry_id');
@@ -238,7 +238,7 @@ $app->post('/insurance_scheduling',function()use($app){
     $selectStatement = $database->select()
         ->from('scheduling')
         ->where('scheduling.is_insurance', '=', 1)
-        ->whereIn('scheduling.scheduling_status',array(3,4))
+        ->whereIn('scheduling.scheduling_status',array(2,3,4))
         ->where('scheduling.lorry_id','=',$lorry_id)
         ->where('scheduling.tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
