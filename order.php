@@ -1527,7 +1527,7 @@ $app->put('/update_order_id',function()use($app){
             if($order_id2!=null||$order_id2!=''){
                 if($order_cost!=null||$order_cost!=''){
                     if($order_datetime1!=null||$order_datetime1!=''){
-                        $updateStatement = $database->update(array('wx_openid'=>'','order_id' => $order_id2,'order_cost' => $order_cost,'order_status' => $order_status,'order_datetime1' => $order_datetime1,'inventory_type' => $inventory_type,'tenant_id'=>$tenant_id,'pay_method'=>$pay_method))
+                        $updateStatement = $database->update(array('order_id' => $order_id2,'order_cost' => $order_cost,'order_status' => $order_status,'order_datetime1' => $order_datetime1,'inventory_type' => $inventory_type,'tenant_id'=>$tenant_id,'pay_method'=>$pay_method))
                             ->table('orders')
                             ->where('exist','=',0)
                             ->where('order_id', '=', $order_id1);
