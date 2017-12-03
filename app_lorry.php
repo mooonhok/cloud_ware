@@ -1397,6 +1397,83 @@ $app->post('/sureschedule',function()use($app){
     }
 });
 
+//依据清单号查询到付金额
+$app->get('/oaycostsch',function()use($app){
+$app->response->headers->set('Access-Control-Allow-Origin','*');
+$app->response->headers->set('Content-Type','application/json');
+$schedule_id = $app->request->get("schedule_id");
+$database=localhost();
+$arrays=array();
+if($schedule_id!=null||$schedule_id!=""){
+    $selectStament=$database->select()
+        ->from('scheduling')
+        ->where('exist','=',0)
+        ->where('scheduling_id','=',$schedule_id);
+    $stmt=$selectStament->execute();
+    $data=$stmt->fetch();
+    if($data!=null){
+        $selectStament=$database->select()
+            ->from('schedule_order')
+            ->where('schedule_id','=',$schedule_id);
+        $stmt=$selectStament->execute();
+        $data2=$stmt->fetchAll();
+        if($data2!=null){
+            $num=0;
+             for($x=0;$x<count($data2);$x++){
+                 $selectStament=$database->select()
+                     ->from('orders')
+                     ->where('tenant_id','=',$data2[$x]['tenant_id'])
+                     ->where('order_id','=',$data2[$x]['order_id']);
+                 $stmt=$selectStament->execute();
+                 $data3=$stmt->fetch();
+                 if($data3['pay_method']==1){
+                    $arrays1['order_id']=$data3['order_id'];
+                    $arrays1['order_cost']=$data3['order_cost'];
+                    $num+=$data3['order_cost'];
+                    array_push($arrays,$arrays1);
+                 }
+             }
+            echo json_encode(array('result' => '0', 'desc' => '','orders'=>$arrays1,'cost'=>$num));
+        }else{
+            echo json_encode(array('result' => '3', 'desc' => '清单下没有运单'));
+        }
+    }else{
+        echo json_encode(array('result' => '2', 'desc' => '清单不存在'));
+    }
+}else{
+    echo json_encode(array('result' => '1', 'desc' => '清单号为空'));
+}
+});
+
+
+$app->get('/ordercost',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $order_id = $app->request->get("order_id");
+    $database=localhost();
+    if($order_id!=null||$order_id!=""){
+                    $selectStament=$database->select()
+                        ->from('orders')
+                        ->where('order_id','=',$order_id);
+                    $stmt=$selectStament->execute();
+                    $data3=$stmt->fetch();
+                    if($data3!=null){
+                    if($data3['pay_method']==1){
+                        $arrays1['order_id']=$data3['order_id'];
+                        $arrays1['order_cost']=$data3['order_cost'];
+                    }
+        echo json_encode(array('result' => '0', 'desc' => '','order'=>$arrays1));
+                    }else{
+                        echo json_encode(array('result' => '0', 'desc' => '运单不存在'));
+                    }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '运单号为空'));
+    }
+});
+
+
+
+
 $app->run();
 function localhost(){
     return connect();
