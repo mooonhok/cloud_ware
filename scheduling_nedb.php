@@ -726,6 +726,56 @@ $app->put('/alterSchedulings0',function()use($app){
     }
 });
 
+//根据清单id或发站模糊查询清单数
+$app->get('/getSchedulings_scheduling_id_or_sendercity',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $id_sendcity=$app->request->get('id_sendcity');
+    if($tenant_id!=null||$tenant_id!=''){
+            $selectStatement = $database->select()
+                ->from('scheduling')
+                ->leftJoin('city','city.id','=','scheduling.sender_city_id')
+                ->where('scheduling.exist', '=', 0)
+                ->where('scheduling.tenant_id', '=', $tenant_id)
+                ->whereLike('scheduling.scheduling_id',  $id_sendcity)
+                ->orWhereLike('city.name','=',$id_sendcity);
+            $stmt = $selectStatement->execute();
+            $data = $stmt->fetchAll();
+            for($i=0;$i<count($data);$i++){
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('customer_id', '=', $data[$i]['receiver_id']);
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data[$i]['send_city_id']);
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data[$i]['receive_city_id']);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('lorry')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('lorry_id', '=', $data[$i]['lorry_id']);
+                $stmt = $selectStatement->execute();
+                $data4 = $stmt->fetch();
+                $data[$i]['receiver']=$data1;
+                $data[$i]['send_city']=$data2;
+                $data[$i]['receive_city']=$data3;
+                $data[$i]['lorry']=$data4;
+            }
+            echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
+    }else{
+        echo json_encode(array("result" => "2", "desc" => "租户id为空"));
+    }
+});
+
 $app->run();
 function localhost(){
     return connect();
