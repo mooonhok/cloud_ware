@@ -311,7 +311,7 @@
 	                    position : p,    // 指定文本标注所在的地理位置
 	                   offset   : new BMap.Size(-30,0)    //设置文本偏移量
 	                    }
-	           	     var label = new BMap.Label(msg.map[x].time+"时", opts);  // 创建文本标注对象
+	           	     var label = new BMap.Label(msg.map[x].time, opts);  // 创建文本标注对象
 		              label.setStyle({
 				       color : "black",
 				       fontSize : "12px",
