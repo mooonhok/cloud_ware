@@ -1860,7 +1860,7 @@ $app->get('/getGoodsOrders3',function()use($app){
         $selectStatement = $database->select()
             ->from('orders')
             ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
-            ->whereLike('orders.order',$tenant_num.'%')
+            ->whereLike('orders.order_id',$tenant_num.'%')
             ->where('goods.tenant_id','=',$tenant_id)
             ->where('orders.tenant_id','=',$tenant_id)
             ->where('orders.exist','=',0);
@@ -2024,7 +2024,7 @@ $app->get('/limitGoodsOrders8',function()use($app){
                 $selectStatement = $database->select()
                     ->from('orders')
                     ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
-                    ->whereLike('orders.tenant_num',$tenant_num.'%')
+                    ->whereLike('orders.order_id',$tenant_num.'%')
                     ->where('goods.tenant_id','=',$tenant_id)
                     ->where('orders.tenant_id','=',$tenant_id)
                     ->where('orders.exist','=',0)
