@@ -309,6 +309,7 @@ $app->post('/wxmessages',function()use($app){
                              ->join('orders','orders.order_id','=','wx_message.order_id','INNER')
                              ->where('wx_message.tenant_id','=',$tenant_id)
                              ->where('orders.exist',"=",0)
+                             ->where('wx_message.exist','=',0)
                              ->where('wx_message.is_read','=',$is_read)
 							 ->orderBy('orders.order_status')
                              ->orderBy('wx_message.ms_date','DESC');
@@ -703,7 +704,30 @@ $app->put("/wxmessage_order_id",function()use($app){
     }
 });
 
-
+//根据orderid和tenant_id更改exist为1
+$app->put("/wxmessage_exist",function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant_id');
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $database=localhost();
+    $order_id=$body->order_id;
+    if($tenant_id!=''||$tenant_id!=null){
+        if($order_id!=''||$order_id!=null){
+                $updateStatement = $database->update(array('exist' => 1))
+                    ->table('wx_message')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('order_id','=',$order_id);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array("result"=>"0","desc"=>"success"));
+        }else{
+            echo json_encode(array("result"=>"1","desc"=>"缺少运单id"));
+        }
+    }else{
+        echo json_encode(array("result"=>"2","desc"=>"缺少租户id"));
+    }
+});
 
 $app->run();
 
