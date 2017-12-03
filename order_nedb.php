@@ -650,7 +650,10 @@ $app->get('/getOrders_orderid_or_sender', function () use ($app) {
         $selectStatement = $database->select()
             ->from('orders')
             ->join('customer','customer.customer_id','=','orders.sender_id','INNER')
-            ->whereLike('orders.order_id','%'.$order_id_and_sender.'%')->orWhereLike('customer.customer_name','%'.$order_id_and_sender.'%')
+            ->whereLike('orders.order_id','%'.$order_id_and_sender.'%')
+            ->where('orders.tenant_id', '=', $tenant_id)
+            ->where('customer.tenant_id','=',$tenant_id)
+            ->orWhereLike('customer.customer_name','%'.$order_id_and_sender.'%')
             ->where('orders.tenant_id', '=', $tenant_id)
             ->where('customer.tenant_id','=',$tenant_id);
         $stmt = $selectStatement->execute();
