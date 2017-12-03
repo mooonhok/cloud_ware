@@ -235,7 +235,7 @@ $app->get('/byorderid',function()use($app){
         $selectStament=$database->select()
             ->from('orders')
             ->where('order_id','=',$order_id)
-            ->orderBy('order_datetime')
+            ->orderBy('order_datetime1')
             ->limit(1);
         $stmt=$selectStament->execute();
         $data4=$stmt->fetch();
@@ -717,7 +717,7 @@ $app->get('/obycourier',function()use($app){
                     $selectStament = $database->select()
                         ->from('orders')
                         ->where('order_id', '=', $data3['delivery_order_id'])
-                        ->orderBy('order_datetime')
+                        ->orderBy('order_datetime1')
                         ->limit(1);
                     $stmt = $selectStament->execute();
                     $data4 = $stmt->fetch();
@@ -789,7 +789,7 @@ $app->get('/obycouriern',function()use($app){
                     $selectStament = $database->select()
                         ->from('orders')
                         ->where('order_id', '=', $data3['delivery_order_id'])
-                        ->orderBy('order_datetime')
+                        ->orderBy('order_datetime1')
                         ->limit(1);
                     $stmt = $selectStament->execute();
                     $data4 = $stmt->fetch();
@@ -860,7 +860,7 @@ $app->post('/ordersure',function()use($app){
             $selectStament=$database->select()
                 ->from('orders')
                 ->where('order_id','=',$order_id)
-                ->orderBy('order_datetime')
+                ->orderBy('order_datetime1')
                 ->limit(1);
             $stmt=$selectStament->execute();
             $data=$stmt->fetch();
@@ -937,7 +937,7 @@ $app->post('/ordersurefor',function()use($app){
             $selectStament=$database->select()
                 ->from('orders')
                 ->where('order_id','=',$order_id)
-                ->orderBy('order_datetime')
+                ->orderBy('order_datetime1')
                 ->limit(1);
             $stmt=$selectStament->execute();
             $data=$stmt->fetch();
@@ -1011,7 +1011,7 @@ $app->post('/ordersurethree',function()use($app){
             $selectStament=$database->select()
                 ->from('orders')
                 ->where('order_id','=',$order_id)
-                ->orderBy('order_datetime')
+                ->orderBy('order_datetime1')
                 ->limit(1);
             $stmt=$selectStament->execute();
             $data=$stmt->fetch();
@@ -1468,7 +1468,7 @@ $app->get('/ordercost',function()use($app){
         $selectStament=$database->select()
             ->from('orders')
             ->where('order_id','=',$order_id)
-            ->orderBy('order_datetime')
+            ->orderBy('order_datetime1')
             ->limit(1);
             $stmt=$selectStament->execute();
                     $data3=$stmt->fetch();
