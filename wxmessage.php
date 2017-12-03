@@ -311,10 +311,23 @@ $app->post('/wxmessages',function()use($app){
                              ->where('orders.exist',"=",0)
                              ->where('wx_message.exist','=',0)
                              ->where('wx_message.is_read','=',$is_read)
+                             ->where('orders.order_status','!=',-1)
 							 ->orderBy('orders.order_status')
                              ->orderBy('wx_message.ms_date','DESC');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
+            $selectStatement = $database->select()
+                ->from('wx_message')
+                ->join('orders','orders.order_id','=','wx_message.order_id','INNER')
+                ->where('wx_message.tenant_id','=',$tenant_id)
+                ->where('orders.exist',"=",0)
+                ->where('wx_message.exist','=',0)
+                ->where('wx_message.is_read','=',$is_read)
+                ->where('orders.order_status','=',-1)
+                ->orderBy('wx_message.ms_date','DESC');
+            $stmt = $selectStatement->execute();
+            $dataa = $stmt->fetchAll();
+            $data=array_merge($data,$dataa);
             $num1=count($data);
             $array1=array();
             for($i=0;$i<$num1;$i++){
