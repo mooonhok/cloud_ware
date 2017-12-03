@@ -147,6 +147,7 @@ $app->get('/sandoandg',function()use($app){
                     if($data3['driver_phone']==$data['driver_phone']&&$data3['driver_name']==$data['driver_name']){
                         $selectStament=$database->select()
                             ->from('schedule_order')
+                            ->where('tenant_id','=',$data1['tenant_id'])
                             ->where('exist','=',0)
                             ->where('schedule_id','=',$schedule_id);
                         $stmt=$selectStament->execute();
@@ -233,7 +234,9 @@ $app->get('/byorderid',function()use($app){
     if($order_id!=null||$order_id!=""){
         $selectStament=$database->select()
             ->from('orders')
-            ->where('order_id','=',$order_id);
+            ->where('order_id','=',$order_id)
+            ->orderBy('order_datetime')
+            ->limit(1);
         $stmt=$selectStament->execute();
         $data4=$stmt->fetch();
         if($data4!=null||$data4!=""){
@@ -713,7 +716,9 @@ $app->get('/obycourier',function()use($app){
                     $data3 = $stmt->fetch();
                     $selectStament = $database->select()
                         ->from('orders')
-                        ->where('order_id', '=', $data3['delivery_order_id']);
+                        ->where('order_id', '=', $data3['delivery_order_id'])
+                        ->orderBy('order_datetime')
+                        ->limit(1);
                     $stmt = $selectStament->execute();
                     $data4 = $stmt->fetch();
                     $arrays1['order_id'] = $data4['order_id'];
@@ -783,7 +788,9 @@ $app->get('/obycouriern',function()use($app){
                     $data3 = $stmt->fetch();
                     $selectStament = $database->select()
                         ->from('orders')
-                        ->where('order_id', '=', $data3['delivery_order_id']);
+                        ->where('order_id', '=', $data3['delivery_order_id'])
+                        ->orderBy('order_datetime')
+                        ->limit(1);
                     $stmt = $selectStament->execute();
                     $data4 = $stmt->fetch();
                     $arrays1['order_id'] = $data4['order_id'];
@@ -852,7 +859,9 @@ $app->post('/ordersure',function()use($app){
         if($lorry_id!=null||$lorry_id!=""){
             $selectStament=$database->select()
                 ->from('orders')
-                ->where('order_id','=',$order_id);
+                ->where('order_id','=',$order_id)
+                ->orderBy('order_datetime')
+                ->limit(1);
             $stmt=$selectStament->execute();
             $data=$stmt->fetch();
             if($data!=null){
@@ -927,7 +936,9 @@ $app->post('/ordersurefor',function()use($app){
         if($lorry_id!=null||$lorry_id!=""){
             $selectStament=$database->select()
                 ->from('orders')
-                ->where('order_id','=',$order_id);
+                ->where('order_id','=',$order_id)
+                ->orderBy('order_datetime')
+                ->limit(1);
             $stmt=$selectStament->execute();
             $data=$stmt->fetch();
             if($data!=null){
@@ -999,7 +1010,9 @@ $app->post('/ordersurethree',function()use($app){
         if($lorry_id!=null||$lorry_id!=""){
             $selectStament=$database->select()
                 ->from('orders')
-                ->where('order_id','=',$order_id);
+                ->where('order_id','=',$order_id)
+                ->orderBy('order_datetime')
+                ->limit(1);
             $stmt=$selectStament->execute();
             $data=$stmt->fetch();
             if($data!=null){
@@ -1452,10 +1465,12 @@ $app->get('/ordercost',function()use($app){
     $order_id = $app->request->get("order_id");
     $database=localhost();
     if($order_id!=null||$order_id!=""){
-                    $selectStament=$database->select()
-                        ->from('orders')
-                        ->where('order_id','=',$order_id);
-                    $stmt=$selectStament->execute();
+        $selectStament=$database->select()
+            ->from('orders')
+            ->where('order_id','=',$order_id)
+            ->orderBy('order_datetime')
+            ->limit(1);
+            $stmt=$selectStament->execute();
                     $data3=$stmt->fetch();
                     if($data3!=null){
                     if($data3['pay_method']==1){
