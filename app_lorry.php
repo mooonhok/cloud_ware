@@ -1446,7 +1446,7 @@ if($schedule_id!=null||$schedule_id!=""){
                     array_push($arrays,$arrays1);
                  }
              }
-            echo json_encode(array('result' => '0', 'desc' => '','orders'=>$arrays1,'cost'=>$num));
+            echo json_encode(array('result' => '0', 'desc' => '','orders'=>$arrays,'cost'=>$num));
         }else{
             echo json_encode(array('result' => '3', 'desc' => '清单下没有运单'));
         }
