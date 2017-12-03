@@ -735,7 +735,7 @@ $app->get('/getSchedulings_scheduling_id_or_sendercity',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
             $selectStatement = $database->select()
                 ->from('scheduling')
-                ->leftJoin('city','city.id','=','scheduling.sender_city_id')
+                ->leftJoin('city','city.id','=','scheduling.send_city_id')
                 ->where('scheduling.exist', '=', 0)
                 ->where('scheduling.tenant_id', '=', $tenant_id)
                 ->whereLike('scheduling.scheduling_id',  $id_sendcity)
