@@ -1471,16 +1471,12 @@ $app->get('/ordercost',function()use($app){
             ->orderBy('order_datetime1')
             ->limit(1);
             $stmt=$selectStament->execute();
-                    $data3=$stmt->fetch();
-                    if($data3!=null){
-                    if($data3['pay_method']==1){
-                        $arrays1['order_id']=$data3['order_id'];
-                        $arrays1['order_cost']=$data3['order_cost'];
-                    }
-        echo json_encode(array('result' => '0', 'desc' => '','order'=>$arrays1));
-                    }else{
-                        echo json_encode(array('result' => '0', 'desc' => '运单不存在'));
-                    }
+            $data3=$stmt->fetch();
+            if($data3!=null){
+                echo json_encode(array('result' => '0', 'desc' => '','order'=>$data3['order_cost']));
+            }else{
+                echo json_encode(array('result' => '0', 'desc' => '运单不存在'));
+            }
     }else{
         echo json_encode(array('result' => '1', 'desc' => '运单号为空'));
     }
