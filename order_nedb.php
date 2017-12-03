@@ -649,7 +649,7 @@ $app->get('/getOrders_orderid_or_sender', function () use ($app) {
     if ($tenant_id != null || $tenant_id != "") {
         $selectStatement = $database->select()
             ->from('orders')
-            ->leftJoin('customer','customer.customer_id','=','orders.sender_id')
+            ->join('customer','customer.customer_id','=','orders.sender_id','INNER')
             ->whereLike('orders.order_id','%'.$order_id_and_sender.'%')->orWhereLike('customer.customer_name','%'.$order_id_and_sender.'%')
             ->where('orders.tenant_id', '=', $tenant_id)
             ->where('customer.tenant_id','=',$tenant_id);
