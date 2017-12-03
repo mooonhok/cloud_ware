@@ -658,6 +658,31 @@ $app->put('/alterOrder12',function()use($app){
     }
 });
 
+$app->put('/alterOrder13',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $order_id = $body->order_id;
+    $order_datetime4 = $body->order_datetime4;
+        if($order_id!=null||$order_id!=''){
+            if($order_datetime4!=null||$order_datetime4!=''){
+                $updateStatement = $database->update(array('order_status'=>4,'order_datetime4'=>$order_datetime4))
+                    ->table('orders')
+                    ->where('exist','=',0)
+                    ->where('order_id','=',$order_id)
+                    ->orderBy('id','DESC')
+                    ->limit(1);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array("result" => "0", "desc" => "success"));
+            }else{
+                echo json_encode(array("result" => "1", "desc" => "缺少运单时间", "orders" => ""));
+            }
+        }else{
+            echo json_encode(array("result" => "2", "desc" => "缺少运单id", "orders" => ""));
+        }
+});
+
 //根据运单id和发货人名模糊查询
 $app->get('/getOrders_orderid_or_sender', function () use ($app) {
     $app->response->headers->set('Content-Type', 'application/json');
