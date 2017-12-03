@@ -640,6 +640,27 @@ $app->put('/alterOrder12',function()use($app){
     }
 });
 
+//根据运单id和发货人名模糊查询
+$app->get('/getOrders_orderid_or_sender', function () use ($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $order_id_and_sender=$app->request->get('id_name');
+    $database = localhost();
+    if ($tenant_id != null || $tenant_id != "") {
+        $selectStatement = $database->select()
+            ->from('orders')
+            ->leftJoin('customer','customer.customer_id','=','orders.sender_id')
+            ->whereLike('orders.order_id','%'.$order_id_and_sender.'%')->orWhereLike('customer.customer_name','%'.$order_id_and_sender.'%')
+            ->where('orders.tenant_id', '=', $tenant_id)
+            ->where('customer.tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
+    } else {
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
 $app->run();
 
 function localhost()
