@@ -94,9 +94,10 @@ $signPackage = $jssdk->GetSignPackage();
         }
 
         function delet(id){
+
             layer.confirm('你确定删除该运单？', {
                 btn: ['确定','关闭'] //按钮
-            }, function(id){
+            }, function(){
                 alert(id)
                 $.ajax({
                     url: "http://api.uminfo.cn/wxmessage.php/wxmessage?messageid="+id,
