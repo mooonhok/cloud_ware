@@ -147,6 +147,7 @@
 							order_id: order_id
 						}),
 						success: function(msg) {
+						    console.log(msg)
 							//alert(tenant_id+"////"+order_id);
 							if(msg.orders.order_status == -2) {
 								var a = "<p>运单号 :<span>" + order_id + "</span></p>";
