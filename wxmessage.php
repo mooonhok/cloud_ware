@@ -716,7 +716,8 @@ $app->get("/wx_message_source",function()use($app){
             ->from('orders')
             ->join('wx_message','orders.order_id','=','wx_message.order_id','INNER')
             ->where('wx_message.tenant_id','=',$tenant_id)
-            ->where('orders.exist',"=",0);
+            ->where('orders.exist',"=",0)
+            ->where('wx_message.exist','=',0);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
         echo json_encode(array("result"=>"1","desc"=>"success",'count'=>count($data1)));
