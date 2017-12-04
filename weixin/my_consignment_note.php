@@ -94,13 +94,16 @@ $signPackage = $jssdk->GetSignPackage();
         }
 
         function delet(id){
-
+		    console.log(id);
+             alert(id);
+             var aa=id;
             layer.confirm('你确定删除该运单？', {
                 btn: ['确定','关闭'] //按钮
             }, function(){
-                alert(id)
+                console.log(aa);
+                alert(aa);
                 $.ajax({
-                    url: "http://api.uminfo.cn/wxmessage.php/wxmessage?messageid="+id,
+                    url: "http://api.uminfo.cn/wxmessage.php/wxmessage?messageid="+aa,
                     beforeSend: function(request) {
                         request.setRequestHeader("tenant-id",tenant_id);
                     },
@@ -198,7 +201,7 @@ $signPackage = $jssdk->GetSignPackage();
 					+"to.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
 					+msg.orders.fa[i].acceptcity+"</div><div class='name_2'>"
 					+msg.orders.fa[i].acceptname+"</div></div></div></div>" +
-                        "<div class='yundan_4'><div class='yundan_4_1' onclick='delet("+msg.orders.fa[i].order_id+")'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
+                        "<div class='yundan_4'><div class='yundan_4_1' onclick='delet('"+msg.orders.fa[i].order_id+"')'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
 					+msg.orders.fa[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div></div></div>";
 								$("#bo1").append(a);
                             piaoyi(msg.orders.fa[i].order_id);
