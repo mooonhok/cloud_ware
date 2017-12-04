@@ -49,15 +49,6 @@ $signPackage = $jssdk->GetSignPackage();
 					<div class="center2_1"></div>
 				</div>
 				<div class="box1" id="bo1">
-                    <div class='xian'></div>
-                    <div class='yundan'>
-                        <img src="images/delete.png"/>
-                        <div class='yundan_1'><p>运单号:<span></span></p><p>订单价格:<span></span></p></div>
-                        <div class='yundan_2'><div class='yundan_2_1'><div class='city_1'></div>
-                                <div class='name_1'></div></div>
-                            <div class='yundan_2_2'><p class='sta'><img src='images/to.png'></p>
-                            </div><div class='yundan_2_1'><div class='city_2'></div><div class='name_2'></div></div></div></div>
-                    <div class='yundan_3'><div class='yundan_3_1'></div></div><div class='xian'></div><div class='kongbai'></div>
 				</div>
 				<div class="box2" id="bo2">
 				</div>
@@ -193,7 +184,7 @@ $signPackage = $jssdk->GetSignPackage();
 					+"accept.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
 					+msg.orders.shou[i].acceptcity+"</div><div class='name_2'>"
 					+msg.orders.shou[i].acceptname+"</div></div></div></div>" +
-                        "<div class='yundan_4'><div class='yundan_4_1' onclick='delete("+msg.orders.fa[i].order_id+")'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
+                        "<div class='yundan_4'><div class='yundan_4_1' onclick='delete("+msg.orders.shou[i].order_id+")'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
 					+msg.orders.shou[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
 								$("#bo2").append(b);
                                 piaoyi(msg.orders.fa[i].order_id);
@@ -246,7 +237,7 @@ $signPackage = $jssdk->GetSignPackage();
 					+msg.orders[i].sendname+"</div></div><div class='yundan_2_2'><p class='sta'><img src='images/to.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
 					+msg.orders[i].acceptcity+"</div><div class='name_2'>"
 					+msg.orders[i].acceptname+"</div></div></div></div>" +
-                        "<div class='yundan_4'><div class='yundan_4_1' onclick='delete("+msg.orders.fa[i].order_id+")'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
+                        "<div class='yundan_4'><div class='yundan_4_1' onclick='delete("+msg.orders[i].order_id+")'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
 					+msg.orders[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
 					$("#bo1").append(a);
                     piaoyi(msg.orders[i].order_id);
@@ -294,7 +285,7 @@ $signPackage = $jssdk->GetSignPackage();
 					+msg.orders[i].sendname+"</div></div><div class='yundan_2_2'><p class='sta'><img src='images/accept.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
 					+msg.orders[i].acceptcity+"</div><div class='name_2'>"
 					+msg.orders[i].acceptname+"</div></div></div></div>" +
-                        "<div class='yundan_4'><div class='yundan_4_1' onclick='delete("+msg.orders.fa[i].order_id+")'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
+                        "<div class='yundan_4'><div class='yundan_4_1' onclick='delete("+msg.orders[i].order_id+")'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
 					+msg.orders[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
 					$("#bo2").append(a);
                     piaoyi(msg.orders[i].order_id);
