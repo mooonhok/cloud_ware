@@ -12,11 +12,11 @@
 //define your token
 define("TOKEN", "youming");
 $wechatObj = new wechatCallbackapiTest();
-$a=$_GET['tenant_id'];
+
 if($_GET['echostr']){
     $wechatObj->valid();//如果发来了echostr则进行验证
 }else{
-    $wechatObj->responseMsg($a); //如果没有echostr，则返回消息
+    $wechatObj->responseMsg(); //如果没有echostr，则返回消息
 }
 
 class wechatCallbackapiTest
@@ -31,7 +31,7 @@ class wechatCallbackapiTest
         }
     }
 
-    public function responseMsg($a)
+    public function responseMsg()
     {
         //get post data, May be due to the different environments
 //        $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
