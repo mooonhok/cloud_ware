@@ -93,31 +93,6 @@ $signPackage = $jssdk->GetSignPackage();
             })
         }
 
-        function delet(id){
-                layer.confirm('你确定删除该运单？', {
-                    btn: ['确定','关闭'] //按钮
-                }, function(){
-                    $.ajax({
-                        url: "http://api.uminfo.cn/wxmessage.php/wxmessage?messageid="+id,
-                        beforeSend: function(request) {
-                            request.setRequestHeader("tenant-id",tenant_id);
-                        },
-                        dataType: 'json',
-                        type: 'delete',
-                        ContentType: "application/json;charset=utf-8",
-                        data: JSON.stringify({
-                        }),
-                        success: function(msg) {
-                            // window.location.reload();
-                        },
-                        error: function(xhr) {
-                            alert("获取后台失败！");
-                        }
-                    });
-                }, function(){
-                    layer.msg('关闭', {icon: 1});
-                });
-        }
 	</script>
 	<script type="text/javascript">
 		$(".tu").on("click", function() {
@@ -160,6 +135,40 @@ $signPackage = $jssdk->GetSignPackage();
 				}
 			});
 		}
+
+
+        function delet(id){
+            layer.confirm('你确定删除该运单？', {
+                btn: ['确定','关闭'] //按钮
+            }, function(){
+                $.ajax({
+                    url: "http://api.uminfo.cn/wxmessage.php/wxmessage_message_id?messageid="+id,
+                    beforeSend: function(request) {
+                        request.setRequestHeader("tenant-id",tenant_id);
+                    },
+                    dataType: 'json',
+                    type: 'delete',
+                    ContentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({
+                    }),
+                    success: function(msg) {
+                        if(msg.result==0){
+                            layer.msg('成功删除！');
+                            setTimeout('location.reload()',500);
+                        }else{
+                            layer.msg(msg.desc);
+                        }
+
+                        // window.location.reload();
+                    },
+                    error: function(xhr) {
+                        alert("获取后台失败！");
+                    }
+                });
+            }, function(){
+                layer.msg('关闭', {icon: 1});
+            });
+        }
 	</script>
 	<script>
 		//查询运单

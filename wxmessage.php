@@ -549,6 +549,52 @@ $app->delete("/wxmessage",function()use($app){
 
 
 
+$app->delete("/wxmessage_message_id",function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant_id');
+    $database=localhost();
+    $message_id=$app->request->get('messageid');
+    if($tenant_id!=''||$tenant_id!=null){
+        if ($message_id!=''||$message_id!=null){
+            $selectStatement = $database->select()
+                ->from('wx_message')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('message_id','=',$message_id)
+                ->where('exist',"=",0);
+            $stmt = $selectStatement->execute();
+            $data = $stmt->fetch();
+            if($data!=null){
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('order_id','=',$data['order_id'])
+                    ->where('exist',"=",0);
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetch();
+                if($data1['order_status']==-1||$data1['order_status']==7){
+                    $updateStatement = $database->update(array('exist' => 1))
+                        ->table('wx_message')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('message_id','=',$message_id)
+                        ->where('exist',"=",0);
+                    $affectedRows = $updateStatement->execute();
+                    echo json_encode(array("result"=>"0","desc"=>"success"));
+                }else{
+                    echo json_encode(array("result"=>"1","desc"=>"订单受理中，无法删除"));
+                }
+            }else{
+                echo json_encode(array("result"=>"2","desc"=>"不存在"));
+            }
+        }else{
+            echo json_encode(array("result"=>"3","desc"=>"缺少消息id"));
+        }
+    }else{
+        echo json_encode(array("result"=>"4","desc"=>"缺少租户id"));
+    }
+});
+
+
 //is_read的修改0至1
 $app->put("/wxmessage_isread",function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
