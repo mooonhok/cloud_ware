@@ -34,20 +34,20 @@ class wechatCallbackapiTest
     public function responseMsg($a)
     {
         //get post data, May be due to the different environments
-        $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
-
-        $dbhost = "172.17.16.2";
-        $dbuser = "root";
-        $dbpass = "jsym_20170607";
-        $dbname = "cloud_ware";
-        $port='60026';
-        $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname;port=$port;charset=utf8;", $dbuser, $dbpass,array(PDO::MYSQL_ATTR_INIT_COMMAND => "set names utf8"));
-        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $tablename="tenant";
-        $sql = "SELECT * FROM   ".$tablename."   WHERE  tenant_id='1000000001'";
-        $stmt = $dbh->query($sql);
-        $tenant = $stmt->fetch(PDO::FETCH_ASSOC);
-        $dbh = null;
+//        $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+//
+//        $dbhost = "172.17.16.2";
+//        $dbuser = "root";
+//        $dbpass = "jsym_20170607";
+//        $dbname = "cloud_ware";
+//        $port='60026';
+//        $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname;port=$port;charset=utf8;", $dbuser, $dbpass,array(PDO::MYSQL_ATTR_INIT_COMMAND => "set names utf8"));
+//        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//        $tablename="tenant";
+//        $sql = "SELECT * FROM   ".$tablename."   WHERE  tenant_id='1000000001'";
+//        $stmt = $dbh->query($sql);
+//        $tenant = $stmt->fetch(PDO::FETCH_ASSOC);
+//        $dbh = null;
 
 
        if (!empty($postStr)) {
@@ -89,13 +89,13 @@ class wechatCallbackapiTest
                 echo $resultStr;
             }else if($ev=="CLICK"){
                 $msgType = "text";
-                $contentStr = "客服电话：15365580443".$tenant['company'];
+                $contentStr = "客服电话：15365580443";
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
             }
            if (!empty($keyword)) {
                $msgType = "text";
-               $contentStr = "客服电话：15365580443".$a;
+               $contentStr = "客服电话：15365580443";
                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                echo $resultStr;
            }else {
