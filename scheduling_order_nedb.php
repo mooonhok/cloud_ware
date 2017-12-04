@@ -365,6 +365,7 @@ $app->get('/getSchedulingOrders3',function()use($app){
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         for($i=0;$i<count($data);$i++){
+
             $selectStatement = $database->select()
                 ->from('lorry')
                 ->where('tenant_id', '=', $tenant_id)
@@ -414,6 +415,24 @@ $app->get('/getSchedulingOrders3',function()use($app){
                 ->where('id', '=', $data7['pid']);
             $stmt = $selectStatement->execute();
             $data9 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('order_id', '=', $data[$i]['order_id']);
+            $stmt = $selectStatement->execute();
+            $data10 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('customer_id', '=', $data10['sender_id']);
+            $stmt = $selectStatement->execute();
+            $data11 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('customer_id', '=', $data10['receiver_id']);
+            $stmt = $selectStatement->execute();
+            $data12 = $stmt->fetch();
             $data[$i]['lorry']=$data1;
             $data[$i]['goods']=$data2;
             $data[$i]['goods']['goods_package']=$data5;
@@ -422,6 +441,8 @@ $app->get('/getSchedulingOrders3',function()use($app){
             $data[$i]['sender_province']=$data8;
             $data[$i]['receiver_city']=$data7;
             $data[$i]['receiver_province']=$data9;
+            $data[$i]['order_sender']=$data11;
+            $data[$i]['order_receiver']=$data12;
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data,'i'=>$ii));
     }else{
