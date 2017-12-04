@@ -211,12 +211,10 @@
 .yundan_3{
 	float: right;
 	width: 15%;
-	background: #24D9C9;
-	color: white;
+	background-color: #24D9C9;
+
 	height: 140px;
 	text-align: center;
-
-	
 }
 .yundan_3_1{
 	margin-top: 35px;
@@ -226,7 +224,8 @@
     width: 20px;    
     margin: 0 auto;    
     line-height: 35px;    
-    font-size: 20px; 
+    font-size: 20px;
+	color: black;
 }
 .sta img{
 	width:100%;
@@ -249,12 +248,9 @@
 .yundan_4{
 	float: right;
 	width: 20%;
-	background: red;
-	color: white;
+	background-color: red;
 	height: 140px;
 	text-align: center;
-	color:white;
-
 }
 .yundan_4_1{
 	margin-top: 35px;
