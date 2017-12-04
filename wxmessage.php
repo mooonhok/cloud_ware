@@ -561,7 +561,7 @@ $app->delete("/wxmessage_message_id",function()use($app){
                 ->from('wx_message')
                 ->where('tenant_id','=',$tenant_id)
                 ->where('message_id','=',$message_id)
-                ->where('exist',"=",0);
+                ->where('is_show',"=",0);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetch();
             if($data!=null){
@@ -573,11 +573,11 @@ $app->delete("/wxmessage_message_id",function()use($app){
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
                 if($data1['order_status']==-1||$data1['order_status']==7){
-                    $updateStatement = $database->update(array('exist' => 1))
+                    $updateStatement = $database->update(array('is_show' => 1))
                         ->table('wx_message')
                         ->where('tenant_id','=',$tenant_id)
                         ->where('message_id','=',$message_id)
-                        ->where('exist',"=",0);
+                        ->where('is_show',"=",0);
                     $affectedRows = $updateStatement->execute();
                     echo json_encode(array("result"=>"0","desc"=>"success"));
                 }else{

@@ -368,7 +368,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                 ->from('customer')
                 ->join('orders','orders.sender_id','=','customer.customer_id','INNER')
 				->join('wx_message','orders.order_id','=','wx_message.order_id','INNER')
-                ->where('wx_message.exist', "=", 0)
+                ->where('wx_message.is_show', "=", 0)
                 ->where('customer.customer_address','!=','-1')
                 ->where('customer.customer_city_id','!=','-1')
                 ->where('customer.wx_openid','=',$wx_openid)
@@ -472,7 +472,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                         ->join('wx_message','wx_message.order_id','=','orders.order_id','INNER')
                         ->where('wx_message.tenant_id', "=", $tenant_id)
                         ->where('orders.tenant_id', "=", $tenant_id)
-                        ->where('wx_message.exist', "=", 0)
+                        ->where('wx_message.is_show', "=", 0)
                         ->where('orders.order_id','=',$order_id);
 //                        ->where('tenant_id', '=', $tenant_id);
                     $stmt = $selectStatement->execute();
@@ -606,7 +606,7 @@ $app->post('/wx_orders_r', function () use ($app) {
                 ->from('customer')
                 ->join('orders','orders.receiver_id','=','customer.customer_id','INNER')
 				->join('wx_message','orders.order_id','=','wx_message.order_id','INNER')
-                ->where('wx_message.exist', "=", 0)
+                ->where('wx_message.is_show', "=", 0)
                 ->where('customer_address','!=',-1)
                 ->where('customer_city_id','>',0)
                 ->where('customer.customer_phone','=',$dataa['customer_phone'])
@@ -709,7 +709,7 @@ $app->post('/wx_orders_r', function () use ($app) {
                         ->join('wx_message','wx_message.order_id','=','orders.order_id','INNER')
                         ->where('wx_message.tenant_id','=',$tenant_id)
                         ->where('orders.tenant_id','=',$tenant_id)
-                        ->where('wx_message.exist', "=", 0)
+                        ->where('wx_message.is_show', "=", 0)
                         ->where('wx_message.order_id','=',$order_id);
                     $stmt = $selectStatement->execute();
                     $data3= $stmt->fetch();
@@ -840,7 +840,7 @@ $app->post('/wx_order', function () use ($app) {
                         ->join('customer','orders.sender_id','=','customer.customer_id','INNER')
                         ->join('wx_message','orders.order_id','=','wx_message.order_id','INNER')
                         ->where('orders.exist', "=", 0)
-                        ->where('wx_message.exist', "=", 0)
+                        ->where('wx_message.is_show', "=", 0)
                         ->whereLike('orders.order_id',$order_id.'%')
                         ->where('customer.customer_address','!=','-1')
                         ->where('customer.customer_city_id','>',0)
@@ -864,7 +864,7 @@ $app->post('/wx_order', function () use ($app) {
                         ->from('customer')
                         ->join('orders','orders.receiver_id','=','customer.customer_id','INNER')
                         ->join('wx_message','wx_message.order_id','=','orders.order_id','INNER')
-                        ->where('wx_message.exist', "=", 0)
+                        ->where('wx_message.is_show', "=", 0)
                         ->whereLike('orders.order_id',$order_id.'%')
                         ->where('customer.customer_address','!=','-1')
                         ->where('customer.customer_city_id','>',0)
