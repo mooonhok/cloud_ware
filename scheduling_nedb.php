@@ -366,6 +366,26 @@ $app->get('/getSchedulings5',function()use($app){
     }
 });
 
+$app->get('/getSchedulings6',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $lorry_id=$app->request->get('lorry_id');
+    $database = localhost();
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('scheduling')
+            ->where('lorry_id','=',$lorry_id)
+            ->where('tenant_id', '=', $tenant_id)
+            ->where('exist', '=', 0)
+            ->orderBy('scheduling_id');
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "租户id为空"));
+    }
+});
+
 $app->get('/limitSchedulings0',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
