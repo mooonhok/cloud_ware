@@ -246,7 +246,7 @@ $app->post('/wxmessage',function()use($app){
         if($order_id!=''||$order_id!=null){
             if($from_user!=''||$from_user!=null){
                 if($mobilephone!=''||$mobilephone!=null){
-                    if(preg_match("/^1[34578]\d{9}$/", $mobilephone)){
+//                    if(preg_match("/^1[34578]\d{9}$/", $mobilephone)){
                    if($title!=''||$title!=null){
                        if($content!=''||$content!=null){
                            $array['exist']=0;
@@ -273,9 +273,9 @@ $app->post('/wxmessage',function()use($app){
                    }else{
                        echo json_encode(array("result"=>"2","desc"=>"缺少消息标题"));
                    }
-                    }else{
-                        echo json_encode(array("result"=>"3","desc"=>"创建人电话不符合要求"));
-                    }
+//                    }else{
+//                        echo json_encode(array("result"=>"3","desc"=>"创建人电话不符合要求"));
+//                    }
                 }else{
                     echo json_encode(array("result"=>"4","desc"=>"缺少订单创建人电话"));
                 }
@@ -313,6 +313,7 @@ $app->post('/wxmessages',function()use($app){
                              ->where('wx_message.is_read','=',$is_read)
                              ->where('orders.order_status','!=',-1)
 							 ->orderBy('orders.order_status')
+//                             ->orderBy('orders.order_status',filed('-2','0','1','2','3','4','5','6','7','-1'))
                              ->orderBy('wx_message.ms_date','DESC');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
