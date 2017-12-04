@@ -631,31 +631,26 @@ $app->put('/alterOrder11',function()use($app){
 
 $app->put('/alterOrder12',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
-    $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     $body = $app->request->getBody();
     $body = json_decode($body);
     $order_id = $body->order_id;
     $pickup_id = $body->pickup_id;
-    if($tenant_id!=null||$tenant_id!=''){
+    $order_datetime5 = $body->order_datetime5;
         if($order_id!=null||$order_id!=''){
             if($pickup_id!=null||$pickup_id!=''){
-                $updateStatement = $database->update(array('pickup_id'=>$pickup_id))
+                $updateStatement = $database->update(array('pickup_id'=>$pickup_id,'order_datetime5'=>$order_datetime5,'order_status'=>7))
                     ->table('orders')
-                    ->where('tenant_id','=',$tenant_id)
                     ->where('exist','=',0)
                     ->where('order_id','=',$order_id);
                 $affectedRows = $updateStatement->execute();
                 echo json_encode(array("result" => "0", "desc" => "success"));
             }else{
-                echo json_encode(array("result" => "1", "desc" => "缺少运单id", "orders" => ""));
+                echo json_encode(array("result" => "1", "desc" => "缺少id"));
             }
         }else{
-            echo json_encode(array("result" => "1", "desc" => "缺少运单id", "orders" => ""));
+            echo json_encode(array("result" => "2", "desc" => "缺少运单id"));
         }
-    }else{
-        echo json_encode(array("result" => "2", "desc" => "缺少租户id", "orders" => ""));
-    }
 });
 
 $app->put('/alterOrder13',function()use($app){
