@@ -46,7 +46,7 @@ class wechatCallbackapiTest
         $tablename="tenant";
         $sql = "SELECT * FROM   ".$tablename."   WHERE  tenant_id='1000000001'";
         $stmt = $dbh->query($sql);
-        $tenant = $stmt->fetch(PDO::FETCH_OBJ);
+        $tenant = $stmt->fetch(PDO::FETCH_ASSOC);
         $dbh = null;
 
 //         $data=$this->getcompany($a);
@@ -90,7 +90,7 @@ class wechatCallbackapiTest
                 echo $resultStr;
             }else if($ev=="CLICK"){
                 $msgType = "text";
-                $contentStr = "客服电话：15365580443".$tenant['company'];
+                $contentStr = "客服电话：15365580443".$tenant;
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
             }
