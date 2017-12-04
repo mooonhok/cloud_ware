@@ -1435,6 +1435,7 @@ if($schedule_id!=null||$schedule_id!=""){
              for($x=0;$x<count($data2);$x++){
                  $selectStament=$database->select()
                      ->from('orders')
+                     ->where('exist','=',0)
                      ->where('tenant_id','=',$data2[$x]['tenant_id'])
                      ->where('order_id','=',$data2[$x]['order_id']);
                  $stmt=$selectStament->execute();
