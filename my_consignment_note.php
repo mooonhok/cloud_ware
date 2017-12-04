@@ -81,10 +81,10 @@ $signPackage = $jssdk->GetSignPackage();
             document.getElementById(id+'').addEventListener("touchend", function(e) {
                 endx = e.changedTouches[0].pageX;
 
-                if((startx-endx)<=$(".yundan_4").outerWidth()/3){
+                if(((endx-startx)<=$(".yundan_4").outerWidth()/4&&(startx-endx)<0)){
                     $("#"+id).animate({
                         scrollLeft:'0px',
-                    },100);}else if(((startx-endx)>$(".yundan_4").outerWidth()/3)){
+                    },100);}else if(((startx-endx)>$(".yundan_4").outerWidth()/4)){
                     $("#"+id).animate({
                         scrollLeft:$(".yundan_4").outerWidth()+'px',
                     },100);
@@ -94,11 +94,16 @@ $signPackage = $jssdk->GetSignPackage();
         }
 
         function delet(id){
+		    console.log(id);
+             alert(id);
+             var aa=id;
             layer.confirm('你确定删除该运单？', {
                 btn: ['确定','关闭'] //按钮
-            }, function(id){
+            }, function(){
+                console.log(aa);
+                alert(aa);
                 $.ajax({
-                    url: "http://api.uminfo.cn/wxmessage.php/wxmessage?messageid="+id,
+                    url: "http://api.uminfo.cn/wxmessage.php/wxmessage?messageid="+aa,
                     beforeSend: function(request) {
                         request.setRequestHeader("tenant-id",tenant_id);
                     },
