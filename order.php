@@ -368,7 +368,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                 ->from('customer')
                 ->join('orders','orders.sender_id','=','customer.customer_id','INNER')
 				->join('wx_message','orders.order_id','=','wx_message.order_id','INNER')
-                //->where('customer.exist', "=", 0)
+                ->where('wx_message.exist', "=", 0)
                 ->where('customer.customer_address','!=','-1')
                 ->where('customer.customer_city_id','!=','-1')
                 ->where('customer.wx_openid','=',$wx_openid)
@@ -393,8 +393,9 @@ $app->post('/wx_orders_s', function () use ($app) {
                         $data7= $stmt->fetch();
                         $array1['sendcity']=$data7['name'];
                         $array1['sendname']=$data2[$i]['customer_name'];
-                        //隐藏运单号
-                        $array1['order_idd']=$data2[$i]['order_id'];
+
+                        //隐藏微信id
+                        $array1['order_idd']=$data2[$i]['message_id'];
 
                         if($data2[$i]['order_status']==-1||$data2[$i]['order_status']==-2||$data2[$i]['order_status']==0){
                             $array1['order_id']='暂无';
@@ -468,14 +469,17 @@ $app->post('/wx_orders_s', function () use ($app) {
                     $array1=array();
                     $selectStatement = $database->select()
                         ->from('orders')
-                        ->where('exist', "=", 0)
-                        ->where('order_id','=',$order_id);
+                        ->join('wx_message','wx_message.order_id','=','orders.order_id','INNER')
+                        ->where('wx_message.tenant_id', "=", $tenant_id)
+                        ->where('orders.tenant_id', "=", $tenant_id)
+                        ->where('wx_message.exist', "=", 0)
+                        ->where('orders.order_id','=',$order_id);
 //                        ->where('tenant_id', '=', $tenant_id);
                     $stmt = $selectStatement->execute();
                     $data3= $stmt->fetch();
                     if($data3!=null){
-                        //隐藏运单号
-                        $array1['order_idd']=$data3['order_id'];
+                        //隐藏微信id
+                        $array1['order_idd']=$data3['message_id'];
 
                         if($data3['tenant_id']!=null||$data3['tenant_id']!=''){
                             $array1['order_id']='暂无';
@@ -602,7 +606,7 @@ $app->post('/wx_orders_r', function () use ($app) {
                 ->from('customer')
                 ->join('orders','orders.receiver_id','=','customer.customer_id','INNER')
 				->join('wx_message','orders.order_id','=','wx_message.order_id','INNER')
-                //->where('customer.exist', "=", 0)
+                ->where('wx_message.exist', "=", 0)
                 ->where('customer_address','!=',-1)
                 ->where('customer_city_id','>',0)
                 ->where('customer.customer_phone','=',$dataa['customer_phone'])
@@ -627,7 +631,7 @@ $app->post('/wx_orders_r', function () use ($app) {
                         $data7= $stmt->fetch();
 
                         //隐藏运单号
-                        $array1['order_idd']=$data2[$i]['order_id'];
+                        $array1['order_idd']=$data2[$i]['message_id'];
 
                         if($data2[$i]['order_status']==-1||$data2[$i]['order_status']==-2||$data2[$i]['order_status']==0){
                             $array1['order_id']='暂无';
@@ -702,14 +706,17 @@ $app->post('/wx_orders_r', function () use ($app) {
                     $array1=array();
                     $selectStatement = $database->select()
                         ->from('orders')
-                        ->where('exist', "=", 0)
-                        ->where('order_id','=',$order_id);
+                        ->join('wx_message','wx_message.order_id','=','orders.order_id','INNER')
+                        ->where('wx_message.tenant_id','=',$tenant_id)
+                        ->where('orders.tenant_id','=',$tenant_id)
+                        ->where('wx_message.exist', "=", 0)
+                        ->where('wx_message.order_id','=',$order_id);
                     $stmt = $selectStatement->execute();
                     $data3= $stmt->fetch();
                     if($data3!=null){
 
                         //隐藏运单号
-                        $array1['order_idd']=$data3['order_id'];
+                        $array1['order_idd']=$data3['message_id'];
 
                         if($data3['tenant_id']!=null||$data3['tenant_id']!=''){
                             $array1['order_id']= $data3['order_id'];
@@ -833,6 +840,7 @@ $app->post('/wx_order', function () use ($app) {
                         ->join('customer','orders.sender_id','=','customer.customer_id','INNER')
                         ->join('wx_message','orders.order_id','=','wx_message.order_id','INNER')
                         ->where('orders.exist', "=", 0)
+                        ->where('wx_message.exist', "=", 0)
                         ->whereLike('orders.order_id',$order_id.'%')
                         ->where('customer.customer_address','!=','-1')
                         ->where('customer.customer_city_id','>',0)
@@ -855,12 +863,14 @@ $app->post('/wx_order', function () use ($app) {
                     $selectStatement = $database->select()
                         ->from('customer')
                         ->join('orders','orders.receiver_id','=','customer.customer_id','INNER')
-                        //->where('customer.exist', "=", 0)
+                        ->join('wx_message','wx_message.order_id','=','orders.order_id','INNER')
+                        ->where('wx_message.exist', "=", 0)
                         ->whereLike('orders.order_id',$order_id.'%')
                         ->where('customer.customer_address','!=','-1')
                         ->where('customer.customer_city_id','>',0)
                         ->where('customer.customer_phone','=',$dataa['customer_phone'])
                         ->where('orders.tenant_id', '=', $tenant_id)
+                        ->where('wx_message.tenant_id', '=', $tenant_id)
                         ->where('customer.tenant_id', '=', $tenant_id);
                     $stmt = $selectStatement->execute();
                     $data2b= $stmt->fetchAll();
@@ -877,7 +887,7 @@ $app->post('/wx_order', function () use ($app) {
 //                            $array2['order_id'] = $data2b[$i]['order_id'];
 
                             //隐藏运单号
-                            $array2['order_idd']=$data2b[$i]['order_id'];
+                            $array2['order_idd']=$data2b[$i]['message_id'];
 
                             if($data2b[$i]['tenant_id']!=null||$data2b[$i]['order_id']!=''){
                                 $array2['order_id']= $data2b[$i]['order_id'];
@@ -959,7 +969,7 @@ $app->post('/wx_order', function () use ($app) {
                                 $array1['order_id']=$data2a[$i]['order_id'];
 
                                 //隐藏运单号
-                                $array2['order_idd']=$data2a[$i]['order_id'];
+                                $array2['order_idd']=$data2a[$i]['message_id'];
 
                                 if($data2a[$i]['tenant_id']!=null||$data2a[$i]['order_id']!=''){
                                     $array1['order_id']= $data2a[$i]['order_id'];
