@@ -494,6 +494,7 @@ $app->post('/suresch',function()use($app){
                         $affectedRows = $updateStatement->execute();
                         $selectStament=$database->select()
                             ->from('schedule_order')
+                            ->where('exist','=',0)
                             ->where('schedule_id','=',$schedule_id);
                         $stmt=$selectStament->execute();
                         $data3=$stmt->fetchAll();
@@ -1380,6 +1381,7 @@ $app->post('/sureschedule',function()use($app){
                             $affectedRows = $updateStatement->execute();
                             $selectStament=$database->select()
                                 ->from('schedule_order')
+                                ->where('exist','=',0)
                                 ->where('schedule_id','=',$schedule_id);
                             $stmt=$selectStament->execute();
                             $data3=$stmt->fetchAll();
@@ -1427,6 +1429,7 @@ if($schedule_id!=null||$schedule_id!=""){
     if($data!=null){
         $selectStament=$database->select()
             ->from('schedule_order')
+            ->where('exist','=',0)
             ->where('schedule_id','=',$schedule_id);
         $stmt=$selectStament->execute();
         $data2=$stmt->fetchAll();
