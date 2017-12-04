@@ -4,14 +4,17 @@
 	 <meta charset="UTF-8">
 	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	 <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+	  <script src="js/scale.js"></script>
 	 <title>物流ERP客户端介绍</title>
+	  <link rel="stylesheet" href="css/scale.css" type="text/css" />
 	</head>
 	<body>
 		<p id="erp">
-            <div style="width:100%;height:30px;"><div style="width:5px;height:20px;background-color:#13b5b1;float:left;margin-top:5px;margin-right:5px;"></div><div style="font-size:20px;float:left;">物流ERP客户端软件</div></div>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;中国首款助力于中小型物流企业实现"<span style="color:#13b5b1;">互联网+</span>"模式，立足信息化时代的客户端软件，为用户量身定制具有<span style="color:#13b5b1;">整套物流业务流程</span>、<span style="color:#13b5b1;">轨迹定位</span>、<span style="color:#13b5b1;">仓库管理</span>、<span style="color:#13b5b1;">调度合同</span>、<span style="color:#13b5b1;">运输保险</span>等功能的客户端软件。为企业自身的运作流程，提高企业的服务质量，提升市场竞争力，从而加快企业的发展，使企业更好的融入"互联网+"的物流市场。</div>
+            <div style="width:87%;height:30px;margin-left:8%;"><div style="width:5px;height:20px;background-color:#13b5b1;float:left;margin-top:5px;margin-right:5px;"></div><div style="font-size:20px;float:left;">物流ERP客户端软件</div></div>
+            <div style="width:87%;height:30px;margin-left:8%;">&nbsp;&nbsp;&nbsp;&nbsp;中国首款助力于中小型物流企业实现"<span style="color:#13b5b1;">互联网+</span>"模式，立足信息化时代的客户端软件，为用户量身定制具有<span style="color:#13b5b1;">整套物流业务流程</span>、<span style="color:#13b5b1;">
+            	  轨迹定位</span>、<span style="color:#13b5b1;">仓库管理</span>、<span style="color:#13b5b1;">调度合同</span>、<span style="color:#13b5b1;">运输保险</span>等功能的客户端软件。为企业自身的运作流程，提高企业的服务质量，提升市场竞争力，从而加快企业的发展，使企业更好的融入"互联网+"的物流市场。</div>
 		</p>
-	    <div>
+	    <div class="list" style="width:92%;margin-left:8%;margin-top:130px;">
 	    	<h2>首页</h2>
 	    	<img src="img/khd_sy.png" style="width:80%;margin-left:10%;"/>
 			<h2>制单</h2>
@@ -23,85 +26,17 @@
 			<h2>仓库</h2>
 			<img src="img/khd_ck.png" style="width:80%;margin-left:10%;"/>
 		</div>
-
+      <section class="imgzoom_pack">
+        <div class="imgzoom_x">X</div>
+        <div class="imgzoom_img"><img src=""/></div>
+    </section>
 	</body>
 	<script src="js/jquery.js"></script>
 	<script type="text/javascript">
-        var window_w = $("body").outerWidth();
-        var window_h = $("body").outerHeight();
-
-        bgstr = '<div id="ImgZoomInBG" style="position:fixed;filter:Alpha(Opacity=70); opacity:0.7;z-index: 10000;background-color: #000;display: none;top:0;left:0;"></div>';
-        imgstr = '<img id="ImgZoomInImage" src="" style="cursor:pointer; display:none; position:fixed; z-index:10001;top:0;left:0;" />';
-        //          if ($('#ImgZoomInBG').length < 1) {
-        //              $('body').append(bgstr);
-        //          }
-        //          if ($('#ImgZoomInImage').length < 1) {
-        //              $('body').append(imgstr);
-        //          }
-        //          else {
-        //              $('#ImgZoomInImage').attr('src', $(this).attr('src'));
-        //          }
-        //
-        ////          $('#ImgZoomInBG').css('top', scroll_h+'px');
-        //          $('#ImgZoomInBG').css('width', '100%');
-        //          $('#ImgZoomInBG').css('height', window_h);
-        //
-        //          $('#ImgZoomInImage').css('width', '100%');
-        //          $('#ImgZoomInImage').css('height', window_h);
-        ////          $('#ImgZoomInImage').css('top', (scroll_h+window_h/4)+'px');
-        //
-        //          $('#ImgZoomInBG').show();
-        //          $('#ImgZoomInImage').show();
-
-        // PC端
-        $(document).ready(function () {
-            $(document).on('click','div>img',function (){
-                $('body').append(bgstr);
-                $('body').append(imgstr);
-                $("#ImgZoomInBG").css('width',window_w);
-                $("#ImgZoomInBG").css('height',window_h);
-                $("#ImgZoomInBG").css('display','block');
-
-                var img_w=$(this).outerWidth();
-                var img_h=$(this).outerHeight();
-                $('#ImgZoomInImage').attr('src', $(this).attr('src'));
-//             if(img_h>img_w){
-                $('#ImgZoomInImage').css("height","100%");
-//             	 document.getElementById('ImgZoomInImage').style.transform="rotate(90deg)";
-//             }
-                $('#ImgZoomInImage').css("width","100%");
-//             $('#ImgZoomInImage').css("height","100%");
-                $('#ImgZoomInImage').css("display",'block');
-
+       document.addEventListener("DOMContentLoaded", function(event){
+            ImagesZoom.init({
+                "elem": ".list"
             });
-
-            $(document).on('click','#ImgZoomInImage',function(){
-                $('#ImgZoomInImage').hide();
-                $('#ImgZoomInBG').hide();
-                $(document.body).css({
-                    "overflow-x":"auto",
-                    "overflow-y":"auto"
-                });
-            });
-        });
-        // 手机端
-        //      $(document).ready(function () {
-        //          $(document).on('touchend','.item_img',function (t){
-        //              $(this).ImgZoomIn();
-        //              document.ontouchstart=function(){
-        //                  return false;
-        //              }
-        //              t.preventDefault();
-        //          });
-        //
-        //          $(document).on('touchend','#ImgZoomInImage',function(t){
-        //              $('#ImgZoomInImage').hide();
-        //              $('#ImgZoomInBG').hide();
-        //              document.ontouchstart=function(){
-        //                  return true;
-        //              }
-        //              t.preventDefault();
-        //          });
-        //      });
+        }, false);
 	</script>
 </html>
