@@ -58,6 +58,24 @@ $app->get('/getCity',function()use($app){
     }
 });
 
+//根据名字获得城市
+$app->get('/getCity1',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $city_id=$app->request->get('city_id');
+    if($city_id!=null||$city_id!=""){
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('city_id','=',$city_id);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetch();
+        echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
+    }else{
+        echo  json_encode(array("result"=>"1","desc"=>"城市id为空"));
+    }
+});
+
 $app->run();
 
 function localhost(){
