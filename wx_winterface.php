@@ -95,7 +95,7 @@ class wechatCallbackapiTest
     }
      private function getcompany($a)
      {
-         $dbhost = "115.159.31.49";
+         $dbhost = "172.17.16.2";
          $dbuser = "root";
          $dbpass = "jsym_20170607";
          $dbname = "cloud_ware";
