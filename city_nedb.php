@@ -67,7 +67,7 @@ $app->get('/getCity1',function()use($app){
     if($city_id!=null||$city_id!=""){
         $selectStatement = $database->select()
             ->from('city')
-            ->where('city_id','=',$city_id);
+            ->where('id','=',$city_id);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetch();
         echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
