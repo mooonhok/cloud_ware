@@ -41,7 +41,7 @@ class wechatCallbackapiTest
         $dbpass = "jsym_20170607";
         $dbname = "cloud_ware";
         $port='60026';
-        $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname;port=$port;", $dbuser, $dbpass);
+        $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname;port=$port;charset=utf8;", $dbuser, $dbpass);
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $tablename="tenant";
         $sql = "SELECT * FROM   ".$tablename."   WHERE  tenant_id='1000000001'";
