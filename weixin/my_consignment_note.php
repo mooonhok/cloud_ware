@@ -94,35 +94,29 @@ $signPackage = $jssdk->GetSignPackage();
         }
 
         function delet(id){
-		    console.log(id);
-             alert(id);
-             var aa=id;
-            layer.confirm('你确定删除该运单？', {
-                btn: ['确定','关闭'] //按钮
-            }, function(){
-                console.log(aa);
-                alert(aa);
-                $.ajax({
-                    url: "http://api.uminfo.cn/wxmessage.php/wxmessage?messageid="+aa,
-                    beforeSend: function(request) {
-                        request.setRequestHeader("tenant-id",tenant_id);
-                    },
-                    dataType: 'json',
-                    type: 'delete',
-                    ContentType: "application/json;charset=utf-8",
-                    data: JSON.stringify({
-                    }),
-                    success: function(msg) {
-                        // window.location.reload();
-                    },
-                    error: function(xhr) {
-                        alert("获取后台失败！");
-                    }
+                layer.confirm('你确定删除该运单？', {
+                    btn: ['确定','关闭'] //按钮
+                }, function(){
+                    $.ajax({
+                        url: "http://api.uminfo.cn/wxmessage.php/wxmessage?messageid="+id,
+                        beforeSend: function(request) {
+                            request.setRequestHeader("tenant-id",tenant_id);
+                        },
+                        dataType: 'json',
+                        type: 'delete',
+                        ContentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({
+                        }),
+                        success: function(msg) {
+                            // window.location.reload();
+                        },
+                        error: function(xhr) {
+                            alert("获取后台失败！");
+                        }
+                    });
+                }, function(){
+                    layer.msg('关闭', {icon: 1});
                 });
-            }, function(){
-                layer.msg('关闭', {icon: 1});
-            });
-
         }
 	</script>
 	<script type="text/javascript">
@@ -192,7 +186,7 @@ $signPackage = $jssdk->GetSignPackage();
 						layer.msg("没有订单");
 					} else {						
 						for(var i = 0; i < msg.orders.fa.length; i++) {
-					var a="<div class='piaoyi_a' id='"+msg.orders.fa[i].order_id+"'>" +
+					var a="<div class='piaoyi_a' id='"+msg.orders.fa[i].order_idd+"'>" +
                         "<div class='piaoyi_b'><div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders.fa[i].order_id+"</span></p><p>订单价格:<span>"
 					+msg.orders.fa[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
@@ -201,14 +195,14 @@ $signPackage = $jssdk->GetSignPackage();
 					+"to.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
 					+msg.orders.fa[i].acceptcity+"</div><div class='name_2'>"
 					+msg.orders.fa[i].acceptname+"</div></div></div></div>" +
-                        "<div class='yundan_4'><div class='yundan_4_1' id='"+"c"+msg.orders.fa[i].order_id+"'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
+                        "<div class='yundan_4'><div class='yundan_4_1' id='"+"c"+msg.orders.fa[i].order_idd+"'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
 					+msg.orders.fa[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div></div></div>";
 								$("#bo1").append(a);
-                            piaoyi(msg.orders.fa[i].order_id);
-                            delet("c"+msg.orders.fa[i].order_id);
+                            piaoyi(msg.orders.fa[i].order_idd);
+                            $("#c"+msg.orders.fa[i].order_idd+"").attr('onclick',"delet('"+msg.orders.fa[i].order_idd+"')");
 						};
 							for(var i = 0; i < msg.orders.shou.length; i++) {
-					var b="<div class='piaoyi_a' id='"+msg.orders.shou[i].order_id+"'>" +
+					var b="<div class='piaoyi_a' id='"+msg.orders.shou[i].order_idd+"'>" +
                         "<div class='piaoyi_b'><div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders.shou[i].order_id+"</span></p><p>订单价格:<span>"
 					+msg.orders.shou[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
@@ -217,11 +211,11 @@ $signPackage = $jssdk->GetSignPackage();
 					+"accept.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
 					+msg.orders.shou[i].acceptcity+"</div><div class='name_2'>"
 					+msg.orders.shou[i].acceptname+"</div></div></div></div>" +
-                        "<div class='yundan_4'><div class='yundan_4_1' id='"+"c"+msg.orders.shou[i].order_id+"'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
+                        "<div class='yundan_4'><div class='yundan_4_1' id='"+"c"+msg.orders.shou[i].order_idd+"'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
 					+msg.orders.shou[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
 								$("#bo2").append(b);
-                                piaoyi(msg.orders.fa[i].order_id);
-                                delet("c"+msg.orders.shou[i].order_id);
+                                piaoyi(msg.orders.shou[i].order_idd);
+                                $("#c"+msg.orders.shou[i].order_idd+"").attr('onclick',"delet('"+msg.orders.shou[i].order_idd+"')");
 						};
 						if($(".yundan_3_1").text() == "已签收") {
 						$(".sta").css("color", "#000000");
@@ -263,7 +257,7 @@ $signPackage = $jssdk->GetSignPackage();
 			}),
 			success: function(msg) {
 				for(var i = 0; i < msg.orders.length; i++) {
-					var a="<div class='piaoyi_a' id='"+msg.orders[i].order_id+"'>" +
+					var a="<div class='piaoyi_a' id='"+msg.orders[i].order_idd+"'>" +
                         "<div class='piaoyi_b'><div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders[i].order_id+"</span></p><p>订单价格:<span>"
 					+msg.orders[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
@@ -271,11 +265,11 @@ $signPackage = $jssdk->GetSignPackage();
 					+msg.orders[i].sendname+"</div></div><div class='yundan_2_2'><p class='sta'><img src='images/to.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
 					+msg.orders[i].acceptcity+"</div><div class='name_2'>"
 					+msg.orders[i].acceptname+"</div></div></div></div>" +
-                        "<div class='yundan_4'><div class='yundan_4_1' id='"+"c"+msg.orders[i].order_id+"'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
+                        "<div class='yundan_4'><div class='yundan_4_1' id='"+"c"+msg.orders[i].order_idd+"'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
 					+msg.orders[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
 					$("#bo1").append(a);
-                    piaoyi(msg.orders[i].order_id);
-                    delet("c"+msg.orders[i].order_id);
+                    piaoyi(msg.orders[i].order_idd);
+                    $("#c"+msg.orders[i].order_idd+"").attr('onclick',"delet('"+msg.orders[i].order_idd+"')");
 				};
 					if($(".yundan_3_1").text() == "已签收") {
 						$(".sta").css("color", "#000000");
@@ -312,7 +306,7 @@ $signPackage = $jssdk->GetSignPackage();
 			}),
 			success: function(msg) {
 				for(var i = 0; i < msg.orders.length; i++) {
-					var a="<div class='piaoyi_a' id='"+msg.orders[i].order_id+"'>" +
+					var a="<div class='piaoyi_a' id='"+msg.orders[i].order_idd+"'>" +
                         "<div class='piaoyi_b'><div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders[i].order_id+"</span></p><p>订单价格:<span>"
 					+msg.orders[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
@@ -320,11 +314,11 @@ $signPackage = $jssdk->GetSignPackage();
 					+msg.orders[i].sendname+"</div></div><div class='yundan_2_2'><p class='sta'><img src='images/accept.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
 					+msg.orders[i].acceptcity+"</div><div class='name_2'>"
 					+msg.orders[i].acceptname+"</div></div></div></div>" +
-                        "<div class='yundan_4'><div class='yundan_4_1' id='"+"c"+msg.orders[i].order_id+"'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
+                        "<div class='yundan_4'><div class='yundan_4_1' id='"+"c"+msg.orders[i].order_idd+"'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
 					+msg.orders[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
 					$("#bo2").append(a);
-                    piaoyi(msg.orders[i].order_id);
-                    delet("c"+msg.orders[i].order_id);
+                    piaoyi(msg.orders[i].order_idd);
+                    $("#c"+msg.orders[i].order_idd+"").attr('onclick',"delet('"+msg.orders[i].order_idd+"')");
 				};
 					if($(".yundan_3_1").text() == "已签收") {
 						$(".sta").css("color", "#000000");
