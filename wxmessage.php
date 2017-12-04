@@ -236,8 +236,6 @@ $app->post('/wxmessage',function()use($app){
     $order_id=$body->order_id;
     $from_user=$body->from_user;
     $mobilephone=$body->mobilephone;
-    $title=$body->title;
-    $content=$body->content;
     $array=array();
     foreach($body as $key=>$value){
          $array[$key]=$value;
@@ -246,9 +244,7 @@ $app->post('/wxmessage',function()use($app){
         if($order_id!=''||$order_id!=null){
             if($from_user!=''||$from_user!=null){
                 if($mobilephone!=''||$mobilephone!=null){
-//                    if(preg_match("/^1[34578]\d{9}$/", $mobilephone)){
-                   if($title!=''||$title!=null){
-                       if($content!=''||$content!=null){
+//                    if(preg_match("/^1[34578]\d{9}$/", $mobilephone))
                            $array['exist']=0;
                            $array['tenant_id']=$tenant_id;
                            $selectStatement = $database->select()
@@ -261,18 +257,14 @@ $app->post('/wxmessage',function()use($app){
                            }else{
                                $messageid=count($data)+100000001;
                            }
+                           $array['title']='消息';
                            $array['message_id']=$messageid;
                            $insertStatement = $database->insert(array_keys($array))
                                ->into('wx_message')
                                ->values(array_values($array));
                            $insertId = $insertStatement->execute(false);
                            echo json_encode(array('result'=>'0','desc'=>'success'));
-                       }else{
-                           echo json_encode(array("result"=>"1","desc"=>"缺少消息内容"));
-                       }
-                   }else{
-                       echo json_encode(array("result"=>"2","desc"=>"缺少消息标题"));
-                   }
+
 //                    }else{
 //                        echo json_encode(array("result"=>"3","desc"=>"创建人电话不符合要求"));
 //                    }
