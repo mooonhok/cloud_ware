@@ -35,7 +35,21 @@ class wechatCallbackapiTest
     {
         //get post data, May be due to the different environments
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
-         $data=$this->getcompany($a);
+
+        $dbhost = "172.17.16.2";
+        $dbuser = "root";
+        $dbpass = "jsym_20170607";
+        $dbname = "cloud_ware";
+        $port='60026';
+        $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname;port=$port;", $dbuser, $dbpass);
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $tablename="tenant";
+        $sql = "SELECT * FROM   ".$tablename."   WHERE  tenant_id='1000000001'";
+        $stmt = $dbh->query($sql);
+        $tenant = $stmt->fetch(PDO::FETCH_OBJ);
+        $dbh = null;
+
+//         $data=$this->getcompany($a);
         //extract post data
        if (!empty($postStr)) {
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
@@ -76,13 +90,13 @@ class wechatCallbackapiTest
                 echo $resultStr;
             }else if($ev=="CLICK"){
                 $msgType = "text";
-                $contentStr = "客服电话：15365580443".$data;
+                $contentStr = "客服电话：15365580443".$tenant['company'];
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
             }
            if (!empty($keyword)) {
                $msgType = "text";
-               $contentStr = "客服电话：15365580443".$data['company'];
+               $contentStr = "客服电话：15365580443".$a;
                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                echo $resultStr;
            }else {
@@ -93,26 +107,26 @@ class wechatCallbackapiTest
            exit;
        }
     }
-     private function getcompany($a)
-     {
-         $dbhost = "172.17.16.2";
-         $dbuser = "root";
-         $dbpass = "jsym_20170607";
-         $dbname = "cloud_ware";
-         $port='60026';
-         $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname;port=$port;", $dbuser, $dbpass);
-         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-         $tablename="tenant";
-         $sql = "SELECT * FROM   ".$tablename."   WHERE  tenant_id=1000000001";
-         try {
-             $stmt = $dbh->query($sql);
-             $tenant = $stmt->fetch(PDO::FETCH_OBJ);
-             $dbh = null;
-             return $tenant;
-         } catch (PDOException $e) {
-             return $e->getMessage();
-         }
-     }
+//     private function getcompany($a)
+//     {
+//         $dbhost = "172.17.16.2";
+//         $dbuser = "root";
+//         $dbpass = "jsym_20170607";
+//         $dbname = "cloud_ware";
+//         $port='60026';
+//         $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname;port=$port;", $dbuser, $dbpass);
+//         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//         $tablename="tenant";
+//         $sql = "SELECT * FROM   ".$tablename."   WHERE  tenant_id=1000000001";
+//         try {
+//             $stmt = $dbh->query($sql);
+//             $tenant = $stmt->fetch(PDO::FETCH_OBJ);
+//             $dbh = null;
+//             return $tenant;
+//         } catch (PDOException $e) {
+//             return $e->getMessage();
+//         }
+//     }
     private function checkSignature()
     {
         $signature = $_GET["signature"];
