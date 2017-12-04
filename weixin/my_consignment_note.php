@@ -49,6 +49,15 @@ $signPackage = $jssdk->GetSignPackage();
 					<div class="center2_1"></div>
 				</div>
 				<div class="box1" id="bo1">
+                    <div class='xian'></div>
+                    <div class='yundan'>
+                        <img src="images/delete.png"/>
+                        <div class='yundan_1'><p>运单号:<span></span></p><p>订单价格:<span></span></p></div>
+                        <div class='yundan_2'><div class='yundan_2_1'><div class='city_1'></div>
+                                <div class='name_1'></div></div>
+                            <div class='yundan_2_2'><p class='sta'><img src='images/to.png'></p>
+                            </div><div class='yundan_2_1'><div class='city_2'></div><div class='name_2'></div></div></div></div>
+                    <div class='yundan_3'><div class='yundan_3_1'></div></div><div class='xian'></div><div class='kongbai'></div>
 				</div>
 				<div class="box2" id="bo2">
 				</div>
@@ -72,6 +81,26 @@ $signPackage = $jssdk->GetSignPackage();
 			$(".center2_1").css("border", "1px solid white");
 			$(".center1_1").css("border", "1px solid #AAF0EB");
 		})
+
+        function piaoyi(id){
+            var startx;
+            document.getElementById(id+'').addEventListener("touchstart", function(e) {
+                startx = e.touches[0].pageX;
+            }, false);
+            document.getElementById(id+'').addEventListener("touchend", function(e) {
+                endx = e.changedTouches[0].pageX;
+
+                if((startx-endx)<=$(".yundan_4").outerWidth()/3){
+                    $("#"+id).animate({
+                        scrollLeft:'0px',
+                    },100);}else if(((startx-endx)>$(".yundan_4").outerWidth()/3)){
+                    $("#"+id).animate({
+                        scrollLeft:$(".yundan_4").outerWidth()+'px',
+                    },100);
+                }
+
+            })
+        }
 	</script>
 	<script type="text/javascript">
 		$(".tu").on("click", function() {
@@ -140,28 +169,34 @@ $signPackage = $jssdk->GetSignPackage();
 						layer.msg("没有订单");
 					} else {						
 						for(var i = 0; i < msg.orders.fa.length; i++) {
-					var a="<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
+					var a="<div class='piaoyi_a' id='"+msg.orders.fa[i].order_id+"'>" +
+                        "<div class='piaoyi_b'><div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders.fa[i].order_id+"</span></p><p>订单价格:<span>"
 					+msg.orders.fa[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
 					+msg.orders.fa[i].sendcity+"</div><div class='name_1'>"
 					+msg.orders.fa[i].sendname+"</div></div><div class='yundan_2_2'><p class='sta'><img src='images/"
 					+"to.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
 					+msg.orders.fa[i].acceptcity+"</div><div class='name_2'>"
-					+msg.orders.fa[i].acceptname+"</div></div></div></div><div class='yundan_3'><div class='yundan_3_1'>"
-					+msg.orders.fa[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";							
+					+msg.orders.fa[i].acceptname+"</div></div></div></div>" +
+                        "<div class='yundan_4'><div class='yundan_4_1' onclick='delete("+msg.orders.fa[i].order_id+")'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
+					+msg.orders.fa[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div></div></div>";
 								$("#bo1").append(a);
+                            piaoyi(msg.orders.fa[i].order_id);
 						};
 							for(var i = 0; i < msg.orders.shou.length; i++) {
-					var b="<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
+					var b="<div class='piaoyi_a' id='"+msg.orders.shou[i].order_id+"'>" +
+                        "<div class='piaoyi_b'><div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders.shou[i].order_id+"</span></p><p>订单价格:<span>"
 					+msg.orders.shou[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
 					+msg.orders.shou[i].sendcity+"</div><div class='name_1'>"
 					+msg.orders.shou[i].sendname+"</div></div><div class='yundan_2_2'><p class='sta'><img src='images/"
 					+"accept.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
 					+msg.orders.shou[i].acceptcity+"</div><div class='name_2'>"
-					+msg.orders.shou[i].acceptname+"</div></div></div></div><div class='yundan_3'><div class='yundan_3_1'>"
+					+msg.orders.shou[i].acceptname+"</div></div></div></div>" +
+                        "<div class='yundan_4'><div class='yundan_4_1' onclick='delete("+msg.orders.fa[i].order_id+")'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
 					+msg.orders.shou[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
-								$("#bo2").append(b);								
+								$("#bo2").append(b);
+                                piaoyi(msg.orders.fa[i].order_id);
 						};
 						if($(".yundan_3_1").text() == "已签收") {
 						$(".sta").css("color", "#000000");
@@ -203,15 +238,18 @@ $signPackage = $jssdk->GetSignPackage();
 			}),
 			success: function(msg) {
 				for(var i = 0; i < msg.orders.length; i++) {
-					var a="<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
+					var a="<div class='piaoyi_a' id='"+msg.orders[i].order_id+"'>" +
+                        "<div class='piaoyi_b'><div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders[i].order_id+"</span></p><p>订单价格:<span>"
 					+msg.orders[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
 					+msg.orders[i].sendcity+"</div><div class='name_1'>"
 					+msg.orders[i].sendname+"</div></div><div class='yundan_2_2'><p class='sta'><img src='images/to.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
 					+msg.orders[i].acceptcity+"</div><div class='name_2'>"
-					+msg.orders[i].acceptname+"</div></div></div></div><div class='yundan_3'><div class='yundan_3_1'>"
+					+msg.orders[i].acceptname+"</div></div></div></div>" +
+                        "<div class='yundan_4'><div class='yundan_4_1' onclick='delete("+msg.orders.fa[i].order_id+")'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
 					+msg.orders[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
 					$("#bo1").append(a);
+                    piaoyi(msg.orders[i].order_id);
 				};
 					if($(".yundan_3_1").text() == "已签收") {
 						$(".sta").css("color", "#000000");
@@ -248,15 +286,18 @@ $signPackage = $jssdk->GetSignPackage();
 			}),
 			success: function(msg) {
 				for(var i = 0; i < msg.orders.length; i++) {
-					var a="<div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
+					var a="<div class='piaoyi_a' id='"+msg.orders[i].order_id+"'>" +
+                        "<div class='piaoyi_b'><div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders[i].order_id+"</span></p><p>订单价格:<span>"
 					+msg.orders[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
 					+msg.orders[i].sendcity+"</div><div class='name_1'>"
 					+msg.orders[i].sendname+"</div></div><div class='yundan_2_2'><p class='sta'><img src='images/accept.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
 					+msg.orders[i].acceptcity+"</div><div class='name_2'>"
-					+msg.orders[i].acceptname+"</div></div></div></div><div class='yundan_3'><div class='yundan_3_1'>"
+					+msg.orders[i].acceptname+"</div></div></div></div>" +
+                        "<div class='yundan_4'><div class='yundan_4_1' onclick='delete("+msg.orders.fa[i].order_id+")'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
 					+msg.orders[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
 					$("#bo2").append(a);
+                    piaoyi(msg.orders[i].order_id);
 				};
 					if($(".yundan_3_1").text() == "已签收") {
 						$(".sta").css("color", "#000000");
