@@ -12,11 +12,11 @@
 //define your token
 define("TOKEN", "youming");
 $wechatObj = new wechatCallbackapiTest();
-$a=$_GET['tenant_id'];
+//$a=$_GET['tenant_id'];
 if($_GET['echostr']){
     $wechatObj->valid();//如果发来了echostr则进行验证
 }else{
-    $wechatObj->responseMsg($a); //如果没有echostr，则返回消息
+    $wechatObj->responseMsg(); //如果没有echostr，则返回消息
 }
 
 class wechatCallbackapiTest
@@ -31,11 +31,11 @@ class wechatCallbackapiTest
         }
     }
 
-    public function responseMsg($a)
+    public function responseMsg()
     {
         //get post data, May be due to the different environments
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
-         $data=$this->getcompany($a);
+//         $data=$this->getcompany($a);
         //extract post data
        if (!empty($postStr)) {
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
@@ -93,26 +93,26 @@ class wechatCallbackapiTest
            exit;
        }
     }
-     private function getcompany($a)
-     {
-         $dbhost = "115.159.31.49";
-         $dbuser = "root";
-         $dbpass = "jsym_20170607";
-         $dbname = "cloud_ware";
-         $port='60026';
-         $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname;port=$port;", $dbuser, $dbpass);
-         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-         $tablename="tenant";
-         $sql = "SELECT * FROM ".$tablename." "." WHERE  (tenant_id=1000000001)";
-         try {
-             $stmt = $dbh->query($sql);
-             $tenant = $stmt->fetch(PDO::FETCH_OBJ);
-             $dbh = null;
-             return $tenant;
-         } catch (PDOException $e) {
-             return $e->getMessage();
-         }
-     }
+//     private function getcompany($a)
+//     {
+//         $dbhost = "115.159.31.49";
+//         $dbuser = "root";
+//         $dbpass = "jsym_20170607";
+//         $dbname = "cloud_ware";
+//         $port='60026';
+//         $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname;port=$port;", $dbuser, $dbpass);
+//         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//         $tablename="tenant";
+//         $sql = "SELECT * FROM   ".$tablename."   WHERE  (tenant_id=1000000001)";
+//         try {
+//             $stmt = $dbh->query($sql);
+//             $tenant = $stmt->fetch(PDO::FETCH_OBJ);
+//             $dbh = null;
+//             return $tenant;
+//         } catch (PDOException $e) {
+//             return $e->getMessage();
+//         }
+//     }
     private function checkSignature()
     {
         $signature = $_GET["signature"];
