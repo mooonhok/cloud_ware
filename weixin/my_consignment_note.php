@@ -113,7 +113,7 @@ $signPackage = $jssdk->GetSignPackage();
                     data: JSON.stringify({
                     }),
                     success: function(msg) {
-                        window.location.reload();
+                        // window.location.reload();
                     },
                     error: function(xhr) {
                         alert("获取后台失败！");
