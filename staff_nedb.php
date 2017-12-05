@@ -36,6 +36,7 @@ $app->post('/addstaff',function()use($app){
                     if($position!=null||$position!=''){
                         if($status!=null||$status!=''){
                             if($permission!=null||$permission!=''){
+                                $array['head_img']="http://files.uminfo.cn:8000/tenant/wsxwh_head.jpg";
                                 $array['exist']=0;
                                 $array['password']=encode('123456' , 'cxphp');
                                 $array['tenant_id']=$tenant_id;
