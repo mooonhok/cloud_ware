@@ -1172,8 +1172,8 @@ $app->get('/getSchedulingOrders8',function()use($app){
             $stmt = $selectStatement->execute();
             $data3 = $stmt->fetch();
             date_default_timezone_set("PRC");
-            $changedatetime=date('Y-m-d H:i:s',$data[$i]['change_datetime']);
-            $data3['change_datetime']=$changedatetime;
+            $changedatetime=date('Y-m-d H:i:s',$data3['change_datetime']);
+            $data[$i]['change_datetime']=$changedatetime;
             $selectStatement = $database->select()
                 ->from('customer')
                 ->where('tenant_id', '=', $tenant_id)
