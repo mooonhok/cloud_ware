@@ -13,7 +13,7 @@
 define("TOKEN", "youming");
 $wechatObj = new wechatCallbackapiTest();
 
-if($_GET['echostr']){
+if(isset($_GET['echostr'])){
     $wechatObj->valid();//如果发来了echostr则进行验证
 }else{
     $wechatObj->responseMsg(); //如果没有echostr，则返回消息

@@ -13,7 +13,7 @@
 define("TOKEN", "weixin");
 $wechatObj = new wechatCallbackapiTest();
 $a=$_GET['tenant_id'];
-if($_GET['echostr']){
+if(isset($_GET['echostr'])){
     $wechatObj->valid();//如果发来了echostr则进行验证
 }else{
     $wechatObj->responseMsg($a); //如果没有echostr，则返回消息
