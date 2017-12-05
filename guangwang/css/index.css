@@ -100,7 +100,7 @@ html,body{
 	margin-right:290px;
     background-color:rgb(204,204,204);
 }
-.intra_a_d,.intrb_a_d,.intrc_a_d{
+/*.intra_a_d,.intrb_a_d,.intrc_a_d{
 	width:100%;
 	font-size:30px;
 	height:50px;
@@ -113,6 +113,17 @@ html,body{
 	height:40px;
 	line-height:40px;
 	color:white;
+}*/
+.intra_a_d{
+	width:100%;
+}
+.intra_a_d>img,.intrb_a_d>img,.intrc_a_d>img{
+	/*width:100%;*/
+	height:100%;
+	filter:alpha(opacity=50);
+	-moz-opacity:0.5;
+	-khtml-opacity:0.5;
+	opacity: 0.5;
 }
 .back_sport{
 	position:absolute;
