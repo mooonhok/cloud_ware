@@ -12,10 +12,11 @@
 //define your token
 define("TOKEN", "weixin");
 $wechatObj = new wechatCallbackapiTest();
+$a=$_GET['tenant_id'];
 if($_GET['echostr']){
     $wechatObj->valid();//如果发来了echostr则进行验证
 }else{
-    $wechatObj->responseMsg(); //如果没有echostr，则返回消息
+    $wechatObj->responseMsg($a); //如果没有echostr，则返回消息
 }
 
 class wechatCallbackapiTest
@@ -30,13 +31,13 @@ class wechatCallbackapiTest
         }
     }
 
-    public function responseMsg()
+    public function responseMsg($a)
     {
         //get post data, May be due to the different environments
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
-
+        $data=$this->getcompany($a);
         //extract post data
-        if (!empty($postStr)) {
+       if (!empty($postStr)) {
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
             $fromUsername = $postObj->FromUserName;
             $toUsername = $postObj->ToUserName;
@@ -67,37 +68,46 @@ class wechatCallbackapiTest
 							<Content><![CDATA[%s]]></Content> 
 							<FuncFlag>0</FuncFlag>
 							</xml>";
-            $imageTpl = "<xml>
-            <ToUserName><![CDATA[toUser]]></ToUserName>
-            <FromUserName><![CDATA[fromUser]]></FromUserName>
-            <CreateTime>%s</CreateTime>
-            <MsgType><![CDATA[image]]></MsgType>
-            <Image>
-            <MediaId><![CDATA[media_id]]></MediaId>
-            </Image>
-            </xml>";
-            
-            if ($ev == "subscribe") {
-                $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news',
-                    $ArticleCount,'公司简介','靖江万事鑫联运服务有限公司','http://files.uminfo.cn:8000/weixinguanggao/wsx.png',
-                    '');
-                echo $resultStr;
-            }
-            if (!empty($keyword)) {
-                    $msgType = "text";
-                    $contentStr = "请在菜单中选择电话询价，拨打电话咨询需要的信息";
-                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                    echo $resultStr;
-            } else {
-                echo "Input something...";
-            }
-        } else {
-            echo "";
-            exit;
-        }
+
+           if ($ev == "subscribe") {
+               $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news',
+                   $ArticleCount,'公司简介',$data['company'],$data['tenant_img_url'],
+                   '');
+               echo $resultStr;
+           }
+           if (!empty($keyword)) {
+               $msgType = "text";
+               $contentStr = "请在菜单中选择电话询价，拨打电话咨询需要的信息";
+               $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+               echo $resultStr;
+           } else {
+               echo "Input something...";
+           }
+       } else {
+           echo "";
+           exit;
+       }
     }
-
-
+     private function getcompany($a)
+     {
+         $dbhost = "172.17.16.2";
+         $dbuser = "root";
+         $dbpass = "jsym_20170607";
+         $dbname = "cloud_ware";
+         $port='60026';
+         $dbh = new PDO("mysql:host=$dbhost;dbname=$dbname;port=$port;charset:utf8;", $dbuser, $dbpass,array(PDO::MYSQL_ATTR_INIT_COMMAND => "set names utf8"));
+         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+         $tablename="tenant";
+         $sql = "SELECT * FROM   ".$tablename."   WHERE  tenant_id=".$a;
+         try {
+             $stmt = $dbh->query($sql);
+             $tenant = $stmt->fetch(PDO::FETCH_ASSOC);
+             $dbh = null;
+             return $tenant;
+         } catch (PDOException $e) {
+             return $e->getMessage();
+         }
+     }
     private function checkSignature()
     {
         $signature = $_GET["signature"];
