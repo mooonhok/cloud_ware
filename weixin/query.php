@@ -133,7 +133,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="box1">
 		<div class="top">
 			<div class="top1"></div>
-			<div class="top2">运单号查快递</div>
+			<div class="top2">运单号查询</div>
 			<div class="top3"></div>
 		</div>
 		<div class="center">
