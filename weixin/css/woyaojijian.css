@@ -589,6 +589,14 @@ html,body{height:100%; width:100%;
 	line-height: 20px;
 	margin-top: 5px;
 }
+.bj1_a{
+	float: left;
+	font-size: 14px;
+	color: rgb(78,155,194);
+	height: 20px;
+	line-height: 20px;
+	margin-top: 5px;
+}
 .bj img{
 	width: 20px;
 	height: 20px;

@@ -299,6 +299,7 @@ $app->post('/wxmessages',function()use($app){
                              ->from('wx_message')
                              ->join('orders','orders.order_id','=','wx_message.order_id','INNER')
                              ->where('wx_message.tenant_id','=',$tenant_id)
+                             ->where('wx_message.title','=','微信受理')
                              ->where('orders.exist',"=",0)
                              ->where('wx_message.exist','=',0)
                              ->where('wx_message.is_read','=',$is_read)
@@ -312,6 +313,7 @@ $app->post('/wxmessages',function()use($app){
                 ->from('wx_message')
                 ->join('orders','orders.order_id','=','wx_message.order_id','INNER')
                 ->where('wx_message.tenant_id','=',$tenant_id)
+                ->where('wx_message.title','=','微信受理')
                 ->where('orders.exist',"=",0)
                 ->where('wx_message.exist','=',0)
                 ->where('wx_message.is_read','=',$is_read)
@@ -715,6 +717,7 @@ $app->get("/wx_message_source",function()use($app){
             ->from('orders')
             ->join('wx_message','orders.order_id','=','wx_message.order_id','INNER')
             ->where('wx_message.tenant_id','=',$tenant_id)
+            ->where('wx_message.title','=','微信受理')
             ->where('orders.exist',"=",0)
             ->where('wx_message.exist','=',0);
         $stmt = $selectStatement->execute();
