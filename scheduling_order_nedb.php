@@ -1268,6 +1268,7 @@ $app->get('/getSchedulingOrders9',function()use($app){
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         $data18=array();
+        $data19=array();
         if($data!=null){
             $selectStatement = $database->select()
                 ->from('tenant')
@@ -1279,6 +1280,11 @@ $app->get('/getSchedulingOrders9',function()use($app){
                 ->where('customer_id', '=', $data17['contact_id']);
             $stmt = $selectStatement->execute();
             $data18 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data17['from_city_id']);
+            $stmt = $selectStatement->execute();
+            $data19 = $stmt->fetch();
         }
 
         for($i=0;$i<count($data);$i++){
@@ -1369,7 +1375,7 @@ $app->get('/getSchedulingOrders9',function()use($app){
                 ->where('id', '=', $data15['pid']);
             $stmt = $selectStatement->execute();
             $data16 = $stmt->fetch();
-
+            $data[$i]['tenant']['from_city']=$data19;
             $data[$i]['tenant']['contact']=$data18;
             $data[$i]['lorry']=$data9;
             $data[$i]['goods']=$data1;
