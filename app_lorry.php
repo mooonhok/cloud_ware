@@ -347,7 +347,7 @@ $app->get('/sbylorry',function()use($app){
                 echo json_encode(array('result' => '9', 'desc' => '您的帐号已经在其他地方登录，请重新登录','sch'=>''));
         }
         }else{
-            echo json_encode(array('result' => '2', 'desc' => '司机不存在','sch'=>''));
+            echo json_encode(array('result' => '2', 'desc' => '您还不是送货司机','sch'=>''));
         }
     }else{
         echo json_encode(array('result' => '1', 'desc' => '司机信息为空','sch'=>''));
@@ -416,7 +416,7 @@ $app->get('/sbylorryn',function()use($app){
                 echo json_encode(array('result' => '9', 'desc' => '您的帐号已经在其他地方登录请重新登录','sch'=>''));
         }
         }else{
-            echo json_encode(array('result' => '2', 'desc' => '司机不存在','sch'=>''));
+            echo json_encode(array('result' => '2', 'desc' => '您还不是送货司机','sch'=>''));
         }
     }else{
         echo json_encode(array('result' => '1', 'desc' => '司机信息为空','sch'=>''));
