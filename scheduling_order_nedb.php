@@ -1267,6 +1267,20 @@ $app->get('/getSchedulingOrders9',function()use($app){
             ->where('exist','=',0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
+        $data18=array();
+        if($data!=null){
+            $selectStatement = $database->select()
+                ->from('tenant')
+                ->where('tenant_id', '=', $data[0]['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data17 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('customer_id', '=', $data17['contact_id']);
+            $stmt = $selectStatement->execute();
+            $data18 = $stmt->fetch();
+        }
+
         for($i=0;$i<count($data);$i++){
             $selectStatement = $database->select()
                 ->from('goods')
@@ -1355,6 +1369,8 @@ $app->get('/getSchedulingOrders9',function()use($app){
                 ->where('id', '=', $data15['pid']);
             $stmt = $selectStatement->execute();
             $data16 = $stmt->fetch();
+
+            $data[$i]['tenant']['contact']=$data18;
             $data[$i]['lorry']=$data9;
             $data[$i]['goods']=$data1;
             $data[$i]['goods']['goods_package']=$data8;
@@ -1375,6 +1391,7 @@ $app->get('/getSchedulingOrders9',function()use($app){
             $data[$i]['order']['receiver_province']=$data15;
             $data[$i]['order']['sender_province']=$data14;
         }
+
         echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少调度id"));
