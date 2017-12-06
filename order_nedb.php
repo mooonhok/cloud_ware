@@ -710,20 +710,21 @@ $app->put('/alterOrder14',function()use($app){
                     $updateStatement = $database->update(array('order_status'=>1,'order_datetime1'=>$order_datetime1,'inventory_type'=>0,'pay_method'=>$pay_method,'transfer_cost'=>$transfer_cost))
                         ->table('orders')
                         ->where('exist','=',0)
+                        ->where('tenant_id','=',$tenant_id)
                         ->where('order_id','=',$order_id);
                     $affectedRows = $updateStatement->execute();
                     echo json_encode(array("result" => "0", "desc" => "success"));
                 }else{
-                    echo json_encode(array("result" => "1", "desc" => "缺少运单时间"));
+                    echo json_encode(array("result" => "1", "desc" => "缺少转运费"));
                 }
             }else{
-                echo json_encode(array("result" => "2", "desc" => "缺少运单id"));
+                echo json_encode(array("result" => "2", "desc" => "缺少支付方式"));
             }
         }else{
-            echo json_encode(array("result" => "1", "desc" => "缺少运单时间"));
+            echo json_encode(array("result" => "3", "desc" => "缺少运单时间"));
         }
     }else{
-        echo json_encode(array("result" => "2", "desc" => "缺少运单id"));
+        echo json_encode(array("result" => "4", "desc" => "缺少运单id"));
     }
 });
 
