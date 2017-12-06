@@ -2278,7 +2278,7 @@ $app->get('/getGoodsOrders5',function()use($app){
             ->from('orders')
             ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
             ->join('customer','customer.customer_id','=','orders.sender_id','INNER')
-            ->where('customer','customer.tenant_id','=',$tenant_id)
+            ->where('customer','=',$tenant_id)
             ->where('customer.customer_name','=',$customer_name)
             ->where('goods.tenant_id','=',$tenant_id)
             ->where('orders.tenant_id','=',$tenant_id)
