@@ -220,11 +220,11 @@ $signPackage = $jssdk->GetSignPackage();
 					+"accept.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
 					+msg.orders.shou[i].acceptcity+"</div><div class='name_2'>"
 					+msg.orders.shou[i].acceptname+"</div></div></div></div>" +
-                        "<div class='yundan_4'><div class='yundan_4_1' id='"+"c"+msg.orders.shou[i].order_idd+"'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
+                        "<div class='yundan_4'><div class='yundan_4_1' id='"+"d"+msg.orders.shou[i].order_idd+"'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
 					+msg.orders.shou[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
 								$("#bo2").append(b);
                                 piaoyi(msg.orders.shou[i].order_idd);
-                                $("#c"+msg.orders.shou[i].order_idd+"").attr('onclick',"delet('"+msg.orders.shou[i].order_idd+"')");
+                                $("#d"+msg.orders.shou[i].order_idd+"").attr('onclick',"delet('"+msg.orders.shou[i].order_idd+"')");
 						};
 						if($(".yundan_3_1").text() == "已签收") {
 						$(".sta").css("color", "#000000");
@@ -323,11 +323,11 @@ $signPackage = $jssdk->GetSignPackage();
 					+msg.orders[i].sendname+"</div></div><div class='yundan_2_2'><p class='sta'><img src='images/accept.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
 					+msg.orders[i].acceptcity+"</div><div class='name_2'>"
 					+msg.orders[i].acceptname+"</div></div></div></div>" +
-                        "<div class='yundan_4'><div class='yundan_4_1' id='"+"c"+msg.orders[i].order_idd+"'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
+                        "<div class='yundan_4'><div class='yundan_4_1' id='"+"d"+msg.orders[i].order_idd+"'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
 					+msg.orders[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
 					$("#bo2").append(a);
                     piaoyi(msg.orders[i].order_idd);
-                    $("#c"+msg.orders[i].order_idd+"").attr('onclick',"delet('"+msg.orders[i].order_idd+"')");
+                    $("#d"+msg.orders[i].order_idd+"").attr('onclick',"delet('"+msg.orders[i].order_idd+"')");
 				};
 					if($(".yundan_3_1").text() == "已签收") {
 						$(".sta").css("color", "#000000");
