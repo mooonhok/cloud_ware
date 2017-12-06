@@ -671,19 +671,19 @@ $app->put('/alterOrder13',function()use($app){
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
                 $data = $stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('orders')
-                    ->where('id', '<', $data['id'])
-                    ->where('exist','=',0)
-                    ->orderBy('id','DESC')
-                    ->limit(1);
-                $stmt = $selectStatement->execute();
-                $data1 = $stmt->fetch();
-                $updateStatement = $database->update(array('order_status'=>4,'order_datetime4'=>$order_datetime4,'reach_city'=>$reach_city))
-                    ->table('orders')
-                    ->where('id','=',$data1['id']);
-                $affectedRows = $updateStatement->execute();
-                echo json_encode(array("result" => "0", "desc" => "success"));
+//                $selectStatement = $database->select()
+//                    ->from('orders')
+//                    ->where('id', '<', $data['id'])
+//                    ->where('exist','=',0)
+//                    ->orderBy('id','DESC')
+//                    ->limit(1);
+//                $stmt = $selectStatement->execute();
+//                $data1 = $stmt->fetch();
+//                $updateStatement = $database->update(array('order_status'=>4,'order_datetime4'=>$order_datetime4,'reach_city'=>$reach_city))
+//                    ->table('orders')
+//                    ->where('id','=',$data1['id']);
+//                $affectedRows = $updateStatement->execute();
+                echo json_encode(array("result" => "0", "desc" => "success",'data'=>$data,'stm'=>$stmt));
             }else{
                 echo json_encode(array("result" => "1", "desc" => "缺少运单时间"));
             }
