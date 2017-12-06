@@ -178,7 +178,7 @@ $signPackage = $jssdk->GetSignPackage();
 			<div id="box101">
 				<div style="clear:both;"></div>
 			</div>
-			<div class="box10_2" id="subaddress2">确认</div>
+<!--			<div class="box10_2" id="subaddress2">确认</div>-->
 			<div style="clear:both;"></div>
 		</div>
 		<!-- box3 -->
@@ -261,7 +261,7 @@ $signPackage = $jssdk->GetSignPackage();
 			<div id="box111">
 				<div style="clear:both;"></div>
 			</div>
-			<div class="box11_2" id="subaddress4">确认</div>
+<!--			<div class="box11_2" id="subaddress4">确认</div>-->
 			<div style="clear:both;"></div>
 		</div>
 		<!-- box4 -->
@@ -798,6 +798,23 @@ $signPackage = $jssdk->GetSignPackage();
 			});
 		}
 	</script>
+    <script>
+        function sure2(id){
+            tenant_id=$.getUrlParam('tenant_id');
+            	customer_send_id = id;
+            	var name_a=$("#s"+id).parent().prev().prev().prev().prev().text();
+            	if(name_a.length>=8){
+            	    name_a=name_a.substr(0,1)+"***"+name_a.substr(name_a.length-6,5);
+               }
+            	$(".shuru").html(name_a+"&nbsp;&nbsp;"+$("#s"+id).parent().prev().prev().text());
+            	$(".box2").css("display","none");
+            	$("#box10").css("display", "none");
+            	$(".box").css("display","block");
+            	if(customer_send_id==customer_accept_id){
+            		layer.msg("选择收货人有误，请重新选择");
+            	}
+        }
+    </script>
 	<script type="text/javascript">
 		//加载寄件人信息
 		function loadsend(openid,tenant_id) {
@@ -819,25 +836,11 @@ $signPackage = $jssdk->GetSignPackage();
 						var a = '<div class="name"><p class="j_name">' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 							msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span class="shen">'+msg.wxmessage[i].customer_province+'</span><span class="shi">' +
 							msg.wxmessage[i].customer_city + '</span><span class=xx>' +
-							msg.wxmessage[i].customer_address + '</span></p></div><div class="xian"></div><div class="tu"><input type="radio" class="rad1" name="rad" value=' +
-							msg.wxmessage[i].customer_id + '>' +
+							msg.wxmessage[i].customer_address + '</span></p></div><div class="xian"></div><div class="tu"><div class="bj1" id="s'+msg.wxmessage[i].customer_id+'">确认</div>' +
 							'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>' +
 							'<div class="bj1" id="c'+msg.wxmessage[i].customer_id+'">编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" id="d'+msg.wxmessage[i].customer_id+'">删除</div></div><div class="xian1"><div class="kbai"></div></div>';
 						$("#box101").append(a);
-						$("#subaddress2").on('click', function() {
-							customer_send_id = $("input[class='rad1']:checked").val();
-							var name_a=$("input[class='rad1']:checked").parent().prev().prev().prev().prev().text();
-							if(name_a.length>=8){
-							    name_a=name_a.substr(0,1)+"***"+name_a.substr(name_a.length-6,5);
-                            }
-							$(".shuru").html(name_a+"&nbsp;&nbsp;"+$("input[class='rad1']:checked").parent().prev().prev().text());
-							$(".box2").css("display","none");
-							$("#box10").css("display", "none");
-							$(".box").css("display","block");
-							if(customer_send_id==customer_accept_id){
-								layer.msg("选择收货人有误，请重新选择");
-							}
-						});
+                        $("#s"+msg.wxmessage[i].customer_id+"").attr('onclick',"sure2('"+msg.wxmessage[i].customer_id+"')");
 						$("#c"+msg.wxmessage[i].customer_id+"").attr('onclick',"edit('"+msg.wxmessage[i].customer_id+"')");
                         $("#d"+msg.wxmessage[i].customer_id+"").attr('onclick',"delet('"+msg.wxmessage[i].customer_id+"')");
 					}
@@ -960,6 +963,24 @@ $signPackage = $jssdk->GetSignPackage();
 			});
 		}
 	</script>
+    <script>
+        function sure1(id){
+                tenant_id=$.getUrlParam('tenant_id');
+            	customer_accept_id =id;
+            	if(customer_accept_id != customer_send_id) {
+            	    var name_a=$("#s"+id).parent().prev().prev().prev().prev().text();
+            	    if(name_a.length>=8){
+                           name_a=name_a.substr(0,1)+"***"+name_a.substr(name_a.length-6,5);
+                   }
+            		$(".shuru1").html($("#s"+id).parent().prev().prev().prev().prev().text()+"&nbsp;&nbsp;"+$("#s"+id).parent().prev().prev().text());
+            		$(".box3").css("display","none");
+            		$("#box11").css("display", "none");
+            		$(".box").css("display","block");
+            	} else {
+            		layer.msg("寄件人不能和收件人相同");
+            	}
+        }
+    </script>
 	
 	<script type="text/javascript">
 		//加载收货地址
@@ -982,26 +1003,26 @@ $signPackage = $jssdk->GetSignPackage();
 						var a = '<div class="name"><p class="s_name">' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 							msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span class=shen1>'+msg.wxmessage[i].customer_province+'</span><span class="shi1">' +
 							msg.wxmessage[i].customer_city + '</span><span class="xx1">' +
-							msg.wxmessage[i].customer_address + '</span></p></div><div class="xian"></div><div class="tu"><input type="radio" class="rad2" name="rad" value=' +
-							msg.wxmessage[i].customer_id + '>' +
+							msg.wxmessage[i].customer_address + '</span></p></div><div class="xian"></div><div class="tu"><div class="bj1" id="s'+msg.wxmessage[i].customer_id+'">确认</div><div class="sc">' +
 							'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>' +
 							'<div class="bj1" id="c'+msg.wxmessage[i].customer_id+'">编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" id="d'+msg.wxmessage[i].customer_id+'">删除</div></div><div class="xian1"><div class="kbai"></div></div>';
 						$("#box111").append(a);
-						$("#subaddress4").on('click', function() {
-							customer_accept_id = $("input[class='rad2']:checked").val();
-							if(customer_accept_id != customer_send_id) {
-							    var name_a=$("input[class='rad2']:checked").parent().prev().prev().prev().prev().text();
-							    if(name_a.length>=8){
-                                        name_a=name_a.substr(0,1)+"***"+name_a.substr(name_a.length-6,5);
-                                }
-								$(".shuru1").html($("input[class='rad2']:checked").parent().prev().prev().prev().prev().text()+"&nbsp;&nbsp;"+$("input[class='rad2']:checked").parent().prev().prev().text());
-								$(".box3").css("display","none");
-								$("#box11").css("display", "none");
-								$(".box").css("display","block");
-							} else {
-								layer.msg("寄件人不能和收件人相同");
-							}
-						});
+						// $("#subaddress4").on('click', function() {
+						// 	customer_accept_id = $("input[class='rad2']:checked").val();
+						// 	if(customer_accept_id != customer_send_id) {
+						// 	    var name_a=$("input[class='rad2']:checked").parent().prev().prev().prev().prev().text();
+						// 	    if(name_a.length>=8){
+                         //                name_a=name_a.substr(0,1)+"***"+name_a.substr(name_a.length-6,5);
+                         //        }
+						// 		$(".shuru1").html($("input[class='rad2']:checked").parent().prev().prev().prev().prev().text()+"&nbsp;&nbsp;"+$("input[class='rad2']:checked").parent().prev().prev().text());
+						// 		$(".box3").css("display","none");
+						// 		$("#box11").css("display", "none");
+						// 		$(".box").css("display","block");
+						// 	} else {
+						// 		layer.msg("寄件人不能和收件人相同");
+						// 	}
+						// });
+                        $("#s"+msg.wxmessage[i].customer_id+"").attr('onclick',"sure1('"+msg.wxmessage[i].customer_id+"')");
                         $("#c"+msg.wxmessage[i].customer_id+"").attr('onclick',"edit1('"+msg.wxmessage[i].customer_id+"')");
                         $("#d"+msg.wxmessage[i].customer_id+"").attr('onclick',"delet('"+msg.wxmessage[i].customer_id+"')");
 					}
