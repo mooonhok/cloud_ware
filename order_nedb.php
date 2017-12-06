@@ -679,10 +679,10 @@ $app->put('/alterOrder13',function()use($app){
                     ->limit(1);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
-//                $updateStatement = $database->update(array('order_status'=>4,'order_datetime4'=>$order_datetime4,'reach_city'=>$reach_city))
-//                    ->table('orders')
-//                    ->where('id','=',$data1['id']);
-//                $affectedRows = $updateStatement->execute();
+                $updateStatement = $database->update(array('order_status'=>4,'order_datetime4'=>$order_datetime4,'reach_city'=>$reach_city))
+                    ->table('orders')
+                    ->where('id','=',$data1['id']);
+                $affectedRows = $updateStatement->execute();
                 echo json_encode(array("result" => "0", "desc" => "success",'data'=>$data1,'stm'=>$stmt));
             }else{
                 echo json_encode(array("result" => "1", "desc" => "缺少运单时间"));
