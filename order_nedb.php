@@ -683,7 +683,7 @@ $app->put('/alterOrder13',function()use($app){
                     ->table('orders')
                     ->where('id','=',$data1['id']);
                 $affectedRows = $updateStatement->execute();
-                echo json_encode(array("result" => "0", "desc" => "success",'data'=>$data1,'stm'=>$stmt));
+                echo json_encode(array("result" => "0", "desc" => "success"));
             }else{
                 echo json_encode(array("result" => "1", "desc" => "缺少运单时间"));
             }
