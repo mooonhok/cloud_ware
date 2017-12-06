@@ -674,6 +674,7 @@ $app->put('/alterOrder13',function()use($app){
                 $selectStatement = $database->select()
                     ->from('orders')
                     ->where('id', '<', $data['id'])
+                    ->where('order_id', '=', $order_id)
                     ->where('exist','=',0)
                     ->orderBy('id','DESC')
                     ->limit(1);
