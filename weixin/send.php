@@ -965,7 +965,6 @@ $signPackage = $jssdk->GetSignPackage();
 	</script>
     <script>
         function sure1(id){
-            alert(id)
                 tenant_id=$.getUrlParam('tenant_id');
             	customer_accept_id =id;
             	if(customer_accept_id != customer_send_id) {
