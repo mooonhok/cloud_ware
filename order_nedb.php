@@ -655,26 +655,40 @@ $app->put('/alterOrder12',function()use($app){
 
 $app->put('/alterOrder13',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     $body = $app->request->getBody();
     $body = json_decode($body);
     $order_id = $body->order_id;
     $order_datetime4 = $body->order_datetime4;
+    $reach_city = $body->reach_city;
         if($order_id!=null||$order_id!=''){
             if($order_datetime4!=null||$order_datetime4!=''){
-                $updateStatement = $database->update(array('order_status'=>4,'order_datetime4'=>$order_datetime4))
-                    ->table('orders')
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->where('order_id', '=', $order_id)
                     ->where('exist','=',0)
-                    ->where('order_id','=',$order_id)
+                    ->where('tenant_id', '=', $tenant_id);
+                $stmt = $selectStatement->execute();
+                $data = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->where('id', '<', $data['id'])
+                    ->where('exist','=',0)
                     ->orderBy('id','DESC')
                     ->limit(1);
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetch();
+                $updateStatement = $database->update(array('order_status'=>4,'order_datetime4'=>$order_datetime4,'reach_city'=>$reach_city))
+                    ->table('orders')
+                    ->where('id','=',$data1['id']);
                 $affectedRows = $updateStatement->execute();
                 echo json_encode(array("result" => "0", "desc" => "success"));
             }else{
-                echo json_encode(array("result" => "1", "desc" => "缺少运单时间", "orders" => ""));
+                echo json_encode(array("result" => "1", "desc" => "缺少运单时间"));
             }
         }else{
-            echo json_encode(array("result" => "2", "desc" => "缺少运单id", "orders" => ""));
+            echo json_encode(array("result" => "2", "desc" => "缺少运单id"));
         }
 });
 
