@@ -1000,12 +1000,14 @@ $signPackage = $jssdk->GetSignPackage();
 						layer.msg("地址记录为空，请添加地址");
 					}else{
 					for(var i = 0; i < msg.wxmessage.length; i++) {
-						var a = '<div class="name"><p class="s_name">' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
-							msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span class=shen1>'+msg.wxmessage[i].customer_province+'</span><span class="shi1">' +
-							msg.wxmessage[i].customer_city + '</span><span class="xx1">' +
-							msg.wxmessage[i].customer_address + '</span></p></div><div class="xian"></div><div class="tu"><div class="bj1" id="s'+msg.wxmessage[i].customer_id+'">确认</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>' +
-							'<div class="bj1" id="c'+msg.wxmessage[i].customer_id+'">编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" id="d'+msg.wxmessage[i].customer_id+'">删除</div></div><div class="xian1"><div class="kbai"></div></div>';
-						$("#box111").append(a);
+                        var a = '<div class="name"><p class="s_name">' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
+                            msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span class=shen1>'+msg.wxmessage[i].customer_province+'</span><span class="shi1">' +
+                            msg.wxmessage[i].customer_city + '</span><span class="xx1">' +
+                            msg.wxmessage[i].customer_address + '</span></p></div><div class="xian"></div><div class="tu"><input type="radio" class="rad2" name="rad" value=' +
+                            msg.wxmessage[i].customer_id + '>' +
+                            '</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>' +
+                            '<div class="bj1" id="c'+msg.wxmessage[i].customer_id+'">编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" id="d'+msg.wxmessage[i].customer_id+'">删除</div></div><div class="xian1"><div class="kbai"></div></div>';
+                        $("#box111").append(a);
 						// $("#subaddress4").on('click', function() {
 						// 	customer_accept_id = $("input[class='rad2']:checked").val();
 						// 	if(customer_accept_id != customer_send_id) {
