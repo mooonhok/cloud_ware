@@ -802,7 +802,7 @@ $signPackage = $jssdk->GetSignPackage();
         function sure2(id){
             tenant_id=$.getUrlParam('tenant_id');
             	customer_send_id = id;
-            	var name_a=$("#s2"+id).parent().prev().prev().prev().prev().text();
+            	var name_a=$("#s"+id).parent().prev().prev().prev().prev().text();
             	if(name_a.length>=8){
             	    name_a=name_a.substr(0,1)+"***"+name_a.substr(name_a.length-6,5);
                }
@@ -836,11 +836,11 @@ $signPackage = $jssdk->GetSignPackage();
 						var a = '<div class="name"><p class="j_name">' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
 							msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span class="shen">'+msg.wxmessage[i].customer_province+'</span><span class="shi">' +
 							msg.wxmessage[i].customer_city + '</span><span class=xx>' +
-							msg.wxmessage[i].customer_address + '</span></p></div><div class="xian"></div><div class="tu"><div class="bj1_a" id="s2'+msg.wxmessage[i].customer_id+'">确认</div>' +
+							msg.wxmessage[i].customer_address + '</span></p></div><div class="xian"></div><div class="tu"><div class="bj1_a" id="s'+msg.wxmessage[i].customer_id+'">确认</div>' +
 							'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>' +
 							'<div class="bj1" id="c'+msg.wxmessage[i].customer_id+'">编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" id="d'+msg.wxmessage[i].customer_id+'">删除</div></div><div class="xian1"><div class="kbai"></div></div>';
 						$("#box101").append(a);
-                        $("#s2"+msg.wxmessage[i].customer_id+"").attr('onclick',"sure2('"+msg.wxmessage[i].customer_id+"')");
+                        $("#s"+msg.wxmessage[i].customer_id+"").attr('onclick',"sure2('"+msg.wxmessage[i].customer_id+"')");
 						$("#c"+msg.wxmessage[i].customer_id+"").attr('onclick',"edit('"+msg.wxmessage[i].customer_id+"')");
                         $("#d"+msg.wxmessage[i].customer_id+"").attr('onclick',"delet('"+msg.wxmessage[i].customer_id+"')");
 					}
@@ -968,7 +968,7 @@ $signPackage = $jssdk->GetSignPackage();
                 tenant_id=$.getUrlParam('tenant_id');
             	customer_accept_id =id;
             	if(customer_accept_id != customer_send_id) {
-            	    var name_a=$("#s1"+id).parent().prev().prev().prev().prev().text();
+            	    var name_a=$("#s"+id).parent().prev().prev().prev().prev().text();
             	    if(name_a.length>=8){
                            name_a=name_a.substr(0,1)+"***"+name_a.substr(name_a.length-6,5);
                    }
@@ -1003,7 +1003,7 @@ $signPackage = $jssdk->GetSignPackage();
                         var a = '<div class="name"><p class="s_name">' + msg.wxmessage[i].customer_name + '</p></div><div class="phone"><p>' +
                             msg.wxmessage[i].customer_phone + '</p></div><div class="dizhi"><p><span class=shen1>'+msg.wxmessage[i].customer_province+'</span><span class="shi1">' +
                             msg.wxmessage[i].customer_city + '</span><span class="xx1">' +
-                            msg.wxmessage[i].customer_address + '</span></p></div><div class="xian"></div><div class="tu"><div class="bj1_a" id="s1'+msg.wxmessage[i].customer_id+'">确认</div></div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>' +
+                            msg.wxmessage[i].customer_address + '</span></p></div><div class="xian"></div><div class="tu"><div class="bj1_a" id="s'+msg.wxmessage[i].customer_id+'">确认</div></div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>' +
                             '<div class="bj1" id="c'+msg.wxmessage[i].customer_id+'">编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" id="d'+msg.wxmessage[i].customer_id+'">删除</div></div><div class="xian1"><div class="kbai"></div></div>';
                         $("#box111").append(a);
 						// $("#subaddress4").on('click', function() {
@@ -1021,7 +1021,7 @@ $signPackage = $jssdk->GetSignPackage();
 						// 		layer.msg("寄件人不能和收件人相同");
 						// 	}
 						// });
-                        $("#s1"+msg.wxmessage[i].customer_id+"").attr('onclick',"sure1('"+msg.wxmessage[i].customer_id+"')");
+                        $("#s"+msg.wxmessage[i].customer_id+"").attr('onclick',"sure1('"+msg.wxmessage[i].customer_id+"')");
                         $("#c"+msg.wxmessage[i].customer_id+"").attr('onclick',"edit1('"+msg.wxmessage[i].customer_id+"')");
                         $("#d"+msg.wxmessage[i].customer_id+"").attr('onclick',"delet('"+msg.wxmessage[i].customer_id+"')");
 					}
