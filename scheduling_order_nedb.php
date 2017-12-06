@@ -1279,6 +1279,18 @@ $app->get('/getSchedulingOrders9',function()use($app){
                 ->where('customer_id', '=', $data17['contact_id']);
             $stmt = $selectStatement->execute();
             $data18 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data18['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data19 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id', '=', $data19['pid']);
+            $stmt = $selectStatement->execute();
+            $data20 = $stmt->fetch();
+            $data18['contact_city']=$data19;
+            $data18['contact_province']=$data20;
         }
 
         for($i=0;$i<count($data);$i++){
