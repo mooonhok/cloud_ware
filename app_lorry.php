@@ -200,7 +200,7 @@ $app->get('/sandoandg',function()use($app){
                         $stmt=$selectStament->execute();
                         $data10=$stmt->fetch();
                         if($data10!=null){
-                        	  $arrays2['pic']=$data10['jcompany'].'收';
+                        	  $arrays2['pic']=$data10['jcompany'].'--收';
                         }else{
                           $arrays2['pic']=$data1['sure_img'];
                         }

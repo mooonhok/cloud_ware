@@ -1259,7 +1259,18 @@ $app->get('/getSchedulingOrders8',function()use($app){
 $app->get('/getSchedulingOrders9',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
     $scheduling_id=$app->request->get('scheduling_id');
+    $selectStatement = $database->select()
+        ->from('tenant')
+        ->where('tenant_id', '=', $tenant_id);
+    $stmt = $selectStatement->execute();
+    $data19= $stmt->fetch();
+    $selectStatement = $database->select()
+        ->from('city')
+        ->where('id', '=', $data19['from_city_id']);
+    $stmt = $selectStatement->execute();
+    $data20 = $stmt->fetch();
     if($scheduling_id!=null||$scheduling_id!=''){
         $selectStatement = $database->select()
             ->from('schedule_order')
@@ -1280,11 +1291,6 @@ $app->get('/getSchedulingOrders9',function()use($app){
                 ->where('customer_id', '=', $data17['contact_id']);
             $stmt = $selectStatement->execute();
             $data18 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('city')
-                ->where('id', '=', $data17['from_city_id']);
-            $stmt = $selectStatement->execute();
-            $data19 = $stmt->fetch();
         }
 
         for($i=0;$i<count($data);$i++){
@@ -1375,7 +1381,7 @@ $app->get('/getSchedulingOrders9',function()use($app){
                 ->where('id', '=', $data15['pid']);
             $stmt = $selectStatement->execute();
             $data16 = $stmt->fetch();
-            $data[$i]['tenant']['from_city']=$data19;
+            $data[$i]['from_city']=$data20;
             $data[$i]['tenant']['contact']=$data18;
             $data[$i]['lorry']=$data9;
             $data[$i]['goods']=$data1;
