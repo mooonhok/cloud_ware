@@ -705,7 +705,6 @@ $app->put('/alterOrder14',function()use($app){
     $transfer_cost=$body->transfer_cost;
     if($order_id!=null||$order_id!=''){
         if($order_datetime1!=null||$order_datetime1!=''){
-            if($pay_method!=null||$pay_method!=''){
                 if($transfer_cost!=null||$transfer_cost!=''){
                     $updateStatement = $database->update(array('order_status'=>1,'order_datetime1'=>$order_datetime1,'inventory_type'=>0,'pay_method'=>$pay_method,'transfer_cost'=>$transfer_cost))
                         ->table('orders')
@@ -717,9 +716,6 @@ $app->put('/alterOrder14',function()use($app){
                 }else{
                     echo json_encode(array("result" => "1", "desc" => "缺少转运费"));
                 }
-            }else{
-                echo json_encode(array("result" => "2", "desc" => "缺少支付方式"));
-            }
         }else{
             echo json_encode(array("result" => "3", "desc" => "缺少运单时间"));
         }
