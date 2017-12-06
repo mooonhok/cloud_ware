@@ -72,7 +72,20 @@ $app->get('/getSchedulings0',function()use($app){
                 ->where('tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
+            $zon=0;
            for($i=0;$i<count($data);$i++){
+               $selectStatement = $database->select()
+                   ->sum('order_cost','zon')
+                   ->from('schedule_order')
+                   ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+                   ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id'])
+                   ->where('schedule_order.tenant_id', '=', $tenant_id)
+                   ->where('orders.pay_method','=',1)
+                   ->where('orders.tenant_id', '=',$tenant_id);
+               $stmt = $selectStatement->execute();
+               $data5 = $stmt->fetch();
+               $zon=$zon+$data5['zon'];
+
                $selectStatement = $database->select()
                    ->from('customer')
                    ->where('tenant_id', '=', $tenant_id)
@@ -100,7 +113,7 @@ $app->get('/getSchedulings0',function()use($app){
                $data[$i]['receive_city']=$data3;
                $data[$i]['lorry']=$data4;
             }
-            echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
+            echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data,'sum'=>$zon));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
