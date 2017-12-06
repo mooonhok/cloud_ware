@@ -693,6 +693,40 @@ $app->put('/alterOrder13',function()use($app){
         }
 });
 
+$app->put('/alterOrder14',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $order_id = $body->order_id;
+    $order_datetime1= $body->order_datetime1;
+    $pay_method = $body->pay_method;
+    $transfer_cost=$body->transfer_cost;
+    if($order_id!=null||$order_id!=''){
+        if($order_datetime1!=null||$order_datetime1!=''){
+            if($pay_method!=null||$pay_method!=''){
+                if($transfer_cost!=null||$transfer_cost!=''){
+                    $updateStatement = $database->update(array('order_status'=>1,'order_datetime1'=>$order_datetime1,'inventory_type'=>0,'pay_method'=>$pay_method,'transfer_cost'=>$transfer_cost))
+                        ->table('orders')
+                        ->where('exist','=',0)
+                        ->where('order_id','=',$order_id);
+                    $affectedRows = $updateStatement->execute();
+                    echo json_encode(array("result" => "0", "desc" => "success"));
+                }else{
+                    echo json_encode(array("result" => "1", "desc" => "缺少运单时间"));
+                }
+            }else{
+                echo json_encode(array("result" => "2", "desc" => "缺少运单id"));
+            }
+        }else{
+            echo json_encode(array("result" => "1", "desc" => "缺少运单时间"));
+        }
+    }else{
+        echo json_encode(array("result" => "2", "desc" => "缺少运单id"));
+    }
+});
+
 //根据运单id和发货人名模糊查询
 $app->get('/getOrders_orderid_or_sender', function () use ($app) {
     $app->response->headers->set('Content-Type', 'application/json');
