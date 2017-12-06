@@ -72,7 +72,6 @@ $app->get('/getSchedulings0',function()use($app){
                 ->where('tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
-            $zon=0;
            for($i=0;$i<count($data);$i++){
                $selectStatement = $database->select()
                    ->sum('order_cost','zon')
@@ -84,7 +83,7 @@ $app->get('/getSchedulings0',function()use($app){
                    ->where('orders.tenant_id', '=',$tenant_id);
                $stmt = $selectStatement->execute();
                $data5 = $stmt->fetch();
-               $zon=$zon+$data5['zon'];
+
 
                $selectStatement = $database->select()
                    ->from('customer')
@@ -108,12 +107,13 @@ $app->get('/getSchedulings0',function()use($app){
                    ->where('lorry_id', '=', $data[$i]['lorry_id']);
                $stmt = $selectStatement->execute();
                $data4 = $stmt->fetch();
+               $data[$i]['sum']=$data5['zon'];
                $data[$i]['receiver']=$data1;
                $data[$i]['send_city']=$data2;
                $data[$i]['receive_city']=$data3;
                $data[$i]['lorry']=$data4;
             }
-            echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data,'sum'=>$zon));
+            echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
@@ -392,6 +392,19 @@ $app->get('/getSchedulings6',function()use($app){
             ->where('exist', '=', 0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
+        for($i=0;$i<count($data);$i++){
+            $selectStatement = $database->select()
+                ->sum('order_cost','zon')
+                ->from('schedule_order')
+                ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+                ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id'])
+                ->where('schedule_order.tenant_id', '=', $tenant_id)
+                ->where('orders.pay_method','=',1)
+                ->where('orders.tenant_id', '=',$tenant_id);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            $data[$i]['sum']=$data1['zon'];
+        }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "租户id为空"));
@@ -412,6 +425,19 @@ $app->get('/getSchedulings7',function()use($app){
             ->where('scheduling.exist', '=', 0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
+        for($i=0;$i<count($data);$i++){
+            $selectStatement = $database->select()
+                ->sum('order_cost','zon')
+                ->from('schedule_order')
+                ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+                ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id'])
+                ->where('schedule_order.tenant_id', '=', $tenant_id)
+                ->where('orders.pay_method','=',1)
+                ->where('orders.tenant_id', '=',$tenant_id);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            $data[$i]['sum']=$data1['zon'];
+        }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "租户id为空"));
@@ -433,6 +459,19 @@ $app->get('/getSchedulings8',function()use($app){
             ->where('scheduling.exist', '=', 0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
+        for($i=0;$i<count($data);$i++){
+            $selectStatement = $database->select()
+                ->sum('order_cost','zon')
+                ->from('schedule_order')
+                ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+                ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id'])
+                ->where('schedule_order.tenant_id', '=', $tenant_id)
+                ->where('orders.pay_method','=',1)
+                ->where('orders.tenant_id', '=',$tenant_id);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            $data[$i]['sum']=$data1['zon'];
+        }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "租户id为空"));
@@ -446,6 +485,8 @@ $app->get('/limitSchedulings0',function()use($app){
     $size= $app->request->get('size');
     $offset= $app->request->get('offset');
     if($tenant_id!=null||$tenant_id!=''){
+
+
         $selectStatement = $database->select()
             ->from('scheduling')
             ->where('exist', '=', 0)
@@ -455,6 +496,18 @@ $app->get('/limitSchedulings0',function()use($app){
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         for($i=0;$i<count($data);$i++){
+            $selectStatement = $database->select()
+                ->sum('order_cost','zon')
+                ->from('schedule_order')
+                ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+                ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id'])
+                ->where('schedule_order.tenant_id', '=', $tenant_id)
+                ->where('orders.pay_method','=',1)
+                ->where('orders.tenant_id', '=',$tenant_id);
+            $stmt = $selectStatement->execute();
+            $data5 = $stmt->fetch();
+
+
             $selectStatement = $database->select()
                 ->from('customer')
                 ->where('tenant_id', '=', $tenant_id)
@@ -481,6 +534,7 @@ $app->get('/limitSchedulings0',function()use($app){
             $data[$i]['send_city']=$data2;
             $data[$i]['receive_city']=$data3;
             $data[$i]['lorry']=$data4;
+            $data[$i]['sum']=$data5['zon'];
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
     }else{
@@ -507,6 +561,18 @@ $app->get('/limitSchedulings1',function()use($app){
         $data = $stmt->fetchAll();
         for($i=0;$i<count($data);$i++){
             $selectStatement = $database->select()
+                ->sum('order_cost','zon')
+                ->from('schedule_order')
+                ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+                ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id'])
+                ->where('schedule_order.tenant_id', '=', $tenant_id)
+                ->where('orders.pay_method','=',1)
+                ->where('orders.tenant_id', '=',$tenant_id);
+            $stmt = $selectStatement->execute();
+            $data5 = $stmt->fetch();
+
+
+            $selectStatement = $database->select()
                 ->from('customer')
                 ->where('tenant_id', '=', $tenant_id)
                 ->where('customer_id', '=', $data[$i]['receiver_id']);
@@ -532,6 +598,7 @@ $app->get('/limitSchedulings1',function()use($app){
             $data[$i]['send_city']=$data2;
             $data[$i]['receive_city']=$data3;
             $data[$i]['lorry']=$data4;
+            $data[$i]['sum']=$data5['zon'];
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
     }else{
@@ -559,6 +626,18 @@ $app->get('/limitSchedulings2',function()use($app){
         $data = $stmt->fetchAll();
         for($i=0;$i<count($data);$i++){
             $selectStatement = $database->select()
+                ->sum('order_cost','zon')
+                ->from('schedule_order')
+                ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+                ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id'])
+                ->where('schedule_order.tenant_id', '=', $tenant_id)
+                ->where('orders.pay_method','=',1)
+                ->where('orders.tenant_id', '=',$tenant_id);
+            $stmt = $selectStatement->execute();
+            $data5 = $stmt->fetch();
+
+
+            $selectStatement = $database->select()
                 ->from('customer')
                 ->where('tenant_id', '=', $tenant_id)
                 ->where('customer_id', '=', $data[$i]['receiver_id']);
@@ -584,6 +663,7 @@ $app->get('/limitSchedulings2',function()use($app){
             $data[$i]['send_city']=$data2;
             $data[$i]['receive_city']=$data3;
             $data[$i]['lorry']=$data4;
+            $data[$i]['sum']=$data5['zon'];
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
     }else{
@@ -612,6 +692,18 @@ $app->get('/limitSchedulings3',function()use($app){
         $data = $stmt->fetchAll();
         for($i=0;$i<count($data);$i++){
             $selectStatement = $database->select()
+                ->sum('order_cost','zon')
+                ->from('schedule_order')
+                ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+                ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id'])
+                ->where('schedule_order.tenant_id', '=', $tenant_id)
+                ->where('orders.pay_method','=',1)
+                ->where('orders.tenant_id', '=',$tenant_id);
+            $stmt = $selectStatement->execute();
+            $data5 = $stmt->fetch();
+
+
+            $selectStatement = $database->select()
                 ->from('customer')
                 ->where('tenant_id', '=', $tenant_id)
                 ->where('customer_id', '=', $data[$i]['receiver_id']);
@@ -637,6 +729,7 @@ $app->get('/limitSchedulings3',function()use($app){
             $data[$i]['send_city']=$data2;
             $data[$i]['receive_city']=$data3;
             $data[$i]['lorry']=$data4;
+            $data[$i]['sum']=$data5['zon'];
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
     }else{
