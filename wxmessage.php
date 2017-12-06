@@ -124,7 +124,7 @@ $app->post('/wxmessage_insert',function()use($app){
 
                                                                                             $insertStatement = $database->insert(array('order_id', 'tenant_id', 'message_id','exist','from_user','mobilephone','is_read','ms_date','title'))
                                                                                                 ->into('wx_message')
-                                                                                                ->values(array($str,$tenant_id, $str1,0,$data6['customer_name'],$data6["customer_phone"],0,$shijian,'消息'));
+                                                                                                ->values(array($str,$tenant_id, $str1,0,$data6['customer_name'],$data6["customer_phone"],0,$shijian,'微信受理'));
                                                                                             $insertId = $insertStatement->execute(false);
                                                                                             if($insertId!=null){
                                                                                                 $strrrr = substr($chars, mt_rand(0, strlen($chars) - 2), 1);
@@ -257,7 +257,6 @@ $app->post('/wxmessage',function()use($app){
                            }else{
                                $messageid=count($data)+100000001;
                            }
-                           $array['title']='消息';
                            $array['message_id']=$messageid;
                            $insertStatement = $database->insert(array_keys($array))
                                ->into('wx_message')
