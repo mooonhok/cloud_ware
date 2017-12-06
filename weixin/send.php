@@ -840,7 +840,7 @@ $signPackage = $jssdk->GetSignPackage();
 							'</div><div class="tu2"><div class="bj"><img src="images/bj.png" alt=""></div>' +
 							'<div class="bj1" id="c'+msg.wxmessage[i].customer_id+'">编辑</div><div class="sc"><img src="images/sc.png" alt=""></div><div class="sc1" id="d'+msg.wxmessage[i].customer_id+'">删除</div></div><div class="xian1"><div class="kbai"></div></div>';
 						$("#box101").append(a);
-                        $("#s"+msg.wxmessage[i].customer_id+"").attr('onclick',"sure2('"+msg.wxmessage[i].customer_id+"')");
+                        $("#s2"+msg.wxmessage[i].customer_id+"").attr('onclick',"sure2('"+msg.wxmessage[i].customer_id+"')");
 						$("#c"+msg.wxmessage[i].customer_id+"").attr('onclick',"edit('"+msg.wxmessage[i].customer_id+"')");
                         $("#d"+msg.wxmessage[i].customer_id+"").attr('onclick',"delet('"+msg.wxmessage[i].customer_id+"')");
 					}
@@ -1021,7 +1021,7 @@ $signPackage = $jssdk->GetSignPackage();
 						// 		layer.msg("寄件人不能和收件人相同");
 						// 	}
 						// });
-                        $("#s"+msg.wxmessage[i].customer_id+"").attr('onclick',"sure1('"+msg.wxmessage[i].customer_id+"')");
+                        $("#s1"+msg.wxmessage[i].customer_id+"").attr('onclick',"sure1('"+msg.wxmessage[i].customer_id+"')");
                         $("#c"+msg.wxmessage[i].customer_id+"").attr('onclick',"edit1('"+msg.wxmessage[i].customer_id+"')");
                         $("#d"+msg.wxmessage[i].customer_id+"").attr('onclick',"delet('"+msg.wxmessage[i].customer_id+"')");
 					}
