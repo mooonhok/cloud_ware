@@ -72,8 +72,8 @@ $app->get('/getPickup0',function()use($app){
         ->where('exist','=',0)
         ->where('tenant_id', '=', $tenant_id);
     $stmt = $selectStatement->execute();
-    $data = $stmt->fetch();
-    echo json_encode(array("result" => "0", "desc" => "success",'pickup'=>$data));
+    $data = $stmt->fetchAll();
+    echo json_encode(array("result" => "0", "desc" => "success",'pickups'=>$data));
 });
 
 $app->get('/getPickup1',function()use($app){
