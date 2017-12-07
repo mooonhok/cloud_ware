@@ -55,6 +55,26 @@ $app->post('/addPickup',function()use($app) {
     }
    });
 
+$app->get('/getPickup',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $pickup_name=$app->request->get('pickup_name');
+    $pickup_phone=$app->request->get('pickup_phone');
+    $pickup_number=$app->request->get('pickup_number');
+    $type=$app->request->get('type');
+    $selectStatement = $database->select()
+        ->from('pickup')
+        ->where('pickup_name','=',$pickup_name)
+        ->where('pickup_phone','=',$pickup_phone)
+        ->where('pickup_number','=',$pickup_number)
+        ->where('type','=',$type)
+        ->where('tenant_id', '=', $tenant_id);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetch();
+    echo json_encode(array("result" => "0", "desc" => "success",'pickup'=>$data));
+});
+
 $app->get('/getPickups0',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
