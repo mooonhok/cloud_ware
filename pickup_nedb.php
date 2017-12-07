@@ -88,6 +88,34 @@ $app->get('/getPickups0',function()use($app){
     echo json_encode(array("result" => "0", "desc" => "success",'pickups'=>$data));
 });
 
+$app->get('/getPickups1',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $selectStatement = $database->select()
+        ->from('pickup')
+        ->where('exist','=',0)
+        ->where('type','=',0)
+        ->where('tenant_id', '=', $tenant_id);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    echo json_encode(array("result" => "0", "desc" => "success",'pickups'=>$data));
+});
+
+$app->get('/getPickups2',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $selectStatement = $database->select()
+        ->from('pickup')
+        ->where('exist','=',0)
+        ->where('type','=',1)
+        ->where('tenant_id', '=', $tenant_id);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    echo json_encode(array("result" => "0", "desc" => "success",'pickups'=>$data));
+});
+
 $app->run();
 
 function localhost(){
