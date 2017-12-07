@@ -226,70 +226,70 @@ $app->get('/sandoandg',function()use($app){
 });
 
 //根据orderid获取信息
-$app->get('/byorderid',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $order_id = $app->request->get("order_id");
-    $database=localhost();
-    if($order_id!=null||$order_id!=""){
-        $selectStament=$database->select()
-            ->from('orders')
-            ->where('order_id','=',$order_id)
-            ->orderBy('order_datetime1')
-            ->limit(1);
-        $stmt=$selectStament->execute();
-        $data4=$stmt->fetch();
-        if($data4!=null||$data4!=""){
-            $selectStament=$database->select()
-                ->from('delivery_order')
-                ->where('delivery_order_id','=',$order_id);
-            $stmt=$selectStament->execute();
-            $data6=$stmt->fetch();
-            $selectStament=$database->select()
-                ->from('delivery')
-                ->where('delivery_id','=',$data6['delivery_id']);
-            $stmt=$selectStament->execute();
-            $data9=$stmt->fetch();
-            $selectStament=$database->select()
-                ->from('customer')
-                ->where('tenant_id','=',$data4['tenant_id'])
-                ->where('customer_id','=',$data4['receiver_id']);
-            $stmt=$selectStament->execute();
-            $data5=$stmt->fetch();
-            $selectStament=$database->select()
-                ->from('goods')
-                ->where('exist','=',0)
-                ->where('order_id','=',$order_id);
-            $stmt=$selectStament->execute();
-            $data=$stmt->fetch();
-            $arrays['order_id']=$data4['order_id'];
-            $arrays['customer_name']=$data5['customer_name'];
-            $arrays['customer_phone']=$data5['customer_phone'];
-            $arrays['goods_name']=$data['goods_name'];
-            $arrays['goods_count']=$data['goods_count'];
-            $arrays['goods_weight']=$data['goods_weight'];
-            $arrays['goods_capacity']=$data['goods_capacity'];
-            $selectStament=$database->select()
-                ->from('goods_package')
-                ->where('goods_package_id','=',$data['goods_package_id']);
-            $stmt=$selectStament->execute();
-            $data7=$stmt->fetch();
-            $arrays['goods_package']=$data7['goods_package'];
-            $selectStament=$database->select()
-                ->from('city')
-                ->where('id','=',$data5['customer_city_id']);
-            $stmt=$selectStament->execute();
-            $data8=$stmt->fetch();
-            $arrays['address']=$data8['name'].$data5['customer_address'];
-            $arrays['pic']=$data9['sure_img'];
-            echo json_encode(array('result' => '0', 'desc' => '','order'=>$arrays,'is_sure'=>$data9['is_receive']));
-        }else{
-            echo json_encode(array('result' => '2', 'desc' => '运单不存在','order'=>''));
-        }
-    }else{
-        echo json_encode(array('result' => '1', 'desc' => '运单号为空','order'=>''));
-    }
-});
+//$app->get('/byorderid',function()use($app){
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
+//    $order_id = $app->request->get("order_id");
+//    $database=localhost();
+//    if($order_id!=null||$order_id!=""){
+//        $selectStament=$database->select()
+//            ->from('orders')
+//            ->where('order_id','=',$order_id)
+//            ->orderBy('order_datetime1')
+//            ->limit(1);
+//        $stmt=$selectStament->execute();
+//        $data4=$stmt->fetch();
+//        if($data4!=null||$data4!=""){
+//            $selectStament=$database->select()
+//                ->from('delivery_order')
+//                ->where('delivery_order_id','=',$order_id);
+//            $stmt=$selectStament->execute();
+//            $data6=$stmt->fetch();
+//            $selectStament=$database->select()
+//                ->from('delivery')
+//                ->where('delivery_id','=',$data6['delivery_id']);
+//            $stmt=$selectStament->execute();
+//            $data9=$stmt->fetch();
+//            $selectStament=$database->select()
+//                ->from('customer')
+//                ->where('tenant_id','=',$data4['tenant_id'])
+//                ->where('customer_id','=',$data4['receiver_id']);
+//            $stmt=$selectStament->execute();
+//            $data5=$stmt->fetch();
+//            $selectStament=$database->select()
+//                ->from('goods')
+//                ->where('exist','=',0)
+//                ->where('order_id','=',$order_id);
+//            $stmt=$selectStament->execute();
+//            $data=$stmt->fetch();
+//            $arrays['order_id']=$data4['order_id'];
+//            $arrays['customer_name']=$data5['customer_name'];
+//            $arrays['customer_phone']=$data5['customer_phone'];
+//            $arrays['goods_name']=$data['goods_name'];
+//            $arrays['goods_count']=$data['goods_count'];
+//            $arrays['goods_weight']=$data['goods_weight'];
+//            $arrays['goods_capacity']=$data['goods_capacity'];
+//            $selectStament=$database->select()
+//                ->from('goods_package')
+//                ->where('goods_package_id','=',$data['goods_package_id']);
+//            $stmt=$selectStament->execute();
+//            $data7=$stmt->fetch();
+//            $arrays['goods_package']=$data7['goods_package'];
+//            $selectStament=$database->select()
+//                ->from('city')
+//                ->where('id','=',$data5['customer_city_id']);
+//            $stmt=$selectStament->execute();
+//            $data8=$stmt->fetch();
+//            $arrays['address']=$data8['name'].$data5['customer_address'];
+//            $arrays['pic']=$data9['sure_img'];
+//            echo json_encode(array('result' => '0', 'desc' => '','order'=>$arrays,'is_sure'=>$data9['is_receive']));
+//        }else{
+//            echo json_encode(array('result' => '2', 'desc' => '运单不存在','order'=>''));
+//        }
+//    }else{
+//        echo json_encode(array('result' => '1', 'desc' => '运单号为空','order'=>''));
+//    }
+//});
 
 //获取司机的待交付清单列表
 $app->get('/sbylorry',function()use($app){
@@ -672,402 +672,402 @@ $app->post('/sureschthree',function()use($app){
 });
 
 //orders未送到
-$app->get('/obycourier',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $lorry_id=$app->request->get('lorry_id');
-    $time=$app->request->get('time1');
-    $database=localhost();
-    $arrays=array();
-    if($lorry_id!=null||$lorry_id!=""){
-        $selectStament=$database->select()
-            ->from('lorry')
-            ->where('exist','=',0)
-            ->where('lorry_id','=',$lorry_id);
-        $stmt=$selectStament->execute();
-        $data=$stmt->fetch();
-        if($time==$data['signtime']){
-        $selectStament=$database->select()
-            ->from('lorry')
-            ->where('exist','=',0)
-            ->where('flag','=',1)
-            ->where('tenant_id','!=',0)
-            ->where('driver_phone','=',$data['driver_phone'])
-            ->where('driver_name','=',$data['driver_name']);
-        $stmt=$selectStament->execute();
-        $data6=$stmt->fetchAll();
-        if($data6!=null) {
-            $num=0;
-            for($x=0;$x<count($data6);$x++) {
-                $selectStament = $database->select()
-                    ->from('delivery')
-                    ->where('exist', '=', 0)
-                    ->where('is_receive', '=', 0)
-                    ->where('lorry_id', '=', $data6[$x]['lorry_id'])
-                    ->orderBy('change_datetime','desc');
-                $stmt = $selectStament->execute();
-                $data2 = $stmt->fetchAll();
-                $num += count($data2);
-                for ($y = 0; $y < count($data2); $y++) {
-                    $selectStament = $database->select()
-                        ->from('delivery_order')
-                        ->where('exist', '=', 0)
-                        ->where('delivery_id', '=', $data2[$y]['delivery_id']);
-                    $stmt = $selectStament->execute();
-                    $data3 = $stmt->fetch();
-                    $selectStament = $database->select()
-                        ->from('orders')
-                        ->where('order_id', '=', $data3['delivery_order_id'])
-                        ->orderBy('order_datetime1')
-                        ->limit(1);
-                    $stmt = $selectStament->execute();
-                    $data4 = $stmt->fetch();
-                    $arrays1['order_id'] = $data4['order_id'];
-                    $selectStament = $database->select()
-                        ->from('customer')
-                        ->where('tenant_id','=',$data4['tenant_id'])
-                        ->where('customer_id', '=', $data4['receiver_id']);
-                    $stmt = $selectStament->execute();
-                    $data5 = $stmt->fetch();
-                    $arrays1['customer_name'] = $data5['customer_name'];
-                    array_push($arrays, $arrays1);
-                }
-            }
-            echo json_encode(array('result' => '0', 'desc' => '', 'orders' => $arrays, 'count' => $num));
-        }else{
-            echo json_encode(array('result' => '2', 'desc' => '您还不是配送员'));
-        }
-        }else{
-            echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
-        }
-    }else{
-        echo json_encode(array('result' => '1', 'desc' => '配送员为空'));
-    }
-});
+//$app->get('/obycourier',function()use($app){
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
+//    $lorry_id=$app->request->get('lorry_id');
+//    $time=$app->request->get('time1');
+//    $database=localhost();
+//    $arrays=array();
+//    if($lorry_id!=null||$lorry_id!=""){
+//        $selectStament=$database->select()
+//            ->from('lorry')
+//            ->where('exist','=',0)
+//            ->where('lorry_id','=',$lorry_id);
+//        $stmt=$selectStament->execute();
+//        $data=$stmt->fetch();
+//        if($time==$data['signtime']){
+//        $selectStament=$database->select()
+//            ->from('lorry')
+//            ->where('exist','=',0)
+//            ->where('flag','=',1)
+//            ->where('tenant_id','!=',0)
+//            ->where('driver_phone','=',$data['driver_phone'])
+//            ->where('driver_name','=',$data['driver_name']);
+//        $stmt=$selectStament->execute();
+//        $data6=$stmt->fetchAll();
+//        if($data6!=null) {
+//            $num=0;
+//            for($x=0;$x<count($data6);$x++) {
+//                $selectStament = $database->select()
+//                    ->from('delivery')
+//                    ->where('exist', '=', 0)
+//                    ->where('is_receive', '=', 0)
+//                    ->where('lorry_id', '=', $data6[$x]['lorry_id'])
+//                    ->orderBy('change_datetime','desc');
+//                $stmt = $selectStament->execute();
+//                $data2 = $stmt->fetchAll();
+//                $num += count($data2);
+//                for ($y = 0; $y < count($data2); $y++) {
+//                    $selectStament = $database->select()
+//                        ->from('delivery_order')
+//                        ->where('exist', '=', 0)
+//                        ->where('delivery_id', '=', $data2[$y]['delivery_id']);
+//                    $stmt = $selectStament->execute();
+//                    $data3 = $stmt->fetch();
+//                    $selectStament = $database->select()
+//                        ->from('orders')
+//                        ->where('order_id', '=', $data3['delivery_order_id'])
+//                        ->orderBy('order_datetime1')
+//                        ->limit(1);
+//                    $stmt = $selectStament->execute();
+//                    $data4 = $stmt->fetch();
+//                    $arrays1['order_id'] = $data4['order_id'];
+//                    $selectStament = $database->select()
+//                        ->from('customer')
+//                        ->where('tenant_id','=',$data4['tenant_id'])
+//                        ->where('customer_id', '=', $data4['receiver_id']);
+//                    $stmt = $selectStament->execute();
+//                    $data5 = $stmt->fetch();
+//                    $arrays1['customer_name'] = $data5['customer_name'];
+//                    array_push($arrays, $arrays1);
+//                }
+//            }
+//            echo json_encode(array('result' => '0', 'desc' => '', 'orders' => $arrays, 'count' => $num));
+//        }else{
+//            echo json_encode(array('result' => '2', 'desc' => '您还不是配送员'));
+//        }
+//        }else{
+//            echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
+//        }
+//    }else{
+//        echo json_encode(array('result' => '1', 'desc' => '配送员为空'));
+//    }
+//});
 //orders送到
-$app->get('/obycouriern',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $lorry_id=$app->request->get('lorry_id');
-    $time=$app->request->get('time1');
-    $database=localhost();
-    $arrays=array();
-    if($lorry_id!=null||$lorry_id!="") {
-        $selectStament = $database->select()
-            ->from('lorry')
-            ->where('exist', '=', 0)
-            ->where('lorry_id', '=', $lorry_id);
-        $stmt = $selectStament->execute();
-        $data = $stmt->fetch();
-        if ($time == $data['signtime']) {
-        $selectStament = $database->select()
-            ->from('lorry')
-            ->where('exist', '=', 0)
-            ->where('flag', '=', 1)
-            ->where('tenant_id','!=',0)
-            ->where('driver_phone', '=', $data['driver_phone'])
-            ->where('driver_name', '=', $data['driver_name']);
-        $stmt = $selectStament->execute();
-        $data6 = $stmt->fetchAll();
-        if ($data6 != null) {
-            for ($x = 0; $x < count($data6); $x++) {
-                $selectStament = $database->select()
-                    ->from('delivery')
-                    ->where('exist', '=', 0)
-                    ->where('is_receive', '!=', 2)
-                    ->where('is_receive', '!=', 0)
-                    ->where('lorry_id', '=', $data6[$x]['lorry_id'])
-                    ->orderBy('change_datetime', 'desc');
-                $stmt = $selectStament->execute();
-                $data2 = $stmt->fetchAll();
-                for ($y = 0; $y < count($data2); $y++) {
-                    $selectStament = $database->select()
-                        ->from('delivery_order')
-                        ->where('exist', '=', 0)
-                        ->where('delivery_id', '=', $data2[$y]['delivery_id']);
-                    $stmt = $selectStament->execute();
-                    $data3 = $stmt->fetch();
-                    $selectStament = $database->select()
-                        ->from('orders')
-                        ->where('order_id', '=', $data3['delivery_order_id'])
-                        ->orderBy('order_datetime1')
-                        ->limit(1);
-                    $stmt = $selectStament->execute();
-                    $data4 = $stmt->fetch();
-                    $arrays1['order_id'] = $data4['order_id'];
-                    $selectStament = $database->select()
-                        ->from('customer')
-                        ->where('tenant_id','=',$data4['tenant_id'])
-                        ->where('customer_id', '=', $data4['receiver_id']);
-                    $stmt = $selectStament->execute();
-                    $data5 = $stmt->fetch();
-                    $arrays1['customer_name'] = $data5['customer_name'];
-                    $arrays1['pic'] = $data2[$y]['sure_img'];
-                    $arrays1['status'] = $data2[$y]['is_receive'];
-                    array_push($arrays, $arrays1);
-                }
-            }
-            echo json_encode(array('result' => '0', 'desc' => '', 'orders' => $arrays));
-
-        } else {
-            echo json_encode(array('result' => '2', 'desc' => '您还不是配送员'));
-        }
-        }else{
-            echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
-        }
-    }else{
-        echo json_encode(array('result' => '1', 'desc' => '配送员为空'));
-    }
-});
+//$app->get('/obycouriern',function()use($app){
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
+//    $lorry_id=$app->request->get('lorry_id');
+//    $time=$app->request->get('time1');
+//    $database=localhost();
+//    $arrays=array();
+//    if($lorry_id!=null||$lorry_id!="") {
+//        $selectStament = $database->select()
+//            ->from('lorry')
+//            ->where('exist', '=', 0)
+//            ->where('lorry_id', '=', $lorry_id);
+//        $stmt = $selectStament->execute();
+//        $data = $stmt->fetch();
+//        if ($time == $data['signtime']) {
+//        $selectStament = $database->select()
+//            ->from('lorry')
+//            ->where('exist', '=', 0)
+//            ->where('flag', '=', 1)
+//            ->where('tenant_id','!=',0)
+//            ->where('driver_phone', '=', $data['driver_phone'])
+//            ->where('driver_name', '=', $data['driver_name']);
+//        $stmt = $selectStament->execute();
+//        $data6 = $stmt->fetchAll();
+//        if ($data6 != null) {
+//            for ($x = 0; $x < count($data6); $x++) {
+//                $selectStament = $database->select()
+//                    ->from('delivery')
+//                    ->where('exist', '=', 0)
+//                    ->where('is_receive', '!=', 2)
+//                    ->where('is_receive', '!=', 0)
+//                    ->where('lorry_id', '=', $data6[$x]['lorry_id'])
+//                    ->orderBy('change_datetime', 'desc');
+//                $stmt = $selectStament->execute();
+//                $data2 = $stmt->fetchAll();
+//                for ($y = 0; $y < count($data2); $y++) {
+//                    $selectStament = $database->select()
+//                        ->from('delivery_order')
+//                        ->where('exist', '=', 0)
+//                        ->where('delivery_id', '=', $data2[$y]['delivery_id']);
+//                    $stmt = $selectStament->execute();
+//                    $data3 = $stmt->fetch();
+//                    $selectStament = $database->select()
+//                        ->from('orders')
+//                        ->where('order_id', '=', $data3['delivery_order_id'])
+//                        ->orderBy('order_datetime1')
+//                        ->limit(1);
+//                    $stmt = $selectStament->execute();
+//                    $data4 = $stmt->fetch();
+//                    $arrays1['order_id'] = $data4['order_id'];
+//                    $selectStament = $database->select()
+//                        ->from('customer')
+//                        ->where('tenant_id','=',$data4['tenant_id'])
+//                        ->where('customer_id', '=', $data4['receiver_id']);
+//                    $stmt = $selectStament->execute();
+//                    $data5 = $stmt->fetch();
+//                    $arrays1['customer_name'] = $data5['customer_name'];
+//                    $arrays1['pic'] = $data2[$y]['sure_img'];
+//                    $arrays1['status'] = $data2[$y]['is_receive'];
+//                    array_push($arrays, $arrays1);
+//                }
+//            }
+//            echo json_encode(array('result' => '0', 'desc' => '', 'orders' => $arrays));
+//
+//        } else {
+//            echo json_encode(array('result' => '2', 'desc' => '您还不是配送员'));
+//        }
+//        }else{
+//            echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
+//        }
+//    }else{
+//        echo json_encode(array('result' => '1', 'desc' => '配送员为空'));
+//    }
+//});
 //order送到确认图片
-$app->post('/ordersure',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    //   $courier_id = $app->request->params('courier_id');
-    // $order_id = $app->request->params('order_id');
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $time=$body->time1;
-    $order_id=$body->order_id;
-    $lorry_id=$body->lorry_id;
-    $pic=$body->pic;
-    $lujing=null;
-    $base64_image_content = $pic;
-//匹配出图片的格式
-    if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)){
-        $type = $result[2];
-        date_default_timezone_set("PRC");
-        $time1=time();
-        $new_file = "/files/sureone/".date('Ymd',$time1)."/";
-        if(!file_exists($new_file))
-        {
-//检查是否有该文件夹，如果没有就创建，并给予最高权限
-            mkdir($new_file, 0700);
-        }
-        $new_file = $new_file.time().".{$type}";
-        if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))){
-            $lujing="http://files.uminfo.cn:8000/sureone/".date('Ymd',$time1)."/".$time1.".{$type}";
-        }
-    }
-    $arrays['is_receive']=1;
-    $arrays['sure_img']=$lujing;
-    $arrays['change_datetime']=time();
-    date_default_timezone_set("PRC");
-    $arrays1['order_status']=7;
-    $arrays1['order_datetime5']=date("Y-m-d H:i:s",time());
-    $database=localhost();
-    if($order_id!=null||$order_id!=""){
-        if($lorry_id!=null||$lorry_id!=""){
-            $selectStament=$database->select()
-                ->from('orders')
-                ->where('order_id','=',$order_id)
-                ->orderBy('order_datetime1')
-                ->limit(1);
-            $stmt=$selectStament->execute();
-            $data=$stmt->fetch();
-            if($data!=null){
-                $selectStament=$database->select()
-                    ->from('delivery_order')
-                    ->where('delivery_order_id','=',$order_id);
-                $stmt=$selectStament->execute();
-                $data9=$stmt->fetch();
-                $selectStament=$database->select()
-                    ->from('delivery')
-                    ->where('is_receive','=',0)
-                    ->where('delivery_id','=',$data9['delivery_id']);
-                $stmt=$selectStament->execute();
-                $data10=$stmt->fetch();
-                if($data10!=null){
-                    $selectStament=$database->select()
-                        ->from('lorry')
-                        ->where('lorry_id','=',$lorry_id);
-                    $stmt=$selectStament->execute();
-                    $data2=$stmt->fetch();
-                    $selectStament=$database->select()
-                        ->from('lorry')
-                        ->where('flag','=',1)
-                        ->where('plate_number','=',$data2['plate_number'])
-                        ->where('driver_phone','=',$data2['driver_phone'])
-                        ->where('driver_name','=',$data2['driver_name']);
-                    $stmt=$selectStament->execute();
-                    $data3=$stmt->fetch();
-                    if($data3!=null){
-                        if($time==$data2['signtime']) {
-                            $updateStatement = $database->update($arrays)
-                                ->table('delivery')
-                                ->where('delivery_id', '=', $data9['delivery_id']);
-                            $affectedRows = $updateStatement->execute();
-                            $updateStatement = $database->update($arrays1)
-                                ->table('orders')
-                                ->where('order_id', '=', $order_id);
-                            $affectedRows = $updateStatement->execute();
-                            echo json_encode(array('result' => '0', 'desc' => '确认成功'));
-                        }else{
-                            echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
-                        }
-                    }else{
-                        echo json_encode(array('result' => '5', 'desc' => '您还不是配送员'));
-                    }
-                }else{
-                    echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
-                }
-            }else{
-                echo json_encode(array('result' => '3', 'desc' => '运单不存在或运单已经处理了'));
-            }
-        }else{
-            echo json_encode(array('result' => '2', 'desc' => '配送员id为空'));
-        }
-    }else{
-        echo json_encode(array('result' => '1', 'desc' => '运单号不能为空'));
-    }
-});
-//order取消
-$app->post('/ordersurefor',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $order_id=$body->order_id;
-    $lorry_id=$body->lorry_id;
-    $time=$body->time1;
-    $arrays['is_receive']=4;
-    $database=localhost();
-    $arrays['change_datetime']=time();
-    if($order_id!=null||$order_id!=""){
-        if($lorry_id!=null||$lorry_id!=""){
-            $selectStament=$database->select()
-                ->from('orders')
-                ->where('order_id','=',$order_id)
-                ->orderBy('order_datetime1')
-                ->limit(1);
-            $stmt=$selectStament->execute();
-            $data=$stmt->fetch();
-            if($data!=null){
-                $selectStament=$database->select()
-                    ->from('delivery_order')
-                    ->where('delivery_order_id','=',$order_id);
-                $stmt=$selectStament->execute();
-                $data9=$stmt->fetch();
-                $selectStament=$database->select()
-                    ->from('delivery')
-                    ->where('is_receive','!=',1)
-                    ->where('delivery_id','=',$data9['delivery_id']);
-                $stmt=$selectStament->execute();
-                $data10=$stmt->fetch();
-                if($data10!=null){
-                    $selectStament=$database->select()
-                        ->from('lorry')
-                        ->where('lorry_id','=',$lorry_id);
-                    $stmt=$selectStament->execute();
-                    $data2=$stmt->fetch();
-                    $selectStament=$database->select()
-                        ->from('lorry')
-                        ->where('flag','=',1)
-                        ->where('plate_number','=',$data2['plate_number'])
-                        ->where('driver_phone','=',$data2['driver_phone'])
-                        ->where('driver_name','=',$data2['driver_name']);
-                    $stmt=$selectStament->execute();
-                    $data3=$stmt->fetch();
-                    if($data3!=null){
-                        if($time==$data2['signtime']) {
-                            $updateStatement = $database->update($arrays)
-                                ->table('delivery')
-                                ->where('delivery_id', '=', $data9['delivery_id']);
-                            $affectedRows = $updateStatement->execute();
-                            echo json_encode(array('result' => '0', 'desc' => '确认成功'));
-                        }else{
-                            echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
-                        }
-                    }else{
-                        echo json_encode(array('result' => '5', 'desc' => '您还不是配送员'));
-                    }
-                }else{
-                    echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
-                }
-            }else{
-                echo json_encode(array('result' => '3', 'desc' => '运单不存在或运单已经处理了'));
-            }
-        }else{
-            echo json_encode(array('result' => '2', 'desc' => '配送员id为空'));
-        }
-    }else{
-        echo json_encode(array('result' => '1', 'desc' => '运单号不能为空'));
-    }
-});
+//$app->post('/ordersure',function()use($app){
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
+//    //   $courier_id = $app->request->params('courier_id');
+//    // $order_id = $app->request->params('order_id');
+//    $body=$app->request->getBody();
+//    $body=json_decode($body);
+//    $time=$body->time1;
+//    $order_id=$body->order_id;
+//    $lorry_id=$body->lorry_id;
+//    $pic=$body->pic;
+//    $lujing=null;
+//    $base64_image_content = $pic;
+////匹配出图片的格式
+//    if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)){
+//        $type = $result[2];
+//        date_default_timezone_set("PRC");
+//        $time1=time();
+//        $new_file = "/files/sureone/".date('Ymd',$time1)."/";
+//        if(!file_exists($new_file))
+//        {
+////检查是否有该文件夹，如果没有就创建，并给予最高权限
+//            mkdir($new_file, 0700);
+//        }
+//        $new_file = $new_file.time().".{$type}";
+//        if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))){
+//            $lujing="http://files.uminfo.cn:8000/sureone/".date('Ymd',$time1)."/".$time1.".{$type}";
+//        }
+//    }
+//    $arrays['is_receive']=1;
+//    $arrays['sure_img']=$lujing;
+//    $arrays['change_datetime']=time();
+//    date_default_timezone_set("PRC");
+//    $arrays1['order_status']=7;
+//    $arrays1['order_datetime5']=date("Y-m-d H:i:s",time());
+//    $database=localhost();
+//    if($order_id!=null||$order_id!=""){
+//        if($lorry_id!=null||$lorry_id!=""){
+//            $selectStament=$database->select()
+//                ->from('orders')
+//                ->where('order_id','=',$order_id)
+//                ->orderBy('order_datetime1')
+//                ->limit(1);
+//            $stmt=$selectStament->execute();
+//            $data=$stmt->fetch();
+//            if($data!=null){
+//                $selectStament=$database->select()
+//                    ->from('delivery_order')
+//                    ->where('delivery_order_id','=',$order_id);
+//                $stmt=$selectStament->execute();
+//                $data9=$stmt->fetch();
+//                $selectStament=$database->select()
+//                    ->from('delivery')
+//                    ->where('is_receive','=',0)
+//                    ->where('delivery_id','=',$data9['delivery_id']);
+//                $stmt=$selectStament->execute();
+//                $data10=$stmt->fetch();
+//                if($data10!=null){
+//                    $selectStament=$database->select()
+//                        ->from('lorry')
+//                        ->where('lorry_id','=',$lorry_id);
+//                    $stmt=$selectStament->execute();
+//                    $data2=$stmt->fetch();
+//                    $selectStament=$database->select()
+//                        ->from('lorry')
+//                        ->where('flag','=',1)
+//                        ->where('plate_number','=',$data2['plate_number'])
+//                        ->where('driver_phone','=',$data2['driver_phone'])
+//                        ->where('driver_name','=',$data2['driver_name']);
+//                    $stmt=$selectStament->execute();
+//                    $data3=$stmt->fetch();
+//                    if($data3!=null){
+//                        if($time==$data2['signtime']) {
+//                            $updateStatement = $database->update($arrays)
+//                                ->table('delivery')
+//                                ->where('delivery_id', '=', $data9['delivery_id']);
+//                            $affectedRows = $updateStatement->execute();
+//                            $updateStatement = $database->update($arrays1)
+//                                ->table('orders')
+//                                ->where('order_id', '=', $order_id);
+//                            $affectedRows = $updateStatement->execute();
+//                            echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+//                        }else{
+//                            echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
+//                        }
+//                    }else{
+//                        echo json_encode(array('result' => '5', 'desc' => '您还不是配送员'));
+//                    }
+//                }else{
+//                    echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
+//                }
+//            }else{
+//                echo json_encode(array('result' => '3', 'desc' => '运单不存在或运单已经处理了'));
+//            }
+//        }else{
+//            echo json_encode(array('result' => '2', 'desc' => '配送员id为空'));
+//        }
+//    }else{
+//        echo json_encode(array('result' => '1', 'desc' => '运单号不能为空'));
+//    }
+//});
+////order取消
+//$app->post('/ordersurefor',function()use($app){
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
+//    $body=$app->request->getBody();
+//    $body=json_decode($body);
+//    $order_id=$body->order_id;
+//    $lorry_id=$body->lorry_id;
+//    $time=$body->time1;
+//    $arrays['is_receive']=4;
+//    $database=localhost();
+//    $arrays['change_datetime']=time();
+//    if($order_id!=null||$order_id!=""){
+//        if($lorry_id!=null||$lorry_id!=""){
+//            $selectStament=$database->select()
+//                ->from('orders')
+//                ->where('order_id','=',$order_id)
+//                ->orderBy('order_datetime1')
+//                ->limit(1);
+//            $stmt=$selectStament->execute();
+//            $data=$stmt->fetch();
+//            if($data!=null){
+//                $selectStament=$database->select()
+//                    ->from('delivery_order')
+//                    ->where('delivery_order_id','=',$order_id);
+//                $stmt=$selectStament->execute();
+//                $data9=$stmt->fetch();
+//                $selectStament=$database->select()
+//                    ->from('delivery')
+//                    ->where('is_receive','!=',1)
+//                    ->where('delivery_id','=',$data9['delivery_id']);
+//                $stmt=$selectStament->execute();
+//                $data10=$stmt->fetch();
+//                if($data10!=null){
+//                    $selectStament=$database->select()
+//                        ->from('lorry')
+//                        ->where('lorry_id','=',$lorry_id);
+//                    $stmt=$selectStament->execute();
+//                    $data2=$stmt->fetch();
+//                    $selectStament=$database->select()
+//                        ->from('lorry')
+//                        ->where('flag','=',1)
+//                        ->where('plate_number','=',$data2['plate_number'])
+//                        ->where('driver_phone','=',$data2['driver_phone'])
+//                        ->where('driver_name','=',$data2['driver_name']);
+//                    $stmt=$selectStament->execute();
+//                    $data3=$stmt->fetch();
+//                    if($data3!=null){
+//                        if($time==$data2['signtime']) {
+//                            $updateStatement = $database->update($arrays)
+//                                ->table('delivery')
+//                                ->where('delivery_id', '=', $data9['delivery_id']);
+//                            $affectedRows = $updateStatement->execute();
+//                            echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+//                        }else{
+//                            echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
+//                        }
+//                    }else{
+//                        echo json_encode(array('result' => '5', 'desc' => '您还不是配送员'));
+//                    }
+//                }else{
+//                    echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
+//                }
+//            }else{
+//                echo json_encode(array('result' => '3', 'desc' => '运单不存在或运单已经处理了'));
+//            }
+//        }else{
+//            echo json_encode(array('result' => '2', 'desc' => '配送员id为空'));
+//        }
+//    }else{
+//        echo json_encode(array('result' => '1', 'desc' => '运单号不能为空'));
+//    }
+//});
 
 //配送员确认
-$app->post('/ordersurethree',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $order_id=$body->order_id;
-    $lorry_id=$body->lorry_id;
-    $time=$body->time1;
-    $arrays['is_receive']=0;
-    $arrays['change_datetime']=time();
-    $database=localhost();
-    if($order_id!=null||$order_id!=""){
-        if($lorry_id!=null||$lorry_id!=""){
-            $selectStament=$database->select()
-                ->from('orders')
-                ->where('order_id','=',$order_id)
-                ->orderBy('order_datetime1')
-                ->limit(1);
-            $stmt=$selectStament->execute();
-            $data=$stmt->fetch();
-            if($data!=null){
-                $selectStament=$database->select()
-                    ->from('delivery_order')
-                    ->where('delivery_order_id','=',$order_id);
-                $stmt=$selectStament->execute();
-                $data9=$stmt->fetch();
-                $selectStament=$database->select()
-                    ->from('delivery')
-                    ->where('is_receive','=',2)
-                    ->where('delivery_id','=',$data9['delivery_id']);
-                $stmt=$selectStament->execute();
-                $data10=$stmt->fetch();
-                if($data10!=null){
-                    $selectStament=$database->select()
-                        ->from('lorry')
-                        ->where('lorry_id','=',$lorry_id);
-                    $stmt=$selectStament->execute();
-                    $data2=$stmt->fetch();
-                    $selectStament=$database->select()
-                        ->from('lorry')
-                        ->where('flag','=',1)
-                        ->where('plate_number','=',$data2['plate_number'])
-                        ->where('driver_phone','=',$data2['driver_phone'])
-                        ->where('driver_name','=',$data2['driver_name']);
-                    $stmt=$selectStament->execute();
-                    $data3=$stmt->fetch();
-                    if($data3!=null){
-                        if($time==$data2['signtime']) {
-                            $updateStatement = $database->update($arrays)
-                                ->table('delivery')
-                                ->where('delivery_id', '=', $data9['delivery_id']);
-                            $affectedRows = $updateStatement->execute();
-                            echo json_encode(array('result' => '0', 'desc' => '确认成功'));
-                        }else{
-                            echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
-                        }
-                    }else{
-                        echo json_encode(array('result' => '5', 'desc' => '您还不是配送员'));
-                    }
-                }else{
-                    echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
-                }
-            }else{
-                echo json_encode(array('result' => '3', 'desc' => '运单不存在或运单已经处理了'));
-            }
-        }else{
-            echo json_encode(array('result' => '2', 'desc' => '配送员id为空'));
-        }
-    }else{
-        echo json_encode(array('result' => '1', 'desc' => '运单号不能为空'));
-    }
-});
+//$app->post('/ordersurethree',function()use($app){
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
+//    $body=$app->request->getBody();
+//    $body=json_decode($body);
+//    $order_id=$body->order_id;
+//    $lorry_id=$body->lorry_id;
+//    $time=$body->time1;
+//    $arrays['is_receive']=0;
+//    $arrays['change_datetime']=time();
+//    $database=localhost();
+//    if($order_id!=null||$order_id!=""){
+//        if($lorry_id!=null||$lorry_id!=""){
+//            $selectStament=$database->select()
+//                ->from('orders')
+//                ->where('order_id','=',$order_id)
+//                ->orderBy('order_datetime1')
+//                ->limit(1);
+//            $stmt=$selectStament->execute();
+//            $data=$stmt->fetch();
+//            if($data!=null){
+//                $selectStament=$database->select()
+//                    ->from('delivery_order')
+//                    ->where('delivery_order_id','=',$order_id);
+//                $stmt=$selectStament->execute();
+//                $data9=$stmt->fetch();
+//                $selectStament=$database->select()
+//                    ->from('delivery')
+//                    ->where('is_receive','=',2)
+//                    ->where('delivery_id','=',$data9['delivery_id']);
+//                $stmt=$selectStament->execute();
+//                $data10=$stmt->fetch();
+//                if($data10!=null){
+//                    $selectStament=$database->select()
+//                        ->from('lorry')
+//                        ->where('lorry_id','=',$lorry_id);
+//                    $stmt=$selectStament->execute();
+//                    $data2=$stmt->fetch();
+//                    $selectStament=$database->select()
+//                        ->from('lorry')
+//                        ->where('flag','=',1)
+//                        ->where('plate_number','=',$data2['plate_number'])
+//                        ->where('driver_phone','=',$data2['driver_phone'])
+//                        ->where('driver_name','=',$data2['driver_name']);
+//                    $stmt=$selectStament->execute();
+//                    $data3=$stmt->fetch();
+//                    if($data3!=null){
+//                        if($time==$data2['signtime']) {
+//                            $updateStatement = $database->update($arrays)
+//                                ->table('delivery')
+//                                ->where('delivery_id', '=', $data9['delivery_id']);
+//                            $affectedRows = $updateStatement->execute();
+//                            echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+//                        }else{
+//                            echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
+//                        }
+//                    }else{
+//                        echo json_encode(array('result' => '5', 'desc' => '您还不是配送员'));
+//                    }
+//                }else{
+//                    echo json_encode(array('result' => '4', 'desc' => '运单已经配送'));
+//                }
+//            }else{
+//                echo json_encode(array('result' => '3', 'desc' => '运单不存在或运单已经处理了'));
+//            }
+//        }else{
+//            echo json_encode(array('result' => '2', 'desc' => '配送员id为空'));
+//        }
+//    }else{
+//        echo json_encode(array('result' => '1', 'desc' => '运单号不能为空'));
+//    }
+//});
 //app首页统计
 $app->get('/tongji',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -1105,31 +1105,31 @@ $app->get('/tongji',function()use($app){
                 $data3 = $stmt->fetchAll();
                 $sum += count($data3);
             }
-            $selectStament = $database->select()
-                ->from('lorry')
-                ->where('exist', '=', 0)
-                ->where('lorry_id', '=', $lorry_id);
-            $stmt = $selectStament->execute();
-            $data5 = $stmt->fetch();
-            $selectStament = $database->select()
-                ->from('lorry')
-                ->where('exist', '=', 0)
-                ->where('flag', '=', 1)
-                ->where('plate_number', '=', $data5['plate_number'])
-                ->where('driver_phone', '=', $data5['driver_phone'])
-                ->where('driver_name', '=', $data5['driver_name']);
-            $stmt = $selectStament->execute();
-            $data6 = $stmt->fetchAll();
-            for ($x = 0; $x < count($data6); $x++) {
-                $selectStament = $database->select()
-                    ->from('delivery')
-                    ->where('exist', '=', 0)
-                    ->where('is_receive', '=', 0)
-                    ->where('lorry_id', '=', $data6[$x]['lorry_id']);
-                $stmt = $selectStament->execute();
-                $data7 = $stmt->fetchAll();
-                $sum += count($data7);
-            }
+//            $selectStament = $database->select()
+//                ->from('lorry')
+//                ->where('exist', '=', 0)
+//                ->where('lorry_id', '=', $lorry_id);
+//            $stmt = $selectStament->execute();
+//            $data5 = $stmt->fetch();
+//            $selectStament = $database->select()
+//                ->from('lorry')
+//                ->where('exist', '=', 0)
+//                ->where('flag', '=', 1)
+//                ->where('plate_number', '=', $data5['plate_number'])
+//                ->where('driver_phone', '=', $data5['driver_phone'])
+//                ->where('driver_name', '=', $data5['driver_name']);
+//            $stmt = $selectStament->execute();
+//            $data6 = $stmt->fetchAll();
+//            for ($x = 0; $x < count($data6); $x++) {
+//                $selectStament = $database->select()
+//                    ->from('delivery')
+//                    ->where('exist', '=', 0)
+//                    ->where('is_receive', '=', 0)
+//                    ->where('lorry_id', '=', $data6[$x]['lorry_id']);
+//                $stmt = $selectStament->execute();
+//                $data7 = $stmt->fetchAll();
+//                $sum += count($data7);
+//            }
             echo json_encode(array('result' => '0', 'desc' => '', 'count' => $sum));
         }else{
             echo json_encode(array('result' => '9', 'desc' => '您已经在其他地方登录，请重新登录'));
@@ -1463,28 +1463,28 @@ if($schedule_id!=null||$schedule_id!=""){
 });
 
 
-$app->get('/ordercost',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $order_id = $app->request->get("order_id");
-    $database=localhost();
-    if($order_id!=null||$order_id!=""){
-        $selectStament=$database->select()
-            ->from('orders')
-            ->where('order_id','=',$order_id)
-            ->orderBy('order_datetime1')
-            ->limit(1);
-            $stmt=$selectStament->execute();
-            $data3=$stmt->fetch();
-            if($data3!=null){
-                echo json_encode(array('result' => '0', 'desc' => '','order'=>$data3['order_cost']));
-            }else{
-                echo json_encode(array('result' => '0', 'desc' => '运单不存在'));
-            }
-    }else{
-        echo json_encode(array('result' => '1', 'desc' => '运单号为空'));
-    }
-});
+//$app->get('/ordercost',function()use($app){
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
+//    $order_id = $app->request->get("order_id");
+//    $database=localhost();
+//    if($order_id!=null||$order_id!=""){
+//        $selectStament=$database->select()
+//            ->from('orders')
+//            ->where('order_id','=',$order_id)
+//            ->orderBy('order_datetime1')
+//            ->limit(1);
+//            $stmt=$selectStament->execute();
+//            $data3=$stmt->fetch();
+//            if($data3!=null){
+//                echo json_encode(array('result' => '0', 'desc' => '','order'=>$data3['order_cost']));
+//            }else{
+//                echo json_encode(array('result' => '0', 'desc' => '运单不存在'));
+//            }
+//    }else{
+//        echo json_encode(array('result' => '1', 'desc' => '运单号为空'));
+//    }
+//});
 
 
 
