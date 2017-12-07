@@ -69,6 +69,7 @@ $app->get('/getPickup',function()use($app){
         ->where('pickup_phone','=',$pickup_phone)
         ->where('pickup_number','=',$pickup_number)
         ->where('type','=',$type)
+        ->where('exist','=',0)
         ->where('tenant_id', '=', $tenant_id);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
