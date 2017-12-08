@@ -459,6 +459,7 @@ $app->post('/suresch',function()use($app){
     date_default_timezone_set("PRC");
     $arrays1['order_status']=4;
     $arrays1['order_datetime4']=date("Y-m-d H:i:s",time());
+    $arrays1['sure_img']=$lujing;
     if($schedule_id!=null||$schedule_id!=""){
         $selectStament=$database->select()
             ->from('scheduling')
@@ -1343,6 +1344,7 @@ $app->post('/sureschedule',function()use($app){
     $arrays['sure_img']=$lujing;
     $arrays['change_datetime']=time();
     date_default_timezone_set("PRC");
+    $arrays1['sure_img']=$lujing;
     $arrays1['order_status']=7;
     $arrays1['order_datetime4']=date("Y-m-d H:i:s",time());
     $arrays1['order_datetime5']=date("Y-m-d H:i:s",time());
