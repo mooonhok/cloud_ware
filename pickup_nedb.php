@@ -15,7 +15,6 @@ $app = new \Slim\Slim();
 $app->post('/addPickup',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin', '*');
     $app->response->headers->set('Content-Type', 'application/json');
-    $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     $body = $app->request->getBody();
     $body = json_decode($body);
@@ -27,12 +26,10 @@ $app->post('/addPickup',function()use($app) {
     foreach($body as $key=>$value){
         $array[$key]=$value;
     }
-    if($tenant_id!=null||$tenant_id!=''){
         if($pickup_id!=null||$pickup_id!=''){
             if($pickup_name!=null||$pickup_name!=''){
                 if($pickup_phone!=null||$pickup_phone!=''){
                     if($pickup_number!=null||$pickup_number!=''){
-                        $array['tenant_id']=$tenant_id;
                         $insertStatement = $database->insert(array_keys($array))
                             ->into('pickup')
                             ->values(array_values($array));
@@ -50,15 +47,11 @@ $app->post('/addPickup',function()use($app) {
         }else{
             echo json_encode(array("result" => "4", "desc" => "缺少收货人id"));
         }
-    }else{
-        echo json_encode(array("result" => "5", "desc" => "缺少租户公司id"));
-    }
    });
 
 $app->get('/getPickup0',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
-    $tenant_id = $app->request->headers->get("tenant-id");
     $pickup_name=$app->request->get('pickup_name');
     $pickup_phone=$app->request->get('pickup_phone');
     $pickup_number=$app->request->get('pickup_number');
@@ -69,8 +62,7 @@ $app->get('/getPickup0',function()use($app){
         ->where('pickup_phone','=',$pickup_phone)
         ->where('pickup_number','=',$pickup_number)
         ->where('type','=',$type)
-        ->where('exist','=',0)
-        ->where('tenant_id', '=', $tenant_id);
+        ->where('exist','=',0);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
     echo json_encode(array("result" => "0", "desc" => "success",'pickups'=>$data));
@@ -79,13 +71,11 @@ $app->get('/getPickup0',function()use($app){
 $app->get('/getPickup1',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
-    $tenant_id = $app->request->headers->get("tenant-id");
     $pickup_id=$app->request->get('pickup_id');
     $selectStatement = $database->select()
         ->from('pickup')
         ->where('pickup_id','=',$pickup_id)
-        ->where('exist','=',0)
-        ->where('tenant_id', '=', $tenant_id);
+        ->where('exist','=',0);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
     echo json_encode(array("result" => "0", "desc" => "success",'pickups'=>$data));
@@ -94,10 +84,8 @@ $app->get('/getPickup1',function()use($app){
 $app->get('/getPickups0',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
-    $tenant_id = $app->request->headers->get("tenant-id");
     $selectStatement = $database->select()
-        ->from('pickup')
-        ->where('tenant_id', '=', $tenant_id);
+        ->from('pickup');
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
     echo json_encode(array("result" => "0", "desc" => "success",'pickups'=>$data));
@@ -106,13 +94,11 @@ $app->get('/getPickups0',function()use($app){
 $app->get('/getPickups1',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
-    $tenant_id = $app->request->headers->get("tenant-id");
     $type=$app->request->get('type');
     $selectStatement = $database->select()
         ->from('pickup')
         ->where('exist','=',0)
-        ->where('type','=',$type)
-        ->where('tenant_id', '=', $tenant_id);
+        ->where('type','=',$type);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
     echo json_encode(array("result" => "0", "desc" => "success",'pickups'=>$data));
@@ -121,11 +107,9 @@ $app->get('/getPickups1',function()use($app){
 $app->get('/limitPickups1',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
-    $tenant_id = $app->request->headers->get("tenant-id");
     $type=$app->request->get('type');
     $size=$app->request->get('size');
     $offset=$app->request->get('offset');
-    if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('pickup')
             ->where('type','=',$type)
@@ -135,9 +119,6 @@ $app->get('/limitPickups1',function()use($app){
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         echo json_encode(array("result" => "0", "desc" => "success",'pickups'=>$data));
-    }else{
-        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
-    }
 });
 
 $app->run();

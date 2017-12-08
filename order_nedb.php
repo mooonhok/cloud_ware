@@ -147,7 +147,6 @@ $app->get('/getOrder2', function () use ($app) {
                 $data3 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('pickup')
-                    ->where('tenant_id', '=', $tenant_id)
                     ->where('pickup_id', '=', $data[$i]['pickup_id']);
                 $stmt = $selectStatement->execute();
                 $data4 = $stmt->fetch();
