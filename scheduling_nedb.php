@@ -514,6 +514,17 @@ $app->get('/limitSchedulings0',function()use($app){
                 ->where('customer_id', '=', $data[$i]['receiver_id']);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetch();
+            $data6='';
+            if($data1['contact_tenant_id']!=null){
+                $selectStatement = $database->select()
+                    ->from('tenant')
+                    ->where('tenant_id', '=', $data1['contact_tenant_id']);
+                $stmt = $selectStatement->execute();
+                $data7 = $stmt->fetch();
+                $data6=$data7['jcompany'];
+            }
+
+
             $selectStatement = $database->select()
                 ->from('city')
                 ->where('id', '=', $data[$i]['send_city_id']);
@@ -531,6 +542,7 @@ $app->get('/limitSchedulings0',function()use($app){
             $stmt = $selectStatement->execute();
             $data4 = $stmt->fetch();
             $data[$i]['receiver']=$data1;
+            $data[$i]['receiver']['jcompany']=$data6;
             $data[$i]['send_city']=$data2;
             $data[$i]['receive_city']=$data3;
             $data[$i]['lorry']=$data4;
@@ -578,6 +590,17 @@ $app->get('/limitSchedulings1',function()use($app){
                 ->where('customer_id', '=', $data[$i]['receiver_id']);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetch();
+            $data6='';
+            if($data1['contact_tenant_id']!=null){
+                $selectStatement = $database->select()
+                    ->from('tenant')
+                    ->where('tenant_id', '=', $data1['contact_tenant_id']);
+                $stmt = $selectStatement->execute();
+                $data7 = $stmt->fetch();
+                $data6=$data7['jcompany'];
+            }
+
+
             $selectStatement = $database->select()
                 ->from('city')
                 ->where('id', '=', $data[$i]['send_city_id']);
@@ -595,6 +618,7 @@ $app->get('/limitSchedulings1',function()use($app){
             $stmt = $selectStatement->execute();
             $data4 = $stmt->fetch();
             $data[$i]['receiver']=$data1;
+            $data[$i]['receiver']['jcompany']=$data6;
             $data[$i]['send_city']=$data2;
             $data[$i]['receive_city']=$data3;
             $data[$i]['lorry']=$data4;
@@ -643,6 +667,17 @@ $app->get('/limitSchedulings2',function()use($app){
                 ->where('customer_id', '=', $data[$i]['receiver_id']);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetch();
+            $data6='';
+            if($data1['contact_tenant_id']!=null){
+                $selectStatement = $database->select()
+                    ->from('tenant')
+                    ->where('tenant_id', '=', $data1['contact_tenant_id']);
+                $stmt = $selectStatement->execute();
+                $data7 = $stmt->fetch();
+                $data6=$data7['jcompany'];
+            }
+
+
             $selectStatement = $database->select()
                 ->from('city')
                 ->where('id', '=', $data[$i]['send_city_id']);
@@ -660,6 +695,7 @@ $app->get('/limitSchedulings2',function()use($app){
             $stmt = $selectStatement->execute();
             $data4 = $stmt->fetch();
             $data[$i]['receiver']=$data1;
+            $data[$i]['receiver']['jcompany']=$data6;
             $data[$i]['send_city']=$data2;
             $data[$i]['receive_city']=$data3;
             $data[$i]['lorry']=$data4;
@@ -709,6 +745,17 @@ $app->get('/limitSchedulings3',function()use($app){
                 ->where('customer_id', '=', $data[$i]['receiver_id']);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetch();
+            $data6='';
+            if($data1['contact_tenant_id']!=null){
+                $selectStatement = $database->select()
+                    ->from('tenant')
+                    ->where('tenant_id', '=', $data1['contact_tenant_id']);
+                $stmt = $selectStatement->execute();
+                $data7 = $stmt->fetch();
+                $data6=$data7['jcompany'];
+            }
+
+
             $selectStatement = $database->select()
                 ->from('city')
                 ->where('id', '=', $data[$i]['send_city_id']);
@@ -726,6 +773,7 @@ $app->get('/limitSchedulings3',function()use($app){
             $stmt = $selectStatement->execute();
             $data4 = $stmt->fetch();
             $data[$i]['receiver']=$data1;
+            $data[$i]['receiver']['jcompany']=$data6;
             $data[$i]['send_city']=$data2;
             $data[$i]['receive_city']=$data3;
             $data[$i]['lorry']=$data4;
