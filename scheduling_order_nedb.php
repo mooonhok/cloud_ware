@@ -1381,7 +1381,7 @@ $app->get('/getSchedulingOrders9',function()use($app){
                 ->where('id', '=', $data15['pid']);
             $stmt = $selectStatement->execute();
             $data16 = $stmt->fetch();
-            $data[$i]['jcompany']=$data19['jcompany'];
+            $data[$i]['jcompany']=$data17['jcompany'];
             $data[$i]['from_city']=$data20;
             $data[$i]['tenant']['contact']=$data18;
             $data[$i]['lorry']=$data9;
