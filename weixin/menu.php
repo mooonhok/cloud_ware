@@ -8,7 +8,7 @@ $tenant_id=substr($arr[1],0,10);
 $page=$arr[4];
 $appid=substr($arr[2],0,18);
 $secret=substr($arr[3],0,32);
-if(isset($_COOKIE['openid'.$tenant_id])){
+
 if ($_COOKIE['openid'.$tenant_id] == null) {
     if (!isset($_GET['code'])) {
       //  $appid = 'wx81d659de6151801e';
@@ -64,5 +64,5 @@ if ($_COOKIE['openid'.$tenant_id] == null) {
             header('location:http://api.uminfo.cn/weixin/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }
 }
-}
+
 ?>
