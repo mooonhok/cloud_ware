@@ -456,14 +456,15 @@ $app->post('/tenant',function()use($app) {
                                                          }
                                                          $tenant_num=$data01['area_code'].$num01;
                                                          $tenant_id=count($data02)+1000000001;
+                                                         $insurance_img='http://files.uminfo.cn:8000/tenant/insurance.png';
                                                          $insertStatement = $database->insert(array('company','from_city_id','receive_city_id','contact_id','exist','business_l'
                                                          ,'sales_id','address','business_l_p','order_t_p','trans_contract_p','service_items','c_introduction','end_date'
-                                                         ,'begin_time','qq','email','insurance_balance','tenant_num','tenant_id','longitude','latitude','jcompany'))
+                                                         ,'begin_time','qq','email','insurance_balance','tenant_num','tenant_id','longitude','latitude','jcompany','insurance_img'))
                                                              ->into('tenant')
                                                              ->values(array($company,$from_city_id,$receive_city_id,$num,0,$business_l
                                                              ,$sales_id,$address,$business_l_p,$order_t_p, $trans_c_p
                                                              ,$service_items,$c_introduction,$end_time,
-                                                                 $begin_time,$qq,$email,0,$tenant_num,$tenant_id,$longitude,$latitude,$jcompany));
+                                                                 $begin_time,$qq,$email,0,$tenant_num,$tenant_id,$longitude,$latitude,$jcompany,$insurance_img));
                                                          $insertId = $insertStatement->execute(false);
                                                          if($insertId!=""||$insertId!=null){
                                                              $selectStatement = $database->select()
