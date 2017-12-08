@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title></title>
+		<style>
+			* {
+				margin: 0 auto;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			
+			html,
+			body {
+				height: 100%;
+				width: 100%;
+				overflow: hidden;
+				margin: 0;
+				padding: 0;
+				background-color: #EEEEEE;
+				color:#333333;
+			}
+			.top{
+				width:70%;
+				height:70px;
+				line-height:70px;
+				margin-left: 15%;
+				text-align: center;
+				font-size:20px;
+			}
+			.app{
+				width:60%;
+				margin-left:20%;
+				height:50px;
+				line-height:50px;
+				text-align:center;
+			}
+			.app input{
+				list-style: none;
+				outline-style: none;
+				display: inline-block;
+				height: 30px;
+				line-height: 30px;
+				margin-top: 10px;
+				margin-left: 10px;
+			}
+			.sure{
+				width:30%;
+				margin-left:35%;
+				text-align:center;
+				background-color:greenyellow;
+				height:50px;
+				line-height:50px;
+				border-radius: 10px;
+			}
+			.result{
+				width:70%;
+				margin-left:15%;
+				height:70px;
+				line-height:70px;
+				margin-top:50px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+	    <div class="top">微信accesstoken</div>
+		<div class="app">appid:<input id="app"></div>
+		<div class="app">appsecret:<input id="secret"></div>
+		<div class="sure">确定</div>
+		<div class="result"></div>
+		</div>
+		<!--wx81d659de6151801e-->
+		<!--a777207a723e6f5ce885687caa5198e3-->
+	</body>
+	<script type="text/javascript" src="javascript/jquery.js"></script>
+	<script>
+		$(".sure").on('click',function(){
+			var a=$("#app").val();
+			var b=$("#secret").val();
+			alert(a+"//"+b);
+			$.ajax({
+				url: "http://api.uminfo.cn/waccesstoken.php/access",
+				dataType: 'json',
+				type: 'post',
+				ContentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					appid:a,
+					appsecret:b
+				}),
+				success: function(msg) {
+					$(".result").html(msg.desc);
+				},
+				error: function(xhr) {
+					alert("获取后台数据出错!"+xhr.responseText);
+				}
+			});
+		});
+		
+		
+	</script>
+</html>
