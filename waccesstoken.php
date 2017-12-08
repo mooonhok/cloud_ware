@@ -14,12 +14,15 @@ require 'connect.php';
 $app = new \Slim\Slim();
 
 
-$app->get('/access',function()use($app){
+$app->post('/access',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    header("Content-Type: text/html;charset=utf-8");
-    $appid = "wx81d659de6151801e";
-    $appsecret = "a777207a723e6f5ce885687caa5198e3";
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $appid=$body->appid;
+    $appsecret=$body->appsecret;
+//    $appid = "wx81d659de6151801e";
+//    $appsecret = "a777207a723e6f5ce885687caa5198e3";
     $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
 
     $ch = curl_init();
@@ -34,6 +37,8 @@ $app->get('/access',function()use($app){
 //    echo $access_token;
     echo  json_encode(array("result"=>"0","desc"=>$access_token));
 });
+
+
 
 $app->run();
 
