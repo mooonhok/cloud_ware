@@ -47,10 +47,10 @@
 				margin-left: 10px;
 			}
 			.sure{
-				width:30%;
-				margin-left:35%;
+				width:20%;
+				margin-left:40%;
 				text-align:center;
-				background-color:greenyellow;
+				background-color:#00AEAE;
 				height:50px;
 				line-height:50px;
 				border-radius: 10px;
@@ -77,10 +77,29 @@
 	</body>
 	<script type="text/javascript" src="javascript/jquery.js"></script>
 	<script>
+		
+		        var str="江苏酉铭";
+				var can = document.createElement('canvas');
+				var body = document.body;
+
+				body.appendChild(can);
+
+				can.width = 400;
+				can.height = 200;
+				can.style.display = 'none';
+
+				var cans = can.getContext('2d');
+				cans.rotate(-20 * Math.PI / 180);
+				cans.font = "16px Microsoft JhengHei";
+				cans.fillStyle = "rgba(17, 17, 17, 0.50)";
+				cans.textAlign = 'left';
+				cans.textBaseline = 'Middle';
+				cans.fillText(str, can.width / 3, can.height / 2);
+				body.style.backgroundImage = "url(" + can.toDataURL("image/png") + ")";
 		$(".sure").on('click',function(){
 			var a=$("#app").val();
 			var b=$("#secret").val();
-			alert(a+"//"+b);
+		
 			$.ajax({
 				url: "http://api.uminfo.cn/waccesstoken.php/access",
 				dataType: 'json',
