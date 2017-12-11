@@ -303,7 +303,7 @@ $app->post('/upmap',function()use($app){
     $body1=json_decode($body);
 //    $lorry_id=$body->userId;
 //    $longitude=$body->location;
-    echo array('pp'=>json_encode($body),'gg'=>json_encode($body),'bb'=>$body);
+    echo json_encode(array('pp'=>json_encode($body),'gg'=>json_encode($body1),'bb'=>$body1));
 //    $latitude=$body->location->latitude;
 //    $time=time();
 //    if($longitude!=null||$longitude!=""||$latitude!=null||$latitude!=""){
