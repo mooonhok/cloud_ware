@@ -163,7 +163,7 @@ $signPackage = $jssdk->GetSignPackage();
            </div>
            <div class="center">
            	<div class="center1"><div class="tw2">联系人:</div><div class="tf" id="name"></div></div>
-            <div class="center1"><div class="tw2">电话:</div><div class="tf" id="tel"></div></div>
+            <div class="center1"><div class="tw2">电话:</div><a class="tf" id="tel" href=""></a></div>
            	<div class="center1"><div class="tw2">地址：</div><div class="tf" id="address"></div></div>
            	<div class="tf1" id="address1"></div>
            </div>
@@ -221,6 +221,7 @@ $signPackage = $jssdk->GetSignPackage();
                    $('#address').html(f);
                    $("#address1").html(m);
                    $('#tel').html(msg.contact.customer_phone);
+                   $('#tel').attr('href',"tel:"+msg.contact.customer_phone);
                    $("#foot2").html(msg.tenant.service_items);   
                    if(msg.tenant.tenant_business_card!=null&&msg.tenant.tenant_business_card!=""){
                    	   $(".box").css("background","url("+msg.tenant.tenant_business_card+")");
