@@ -301,9 +301,9 @@ $app->post('/upmap',function()use($app){
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
-    $lorry_id=$body->userId;
-    $longitude=$body->location;
-    echo $longitude;
+//    $lorry_id=$body->userId;
+//    $longitude=$body->location;
+    echo $body;
 //    $latitude=$body->location->latitude;
 //    $time=time();
 //    if($longitude!=null||$longitude!=""||$latitude!=null||$latitude!=""){
