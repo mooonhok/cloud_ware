@@ -300,7 +300,7 @@ $app->post('/upmap',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
-    $body=json_decode($body);
+//    $body=json_decode($body);
 //    $lorry_id=$body->userId;
 //    $longitude=$body->location;
     echo json_encode($body);
