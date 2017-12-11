@@ -827,7 +827,7 @@ $app->put('/customer_order_id',function()use($app){
             $selectStatement = $database->select()
                 ->from('orders')
                 ->where('order_id','=',$order_id)
-                ->whereNull('tenant_id');
+                ->where('tenant_id','=',$tenant_id);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetch();
             $selectStatement = $database->select()
@@ -853,7 +853,7 @@ $app->put('/customer_order_id',function()use($app){
     }
 });
 
-//获取最近5条信息,type为1
+//获取最近10条信息,type为1
 $app->get('/old_customers_f',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -865,6 +865,8 @@ $app->get('/old_customers_f',function()use($app){
         ->where('tenant_id','=',$tenant_id)
         ->where('exist','=',0)
         ->where('type','=',1)
+        ->whereNotNull('times')
+        ->where('times','!=',0)
         ->orderBy('id','DESC')
         ->limit(10);
     $stmt = $selectStatement->execute();
@@ -872,7 +874,7 @@ $app->get('/old_customers_f',function()use($app){
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$data1));
 });
 
-//获取最近5条信息,type为1
+//获取最近10条信息,type为1
 $app->get('/old_customers_s',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -884,6 +886,8 @@ $app->get('/old_customers_s',function()use($app){
         ->where('tenant_id','=',$tenant_id)
         ->where('exist','=',0)
         ->where('type','=',2)
+        ->whereNotNull('times')
+        ->where('times','!=',0)
         ->orderBy('id','DESC')
         ->limit(10);
     $stmt = $selectStatement->execute();
