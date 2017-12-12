@@ -374,7 +374,13 @@ $app->post('/lorrysign',function()use($app){
             $data1=$stmt->fetch();
             if($data1!=null){
                 if($data1['password']==$password){
-                    echo json_encode(array('result' => '0', 'desc' => '登录成功','lorry'=>$data1));
+                    $time1=time();
+                    $arrays['time']=$time1;
+                    $updateStatement = $database->update($arrays)
+                        ->table('applorry')
+                        ->where('lorryid','=',$data1['lorryid']);
+                    $affectedRows = $updateStatement->execute();
+                    echo json_encode(array('result' => '0', 'desc' => '登录成功','lorry'=>$data1,'time'=>$time1));
                 }else{
                     echo json_encode(array('result' => '4', 'desc' => '密码错误'));
                 }
@@ -388,6 +394,42 @@ $app->post('/lorrysign',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '没有电话号码'));
     }
 });
+//判断多次登录
+$app->post('/check',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $lorryid=$body->lorryid;
+    $time=$body->time;
+    if($lorryid!=null||$lorryid!=""){
+        if($time!=null||$time!=""){
+            $selectStament=$database->select()
+                ->from('applorry')
+                ->where('exist','=',0)
+                ->where('lorry','=',$lorryid);
+            $stmt=$selectStament->execute();
+            $data1=$stmt->fetch();
+            if($data1!=null){
+                if($data1['time']==$time){
+                    echo json_encode(array('result' => '0', 'desc' => ''));
+                }else{
+                    echo json_encode(array('result' => '4', 'desc' => '您已经在其他地方登录该账号，请重新登录'));
+                }
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '司机不存在'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '没有登录时间'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '没有司机id'));
+    }
+});
+
+
+
 
 //app我的资料
 $app->post('/persoonmessage',function()use($app){
@@ -532,6 +574,224 @@ $app->post('/uphead',function()use($app){
     }else{
         echo json_encode(array('result' => '1', 'desc' => '缺少司机id'));
     }
+});
+
+//历史清单列表
+$app->get('/schistory',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $lorry_id = $app->request->get("lorry_id");
+    $arrays=array();
+    if($lorry_id!=null||$lorry_id!=""){
+        $selectStament=$database->select()
+            ->from('applorry')
+            ->where('exist','=',0)
+            ->where('lorryid','=',$lorry_id);
+        $stmt=$selectStament->execute();
+        $data1=$stmt->fetch();
+        if($data1!=null){
+            $selectStament=$database->select()
+                ->from('lorry')
+                ->where('exist','=',0)
+                ->where('flag','=',0)
+                ->where('tenant_id','!=','0')
+                ->where('driver_phone','=',$data1['telephone']);
+            $stmt=$selectStament->execute();
+            $data2=$stmt->fetchAll();
+            if($data2!=null){
+                for($x=0;$x<count($data2);$x++){
+                        $selectStament=$database->select()
+                            ->from('scheduling')
+                            ->where('scheduling_status','!=',2)
+                            ->where('scheduling_status','!=',3)
+                            ->where('scheduling_status','!=',4)
+                            ->where('tenant_id','=',$data2[$x]['tenant_id'])
+                            ->where('lorry_id','=',$data2[$x]['lorry_id'])
+                            ->orderBy('change_datetime','desc');
+                        $stmt=$selectStament->execute();
+                        $data3=$stmt->fetchAll();
+                    for($i=0;$i<count($data3);$i++){
+                        $selectStament=$database->select()
+                            ->from('customer')
+                            ->where('tenant_id','=',$data3[$i]['tenant_id'])
+                            ->where('customer_id','=',$data3[$i]['receiver_id']);
+                        $stmt=$selectStament->execute();
+                        $data4=$stmt->fetch();
+                        $arrays1['scheduling_id']=$data3[$i]['scheduling_id'];
+                        $arrays1['customer_name']=$data4['customer_name'];
+                        $arrays1['customer_phone']=$data4['customer_phone'];
+                        $selectStament=$database->select()
+                            ->from('city')
+                            ->where('id','=',$data4['customer_city_id']);
+                        $stmt=$selectStament->execute();
+                        $data5=$stmt->fetch();
+                        $arrays1['address']=$data5['name'].$data4['customer_address'];
+                        $selectStament=$database->select()
+                            ->from('city')
+                            ->where('id','=',$data3[$i]['send_city_id']);
+                        $stmt=$selectStament->execute();
+                        $data6=$stmt->fetch();
+                        $arrays1['sendcity']=$data6['name'];
+                        $selectStament=$database->select()
+                            ->from('city')
+                            ->where('id','=',$data3[$i]['receive_city_id']);
+                        $stmt=$selectStament->execute();
+                        $data7=$stmt->fetch();
+                        $arrays1['receivecity']=$data7['name'];
+                        array_push($arrays,$arrays1);
+                    }
+                    echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$arrays));
+                }
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '您还未拉过货物'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '缺少司机id'));
+    }
+});
+
+//带交付清单列表
+$app->get('/scnoaccept',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $lorry_id = $app->request->get("lorry_id");
+    $arrays=array();
+    if($lorry_id!=null||$lorry_id!=""){
+        $selectStament=$database->select()
+            ->from('applorry')
+            ->where('exist','=',0)
+            ->where('lorryid','=',$lorry_id);
+        $stmt=$selectStament->execute();
+        $data1=$stmt->fetch();
+        if($data1!=null){
+            $selectStament=$database->select()
+                ->from('lorry')
+                ->where('exist','=',0)
+                ->where('flag','=',0)
+                ->where('tenant_id','!=','0')
+                ->where('driver_phone','=',$data1['telephone']);
+            $stmt=$selectStament->execute();
+            $data2=$stmt->fetchAll();
+            if($data2!=null){
+                for($x=0;$x<count($data2);$x++){
+                    $selectStament=$database->select()
+                        ->from('scheduling')
+                        ->where('scheduling_status','!=',1)
+                        ->where('scheduling_status','!=',5)
+                        ->where('scheduling_status','!=',6)
+                        ->where('tenant_id','=',$data2[$x]['tenant_id'])
+                        ->where('lorry_id','=',$data2[$x]['lorry_id'])
+                        ->orderBy('change_datetime','desc');
+                    $stmt=$selectStament->execute();
+                    $data3=$stmt->fetchAll();
+                    for($i=0;$i<count($data3);$i++){
+                        $selectStament=$database->select()
+                            ->from('customer')
+                            ->where('tenant_id','=',$data3[$i]['tenant_id'])
+                            ->where('customer_id','=',$data3[$i]['receiver_id']);
+                        $stmt=$selectStament->execute();
+                        $data4=$stmt->fetch();
+                        $arrays1['scheduling_id']=$data3[$i]['scheduling_id'];
+                        $arrays1['customer_name']=$data4['customer_name'];
+                        $arrays1['customer_phone']=$data4['customer_phone'];
+                        $selectStament=$database->select()
+                            ->from('city')
+                            ->where('id','=',$data4['customer_city_id']);
+                        $stmt=$selectStament->execute();
+                        $data5=$stmt->fetch();
+                        $arrays1['address']=$data5['name'].$data4['customer_address'];
+                        $selectStament=$database->select()
+                            ->from('city')
+                            ->where('id','=',$data3[$i]['send_city_id']);
+                        $stmt=$selectStament->execute();
+                        $data6=$stmt->fetch();
+                        $arrays1['sendcity']=$data6['name'];
+                        $selectStament=$database->select()
+                            ->from('city')
+                            ->where('id','=',$data3[$i]['receive_city_id']);
+                        $stmt=$selectStament->execute();
+                        $data7=$stmt->fetch();
+                        $arrays1['receivecity']=$data7['name'];
+                        array_push($arrays,$arrays1);
+                    }
+                    echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$arrays));
+                }
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '您还未拉过货物'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '缺少司机id'));
+    }
+});
+
+//根据清单号查看清单信息
+$app->get('/sandoandg',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $schedule_id = $app->request->get("schedule_id");
+    $database=localhost();
+    $arrays=array();
+    if($schedule_id!=null||$schedule_id!=""){
+        $selectStament=$database->select()
+            ->from('scheduling')
+            ->where('exist','=',0)
+            ->where('scheduling_id','=',$schedule_id);
+        $stmt=$selectStament->execute();
+        $data1=$stmt->fetch();
+        if($data1!=null) {
+            $selectStament = $database->select()
+                ->from('schedule_order')
+                ->where('tenant_id', '=', $data1['tenant_id'])
+                ->where('exist', '=', 0)
+                ->where('schedule_id', '=', $schedule_id);
+            $stmt = $selectStament->execute();
+            $data4 = $stmt->fetchAll();
+            for ($x = 0; $x < count($data4); $x++) {
+                $selectStament = $database->select()
+                    ->from('goods')
+                    ->where('exist', '=', 0)
+                    ->where('order_id', '=', $data4[$x]['order_id']);
+                $stmt = $selectStament->execute();
+                $data5 = $stmt->fetch();
+                $arrays1['order_id'] = $data4[$x]['order_id'];
+                $arrays1['goods_name'] = $data5['goods_name'];
+                $arrays1['goods_count'] = $data5['goods_count'];
+                $arrays1['goods_capacity'] = $data5['goods_capacity'];
+                $arrays1['goods_weight'] = $data5['goods_weight'];
+                $selectStament = $database->select()
+                    ->from('goods_package')
+                    ->where('goods_package_id', '=', $data5['goods_package_id']);
+                $stmt = $selectStament->execute();
+                $data6 = $stmt->fetch();
+                $arrays1['goods_package'] = $data6['goods_package'];
+                array_push($arrays, $arrays1);
+            }
+            $selectStament = $database->select()
+                ->from('tenant')
+                ->where('tenant_id', '=', $data1['sure_img']);
+            $stmt = $selectStament->execute();
+            $data10 = $stmt->fetch();
+            if ($data10 != null) {
+                $arrays2['pic'] = $data10['jcompany'] . '--收';
+            } else {
+                $arrays2['pic'] = $data1['sure_img'];
+            }
+            echo json_encode(array('result' => '0', 'desc' => '', 'goods' => $arrays, 'isreceive' => $data1['scheduling_status']));
+
+        }else{
+            echo json_encode(array('result' => '4', 'desc' => '该清单不存在','goods'=>''));
+        }
+     }else{
+    echo json_encode(array('result' => '1', 'desc' => '清单号为空','goods'=>''));
+}
 });
 
 
