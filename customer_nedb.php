@@ -206,7 +206,6 @@ $app->get('/getCustomers2',function()use($app){
             ->from('customer')
             ->where('tenant_id', '=', $tenant_id)
             ->where('type', '=', 3)
-            ->where('order_status','!=',6)
             ->where('exist', '=', 0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
