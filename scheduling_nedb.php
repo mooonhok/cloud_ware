@@ -963,6 +963,7 @@ $app->put('/alterScheduling6',function()use($app){
     $receive_city_id=$body->receive_city_id;
     $lorry_id=$body->lorry_id;
     $receiver_id=$body->receiver_id;
+    $is_load=$body->is_load;
     $array = array();
     foreach ($body as $key => $value) {
         $array[$key] = $value;
