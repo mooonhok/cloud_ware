@@ -367,7 +367,7 @@ $app->post('/lorrysign',function()use($app){
                 $str1=null;
                 $str2=$data1['password'];
                 for($i=0;$i<strlen($str2);){
-                    $str1+=substr($str2,$i,$i+1);
+                    $str1.=substr($str2,$i,2);
                 }
                 if($str1==$password){
                     echo json_encode(array('result' => '0', 'desc' => '登录成功','lorry'=>$data1));
