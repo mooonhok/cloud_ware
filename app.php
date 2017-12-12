@@ -366,7 +366,7 @@ $app->post('/lorrysign',function()use($app){
             if($data1!=null){
                 $str1=null;
                 $str2=$data1['password'];
-                for($i=0;$i<strlen($str2);){
+                for($i=0;$i<strlen($str2);$i+2){
                     $str1.=substr($str2,$i,2);
                 }
                 if($str1==$password){
