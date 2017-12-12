@@ -886,8 +886,6 @@ $app->get('/old_customers_s',function()use($app){
         ->where('tenant_id','=',$tenant_id)
         ->where('exist','=',0)
         ->where('type','=',2)
-        ->whereNotNull('times')
-        ->where('times','!=',0)
         ->orderBy('id','DESC')
         ->limit(10);
     $stmt = $selectStatement->execute();
