@@ -573,7 +573,7 @@ $app->get('/getSchedulingOrders4',function()use($app){
             ->where('orders.tenant_id', '=', $tenant_id)
             ->where('lorry.tenant_id', '=', $tenant_id)
             ->where('scheduling.scheduling_id', '=', $scheduling_id)
-            ->where('scheduling.scheduling_status', '=',2)
+//            ->where('scheduling.scheduling_status', '=',2)
             ->where('schedule_order.exist', '=', 0)
             ->where('scheduling.exist', '=', 0)
             ->where('orders.exist', '=', 0);
