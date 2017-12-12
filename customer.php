@@ -861,7 +861,7 @@ $app->get('/old_customers_f',function()use($app){
     $database=localhost();
     $selectStatement = $database->select()
         ->from('customer')
-        ->distinctCount('customer_name')
+//        ->distinctCount('customer_name')
         ->where('tenant_id','=',$tenant_id)
         ->where('exist','=',0)
         ->where('type','=',1)
@@ -882,7 +882,7 @@ $app->get('/old_customers_s',function()use($app){
     $database=localhost();
     $selectStatement = $database->select()
         ->from('customer')
-        ->distinctCount('customer_name')
+//        ->distinctCount('customer_name')
         ->where('tenant_id','=',$tenant_id)
         ->where('exist','=',0)
         ->where('type','=',0)
