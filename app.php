@@ -37,7 +37,12 @@ $app->post('/addlorry0',function()use($app){
     $body=$app->request->getBody();
     $body=json_decode($body);
     $tel=$body->telephone;
-    $password=$body->password;
+    $password1=$body->password;
+    $str1=str_split($password1,2);
+    $password=null;
+    for ($x=0;$x<count($str1);$x++){
+        $password.=$str1[$x].rand(0,9);
+    }
     if($tel!=null||$tel!=""){
        if($password!=null||$password!=""){
            $selectStament=$database->select()
@@ -57,7 +62,7 @@ $app->post('/addlorry0',function()use($app){
                    $data2=$stmt->fetchAll();
                    $insertStatement = $database->insert(array('lorryid','telephone','password','exist'))
                        ->into('applorry')
-                       ->values(array(count($data2)+1,$tel,var_dump($password),1));
+                       ->values(array(count($data2)+1,$tel,$password,1));
                    $insertId = $insertStatement->execute(false);
                    echo  json_encode(array("result"=>"0","desc"=>"",'lorryid'=>count($data2)+1));
                }else{
@@ -359,7 +364,12 @@ $app->post('/lorrysign',function()use($app){
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
             if($data1!=null){
-                if(var_dump($password)==$data1['password']){
+                $str1=null;
+                $str2=$data1['password'];
+                for($i=0;$i<strlen($str2);){
+                    $str1+=substr($str2,$i,$i+1);
+                }
+                if($str1==$password){
                     echo json_encode(array('result' => '0', 'desc' => '登录成功','lorry'=>$data1));
                 }else{
                     echo json_encode(array('result' => '4', 'desc' => '密码错误'));
