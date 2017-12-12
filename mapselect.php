@@ -176,7 +176,7 @@ $app->get('/mapsbyor',function()use($app){
                  $stmt = $selectStament->execute();
                  $data4 = $stmt->fetch();
                  $deleteStatement = $database->delete()
-                     ->from('chathall')
+                     ->from('map')
                      ->where('scheduling_id','=',$data['scheduling_id'])
                      ->where('accept_time','<',$data4['accept_time'])
                      ->where('accept_time', '>',$data3['accept_time']);
