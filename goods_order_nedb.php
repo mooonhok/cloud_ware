@@ -95,7 +95,7 @@ $app->get('/getGoodsOrders1',function()use($app){
             ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
             ->where('goods.tenant_id','=',$tenant_id)
             ->where('orders.tenant_id','=',$tenant_id)
-            ->whereNotIn('orders.order_status',array(-1,-2,0))
+            ->whereNotIn('orders.order_status',array(-1,-2,0,6))
             ->where('orders.exist','=',0);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
@@ -983,7 +983,7 @@ $app->get('/limitGoodsOrders5',function()use($app){
                     ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
                     ->where('goods.tenant_id','=',$tenant_id)
                     ->where('orders.tenant_id','=',$tenant_id)
-                    ->whereNotIn('orders.order_status',array(-1,-2,0))
+                    ->whereNotIn('orders.order_status',array(-1,-2,0,6))
                     ->where('orders.exist','=',0)
                     ->orderBy('orders.order_id','DESC')
                     ->limit((int)$size,(int)$offset);
@@ -2204,7 +2204,7 @@ $app->get('/getGoodsOrders4',function()use($app){
             ->where('orders.order_id','=',$order_id)
             ->where('goods.tenant_id','=',$tenant_id)
             ->where('orders.tenant_id','=',$tenant_id)
-            ->whereNotIn('orders.order_status',array(-1,-2,0,6))
+            ->whereNotIn('orders.order_status',array(-1,-2,0))
             ->where('orders.exist','=',0);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
@@ -2363,7 +2363,7 @@ $app->get('/limitGoodsOrders9',function()use($app){
                     ->where('goods.tenant_id','=',$tenant_id)
                     ->where('orders.tenant_id','=',$tenant_id)
                     ->where('orders.exist','=',0)
-                    ->whereNotIn('orders.order_status',array(-1,-2,0,6))
+                    ->whereNotIn('orders.order_status',array(-1,-2,0))
                     ->orderBy('orders.order_id','DESC')
                     ->limit((int)$size,(int)$offset);
                 $stmt = $selectStatement->execute();
