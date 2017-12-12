@@ -576,6 +576,7 @@ $app->get('/getSchedulingOrders4',function()use($app){
 //            ->where('scheduling.scheduling_status', '=',2)
             ->where('schedule_order.exist', '=', 0)
             ->where('scheduling.exist', '=', 0)
+            ->where('orders.inventory_type', '!=', 4)
             ->where('orders.exist', '=', 0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
