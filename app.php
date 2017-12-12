@@ -61,7 +61,7 @@ $app->post('/addlorry0',function()use($app){
                    $selectStament=$database->select()
                        ->from('applorry')
                        ->orderBy('id','desc')
-                       ->limit(0);
+                       ->limit(1);
                    $stmt=$selectStament->execute();
                    $data2=$stmt->fetch();
                    $insertStatement = $database->insert(array('lorryid','telephone','password','exist'))
@@ -80,12 +80,12 @@ $app->post('/addlorry0',function()use($app){
                    $selectStament=$database->select()
                        ->from('applorry')
                        ->orderBy('id','desc')
-                       ->limit(0);
+                       ->limit(1);
                    $stmt=$selectStament->execute();
                    $data2=$stmt->fetch();
                    $insertStatement = $database->insert(array('lorryid','telephone','password','exist'))
                        ->into('applorry')
-                       ->values(array($data2['id']+1,$tel,var_dump($password),1));
+                       ->values(array($data2['id']+1,$tel,$password,1));
                    $insertId = $insertStatement->execute(false);
                    echo  json_encode(array("result"=>"0","desc"=>"",'lorryid'=>$data2['id']+1));
        }
