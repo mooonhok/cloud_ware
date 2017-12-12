@@ -45,6 +45,7 @@ $app->post('/addlorry0',function()use($app){
                ->where('telephone','=',$tel);
                $stmt=$selectStament->execute();
                $data1=$stmt->fetch();
+               if($data1!=null){
                if($data1['exist']==1){
                    $deleteStatement = $database->delete()
                        ->from('applorry')
@@ -62,6 +63,21 @@ $app->post('/addlorry0',function()use($app){
                }else{
                    echo  json_encode(array("result"=>"3","desc"=>"电话号码已经被注册"));
                }
+       }else{
+                   $deleteStatement = $database->delete()
+                       ->from('applorry')
+                       ->where('telephone', '=', $tel);
+                   $affectedRows = $deleteStatement->execute();
+                   $selectStament=$database->select()
+                       ->from('applorry');
+                   $stmt=$selectStament->execute();
+                   $data2=$stmt->fetchAll();
+                   $insertStatement = $database->insert(array('lorryid','telephone','password','exist'))
+                       ->into('applorry')
+                       ->values(array(count($data2)+1,$tel,var_dump($password),1));
+                   $insertId = $insertStatement->execute(false);
+                   echo  json_encode(array("result"=>"0","desc"=>"",'lorryid'=>count($data2)+1));
+       }
        }else{
            echo  json_encode(array("result"=>"2","desc"=>"密码不能为空"));
        }
