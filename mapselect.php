@@ -155,21 +155,50 @@ $app->get('/mapsbyor',function()use($app){
       if($data5!=null){
           for($i=0;$i<count($data5);$i++){
               $selectStament = $database->select()
-                       ->from('map')
-                       ->where('scheduling_id', '=', $data5[$i]['schedule_id'])
-                       ->orderBy('accept_time');
-                   $stmt = $selectStament->execute();
-                   $data2 = $stmt->fetchAll();
-                   if($data2!=null) {
-                       for ($x = 0; $x < count($data2); $x++) {
-                           date_default_timezone_set("PRC");
-                           $time = date("Y-m-d H:i", $data2[$x]['accept_time']);
-                           $arrays1['longitude'] = $data2[$x]['longitude'];
-                           $arrays1['latitude'] = $data2[$x]['latitude'];
-                           $arrays1['time'] = $time;
-                           array_push($arrays, $arrays1);
-                       }
-                   }
+                  ->from('scheduling')
+                  ->where('scheduling_id', '=', $data5[$i]['schedule_id'])
+                  ->orderBy('accept_time');
+              $stmt = $selectStament->execute();
+              $data = $stmt->fetch();
+             if($data['scheduling_status']==5){
+                 $selectStament = $database->select()
+                     ->from('map')
+                     ->where('scheduling_id', '=', $data['scheduling_id'])
+                     ->orderBy('accept_time')
+                     ->limit(1);
+                 $stmt = $selectStament->execute();
+                 $data3 = $stmt->fetch();
+                 $selectStament = $database->select()
+                     ->from('map')
+                     ->where('scheduling_id', '=', $data['scheduling_id'])
+                     ->orderBy('accept_time','desc')
+                     ->limit(1);
+                 $stmt = $selectStament->execute();
+                 $data4 = $stmt->fetch();
+                 $deleteStatement = $database->delete()
+                     ->from('chathall')
+                     ->where('scheduling_id','=',$data['scheduling_id'])
+                     ->where('accept_time','<',$data4['accept_time'])
+                     ->where('accept_time', '>',$data3['accept_time']);
+                 $affectedRows = $deleteStatement->execute();
+
+             }
+              $selectStament = $database->select()
+                  ->from('map')
+                  ->where('scheduling_id', '=', $data5[$i]['schedule_id'])
+                  ->orderBy('accept_time');
+              $stmt = $selectStament->execute();
+              $data2 = $stmt->fetchAll();
+              if($data2!=null) {
+                  for ($x = 0; $x < count($data2); $x++) {
+                      date_default_timezone_set("PRC");
+                      $time = date("Y-m-d H:i", $data2[$x]['accept_time']);
+                      $arrays1['longitude'] = $data2[$x]['longitude'];
+                      $arrays1['latitude'] = $data2[$x]['latitude'];
+                      $arrays1['time'] = $time;
+                      array_push($arrays, $arrays1);
+                  }
+              }
           }
           echo json_encode(array('result' => '0', 'desc' => '', 'map' => $arrays));
       }else{
