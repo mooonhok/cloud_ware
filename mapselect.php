@@ -156,8 +156,8 @@ $app->get('/mapsbyor',function()use($app){
           for($i=0;$i<count($data5);$i++){
               $selectStament = $database->select()
                   ->from('scheduling')
-                  ->where('scheduling_id', '=', $data5[$i]['schedule_id'])
-                  ->orderBy('accept_time');
+                  ->where('scheduling_id', '=', $data5[$i]['schedule_id']);
+
               $stmt = $selectStament->execute();
               $data = $stmt->fetch();
              if($data['scheduling_status']==5){
