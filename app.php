@@ -35,6 +35,7 @@ $app->post('/addlorry0',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
+    $body=json_decode($body);
     $tel=$body->telephone;
     $password=$body->password;
     if($tel!=null||$tel!=""){
@@ -75,6 +76,7 @@ $app->post('/addlorry1',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
+    $body=json_decode($body);
     $name=$body->name;
     $idcard=$body->idcard;
     $lorryid=$body->lorryid;
@@ -128,6 +130,7 @@ $app->post('/addlorry2',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
+    $body=json_decode($body);
     $type=$body->type;
     $long=$body->long;
     $ctype=$body->ctype;
@@ -188,6 +191,7 @@ $app->post('/addlorry3',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
+    $body=json_decode($body);
     $lorryid=$body->lorryid;
     $pic1=$body->pic1;
     $pic2=$body->pic2;
@@ -256,6 +260,7 @@ $app->post('addlorry4',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
+    $body=json_decode($body);
     $lorryid=$body->lorryid;
     $pic3=$body->pic3;
     $pic4=$body->pic4;
@@ -326,6 +331,7 @@ $app->post('/lorrysign',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
+    $body=json_decode($body);
     $username=$body->tel;
     $password=$body->password;
     if($username!=null||$username!=""){
@@ -359,6 +365,7 @@ $app->post('/persoonmessage',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
+    $body=json_decode($body);
     $lorryid=$body->lorryid;
     if($lorryid!=null||$lorryid!=""){
         $selectStament=$database->select()
@@ -382,6 +389,7 @@ $app->post('/updriverpic',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
+    $body=json_decode($body);
     $lorryid=$body->lorryid;
     $pic1=$body->pic1;
     $pic2=$body->pic2;
@@ -451,6 +459,7 @@ $app-post('/upheadimg',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
+    $body=json_decode($body);
     $lorryid=$body->lorryid;
     $pic1=$body->pic1;
     $introduce=$body->introduction;
