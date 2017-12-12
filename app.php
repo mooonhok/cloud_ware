@@ -354,7 +354,7 @@ $app->post('/lorrysign',function()use($app){
 });
 
 //app我的资料
-$app->get('/persoonmessage',function()use($app){
+$app->post('/persoonmessage',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
