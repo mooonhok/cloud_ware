@@ -885,7 +885,7 @@ $app->get('/old_customers_s',function()use($app){
         ->distinct('customer_name')
         ->where('tenant_id','=',$tenant_id)
         ->where('exist','=',0)
-        ->where('type','=',2)
+        ->where('type','=',0)
         ->orderBy('id','DESC')
         ->limit(10);
     $stmt = $selectStatement->execute();
