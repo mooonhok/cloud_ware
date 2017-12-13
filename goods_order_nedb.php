@@ -2274,6 +2274,8 @@ $app->get('/getGoodsOrders5',function()use($app){
     $tenant_id=$app->request->headers->get('tenant-id');
     $customer_name=$app->request->get('customer_name');
     if($tenant_id!=null||$tenant_id!=''){
+        $data1=array();
+        $data10=array();
         $selectStatement = $database->select()
             ->from('orders')
             ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
@@ -2286,6 +2288,20 @@ $app->get('/getGoodsOrders5',function()use($app){
             ->where('orders.exist','=',0);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
+        $selectStatement = $database->select()
+            ->from('orders')
+            ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+            ->join('customer','customer.customer_id','=','orders.receiver_id','INNER')
+            ->join('city','city.id','=','customer.customer_city_id','INNER')
+            ->where('customer.tenant_id','=',$tenant_id)
+            ->whereLike('city.name','%'.$customer_name."%")
+            ->where('goods.tenant_id','=',$tenant_id)
+            ->where('orders.tenant_id','=',$tenant_id)
+            ->whereNotIn('orders.order_status',array(-1,-2,0))
+            ->where('orders.exist','=',0);
+        $stmt = $selectStatement->execute();
+        $data10 = $stmt->fetchAll();
+        $data1 = array_merge($data1, $data10);
         for($i=0;$i<count($data1);$i++){
             $selectStament=$database->select()
                 ->from('goods_package')
