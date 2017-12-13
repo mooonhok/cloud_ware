@@ -1237,6 +1237,7 @@ $app->get('/getSchedulingOrders8',function()use($app){
                 ->where('id', '=', $data13['customer_city_id']);
             $stmt = $selectStatement->execute();
             $data15 = $stmt->fetch();
+            $data[$i]['number']=$i;
             $data[$i]['lorry']=$data1;
             $data[$i]['goods']=$data2;
             $data[$i]['goods']['goods_package']=$data5;
