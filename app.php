@@ -158,10 +158,12 @@ $app->post('/addlorry2',function()use($app){
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
+    $type=$body->type;
     $long=$body->long;
     $ctype=$body->ctype;
     $lorryid=$body->lorryid;
     $plate_number=$body->plate_number;
+    if($type!=null||$type!=""){
         if($lorryid!=null||$lorryid!="") {
             if ($type = 0) {
                 if ($long != null || $long != "") {
@@ -205,7 +207,9 @@ $app->post('/addlorry2',function()use($app){
         }else{
             echo json_encode(array('result' => '5', 'desc' => '未填写电话号码'));
         }
-
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '未选择车辆类别'));
+    }
 });
 
 //司机注册4(图片1)
@@ -793,6 +797,146 @@ $app->get('/sandoandg',function()use($app){
     echo json_encode(array('result' => '1', 'desc' => '清单号为空','goods'=>''));
 }
 });
+//获取待交付清单数量
+$app->get('/tongji',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $lorry_id = $app->request->get("lorry_id");
+    $database=localhost();
+    $num=0;
+    if($lorry_id!=null||$lorry_id!=""){
+        $selectStament=$database->select()
+            ->from('applorry')
+            ->where('exist','=',0)
+            ->where('lorryid','=',$lorry_id);
+        $stmt=$selectStament->execute();
+        $data1=$stmt->fetch();
+        if($data1!=null){
+            $selectStament=$database->select()
+                ->from('lorry')
+                ->where('exist','=',0)
+                ->where('flag','=',0)
+                ->where('tenant_id','!=',0)
+                ->where('plate_number','=',$data1['platenumber'])
+                ->where('driver_phone','=',$data1['telephone']);
+            $stmt=$selectStament->execute();
+            $data2=$stmt->fetchAll();
+            if($data2!=null){
+                 for($i=0;$i<count($data2);$i++){
+                     $selectStament=$database->select()
+                         ->from('scheduling')
+                         ->where('exist','=',0)
+                         ->where('scheduling_stataus','!=',1)
+                         ->where('scheduling_stataus','!=',5)
+                         ->where('scheduling_stataus','!=',6)
+                         ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                         ->where('lorry_id','=',$data2[$i]['lorry_id']);
+                     $stmt=$selectStament->execute();
+                     $data3=$stmt->fetchAll();
+                     if($data3!=null){
+                         $num+=count($data3);
+                     }
+                 }
+                echo json_encode(array('result' => '0', 'desc' => '','count'=>$num));
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '您还没拉过清单'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '缺少司机id'));
+    }
+});
+
+//上传清单地理位置
+$app->post('/scmap',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $lorryid=$body->lorryid;
+    $longitude=$body->longitude;
+    $latitude=$body->latitude;
+    $time=time();
+    if($longitude!=null||$longitude!=""||$latitude!=null||$latitude!=""){
+        if($lorryid!=null||$lorryid!=""){
+            $selectStament=$database->select()
+                ->from('applorry')
+                ->where('exist','=',0)
+                ->where('lorryid','=',$lorryid);
+            $stmt=$selectStament->execute();
+            $data1=$stmt->fetch();
+            if($data1!=null){
+                $selectStament=$database->select()
+                    ->from('lorry')
+                    ->where('exist','=',0)
+                    ->where('flag','=',0)
+                    ->where('tenant_id','!=',0)
+                    ->where('plate_number','=',$data1['platenumber'])
+                    ->where('driver_phone','=',$data1['telephone']);
+                $stmt=$selectStament->execute();
+                $data2=$stmt->fetchAll();
+                if($data2!=null){
+                    for($i=0;$i<count($data2);$i++){
+                        $selectStament=$database->select()
+                            ->from('scheduling')
+                            ->where('exist','=',0)
+                            ->where('scheduling_stataus','!=',1)
+                            ->where('scheduling_stataus','!=',5)
+                            ->where('scheduling_stataus','!=',6)
+                            ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                            ->where('lorry_id','=',$data2[$i]['lorry_id']);
+                        $stmt=$selectStament->execute();
+                        $data3=$stmt->fetchAll();
+                        if($data3!=null){
+                            for ($y = 0; $y < count($data3); $y++) {
+                                $selectStament=$database->select()
+                                    ->from('map')
+                                    ->where('scheduling_id','=',$data3[$y]['scheduling_id'])
+                                    ->orderBy('accept_time');
+                                $stmt=$selectStament->execute();
+                                $data4=$stmt->fetchAll();
+                                if ($data4 != null) {
+                                    if($data4[count($data4)-1]['longitude']==$longitude&&$data4[count($data4)-1]['latitude']==$latitude) {
+                                        $arrays['accept_time'] = $time;
+                                        $updateStatement = $database->update($arrays)
+                                            ->table('map')
+                                            ->where('id', '=', $data4[count($data4)-1]['id']);
+                                        $affectedRows = $updateStatement->execute();
+                                    } else {
+                                        if ($time - $data4[count($data4) - 1]['accept_time'] > 1200) {
+                                            $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
+                                                ->into('map')
+                                                ->values(array($data3[$y]['scheduling_id'], $longitude, $latitude, $time));
+                                            $insertId = $insertStatement->execute(false);
+                                        }
+                                    }
+                                }else {
+                                    $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
+                                        ->into('map')
+                                        ->values(array($data3[$y]['scheduling_id'], $longitude, $latitude, $time));
+                                    $insertId = $insertStatement->execute(false);
+                                }
+                            }
+                        }
+                    }
+                }else{
+                    echo json_encode(array('result' => '4', 'desc' => '司机尚未有过订单'));
+                }
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '司机不存在'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '司机信息为空'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '坐标缺少'));
+    }
+
+});
+
 
 
 
