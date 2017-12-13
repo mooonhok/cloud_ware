@@ -339,6 +339,8 @@ $app->post('/uploadLorry',function()use($app) {
             move_uploaded_file($_FILES["driving_license"]["tmp_name"], "/files/lorry/" . $name1);
             $array['driving_license']="http://files.uminfo.cn:8000/lorry/".$name1;
         }
+    }else{
+        $array['driving_license']="http://files.uminfo.cn:8000/lorry/photo1.png";
     }
     if(isset($_FILES["vehicle_travel_license"])){
         $name21 = $_FILES["vehicle_travel_license"]["name"];
@@ -350,6 +352,8 @@ $app->post('/uploadLorry',function()use($app) {
             move_uploaded_file($_FILES["vehicle_travel_license"]["tmp_name"], "/files/lorry/" . $name2);
             $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/".$name2;
         }
+    }else{
+        $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/photo2.png";
     }
 
     if($tenant_id!=null||$tenant_id!=''){
