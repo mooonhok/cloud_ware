@@ -2490,12 +2490,11 @@ $app->get('/limitGoodsOrders10',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data10 = $stmt->fetchAll();
                 $data1 = array_merge($data1, $data10);
+                $num=count($data1);
                 if(count($data1)>($offset+$size)){
-
-                }else{
-
+                    $num=($offset+$size);
                 }
-                for($i=$offset;$i<($offset+$size);$i++){
+                for($i=$offset;$i<$num;$i++){
                     $selectStament=$database->select()
                         ->from('goods_package')
                         ->where('goods_package_id','=',$data1[$i]['goods_package_id']);
