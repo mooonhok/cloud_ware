@@ -1146,6 +1146,7 @@ $app->get('/searchGoodsOrders0',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get('tenant-id');
+    $inventory_type=$app->request->get('inventory_type');
     if($tenant_id!=null||$tenant_id!=''){
             $selectStatement = $database->select()
                 ->from('orders')
@@ -1154,7 +1155,7 @@ $app->get('/searchGoodsOrders0',function()use($app){
                 ->where('orders.tenant_id','=',$tenant_id)
                 ->where('orders.order_status','=',1)
                 ->where('orders.is_schedule','=',0)
-                ->where('orders.inventory_type','=',1)
+                ->where('orders.inventory_type','=',$inventory_type)
                 ->where('orders.exist','=',0);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
