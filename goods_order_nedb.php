@@ -1033,6 +1033,25 @@ $app->get('/limitGoodsOrders5',function()use($app){
                         ->where('inventory_loc_id','=',$data1[$i]['inventory_loc_id']);
                     $stmt=$selectStament->execute();
                     $data5=$stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('order_id', '=', $data1[$i]['order_id']);
+                    $stmt = $selectStatement->execute();
+                    $data10 = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('id','<',$data10['id'])
+                        ->where('order_id', '=', $data1[$i]['order_id'])
+                        ->orderBy('id','DESC')
+                        ->limit(1);
+                    $stmt = $selectStatement->execute();
+                    $data11 = $stmt->fetch();
+                    $is_transfer='';
+                    if($data11!=null){
+                       $is_transfer=$data11['is_transfer'];
+                    }
+                    $data1[$i]['pre_company']=$is_transfer;
                     $data1[$i]['goods_package']=$data2;
                     $data1[$i]['sender']=$data3;
                     $data1[$i]['sender']['sender_city']=$data6;
@@ -2491,6 +2510,7 @@ $app->get('/limitGoodsOrders10',function()use($app){
                 $data10 = $stmt->fetchAll();
                 $data1 = array_merge($data1, $data10);
                 $num=count($data1);
+
                 if(count($data1)>($offset+$size)){
                     $num=($offset+$size);
                 }
