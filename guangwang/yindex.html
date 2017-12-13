@@ -241,7 +241,7 @@
 				height: 150px;
 				font: 24px "微软雅黑";
 				margin-left: 6%;
-				background-color: #50a7c6;
+				background-color: #999999;
 				float: left;
 				border-radius: 10px;
 				line-height: 150px;
@@ -362,47 +362,47 @@
 			if(sales_id != "" || sales_id != null) {
 				$(".top1").html(sales_name);
 			}
-			$("#register").addClass("style");
-			$("#tmessage").addClass("style");
-			$("#zmessage").addClass("style");
-			$("#pmessage").addClass("style");
-			$("#rsales").addClass("style");
-			$("#back").addClass("style");
+			$("#register").removeClass("style");
+			$("#tmessage").removeClass("style");
+			$("#zmessage").removeClass("style");
+			$("#pmessage").removeClass("style");
+			$("#rsales").removeClass("style");
+			$("#back").removeClass("style");
 			$("#register").mouseout(function() {
-				$("#register").addClass("style");
-			});
-			$("#register").mouseover(function() {
 				$("#register").removeClass("style");
 			});
-			$("#tmessage").mouseout(function() {
-				$("#tmessage").addClass("style");
+			$("#register").mouseover(function() {
+				$("#register").addClass("style");
 			});
-			$("#tmessage").mouseover(function() {
+			$("#tmessage").mouseout(function() {
 				$("#tmessage").removeClass("style");
 			});
-			$("#zmessage").mouseout(function() {
-				$("#zmessage").addClass("style");
+			$("#tmessage").mouseover(function() {
+				$("#tmessage").addClass("style");
 			});
-			$("#zmessage").mouseover(function() {
+			$("#zmessage").mouseout(function() {
 				$("#zmessage").removeClass("style");
 			});
-			$("#pmessage").mouseout(function() {
-				$("#pmessage").addClass("style");
+			$("#zmessage").mouseover(function() {
+				$("#zmessage").addClass("style");
 			});
-			$("#pmessage").mouseover(function() {
+			$("#pmessage").mouseout(function() {
 				$("#pmessage").removeClass("style");
 			});
-			$("#rsales").mouseout(function() {
-				$("#rsales").addClass("style");
+			$("#pmessage").mouseover(function() {
+				$("#pmessage").addClass("style");
 			});
-			$("#rsales").mouseover(function() {
+			$("#rsales").mouseout(function() {
 				$("#rsales").removeClass("style");
 			});
+			$("#rsales").mouseover(function() {
+				$("#rsales").addClass("style");
+			});
 			$("#back").mouseout(function() {
-				$("#back").addClass("style");
+				$("#back").removeClass("style");
 			});
 			$("#back").mouseover(function() {
-				$("#back").removeClass("style");
+				$("#back").addClass("style");
 			});
 		});
 		
