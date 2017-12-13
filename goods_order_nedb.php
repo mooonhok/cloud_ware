@@ -599,6 +599,25 @@ $app->get('/limitGoodsOrders0',function()use($app){
                         ->where('inventory_loc_id','=',$data1[$i]['inventory_loc_id']);
                     $stmt=$selectStament->execute();
                     $data5=$stmt->fetch();
+                    $selectStament=$database->select()
+                        ->from('orders')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('order_id','=',$data1[$i]['order_id']);
+                    $stmt=$selectStament->execute();
+                    $data11=$stmt->fetch();
+                    $selectStament=$database->select()
+                        ->from('orders')
+                        ->where('id','<',$data11['id'])
+                        ->where('order_id','=',$data1[$i]['order_id'])
+                        ->orderBy('id','DESC')
+                        ->limit(1);
+                    $stmt=$selectStament->execute();
+                    $data12=$stmt->fetch();
+                    $is_transfer='';
+                    if($data12!=null){
+                        $is_transfer=$data12['is_transfer'];
+                    }
+                    $data1[$i]['pre_company']=$is_transfer;
                     $data1[$i]['goods_package']=$data2;
                     $data1[$i]['sender']=$data3;
                     $data1[$i]['sender']['sender_city']=$data6;
@@ -686,6 +705,26 @@ $app->get('/limitGoodsOrders1',function()use($app){
                         ->where('inventory_loc_id','=',$data1[$i]['inventory_loc_id']);
                     $stmt=$selectStament->execute();
                     $data5=$stmt->fetch();
+                    $selectStament=$database->select()
+                        ->from('orders')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('order_id','=',$data1[$i]['order_id']);
+                    $stmt=$selectStament->execute();
+                    $data11=$stmt->fetch();
+                    $selectStament=$database->select()
+                        ->from('orders')
+                        ->where('id','<',$data11['id'])
+                        ->where('order_id','=',$data1[$i]['order_id'])
+                        ->orderBy('id','DESC')
+                        ->limit(1);
+                    $stmt=$selectStament->execute();
+                    $data12=$stmt->fetch();
+                    $is_transfer='';
+                    if($data12!=null){
+                        $is_transfer=$data12['is_transfer'];
+                    }
+                    $data1[$i]['pre_company']=$is_transfer;
+
                     $data1[$i]['goods_package']=$data2;
                     $data1[$i]['sender']=$data3;
                     $data1[$i]['sender']['sender_city']=$data6;
@@ -773,6 +812,26 @@ $app->get('/limitGoodsOrders2',function()use($app){
                         ->where('inventory_loc_id','=',$data1[$i]['inventory_loc_id']);
                     $stmt=$selectStament->execute();
                     $data5=$stmt->fetch();
+                    $selectStament=$database->select()
+                        ->from('orders')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('order_id','=',$data1[$i]['order_id']);
+                    $stmt=$selectStament->execute();
+                    $data11=$stmt->fetch();
+                    $selectStament=$database->select()
+                        ->from('orders')
+                        ->where('id','<',$data11['id'])
+                        ->where('order_id','=',$data1[$i]['order_id'])
+                        ->orderBy('id','DESC')
+                        ->limit(1);
+                    $stmt=$selectStament->execute();
+                    $data12=$stmt->fetch();
+                    $is_transfer='';
+                    if($data12!=null){
+                        $is_transfer=$data12['is_transfer'];
+                    }
+                    $data1[$i]['pre_company']=$is_transfer;
+
                     $data1[$i]['goods_package']=$data2;
                     $data1[$i]['sender']=$data3;
                     $data1[$i]['sender']['sender_city']=$data6;
@@ -860,6 +919,26 @@ $app->get('/limitGoodsOrders3',function()use($app){
                         ->where('inventory_loc_id','=',$data1[$i]['inventory_loc_id']);
                     $stmt=$selectStament->execute();
                     $data5=$stmt->fetch();
+                    $selectStament=$database->select()
+                        ->from('orders')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('order_id','=',$data1[$i]['order_id']);
+                    $stmt=$selectStament->execute();
+                    $data11=$stmt->fetch();
+                    $selectStament=$database->select()
+                        ->from('orders')
+                        ->where('id','<',$data11['id'])
+                        ->where('order_id','=',$data1[$i]['order_id'])
+                        ->orderBy('id','DESC')
+                        ->limit(1);
+                    $stmt=$selectStament->execute();
+                    $data12=$stmt->fetch();
+                    $is_transfer='';
+                    if($data12!=null){
+                        $is_transfer=$data12['is_transfer'];
+                    }
+                    $data1[$i]['pre_company']=$is_transfer;
+
                     $data1[$i]['goods_package']=$data2;
                     $data1[$i]['sender']=$data3;
                     $data1[$i]['sender']['sender_city']=$data6;
@@ -947,6 +1026,25 @@ $app->get('/limitGoodsOrders4',function()use($app){
                         ->where('inventory_loc_id','=',$data1[$i]['inventory_loc_id']);
                     $stmt=$selectStament->execute();
                     $data5=$stmt->fetch();
+                    $selectStament=$database->select()
+                        ->from('orders')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('order_id','=',$data1[$i]['order_id']);
+                    $stmt=$selectStament->execute();
+                    $data11=$stmt->fetch();
+                    $selectStament=$database->select()
+                        ->from('orders')
+                        ->where('id','<',$data11['id'])
+                        ->where('order_id','=',$data1[$i]['order_id'])
+                        ->orderBy('id','DESC')
+                        ->limit(1);
+                    $stmt=$selectStament->execute();
+                    $data12=$stmt->fetch();
+                    $is_transfer='';
+                    if($data12!=null){
+                        $is_transfer=$data12['is_transfer'];
+                    }
+                    $data1[$i]['pre_company']=$is_transfer;
                     $data1[$i]['goods_package']=$data2;
                     $data1[$i]['sender']=$data3;
                     $data1[$i]['sender']['sender_city']=$data6;
@@ -1141,6 +1239,25 @@ $app->get('/getGoodsOrder',function()use($app){
                     ->where('exception_id','=',$data1[$i]['exception_id']);
                 $stmt=$selectStament->execute();
                 $data10=$stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('orders')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('order_id','=',$data1[$i]['order_id']);
+                $stmt=$selectStament->execute();
+                $data11=$stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('orders')
+                    ->where('id','<',$data11['id'])
+                    ->where('order_id','=',$data1[$i]['order_id'])
+                    ->orderBy('id','DESC')
+                    ->limit(1);
+                $stmt=$selectStament->execute();
+                $data12=$stmt->fetch();
+                $is_transfer='';
+                if($data12!=null){
+                    $is_transfer=$data12['is_transfer'];
+                }
+                $data1[$i]['pre_company']=$is_transfer;
                 $data1[$i]['goods_package']=$data2;
                 $data1[$i]['sender']=$data3;
                 $data1[$i]['sender']['sender_city']=$data6;
