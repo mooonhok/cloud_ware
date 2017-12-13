@@ -2474,6 +2474,7 @@ $app->get('/limitGoodsOrders10',function()use($app){
                     ->limit((int)$size,(int)$offset);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
+                
                 for($i=0;$i<count($data1);$i++){
                     $selectStament=$database->select()
                         ->from('goods_package')
