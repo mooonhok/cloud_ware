@@ -106,3 +106,6 @@
 	color:white;
 	cursor:pointer;
 }
+input::-webkit-input-placeholder {
+	font-size: 18px;
+}
