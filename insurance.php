@@ -306,7 +306,7 @@ $app->get('/insurances',function()use($app){
     $selectStatement = $database->select()
         ->from('insurance')
         ->where('tenant_id','=',$tenant_id)
-        ->orderBy('insurance.insurance_start_time','DESC');
+        ->orderBy('insurance.insurance_start_time',"DESC");
     $stmt = $selectStatement->execute();
     $data1= $stmt->fetchAll();
     echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$data1));
