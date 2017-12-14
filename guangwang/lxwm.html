@@ -1,12 +1,13 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-                <link rel="icon" href="img/logo.png" type="image/x-icon"/>
-		<script src="js/jquery-1.9.1.min.js"></script>
+		  <link rel="icon" href="img/logo.png" type="image/x-icon"/>
+-		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/jquery.js"></script>
 		<script src="layer/layer.js"></script>
 		<title>我要加入</title>
 		<style>
@@ -23,7 +24,7 @@
 				overflow: hidden;
 				margin: 0;
 				padding: 0;
-				background-color: #EEEEEE;
+				/*background-color: #EEEEEE;*/
 				color: #333333;
 			}
 			
@@ -31,11 +32,11 @@
 				height: 90%;
 				width: 90%;
 				margin-left: 5%;
-				margin-top: 5%;
+				margin-top: 50px;
 				/*background-color:rgb(238,238,238);*/
 				border-radius: 10px;
 				background-color: white;
-				border: 1px solid grey;
+				/*border: 1px solid grey;*/
 			}
 			
 			.top {
@@ -43,13 +44,13 @@
 				height: 60px;
 				margin-top: 50px;
 				margin-left:10%;
-				text-indent: 2em;
+				text-align: center;
 				word-wrap: break-word;
 			}
 			
 			.center {
-				width: 96%;
-				margin-left: 2%;
+				width:  30%;
+				margin-left: 35%;
 				height: 200px;
 				margin-top: 5px;
 			}
@@ -87,8 +88,8 @@
 			}
 			.foot{
 				height:45px;
-				width:80%;
-			    margin-left:10%;
+				width:24%;
+			    margin-left:38%;
 			    border-radius: 5px;
 			    background-color: rgb(66,161,153);
 			    color:white;
@@ -103,18 +104,19 @@
 		<div class="box">
 			<div class="top">欢迎贵公司留下您的公司信息和联系方式，方便我们及时与你联系</div>
 			<div class="center">
-				<div class="center1"><div class="pic"><img  src="img/company.png"></div><input class="in" placeholder="公司名称" id="company"></div>
-				<div class="center1"><div class="pic"><img  src="img/name.png"></div><input class="in" placeholder="负责人姓名" id="name"></div>
-				<div class="center1"><div class="pic"><img  src="img/telephone.png"></div><input class="in" placeholder="手机号" id="telephone"></div>
-				<div class="center1"><div class="pic"><img  src="img/address.png"></div><input class="in" placeholder="公司地址" id="address"></div>
+				<div class="center1"><div class="pic"><img  src="img/c.png"></div><input class="in" placeholder="公司名称" id="company"></div>
+				<div class="center1"><div class="pic"><img  src="img/n.png"></div><input class="in" placeholder="负责人姓名" id="name"></div>
+				<div class="center1"><div class="pic"><img  src="img/t.png"></div><input class="in" placeholder="手机号" id="telephone"></div>
+				<div class="center1"><div class="pic"><img  src="img/a.png"></div><input class="in" placeholder="公司地址" id="address"></div>
 			</div>
 			<div class="foot" id="hezuo">确认</div>
 		</div>
 	</body>
 	<script language=javascript>
-		var height=$(window).height();
-		$(".box").css('height',height*0.9);
+        var height=$(window).height();
+        $(".box").css('height',height*0.9);
 		$(function() {
+
 			$("#hezuo").on("click", function() {
 				var company = $("#company").val();
 				var name = $("#name").val();
@@ -148,11 +150,11 @@
 								});
 								window.location.reload();
 							} else {
-								layer.msg(msg.desc);
+								alert(msg.desc);
 							}
 						},
 						error: function(xhr) {
-							alert(xhr.responseText);
+							alert("上传数据失败");
 						}
 					});
 				}
