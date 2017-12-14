@@ -6,7 +6,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 		  <link rel="icon" href="img/logo.png" type="image/x-icon"/>
--		<script src="js/jquery-1.9.1.min.js"></script>
 		<script src="js/jquery.js"></script>
 		<script src="layer/layer.js"></script>
 		<title>我要加入</title>
@@ -24,7 +23,7 @@
 				overflow: hidden;
 				margin: 0;
 				padding: 0;
-				/*background-color: #EEEEEE;*/
+				background-color: #EEEEEE;
 				color: #333333;
 			}
 			
@@ -32,11 +31,11 @@
 				height: 90%;
 				width: 90%;
 				margin-left: 5%;
-				margin-top: 50px;
+				margin-top: 5%;
 				/*background-color:rgb(238,238,238);*/
 				border-radius: 10px;
 				background-color: white;
-				/*border: 1px solid grey;*/
+				border: 1px solid grey;
 			}
 			
 			.top {
@@ -44,13 +43,13 @@
 				height: 60px;
 				margin-top: 50px;
 				margin-left:10%;
-				text-align: center;
+				text-indent: 1em;
 				word-wrap: break-word;
 			}
 			
 			.center {
-				width:  30%;
-				margin-left: 35%;
+				width: 96%;
+				margin-left: 2%;
 				height: 200px;
 				margin-top: 5px;
 			}
@@ -88,8 +87,8 @@
 			}
 			.foot{
 				height:45px;
-				width:24%;
-			    margin-left:38%;
+				width:80%;
+			    margin-left:10%;
 			    border-radius: 5px;
 			    background-color: rgb(66,161,153);
 			    color:white;
@@ -102,7 +101,7 @@
 
 	<body>
 		<div class="box">
-			<div class="top">欢迎贵公司留下您的公司信息和联系方式，方便我们及时与你联系</div>
+			<div class="top">欢迎贵公司留下您的公司信息和联系方式，方便我们及时与你联系。</div>
 			<div class="center">
 				<div class="center1"><div class="pic"><img  src="img/c.png"></div><input class="in" placeholder="公司名称" id="company"></div>
 				<div class="center1"><div class="pic"><img  src="img/n.png"></div><input class="in" placeholder="负责人姓名" id="name"></div>
@@ -150,11 +149,11 @@
 								});
 								window.location.reload();
 							} else {
-								alert(msg.desc);
+								layer.msg(msg.desc);
 							}
 						},
 						error: function(xhr) {
-							alert("上传数据失败");
+							alert(xhr.responseText);
 						}
 					});
 				}
