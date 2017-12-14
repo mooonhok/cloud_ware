@@ -306,7 +306,7 @@ $app->get('/insurances',function()use($app){
     $selectStatement = $database->select()
         ->from('insurance')
         ->where('tenant_id','=',$tenant_id)
-        ->orderBy('insurance.insurance_start_time','desc');
+        ->orderBy('insurance.insurance_start_time','DESC');
     $stmt = $selectStatement->execute();
     $data1= $stmt->fetchAll();
     echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$data1));
@@ -323,10 +323,10 @@ $app->get('/per_insurances',function()use($app){
     $offset=$app->request->get('offset');
     $selectStatement = $database->select()
         ->from('insurance')
-        ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id')
+        ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
         ->where('insurance.tenant_id','=',$tenant_id)
         ->where('lorry.tenant_id','=',$tenant_id)
-        ->orderBy('insurance.insurance_start_time','desc')
+        ->orderBy('insurance.insurance_start_time','DESC')
         ->limit((int)$size,(int)$offset);
     $stmt = $selectStatement->execute();
     $data1= $stmt->fetchAll();
