@@ -1091,10 +1091,50 @@ $app->post('/receivesc',function()use($app){
 });
 
 
-
-
-
-
+$app->post('/changpass',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $name=$body->name;
+    $idcard=$body->idcard;
+    $telephone=$body->telephone;
+    $password=$body->password;
+    if($name!=null||$name!=""){
+        if($idcard!=null||$idcard!=""){
+            if($telephone!=null||$telephone!=""){
+                if($password!=null||$password!=""){
+                    $selectStament=$database->select()
+                        ->from('applorry')
+                        ->where('exist','=',0)
+                        ->where('name','=',$name)
+                        ->where('carid','=',$idcard)
+                        ->where('telephone','=',$telephone);
+                    $stmt=$selectStament->execute();
+                    $data1=$stmt->fetch();
+                    if($data1!=null){
+                        $updateStatement = $database->update(array('password'=>$password))
+                            ->table('map')
+                            ->where('lorryid', '=', $data1['lorryid']);
+                        $affectedRows = $updateStatement->execute();
+                        echo json_encode(array('result' => '0', 'desc' => '修改成功'));
+                    }else{
+                        echo json_encode(array('result' => '5', 'desc' => '您尚未注册或填写信息有误'));
+                    }
+                }else{
+                    echo json_encode(array('result' => '4', 'desc' => '您没有填写新的密码'));
+                }
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '您没有填写电话号码'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '您没有填写身份证'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '您没有填写姓名'));
+    }
+});
 
 
 
