@@ -192,8 +192,7 @@ $app->get('/sandoandg',function()use($app){
                         $arrays2['name']=$data9['customer_name'];
                         $arrays2['phone']=$data9['customer_phone'];
                         $arrays2['sendcity']=$data7['name'];
-                        $arrays2['receivecity']=$data8['name'];
-                      
+                        $arrays2['receivecity']=$data8['name'].$data9['customer_address'];
                         $selectStament=$database->select()
                         ->from('tenant')
                         ->where('tenant_id','=',$data1['sure_img']);
