@@ -163,9 +163,8 @@ $app->post('/addlorry2',function()use($app){
     $ctype=$body->ctype;
     $lorryid=$body->lorryid;
     $plate_number=$body->plate_number;
-    if($type!=null||$type!=""){
         if($lorryid!=null||$lorryid!="") {
-            if ($type = 0) {
+            if ($type == 0) {
                 if ($long != null || $long != "") {
                     if ($ctype != null || $ctype != "") {
                         if($plate_number!=null||$plate_number!=""){
@@ -207,9 +206,6 @@ $app->post('/addlorry2',function()use($app){
         }else{
             echo json_encode(array('result' => '5', 'desc' => '未填写电话号码'));
         }
-    }else{
-        echo json_encode(array('result' => '1', 'desc' => '未选择车辆类别'));
-    }
 });
 
 //司机注册4(图片1)
