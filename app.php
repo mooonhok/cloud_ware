@@ -934,8 +934,71 @@ $app->post('/scmap',function()use($app){
     }else{
         echo json_encode(array('result' => '1', 'desc' => '坐标缺少'));
     }
-
 });
+//清单确认拉货
+$app->post('/suresc1',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $schedule_id=$body->schedule_id;
+    $lorry_id=$body->lorryid;
+    $arrays['scheduling_status']=2;
+    $arrays['change_datetime']=time();
+    date_default_timezone_set("PRC");
+    $arrays1['order_datetime2']=date("Y-m-d H:i:s",time());
+    if($lorry_id!=null||$lorry_id!=""){
+        $selectStament=$database->select()
+            ->from('applorry')
+            ->where('exist','=',0)
+            ->where('lorryid','=',$lorry_id);
+        $stmt=$selectStament->execute();
+        $data1=$stmt->fetch();
+        if($data1!=null){
+            $selectStament=$database->select()
+                ->from('scheduling')
+                ->where('exist','=',0)
+                ->where('scheduling_stataus','=',1)
+                ->where('scheduling_id','=',$schedule_id);
+            $stmt=$selectStament->execute();
+            $data3=$stmt->fetch();
+            if($data3!=null){
+                $selectStament=$database->select()
+                    ->from('lorry')
+                    ->where('exist','=',0)
+                    ->where('flag','=',0)
+                    ->where('tenant_id','=',$data3['tenant_id'])
+                    ->where('lorry_id','=',$data3['lorry_id']);
+                $stmt=$selectStament->execute();
+                $data4=$stmt->fetch();
+                if($data4!=null){
+                   if($data1['telephone']==$data4['driver_phone']&&$data1['plate_number']==$data4['platenumber']){
+                       $updateStatement = $database->update($arrays)
+                           ->table('scheduling')
+                           ->where('scheduling_id', '=', $schedule_id);
+                       $affectedRows = $updateStatement->execute();
+                       echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+                   }else{
+                       echo json_encode(array('result' => '5', 'desc' => '该清单不是您的'));
+                   }
+                }else{
+                    echo json_encode(array('result' => '4', 'desc' => '该清单上的司机不存在'));
+                }
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '清单不存在或未确认'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '缺少司机id'));
+    }
+});
+
+//签字签收
+
+
 
 
 

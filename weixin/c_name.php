@@ -223,8 +223,8 @@ $signPackage = $jssdk->GetSignPackage();
                    $('#tel').html(msg.contact.customer_phone);
                    $('#tel').attr('href',"tel:"+msg.contact.customer_phone);
                    $("#foot2").html(msg.tenant.service_items);   
-                   if(msg.tenant.tenant_business_card!=null&&msg.tenant.tenant_business_card!=""){
-                   	   $(".box").css("background","url("+msg.tenant.tenant_business_card+")");
+                   if(msg.tenant.business_card!=null&&msg.tenant.business_card!=""){
+                   	   $(".box").css("background","url("+msg.tenant.business_card+")");
                    }   
                },
                error: function(e) {
