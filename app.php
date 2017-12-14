@@ -163,6 +163,7 @@ $app->post('/addlorry2',function()use($app){
     $ctype=$body->ctype;
     $lorryid=$body->lorryid;
     $plate_number=$body->plate_number;
+    if($type!=null||$type!=""){
         if($lorryid!=null||$lorryid!="") {
             if ($type = 0) {
                 if ($long != null || $long != "") {
@@ -206,6 +207,9 @@ $app->post('/addlorry2',function()use($app){
         }else{
             echo json_encode(array('result' => '5', 'desc' => '未填写电话号码'));
         }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '未选择车辆类别'));
+    }
 });
 
 //司机注册4(图片1)
@@ -993,6 +997,105 @@ $app->post('/suresc1',function()use($app){
 });
 
 //签字签收
+$app->post('/receivesc',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $schedule_id=$body->schedule_id;
+    $lorry_id=$body->lorry_id;
+    $pic=$body->pic;
+    $lujing=null;
+    $base64_image_content = $pic;
+//匹配出图片的格式
+    if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)){
+        $type = $result[2];
+        date_default_timezone_set("PRC");
+        $time1=time();
+        $new_file = "/files/sure/".date('Ymd',$time1)."/";
+        if(!file_exists($new_file))
+        {
+//检查是否有该文件夹，如果没有就创建，并给予最高权限
+            mkdir($new_file, 0700);
+        }
+        $new_file = $new_file.time().".{$type}";
+        if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))){
+            $lujing="http://files.uminfo.cn:8000/sure/".date('Ymd',$time1)."/".$time1.".{$type}";
+        }
+    }
+    $arrays['scheduling_status']=5;
+    $arrays['is_contract']=0;
+    $arrays['is_insurance']=0;
+    $arrays['sure_img']=$lujing;
+    $arrays['change_datetime']=time();
+    date_default_timezone_set("PRC");
+    $arrays1['sure_img']=$lujing;
+    $arrays1['order_status']=7;
+    $arrays1['order_datetime4']=date("Y-m-d H:i:s",time());
+    $arrays1['order_datetime5']=date("Y-m-d H:i:s",time());
+    if($lorry_id!=null||$lorry_id!=""){
+        $selectStament=$database->select()
+            ->from('applorry')
+            ->where('exist','=',0)
+            ->where('lorryid','=',$lorry_id);
+        $stmt=$selectStament->execute();
+        $data1=$stmt->fetch();
+        if($data1!=null){
+            $selectStament=$database->select()
+                ->from('scheduling')
+                ->where('exist','=',0)
+                ->where('scheduling_stataus','=',4)
+                ->where('scheduling_id','=',$schedule_id);
+            $stmt=$selectStament->execute();
+            $data3=$stmt->fetch();
+            if($data3!=null){
+                $selectStament=$database->select()
+                    ->from('lorry')
+                    ->where('exist','=',0)
+                    ->where('flag','=',0)
+                    ->where('tenant_id','=',$data3['tenant_id'])
+                    ->where('lorry_id','=',$data3['lorry_id']);
+                $stmt=$selectStament->execute();
+                $data4=$stmt->fetch();
+                if($data4!=null){
+                    if($data1['telephone']==$data4['driver_phone']&&$data1['plate_number']==$data4['platenumber']){
+                        $updateStatement = $database->update($arrays)
+                            ->table('scheduling')
+                            ->where('scheduling_id', '=', $schedule_id);
+                        $affectedRows = $updateStatement->execute();
+                        $selectStament=$database->select()
+                            ->from('schedule_order')
+                            ->where('exist','=',0)
+                            ->where('schedule_id','=',$schedule_id);
+                        $stmt=$selectStament->execute();
+                        $data3=$stmt->fetchAll();
+                        for($x=0;$x<count($data3);$x++) {
+                            $updateStatement = $database->update($arrays1)
+                                ->table('orders')
+                                ->where('order_id', '=', $data3[$x]['order_id']);
+                            $affectedRows = $updateStatement->execute();
+                            echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+                        }
+                        }else{
+                            echo json_encode(array('result' => '5', 'desc' => '该清单不是您的'));
+                        }
+                }else{
+                    echo json_encode(array('result' => '4', 'desc' => '该清单上的司机不存在'));
+                }
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '清单不存在或未确认'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '缺少司机id'));
+    }
+});
+
+
+
 
 
 
