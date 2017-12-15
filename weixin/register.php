@@ -115,6 +115,7 @@ $signPackage = $jssdk->GetSignPackage();
                 width:100%;
                 margin-top: 20px;
                 font-size:12px;
+                float: left;
             }
 		</style>
     </head>
