@@ -1295,11 +1295,12 @@ $signPackage = $jssdk->GetSignPackage();
 						openid: openid
 					}),
 					success: function(msg) {
-					 layer.msg("订单提交成功");
+					 alert("订单提交成功");
 //						  window.location.href = "http://api.uminfo.cn/weixin/c_name.php?tenant_id="+tenant_id;
+    
                         if(msg.result==1){
                         	wx.closeWindow();
-                        }
+                        };
 					},
 					error: function(xhr) {
 						layer.msg("提交订单失败");
