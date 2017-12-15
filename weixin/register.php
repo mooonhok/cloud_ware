@@ -89,7 +89,7 @@ $signPackage = $jssdk->GetSignPackage();
                 font-size: 25px;
                 line-height: 40px;
                 text-align: center;
-                 float: left;
+                 /*float: left;*/
                  margin-left:25%;
                  color:white;
                 /*border-style: solid;*/
@@ -115,7 +115,7 @@ $signPackage = $jssdk->GetSignPackage();
                 width:100%;
                 margin-top: 20px;
                 font-size:12px;
-                float: left;
+                /*float: left;*/
             }
 		</style>
     </head>
