@@ -28,6 +28,7 @@
 	height: 700px;
 	margin: 0 auto;
 	background: white;
+	opacity:0.5;
 }
 .center_1{
 	width: 1000px;
@@ -187,6 +188,7 @@
 	height: 700px;
 	background: white;
 	margin: 10px auto;
+	opacity:0.5;
 }
 .foot_1{
 	width: 1000px;
