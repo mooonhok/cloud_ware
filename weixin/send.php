@@ -1296,7 +1296,7 @@ $signPackage = $jssdk->GetSignPackage();
 					}),
 					success: function(msg) {
 					 layer.msg("提交订单成功");
-						  window.location.href = "http://api.uminfo.cn/weixin/my_consignment_note.php?tenant_id="+tenant_id;
+						  window.location.href = "http://api.uminfo.cn/weixin/c_name.php?tenant_id="+tenant_id;
 					},
 					error: function(xhr) {
 						layer.msg("提交订单失败");

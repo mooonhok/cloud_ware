@@ -111,6 +111,10 @@ $signPackage = $jssdk->GetSignPackage();
 			    width:70%;
 			    height:70px;
 			}
+            .beizhu{
+                margin-top: 20px;
+                font-size:12px;
+            }
 		</style>
     </head>
     <body>
@@ -120,6 +124,7 @@ $signPackage = $jssdk->GetSignPackage();
 				<div class="box1_2"><span class="sp">姓名:</span><span class="sp1"></span><input type="text" id="customername" placeholder="请输入您的姓名"></div>
 				<div class="box1_2"><span class="sp">电话:</span><span class="sp1"></span><input type="tel" id="customertel" placeholder="请输入您的手机号码"></div>
 			<div id="submit" class="submit">确<span class="kong"></span>认</div>
+            <div class="beizhu">注：查询运单，需要留下您的姓名和电话</div>
 			</div>
 		</div>
     </body>
