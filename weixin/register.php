@@ -111,7 +111,8 @@ $signPackage = $jssdk->GetSignPackage();
 			    width:70%;
 			    height:70px;
 			}
-            .beizhu{
+            .beizhu
+                width:100%;
                 margin-top: 20px;
                 font-size:12px;
             }
