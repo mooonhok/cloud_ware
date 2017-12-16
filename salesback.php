@@ -60,7 +60,7 @@ $app->get('/sales',function()use($app){
         if($admin_id!=""||$admin_id!=null){
             $selectStament=$database->select()
                 ->from('admin')
-                ->where('admin_id','=',$admin_id);
+                ->where('id','=',$admin_id);
             $stmt=$selectStament->execute();
             $data=$stmt->fetch();
             if($data!=null){
@@ -89,7 +89,7 @@ $app->get('/sales',function()use($app){
         if($admin_id!=""||$admin_id!=null){
             $selectStament=$database->select()
                 ->from('admin')
-                ->where('admin_id','=',$admin_id);
+                ->where('id','=',$admin_id);
             $stmt=$selectStament->execute();
             $data=$stmt->fetch();
             if($data!=null){
@@ -134,7 +134,7 @@ $app->post('/upsales',function()use($app){
     if($admin_id!=null||$admin_id!=""){
         $selectStament=$database->select()
             ->from('admin')
-            ->where('admin_id','=',$admin_id);
+            ->where('id','=',$admin_id);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
         if($data!=null){
@@ -184,7 +184,7 @@ $app->post('/addsales',function()use($app){
         $selectStament=$database->select()
             ->from('admin')
             ->where('exist','=',0)
-            ->where('admin_id','=',$admin_id);
+            ->where('id','=',$admin_id);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
         if($data!=null){
@@ -263,7 +263,7 @@ $app->get('/sbysalesid',function()use($app){
         if($admin_id!=""||$admin_id!=null){
             $selectStament=$database->select()
                 ->from('admin')
-                ->where('admin_id','=',$admin_id);
+                ->where('id','=',$admin_id);
             $stmt=$selectStament->execute();
             $data=$stmt->fetch();
             if($data!=null){
@@ -293,7 +293,7 @@ $app->get('/sbysalesid',function()use($app){
         if($admin_id!=""||$admin_id!=null){
             $selectStament=$database->select()
                 ->from('admin')
-                ->where('admin_id','=',$admin_id);
+                ->where('id','=',$admin_id);
             $stmt=$selectStament->execute();
             $data=$stmt->fetch();
             if($data!=null){
