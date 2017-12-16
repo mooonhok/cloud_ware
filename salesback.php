@@ -326,7 +326,45 @@ $app->get('/sbysalesid',function()use($app){
         }
     }
 });
-
+//查询指定业务员
+$app->get('/bysalesid',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $admin_id=$app->request->get('adminid');
+    $name=$app->request->get('name');
+    if($admin_id!=null||$admin_id!=""){
+        if($name!=null||$name!=""){
+            $selectStament=$database->select()
+                ->from('admin')
+                ->where('id','=',$admin_id);
+            $stmt=$selectStament->execute();
+            $data=$stmt->fetch();
+            if($data!=null){
+                if($data['type']==1||$data['type']==2){
+                    $selectStament=$database->select()
+                        ->from('sales')
+                        ->where('sales_name','=',$name);
+                    $stmt=$selectStament->execute();
+                    $data2=$stmt->fetchAll();
+                    if($data2!=null){
+                        echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2));
+                    }else{
+                        echo json_encode(array('result' => '5', 'desc' => '没有名字为'.$name.'的业务员'));
+                    }
+                }else{
+                    echo json_encode(array('result' => '4', 'desc' => '管理员没有权限'));
+                }
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '管理员不存在'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '缺少业务员名字'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '缺少管理员id'));
+    }
+});
 $app->run();
 
 function localhost(){
