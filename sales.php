@@ -420,6 +420,12 @@ $app->post('/addsales',function()use($app){
                            if($address!=null||$address!=""){
                                if($zip_code!=null||$zip_code!=""){
                                    if($higherlevel!=null||$higherlevel!=""){
+                                       $selectStatement = $database->select()
+                                           ->from('sales')
+                                           ->where('exist','=',0)
+                                           ->where('id', '=', $higherlevel);
+                                       $stmt = $selectStatement->execute();
+                                       $data5 = $stmt->fetch();
                                            $password1=substr($card_id,-6);
                                       // $num2=rand(1000000,10000000000);
                                        $str1=str_split($password1,3);
@@ -428,10 +434,10 @@ $app->post('/addsales',function()use($app){
                                            $password.=$str1[$x].$x;
                                        }
                                        $insertStatement = $database->insert(array('exist','sales_name','sex','card_id','telephone','address'
-                                         ,'zip_code','qq','weixin','password','higher_id'))
+                                         ,'zip_code','qq','weixin','password','higher_id','teamid'))
                                            ->into('sales')
                                            ->values(array(0,$sales_name,$sex,$card_id,$telephone,$address,$zip_code,$qq,$weixin,$password
-                                           ,$higherlevel));
+                                           ,$higherlevel,$data5['teamid']));
                                        $insertId = $insertStatement->execute(false);
                                        $arrays['password']=$password1;
                                        echo json_encode(array('result' => '0', 'desc' => '添加成功','sales'=>$arrays));
