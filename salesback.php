@@ -19,7 +19,12 @@ $app->post('/sadmin',function()use($app){
     $body=$app->request->getBody();
     $body=json_decode($body);
     $username=$body->username;
-    $password=$body->password;
+    $password1=$body->password;
+    $str1=str_split($password1,3);
+    $password=null;
+    for ($x=0;$x<count($str1);$x++){
+        $password.=$str1[$x].$x;
+    }
     if($username!=null||$username!=""){
         if($password!=null||$password!=""){
             $selectStament=$database->select()
