@@ -39,16 +39,16 @@ $signPackage = $jssdk->GetSignPackage();
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
  <script>
-		window.alert = function(name){
-			 var iframe = document.createElement("IFRAME");
-			iframe.style.display="none";
-			iframe.setAttribute("src", 'data:text/plain,');
-			document.documentElement.appendChild(iframe);
-			window.frames[0].window.alert(name);
-			iframe.parentNode.removeChild(iframe);
-		}
-			
-		alert('修改');
+//		window.alert = function(name){
+//			 var iframe = document.createElement("IFRAME");
+//			iframe.style.display="none";
+//			iframe.setAttribute("src", 'data:text/plain,');
+//			document.documentElement.appendChild(iframe);
+//			window.frames[0].window.alert(name);
+//			iframe.parentNode.removeChild(iframe);
+//		}
+//			
+//		alert('修改');
 </script>
 <script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
 	<script>

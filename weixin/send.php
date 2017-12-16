@@ -444,7 +444,6 @@ $signPackage = $jssdk->GetSignPackage();
 				<div class="box12_c3">确定</div>
 			</div>
 		</div>
-
 	</body>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
@@ -483,6 +482,14 @@ $signPackage = $jssdk->GetSignPackage();
 //				}
 //			});
 //		}
+window.alert = function(name){
+			 var iframe = document.createElement("IFRAME");
+			iframe.style.display="none";
+			iframe.setAttribute("src", 'data:text/plain,');
+			document.documentElement.appendChild(iframe);
+			window.frames[0].window.alert(name);
+			iframe.parentNode.removeChild(iframe);
+		}
 		$(document).ready(function() {
 			$(".top1").on("click", function() {
 				loadsend(openid,tenant_id);
