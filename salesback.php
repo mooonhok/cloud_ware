@@ -72,8 +72,13 @@ $app->get('/sales',function()use($app){
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetchAll();
                     $num=count($data2);
+                    $num2=0;
                     if($data2!=null){
-                        echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num));
+                        for($i=0;$i<count($data2);$i++){
+                            $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
+                            $num2+=$data2[$i]['tenantcount'];
+                        }
+                        echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num,'moneycount'=>$num2));
                     }else{
                         echo json_encode(array('result' => '4', 'desc' => '尚未有业务员'));
                     }
@@ -101,13 +106,20 @@ $app->get('/sales',function()use($app){
                     $stmt=$selectStament->execute();
                     $data3=$stmt->fetchAll();
                     $num=count($data3);
+                    $num2=0;
+                    for($y=0;$y<count($data3);$y++){
+                        $num2+=$data3[$y]['tenantcount'];
+                    }
                     $selectStament=$database->select()
                         ->from('sales')
                         ->limit((int)$per_page, (int)$per_page * (int)$page);
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetchAll();
                     if($data2!=null){
-                        echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num));
+                        for($i=0;$i<count($data2);$i++){
+                            $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
+                        }
+                        echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num,'moneycount'=>$num2));
                     }else{
                         echo json_encode(array('result' => '4', 'desc' => '尚未有业务员'));
                     }
@@ -137,8 +149,13 @@ $app->get('/sales',function()use($app){
                         $stmt=$selectStament->execute();
                         $data2=$stmt->fetchAll();
                         $num=count($data2);
+                        $num2=0;
                         if($data2!=null){
-                            echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num));
+                            for($i=0;$i<count($data2);$i++){
+                                $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
+                                $num2+=$data2[$i]['tenantcount'];
+                            }
+                            echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num,'moneycount'=>$num2));
                         }else{
                             echo json_encode(array('result' => '4', 'desc' => '尚未有业务员'));
                         }
@@ -167,14 +184,22 @@ $app->get('/sales',function()use($app){
                         $stmt=$selectStament->execute();
                         $data3=$stmt->fetchAll();
                         $num=count($data3);
+                        $num2=0;
+                        for($y=0;$y<count($data3);$y++){
+                            $num2+=$data3[$y]['tenantcount'];
+                        }
                         $selectStament=$database->select()
                             ->from('sales')
                             ->where('teamid','=',$teamid)
                         ->limit((int)$per_page, (int)$per_page * (int)$page);
                         $stmt=$selectStament->execute();
                         $data2=$stmt->fetchAll();
+
                         if($data2!=null){
-                            echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num));
+                            for($i=0;$i<count($data2);$i++){
+                                $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
+                            }
+                            echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num,'moneycount'=>$num2));
                         }else{
                             echo json_encode(array('result' => '4', 'desc' => '尚未有业务员'));
                         }
