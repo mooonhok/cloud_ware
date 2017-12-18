@@ -822,9 +822,9 @@ $app->get('/tongji',function()use($app){
                      $selectStament=$database->select()
                          ->from('scheduling')
                          ->where('exist','=',0)
-                         ->where('scheduling_stataus','!=',1)
-                         ->where('scheduling_stataus','!=',5)
-                         ->where('scheduling_stataus','!=',6)
+                         ->where('scheduling_status','!=',1)
+                         ->where('scheduling_status','!=',5)
+                         ->where('scheduling_status','!=',6)
                          ->where('tenant_id','=',$data2[$i]['tenant_id'])
                          ->where('lorry_id','=',$data2[$i]['lorry_id']);
                      $stmt=$selectStament->execute();
@@ -879,9 +879,9 @@ $app->post('/scmap',function()use($app){
                         $selectStament=$database->select()
                             ->from('scheduling')
                             ->where('exist','=',0)
-                            ->where('scheduling_stataus','!=',1)
-                            ->where('scheduling_stataus','!=',5)
-                            ->where('scheduling_stataus','!=',6)
+                            ->where('scheduling_status','!=',1)
+                            ->where('scheduling_status','!=',5)
+                            ->where('scheduling_status','!=',6)
                             ->where('tenant_id','=',$data2[$i]['tenant_id'])
                             ->where('lorry_id','=',$data2[$i]['lorry_id']);
                         $stmt=$selectStament->execute();
@@ -955,7 +955,7 @@ $app->post('/suresc1',function()use($app){
             $selectStament=$database->select()
                 ->from('scheduling')
                 ->where('exist','=',0)
-                ->where('scheduling_stataus','=',1)
+                ->where('scheduling_status','=',1)
                 ->where('scheduling_id','=',$schedule_id);
             $stmt=$selectStament->execute();
             $data3=$stmt->fetch();
@@ -1041,7 +1041,7 @@ $app->post('/receivesc',function()use($app){
             $selectStament=$database->select()
                 ->from('scheduling')
                 ->where('exist','=',0)
-                ->where('scheduling_stataus','=',4)
+                ->where('scheduling_status','=',4)
                 ->where('scheduling_id','=',$schedule_id);
             $stmt=$selectStament->execute();
             $data3=$stmt->fetch();
