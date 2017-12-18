@@ -23,7 +23,7 @@ $app->get('/getLatest',function()use($app){
     $data = $stmt->fetchAll();
     if($data!=null){
         $client=$data[0];
-        $client_url=substr($client['url'],27,13).'/app.asar';
+        $client_url=substr($client['package_url'],27,13).'/app.asar';
         $size = filesize('/files'.$client_url);
         echo  json_encode(array("result"=>"0","desc"=>"success","client"=>$client,'size'=>$size));
     }else{
