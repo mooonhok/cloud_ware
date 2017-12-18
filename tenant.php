@@ -480,11 +480,6 @@ $app->post('/tenant',function()use($app) {
                                                                  ->table('customer')
                                                                  ->where('customer_id','=',$num);
                                                              $affectedRows = $updateStatement->execute();
-                                                             $updateStatement = $database->update(array('tenantcount'=>($data1['tenantcount']+1)))
-                                                                 ->table('sales')
-                                                                 ->where('id','=',$data1['id']);
-                                                             $affectedRows = $updateStatement->execute();
-
 
                                                              //echo json_encode(array('result'=>'0','desc'=>'添加成功'));
                                                              $app->redirect('http://www.uminfo.cn/zhuce.html?desc=企业登记成功');
