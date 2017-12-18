@@ -774,6 +774,26 @@ $app->get('/sandoandg',function()use($app){
                 $arrays1['goods_package'] = $data6['goods_package'];
                 array_push($arrays, $arrays1);
             }
+            $selectStament=$database->select()
+                ->from('city')
+                ->where('id','=',$data1['send_city_id']);
+            $stmt=$selectStament->execute();
+            $data7=$stmt->fetch();
+            $selectStament=$database->select()
+                ->from('city')
+                ->where('id','=',$data1['receive_city_id']);
+            $stmt=$selectStament->execute();
+            $data8=$stmt->fetch();
+            $selectStament=$database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$data1['tenant_id'])
+                ->where('customer_id','=',$data1['receiver_id']);
+            $stmt=$selectStament->execute();
+            $data9=$stmt->fetch();
+            $arrays2['name']=$data9['customer_name'];
+            $arrays2['phone']=$data9['customer_phone'];
+            $arrays2['sendcity']=$data7['name'];
+            $arrays2['receivecity']=$data8['name'].$data9['customer_address'];
             $selectStament = $database->select()
                 ->from('tenant')
                 ->where('tenant_id', '=', $data1['sure_img']);
@@ -784,7 +804,7 @@ $app->get('/sandoandg',function()use($app){
             } else {
                 $arrays2['pic'] = $data1['sure_img'];
             }
-            echo json_encode(array('result' => '0', 'desc' => '', 'goods' => $arrays, 'isreceive' => $data1['scheduling_status']));
+            echo json_encode(array('result' => '0', 'desc' => '', 'goods' => $arrays,'schedule'=>$arrays2, 'isreceive' => $data1['scheduling_status']));
 
         }else{
             echo json_encode(array('result' => '4', 'desc' => '该清单不存在','goods'=>''));
