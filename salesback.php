@@ -292,6 +292,7 @@ $app->post('/addsales',function()use($app){
     $zip_code=$body->zip_code;
     $qq=$body->qq;
     $weixin=$body->weixin;
+    $teamid=$body->teamid;
     $admin_id=$body->admin_id;
     if($admin_id!=""||$admin_id!=null){
         $selectStament=$database->select()
@@ -323,10 +324,10 @@ $app->post('/addsales',function()use($app){
                                         $password.=$str1[$x].$x;
                                     }
                                     $insertStatement = $database->insert(array('exist','sales_name','sex','card_id','telephone','address'
-                                    ,'zip_code','qq','weixin','password','higher_id'))
+                                    ,'zip_code','qq','weixin','password','higher_id','teamid'))
                                         ->into('sales')
                                         ->values(array(0,$sales_name,$sex,$card_id,$telephone,$address,$zip_code,$qq,$weixin,$password
-                                        ,0));
+                                        ,0,$teamid));
                                     $insertId = $insertStatement->execute(false);
                                     $arrays['password']=$password1;
                                     echo json_encode(array('result' => '0', 'desc' => '添加成功','sales'=>$arrays));
