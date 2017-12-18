@@ -143,12 +143,12 @@
 			$("#city1").append('<option value="' + i + '">第' + i + '组</option>');
 		}
 		$(".top1").on("click",function(){
-			window.location.href = "http://www.uminfo.cn/backsales/first.html";
+			window.location.href = "http://api.uminfo.cn/backsales/first.html";
 		});
 		var adminid = $.session.get('adminid');
 	//	var sales_id=1;
 		if(adminid=""||adminid==null){
-			window.location.href = "http://www.uminfo.cn/backsales/index.html";
+			window.location.href = "http://api.uminfo.cn/backsales/index.html";
 		}
 		$("#register").on("click", function() {
 			var adminid = $.session.get('adminid');
@@ -190,7 +190,7 @@
 						success: function(msg) {
 							if(msg.result == 0) {
 								alert("请记住密码" + msg.sales.password);
-								window.location.href="http://www.uminfo.cn/backsales/first.html?teamid="+teamid;
+								window.location.href="http://api.uminfo.cn/backsales/first.html?teamid="+teamid;
 							} else {
 								alert(msg.desc);
 							}
