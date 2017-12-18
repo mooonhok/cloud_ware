@@ -75,6 +75,20 @@ $app->get('/sales',function()use($app){
                     $num2=0;
                     if($data2!=null){
                         for($i=0;$i<count($data2);$i++){
+                            date_default_timezone_set("PRC");
+                            $beginThismonth=mktime(0,0,0,date('m'),1,date('Y'));
+                            $endThismonth=mktime(23,59,59,date('m'),date('t'),date('Y'));
+                            $selectStament=$database->select()
+                                ->from('tenant')
+                             ->where('sales_id','=',$data2[$i]['id']);
+                            $stmt=$selectStament->execute();
+                            $data5=$stmt->fetchAll();
+                            $data2[$i]['tenantcount']=0;
+                            for($j=0;$j<count($data5);$j++){
+                                if($beginThismonth<=strtotime($data5[$j]['begintime'])&&strtotime($data5[$j]['begintime'])<$endThismonth){
+                                    $data2[$i]['tenantcount']++;
+                                }
+                            }
                             if($data2[$i]['higher_id']==0){
                                 $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
                             }else{
@@ -112,6 +126,20 @@ $app->get('/sales',function()use($app){
                     $num=count($data3);
                     $num2=0;
                     for($y=0;$y<count($data3);$y++){
+                        date_default_timezone_set("PRC");
+                        $beginThismonth=mktime(0,0,0,date('m'),1,date('Y'));
+                        $endThismonth=mktime(23,59,59,date('m'),date('t'),date('Y'));
+                        $selectStament=$database->select()
+                            ->from('tenant')
+                            ->where('sales_id','=',$data3[$y]['id']);
+                        $stmt=$selectStament->execute();
+                        $data5=$stmt->fetchAll();
+                        $data3[$y]['tenantcount']=0;
+                        for($j=0;$j<count($data5);$j++){
+                            if($beginThismonth<=strtotime($data5[$j]['begintime'])&&strtotime($data5[$j]['begintime'])<$endThismonth){
+                                $data3[$y]['tenantcount']++;
+                            }
+                        }
                         $num2+=$data3[$y]['tenantcount'];
                     }
                     $selectStament=$database->select()
@@ -121,6 +149,20 @@ $app->get('/sales',function()use($app){
                     $data2=$stmt->fetchAll();
                     if($data2!=null){
                         for($i=0;$i<count($data2);$i++){
+                            date_default_timezone_set("PRC");
+                            $beginThismonth=mktime(0,0,0,date('m'),1,date('Y'));
+                            $endThismonth=mktime(23,59,59,date('m'),date('t'),date('Y'));
+                            $selectStament=$database->select()
+                                ->from('tenant')
+                                ->where('sales_id','=',$data2[$i]['id']);
+                            $stmt=$selectStament->execute();
+                            $data6=$stmt->fetchAll();
+                            $data2[$i]['tenantcount']=0;
+                            for($j=0;$j<count($data6);$j++){
+                                if($beginThismonth<=strtotime($data6[$j]['begintime'])&&strtotime($data6[$j]['begintime'])<$endThismonth){
+                                    $data2[$i]['tenantcount']++;
+                                }
+                            }
                             if($data2[$i]['higher_id']==0){
                                 $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
                             }else{
@@ -160,6 +202,20 @@ $app->get('/sales',function()use($app){
                         $num2=0;
                         if($data2!=null){
                             for($i=0;$i<count($data2);$i++){
+                                date_default_timezone_set("PRC");
+                                $beginThismonth=mktime(0,0,0,date('m'),1,date('Y'));
+                                $endThismonth=mktime(23,59,59,date('m'),date('t'),date('Y'));
+                                $selectStament=$database->select()
+                                    ->from('tenant')
+                                    ->where('sales_id','=',$data2[$i]['id']);
+                                $stmt=$selectStament->execute();
+                                $data5=$stmt->fetchAll();
+                                $data2[$i]['tenantcount']=0;
+                                for($j=0;$j<count($data5);$j++){
+                                    if($beginThismonth<=strtotime($data5[$j]['begintime'])&&strtotime($data5[$j]['begintime'])<$endThismonth){
+                                        $data2[$i]['tenantcount']++;
+                                    }
+                                }
                                 if($data2[$i]['higher_id']==0){
                                     $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
                                 }else{
@@ -198,6 +254,20 @@ $app->get('/sales',function()use($app){
                         $num=count($data3);
                         $num2=0;
                         for($y=0;$y<count($data3);$y++){
+                            date_default_timezone_set("PRC");
+                            $beginThismonth=mktime(0,0,0,date('m'),1,date('Y'));
+                            $endThismonth=mktime(23,59,59,date('m'),date('t'),date('Y'));
+                            $selectStament=$database->select()
+                                ->from('tenant')
+                                ->where('sales_id','=',$data3[$y]['id']);
+                            $stmt=$selectStament->execute();
+                            $data5=$stmt->fetchAll();
+                            $data3[$y]['tenantcount']=0;
+                            for($j=0;$j<count($data5);$j++){
+                                if($beginThismonth<=strtotime($data5[$j]['begintime'])&&strtotime($data5[$j]['begintime'])<$endThismonth){
+                                    $data3[$y]['tenantcount']++;
+                                }
+                            }
                             $num2+=$data3[$y]['tenantcount'];
                         }
                         $selectStament=$database->select()
@@ -208,7 +278,22 @@ $app->get('/sales',function()use($app){
                         $data2=$stmt->fetchAll();
 
                         if($data2!=null){
+
                             for($i=0;$i<count($data2);$i++){
+                                date_default_timezone_set("PRC");
+                                $beginThismonth=mktime(0,0,0,date('m'),1,date('Y'));
+                                $endThismonth=mktime(23,59,59,date('m'),date('t'),date('Y'));
+                                $selectStament=$database->select()
+                                    ->from('tenant')
+                                    ->where('sales_id','=',$data2[$i]['id']);
+                                $stmt=$selectStament->execute();
+                                $data6=$stmt->fetchAll();
+                                $data2[$i]['tenantcount']=0;
+                                for($j=0;$j<count($data6);$j++){
+                                    if($beginThismonth<=strtotime($data6[$j]['begintime'])&&strtotime($data6[$j]['begintime'])<$endThismonth){
+                                        $data2[$i]['tenantcount']++;
+                                    }
+                                }
                                 if($data2[$i]['higher_id']==0){
                                     $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
                                 }else{
