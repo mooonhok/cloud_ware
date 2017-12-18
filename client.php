@@ -25,7 +25,7 @@ $app->get('/getLatest',function()use($app){
         $client=$data[0];
         $client_url=substr($client['url'],27,13).'/app.asar';
         $size = filesize('/files'.$client_url);
-        echo  json_encode(array("result"=>"0","desc"=>"success","client"=>$client,'url'=>$client_url));
+        echo  json_encode(array("result"=>"0","desc"=>"success","client"=>$client,'size'=>$size));
     }else{
         echo  json_encode(array("result"=>"1","desc"=>"无客户端版本"));
     }
