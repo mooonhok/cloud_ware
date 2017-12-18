@@ -85,7 +85,7 @@ $app->get('/sales',function()use($app){
                             $data5=$stmt->fetchAll();
                             $data2[$i]['tenantcount']=0;
                             for($j=0;$j<count($data5);$j++){
-                                if($beginThismonth<=strtotime($data5[$j]['begintime'])&&strtotime($data5[$j]['begintime'])<$endThismonth){
+                                if($beginThismonth<=strtotime($data5[$j]['begin_time'])&&strtotime($data5[$j]['begin_time'])<$endThismonth){
                                     $data2[$i]['tenantcount']++;
                                 }
                             }
@@ -136,7 +136,7 @@ $app->get('/sales',function()use($app){
                         $data5=$stmt->fetchAll();
                         $data3[$y]['tenantcount']=0;
                         for($j=0;$j<count($data5);$j++){
-                            if($beginThismonth<=strtotime($data5[$j]['begintime'])&&strtotime($data5[$j]['begintime'])<$endThismonth){
+                            if($beginThismonth<=strtotime($data5[$j]['begin_time'])&&strtotime($data5[$j]['begin_time'])<$endThismonth){
                                 $data3[$y]['tenantcount']++;
                             }
                         }
@@ -159,7 +159,7 @@ $app->get('/sales',function()use($app){
                             $data6=$stmt->fetchAll();
                             $data2[$i]['tenantcount']=0;
                             for($j=0;$j<count($data6);$j++){
-                                if($beginThismonth<=strtotime($data6[$j]['begintime'])&&strtotime($data6[$j]['begintime'])<$endThismonth){
+                                if($beginThismonth<=strtotime($data6[$j]['begin_time'])&&strtotime($data6[$j]['begin_time'])<$endThismonth){
                                     $data2[$i]['tenantcount']++;
                                 }
                             }
@@ -212,7 +212,7 @@ $app->get('/sales',function()use($app){
                                 $data5=$stmt->fetchAll();
                                 $data2[$i]['tenantcount']=0;
                                 for($j=0;$j<count($data5);$j++){
-                                    if($beginThismonth<=strtotime($data5[$j]['begintime'])&&strtotime($data5[$j]['begintime'])<$endThismonth){
+                                    if($beginThismonth<=strtotime($data5[$j]['begin_time'])&&strtotime($data5[$j]['begin_time'])<$endThismonth){
                                         $data2[$i]['tenantcount']++;
                                     }
                                 }
@@ -264,7 +264,7 @@ $app->get('/sales',function()use($app){
                             $data5=$stmt->fetchAll();
                             $data3[$y]['tenantcount']=0;
                             for($j=0;$j<count($data5);$j++){
-                                if($beginThismonth<=strtotime($data5[$j]['begintime'])&&strtotime($data5[$j]['begintime'])<$endThismonth){
+                                if($beginThismonth<=strtotime($data5[$j]['begin_time'])&&strtotime($data5[$j]['begin_time'])<$endThismonth){
                                     $data3[$y]['tenantcount']++;
                                 }
                             }
@@ -290,7 +290,7 @@ $app->get('/sales',function()use($app){
                                 $data6=$stmt->fetchAll();
                                 $data2[$i]['tenantcount']=0;
                                 for($j=0;$j<count($data6);$j++){
-                                    if($beginThismonth<=strtotime($data6[$j]['begintime'])&&strtotime($data6[$j]['begintime'])<$endThismonth){
+                                    if($beginThismonth<=strtotime($data6[$j]['begin_time'])&&strtotime($data6[$j]['begin_time'])<$endThismonth){
                                         $data2[$i]['tenantcount']++;
                                     }
                                 }
