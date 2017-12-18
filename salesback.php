@@ -53,9 +53,11 @@ $app->get('/sales',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $admin_id = $app->request->get("adminid");
+    $teamid=$app->request->get('teamid');
     $page = $app->request->get('page');
     $per_page=$app->request->get('per_page');
     $num=0;
+    if($teamid==null){
     if($page==null||$page==""){
         if($admin_id!=""||$admin_id!=null){
             $selectStament=$database->select()
@@ -118,6 +120,76 @@ $app->get('/sales',function()use($app){
         }else{
             echo json_encode(array('result' => '1', 'desc' => '缺少管理员id'));
         }
+    }
+    }else{
+        if($page==null||$page==""){
+            if($admin_id!=""||$admin_id!=null){
+                $selectStament=$database->select()
+                    ->from('admin')
+                    ->where('id','=',$admin_id);
+                $stmt=$selectStament->execute();
+                $data=$stmt->fetch();
+                if($data!=null){
+                    if($data['type']==2||$data['type']==1){
+                        $selectStament=$database->select()
+                            ->from('sales')
+                            ->where('teamid','=',$teamid);
+                        $stmt=$selectStament->execute();
+                        $data2=$stmt->fetchAll();
+                        $num=count($data2);
+                        if($data2!=null){
+                            echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num));
+                        }else{
+                            echo json_encode(array('result' => '4', 'desc' => '尚未有业务员'));
+                        }
+                    }else{
+                        echo json_encode(array('result' => '3', 'desc' => '您没有足够权限'));
+                    }
+                }else{
+                    echo json_encode(array('result' => '2', 'desc' => '管理员不存在'));
+                }
+            }else{
+                echo json_encode(array('result' => '1', 'desc' => '缺少管理员id'));
+            }
+        }else{
+            $page=(int)$page-1;
+            if($admin_id!=""||$admin_id!=null){
+                $selectStament=$database->select()
+                    ->from('admin')
+                    ->where('id','=',$admin_id);
+                $stmt=$selectStament->execute();
+                $data=$stmt->fetch();
+                if($data!=null){
+                    if($data['type']==1||$data['type']==2){
+                        $selectStament=$database->select()
+                            ->from('sales')
+                            ->where('teamid','=',$teamid);
+                        $stmt=$selectStament->execute();
+                        $data3=$stmt->fetchAll();
+                        $num=count($data3);
+                        $selectStament=$database->select()
+                            ->from('sales')
+                            ->where('teamid','=',$teamid)
+                        ->limit((int)$per_page, (int)$per_page * (int)$page);
+                        $stmt=$selectStament->execute();
+                        $data2=$stmt->fetchAll();
+                        if($data2!=null){
+                            echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num));
+                        }else{
+                            echo json_encode(array('result' => '4', 'desc' => '尚未有业务员'));
+                        }
+                    }else{
+                        echo json_encode(array('result' => '3', 'desc' => '您没有足够权限'));
+                    }
+                }else{
+                    echo json_encode(array('result' => '2', 'desc' => '管理员不存在'));
+                }
+            }else{
+                echo json_encode(array('result' => '1', 'desc' => '缺少管理员id'));
+            }
+        }
+
+
     }
 });
 //修改业务员状态
@@ -249,83 +321,6 @@ $app->post('/addsales',function()use($app){
     }
 });
 
-//依据团队查询业务员
-$app->get('/sbysalesid',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $database=localhost();
-    $admin_id=$app->request->get('adminid');
-    $teamid=$app->request->get('teamid');
-    $page = $app->request->get('page');
-    $per_page=$app->request->get('per_page');
-    $num=0;
-    if($page==null||$page==""){
-        if($admin_id!=""||$admin_id!=null){
-            $selectStament=$database->select()
-                ->from('admin')
-                ->where('id','=',$admin_id);
-            $stmt=$selectStament->execute();
-            $data=$stmt->fetch();
-            if($data!=null){
-                if($data['type']==2||$data['type']==1){
-                    $selectStament=$database->select()
-                        ->from('sales')
-                        ->where('teamid','=',$teamid);
-                    $stmt=$selectStament->execute();
-                    $data2=$stmt->fetchAll();
-                    $num=count($data2);
-                    if($data2!=null){
-                        echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num));
-                    }else{
-                        echo json_encode(array('result' => '4', 'desc' => '尚未有业务员'));
-                    }
-                }else{
-                    echo json_encode(array('result' => '3', 'desc' => '您没有足够权限'));
-                }
-            }else{
-                echo json_encode(array('result' => '2', 'desc' => '管理员不存在'));
-            }
-        }else{
-            echo json_encode(array('result' => '1', 'desc' => '缺少管理员id'));
-        }
-    }else{
-        $page=(int)$page-1;
-        if($admin_id!=""||$admin_id!=null){
-            $selectStament=$database->select()
-                ->from('admin')
-                ->where('id','=',$admin_id);
-            $stmt=$selectStament->execute();
-            $data=$stmt->fetch();
-            if($data!=null){
-                if($data['type']==2||$data['type']==1){
-                    $selectStament=$database->select()
-                        ->from('sales')
-                        ->where('teamid','=',$teamid);
-                    $stmt=$selectStament->execute();
-                    $data3=$stmt->fetchAll();
-                    $num=count($data3);
-                    $selectStament=$database->select()
-                        ->from('sales')
-                        ->where('teamid','=',$teamid)
-                        ->limit((int)$per_page, (int)$per_page * (int)$page);
-                    $stmt=$selectStament->execute();
-                    $data2=$stmt->fetchAll();
-                    if($data2!=null){
-                        echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num));
-                    }else{
-                        echo json_encode(array('result' => '4', 'desc' => '尚未有业务员'));
-                    }
-                }else{
-                    echo json_encode(array('result' => '3', 'desc' => '您没有足够权限'));
-                }
-            }else{
-                echo json_encode(array('result' => '2', 'desc' => '管理员不存在'));
-            }
-        }else{
-            echo json_encode(array('result' => '1', 'desc' => '缺少管理员id'));
-        }
-    }
-});
 //查询指定业务员
 $app->get('/bysalesid',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
