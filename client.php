@@ -23,8 +23,8 @@ $app->get('/getLatest',function()use($app){
     $data = $stmt->fetchAll();
     if($data!=null){
         $client=$data[0];
-        $client_url=substr($client['url'],0,41).'app.asar';
-        $size = filesize($client_url);
+        $client_url=substr($client['url'],27,41).'app.asar';
+        $size = filesize('/files/'.$client_url);
         echo  json_encode(array("result"=>"0","desc"=>"success","client"=>$client,'url'=>$client_url));
     }else{
         echo  json_encode(array("result"=>"1","desc"=>"无客户端版本"));
