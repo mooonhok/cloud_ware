@@ -75,7 +75,11 @@ $app->get('/sales',function()use($app){
                     $num2=0;
                     if($data2!=null){
                         for($i=0;$i<count($data2);$i++){
-                            $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
+                            if($data2[$i]['higher_id']==0){
+                                $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
+                            }else{
+                                $data2[$i]['money']=$data2[$i]['tenantcount']*1000;
+                            }
                             $num2+=$data2[$i]['tenantcount'];
                         }
                         echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num,'moneycount'=>$num2));
@@ -117,7 +121,11 @@ $app->get('/sales',function()use($app){
                     $data2=$stmt->fetchAll();
                     if($data2!=null){
                         for($i=0;$i<count($data2);$i++){
-                            $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
+                            if($data2[$i]['higher_id']==0){
+                                $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
+                            }else{
+                                $data2[$i]['money']=$data2[$i]['tenantcount']*1000;
+                            }
                         }
                         echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num,'moneycount'=>$num2));
                     }else{
@@ -152,7 +160,11 @@ $app->get('/sales',function()use($app){
                         $num2=0;
                         if($data2!=null){
                             for($i=0;$i<count($data2);$i++){
-                                $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
+                                if($data2[$i]['higher_id']==0){
+                                    $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
+                                }else{
+                                    $data2[$i]['money']=$data2[$i]['tenantcount']*1000;
+                                }
                                 $num2+=$data2[$i]['tenantcount'];
                             }
                             echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num,'moneycount'=>$num2));
@@ -197,7 +209,11 @@ $app->get('/sales',function()use($app){
 
                         if($data2!=null){
                             for($i=0;$i<count($data2);$i++){
-                                $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
+                                if($data2[$i]['higher_id']==0){
+                                    $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
+                                }else{
+                                    $data2[$i]['money']=$data2[$i]['tenantcount']*1000;
+                                }
                             }
                             echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num,'moneycount'=>$num2));
                         }else{
