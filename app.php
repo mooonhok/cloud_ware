@@ -278,7 +278,7 @@ $app->post('/addlorry3',function()use($app){
     }
 });
 //司机注册5（图片2）
-$app->post('addlorry4',function()use($app){
+$app->post('/addlorry4',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
