@@ -222,6 +222,8 @@ $app->post('/addlorry3',function()use($app){
     $pic4=$body->pic4;
     $lujing1=null;
     $lujing2=null;
+    $lujing3=null;
+    $lujing4=null;
     if($pic1!=null){
         $base64_image_content = $pic1;
 //匹配出图片的格式
@@ -275,7 +277,7 @@ $app->post('/addlorry3',function()use($app){
                }
            }
            $arrays['driveringlicensefp']=$lujing3;
-           if($pic4!=null){
+           if($pic4!=null) {
                $base64_image_content = $pic4;
 //匹配出图片的格式
                if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
@@ -292,7 +294,9 @@ $app->post('/addlorry3',function()use($app){
                        $lujing2 = "http://files.uminfo.cn:8000/lorry4/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                    }
                }
+           }
                $arrays['driveringlicensetp']=$lujing4;
+
            $selectStament=$database->select()
                ->from('applorry')
                ->where('lorryid','=',$lorryid);
