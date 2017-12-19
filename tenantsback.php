@@ -85,7 +85,7 @@ $app->get('/lscheduling',function()use($app){
                        $data3[$j]['sendcity']=$data4['name'];
                        $selectStament=$database->select()
                            ->from('city')
-                           ->where('id','=',$data3[$j]['receiver_city_id']);
+                           ->where('id','=',$data3[$j]['receive_city_id']);
                        $stmt=$selectStament->execute();
                        $data5=$stmt->fetch();
                        $data3[$j]['receivercity']=$data5['name'];
