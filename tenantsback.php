@@ -372,6 +372,7 @@ $app->get('/lsch',function()use($app){
     $page=$app->request->get('page');
     $perpage=$app->request->get('perpage');
    if($tenant_id!=null||$tenant_id!=""){
+       $page=(int)$page-1;
        $selectStament=$database->select()
            ->from('scheduling')
            ->where('exist','=',0)
