@@ -210,6 +210,42 @@ $app->get('/getorders',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '管理员id为空'));
     }
 });
+
+
+//获取管理员下租户列表
+$app->get('/gettenants',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database = localhost();
+    $admin_id=$app->request->get('adminid');
+    if($admin_id!=null||$admin_id!=""){
+        $selectStament=$database->select()
+            ->from('admin')
+            ->where('exist','=',0)
+            ->where('type','=','3')
+            ->where('id','=',$admin_id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetch();
+        if($data!=null){
+            $selectStament=$database->select()
+                ->from('tenant_admin')
+                ->where('exist','=',0)
+                ->where('admin_id','=',$admin_id);
+            $stmt=$selectStament->execute();
+            $data2=$stmt->fetchAll();
+            if($data2!=null){
+                echo json_encode(array('result' => '0', 'desc' =>'','tenants'=>$data2));
+            }else{
+                echo json_encode(array('result' => '3', 'desc' =>'该管理账号下没有公司'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '管理员账号不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '管理员id为空'));
+    }
+});
+
 $app->run();
 
 function localhost(){
