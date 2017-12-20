@@ -369,11 +369,21 @@ $app->get('/lsch',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->get('tenant-id');
+    $page=$app->request->get('page');
+    $perpage=$app->request->get('perpage');
    if($tenant_id!=null||$tenant_id!=""){
+       $selectStament=$database->select()
+           ->from('scheduling')
+           ->where('exist','=',0)
+           ->where('tenant_id','=',$tenant_id);
+       $stmt=$selectStament->execute();
+       $data=$stmt->fetchAll();
+       $num=count($data);
     $selectStament=$database->select()
         ->from('scheduling')
         ->where('exist','=',0)
-        ->where('tenant_id','=',$tenant_id);
+        ->where('tenant_id','=',$tenant_id)
+        ->limit((int)$perpage, (int)$perpage * (int)$page);
     $stmt=$selectStament->execute();
     $data3=$stmt->fetchAll();
     if($data3!=null) {
@@ -408,7 +418,7 @@ $app->get('/lsch',function()use($app){
             $data3[$j]['platenumber']=$data7['plate_number'];
             $data3[$j]['driver_phone']=$data7['driver_phone'];
         }
-        echo json_encode(array('result'=>'0','desc'=>'','lschs'=>$data3));
+        echo json_encode(array('result'=>'0','desc'=>'','lschs'=>$data3,'count'=>$num));
     }else{
         echo json_encode(array('result'=>'2','desc'=>'该公司尚未有清单'));
     }
