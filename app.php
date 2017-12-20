@@ -496,6 +496,78 @@ $app->post('/persoonmessage',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '没有司机的编号'));
     }
 });
+
+//app修改驾驶证
+$app->post('/updriveringpic',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $lorryid=$body->lorryid;
+    $pic3=$body->pic3;
+    $pic4=$body->pic4;
+    $lujing3=null;
+    $lujing4=null;
+    if($pic3!=null){
+        $base64_image_content = $pic3;
+//匹配出图片的格式
+        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+            $type = $result[2];
+            date_default_timezone_set("PRC");
+            $time1 = time();
+            $new_file = "/files/lorry/" . date('Ymd', $time1) . "/";
+            if (!file_exists($new_file)) {
+//检查是否有该文件夹，如果没有就创建，并给予最高权限
+                mkdir($new_file, 0700);
+            }
+            $new_file = $new_file . time() . ".{$type}";
+            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                $lujing3 = "http://files.uminfo.cn:8000/lorry3/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+            }
+        }
+        $arrays['driverlicensefp']=$lujing3;
+        if($pic4!=null){
+            $base64_image_content = $pic4;
+//匹配出图片的格式
+            if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+                $type = $result[2];
+                date_default_timezone_set("PRC");
+                $time1 = time();
+                $new_file = "/files/lorry2/" . date('Ymd', $time1) . "/";
+                if (!file_exists($new_file)) {
+//检查是否有该文件夹，如果没有就创建，并给予最高权限
+                    mkdir($new_file, 0700);
+                }
+                $new_file = $new_file . time() . ".{$type}";
+                if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                    $lujing4 = "http://files.uminfo.cn:8000/lorry4/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                }
+            }
+            $arrays['driverlicensetp']=$lujing4;
+            $selectStament=$database->select()
+                ->from('applorry')
+                ->where('exist','=',0)
+                ->where('lorryid','=',$lorryid);
+            $stmt=$selectStament->execute();
+            $data1=$stmt->fetch();
+            if($data1!=null){
+                $updateStatement = $database->update($arrays)
+                    ->table('applorry')
+                    ->where('lorryid','=',$lorryid);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array('result'=>'0','desc'=>'修改行驶证成功'));
+            }else {
+                echo json_encode(array('result' => '4', 'desc' => '司机不存在'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '没有行驶证反面图片'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '没有行驶证正面图片'));
+    }
+});
+
 //app修改驾驶证
 $app->post('/updriverpic',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
