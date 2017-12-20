@@ -112,104 +112,7 @@ $app->get('/lscheduling',function()use($app){
 });
 
 
-//台账历史运单未分开
-$app->get('/getorders',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $database = localhost();
-    $admin_id=$app->request->get('adminid');
-    if($admin_id!=null||$admin_id!=""){
-        $selectStament=$database->select()
-            ->from('admin')
-            ->where('exist','=',0)
-            ->where('type','=','3')
-            ->where('id','=',$admin_id);
-        $stmt=$selectStament->execute();
-        $data=$stmt->fetch();
-        if($data!=null){
-            $selectStament=$database->select()
-                ->from('tenant_admin')
-                ->where('exist','=',0)
-                ->where('admin_id','=',$admin_id);
-            $stmt=$selectStament->execute();
-            $data2=$stmt->fetchAll();
-            if($data2!=null){
-            for($j=0;$j<count($data2);$j++){
-            $selectStatement = $database->select()
-                ->from('orders')
-                ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
-                ->where('goods.tenant_id','=',$data2[$j]['tenant_id'])
-                ->where('orders.tenant_id','=',$data2[$j]['tenant_id'])
-                ->whereNotIn('orders.order_status',array(-1,-2,0,6))
-                ->where('orders.exist','=',0);
-            $stmt = $selectStatement->execute();
-            $data1 = $stmt->fetchAll();
-            for($i=0;$i<count($data1);$i++){
-                $selectStament=$database->select()
-                    ->from('goods_package')
-                    ->where('goods_package_id','=',$data1[$i]['goods_package_id']);
-                $stmt=$selectStament->execute();
-                $data11=$stmt->fetch();
-                $selectStament=$database->select()
-                    ->from('customer')
-                    ->where('tenant_id','=',$data2[$j]['tenant_id'])
-                    ->where('customer_id','=',$data1[$i]['sender_id']);
-                $stmt=$selectStament->execute();
-                $data3=$stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id', '=', $data3['customer_city_id']);
-                $stmt = $selectStatement->execute();
-                $data6 = $stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('province')
-                    ->where('id', '=', $data6['pid']);
-                $stmt = $selectStatement->execute();
-                $data8 = $stmt->fetch();
-                $selectStament=$database->select()
-                    ->from('customer')
-                    ->where('tenant_id','=',$data2[$j]['tenant_id'])
-                    ->where('customer_id','=',$data1[$i]['receiver_id']);
-                $stmt=$selectStament->execute();
-                $data4=$stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id', '=', $data4['customer_city_id']);
-                $stmt = $selectStatement->execute();
-                $data7 = $stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('province')
-                    ->where('id', '=', $data7['pid']);
-                $stmt = $selectStatement->execute();
-                $data9 = $stmt->fetch();
-                $selectStament=$database->select()
-                    ->from('inventory_loc')
-                    ->where('tenant_id','=',$data2[$j]['tenant_id'])
-                    ->where('inventory_loc_id','=',$data1[$i]['inventory_loc_id']);
-                $stmt=$selectStament->execute();
-                $data5=$stmt->fetch();
-                $data1[$i]['goods_package']=$data11;
-                $data1[$i]['sender']=$data3;
-                $data1[$i]['sender']['sender_city']=$data6;
-                $data1[$i]['sender']['sender_province']=$data8;
-                $data1[$i]['receiver']=$data4;
-                $data1[$i]['receiver']['receiver_city']=$data7;
-                $data1[$i]['receiver']['receiver_province']=$data9;
-                $data1[$i]['inventory_loc']=$data5;
-            }
-            $data2[$j]['schedules']=$data1;
-            }
-                echo json_encode(array('result' => '0', 'desc' =>'','tenantoder'=>$data2));
-            }else{
-                    echo json_encode(array('result' => '3', 'desc' =>'该管理账号下没有公司'));
-                }
-        }else{
-            echo json_encode(array('result' => '2', 'desc' => '管理员账号不存在'));
-        }
-    }else{
-        echo json_encode(array('result' => '1', 'desc' => '管理员id为空'));
-    }
-});
+
 
 
 //获取管理员下租户列表
@@ -234,6 +137,15 @@ $app->get('/gettenants',function()use($app){
             $stmt=$selectStament->execute();
             $data2=$stmt->fetchAll();
             if($data2!=null){
+            for($i=0;$i<count($data2);$i++){
+                $selectStament=$database->select()
+                    ->from('tenant')
+//                    ->where('exist','=',0)
+                    ->where('tenant_id','=',$data2[$i]['tenant_id']);
+                $stmt=$selectStament->execute();
+                $data3=$stmt->fetch();
+                $data2[$i]['name']=$data3['company'];
+            }
                 echo json_encode(array('result' => '0', 'desc' =>'','tenants'=>$data2));
             }else{
                 echo json_encode(array('result' => '3', 'desc' =>'该管理账号下没有公司'));
@@ -253,6 +165,8 @@ $app->get('/getGoodsOrders',function()use($app){
     $tenant_id=$app->request->get('tenant-id');
     $page=$app->request->get('page');
     $perpage=$app->request->get('perpage');
+    $paymethod=$app->request->get('payway');
+    if($paymethod!=null||$paymethod!=""){
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('orders')
@@ -331,6 +245,89 @@ $app->get('/getGoodsOrders',function()use($app){
         echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1,'count'=>$num));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'租户id为空'));
+    }
+    }else{
+        if($tenant_id!=null||$tenant_id!=''){
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+                ->where('goods.tenant_id','=',$tenant_id)
+                ->where('orders.tenant_id','=',$tenant_id)
+                ->where('pay_menthod','=',$paymethod)
+                ->whereNotIn('orders.order_status',array(-1,-2,0,6))
+                ->where('orders.exist','=',0);
+            $stmt = $selectStatement->execute();
+            $data = $stmt->fetchAll();
+            $num=count($data);
+            $page=(int)$page-1;
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+                ->where('goods.tenant_id','=',$tenant_id)
+                ->where('orders.tenant_id','=',$tenant_id)
+                ->whereNotIn('orders.order_status',array(-1,-2,0,6))
+                ->where('pay_menthod','=',$paymethod)
+                ->limit((int)$perpage, (int)$perpage * (int)$page)
+                ->where('orders.exist','=',0);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetchAll();
+            for($i=0;$i<count($data1);$i++){
+                $selectStament=$database->select()
+                    ->from('goods_package')
+                    ->where('goods_package_id','=',$data1[$i]['goods_package_id']);
+                $stmt=$selectStament->execute();
+                $data2=$stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('customer')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('customer_id','=',$data1[$i]['sender_id']);
+                $stmt=$selectStament->execute();
+                $data3=$stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data3['customer_city_id']);
+                $stmt = $selectStatement->execute();
+                $data6 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('province')
+                    ->where('id', '=', $data6['pid']);
+                $stmt = $selectStatement->execute();
+                $data8 = $stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('customer')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('customer_id','=',$data1[$i]['receiver_id']);
+                $stmt=$selectStament->execute();
+                $data4=$stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data4['customer_city_id']);
+                $stmt = $selectStatement->execute();
+                $data7 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('province')
+                    ->where('id', '=', $data7['pid']);
+                $stmt = $selectStatement->execute();
+                $data9 = $stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('inventory_loc')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('inventory_loc_id','=',$data1[$i]['inventory_loc_id']);
+                $stmt=$selectStament->execute();
+                $data5=$stmt->fetch();
+                $data1[$i]['goods_package']=$data2;
+                $data1[$i]['sender']=$data3;
+                $data1[$i]['sender']['sender_city']=$data6;
+                $data1[$i]['sender']['sender_province']=$data8;
+                $data1[$i]['receiver']=$data4;
+                $data1[$i]['receiver']['receiver_city']=$data7;
+                $data1[$i]['receiver']['receiver_province']=$data9;
+                $data1[$i]['inventory_loc']=$data5;
+            }
+            echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1,'count'=>$num));
+        }else{
+            echo json_encode(array('result'=>'1','desc'=>'租户id为空'));
+        }
     }
 });
 $app->run();
