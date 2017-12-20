@@ -398,6 +398,15 @@ $app->get('/lsch',function()use($app){
             $data6 = $stmt->fetch();
             $data3[$j]['receivername'] = $data6['customer_name'];
             $data3[$j]['receivertel'] = $data6['customer_phone'];
+            $selectStament = $database->select()
+                ->from('lorry')
+                ->where('tenant_id','=',$data3[$j]['tenant_id'])
+                ->where('lorry_id', '=', $data3[$j]['lorry_id']);
+            $stmt = $selectStament->execute();
+            $data7= $stmt->fetch();
+            $data3[$j]['driver_name']=$data7['driver_name'];
+            $data3[$j]['platenumber']=$data7['plate_number'];
+            $data3[$j]['driver_phone']=$data7['driver_phone'];
         }
         echo json_encode(array('result'=>'0','desc'=>'','lschs'=>$data3));
     }else{
