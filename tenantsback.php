@@ -110,9 +110,41 @@ $app->get('/lscheduling',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '管理员id为空'));
     }
 });
-
-
-
+//统计运单
+$app->get('/ordertongji',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database = localhost();
+    $tenant_id=$app->request->get('tenant-id');
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('orders')
+            ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+            ->where('goods.tenant_id','=',$tenant_id)
+            ->where('orders.tenant_id','=',$tenant_id)
+            ->whereNotIn('orders.order_status',array(-1,-2,0,6))
+            ->where('orders.exist','=',0);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        if($data!=null){
+       $num1=0;
+       $num2=0;
+       $num3=0;
+       for($i=0;$i<count($data);$i++){
+           $num1+=$data[$i]['order_cost'];
+           $num2+=$data[$i]['transfer_cost'];
+           if($data[$i]['pay_method']==1){
+               $num3+=$data[$i]['order_cost'];
+           }
+       }
+            echo json_encode(array('result'=>'0','desc'=>'','countorder'=>$num1,'countorder1'=>$num2,'countorder2'=>$num3));
+        }else{
+            echo json_encode(array('result'=>'2','desc'=>'尚未有数据'));
+        }
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'租户id为空'));
+    }
+});
 
 
 //获取管理员下租户列表
