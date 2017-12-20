@@ -253,7 +253,7 @@ $app->get('/getGoodsOrders',function()use($app){
                 ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
                 ->where('goods.tenant_id','=',$tenant_id)
                 ->where('orders.tenant_id','=',$tenant_id)
-                ->where('pay_menthod','=',$paymethod)
+                ->where('pay_method','=',$paymethod)
                 ->whereNotIn('orders.order_status',array(-1,-2,0,6))
                 ->where('orders.exist','=',0);
             $stmt = $selectStatement->execute();
@@ -266,7 +266,7 @@ $app->get('/getGoodsOrders',function()use($app){
                 ->where('goods.tenant_id','=',$tenant_id)
                 ->where('orders.tenant_id','=',$tenant_id)
                 ->whereNotIn('orders.order_status',array(-1,-2,0,6))
-                ->where('pay_menthod','=',$paymethod)
+                ->where('pay_method','=',$paymethod)
                 ->limit((int)$perpage, (int)$perpage * (int)$page)
                 ->where('orders.exist','=',0);
             $stmt = $selectStatement->execute();
