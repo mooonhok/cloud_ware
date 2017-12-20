@@ -363,6 +363,50 @@ $app->get('/getGoodsOrders',function()use($app){
         }
     }
 });
+//历史清单列表
+$app->get('/lsch',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->get('tenant-id');
+   if($tenant_id!=null||$tenant_id!=""){
+    $selectStament=$database->select()
+        ->from('scheduling')
+        ->where('exist','=',0)
+        ->where('tenant_id','=',$tenant_id);
+    $stmt=$selectStament->execute();
+    $data3=$stmt->fetchAll();
+    if($data3!=null) {
+        for ($j = 0; $j < count($data3); $j++) {
+            $selectStament = $database->select()
+                ->from('city')
+                ->where('id', '=', $data3[$j]['send_city_id']);
+            $stmt = $selectStament->execute();
+            $data4 = $stmt->fetch();
+            $data3[$j]['sendcity'] = $data4['name'];
+            $selectStament = $database->select()
+                ->from('city')
+                ->where('id', '=', $data3[$j]['receive_city_id']);
+            $stmt = $selectStament->execute();
+            $data5 = $stmt->fetch();
+            $data3[$j]['receivercity'] = $data5['name'];
+            $selectStament = $database->select()
+                ->from('customer')
+                ->where('tenant_id', '=', $data3[$j]['tenant_id'])
+                ->where('customer_id', '=', $data3[$j]['receiver_id']);
+            $stmt = $selectStament->execute();
+            $data6 = $stmt->fetch();
+            $data3[$j]['receivername'] = $data6['customer_name'];
+            $data3[$j]['receivertel'] = $data6['customer_phone'];
+        }
+        echo json_encode(array('result'=>'0','desc'=>'','lschs'=>$data3));
+    }else{
+        echo json_encode(array('result'=>'2','desc'=>'该公司尚未有清单'));
+    }
+   }else{
+       echo json_encode(array('result'=>'1','desc'=>'租户id为空'));
+   }
+});
 $app->run();
 
 function localhost(){
