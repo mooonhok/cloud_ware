@@ -260,7 +260,6 @@ $app->get('/getGoodsOrders',function()use($app){
             ->where('goods.tenant_id','=',$tenant_id)
             ->where('orders.tenant_id','=',$tenant_id)
             ->whereNotIn('orders.order_status',array(-1,-2,0,6))
-            ->limit((int)$perpage, (int)$perpage * (int)$page)
             ->where('orders.exist','=',0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
