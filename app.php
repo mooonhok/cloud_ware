@@ -497,7 +497,7 @@ $app->post('/persoonmessage',function()use($app){
     }
 });
 
-//app修改驾驶证
+//app修改行驶证
 $app->post('/updriveringpic',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -526,7 +526,7 @@ $app->post('/updriveringpic',function()use($app){
                 $lujing3 = "http://files.uminfo.cn:8000/lorry3/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
             }
         }
-        $arrays['driverlicensefp']=$lujing3;
+        $arrays['driveringlicensefp']=$lujing3;
         if($pic4!=null){
             $base64_image_content = $pic4;
 //匹配出图片的格式
@@ -544,7 +544,7 @@ $app->post('/updriveringpic',function()use($app){
                     $lujing4 = "http://files.uminfo.cn:8000/lorry4/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                 }
             }
-            $arrays['driverlicensetp']=$lujing4;
+            $arrays['driveringlicensetp']=$lujing4;
             $selectStament=$database->select()
                 ->from('applorry')
                 ->where('exist','=',0)
