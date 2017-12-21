@@ -529,7 +529,7 @@ $app->get('/agredet',function()use($app){
             $data5=$stmt->fetchAll();
 
             for($j=0;$j<count($data5);$j++){
-                $data['schedules']+=$data5[$j]['scheduling_id'].",";
+                $data['schedules'].=$data5[$j]['scheduling_id'].",";
                 $selectStament=$database->select()
                     ->from('schedule_order')
                     ->where('tenant_id','=',$data['tenant_id'])
@@ -550,6 +550,7 @@ $app->get('/agredet',function()use($app){
                     $data['ordervalue']+=$data8['goods_value'];
                 }
             }
+            echo json_encode(array('result'=>'0','desc'=>'','agree'=>$data));
         }else{
             echo json_encode(array('result'=>'2','desc'=>'合同不存在'));
         }
