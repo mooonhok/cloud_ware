@@ -457,7 +457,7 @@ $app->get('/lagrs',function()use($app){
                 for($i=0;$i<count($data1);$i++){
                     $selectStament=$database->select()
                         ->from('lorry')
-                        ->where('lorry_id','=',$data1[$i]['lorry_id'])
+                        ->where('lorry_id','=',$data1[$i]['secondparty_id'])
                         ->where('tenant_id','=',$data1[$i]['tenant_id']);
                     $stmt=$selectStament->execute();
                     $data2=$stmt->fetch();
