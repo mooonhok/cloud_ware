@@ -45,7 +45,7 @@
 		<script src="javascript/plug-ins/pagination.js"></script>
 		<script src="javascript/public.js"></script>
 		<script src="javascript/jquery.session.js"></script>
-		<script src="javascript/pages/lsch.js"></script>
+		<script src="javascript/pages/order.js"></script>
 		<script src="javascript/layui/layui.js"></script>
 	</head>
 
@@ -65,7 +65,7 @@
 
 				<nav class="side-menu content mCustomScrollbar" data-mcs-theme="minimal-dark">
 					<h2>
-                <a href="index.html" class="InitialPage"><i class="icon-dashboard"></i>历史运单</a>
+                <a href="lorder.html" class="InitialPage"><i class="icon-dashboard"></i>历史运单</a>
             </h2>
 					<h2>
                 <a href="lschedules.html" class="InitialPage"><i class="icon-dashboard"></i>历史清单</a>
@@ -99,7 +99,9 @@
 						<div class="sousuo">
 							<div style="background-color:rgb(216,221,218);float:right;height:30px;line-height:30px;" class="sousuo_z">搜索</div>
                 
-								
+							<select type="text" style="float:right;width:150px;" class="payway">
+								<option value="">全部付款方式</option>
+							</select>	
 							<select type="text" style="float:right;width:300px;" class="order_id">
 								<option value="">请选择租户</option>
 							</select>	
@@ -109,13 +111,15 @@
 						<table style="width:100%;">
 							<thead>
 								<tr>
-									<th>清单号</th>
-									<th>清单收货人</th>
-									<th>到站</th>
-									<th>车牌号</th>
-									<th>驾驶员</th>
+									<th>运单号</th>
+									<th>发货人</th>
 									<th>联系电话</th>
-									<th>清单状态</th>
+									<th>付款方式</th>
+									<th>运费</th>
+									<th>中转费</th>
+									<th>代收运费</th>
+									<th>运单状态</th>
+									<th>付款状态</th>
 								</tr>
 							</thead>
 							<tbody id="tb1">
@@ -123,7 +127,18 @@
 						</table>
 						<div id="demo20"></div>
 					</div>
-					      
+					        <div style="width:20%;margin-left:5%;text-align:center;float:left;"> 
+					        <div style="float:left;margin-left:20px;font-size:18px;">总运费:</div>
+							<div style="float:left;font-size:18px;" id="count1"></div>
+							</div>
+							 <div style="width:20%;margin-left:5%;text-align:center;float:left;"> 
+							<div style="float:left;margin-left:20px;;font-size:18px;">总代收运费:</div>
+							<div style="float:left;font-size:18px;" id="count3"></div>
+							</div>
+							 <div style="width:20%;margin-left:5%;text-align:center;float:left;"> 
+							<div style="float:left;margin-left:20px;;font-size:18px;">总中转费:</div>
+							<div style="float:left;font-size:18px;" id="count2"></div>
+							</div>
 					<script>
 					</script>
 					<!--开始::结束-->
