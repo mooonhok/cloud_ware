@@ -512,6 +512,7 @@ $app->get('/agredet',function()use($app){
             $stmt=$selectStament->execute();
             $data3=$stmt->fetch();
             $data['saddress']=$data3['name'].$data2['customer_address'];
+            $data['scity']=$data3['name'];
             $selectStament=$database->select()
                 ->from('lorry')
                 ->where('lorry_id','=',$data['secondparty_id'])
