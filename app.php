@@ -1251,7 +1251,7 @@ $app->post('/changpass',function()use($app){
                     if($data1!=null){
                         $updateStatement = $database->update(array('password'=>$password))
                             ->table('map')
-                            ->where('lorryid', '=', $data1['lorryid']);
+                            ->where('lorry_id', '=', $data1['lorryid']);
                         $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '修改成功'));
                     }else{
