@@ -1,7 +1,7 @@
 $(function(){
  var adminid=$.session.get('adminid');
     if(adminid==null||adminid==""){
-    	window.location.href="http://api.uminfo.cn/tenantsback/index.html";
+    	window.location.href="http://api.uminfo.cn/tenantsback/login.html";
     }
     var page = $.getUrlParam('page');
     $.ajax({

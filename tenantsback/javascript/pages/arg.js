@@ -11,7 +11,7 @@ $(function() {
 	var adminid=$.session.get('adminid');
 //  var adminid=3;
     if(adminid==null||adminid==""){
-    	window.location.href="http://api.uminfo.cn/tenantsback/index.html";
+    	window.location.href="http://api.uminfo.cn/tenantsback/login.html";
     }
 	var agr_id = $.getUrlParam("agreement_id");
 	var tenant_id=$.getUrlParam("tenant_id");
