@@ -29,13 +29,14 @@
 			table {
 				border-right: 1px solid #DDDDDD;
 				border-bottom: 1px solid #DDDDDD;
+				text-align:center;
 			}
 			
 			table td {
 				border-left: 1px solid #DDDDDD;
 				border-top: 1px solid #DDDDDD;
 				height: 50px;
-				text-align: center;
+				text-align:center;
 			}
 			
 			table thead tr th {
@@ -45,6 +46,7 @@
 				border-left: 1px solid #DDDDDD;
 				border-top: 1px solid #DDDDDD;
 				/* background: #9CBA60; */
+				
 			}
 			
 			.center {
@@ -164,17 +166,13 @@
 							<th>编号</th>
 							<th>姓名</th>
 							<th>性别</th>
+							<th>组别</th>
 							<th>证件号</th>
 							<th>电话</th>
-							<th>地址</th>
 							<th>邮箱</th>
-							<th>qq</th>
-							<th>微信</th>
-							<th>组别</th>
 							<th>提成</th>
-							<th>奖池金额比例</th>
-							<th>实际应得收入</th>
-							<th>本月成交数量</th>
+							<th>应得收入</th>
+							<th>成交数量</th>
 						</tr>
 					</thead>
 					<tbody id="tb2">
@@ -230,34 +228,32 @@
 									var arr = [],
 										thisData = msg.sales;
 									layui.each(thisData, function(index, item) {
+										var c="";
+										if(item.sex==1){
+											c="男";
+										}else{
+											c="女";
+										}
 										if(msg.count * 2 <= msg.moneycount) {
 											arr.push('<tr><td>' + item.id + '</td><td>' +
 												item.sales_name + '</td><td>' +
-												item.sex + '</td><td>' +
+												c + '</td><td>' +
+												item.teamid + '</td><td>' +
 												item.card_id + '</td><td>' +
 												item.telephone + '</td><td>' +
-												item.address + '</td><td>' +
 												item.zip_code + '</td><td>' +
-												item.qq + '</td><td>' +
-												item.weixin + '</td><td>' +
-												item.teamid + '</td><td>' +
 												item.money + '</td><td>' +
-												(item.tenantcount / msg.moneycount) + '</td><td>' +
 												((item.tenantcount / msg.moneycount) * msg.moneycount * 500 + item.money) + '</td><td>'
 												+item.tenantcount+'</td></tr>');
 										} else {
 											arr.push('<tr><td>' + item.id + '</td><td>' +
 												item.sales_name + '</td><td>' +
-												item.sex + '</td><td>' +
+											    c+ '</td><td>' +
+											    item.teamid + '</td><td>' +
 												item.card_id + '</td><td>' +
 												item.telephone + '</td><td>' +
-												item.address + '</td><td>' +
 												item.zip_code + '</td><td>' +
-												item.qq + '</td><td>' +
-												item.weixin + '</td><td>' +
-												item.teamid + '</td><td>' +
 												item.money + '</td><td>' +
-												(item.tenantcount / msg.moneycount) + '</td><td>' +
 												item.money + '</td><td>'
 												+item.tenantcount+'</td></tr>');
 										}
@@ -289,7 +285,7 @@
 		})(jQuery);
 		var page = null;
 		var user = $.session.get('adminid');
-//	var user = 1;
+	
 		var teamid = $.getUrlParam('teamid');
 		$("#city1").val(teamid);
 		if(user == null || user == "") {
