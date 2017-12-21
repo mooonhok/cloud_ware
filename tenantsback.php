@@ -476,6 +476,87 @@ $app->get('/lagrs',function()use($app){
         echo json_encode(array('result'=>'1','desc'=>'租户id为空'));
     }
 });
+
+
+//查询运单具体信息
+$app->get('/agredet',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $agreement_id=$app->request->get('agreementid');
+    if($agreement_id!=null||$agreement_id!=""){
+        $selectStament=$database->select()
+            ->from('agreement')
+            ->where('exist','=',0)
+            ->where('agreement_id','=',$agreement_id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetch();
+        if($data!=null){
+            $selectStament=$database->select()
+                ->from('tenant')
+                ->where('tenant_id','=',$data['tenant_id']);
+            $stmt=$selectStament->execute();
+            $data1=$stmt->fetch();
+            $data['company']=$data1['company'];
+            $selectStament=$database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$data1['tenant_id'])
+                ->where('customer_id','=',$data1['contact_id']);
+            $stmt=$selectStament->execute();
+            $data2=$stmt->fetch();
+            $data['sname']=$data2['customer_name'];
+            $data['stelephone']=$data2['customer_phone'];
+            $selectStament=$database->select()
+                ->from('city')
+                ->where('id','=',$data2['customer_city_id']);
+            $stmt=$selectStament->execute();
+            $data3=$stmt->fetch();
+            $data['saddress']=$data3['name'].$data2['customer_address'];
+            $selectStament=$database->select()
+                ->from('lorry')
+                ->where('lorry_id','=',$data['secondparty_id'])
+                ->where('tenant_id','=',$data['tenant_id']);
+            $stmt=$selectStament->execute();
+            $data4=$stmt->fetch();
+            $data['plate_number']=$data4['plate_number'];
+            $data['driver_name']=$data4['driver_name'];
+            $data['driver_phone']=$data4['driver_phone'];
+            $selectStament=$database->select()
+                ->from('agreement_schedule')
+                ->where('tenant_id','=',$data['tenant_id'])
+                ->where('agreement_id','=',$data['agreement_id']);
+            $stmt=$selectStament->execute();
+            $data5=$stmt->fetchAll();
+
+            for($j=0;$j<count($data5);$j++){
+                $data['schedules']+=$data5[$j]['scheduling_id'].",";
+                $selectStament=$database->select()
+                    ->from('schedule_order')
+                    ->where('tenant_id','=',$data['tenant_id'])
+                    ->where('schedule_id','=',$data5[$j]['scheduling_id']);
+                $stmt=$selectStament->execute();
+                $data6=$stmt->fetchAll();
+                $data['ordercount']+=count($data6);
+                for($x=0;$x<count($data6);$x++){
+                    $selectStament=$database->select()
+                        ->from('goods')
+                        ->where('tenant_id','=',$data['tenant_id'])
+                        ->where('order_id','=',$data6[$x]['order_id']);
+                    $stmt=$selectStament->execute();
+                    $data8=$stmt->fetch();
+                    $data['ordersize']+=$data8['goods_capacity'];
+                    $data['ordercountgood']+=$data8['goods_count'];
+                    $data['orderweight']+=$data8['goods_weight'];
+                    $data['ordervalue']+=$data8['goods_value'];
+                }
+            }
+        }else{
+            echo json_encode(array('result'=>'2','desc'=>'合同不存在'));
+        }
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'合同id为空'));
+    }
+});
 $app->run();
 
 function localhost(){
