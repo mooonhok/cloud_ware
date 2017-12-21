@@ -31,6 +31,8 @@ $(function(){
                        $('.mask,.dialog').hide();
 					   window.location.href = "http://api.uminfo.cn/backsales/index.html";
                        $.session.set('adminid',msg.admin);
+				  }else{
+				  	alert(msg.desc);
 				  }
 				},
 				error: function(xhr) {
