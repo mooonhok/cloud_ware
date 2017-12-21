@@ -444,7 +444,11 @@ $app->get('/lagrs',function()use($app){
         $stmt=$selectStament->execute();
         $data=$stmt->fetchAll();
         $num=count($data);
+        $num2=0;
         if($data!=null){
+            for($j=0;$j<count($data);$j++){
+                $num2+=$data[$j]['freight'];
+            }
              $page=(int)$page-1;
             $selectStament=$database->select()
                 ->from('agreement')
@@ -465,7 +469,7 @@ $app->get('/lagrs',function()use($app){
                     $data1[$i]['driver_name']=$data2['driver_name'];
                     $data1[$i]['driver_phone']=$data2['driver_phone'];
                 }
-                echo json_encode(array('result'=>'0','desc'=>'','argees'=>$data1,'count'=>$num));
+                echo json_encode(array('result'=>'0','desc'=>'','argees'=>$data1,'count'=>$num,'count1'=>$num2));
             }else{
                 echo json_encode(array('result'=>'3','desc'=>'该公司尚未有历史合同'));
             }

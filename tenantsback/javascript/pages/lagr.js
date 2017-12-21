@@ -63,9 +63,10 @@ function loadorders(tenant_id,page) {
         ContentType: "application/json;charset=utf-8",
         data: JSON.stringify({}),
         success: function(msg) {
-            console.log(msg)
+           
             $("#tb1").html("");
           if(msg.argees!=null){
+          	$("#count1").html(msg.count1);
             //调用分页
             layui.use(['laypage', 'layer'], function(){
                 var laypage = layui.laypage;
