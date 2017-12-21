@@ -516,7 +516,7 @@ $app->post('/updriveringpic',function()use($app){
             $type = $result[2];
             date_default_timezone_set("PRC");
             $time1 = time();
-            $new_file = "/files/lorry/" . date('Ymd', $time1) . "/";
+            $new_file = "/files/lorry3/" . date('Ymd', $time1) . "/";
             if (!file_exists($new_file)) {
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                 mkdir($new_file, 0700);
@@ -534,7 +534,7 @@ $app->post('/updriveringpic',function()use($app){
                 $type = $result[2];
                 date_default_timezone_set("PRC");
                 $time1 = time();
-                $new_file = "/files/lorry2/" . date('Ymd', $time1) . "/";
+                $new_file = "/files/lorry4/" . date('Ymd', $time1) . "/";
                 if (!file_exists($new_file)) {
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                     mkdir($new_file, 0700);
