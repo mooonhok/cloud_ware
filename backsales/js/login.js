@@ -29,7 +29,7 @@ $(function(){
 				success: function(msg) {
 				   if(msg.result == 0) {
                        $('.mask,.dialog').hide();
-					   window.location.href = "http://api.uminfo.cn/backsales/first.html";
+					   window.location.href = "http://api.uminfo.cn/backsales/index.html";
                        $.session.set('adminid',msg.admin);
 				  }
 				},
