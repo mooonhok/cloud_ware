@@ -1190,7 +1190,7 @@ $app->post('/receivesc',function()use($app){
                 $stmt=$selectStament->execute();
                 $data4=$stmt->fetch();
                 if($data4!=null){
-                    if($data1['telephone']==$data4['driver_phone']&&$data1['plate_number']==$data4['platenumber']){
+                    if($data1['telephone']==$data4['driver_phone']&&$data1['platenumber']==$data4['plate_number']){
                         $updateStatement = $database->update($arrays)
                             ->table('scheduling')
                             ->where('scheduling_id', '=', $schedule_id);
