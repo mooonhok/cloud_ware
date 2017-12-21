@@ -427,6 +427,55 @@ $app->get('/lsch',function()use($app){
        echo json_encode(array('result'=>'1','desc'=>'租户id为空'));
    }
 });
+
+//合同列表
+$app->get('/lagrs',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->get('tenant-id');
+    $page=$app->request->get('page');
+    $perpage=$app->request->get('perpage');
+    if($tenant_id!=null||$tenant_id!=""){
+        $selectStament=$database->select()
+            ->from('agreement')
+            ->where('exist','=',0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetchAll();
+        $num=count($data);
+        if($data!=null){
+             $page=(int)$page-1;
+            $selectStament=$database->select()
+                ->from('agreement')
+                ->where('exist','=',0)
+                ->where('tenant_id','=',$tenant_id)
+                ->limit((int)$perpage, (int)$perpage * (int)$page);
+            $stmt=$selectStament->execute();
+            $data1=$stmt->fetchAll();
+            if($data1!=null){
+                for($i=0;$i<count($data1);$i++){
+                    $selectStament=$database->select()
+                        ->from('lorry')
+                        ->where('lorry_id','=',$data1[$i]['lorry_id'])
+                        ->where('tenant_id','=',$data1[$i]['tenant_id']);
+                    $stmt=$selectStament->execute();
+                    $data2=$stmt->fetch();
+                    $data1[$i]['platenumber']=$data2['plate_number'];
+                    $data1[$i]['driver_name']=$data2['driver_name'];
+                    $data1[$i]['driver_phone']=$data2['driver_phone'];
+                }
+                echo json_encode(array('result'=>'0','desc'=>'','argees'=>$data1,'count'=>$num));
+            }else{
+                echo json_encode(array('result'=>'3','desc'=>'该公司尚未有历史合同'));
+            }
+        }else{
+            echo json_encode(array('result'=>'2','desc'=>'该公司尚未有历史合同'));
+        }
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'租户id为空'));
+    }
+});
 $app->run();
 
 function localhost(){
