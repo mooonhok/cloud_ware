@@ -2,7 +2,7 @@ $(function(){
 	var adminid=$.session.get('adminid');
      if(adminid==null||adminid==""){
     	window.location.href="http://api.uminfo.cn/tenantsback/login.html";
-    }
+    }else{
     var page = $.getUrlParam('page');
     $.ajax({
 	 url: "http://api.uminfo.cn/tenantsback.php/gettenants?adminid="+adminid,
@@ -55,11 +55,10 @@ $(function(){
             alert("获取后台失败！");
         }
     });
-        
-        
-        
+          
         
     })
+    }
 });
 
 
