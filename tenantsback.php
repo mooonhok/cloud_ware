@@ -528,6 +528,10 @@ $app->get('/agredet',function()use($app){
             $stmt=$selectStament->execute();
             $data5=$stmt->fetchAll();
            $sum="";
+           $num1=0;
+           $num2=0;
+           $num3=0;
+           $num4=0;
             for($j=0;$j<count($data5);$j++){
                $sum.=$data5[$j]['scheduling_id'].",";
                 $selectStament=$database->select()
@@ -544,13 +548,17 @@ $app->get('/agredet',function()use($app){
                         ->where('order_id','=',$data6[$x]['order_id']);
                     $stmt=$selectStament->execute();
                     $data8=$stmt->fetch();
-                    $data['ordersize']+=$data8['goods_capacity'];
-                    $data['ordercountgood']+=$data8['goods_count'];
-                    $data['orderweight']+=$data8['goods_weight'];
-                    $data['ordervalue']+=$data8['goods_value'];
+                    $num1+=$data8['goods_capacity'];
+                    $num2+=$data8['goods_count'];
+                    $num3+=$data8['goods_weight'];
+                    $num4+=$data8['goods_value'];
                 }
             }
             $data['schedules']=$sum;
+            $data['ordersize']=$num1;
+            $data['ordercountgood']=$num2;
+            $data['orderweight']=$num3;
+            $data['ordervalue']=$num4;
             echo json_encode(array('result'=>'0','desc'=>'','agree'=>$data));
         }else{
             echo json_encode(array('result'=>'2','desc'=>'合同不存在'));
