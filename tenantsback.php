@@ -532,6 +532,7 @@ $app->get('/agredet',function()use($app){
            $num2=0;
            $num3=0;
            $num4=0;
+           $num5=0;
             for($j=0;$j<count($data5);$j++){
                $sum.=$data5[$j]['scheduling_id'].",";
                 $selectStament=$database->select()
@@ -540,7 +541,7 @@ $app->get('/agredet',function()use($app){
                     ->where('schedule_id','=',$data5[$j]['scheduling_id']);
                 $stmt=$selectStament->execute();
                 $data6=$stmt->fetchAll();
-                $data['ordercount']+=count($data6);
+              $num5+=count($data6);
                 for($x=0;$x<count($data6);$x++){
                     $selectStament=$database->select()
                         ->from('goods')
@@ -559,6 +560,7 @@ $app->get('/agredet',function()use($app){
             $data['ordercountgood']=$num2;
             $data['orderweight']=$num3;
             $data['ordervalue']=$num4;
+            $data['ordercount']=$num5;
             echo json_encode(array('result'=>'0','desc'=>'','agree'=>$data));
         }else{
             echo json_encode(array('result'=>'2','desc'=>'合同不存在'));
