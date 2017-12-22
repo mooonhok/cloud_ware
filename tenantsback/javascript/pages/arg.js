@@ -20,7 +20,7 @@ $(function() {
 	window.location.href="http://api.uminfo.cn/tenantsback/lagreement.html?tenant_id="+tenant_id;
     })
 	$(".print").on("click",function(){
-		$("div .contract_list").printArea();  
+		$("div .printa").printArea();  
 	});
 });
 
