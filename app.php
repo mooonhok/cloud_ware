@@ -291,7 +291,7 @@ $app->post('/addlorry3',function()use($app){
                    }
                    $new_file = $new_file . time() . ".{$type}";
                    if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                       $lujing2 = "http://files.uminfo.cn:8000/lorry4/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                       $lujing4 = "http://files.uminfo.cn:8000/lorry4/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                    }
                }
            }
@@ -303,6 +303,7 @@ $app->post('/addlorry3',function()use($app){
            $stmt=$selectStament->execute();
            $data1=$stmt->fetch();
            if($data1!=null){
+               $arrays['exist']=0;
                $updateStatement = $database->update($arrays)
                    ->table('applorry')
                    ->where('lorryid','=',$lorryid);
