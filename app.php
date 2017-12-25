@@ -308,7 +308,7 @@ $app->post('/addlorry3',function()use($app){
                    ->table('applorry')
                    ->where('lorryid','=',$lorryid);
                $affectedRows = $updateStatement->execute();
-               echo json_encode(array('result'=>'0','desc'=>'','lorryid'=>$lorryid));
+               echo json_encode(array('result'=>'0','desc'=>'','lorryid'=>$lorryid,'phone'=>$data1['telephone']));
            }else {
                echo json_encode(array('result' => '4', 'desc' => '未填写电话号码'));
            }
@@ -450,7 +450,7 @@ $app->post('/addlorry5',function()use($app){
                     ->table('applorry')
                     ->where('lorryid','=',$lorryid);
                 $affectedRows = $updateStatement->execute();
-                echo json_encode(array('result'=>'0','desc'=>'','lorryid'=>$lorryid));
+                echo json_encode(array('result'=>'0','desc'=>'','lorryid'=>$lorryid,'phone'=>$data1['telephone']));
             }else {
                 echo json_encode(array('result' => '4', 'desc' => '车辆信息有误'));
             }
