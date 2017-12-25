@@ -24,7 +24,7 @@ $app->post('/usersign',function ()use($app){
         $selectStaement=$database->select()
             ->from('sales')
             ->where('exist','=',0)
-            ->where('telephone','=',$username);
+            ->where('sales_id','=',$username);
         $stmt=$selectStaement->execute();
         $data=$stmt->fetch();
          if ($data!=null){
