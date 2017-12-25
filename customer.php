@@ -894,7 +894,7 @@ $app->get('/old_customers_s',function()use($app){
 });
 
 //type为3
-$app->get('/old_customers_f',function()use($app){
+$app->get('/old_customers_w',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
