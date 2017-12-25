@@ -893,6 +893,26 @@ $app->get('/old_customers_s',function()use($app){
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$data1));
 });
 
+//type为3
+$app->get('/old_customers_f',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    $selectStatement = $database->select()
+        ->from('customer')
+//        ->distinctCount('customer_name')
+        ->where('tenant_id','=',$tenant_id)
+        ->where('exist','=',0)
+        ->where('type','=',3)
+        ->whereNotNull('times')
+        ->where('times','!=',0)
+        ->orderBy('id','DESC');
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetchAll();
+    echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$data1));
+});
+
 $app->run();
 
 function localhost(){
