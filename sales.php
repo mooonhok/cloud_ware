@@ -32,7 +32,7 @@ $app->post('/usersign',function ()use($app){
                  ->from('sales')
                  ->where('password','=',$password)
                  ->where('exist','=',0)
-                 ->where('telephone','=',$username);
+                 ->where('sales_id','=',$username);
              $stmt=$selectStaement->execute();
              $data2=$stmt->fetch();
              if($data2!=null){
