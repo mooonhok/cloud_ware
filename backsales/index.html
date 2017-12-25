@@ -168,7 +168,7 @@
 							<th>姓名</th>
 							<th>性别</th>
 							<th>组别</th>
-							<th>证件号</th>
+							<th>业务员编号</th>
 							<th>电话</th>
 							<th>邮箱</th>
 							<th>提成</th>
@@ -241,7 +241,7 @@
 												item.sales_name + '</td><td>' +
 												c + '</td><td>' +
 												item.teamid + '</td><td>' +
-												item.card_id + '</td><td>' +
+												item.sales_id + '</td><td>' +
 												item.telephone + '</td><td>' +
 												item.zip_code + '</td><td>' +
 												item.money + '</td><td>' +
@@ -252,7 +252,7 @@
 												item.sales_name + '</td><td>' +
 											    c+ '</td><td>' +
 											    item.teamid + '</td><td>' +
-												item.card_id + '</td><td>' +
+												item.sales_id  + '</td><td>' +
 												item.telephone + '</td><td>' +
 												item.zip_code + '</td><td>' +
 												item.money + '</td><td>' +
@@ -298,7 +298,7 @@
 		}
 		$("#seek").on("click", function() {
 			teamid = $("#city1 option:selected").val();
-			window.location.href = "http://api.uminfo.cn/backsales/first.html?teamid=" + teamid;
+			window.location.href = "http://api.uminfo.cn/backsales/index.html?teamid=" + teamid;
 		});
 		$("#top1").on('click',function(){
 			window.location.href="http://api.uminfo.cn/backsales/addsales.html";
