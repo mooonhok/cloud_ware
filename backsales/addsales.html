@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
 		<title></title>
-		  <link rel="icon" href="img/logo.png" type="image/x-icon"/>
+	    <link rel="icon" href="img/logo.png" type="image/x-icon"/>
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery.session.js"></script>
 		<style>
@@ -26,9 +25,7 @@
 				text-align: center;
 				background: #0099cc;
 				color: white;
-			
-			}
-			
+			}	
 			.top1 {
 				width:150px;
 				float:right;
@@ -38,7 +35,6 @@
 				line-height: 30px;
 				font-size: 16px;
 				text-align: center;
-				
 				color: white;
 			}
 			.top2{
@@ -129,11 +125,11 @@
 		<div class="center"><div class="tm">微信:</div><input type="text" id="wx"></div>
 		<div class="center"><div class="tm">邮箱:</div><input type="text" id="email" name="email"></div>
 		<div class="center"><div class="tm">地址:</div><input id="dizhi"></div>
-		<div class="center"><div class="tm">分组:</div>
+		<!--<div class="center"><div class="tm">分组:</div>
 		<select name="city" id="city1" class="cit">
 			<option value="">请选择组</option>
 		</select>
-		</div>
+		</div>-->
 		<div class="center2"><div id="register">注册</div></div>
 	   <div>
 	
@@ -160,14 +156,12 @@
 			var wx = $("#wx").val();
 			var email = $("#email").val();
 			var dizhi = $("#dizhi").val();
-			var teamid=$("#city1 option:selected").val();
+//			var teamid=$("#city1 option:selected").val();
 			if(!/^1[34578]\d{9}$/.test(tel)) {
 				alert("电话号码格式不对");
 			} else {
 				if(!/^\d{15}|\d{18}$/.test(numb)) {
 					alert("身份证格式不对");
-				} else if(teamid==null){
-				    alert("您还未选择分组");
 				}else {
 					$.ajax({
 						url: "http://api.uminfo.cn/salesback.php/addsales",
@@ -183,7 +177,7 @@
 							zip_code: email,
 							qq: qq,
 							weixin: wx,
-							teamid:teamid,
+//							teamid:teamid,
 							admin_id:adminid
 						}),
 				
@@ -196,7 +190,7 @@
 							}
 						},
 						error: function(xhr) {
-							alert("获取后台失败" + xhr.responseText);
+							alert("获取后台失败");
 						}
 					});
 				}

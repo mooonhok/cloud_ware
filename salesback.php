@@ -377,7 +377,7 @@ $app->post('/addsales',function()use($app){
     $zip_code=$body->zip_code;
     $qq=$body->qq;
     $weixin=$body->weixin;
-    $teamid=$body->teamid;
+    $teamid=0;
     $admin_id=$body->admin_id;
     if($admin_id!=""||$admin_id!=null){
         $selectStament=$database->select()
@@ -420,13 +420,13 @@ $app->post('/addsales',function()use($app){
                                  $stmt = $selectStatement->execute();
                                  $data6 = $stmt->fetchAll();
                                  if(count($data6)<10){
-                                     $sales_id.='000'.count($data6)+1;
+                                     $sales_id.='000'.(count($data6)+1).'';
                                  }else if(count($data6)>9&&count($data6)<100){
-                                     $sales_id.='00'.count($data6)+1;
+                                     $sales_id.='00'.(count($data6)+1).'';
                                  }else if(count($data6)>99&&count($data6)<1000){
-                                     $sales_id.='0'.count($data6)+1;
+                                     $sales_id.='0'.(count($data6)+1).'';
                                  }else{
-                                     $sales_id.=count($data6)+1;
+                                     $sales_id.=(count($data6)+1).'';
                                  }
                                     $insertStatement = $database->insert(array('exist','sales_name','sex','card_id','telephone','address'
                                     ,'zip_code','qq','weixin','password','higher_id','teamid','sales_id'))
