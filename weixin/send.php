@@ -23,14 +23,14 @@ $signPackage = $jssdk->GetSignPackage();
 			<!-- top -->
 			<div class="top">
 				<div class="top1">
-					<div class="wenzi"><span class="span1">寄</span>件人</div>
+					<div class="wenzi"><span class="span1">发</span>货人</div>
 					<div class="shuru">
 					</div>
 					<div class="fuhao"><img src="images/left_arrow.png" alt=""></div>
 				</div>
 
 				<div class="top2">
-					<div class="wenzi"><span class="span2">收</span>件人</div>
+					<div class="wenzi"><span class="span2">收</span>货人</div>
 					<div class="shuru1">
 					</div>
 					<div class="fuhao"><img src="images/left_arrow.png" alt=""></div>
