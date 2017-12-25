@@ -433,11 +433,31 @@ $app->post('/addsales',function()use($app){
                                        for ($x=0;$x<count($str1);$x++){
                                            $password.=$str1[$x].$x;
                                        }
+                                       $sales_id=null;
+                                       if($data5['teamid']<10){
+                                         $sales_id='MT00'.$data5['teamid'];
+                                       }else if($data5['teamid']>9&&$data5['teamid']<100){
+                                         $sales_id='MT0'.$data5['teamid'];
+                                       }
+                                       $selectStatement = $database->select()
+                                           ->from('sales')
+                                           ->where('teamid','=',$data5['teamid']);
+                                       $stmt = $selectStatement->execute();
+                                       $data6 = $stmt->fetchAll();
+                                       if(count($data6)<10){
+                                           $sales_id.='000'.count($data6);
+                                       }else if(count($data6)>9&&count($data6)<100){
+                                           $sales_id.='00'.count($data6);
+                                       }else if(count($data6)>99&&count($data6)<1000){
+                                           $sales_id.='0'.count($data6);
+                                       }else{
+                                           $sales_id.=count($data6);
+                                       }
                                        $insertStatement = $database->insert(array('exist','sales_name','sex','card_id','telephone','address'
-                                         ,'zip_code','qq','weixin','password','higher_id','teamid'))
+                                         ,'zip_code','qq','weixin','password','higher_id','teamid','sales_id'))
                                            ->into('sales')
                                            ->values(array(0,$sales_name,$sex,$card_id,$telephone,$address,$zip_code,$qq,$weixin,$password
-                                           ,$higherlevel,$data5['teamid']));
+                                           ,$higherlevel,$data5['teamid'],$sales_id));
                                        $insertId = $insertStatement->execute(false);
                                        $arrays['password']=$password1;
                                        echo json_encode(array('result' => '0', 'desc' => '添加成功','sales'=>$arrays));
