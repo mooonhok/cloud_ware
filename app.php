@@ -1300,6 +1300,26 @@ $app->post('/receivesc',function()use($app){
     }
 });
 
+$app->post('/last_map',function()use($app) {
+    $app->response->headers->set('Access-Control-Allow-Origin', '*');
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $schedule_id = $body->schedule_id;
+    $longitude=$body->longitude;
+    $latitude=$body->latitude;
+    $time=time();
+    if($schedule_id!=''||$schedule_id!=null){
+        $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
+            ->into('map')
+            ->values(array($schedule_id, $longitude, $latitude, $time));
+        $insertId = $insertStatement->execute(false);
+        echo json_encode(array('result' => '0', 'desc' => '上传成功'));
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '清单号不存在'));
+    }
+});
 
 $app->post('/changpass',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
