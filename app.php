@@ -1127,6 +1127,7 @@ $app->post('/scmap',function()use($app){
                             }
                         }
                     }
+                    echo json_encode(array('result' => '0', 'desc' => '上传地理位置成功'));
                 }else{
                     echo json_encode(array('result' => '4', 'desc' => '司机尚未有过订单'));
                 }
