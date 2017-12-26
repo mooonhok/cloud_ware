@@ -192,6 +192,7 @@ $app->post('/addlorry2',function()use($app){
     $type=$body->type;
     $long=$body->long;
     $ctype=$body->ctype;
+    $cweight=$body->cweight;
     $lorryid=$body->lorryid;
     $plate_number=$body->plate_number;
         if($lorryid!=null||$lorryid!="") {
@@ -209,6 +210,7 @@ $app->post('/addlorry2',function()use($app){
                             $arrays['ctype'] = $ctype;
                             $arrays['clong'] = $long;
                             $arrays['platenumber']=$plate_number;
+                            $arrays['carWeight']=$cweight;
                             $updateStatement = $database->update($arrays)
                                 ->table('applorry')
                                 ->where('lorryid', '=', $lorryid);
