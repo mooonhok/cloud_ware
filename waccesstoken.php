@@ -186,7 +186,11 @@ $app->post('/addpic',function()use($app){
                        if (curl_errno() == 0) {
                           $result = json_decode($result, true);
                           $medid=$result['media_id'];
-                          echo $medid;
+                           $insertStatement = $database->insert(array('lujing','size','tenant_id','mediu_id'))
+                               ->into('weixinsucai')
+                               ->values(array($lujing1,$size,$tenant_id,$result['media_id']));
+                           $insertId = $insertStatement->execute(false);
+                           echo json_encode(array("result"=>"0","desc"=>""));
                        } else {
                            echo json_encode(array("result"=>"3","desc"=>"上传微信公众号服务器失败"));
                        }
