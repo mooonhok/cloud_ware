@@ -184,10 +184,9 @@ $app->post('/addpic',function()use($app){
                        $result = curl_exec($ch1);
                        curl_close($ch1);
                        if (curl_errno() == 0) {
-//                           $result = json_decode($result, true);
-//                           var_dump($result);
+                          $result = json_decode($result, true);
                           $medid=$result['media_id'];
-                           echo json_encode(array("result"=>"0","desc"=>"","medid"=>$medid,'error'=>$result));
+                          echo $medid;
                        } else {
                            echo json_encode(array("result"=>"3","desc"=>"上传微信公众号服务器失败"));
                        }
