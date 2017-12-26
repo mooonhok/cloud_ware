@@ -443,7 +443,7 @@ $app->post('/addlorry5',function()use($app){
             if($type_a==1){
                 $arrays['exist']=0;
             }
-            $arrays['type']=1;
+            $arrays['type']=$type_a;
             $selectStament=$database->select()
                 ->from('applorry')
                 ->where('lorryid','=',$lorryid);
