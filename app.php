@@ -400,6 +400,7 @@ $app->post('/addlorry5',function()use($app){
     $lorryid=$body->lorryid;
     $id_pic5=$body->id_pic5;
     $id_pic6=$body->id_pic6;
+    $type_a=$body->type;
     $lujing5=null;
     $lujing6=null;
     if($id_pic5!=null){
@@ -438,7 +439,10 @@ $app->post('/addlorry5',function()use($app){
                 }
             }
             $arrays['identity_card_f']=$lujing6;
-            $arrays['exist']=0;
+            $arrays['exist']=1;
+            if($type_a==1){
+                $arrays['exist']=0;
+            }
             $arrays['type']=1;
             $selectStament=$database->select()
                 ->from('applorry')
