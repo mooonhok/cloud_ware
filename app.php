@@ -143,13 +143,44 @@ $app->get('/lorry_type',function()use($app){
     $stmt = $selectStament->execute();
     $data = $stmt->fetchAll();
     if($data!=null){
-        echo json_encode(array('result' => '0', 'desc' => '','lorry_type'=>$data));
+        echo json_encode(array('result' => '0', 'desc' => 'success','lorry_type'=>$data));
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '尚未有车辆类型数据'));
+    }
+});
+
+//获取车辆吨位列表
+$app->get('/lorry_weight',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $selectStament = $database->select()
+        ->from('vehiche_weight');
+    $stmt = $selectStament->execute();
+    $data = $stmt->fetchAll();
+    if($data!=null){
+        echo json_encode(array('result' => '0', 'desc' => 'success','vehiche_weight'=>$data));
     }else{
         echo json_encode(array('result' => '1', 'desc' => '尚未有车辆类型数据'));
     }
 });
 
 
+//获取车辆长度列表
+$app->get('/lorry_long',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $selectStament = $database->select()
+        ->from('vehicle');
+    $stmt = $selectStament->execute();
+    $data = $stmt->fetchAll();
+    if($data!=null){
+        echo json_encode(array('result' => '0', 'desc' => 'success','vehiche_long'=>$data));
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '尚未有车辆类型数据'));
+    }
+});
 
 //app司机注册3
 $app->post('/addlorry2',function()use($app){
