@@ -253,6 +253,7 @@ $app->post('/addlorry3',function()use($app){
     $pic2=$body->pic2;
     $pic3=$body->pic3;
     $pic4=$body->pic4;
+    $type=$body->type;
     $lujing1=null;
     $lujing2=null;
     $lujing3=null;
@@ -337,6 +338,7 @@ $app->post('/addlorry3',function()use($app){
            $data1=$stmt->fetch();
            if($data1!=null){
                $arrays['exist']=0;
+               $arrays['type']=$type;
                $updateStatement = $database->update($arrays)
                    ->table('applorry')
                    ->where('lorryid','=',$lorryid);
