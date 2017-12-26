@@ -91,7 +91,7 @@ $app->post('/addpic',function()use($app){
         if($data2!=null){
            if($data2['appid']!=null&&$data2['secret']!=null){
                $appid=$data2['appid'];
-               $appsecret=$data2['appsecret'];
+               $appsecret=$data2['secret'];
                $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
                $ch = curl_init();
                curl_setopt($ch, CURLOPT_URL, $url);
@@ -118,7 +118,6 @@ $app->post('/addpic',function()use($app){
 $app->post('/addpic',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $database = localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
     $pic=$body->pic;
@@ -152,7 +151,7 @@ $app->post('/addpic',function()use($app){
                if($data2!=null){
                    if($data2['appid']!=null&&$data2['secret']!=null){
                        $appid=$data2['appid'];
-                       $appsecret=$data2['appsecret'];
+                       $appsecret=$data2['secret'];
                        $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
                        $ch = curl_init();
                        curl_setopt($ch, CURLOPT_URL, $url);
