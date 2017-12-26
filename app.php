@@ -452,7 +452,7 @@ $app->post('/addlorry5',function()use($app){
             }
             $new_file = $new_file . time() . ".{$type}";
             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                $lujing3 = "http://files.uminfo.cn:8000/idcard5/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                $lujing5 = "http://files.uminfo.cn:8000/idcard5/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
             }
         }
         $arrays['identity_card_z']=$lujing5;
@@ -470,7 +470,7 @@ $app->post('/addlorry5',function()use($app){
                 }
                 $new_file = $new_file . time() . ".{$type}";
                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                    $lujing2 = "http://files.uminfo.cn:8000/idcard6/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                    $lujing6 = "http://files.uminfo.cn:8000/idcard6/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                 }
             }
             $arrays['identity_card_f']=$lujing6;
