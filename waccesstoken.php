@@ -171,8 +171,8 @@ $app->post('/addpic',function()use($app){
                        $url = "https://api.weixin.qq.com/cgi-bin/material/add_material?access_token={$access_token}&type=image";
                        $ch1 = curl_init();
                        $timeout = 5;
-                       $real_path="{$file_info['filename']}";
-                       $data6= array("media"=>"@{$real_path}",'form-data'=>$file_info);
+
+                       $data6= array("media"=>'@'.$lujing1.'','form-data'=>$file_info);
                        curl_setopt($ch1, CURLOPT_URL, $url);
                        curl_setopt($ch1, CURLOPT_POST, 1);
                        curl_setopt($ch1, CURLOPT_RETURNTRANSFER, 1);
