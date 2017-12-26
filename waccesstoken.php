@@ -74,7 +74,7 @@ $app->post('/access',function()use($app){
 
 
 //微信后台依据租户获取accesstoken
-$app->post('/addpic',function()use($app){
+$app->post('/showacc',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database = localhost();
