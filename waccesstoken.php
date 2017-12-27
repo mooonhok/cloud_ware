@@ -130,14 +130,14 @@ $app->post('/addpic',function()use($app){
             $type = $result[2];
             date_default_timezone_set("PRC");
             $time1 = time();
-            $new_file = "/files/weixinsucai/" . date('Ymd', $time1) . "/";
+            $new_file = "/weixincontrol/image" . date('Ymd', $time1) . "/";
             if (!file_exists($new_file)) {
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                 mkdir($new_file, 0700);
             }
             $new_file = $new_file . time() . ".{$type}";
             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                $lujing1 = "http://files.uminfo.cn:8000/weixinsucai/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                $lujing1 = "/weixincontrol/image" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
             }
         }
        if($size!=null||$size!=""){
@@ -167,7 +167,6 @@ $app->post('/addpic',function()use($app){
                            'content-type' => 'image', //文件类型
                            'filelength' => $size //图文大小
                        );
-
                        $url = "https://api.weixin.qq.com/cgi-bin/material/add_material?access_token={$access_token}&type=image";
                        $ch1 = curl_init();
                        $timeout = 5;
@@ -187,11 +186,20 @@ $app->post('/addpic',function()use($app){
                        if (curl_errno() == 0) {
                           $result = json_decode($result, true);
                           $medid=$result['media_id'];
-                           $insertStatement = $database->insert(array('lujing','size','tenant_id','mediu_id'))
-                               ->into('weixinsucai')
-                               ->values(array($lujing1,$size,$tenant_id,$result['media_id']));
-                           $insertId = $insertStatement->execute(false);
-                           echo json_encode(array("result"=>"0","desc"=>""));
+                         $dir=$lujing1;
+                           $dh=opendir($dir);
+                           while ($file=readdir($dh)) {
+                               if($file!="." && $file!="..") {
+                                   $fullpath=$dir."/".$file;
+                                   if(!is_dir($fullpath)) {
+                                       unlink($fullpath);
+                                   } else {
+                                       deldir($fullpath);
+                                   }
+                               }
+                           }
+                           closedir($dh);
+                           echo json_encode(array("result"=>"0","desc"=>$medid));
                        } else {
                            echo json_encode(array("result"=>"3","desc"=>"上传微信公众号服务器失败"));
                        }
