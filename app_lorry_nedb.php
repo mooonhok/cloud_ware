@@ -1,0 +1,56 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Administrator
+ * Date: 2017/12/27
+ * Time: 15:25
+ */
+require 'Slim/Slim.php';
+require 'connect.php';
+use Slim\PDO\Database;
+
+
+\Slim\Slim::registerAutoloader();
+$app = new \Slim\Slim();
+
+$app->get('/getAppLorry',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $platenumber=$app->request->get("plate_number");
+    $name=$app->request->get("driver_name");
+    $phone=$app->request->get("driver_phone");
+    if($platenumber!=null||$platenumber!=""){
+        if($name!=null||$name!=""){
+            if($phone!=null||$phone!=""){
+             $selectStatement = $database->select()
+                ->from('applorry')
+                 ->where('exist','=',0)
+                 ->where('name','=',$name)
+                 ->where('telephone','=',$phone)
+                ->where('platenumber','=',$platenumber);
+              $stmt = $selectStatement->execute();
+             $data= $stmt->fetch();
+               if($data!=null){
+                   echo json_encode(array("result"=>"0","desc"=>"","lorrys"=>$data));
+               }else{
+                   echo json_encode(array("result"=>"4","desc"=>"司机不存在"));
+               }
+            }else{
+                echo json_encode(array("result"=>"3","desc"=>"缺少电话"));
+            }
+        }else{
+            echo json_encode(array("result"=>"2","desc"=>"缺少姓名"));
+        }
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"缺少车牌号"));
+    }
+
+});
+
+$app->run();
+
+function localhost(){
+    return connect();
+}
+?>
