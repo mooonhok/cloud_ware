@@ -172,7 +172,7 @@ $app->post('/addpic',function()use($app){
                        );
                        $url = "https://api.weixin.qq.com/cgi-bin/material/add_material?access_token={$access_token}&type=image";
                        $ch1 = curl_init();
-                       $timeout = 5;
+                       $timeout = 20;
                        $real_path="{$file_info['filename']}";
                        $data6= array("media"=>"@{$real_path}",'form-data'=>$file_info);
                        $data6=urldecode( json_encode( $data6 ) );
@@ -186,7 +186,7 @@ $app->post('/addpic',function()use($app){
                        curl_setopt($ch1, CURLOPT_POSTFIELDS, $data6);
                        $result = curl_exec($ch1);
                        curl_close($ch1);
-                       if (curl_errno() == 1) {
+                       if (curl_errno() == 0) {
                           $result = json_decode($result, true);
                           $medid=$result['media_id'];
                           $dir=$lujing1;
