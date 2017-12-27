@@ -115,109 +115,109 @@ $app->post('/showacc',function()use($app){
 });
 
 //上传永久的图片素材到服务器
-$app->post('/addpic',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $pic=$body->pic;
-    $tenant_id=$body->tenant_id;
-    $size=$body->size;
-    $database = localhost();
-    if($pic!=null||$pic!="") {
-        $base64_image_content = $pic;
-        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
-            $type = $result[2];
-            date_default_timezone_set("PRC");
-            $time1 = time();
-            $new_file = "weixincontrol/image" . date('Ymd', $time1) . "/";
-            if (!file_exists($new_file)) {
-//检查是否有该文件夹，如果没有就创建，并给予最高权限
-                mkdir($new_file, 0700);
-            }
-            $new_file = $new_file . time() . ".{$type}";
-            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                $lujing1 = "/weixincontrol/image" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
-            }
-        }
-       if($size!=null||$size!=""){
-           if($tenant_id!=null||$tenant_id!=null){
-               $selectStament=$database->select()
-                   ->from('tenant')
-                   ->where('exist','=',0)
-                   ->where('tenant_id','=',$tenant_id);
-               $stmt=$selectStament->execute();
-               $data2=$stmt->fetch();
-               if($data2!=null){
-                   if($data2['appid']!=null&&$data2['secret']!=null){
-                       $appid=$data2['appid'];
-                       $appsecret=$data2['secret'];
-                       $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
-                       $ch = curl_init();
-                       curl_setopt($ch, CURLOPT_URL, $url);
-                       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-                       curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-                       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                       $output = curl_exec($ch);
-                       curl_close($ch);
-                       $jsoninfo = json_decode($output, true);
-                       $access_token = $jsoninfo["access_token"];
-                       $medid=null;
-                       $file_info = array('filename' => $lujing1, //国片相对于网站根目录的路径
-                           'content-type' => 'image', //文件类型
-                           'filelength' => $size //图文大小
-                       );
-                       $url = "https://api.weixin.qq.com/cgi-bin/material/add_material?access_token={$access_token}&type=image";
-                       $ch1 = curl_init();
-                       $timeout = 5;
-                       $real_path="{$file_info['filename']}";
-                       $data6= array("media"=>"@{$real_path}",'form-data'=>$file_info);
-//                       $data6= array("media"=>'@'.$lujing1,'form-data'=>$file_info);
-                       curl_setopt($ch1, CURLOPT_URL, $url);
-                       curl_setopt($ch1, CURLOPT_POST, 1);
-                       curl_setopt($ch1, CURLOPT_RETURNTRANSFER, 1);
-                       curl_setopt($ch1, CURLOPT_CONNECTTIMEOUT, $timeout);
-                       curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
-                       curl_setopt($ch1, CURLOPT_SSL_VERIFYHOST, false);
-                       curl_setopt($ch1, CURLOPT_POSTFIELDS, $data6);
-                       $result = curl_exec($ch1);
-                       curl_close($ch1);
-                       if (curl_errno() == 0) {
-                          $result = json_decode($result, true);
-                          $medid=$result['media_id'];
-                          $dir=$lujing1;
-                           $dh=opendir($dir);
-                           while ($file=readdir($dh)) {
-                               if($file!="." && $file!="..") {
-                                   $fullpath=$dir."/".$file;
-                                   if(!is_dir($fullpath)) {
-                                       unlink($fullpath);
-                                   } else {
-                                       deldir($fullpath);
-                                   }
-                               }
-                           }
-                           closedir($dh);
-                           echo json_encode(array("result"=>"0","desc"=>$medid));
-                       } else {
-                           echo json_encode(array("result"=>"3","desc"=>"上传微信公众号服务器失败"));
-                       }
-                   }else{
-                       echo  json_encode(array("result"=>"2","desc"=>"数据库缺少微信账号信息"));
-                   }
-               }else{
-                   echo  json_encode(array("result"=>"1","desc"=>"租户不存在"));
-               }
-           }else{
-               echo  json_encode(array("result"=>"3","desc"=>"未选择租户"));
-           }
-       }else{
-           echo  json_encode(array("result"=>"2","desc"=>"缺少图片大小数据"));
-       }
-    }else{
-        echo  json_encode(array("result"=>"1","desc"=>"缺少图片"));
-    }
-});
+//$app->post('/addpic',function()use($app){
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
+//    $body=$app->request->getBody();
+//    $body=json_decode($body);
+//    $pic=$body->pic;
+//    $tenant_id=$body->tenant_id;
+//    $size=$body->size;
+//    $database = localhost();
+//    if($pic!=null||$pic!="") {
+//        $base64_image_content = $pic;
+//        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+//            $type = $result[2];
+//            date_default_timezone_set("PRC");
+//            $time1 = time();
+//            $new_file = "weixincontrol/image" . date('Ymd', $time1) . "/";
+//            if (!file_exists($new_file)) {
+////检查是否有该文件夹，如果没有就创建，并给予最高权限
+//                mkdir($new_file, 0700);
+//            }
+//            $new_file = $new_file . time() . ".{$type}";
+//            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+//                $lujing1 = "/weixincontrol/image" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+//            }
+//        }
+//       if($size!=null||$size!=""){
+//           if($tenant_id!=null||$tenant_id!=null){
+//               $selectStament=$database->select()
+//                   ->from('tenant')
+//                   ->where('exist','=',0)
+//                   ->where('tenant_id','=',$tenant_id);
+//               $stmt=$selectStament->execute();
+//               $data2=$stmt->fetch();
+//               if($data2!=null){
+//                   if($data2['appid']!=null&&$data2['secret']!=null){
+//                       $appid=$data2['appid'];
+//                       $appsecret=$data2['secret'];
+//                       $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
+//                       $ch = curl_init();
+//                       curl_setopt($ch, CURLOPT_URL, $url);
+//                       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+//                       curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+//                       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//                       $output = curl_exec($ch);
+//                       curl_close($ch);
+//                       $jsoninfo = json_decode($output, true);
+//                       $access_token = $jsoninfo["access_token"];
+//                       $medid=null;
+//                       $file_info = array('filename' => $lujing1, //国片相对于网站根目录的路径
+//                           'content-type' => 'image', //文件类型
+//                           'filelength' => $size //图文大小
+//                       );
+//                       $url = "https://api.weixin.qq.com/cgi-bin/material/add_material?access_token={$access_token}&type=image";
+//                       $ch1 = curl_init();
+//                       $timeout = 5;
+//                       $real_path="{$file_info['filename']}";
+//                       $data6= array("media"=>"@{$real_path}",'form-data'=>$file_info);
+////                       $data6= array("media"=>'@'.$lujing1,'form-data'=>$file_info);
+//                       curl_setopt($ch1, CURLOPT_URL, $url);
+//                       curl_setopt($ch1, CURLOPT_POST, 1);
+//                       curl_setopt($ch1, CURLOPT_RETURNTRANSFER, 1);
+//                       curl_setopt($ch1, CURLOPT_CONNECTTIMEOUT, $timeout);
+//                       curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, false);
+//                       curl_setopt($ch1, CURLOPT_SSL_VERIFYHOST, false);
+//                       curl_setopt($ch1, CURLOPT_POSTFIELDS, $data6);
+//                       $result = curl_exec($ch1);
+//                       curl_close($ch1);
+//                       if (curl_errno() == 0) {
+//                          $result = json_decode($result, true);
+//                          $medid=$result['media_id'];
+//                          $dir=$lujing1;
+//                           $dh=opendir($dir);
+//                           while ($file=readdir($dh)) {
+//                               if($file!="." && $file!="..") {
+//                                   $fullpath=$dir."/".$file;
+//                                   if(!is_dir($fullpath)) {
+//                                       unlink($fullpath);
+//                                   } else {
+//                                       deldir($fullpath);
+//                                   }
+//                               }
+//                           }
+//                           closedir($dh);
+//                           echo json_encode(array("result"=>"0","desc"=>$medid));
+//                       } else {
+//                           echo json_encode(array("result"=>"3","desc"=>"上传微信公众号服务器失败"));
+//                       }
+//                   }else{
+//                       echo  json_encode(array("result"=>"2","desc"=>"数据库缺少微信账号信息"));
+//                   }
+//               }else{
+//                   echo  json_encode(array("result"=>"1","desc"=>"租户不存在"));
+//               }
+//           }else{
+//               echo  json_encode(array("result"=>"3","desc"=>"未选择租户"));
+//           }
+//       }else{
+//           echo  json_encode(array("result"=>"2","desc"=>"缺少图片大小数据"));
+//       }
+//    }else{
+//        echo  json_encode(array("result"=>"1","desc"=>"缺少图片"));
+//    }
+//});
 
 
 $app->run();
