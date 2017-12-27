@@ -548,6 +548,9 @@ $app->post('/lorrysign',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '没有电话号码'));
     }
 });
+
+
+
 //判断多次登录
 $app->post('/check',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -618,6 +621,11 @@ $app->post('/updriveringpic',function()use($app){
     $body=$app->request->getBody();
     $body=json_decode($body);
     $lorryid=$body->lorryid;
+    $type=$body->type;
+	$platenumber=$body->platenumber;
+	$clong=$body->clong;
+	$ctype=$body->ctype;
+	$cweight=$body->cweight;
     $pic3=$body->pic3;
     $pic4=$body->pic4;
     $lujing3=null;
@@ -658,6 +666,11 @@ $app->post('/updriveringpic',function()use($app){
                 }
             }
             $arrays['driveringlicensetp']=$lujing4;
+            $arrays['plate_number']=$platenumber;
+            $arrays['type']=$type;
+            $arrays['tlength']=$clong;
+            $arrays['ttype']=$ctype;
+            $arrays['tload']=$cweight;
             $selectStament=$database->select()
                 ->from('applorry')
                 ->where('exist','=',0)
