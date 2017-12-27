@@ -58,7 +58,6 @@ $app->post('/access',function()use($app){
     $appid=$body->appid;
     $appsecret=$body->appsecret;
     $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
-
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
@@ -67,9 +66,13 @@ $app->post('/access',function()use($app){
     $output = curl_exec($ch);
     curl_close($ch);
     $jsoninfo = json_decode($output, true);
+    if($jsoninfo["access_token"]!=null){
     $access_token = $jsoninfo["access_token"];
-//    echo $access_token;
     echo  json_encode(array("result"=>"0","desc"=>$access_token));
+    }else{
+        $data=$jsoninfo["errcode"];
+        echo  json_encode(array("result"=>"0","desc"=>""));
+    }
 });
 
 
