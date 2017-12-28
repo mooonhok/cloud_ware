@@ -1418,7 +1418,42 @@ $app->post('/changpass',function()use($app){
     }
 });
 
-
+//验证用户信息
+$app->post('/match_user',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $name=$body->name;
+    $idcard=$body->idcard;
+    $telephone=$body->mobile;
+    if($name!=null||$name!=""){
+        if($idcard!=null||$idcard!=""){
+            if($telephone!=null||$telephone!=""){
+                    $selectStament=$database->select()
+                        ->from('app_lorry')
+                        ->where('exist','=',0)
+                        ->where('name','=',$name)
+                        ->where('id_number','=',$idcard)
+                        ->where('phone','=',$telephone);
+                    $stmt=$selectStament->execute();
+                    $data1=$stmt->fetch();
+                    if($data1){
+                        echo json_encode(array('result' => '0', 'desc' => 'success'));
+                    }else{
+                        echo json_encode(array('result' => '1', 'desc' => '信息有误'));
+                    }
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '您没有填写电话号码'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '您没有填写身份证'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '您没有填写姓名'));
+    }
+});
 
 $app->run();
 function localhost(){
