@@ -24,11 +24,11 @@ $app->get('/getAppLorry',function()use($app){
         if($name!=null||$name!=""){
             if($phone!=null||$phone!=""){
              $selectStatement = $database->select()
-                ->from('applorry')
+                ->from('app_lorry')
                  ->where('exist','=',0)
                  ->where('name','=',$name)
-                 ->where('telephone','=',$phone)
-                ->where('platenumber','=',$platenumber);
+                 ->where('phone','=',$phone)
+                ->where('plate_number','=',$platenumber);
               $stmt = $selectStatement->execute();
              $data= $stmt->fetch();
                if($data!=null){
