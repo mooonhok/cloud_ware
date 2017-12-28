@@ -235,7 +235,7 @@ $app->get('/limitCustomers0',function()use($app){
             ->whereNotNull('times')
             ->where('type', '=', 1)
             ->where('exist', '=', 0)
-            ->orderBy('customer_id')
+            ->orderBy('id')
             ->limit((int)$size,(int)$offset);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
