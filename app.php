@@ -121,7 +121,7 @@ $app->post('/addlorry1',function()use($app){
                      ->table('app_lorry')
                      ->where('app_lorry_id','=',$lorryid);
                  $affectedRows = $updateStatement->execute();
-                     echo  json_encode(array("result"=>"0","desc"=>"","lorry_id"=>$lorryid));
+                     echo  json_encode(array("result"=>"0","desc"=>"","lorryid"=>$lorryid));
                  }else{
                      echo  json_encode(array("result"=>"3","desc"=>"您未填写电话和密码"));
                  }
@@ -622,7 +622,7 @@ $app->post('/updriveringpic',function()use($app){
     $body=json_decode($body);
     $lorryid=$body->lorryid;
     $type=$body->type;
-	$platenumber=$body->platenumber;
+//	$platenumber=$body->platenumber;
 	$clong=$body->clong;
 	$ctype=$body->ctype;
 	$cweight=$body->cweight;
@@ -666,7 +666,7 @@ $app->post('/updriveringpic',function()use($app){
                 }
             }
             $arrays['driving_lisence_tp']=$lujing4;
-            $arrays['plate_number']=$platenumber;
+//            $arrays['plate_number']=$platenumber;
             $arrays['flag']=$type;
             $arrays['length']=$clong;
             $arrays['type']=$ctype;
