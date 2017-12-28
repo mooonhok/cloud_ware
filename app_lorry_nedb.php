@@ -20,6 +20,7 @@ $app->get('/getAppLorry',function()use($app){
     $platenumber=$app->request->get("plate_number");
     $name=$app->request->get("driver_name");
     $phone=$app->request->get("driver_phone");
+    $type=$app->request->get('flag');
     if($platenumber!=null||$platenumber!=""){
         if($name!=null||$name!=""){
             if($phone!=null||$phone!=""){
@@ -27,6 +28,7 @@ $app->get('/getAppLorry',function()use($app){
                 ->from('app_lorry')
                  ->where('exist','=',0)
                  ->where('name','=',$name)
+                 ->where('flag','=',$type)
                  ->where('phone','=',$phone)
                 ->where('plate_number','=',$platenumber);
               $stmt = $selectStatement->execute();
