@@ -64,7 +64,7 @@ $app->post('/addlorry0',function()use($app){
                        ->limit(1);
                    $stmt=$selectStament->execute();
                    $data2=$stmt->fetch();
-                   $insertStatement = $database->insert(array('lorry_id','phone','password','exist'))
+                   $insertStatement = $database->insert(array('app_lorry_id','phone','password','exist'))
                        ->into('app_lorry')
                        ->values(array($data2['id']+1,$tel,$password,1));
                    $insertId = $insertStatement->execute(false);
@@ -83,7 +83,7 @@ $app->post('/addlorry0',function()use($app){
                        ->limit(1);
                    $stmt=$selectStament->execute();
                    $data2=$stmt->fetch();
-                   $insertStatement = $database->insert(array('lorry_id','phone','password','exist'))
+                   $insertStatement = $database->insert(array('app_lorry_id','phone','password','exist'))
                        ->into('app_lorry')
                        ->values(array($data2['id']+1,$tel,$password,1));
                    $insertId = $insertStatement->execute(false);
@@ -111,7 +111,7 @@ $app->post('/addlorry1',function()use($app){
          if($idcard!=null||$idcard!=""){
                  $selectStament=$database->select()
                      ->from('app_lorry')
-                     ->where('lorry_id','=',$lorryid);
+                     ->where('app_lorry_id','=',$lorryid);
                  $stmt=$selectStament->execute();
                  $data1=$stmt->fetch();
                  if($data1!=null){
@@ -119,7 +119,7 @@ $app->post('/addlorry1',function()use($app){
                  $arrays['id_number']=$idcard;
                  $updateStatement = $database->update($arrays)
                      ->table('app_lorry')
-                     ->where('lorry_id','=',$lorryid);
+                     ->where('app_lorry_id','=',$lorryid);
                  $affectedRows = $updateStatement->execute();
                      echo  json_encode(array("result"=>"0","desc"=>"","lorry_id"=>$lorryid));
                  }else{
@@ -155,7 +155,7 @@ $app->get('/lorry_weight',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $selectStament = $database->select()
-        ->from('vehiche_weight');
+        ->from('lorry_load');
     $stmt = $selectStament->execute();
     $data = $stmt->fetchAll();
     if($data!=null){
@@ -172,7 +172,7 @@ $app->get('/lorry_long',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $selectStament = $database->select()
-        ->from('vehicle');
+        ->from('lorry_length');
     $stmt = $selectStament->execute();
     $data = $stmt->fetchAll();
     if($data!=null){
@@ -202,18 +202,18 @@ $app->post('/addlorry2',function()use($app){
                         if($plate_number!=null||$plate_number!=""){
                         $selectStament = $database->select()
                             ->from('app_lorry')
-                            ->where('lorry_id', '=', $lorryid);
+                            ->where('app_lorry_id', '=', $lorryid);
                         $stmt = $selectStament->execute();
                         $data1 = $stmt->fetch();
                         if ($data1 != null) {
-                            $arrays['type'] = $type;
-                            $arrays['ttype'] = $ctype;
-                            $arrays['tlength'] = $long;
+                            $arrays['flag'] = $type;
+                            $arrays['type'] = $ctype;
+                            $arrays['length'] = $long;
                             $arrays['plate_number']=$plate_number;
-                            $arrays['tload']=$cweight;
+                            $arrays['load']=$cweight;
                             $updateStatement = $database->update($arrays)
                                 ->table('app_lorry')
-                                ->where('lorry_id', '=', $lorryid);
+                                ->where('app_lorry_id', '=', $lorryid);
                             $affectedRows = $updateStatement->execute();
                             echo json_encode(array('result' => '0', 'desc' => '', 'lorryid' => $lorryid));
                         } else {
@@ -232,7 +232,7 @@ $app->post('/addlorry2',function()use($app){
                 $arrays['exist'] = 0;
                 $updateStatement = $database->update($arrays)
                     ->table('app_lorry')
-                    ->where('lorry_id', '=', $lorryid);
+                    ->where('app_lorry_id', '=', $lorryid);
                 $affectedRows = $updateStatement->execute();
                 echo json_encode(array('result' => '0', 'desc' => '注册成功', 'lorryid' => ''));
             }
@@ -333,15 +333,15 @@ $app->post('/addlorry3',function()use($app){
 
            $selectStament=$database->select()
                ->from('app_lorry')
-               ->where('lorry_id','=',$lorryid);
+               ->where('app_lorry_id','=',$lorryid);
            $stmt=$selectStament->execute();
            $data1=$stmt->fetch();
            if($data1!=null){
                $arrays['exist']=0;
-               $arrays['type']=$type;
+               $arrays['flag']=$type;
                $updateStatement = $database->update($arrays)
                    ->table('app_lorry')
-                   ->where('lorry_id','=',$lorryid);
+                   ->where('app_lorry_id','=',$lorryid);
                $affectedRows = $updateStatement->execute();
                echo json_encode(array('result'=>'0','desc'=>'','lorryid'=>$lorryid,'phone'=>$data1['phone']));
            }else {
@@ -405,13 +405,13 @@ $app->post('/addlorry4',function()use($app){
             $arrays['exist']=0;
             $selectStament=$database->select()
                 ->from('app_lorry')
-                ->where('lorry_id','=',$lorryid);
+                ->where('app_lorry_id','=',$lorryid);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
             if($data1!=null){
                 $updateStatement = $database->update($arrays)
                     ->table('app_lorry')
-                    ->where('lorry_id','=',$lorryid);
+                    ->where('app_lorry_id','=',$lorryid);
                 $affectedRows = $updateStatement->execute();
                 echo json_encode(array('result'=>'0','desc'=>'','lorryid'=>$lorryid));
             }else {
@@ -478,16 +478,16 @@ $app->post('/addlorry5',function()use($app){
             if($type_a==1){
                 $arrays['exist']=0;
             }
-            $arrays['type']=$type_a;
+            $arrays['flag']=$type_a;
             $selectStament=$database->select()
                 ->from('app_lorry')
-                ->where('lorry_id','=',$lorryid);
+                ->where('app_lorry_id','=',$lorryid);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
             if($data1!=null){
                 $updateStatement = $database->update($arrays)
                     ->table('app_lorry')
-                    ->where('lorry_id','=',$lorryid);
+                    ->where('app_lorry_id','=',$lorryid);
                 $affectedRows = $updateStatement->execute();
                 echo json_encode(array('result'=>'0','desc'=>'','lorryid'=>$lorryid,'phone'=>$data1['phone']));
             }else {
@@ -532,7 +532,7 @@ $app->post('/lorrysign',function()use($app){
                     $arrays['time']=$time1;
                     $updateStatement = $database->update($arrays)
                         ->table('app_lorry')
-                        ->where('lorry_id','=',$data1['lorry_id']);
+                        ->where('app_lorry_id','=',$data1['app_lorry_id']);
                     $affectedRows = $updateStatement->execute();
                     echo json_encode(array('result' => '0', 'desc' => '登录成功','lorry'=>$data1,'time'=>$time1));
                 }else{
@@ -565,7 +565,7 @@ $app->post('/check',function()use($app){
             $selectStament=$database->select()
                 ->from('app_lorry')
                 ->where('exist','=',0)
-                ->where('lorry_id','=',$lorryid);
+                ->where('app_lorry_id','=',$lorryid);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
             if($data1!=null){
@@ -600,7 +600,7 @@ $app->post('/persoonmessage',function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->where('exist','=',0)
-            ->where('lorry_id','=',$lorryid);
+            ->where('app_lorry_id','=',$lorryid);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
         if($data1!=null){
@@ -667,20 +667,20 @@ $app->post('/updriveringpic',function()use($app){
             }
             $arrays['driving_lisence_tp']=$lujing4;
             $arrays['plate_number']=$platenumber;
-            $arrays['type']=$type;
-            $arrays['tlength']=$clong;
-            $arrays['ttype']=$ctype;
-            $arrays['tload']=$cweight;
+            $arrays['flag']=$type;
+            $arrays['length']=$clong;
+            $arrays['type']=$ctype;
+            $arrays['load']=$cweight;
             $selectStament=$database->select()
                 ->from('app_lorry')
                 ->where('exist','=',0)
-                ->where('lorry_id','=',$lorryid);
+                ->where('app_lorry_id','=',$lorryid);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
             if($data1!=null){
                 $updateStatement = $database->update($arrays)
                     ->table('app_lorry')
-                    ->where('lorry_id','=',$lorryid);
+                    ->where('app_lorry_id','=',$lorryid);
                 $affectedRows = $updateStatement->execute();
                 echo json_encode(array('result'=>'0','desc'=>'修改行驶证成功'));
             }else {
@@ -745,13 +745,13 @@ $app->post('/updriverpic',function()use($app){
             $selectStament=$database->select()
                 ->from('app_lorry')
                 ->where('exist','=',0)
-                ->where('lorry_id','=',$lorryid);
+                ->where('app_lorry_id','=',$lorryid);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
             if($data1!=null){
                 $updateStatement = $database->update($arrays)
                     ->table('app_lorry')
-                    ->where('lorry_id','=',$lorryid);
+                    ->where('app_lorry_id','=',$lorryid);
                 $affectedRows = $updateStatement->execute();
                 echo json_encode(array('result'=>'0','desc'=>'修改驾驶证成功'));
             }else {
@@ -797,14 +797,14 @@ $app->post('/uphead',function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->where('exist','=',0)
-            ->where('lorry_id','=',$lorryid);
+            ->where('app_lorry_id','=',$lorryid);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
         if($data1!=null){
             $arrays['route']=$introduce;
             $updateStatement = $database->update($arrays)
                 ->table('app_lorry')
-                ->where('lorry_id','=',$lorryid);
+                ->where('app_lorry_id','=',$lorryid);
             $affectedRows = $updateStatement->execute();
             echo json_encode(array('result' => '0', 'desc' => '名片已保存'));
         }else{
@@ -826,14 +826,14 @@ $app->get('/schistory',function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->where('exist','=',0)
-            ->where('lorry_id','=',$lorry_id);
+            ->where('flag','=',0)
+            ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
         if($data1!=null){
             $selectStament=$database->select()
                 ->from('lorry')
                 ->where('exist','=',0)
-                ->where('flag','=',0)
                 ->where('tenant_id','!=','0')
                 ->where('driver_phone','=',$data1['phone']);
             $stmt=$selectStament->execute();
@@ -904,14 +904,14 @@ $app->get('/scnoaccept',function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->where('exist','=',0)
-            ->where('lorry_id','=',$lorry_id);
+            ->where('flag','=',0)
+            ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
         if($data1!=null){
             $selectStament=$database->select()
                 ->from('lorry')
                 ->where('exist','=',0)
-                ->where('flag','=',0)
                 ->where('tenant_id','!=','0')
                 ->where('driver_phone','=',$data1['phone']);
             $stmt=$selectStament->execute();
@@ -1122,14 +1122,14 @@ $app->post('/scmap',function()use($app){
             $selectStament=$database->select()
                 ->from('app_lorry')
                 ->where('exist','=',0)
-                ->where('lorry_id','=',$lorryid);
+                ->where('flag','=',0)
+                ->where('app_lorry_id','=',$lorryid);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
             if($data1!=null){
                 $selectStament=$database->select()
                     ->from('lorry')
                     ->where('exist','=',0)
-                    ->where('flag','=',0)
                     ->where('tenant_id','!=',0)
                     ->where('plate_number','=',$data1['plate_number'])
                     ->where('driver_phone','=',$data1['phone']);
@@ -1210,7 +1210,8 @@ $app->post('/suresc1',function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->where('exist','=',0)
-            ->where('lorry_id','=',$lorry_id);
+            ->where('flag','=',0)
+            ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
         if($data1!=null){
@@ -1225,7 +1226,6 @@ $app->post('/suresc1',function()use($app){
                 $selectStament=$database->select()
                     ->from('lorry')
                     ->where('exist','=',0)
-                    ->where('flag','=',0)
                     ->where('tenant_id','=',$data3['tenant_id'])
                     ->where('lorry_id','=',$data3['lorry_id']);
                 $stmt=$selectStament->execute();
@@ -1296,7 +1296,8 @@ $app->post('/receivesc',function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->where('exist','=',0)
-            ->where('lorry_id','=',$lorry_id);
+            ->where('flag','=',0)
+            ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
         if($data1!=null){
@@ -1311,13 +1312,12 @@ $app->post('/receivesc',function()use($app){
                 $selectStament=$database->select()
                     ->from('lorry')
                     ->where('exist','=',0)
-                    ->where('flag','=',0)
                     ->where('tenant_id','=',$data3['tenant_id'])
                     ->where('lorry_id','=',$data3['lorry_id']);
                 $stmt=$selectStament->execute();
                 $data4=$stmt->fetch();
                 if($data4!=null){
-                    if($data1['telephone']==$data4['driver_phone']&&$data1['platenumber']==$data4['plate_number']){
+                    if($data1['phone']==$data4['driver_phone']&&$data1['plate_number']==$data4['plate_number']){
                         $updateStatement = $database->update($arrays)
                             ->table('scheduling')
                             ->where('scheduling_id', '=', $schedule_id);
@@ -1398,7 +1398,7 @@ $app->post('/changpass',function()use($app){
                     if($data1!=null){
                         $updateStatement = $database->update(array('password'=>$password))
                             ->table('app_lorry')
-                            ->where('lorry_id', '=', $data1['lorry_id']);
+                            ->where('app_lorry_id', '=', $data1['lorry_id']);
                         $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '修改成功'));
                     }else{
