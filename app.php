@@ -1382,7 +1382,14 @@ $app->post('/changpass',function()use($app){
     $name=$body->name;
     $idcard=$body->idcard;
     $telephone=$body->telephone;
-    $password=$body->password;
+    $password1=$body->password;
+    $str1=str_split($password1,2);
+    $password=null;
+    for ($x=0;$x<count($str1);$x++){
+        $a=strlen($password1);
+        $password.=$str1[$x].$a;
+        $a=$a-1;
+    }
     if($name!=null||$name!=""){
         if($idcard!=null||$idcard!=""){
             if($telephone!=null||$telephone!=""){
