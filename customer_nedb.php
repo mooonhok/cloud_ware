@@ -242,7 +242,7 @@ $app->get('/limitCustomers0',function()use($app){
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         for($i=0;$i<count($data);$i++){
-            $data[$i]['number']=$i+1;
+            $data[$i]['number']=$offset+$i+1;
         }
         echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$data));
     }else{
