@@ -2201,7 +2201,6 @@ $app->get('/limitGoodsOrders8',function()use($app){
     $size=$app->request->get('size');
     $tenant_num=$app->request->get('tenant_num');
     if($tenant_id!=null||$tenant_id!=''){
-        if($size!=null||$size!=''){
                 $selectStatement = $database->select()
                     ->from('orders')
                     ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
@@ -2283,9 +2282,6 @@ $app->get('/limitGoodsOrders8',function()use($app){
                 }
                 echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1b));
 
-        }else{
-            echo json_encode(array('result'=>'2','desc'=>'size为空'));
-        }
     }else{
         echo json_encode(array('result'=>'3','desc'=>'租户id为空'));
     }
