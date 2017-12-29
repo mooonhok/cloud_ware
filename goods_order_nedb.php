@@ -1991,7 +1991,7 @@ $app->get('/getGoodsOrders2',function()use($app){
 //                $data1a[$i]['inventory_loc']=$data5;
                 }
             }
-            echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1a));
+            echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1a,'count'=>count($data1a)));
         }else{
             echo json_encode(array('result'=>'1','desc'=>'客户名字为空'));
         }
@@ -2080,7 +2080,7 @@ $app->get('/getGoodsOrders3',function()use($app){
 //                $data1a[$i]['inventory_loc']=$data5;
             }
         }
-        echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1a));
+        echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1a,'count'=>count($data1a)));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'租户id为空'));
     }
@@ -2201,6 +2201,8 @@ $app->get('/limitGoodsOrders8',function()use($app){
     $size=$app->request->get('size');
     $tenant_num=$app->request->get('tenant_num');
     if($tenant_id!=null||$tenant_id!=''){
+        if($size!=null||$size!=''){
+            if($offset!=null||$offset!=''){
                 $selectStatement = $database->select()
                     ->from('orders')
                     ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
@@ -2280,8 +2282,16 @@ $app->get('/limitGoodsOrders8',function()use($app){
 //                $data1a[$i]['inventory_loc']=$data5;
                     $data1b[$g]=$data1a[$g];
                 }
-                echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1b));
 
+
+
+                echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1b));
+            }else{
+                echo json_encode(array('result'=>'1','desc'=>'偏移量为空'));
+            }
+        }else{
+            echo json_encode(array('result'=>'2','desc'=>'size为空'));
+        }
     }else{
         echo json_encode(array('result'=>'3','desc'=>'租户id为空'));
     }
