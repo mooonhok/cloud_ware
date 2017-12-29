@@ -241,6 +241,9 @@ $app->get('/limitCustomers0',function()use($app){
             ->limit((int)$size,(int)$offset);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
+        for($i=0;$i<count($data);$i++){
+            $data[$i]['number']=$i+1;
+        }
         echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
