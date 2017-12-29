@@ -397,11 +397,11 @@ $app->put('/recoverCustomer',function()use($app){
                     ->from('customer')
                     ->where('tenant_id','=',$tenant_id)
                     ->where('customer_id','=',$customer_id)
-                    ->where('exist',"=",0);
+                    ->where('exist',"=",1);
                 $stmt = $selectStatement->execute();
                 $data = $stmt->fetch();
                 if($data!=null){
-                    $updateStatement = $database->update(array('exist'=>1))
+                    $updateStatement = $database->update(array('exist'=>0))
                         ->table('customer')
                         ->where('tenant_id','=',$tenant_id)
                         ->where('customer_id','=',$customer_id)
