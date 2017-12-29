@@ -405,7 +405,7 @@ $app->put('/recoverCustomer',function()use($app){
                         ->table('customer')
                         ->where('tenant_id','=',$tenant_id)
                         ->where('customer_id','=',$customer_id)
-                        ->where('exist',"=",0);
+                        ->where('exist',"=",1);
                     $affectedRows = $updateStatement->execute();
                     echo json_encode(array("result"=>"0","desc"=>"success"));
                 }else{
