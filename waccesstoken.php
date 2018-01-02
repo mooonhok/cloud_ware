@@ -296,7 +296,7 @@ $app->post("/addmessage",function()use($app){
               curl_close($curl);
 //    echo json_decode($output,true);
                   $res2=json_decode($output,true);
-                echo json_encode(array("result"=>"0","desc"=>$res2['media_id']));
+                echo json_encode(array("result"=>"0","desc"=>$res2));
         }else{
             echo  json_encode(array("result"=>"3","desc"=>"尚未开通微信公众号"));
         }
