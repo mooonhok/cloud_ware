@@ -857,6 +857,7 @@ $app->get('/schistory',function()use($app){
                             ->where('customer_id','=',$data3[$i]['receiver_id']);
                         $stmt=$selectStament->execute();
                         $data4=$stmt->fetch();
+                        $arrays1['sure_image']=$data3[$i]['sure_image'];
                         $arrays1['scheduling_id']=$data3[$i]['scheduling_id'];
                         $arrays1['customer_name']=$data4['customer_name'];
                         $arrays1['customer_phone']=$data4['customer_phone'];
@@ -1461,6 +1462,35 @@ $app->post('/match_user',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '您没有填写姓名'));
     }
 });
+
+$app->get('/getOrderCosts',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $scheduling_id = $app->request->get("scheduling_id");
+    $selectStament=$database->select()
+        ->from('schedule_order')
+        ->where('schedule_order.exist','=',0)
+        ->where('schedule_order.schedule_id','=',$scheduling_id);
+    $stmt=$selectStament->execute();
+    $data2=$stmt->fetch();
+    $selectStament=$database->select()
+        ->from('schedule_order')
+        ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
+        ->where('orders.tenant_id','=',$data2['tenant_id'])
+        ->where('orders.pay_method','=',1)
+        ->where('schedule_order.exist','=',0)
+        ->where('schedule_order.schedule_id','=',$scheduling_id);
+    $stmt=$selectStament->execute();
+    $data1=$stmt->fetchAll();
+    if($data1){
+        echo json_encode(array('result' => '0', 'desc' => 'success','orderCosts'=>$data1));
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '无到付单'));
+    }
+
+});
+
 
 $app->run();
 function localhost(){
