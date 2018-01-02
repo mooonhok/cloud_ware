@@ -220,7 +220,7 @@ document.addEventListener('touchmove', function(event) {
             result = 2;
         } else if ((angle >= 135 && angle <= 180) || (angle >= -180 && angle < -135)) {
             result = 3;
-        } else if (angle >= -45 && angle <= 45) {
+        }else if (angle >= -45 && angle <= 45) {
             result = 4;
         }
  
@@ -277,8 +277,8 @@ document.addEventListener('touchmove', function(event) {
                     nowPage=0;  
                 }  
 //              alert(nowPage)
-                if(nowPage>4){  
-                    nowPage=4;  
+                if(nowPage>3){  
+                    nowPage=3;  
                 }     
                 $(".container").animate({"top": nowPage * -100 +"%"});  
                 $(".page").eq(nowPage).addClass("current").siblings().removeClass('current');  
