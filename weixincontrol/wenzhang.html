@@ -180,7 +180,8 @@
 			window.location.href = "http://api.uminfo.cn/weixincontrol/wenzhang.html";
 		});
 		$("#sendall").on("click", function() {
-			window.location.href = "http://api.uminfo.cn/weixincontrol/sendall.html";
+			var b=$(".result").html();
+			window.location.href = "http://api.uminfo.cn/weixincontrol/sendall.html?med="+b;
 		});
 		$(".sure1").on("click", function() {
 			var tenant_id = $(".tenant_id option:selected").val();
