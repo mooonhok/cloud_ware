@@ -316,6 +316,7 @@ $app->post('/sendall',function()use($app){
     $tenant_id=$body->tenant_id;
     $media_id=$body->media_id;
     $database = localhost();
+    $teamid=$body->team;
     if($tenant_id!=null||$tenant_id!=null){
         $selectStament=$database->select()
             ->from('tenant')
@@ -342,7 +343,7 @@ $app->post('/sendall',function()use($app){
                 $array=array(
                     'filter' => array(            //用于设定图文消息的接收者
                         'is_to_all' => true,            //是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据tag_id发送给指定群组的用户
-                        'tag_id'     =>'',            //群发到的标签的tag_id，参加用户管理中用户分组接口，若is_to_all值为true，可不填写tag_id
+                        'tag_id'     =>$teamid,            //群发到的标签的tag_id，参加用户管理中用户分组接口，若is_to_all值为true，可不填写tag_id
                     ),
                     'mpnews' => array(            //用于设定即将发送的图文消息
                         'media_id'  => $media_id,            //用于群发的消息的media_id
