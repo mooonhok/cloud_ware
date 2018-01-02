@@ -857,7 +857,7 @@ $app->get('/schistory',function()use($app){
                             ->where('customer_id','=',$data3[$i]['receiver_id']);
                         $stmt=$selectStament->execute();
                         $data4=$stmt->fetch();
-                        $arrays1['sure_image']=$data3[$i]['sure_image'];
+                        $arrays1['sure_image']=$data3[$i]['sure_img'];
                         $arrays1['scheduling_id']=$data3[$i]['scheduling_id'];
                         $arrays1['customer_name']=$data4['customer_name'];
                         $arrays1['customer_phone']=$data4['customer_phone'];
