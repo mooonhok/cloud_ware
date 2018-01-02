@@ -63,6 +63,26 @@ $app->get('/getAppLorry1',function()use($app){
         $stmt = $selectStatement->execute();
         $data= $stmt->fetchAll();
         if($data!=null){
+            for($i=0;$i<count($data);$i++){
+                $selectStatement = $database->select()
+                    ->from('lorry_length')
+                    ->where('lorry_length_id','=',$data[$i]['length']);
+                $stmt = $selectStatement->execute();
+                $data2= $stmt->fetch();
+                $data[$i]['lorry_length_name']=$data2['lorry_length'];
+                $selectStatement = $database->select()
+                    ->from('lorry_load')
+                    ->where('lorry_load_id','=',$data[$i]['deadweight']);
+                $stmt = $selectStatement->execute();
+                $data3= $stmt->fetch();
+                $data[$i]['lorry_load_name']=$data3['lorry_load'];
+                $selectStatement = $database->select()
+                    ->from('lorry_type')
+                    ->where('lorry_type_id','=',$data[$i]['type']);
+                $stmt = $selectStatement->execute();
+                $data4= $stmt->fetch();
+                $data[$i]['lorry_type_name']=$data4['lorry_type_name'];
+            }
             echo json_encode(array("result"=>"0","desc"=>"","lorrys"=>$data));
         }else{
             echo json_encode(array("result"=>"2","desc"=>"司机不存在"));
