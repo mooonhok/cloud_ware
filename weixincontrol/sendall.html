@@ -148,7 +148,7 @@
 	       $(".sure1").on("click",function(){
 	       	var tenant_id=$(".tenant_id option:selected").val();
 	        var medid=$("#mediuid").val();
-	        var team=100;
+	        var team="";
 	     $.ajax({
 				url: "http://api.uminfo.cn/waccesstoken.php/sendall",
 				dataType: 'json',
