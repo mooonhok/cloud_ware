@@ -232,11 +232,11 @@ function mouseWheel(){
 //                  var canvas_a='<canvas id="myCanvas_a" style="z-index:1111;position:absolute;display:none;"></canvas>';
                     var img_talk_a='<img src="img/1.png" id="myCanvas_a" style="z-index:1111;position:absolute;display:none;"/>';
 //                  $(".page3 .page_bag").append(canvas_a);
-                    $(".page3 .page_bag").append(img_talk_a);
-                    $("#myCanvas_a").css('width',(width/1920)*530*0.4+"px");
-                    $("#myCanvas_a").css('height',553*(height/1080)*0.4+"px");
-                    $("#myCanvas_a").css('top',img_fade_i_talka_top);
-                    $("#myCanvas_a").css('left',img_fade_i_talka_left);
+//                  $(".page3 .page_bag").append(img_talk_a);
+//                  $("#myCanvas_a").css('width',(width/1920)*530*0.4+"px");
+//                  $("#myCanvas_a").css('height',553*(height/1080)*0.4+"px");
+//                  $("#myCanvas_a").css('top',img_fade_i_talka_top);
+//                  $("#myCanvas_a").css('left',img_fade_i_talka_left);
 //                  alert((img_fade_i_w*(84/393))/2)
 //                  alert(img_fade_i_h)
 //                  var c_a=document.getElementById("myCanvas_a");
@@ -267,13 +267,13 @@ function mouseWheel(){
 //                  var canvas_b='<canvas id="myCanvas_b" style="z-index:1111;position:absolute;display:none;"></canvas>';
                     var img_talk_b='<img src="img/2.png" id="myCanvas_b" style="z-index:1111;position:absolute;display:none;"/>';
 //                  $(".page3 .page_bag").append(canvas_b);
-                    $(".page3 .page_bag").append(img_talk_b);
+//                  $(".page3 .page_bag").append(img_talk_b);
 //                  $("#myCanvas_b").attr('width',(109/393)*img_fade_i_w+"px");
 //                  $("#myCanvas_b").attr('height',img_fade_i_w*(84/393)+"px");
-                    $("#myCanvas_b").css('width',(width/1920)*530*0.4+"px");
-                    $("#myCanvas_b").css('height',553*(height/1080)*0.4+"px");
-                    $("#myCanvas_b").css('top',img_fade_i_talkb_top);
-                    $("#myCanvas_b").css('left',img_fade_i_talkb_left);
+//                  $("#myCanvas_b").css('width',(width/1920)*530*0.4+"px");
+//                  $("#myCanvas_b").css('height',553*(height/1080)*0.4+"px");
+//                  $("#myCanvas_b").css('top',img_fade_i_talkb_top);
+//                  $("#myCanvas_b").css('left',img_fade_i_talkb_left);
 //                  alert((img_fade_i_w*(84/393))/2)
 //                  alert(img_fade_i_h)
 //                  var c_b=document.getElementById("myCanvas_b");
@@ -303,26 +303,26 @@ function mouseWheel(){
 //                  var canvas_b='<canvas id="myCanvas_b" style="z-index:1111;position:absolute;display:none;"></canvas>';
                     var img_talk_c='<img src="img/33.png" id="myCanvas_c" style="z-index:1111;position:absolute;display:none;"/>';
 //                  $(".page3 .page_bag").append(canvas_b);
-                    $(".page3 .page_bag").append(img_talk_c);
+//                  $(".page3 .page_bag").append(img_talk_c);
 //                  $("#myCanvas_b").attr('width',(109/393)*img_fade_i_w+"px");
 //                  $("#myCanvas_b").attr('height',img_fade_i_w*(84/393)+"px");
-                    $("#myCanvas_c").css('width',(width/1920)*530*0.4+"px");
-                    $("#myCanvas_c").css('height',553*(height/1080)*0.4+"px");
-                    $("#myCanvas_c").css('top',img_fade_i_talkc_top);
-                    $("#myCanvas_c").css('left',img_fade_i_talkc_left);
+//                  $("#myCanvas_c").css('width',(width/1920)*530*0.4+"px");
+//                  $("#myCanvas_c").css('height',553*(height/1080)*0.4+"px");
+//                  $("#myCanvas_c").css('top',img_fade_i_talkc_top);
+//                  $("#myCanvas_c").css('left',img_fade_i_talkc_left);
                     var img_fade_i_talkd_top=img_fade_i_t+(310/547)*img_fade_i_h+120+(img_fade_i_w*(84/393))/2;
 //                  var img_fade_i_talkd_left=img_fade_i_l+img_fade_i_w/2+(109/393)*img_fade_i_w/2;
                     var img_fade_i_talkd_left=img_fade_i_l+img_fade_i_w/2+(109/393)*img_fade_i_w;
 //                  var canvas_b='<canvas id="myCanvas_b" style="z-index:1111;position:absolute;display:none;"></canvas>';
                     var img_talk_d='<img src="img/3.png" id="myCanvas_d" style="z-index:1111;position:absolute;display:none;"/>';
 //                  $(".page3 .page_bag").append(canvas_b);
-                    $(".page3 .page_bag").append(img_talk_d);
+//                  $(".page3 .page_bag").append(img_talk_d);
 //                  $("#myCanvas_b").attr('width',(109/393)*img_fade_i_w+"px");
 //                  $("#myCanvas_b").attr('height',img_fade_i_w*(84/393)+"px");
-                    $("#myCanvas_d").css('width',(width/1920)*530*0.4+"px");
-                    $("#myCanvas_d").css('height',553*(height/1080)*0.4+"px");
-                    $("#myCanvas_d").css('top',img_fade_i_talkd_top);
-                    $("#myCanvas_d").css('left',img_fade_i_talkd_left);
+//                  $("#myCanvas_d").css('width',(width/1920)*530*0.4+"px");
+//                  $("#myCanvas_d").css('height',553*(height/1080)*0.4+"px");
+//                  $("#myCanvas_d").css('top',img_fade_i_talkd_top);
+//                  $("#myCanvas_d").css('left',img_fade_i_talkd_left);
                     
 
                     $("#myCanvas_a").fadeIn(1500);
@@ -436,11 +436,11 @@ function mouseWheel(){
 //                  var canvas_a='<canvas id="myCanvas_a" style="z-index:1111;position:absolute;display:none;"></canvas>';
                     var img_talk_a='<img src="img/1.png" id="myCanvas_a" style="z-index:1111;position:absolute;display:none;"/>';
 //                  $(".page3 .page_bag").append(canvas_a);
-                    $(".page3 .page_bag").append(img_talk_a);
-                    $("#myCanvas_a").css('width',(width/1920)*530*0.4+"px");
-                    $("#myCanvas_a").css('height',553*(height/1080)*0.4+"px");
-                    $("#myCanvas_a").css('top',img_fade_i_talka_top);
-                    $("#myCanvas_a").css('left',img_fade_i_talka_left);
+//                  $(".page3 .page_bag").append(img_talk_a);
+//                  $("#myCanvas_a").css('width',(width/1920)*530*0.4+"px");
+//                  $("#myCanvas_a").css('height',553*(height/1080)*0.4+"px");
+//                  $("#myCanvas_a").css('top',img_fade_i_talka_top);
+//                  $("#myCanvas_a").css('left',img_fade_i_talka_left);
 //                  alert((img_fade_i_w*(84/393))/2)
 //                  alert(img_fade_i_h)
 //                  var c_a=document.getElementById("myCanvas_a");
@@ -471,13 +471,13 @@ function mouseWheel(){
 //                  var canvas_b='<canvas id="myCanvas_b" style="z-index:1111;position:absolute;display:none;"></canvas>';
                     var img_talk_b='<img src="img/2.png" id="myCanvas_b" style="z-index:1111;position:absolute;display:none;"/>';
 //                  $(".page3 .page_bag").append(canvas_b);
-                    $(".page3 .page_bag").append(img_talk_b);
-//                  $("#myCanvas_b").attr('width',(109/393)*img_fade_i_w+"px");
-//                  $("#myCanvas_b").attr('height',img_fade_i_w*(84/393)+"px");
-                    $("#myCanvas_b").css('width',(width/1920)*530*0.4+"px");
-                    $("#myCanvas_b").css('height',553*(height/1080)*0.4+"px");
-                    $("#myCanvas_b").css('top',img_fade_i_talkb_top);
-                    $("#myCanvas_b").css('left',img_fade_i_talkb_left);
+//                  $(".page3 .page_bag").append(img_talk_b);
+////                  $("#myCanvas_b").attr('width',(109/393)*img_fade_i_w+"px");
+////                  $("#myCanvas_b").attr('height',img_fade_i_w*(84/393)+"px");
+//                  $("#myCanvas_b").css('width',(width/1920)*530*0.4+"px");
+//                  $("#myCanvas_b").css('height',553*(height/1080)*0.4+"px");
+//                  $("#myCanvas_b").css('top',img_fade_i_talkb_top);
+//                  $("#myCanvas_b").css('left',img_fade_i_talkb_left);
 //                  alert((img_fade_i_w*(84/393))/2)
 //                  alert(img_fade_i_h)
 //                  var c_b=document.getElementById("myCanvas_b");
@@ -507,26 +507,26 @@ function mouseWheel(){
 //                  var canvas_b='<canvas id="myCanvas_b" style="z-index:1111;position:absolute;display:none;"></canvas>';
                     var img_talk_c='<img src="img/33.png" id="myCanvas_c" style="z-index:1111;position:absolute;display:none;"/>';
 //                  $(".page3 .page_bag").append(canvas_b);
-                    $(".page3 .page_bag").append(img_talk_c);
-//                  $("#myCanvas_b").attr('width',(109/393)*img_fade_i_w+"px");
-//                  $("#myCanvas_b").attr('height',img_fade_i_w*(84/393)+"px");
-                    $("#myCanvas_c").css('width',(width/1920)*530*0.4+"px");
-                    $("#myCanvas_c").css('height',553*(height/1080)*0.4+"px");
-                    $("#myCanvas_c").css('top',img_fade_i_talkc_top);
-                    $("#myCanvas_c").css('left',img_fade_i_talkc_left);
+//                  $(".page3 .page_bag").append(img_talk_c);
+////                  $("#myCanvas_b").attr('width',(109/393)*img_fade_i_w+"px");
+////                  $("#myCanvas_b").attr('height',img_fade_i_w*(84/393)+"px");
+//                  $("#myCanvas_c").css('width',(width/1920)*530*0.4+"px");
+//                  $("#myCanvas_c").css('height',553*(height/1080)*0.4+"px");
+//                  $("#myCanvas_c").css('top',img_fade_i_talkc_top);
+//                  $("#myCanvas_c").css('left',img_fade_i_talkc_left);
                     var img_fade_i_talkd_top=img_fade_i_t+(310/547)*img_fade_i_h+120+(img_fade_i_w*(84/393))/2;
 //                  var img_fade_i_talkd_left=img_fade_i_l+img_fade_i_w/2+(109/393)*img_fade_i_w/2;
                     var img_fade_i_talkd_left=img_fade_i_l+img_fade_i_w/2+(109/393)*img_fade_i_w;
 //                  var canvas_b='<canvas id="myCanvas_b" style="z-index:1111;position:absolute;display:none;"></canvas>';
                     var img_talk_d='<img src="img/3.png" id="myCanvas_d" style="z-index:1111;position:absolute;display:none;"/>';
 //                  $(".page3 .page_bag").append(canvas_b);
-                    $(".page3 .page_bag").append(img_talk_d);
-//                  $("#myCanvas_b").attr('width',(109/393)*img_fade_i_w+"px");
-//                  $("#myCanvas_b").attr('height',img_fade_i_w*(84/393)+"px");
-                    $("#myCanvas_d").css('width',(width/1920)*530*0.4+"px");
-                    $("#myCanvas_d").css('height',553*(height/1080)*0.4+"px");
-                    $("#myCanvas_d").css('top',img_fade_i_talkd_top);
-                    $("#myCanvas_d").css('left',img_fade_i_talkd_left);
+//                  $(".page3 .page_bag").append(img_talk_d);
+////                  $("#myCanvas_b").attr('width',(109/393)*img_fade_i_w+"px");
+////                  $("#myCanvas_b").attr('height',img_fade_i_w*(84/393)+"px");
+//                  $("#myCanvas_d").css('width',(width/1920)*530*0.4+"px");
+//                  $("#myCanvas_d").css('height',553*(height/1080)*0.4+"px");
+//                  $("#myCanvas_d").css('top',img_fade_i_talkd_top);
+//                  $("#myCanvas_d").css('left',img_fade_i_talkd_left);
                     
 
                     $("#myCanvas_a").fadeIn(1500);
