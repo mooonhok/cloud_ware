@@ -105,7 +105,7 @@ $signPackage = $jssdk->GetSignPackage();
 				<div class="jj">
 					<div class="ls">历史地址</div>
 					<div class="jj1">
-						<h3>新增寄件地址</h3>
+						<h3>新增发货人</h3>
 					</div>
 					<div class="qx">取消</div>
 				</div>
@@ -187,7 +187,7 @@ $signPackage = $jssdk->GetSignPackage();
 				<div class="jj">
 					<div class="ls1">历史地址</div>
 					<div class="jj1">
-						<h3>新增收件地址</h3>
+						<h3>新增收货人</h3>
 					</div>
 					<div class="qx1">取消</div>
 				</div>
@@ -299,7 +299,7 @@ $signPackage = $jssdk->GetSignPackage();
 			<div class="box2-1">
 				<div class="jj">
 					<div class="jj2">
-						<h5>修改寄件地址</h5>
+						<h5>修改发货人</h5>
 					</div>
 					<div class="qx10">取消</div>
 				</div>
@@ -366,7 +366,7 @@ $signPackage = $jssdk->GetSignPackage();
 			<div class="box2-1">
 				<div class="jj">
 					<div class="jj2">
-						<h5>修改收件地址</h5>
+						<h5>修改收货人</h5>
 					</div>
 					<div class="qx11">取消</div>
 				</div>
