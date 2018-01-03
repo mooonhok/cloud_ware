@@ -866,7 +866,7 @@ $app->get('/schistory',function()use($app){
                             ->where('id','=',$data4['customer_city_id']);
                         $stmt=$selectStament->execute();
                         $data5=$stmt->fetch();
-                        $arrays1['address']=$data5['name'].$data4['customer_address'];
+                        $arrays1['address']=$data4['customer_address'];
                         $selectStament=$database->select()
                             ->from('city')
                             ->where('id','=',$data3[$i]['send_city_id']);
@@ -944,7 +944,7 @@ $app->get('/scnoaccept',function()use($app){
                             ->where('id','=',$data4['customer_city_id']);
                         $stmt=$selectStament->execute();
                         $data5=$stmt->fetch();
-                        $arrays1['address']=$data5['name'].$data4['customer_address'];
+                        $arrays1['address']=$data4['customer_address'];
                         $selectStament=$database->select()
                             ->from('city')
                             ->where('id','=',$data3[$i]['send_city_id']);
@@ -1035,7 +1035,7 @@ $app->get('/sandoandg',function()use($app){
             $arrays2['phone']=$data9['customer_phone'];
             $arrays2['sendcity']=$data7['name'];
             $arrays2['receivecity']=$data8['name'];
-            $arrays2['receiveraddress']=$data8['name'].$data9['customer_address'];
+            $arrays2['receiveraddress']=$data9['customer_address'];
             $selectStament = $database->select()
                 ->from('tenant')
                 ->where('tenant_id', '=', $data1['sure_img']);
@@ -1165,8 +1165,7 @@ $app->post('/scmap',function()use($app){
                                         $affectedRows = $updateStatement->execute();
                                     } else {
                                         if ($time - $data4[count($data4) - 1]['accept_time'] > 1200) {
-                                            $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
-                                                ->into('map')
+                                            $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))                                                ->into('map')
                                                 ->values(array($data3[$y]['scheduling_id'], $longitude, $latitude, $time));
                                             $insertId = $insertStatement->execute(false);
                                         }
