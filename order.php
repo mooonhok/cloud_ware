@@ -1184,7 +1184,7 @@ $app->post('/wx_orders_accept', function () use ($app) {
                     $selectStatement = $database->select()
                         ->from('customer')
                         ->where('tenant_id', '=', $tenant_id)
-                        ->where('exist', "=", 0)
+//                        ->where('exist', "=", 0)
                         ->where('customer_id', '=', $data3['sender_id']);
                     $stmt = $selectStatement->execute();
                     $data4 = $stmt->fetch();
@@ -1199,7 +1199,7 @@ $app->post('/wx_orders_accept', function () use ($app) {
                         $selectStatement = $database->select()
                             ->from('customer')
                             ->where('tenant_id', '=', $tenant_id)
-                            ->where('exist', "=", 0)
+//                            ->where('exist', "=", 0)
                             ->where('customer_id', '=', $data3['receiver_id']);
                         $stmt = $selectStatement->execute();
                         $data6 = $stmt->fetch();

@@ -1165,7 +1165,8 @@ $app->post('/scmap',function()use($app){
                                         $affectedRows = $updateStatement->execute();
                                     } else {
                                         if ($time - $data4[count($data4) - 1]['accept_time'] > 1200) {
-                                            $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))                                                ->into('map')
+                                            $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
+                                                ->into('map')
                                                 ->values(array($data3[$y]['scheduling_id'], $longitude, $latitude, $time));
                                             $insertId = $insertStatement->execute(false);
                                         }
@@ -1490,6 +1491,50 @@ $app->get('/getOrderCosts',function()use($app){
 
 });
 
+
+$app->post('/t_change_password',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $lorry_id=$body->lorry_id;
+    $password_o=$body->password_o;
+    $password_n=$body->password_n;
+    $str1=str_split($password_o,2);
+    $str2=str_split($password_n,2);
+    $password1=null;
+    $password2=null;
+    for ($x=0;$x<count($str1);$x++){
+        $a=strlen($password_o);
+        $password1.=$str1[$x].$a;
+        $a=$a-1;
+    }
+    for ($x=0;$x<count($str2);$x++){
+        $a=strlen($password_n);
+        $password2.=$str2[$x].$a;
+        $a=$a-1;
+    }
+    if($lorry_id!=null||$lorry_id!=""){
+        if($password1!=null||$password1!=""){
+            if($password2!=null||$password2!=""){
+
+                        $updateStatement = $database->update(array('password'=>$password_n))
+                            ->table('app_lorry')
+                            ->where('password', '=', $password_o)
+                            ->where('app_lorry_id', '=', $lorry_id);
+                        $affectedRows = $updateStatement->execute();
+                        echo json_encode(array('result' => '0', 'desc' => '修改成功'));
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '您没有填写新密码'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '您没有填写旧密码'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '您没有填写车辆id'));
+    }
+});
 
 $app->run();
 function localhost(){
