@@ -1519,9 +1519,9 @@ $app->post('/t_change_password',function()use($app){
         if($password1!=null||$password1!=""){
             if($password2!=null||$password2!=""){
 
-                        $updateStatement = $database->update(array('password'=>$password_n))
+                        $updateStatement = $database->update(array('password'=>$password2))
                             ->table('app_lorry')
-                            ->where('password', '=', $password_o)
+                            ->where('password', '=', $password1)
                             ->where('app_lorry_id', '=', $lorry_id);
                         $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '修改成功'));
