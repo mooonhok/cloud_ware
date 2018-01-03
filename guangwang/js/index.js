@@ -133,6 +133,8 @@ function mouseWheel(){
 //      	    $(".intrc_a_k").css("height",'300px');
         	    $(".img_d").css("width",width);
         	    $(".img_d").css("height",height);
+        	    $(".img_x").css("width",width);
+        	     $(".img_x").css("height",height);
         	    $(".img_fade_i").css("width",(width/1920)*348*2+"px");
         	      $(".img_fade_i").css("height",(width/1920)*348*2+"px");
         	    $(".img_fade_i").css("margin-top",(height/1920)*600*2/4+100+"px");
