@@ -14,7 +14,7 @@ use Slim\PDO\Database;
 $app = new \Slim\Slim();
 require_once 'ChuanglanSmsHelper/ChuanglanSmsApi.php';
 $clapi  = new ChuanglanSmsApi();
-$app->post('sendm',function()use($app,$clapi){
+$app->post('/sendm',function()use($app,$clapi){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $body = $app->request->getBody();
