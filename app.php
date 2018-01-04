@@ -889,7 +889,7 @@ $app->get('/schistory',function()use($app){
                     }
 
                 }
-                echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$arraysa));
+                echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$arraysa,'con'=>count($data2)));
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '您还未拉过货物'));
             }
