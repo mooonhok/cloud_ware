@@ -821,7 +821,7 @@ $app->get('/schistory',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $lorry_id = $app->request->get("lorry_id");
-    $arrays=array();
+
     $arraysa=array();
     if($lorry_id!=null||$lorry_id!=""){
         $selectStament=$database->select()
@@ -851,6 +851,7 @@ $app->get('/schistory',function()use($app){
                             ->orderBy('change_datetime','desc');
                         $stmt=$selectStament->execute();
                         $data3=$stmt->fetchAll();
+                    $arrays=array();
                     for($i=0;$i<count($data3);$i++){
                         $selectStament=$database->select()
                             ->from('customer')
@@ -885,7 +886,7 @@ $app->get('/schistory',function()use($app){
                     if(!$arraysa){
                         $arraysa=$arrays;
                     }else{
-                        array_merge($arraysa,$arrays1);
+                        array_merge($arraysa,$arrays);
                     }
                 }
                 echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$arraysa,'con'=>$x));
