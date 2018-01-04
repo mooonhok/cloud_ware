@@ -822,6 +822,7 @@ $app->get('/schistory',function()use($app){
     $database=localhost();
     $lorry_id = $app->request->get("lorry_id");
     $arrays=array();
+    $arraysa=array();
     if($lorry_id!=null||$lorry_id!=""){
         $selectStament=$database->select()
             ->from('app_lorry')
@@ -881,9 +882,9 @@ $app->get('/schistory',function()use($app){
                         $arrays1['receivecity']=$data7['name'];
                         array_push($arrays,$arrays1);
                     }
-                    $data3[$i]=$arrays;
+                    array_merge($arraysa,$arrays);
                 }
-                echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$data3));
+                echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$arraysa));
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '您还未拉过货物'));
             }
