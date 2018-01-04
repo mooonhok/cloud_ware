@@ -11,8 +11,6 @@ require 'connect.php';
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
-require_once 'ChuanglanSmsHelper/ChuanglanSmsApi.php';
-$clapi  = new ChuanglanSmsApi();
 //客户端获取app二维码
 $app->get('/getApp',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -1258,7 +1256,7 @@ $app->post('/suresc1',function()use($app){
 });
 
 //签字签收
-$app->post('/receivesc',function()use($app,$clapi){
+$app->post('/receivesc',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
@@ -1295,8 +1293,6 @@ $app->post('/receivesc',function()use($app,$clapi){
     $arrays1['order_status']=7;
     $arrays1['order_datetime4']=date("Y-m-d H:i:s",time());
     $arrays1['order_datetime5']=date("Y-m-d H:i:s",time());
-    $msg = '【江苏酉铭】{$var},你好！,您的运单号{$var}，已经被签收';
-    $params=null;
     if($lorry_id!=null||$lorry_id!=""){
         $selectStament=$database->select()
             ->from('app_lorry')
@@ -1332,37 +1328,14 @@ $app->post('/receivesc',function()use($app,$clapi){
                             ->where('exist','=',0)
                             ->where('schedule_id','=',$schedule_id);
                         $stmt=$selectStament->execute();
-                        $data8=$stmt->fetchAll();
-                        for($x=0;$x<count($data8);$x++) {
-                            $selectStament=$database->select()
-                                ->from('orders')
-                                ->where('tenant_id','=',$data8[$x]['tenant_id'])
-                                ->where('order_id','=',$data8[$x]['order_id']);
-                            $stmt=$selectStament->execute();
-                            $data7=$stmt->fetch();
-                            $selectStament=$database->select()
-                                ->from('customer')
-                                ->where('tenant_id','=',$data7['tenant_id'])
-                                ->where('customer_id','=',$data7['sender_id']);
-                            $stmt=$selectStament->execute();
-                            $data6=$stmt->fetch();
-                            $selectStament=$database->select()
-                                ->from('customer')
-                                ->where('tenant_id','=',$data7['tenant_id'])
-                                ->where('customer_id','=',$data7['receiver_id']);
-                            $stmt=$selectStament->execute();
-                            $data9=$stmt->fetch();
-                            $params= $data6['customer_phone'].','.$data6['customer_name'].','.$data8[$x]['order_id'].';'.$data9['customer_phone'].','.$data9['customer_name'].','.$data8[$x]['order_id'];
-                            $result = $clapi->sendVariableSMS($msg, $params);
-                            if(!is_null(json_decode($result))){
-                                $output=json_decode($result,true);
-                            }
+                        $data3=$stmt->fetchAll();
+                        for($x=0;$x<count($data3);$x++) {
                             $updateStatement = $database->update($arrays1)
                                 ->table('orders')
-                                ->where('order_id', '=', $data8[$x]['order_id']);
+                                ->where('order_id', '=', $data3[$x]['order_id']);
                             $affectedRows = $updateStatement->execute();
+                            echo json_encode(array('result' => '0', 'desc' => '确认成功'));
                         }
-                        echo json_encode(array('result' => '0', 'desc' => '确认成功'));
                         }else{
                             echo json_encode(array('result' => '5', 'desc' => '该清单不是您的'));
                         }
