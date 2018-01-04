@@ -69,9 +69,9 @@ $app->post("/sendtwo",function()use($app,$clapi){
         if(!is_null(json_decode($result))){
             $output=json_decode($result,true);
             if(isset($output['code'])  && $output['code']=='0'){
-                echo json_encode(array("result" => "1", "desc" => '发送成功'));
+                echo json_encode(array("result" => "0", "desc" => '发送成功'));
             }else{
-             echo  json_encode(array("result" => "1", "desc" => $output['errorMsg']));
+             echo  json_encode(array("result" => "3", "desc" => $output['errorMsg'].$title));
             }
         }else{
             echo json_encode(array("result" => "2", "desc" => "发送失败"));
