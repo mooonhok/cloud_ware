@@ -38,47 +38,51 @@ $app->post('/sendm',function()use($app,$clapi){
         echo json_encode(array("result" => "1", "desc" => "缺少电话号码"));
     }
 });
-
+//短信
 $app->post("/sendtwo",function()use($app,$clapi){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $body = $app->request->getBody();
     $body=json_decode($body);
     $phone=$body->phone;
-    $phone2=$body->phone1;
     $name=$body->name;
-    $name2=$body->name2;
+    $orderid=$body->orderid;
     $title=$body->tenantname;
-    $order_id=$body->orderid;
-    $message=$body->type;
+    $phone1=$body->tenantphone;
+    $type=$body->type;
+    $address1=$body->fcity;
+    $address2=$body->tcity;
     if($phone!=null||$phone!=""){
-        if($phone2!=null||$phone2!=""){
-            if($message==1){
-                $msg = '【'.$title.'】{$var},你好！,您的运单{$var}已经从'.$title.'出发';
-            }else if($message==2){
-                $msg = '【'.$title.'】{$var},你好！,您的运单{$var}已经被'.$title.'签收';
-            }else if($message==3){
-                $msg = '【'.$title.'】{$var},你好！,您的运单{$var}在'.$title.'中转';
-            }
-            $params = $phone.','.$name.','.$order_id.';'.$phone2.','.$name2.','.$order_id;
-            $result = $clapi->sendVariableSMS($msg, $params);
-            if(!is_null(json_decode($result))){
-                $output=json_decode($result,true);
-                if(isset($output['code'])  && $output['code']=='0'){
-                    echo '短信发送成功！' ;
-                }else{
-                    echo $output['errorMsg'];
-                }
+        if($type==0){
+            $msg = '【'.$title.'】{$var},您好！,您托运的运单号为'.$orderid.'的货物已从'.$address1.'发往'.$address2.'。微信搜索'
+                .$title.'并关注微信公众号查询运单轨迹或拨打电话'.$phone1.'查询运单详情';
+        }else if($type==1){
+            $msg = '【'.$title.'】{$var},您好！,您即将签收的运单号为'.$orderid.'的货物已从'.$address1.'发往'.$address2.'。微信搜索'
+                .$title.'并关注微信公众号查询运单轨迹或拨打电话'.$phone1.'查询运单详情';
+         }else if($type==2){
+            $msg = '【'.$title.'】{$var},您好！,您即将签收的运单号为'.$orderid.'的货物已到达'.$address1.'中转。';
+        }else if($type==3){
+            $msg = '【'.$title.'】{$var},您好！,您即将签收的运单号为'.$orderid.'的货物已到达'.$address1.'的'.$title.',请及时验收或拨打'.$phone1.'修改提货方式';
+        }
+        $params = $phone.','.$name;
+        $result = $clapi->sendVariableSMS($msg, $params);
+        if(!is_null(json_decode($result))){
+            $output=json_decode($result,true);
+            if(isset($output['code'])  && $output['code']=='0'){
+                echo json_encode(array("result" => "1", "desc" => '发送成功'));
             }else{
-                echo $result;
+             echo  json_encode(array("result" => "1", "desc" => $output['errorMsg']));
             }
         }else{
-            echo json_encode(array("result" => "2", "desc" => "缺少电话号码"));
+            echo json_encode(array("result" => "2", "desc" => "发送失败"));
         }
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少电话号码"));
     }
 });
+
+
+
 
 $app->run();
 
