@@ -883,11 +883,6 @@ $app->get('/schistory',function()use($app){
                         $arrays1['receivecity']=$data7['name'];
                         array_push($arrays,$arrays1);
                     }
-//                    if(!$arraysa){
-//                        $arraysa=$arrays;
-//                    }else{
-//                        array_merge($arraysa,$arrays);
-//                    }
                 }
                 echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$arrays));
             }else{
@@ -1073,7 +1068,7 @@ $app->get('/tongji',function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->where('exist','=',0)
-            ->where('lorry_id','=',$lorry_id);
+            ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
         if($data1!=null){
