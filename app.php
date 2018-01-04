@@ -885,7 +885,7 @@ $app->get('/schistory',function()use($app){
                     if(!$arraysa){
                         $arraysa=$arrays;
                     }else{
-                        array_merge($arraysa,$arrays);
+                        array_merge($arraysa,$arrays1);
                     }
                 }
                 echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$arraysa,'con'=>$x));
