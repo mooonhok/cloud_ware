@@ -881,8 +881,9 @@ $app->get('/schistory',function()use($app){
                         $arrays1['receivecity']=$data7['name'];
                         array_push($arrays,$arrays1);
                     }
-                    echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$arrays));
+                    $data3[$i]=$arrays;
                 }
+                echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$data3));
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '您还未拉过货物'));
             }
