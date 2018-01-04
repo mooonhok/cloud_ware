@@ -882,7 +882,12 @@ $app->get('/schistory',function()use($app){
                         $arrays1['receivecity']=$data7['name'];
                         array_push($arrays,$arrays1);
                     }
-                    array_merge($arraysa,$arrays);
+                    if(!$arraysa){
+                        $arraysa=$arrays;
+                    }else{
+                        array_merge($arraysa,$arrays);
+                    }
+
                 }
                 echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$arraysa));
             }else{
