@@ -14,10 +14,10 @@
 $chuanglan_config['api_send_url'] = 'http://smssh1.253.com/msg/send/json';
 
 //创蓝变量短信接口URL, 请求地址请参考253云通讯自助通平台查看或者询问您的商务负责人获取
-$chuanglan_config['API_VARIABLE_URL'] = 'http://xxx/msg/variable/json';
+$chuanglan_config['API_VARIABLE_URL'] = 'http://smssh1.253.com/msg/variable/json';
 
 //创蓝短信余额查询接口URL, 请求地址请参考253云通讯自助通平台查看或者询问您的商务负责人获取
-$chuanglan_config['api_balance_query_url'] = 'http://xxx/msg/balance/json';
+$chuanglan_config['api_balance_query_url'] = 'http://smssh1.253.com/msg/balance/json';
 //创蓝账号 替换成你自己的账号
 $chuanglan_config['api_account']	= 'N1133140';
 
