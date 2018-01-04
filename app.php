@@ -887,9 +887,8 @@ $app->get('/schistory',function()use($app){
                     }else{
                         array_merge($arraysa,$arrays);
                     }
-
                 }
-                echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$arraysa,'con'=>count($data2)));
+                echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$arraysa,'con'=>$x));
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '您还未拉过货物'));
             }
