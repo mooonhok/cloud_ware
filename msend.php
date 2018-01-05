@@ -148,8 +148,8 @@ $app->post("/schedules_sign",function()use($app,$clapi){
         $stmt = $selectStatement->execute();
         $data1= $stmt->fetchAll();
         for($i=0;$i<count($data1);$i++){
-//            $title=$data1[$i]["jcompany"];
-            $title='靖江万事鑫';
+          $title=$data1[$i]["jcompany"];
+//            $title='靖江万事鑫';
             $orderid=$data1[$i]["order_id"];
             $customer_name=$data1[$i]["customer_name"];
             $customer_phone=$data1[$i]["customer_phone"];
