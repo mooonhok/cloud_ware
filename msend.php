@@ -81,7 +81,7 @@ $app->post("/sendtwo",function()use($app,$clapi){
                                 }else if($type==4){
                                     $msg = '【'.$title.'】您好！您的运单号为'.$orderid.'的货物已被签收。联系电话'.$phone1;
                                 }
-                                 $params = $phone;
+                                 $params = $phone.','.'';
                                  $result = $clapi->sendVariableSMS($msg, $params);
                                     if(!is_null(json_decode($result))){
                                         $output=json_decode($result,true);
@@ -175,7 +175,7 @@ $app->post("/schedules_sign",function()use($app,$clapi){
             $msg = '【'.$title.'】您好！您托运的运单号为'.$orderid.'的货物已被'.$customer_name.'签收，联系电话：'.$customer_phone.'';
             $phone=$data2['customer_phone'];
 //            $name=$data2['customer_name'];
-            $params = $phone;
+            $params = $phone.','.'';
             $result = $clapi->sendVariableSMS($msg, $params);
             if(!is_null(json_decode($result))){
                 $output=json_decode($result,true);
