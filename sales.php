@@ -238,7 +238,7 @@ $app->get('/tenantsum',function()use($app){
     $arrays=array();
     $arrays1=array();
     if($sales_id!=null||$sales_id!=""){
-        $lowtime=mktime(0,0,0,1,1,date('Y'));
+//        $lowtime=mktime(0,0,0,1,1,date('Y'));
         $selectStatement = $database->select()
             ->from('tenant')
             ->where('exist','=',0)
@@ -264,6 +264,7 @@ $app->get('/tenantsum',function()use($app){
              date_default_timezone_set("PRC");
              $time=$data2[$x]['begin_time'];
              $timestrap=strtotime($time);
+               $lowtime=mktime(0,0,0,1,1,date('Y'));
              if(strtotime($data2[$x]['begin_time'])>=$lowtime) {
                  $date = date('m', $timestrap);
                  if ($arrays['' . $date . ''] == null || $arrays['' . $date . ''] == "") {
