@@ -2774,19 +2774,21 @@ $app->get('/limitGoodsOrders10',function()use($app){
         if($size!=null||$size!=''){
             if($offset!=null||$offset!=''){
                 $data1=array();
-//                $data10=array();
-//                $selectStatement = $database->select()
-//                    ->from('orders')
-//                    ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
-//                    ->join('customer','customer.customer_id','=','orders.sender_id','INNER')
-//                    ->where('customer.customer_name','=',$customer_name)
-//                    ->where('goods.tenant_id','=',$tenant_id)
-//                    ->where('orders.tenant_id','=',$tenant_id)
-//                    ->whereNotIn('orders.order_status',array(-1,-2,0))
-//                    ->where('orders.exist','=',0)
-//                    ->orderBy('orders.id','DESC');
-//                $stmt = $selectStatement->execute();
-//                $data1 = $stmt->fetchAll();
+                $data10=array();
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+                    ->join('customer','customer.customer_id','=','orders.sender_id','INNER')
+                    ->where('customer.customer_name','=',$customer_name)
+                    ->where('goods.tenant_id','=',$tenant_id)
+                    ->where('orders.tenant_id','=',$tenant_id)
+                    ->whereNotIn('orders.order_status',array(-1,-2,0))
+                    ->where('orders.exist','=',0)
+                    ->orderBy('orders.order_status')
+                    ->orderBy('orders.order_datetime5')
+                    ->orderBy('orders.id','DESC');
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetchAll();
 
                 $selectStatement = $database->select()
                     ->from('orders')
@@ -2794,29 +2796,22 @@ $app->get('/limitGoodsOrders10',function()use($app){
                     ->join('customer','customer.customer_id','=','orders.receiver_id','INNER')
                     ->join('city','city.id','=','customer.customer_city_id','INNER')
                     ->where('customer.tenant_id','=',$tenant_id)
+                    ->whereLike('city.name','%'.$customer_name."%")
                     ->where('goods.tenant_id','=',$tenant_id)
                     ->where('orders.tenant_id','=',$tenant_id)
                     ->whereNotIn('orders.order_status',array(-1,-2,0))
-                    ->where('orders.exist','=',0)
-                    ->where('customer.customer_name','=',$customer_name)
-                    ->orWhereLike('city.name','%'.$customer_name."%")
-                    ->where('customer.tenant_id','=',$tenant_id)
-                    ->where('goods.tenant_id','=',$tenant_id)
-                    ->where('orders.tenant_id','=',$tenant_id)
-                    ->whereNotIn('orders.order_status',array(-1,-2,0))
-                    ->where('orders.exist','=',0)
                     ->orderBy('orders.order_status')
                     ->orderBy('orders.order_datetime5')
-                    ->limit((int)$size,(int)$offset);
+                    ->where('orders.exist','=',0);
                 $stmt = $selectStatement->execute();
-                $data1 = $stmt->fetchAll();
-//                $data1 = array_merge($data1, $data10);
-//                $num=count($data1);
-//
-//                if(count($data1)>($offset+$size)){
-//                    $num=($offset+$size);
-//                }
-                for($i=0;$i<count($data1);$i++){
+                $data10 = $stmt->fetchAll();
+                $data1 = array_unique(array_merge($data1, $data10));
+                $num=count($data1);
+
+                if(count($data1)>($offset+$size)){
+                    $num=($offset+$size);
+                }
+                for($i=$offset;$i<$num;$i++){
                     $selectStament=$database->select()
                         ->from('goods_package')
                         ->where('goods_package_id','=',$data1[$i]['goods_package_id']);
