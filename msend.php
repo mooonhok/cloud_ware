@@ -75,17 +75,15 @@ $app->post("/sendtwo",function()use($app,$clapi){
                                 $data2 = $stmt->fetch();
                                 $phone1=$data2['customer_phone'];
                                 if($type==0){
-                                    $msg = '【'.$title.'】{$var}，您好！您托运的运单号为'.$orderid.'的货物已从'.$address1.'发往'.$address2.'。微信关注'
-                                        .$title.'公众号查询运单详情';
+                                    $msg = '【'.$title.'】您好！您托运的运单号为'.$orderid.'的货物已从'.$address1.'发往'.$address2.'。联系电话'.$phone1;
                                 }else if($type==1){
-                                    $msg = '【'.$title.'】{$var}，您好！您即将签收的运单号为'.$orderid.'的货物已从'.$address1.'发往'.$address2.'。微信关注'
-                                        .$title.'公众号查询运单详情';
+                                    $msg = '【'.$title.'】您好！您即将签收的运单号为'.$orderid.'的货物已从'.$address1.'发往'.$address2.'。联系电话'.$phone1;
                                  }else if($type==2){
-                                    $msg = '【'.$title.'】{$var}，您好！您即将签收的运单号为'.$orderid.'的货物已到达'.$address1.'中转。';
+                                    $msg = '【'.$title.'】您好！您即将签收的运单号为'.$orderid.'的货物已到达'.$address1.'中转。';
                                 }else if($type==3){
-                                    $msg = '【'.$title.'】{$var}，您好！您即将签收的运单号为'.$orderid.'的货物已到达'.$address1.'的'.$title.',请及时验收或拨打'.$phone1.'修改提货方式。';
+                                    $msg = '【'.$title.'】您好！您的运单号为'.$orderid.'的货物已到达'.$address1.'。请联系'.$phone1.'确认。';
                                 }else if($type==4){
-                                    $msg = '【'.$title.'】{$var}，您好！您的运单号为'.$orderid.'的货物已经签收';
+                                    $msg = '【'.$title.'】您好！您的运单号为'.$orderid.'的货物已被签收。联系电话'.$phone1;
                                 }
                                  $params = $phone.','.$name;
                                  $result = $clapi->sendVariableSMS($msg, $params);
