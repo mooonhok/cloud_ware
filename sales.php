@@ -88,8 +88,7 @@ $app->get('/sales_tenant',function()use($app){
                         date_default_timezone_set("PRC");
                         $begintime=date("Y-m-d",strtotime($data2[$x]['begin_time']));
                         $array['begin_time']=$begintime;
-                        $endtime=date("Y-m-d",strtotime($data2[$x]['end_date']));
-                        $array['end_time']=$endtime;
+
                         $array['company']=$data2[$x]['company'];
                         array_push($arrays,$array);
                     }
@@ -143,8 +142,8 @@ $app->get('/sales_tenant',function()use($app){
                         date_default_timezone_set("PRC");
                         $begintime=date("Y-m-d",strtotime($data2[$x]['begin_time']));
                         $array['begin_time']=$begintime;
-                        $endtime=date("Y-m-d",strtotime($data2[$x]['end_date']));
-                        $array['end_time']=$endtime;
+
+
                         $array['company']=$data2[$x]['company'];
                         array_push($arrays,$array);
                     }
@@ -178,13 +177,13 @@ $app->put('/tenantchange',function()use($app){
     $customer_name=$body->customer_name;
     $customer_phone=$body->customer_phone;
     $address=$body->address;
-    $end_time=$body->end_time;
+
     $qq=$body->qq;
     $email=$body->email;
     $arrays=array();
     $array1=array();
     $arrays['address']=$address;
-    $arrays['end_date']=$end_time;
+
     $arrays['qq']=$qq;
     $arrays['email']=$email;
     $array1['customer_name']=$customer_name;
@@ -239,6 +238,7 @@ $app->get('/tenantsum',function()use($app){
     $arrays=array();
     $arrays1=array();
     if($sales_id!=null||$sales_id!=""){
+//        $lowtime=mktime(0,0,0,1,1,date('Y'));
         $selectStatement = $database->select()
             ->from('tenant')
             ->where('exist','=',0)
@@ -264,12 +264,15 @@ $app->get('/tenantsum',function()use($app){
              date_default_timezone_set("PRC");
              $time=$data2[$x]['begin_time'];
              $timestrap=strtotime($time);
-             $date=date('m', $timestrap);
-            if($arrays[''.$date.'']==null||$arrays[''.$date.'']==""){
-            	$arrays[''.$date.'']=1;
-            }else{
-            	$arrays[''.$date.'']++;
-            }
+               $lowtime=mktime(0,0,0,1,1,date('Y'));
+             if(strtotime($data2[$x]['begin_time'])>=$lowtime) {
+                 $date = date('m', $timestrap);
+                 if ($arrays['' . $date . ''] == null || $arrays['' . $date . ''] == "") {
+                     $arrays['' . $date . ''] = 1;
+                 } else {
+                     $arrays['' . $date . '']++;
+                 }
+             }
            }
              for($y=1;$y<=12;$y++){
                if($y<10){
@@ -315,8 +318,7 @@ $app->get('/tenantbyid',function()use($app){
             $array['company']=$data2['company'];
             //$array['begin_time']=$data2['begin_time'];
             date_default_timezone_set("PRC");
-            $endtime=date("Y-m-d",strtotime($data2['end_date']));
-            $array['end_time']=$endtime;
+
             $array['address']=$data2['address'];
             $array['qq']=$data2['qq'];
             $array['email']=$data2['email'];
