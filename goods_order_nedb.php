@@ -2805,7 +2805,7 @@ $app->get('/limitGoodsOrders10',function()use($app){
                     ->where('orders.exist','=',0);
                 $stmt = $selectStatement->execute();
                 $data10 = $stmt->fetchAll();
-                $data1 = array_unique(array_merge($data1, $data10));
+                $data1 = array_merge($data1, $data10);
                 $num=count($data1);
 
                 if(count($data1)>($offset+$size)){
