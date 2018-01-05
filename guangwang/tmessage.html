@@ -138,7 +138,7 @@
 						<th>公司负责人</th>
 						<th>公司负责人电话</th>
 						<th>开始时间</th>
-						<th>结束时间</th>
+						
 						<th>操作</th>
 					</tr>
 				</thead>
@@ -153,9 +153,9 @@
 							<div class="box1">公司详细信息</div>
 						<div class="box3"><div class="ts">公司名称:</div><input type="text" disabled="disabled" id="name"></div>
 						<div class="box3"><div class="ts">负责人姓名:</div><input type="text" id="rname"></div>
-							<div class="box1">使用情况</div>
-						<div class="box3"><div class="ts">结束时间:</div><input type="text" id="endTime" placeholder="例：2017-06-03"></div>
-							<div class="box1">联系方式</div>
+						
+						
+					<div class="box1">联系方式</div>
 					<div class="box3"><div class="tm">电话:</div><input type="text" id="phone"></div>
 					
 					<div class="box3"><div class="tm">邮件:</div><input type="text" id="email" name="email"></div>
@@ -212,8 +212,7 @@
 																arr.push('<tr><td>' + item.company + '</td><td>' +
 																	item.customer_name + '</td><td>' +
 																	item.customer_phone + '</td><td>' +
-																	item.begin_time + '</td><td>' +
-																	item.end_time + '</td><td class="det" onclick="detil(' 
+																	item.begin_time + '</td><td class="det" onclick="detil(' 
 																	+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">操作</span></td></tr>');
 																});
 															return arr.join('');
@@ -241,7 +240,6 @@
 									console.log(msg);
 									$("#name").val(msg.tenant.company);
 									$("#rname").val(msg.tenant.customer_name);
-									$("#endTime").val(msg.tenant.end_time);
 									$("#phone").val(msg.tenant.customer_phone);
 									$("#email").val(msg.tenant.email);
 									$("#qq").val(msg.tenant.qq);
@@ -262,14 +260,12 @@
 			var email = $("#email").val();
 			var qq = $("#qq").val();
 			var site = $("#site").val();
-			var end_time = $("#endTime").val();
+			
 			var id = $("#gsid").val();
 			if(!/^1[34578]\d{9}$/.test(phone)) {
 				alert("电话号码格式不对");
 				return false;
-			 }else if(!/^((?:19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/.test(end_time)){
-			 alert("日期格式不正确(例：2017-06-03)");
-			}
+			 }
 			 else{	
 					//修改公司信息
 					//alert(sales_id+"<br>"+id);
@@ -284,7 +280,6 @@
 							customer_name: customer,
 							customer_phone: phone,
 							address: site,
-							end_time: end_time,
 							qq: qq,
 							email: email
 						}),
