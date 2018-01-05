@@ -45,7 +45,6 @@ $app->post("/sendtwo",function()use($app,$clapi){
     $body = $app->request->getBody();
     $body=json_decode($body);
     $phone=$body->phone;
-    $name=$body->name;
     $orderid=$body->order_id;
     $type=$body->type;
     $address1=$body->fcity;
@@ -64,9 +63,6 @@ $app->post("/sendtwo",function()use($app,$clapi){
             if($data['note_remain']>=1){
                 $title=$data['jcompany'];
                 if($orderid!=null||$orderid!=""){
-                    if($name!=null||$name!=""){
-
-
                                 $selectStatement = $database->select()
                                     ->from('customer')
                                     ->where('customer_id','=',$data['contact_id'])
@@ -85,7 +81,7 @@ $app->post("/sendtwo",function()use($app,$clapi){
                                 }else if($type==4){
                                     $msg = '【'.$title.'】您好！您的运单号为'.$orderid.'的货物已被签收。联系电话'.$phone1;
                                 }
-                                 $params = $phone.','.$name;
+                                 $params = $phone;
                                  $result = $clapi->sendVariableSMS($msg, $params);
                                     if(!is_null(json_decode($result))){
                                         $output=json_decode($result,true);
@@ -95,9 +91,9 @@ $app->post("/sendtwo",function()use($app,$clapi){
                                                 ->table('tenant')
                                                 ->where('tenant_id', '=', $tenantid);
                                             $affectedRows = $updateStatement->execute();
-                                            $insertStatement = $database->insert(array('tenant_id','order_id','fcity','tcity','phone','name','type','exist'))
+                                            $insertStatement = $database->insert(array('tenant_id','order_id','fcity','tcity','phone','type','exist'))
                                                 ->into('note')
-                                                ->values(array($tenantid,$orderid,$address1,$address2,$phone,$name,$type,0));
+                                                ->values(array($tenantid,$orderid,$address1,$address2,$phone,$type,0));
                                             $insertId = $insertStatement->execute(false);
                                             echo json_encode(array("result" => "0", "desc" => '发送成功'));
                                         }else{
@@ -106,10 +102,6 @@ $app->post("/sendtwo",function()use($app,$clapi){
                                     }else{
                                         echo json_encode(array("result" => "8", "desc" => "发送失败"));
                                     }
-
-                    }else{
-                        echo json_encode(array("result" => "6", "desc" => "缺少短信接收人姓名"));
-                    }
                 }else{
                     echo json_encode(array("result" => "5", "desc" => "缺少运单的id"));
                 }
