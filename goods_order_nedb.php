@@ -2800,6 +2800,11 @@ $app->get('/limitGoodsOrders10',function()use($app){
                     ->where('orders.exist','=',0)
                     ->where('customer.customer_name','=',$customer_name)
                     ->orWhereLike('city.name','%'.$customer_name."%")
+                    ->where('customer.tenant_id','=',$tenant_id)
+                    ->where('goods.tenant_id','=',$tenant_id)
+                    ->where('orders.tenant_id','=',$tenant_id)
+                    ->whereNotIn('orders.order_status',array(-1,-2,0))
+                    ->where('orders.exist','=',0)
                     ->orderBy('orders.order_status')
                     ->orderBy('orders.order_datetime5')
                     ->limit((int)$size,(int)$offset);
