@@ -450,7 +450,7 @@ $app->post('/tenant',function()use($app) {
                                                                  $num01++;
                                                              }
                                                          }
-                                                         $username='u'.substr($data02[$i]['tenant_num'],0,3).'0001';
+                                                         $username='u'.$data01['area_code'].'0001';
                                                          $num01++;
                                                          while(strlen($num01)<4){
                                                              $num01='0'.$num01;
