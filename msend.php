@@ -71,17 +71,17 @@ $app->post("/sendtwo",function()use($app,$clapi){
                                 $data2 = $stmt->fetch();
                                 $phone1=$data2['customer_phone'];
                                 if($type==0){
-                                    $msg = '【'.$title.'】您好！您托运的运单号为'.$orderid.'的货物已从'.$address1.'发往'.$address2.'。联系电话'.$phone1;
+                                    $msg = '【'.$title.'】{$var}！您托运的运单号为'.$orderid.'的货物已从'.$address1.'发往'.$address2.'。联系电话'.$phone1;
                                 }else if($type==1){
-                                    $msg = '【'.$title.'】您好！您即将签收的运单号为'.$orderid.'的货物已从'.$address1.'发往'.$address2.'。联系电话'.$phone1;
+                                    $msg = '【'.$title.'】{$var}！您即将签收的运单号为'.$orderid.'的货物已从'.$address1.'发往'.$address2.'。联系电话'.$phone1;
                                  }else if($type==2){
-                                    $msg = '【'.$title.'】您好！您即将签收的运单号为'.$orderid.'的货物已到达'.$address1.'中转。';
+                                    $msg = '【'.$title.'】{$var}！您即将签收的运单号为'.$orderid.'的货物已到达'.$address1.'中转。';
                                 }else if($type==3){
-                                    $msg = '【'.$title.'】您好！您的运单号为'.$orderid.'的货物已到达'.$address1.'。请联系'.$phone1.'确认。';
+                                    $msg = '【'.$title.'】{$var}！您的运单号为'.$orderid.'的货物已到达'.$address1.'。请联系'.$phone1.'确认。';
                                 }else if($type==4){
-                                    $msg = '【'.$title.'】您好！您的运单号为'.$orderid.'的货物已被签收。联系电话'.$phone1;
+                                    $msg = '【'.$title.'】{$var}！您的运单号为'.$orderid.'的货物已被签收。联系电话'.$phone1;
                                 }
-                                 $params = $phone.','.'1';
+                                 $params = $phone.',您好';
                                  $result = $clapi->sendVariableSMS($msg, $params);
                                     if(!is_null(json_decode($result))){
                                         $output=json_decode($result,true);
@@ -172,10 +172,10 @@ $app->post("/schedules_sign",function()use($app,$clapi){
                 ->where('id', '=', $data1[$i]['receive_city_id']);
             $stmt = $selectStatement->execute();
             $data4 = $stmt->fetch();
-            $msg = '【'.$title.'】您好！您托运的运单号为'.$orderid.'的货物已被'.$customer_name.'签收，联系电话：'.$customer_phone.'';
+            $msg = '【'.$title.'】{$var}！您托运的运单号为'.$orderid.'的货物已被'.$customer_name.'签收，联系电话：'.$customer_phone.'';
             $phone=$data2['customer_phone'];
 //            $name=$data2['customer_name'];
-            $params = $phone.','.'1';
+            $params = $phone.',您好';
             $result = $clapi->sendVariableSMS($msg, $params);
             if(!is_null(json_decode($result))){
                 $output=json_decode($result,true);
