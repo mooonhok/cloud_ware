@@ -493,10 +493,6 @@
 					</div>
 					<div class="center1">
 						<div class="center1_1">详 细 地 址：</div><input type="text" id="loc3" name="address" placeholder="必填项"></div>
-					<div class="center4">
-						<div class="center1_1">开始使用时间:</div><input type="text" id="inp" placeholder="选择日期" name="begin_time"></div>
-					<div class="center4">
-						<div class="center1_1">结束使用时间:</div><input type="text" id="inp2" placeholder="选择日期" name="end_time"></div>
 					<div class="center5">
 						<div class="center1_1">填写坐标：</div>
 						<input type="text" id="loca" name="loca" placeholder="必填项">
@@ -540,7 +536,7 @@
 				if(desc != null && desc != '') {
 					alert(desc);
 					if(desc == '企业登记成功') {
-						window.location.href = 'http://www.uminfo.cn/yindex.html';
+					window.location.href = 'http://www.uminfo.cn/yindex.html';
 					}
 				}
 				$(".center").on("click", function() {
@@ -588,25 +584,6 @@
 						alert("QQ号格式错误")
 					}
 				})
-			</script>
-			<script>
-				//日期判断
-				(function() {
-					calender('#inp').init({
-						format: 'yyyy-MM-dd',
-					}, function(date1) {
-						this.value = date1
-						calender('#inp2').init({
-							format: 'yyyy-MM-dd',
-						}, function(date2) {
-							if(date2 < date1) {
-								alert("结束日期不能小于开始日期请重新选择")
-							} else {
-								this.value = date2
-							}
-						});
-					});
-				})();
 			</script>
 			<script>
 				//获取省份和城市列表1
@@ -693,8 +670,6 @@
 
 				function check() {
 					var address = document.getElementsByName("address")[0].value;
-					var begin_time = document.getElementsByName("begin_time")[0].value;
-					var end_time = document.getElementsByName("end_time")[0].value;
 					var business_l = document.getElementsByName("business_l")[0].value;
 					var telephone = document.getElementsByName("telephone")[0].value;
 					var company = document.getElementsByName("company")[0].value;
@@ -713,14 +688,6 @@
 
 					if(address == null || address == "") {
 						alert("地址不能为空");
-						return false;
-					}
-					if(begin_time == null || begin_time == "") {
-						alert("开始时间不能为空");
-						return false;
-					}
-					if(end_time == null || end_time == "") {
-						alert("结束时间不能为空");
 						return false;
 					}
 					if(business_l == null || business_l == "") {
