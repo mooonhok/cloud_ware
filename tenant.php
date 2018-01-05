@@ -450,6 +450,7 @@ $app->post('/tenant',function()use($app) {
                                                                  $num01++;
                                                              }
                                                          }
+                                                         $username='u'.substr($data02[$i]['tenant_num'],0,3).'0001';
                                                          $num01++;
                                                          while(strlen($num01)<4){
                                                              $num01='0'.$num01;
@@ -470,7 +471,8 @@ $app->post('/tenant',function()use($app) {
                                                              $selectStatement = $database->select()
                                                                  ->from('tenant')
                                                                  ->where('company','=',$company)
-                                                                 ->where('business_l','=',$business_l);
+                                                                 ->where('business_l','=',$business_l)
+                                                                 ->where('contact_id','=',$num);
                                                              $stmt = $selectStatement->execute();
                                                              $data4 = $stmt->fetch();
                                                              $array=array();
@@ -480,7 +482,11 @@ $app->post('/tenant',function()use($app) {
                                                                  ->table('customer')
                                                                  ->where('customer_id','=',$num);
                                                              $affectedRows = $updateStatement->execute();
-
+                                                             $insertStatement = $database->insert(array('tenant_id','staff_id','username','password'
+                                                             ,'name','telephone','position','status','permission','bg_img','head_img','exist'))
+                                                                 ->into('staff')
+                                                                 ->values(array($data4['tenant_id'],100001,$username,encode('888888','cxphp'),$contact_name,$telephone,'负责人',1,1111111,'http://files.uminfo.cn:8000/skin/bg1.jpg',"http://files.uminfo.cn:8000/staff/5230001_head.jpg",0));
+                                                             $insertId = $insertStatement->execute(false);
                                                              //echo json_encode(array('result'=>'0','desc'=>'添加成功'));
                                                              $app->redirect('http://www.uminfo.cn/zhuce.html?desc=企业登记成功');
                                                          }else{
@@ -661,6 +667,13 @@ $app->run();
 function localhost(){
     return connect();
 }
-
+//加密
+function encode($string , $skey ) {
+    $strArr = str_split(base64_encode($string));
+    $strCount = count($strArr);
+    foreach (str_split($skey) as $key => $value)
+        $key < $strCount && $strArr[$key].=$value;
+    return str_replace(array('=', '+', '/'), array('O0O0O', 'o000o', 'oo00o'), join('', $strArr));
+}
 
 ?>
