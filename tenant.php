@@ -359,8 +359,8 @@ $app->post('/tenant',function()use($app) {
     $database = localhost();
     $qq = $app->request->params('qq');
     $address = $app->request->params('address');
-    $begin_time = $app->request->params('begin_time');
-    $end_time = $app->request->params('end_time');
+
+
     $business_l = $app->request->params('business_l');
     //$business_l_p = $app->request->params('business_l_p');
     $company = $app->request->params('company');
@@ -405,8 +405,9 @@ $app->post('/tenant',function()use($app) {
                          if($address!=""||$address!=null){
                              if($from_city_id!=""||$from_city_id=null){
                                  if($receive_city_id!=null||$receive_city_id!=""){
-                                     if($begin_time!=null||$begin_time!=""){
-                                         if($end_time!=null||$end_time!=""){
+                                     date_default_timezone_set("PRC");
+                                            $begin_time=date("Y-m-d H:i", time());
+
                                              if($sales_id!=null||$sales_id!=""){
                                               $selectStatement = $database->select()
                                                      ->from('tenant')
@@ -459,12 +460,12 @@ $app->post('/tenant',function()use($app) {
                                                          $tenant_id=count($data02)+1000000001;
                                                          $ad_img3='http://files.uminfo.cn:8000/tenant/insurance.png';
                                                          $insertStatement = $database->insert(array('company','from_city_id','receive_city_id','contact_id','exist','business_l'
-                                                         ,'sales_id','address','business_l_p','order_t_p','trans_contract_p','service_items','c_introduction','end_date'
+                                                         ,'sales_id','address','business_l_p','order_t_p','trans_contract_p','service_items','c_introduction'
                                                          ,'begin_time','qq','email','insurance_balance','tenant_num','tenant_id','longitude','latitude','jcompany','ad_img3'))
                                                              ->into('tenant')
                                                              ->values(array($company,$from_city_id,$receive_city_id,$num,0,$business_l
                                                              ,$sales_id,$address,$business_l_p,$order_t_p, $trans_c_p
-                                                             ,$service_items,$c_introduction,$end_time,
+                                                             ,$service_items,$c_introduction,
                                                                  $begin_time,$qq,$email,0,$tenant_num,$tenant_id,$longitude,$latitude,$jcompany,$ad_img3));
                                                          $insertId = $insertStatement->execute(false);
                                                          if($insertId!=""||$insertId!=null){
@@ -507,12 +508,8 @@ $app->post('/tenant',function()use($app) {
                                                         }else{
                                                             echo json_encode(array("result"=>"5","desc"=>"缺少sales_id"));
                                                         }
-                                                    }else{
-                                                        echo json_encode(array("result"=>"6","desc"=>"结束时间不能为空"));
-                                                    }
-                                              }else{
-                                                  echo json_encode(array("result"=>"7","desc"=>"开始时间不能为空"));
-                                              }
+
+
                                           }else{
                                               echo json_encode(array("result"=>"8","desc"=>"缺少收货城市"));
                                           }
