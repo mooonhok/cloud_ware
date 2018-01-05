@@ -2910,6 +2910,8 @@ $app->get('/limitGoodsOrders11',function()use($app){
                     ->where('orders.tenant_id','=',$tenant_id)
                     ->where('orders.exist','=',0)
                     ->whereNotIn('orders.order_status',array(-1,-2,0))
+                    ->orderBy('orders.order_status')
+                    ->orderBy('orders.order_datetime5')
                     ->orderBy('orders.id','DESC')
                     ->limit((int)$size,(int)$offset);
                 $stmt = $selectStatement->execute();
