@@ -136,7 +136,7 @@ $app->post("/schedules_sign",function()use($app,$clapi){
         $dataa= $stmt->fetch();
         $selectStatement = $database->select()
             ->from('schedule_order')
-            ->join('scheduling','scheduling.schedule_id','=','scheduling.scheduling_id','INNER')
+            ->join('scheduling','schedule_order.schedule_id','=','scheduling.scheduling_id','INNER')
             ->join('tenant','tenant.tenant_id','=','schedule_order.tenant_id','INNER')
             ->join('customer','customer.customer_id','=','scheduling.receiver_id','INNER')
             ->where('customer.tenant_id','=',$dataa['tenant_id'])
