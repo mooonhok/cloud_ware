@@ -2819,7 +2819,7 @@ $app->get('/limitGoodsOrders9',function()use($app){
     }
 });
 
-$app->get('/limitGoodsOrders10limitGoodsOrders10',function()use($app){
+$app->get('/limitGoodsOrders10',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
