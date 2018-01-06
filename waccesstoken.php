@@ -140,7 +140,7 @@ $app->post('/addpic',function()use($app){
             }
             $new_file = $new_file . time() . ".{$type}";
             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                $lujing1 = "weixincontrol/image/" . $time1 . ".{$type}";
+                $lujing1 = "/weixincontrol/image/" . $time1 . ".{$type}";
             }
         }
        if($size!=null||$size!=""){
