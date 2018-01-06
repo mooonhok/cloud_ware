@@ -180,6 +180,7 @@ $app->post("/schedules_sign",function()use($app,$clapi){
             if(!is_null(json_decode($result))){
                 $output=json_decode($result,true);
                 if(isset($output['code'])  && $output['code']=='0'){
+                    if($data1[$i]['note_remain']>=1){
                     $arrays1['note_remain']=(int)$data1[$i]['note_remain']-1;
                     $updateStatement = $database->update($arrays1)
                         ->table('tenant')
@@ -190,6 +191,9 @@ $app->post("/schedules_sign",function()use($app,$clapi){
                         ->values(array($data1[$i]['tenant_id'],$orderid,$data3['name'],$data4['name'],$phone,4,0));
                     $insertId = $insertStatement->execute(false);
                     echo json_encode(array("result" => "0", "desc" => '发送成功'));
+                    }else{
+                        echo json_encode(array("result" => "5", "desc" => '请充值'));
+                    }
                 }else{
                     echo  json_encode(array("result" => "3", "desc" => $output['errorMsg'].$title));
                 }
