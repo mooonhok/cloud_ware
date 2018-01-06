@@ -187,7 +187,7 @@ $app->post('/addpic',function()use($app){
                        $result = curl_exec($ch1);
                        if (curl_errno($ch1) == 0) {
                           $result = json_decode($result, true);
-                          $medid=$result['media_id'];
+
                           $dir=$lujing1;
                            $dh=opendir($dir);
                            while ($file=readdir($dh)) {
@@ -201,7 +201,7 @@ $app->post('/addpic',function()use($app){
                                }
                            }
                            closedir($dh);
-                           echo json_encode(array("result"=>"0","desc"=>$medid));
+                           echo json_encode(array("result"=>"0","desc"=>$result));
                        } else {
                            echo json_encode(array("result"=>"3","desc"=>"上传微信公众号服务器失败"));
                        }
