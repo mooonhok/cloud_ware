@@ -172,7 +172,7 @@ $app->post('/addpic',function()use($app){
                        );
                        $url = "https://api.weixin.qq.com/cgi-bin/material/add_material?access_token={$access_token}&type=image";
                        $ch1 = curl_init();
-                       $timeout = 20;
+                       $timeout = 5;
                        $real_path="{$file_info['filename']}";
                        $data6= array("media"=>"@{$real_path}",'form-data'=>$file_info);
                        $data6=urldecode( json_encode( $data6 ) );
@@ -187,25 +187,23 @@ $app->post('/addpic',function()use($app){
                        $result = curl_exec($ch1);
                        if (curl_errno($ch1) == 0) {
                           $result = json_decode($result, true);
-
-                           $dir="weixincontrol/image";
-                           $dh=opendir($dir);
-                           while ($file=readdir($dh)) {
-                               if($file!="." && $file!="..") {
-                                   $fullpath=$dir."/".$file;
-                                   if(!is_dir($fullpath)) {
-                                       unlink($fullpath);
-                                   } else {
-                                       deldir($fullpath);
-                                   }
-                               }
-                           }
-                           closedir($dh);
                            echo json_encode(array("result"=>"0","desc"=>$result));
                        } else {
                            echo json_encode(array("result"=>"3","desc"=>"上传微信公众号服务器失败"));
                        }
-
+                       $dir="weixincontrol/image";
+                       $dh=opendir($dir);
+                       while ($file=readdir($dh)) {
+                           if($file!="." && $file!="..") {
+                               $fullpath=$dir."/".$file;
+                               if(!is_dir($fullpath)) {
+                                   unlink($fullpath);
+                               } else {
+                                   deldir($fullpath);
+                               }
+                           }
+                       }
+                       closedir($dh);
                        curl_close($ch1);
                    }else{
                        echo  json_encode(array("result"=>"5","desc"=>"数据库缺少微信账号信息"));
