@@ -185,30 +185,30 @@ $app->post('/addpic',function()use($app){
                        curl_setopt($ch1, CURLOPT_SSL_VERIFYHOST, false);
                        curl_setopt($ch1, CURLOPT_POSTFIELDS, $data6);
                        $result = curl_exec($ch1);
-
-                       if (curl_errno() == 0) {
-                          $result = json_decode($result, true);
-                          $medid=$result['media_id'];
-                          $dir=$lujing1;
-                           $dh=opendir($dir);
-                           while ($file=readdir($dh)) {
-                               if($file!="." && $file!="..") {
-                                   $fullpath=$dir."/".$file;
-                                   if(!is_dir($fullpath)) {
-                                       unlink($fullpath);
-                                   } else {
-                                       deldir($fullpath);
-                                   }
-                               }
-                           }
-                           closedir($dh);
-                           echo json_encode(array("result"=>"0","desc"=>$medid));
-                       } else {
-                           echo json_encode(array("result"=>"3","desc"=>"上传微信公众号服务器失败"));
-                       }
+//                       if (curl_errno() == 0) {
+//                          $result = json_decode($result, true);
+//                          $medid=$result['media_id'];
+//                          $dir=$lujing1;
+//                           $dh=opendir($dir);
+//                           while ($file=readdir($dh)) {
+//                               if($file!="." && $file!="..") {
+//                                   $fullpath=$dir."/".$file;
+//                                   if(!is_dir($fullpath)) {
+//                                       unlink($fullpath);
+//                                   } else {
+//                                       deldir($fullpath);
+//                                   }
+//                               }
+//                           }
+//                           closedir($dh);
+//                           echo json_encode(array("result"=>"0","desc"=>$medid));
+//                       } else {
+//                           echo json_encode(array("result"=>"3","desc"=>"上传微信公众号服务器失败"));
+//                       }
+                       echo json_encode(array("result"=>"4","desc"=>curl_errno()));
                        curl_close($ch1);
                    }else{
-                       echo  json_encode(array("result"=>"2","desc"=>"数据库缺少微信账号信息"));
+                       echo  json_encode(array("result"=>"5","desc"=>"数据库缺少微信账号信息"));
                    }
                }else{
                    echo  json_encode(array("result"=>"1","desc"=>"租户不存在"));
