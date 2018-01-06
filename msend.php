@@ -51,6 +51,8 @@ $app->post("/sendtwo",function()use($app,$clapi){
     $address2=$body->tcity;
     $tenantid=$body->tenant_id;
     $database=localhost();
+    date_default_timezone_set("PRC");
+    $time = date("Y-m-d H:i",time());
     if($phone!=null||$phone!=""){
       if($tenantid!=null||$tenantid!=""){
         $selectStatement = $database->select()
@@ -91,9 +93,9 @@ $app->post("/sendtwo",function()use($app,$clapi){
                                                 ->table('tenant')
                                                 ->where('tenant_id', '=', $tenantid);
                                             $affectedRows = $updateStatement->execute();
-                                            $insertStatement = $database->insert(array('tenant_id','order_id','fcity','tcity','phone','type','exist'))
+                                            $insertStatement = $database->insert(array('tenant_id','order_id','fcity','tcity','phone','type','exist','time'))
                                                 ->into('note')
-                                                ->values(array($tenantid,$orderid,$address1,$address2,$phone,$type,0));
+                                                ->values(array($tenantid,$orderid,$address1,$address2,$phone,$type,0,$time));
                                             $insertId = $insertStatement->execute(false);
                                             echo json_encode(array("result" => "0", "desc" => '发送成功'));
                                         }else{
