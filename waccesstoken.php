@@ -140,7 +140,7 @@ $app->post('/addpic',function()use($app){
             }
             $new_file = $new_file . time() . ".{$type}";
             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                $lujing1 = "/weixincontrol/image" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                $lujing1 = "weixincontrol/image" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
             }
         }
        if($size!=null||$size!=""){
@@ -338,7 +338,6 @@ $app->post('/sendall',function()use($app){
                 curl_close($ch);
                 $jsoninfo = json_decode($output, true);
                 $access_token = $jsoninfo["access_token"];
-
                 $url = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=".$access_token;
                 $array=array(
                     'filter' => array(            //用于设定图文消息的接收者
@@ -376,6 +375,10 @@ $app->post('/sendall',function()use($app){
     echo  json_encode(array("result"=>"1","desc"=>"未选择租户"));
 }
 });
+
+
+$app->post();
+
 $app->run();
 
 function localhost(){
