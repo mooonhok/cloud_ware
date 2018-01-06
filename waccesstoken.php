@@ -133,14 +133,14 @@ $app->post('/addpic',function()use($app){
             $type = $result[2];
             date_default_timezone_set("PRC");
             $time1 = time();
-            $new_file = "weixincontrol/image" . date('Ymd', $time1) . "/";
+            $new_file = "weixincontrol/image/";
             if (!file_exists($new_file)) {
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                 mkdir($new_file, 0700);
             }
             $new_file = $new_file . time() . ".{$type}";
             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                $lujing1 = "weixincontrol/image" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                $lujing1 = "weixincontrol/image/" . $time1 . ".{$type}";
             }
         }
        if($size!=null||$size!=""){
@@ -188,7 +188,7 @@ $app->post('/addpic',function()use($app){
                        if (curl_errno($ch1) == 0) {
                           $result = json_decode($result, true);
 
-                          $dir=$lujing1;
+                           $dir="weixincontrol/image";
                            $dh=opendir($dir);
                            while ($file=readdir($dh)) {
                                if($file!="." && $file!="..") {
