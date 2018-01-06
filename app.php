@@ -104,7 +104,7 @@ $app->get("/schedule_on",function()use($app){
     if($scheduling_id!=null||$scheduling_id!=""){
         $selectStament=$database->select()
             ->from('scheduling')
-            ->where('scheduling_status','==',4)
+            ->where('scheduling_status','=',4)
             ->where('scheduling_id','=',$scheduling_id)
             ->where('exist','=',0);
         $stmt=$selectStament->execute();
