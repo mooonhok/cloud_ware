@@ -377,7 +377,7 @@ $app->post('/sendall',function()use($app){
 });
 
 
-$app->post();
+
 
 $app->run();
 
