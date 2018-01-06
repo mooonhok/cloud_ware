@@ -50,7 +50,7 @@ $app->post("/sendtwo",function()use($app,$clapi){
     $address1=$body->fcity;
     $address2=$body->tcity;
     $tenantid=$body->tenant_id;
-    $name=$body->name;
+
     $database=localhost();
     date_default_timezone_set("PRC");
     $time = date("Y-m-d H:i",time());
@@ -171,7 +171,7 @@ $app->post("/schedules_sign",function()use($app,$clapi){
                 ->where('id', '=', $data1[$i]['receive_city_id']);
             $stmt = $selectStatement->execute();
             $data4 = $stmt->fetch();
-            $msg = '【'.$title.'】{$var}！您托运的运单号为'.$orderid.'的货物已被'.$customer_name.'签收，联系电话：'.$customer_phone.'';
+            $msg = '【'.$title.'】{$var}！您托运的运单号为'.$orderid.'的货物已被'.$customer_name.'签收，联系电话：'.$customer_phone;
             $phone=$data2['customer_phone'];
 //            $name=$data2['customer_name'];
             $params = $phone.',您好';
