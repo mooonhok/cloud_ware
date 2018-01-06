@@ -78,7 +78,7 @@ $app->post("/sendtwo",function()use($app,$clapi){
                                 }else if($type==1){
                                     $msg = '【'.$title.'】{$var}！您即将签收的运单号为'.$orderid.'的货物已从'.$address1.'发往'.$address2.'。关注'.$title.'公众号查询详情。';
                                  }else if($type==3){
-                                    $msg = '【'.$title.'】{$var}！您的运单号为'.$orderid.'的货物已到达'.$address1.'。';
+                                    $msg = '【'.$title.'】{$var}！您的运单号为'.$orderid.'的货物已到达'.$address1.'。请联系电话'.$phone1.'确认';
                                 }
                                  $params = $phone.',您好';
                                  $result = $clapi->sendVariableSMS($msg, $params);
