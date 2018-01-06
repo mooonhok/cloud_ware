@@ -137,7 +137,7 @@ function mouseWheel(){
         	     $(".img_x").css("height",height);
         	    $(".img_fade_i").css("width",(width/1920)*348*2+"px");
         	      $(".img_fade_i").css("height",height*0.6+"px");
-        	    $(".img_fade_i").css("margin-top",(height/1920)*600*2/4+"px");
+        	    $(".img_fade_i").css("margin-top",(height/1920)*600*2/2+"px");
              $(".img_fade_i").css("margin-left","-6%");
                   var first_g_w=$(".first_goods").width();
                 $(".two_goods").css("height",(height-300)*0.85);
