@@ -185,11 +185,14 @@ $app->post('/addpic',function()use($app){
                        curl_setopt($ch1, CURLOPT_SSL_VERIFYHOST, false);
                        curl_setopt($ch1, CURLOPT_POSTFIELDS, $data6);
                        $result = curl_exec($ch1);
-                       curl_close($ch1);
+
                        if(curl_errno($ch1))
                        {
                            echo 'Curl error: ' . curl_error($ch1);
+                           curl_close($ch1);
+
                        }
+                       curl_close($ch1);
 //                       if (curl_errno() == 0) {
 //                          $result = json_decode($result, true);
 //                          $medid=$result['media_id'];
