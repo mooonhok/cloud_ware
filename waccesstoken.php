@@ -205,7 +205,7 @@ $app->post('/addpic',function()use($app){
 //                       } else {
 //                           echo json_encode(array("result"=>"3","desc"=>"上传微信公众号服务器失败"));
 //                       }
-                       echo curl_errno();
+                       echo curl_errno($ch1);
                        curl_close($ch1);
                    }else{
                        echo  json_encode(array("result"=>"5","desc"=>"数据库缺少微信账号信息"));
