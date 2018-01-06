@@ -96,6 +96,29 @@ $app->post('/addlorry0',function()use($app){
         echo  json_encode(array("result"=>"1","desc"=>"您未填写电话号码"));
     }
 });
+$app->get("/schedule_on",function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $scheduling_id = $app->request->get("scheduling_id");
+    if($scheduling_id!=null||$scheduling_id!=""){
+        $selectStament=$database->select()
+            ->from('scheduling')
+            ->where('scheduling_status','==',4)
+            ->where('scheduling_id','=',$scheduling_id)
+            ->where('exist','=',0);
+        $stmt=$selectStament->execute();
+        $data1=$stmt->fetch();
+        if($data1){
+            echo json_encode(array('result' => '0', 'desc' => ''));
+        }else{
+            echo json_encode(array('result' => '1', 'desc' => ''));
+        }
+
+    }else{
+        echo json_encode(array('result' => '2', 'desc' => '缺少司机id'));
+    }
+});
 
 //app司机注册2
 $app->post('/addlorry1',function()use($app){
