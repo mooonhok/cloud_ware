@@ -50,6 +50,7 @@ $app->post("/sendtwo",function()use($app,$clapi){
     $address1=$body->fcity;
     $address2=$body->tcity;
     $tenantid=$body->tenant_id;
+    $name=$body->name;
     $database=localhost();
     date_default_timezone_set("PRC");
     $time = date("Y-m-d H:i",time());
@@ -76,12 +77,10 @@ $app->post("/sendtwo",function()use($app,$clapi){
                                     $msg = '【'.$title.'】{$var}！您托运的运单号为'.$orderid.'的货物已从'.$address1.'发往'.$address2.'。';
                                 }else if($type==1){
                                     $msg = '【'.$title.'】{$var}！您即将签收的运单号为'.$orderid.'的货物已从'.$address1.'发往'.$address2.'。';
-                                 }else if($type==2){
-                                    $msg = '【'.$title.'】{$var}！您即将签收的运单号为'.$orderid.'的货物已到达'.$address1.'中转。';
-                                }else if($type==3){
+                                 }else if($type==3){
                                     $msg = '【'.$title.'】{$var}！您的运单号为'.$orderid.'的货物已到达'.$address1.'。';
                                 }else if($type==4){
-                                    $msg = '【'.$title.'】{$var}！您的运单号为'.$orderid.'的货物已被签收。';
+                                    $msg = '【'.$title.'】{$var}！您的运单号为'.$orderid.'的货物已被'.$name.'签收。';
                                 }
                                  $params = $phone.',您好';
                                  $result = $clapi->sendVariableSMS($msg, $params);
