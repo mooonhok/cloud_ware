@@ -2921,7 +2921,7 @@ $app->get('/getGoodsOrders9',function()use($app){
             $data3 = $stmt->fetch();
             if ($data3&&($data3['is_transfer']==0)) {
                 if($dataa){
-                    array_merge($dataa, $data2[$g]);
+                    $dataa=$dataa+$data2[$g];
                 }else{
                     $dataa =$data2[$g];
                 }
