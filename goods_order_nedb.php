@@ -157,10 +157,23 @@ $app->get('/getGoodsOrders1',function()use($app){
                 ->limit(1);
             $stmt = $selectStatement->execute();
             $data11 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id','>',$data10['id'])
+                ->where('order_id', '=', $data1[$i]['order_id'])
+                ->orderBy('id')
+                ->limit(1);
+            $stmt = $selectStatement->execute();
+            $data12 = $stmt->fetch();
+            $next_cost='';
+            if($data12!=null){
+                $next_cost=$data12['order_cost'];
+            }
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11['is_transfer'];
             }
+            $data1[$i]['next_cost']=$next_cost;
             $data1[$i]['pre_company']=$is_transfer;
             $data1[$i]['goods_package']=$data2;
             $data1[$i]['sender']=$data3;
@@ -1166,6 +1179,19 @@ $app->get('/limitGoodsOrders5',function()use($app){
                         ->limit(1);
                     $stmt = $selectStatement->execute();
                     $data11 = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('id','>',$data10['id'])
+                        ->where('order_id', '=', $data1[$i]['order_id'])
+                        ->orderBy('id')
+                        ->limit(1);
+                    $stmt = $selectStatement->execute();
+                    $data12 = $stmt->fetch();
+                    $next_cost='';
+                    if($data12!=null){
+                        $next_cost=$data12['order_cost'];
+                    }
+                    $data1[$i]['next_cost']=$next_cost;
                     $is_transfer='';
                     if($data11!=null){
                         $is_transfer=$data11['is_transfer'];
@@ -2156,7 +2182,33 @@ $app->get('/getGoodsOrders7',function()use($app){
                     ->where('id', '=', $data7['pid']);
                 $stmt = $selectStatement->execute();
                 $data9 = $stmt->fetch();
-
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('order_id', '=', $data1[$i]['order_id']);
+            $stmt = $selectStatement->execute();
+            $data10 = $stmt->fetch();
+//            $selectStatement = $database->select()
+//                ->from('orders')
+//                ->where('id','<',$data10['id'])
+//                ->where('order_id', '=', $data1[$i]['order_id'])
+//                ->orderBy('id','DESC')
+//                ->limit(1);
+//            $stmt = $selectStatement->execute();
+//            $data11 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id','>',$data10['id'])
+                ->where('order_id', '=', $data1[$i]['order_id'])
+                ->orderBy('id')
+                ->limit(1);
+            $stmt = $selectStatement->execute();
+            $data12 = $stmt->fetch();
+            $next_cost='';
+            if($data12!=null){
+                $next_cost=$data12['order_cost'];
+            }
+            $data1[$i]['next_cost']=$next_cost;
                 $data1[$i]['sender']=$data3;
                 $data1[$i]['sender']['sender_city']=$data6;
                 $data1[$i]['sender']['sender_province']=$data8;
@@ -2464,10 +2516,23 @@ $app->get('/limitGoodsOrders12',function()use($app){
                         ->limit(1);
                     $stmt = $selectStatement->execute();
                     $data11 = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('id','>',$data10['id'])
+                        ->where('order_id', '=', $data1[$i]['order_id'])
+                        ->orderBy('id')
+                        ->limit(1);
+                    $stmt = $selectStatement->execute();
+                    $data12 = $stmt->fetch();
+                    $next_cost='';
+                    if($data12!=null){
+                        $next_cost=$data12['order_cost'];
+                    }
                     $is_transfer='';
                     if($data11!=null){
                         $is_transfer=$data11['is_transfer'];
                     }
+                    $data1[$i]['next_cost']=$next_cost;
                     $data1[$i]['pre_company']=$is_transfer;
                     $data1[$i]['goods_package']=$data2;
                     $data1[$i]['sender']=$data3;
@@ -2659,6 +2724,19 @@ $app->get('/getGoodsOrders4',function()use($app){
                 ->limit(1);
             $stmt = $selectStatement->execute();
             $data11 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id','>',$data10['id'])
+                ->where('order_id', '=', $data1[$i]['order_id'])
+                ->orderBy('id')
+                ->limit(1);
+            $stmt = $selectStatement->execute();
+            $data12 = $stmt->fetch();
+            $next_cost='';
+            if($data12!=null){
+                $next_cost=$data12['order_cost'];
+            }
+            $data1[$i]['next_cost']=$next_cost;
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11['is_transfer'];
@@ -2772,10 +2850,25 @@ $app->get('/getGoodsOrders5',function()use($app){
                 ->limit(1);
             $stmt = $selectStatement->execute();
             $data11 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id','>',$data10['id'])
+                ->where('order_id', '=', $data1[$i]['order_id'])
+                ->orderBy('id')
+                ->limit(1);
+            $stmt = $selectStatement->execute();
+            $data12 = $stmt->fetch();
+            $next_cost='';
+            if($data12!=null){
+                $next_cost=$data12['order_cost'];
+            }
+
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11['is_transfer'];
             }
+
+            $data1[$i]['next_cost']=$next_cost;
             $data1[$i]['pre_company']=$is_transfer;
             $data1[$i]['goods_package']=$data2;
             $data1[$i]['sender']=$data3;
@@ -2867,6 +2960,19 @@ $app->get('/getGoodsOrders6',function()use($app){
                 ->limit(1);
             $stmt = $selectStatement->execute();
             $data11 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id','>',$data10['id'])
+                ->where('order_id', '=', $data1[$i]['order_id'])
+                ->orderBy('id')
+                ->limit(1);
+            $stmt = $selectStatement->execute();
+            $data12 = $stmt->fetch();
+            $next_cost='';
+            if($data12!=null){
+                $next_cost=$data12['order_cost'];
+            }
+            $data1[$i]['next_cost']=$next_cost;
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11['is_transfer'];
@@ -2969,7 +3075,33 @@ $app->get('/getGoodsOrders9',function()use($app){
                 ->where('inventory_loc_id','=',$dataa[$i]['inventory_loc_id']);
             $stmt=$selectStament->execute();
             $data5=$stmt->fetch();
-
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('order_id', '=', $data1[$i]['order_id']);
+            $stmt = $selectStatement->execute();
+            $data10 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id','>',$data10['id'])
+                ->where('order_id', '=', $dataa[$i]['order_id'])
+                ->orderBy('id')
+                ->limit(1);
+            $stmt = $selectStatement->execute();
+            $data11 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id','>',$data11['id'])
+                ->where('order_id', '=', $dataa[$i]['order_id'])
+                ->orderBy('id')
+                ->limit(1);
+            $stmt = $selectStatement->execute();
+            $data12 = $stmt->fetch();
+            $next_cost='';
+            if($data12!=null){
+                $next_cost=$data12['order_cost'];
+            }
+            $dataa[$i]['next_cost']=$next_cost;
             $dataa[$i]['goods_package']=$data2;
             $dataa[$i]['sender']=$data3;
             $dataa[$i]['sender']['sender_city']=$data6;
@@ -3072,7 +3204,33 @@ $app->get('/getGoodsOrders8',function()use($app){
                 ->where('inventory_loc_id','=',$dataa[$i]['inventory_loc_id']);
             $stmt=$selectStament->execute();
             $data5=$stmt->fetch();
-
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('order_id', '=', $data1[$i]['order_id']);
+            $stmt = $selectStatement->execute();
+            $data10 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id','>',$data10['id'])
+                ->where('order_id', '=', $dataa[$i]['order_id'])
+                ->orderBy('id')
+                ->limit(1);
+            $stmt = $selectStatement->execute();
+            $data11 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id','>',$data11['id'])
+                ->where('order_id', '=', $dataa[$i]['order_id'])
+                ->orderBy('id')
+                ->limit(1);
+            $stmt = $selectStatement->execute();
+            $data12 = $stmt->fetch();
+            $next_cost='';
+            if($data12!=null){
+                $next_cost=$data12['order_cost'];
+            }
+            $dataa[$i]['next_cost']=$next_cost;
             $dataa[$i]['goods_package']=$data2;
             $dataa[$i]['sender']=$data3;
             $dataa[$i]['sender']['sender_city']=$data6;
@@ -3195,10 +3353,23 @@ $app->get('/limitGoodsOrders13',function()use($app){
                 ->limit(1);
             $stmt = $selectStatement->execute();
             $data11 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id','>',$data10['id'])
+                ->where('order_id', '=', $dataa[$i]['order_id'])
+                ->orderBy('id')
+                ->limit(1);
+            $stmt = $selectStatement->execute();
+            $data12 = $stmt->fetch();
+            $next_cost='';
+            if($data12!=null){
+                $next_cost=$data12['order_cost'];
+            }
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11['is_transfer'];
             }
+            $dataa[$i]['next_cost']=$next_cost;
             $dataa[$i]['pre_company']=$is_transfer;
             $dataa[$i]['goods_package']=$data2;
             $dataa[$i]['sender']=$data3;
@@ -3257,7 +3428,6 @@ $app->get('/limitGoodsOrders14',function()use($app){
                 array_push($dataa,$data2[$g]);
             }
         }
-
         $num=0;
         if($offset<count($dataa)&&$offset<(count($dataa)-$size)){
             $num=$offset+$size;
@@ -3322,10 +3492,23 @@ $app->get('/limitGoodsOrders14',function()use($app){
                 ->limit(1);
             $stmt = $selectStatement->execute();
             $data11 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id','>',$data10['id'])
+                ->where('order_id', '=', $dataa[$i]['order_id'])
+                ->orderBy('id')
+                ->limit(1);
+            $stmt = $selectStatement->execute();
+            $data12 = $stmt->fetch();
+            $next_cost='';
+            if($data12!=null){
+                $next_cost=$data12['order_cost'];
+            }
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11['is_transfer'];
             }
+            $dataa[$i]['next_cost']=$next_cost;
             $dataa[$i]['pre_company']=$is_transfer;
             $dataa[$i]['goods_package']=$data2;
             $dataa[$i]['sender']=$data3;
@@ -3425,10 +3608,24 @@ $app->get('/limitGoodsOrders9',function()use($app){
                         ->limit(1);
                     $stmt = $selectStatement->execute();
                     $data11 = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('id','>',$data10['id'])
+                        ->where('order_id', '=', $data1[$i]['order_id'])
+                        ->orderBy('id')
+                        ->limit(1);
+                    $stmt = $selectStatement->execute();
+                    $data12 = $stmt->fetch();
+                    $next_cost='';
+                    if($data12!=null){
+                        $next_cost=$data12['order_cost'];
+                    }
+                    $data1[$i]['next_cost']=$next_cost;
                     $is_transfer='';
                     if($data11!=null){
                         $is_transfer=$data11['is_transfer'];
                     }
+
                     $data1[$i]['pre_company']=$is_transfer;
                     $data1[$i]['goods_package']=$data2;
                     $data1[$i]['sender']=$data3;
@@ -3558,6 +3755,19 @@ $app->get('/limitGoodsOrders10',function()use($app){
                         ->limit(1);
                     $stmt = $selectStatement->execute();
                     $data11 = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('id','>',$data10['id'])
+                        ->where('order_id', '=', $data1[$i]['order_id'])
+                        ->orderBy('id')
+                        ->limit(1);
+                    $stmt = $selectStatement->execute();
+                    $data12 = $stmt->fetch();
+                    $next_cost='';
+                    if($data12!=null){
+                        $next_cost=$data12['order_cost'];
+                    }
+                    $data1[$i]['next_cost']=$next_cost;
                     $is_transfer='';
                     if($data11!=null){
                         $is_transfer=$data11['is_transfer'];
@@ -3667,6 +3877,19 @@ $app->get('/limitGoodsOrders11',function()use($app){
                         ->limit(1);
                     $stmt = $selectStatement->execute();
                     $data11 = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('id','>',$data10['id'])
+                        ->where('order_id', '=', $data1[$i]['order_id'])
+                        ->orderBy('id')
+                        ->limit(1);
+                    $stmt = $selectStatement->execute();
+                    $data12 = $stmt->fetch();
+                    $next_cost='';
+                    if($data12!=null){
+                        $next_cost=$data12['order_cost'];
+                    }
+                    $data1[$i]['next_cost']=$next_cost;
                     $is_transfer='';
                     if($data11!=null){
                         $is_transfer=$data11['is_transfer'];
