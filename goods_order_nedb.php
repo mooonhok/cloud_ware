@@ -2919,6 +2919,102 @@ $app->get('/getGoodsOrders9',function()use($app){
                 ->limit(1);
             $stmt = $selectStatement->execute();
             $data3 = $stmt->fetch();
+            if ($data3&&($data3['is_transfer']==1)) {
+                array_push($dataa,$data2[$g]);
+            }
+        }
+        for($i=0;$i<count($dataa);$i++) {
+            $selectStament=$database->select()
+                ->from('goods_package')
+                ->where('goods_package_id','=',$dataa[$i]['goods_package_id']);
+            $stmt=$selectStament->execute();
+            $data2=$stmt->fetch();
+            $selectStament=$database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('customer_id','=',$dataa[$i]['sender_id']);
+            $stmt=$selectStament->execute();
+            $data3=$stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data3['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data6 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id', '=', $data6['pid']);
+            $stmt = $selectStatement->execute();
+            $data8 = $stmt->fetch();
+            $selectStament=$database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('customer_id','=',$dataa[$i]['receiver_id']);
+            $stmt=$selectStament->execute();
+            $data4=$stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data4['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data7 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id', '=', $data7['pid']);
+            $stmt = $selectStatement->execute();
+            $data9 = $stmt->fetch();
+            $selectStament=$database->select()
+                ->from('inventory_loc')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('inventory_loc_id','=',$dataa[$i]['inventory_loc_id']);
+            $stmt=$selectStament->execute();
+            $data5=$stmt->fetch();
+
+            $dataa[$i]['goods_package']=$data2;
+            $dataa[$i]['sender']=$data3;
+            $dataa[$i]['sender']['sender_city']=$data6;
+            $dataa[$i]['sender']['sender_province']=$data8;
+            $dataa[$i]['receiver']=$data4;
+            $dataa[$i]['receiver']['receiver_city']=$data7;
+            $dataa[$i]['receiver']['receiver_province']=$data9;
+            $dataa[$i]['inventory_loc']=$data5;
+        }
+        echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$dataa));
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'租户id为空'));
+    }
+});
+
+
+$app->get('/getGoodsOrders9',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get('tenant-id');
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('orders')
+            ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+            ->whereNotLike('orders.order_id',$data1['tenant_num'].'%')
+            ->where('goods.tenant_id','=',$tenant_id)
+            ->where('orders.tenant_id','=',$tenant_id)
+            ->where('orders.exist','=',0)
+            ->orderBy('orders.order_id','DESC');
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetchAll();
+        $dataa=array();
+        for($g=0;$g<count($data2);$g++) {
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id', '<', $data2[$g]['id'])
+                ->where('order_id', '=', $data2[$g]['order_id'])
+                ->orderBy('id', 'DESC')
+                ->limit(1);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
             if ($data3&&($data3['is_transfer']==0)) {
                     array_push($dataa,$data2[$g]);
             }
@@ -2968,6 +3064,131 @@ $app->get('/getGoodsOrders9',function()use($app){
             $stmt=$selectStament->execute();
             $data5=$stmt->fetch();
 
+            $dataa[$i]['goods_package']=$data2;
+            $dataa[$i]['sender']=$data3;
+            $dataa[$i]['sender']['sender_city']=$data6;
+            $dataa[$i]['sender']['sender_province']=$data8;
+            $dataa[$i]['receiver']=$data4;
+            $dataa[$i]['receiver']['receiver_city']=$data7;
+            $dataa[$i]['receiver']['receiver_province']=$data9;
+            $dataa[$i]['inventory_loc']=$data5;
+        }
+        echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$dataa));
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'租户id为空'));
+    }
+});
+
+
+$app->get('/limitGoodsOrders13',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $offset=$app->request->get('offset');
+    $size=$app->request->get('size');
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('orders')
+            ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+            ->whereNotLike('orders.order_id',$data1['tenant_num'].'%')
+            ->where('goods.tenant_id','=',$tenant_id)
+            ->where('orders.tenant_id','=',$tenant_id)
+            ->where('orders.exist','=',0)
+            ->orderBy('orders.order_status')
+            ->orderBy('orders.order_datetime1','DESC')
+            ->orderBy('orders.id','DESC');
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetchAll();
+        $dataa=array();
+        for($g=0;$g<count($data2);$g++) {
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id', '<', $data2[$g]['id'])
+                ->where('order_id', '=', $data2[$g]['order_id'])
+                ->orderBy('id', 'DESC')
+                ->limit(1);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            if ($data3&&($data3['is_transfer']==1)) {
+                array_push($dataa,$data2[$g]);
+            }
+        }
+
+        $num=0;
+        if($offset<count($dataa)&&$offset<(count($dataa)-$size)){
+            $num=$offset+$size;
+        }else{
+            $num=count($dataa);
+        }
+        for($i=$offset;$i<$num;$i++){
+            $selectStament=$database->select()
+                ->from('goods_package')
+                ->where('goods_package_id','=',$dataa[$i]['goods_package_id']);
+            $stmt=$selectStament->execute();
+            $data2=$stmt->fetch();
+            $selectStament=$database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('customer_id','=',$dataa[$i]['sender_id']);
+            $stmt=$selectStament->execute();
+            $data3=$stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data3['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data6 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id', '=', $data6['pid']);
+            $stmt = $selectStatement->execute();
+            $data8 = $stmt->fetch();
+            $selectStament=$database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('customer_id','=',$dataa[$i]['receiver_id']);
+            $stmt=$selectStament->execute();
+            $data4=$stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data4['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data7 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id', '=', $data7['pid']);
+            $stmt = $selectStatement->execute();
+            $data9 = $stmt->fetch();
+            $selectStament=$database->select()
+                ->from('inventory_loc')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('inventory_loc_id','=',$dataa[$i]['inventory_loc_id']);
+            $stmt=$selectStament->execute();
+            $data5=$stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('order_id', '=', $dataa[$i]['order_id']);
+            $stmt = $selectStatement->execute();
+            $data10 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id','<',$data10['id'])
+                ->where('order_id', '=', $dataa[$i]['order_id'])
+                ->orderBy('id','DESC')
+                ->limit(1);
+            $stmt = $selectStatement->execute();
+            $data11 = $stmt->fetch();
+            $is_transfer='';
+            if($data11!=null){
+                $is_transfer=$data11['is_transfer'];
+            }
+            $dataa[$i]['pre_company']=$is_transfer;
             $dataa[$i]['goods_package']=$data2;
             $dataa[$i]['sender']=$data3;
             $dataa[$i]['sender']['sender_city']=$data6;
