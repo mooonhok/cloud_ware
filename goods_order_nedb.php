@@ -167,7 +167,7 @@ $app->get('/getGoodsOrders1',function()use($app){
             $data12 = $stmt->fetch();
             $next_cost='';
             if($data12!=null){
-                $next_cost=$data12['order_cost'];
+                $next_cost=$data12['transfer_cost'];
             }
             $is_transfer='';
             if($data11!=null){
@@ -1189,7 +1189,7 @@ $app->get('/limitGoodsOrders5',function()use($app){
                     $data12 = $stmt->fetch();
                     $next_cost='';
                     if($data12!=null){
-                        $next_cost=$data12['order_cost'];
+                        $next_cost=$data12['transfer_cost'];
                     }
                     $data1[$i]['next_cost']=$next_cost;
                     $is_transfer='';
@@ -2206,7 +2206,7 @@ $app->get('/getGoodsOrders7',function()use($app){
             $data12 = $stmt->fetch();
             $next_cost='';
             if($data12!=null){
-                $next_cost=$data12['order_cost'];
+                $next_cost=$data12['transfer_cost'];
             }
             $data1[$i]['next_cost']=$next_cost;
                 $data1[$i]['sender']=$data3;
@@ -2526,7 +2526,7 @@ $app->get('/limitGoodsOrders12',function()use($app){
                     $data12 = $stmt->fetch();
                     $next_cost='';
                     if($data12!=null){
-                        $next_cost=$data12['order_cost'];
+                        $next_cost=$data12['transfer_cost'];
                     }
                     $is_transfer='';
                     if($data11!=null){
@@ -2543,9 +2543,6 @@ $app->get('/limitGoodsOrders12',function()use($app){
                     $data1[$i]['receiver']['receiver_province']=$data9;
                     $data1[$i]['inventory_loc']=$data5;
                 }
-
-
-
                 echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
             }else{
                 echo json_encode(array('result'=>'1','desc'=>'偏移量为空'));
@@ -2734,7 +2731,7 @@ $app->get('/getGoodsOrders4',function()use($app){
             $data12 = $stmt->fetch();
             $next_cost='';
             if($data12!=null){
-                $next_cost=$data12['order_cost'];
+                $next_cost=$data12['transfer_cost'];
             }
             $data1[$i]['next_cost']=$next_cost;
             $is_transfer='';
@@ -2860,7 +2857,7 @@ $app->get('/getGoodsOrders5',function()use($app){
             $data12 = $stmt->fetch();
             $next_cost='';
             if($data12!=null){
-                $next_cost=$data12['order_cost'];
+                $next_cost=$data12['transfer_cost'];
             }
 
             $is_transfer='';
@@ -2970,7 +2967,7 @@ $app->get('/getGoodsOrders6',function()use($app){
             $data12 = $stmt->fetch();
             $next_cost='';
             if($data12!=null){
-                $next_cost=$data12['order_cost'];
+                $next_cost=$data12['transfer_cost'];
             }
             $data1[$i]['next_cost']=$next_cost;
             $is_transfer='';
@@ -3099,7 +3096,7 @@ $app->get('/getGoodsOrders9',function()use($app){
             $data12 = $stmt->fetch();
             $next_cost='';
             if($data12!=null){
-                $next_cost=$data12['order_cost'];
+                $next_cost=$data12['transfer_cost'];
             }
             $dataa[$i]['next_cost']=$next_cost;
             $dataa[$i]['goods_package']=$data2;
@@ -3228,7 +3225,7 @@ $app->get('/getGoodsOrders8',function()use($app){
             $data12 = $stmt->fetch();
             $next_cost='';
             if($data12!=null){
-                $next_cost=$data12['order_cost'];
+                $next_cost=$data12['transfer_cost'];
             }
             $dataa[$i]['next_cost']=$next_cost;
             $dataa[$i]['goods_package']=$data2;
@@ -3363,7 +3360,7 @@ $app->get('/limitGoodsOrders13',function()use($app){
             $data12 = $stmt->fetch();
             $next_cost='';
             if($data12!=null){
-                $next_cost=$data12['order_cost'];
+                $next_cost=$data12['transfer_cost'];
             }
             $is_transfer='';
             if($data11!=null){
@@ -3502,7 +3499,7 @@ $app->get('/limitGoodsOrders14',function()use($app){
             $data12 = $stmt->fetch();
             $next_cost='';
             if($data12!=null){
-                $next_cost=$data12['order_cost'];
+                $next_cost=$data12['transfer_cost'];
             }
             $is_transfer='';
             if($data11!=null){
@@ -3618,7 +3615,7 @@ $app->get('/limitGoodsOrders9',function()use($app){
                     $data12 = $stmt->fetch();
                     $next_cost='';
                     if($data12!=null){
-                        $next_cost=$data12['order_cost'];
+                        $next_cost=$data12['transfer_cost'];
                     }
                     $data1[$i]['next_cost']=$next_cost;
                     $is_transfer='';
@@ -3765,7 +3762,7 @@ $app->get('/limitGoodsOrders10',function()use($app){
                     $data12 = $stmt->fetch();
                     $next_cost='';
                     if($data12!=null){
-                        $next_cost=$data12['order_cost'];
+                        $next_cost=$data12['transfer_cost'];
                     }
                     $data1[$i]['next_cost']=$next_cost;
                     $is_transfer='';
@@ -3887,7 +3884,7 @@ $app->get('/limitGoodsOrders11',function()use($app){
                     $data12 = $stmt->fetch();
                     $next_cost='';
                     if($data12!=null){
-                        $next_cost=$data12['order_cost'];
+                        $next_cost=$data12['transfer_cost'];
                     }
                     $data1[$i]['next_cost']=$next_cost;
                     $is_transfer='';
