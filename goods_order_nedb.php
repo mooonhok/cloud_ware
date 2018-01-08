@@ -3075,7 +3075,7 @@ $app->get('/getGoodsOrders9',function()use($app){
             $selectStatement = $database->select()
                 ->from('orders')
                 ->where('tenant_id','=',$tenant_id)
-                ->where('order_id', '=', $data1[$i]['order_id']);
+                ->where('order_id', '=', $dataa[$i]['order_id']);
             $stmt = $selectStatement->execute();
             $data10 = $stmt->fetch();
             $selectStatement = $database->select()
@@ -3122,11 +3122,11 @@ $app->get('/getGoodsOrders8',function()use($app){
     $tenant_id=$app->request->headers->get('tenant-id');
     $tenant_num=$app->request->get('tenant_num');
     if($tenant_id!=null||$tenant_id!=''){
-        $selectStatement = $database->select()
-            ->from('tenant')
-            ->where('tenant_id','=',$tenant_id);
-        $stmt = $selectStatement->execute();
-        $data1 = $stmt->fetch();
+//        $selectStatement = $database->select()
+//            ->from('tenant')
+//            ->where('tenant_id','=',$tenant_id);
+//        $stmt = $selectStatement->execute();
+//        $data1 = $stmt->fetch();
         $selectStatement = $database->select()
             ->from('orders')
             ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
@@ -3204,7 +3204,7 @@ $app->get('/getGoodsOrders8',function()use($app){
             $selectStatement = $database->select()
                 ->from('orders')
                 ->where('tenant_id','=',$tenant_id)
-                ->where('order_id', '=', $data1[$i]['order_id']);
+                ->where('order_id', '=', $dataa[$i]['order_id']);
             $stmt = $selectStatement->execute();
             $data10 = $stmt->fetch();
             $selectStatement = $database->select()
