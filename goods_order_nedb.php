@@ -2977,7 +2977,7 @@ $app->get('/getGoodsOrders9',function()use($app){
 //            $dataa[$i]['receiver']['receiver_province']=$data9;
 //            $dataa[$i]['inventory_loc']=$data5;
 //        }
-        echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$dataa));
+        echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$dataa[0]));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'租户id为空'));
     }
