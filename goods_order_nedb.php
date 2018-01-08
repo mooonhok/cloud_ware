@@ -2914,7 +2914,7 @@ $app->get('/getGoodsOrders9',function()use($app){
             $selectStatement = $database->select()
                 ->from('orders')
                 ->where('id', '<', $data2[$g]['id'])
-                ->where('order_id', '=', $data1[$g]['order_id'])
+                ->where('order_id', '=', $data2[$g]['order_id'])
                 ->orderBy('id', 'DESC')
                 ->limit(1);
             $stmt = $selectStatement->execute();
@@ -3014,7 +3014,7 @@ $app->get('/limitGoodsOrders14',function()use($app){
             $selectStatement = $database->select()
                 ->from('orders')
                 ->where('id', '<', $data2[$g]['id'])
-                ->where('order_id', '=', $data1[$g]['order_id'])
+                ->where('order_id', '=', $data2[$g]['order_id'])
                 ->orderBy('id', 'DESC')
                 ->limit(1);
             $stmt = $selectStatement->execute();
