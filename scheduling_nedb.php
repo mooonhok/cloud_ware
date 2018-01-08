@@ -608,17 +608,16 @@ $app->get('/limitSchedulings4',function()use($app){
     $size= $app->request->get('size');
     $offset= $app->request->get('offset');
     if($tenant_id!=null||$tenant_id!=''){
-
         $selectStatement = $database->select()
             ->from('scheduling')
             ->where('exist', '=', 0)
             ->where('tenant_id', '=', $tenant_id)
-            ->orderBy('scheduling_id','DESC')
-            ->limit((int)$size,(int)$offset);
+            ->orderBy('scheduling_id','DESC');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         $dataa=array();
-        for($i=0;$i<count($data);$i++){
+        $datab=array();
+        for($j=0;$j<count($data);$j++){
             $selectStatement = $database->select()
                 ->sum('order_cost','zon')
                 ->from('schedule_order')
@@ -629,12 +628,22 @@ $app->get('/limitSchedulings4',function()use($app){
                 ->where('orders.tenant_id', '=',$tenant_id);
             $stmt = $selectStatement->execute();
             $data5 = $stmt->fetch();
-
             if($data5['zon']!=0){
+                $data[$i]['sum']=$data5['zon'];
+                array_push($dataa,$data[$j]);
+            }
+        }
+        $num=0;
+        if($offset<count($dataa)&&$offset<(count($dataa)-$size)){
+            $num=$offset+$size;
+        }else{
+            $num=count($dataa);
+        }
+        for($i=$offset;$i<count($num);$i++){
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('tenant_id', '=', $tenant_id)
-                    ->where('customer_id', '=', $data[$i]['receiver_id']);
+                    ->where('customer_id', '=', $dataa[$i]['receiver_id']);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
                 $data6='';
@@ -650,31 +659,28 @@ $app->get('/limitSchedulings4',function()use($app){
 
                 $selectStatement = $database->select()
                     ->from('city')
-                    ->where('id', '=', $data[$i]['send_city_id']);
+                    ->where('id', '=', $dataa[$i]['send_city_id']);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('city')
-                    ->where('id', '=', $data[$i]['receive_city_id']);
+                    ->where('id', '=', $dataa[$i]['receive_city_id']);
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('lorry')
                     ->where('tenant_id', '=', $tenant_id)
-                    ->where('lorry_id', '=', $data[$i]['lorry_id']);
+                    ->where('lorry_id', '=', $dataa[$i]['lorry_id']);
                 $stmt = $selectStatement->execute();
                 $data4 = $stmt->fetch();
-                $data[$i]['receiver']=$data1;
-                $data[$i]['receiver']['jcompany']=$data6;
-                $data[$i]['send_city']=$data2;
-                $data[$i]['receive_city']=$data3;
-                $data[$i]['lorry']=$data4;
-                $data[$i]['sum']=$data5['zon'];
-                array_push($dataa,$data[$i]);
-            }
-
+                $dataa[$i]['receiver']=$data1;
+                $dataa[$i]['receiver']['jcompany']=$data6;
+                $dataa[$i]['send_city']=$data2;
+                $dataa[$i]['receive_city']=$data3;
+                $dataa[$i]['lorry']=$data4;
+                array_push($datab,$dataa[$i]);
         }
-        echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$dataa));
+        echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$datab));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
