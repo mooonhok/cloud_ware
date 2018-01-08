@@ -2920,7 +2920,11 @@ $app->get('/getGoodsOrders9',function()use($app){
             $stmt = $selectStatement->execute();
             $data3 = $stmt->fetch();
             if ($data3&&($data3['is_transfer']==0)) {
-                $dataa = array_merge($dataa, $data2[$g]);
+                if($dataa){
+                    array_merge($dataa, $data2[$g]);
+                }else{
+                    $dataa =$data2[$g];
+                }
             }
         }
 //        for($i=0;$i<count($dataa);$i++) {
