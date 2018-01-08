@@ -3248,7 +3248,7 @@ $app->get('/getGoodsOrders8',function()use($app){
             $data11 = $stmt->fetch();
             $selectStatement = $database->select()
                 ->from('orders')
-                ->where('id','>',$data11['id'])
+                ->where('id','>',$data10['id'])
                 ->where('order_id', '=', $dataa[$i]['order_id'])
                 ->orderBy('id')
                 ->limit(1);
