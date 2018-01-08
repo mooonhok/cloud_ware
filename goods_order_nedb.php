@@ -2893,16 +2893,12 @@ $app->get('/getGoodsOrders9',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get('tenant-id');
+    $tenant_num=$app->request->get('tenant_num');
     if($tenant_id!=null||$tenant_id!=''){
-        $selectStatement = $database->select()
-            ->from('tenant')
-            ->where('tenant_id','=',$tenant_id);
-        $stmt = $selectStatement->execute();
-        $data1 = $stmt->fetch();
         $selectStatement = $database->select()
             ->from('orders')
             ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
-            ->whereNotLike('orders.order_id',$data1['tenant_num'].'%')
+            ->whereNotLike('orders.order_id',$tenant_num.'%')
             ->where('goods.tenant_id','=',$tenant_id)
             ->where('orders.tenant_id','=',$tenant_id)
             ->where('orders.exist','=',0)
@@ -2925,7 +2921,7 @@ $app->get('/getGoodsOrders9',function()use($app){
                 ->limit(1);
             $stmt = $selectStatement->execute();
             $data3b = $stmt->fetch();
-            if ($data3b&&($data3b['is_transfer']==1)) {
+            if ($data3b&&($data3b['is_transfer']==0)) {
                 array_push($dataa,$data2[$g]);
             }
         }
@@ -2990,11 +2986,12 @@ $app->get('/getGoodsOrders9',function()use($app){
 });
 
 
-$app->get('/getGoodsOrders9',function()use($app){
+$app->get('/getGoodsOrders8',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get('tenant-id');
+    $tenant_num=$app->request->get('tenant_num');
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('tenant')
@@ -3004,7 +3001,7 @@ $app->get('/getGoodsOrders9',function()use($app){
         $selectStatement = $database->select()
             ->from('orders')
             ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
-            ->whereNotLike('orders.order_id',$data1['tenant_num'].'%')
+            ->whereNotLike('orders.order_id',$tenant_num.'%')
             ->where('goods.tenant_id','=',$tenant_id)
             ->where('orders.tenant_id','=',$tenant_id)
             ->where('orders.exist','=',0)
@@ -3099,16 +3096,12 @@ $app->get('/limitGoodsOrders13',function()use($app){
     $tenant_id=$app->request->headers->get('tenant-id');
     $offset=$app->request->get('offset');
     $size=$app->request->get('size');
+    $tenant_num=$app->request->get('tenant_num');
     if($tenant_id!=null||$tenant_id!=''){
-        $selectStatement = $database->select()
-            ->from('tenant')
-            ->where('tenant_id','=',$tenant_id);
-        $stmt = $selectStatement->execute();
-        $data1 = $stmt->fetch();
         $selectStatement = $database->select()
             ->from('orders')
             ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
-            ->whereNotLike('orders.order_id',$data1['tenant_num'].'%')
+            ->whereNotLike('orders.order_id',$tenant_num.'%')
             ->where('goods.tenant_id','=',$tenant_id)
             ->where('orders.tenant_id','=',$tenant_id)
             ->where('orders.exist','=',0)
@@ -3230,16 +3223,12 @@ $app->get('/limitGoodsOrders14',function()use($app){
     $tenant_id=$app->request->headers->get('tenant-id');
     $offset=$app->request->get('offset');
     $size=$app->request->get('size');
+    $tenant_num=$app->request->get('tenant_num');
     if($tenant_id!=null||$tenant_id!=''){
-        $selectStatement = $database->select()
-            ->from('tenant')
-            ->where('tenant_id','=',$tenant_id);
-        $stmt = $selectStatement->execute();
-        $data1 = $stmt->fetch();
         $selectStatement = $database->select()
             ->from('orders')
             ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
-            ->whereNotLike('orders.order_id',$data1['tenant_num'].'%')
+            ->whereNotLike('orders.order_id',$tenant_num.'%')
             ->where('goods.tenant_id','=',$tenant_id)
             ->where('orders.tenant_id','=',$tenant_id)
             ->where('orders.exist','=',0)
@@ -3264,7 +3253,7 @@ $app->get('/limitGoodsOrders14',function()use($app){
                 ->limit(1);
             $stmt = $selectStatement->execute();
             $data3b = $stmt->fetch();
-            if ($data3b&&($data3b['is_transfer']==1)) {
+            if ($data3b&&($data3b['is_transfer']==0)) {
                 array_push($dataa,$data2[$g]);
             }
         }
