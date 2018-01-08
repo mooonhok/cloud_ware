@@ -604,13 +604,13 @@ $app->put('/uptenant',function()use($app){
     $customer_name=$body->customer_name;
     $customer_phone=$body->customer_phone;
     $address=$body->address;
-    $end_time=$body->end_time;
+    $end_time=$body->note_remain;
     $qq=$body->qq;
     $email=$body->email;
     $arrays=array();
     $array1=array();
     $arrays['address']=$address;
-    $arrays['end_date']=$end_time;
+    $arrays['note_remain']=$end_time;
     $arrays['qq']=$qq;
     $arrays['email']=$email;
     $array1['customer_name']=$customer_name;
