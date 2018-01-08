@@ -3020,7 +3020,7 @@ $app->get('/limitGoodsOrders14',function()use($app){
             $stmt = $selectStatement->execute();
             $data3 = $stmt->fetch();
             if ($data3&&($data3['is_transfer']==0)) {
-                $dataa = array_merge($dataa, $data2[$g]);
+                    array_push($dataa,$data2[$g]);
             }
         }
 
