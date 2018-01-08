@@ -639,7 +639,7 @@ $app->get('/limitSchedulings4',function()use($app){
         }else{
             $num=count($dataa);
         }
-        for($i=$offset;$i<count($num);$i++){
+        for($i=$offset;$i<$num;$i++){
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('tenant_id', '=', $tenant_id)
@@ -655,9 +655,7 @@ $app->get('/limitSchedulings4',function()use($app){
                     $data7 = $stmt->fetch();
                     $data6=$data7['jcompany'];
                 }
-
-
-                $selectStatement = $database->select()
+              $selectStatement = $database->select()
                     ->from('city')
                     ->where('id', '=', $dataa[$i]['send_city_id']);
                 $stmt = $selectStatement->execute();
