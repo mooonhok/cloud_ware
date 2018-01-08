@@ -3077,13 +3077,13 @@ $app->get('/limitGoodsOrders14',function()use($app){
             $selectStatement = $database->select()
                 ->from('orders')
                 ->where('tenant_id','=',$tenant_id)
-                ->where('order_id', '=', $data1[$i]['order_id']);
+                ->where('order_id', '=', $dataa[$i]['order_id']);
             $stmt = $selectStatement->execute();
             $data10 = $stmt->fetch();
             $selectStatement = $database->select()
                 ->from('orders')
                 ->where('id','<',$data10['id'])
-                ->where('order_id', '=', $data1[$i]['order_id'])
+                ->where('order_id', '=', $dataa[$i]['order_id'])
                 ->orderBy('id','DESC')
                 ->limit(1);
             $stmt = $selectStatement->execute();
@@ -3092,7 +3092,7 @@ $app->get('/limitGoodsOrders14',function()use($app){
             if($data11!=null){
                 $is_transfer=$data11['is_transfer'];
             }
-            $data1[$i]['pre_company']=$is_transfer;
+            $dataa[$i]['pre_company']=$is_transfer;
             $dataa[$i]['goods_package']=$data2;
             $dataa[$i]['sender']=$data3;
             $dataa[$i]['sender']['sender_city']=$data6;
