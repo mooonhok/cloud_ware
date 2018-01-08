@@ -19,16 +19,18 @@ $app->post('/getcityname',function()use($app){
     $body=json_decode($body);
     $long=$body->long;
     $lat=$body->lat;
-    $xpi=3.14159265358979324*3000.0/180.0;
     if($long!=null||$long!=""){
          if($lat!=null||$lat!=""){
-             $x=$long;
-             $y = $lat;
-             $z = sqrt($x * $x + $y * $y) + 0.00002 * sin($y * self::$x_pi);
-             $theta = atan2($y, $x) + 0.000003 * cos($x * self::$x_pi);
-             $long=$z * cos($theta) + 0.0065;
-             $lat = $z * sin($theta) + 0.006;
-             echo json_encode(array("result"=>"0","desc"=>$long.','.$lat));
+             $x = (double)$lat ;
+             $y = (double)$long;
+             $x_pi = 3.14159265358979324;
+             $z = sqrt($x * $x+$y * $y) + 0.00002 * sin($y * $x_pi);
+
+             $theta = atan2($y,$x) + 0.000003 * cos($x*$x_pi);
+
+             $gb = number_format($z * cos($theta) + 0.0065,6);
+             $ga = number_format($z * sin($theta) + 0.006,6);
+             echo json_encode(array("result"=>"0","desc"=>$ga.','.$gb));
          }else{
              echo json_encode(array("result"=>"1","desc"=>"缺少坐标"));
          }
