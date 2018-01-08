@@ -629,7 +629,7 @@ $app->get('/limitSchedulings4',function()use($app){
             $stmt = $selectStatement->execute();
             $data5 = $stmt->fetch();
             if($data5['zon']!=0){
-                $data[$i]['sum']=$data5['zon'];
+                $data[$j]['sum']=$data5['zon'];
                 array_push($dataa,$data[$j]);
             }
         }
