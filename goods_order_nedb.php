@@ -3674,12 +3674,10 @@ $app->get('/limitGoodsOrders15',function()use($app){
     $tenant_id=$app->request->headers->get('tenant-id');
     $offset=$app->request->get('offset');
     $size=$app->request->get('size');
-    $tenant_num=$app->request->get('tenant_num');
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('orders')
             ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
-            ->whereNotLike('orders.order_id',$tenant_num.'%')
             ->where('goods.tenant_id','=',$tenant_id)
             ->where('orders.tenant_id','=',$tenant_id)
             ->where('orders.exist','=',0)
