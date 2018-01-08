@@ -1103,6 +1103,7 @@ $app->get('/limitGoodsOrders5',function()use($app){
                     ->whereNotIn('orders.order_status',array(-1,-2,0,6))
                     ->where('orders.exist','=',0)
                     ->orderBy('orders.order_status')
+                    ->orderBy('orders.order_datetime1')
                     ->orderBy('orders.id','DESC')
                     ->limit((int)$size,(int)$offset);
                 $stmt = $selectStatement->execute();
@@ -2730,6 +2731,7 @@ $app->get('/limitGoodsOrders9',function()use($app){
                     ->where('orders.tenant_id','=',$tenant_id)
                     ->where('orders.exist','=',0)
                     ->whereNotIn('orders.order_status',array(-1,-2,0))
+                    ->orderBy('orders.order_datetime1')
                     ->orderBy('orders.id','DESC')
                     ->limit((int)$size,(int)$offset);
                 $stmt = $selectStatement->execute();
@@ -2841,6 +2843,7 @@ $app->get('/limitGoodsOrders10',function()use($app){
                     ->whereNotIn('orders.order_status',array(-1,-2,0))
                     ->where('orders.exist','=',0)
                     ->orderBy('orders.order_status')
+                    ->orderBy('orders.order_datetime1')
                     ->orderBy('orders.id','DESC');
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
@@ -2970,6 +2973,7 @@ $app->get('/limitGoodsOrders11',function()use($app){
                     ->where('orders.exist','=',0)
                     ->whereNotIn('orders.order_status',array(-1,-2,0))
                     ->orderBy('orders.order_status')
+                    ->orderBy('orders.order_datetime1')
                     ->orderBy('orders.id','DESC')
                     ->limit((int)$size,(int)$offset);
                 $stmt = $selectStatement->execute();
