@@ -21,8 +21,8 @@ $app->post('/getcityname',function()use($app){
     $lat=$body->lat;
     if($long!=null||$long!=""){
          if($lat!=null||$lat!=""){
-             $x = (double)$lat ;
-             $y = (double)$long;
+             $x = (double)$long ;
+             $y = (double)$lat;
              $x_pi = 3.14159265358979324;
              $z = sqrt($x * $x+$y * $y) + 0.00002 * sin($y * $x_pi);
 
