@@ -622,7 +622,7 @@ $app->get('/limitSchedulings4',function()use($app){
                 ->sum('order_cost','zon')
                 ->from('schedule_order')
                 ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
-                ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id'])
+                ->where('schedule_order.schedule_id','=',$data[$j]['scheduling_id'])
                 ->where('schedule_order.tenant_id', '=', $tenant_id)
                 ->where('orders.pay_method','=',1)
                 ->where('orders.tenant_id', '=',$tenant_id);
