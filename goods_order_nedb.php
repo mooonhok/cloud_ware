@@ -2913,13 +2913,19 @@ $app->get('/getGoodsOrders9',function()use($app){
         for($g=0;$g<count($data2);$g++) {
             $selectStatement = $database->select()
                 ->from('orders')
-                ->where('id', '<', $data2[$g]['id'])
+                ->where('tenant_id', '=', $data2[$g]['tenant_id'])
+                ->where('order_id', '=', $data2[$g]['order_id']);
+            $stmt = $selectStatement->execute();
+            $data3a = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id', '<', $data3a['id'])
                 ->where('order_id', '=', $data2[$g]['order_id'])
                 ->orderBy('id', 'DESC')
                 ->limit(1);
             $stmt = $selectStatement->execute();
-            $data3 = $stmt->fetch();
-            if ($data3&&($data3['is_transfer']==1)) {
+            $data3b = $stmt->fetch();
+            if ($data3b&&($data3b['is_transfer']==1)) {
                 array_push($dataa,$data2[$g]);
             }
         }
@@ -3009,14 +3015,20 @@ $app->get('/getGoodsOrders9',function()use($app){
         for($g=0;$g<count($data2);$g++) {
             $selectStatement = $database->select()
                 ->from('orders')
-                ->where('id', '<', $data2[$g]['id'])
+                ->where('tenant_id', '=', $data2[$g]['tenant_id'])
+                ->where('order_id', '=', $data2[$g]['order_id']);
+            $stmt = $selectStatement->execute();
+            $data3a = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id', '<', $data3a['id'])
                 ->where('order_id', '=', $data2[$g]['order_id'])
                 ->orderBy('id', 'DESC')
                 ->limit(1);
             $stmt = $selectStatement->execute();
-            $data3 = $stmt->fetch();
-            if ($data3&&($data3['is_transfer']==0)) {
-                    array_push($dataa,$data2[$g]);
+            $data3b = $stmt->fetch();
+            if ($data3b&&($data3b['is_transfer']==1)) {
+                array_push($dataa,$data2[$g]);
             }
         }
         for($i=0;$i<count($dataa);$i++) {
@@ -3109,13 +3121,19 @@ $app->get('/limitGoodsOrders13',function()use($app){
         for($g=0;$g<count($data2);$g++) {
             $selectStatement = $database->select()
                 ->from('orders')
-                ->where('id', '<', $data2[$g]['id'])
+                ->where('tenant_id', '=', $data2[$g]['tenant_id'])
+                ->where('order_id', '=', $data2[$g]['order_id']);
+            $stmt = $selectStatement->execute();
+            $data3a = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id', '<', $data3a['id'])
                 ->where('order_id', '=', $data2[$g]['order_id'])
                 ->orderBy('id', 'DESC')
                 ->limit(1);
             $stmt = $selectStatement->execute();
-            $data3 = $stmt->fetch();
-            if ($data3&&($data3['is_transfer']==1)) {
+            $data3b = $stmt->fetch();
+            if ($data3b&&($data3b['is_transfer']==1)) {
                 array_push($dataa,$data2[$g]);
             }
         }
@@ -3234,14 +3252,20 @@ $app->get('/limitGoodsOrders14',function()use($app){
         for($g=0;$g<count($data2);$g++) {
             $selectStatement = $database->select()
                 ->from('orders')
-                ->where('id', '<', $data2[$g]['id'])
+                ->where('tenant_id', '=', $data2[$g]['tenant_id'])
+                ->where('order_id', '=', $data2[$g]['order_id']);
+            $stmt = $selectStatement->execute();
+            $data3a = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id', '<', $data3a['id'])
                 ->where('order_id', '=', $data2[$g]['order_id'])
                 ->orderBy('id', 'DESC')
                 ->limit(1);
             $stmt = $selectStatement->execute();
-            $data3 = $stmt->fetch();
-            if ($data3&&($data3['is_transfer']==0)) {
-                    array_push($dataa,$data2[$g]);
+            $data3b = $stmt->fetch();
+            if ($data3b&&($data3b['is_transfer']==1)) {
+                array_push($dataa,$data2[$g]);
             }
         }
 
