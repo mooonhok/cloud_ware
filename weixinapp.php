@@ -23,7 +23,7 @@ $app->post('/getcityname',function()use($app){
          if($lat!=null||$lat!=""){
              $x = (double)$long ;
              $y = (double)$lat;
-             $x_pi = 3.14159265358979324;
+             $x_pi = 3.14159265358979324*3000/180;
              $z = sqrt($x * $x+$y * $y) + 0.00002 * sin($y * $x_pi);
 
              $theta = atan2($y,$x) + 0.000003 * cos($x*$x_pi);
