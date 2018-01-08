@@ -45,7 +45,7 @@ function loadtenants(adminid,page) {
                             var arr = []
                                 ,thisData = msg.tenants;
                             layui.each(thisData, function(index, item){
-                                    arr.push( '<tr><td>'+item.company+'</td><td>'+item.from_city+'</td><td>'+item.receive_city+'</td><td>'+item.tenant_num+'</td><td>'+item.customer.customer_name+'</td><td>'+item.sales_name+'</td><td>'+item.begin_time+'</td><td>'+item.end_date+'</td><td onclick="tenant_xq('+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
+                                    arr.push( '<tr><td>'+item.company+'</td><td>'+item.from_city+'</td><td>'+item.receive_city+'</td><td>'+item.tenant_num+'</td><td>'+item.customer.customer_name+'</td><td>'+item.sales_name+'</td><td>'+item.begin_time+'</td><td>'+item.note_remain+'</td><td onclick="tenant_xq('+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
                             });
                             return arr.join('');
                         }();
@@ -77,7 +77,7 @@ function tenant_xq(id){
             $("#secret").val(msg.tenant.secret);
             $("#customer_name").val(msg.tenant.customer_name);
             $("#customer_phone").val(msg.tenant.customer_phone);
-            $("#end_time").val(msg.tenant.end_time);
+            $("#note_remain").val(msg.tenant.note_remain);
             $("#address").val(msg.tenant.address);
             $("#qq").val(msg.tenant.qq);
             $("#email").val(msg.tenant.email);
@@ -102,7 +102,7 @@ function tenant_ensure(adminid){
             customer_name:$("#customer_name").val(),
             customer_phone:$("#customer_phone").val(),
             address:$("#address").val(),
-            end_time:$("#end_time").val(),
+            note_remain:$("#note_remain").val(),
             qq:$("#qq").val(),
             email:$("#email").val()
         }),
