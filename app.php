@@ -838,6 +838,38 @@ $app->post('/uphead',function()use($app){
     }
 });
 
+//经营范围修改
+$app->post('/uphead',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $lorryid=$body->lorryid;
+    $introduce=$body->introduction;
+    if($lorryid!=null||$lorryid!=""){
+        $selectStament=$database->select()
+            ->from('app_lorry')
+            ->where('exist','=',0)
+            ->where('app_lorry_id','=',$lorryid);
+        $stmt=$selectStament->execute();
+        $data1=$stmt->fetch();
+        if($data1!=null){
+            $arrays['route']=$introduce;
+            $updateStatement = $database->update($arrays)
+                ->table('app_lorry')
+                ->where('app_lorry_id','=',$lorryid);
+            $affectedRows = $updateStatement->execute();
+            echo json_encode(array('result' => '0', 'desc' => '名片已保存'));
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '缺少司机id'));
+    }
+});
+
+
 //历史清单列表
 $app->get('/schistory',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
