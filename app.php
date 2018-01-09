@@ -1214,13 +1214,13 @@ $app->post('/scmap',function()use($app){
                                 $stmt=$selectStament->execute();
                                 $data4=$stmt->fetchAll();
                                 if ($data4 != null) {
-                                    if($data4[count($data4)-1]['longitude']==$longitude&&$data4[count($data4)-1]['latitude']==$latitude) {
-                                        $arrays['accept_time'] = $time;
-                                        $updateStatement = $database->update($arrays)
-                                            ->table('map')
-                                            ->where('id', '=', $data4[count($data4)-1]['id']);
-                                        $affectedRows = $updateStatement->execute();
-                                    } else {
+//                                    if($data4[count($data4)-1]['longitude']==$longitude&&$data4[count($data4)-1]['latitude']==$latitude) {
+//                                        $arrays['accept_time'] = $time;
+//                                        $updateStatement = $database->update($arrays)
+//                                            ->table('map')
+//                                            ->where('id', '=', $data4[count($data4)-1]['id']);
+//                                        $affectedRows = $updateStatement->execute();
+//                                    } else {
                                         if ($time - $data4[count($data4) - 1]['accept_time'] > 1200) {
 //                                        if ($time - $data4[count($data4) - 1]['accept_time'] > 60) {
                                             $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
@@ -1228,7 +1228,7 @@ $app->post('/scmap',function()use($app){
                                                 ->values(array($data3[$y]['scheduling_id'], $longitude, $latitude, $time));
                                             $insertId = $insertStatement->execute(false);
                                         }
-                                    }
+//                                    }
                                 }else {
                                     $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
                                         ->into('map')
