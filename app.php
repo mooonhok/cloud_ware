@@ -1550,7 +1550,11 @@ $app->post('/t_change_password',function()use($app){
                             ->where('password', '=', $password1)
                             ->where('app_lorry_id', '=', $lorry_id);
                         $affectedRows = $updateStatement->execute();
-                        echo json_encode(array('result' => '0', 'desc' => '修改成功'));
+                        if($affectedRows){
+                            echo json_encode(array('result' => '0', 'desc' => '修改成功'));
+                        }else{
+                            echo json_encode(array('result' => '4', 'desc' => '旧密码有误，修改未成功'));
+                        }
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '您没有填写新密码'));
             }
