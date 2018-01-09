@@ -595,7 +595,7 @@ $app->post('/check',function()use($app){
                 if($data1['time']<=$time){
                     echo json_encode(array('result' => '0', 'desc' => ''));
                 }else{
-                    echo json_encode(array('result' => '4', 'desc' => '您已经在其他地方登录该账号，请重新登录'));
+                    echo json_encode(array('result' => '4', 'desc' => '您已经在其他地方登录该账号，请重新登录'.$time.'///'.$data1['time']));
                 }
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '司机不存在'));
