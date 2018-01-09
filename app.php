@@ -991,7 +991,7 @@ $app->get('/scnoaccept',function()use($app){
                 echo json_encode(array('result' => '3', 'desc' => '您还未拉过货物'));
             }
         }else{
-            echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+            echo json_encode(array('result' => '2', 'desc' => '您还不是运输车辆'));
         }
     }else{
         echo json_encode(array('result' => '1', 'desc' => '缺少司机id'));
