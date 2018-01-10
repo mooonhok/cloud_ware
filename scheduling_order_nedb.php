@@ -1422,22 +1422,17 @@ $app->get('/getSchedulingOrder',function()use($app){
         $selectStatement = $database->select()
             ->from('schedule_order')
             ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
+            ->join('scheduling','scheduling.scheduling_id','=','schedule_order.schedule_id','INNER')
             ->where('schedule_order.schedule_id', '=', $scheduling_id)
+            ->where('scheduling.scheduling_id', '=', $scheduling_id)
+            ->where('schedule_order.tenant_id', '=', $tenant_id)
+            ->where('scheduling.tenant_id', '=', $tenant_id)
+            ->where('orders.tenant_id', '=', $tenant_id)
             ->where('schedule_order.exist', '=', 0)
+            ->where('scheduling.exist', '=', 0)
             ->where('orders.exist', '=', 0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        for($i=0;$i<count($data);$i++){
-            $selectStatement = $database->select()
-                ->from('scheduling')
-                ->where('scheduling_id', '=', $scheduling_id)
-                ->where('exist', '=', 0)
-                ->where('tenant_id', '=', $data[$i]['tenant_id']);
-            $stmt = $selectStatement->execute();
-            $data1 = $stmt->fetch();
-            $data[$i]['schedules']=$data1;
-        }
-
         echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
