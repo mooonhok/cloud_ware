@@ -1693,14 +1693,14 @@ $app->post('/change_orders_status',function()use($app){
 //                            ->where('lorry_id','=',$data2[$i]['lorry_id']);
 //                        $stmt=$selectStament->execute();
 //                        $data3=$stmt->fetch();
-//                        $updateStatement = $database->update(array('exist'=>1))
-//                            ->table('scheduling')
-//                            ->where('exist','=',0)
-//                            ->where('scheduling_status','=',4)
-//                            ->where('tenant_id','=',$data2[$i]['tenant_id'])
-//                            ->where('scheduling_id','=',$scheduling_id)
-//                            ->where('lorry_id','=',$data2[$i]['lorry_id']);
-//                        $affectedRows = $updateStatement->execute();
+                        $updateStatement = $database->update(array('scheduling_status'=>8))
+                            ->table('scheduling')
+                            ->where('exist','=',0)
+                            ->where('scheduling_status','=',4)
+                            ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                            ->where('scheduling_id','=',$scheduling_id)
+                            ->where('lorry_id','=',$data2[$i]['lorry_id']);
+                        $affectedRows = $updateStatement->execute();
                         $selectStament=$database->select()
                             ->from('schedule_order')
                             ->where('exist','=',0)
@@ -1710,12 +1710,24 @@ $app->post('/change_orders_status',function()use($app){
                         $data4=$stmt->fetchAll();
                         if($data4!=null){
                             for ($y = 0; $y < count($data4); $y++) {
-                                $updateStatement = $database->update(array('is_back'=>1))
-                                    ->table('orders')
-                                    ->where('tenant_id','=',$data2[$i]['tenant_id'])
-                                    ->where('order_id','=',$data4[$y]['order_id'])
-                                    ->where('exist',"=","0");
-                                $affectedRows = $updateStatement->execute();
+//                                $updateStatement = $database->update(array('is_back'=>1))
+//                                    ->table('orders')
+//                                    ->where('tenant_id','=',$data2[$i]['tenant_id'])
+//                                    ->where('order_id','=',$data4[$y]['order_id'])
+//                                    ->where('exist',"=","0");
+//                                $affectedRows = $updateStatement->execute();
+                                date_default_timezone_set("PRC");
+                                $time=time();
+                                $date=date("Y-m-d h:i:sa", $time);
+                                $selectStatement = $database->select()
+                                    ->from('exception')
+                                    ->where('tenant_id', '=', $data2[$i]['tenant_id']);
+                                $stmt = $selectStatement->execute();
+                                $data5 = $stmt->fetchAll();
+                                $insertStatement = $database->insert(array('exception_source','exception_person','exception_time','tenant_id','order_id','exception_id'))
+                                    ->into('exception')
+                                    ->values(array_values(array('交付帮手',$data1['name'].'('.$data1['plate_number'].')',$date,$data2[$i]['tenant_id'],$data4[$y]['order_id'],(count($data5)+100000001))));
+                                $insertId = $insertStatement->execute(false);
                             }
                         }
                     }
@@ -1768,7 +1780,7 @@ $app->post('/change_orders_status2',function()use($app){
 //                            ->where('lorry_id','=',$data2[$i]['lorry_id']);
 //                        $stmt=$selectStament->execute();
 //                        $data3=$stmt->fetch();
-                        $updateStatement = $database->update(array('scheduling_status'=>6))
+                        $updateStatement = $database->update(array('scheduling_status'=>8))
                             ->table('scheduling')
                             ->where('exist','=',0)
                             ->where('scheduling_status','=',4)
@@ -1785,12 +1797,24 @@ $app->post('/change_orders_status2',function()use($app){
                     $data4=$stmt->fetchAll();
                     if($data4!=null){
                         for ($y = 0; $y < count($data4); $y++) {
-                            $updateStatement = $database->update(array('is_back'=>1))
-                                ->table('orders')
-                                ->where('tenant_id','=',$data2[$i]['tenant_id'])
-                                ->where('order_id','=',$data4[$y]['order_id'])
-                                ->where('exist',"=","0");
-                            $affectedRows = $updateStatement->execute();
+//                            $updateStatement = $database->update(array('is_back'=>1))
+//                                ->table('orders')
+//                                ->where('tenant_id','=',$data2[$i]['tenant_id'])
+//                                ->where('order_id','=',$data4[$y]['order_id'])
+//                                ->where('exist',"=","0");
+//                            $affectedRows = $updateStatement->execute();
+                            date_default_timezone_set("PRC");
+                            $time=time();
+                            $date=date("Y-m-d h:i:sa", $time);
+                            $selectStatement = $database->select()
+                                ->from('exception')
+                                ->where('tenant_id', '=', $data2[$i]['tenant_id']);
+                            $stmt = $selectStatement->execute();
+                            $data5 = $stmt->fetchAll();
+                            $insertStatement = $database->insert(array('exception_source','exception_person','exception_time','tenant_id','order_id','exception_id'))
+                                ->into('exception')
+                                ->values(array_values(array('交付帮手',$data1['name'].'('.$data1['plate_number'].')',$date,$data2[$i]['tenant_id'],$data4[$y]['order_id'],(count($data5)+100000001))));
+                            $insertId = $insertStatement->execute(false);
                         }
                     }
                 }
