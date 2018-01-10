@@ -3426,6 +3426,7 @@ $app->get('/limitGoodsOrders13',function()use($app){
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetchAll();
         $dataa=array();
+        $datab=array();
         for($g=0;$g<count($data2);$g++) {
             $selectStatement = $database->select()
                 ->from('orders')
@@ -3536,8 +3537,9 @@ $app->get('/limitGoodsOrders13',function()use($app){
             $dataa[$i]['receiver']['receiver_city']=$data7;
             $dataa[$i]['receiver']['receiver_province']=$data9;
             $dataa[$i]['inventory_loc']=$data5;
+            array_push($datab,$dataa[$i]);
         }
-        echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$dataa));
+        echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$datab));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'租户id为空'));
     }
@@ -3704,6 +3706,7 @@ $app->get('/limitGoodsOrders15',function()use($app){
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetchAll();
         $dataa=array();
+        $datab=array();
         for($g=0;$g<count($data2);$g++) {
             $selectStatement = $database->select()
                 ->from('orders')
@@ -3814,8 +3817,9 @@ $app->get('/limitGoodsOrders15',function()use($app){
             $dataa[$i]['receiver']['receiver_city']=$data7;
             $dataa[$i]['receiver']['receiver_province']=$data9;
             $dataa[$i]['inventory_loc']=$data5;
+            array_push($datab,$dataa[$i]);
         }
-        echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$dataa));
+        echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$datab));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'租户id为空'));
     }
