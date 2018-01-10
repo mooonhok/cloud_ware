@@ -1277,15 +1277,23 @@ $app->get('/check_scheduling',function()use($app){
                 ->where('driver_phone','=',$data2['phone']);
             $stmt=$selectStament->execute();
             $data3=$stmt->fetchAll();
-            $selectStament=$database->select()
-                ->from('scheduling')
-                ->where('exist','=',0)
-                ->where('scheduling_status','=',5)
-                ->where('scheduling_id','=',$scheduling_id)
-                ->where('lorry_id','=',$data3['lorry_id']);
-            $stmt=$selectStament->execute();
-            $data1=$stmt->fetch();
-            if($data1){
+            $a=0;
+            for($i=0;$i<count($data3);$i++){
+                $selectStament=$database->select()
+                    ->from('scheduling')
+                    ->where('exist','=',0)
+                    ->where('scheduling_status','=',5)
+                    ->where('scheduling_id','=',$scheduling_id)
+                    ->where('lorry_id','=',$data3[$i]['lorry_id']);
+                $stmt=$selectStament->execute();
+                $data1=$stmt->fetch();
+                if($data1){
+                    $a=1;
+                   break;
+                }
+            }
+
+            if($a==1){
                 echo json_encode(array('result' => '0', 'desc' => 'success'));
             }else{
                 echo json_encode(array('result' => '2', 'desc' => 'success'));
