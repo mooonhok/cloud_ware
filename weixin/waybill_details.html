@@ -262,7 +262,11 @@
 															var wc="<div class='foot8-1'><img style='width:80%;height:70px;' src='"+msg.orders.sure_img+"'></div>"
 														}else{
 															var m=msg.orders.special.substring(msg.orders.special.length-4);
-															var wc="<div class='foot8-1'>"+m+"("+msg.orders.pickupname+","+msg.orders.pickupphone+",</br>"+msg.orders.pickupnumber+")"+"</div>"
+															if(m=="门店自提"){
+																var wc="<div class='foot8-1'>提货人："+msg.orders.pickupname+"</br>电话："+msg.orders.pickupphone+"</br>身份证号："+msg.orders.pickupnumber+"</div>";
+															}else{
+															var wc="<div class='foot8-1'>送货员："+msg.orders.pickupname+"</br>电话："+msg.orders.pickupphone+"</br>身份证号："+msg.orders.pickupnumber+"</div>";
+															}		
 														}
 														
 														$(".foot8").html(wc);
