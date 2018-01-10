@@ -3369,7 +3369,7 @@ $app->get('/getGoodsOrders10',function()use($app){
             $data10 = $stmt->fetch();
             $selectStatement = $database->select()
                 ->from('orders')
-                ->where('id','>',$data10['id'])
+                ->where('id','<',$data10['id'])
                 ->where('order_id', '=', $dataa[$i]['order_id'])
                 ->orderBy('id')
                 ->limit(1);
@@ -3377,7 +3377,7 @@ $app->get('/getGoodsOrders10',function()use($app){
             $data11 = $stmt->fetch();
             $selectStatement = $database->select()
                 ->from('orders')
-                ->where('id','>',$data11['id'])
+                ->where('id','>',$data10['id'])
                 ->where('order_id', '=', $dataa[$i]['order_id'])
                 ->orderBy('id')
                 ->limit(1);
@@ -3552,6 +3552,7 @@ $app->get('/limitGoodsOrders14',function()use($app){
     $offset=$app->request->get('offset');
     $size=$app->request->get('size');
     $tenant_num=$app->request->get('tenant_num');
+    $datab=array();
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('orders')
@@ -3675,8 +3676,9 @@ $app->get('/limitGoodsOrders14',function()use($app){
             $dataa[$i]['receiver']['receiver_city']=$data7;
             $dataa[$i]['receiver']['receiver_province']=$data9;
             $dataa[$i]['inventory_loc']=$data5;
+            array_push($datab,$dataa[$i]);
         }
-        echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$dataa));
+        echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$datab));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'租户id为空'));
     }
