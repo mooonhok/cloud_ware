@@ -1693,14 +1693,14 @@ $app->post('/change_orders_status',function()use($app){
 //                            ->where('lorry_id','=',$data2[$i]['lorry_id']);
 //                        $stmt=$selectStament->execute();
 //                        $data3=$stmt->fetch();
-                        $updateStatement = $database->update(array('exist'=>1))
-                            ->table('scheduling')
-                            ->where('exist','=',0)
-                            ->where('scheduling_status','=',4)
-                            ->where('tenant_id','=',$data2[$i]['tenant_id'])
-                            ->where('scheduling_id','=',$scheduling_id)
-                            ->where('lorry_id','=',$data2[$i]['lorry_id']);
-                        $affectedRows = $updateStatement->execute();
+//                        $updateStatement = $database->update(array('exist'=>1))
+//                            ->table('scheduling')
+//                            ->where('exist','=',0)
+//                            ->where('scheduling_status','=',4)
+//                            ->where('tenant_id','=',$data2[$i]['tenant_id'])
+//                            ->where('scheduling_id','=',$scheduling_id)
+//                            ->where('lorry_id','=',$data2[$i]['lorry_id']);
+//                        $affectedRows = $updateStatement->execute();
                         $selectStament=$database->select()
                             ->from('schedule_order')
                             ->where('exist','=',0)
@@ -1708,15 +1708,9 @@ $app->post('/change_orders_status',function()use($app){
                             ->where('schedule_id','=',$scheduling_id);
                         $stmt=$selectStament->execute();
                         $data4=$stmt->fetchAll();
-                        $updateStatement = $database->update(array('exist'=>1))
-                            ->table('schedule_order')
-                            ->where('exist','=',0)
-                            ->where('tenant_id','=',$data2[$i]['tenant_id'])
-                            ->where('schedule_id','=',$scheduling_id);
-                        $affectedRows = $updateStatement->execute();
                         if($data4!=null){
                             for ($y = 0; $y < count($data4); $y++) {
-                                $updateStatement = $database->update(array('order_status'=>5))
+                                $updateStatement = $database->update(array('is_back'=>1))
                                     ->table('orders')
                                     ->where('tenant_id','=',$data2[$i]['tenant_id'])
                                     ->where('order_id','=',$data4[$y]['order_id'])
@@ -1736,6 +1730,82 @@ $app->post('/change_orders_status',function()use($app){
             echo json_encode(array('result' => '2', 'desc' => '司机id为空'));
         }
 });
+
+$app->post('/change_orders_status2',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $lorryid=$body->lorryid;
+    $scheduling_id=$body->scheduling_id;
+    $time=time();
+    if($lorryid!=null||$lorryid!=""){
+        $selectStament=$database->select()
+            ->from('app_lorry')
+            ->where('exist','=',0)
+            ->where('flag','=',0)
+            ->where('app_lorry_id','=',$lorryid);
+        $stmt=$selectStament->execute();
+        $data1=$stmt->fetch();
+        if($data1!=null){
+            $selectStament=$database->select()
+                ->from('lorry')
+                ->where('exist','=',0)
+                ->where('tenant_id','!=',0)
+                ->where('plate_number','=',$data1['plate_number'])
+                ->where('driver_phone','=',$data1['phone']);
+            $stmt=$selectStament->execute();
+            $data2=$stmt->fetchAll();
+            if($data2!=null){
+                for($i=0;$i<count($data2);$i++){
+//                        $selectStament=$database->select()
+//                            ->from('scheduling')
+//                            ->where('exist','=',0)
+//                            ->where('scheduling_status','=',4)
+//                            ->where('tenant_id','=',$data2[$i]['tenant_id'])
+//                            ->where('scheduling_id','=',$scheduling_id)
+//                            ->where('lorry_id','=',$data2[$i]['lorry_id']);
+//                        $stmt=$selectStament->execute();
+//                        $data3=$stmt->fetch();
+                        $updateStatement = $database->update(array('scheduling_status'=>6))
+                            ->table('scheduling')
+                            ->where('exist','=',0)
+                            ->where('scheduling_status','=',4)
+                            ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                            ->where('scheduling_id','=',$scheduling_id)
+                            ->where('lorry_id','=',$data2[$i]['lorry_id']);
+                        $affectedRows = $updateStatement->execute();
+                    $selectStament=$database->select()
+                        ->from('schedule_order')
+                        ->where('exist','=',0)
+                        ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                        ->where('schedule_id','=',$scheduling_id);
+                    $stmt=$selectStament->execute();
+                    $data4=$stmt->fetchAll();
+                    if($data4!=null){
+                        for ($y = 0; $y < count($data4); $y++) {
+                            $updateStatement = $database->update(array('is_back'=>1))
+                                ->table('orders')
+                                ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                                ->where('order_id','=',$data4[$y]['order_id'])
+                                ->where('exist',"=","0");
+                            $affectedRows = $updateStatement->execute();
+                        }
+                    }
+                }
+                echo json_encode(array('result' => '0', 'desc' => 'success'));
+            }else{
+                echo json_encode(array('result' => '4', 'desc' => '该车辆不属于本公司司机'));
+            }
+        }else{
+            echo json_encode(array('result' => '3', 'desc' => '司机不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '2', 'desc' => '司机id为空'));
+    }
+});
+
 $app->run();
 function localhost(){
     return connect();
