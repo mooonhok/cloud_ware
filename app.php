@@ -978,11 +978,12 @@ $app->get('/scnoaccept',function()use($app){
                 for($x=0;$x<count($data2);$x++){
                     $selectStament=$database->select()
                         ->from('scheduling')
-                        ->where('scheduling_status','!=',1)
-                        ->where('scheduling_status','!=',5)
-                        ->where('scheduling_status','!=',6)
-                        ->where('scheduling_status','!=',7)
-                        ->where('scheduling_status','!=',8)
+//                        ->where('scheduling_status','!=',1)
+//                        ->where('scheduling_status','!=',5)
+//                        ->where('scheduling_status','!=',6)
+//                        ->where('scheduling_status','!=',7)
+//                        ->where('scheduling_status','!=',8)
+                        ->whereNotIn('scheduling_status',array(1,5,7))
                         ->where('tenant_id','=',$data2[$x]['tenant_id'])
                         ->where('lorry_id','=',$data2[$x]['lorry_id'])
                         ->orderBy('change_datetime','desc');
@@ -1482,11 +1483,35 @@ $app->post('/last_map',function()use($app) {
     $latitude=$body->latitude;
     $time=time();
     if($schedule_id!=''||$schedule_id!=null){
-        $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
-            ->into('map')
-            ->values(array($schedule_id, $longitude, $latitude, $time));
-        $insertId = $insertStatement->execute(false);
-        echo json_encode(array('result' => '0', 'desc' => '上传成功'));
+        $selectStament=$database->select()
+            ->from('scheduling')
+            ->where('exist','=',0)
+            ->where('scheduling_status','=',4)
+            ->where('scheduling_id','=',$schedule_id);
+        $stmt=$selectStament->execute();
+        $data3=$stmt->fetch();
+        if($data3){
+            $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
+                ->into('map')
+                ->values(array($schedule_id, $longitude, $latitude, $time));
+            $insertId = $insertStatement->execute(false);
+            echo json_encode(array('result' => '0', 'desc' => '上传成功'));
+        }else {
+
+
+                $selectStament = $database->select()
+                    ->from('scheduling')
+                    ->where('exist', '=', 0)
+                    ->where('scheduling_status', '=', 8)
+                    ->where('scheduling_id', '=', $schedule_id);
+                $stmt = $selectStament->execute();
+                $data4 = $stmt->fetch();
+            if($data4){
+                echo json_encode(array('result' => '2', 'desc' => '调度单出险中'));
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '调度单退单中'));
+            }
+        }
     }else{
         echo json_encode(array('result' => '1', 'desc' => '清单号不存在'));
     }
