@@ -1252,6 +1252,38 @@ $app->post('/scmap',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '坐标缺少'));
     }
 });
+
+
+$app->get('/check_scheduling',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $scheduling_id= $app->request->get("scheduling_id");
+    $lorry_id = $app->request->get("lorry_id");
+    $database=localhost();
+    if($scheduling_id!=null||$scheduling_id!=""){
+        if($lorry_id!=null||$lorry_id!=""){
+            $selectStament=$database->select()
+                ->from('scheduling')
+                ->where('exist','=',0)
+                ->where('scheduling_status','==',5)
+                ->where('scheduling_id','=',$scheduling_id)
+                ->where('lorry_id','=',$lorry_id);
+            $stmt=$selectStament->execute();
+            $data1=$stmt->fetch();
+            if($data1){
+                echo json_encode(array('result' => '0', 'desc' => 'success'));
+            }else{
+                echo json_encode(array('result' => '2', 'desc' => 'success'));
+            }
+        }else{
+            echo json_encode(array('result' => '3', 'desc' => '缺少司机id'));
+        }
+      }else{
+          echo json_encode(array('result' => '1', 'desc' => '缺少调度id'));
+     }
+});
+
+
 //清单确认拉货
 $app->post('/suresc1',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
