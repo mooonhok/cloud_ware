@@ -1283,6 +1283,7 @@ $app->get('/check_scheduling',function()use($app){
                     ->from('scheduling')
                     ->where('exist','=',0)
                     ->where('scheduling_status','=',5)
+                    ->where('tenant_id','=',$data3[$i]['tenant_id'])
                     ->where('scheduling_id','=',$scheduling_id)
                     ->where('lorry_id','=',$data3[$i]['lorry_id']);
                 $stmt=$selectStament->execute();
