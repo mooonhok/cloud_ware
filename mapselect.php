@@ -160,29 +160,28 @@ $app->get('/mapsbyor',function()use($app){
 
               $stmt = $selectStament->execute();
               $data = $stmt->fetch();
-             if($data['scheduling_status']==5){
-                 $selectStament = $database->select()
-                     ->from('map')
-                     ->where('scheduling_id', '=', $data['scheduling_id'])
-                     ->orderBy('accept_time')
-                     ->limit(1);
-                 $stmt = $selectStament->execute();
-                 $data3 = $stmt->fetch();
-                 $selectStament = $database->select()
-                     ->from('map')
-                     ->where('scheduling_id', '=', $data['scheduling_id'])
-                     ->orderBy('accept_time','desc')
-                     ->limit(1);
-                 $stmt = $selectStament->execute();
-                 $data4 = $stmt->fetch();
-                 $deleteStatement = $database->delete()
-                     ->from('map')
-                     ->where('scheduling_id','=',$data['scheduling_id'])
-                     ->where('accept_time','<',$data4['accept_time'])
-                     ->where('accept_time', '>',$data3['accept_time']);
-                 $affectedRows = $deleteStatement->execute();
-
-             }
+//             if($data['scheduling_status']==5){
+//                 $selectStament = $database->select()
+//                     ->from('map')
+//                     ->where('scheduling_id', '=', $data['scheduling_id'])
+//                     ->orderBy('accept_time')
+//                     ->limit(1);
+//                 $stmt = $selectStament->execute();
+//                 $data3 = $stmt->fetch();
+//                 $selectStament = $database->select()
+//                     ->from('map')
+//                     ->where('scheduling_id', '=', $data['scheduling_id'])
+//                     ->orderBy('accept_time','desc')
+//                     ->limit(1);
+//                 $stmt = $selectStament->execute();
+//                 $data4 = $stmt->fetch();
+//                 $deleteStatement = $database->delete()
+//                     ->from('map')
+//                     ->where('scheduling_id','=',$data['scheduling_id'])
+//                     ->where('accept_time','<',$data4['accept_time'])
+//                     ->where('accept_time', '>',$data3['accept_time']);
+//                 $affectedRows = $deleteStatement->execute();
+//             }
               $selectStament = $database->select()
                   ->from('map')
                   ->where('scheduling_id', '=', $data5[$i]['schedule_id'])
