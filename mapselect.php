@@ -270,7 +270,6 @@ $app->get('/allmap',function()use($app){
                     $arrays1['longitude'] = $data2['longitude'];
                     $arrays1['latitude'] = $data2['latitude'];
                     $arrays1['time'] = $time;
-                  
                      $selectStament=$database->select()
                  ->from('lorry')
                  ->where('lorry_id','=',$data[$x]['lorry_id']);
