@@ -1424,6 +1424,7 @@ $app->get('/getSchedulingOrder',function()use($app){
             ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
             ->join('scheduling','scheduling.scheduling_id','=','schedule_order.schedule_id','INNER')
             ->where('schedule_order.schedule_id', '=', $scheduling_id)
+            ->where('scheduling.scheduling_id', '=', $scheduling_id)
             ->where('schedule_order.exist', '=', 0)
             ->where('scheduling.exist', '=', 0)
             ->where('orders.exist', '=', 0);

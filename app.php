@@ -1728,6 +1728,12 @@ $app->post('/change_orders_status',function()use($app){
                                     ->into('exception')
                                     ->values(array_values(array('交付帮手',$data1['name'].'('.$data1['plate_number'].')',$date,$data2[$i]['tenant_id'],$data4[$y]['order_id'],(count($data5)+100000001))));
                                 $insertId = $insertStatement->execute(false);
+                                $updateStatement = $database->update(array('exception_id'=>(count($data5)+100000001)))
+                                    ->table('orders')
+                                    ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                                    ->where('order_id','=',$data4[$y]['order_id'])
+                                    ->where('exist',"=","0");
+                                $affectedRows = $updateStatement->execute();
                             }
                         }
                     }
@@ -1797,12 +1803,7 @@ $app->post('/change_orders_status2',function()use($app){
                     $data4=$stmt->fetchAll();
                     if($data4!=null){
                         for ($y = 0; $y < count($data4); $y++) {
-//                            $updateStatement = $database->update(array('is_back'=>1))
-//                                ->table('orders')
-//                                ->where('tenant_id','=',$data2[$i]['tenant_id'])
-//                                ->where('order_id','=',$data4[$y]['order_id'])
-//                                ->where('exist',"=","0");
-//                            $affectedRows = $updateStatement->execute();
+
                             date_default_timezone_set("PRC");
                             $time=time();
                             $date=date("Y-m-d h:i:sa", $time);
@@ -1815,6 +1816,12 @@ $app->post('/change_orders_status2',function()use($app){
                                 ->into('exception')
                                 ->values(array_values(array('交付帮手',$data1['name'].'('.$data1['plate_number'].')',$date,$data2[$i]['tenant_id'],$data4[$y]['order_id'],(count($data5)+100000001))));
                             $insertId = $insertStatement->execute(false);
+                            $updateStatement = $database->update(array('exception_id'=>(count($data5)+100000001)))
+                                ->table('orders')
+                                ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                                ->where('order_id','=',$data4[$y]['order_id'])
+                                ->where('exist',"=","0");
+                            $affectedRows = $updateStatement->execute();
                         }
                     }
                 }
