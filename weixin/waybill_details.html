@@ -261,8 +261,8 @@
 														if(msg.orders.sure_img!=null){
 															var wc="<div class='foot8-1'><img style='width:80%;height:70px;' src='"+msg.orders.sure_img+"'></div>"
 														}else{
-															var m=msg.orders.special.substring(msg.orders.special.length-5);
-															var wc="<div class='foot8-1'><div  style='width:100%;height:40px'>"+m+"("+msg.orders.pickupname+","+msg.orders.pickupphone+","+msg.orders.pickupnumber+")"+"</div></div>"
+															var m=msg.orders.special.substring(msg.orders.special.length-4);
+															var wc="<div class='foot8-1'><div  style='width:100%;height:40px;line-height:40px;'>"+m+"("+msg.orders.pickupname+","+msg.orders.pickupphone+","+msg.orders.pickupnumber+")"+"</div></div>"
 														}
 														
 														$(".foot8").html(wc);
