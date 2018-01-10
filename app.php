@@ -978,12 +978,11 @@ $app->get('/scnoaccept',function()use($app){
                 for($x=0;$x<count($data2);$x++){
                     $selectStament=$database->select()
                         ->from('scheduling')
-//                        ->where('scheduling_status','!=',1)
-//                        ->where('scheduling_status','!=',5)
+                        ->where('scheduling_status','!=',1)
+                        ->where('scheduling_status','!=',5)
 //                        ->where('scheduling_status','!=',6)
-//                        ->where('scheduling_status','!=',7)
+                        ->where('scheduling_status','!=',7)
 //                        ->where('scheduling_status','!=',8)
-                        ->whereNotIn('scheduling_status',array(1,5,7))
                         ->where('tenant_id','=',$data2[$x]['tenant_id'])
                         ->where('lorry_id','=',$data2[$x]['lorry_id'])
                         ->orderBy('change_datetime','desc');
