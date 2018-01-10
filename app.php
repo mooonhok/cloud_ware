@@ -1263,11 +1263,26 @@ $app->get('/check_scheduling',function()use($app){
     if($scheduling_id!=null||$scheduling_id!=""){
         if($lorry_id!=null||$lorry_id!=""){
             $selectStament=$database->select()
+                ->from('app_lorry')
+                ->where('exist','=',0)
+                ->where('flag','=',0)
+                ->where('app_lorry_id','=',$lorry_id);
+            $stmt=$selectStament->execute();
+            $data2=$stmt->fetch();
+            $selectStament=$database->select()
+                ->from('lorry')
+                ->where('exist','=',0)
+                ->where('tenant_id','!=',0)
+                ->where('plate_number','=',$data2['plate_number'])
+                ->where('driver_phone','=',$data2['phone']);
+            $stmt=$selectStament->execute();
+            $data3=$stmt->fetchAll();
+            $selectStament=$database->select()
                 ->from('scheduling')
                 ->where('exist','=',0)
                 ->where('scheduling_status','=',5)
                 ->where('scheduling_id','=',$scheduling_id)
-                ->where('lorry_id','=',$lorry_id);
+                ->where('lorry_id','=',$data3['lorry_id']);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
             if($data1){
