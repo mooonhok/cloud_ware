@@ -1132,6 +1132,24 @@ $app->post('/wx_order_z', function () use ($app) {
                 $stmt = $selectStatement->execute();
                 $data6= $stmt->fetch();
                 $array['plate_number']=$data6['plate_number'];
+                $selectStatement = $database->select()
+                    ->from('goods')
+                    ->where('tenant_id','=',$data2['tenant_id'])
+                    ->where('order_id', '=', $order_id);
+                $stmt = $selectStatement->execute();
+                $data7= $stmt->fetch();
+                 $array['special']=$data7['special_need'];
+                 $array['sure_img']=$data2['sure_img'];
+                  if($data2['pickup_id']!=null){
+                      $selectStatement = $database->select()
+                          ->from('pickup')
+                          ->where('pickup_id','=',$data2['pickup_id']);
+                      $stmt = $selectStatement->execute();
+                      $data8= $stmt->fetch();
+                      $array['pickupname']=$data8['pickup_name'];
+                      $array['pickupphone']=$data8['pickup_phone'];
+                      $array['pickupnumber']=$data8['pickup_number'];
+                  }
                 echo json_encode(array("result" => "0", "desc" => "success", "orders" => $array));
             }else{
                 echo json_encode(array("result" => "1", "desc" => "订单不存在", "orders" => ""));
