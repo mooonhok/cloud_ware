@@ -1265,7 +1265,7 @@ $app->get('/check_scheduling',function()use($app){
             $selectStament=$database->select()
                 ->from('scheduling')
                 ->where('exist','=',0)
-                ->where('scheduling_status','==',5)
+                ->where('scheduling_status','=',5)
                 ->where('scheduling_id','=',$scheduling_id)
                 ->where('lorry_id','=',$lorry_id);
             $stmt=$selectStament->execute();
