@@ -533,17 +533,31 @@ $app->get('/limitSchedulings0',function()use($app){
     $size= $app->request->get('size');
     $offset= $app->request->get('offset');
     if($tenant_id!=null||$tenant_id!=''){
-
+        $datab=array();
         $selectStatement = $database->select()
             ->from('scheduling')
             ->where('exist', '=', 0)
             ->where('tenant_id', '=', $tenant_id)
-            ->orderBy('scheduling_status(6,1,2,3,4,5,7,8)')
-            ->orderBy('scheduling_id','DESC')
-            ->limit((int)$size,(int)$offset);
+            ->where('scheduling_status', '=', 6)
+            ->orderBy('scheduling_id','DESC');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        for($i=0;$i<count($data);$i++){
+        $selectStatement = $database->select()
+            ->from('scheduling')
+            ->where('exist', '=', 0)
+            ->where('tenant_id', '=', $tenant_id)
+            ->where('scheduling_status', '!=', 6)
+            ->orderBy('scheduling_id','DESC');
+        $stmt = $selectStatement->execute();
+        $dataa = $stmt->fetchAll();
+        array_merge($data,$dataa);
+        $num=0;
+        if($offset<count($dataa)&&$offset<(count($dataa)-$size)){
+            $num=$offset+$size;
+        }else{
+            $num=count($dataa);
+        }
+        for($i=$offset;$i<$num;$i++){
             $selectStatement = $database->select()
                 ->sum('order_cost','zon')
                 ->from('schedule_order')
@@ -595,8 +609,9 @@ $app->get('/limitSchedulings0',function()use($app){
             $data[$i]['receive_city']=$data3;
             $data[$i]['lorry']=$data4;
             $data[$i]['sum']=$data5['zon'];
+            array_push($datab,$data[$i]);
         }
-        echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
+        echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$datab));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
