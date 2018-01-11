@@ -575,7 +575,7 @@ $app->get('/limitSchedulings0',function()use($app){
             ->from('scheduling')
             ->where('exist', '=', 0)
             ->where('tenant_id', '=', $tenant_id)
-            ->whereIn('scheduling_status',array(5,7))
+            ->whereIn('scheduling_status',array(5,7,9))
             ->orderBy('scheduling_status')
             ->orderBy('scheduling_id','DESC');
         $stmt = $selectStatement->execute();
@@ -676,7 +676,7 @@ $app->get('/limitSchedulings4',function()use($app){
             ->from('scheduling')
             ->where('exist', '=', 0)
             ->where('tenant_id', '=', $tenant_id)
-            ->whereIn('scheduling_status',array(5,7))
+            ->whereIn('scheduling_status',array(5,7,9))
             ->orderBy('scheduling_status')
             ->orderBy('scheduling_id','DESC');
         $stmt = $selectStatement->execute();
@@ -785,7 +785,7 @@ $app->get('/limitSchedulings1',function()use($app){
             ->from('scheduling')
             ->where('exist', '=', 0)
             ->where('tenant_id', '=', $tenant_id)
-            ->whereIn('scheduling_status',array(5,7))
+            ->whereIn('scheduling_status',array(5,7,9))
             ->orderBy('scheduling_status')
             ->orderBy('scheduling_id','DESC');
         $stmt = $selectStatement->execute();
@@ -893,7 +893,7 @@ $app->get('/limitSchedulings2',function()use($app){
             ->join('city','city.id','=','scheduling.receive_city_id','INNER')
             ->where('city.name','=',$receive_city_name)
             ->where('scheduling.exist', '=', 0)
-            ->whereIn('scheduling.scheduling_status',array(5,7))
+            ->whereIn('scheduling.scheduling_status',array(5,7,9))
             ->where('scheduling.tenant_id', '=', $tenant_id)
             ->orderBy('scheduling.scheduling_status')
             ->orderBy('scheduling.scheduling_id','DESC');
@@ -1006,7 +1006,7 @@ $app->get('/limitSchedulings3',function()use($app){
             ->where('lorry.plate_number','=',$plate_number)
             ->where('scheduling.exist', '=', 0)
             ->where('lorry.tenant_id', '=', $tenant_id)
-            ->whereIn('scheduling.scheduling_status',array(5,7))
+            ->whereIn('scheduling.scheduling_status',array(5,7,9))
             ->where('scheduling.tenant_id', '=', $tenant_id)
             ->orderBy('scheduling.scheduling_id','DESC');
         $stmt = $selectStatement->execute();
