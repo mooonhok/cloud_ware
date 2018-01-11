@@ -538,6 +538,7 @@ $app->get('/limitSchedulings0',function()use($app){
             ->from('scheduling')
             ->where('exist', '=', 0)
             ->where('tenant_id', '=', $tenant_id)
+            ->orderBy('scheduling_status(6,1,2,3,4,5,7,8)')
             ->orderBy('scheduling_id','DESC')
             ->limit((int)$size,(int)$offset);
         $stmt = $selectStatement->execute();
