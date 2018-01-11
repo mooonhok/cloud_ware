@@ -1819,6 +1819,14 @@ $app->post('/change_orders_status2',function()use($app){
 //                            ->where('lorry_id','=',$data2[$i]['lorry_id']);
 //                        $stmt=$selectStament->execute();
 //                        $data3=$stmt->fetch();
+                    $selectStament=$database->select()
+                        ->from('scheduling')
+                        ->where('exist','=',0)
+                        ->where('scheduling_status','=',4)
+                        ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                        ->where('lorry_id','=',$data2[$i]['lorry_id']);
+                    $stmt=$selectStament->execute();
+                    $datad=$stmt->fetchAll();
                         $updateStatement = $database->update(array('scheduling_status'=>8))
                             ->table('scheduling')
                             ->where('exist','=',0)
@@ -1828,14 +1836,7 @@ $app->post('/change_orders_status2',function()use($app){
                             ->where('lorry_id','=',$data2[$i]['lorry_id']);
                         $affectedRows = $updateStatement->execute();
                         if($affectedRows>0){
-                            $selectStament=$database->select()
-                                ->from('scheduling')
-                                ->where('exist','=',0)
-                                ->where('scheduling_status','=',4)
-                                ->where('tenant_id','=',$data2[$i]['tenant_id'])
-                                ->where('lorry_id','=',$data2[$i]['lorry_id']);
-                            $stmt=$selectStament->execute();
-                            $datad=$stmt->fetchAll();
+
                             for($x=0;$x<count($datad);$x++){
                                 $time=time();
                                 $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
