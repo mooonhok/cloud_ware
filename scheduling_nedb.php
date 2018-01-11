@@ -550,12 +550,12 @@ $app->get('/limitSchedulings0',function()use($app){
             ->orderBy('scheduling_id','DESC');
         $stmt = $selectStatement->execute();
         $dataa = $stmt->fetchAll();
-        array_merge($data,$dataa);
+        $data=array_merge($data,$dataa);
         $num=0;
-        if($offset<count($dataa)&&$offset<(count($dataa)-$size)){
+        if($offset<count($data)&&$offset<(count($data)-$size)){
             $num=$offset+$size;
         }else{
-            $num=count($dataa);
+            $num=count($data);
         }
         for($i=$offset;$i<$num;$i++){
             $selectStatement = $database->select()
