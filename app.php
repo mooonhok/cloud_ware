@@ -1710,6 +1710,7 @@ $app->post('/change_orders_status',function()use($app){
                     ->where('driver_phone','=',$data1['phone']);
                 $stmt=$selectStament->execute();
                 $data2=$stmt->fetchAll();
+                $aaa=0;
                 if($data2!=null){
                     for($i=0;$i<count($data2);$i++){
 //                        $selectStament=$database->select()
@@ -1765,10 +1766,15 @@ $app->post('/change_orders_status',function()use($app){
                                     $affectedRows = $updateStatement->execute();
                                 }
                             }
+                            $aaa++;
                         }
 
                     }
-                    echo json_encode(array('result' => '0', 'desc' => 'success'));
+                    if($aaa!=0){
+                        echo json_encode(array('result' => '0', 'desc' => 'success'));
+                    }else{
+                        echo json_encode(array('result' => '5', 'desc' => 'success'));
+                    }
                 }else{
                     echo json_encode(array('result' => '4', 'desc' => '该车辆不属于本公司司机'));
                 }
