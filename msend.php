@@ -50,7 +50,6 @@ $app->post("/sendtwo",function()use($app,$clapi){
     $address1=$body->fcity;
     $address2=$body->tcity;
     $tenantid=$body->tenant_id;
-
     $database=localhost();
     date_default_timezone_set("PRC");
     $time = date("Y-m-d H:i",time());
@@ -176,10 +175,11 @@ $app->post("/schedules_sign",function()use($app,$clapi){
 //            $name=$data2['customer_name'];
             $params = $phone.',您好';
             $result = $clapi->sendVariableSMS($msg, $params);
+            if($data1[$i]['note_remain']>=1){
             if(!is_null(json_decode($result))){
                 $output=json_decode($result,true);
                 if(isset($output['code'])  && $output['code']=='0'){
-                    if($data1[$i]['note_remain']>=1){
+
                     $arrays1['note_remain']=(int)$data1[$i]['note_remain']-1;
                     $updateStatement = $database->update($arrays1)
                         ->table('tenant')
@@ -190,14 +190,14 @@ $app->post("/schedules_sign",function()use($app,$clapi){
                         ->values(array($data1[$i]['tenant_id'],$orderid,$data3['name'],$data4['name'],$phone,4,0));
                     $insertId = $insertStatement->execute(false);
                     echo json_encode(array("result" => "0", "desc" => '发送成功'));
-                    }else{
-                        echo json_encode(array("result" => "5", "desc" => '请充值'));
-                    }
                 }else{
                     echo  json_encode(array("result" => "3", "desc" => $output['errorMsg'].$title));
                 }
             }else{
                 echo json_encode(array("result" => "2", "desc" => "发送失败"));
+            }
+            }else{
+                echo json_encode(array("result" => "5", "desc" => '请充值'));
             }
         }
         echo json_encode(array("result" => "4", "desc" => "success"));
