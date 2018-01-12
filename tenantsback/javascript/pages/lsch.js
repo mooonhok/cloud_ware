@@ -95,7 +95,13 @@ function loadorders(tenant_id,page) {
                             	}else if(item.scheduling_status==5){
                             		c="到达";
                             	}else if(item.scheduling_status==6){
-                            		c="取消";
+                            		c="退单";
+                            	}else if(item.scheduling_status==7){
+                            		c="已退单";
+                            	}else if(item.scheduling_status==8){
+                            		c="出险";
+                            	}else if(item.scheduling_status==9){
+                            		c="已处理";
                             	}
                                 arr.push('<tr><td>'+item.scheduling_id+'</td><td>'
                                 +item.receivername+'</td><td>'
