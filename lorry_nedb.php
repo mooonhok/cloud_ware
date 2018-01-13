@@ -225,7 +225,7 @@ $app->get('/getLorry',function()use($app){
 
             $selectStatement = $database->select()
                 ->from('lorry')
-                ->leftJoin('app_lorry','app_lorry.phone','=','lorry.driver_phone')
+                ->join('app_lorry','app_lorry.phone','=','lorry.driver_phone','INNER')
                 ->where('lorry.exist', '=', 0)
                 ->where('lorry.tenant_id', '=', $tenant_id)
                 ->where('app_lorry.flag', '=', $flag)
