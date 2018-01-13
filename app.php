@@ -1764,7 +1764,7 @@ $app->post('/change_orders_status',function()use($app){
                                         ->into('exception')
                                         ->values(array_values(array('交付帮手',$data1['name'].'('.$data1['plate_number'].')',$date,$data2[$i]['tenant_id'],$data4[$y]['order_id'],(count($data5)+100000001))));
                                     $insertId = $insertStatement->execute(false);
-                                    $updateStatement = $database->update(array('exception_id'=>(count($data5)+100000001)))
+                                    $updateStatement = $database->update(array('exception_id'=>(count($data5)+100000001),'order_status'=>5))
                                         ->table('orders')
                                         ->where('tenant_id','=',$data2[$i]['tenant_id'])
                                         ->where('order_id','=',$data4[$y]['order_id'])
@@ -1878,7 +1878,7 @@ $app->post('/change_orders_status2',function()use($app){
                                             ->into('exception')
                                             ->values(array_values(array('交付帮手',$data1['name'].'('.$data1['plate_number'].')',$date,$data2[$i]['tenant_id'],$data4[$y]['order_id'],(count($data5)+100000001))));
                                         $insertId = $insertStatement->execute(false);
-                                        $updateStatement = $database->update(array('exception_id'=>(count($data5)+100000001)))
+                                        $updateStatement = $database->update(array('exception_id'=>(count($data5)+100000001),'order_status'=>5))
                                             ->table('orders')
                                             ->where('tenant_id','=',$data2[$i]['tenant_id'])
                                             ->where('order_id','=',$data4[$y]['order_id'])
