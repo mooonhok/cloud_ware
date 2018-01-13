@@ -228,6 +228,7 @@ $app->get('/getLorry',function()use($app){
                 ->join('app_lorry','app_lorry.phone','=','lorry.driver_phone','INNER')
                 ->where('lorry.exist', '=', 0)
                 ->where('lorry.tenant_id', '=', $tenant_id)
+                ->where('lorry.flag', '=', $flag)
                 ->where('app_lorry.flag', '=', $flag)
                 ->where('lorry.driver_phone', '=', $driver_phone);
             $stmt = $selectStatement->execute();
