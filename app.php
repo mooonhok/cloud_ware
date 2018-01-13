@@ -1472,7 +1472,7 @@ $app->post('/receivesc',function()use($app){
                     echo json_encode(array('result' => '4', 'desc' => '该清单上的司机不存在'));
                 }
             }else{
-                echo json_encode(array('result' => '3', 'desc' => '清单不存在或未确认'));
+                echo json_encode(array('result' => '3', 'desc' => '清单已被接收或不存在'));
             }
         }else{
             echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
