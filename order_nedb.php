@@ -748,6 +748,31 @@ $app->put('/alterOrder15',function()use($app){
     }
 });
 
+$app->put('/alterOrder16',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $order_id = $body->order_id;
+    $is_back= $body->is_back;
+    if($tenant_id!=null||$tenant_id!=''){
+        if($order_id!=null||$order_id!=''){
+            $updateStatement = $database->update(array('is_back'=>$is_back))
+                ->table('orders')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('exist','=',0)
+                ->where('order_id','=',$order_id);
+            $affectedRows = $updateStatement->execute();
+            echo json_encode(array("result" => "0", "desc" => "success"));
+        }else{
+            echo json_encode(array("result" => "1", "desc" => "缺少运单id"));
+        }
+    }else{
+        echo json_encode(array("result" => "2", "desc" => "缺少租户id"));
+    }
+});
+
 
 //根据运单id和发货人名模糊查询
 $app->get('/getOrders_orderid_or_sender', function () use ($app) {
