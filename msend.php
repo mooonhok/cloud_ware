@@ -174,20 +174,22 @@ $app->post("/schedules_sign",function()use($app,$clapi){
             $phone=$data2['customer_phone'];
 //            $name=$data2['customer_name'];
             $params = $phone.',您好';
-            $result = $clapi->sendVariableSMS($msg, $params);
             if($data1[$i]['note_remain']>=1){
+            $result = $clapi->sendVariableSMS($msg, $params);
+
             if(!is_null(json_decode($result))){
                 $output=json_decode($result,true);
                 if(isset($output['code'])  && $output['code']=='0'){
-
                     $arrays1['note_remain']=(int)$data1[$i]['note_remain']-1;
                     $updateStatement = $database->update($arrays1)
                         ->table('tenant')
                         ->where('tenant_id', '=', $data1[$i]['tenant_id']);
                     $affectedRows = $updateStatement->execute();
-                    $insertStatement = $database->insert(array('tenant_id','order_id','fcity','tcity','phone','type','exist'))
+                    date_default_timezone_set("PRC");
+
+                    $insertStatement = $database->insert(array('tenant_id','order_id','fcity','tcity','phone','type','exist','time'))
                         ->into('note')
-                        ->values(array($data1[$i]['tenant_id'],$orderid,$data3['name'],$data4['name'],$phone,4,0));
+                        ->values(array($data1[$i]['tenant_id'],$orderid,$data3['name'],$data4['name'],$phone,4,0,date("Y-m-d H:i",time())));
                     $insertId = $insertStatement->execute(false);
                     echo json_encode(array("result" => "0", "desc" => '发送成功'));
                 }else{
