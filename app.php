@@ -1364,7 +1364,7 @@ $app->post('/suresc1',function()use($app){
                        if($affectedRows>0){
                            echo json_encode(array('result' => '0', 'desc' => '确认成功'));
                        }else{
-                           echo json_encode(array('result' => '6', 'desc' => '确认成功'));
+                           echo json_encode(array('result' => '6', 'desc' => '该清单不是您的'));
                        }
 
                    }else{

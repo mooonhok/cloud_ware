@@ -3963,6 +3963,7 @@ $app->get('/limitGoodsOrders10',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
         if($size!=null||$size!=''){
             if($offset!=null||$offset!=''){
+                $datab=array();
                 $data1=array();
                 $data10=array();
                 $selectStatement = $database->select()
@@ -4085,8 +4086,9 @@ $app->get('/limitGoodsOrders10',function()use($app){
                     $data1[$i]['receiver']['receiver_city']=$data7;
                     $data1[$i]['receiver']['receiver_province']=$data9;
                     $data1[$i]['inventory_loc']=$data5;
+                    array_push($datab,$data[$i]);
                 }
-                echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
+                echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$datab));
             }else{
                 echo json_encode(array('result'=>'1','desc'=>'偏移量为空'));
             }
