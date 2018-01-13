@@ -4086,7 +4086,7 @@ $app->get('/limitGoodsOrders10',function()use($app){
                     $data1[$i]['receiver']['receiver_city']=$data7;
                     $data1[$i]['receiver']['receiver_province']=$data9;
                     $data1[$i]['inventory_loc']=$data5;
-                    array_push($datab,$data[$i]);
+                    array_push($datab,$data1[$i]);
                 }
                 echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$datab));
             }else{
