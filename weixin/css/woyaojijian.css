@@ -468,6 +468,7 @@ html,body{height:100%; width:100%;
 	/* border: 1px solid red; */
 	float: left;
 	margin-left: 5%;
+	margin-top:20px;
 }
 .box6-2-1{
 	width: 40%;
@@ -476,6 +477,7 @@ html,body{height:100%; width:100%;
 	color: white;
 	float: left;
 	line-height: 50px;
+	margin-left:5%;
 	/*margin-top: 25px;*/
 	border-radius: 5px;
 }
@@ -496,7 +498,7 @@ html,body{height:100%; width:100%;
 	background: #24D9CA;
 	color: white;
 	float: left;
-	/*margin-left: 5%;*/
+	margin-left: 5%;
 	line-height: 50px;
 	margin-top: 10px;
 	border-radius: 5px;
@@ -1085,7 +1087,7 @@ input[disabled],input:disabled,input.disabled{
 				background: #24D9CA;
 				color: white;
 				float: left;
-				margin-left: 5%;
+				margin-left: 7%;
 				line-height: 40px;
 				/* margin-top: 25px; */
 				border-radius: 5px;
