@@ -224,8 +224,8 @@ $app->get('/getLorry',function()use($app){
         if($driver_phone!=null||$driver_phone!=''){
 
             $selectStatement = $database->select()
-                ->from('lorry')
-                ->join('app_lorry','app_lorry.phone','=','lorry.driver_phone','INNER')
+                ->from('app_lorry')
+                ->join('lorry','app_lorry.phone','=','lorry.driver_phone','INNER')
                 ->where('lorry.tenant_id', '=', $tenant_id)
                 ->where('lorry.flag', '=', $flag)
                 ->where('app_lorry.flag', '=', $flag)
