@@ -1361,7 +1361,12 @@ $app->post('/suresc1',function()use($app){
                            ->table('scheduling')
                            ->where('scheduling_id', '=', $schedule_id);
                        $affectedRows = $updateStatement->execute();
-                       echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+                       if($affectedRows>0){
+                           echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+                       }else{
+                           echo json_encode(array('result' => '6', 'desc' => '确认成功'));
+                       }
+
                    }else{
                        echo json_encode(array('result' => '5', 'desc' => '该清单不是您的'));
                    }
