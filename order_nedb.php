@@ -733,7 +733,7 @@ $app->put('/alterOrder15',function()use($app){
     $order_datetime1 = $body->order_datetime1;
     if($tenant_id!=null||$tenant_id!=''){
         if($order_id!=null||$order_id!=''){
-            $updateStatement = $database->update(array('order_status'=>1,'order_datetime1'=>$order_datetime1,'order_datetime2'=>'','order_datetime3'=>''))
+            $updateStatement = $database->update(array('order_status'=>1,'order_datetime1'=>$order_datetime1,'order_datetime2'=>null,'order_datetime3'=>null))
                 ->table('orders')
                 ->where('tenant_id','=',$tenant_id)
                 ->where('exist','=',0)
