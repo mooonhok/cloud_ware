@@ -41,14 +41,11 @@ $app->post('/getcityname',function()use($app){
 
 
 
-
-
-
 $app->get('/mini_tenants',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
-    $type=$app->request->get('type');
+    $type=$app->request->get('flag');
     $fcity=$app->request->get('fcity');
     $tcity=$app->request->get('tcity');
     $arrays=array();
@@ -93,7 +90,7 @@ $app->get('/mini_tenants',function()use($app){
                             $arrays1['exist']=$data[$x]['exist'];
                             $arrays1['fcityname']=$fcity;
                             $arrays1['tcityname']=$tcity;
-                            $arrays1['type']=$type;
+                            $arrays1['flag']=$type;
                             array_push($arrays1,$arrays);
                         }
                     }
