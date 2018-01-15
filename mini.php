@@ -52,12 +52,12 @@ $app->get('/mini_tenants',function()use($app){
     if($type!=null||$type!=""){
         if($fcity!=null||$fcity!=""){
             if($tcity!=null||$tcity!=""){
-//                 $selectStatement = $database->select()
-//                     ->from('mini_tenant')
-//                     ->where('exist','=',0)
-//                     ->where('flag', '=', $type);
-//                  $stmt = $selectStatement->execute();
-//                  $data= $stmt->fetchAll();
+                 $selectStatement = $database->select()
+                     ->from('mini_tenant')
+                     ->where('exist','=',0)
+                     ->where('flag', '=', $type);
+                  $stmt = $selectStatement->execute();
+                  $data= $stmt->fetchAll();
 //                if($data!=null){
                     $selectStatement = $database->select()
                         ->from('mini_city')
@@ -69,7 +69,10 @@ $app->get('/mini_tenants',function()use($app){
                         ->where('name', '=', $tcity);
                     $stmt = $selectStatement->execute();
                     $data3= $stmt->fetch();
-                echo json_encode(array("result"=>"0","desc"=>"",'cityid'=>$data2['id']."%%%%".$data3['id']));
+                 echo $data['id'];
+
+
+//                echo json_encode(array("result"=>"0","desc"=>"",'cityid'=>$data2['id']."%%%%".$data3['id']));
 //                    for($x=0;$x<count($data);$x++){
 //                        $selectStatement = $database->select()
 //                            ->from('mini_route')
