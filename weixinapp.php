@@ -44,7 +44,7 @@ $app->post('/getcityname',function()use($app){
 
 
 
-$app->get('/getmini_tenants',function()use($app){
+$app->get('/mini_tenants',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
@@ -112,7 +112,7 @@ $app->get('/getmini_tenants',function()use($app){
     }
 });
 
-$app->get('/getmini_tenants',function()use($app){
+$app->get('/mini_tenant',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
