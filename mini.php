@@ -52,13 +52,6 @@ $app->get('/mini_tenants',function()use($app){
     if($type!=null||$type!=""){
         if($fcity!=null||$fcity!=""){
             if($tcity!=null||$tcity!=""){
-                 $selectStatement = $database->select()
-                     ->from('mini_tenant')
-                     ->where('exist','=',0)
-                     ->where('flag', '=', $type);
-                  $stmt = $selectStatement->execute();
-                  $data= $stmt->fetchAll();
-//                if($data!=null){
                     $selectStatement = $database->select()
                         ->from('mini_city')
                         ->where('name', '=', $fcity);
@@ -69,40 +62,26 @@ $app->get('/mini_tenants',function()use($app){
                         ->where('name', '=', $tcity);
                     $stmt = $selectStatement->execute();
                     $data3= $stmt->fetch();
-                    echo $data;
-
-
-//                echo json_encode(array("result"=>"0","desc"=>"",'cityid'=>$data2['id']."%%%%".$data3['id']));
-//                    for($x=0;$x<count($data);$x++){
-//                        $selectStatement = $database->select()
-//                            ->from('mini_route')
-//                            ->where('tid','=',$data[$x]['id'])
-//                            ->where('fcity_id','=',$data2['id'])
-//                            ->where('tcity_id', '=', $data3['id']);
-//                        $stmt = $selectStatement->execute();
-//                        $data5= $stmt->fetch();
-//
-//                        if($data5!=null){
-//                            $arrays1['name']=$data[$x]['name'];
-//                            $arrays1['img']=$data[$x]['img'];
-//                            $arrays1['intro']=$data[$x]['intro'];
-//                            $arrays1['person']=$data[$x]['person'];
-//                            $arrays1['phone']=$data[$x]['phone'];
-//                            $arrays1['address']=$data[$x]['address'];
-//                            $arrays1['latitude']=$data[$x]['latitude'];
-//                            $arrays1['longitude']=$data[$x]['longitude'];
-//                            $arrays1['public_img']=$data[$x]['public_img'];
-//                            $arrays1['exist']=$data[$x]['exist'];
-//                            $arrays1['fcityname']=$fcity;
-//                            $arrays1['tcityname']=$tcity;
-//                            $arrays1['flag']=$type;
-//                            array_push($arrays1,$arrays);
-//                        }
-//                    }
-//                    echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
-//                 }else{
-//                 echo json_encode(array("result"=>"2","desc"=>"尚未有数据"));
-//                }
+                      $selectStatement = $database->select()
+                          ->from('mini_route')
+                          ->where('fcity_id','=',$data2['id'])
+                          ->where('tcity_id', '=', $data3['id']);
+                     $stmt = $selectStatement->execute();
+                    $data= $stmt->fetchAll();
+                   if($data!=null){
+                       for($x=0;$x<count($data);$x++){
+                           $selectStatement = $database->select()
+                               ->from('mini_tenant')
+                               ->where('exist','=',0)
+                               ->where('id','=',$data[$x]['tid']);
+                           $stmt = $selectStatement->execute();
+                           $data5= $stmt->fetch();
+                           array_push($arrays,$data5);
+                       }
+                       echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
+                   }else{
+                       echo json_encode(array("result"=>"5","desc"=>"该线路未有公司加盟"));
+                   }
             }else{
                 echo json_encode(array("result"=>"4","desc"=>"缺少到达城市"));
             }
