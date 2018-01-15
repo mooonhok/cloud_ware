@@ -1800,6 +1800,7 @@ $app->post('/change_orders_status2',function()use($app){
     $lorryid=$body->lorryid;
 //    $scheduling_id=$body->scheduling_id;
 //    $time=time();
+    $aaa=1;
     $longitude=$body->longitude;
     $latitude=$body->latitude;
     if($lorryid!=null||$lorryid!=""){
@@ -1847,7 +1848,7 @@ $app->post('/change_orders_status2',function()use($app){
                             ->where('lorry_id','=',$data2[$i]['lorry_id']);
                         $affectedRows = $updateStatement->execute();
                         if($affectedRows>0){
-
+                                  $aaa=1;
                             for($x=0;$x<count($datad);$x++){
                                 $time=time();
                                 $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
@@ -1890,7 +1891,12 @@ $app->post('/change_orders_status2',function()use($app){
                         }
 
                 }
-                echo json_encode(array('result' => '0', 'desc' => 'success'));
+                if($aaa==1){
+                    echo json_encode(array('result' => '0', 'desc' => 'success'));
+                }else{
+                    echo json_encode(array('result' => '1', 'desc' => 'success'));
+                }
+
             }else{
                 echo json_encode(array('result' => '4', 'desc' => '该车辆不属于本公司司机'));
             }
