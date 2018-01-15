@@ -69,7 +69,7 @@ $app->get('/mini_tenants',function()use($app){
                         ->where('name', '=', $tcity);
                     $stmt = $selectStatement->execute();
                     $data3= $stmt->fetch();
-                 echo $data['id'];
+                    echo $data;
 
 
 //                echo json_encode(array("result"=>"0","desc"=>"",'cityid'=>$data2['id']."%%%%".$data3['id']));
