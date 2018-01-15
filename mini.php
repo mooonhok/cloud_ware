@@ -55,7 +55,7 @@ $app->get('/mini_tenants',function()use($app){
                  $selectStatement = $database->select()
                      ->from('mini_tenant')
                      ->where('exist','=',0)
-                     ->where('type', '=', $type);
+                     ->where('flag', '=', $type);
                   $stmt = $selectStatement->execute();
                   $data= $stmt->fetchAll();
                 if($data!=null){
