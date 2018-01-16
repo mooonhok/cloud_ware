@@ -164,74 +164,75 @@ $app->get('/city',function()use($app){
     }
 });
 //计算距离
-//$app->post('/distance',function()use($app){
-//    $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
-//    $body=$app->request->getBody();
-//    $database=localhost();
-//    $body=json_decode($body);
-//    $type=$body->flag;
-//    $fcity=$body->fcity;
-//    $tcity=$body->tcity;
-//    $lat1=$body->lat1;
-//    $lat2=$body->lat2;
-//    $lng1=$body->lng1;
-//    $lng2=$body->lng2;
-//    $radLat1 = deg2rad($lat1); //deg2rad()函数将角度转换为弧度
-//    $radLat2 = deg2rad($lat2);
-//    $radLng1 = deg2rad($lng1);
-//    $radLng2 = deg2rad($lng2);
-//    $a = $radLat1 - $radLat2;
-//    $b = $radLng1 - $radLng2;
-//    $s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2))) * 6378.137 * 1000;
-//    echo $s;
-//    $arrays=array();
-//    if($type!=null||$type!=""){
-//        if($fcity!=null||$fcity!=""){
-//            if($tcity!=null||$tcity!=""){
-//                $selectStatement = $database->select()
-//                    ->from('mini_city')
-//                    ->where('name', '=', $fcity);
-//                $stmt = $selectStatement->execute();
-//                $data2= $stmt->fetch();
-//                $selectStatement = $database->select()
-//                    ->from('mini_city')
-//                    ->where('name', '=', $tcity);
-//                $stmt = $selectStatement->execute();
-//                $data3= $stmt->fetch();
-//                $selectStatement = $database->select()
-//                    ->from('mini_route')
-//                    ->where('fcity_id','=',$data2['id'])
-//                    ->where('tcity_id', '=', $data3['id']);
-//                $stmt = $selectStatement->execute();
-//                $data= $stmt->fetchAll();
-//                if($data!=null){
-//                    for($x=0;$x<count($data);$x++){
-//                        $selectStatement = $database->select()
-//                            ->from('mini_tenant')
-//                            ->where('exist','=',0)
-//                            ->where('id','=',$data[$x]['tid']);
-//                        $stmt = $selectStatement->execute();
-//                        $data5= $stmt->fetch();
-////                        $radLng2 = deg2rad($data5['']);
-//
-//                        array_push($arrays,$data5);
-//                    }
-//                    echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
-//                }else{
-//                    echo json_encode(array("result"=>"5","desc"=>"该线路未有公司加盟"));
-//                }
-//            }else{
-//                echo json_encode(array("result"=>"4","desc"=>"缺少到达城市"));
-//            }
-//        }else{
-//            echo json_encode(array("result"=>"3","desc"=>"缺少出发城市"));
-//        }
-//    }else{
-//        echo json_encode(array("result"=>"1","desc"=>"缺少类型"));
-//    }
-//
-//});
+$app->post('/distance',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $body=$app->request->getBody();
+    $database=localhost();
+    $body=json_decode($body);
+    $type=$body->flag;
+    $fcity=$body->fcity;
+    $tcity=$body->tcity;
+    $lat1=$body->lat1;
+    $lng1=$body->lng1;
+    $arrays=array();
+    if($type!=null||$type!=""){
+        if($fcity!=null||$fcity!=""){
+            if($tcity!=null||$tcity!=""){
+                $selectStatement = $database->select()
+                    ->from('mini_city')
+                    ->where('name', '=', $fcity);
+                $stmt = $selectStatement->execute();
+                $data2= $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('mini_city')
+                    ->where('name', '=', $tcity);
+                $stmt = $selectStatement->execute();
+                $data3= $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('mini_route')
+                    ->where('fcity_id','=',$data2['id'])
+                    ->where('tcity_id', '=', $data3['id']);
+                $stmt = $selectStatement->execute();
+                $data= $stmt->fetchAll();
+                if($data!=null){
+                    for($x=0;$x<count($data);$x++){
+                        $selectStatement = $database->select()
+                            ->from('mini_tenant')
+                            ->where('exist','=',0)
+                            ->where('flag','=',$type)
+                            ->where('id','=',$data[$x]['tid']);
+                        $stmt = $selectStatement->execute();
+                        $data5= $stmt->fetch();
+                        if($data5!=null) {
+                            $lng2 = $data5['longitude'];
+                            $lat2 = $data5['latitude'];
+                            $radLat1 = deg2rad($lat1); //deg2rad()函数将角度转换为弧度
+                            $radLat2 = deg2rad($lat2);
+                            $radLng1 = deg2rad($lng1);
+                            $radLng2 = deg2rad($lng2);
+                            $a = $radLat1 - $radLat2;
+                            $b = $radLng1 - $radLng2;
+                            $s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2))) * 6378.137 * 1000;
+                            $data5['awaylong']=$s;
+                            array_push($arrays,$data5);
+                        }
+                    }
+                    echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
+                }else{
+                    echo json_encode(array("result"=>"5","desc"=>"该线路未有公司加盟"));
+                }
+            }else{
+                echo json_encode(array("result"=>"4","desc"=>"缺少到达城市"));
+            }
+        }else{
+            echo json_encode(array("result"=>"3","desc"=>"缺少出发城市"));
+        }
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"缺少类型"));
+    }
+
+});
 
 
 $app->run();
