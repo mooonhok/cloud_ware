@@ -128,7 +128,7 @@ $app->get('/mini_tenant',function()use($app){
                 $data2[$x]['fcity']=$data3['name'];
                 $data2[$x]['tcity']=$data4['name'];
             }
-            $data['rounte']=$data2;
+            $data['route']=$data2;
             echo json_encode(array("result"=>"0","desc"=>"","mini_tenant"=>$data));
         }else{
             echo json_encode(array("result"=>"2","desc"=>"租户公司不存在"));
@@ -176,7 +176,6 @@ $app->post('/distance',function()use($app){
     $lat1=$body->lat1;
     $lng1=$body->lng1;
     $arrays=array();
-
     if($type!=null||$type!=""){
         if($fcity!=null||$fcity!=""){
             if($tcity!=null||$tcity!=""){
@@ -237,7 +236,6 @@ $app->post('/distance',function()use($app){
     }else{
         echo json_encode(array("result"=>"1","desc"=>"缺少类型"));
     }
-
 });
 
 
