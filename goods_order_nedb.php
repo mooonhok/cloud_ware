@@ -2366,9 +2366,9 @@ $app->get('/limitGoodsOrders8',function()use($app){
                 $data1b=array();
                 for($i=0;$i<count($data1);$i++){
                     $cc=0;
-                    if($i==0){
-                      array_push($data1a,$data1[$i]);
-                    }
+//                    if($i==0){
+//                      array_push($data1a,$data1[$i]);
+//                    }
                     for($j=0;$j<$i;$j++){
                         if($data1[$j]['sender_id']==$data1[$i]['sender_id']&&$data1[$j]['receiver_id']==$data1[$i]['receiver_id']&&$data1[$j]['goods_name']==$data1[$i]['goods_name']){
                             break;
