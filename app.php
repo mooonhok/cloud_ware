@@ -1772,13 +1772,53 @@ $app->post('/change_orders_status',function()use($app){
                                 }
                             }
                             $aaa++;
+                        }else{
+                            $selectStament=$database->select()
+                                ->from('scheduling')
+                                ->where('exist','=',0)
+                                ->where('scheduling_status','<',4)
+                                ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                                ->where('scheduling_id','=',$scheduling_id)
+                                ->where('lorry_id','=',$data2[$i]['lorry_id']);
+                            $stmt=$selectStament->execute();
+                            $data5=$stmt->fetch();
+                            $selectStament=$database->select()
+                                ->from('scheduling')
+                                ->where('exist','=',0)
+                                ->where('scheduling_status','=',6)
+                                ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                                ->where('scheduling_id','=',$scheduling_id)
+                                ->where('lorry_id','=',$data2[$i]['lorry_id']);
+                            $stmt=$selectStament->execute();
+                            $data6=$stmt->fetch();
+                            $selectStament=$database->select()
+                                ->from('scheduling')
+                                ->where('exist','=',0)
+                                ->where('scheduling_status','=',8)
+                                ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                                ->where('scheduling_id','=',$scheduling_id)
+                                ->where('lorry_id','=',$data2[$i]['lorry_id']);
+                            $stmt=$selectStament->execute();
+                            $data7=$stmt->fetch();
                         }
 
                     }
                     if($aaa!=0){
-                        echo json_encode(array('result' => '0', 'desc' => 'success'));
+                        echo json_encode(array('result' => '0', 'desc' => '退单中，待审核'));
                     }else{
-                        echo json_encode(array('result' => '5', 'desc' => 'success'));
+                        if($data5){
+                            echo json_encode(array('result' => '6', 'desc' => '物流公司尚未发车，无法退单'));
+                        }else{
+                            if($data6){
+                                echo json_encode(array('result' => '5', 'desc' => '该调度单退单审核中'));
+                            }else{
+                               if($data7){
+                                   echo json_encode(array('result' => '7', 'desc' => '该调度单出险中'));
+                               }
+                            }
+
+                        }
+
                     }
                 }else{
                     echo json_encode(array('result' => '4', 'desc' => '该车辆不属于本公司司机'));
