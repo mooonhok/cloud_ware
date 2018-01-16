@@ -96,11 +96,14 @@ $app->post('/addlorry0',function()use($app){
         echo  json_encode(array("result"=>"1","desc"=>"您未填写电话号码"));
     }
 });
-$app->get("/schedule_on",function()use($app){
+$app->post("/schedule_on",function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
-    $scheduling_id = $app->request->get("scheduling_id");
+//    $scheduling_id = $app->request->get("scheduling_id");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $scheduling_id=$body->scheduling_id;
     if($scheduling_id!=null||$scheduling_id!=""){
         $selectStament=$database->select()
             ->from('scheduling')
@@ -1614,7 +1617,10 @@ $app->get('/getOrderCosts',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
-    $scheduling_id = $app->request->get("scheduling_id");
+//    $scheduling_id = $app->request->get("scheduling_id");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $scheduling_id=$body->scheduling_id;
     $selectStament=$database->select()
         ->from('schedule_order')
         ->where('schedule_order.exist','=',0)
@@ -1915,9 +1921,9 @@ $app->post('/change_orders_status2',function()use($app){
                                             ->where('tenant_id', '=', $data2[$i]['tenant_id']);
                                         $stmt = $selectStatement->execute();
                                         $data5 = $stmt->fetchAll();
-                                        $insertStatement = $database->insert(array('exception_source','exception_person','exception_time','exception_comment','tenant_id','exception_id'))
+                                        $insertStatement = $database->insert(array('exception_source','exception_person','exception_time','exception_comment','tenant_id','exception_id','order_id'))
                                             ->into('exception')
-                                            ->values(array_values(array('交付帮手',$data1['name'].'('.$data1['plate_number'].')',$date,'事故出险',$data2[$i]['tenant_id'],(count($data5)+100000001))));
+                                            ->values(array_values(array('交付帮手',$data1['name'].'('.$data1['plate_number'].')',$date,'事故出险',$data2[$i]['tenant_id'],(count($data5)+100000001),$data4[$y]['order_id'])));
                                         $insertId = $insertStatement->execute(false);
                                         $updateStatement = $database->update(array('exception_id'=>(count($data5)+100000001),'order_status'=>5))
                                             ->table('orders')
