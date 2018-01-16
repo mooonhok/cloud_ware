@@ -939,7 +939,7 @@ $app->get('/schistory',function()use($app){
                 }
                 echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$arrays));
             }else{
-                echo json_encode(array('result' => '3', 'desc' => '您还未拉过货物'));
+                echo json_encode(array('result' => '3', 'desc' => '暂无数据'));
             }
         }else{
             echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
@@ -1020,7 +1020,7 @@ $app->get('/scnoaccept',function()use($app){
                 }
                 echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$arrays));
             }else{
-                echo json_encode(array('result' => '3', 'desc' => '您还未拉过货物'));
+                echo json_encode(array('result' => '3', 'desc' => '暂无数据'));
             }
         }else{
             echo json_encode(array('result' => '2', 'desc' => '您还不是运输车辆'));

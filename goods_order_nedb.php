@@ -2366,6 +2366,9 @@ $app->get('/limitGoodsOrders8',function()use($app){
                 $data1b=array();
                 for($i=0;$i<count($data1);$i++){
                     $cc=0;
+                    if($i==0){
+                      array_push($data1a,$data1[$i]);
+                    }
                     for($j=0;$j<$i;$j++){
                         if($data1[$j]['sender_id']==$data1[$i]['sender_id']&&$data1[$j]['receiver_id']==$data1[$i]['receiver_id']&&$data1[$j]['goods_name']==$data1[$i]['goods_name']){
                             break;
@@ -2373,7 +2376,8 @@ $app->get('/limitGoodsOrders8',function()use($app){
                         $cc++;
                     }
                     if($cc==$i) {
-                        $data1a[$i]=$data1[$i];
+                        array_push($data1a,$data1[$i]);
+//                        $data1a[$i]=$data1[$i];
                     }
                 }
                 $num=0;
@@ -2429,7 +2433,8 @@ $app->get('/limitGoodsOrders8',function()use($app){
                     $data1a[$g]['receiver']['receiver_city']=$data7;
                     $data1a[$g]['receiver']['receiver_province']=$data9;
 //                $data1a[$i]['inventory_loc']=$data5;
-                    $data1b[$g]=$data1a[$g];
+//                    $data1b[$g]=$data1a[$g];
+                    array_push($data1b,$data1a[$g]);
                 }
 
 
