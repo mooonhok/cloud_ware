@@ -181,7 +181,6 @@ $app->post('/distance',function()use($app){
     $arrays=array();
     if($type!=null||$type!=""){
         if($fcity!=null||$fcity!=""||$tcity!=null||$tcity!=""){
-
                 $selectStatement = $database->select()
                     ->from('mini_city')
                     ->where('name', '=', $fcity);
@@ -217,7 +216,7 @@ $app->post('/distance',function()use($app){
                             $a = $radLat1 - $radLat2;
                             $b = $radLng1 - $radLng2;
                             $s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2))) * 6378.137 * 1000;
-                            $data5['awaylong']=strval($s);
+                            $data5['awaylong']=strval(number_format($s/1000,2));
                             array_push($arrays,$data5);
                         }
                     }
