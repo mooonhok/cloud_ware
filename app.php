@@ -96,14 +96,11 @@ $app->post('/addlorry0',function()use($app){
         echo  json_encode(array("result"=>"1","desc"=>"您未填写电话号码"));
     }
 });
-$app->post("/schedule_on",function()use($app){
+$app->get("/schedule_on",function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
-//    $scheduling_id = $app->request->get("scheduling_id");
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $scheduling_id=$body->scheduling_id;
+    $scheduling_id = $app->request->get("scheduling_id");
     if($scheduling_id!=null||$scheduling_id!=""){
         $selectStament=$database->select()
             ->from('scheduling')
@@ -598,7 +595,7 @@ $app->post('/check',function()use($app){
                 if($data1['time']<=$time){
                     echo json_encode(array('result' => '0', 'desc' => ''));
                 }else{
-                    echo json_encode(array('result' => '4', 'desc' => '您已经在其他地方登录该账号，请重新登录'.$time.'///'.$data1['time']));
+                    echo json_encode(array('result' => '4', 'desc' => '您已经在其他地方登录该账号，请重新登录'));
                 }
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '司机不存在'));
@@ -1613,14 +1610,12 @@ $app->post('/match_user',function()use($app){
     }
 });
 
-$app->post('/getOrderCosts',function()use($app){
+$app->get('/getOrderCosts',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
-//    $scheduling_id = $app->request->get("scheduling_id");
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $scheduling_id=$body->scheduling_id;
+    $scheduling_id = $app->request->get("scheduling_id");
+
     $selectStament=$database->select()
         ->from('schedule_order')
         ->where('schedule_order.exist','=',0)
