@@ -160,6 +160,27 @@ $app->get('/city',function()use($app){
         echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
     }
 });
+
+$app->post('/distance',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $lat1=$body->lat1;
+    $lat2=$body->lat2;
+    $lng1=$body->lng1;
+    $lng2=$body->lng2;
+    $radLat1 = deg2rad($lat1); //deg2rad()函数将角度转换为弧度
+    $radLat2 = deg2rad($lat2);
+    $radLng1 = deg2rad($lng1);
+    $radLng2 = deg2rad($lng2);
+    $a = $radLat1 - $radLat2;
+    $b = $radLng1 - $radLng2;
+    $s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2))) * 6378.137 * 1000;
+    echo $s;
+});
+
+
 $app->run();
 
 function localhost(){
