@@ -1800,7 +1800,7 @@ $app->post('/change_orders_status2',function()use($app){
     $lorryid=$body->lorryid;
 //    $scheduling_id=$body->scheduling_id;
 //    $time=time();
-    $aaa=1;
+    $aaa=0;
     $longitude=$body->longitude;
     $latitude=$body->latitude;
     if($lorryid!=null||$lorryid!=""){
