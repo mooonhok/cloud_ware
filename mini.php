@@ -180,8 +180,8 @@ $app->post('/distance',function()use($app){
     $lng1=$body->lng1;
     $arrays=array();
     if($type!=null||$type!=""){
-        if($fcity!=null||$fcity!=""){
-            if($tcity!=null||$tcity!=""){
+        if($fcity!=null||$fcity!=""||$tcity!=null||$tcity!=""){
+
                 $selectStatement = $database->select()
                     ->from('mini_city')
                     ->where('name', '=', $fcity);
@@ -230,11 +230,14 @@ $app->post('/distance',function()use($app){
                 }else{
                     echo json_encode(array("result"=>"5","desc"=>"该线路未有公司加盟"));
                 }
-            }else{
-                echo json_encode(array("result"=>"4","desc"=>"缺少到达城市"));
-            }
         }else{
-            echo json_encode(array("result"=>"3","desc"=>"缺少出发城市"));
+            $selectStatement = $database->select()
+                ->from('mini_tenant')
+                ->where('exist','=',0)
+                ->where('flag','=',$type);
+            $stmt = $selectStatement->execute();
+            $data5= $stmt->fetchAll();
+            echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$data5));
         }
     }else{
         echo json_encode(array("result"=>"1","desc"=>"缺少类型"));
