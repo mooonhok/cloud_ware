@@ -1613,7 +1613,7 @@ $app->post('/match_user',function()use($app){
     }
 });
 
-$app->get('/getOrderCosts',function()use($app){
+$app->post('/getOrderCosts',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
