@@ -225,7 +225,7 @@ $app->post('/distance',function()use($app){
                         $id[$key] = (int)$row ['awaylong'];
                         $name[$key]=$row['id'];
                     }
-                    array_multisort($id, SORT_ASC, $name, SORT_DESC, $arrays);
+                    array_multisort($id, SORT_ASC, $name, SORT_ASC, $arrays);
                     echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
                 }else{
                     echo json_encode(array("result"=>"5","desc"=>"该线路未有公司加盟"));
