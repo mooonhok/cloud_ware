@@ -217,12 +217,12 @@ $app->post('/distance',function()use($app){
                             $a = $radLat1 - $radLat2;
                             $b = $radLng1 - $radLng2;
                             $s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2))) * 6378.137 * 1000;
-                            $data5['awaylong']=$s;
+                            $data5['awaylong']=strval($s);
                             array_push($arrays,$data5);
                         }
                     }
                     foreach ( $arrays as $key => $row ){
-                        $id[$key] = $row ['awaylong'];
+                        $id[$key] = (int)$row ['awaylong'];
                         $name[$key]=$row['id'];
                     }
                     array_multisort($id, SORT_ASC, $name, SORT_DESC, $arrays);
