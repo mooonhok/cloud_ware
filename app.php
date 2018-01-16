@@ -1841,6 +1841,7 @@ $app->post('/change_orders_status2',function()use($app){
 //    $scheduling_id=$body->scheduling_id;
 //    $time=time();
     $aaa=0;
+    $aab=0;
     $longitude=$body->longitude;
     $latitude=$body->latitude;
     if($lorryid!=null||$lorryid!=""){
@@ -1887,7 +1888,7 @@ $app->post('/change_orders_status2',function()use($app){
 //                            ->where('scheduling_id','=',$scheduling_id)
                             ->where('lorry_id','=',$data2[$i]['lorry_id']);
                         $affectedRows = $updateStatement->execute();
-                        if($affectedRows>0){
+                        if($affectedRows>0&&$datad){
                                   $aaa=1;
                             for($x=0;$x<count($datad);$x++){
                                 $time=time();
@@ -1927,14 +1928,12 @@ $app->post('/change_orders_status2',function()use($app){
                                     }
                                 }
                             }
-
                         }
-
                 }
                 if($aaa==1){
-                    echo json_encode(array('result' => '0', 'desc' => 'success'));
+                    echo json_encode(array('result' => '0', 'desc' => '正在上报物流公司'));
                 }else{
-                    echo json_encode(array('result' => '1', 'desc' => 'success'));
+                    echo json_encode(array('result' => '1', 'desc' => '无清单可上报或已经上报物流公司，请耐心等待'));
                 }
 
             }else{
