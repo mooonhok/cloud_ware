@@ -77,7 +77,9 @@ $app->get('/mini_tenants',function()use($app){
                                ->where('id','=',$data[$x]['tid']);
                            $stmt = $selectStatement->execute();
                            $data5= $stmt->fetch();
-                           array_push($arrays,$data5);
+                           if($data5!=null) {
+                               array_push($arrays, $data5);
+                           }
                        }
                        echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
                    }else{
