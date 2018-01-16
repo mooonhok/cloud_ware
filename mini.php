@@ -176,6 +176,7 @@ $app->post('/distance',function()use($app){
     $lat1=$body->lat1;
     $lng1=$body->lng1;
     $arrays=array();
+
     if($type!=null||$type!=""){
         if($fcity!=null||$fcity!=""){
             if($tcity!=null||$tcity!=""){
@@ -218,6 +219,11 @@ $app->post('/distance',function()use($app){
                             array_push($arrays,$data5);
                         }
                     }
+                    foreach ( $arrays as $key => $row ){
+                        $id[$key] = $row ['awaylong'];
+                        $name[$key]=$row['id'];
+                    }
+                    array_multisort($id, SORT_ASC, $name, SORT_DESC, $arrays);
                     echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
                 }else{
                     echo json_encode(array("result"=>"5","desc"=>"该线路未有公司加盟"));
