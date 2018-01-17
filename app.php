@@ -1494,7 +1494,7 @@ $app->post('/last_map1',function()use($app) {
                 ->values(array($schedule_id, $longitude, $latitude, $time));
             $insertId = $insertStatement->execute(false);
             echo json_encode(array('result' => '0', 'desc' => '上传成功'));
-        
+
     }else{
         echo json_encode(array('result' => '1', 'desc' => '清单号不存在'));
     }

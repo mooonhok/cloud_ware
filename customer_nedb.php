@@ -186,6 +186,20 @@ $app->get('/getCustomers1',function()use($app){
             ->where('exist', '=', 0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
+        for($i=0;$i<count($data);$i++){
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data[$i]['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data6 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id', '=', $data6['pid']);
+            $stmt = $selectStatement->execute();
+            $data8 = $stmt->fetch();
+            $data[$i]['customer_city']=$data6['name'];
+            $data[$i]['province']=$data8['name'];
+        }
         echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
