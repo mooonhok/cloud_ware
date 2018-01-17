@@ -916,7 +916,7 @@ $app->get('/schistory',function()use($app){
                         $arrays1['scheduling_id']=$data3[$i]['scheduling_id'];
                         $arrays1['customer_name']=$data4['customer_name'];
                         $arrays1['customer_phone']=$data4['customer_phone'];
-                        $arrays1['scheduling_status']=$data4['scheduling_status'];
+                        $arrays1['scheduling_status']=$data3[$i]['scheduling_status'];
                         $selectStament=$database->select()
                             ->from('city')
                             ->where('id','=',$data4['customer_city_id']);
