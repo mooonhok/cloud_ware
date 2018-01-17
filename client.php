@@ -24,7 +24,7 @@ $app->get('/getLatest',function()use($app){
     if($data!=null){
         $client=$data[0];
         $pack = explode('/',$client['package_url']);
-        $client_url=$pack[3].'/'.$pack[4].'/app.asar';
+        $client_url='/'.$pack[3].'/'.$pack[4].'/app.asar';
         $size = filesize('/files'.$client_url);
         echo  json_encode(array("result"=>"0","desc"=>"success","client"=>$client,'size'=>$size));
     }else{
