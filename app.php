@@ -898,7 +898,7 @@ $app->get('/schistory',function()use($app){
                 for($x=0;$x<count($data2);$x++){
                         $selectStament=$database->select()
                             ->from('scheduling')
-                            ->whereIn('scheduling_status',array(5,6,7,8,9))
+                            ->whereIn('scheduling_status',array(5,7,8,9))
                             ->where('tenant_id','=',$data2[$x]['tenant_id'])
                             ->where('lorry_id','=',$data2[$x]['lorry_id'])
                             ->orderBy('change_datetime','desc');
