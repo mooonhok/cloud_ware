@@ -244,6 +244,24 @@ $app->post('/distance',function()use($app){
 });
 
 
+$app->get('/getbyname',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenantname=$app->request->get('name');
+    if($tenantname!=null||$tenantname!=""){
+        $selectStatement = $database->select()
+            ->from('mini_tenant')
+            ->where('exist','=',0)
+            ->whereLike('name','%'.$tenantname.'%');
+        $stmt = $selectStatement->execute();
+        $data5= $stmt->fetchAll();
+        echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$data5));
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"名字为空"));
+    }
+});
+
 $app->run();
 
 function localhost(){
