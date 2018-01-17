@@ -70,12 +70,12 @@ $app->get('/getAppLorry1',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data2= $stmt->fetch();
                 $data[$i]['lorry_length_name']=$data2['lorry_length'];
-                $selectStatement = $database->select()
-                    ->from('lorry_load')
-                    ->where('lorry_load_id','=',$data[$i]['deadweight']);
-                $stmt = $selectStatement->execute();
-                $data3= $stmt->fetch();
-                $data[$i]['lorry_load_name']=$data3['lorry_load'];
+//                $selectStatement = $database->select()
+//                    ->from('lorry_load')
+//                    ->where('lorry_load_id','=',$data[$i]['deadweight']);
+//                $stmt = $selectStatement->execute();
+//                $data3= $stmt->fetch();
+                $data[$i]['lorry_load_name']=$data[$i]['deadweight'];
                 $selectStatement = $database->select()
                     ->from('lorry_type')
                     ->where('lorry_type_id','=',$data[$i]['type']);
