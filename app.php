@@ -979,6 +979,7 @@ $app->get('/scnoaccept',function()use($app){
                         ->where('scheduling_status','!=',1)
                         ->where('scheduling_status','!=',5)
 //                        ->where('scheduling_status','!=',6)
+                        ->where('scheduling_status','!=',8)
                         ->where('scheduling_status','!=',7)
                         ->where('scheduling_status','!=',9)
                         ->where('tenant_id','=',$data2[$x]['tenant_id'])
@@ -1144,6 +1145,7 @@ $app->get('/tongji',function()use($app){
                          ->where('scheduling_status','!=',1)
                          ->where('scheduling_status','!=',5)
                          ->where('scheduling_status','!=',7)
+                         ->where('scheduling_status','!=',8)
                          ->where('scheduling_status','!=',9)
                          ->where('tenant_id','=',$data2[$i]['tenant_id'])
                          ->where('lorry_id','=',$data2[$i]['lorry_id']);
