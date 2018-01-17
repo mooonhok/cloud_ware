@@ -1975,6 +1975,34 @@ $app->post('/change_orders_status2',function()use($app){
     }
 });
 
+
+$app->get('/company_customer',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $scheduling_id = $app->request->get("scheduling_id");
+
+    $selectStament=$database->select()
+        ->from('scheduling')
+        ->where('exist','=',0)
+        ->where('scheduling_id','=',$scheduling_id);
+    $stmt=$selectStament->execute();
+    $data1=$stmt->fetch();
+    $selectStament=$database->select()
+        ->from('customer')
+        ->whereNotNull('contact_tenant_id')
+        ->where('tenant_id','=',$data1['tenant_id'])
+        ->where('customer_id','=',$data1['receiver_id']);
+    $stmt=$selectStament->execute();
+    $data2=$stmt->fetch();
+    if($data2){
+        echo json_encode(array('result' => '0', 'desc' => 'success'));
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => ''));
+    }
+
+});
+
 $app->run();
 function localhost(){
     return connect();
