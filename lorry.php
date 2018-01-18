@@ -297,7 +297,7 @@ $app->post('/lorry_insert',function()use($app){
     }
 });
 
-//控制后台，通过phone获得车辆信息
+//控制后台，通过plate_number获得车辆信息
 $app->get('/lorrys_plate_number',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');

@@ -242,12 +242,12 @@ $app->post('/distance',function()use($app){
                    $data = array();
                    foreach ($data as $value) {
                        //查看有没有重复项
-                       if(isset($res[$value['tid']])){
+                       if(isset($data[$value['tid']])){
                            //有：销毁
                            unset($value['tid']);
                        }
                        else{
-                           $res[$value['tid']] = $value;
+                           $data[$value['tid']] = $value;
                        }
                    }
                    if($data!=null){
