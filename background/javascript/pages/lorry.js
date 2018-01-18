@@ -116,8 +116,8 @@ function lorry_xq(id){
         '                    <div>货物数量</div>' +
         '                    <div>货物价值(万元)</div>' +
         '                    <div>货物包装</div>' +
-        '                </div>\n' +
-        '                <div>\n' +
+        '                </div>' +
+        '                <div>' +
         '                    <input type="text" id="tenant_id" disabled="disabled"/>' +
         '                    <input type="text" id="tenant_num" disabled="disabled"/>' +
         '                    <input type="text" id="app_id" disabled="disabled"/>' +

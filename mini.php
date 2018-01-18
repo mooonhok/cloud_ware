@@ -104,6 +104,7 @@ $app->get('/mini_tenant',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->get('mini_tenant_id');
+    $fcity=$app->request->get('fcity');
     if($tenant_id!=null||$tenant_id!=""){
         $selectStatement = $database->select()
             ->from('mini_tenant')
@@ -111,9 +112,15 @@ $app->get('/mini_tenant',function()use($app){
             ->where('id', '=', $tenant_id);
         $stmt = $selectStatement->execute();
         $data= $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('mini_city')
+            ->where('name', '=', $fcity);
+        $stmt = $selectStatement->execute();
+        $data6= $stmt->fetch();
         if($data!=null){
             $selectStatement = $database->select()
                 ->from('mini_route')
+                ->where('fcity_id','=',$data6['id'])
                 ->where('tid', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetchAll();
