@@ -238,6 +238,18 @@ $app->post('/distance',function()use($app){
                        ->where('fcity_id','=',$data2['id']);
                    $stmt = $selectStatement->execute();
                    $data= $stmt->fetchAll();
+                   //建立一个目标数组
+                   $data = array();
+                   foreach ($data as $value) {
+                       //查看有没有重复项
+                       if(isset($res[$value['tid']])){
+                           //有：销毁
+                           unset($value['tid']);
+                       }
+                       else{
+                           $res[$value['tid']] = $value;
+                       }
+                   }
                    if($data!=null){
                        for($x=0;$x<count($data);$x++){
                            $selectStatement = $database->select()
@@ -262,12 +274,10 @@ $app->post('/distance',function()use($app){
                            }
                        }
                        if($arrays!=null) {
-
                            foreach ($arrays as $key => $row) {
                                $id[$key] = (int)$row ['awaylong'];
                                $name[$key] = $row['id'];
                            }
-
                            array_multisort($id, SORT_ASC, $name, SORT_ASC, $arrays);
                        }
                        echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
