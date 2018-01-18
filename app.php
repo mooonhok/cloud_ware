@@ -1624,7 +1624,7 @@ $app->post('/match_user',function()use($app){
                     if($data1){
                         echo json_encode(array('result' => '0', 'desc' => 'success'));
                     }else{
-                        echo json_encode(array('result' => '1', 'desc' => '信息有误'));
+                        echo json_encode(array('result' => '1', 'desc' => '用户不存在'));
                     }
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '您没有填写电话号码'));

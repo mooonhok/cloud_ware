@@ -1284,6 +1284,43 @@ $app->get('/contact_company',function()use($app){
     echo json_encode(array("result"=>"0","desc"=>"success",'contact_companys'=>$data1,'count'=>count($data0)));
 });
 
+//获取feedback列表
+$app->get('/feedback',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $page=$app->request->get("page");
+    $page=$page-1;
+    $per_page=$app->request->get("per_page");
+    $selectStament=$database->select()
+        ->from('feedback')
+        ->orderBy('id','DESC');
+    $stmt=$selectStament->execute();
+    $data0=$stmt->fetchAll();
+    $selectStatement = $database->select()
+        ->from('feedback')
+        ->orderBy('id','DESC')
+        ->limit((int)$per_page,(int)$per_page * (int)$page);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetchAll();
+    for($i=0;$i<count($data1);$i++){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('tenant_id','=',$data1[$i]['tenant_id']);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('staff')
+            ->where('staff_id','=',$data1[$i]['staff_id'])
+            ->where('tenant_id','=',$data1[$i]['tenant_id']);
+        $stmt = $selectStatement->execute();
+        $data3 = $stmt->fetch();
+        $data1[$i]['company_name']=$data2['company'];
+        $data1[$i]['staff_name']=$data3['name'];
+    }
+    echo json_encode(array("result"=>"0","desc"=>"success",'contact_companys'=>$data1,'count'=>count($data0)));
+});
+
 $app->run();
 
 function localhost(){
