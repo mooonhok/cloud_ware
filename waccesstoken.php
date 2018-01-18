@@ -415,6 +415,7 @@ $app->post('/wxmomessage',function()use($app){
                          "keyword3"=>array("value"=>$goods,"color"=>"#173177"),
                          "keyword4"=>array("value"=>$time,"color"=>"#173177"),));
                 $url="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;
+                $postJson = urldecode( json_encode( $template));
                  $ch1 = curl_init();
                  curl_setopt($ch1, CURLOPT_URL, $url);
                  curl_setopt($ch1, CURLOPT_RETURNTRANSFER, 1);
@@ -423,7 +424,7 @@ $app->post('/wxmomessage',function()use($app){
                  // POST数据
                  curl_setopt($ch1, CURLOPT_POST, 1);
             // 把post的变量加上
-                  curl_setopt($ch1, CURLOPT_POSTFIELDS, $template);
+                  curl_setopt($ch1, CURLOPT_POSTFIELDS, $postJson);
                   $output2 = curl_exec($ch1);
                   curl_close($ch1);
 
