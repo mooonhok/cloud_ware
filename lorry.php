@@ -297,7 +297,7 @@ $app->post('/lorry_insert',function()use($app){
     }
 });
 
-//控制后台，通过lorry_id获得车辆信息
+//控制后台，通过phone获得车辆信息
 $app->get('/lorrys_lorry_id',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -305,20 +305,33 @@ $app->get('/lorrys_lorry_id',function()use($app){
     $page=$app->request->get("page");
     $page=$page-1;
     $per_page=$app->request->get("per_page");
-    $lorry_id=$app->request->get('lorry_id');
+    $phone=$app->request->get('phone');
     $selectStatement = $database->select()
-        ->from('lorry')
-        ->whereLike('lorry_id','%'.$lorry_id.'%');
+        ->from('app_lorry')
+        ->whereLike('','%'.$phone.'%');
     $stmt = $selectStatement->execute();
     $data0 = $stmt->fetchAll();
     $selectStatement = $database->select()
-        ->from('lorry')
-        ->leftJoin('tenant','tenant.tenant_id','=','lorry.tenant_id')
-        ->whereLike('lorry_id','%'.$lorry_id.'%')
-        ->limit((int)$per_page,(int)$per_page*(int)$page)
-        ->orderBy('id','DESC');
+        ->from('app_lorry')
+        ->whereLike('','%'.$phone.'%')
+        ->orderBy('id','DESC')
+        ->limit((int)$per_page,(int)$per_page * (int)$page);
     $stmt = $selectStatement->execute();
-    $data1 = $stmt->fetch();
+    $data1 = $stmt->fetchAll();
+    for($i=0;$i<count($data1);$i++){
+        $selectStatement = $database->select()
+            ->from('lorry_length')
+            ->where('lorry_length_id','=',$data1[$i]['length']);
+        $stmt = $selectStatement->execute();
+        $data2= $stmt->fetch();
+        $data1[$i]['lorry_length_name']=$data2['lorry_length'];
+        $selectStatement = $database->select()
+            ->from('lorry_type')
+            ->where('lorry_type_id','=',$data1[$i]['type']);
+        $stmt = $selectStatement->execute();
+        $data3= $stmt->fetch();
+        $data1[$i]['lorry_type_name']=$data3['lorry_type_name'];
+    }
     echo json_encode(array("result"=>"0","desc"=>"success",'lorrys'=>$data1,'count'=>count($data0)));
 });
 
