@@ -238,40 +238,33 @@ $app->post('/distance',function()use($app){
                        ->where('fcity_id','=',$data2['id']);
                    $stmt = $selectStatement->execute();
                    $data= $stmt->fetchAll();
-                   //建立一个目标数组
-//                   $data = array();
-                   foreach ($data as $value) {
-                       //查看有没有重复项
-                       if(isset($data[$value['tid']])){
-                           //有：销毁
-                           unset($value['tid']);
-                       }
-                       else{
-                           $data[$value['tid']] = $value;
-                       }
-                   }
+                   $arrays2=array();
                    if($data!=null){
                        for($x=0;$x<count($data);$x++){
-                           $selectStatement = $database->select()
-                               ->from('mini_tenant')
-                               ->where('exist','=',0)
-                               ->where('flag','=',$type)
-                               ->where('id','=',$data[$x]['tid']);
-                           $stmt = $selectStatement->execute();
-                           $data5= $stmt->fetch();
-                           if($data5!=null) {
-                               $lng2 = $data5['longitude'];
-                               $lat2 = $data5['latitude'];
-                               $radLat1 = deg2rad($lat1); //deg2rad()函数将角度转换为弧度
-                               $radLat2 = deg2rad($lat2);
-                               $radLng1 = deg2rad($lng1);
-                               $radLng2 = deg2rad($lng2);
-                               $a = $radLat1 - $radLat2;
-                               $b = $radLng1 - $radLng2;
-                               $s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2))) * 6378.137 * 1000;
-                               $data5['awaylong']=strval(number_format($s/1000,2));
-                               array_push($arrays,$data5);
-                           }
+                           array_push($arrays2,$data[$x]['tid']);
+                       }
+                       $arrays2=array_unique($arrays2);
+                       for($y=0;$y<count($arrays2);$y++){
+                       $selectStatement = $database->select()
+                           ->from('mini_tenant')
+                           ->where('exist','=',0)
+                           ->where('flag','=',$type)
+                           ->where('id','=',$arrays2[$x]);
+                       $stmt = $selectStatement->execute();
+                       $data5= $stmt->fetch();
+                       if($data5!=null) {
+                           $lng2 = $data5['longitude'];
+                           $lat2 = $data5['latitude'];
+                           $radLat1 = deg2rad($lat1); //deg2rad()函数将角度转换为弧度
+                           $radLat2 = deg2rad($lat2);
+                           $radLng1 = deg2rad($lng1);
+                           $radLng2 = deg2rad($lng2);
+                           $a = $radLat1 - $radLat2;
+                           $b = $radLng1 - $radLng2;
+                           $s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2))) * 6378.137 * 1000;
+                           $data5['awaylong']=strval(number_format($s/1000,2));
+                           array_push($arrays,$data5);
+                       }
                        }
                        if($arrays!=null) {
                            foreach ($arrays as $key => $row) {
