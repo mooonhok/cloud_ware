@@ -239,7 +239,7 @@ $app->post('/distance',function()use($app){
                    $stmt = $selectStatement->execute();
                    $data= $stmt->fetchAll();
                    //建立一个目标数组
-                   $data = array();
+//                   $data = array();
                    foreach ($data as $value) {
                        //查看有没有重复项
                        if(isset($data[$value['tid']])){
