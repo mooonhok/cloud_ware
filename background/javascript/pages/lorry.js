@@ -81,7 +81,7 @@ function loadlorrys(plate_number,page) {
 }
 
 
-function scheduling_xq(id){
+function lorry_xq(id){
     // $(".tenant_tk").css("display","block");
     // $(".tenant_tk div input").val("");
     // $.ajax({
