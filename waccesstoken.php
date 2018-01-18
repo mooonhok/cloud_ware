@@ -371,11 +371,84 @@ $app->post('/sendall',function()use($app){
 }
 });
 
+$app->post('wxmomessage',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $database = localhost();
+    $tenant_id=$body->tenant_id;
+    $openid=$body->openid;
+    $templateid="SaD2X7v12wNaS70wbDatq_yYTw555Ow9QX9on8FCz0A";
+    $title=$body->title;
+    $order_id=$body->id;
+    $fcity=$body->fcity;
+    $tcity=$body->tcity;
+    $goods=$body->goods;
+    date_default_timezone_set("PRC");
+    $time = date("Y-m-d H:i",time());
 
+    if($tenant_id!=null||$tenant_id!=""){
+        $selectStament=$database->select()
+            ->from('tenant')
+            ->where('exist','=',0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt=$selectStament->execute();
+        $data2=$stmt->fetch();
+        if($data2!=null){
+            if($data2['appid']!=null&&$data2['secret']!=null){
+                $appid=$data2['appid'];
+                $appsecret=$data2['secret'];
+                $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                $output = curl_exec($ch);
+                curl_close($ch);
+                $jsoninfo = json_decode($output, true);
+                $access_token = $jsoninfo["access_token"];
+                 $template=array("touser"=>$openid,"template_id"=>$templateid
+                 ,"data"=>array("first"=>array("value"=>$title,"color"=>"#173177"),
+                         "keyword1"=>array("value"=>$order_id,"color"=>"#173177"),
+                         "keyword2"=>array("value"=>$fcity.'-'.$tcity,"color"=>"#173177"),
+                         "keyword3"=>array("value"=>$goods,"color"=>"#173177"),
+                         "keyword4"=>array("value"=>$time,"color"=>"#173177"),));
+                $url="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;
+                 $ch = curl_init();
+                 curl_setopt($ch, CURLOPT_URL, $url);
+                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+                 // POST数据
+                 curl_setopt($ch, CURLOPT_POST, 1);
+            // 把post的变量加上
+                  curl_setopt($ch, CURLOPT_POSTFIELDS, $template);
+                  $output = curl_exec($ch);
+                curl_close($ch);
+              $res=$output;
+               if ($res['errcode']==0){
+                   echo '发送成功';
+               }else{
+                   echo $output;
+               }
+            }else{
+                echo  json_encode(array("result"=>"2","desc"=>"数据库缺少微信账号信息"));
+            }
+        }else{
+            echo  json_encode(array("result"=>"1","desc"=>"租户不存在"));
+        }
+    }else{
+        echo  json_encode(array("result"=>"3","desc"=>"缺少租户id"));
+    }
 
+});
 
 $app->run();
 
 function localhost(){
     return connect();
 }
+
+
