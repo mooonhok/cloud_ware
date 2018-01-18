@@ -305,15 +305,15 @@ $app->get('/lorrys_phone',function()use($app){
     $page=$app->request->get("page");
     $page=$page-1;
     $per_page=$app->request->get("per_page");
-    $phone=$app->request->get('phone');
+    $plate_number=$app->request->get('plate_number');
     $selectStatement = $database->select()
         ->from('app_lorry')
-        ->whereLike('phone','%'.$phone.'%');
+        ->whereLike('plate_number','%'.$plate_number.'%');
     $stmt = $selectStatement->execute();
     $data0 = $stmt->fetchAll();
     $selectStatement = $database->select()
         ->from('app_lorry')
-        ->whereLike('phone','%'.$phone.'%')
+        ->whereLike('plate_number','%'.$plate_number.'%')
         ->orderBy('id','DESC')
         ->limit((int)$per_page,(int)$per_page * (int)$page);
     $stmt = $selectStatement->execute();
