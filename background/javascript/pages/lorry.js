@@ -1,16 +1,16 @@
 $(function(){
     var adminid=$.session.get('adminid');
     var page = $.getUrlParam('page');
-    var scheduling_id='';
-    loadschedulings(scheduling_id,page) ;
+    var plate_number='';
+    loadlorrys(plate_number,page) ;
     $('#order_close').on("click",function () {
         $(".tenant_tk").css("display","none");
     })
 
     $(".sousuo_z").on("click",function(){
         alert(1)
-        var scheduling_id=$(".scheduling_id").val();
-        loadschedulings(scheduling_id,page) ;
+        var plate_number=$(".plate_number").val();
+        loadlorrys(plate_number,page) ;
     })
 });
 
@@ -23,15 +23,15 @@ $(function(){
     }
 })(jQuery);
 
-function loadschedulings(scheduling_id,page) {
-    if(scheduling_id==null){
-        scheduling_id="";
+function loadlorrys(plate_number,page) {
+    if(plate_number==null){
+        plate_number="";
     }
     if(page==null){
         page=1;
     }
     $.ajax({
-        url: "http://api.uminfo.cn/scheduling.php/schedulings_scheduling_id?scheduling_id="+scheduling_id+"&page="+page+"&per_page=10",
+        url: "http://api.uminfo.cn/lorry.php/lorrys_plate_number?plate_number="+plate_number+"&page="+page+"&per_page=10",
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -49,28 +49,20 @@ function loadschedulings(scheduling_id,page) {
                     ,limit: 10
                     ,jump: function(obj,first){
                         if(!first){
-                            loadschedulings(scheduling_id,obj.curr);
+                            loadschedulings(plate_number,obj.curr);
                         }
                         //模拟渲染
                         document.getElementById('tb1').innerHTML = function(){
                             var arr = []
-                                ,thisData = msg.schedulings;
+                                ,thisData = msg.lorrys;
                             layui.each(thisData, function(index, item){
                                 var info='-';
-                                if(item.scheduling_status==1){
-                                    info='等待装车';
-                                }else if(item.scheduling_status==2){
-                                    info='装车完成';
-                                }else if(item.scheduling_status==3){
-                                    info='司机确认';
-                                }else if(item.scheduling_status==4){
-                                    info='在途';
-                                }else if(item.scheduling_status==5){
-                                    info='到达';
-                                }else if(item.scheduling_status==6){
-                                    info='取消';
+                                if(item.flag==1){
+                                    info='派送车';
+                                }else if(item.flag==0){
+                                    info='运输车';
                                 }
-                                arr.push( '<tr><td>'+item.scheduling_id+'</td><td>'+item.tenant.company+'</td><td>'+item.tenant_suoshu.name+'</td><td>'+item.send_city.name+'</td><td>'+item.receive_city.name+'</td><td>'+item.receiver.customer_name+'</td><td>'+item.scheduling_datetime+'</td><td>'+info+'</td><td class="look"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
+                                arr.push( '<tr><td>'+item.phone+'</td><td>'+item.name+'</td><td>'+item.id_number+'</td><td>'+item.plate_number+'</td><td>'+info+'</td><td>'+item.lorry_length_name+'</td><td>'+item.deadweight+'</td><td>'+item.lorry_type_name+'</td><td class="look"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
                             });
                             return arr.join('');
                         }();
