@@ -371,7 +371,7 @@ $app->post('/sendall',function()use($app){
 }
 });
 
-$app->post('wxmomessage',function()use($app){
+$app->post('/wxmomessage',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $body=$app->request->getBody();
