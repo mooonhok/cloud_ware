@@ -357,7 +357,7 @@ $app->post('/sendall',function()use($app){
                 $output = curl_exec($curl);
 //4.关闭
                 curl_close($curl);
-                echo json_decode($output,true);
+//                echo json_decode($output,true);
                 $res2=json_decode($output,true);
                 echo  json_encode(array("result"=>"0","desc"=>$res2));
               }else{
@@ -387,7 +387,6 @@ $app->post('/wxmomessage',function()use($app){
     $goods=$body->goods;
     date_default_timezone_set("PRC");
     $time = date("Y-m-d H:i",time());
-
     if($tenant_id!=null||$tenant_id!=""){
         $selectStament=$database->select()
             ->from('tenant')
@@ -416,23 +415,25 @@ $app->post('/wxmomessage',function()use($app){
                          "keyword3"=>array("value"=>$goods,"color"=>"#173177"),
                          "keyword4"=>array("value"=>$time,"color"=>"#173177"),));
                 $url="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;
-                 $ch = curl_init();
-                 curl_setopt($ch, CURLOPT_URL, $url);
-                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+                 $ch1 = curl_init();
+                 curl_setopt($ch1, CURLOPT_URL, $url);
+                 curl_setopt($ch1, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, FALSE);
+                curl_setopt($ch1, CURLOPT_SSL_VERIFYHOST, FALSE);
                  // POST数据
-                 curl_setopt($ch, CURLOPT_POST, 1);
+                 curl_setopt($ch1, CURLOPT_POST, 1);
             // 把post的变量加上
-                  curl_setopt($ch, CURLOPT_POSTFIELDS, $template);
-                  $output = curl_exec($ch);
-                curl_close($ch);
-              $res=$output;
-               if ($res['errcode']==0){
-                   echo '发送成功';
-               }else{
-                   echo $output;
-               }
+                  curl_setopt($ch1, CURLOPT_POSTFIELDS, $template);
+                  $output2 = curl_exec($ch1);
+                  curl_close($ch1);
+
+                $res2=json_decode($output2,true);
+                echo  json_encode(array("result"=>"0","desc"=>$res2));
+//                 if ($res['errcode']==0){
+//                   echo '发送成功';
+//                  }else{
+//                   echo $output;
+//                 }
             }else{
                 echo  json_encode(array("result"=>"2","desc"=>"数据库缺少微信账号信息"));
             }
