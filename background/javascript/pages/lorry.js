@@ -107,6 +107,25 @@ function lorry_xq(id){
         type: 1,
         skin: 'layui-layer-rim', //加上边框
         area: ['420px', '240px'], //宽高
-        content: 'html内容'
+        content: '            <div class="tenant_tk">' +
+        '                <h1 style="text-align:center;">详情</h1>' +
+        '                <div>' +
+        '                    <div>货物名称</div>' +
+        '                    <div>货物重量(吨)</div>' +
+        '                    <div>货物体积(立方)</div>' +
+        '                    <div>货物数量</div>' +
+        '                    <div>货物价值(万元)</div>' +
+        '                    <div>货物包装</div>' +
+        '                </div>\n' +
+        '                <div>\n' +
+        '                    <input type="text" id="tenant_id" disabled="disabled"/>' +
+        '                    <input type="text" id="tenant_num" disabled="disabled"/>' +
+        '                    <input type="text" id="app_id" disabled="disabled"/>' +
+        '                    <input type="text" id="secret" disabled="disabled"/>' +
+        '                    <input type="text" id="customer_name" disabled="disabled"/>' +
+        '                    <input type="text" id="customer_phone" disabled="disabled"/>' +
+        '                </div>' +
+        '                <button id="order_close">关闭</button>' +
+        '            </div>'
     });
 }
