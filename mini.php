@@ -221,11 +221,13 @@ $app->post('/distance',function()use($app){
                             array_push($arrays,$data5);
                         }
                     }
+                    if($arrays!=null||$arrays!="") {
                     foreach ( $arrays as $key => $row ){
                         $id[$key] = (int)$row ['awaylong'];
                         $name[$key]=$row['id'];
                     }
-                    array_multisort($id, SORT_ASC, $name, SORT_ASC, $arrays);
+                     array_multisort($id, SORT_ASC, $name, SORT_ASC, $arrays);
+                    }
                     echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
                 }else{
                     echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
@@ -259,11 +261,13 @@ $app->post('/distance',function()use($app){
                                array_push($arrays,$data5);
                            }
                        }
-                       foreach ( $arrays as $key => $row ){
-                           $id[$key] = (int)$row ['awaylong'];
-                           $name[$key]=$row['id'];
+                       if($arrays!=null||$arrays!="") {
+                           foreach ($arrays as $key => $row) {
+                               $id[$key] = (int)$row ['awaylong'];
+                               $name[$key] = $row['id'];
+                           }
+                           array_multisort($id, SORT_ASC, $name, SORT_ASC, $arrays);
                        }
-                       array_multisort($id, SORT_ASC, $name, SORT_ASC, $arrays);
                        echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
                    }else{
                        echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
