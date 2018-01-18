@@ -244,7 +244,7 @@ $app->post('/distance',function()use($app){
 });
 
 
-$app->post('/tenantdistance',function()use($app){
+$app->post('/tenant_distance',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
