@@ -82,25 +82,31 @@ function loadlorrys(plate_number,page) {
 
 
 function scheduling_xq(id){
-    $(".tenant_tk").css("display","block");
-    $(".tenant_tk div input").val("");
-    $.ajax({
-        url: "http://api.uminfo.cn/scheduling.php/scheduling_orders_scheduling_id?scheduling_id="+id+"",
-        dataType: 'json',
-        type: 'get',
-        ContentType: "application/json;charset=utf-8",
-        data: JSON.stringify({}),
-        success: function(msg) {
-            console.log(msg);
-            $("#tenant_id").val(msg.lorry.lorry_id);
-            $("#tenant_num").val(msg.lorry.driver_name);
-            $("#app_id").val(msg.lorry.plate_number);
-            for(var i=0;i<msg.order_goods.length;i++){
-                var a='<div></div>'
-            }
-        },
-        error: function(xhr) {
-            alert("获取后台失败！");
-        }
+    // $(".tenant_tk").css("display","block");
+    // $(".tenant_tk div input").val("");
+    // $.ajax({
+    //     url: "http://api.uminfo.cn/lorry.php/lorrys_lorry_id?app_lorry_id="+id+"",
+    //     dataType: 'json',
+    //     type: 'get',
+    //     ContentType: "application/json;charset=utf-8",
+    //     data: JSON.stringify({}),
+    //     success: function(msg) {
+    //         console.log(msg);
+    //         $("#tenant_id").val(msg.lorry.lorry_id);
+    //         $("#tenant_num").val(msg.lorry.driver_name);
+    //         $("#app_id").val(msg.lorry.plate_number);
+    //         for(var i=0;i<msg.order_goods.length;i++){
+    //             var a='<div></div>'
+    //         }
+    //     },
+    //     error: function(xhr) {
+    //         alert("获取后台失败！");
+    //     }
+    // });
+    layer.open({
+        type: 1,
+        skin: 'layui-layer-rim', //加上边框
+        area: ['420px', '240px'], //宽高
+        content: 'html内容'
     });
 }
