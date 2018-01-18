@@ -229,7 +229,8 @@ $app->get('/getLorry',function()use($app){
                 ->where('lorry.tenant_id', '=', $tenant_id)
                 ->where('lorry.flag', '=', $flag)
                 ->where('app_lorry.flag', '=', $flag)
-                ->where('lorry.driver_phone', '=', $driver_phone);
+                ->where('lorry.driver_phone', '=', $driver_phone)
+                ->orderBy('lorry.id','DESC');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
             for($i=0;$i<count($data);$i++){
