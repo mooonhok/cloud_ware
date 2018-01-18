@@ -298,7 +298,7 @@ $app->post('/lorry_insert',function()use($app){
 });
 
 //控制后台，通过phone获得车辆信息
-$app->get('/lorrys_lorry_id',function()use($app){
+$app->get('/lorrys_phone',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
@@ -308,12 +308,12 @@ $app->get('/lorrys_lorry_id',function()use($app){
     $phone=$app->request->get('phone');
     $selectStatement = $database->select()
         ->from('app_lorry')
-        ->whereLike('','%'.$phone.'%');
+        ->whereLike('phone','%'.$phone.'%');
     $stmt = $selectStatement->execute();
     $data0 = $stmt->fetchAll();
     $selectStatement = $database->select()
         ->from('app_lorry')
-        ->whereLike('','%'.$phone.'%')
+        ->whereLike('phone','%'.$phone.'%')
         ->orderBy('id','DESC')
         ->limit((int)$per_page,(int)$per_page * (int)$page);
     $stmt = $selectStatement->execute();
