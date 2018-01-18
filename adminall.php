@@ -1260,6 +1260,29 @@ $app->post('/upsales',function()use($app){
     }
 });
 
+//获取contact_company列表
+$app->get('/contact_company',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $page=$app->request->get("page");
+    $page=$page-1;
+    $per_page=$app->request->get("per_page");
+    $telephone=$app->request->get('telephone');
+    $selectStament=$database->select()
+        ->from('contact_company')
+        ->orderBy('id','DESC');
+    $stmt=$selectStament->execute();
+    $data0=$stmt->fetchAll();
+    $selectStatement = $database->select()
+        ->from('contact_company')
+        ->whereLike('telephone','%'.$telephone.'%')
+        ->orderBy('id','DESC')
+        ->limit((int)$per_page,(int)$per_page * (int)$page);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetchAll();
+    echo json_encode(array("result"=>"0","desc"=>"success",'contact_companys'=>$data1,'count'=>count($data0)));
+});
 
 $app->run();
 
