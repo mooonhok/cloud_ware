@@ -221,11 +221,11 @@ $app->post('/distance',function()use($app){
                             array_push($arrays,$data5);
                         }
                     }
-                    if($arrays!=null||$arrays!="") {
-                    foreach ( $arrays as $key => $row ){
-                        $id[$key] = (int)$row ['awaylong'];
-                        $name[$key]=$row['id'];
-                    }
+                    if($arrays!=null) {
+                       foreach ( $arrays as $key => $row ){
+                          $id[$key] = (int)$row ['awaylong'];
+                           $name[$key]=$row['id'];
+                       }
                      array_multisort($id, SORT_ASC, $name, SORT_ASC, $arrays);
                     }
                     echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
@@ -261,7 +261,7 @@ $app->post('/distance',function()use($app){
                                array_push($arrays,$data5);
                            }
                        }
-                       if($arrays!=null||$arrays!="") {
+                       if($arrays!=null) {
                            foreach ($arrays as $key => $row) {
                                $id[$key] = (int)$row ['awaylong'];
                                $name[$key] = $row['id'];
