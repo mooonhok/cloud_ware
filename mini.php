@@ -262,6 +262,7 @@ $app->post('/distance',function()use($app){
                            }
                        }
                        if($arrays!=null) {
+                           $arrays=array_unique($arrays);
                            foreach ($arrays as $key => $row) {
                                $id[$key] = (int)$row ['awaylong'];
                                $name[$key] = $row['id'];
