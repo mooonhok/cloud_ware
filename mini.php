@@ -249,7 +249,7 @@ $app->post('/distance',function()use($app){
                            ->from('mini_tenant')
                            ->where('exist','=',0)
                            ->where('flag','=',$type)
-                           ->where('id','=',$arrays2[$x]);
+                           ->where('id','=',$arrays2[$y]);
                        $stmt = $selectStatement->execute();
                        $data5= $stmt->fetch();
                        if($data5!=null) {
