@@ -49,7 +49,7 @@ function loadlorrys(plate_number,page) {
                     ,limit: 10
                     ,jump: function(obj,first){
                         if(!first){
-                            loadschedulings(plate_number,obj.curr);
+                            loadlorrys(plate_number,obj.curr);
                         }
                         //模拟渲染
                         document.getElementById('tb1').innerHTML = function(){
@@ -62,13 +62,13 @@ function loadlorrys(plate_number,page) {
                                 }else if(item.flag==0){
                                     info='运输车';
                                 }
-                                arr.push( '<tr><td>'+item.phone+'</td><td>'+item.name+'</td><td>'+item.id_number+'</td><td>'+item.plate_number+'</td><td>'+info+'</td><td>'+item.lorry_length_name+'</td><td>'+item.deadweight+'</td><td>'+item.lorry_type_name+'</td><td class="look"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
+                                arr.push( '<tr><td style="display:none">+item.app_lorry_id+</td><td>'+item.phone+'</td><td>'+item.name+'</td><td>'+item.id_number+'</td><td>'+item.plate_number+'</td><td>'+info+'</td><td>'+item.lorry_length_name+'</td><td>'+item.deadweight+'</td><td>'+item.lorry_type_name+'</td><td class="look"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
                             });
                             return arr.join('');
                         }();
                         $(".look").on("click",function(){
-                            var sche_id=$(this).parent().children().eq(0).text();
-                            scheduling_xq(sche_id);
+                            var app_lorry_id=$(this).parent().children().eq(0).text();
+                            lorry_xq(app_lorry_id);
                         })
                     }
                 });
