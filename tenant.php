@@ -457,7 +457,7 @@ $app->post('/tenant',function()use($app) {
                                                              $num01='0'.$num01;
                                                          }
                                                          $tenant_num=$data01['area_code'].$num01;
-                                                         $tenant_id=count($data02)+1000000001;
+                                                         $tenant_id=count($data02)+1000000501;
                                                          $ad_img3='http://files.uminfo.cn:8000/tenant/insurance.png';
                                                          $insertStatement = $database->insert(array('company','from_city_id','receive_city_id','contact_id','exist','business_l'
                                                          ,'sales_id','address','business_l_p','order_t_p','trans_contract_p','service_items','c_introduction'
