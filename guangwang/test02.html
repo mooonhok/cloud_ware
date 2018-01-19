@@ -58,12 +58,9 @@
 			}
 			.center{
 				width:100%;
-				height:5605px
+				/*height:5605px*/
 			}
-			.center img{
-				width:100%;
-				height:5605px
-			}
+			
 		</style>
 	</head>
 	<body>
@@ -71,4 +68,11 @@
 		<div class="top2"><div class="top2_1">2018-01-19</div><div class="top2_2">靖江万事鑫联运服务有限公司</div></div>
 		<div class="center"><img src="img/1.jpg"></div>
 	</body>
+     <script>
+     	var a= document.body.clientWidth;
+     	alert(a);
+     	$(".center").css("height",a*10.37);
+     	$(".center img").css("width",a);
+     	$(".center img").css("height",a*10.37);
+     </script>
 </html>
