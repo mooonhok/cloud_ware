@@ -355,8 +355,8 @@ $app->get('/getbyname',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenantname=$app->request->get('name');
-    $lat1=$app->request->lat1;
-    $lng1=$app->request->lng1;
+    $lat1=$app->request->get("lat1");
+    $lng1=$app->request->get("lng1");
     if($tenantname!=null||$tenantname!=""){
         $selectStatement = $database->select()
             ->from('mini_tenant')
