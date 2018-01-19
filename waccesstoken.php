@@ -174,7 +174,12 @@ $app->post('/addpic',function()use($app){
                        $ch1 = curl_init();
                        $timeout = 5;
                        $real_path="{$file_info['filename']}";
-                       $data6= array("media"=>"@{$real_path}",'form-data'=>$file_info);
+                       if (class_exists('\CURLFile')) {
+                           $data6 = array('fieldname' => new \CURLFile(realpath($real_path)),'form-data'=>$file_info);
+                       } else {
+                           $data6 = array('fieldname' => '@' . realpath($real_path),'form-data'=>$file_info);
+                       }
+//                       $data6= array("media"=>"@{$real_path}",'form-data'=>$file_info);
                        $data6=urldecode( json_encode( $data6 ) );
 //                       $data6= array("media"=>'@'.$lujing1,'form-data'=>$file_info);
                        curl_setopt($ch1, CURLOPT_URL, $url);
