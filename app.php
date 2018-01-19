@@ -1458,7 +1458,8 @@ $app->post('/receivesc',function()use($app){
                         for($x=0;$x<count($data3);$x++) {
                             $updateStatement = $database->update($arrays1)
                                 ->table('orders')
-                                ->where('order_id', '=', $data3[$x]['order_id']);
+                                ->where('tenant_id','=',$data3[$x]['tenant_id'])
+                                ->where('order_id','=',$data3[$x]['order_id']);
                             $affectedRows = $updateStatement->execute();
                             echo json_encode(array('result' => '0', 'desc' => '确认成功'));
                         }
