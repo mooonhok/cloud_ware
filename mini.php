@@ -51,7 +51,6 @@ $app->get('/mini_tenants',function()use($app){
     $arrays=array();
     if($type!=null||$type!=""){
         if($fcity!=null||$fcity!=""||$tcity!=null||$tcity!=""){
-
                     $selectStatement = $database->select()
                         ->from('mini_city')
                         ->where('name', '=', $fcity);
@@ -350,64 +349,251 @@ $app->post('/tenant_distance',function()use($app){
     }
 });
 
-$app->get('/getbyname',function()use($app){
+
+$app->post('/getbytenantname',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
-    $tenantname=$app->request->get('name');
-    $lat1=$app->request->get("lat1");
-    $lng1=$app->request->get("lng1");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $fcityname=$body->fcity;
+    $tcityname=$body->tcity;
+    $tenantname=$body->name;
+    $lat1=$body->lat1;
+    $lng1=$body->lng1;
+    $type=$body->flag;
+    $arrays=array();
     if($tenantname!=null||$tenantname!=""){
-        $selectStatement = $database->select()
-            ->from('mini_tenant')
-            ->where('exist','=',0)
-            ->whereLike('name','%'.$tenantname.'%');
-        $stmt = $selectStatement->execute();
-        $data5= $stmt->fetchAll();
-        if($data5!=null){
-            for($x=0;$x<count($data5);$x++){
-                $lng2 = $data5[$x]['longitude'];
-                $lat2 = $data5[$x]['latitude'];
-                $radLat1 = deg2rad($lat1); //deg2rad()函数将角度转换为弧度
-                $radLat2 = deg2rad($lat2);
-                $radLng1 = deg2rad($lng1);
-                $radLng2 = deg2rad($lng2);
-                $a = $radLat1 - $radLat2;
-                $b = $radLng1 - $radLng2;
-                $s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2))) * 6378.137 * 1000;
-                $data5[$x]['awaylong']=strval(number_format($s/1000,2));
+        if($tcityname!=null||$tcityname!=""){
+            $selectStatement = $database->select()
+                ->from('mini_city')
+                ->where('name', '=', $fcityname);
+            $stmt = $selectStatement->execute();
+            $data2= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('mini_city')
+                ->where('name', '=', $tcityname);
+            $stmt = $selectStatement->execute();
+            $data3= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('mini_route')
+                ->where('fcity_id','=',$data2['id'])
+                ->where('tcity_id', '=', $data3['id']);
+            $stmt = $selectStatement->execute();
+            $data= $stmt->fetchAll();
+            if($data!=null){
+                for($x=0;$x<count($data);$x++){
+                    $selectStatement = $database->select()
+                        ->from('mini_tenant')
+                        ->where('exist','=',0)
+                        ->where('flag','=',$type)
+                        ->where('id','=',$data[$x]['tid'])
+                        ->whereLike('name','%'.$tenantname.'%');
+                    $stmt = $selectStatement->execute();
+                    $data5= $stmt->fetch();
+                    if($data5!=null) {
+                        $lng2 = $data5['longitude'];
+                        $lat2 = $data5['latitude'];
+                        $radLat1 = deg2rad($lat1); //deg2rad()函数将角度转换为弧度
+                        $radLat2 = deg2rad($lat2);
+                        $radLng1 = deg2rad($lng1);
+                        $radLng2 = deg2rad($lng2);
+                        $a = $radLat1 - $radLat2;
+                        $b = $radLng1 - $radLng2;
+                        $s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2))) * 6378.137 * 1000;
+                        $data5['awaylong']=strval(number_format($s/1000,2));
+                        array_push($arrays,$data5);
+                    }
+                }
+                if($arrays!=null) {
+                    foreach ( $arrays as $key => $row ){
+                        $id[$key] = (int)$row ['awaylong'];
+                        $name[$key]=$row['id'];
+                    }
+                    array_multisort($id, SORT_ASC, $name, SORT_ASC, $arrays);
+                }
+                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
+            }else{
+                echo json_encode(array("result"=>"2","desc"=>"尚未有公司加盟"));
             }
-            echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$data5));
         }else{
             $selectStatement = $database->select()
-                ->from('mini_tenant')
-                ->where('exist','=',0)
-                ->whereLike('person','%'.$tenantname.'%');
+                ->from('mini_city')
+                ->where('name', '=', $fcityname);
             $stmt = $selectStatement->execute();
-            $data6= $stmt->fetchAll();
-            if($data6!=null){
-                for($x=0;$x<count($data6);$x++){
-                    $lng2 = $data6[$x]['longitude'];
-                    $lat2 = $data6[$x]['latitude'];
-                    $radLat1 = deg2rad($lat1); //deg2rad()函数将角度转换为弧度
-                    $radLat2 = deg2rad($lat2);
-                    $radLng1 = deg2rad($lng1);
-                    $radLng2 = deg2rad($lng2);
-                    $a = $radLat1 - $radLat2;
-                    $b = $radLng1 - $radLng2;
-                    $s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2))) * 6378.137 * 1000;
-                    $data6[$x]['awaylong']=strval(number_format($s/1000,2));
+            $data2= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('mini_route')
+                ->where('fcity_id','=',$data2['id']);
+            $stmt = $selectStatement->execute();
+            $data= $stmt->fetchAll();
+            $arrays2=array();
+            if($data!=null){
+                for($x=0;$x<count($data);$x++){
+                    array_push($arrays2,$data[$x]['tid']);
                 }
-                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$data6));
-        }else{
-                echo json_encode(array("result"=>"2","desc"=>"搜索内容为空"));
+                $arrays2=array_unique($arrays2);
+                for($y=0;$y<count($arrays2);$y++){
+                    $selectStatement = $database->select()
+                        ->from('mini_tenant')
+                        ->where('exist','=',0)
+                        ->where('flag','=',$type)
+                        ->where('id','=',$arrays2[$y])
+                        ->whereLike('name','%'.$tenantname.'%');
+                    $stmt = $selectStatement->execute();
+                    $data5= $stmt->fetch();
+                    if($data5!=null) {
+                        $lng2 = $data5['longitude'];
+                        $lat2 = $data5['latitude'];
+                        $radLat1 = deg2rad($lat1); //deg2rad()函数将角度转换为弧度
+                        $radLat2 = deg2rad($lat2);
+                        $radLng1 = deg2rad($lng1);
+                        $radLng2 = deg2rad($lng2);
+                        $a = $radLat1 - $radLat2;
+                        $b = $radLng1 - $radLng2;
+                        $s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2))) * 6378.137 * 1000;
+                        $data5['awaylong']=strval(number_format($s/1000,2));
+                        array_push($arrays,$data5);
+                    }
+                }
+                if($arrays!=null) {
+                    foreach ($arrays as $key => $row) {
+                        $id[$key] = (int)$row ['awaylong'];
+                        $name[$key] = $row['id'];
+                    }
+                    array_multisort($id, SORT_ASC, $name, SORT_ASC, $arrays);
+                }
+                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
+            }else{
+                echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
             }
         }
     }else{
         echo json_encode(array("result"=>"1","desc"=>"尚未输入内容"));
     }
 });
-
+$app->post('/getbyperson',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $fcityname=$body->fcity;
+    $tcityname=$body->tcity;
+    $tenantname=$body->name;
+    $lat1=$body->lat1;
+    $lng1=$body->lng1;
+    $type=$body->flag;
+    $arrays=array();
+    if($tenantname!=null||$tenantname!=""){
+        if($tcityname!=null||$tcityname!=""){
+            $selectStatement = $database->select()
+                ->from('mini_city')
+                ->where('name', '=', $fcityname);
+            $stmt = $selectStatement->execute();
+            $data2= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('mini_city')
+                ->where('name', '=', $tcityname);
+            $stmt = $selectStatement->execute();
+            $data3= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('mini_route')
+                ->where('fcity_id','=',$data2['id'])
+                ->where('tcity_id', '=', $data3['id']);
+            $stmt = $selectStatement->execute();
+            $data= $stmt->fetchAll();
+            if($data!=null){
+                for($x=0;$x<count($data);$x++){
+                    $selectStatement = $database->select()
+                        ->from('mini_tenant')
+                        ->where('exist','=',0)
+                        ->where('flag','=',$type)
+                        ->where('id','=',$data[$x]['tid'])
+                        ->whereLike('person','%'.$tenantname.'%');
+                    $stmt = $selectStatement->execute();
+                    $data5= $stmt->fetch();
+                    if($data5!=null) {
+                        $lng2 = $data5['longitude'];
+                        $lat2 = $data5['latitude'];
+                        $radLat1 = deg2rad($lat1); //deg2rad()函数将角度转换为弧度
+                        $radLat2 = deg2rad($lat2);
+                        $radLng1 = deg2rad($lng1);
+                        $radLng2 = deg2rad($lng2);
+                        $a = $radLat1 - $radLat2;
+                        $b = $radLng1 - $radLng2;
+                        $s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2))) * 6378.137 * 1000;
+                        $data5['awaylong']=strval(number_format($s/1000,2));
+                        array_push($arrays,$data5);
+                    }
+                }
+                if($arrays!=null) {
+                    foreach ( $arrays as $key => $row ){
+                        $id[$key] = (int)$row ['awaylong'];
+                        $name[$key]=$row['id'];
+                    }
+                    array_multisort($id, SORT_ASC, $name, SORT_ASC, $arrays);
+                }
+                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
+            }else{
+                echo json_encode(array("result"=>"2","desc"=>"尚未有公司加盟"));
+            }
+        }else{
+            $selectStatement = $database->select()
+                ->from('mini_city')
+                ->where('name', '=', $fcityname);
+            $stmt = $selectStatement->execute();
+            $data2= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('mini_route')
+                ->where('fcity_id','=',$data2['id']);
+            $stmt = $selectStatement->execute();
+            $data= $stmt->fetchAll();
+            $arrays2=array();
+            if($data!=null){
+                for($x=0;$x<count($data);$x++){
+                    array_push($arrays2,$data[$x]['tid']);
+                }
+                $arrays2=array_unique($arrays2);
+                for($y=0;$y<count($arrays2);$y++){
+                    $selectStatement = $database->select()
+                        ->from('mini_tenant')
+                        ->where('exist','=',0)
+                        ->where('flag','=',$type)
+                        ->where('id','=',$arrays2[$y])
+                        ->whereLike('person','%'.$tenantname.'%');
+                    $stmt = $selectStatement->execute();
+                    $data5= $stmt->fetch();
+                    if($data5!=null) {
+                        $lng2 = $data5['longitude'];
+                        $lat2 = $data5['latitude'];
+                        $radLat1 = deg2rad($lat1); //deg2rad()函数将角度转换为弧度
+                        $radLat2 = deg2rad($lat2);
+                        $radLng1 = deg2rad($lng1);
+                        $radLng2 = deg2rad($lng2);
+                        $a = $radLat1 - $radLat2;
+                        $b = $radLng1 - $radLng2;
+                        $s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2))) * 6378.137 * 1000;
+                        $data5['awaylong']=strval(number_format($s/1000,2));
+                        array_push($arrays,$data5);
+                    }
+                }
+                if($arrays!=null) {
+                    foreach ($arrays as $key => $row) {
+                        $id[$key] = (int)$row ['awaylong'];
+                        $name[$key] = $row['id'];
+                    }
+                    array_multisort($id, SORT_ASC, $name, SORT_ASC, $arrays);
+                }
+                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
+            }else{
+                echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
+            }
+        }
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"尚未输入内容"));
+    }
+});
 $app->run();
 
 function localhost(){
