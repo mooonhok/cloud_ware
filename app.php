@@ -2055,10 +2055,15 @@ $app->get('/agreement_lorrys',function()use($app){
                for($i=0;$i<count($data2);$i++){
                    $selectStatement = $database->select()
                        ->from('agreement')
-                       ->where('exist','=','0')
-                       ->where('tenant_id','=', $data2[$i]['tenant_id'])
-                       ->where('secondparty_id', '=', $data2[$i]['lorry_id'])
-                       ->orderBy('agreement_status');
+                       ->join('lorry','lorry.lorry_id','=','agreement.secondparty_id','INNER')
+                       ->join('tenant','tenant.tenant_id','=','agreement.tenant_id','INNER')
+                       ->where('agreement.exist','=','0')
+                       ->where('tenant.tenant_id','=', $data2[$i]['tenant_id'])
+                       ->where('lorry.tenant_id','=', $data2[$i]['tenant_id'])
+                       ->where('lorry.lorry_id','=', $data2[$i]['lorry_id'])
+                       ->where('agreement.tenant_id','=', $data2[$i]['tenant_id'])
+                       ->where('agreement.secondparty_id', '=', $data2[$i]['lorry_id'])
+                       ->orderBy('agreement.agreement_status');
                    $stmt = $selectStatement->execute();
                    $data3= $stmt->fetchAll();
                    $arrays=array_merge($arrays,$data3);
