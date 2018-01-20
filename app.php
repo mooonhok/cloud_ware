@@ -2128,7 +2128,7 @@ $app->get('/agreement_lorrys',function()use($app){
          $data2[$i]['capacity_zon']=$data3['capacity_zon'];
          $data2[$i]['count_zon']=$data3['count_zon'];
      }
-     echo json_encode(array('result' => '0', 'desc' => '','agreement_schedulings'=>$data2,'agreement'=>$data2));
+     echo json_encode(array('result' => '0', 'desc' => '','agreement_schedulings'=>$data2,'agreement'=>$data1));
  });
 
 
