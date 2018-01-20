@@ -2097,6 +2097,13 @@ $app->get('/agreement_lorrys',function()use($app){
      $stmt = $selectStatement->execute();
      $data1= $stmt->fetch();
      $selectStatement = $database->select()
+         ->from('lorry')
+         ->where('tenant_id','=', $data1['tenant_id'])
+         ->where('lorry_id','=',$data1['secondparty_id']);
+     $stmt = $selectStatement->execute();
+     $data4= $stmt->fetch();
+     $data1['lorry_name']=$data4['driver_name'];
+     $selectStatement = $database->select()
          ->from('agreement')
          ->join('agreement_schedule','agreement_schedule.agreement_id','=','agreement.agreement_id','INNER')
          ->join('lorry','lorry.lorry_id','=','agreement.secondparty_id','INNER')
