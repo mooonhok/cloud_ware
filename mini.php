@@ -589,6 +589,7 @@ $app->post('/getbyperson',function()use($app){
     }
 });
 
+
 $app->get('/person',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -627,6 +628,7 @@ $app->get('/person',function()use($app){
                    array_push($arrays,$data5['person']);
                }
                $arrays=array_unique($arrays);
+               $arrays=array_filter($arrays);
                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
            }else{
                echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
@@ -650,6 +652,7 @@ $app->get('/person',function()use($app){
                    array_push($arrays,$data5['person']);
                }
                $arrays=array_unique($arrays);
+               $arrays=array_filter($arrays);
                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
            }else{
                echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
@@ -698,12 +701,12 @@ $app->get('/name',function()use($app){
                     array_push($arrays,$data5['name']);
                 }
                 $arrays=array_unique($arrays);
+                $arrays=array_filter($arrays);
                 echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
             }else{
                 echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
             }
         }else{
-
             $selectStatement = $database->select()
                 ->from('mini_route')
                 ->where('fcity_id','=',$data2['id']);
@@ -721,6 +724,7 @@ $app->get('/name',function()use($app){
                     array_push($arrays,$data5['name']);
                 }
                 $arrays=array_unique($arrays);
+                $arrays=array_filter($arrays);
                 echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
             }else{
                 echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
