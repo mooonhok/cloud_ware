@@ -2033,6 +2033,7 @@ $app->get('/agreement_lorrys',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $lorry_id = $app->request->get("lorry_id");
+    $arrays=array();
     if($lorry_id!=null||$lorry_id!=''){
         $selectStament=$database->select()
             ->from('app_lorry')
@@ -2056,12 +2057,21 @@ $app->get('/agreement_lorrys',function()use($app){
                        ->from('agreement')
                        ->where('exist','=','0')
                        ->where('tenant_id','=', $data2[$i]['tenant_id'])
-                       ->where('secondparty_id', '=', $data2[$i]['lorry_id']);
+                       ->where('secondparty_id', '=', $data2[$i]['lorry_id'])
+                       ->orderBy('agreement_status');
                    $stmt = $selectStatement->execute();
                    $data3= $stmt->fetchAll();
+                   $arrays=array_merge($arrays,$data3);
                }
+                echo json_encode(array('result' => '0','desc' => '','agreements'=>$arrays));
+            }else{
+                echo json_encode(array('result' => '1', 'desc' => '司机尚未有过订单'));
             }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '司机尚未注册'));
         }
+    }else{
+        echo json_encode(array('result' => '3', 'desc' => '车辆id不正确'));
     }
 
 
