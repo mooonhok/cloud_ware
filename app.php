@@ -1726,6 +1726,7 @@ $app->post('/change_orders_status',function()use($app){
     $body=json_decode($body);
     $lorryid=$body->lorryid;
     $scheduling_id=$body->scheduling_id;
+    $back_reason=$body->reason;
     $time=time();
         if($lorryid!=null||$lorryid!=""){
             $selectStament=$database->select()
@@ -1756,7 +1757,7 @@ $app->post('/change_orders_status',function()use($app){
 //                            ->where('lorry_id','=',$data2[$i]['lorry_id']);
 //                        $stmt=$selectStament->execute();
 //                        $data3=$stmt->fetch();
-                        $updateStatement = $database->update(array('scheduling_status'=>6))
+                        $updateStatement = $database->update(array('scheduling_status'=>6,'back_reason'=>$back_reason))
                             ->table('scheduling')
                             ->where('exist','=',0)
                             ->where('scheduling_status','=',4)
