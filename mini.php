@@ -598,7 +598,6 @@ $app->get('/person',function()use($app){
     $tcityname=$app->request->get('tcity');
     $name=$app->request->get('name');
     $arrays=array();
-    $data5=array();
     if($name!=null||$name!=""){
         $selectStatement = $database->select()
             ->from('mini_city')
@@ -632,7 +631,7 @@ $app->get('/person',function()use($app){
                }
                $arrays=array_unique($arrays);
                $arrays=array_filter($arrays);
-               echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays,'person'=>$data5[0]['person']));
+               echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
            }else{
                echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
            }
@@ -657,7 +656,7 @@ $app->get('/person',function()use($app){
                }
                $arrays=array_unique($arrays);
                $arrays=array_filter($arrays);
-               echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays,'person'=>$data5[0]['person']));
+               echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
            }else{
                echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
            }
@@ -675,7 +674,6 @@ $app->get('/name',function()use($app){
     $tcityname=$app->request->get('tcity');
     $name=$app->request->get('name');
     $arrays=array();
-    $data5=array();
     if($name!=null||$name!=""){
         $selectStatement = $database->select()
             ->from('mini_city')
@@ -709,7 +707,7 @@ $app->get('/name',function()use($app){
                 }
                 $arrays=array_unique($arrays);
                 $arrays=array_filter($arrays);
-                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays,'person'=>$data5[0]['name']));
+                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
             }else{
                 echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
             }
@@ -734,7 +732,7 @@ $app->get('/name',function()use($app){
                 }
                 $arrays=array_unique($arrays);
                 $arrays=array_filter($arrays);
-                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays,'person'=>$data5[0]['name']));
+                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
             }else{
                 echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
             }
