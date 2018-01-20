@@ -569,8 +569,7 @@ $app->get('/getSchedulings11',function()use($app){
                 ->join('lorry_length','app_lorry.length','=','lorry_length.lorry_length_id','INNER')
                 ->join('lorry_length','app_lorry.type','=','lorry_type.lorry_type_id','INNER')
                 ->where('phone', '=', $data1['driver_phone'])
-                ->where('name', '=', $data1['driver_name'])
-                ->where('plate_number', '=', $data1['	plate_number']);
+                ->where('name', '=', $data1['driver_name']);
             $stmt = $selectStatement->execute();
             $data6= $stmt->fetch();
             $selectStatement = $database->select()
