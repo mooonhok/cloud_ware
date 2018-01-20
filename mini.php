@@ -624,8 +624,10 @@ $app->get('/person',function()use($app){
                        ->where('id','=',$data[$x]['tid'])
                        ->whereLike('person','%'.$name.'%');
                    $stmt = $selectStatement->execute();
-                   $data5= $stmt->fetch();
-                   array_push($arrays,$data5['person']);
+                   $data5= $stmt->fetchAll();
+                   for($i=0;$i<count($data5);$i++){
+                   array_push($arrays,$data5[$i]['person']);
+                   }
                }
                $arrays=array_unique($arrays);
                $arrays=array_filter($arrays);
@@ -648,8 +650,10 @@ $app->get('/person',function()use($app){
                        ->where('id','=',$data[$x]['tid'])
                        ->whereLike('person','%'.$name.'%');
                    $stmt = $selectStatement->execute();
-                   $data5= $stmt->fetch();
-                   array_push($arrays,$data5['person']);
+                   $data5= $stmt->fetchAll();
+                   for($i=0;$i<count($data5);$i++){
+                       array_push($arrays,$data5[$i]['person']);
+                   }
                }
                $arrays=array_unique($arrays);
                $arrays=array_filter($arrays);
@@ -697,8 +701,10 @@ $app->get('/name',function()use($app){
                         ->where('id','=',$data[$x]['tid'])
                         ->whereLike('name','%'.$name.'%');
                     $stmt = $selectStatement->execute();
-                    $data5= $stmt->fetch();
-                    array_push($arrays,$data5['name']);
+                    $data5= $stmt->fetchAll();
+                    for($i=0;$i<count($data5);$i++){
+                        array_push($arrays,$data5[$i]['person']);
+                    }
                 }
                 $arrays=array_unique($arrays);
                 $arrays=array_filter($arrays);
@@ -720,8 +726,10 @@ $app->get('/name',function()use($app){
                         ->where('id','=',$data[$x]['tid'])
                         ->whereLike('name','%'.$name.'%');
                     $stmt = $selectStatement->execute();
-                    $data5= $stmt->fetch();
-                    array_push($arrays,$data5['name']);
+                    $data5= $stmt->fetchAll();
+                    for($i=0;$i<count($data5);$i++){
+                        array_push($arrays,$data5[$i]['person']);
+                    }
                 }
                 $arrays=array_unique($arrays);
                 $arrays=array_filter($arrays);
