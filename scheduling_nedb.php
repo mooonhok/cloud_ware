@@ -620,6 +620,7 @@ $app->get('/limitSchedulings5 ',function()use($app){
             ->whereIn('scheduling_status',array(6,8))
             ->where('tenant_id', '=', $tenant_id)
             ->orderBy('scheduling_status')
+            ->orderBy('scheduling_id','DESC')
             ->limit((int)$size,(int)$offset);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
