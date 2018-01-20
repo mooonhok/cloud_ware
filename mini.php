@@ -598,7 +598,7 @@ $app->get('/person',function()use($app){
     $tcityname=$app->request->get('tcity');
     $name=$app->request->get('name');
     $arrays=array();
-
+    $data5=array();
     if($name!=null||$name!=""){
         $selectStatement = $database->select()
             ->from('mini_city')
@@ -675,6 +675,7 @@ $app->get('/name',function()use($app){
     $tcityname=$app->request->get('tcity');
     $name=$app->request->get('name');
     $arrays=array();
+    $data5=array();
     if($name!=null||$name!=""){
         $selectStatement = $database->select()
             ->from('mini_city')
