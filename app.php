@@ -2078,6 +2078,7 @@ $app->get('/agreement_lorrys',function()use($app){
     }else{
         echo json_encode(array('result' => '3', 'desc' => '车辆id不正确'));
     }
+});
 
  $app->get('/agreement_scheduling_id',function()use($app){
      $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -2123,7 +2124,8 @@ $app->get('/agreement_lorrys',function()use($app){
      }
      echo json_encode(array('result' => '0', 'desc' => '','agreement_schedulings'=>$data2));
  });
-    
+
+
 
 $app->run();
 function localhost(){
