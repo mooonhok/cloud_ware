@@ -629,7 +629,7 @@ $app->get('/person',function()use($app){
                    array_push($arrays,$data5[$i]['person']);
                    }
                }
-//               $arrays=array_unique($arrays);
+               $arrays=array_unique($arrays);
 //               $arrays=array_filter($arrays);
 
                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
@@ -655,7 +655,7 @@ $app->get('/person',function()use($app){
                        array_push($arrays,$data5[$i]['person']);
                    }
                }
-//               $arrays=array_unique($arrays);
+               $arrays=array_unique($arrays);
 //               $arrays=array_filter($arrays);
                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
            }else{
