@@ -428,16 +428,18 @@ $app->post('/getbytenantname',function()use($app){
             $stmt = $selectStatement->execute();
             $data= $stmt->fetchAll();
             $arrays2=array();
+            $arrays3=array();
             if($data!=null){
                 for($x=0;$x<count($data);$x++){
                     array_push($arrays2,$data[$x]['tid']);
                 }
                 $arrays2=array_unique($arrays2);
-                for($y=0;$y<count($arrays2);$y++){
+                $arrays3=array_values($arrays2);
+                for($y=0;$y<count($arrays3);$y++){
                     $selectStatement = $database->select()
                         ->from('mini_tenant')
                         ->where('exist','=',0)
-                        ->where('id','=',$arrays2[$y])
+                        ->where('id','=',$arrays3[$y])
                         ->whereLike('name','%'.$tenantname.'%');
                     $stmt = $selectStatement->execute();
                     $data5= $stmt->fetch();
