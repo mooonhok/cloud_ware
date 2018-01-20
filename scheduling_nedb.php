@@ -607,7 +607,7 @@ $app->get('/getSchedulings11',function()use($app){
     }
 });
 
-$app->get('/limitSchedulings5 ',function()use($app){
+$app->get('/limitSchedulings5',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
