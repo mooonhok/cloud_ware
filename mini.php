@@ -255,7 +255,7 @@ $app->post('/distance',function()use($app){
                            ->from('mini_tenant')
                            ->where('exist','=',0)
                            ->where('flag','=',$type)
-                           ->where('id','=',$arrays2[$y]);
+                           ->where('id','=',array_values($arrays2));
                        $stmt = $selectStatement->execute();
                        $data5= $stmt->fetch();
                        if($data5!=null) {
@@ -598,6 +598,7 @@ $app->get('/person',function()use($app){
     $tcityname=$app->request->get('tcity');
     $name=$app->request->get('name');
     $arrays=array();
+    $arrays1=array();
     if($name!=null||$name!=""){
         $selectStatement = $database->select()
             ->from('mini_city')
@@ -629,9 +630,9 @@ $app->get('/person',function()use($app){
                    array_push($arrays,$data5[$i]['person']);
                    }
                }
-               $arrays=array_unique($arrays);
+//               $arrays=array_unique($arrays);
 //               $arrays=array_filter($arrays);
-
+               $arrays=array_flip(array_flip($arrays));
                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
            }else{
                echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
@@ -656,7 +657,7 @@ $app->get('/person',function()use($app){
                    }
                }
                $arrays=array_unique($arrays);
-//               $arrays=array_filter($arrays);
+               $arrays=array_filter($arrays);
                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
            }else{
                echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
