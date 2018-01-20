@@ -2123,8 +2123,7 @@ $app->get('/agreement_lorrys',function()use($app){
      }
      echo json_encode(array('result' => '0', 'desc' => '','agreement_schedulings'=>$data2));
  });
-
-});
+    
 
 $app->run();
 function localhost(){

@@ -570,7 +570,7 @@ $app->get('/getSchedulings11',function()use($app){
                 ->join('lorry_type','app_lorry.type','=','lorry_type.lorry_type_id','INNER')
                 ->where('phone', '=', $data1['driver_phone'])
                 ->where('name', '=', $data1['driver_name'])
-//                ->where('plate_number', '=', $data1['	plate_number'])
+                ->where('plate_number', '=', $data1['plate_number'])
                 ->where('exist','=','0');
             $stmt = $selectStatement->execute();
             $data6= $stmt->fetch();
