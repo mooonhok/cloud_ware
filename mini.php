@@ -545,16 +545,18 @@ $app->post('/getbyperson',function()use($app){
             $stmt = $selectStatement->execute();
             $data= $stmt->fetchAll();
             $arrays2=array();
+            $arrays3=array();
             if($data!=null){
                 for($x=0;$x<count($data);$x++){
                     array_push($arrays2,$data[$x]['tid']);
                 }
                 $arrays2=array_unique($arrays2);
-                for($y=0;$y<count($arrays2);$y++){
+                $arrays3=array_values($arrays2);
+                for($y=0;$y<count($arrays3);$y++){
                     $selectStatement = $database->select()
                         ->from('mini_tenant')
                         ->where('exist','=',0)
-                        ->where('id','=',$arrays2[$y])
+                        ->where('id','=',$arrays3[$y])
                         ->whereLike('person','%'.$tenantname.'%');
                     $stmt = $selectStatement->execute();
                     $data5= $stmt->fetch();
@@ -678,6 +680,7 @@ $app->get('/name',function()use($app){
     $tcityname=$app->request->get('tcity');
     $name=$app->request->get('name');
     $arrays=array();
+    $arrays1=array();
     if($name!=null||$name!=""){
         $selectStatement = $database->select()
             ->from('mini_city')
@@ -711,7 +714,8 @@ $app->get('/name',function()use($app){
                 }
                 $arrays=array_unique($arrays);
                 $arrays=array_filter($arrays);
-                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
+                $arrays1=array_values($arrays);
+                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays1));
             }else{
                 echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
             }
@@ -736,7 +740,8 @@ $app->get('/name',function()use($app){
                 }
                 $arrays=array_unique($arrays);
                 $arrays=array_filter($arrays);
-                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
+                $arrays1=array_values($arrays);
+                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays1));
             }else{
                 echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
             }
