@@ -598,6 +598,7 @@ $app->get('/person',function()use($app){
     $tcityname=$app->request->get('tcity');
     $name=$app->request->get('name');
     $arrays=array();
+
     if($name!=null||$name!=""){
         $selectStatement = $database->select()
             ->from('mini_city')
@@ -653,11 +654,12 @@ $app->get('/person',function()use($app){
                    $data5= $stmt->fetchAll();
                    for($i=0;$i<count($data5);$i++){
                        array_push($arrays,$data5[$i]['person']);
+                       echo $data5[$i]['person'];
                    }
                }
-               $arrays=array_unique($arrays);
-               $arrays=array_filter($arrays);
-               echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
+//               $arrays=array_unique($arrays);
+//               $arrays=array_filter($arrays);
+//               echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
            }else{
                echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
            }
@@ -704,6 +706,7 @@ $app->get('/name',function()use($app){
                     $data5= $stmt->fetchAll();
                     for($i=0;$i<count($data5);$i++){
                         array_push($arrays,$data5[$i]['name']);
+                        echo $data5[$i]['name'];
                     }
                 }
                 $arrays=array_unique($arrays);
