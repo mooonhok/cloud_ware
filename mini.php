@@ -361,7 +361,6 @@ $app->post('/getbytenantname',function()use($app){
     $tenantname=$body->name;
     $lat1=$body->lat1;
     $lng1=$body->lng1;
-    $type=$body->flag;
     $arrays=array();
     if($tenantname!=null||$tenantname!=""){
         if($tcityname!=null||$tcityname!=""){
@@ -386,7 +385,6 @@ $app->post('/getbytenantname',function()use($app){
                     $selectStatement = $database->select()
                         ->from('mini_tenant')
                         ->where('exist','=',0)
-                        ->where('flag','=',$type)
                         ->where('id','=',$data[$x]['tid'])
                         ->whereLike('name','%'.$tenantname.'%');
                     $stmt = $selectStatement->execute();
@@ -437,7 +435,6 @@ $app->post('/getbytenantname',function()use($app){
                     $selectStatement = $database->select()
                         ->from('mini_tenant')
                         ->where('exist','=',0)
-                        ->where('flag','=',$type)
                         ->where('id','=',$arrays2[$y])
                         ->whereLike('name','%'.$tenantname.'%');
                     $stmt = $selectStatement->execute();
@@ -483,7 +480,6 @@ $app->post('/getbyperson',function()use($app){
     $tenantname=$body->name;
     $lat1=$body->lat1;
     $lng1=$body->lng1;
-    $type=$body->flag;
     $arrays=array();
     if($tenantname!=null||$tenantname!=""){
         if($tcityname!=null||$tcityname!=""){
@@ -508,7 +504,6 @@ $app->post('/getbyperson',function()use($app){
                     $selectStatement = $database->select()
                         ->from('mini_tenant')
                         ->where('exist','=',0)
-                        ->where('flag','=',$type)
                         ->where('id','=',$data[$x]['tid'])
                         ->whereLike('person','%'.$tenantname.'%');
                     $stmt = $selectStatement->execute();
@@ -559,7 +554,6 @@ $app->post('/getbyperson',function()use($app){
                     $selectStatement = $database->select()
                         ->from('mini_tenant')
                         ->where('exist','=',0)
-                        ->where('flag','=',$type)
                         ->where('id','=',$arrays2[$y])
                         ->whereLike('person','%'.$tenantname.'%');
                     $stmt = $selectStatement->execute();
@@ -594,6 +588,150 @@ $app->post('/getbyperson',function()use($app){
         echo json_encode(array("result"=>"1","desc"=>"尚未输入内容"));
     }
 });
+
+$app->get('/person',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $fcityname=$app->request->get('fcity');
+    $tcityname=$app->request->get('tcity');
+    $name=$app->request->get('name');
+    $arrays=array();
+    if($name!=null||$name!=""){
+        $selectStatement = $database->select()
+            ->from('mini_city')
+            ->where('name', '=', $fcityname);
+        $stmt = $selectStatement->execute();
+        $data2= $stmt->fetch();
+       if($tcityname!=null||$tcityname!=""){
+           $selectStatement = $database->select()
+               ->from('mini_city')
+               ->where('name', '=', $tcityname);
+           $stmt = $selectStatement->execute();
+           $data3= $stmt->fetch();
+           $selectStatement = $database->select()
+               ->from('mini_route')
+               ->where('fcity_id','=',$data2['id'])
+               ->where('tcity_id', '=', $data3['id']);
+           $stmt = $selectStatement->execute();
+           $data= $stmt->fetchAll();
+           if($data!=null){
+               for($x=0;$x<count($data);$x++){
+                   $selectStatement = $database->select()
+                       ->from('mini_tenant')
+                       ->where('exist','=',0)
+                       ->where('id','=',$data[$x]['tid'])
+                       ->whereLike('person','%'.$name.'%');
+                   $stmt = $selectStatement->execute();
+                   $data5= $stmt->fetch();
+                   array_push($arrays,$data5['person']);
+               }
+               $arrays=array_unique($arrays);
+               echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
+           }else{
+               echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
+           }
+       }else{
+
+           $selectStatement = $database->select()
+               ->from('mini_route')
+               ->where('fcity_id','=',$data2['id']);
+           $stmt = $selectStatement->execute();
+           $data= $stmt->fetchAll();
+           if($data!=null){
+               for($x=0;$x<count($data);$x++){
+                   $selectStatement = $database->select()
+                       ->from('mini_tenant')
+                       ->where('exist','=',0)
+                       ->where('id','=',$data[$x]['tid'])
+                       ->whereLike('person','%'.$name.'%');
+                   $stmt = $selectStatement->execute();
+                   $data5= $stmt->fetch();
+                   array_push($arrays,$data5['person']);
+               }
+               $arrays=array_unique($arrays);
+               echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
+           }else{
+               echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
+           }
+       }
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"尚未输入内容"));
+    }
+});
+
+$app->get('/name',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $fcityname=$app->request->get('fcity');
+    $tcityname=$app->request->get('tcity');
+    $name=$app->request->get('name');
+    $arrays=array();
+    if($name!=null||$name!=""){
+        $selectStatement = $database->select()
+            ->from('mini_city')
+            ->where('name', '=', $fcityname);
+        $stmt = $selectStatement->execute();
+        $data2= $stmt->fetch();
+        if($tcityname!=null||$tcityname!=""){
+            $selectStatement = $database->select()
+                ->from('mini_city')
+                ->where('name', '=', $tcityname);
+            $stmt = $selectStatement->execute();
+            $data3= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('mini_route')
+                ->where('fcity_id','=',$data2['id'])
+                ->where('tcity_id', '=', $data3['id']);
+            $stmt = $selectStatement->execute();
+            $data= $stmt->fetchAll();
+            if($data!=null){
+                for($x=0;$x<count($data);$x++){
+                    $selectStatement = $database->select()
+                        ->from('mini_tenant')
+                        ->where('exist','=',0)
+                        ->where('id','=',$data[$x]['tid'])
+                        ->whereLike('name','%'.$name.'%');
+                    $stmt = $selectStatement->execute();
+                    $data5= $stmt->fetch();
+                    array_push($arrays,$data5['name']);
+                }
+                $arrays=array_unique($arrays);
+                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
+            }else{
+                echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
+            }
+        }else{
+
+            $selectStatement = $database->select()
+                ->from('mini_route')
+                ->where('fcity_id','=',$data2['id']);
+            $stmt = $selectStatement->execute();
+            $data= $stmt->fetchAll();
+            if($data!=null){
+                for($x=0;$x<count($data);$x++){
+                    $selectStatement = $database->select()
+                        ->from('mini_tenant')
+                        ->where('exist','=',0)
+                        ->where('id','=',$data[$x]['tid'])
+                        ->whereLike('name','%'.$name.'%');
+                    $stmt = $selectStatement->execute();
+                    $data5= $stmt->fetch();
+                    array_push($arrays,$data5['name']);
+                }
+                $arrays=array_unique($arrays);
+                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
+            }else{
+                echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
+            }
+        }
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"尚未输入内容"));
+    }
+});
+
+
 $app->run();
 
 function localhost(){
