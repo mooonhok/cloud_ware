@@ -1716,7 +1716,30 @@ $app->post('/t_change_password',function()use($app){
     }
 });
 
-
+$app->post('/search_back_scheduling',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $scheduling_id=$body->scheduling_id;
+    if($scheduling_id!=null||$scheduling_id!=''){
+                        $selectStament=$database->select()
+                            ->from('scheduling')
+                            ->where('exist','=',0)
+                            ->where('scheduling_status','=',6)
+                            ->where('scheduling_id','=',$scheduling_id);
+                        $stmt=$selectStament->execute();
+                        $data1=$stmt->fetch();
+                        if($data1!=null){
+                            echo json_encode(array('result' => '0', 'desc' => '该调度单退单审核中'));
+                        }else{
+                            echo json_encode(array('result' => '1', 'desc' => ''));
+                        }
+    }else{
+        echo json_encode(array('result' => '2', 'desc' => ''));
+    }
+});
 
 $app->post('/change_orders_status',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
