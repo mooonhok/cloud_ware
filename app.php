@@ -2091,6 +2091,8 @@ $app->get('/agreement_lorrys',function()use($app){
      $agreement_id = $app->request->get("agreement_id");
      $selectStatement = $database->select()
          ->from('agreement')
+         ->join('tenant','tenant.tenant_id','=','agreement.tenant_id','INNER')
+         ->join('city','city.id','=','tenant.from_city_id','INNER')
          ->where('agreement_id','=',$agreement_id);
      $stmt = $selectStatement->execute();
      $data1= $stmt->fetch();
@@ -2126,7 +2128,7 @@ $app->get('/agreement_lorrys',function()use($app){
          $data2[$i]['capacity_zon']=$data3['capacity_zon'];
          $data2[$i]['count_zon']=$data3['count_zon'];
      }
-     echo json_encode(array('result' => '0', 'desc' => '','agreement_schedulings'=>$data2));
+     echo json_encode(array('result' => '0', 'desc' => '','agreement_schedulings'=>$data2,'agreement'=>$data2));
  });
 
 
