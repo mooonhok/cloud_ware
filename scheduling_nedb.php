@@ -564,16 +564,16 @@ $app->get('/getSchedulings11',function()use($app){
                 ->where('lorry.tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('app_lorry')
-                ->join('lorry_length','app_lorry.length','=','lorry_length.lorry_length_id','INNER')
-                ->join('lorry_type','app_lorry.type','=','lorry_type.lorry_type_id','INNER')
-                ->where('phone', '=', $data1['driver_phone'])
-                ->where('name', '=', $data1['driver_name'])
-                ->where('plate_number', '=', $data1['	plate_number'])
-                ->where('exist','=','0');
-            $stmt = $selectStatement->execute();
-            $data6= $stmt->fetch();
+//            $selectStatement = $database->select()
+//                ->from('app_lorry')
+//                ->join('lorry_length','app_lorry.length','=','lorry_length.lorry_length_id','INNER')
+//                ->join('lorry_type','app_lorry.type','=','lorry_type.lorry_type_id','INNER')
+//                ->where('phone', '=', $data1['driver_phone'])
+//                ->where('name', '=', $data1['driver_name'])
+//                ->where('plate_number', '=', $data1['	plate_number'])
+//                ->where('exist','=','0');
+//            $stmt = $selectStatement->execute();
+//            $data6= $stmt->fetch();
             $selectStatement = $database->select()
                 ->from('city')
                 ->where('id', '=', $data[$i]['send_city_id']);
