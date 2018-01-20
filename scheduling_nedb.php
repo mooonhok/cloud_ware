@@ -594,7 +594,7 @@ $app->get('/getSchedulings11',function()use($app){
                 ->where('id', '=', $data4['pid']);
             $stmt = $selectStatement->execute();
             $data5 = $stmt->fetch();
-            $data[$i]['app_lorry']=$data6;
+//            $data[$i]['app_lorry']=$data6;
             $data[$i]['send_city']=$data2;
             $data[$i]['send_province']=$data3;
             $data[$i]['receive_city']=$data4;
