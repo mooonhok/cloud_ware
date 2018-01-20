@@ -1780,7 +1780,9 @@ $app->post('/change_orders_status',function()use($app){
 //                            ->where('lorry_id','=',$data2[$i]['lorry_id']);
 //                        $stmt=$selectStament->execute();
 //                        $data3=$stmt->fetch();
-                        $updateStatement = $database->update(array('scheduling_status'=>6,'back_reason'=>$back_reason))
+                        date_default_timezone_set("PRC");
+                        $shijian=date("Y-m-d H:i:s",time());
+                        $updateStatement = $database->update(array('scheduling_status'=>6,'back_reason'=>$back_reason,'back_time'=>$shijian))
                             ->table('scheduling')
                             ->where('exist','=',0)
                             ->where('scheduling_status','=',4)
@@ -1933,7 +1935,9 @@ $app->post('/change_orders_status2',function()use($app){
                         ->where('lorry_id','=',$data2[$i]['lorry_id']);
                     $stmt=$selectStament->execute();
                     $datad=$stmt->fetchAll();
-                        $updateStatement = $database->update(array('scheduling_status'=>8))
+                    date_default_timezone_set("PRC");
+                    $shijian=date("Y-m-d H:i:s",time());
+                        $updateStatement = $database->update(array('scheduling_status'=>8,'back_time'=>$shijian,'back_reason'=>'事故出险',))
                             ->table('scheduling')
                             ->where('exist','=',0)
                             ->where('scheduling_status','=',4)
