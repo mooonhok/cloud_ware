@@ -626,7 +626,7 @@ $app->get('/person',function()use($app){
                    $stmt = $selectStatement->execute();
                    $data5= $stmt->fetchAll();
                    for($i=0;$i<count($data5);$i++){
-                   array_push($arrays,$data5[$i]['name']);
+                   array_push($arrays,$data5[$i]['person']);
                    }
                }
                $arrays=array_unique($arrays);
@@ -652,7 +652,7 @@ $app->get('/person',function()use($app){
                    $stmt = $selectStatement->execute();
                    $data5= $stmt->fetchAll();
                    for($i=0;$i<count($data5);$i++){
-                       array_push($arrays,$data5[$i]['name']);
+                       array_push($arrays,$data5[$i]['person']);
                    }
                }
                $arrays=array_unique($arrays);
