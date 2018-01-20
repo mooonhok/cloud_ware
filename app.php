@@ -2079,6 +2079,50 @@ $app->get('/agreement_lorrys',function()use($app){
         echo json_encode(array('result' => '3', 'desc' => '车辆id不正确'));
     }
 
+ $app->get('/agreement_scheduling_id',function()use($app){
+     $app->response->headers->set('Access-Control-Allow-Origin','*');
+     $app->response->headers->set('Content-Type','application/json');
+     $database=localhost();
+     $agreement_id = $app->request->get("agreement_id");
+     $selectStatement = $database->select()
+         ->from('agreement')
+         ->where('agreement_id','=',$agreement_id);
+     $stmt = $selectStatement->execute();
+     $data1= $stmt->fetch();
+     $selectStatement = $database->select()
+         ->from('agreement')
+         ->join('agreement_schedule','agreement_schedule.agreement_id','=','agreement.agreement_id','INNER')
+         ->join('lorry','lorry.lorry_id','=','agreement.secondparty_id','INNER')
+         ->join('tenant','tenant.tenant_id','=','agreement.tenant_id','INNER')
+         ->where('agreement.exist','=','0')
+         ->where('tenant.tenant_id','=', $data1['tenant_id'])
+         ->where('lorry.tenant_id','=', $data1['tenant_id'])
+         ->where('lorry.lorry_id','=', $data1['secondparty_id'])
+         ->where('agreement.tenant_id','=', $data1['tenant_id'])
+         ->where('agreement_schedule.tenant_id','=', $data1['tenant_id'])
+         ->where('agreement.secondparty_id', '=', $data1['secondparty_id']);
+     $stmt = $selectStatement->execute();
+     $data2= $stmt->fetchAll();
+     for($i=0;$i<count($data2);$i++){
+         $selectStatement = $database->select()
+             ->sum('goods.goods_weight','weight_zon')
+             ->sum('goods.goods_capacity','capacity_zon')
+             ->sum('goods.goods_count','count_zon')
+             ->from('schedule_order')
+             ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+             ->join('goods','goods.order_id','=','orders.order_id','INNER')
+             ->where('schedule_order.schedule_id','=',$data2[$i]['scheduling_id'])
+             ->where('schedule_order.tenant_id', '=', $data2[$i]['tenant_id'])
+             ->where('goods.tenant_id', '=', $data2[$i]['tenant_id'])
+             ->where('orders.tenant_id', '=',$data2[$i]['tenant_id']);
+         $stmt = $selectStatement->execute();
+         $data3 = $stmt->fetch();
+         $data2[$i]['weight_zon']=$data3['weight_zon'];
+         $data2[$i]['capacity_zon']=$data3['capacity_zon'];
+         $data2[$i]['count_zon']=$data3['count_zon'];
+     }
+     echo json_encode(array('result' => '0', 'desc' => '','agreement_schedulings'=>$data2));
+ });
 
 });
 
