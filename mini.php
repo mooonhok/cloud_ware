@@ -629,8 +629,9 @@ $app->get('/person',function()use($app){
                    array_push($arrays,$data5[$i]['person']);
                    }
                }
-               $arrays=array_unique($arrays);
-               $arrays=array_filter($arrays);
+//               $arrays=array_unique($arrays);
+//               $arrays=array_filter($arrays);
+                $arrays=array_flip(array_flip($arrays));
                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
            }else{
                echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
@@ -654,8 +655,9 @@ $app->get('/person',function()use($app){
                        array_push($arrays,$data5[$i]['person']);
                    }
                }
-               $arrays=array_unique($arrays);
-               $arrays=array_filter($arrays);
+//               $arrays=array_unique($arrays);
+//               $arrays=array_filter($arrays);
+               $arrays=array_flip(array_flip($arrays));
                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
            }else{
                echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
