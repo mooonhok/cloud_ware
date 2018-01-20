@@ -632,7 +632,7 @@ $app->get('/person',function()use($app){
                }
                $arrays=array_unique($arrays);
                $arrays=array_filter($arrays);
-               echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
+               echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays,'person'=>$data5[0]['person']));
            }else{
                echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
            }
@@ -657,7 +657,7 @@ $app->get('/person',function()use($app){
                }
                $arrays=array_unique($arrays);
                $arrays=array_filter($arrays);
-               echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
+               echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays,'person'=>$data5[0]['person']));
            }else{
                echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
            }
@@ -708,7 +708,7 @@ $app->get('/name',function()use($app){
                 }
                 $arrays=array_unique($arrays);
                 $arrays=array_filter($arrays);
-                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
+                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays,'person'=>$data5[0]['name']));
             }else{
                 echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
             }
@@ -733,7 +733,7 @@ $app->get('/name',function()use($app){
                 }
                 $arrays=array_unique($arrays);
                 $arrays=array_filter($arrays);
-                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
+                echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays,'person'=>$data5[0]['name']));
             }else{
                 echo json_encode(array("result"=>"3","desc"=>"尚未有城市加盟"));
             }

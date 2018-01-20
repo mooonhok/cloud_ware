@@ -2004,6 +2004,45 @@ $app->get('/company_customer',function()use($app){
 
 });
 
+$app->get('/agreement_lorrys',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $lorry_id = $app->request->get("lorry_id");
+    if($lorry_id!=null||$lorry_id!=''){
+        $selectStament=$database->select()
+            ->from('app_lorry')
+            ->where('exist','=',0)
+            ->where('flag','=',0)
+            ->where('app_lorry_id','=',$lorry_id);
+        $stmt=$selectStament->execute();
+        $data1=$stmt->fetch();
+        if($data1!=null) {
+            $selectStament = $database->select()
+                ->from('lorry')
+                ->where('exist', '=', 0)
+                ->where('tenant_id', '!=', 0)
+                ->where('plate_number', '=', $data1['plate_number'])
+                ->where('driver_phone', '=', $data1['phone']);
+            $stmt = $selectStament->execute();
+            $data2 = $stmt->fetchAll();
+            if($data2!=null){
+               for($i=0;$i<count($data2);$i++){
+                   $selectStatement = $database->select()
+                       ->from('agreement')
+                       ->where('exist','=','0')
+                       ->where('tenant_id','=', $data2[$i]['tenant_id'])
+                       ->where('secondparty_id', '=', $data2[$i]['lorry_id']);
+                   $stmt = $selectStatement->execute();
+                   $data3= $stmt->fetchAll();
+               }
+            }
+        }
+    }
+
+
+});
+
 $app->run();
 function localhost(){
     return connect();
