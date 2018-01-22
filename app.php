@@ -1950,6 +1950,15 @@ $app->post('/change_orders_status2',function()use($app){
 //                            ->where('scheduling_id','=',$scheduling_id)
                             ->where('agreement_id','=',$datada['agreement_id']);
                         $affectedRows = $updateStatement->execute();
+                        if($affectedRows==0){
+                            $updateStatement = $database->update(array('is_contract'=>0))
+                                ->table('scheduling')
+                                ->where('exist','=',0)
+                                ->where('tenant_id','=',$datad[$g]['tenant_id'])
+//                            ->where('scheduling_id','=',$scheduling_id)
+                                ->where('scheduling_id','=',$datad[$g]['scheduling_id']);
+                            $affectedRows = $updateStatement->execute();
+                        }
                     }
                     date_default_timezone_set("PRC");
                     $shijian=date("Y-m-d H:i:s",time());
