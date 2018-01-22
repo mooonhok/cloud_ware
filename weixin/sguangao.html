@@ -197,7 +197,6 @@
 			   width:70%;
 			   height:40px;
 			   margin-left:15%;
-			   
 			}
 		</style>
 	</head>
@@ -206,13 +205,13 @@
 		<div class="top"><div class="company"></div>率先迈入物流互联网新时代</div>
 		<div class="top2">
 			<div class="top2_1">2018-01-19</div>
-			<div class="company"></div>
+			<div class="top2_2"></div>
 		</div>
 		<div class="fge1"><img src="images/fge1.jpg"></div>
 		<div class="center">“近十年来，电商的崛起带动了快递的兴盛，却并没有给零担物流带来明显的变化。 
 			物流行业起源早于互联网行业，但是其发展却远远落后于互联网的突飞猛进。而物流行业缓慢发展
 			过程中， “<span style="color:#0080FF;">散、乱、小、差</span>”等问题已成为其破茧过程中的重重障碍。为了打破这一行业壁垒，谋求
-			更好的发展，<div class="jcompany"></div>做出了尝试性的决策——率先使用江苏酉铭开发的物流系统，它包括了：
+			更好的发展，<span class="jcompany"></span>做出了尝试性的决策——率先使用江苏酉铭开发的物流系统，它包括了：
 			<span style="color:#0080FF;">物流公司使用的物流ERP电脑 客户端系统、货车司机使用的手机APP软件</span>、还有为<span style="color:#0080FF;">货主提高便捷服务
 			的微信公众号</span>。使用此套系统后的这段时间里， 从实际上解决了很多之前常见以及不可避免的问题，总结有以下几点：”
 		</div>
@@ -305,6 +304,7 @@
                }),
                success: function(msg) {
                	if(msg.result==0){
+               		 $(".top2_2").html(msg.tenant.company);
                		 $(".company").html(msg.tenant.company);
                		  $(".jcompany").html(msg.tenant.jcompany);
                	}else{
