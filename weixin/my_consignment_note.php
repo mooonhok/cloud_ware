@@ -38,20 +38,20 @@ $signPackage = $jssdk->GetSignPackage();
 			</div>
 			<!-- center -->
 			<div class="center">
-				<div class="BT">
-					<div class="center1">
-						<h3>我寄的</h3></div>
-					<div class="center2">
-						<h3>我收的</h3></div>
-				</div>
-				<div class="BT2">
-					<div class="center1_1"></div>
-					<div class="center2_1"></div>
-				</div>
+<!--				<div class="BT">-->
+<!--					<div class="center1">-->
+<!--						<h3>我寄的</h3></div>-->
+<!--					<div class="center2">-->
+<!--						<h3>我收的</h3></div>-->
+<!--				</div>-->
+<!--				<div class="BT2">-->
+<!--					<div class="center1_1"></div>-->
+<!--					<div class="center2_1"></div>-->
+<!--				</div>-->
 				<div class="box1" id="bo1">
 				</div>
-				<div class="box2" id="bo2">
-				</div>
+<!--				<div class="box2" id="bo2">-->
+<!--				</div>-->
 			</div>
 		</div>
 	</body>
@@ -197,12 +197,12 @@ $signPackage = $jssdk->GetSignPackage();
 						for(var i = 0; i < msg.orders.fa.length; i++) {
 					var a="<div class='piaoyi_a' id='"+msg.orders.fa[i].order_idd+"'>" +
                         "<div class='piaoyi_b'><div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
-					+msg.orders.fa[i].order_id+"</span></p><p>订单价格:<span>"
-					+msg.orders.fa[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
-					+msg.orders.fa[i].sendcity+"</div><div class='name_1'>"
+					+msg.orders.fa[i].order_id+"</span></p><p>运费:<span>"
+					+msg.orders.fa[i].order_cost+"元</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
+					+msg.orders.fa[i].sendcity+"</div><div class='name_1'>发:"
 					+msg.orders.fa[i].sendname+"</div></div><div class='yundan_2_2'><p class='sta'><img src='images/"
 					+"to.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
-					+msg.orders.fa[i].acceptcity+"</div><div class='name_2'>"
+					+msg.orders.fa[i].acceptcity+"</div><div class='name_2'>收:"
 					+msg.orders.fa[i].acceptname+"</div></div></div></div>" +
                         "<div class='yundan_4'><div class='yundan_4_1' id='"+"c"+msg.orders.fa[i].order_idd+"'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
 					+msg.orders.fa[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div></div></div>";
