@@ -1935,6 +1935,22 @@ $app->post('/change_orders_status2',function()use($app){
                         ->where('lorry_id','=',$data2[$i]['lorry_id']);
                     $stmt=$selectStament->execute();
                     $datad=$stmt->fetchAll();
+                    for($g=0;$g<count($datad);$g++){
+                        $selectStament=$database->select()
+                            ->from('agreement_schedule')
+                            ->where('exist','=',0)
+                            ->where('tenant_id','=',$datad[$g]['tenant_id'])
+                            ->where('scheduling_id','=',$datad[$g]['scheduling_id']);
+                        $stmt=$selectStament->execute();
+                        $datada=$stmt->fetch();
+                        $updateStatement = $database->update(array('agreement_status'=>3))
+                            ->table('agreement')
+                            ->where('exist','=',0)
+                            ->where('tenant_id','=',$datad[$g]['tenant_id'])
+//                            ->where('scheduling_id','=',$scheduling_id)
+                            ->where('agreement_id','=',$datada['agreement_id']);
+                        $affectedRows = $updateStatement->execute();
+                    }
                     date_default_timezone_set("PRC");
                     $shijian=date("Y-m-d H:i:s",time());
                         $updateStatement = $database->update(array('scheduling_status'=>8,'back_time'=>$shijian,'back_reason'=>'事故出险',))
