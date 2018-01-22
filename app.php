@@ -2129,6 +2129,7 @@ $app->get('/agreement_lorrys',function()use($app){
          ->where('lorry.tenant_id','=', $data1['tenant_id'])
          ->where('lorry.lorry_id','=', $data1['secondparty_id'])
          ->where('agreement.tenant_id','=', $data1['tenant_id'])
+         ->where('agreement_schedule.agreement_id','=',$agreement_id)
          ->where('agreement_schedule.tenant_id','=', $data1['tenant_id'])
          ->where('agreement.secondparty_id', '=', $data1['secondparty_id']);
      $stmt = $selectStatement->execute();
