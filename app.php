@@ -2221,6 +2221,58 @@ $app->post('/sign_agreement',function()use($app){
 
 });
 
+
+$app->get('/tongji_agreement',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $lorry_id = $app->request->get("lorry_id");
+    $database=localhost();
+    $num=0;
+    if($lorry_id!=null||$lorry_id!=""){
+        $selectStament=$database->select()
+            ->from('app_lorry')
+            ->where('exist','=',0)
+            ->where('app_lorry_id','=',$lorry_id);
+        $stmt=$selectStament->execute();
+        $data1=$stmt->fetch();
+        if($data1!=null){
+            $selectStament=$database->select()
+                ->from('lorry')
+                ->where('exist','=',0)
+                ->where('flag','=',0)
+                ->where('tenant_id','!=',0)
+                ->where('plate_number','=',$data1['plate_number'])
+                ->where('driver_phone','=',$data1['phone']);
+            $stmt=$selectStament->execute();
+            $data2=$stmt->fetchAll();
+            if($data2!=null){
+                for($i=0;$i<count($data2);$i++){
+                    $selectStament=$database->select()
+                        ->from('agreement')
+                        ->where('exist','=',0)
+                        ->where('agreement_status','=',0)
+                        ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                        ->where('secondparty_id','=',$data2[$i]['lorry_id']);
+                    $stmt=$selectStament->execute();
+                    $data3=$stmt->fetchAll();
+                    if($data3!=null){
+                        $num+=count($data3);
+                    }
+                }
+                echo json_encode(array('result' => '0', 'desc' => '','count'=>$num));
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '您还没拉过清单'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '缺少司机id'));
+    }
+});
+
+
+
 $app->run();
 function localhost(){
     return connect();
