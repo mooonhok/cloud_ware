@@ -213,12 +213,12 @@ $signPackage = $jssdk->GetSignPackage();
 							for(var i = 0; i < msg.orders.shou.length; i++) {
 					var b="<div class='piaoyi_a' id='"+msg.orders.shou[i].order_idd+"'>" +
                         "<div class='piaoyi_b'><div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
-					+msg.orders.shou[i].order_id+"</span></p><p>订单价格:<span>"
-					+msg.orders.shou[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
-					+msg.orders.shou[i].sendcity+"</div><div class='name_1'>"
+					+msg.orders.shou[i].order_id+"</span></p><p>运费:<span>"
+					+msg.orders.shou[i].order_cost+"元</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
+					+msg.orders.shou[i].sendcity+"</div><div class='name_1'>发:"
 					+msg.orders.shou[i].sendname+"</div></div><div class='yundan_2_2'><p class='sta'><img src='images/"
 					+"accept.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
-					+msg.orders.shou[i].acceptcity+"</div><div class='name_2'>"
+					+msg.orders.shou[i].acceptcity+"</div><div class='name_2'>收:"
 					+msg.orders.shou[i].acceptname+"</div></div></div></div>" +
                         "<div class='yundan_4'><div class='yundan_4_1' id='"+"d"+msg.orders.shou[i].order_idd+"'>删除</div></div><div class='yundan_3'><div class='yundan_3_1'>"
 					+msg.orders.shou[i].status+"</div></div><div class='xian'></div><div class='kongbai'></div>";
