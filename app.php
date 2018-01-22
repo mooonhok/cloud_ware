@@ -2102,7 +2102,7 @@ $app->get('/agreement_lorrys',function()use($app){
          ->where('lorry_id','=',$data1['secondparty_id']);
      $stmt = $selectStatement->execute();
      $data4= $stmt->fetch();
-     $data1['lorry_name']=$data4['driver_name'];
+     $data1['lorry_name']=$data4['driver_name   '];
      $selectStatement = $database->select()
          ->from('agreement')
          ->join('agreement_schedule','agreement_schedule.agreement_id','=','agreement.agreement_id','INNER')
@@ -2138,7 +2138,18 @@ $app->get('/agreement_lorrys',function()use($app){
      echo json_encode(array('result' => '0', 'desc' => '','agreement_schedulings'=>$data2,'agreement'=>$data1));
  });
 
-
+$app->get('/agreement_status',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $agreement_id = $app->request->get("agreement_id");
+    $selectStatement = $database->select()
+        ->from('agreement')
+        ->where('agreement_id','=',$agreement_id);
+    $stmt = $selectStatement->execute();
+    $data1= $stmt->fetch();
+    echo json_encode(array('result' => '0', 'desc' => '','agreement'=>$data1));
+});
 
 $app->run();
 function localhost(){
