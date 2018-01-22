@@ -2151,7 +2151,75 @@ $app->get('/agreement_status',function()use($app){
     echo json_encode(array('result' => '0', 'desc' => '','agreement'=>$data1));
 });
 
+$app->post('/sign_agreement',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $lorry_id=$body->lorryid;
+    $agreement_id=$body->agreement_id;
+    $pic=$body->pic;
+    $lujing=null;
+    $base64_image_content = $pic;
+//匹配出图片的格式
+    if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)){
+        $type = $result[2];
+        date_default_timezone_set("PRC");
+        $time1=time();
+        $new_file = "/files/agreement_sure/".date('Ymd',$time1)."/";
+        if(!file_exists($new_file))
+        {
+//检查是否有该文件夹，如果没有就创建，并给予最高权限
+            mkdir($new_file, 0700);
+        }
+        $new_file = $new_file.time().".{$type}";
+        if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))){
+            $lujing="http://files.uminfo.cn:8000/agreement_sure/".date('Ymd',$time1)."/".$time1.".{$type}";
+        }
+    }
+    if($lorry_id!=null||$lorry_id!=''){
+        $selectStament=$database->select()
+            ->from('app_lorry')
+            ->where('exist','=',0)
+            ->where('flag','=',0)
+            ->where('app_lorry_id','=',$lorry_id);
+        $stmt=$selectStament->execute();
+        $data1=$stmt->fetch();
+        if($data1!=null){
+            $selectStament = $database->select()
+                ->from('lorry')
+                ->where('exist', '=', 0)
+                ->where('tenant_id', '!=', 0)
+                ->where('plate_number', '=', $data1['plate_number'])
+                ->where('driver_name', '=', $data1['name'])
+                ->where('driver_phone', '=', $data1['phone']);
+            $stmt = $selectStament->execute();
+            $data2 = $stmt->fetchAll();
+            for($i=0;$i<count($data2);$i++){
+//                $selectStatement = $database->select()
+//                    ->from('agreement')
+//                    ->where('tenant_id', '=', $data2[$i]['tenant_id'])
+//                    ->where('secondparty_id', '=', $data2[$i]['lorry_id'])
+//                    ->where('agreement_id','=',$agreement_id);
+//                $stmt = $selectStatement->execute();
+//                $data3= $stmt->fetch();
+                $updateStatement = $database->update(array('sign_img'=>$lujing,'agreement_status'=>1))
+                    ->table('agreement')
+                    ->where('tenant_id', '=', $data2[$i]['tenant_id'])
+                    ->where('secondparty_id', '=', $data2[$i]['lorry_id'])
+                    ->where('agreement_id','=',$agreement_id);
+                $affectedRows = $updateStatement->execute();
+            }
+            echo json_encode(array('result' => '0', 'desc' => '成功'));
+        }else{
+            echo json_encode(array('result' => '1', 'desc' => '该司机未注册'));
+        }
+    }else{
+        echo json_encode(array('result' => '2', 'desc' => '车辆id为空'));
+    }
 
+});
 
 $app->run();
 function localhost(){
