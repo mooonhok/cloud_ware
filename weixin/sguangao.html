@@ -9,7 +9,9 @@
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
 		<script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
+		 <script src="js/scale.js"></script>
 		<title>公司介绍</title>
+		 <link rel="stylesheet" href="css/scale.css" type="text/css" />
 		<style>
 			* {
 				margin: 0 auto;
@@ -37,10 +39,10 @@
 			}
 			
 			.top2 {
-				width: 80%;
+				width: 90%;
 				height: 40px;
 				margin-top: 2px;
-				margin-left: 10%;
+				margin-left: 5%;
 			}
 			
 			.top2_1 {
@@ -62,21 +64,21 @@
 			}
 			
 			.center {
-				width: 80%;
+				width: 90%;
 				margin-top: 10px;
-				margin-left: 10%;
+				margin-left: 5%;
 			}
 			.center2{
-				width: 80%;
+				width: 90%;
 				margin-top: 10px;
-				margin-left: 10%;
+				margin-left: 5%;
 			}
 			.center3{
-				width: 80%;
-				height:40px;
+				width: 90%;
+				height:60px;
 				margin-top:60px;
-				text-align:center;
-				margin-left: 10%;
+				text-align:left;
+				margin-left: 5%;
 			}
 			.center2_1{
 				width:100%;
@@ -100,11 +102,34 @@
 				text-align:left;
 			}
 			.center4{
-			    width:80%;
-			    margin-left:10%;
+			    width:90%;
+			    margin-left:5%;
 			    margin-top:60px;
-			    height:500px;
+			    height:250px;
 			    text-align:left;
+			}
+			.center5{
+				width:90%;
+				margin-left:5%;
+				margin-top:10px;
+			}
+			.center7{
+				width:90%;
+				margin-left:5%;
+				margin-top:20px;
+			}
+			.center6{
+				width:90%;
+				height:100px;
+				text-align: left;
+				margin-left:5%;
+				margin-top:10px;
+			}
+			.center5 img{
+				width:100%;
+			}
+			.center7 img{
+				width:100%;
 			}
 		</style>
 	</head>
@@ -142,11 +167,27 @@
 				      将互联网科技、云技术运用到整个物流系统中，同时也实现了三方的利益最大化和物流服务的透明标准化。 
 				      这种模式实现了：线上及时发货，线下点对点物流配送，做到每件货都有独有的信息基因，实时定位，
 				      货物运输路由实时进行监控，高效安全；物流费用也明码标价 ，真正实现全程透明物流，打破了传统物流封闭式现状。” 
-				      智慧物流的时代已经来临，再不加入就会被互联网的浪潮吞没， 只有适应时代的趋势，不断接受新事物才能在日新月异
+				    </div> 
+	    <div class="center6">智慧物流的时代已经来临，再不加入就会被互联网的浪潮吞没， 只有适应时代的趋势，不断接受新事物才能在日新月异
 				      的世界实现科技和传统结合的双赢及良性的持续发展！</div>
+		<div class="center7"><img src="images/center.png"></div>		      
 		<div class="center3">想要详细了解和尝试使用这套物流ERP系统，可以扫描下方二维码，一起实现物流行业新业态！</div>
+		<div class="center5"><img src="images/last.jpg"></div>
+		
+		<section class="imgzoom_pack">
+        <div class="imgzoom_x">X</div>
+        <div class="imgzoom_img"><img src=""/></div>
+        </section>
 	</body>
 	<script>
+		var a=document.body.clientWidth;
+		$(".center5 img").css("height",a*0.9*1.5);
+		$(".center7 img").css("height",a*0.9*3.94);
+		
+		 document.addEventListener("DOMContentLoaded", function(event){
+            ImagesZoom.init({
+                "elem": ".center7"
+            });
+        }, false);
 	</script>
-
 </html>
