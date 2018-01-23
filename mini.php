@@ -785,7 +785,7 @@ $app->post('/addroute',function()use($app){
                      $data3= $stmt->fetchAll();
                      $insertStatement = $database->insert(array('id','fcity_id','tcity_id','tid'))
                          ->into('mini_route')
-                         ->values(array(count($data3)+1,$fcity,$data2[$x],$mtid));
+                         ->values(array(count($data3)+1,$fcity,$data2[$x]['id'],$mtid));
                      $insertId = $insertStatement->execute(false);
                  }
                 }
