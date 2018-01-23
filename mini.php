@@ -770,27 +770,24 @@ $app->post('/addroute',function()use($app){
                 ->from('province')
                 ->where('id','=',$pid);
             $stmt = $selectStatement->execute();
-            $data= $stmt->fetchAll();
+            $data= $stmt->fetch();
             if($data!=null){
-                for($i=0;$i<count($data);$i++){
                 $selectStatement = $database->select()
                     ->from('mini_city')
-                    ->where('id','=',$data[$i]['id']);
+                    ->where('id','=',$pid);
                 $stmt= $selectStatement->execute();
                 $data2= $stmt->fetchAll();
-                 for($x=0;$x<count($data2);$x++){
-                     $selectStatement = $database->select()
-                         ->from('mini_route');
-                     $stmt = $selectStatement->execute();
-                     $data3= $stmt->fetchAll();
-                     $insertStatement = $database->insert(array('id','fcity_id','tcity_id','tid'))
-                         ->into('mini_route')
-                         ->values(array(count($data3)+1,$fcity,$data2[$x]['id'],$mtid));
-                     $insertId = $insertStatement->execute(false);
-                     echo json_encode(array("result"=>"0","desc"=>"添加成功".$data2[$x]['id']));
-                 }
+                for($x=0;$x<count($data2);$x++){
+                    $selectStatement = $database->select()
+                        ->from('mini_route');
+                    $stmt = $selectStatement->execute();
+                    $data3= $stmt->fetchAll();
+                    $insertStatement = $database->insert(array('id','fcity_id','tcity_id','tid'))
+                        ->into('mini_route')
+                        ->values(array(count($data3)+1,$fcity,$data2[$x]['id'],$mtid));
+                    $insertId = $insertStatement->execute(false);
+                    echo json_encode(array("result"=>"0","desc"=>"添加成功".$data2[$x]['id']));
                 }
-
             }else{
                 echo json_encode(array("result"=>"3","desc"=>"省份不存在"));
             }
@@ -800,9 +797,7 @@ $app->post('/addroute',function()use($app){
     }else{
         echo json_encode(array("result"=>"1","desc"=>"尚未输入省份id"));
     }
-
 });
-
 $app->run();
 
 function localhost(){
