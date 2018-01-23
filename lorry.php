@@ -373,6 +373,68 @@ $app->get('/getAppLorry',function()use($app){
         echo json_encode(array("result"=>"1","desc"=>"缺少司机ID"));
     }
 });
+
+$app->put('/app_lorry',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $database=localhost();
+    $c_introduction = $app->request->params('c_introduction');
+    $c_introduction = $app->request->params('c_introduction');
+    $c_introduction = $app->request->params('c_introduction');
+    $c_introduction = $app->request->params('c_introduction');
+    $c_introduction = $app->request->params('c_introduction');
+    $c_introduction = $app->request->params('c_introduction');
+    $c_introduction = $app->request->params('c_introduction');
+    $time2=time();
+    $name21=$_FILES["trans_contract_p"]["name"];
+    $name2=iconv("UTF-8","gb2312", $name21);
+    $name2=$time2.$name2;
+    move_uploaded_file($_FILES["trans_contract_p"]["tmp_name"],"/files/trans_contract_p/".$name2);
+    $trans_c_p='http://files.uminfo.cn:8000/trans_contract_p/'.$time2.$name21.'';
+    $array=array();
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+    if($tenant_id!=''||$tenant_id!=null){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist',"=",0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        if($data2!=null){
+            if($lorry_id!=''||$lorry_id!=null){
+                $selectStatement = $database->select()
+                    ->from('lorry')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('exist','=',0);
+                $stmt = $selectStatement->execute();
+                $data = $stmt->fetchAll();
+                if($data!=null){
+                    $updateStatement = $database->update($array)
+                        ->table('lorry')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('exist','=',0)
+                        ->where('lorry_id','=',$lorry_id);
+                    $affectedRows = $updateStatement->execute();
+                    echo json_encode(array("result"=>"0","desc"=>"success"));
+                }else{
+                    echo json_encode(array("result"=>"1","desc"=>"车辆不存在"));
+                }
+            }else{
+                echo json_encode(array("result"=>"2","desc"=>"缺少车辆id"));
+            }
+        }else{
+            echo json_encode(array("result"=>"3","desc"=>"该租户不存在"));
+        }
+    }else{
+        echo json_encode(array("result"=>"4","desc"=>"缺少租户id"));
+    }
+});
+
 $app->run();
 
 function localhost(){

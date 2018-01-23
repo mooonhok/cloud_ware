@@ -124,7 +124,7 @@ function lorry_xq(id){
         '<button id="order_sure">确定</button><button id="order_cancle">取消</button>' +
         '</div>'
     });
-    $("#order_close").on("click",function(){
+    $("#order_cancle").on("click",function(){
         layer.close(index);
     });
     $.ajax({
@@ -153,5 +153,7 @@ function lorry_xq(id){
             alert("获取后台失败！");
         }
     });
+    $("#order_sure").on("click",function(){
 
+    });
 }
