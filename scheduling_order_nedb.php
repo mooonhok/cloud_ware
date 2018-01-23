@@ -1138,7 +1138,7 @@ $app->get('/getSchedulingOrderList2',function()use($app){
             ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
             ->where('lorry.tenant_id', '=', $tenant_id)
             ->where('scheduling.tenant_id', '=', $tenant_id)
-            ->where('scheduling.is_contract', '=', 2)
+            ->where('scheduling.is_contract', '=', 3)
             ->where('lorry.lorry_id', '=', $lorry_id)
             ->where('scheduling.exist', '=', 0);
         $stmt = $selectStatement->execute();
