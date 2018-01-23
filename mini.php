@@ -774,7 +774,7 @@ $app->post('/addroute',function()use($app){
             if($data!=null){
                 $selectStatement = $database->select()
                     ->from('mini_city')
-                    ->where('id','=',$pid);
+                    ->where('pid','=',$pid);
                 $stmt= $selectStatement->execute();
                 $data2= $stmt->fetchAll();
                 for($x=0;$x<count($data2);$x++){
@@ -786,8 +786,8 @@ $app->post('/addroute',function()use($app){
                         ->into('mini_route')
                         ->values(array(count($data3)+1,$fcity,$data2[$x]['id'],$mtid));
                     $insertId = $insertStatement->execute(false);
-                    echo json_encode(array("result"=>"0","desc"=>"添加成功".$data2[$x]['id']));
                 }
+                echo json_encode(array("result"=>"0","desc"=>"添加成功"));
             }else{
                 echo json_encode(array("result"=>"3","desc"=>"省份不存在"));
             }
