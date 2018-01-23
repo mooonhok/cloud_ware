@@ -153,6 +153,17 @@ function lorry_xq(id){
             alert("获取后台失败！");
         }
     });
+
+    $(".id_z").on("click",function(){
+        var file1=document.getElementsByClassName('id_z')[0].files[0];
+        var reader = new FileReader();
+        reader.onload = function () {
+            document.getElementById('#id_z').setAttribute("src",this.result);
+        }
+        reader.readAsDataURL(file1);
+        console.log(file1);
+    });
+
     $("#order_sure").on("click",function(){
         var phone=$("#phone").val();
         var name=$("#name").val();
@@ -167,13 +178,7 @@ function lorry_xq(id){
         // $("#j_f").attr("src",msg.lorrys.driver_license_tp);
         // $("#x_z").attr("src",msg.lorrys.driving_license_fp);
         // $("#x_f").attr("src",msg.lorrys.driving_license_tp);
-        var file1=document.getElementsByClassName('id_z')[0].files[0];
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            document.getElementById('#id_z').setAttribute("src", e.target.result);
-        }
-        reader.readAsDataURL(file1);
-        console.log(file1);
+
         // var file2=$(this).parent().prev().children('.afile');
 //         if(file1!=null&&tenant_id!=null){
 //             var formdata = new FormData();
