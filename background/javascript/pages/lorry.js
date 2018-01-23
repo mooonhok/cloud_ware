@@ -89,7 +89,7 @@ function lorry_xq(id){
     var index=layer.open({
         type: 1,
         skin: 'layui-layer-rim', //加上边框
-        // area: ['800px'],
+        area: ['800px', '450px'], //宽高
         content: '<div class="tenant_tk">' +
         '<h1 style="text-align:center;">详情</h1>' +
         '<div>' +
