@@ -754,7 +754,49 @@ $app->get('/name',function()use($app){
         echo json_encode(array("result"=>"1","desc"=>"尚未输入内容"));
     }
 });
+//添加路线全省
+$app->post('/addroute',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $pid=$body->pid;
+    $mtid=$body->tid;
+    $fcity=$body->fid;
+    if($pid!=null||$pid!=""){
+        if($mtid!=null||$mtid!=""){
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id','=',$pid);
+            $stmt = $selectStatement->execute();
+            $data= $stmt->fetchAll();
+            if($data!=null){
+                for($i=0;$i<count($data);$i++){
+                $selectStatement = $database->select()
+                    ->from('mini_city')
+                    ->where('id','=',$data[$i]['id']);
+                $stmt= $selectStatement->execute();
+                $data2= $stmt->fetchAll();
+                 for($x=0;$x<count($data2);$x++){
+                     $insertStatement = $database->insert(array('fcity_id','tcity_id','tid'))
+                         ->into('mini_route')
+                         ->values(array($fcity,$data2[$x],$mtid));
+                     $insertId = $insertStatement->execute(false);
+                 }
+                }
+                echo json_encode(array("result"=>"0","desc"=>"添加成功"));
+            }else{
+                echo json_encode(array("result"=>"3","desc"=>"省份不存在"));
+            }
+        }else{
+            echo json_encode(array("result"=>"2","desc"=>"尚未小程序id"));
+        }
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"尚未输入省份id"));
+    }
 
+});
 
 $app->run();
 
