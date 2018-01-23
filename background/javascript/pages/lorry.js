@@ -89,7 +89,7 @@ function lorry_xq(id){
     var index=layer.open({
         type: 1,
         skin: 'layui-layer-rim', //加上边框
-        area: ['420px', '450px'], //宽高
+        area: ['800px', '450px'], //宽高
         content: '<div class="tenant_tk">' +
         '<h1 style="text-align:center;">详情</h1>' +
         '<div>' +
@@ -110,13 +110,13 @@ function lorry_xq(id){
         '<input type="text" id="lorry_type"/>' +
         '<input type="text" id="lorry_weight"/>' +
         '</div>' +
+        '<img src="" id="id_z" class="image1"/>'+
+        '<img src="" id="id_f" class="image1"/>'+
+        '<img src="" id="j_z" class="image1"/>'+
+        '<img src="" id="j_f" class="image1"/>'+
+        '<img src="" id="x_z" class="image1"/>'+
+        '<img src="" id="x_f" class="image1"/>'+
         '<button id="order_close">关闭</button>' +
-        '<img src="" id="id_z"/>'+
-        '<img src="" id="id_f"/>'+
-        '<img src="" id="j_z"/>'+
-        '<img src="" id="j_f"/>'+
-        '<img src="" id="x_z"/>'+
-        '<img src="" id="x_f"/>'+
         '</div>'
     });
     $("#order_close").on("click",function(){
