@@ -149,7 +149,7 @@ $app->get('/getAgreementSchedules1',function()use($app) {
 $app->get('/getAgreementSchedule0',function()use($app) {
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
-    $agreement_id = $app->request->get("agreement_id");
+    $scheduling_id = $app->request->get("scheduling_id");
     $database=localhost();
     if($tenant_id!=''||$tenant_id!=null){
         $selectStatement = $database->select()
@@ -161,7 +161,7 @@ $app->get('/getAgreementSchedule0',function()use($app) {
             ->where('scheduling.tenant_id','=',$tenant_id)
             ->where('lorry.tenant_id','=',$tenant_id)
             ->where('agreement_schedule.tenant_id','=',$tenant_id)
-            ->where('agreement_schedule.agreement_id','=',$agreement_id)
+            ->where('agreement_schedule.scheduling_id','=',$scheduling_id)
             ->where('agreement_schedule.exist','=',0)
             ->where('agreement.exist','=',0);
         $stmt = $selectStatement->execute();
