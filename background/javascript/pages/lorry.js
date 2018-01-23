@@ -169,8 +169,10 @@ function lorry_xq(id){
         // $("#x_f").attr("src",msg.lorrys.driving_license_tp);
         var file1=$('.id_z')[0].files[0];
         var reader = new FileReader();
-        var cc=reader.readAsDataURL(File);
-        $('#id_z').attr('src',cc);
+        reader.onload = function (e) {
+            document.getElementById('#id_z').setAttribute("src", e.target.result);
+        }
+        reader.readAsDataURL(file1);
         console.log(file1);
         // var file2=$(this).parent().prev().children('.afile');
 //         if(file1!=null&&tenant_id!=null){
