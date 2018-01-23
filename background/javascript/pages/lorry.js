@@ -90,7 +90,7 @@ function lorry_xq(id){
         skin: 'layui-layer-rim', //加上边框
         area: ['800px', '450px'], //宽高
         content: '<div class="tenant_tk">' +
-        '<h1 style="text-align:center;">详情</h1>' +
+        '<h1 style="text-align:center;">修改车辆信息</h1>' +
         '<div>' +
         '<div>手机号</div>' +
         '<div>司机名字</div>' +
