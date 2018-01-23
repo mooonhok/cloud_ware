@@ -110,17 +110,17 @@ function lorry_xq(id){
         '<input type="text" id="lorry_weight"/>' +
         '</div>' +
         '<h3>身份证正面</h3>' +
-        '<label><img src="" id="id_z" class="image1"/><input type="file" style="display:none;"/></label>'+
+        '<label><img src="" id="id_z" class="image1"/><input type="file" style="display:none;" class="id_z"/></label>'+
         '<h3>身份证反面</h3>' +
-        '<img src="" id="id_f" class="image1"/>'+
+        '<label><img src="" id="id_f" class="image1"/><input type="file" style="display:none;" class="id_f"/></label>'+
         '<h3>驾驶证正面</h3>' +
-        '<img src="" id="j_z" class="image1"/>'+
+        '<label><img src="" id="j_z" class="image1"/><input type="file" style="display:none;" class="j_z"/></label>'+
         '<h3>驾驶证反面</h3>' +
-        '<img src="" id="j_f" class="image1"/>'+
+        '<label><img src="" id="j_f" class="image1"/><input type="file" style="display:none;" class="j_f"/></label>'+
         '<h3>行驶证正面</h3>' +
-        '<img src="" id="x_z" class="image1"/>'+
+        '<label><img src="" id="x_z" class="image1"/><input type="file" style="display:none;" class="x_z"</label>'+
         '<h3>行驶证反面</h3>' +
-        '<img src="" id="x_f" class="image1"/>'+
+        '<label><img src="" id="x_f" class="image1"/><input type="file" style="display:none;" class="x_f"/></label>'+
         '<button id="order_sure">确定</button><button id="order_cancle">取消</button>' +
         '</div>'
     });
