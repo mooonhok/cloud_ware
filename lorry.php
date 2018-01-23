@@ -335,6 +335,44 @@ $app->get('/lorrys_plate_number',function()use($app){
     echo json_encode(array("result"=>"0","desc"=>"success",'lorrys'=>$data1,'count'=>count($data0)));
 });
 
+
+$app->get('/getAppLorry',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $applorry=$app->request->get("app_lorry_id");
+    if($applorry!=null||$applorry!=null){
+        $selectStatement = $database->select()
+            ->from('app_lorry')
+            ->where('app_lorry_id','=',$applorry);
+        $stmt = $selectStatement->execute();
+        $data= $stmt->fetch();
+
+                $selectStatement = $database->select()
+                    ->from('lorry_length')
+                    ->where('lorry_length_id','=',$data['length']);
+                $stmt = $selectStatement->execute();
+                $data2= $stmt->fetch();
+                $data['lorry_length_name']=$data2['lorry_length'];
+//                $selectStatement = $database->select()
+//                    ->from('lorry_load')
+//                    ->where('lorry_load_id','=',$data[$i]['deadweight']);
+//                $stmt = $selectStatement->execute();
+//                $data3= $stmt->fetch();
+                $data['lorry_load_name']=$data['deadweight'];
+                $selectStatement = $database->select()
+                    ->from('lorry_type')
+                    ->where('lorry_type_id','=',$data['type']);
+                $stmt = $selectStatement->execute();
+                $data4= $stmt->fetch();
+                $data['lorry_type_name']=$data4['lorry_type_name'];
+
+            echo json_encode(array("result"=>"0","desc"=>"","lorrys"=>$data));
+
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"缺少司机ID"));
+    }
+});
 $app->run();
 
 function localhost(){

@@ -122,26 +122,26 @@ function lorry_xq(id){
         layer.close(index);
     });
     $.ajax({
-        url: "http://api.uminfo.cn/app_lorry_nedb.php/getAppLorry1?app_lorry_id="+id+"",
+        url: "http://api.uminfo.cn/lorry.php/getAppLorry?app_lorry_id="+id+"",
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
         data: JSON.stringify({}),
         success: function(msg) {
             console.log(msg);
-            $("#phone").val(msg.lorrys[0].phone);
-            $("#name").val(msg.lorrys[0].name);
-            $("#id_card").val(msg.lorrys[0].id_number);
-            $("#plate_number").val(msg.lorrys[0].plate_number);
-            $("#lorry_length").val(msg.lorrys[0].lorry_length_name);
-            $("#lorry_type").val(msg.lorrys[0].lorry_type_name);
-            $("#lorry_weight").val(msg.lorrys[0].lorry_load_name);
-            $("#id_z").attr("src",msg.lorrys[0].identity_card_z);
-            $("#id_f").attr("src",msg.lorrys[0].identity_card_f);
-            $("#j_z").attr("src",msg.lorrys[0].driver_license_fp);
-            $("#j_f").attr("src",msg.lorrys[0].driver_license_tp);
-            $("#x_z").attr("src",msg.lorrys[0].driving_license_fp);
-            $("#x_f").attr("src",msg.lorrys[0].driving_license_tp);
+            $("#phone").val(msg.lorrys.phone);
+            $("#name").val(msg.lorrys.name);
+            $("#id_card").val(msg.lorrys.id_number);
+            $("#plate_number").val(msg.lorrys.plate_number);
+            $("#lorry_length").val(msg.lorrys.lorry_length_name);
+            $("#lorry_type").val(msg.lorrys.lorry_type_name);
+            $("#lorry_weight").val(msg.lorrys.lorry_load_name);
+            $("#id_z").attr("src",msg.lorrys.identity_card_z);
+            $("#id_f").attr("src",msg.lorrys.identity_card_f);
+            $("#j_z").attr("src",msg.lorrys.driver_license_fp);
+            $("#j_f").attr("src",msg.lorrys.driver_license_tp);
+            $("#x_z").attr("src",msg.lorrys.driving_license_fp);
+            $("#x_f").attr("src",msg.lorrys.driving_license_tp);
         },
         error: function(xhr) {
             alert("获取后台失败！");
