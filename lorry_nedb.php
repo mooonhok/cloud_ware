@@ -308,7 +308,7 @@ $app->get('/getLorry1',function()use($app){
 
             echo json_encode(array("result" => "0", "desc" => "success",'lorrys'=>$data));
         }else{
-            echo json_encode(array("result" => "1", "desc" => "缺少车牌号码"));
+            echo json_encode(array("result" => "1", "desc" => "缺少电话号码"));
         }
     }else{
         echo json_encode(array("result" => "2", "desc" => "缺少租户id"));

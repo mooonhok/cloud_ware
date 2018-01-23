@@ -103,29 +103,34 @@ function lorry_xq(id){
     //         alert("获取后台失败！");
     //     }
     // });
-    layer.open({
+    var index=layer.open({
         type: 1,
         skin: 'layui-layer-rim', //加上边框
         area: ['420px', '450px'], //宽高
-        content: '            <div class="tenant_tk">' +
-        '                <h1 style="text-align:center;">详情</h1>' +
-        '                <div>' +
-        '                    <div>货物名称</div>' +
-        '                    <div>货物重量(吨)</div>' +
-        '                    <div>货物体积(立方)</div>' +
-        '                    <div>货物数量</div>' +
-        '                    <div>货物价值(万元)</div>' +
-        '                    <div>货物包装</div>' +
-        '                </div>' +
-        '                <div>' +
-        '                    <input type="text" id="tenant_id" disabled="disabled"/>' +
-        '                    <input type="text" id="tenant_num" disabled="disabled"/>' +
-        '                    <input type="text" id="app_id" disabled="disabled"/>' +
-        '                    <input type="text" id="secret" disabled="disabled"/>' +
-        '                    <input type="text" id="customer_name" disabled="disabled"/>' +
-        '                    <input type="text" id="customer_phone" disabled="disabled"/>' +
-        '                </div>' +
-        '                <button id="order_close">关闭</button>' +
-        '            </div>'
+        content: '<div class="tenant_tk">' +
+        '<h1 style="text-align:center;">详情</h1>' +
+        '<div>' +
+        '<div>手机号</div>' +
+        '<div>司机名字</div>' +
+        '<div>身份证号码</div>' +
+        '<div>车牌号</div>' +
+        '<div>车长</div>' +
+        '<div>车的类型</div>' +
+        '<div>载重</div>' +
+        '</div>' +
+        '<div>' +
+        '<input type="text" id="tenant_id"/>' +
+        '<input type="text" id="tenant_num"/>' +
+        '<input type="text" id="app_id"/>' +
+        '<input type="text" id="secret"/>' +
+        '<input type="text" id="customer_name"/>' +
+        '<input type="text" id="customer_phone"/>' +
+        '<input type="text" id="customer_phone"/>' +
+        '</div>' +
+        '<button id="order_close">关闭</button>' +
+        '</div>'
+    });
+    $("#order_close").on("click",function(){
+        layer.close(index);
     });
 }
