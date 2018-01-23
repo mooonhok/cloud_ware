@@ -84,25 +84,7 @@ function loadlorrys(plate_number,page) {
 function lorry_xq(id){
     // $(".tenant_tk").css("display","block");
     // $(".tenant_tk div input").val("");
-    // $.ajax({
-    //     url: "http://api.uminfo.cn/lorry.php/lorrys_lorry_id?app_lorry_id="+id+"",
-    //     dataType: 'json',
-    //     type: 'get',
-    //     ContentType: "application/json;charset=utf-8",
-    //     data: JSON.stringify({}),
-    //     success: function(msg) {
-    //         console.log(msg);
-    //         $("#tenant_id").val(msg.lorry.lorry_id);
-    //         $("#tenant_num").val(msg.lorry.driver_name);
-    //         $("#app_id").val(msg.lorry.plate_number);
-    //         for(var i=0;i<msg.order_goods.length;i++){
-    //             var a='<div></div>'
-    //         }
-    //     },
-    //     error: function(xhr) {
-    //         alert("获取后台失败！");
-    //     }
-    // });
+
     var index=layer.open({
         type: 1,
         skin: 'layui-layer-rim', //加上边框
@@ -119,22 +101,50 @@ function lorry_xq(id){
         '<div>载重</div>' +
         '</div>' +
         '<div>' +
-        '<input type="text" id="tenant_id"/>' +
-        '<input type="text" id="tenant_num"/>' +
-        '<input type="text" id="app_id"/>' +
-        '<input type="text" id="secret"/>' +
-        '<input type="text" id="customer_name"/>' +
-        '<input type="text" id="customer_phone"/>' +
-        '<input type="text" id="customer_phone"/>' +
+        '<input type="text" id="phone"/>' +
+        '<input type="text" id="name"/>' +
+        '<input type="text" id="id_card"/>' +
+        '<input type="text" id="plate_number"/>' +
+        '<input type="text" id="lorry_length"/>' +
+        '<input type="text" id="lorry_type"/>' +
+        '<input type="text" id="lorry_weight"/>' +
         '</div>' +
         '<button id="order_close">关闭</button>' +
-        '<img src="../../images/code_bg.jpg"/>'+
-        '<img src="../../images/code_bg.jpg"/>'+
-        '<img src="../../images/code_bg.jpg"/>'+
-        '<img src="../../images/code_bg.jpg"/>'+
+        '<img src="" id="id_z"/>'+
+        '<img src="" id="id_f"/>'+
+        '<img src="" id="j_z"/>'+
+        '<img src="" id="j_f"/>'+
+        '<img src="" id="x_z"/>'+
+        '<img src="" id="x_f"/>'+
         '</div>'
     });
     $("#order_close").on("click",function(){
         layer.close(index);
+    });
+    $.ajax({
+        url: "http://api.uminfo.cn/app_lorry_nedb.php/getAppLorry1?app_lorry_id="+id+"",
+        dataType: 'json',
+        type: 'get',
+        ContentType: "application/json;charset=utf-8",
+        data: JSON.stringify({}),
+        success: function(msg) {
+            console.log(msg);
+            $("#phone").val(msg.lorrys[0].phone);
+            $("#name").val(msg.lorrys[0].name);
+            $("#id_card").val(msg.lorrys[0].id_number);
+            $("#plate_number").val(msg.lorrys[0].plate_number);
+            $("#lorry_length").val(msg.lorrys[0].lorry_length_name);
+            $("#lorry_type").val(msg.lorrys[0].lorry_type_name);
+            $("#lorry_weight").val(msg.lorrys[0].lorry_load_name);
+            $("#id_z").attr("src",msg.lorrys[0].identity_card_z);
+            $("#id_f").attr("src",msg.lorrys[0].identity_card_f);
+            $("#j_z").attr("src",msg.lorrys[0].driver_license_fp);
+            $("#j_f").attr("src",msg.lorrys[0].driver_license_tp);
+            $("#x_z").attr("src",msg.lorrys[0].driving_license_fp);
+            $("#x_f").attr("src",msg.lorrys[0].driving_license_tp);
+        },
+        error: function(xhr) {
+            alert("获取后台失败！");
+        }
     });
 }
