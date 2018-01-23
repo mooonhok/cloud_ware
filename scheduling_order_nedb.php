@@ -1140,7 +1140,6 @@ $app->get('/getSchedulingOrderList2',function()use($app){
             ->where('scheduling.tenant_id', '=', $tenant_id)
             ->where('scheduling.is_contract', '=', 2)
             ->where('lorry.lorry_id', '=', $lorry_id)
-            ->where('scheduling.is_contract', '=', 1)
             ->where('scheduling.exist', '=', 0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
