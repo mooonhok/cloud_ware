@@ -167,7 +167,7 @@ function lorry_xq(id){
         // $("#j_f").attr("src",msg.lorrys.driver_license_tp);
         // $("#x_z").attr("src",msg.lorrys.driving_license_fp);
         // $("#x_f").attr("src",msg.lorrys.driving_license_tp);
-        var file1=$(this).parent().prev().children('#id_z').files[0];
+        var file1=$('#id_z');
         console.log(file1);
         // var file2=$(this).parent().prev().children('.afile');
 //         if(file1!=null&&tenant_id!=null){
