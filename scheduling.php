@@ -385,7 +385,7 @@ $app->get('/schedulings_scheduling_id',function()use($app) {
         $selectStatement = $database->select()
             ->from('customer')
             ->where('tenant_id','=',$data1[$i]['tenant_id'])
-            ->where('id','=',$data1[$i]['receiver_id']);
+            ->where('customer_id','=',$data1[$i]['receiver_id']);
         $stmt = $selectStatement->execute();
         $data6 = $stmt->fetch();
         $data1[$i]['tenant']=$data2;
