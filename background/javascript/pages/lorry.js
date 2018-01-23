@@ -128,6 +128,10 @@ function lorry_xq(id){
         '<input type="text" id="customer_phone"/>' +
         '</div>' +
         '<button id="order_close">关闭</button>' +
+        '<img src="../../images/code_bg.jpg"/>'+
+        '<img src="../../images/code_bg.jpg"/>'+
+        '<img src="../../images/code_bg.jpg"/>'+
+        '<img src="../../images/code_bg.jpg"/>'+
         '</div>'
     });
     $("#order_close").on("click",function(){
