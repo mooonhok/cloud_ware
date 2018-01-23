@@ -74,6 +74,7 @@ $app->get('/schs',function()use($app){
             $data[$i]['receive_city']=$dataf['name'];
             $selectStament=$database->select()
                 ->from('customer')
+                ->where('tenant_id','=',$data[$i]['tenant_id'])
                 ->where('customer_id','=',$data[$i]['receiver_id']);
             $stmt=$selectStament->execute();
             $data2=$stmt->fetch();
@@ -194,6 +195,7 @@ $app->get('/schs',function()use($app){
             $data[$i]['receive_city']=$dataf['name'];
             $selectStament=$database->select()
                 ->from('customer')
+                ->where('tenant_id','=',$data[$i]['tenant_id'])
                 ->where('customer_id','=',$data[$i]['receiver_id']);
             $stmt=$selectStament->execute();
             $data2=$stmt->fetch();
@@ -308,6 +310,7 @@ $app->get('/dbadmin',function()use($app){
     $data['receive_city']=$dataf['name'];
     $selectStament=$database->select()
         ->from('customer')
+        ->where('tenant_id','=',$data['tenant_id'])
         ->where('customer_id','=',$data['receiver_id']);
     $stmt=$selectStament->execute();
     $data2=$stmt->fetch();

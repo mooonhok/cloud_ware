@@ -111,17 +111,17 @@ function lorry_xq(id){
         '<input type="text" id="lorry_weight"/>' +
         '</div>' +
         '<h3>身份证正面</h3>' +
-        '<img src="" id="id_z" class="image1"/>'+
+        '<img src="" id="id_z" class="image1" onmousewheel="return bigimg(this)"/>'+
         '<h3>身份证反面</h3>' +
-        '<img src="" id="id_f" class="image1"/>'+
+        '<img src="" id="id_f" class="image1" onmousewheel="return bigimg(this)"/>'+
         '<h3>驾驶证正面</h3>' +
-        '<img src="" id="j_z" class="image1"/>'+
+        '<img src="" id="j_z" class="image1" onmousewheel="return bigimg(this)"/>'+
         '<h3>驾驶证反面</h3>' +
-        '<img src="" id="j_f" class="image1"/>'+
+        '<img src="" id="j_f" class="image1" onmousewheel="return bigimg(this)"/>'+
         '<h3>行驶证正面</h3>' +
-        '<img src="" id="x_z" class="image1"/>'+
+        '<img src="" id="x_z" class="image1" onmousewheel="return bigimg(this)"/>'+
         '<h3>行驶证反面</h3>' +
-        '<img src="" id="x_f" class="image1"/>'+
+        '<img src="" id="x_f" class="image1" onmousewheel="return bigimg(this)"/>'+
         '<button id="order_close">关闭</button>' +
         '</div>'
     });
@@ -154,4 +154,12 @@ function lorry_xq(id){
             alert("获取后台失败！");
         }
     });
+
+}
+function bigimg(obj){
+    var zoom = parseInt(obj.style.zoom,10)||100;
+    zoom += event.wheelDelta / 12;
+    if(zoom > 0 )
+        obj.style.zoom=zoom+'%';
+    return false;
 }
