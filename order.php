@@ -492,7 +492,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                         if($array1['order_cost']==null||$array1['order_cost']==''){
                             $array1['order_cost']='暂无';
                         }
-                        if(($array1['status']==0&&$array1['order_cost']=='暂无')||$array1('status')==5){
+                        if(($array1['status']==0&&$array1['order_cost']=='暂无')||$array1['status']==5){
 //                            $array1['order_cost']='受理中';
                             $array1['receive']='未签收';
                             $array1['status']='受理中';
