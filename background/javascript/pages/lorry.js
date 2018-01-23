@@ -121,7 +121,7 @@ function lorry_xq(id){
         '<img src="" id="x_z" class="image1"/>'+
         '<h3>行驶证反面</h3>' +
         '<img src="" id="x_f" class="image1"/>'+
-        '<button id="order_close">关闭</button>' +
+        '<button id="order_sure">确定</button><button id="order_cancle">取消</button>' +
         '</div>'
     });
     $("#order_close").on("click",function(){
