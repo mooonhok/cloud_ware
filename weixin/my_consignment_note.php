@@ -198,7 +198,7 @@ $signPackage = $jssdk->GetSignPackage();
 					var a="<div class='piaoyi_a' id='"+msg.orders.fa[i].order_idd+"'>" +
                         "<div class='piaoyi_b'><div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders.fa[i].order_id+"</span></p><p>运费:<span>"
-					+msg.orders.fa[i].order_cost+"元</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
+					+msg.orders.fa[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
 					+msg.orders.fa[i].sendcity+"</div><div class='name_1'>发:"
 					+msg.orders.fa[i].sendname+"</div></div><div class='yundan_2_2'><p class='sta'><img src='images/"
 					+"to.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
@@ -214,7 +214,7 @@ $signPackage = $jssdk->GetSignPackage();
 					var b="<div class='piaoyi_a' id='"+msg.orders.shou[i].order_idd+"'>" +
                         "<div class='piaoyi_b'><div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders.shou[i].order_id+"</span></p><p>运费:<span>"
-					+msg.orders.shou[i].order_cost+"元</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
+					+msg.orders.shou[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
 					+msg.orders.shou[i].sendcity+"</div><div class='name_1'>发:"
 					+msg.orders.shou[i].sendname+"</div></div><div class='yundan_2_2'><p class='sta'><img src='images/"
 					+"accept.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
@@ -269,7 +269,7 @@ $signPackage = $jssdk->GetSignPackage();
 					var a="<div class='piaoyi_a' id='"+msg.orders[i].order_idd+"'>" +
                         "<div class='piaoyi_b'><div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders[i].order_id+"</span></p><p>运费:<span>"
-					+msg.orders[i].order_cost+"元</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
+					+msg.orders[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
 					+msg.orders[i].sendcity+"</div><div class='name_1'>发:"
 					+msg.orders[i].sendname+"</div></div><div class='yundan_2_2'><p class='sta'><img src='images/to.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
 					+msg.orders[i].acceptcity+"</div><div class='name_2'>收:"
@@ -318,7 +318,7 @@ $signPackage = $jssdk->GetSignPackage();
 					var a="<div class='piaoyi_a' id='"+msg.orders[i].order_idd+"'>" +
                         "<div class='piaoyi_b'><div class='xian'></div><div class='yundan'><div class='yundan_1'><p>运单号:<span>"
 					+msg.orders[i].order_id+"</span></p><p>运费:<span>"
-					+msg.orders[i].order_cost+"元</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
+					+msg.orders[i].order_cost+"</span></p></div><div class='yundan_2'><div class='yundan_2_1'><div class='city_1'>"
 					+msg.orders[i].sendcity+"</div><div class='name_1'>发:"
 					+msg.orders[i].sendname+"</div></div><div class='yundan_2_2'><p class='sta'><img src='images/accept.png'></p></div><div class='yundan_2_1'><div class='city_2'>"
 					+msg.orders[i].acceptcity+"</div><div class='name_2'>收:"
