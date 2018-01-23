@@ -167,7 +167,7 @@ function lorry_xq(id){
         // $("#j_f").attr("src",msg.lorrys.driver_license_tp);
         // $("#x_z").attr("src",msg.lorrys.driving_license_fp);
         // $("#x_f").attr("src",msg.lorrys.driving_license_tp);
-        var file1=$('.id_z')[0];
+        var file1=$('.id_z').files[0];
         // var reader = new FileReader();
         // reader.onload = function (e) {
         //     document.getElementById('#id_z').setAttribute("src", e.target.result);
