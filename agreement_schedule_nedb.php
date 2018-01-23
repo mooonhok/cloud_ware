@@ -192,7 +192,7 @@ $app->get('/getAgreementSchedule0',function()use($app) {
             $data[$i]['send_province']=$data3;
             $data[$i]['receive_province']=$data4;
         }
-        echo json_encode(array("result" => "1", "desc" => 'success','agreement_schedules'=>$data));
+        echo json_encode(array("result" => "0", "desc" => 'success','agreement_schedules'=>$data));
     }else{
         echo json_encode(array("result" => "2", "desc" => "缺少租户id"));
     }
