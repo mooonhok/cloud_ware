@@ -68,6 +68,7 @@ function loadlorrys(plate_number,page) {
                         }();
                         $(".look").on("click",function(){
                             var app_lorry_id=$(this).parent().children().eq(0).text();
+                            alert(app_lorry_id)
                             lorry_xq(app_lorry_id);
                         })
                     }
