@@ -158,7 +158,7 @@ function lorry_xq(id){
         var file1=document.getElementsByClassName('id_z')[0].files[0];
         var reader = new FileReader();
         reader.onload = function () {
-            document.getElementById('#id_z').setAttribute("src",this.result);
+            document.getElementById('id_z').setAttribute("src",this.result);
         }
         reader.readAsDataURL(file1);
         console.log(file1);
