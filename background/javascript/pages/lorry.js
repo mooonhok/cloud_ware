@@ -68,7 +68,6 @@ function loadlorrys(plate_number,page) {
                         }();
                         $(".look").on("click",function(){
                             var app_lorry_id=$(this).parent().children().eq(0).text();
-                            alert(app_lorry_id)
                             lorry_xq(app_lorry_id);
                         })
                     }
@@ -135,7 +134,7 @@ function lorry_xq(id){
         ContentType: "application/json;charset=utf-8",
         data: JSON.stringify({}),
         success: function(msg) {
-            console.log(msg);
+            // console.log(msg);
             $("#phone").val(msg.lorrys.phone);
             $("#name").val(msg.lorrys.name);
             $("#id_card").val(msg.lorrys.id_number);

@@ -36,15 +36,19 @@ $app->post('/client_version',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $client_version = $app->request->params('client_version');
+    $database = localhost();
 
     $version_asar = $_FILES["version_asar"]["name"];
     $i=0;
+    $lujing1='';
+    $lujing2='';
     if($version_asar){
         $new_file = "/files/client/" . $client_version . "/";
         if (!file_exists($new_file)) {
             mkdir($new_file, 0700);
         }
         move_uploaded_file($_FILES["version_asar"]["tmp_name"], $new_file . $version_asar);
+        $lujing1 = "http://files.uminfo.cn:8000/client/".$client_version."/".$version_asar;
         $i++;
     }
     $version_json = $_FILES["version_json"]["name"];
@@ -54,10 +58,18 @@ $app->post('/client_version',function()use($app){
             mkdir($new_file, 0700);
         }
         move_uploaded_file($_FILES["version_json"]["tmp_name"], $new_file . $version_json);
+        $lujing2 = "http://files.uminfo.cn:8000/client/".$client_version."/".$version_json;
         $i++;
     }
     if($i==2){
-        $app->redirect('http://www.uminfo.cn');
+        $array['client_version']=$client_version;
+        $array['asar_url']=$lujing1;
+        $array['package_url']=$lujing2;
+        $insertStatement = $database->insert(array_keys($array))
+            ->into('client')
+            ->values(array_values($array));
+        $insertId = $insertStatement->execute(false);
+        $app->redirect('http://api.uminfo.cn/background/add_client.html');
     }
 
 });
