@@ -110,7 +110,7 @@ function lorry_xq(id){
         '<input type="text" id="lorry_weight"/>' +
         '</div>' +
         '<h3>身份证正面</h3>' +
-        '<img src="" id="id_z" class="image1"/>'+
+        '<label><img src="" id="id_z" class="image1"/><input type="file" style="display:none;"/></label>'+
         '<h3>身份证反面</h3>' +
         '<img src="" id="id_f" class="image1"/>'+
         '<h3>驾驶证正面</h3>' +
