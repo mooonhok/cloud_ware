@@ -942,7 +942,7 @@ $app->post('/addmini',function()use($app){
                         $insertStatement = $database->insert(array('id','name','img','intro','line','person','phone'
                         ,'telephone','address','latitude','longitude','public_name','public_img','flag','swiper_img1'
                         ,'swiper_img2','swiper_img3','swiper_img4','exist'))
-                            ->into('mini_route')
+                            ->into('mini_tenant')
                             ->values(array(count($data5)+1,$name,$lujing1,$intro,$line,$person,$phone
                             ,$telephone,$address,$lat,$lng,$publicname,$lujing6,$flag,$lujing2
                             ,$lujing3,$lujing4,$lujing5,0));
