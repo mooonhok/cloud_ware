@@ -154,13 +154,10 @@ function lorry_xq(id){
         }
     });
 
-    $(".id_z").on("click",function(){
+    $(".id_z").on("change",function(){
         var file1=document.getElementsByClassName('id_z')[0].files[0];
-        var reader = new FileReader();
-        reader.onload = function () {
-            document.getElementById('id_z').setAttribute("src",this.result);
-        }
-        reader.readAsDataURL(file1);
+        url=window.URL.createObjectURL(file)
+            document.getElementById('id_z').setAttribute("src",url);
         console.log(file1);
     });
 
