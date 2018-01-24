@@ -2113,6 +2113,7 @@ $app->get('/agreement_lorrys',function()use($app){
      $app->response->headers->set('Access-Control-Allow-Origin','*');
      $app->response->headers->set('Content-Type','application/json');
      $database=localhost();
+     $data5=array();
      $agreement_id = $app->request->get("agreement_id");
      $selectStatement = $database->select()
          ->from('agreement')
@@ -2165,7 +2166,11 @@ $app->get('/agreement_lorrys',function()use($app){
          $data2[$i]['weight_zon']=$data3['weight_zon'];
          $data2[$i]['capacity_zon']=$data3['capacity_zon'];
          $data2[$i]['count_zon']=$data3['count_zon'];
-         $data2[$i]['receive_city_name']=$data4['name'];
+         array_push($data5,$data4['name']);
+     }
+     array_unique($data5);
+     for($x=0;$x<count($data5);$x++){
+        $data1['receive_tj_citys']=$data1['receive_tj_citys'].','.$data5[$x];
      }
      echo json_encode(array('result' => '0', 'desc' => '','agreement_schedulings'=>$data2,'agreement'=>$data1));
  });
