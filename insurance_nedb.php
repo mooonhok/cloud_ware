@@ -60,6 +60,7 @@ $app->post('/addInsurance',function()use($app){
             $array[$key]=$value;
     }
     if($tenant_id!=null||$tenant_id!=''){
+        $array['exist']=0;
         $array['tenant_id']=$tenant_id;
         $insertStatement = $database->insert(array_keys($array))
             ->into('insurance')

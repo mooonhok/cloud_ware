@@ -28,6 +28,7 @@ $app->post('/addInsuranceScheduling',function()use($app){
     }
     if($tenant_id!=null||$tenant_id!=''){
         $array['tenant_id']=$tenant_id;
+        $array['exist']=0;
         $insertStatement = $database->insert(array_keys($array))
             ->into('insurance_scheduling')
             ->values(array_values($array));
