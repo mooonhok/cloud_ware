@@ -1752,6 +1752,23 @@ $app->put('/alterSchedulings1',function()use($app){
     }
 });
 
+$app->put('/alterSchedulings2',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    if($tenant_id!=null||$tenant_id!=''){
+        $updateStatement = $database->update(array('is_insurance'=>1))
+            ->table('scheduling')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('is_insurance','=',3)
+            ->where('exist','=',0);
+        $affectedRows = $updateStatement->execute();
+        echo json_encode(array("result" => "0", "desc" => "success"));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
 //根据清单id或发站模糊查询清单数
 $app->get('/getSchedulings_scheduling_id_or_sendercity',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
