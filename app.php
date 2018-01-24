@@ -2159,21 +2159,21 @@ $app->get('/agreement_lorrys',function()use($app){
          $stmt = $selectStatement->execute();
          $data3 = $stmt->fetch();
          $selectStatement = $database->select()
+             ->from('scheduling')
+             ->where('tenant_id', '=', $data2[$i]['tenant_id'])
+             ->where('scheduling_id','=',$data2[$i]['scheduling_id']);
+         $stmt = $selectStatement->execute();
+         $data6 = $stmt->fetch();
+         $selectStatement = $database->select()
              ->from('city')
-             ->where('id','=',$data2[$i]['receive_city_id']);
+             ->where('id','=',$data6['receive_city_id']);
          $stmt = $selectStatement->execute();
          $data4 = $stmt->fetch();
          $data2[$i]['weight_zon']=$data3['weight_zon'];
          $data2[$i]['capacity_zon']=$data3['capacity_zon'];
          $data2[$i]['count_zon']=$data3['count_zon'];
          array_push($data5,$data4['name']);
-         $selectStatement = $database->select()
-             ->from('scheduling')
-             ->where('tenant_id', '=', $data2[$i]['tenant_id'])
-             ->where('scheduling_id','=',$data2[$i]['scheduling_id']);
-         $stmt = $selectStatement->execute();
-         $data6 = $stmt->fetch();
-         
+
      }
      $data5=array_unique($data5);
      for($x=0;$x<count($data5);$x++){
