@@ -85,9 +85,13 @@ function loadorders(tenant_id,page) {
                                 ,thisData=msg.argees;
                             layui.each(thisData, function(index, item){
                             	var a="";
-                            	  if(item.agreement_status==1){
-                            	  	a="作废";
+                            	  if(item.agreement_status==0){
+                            	  	a="待签字";
+                            	  }else if(item.agreement_status==1){
+                            	  	a="已达成";
                             	  }else if(item.agreement_status==2){
+                            	  	a="作废";
+                            	  }else if(item.agreement_status==3){
                             	  	a="出险";
                             	  }
                                 arr.push('<tr><td>'+item.agreement_id+'</td><td>'
