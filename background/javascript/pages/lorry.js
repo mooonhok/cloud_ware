@@ -156,7 +156,7 @@ function lorry_xq(id){
 
     $(".id_z").on("change",function(){
         var file1=document.getElementsByClassName('id_z')[0].files[0];
-        url=window.URL.createObjectURL(file)
+        url=window.URL.createObjectURL(file1);
             document.getElementById('id_z').setAttribute("src",url);
         console.log(file1);
     });
