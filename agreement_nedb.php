@@ -158,7 +158,6 @@ $app->put('/alterAgreement1',function()use($app) {
     }
     if($tenant_id!=''||$tenant_id!=null){
         if($agreement_id!=null||$agreement_id!=''){
-            if($agreement_status!=null||$agreement_status!=''){
                 $updateStatement = $database->update(array('agreement_status'=>$agreement_status))
                     ->table('agreement')
                     ->where('tenant_id','=',$tenant_id)
@@ -166,9 +165,6 @@ $app->put('/alterAgreement1',function()use($app) {
                     ->where('exist',"=","0");
                 $affectedRows = $updateStatement->execute();
                 echo json_encode(array("result" => "0", "desc" => "success"));
-            }else{
-                echo json_encode(array("result" => "1", "desc" => "缺少合同备注"));
-            }
         }else{
             echo json_encode(array("result" => "2", "desc" => "缺少合同id"));
         }
