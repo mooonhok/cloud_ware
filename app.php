@@ -2170,7 +2170,7 @@ $app->get('/agreement_lorrys',function()use($app){
      }
      $data5=array_unique($data5);
      for($x=0;$x<count($data5);$x++){
-         if($data1['receive_tj_citys']){
+         if($x!=0){
              $data1['receive_tj_citys'].=','.$data5[$x];
          }else{
              $data1['receive_tj_citys']=$data5[$x];
