@@ -174,24 +174,24 @@ $app->post('/one_insurance',function()use($app){
         ->into('insurance')
         ->values(array($insurance_price,$lorry_id, $insurance_start_time, $tenant_id, $duration, $insurance_amount, $data1[0]['send_city_id'],  $data1[0]['receive_city_id'],(count($data2)+1)));
     $insertId = $insertStatement->execute(false);
-    for($i=0;$i<count($data1);$i++){
-        $updateStatement = $database->update(array('is_insurance'=>2))
-            ->table('scheduling')
-            ->where('scheduling_id','=',$data1[$i]['scheduling_id'])
-            ->where('tenant_id','=',$tenant_id)
-            ->where('exist',"=",0);
-        $affectedRows = $updateStatement->execute();
-        $insertStatement = $database->insert(array('scheduling_id', 'insurance_id','tenant_id'))
-            ->into('insurance_scheduling')
-            ->values(array($data1[$i]['scheduling_id'],(count($data2)+1),$tenant_id));
-        $insertId = $insertStatement->execute(false);
-    }
-    $selectStatement = $database->select()
-        ->from('tenant')
-        ->where('tenant_id','=',$tenant_id)
-        ->where('exist',"=",0);
-    $stmt = $selectStatement->execute();
-    $data2 = $stmt->fetch();
+//    for($i=0;$i<count($data1);$i++){
+//        $updateStatement = $database->update(array('is_insurance'=>2))
+//            ->table('scheduling')
+//            ->where('scheduling_id','=',$data1[$i]['scheduling_id'])
+//            ->where('tenant_id','=',$tenant_id)
+//            ->where('exist',"=",0);
+//        $affectedRows = $updateStatement->execute();
+//        $insertStatement = $database->insert(array('scheduling_id', 'insurance_id','tenant_id'))
+//            ->into('insurance_scheduling')
+//            ->values(array($data1[$i]['scheduling_id'],(count($data2)+1),$tenant_id));
+//        $insertId = $insertStatement->execute(false);
+//    }
+//    $selectStatement = $database->select()
+//        ->from('tenant')
+//        ->where('tenant_id','=',$tenant_id)
+//        ->where('exist',"=",0);
+//    $stmt = $selectStatement->execute();
+//    $data2 = $stmt->fetch();
     $updateStatement = $database->update(array('insurance_balance'=>($data2['insurance_balance']-$insurance_amount)))
         ->table('tenant')
         ->where('tenant_id','=',$tenant_id)
