@@ -799,51 +799,173 @@ $app->post('/addroute',function()use($app){
         echo json_encode(array("result"=>"1","desc"=>"尚未输入省份id"));
     }
 });
-////添加小程序租户
-//$app->post('/addmini',function()use($app){
-//    $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
-//    $database=localhost();
-//    $body=$app->request->getBody();
-//    $body=json_decode($body);
-//    $name=$body->name;
-//    $intro=$body->intro;
-//    $line=$body->line;
-//    $person=$body->person;
-//    $phone=$body->phone;
-//    $address=$body->address;
-//    $lat=$body->lat;
-//    $lng=$body->lng;
-//    $publicname=$body->pubname;
-//    $public_img=$body->pubimg;
-//    $flag=$body->flag;
-//    $fcity=$body->fcity;
-//    $tcity=$body->tcity;
-//    $pic1=$body->pic1;
-//    $pic2=$body->pic2;
-//    $pic3=$body->pic3;
-//    $pic4=$body->pic4;
-//    if($pic1!=null){
-//        $base64_image_content = $pic1;
-////匹配出图片的格式
-//        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
-//            $type = $result[2];
-//            date_default_timezone_set("PRC");
-//            $time1 = time();
-//            $new_file = "/files/mini/" . date('Ymd', $time1) . "/";
-//            if (!file_exists($new_file)) {
-////检查是否有该文件夹，如果没有就创建，并给予最高权限
-//                mkdir($new_file, 0700);
-//            }
-//            $new_file = $new_file . time() . ".{$type}";
-//            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-//                $lujing1 = "https://files.uminfo.cn:8000/mini/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
-//            }
-//        }
-//        $arrays['']=$lujing1;
-//    }
-//
-//});
+//添加小程序租户
+$app->post('/addmini',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $name=$body->name;
+    $intro=$body->intro;
+    $line=$body->line;
+    $person=$body->person;
+    $phone=$body->phone;
+    $telephone=$body->telephone;
+    $address=$body->address;
+    $lat=$body->lat;
+    $lng=$body->lng;
+    $publicname=$body->pubname;
+    $public_img=$body->pubimg;
+    $flag=$body->flag;
+    $fcity=$body->fcity;
+    $tcity=$body->tcity;
+    $pic1=$body->pic1;
+    $pic2=$body->pic2;
+    $pic3=$body->pic3;
+    $pic4=$body->pic4;
+    $pic5=$body->pic5;
+    if($name!=null||$name!=""){
+        if($flag!=null||$flag!=""){
+            if($person!=null||$person!=""){
+                if($line!=null||$line!=""){
+                    $selectStatement = $database->select()
+                        ->from('mini_tenant');
+                    $stmt = $selectStatement->execute();
+                    $data5= $stmt->fetchAll();
+                        if($pic1!=null){
+                            $base64_image_content = $pic1;
+                            if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+                                $type = $result[2];
+                                date_default_timezone_set("PRC");
+                                $new_file = "/files/mini/";
+                                if (!file_exists($new_file)) {
+                                  //检查是否有该文件夹，如果没有就创建，并给予最高权限
+                                    mkdir($new_file, 0700);
+                                }
+                                $new_file = $new_file . time() . ".{$type}";
+                                if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                                    $lujing1 = "https://files.uminfo.cn:8000/mini/" . count($data5) . ".{$type}";
+                                }
+                            }
+                        }
+                        if($pic2!=null){
+                            $base64_image_content = $pic2;
+                            if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+                                $type = $result[2];
+                                date_default_timezone_set("PRC");
+                                $new_file = "/files/mini/";
+                                if (!file_exists($new_file)) {
+                                    //检查是否有该文件夹，如果没有就创建，并给予最高权限
+                                    mkdir($new_file, 0700);
+                                }
+                                $new_file = $new_file . time() . ".{$type}";
+                                if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                                    $lujing2 = "https://files.uminfo.cn:8000/mini/" . count($data5) . "-1.{$type}";
+                                }
+                            }
+                        }
+                        if($pic3!=null){
+                            $base64_image_content = $pic3;
+                            if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+                                $type = $result[2];
+                                date_default_timezone_set("PRC");
+                                $time1 = time();
+                                $new_file = "/files/mini/";
+                                if (!file_exists($new_file)) {
+                                    //检查是否有该文件夹，如果没有就创建，并给予最高权限
+                                    mkdir($new_file, 0700);
+                                }
+                                $new_file = $new_file . time() . ".{$type}";
+                                if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                                    $lujing3 = "https://files.uminfo.cn:8000/mini/" . count($data5) . "-2.{$type}";
+                                }
+                            }
+                        }
+                        if($pic4!=null){
+                            $base64_image_content = $pic4;
+                            if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+                                $type = $result[2];
+                                date_default_timezone_set("PRC");
+                                $time1 = time();
+                                $new_file = "/files/mini/";
+                                if (!file_exists($new_file)) {
+                                    //检查是否有该文件夹，如果没有就创建，并给予最高权限
+                                    mkdir($new_file, 0700);
+                                }
+                                $new_file = $new_file . time() . ".{$type}";
+                                if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                                    $lujing4 = "https://files.uminfo.cn:8000/mini/" . count($data5) . "-3.{$type}";
+                                }
+                            }
+
+                        }
+                        if($pic5!=null){
+                            $base64_image_content = $pic5;
+                            if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+                                $type = $result[2];
+                                date_default_timezone_set("PRC");
+                                $time1 = time();
+                                $new_file = "/files/mini/";
+                                if (!file_exists($new_file)) {
+                                    //检查是否有该文件夹，如果没有就创建，并给予最高权限
+                                    mkdir($new_file, 0700);
+                                }
+                                $new_file = $new_file . time() . ".{$type}";
+                                if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                                    $lujing5 = "https://files.uminfo.cn:8000/mini/" . count($data5) . "-4.{$type}";
+                                }
+                            }
+                        }
+                    if($public_img!=null){
+                        $base64_image_content = $public_img;
+                        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+                            $type = $result[2];
+                            date_default_timezone_set("PRC");
+                            $new_file = "/files/mini/";
+                            if (!file_exists($new_file)) {
+                                //检查是否有该文件夹，如果没有就创建，并给予最高权限
+                                mkdir($new_file, 0700);
+                            }
+                            $new_file = $new_file . time() . ".{$type}";
+                            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                                $lujing6 = "https://files.uminfo.cn:8000/mini/" . count($data5) . ".{$type}";
+                            }
+                        }
+                    }
+                        $insertStatement = $database->insert(array('id','name','img','intro','line','person','phone'
+                        ,'telephone','address','latitude','longitude','public_name','public_img','flag','swiper_img1'
+                        ,'swiper_img2','swiper_img3','swiper_img4','exist'))
+                            ->into('mini_route')
+                            ->values(array(count($data5)+1,$name,$lujing1,$intro,$line,$person,$phone
+                            ,$telephone,$address,$lat,$lng,$publicname,$lujing6,$flag,$lujing2
+                            ,$lujing3,$lujing4,$lujing5,0));
+                        $insertId = $insertStatement->execute(false);
+                       $selectStatement = $database->select()
+                          ->from('mini_route');
+                       $stmt = $selectStatement->execute();
+                       $data3= $stmt->fetchAll();
+                    $insertStatement = $database->insert(array('id','fcity_id','tcity_id','tid'))
+                        ->into('mini_route')
+                        ->values(array(count($data3)+1,$fcity,$tcity,count($data5)+1));
+                    $insertId = $insertStatement->execute(false);
+                    echo json_encode(array("result"=>"0","desc"=>"添加成功"));
+                }else{
+                    echo json_encode(array("result"=>"4","desc"=>"缺少线路介绍"));
+                }
+            }else{
+                echo json_encode(array("result"=>"3","desc"=>"缺少联系人"));
+            }
+        }else{
+            echo json_encode(array("result"=>"2","desc"=>"尚未选择公司是否是精品物流专线"));
+        }
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"尚未输入公司名称"));
+    }
+
+
+
+});
 $app->run();
 
 function localhost(){
