@@ -88,16 +88,8 @@
 				};
 //				alert(data_info[1][0]);
 				for(var i = 0; i < data_info.length; i++) {
-					var level=data_info[i][3];
-					var c = 0;
-					if(level > 1296000) {
-						c = 3;
-					} else if(level < 0) {
-						c = 1;
-					} else {
-						c = 2;
-					}
-					var myIcon = new BMap.Icon("images/" + c + ".png", new BMap.Size(16, 16));
+					
+					var myIcon = new BMap.Icon("images/3.png", new BMap.Size(16, 16));
 					var marker = new BMap.Marker(new BMap.Point(data_info[i][0], data_info[i][1]),{icon: myIcon});// 创建标注
 					var content = data_info[i][2];
 					map.addOverlay(marker); // 将标注添加到地图中
