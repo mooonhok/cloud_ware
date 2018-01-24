@@ -2157,9 +2157,15 @@ $app->get('/agreement_lorrys',function()use($app){
              ->where('orders.tenant_id', '=',$data2[$i]['tenant_id']);
          $stmt = $selectStatement->execute();
          $data3 = $stmt->fetch();
+         $selectStatement = $database->select()
+             ->from('city')
+             ->where('id','=',$data2[$i]['receive_city_id']);
+         $stmt = $selectStatement->execute();
+         $data4 = $stmt->fetch();
          $data2[$i]['weight_zon']=$data3['weight_zon'];
          $data2[$i]['capacity_zon']=$data3['capacity_zon'];
          $data2[$i]['count_zon']=$data3['count_zon'];
+         $data2[$i]['receive_city_name']=$data4['name'];
      }
      echo json_encode(array('result' => '0', 'desc' => '','agreement_schedulings'=>$data2,'agreement'=>$data1));
  });

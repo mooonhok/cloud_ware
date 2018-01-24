@@ -101,12 +101,13 @@ function lorry_xq(id){
         '<div>载重</div>' +
         '</div>' +
         '<div>' +
+        '<input type="text" id="lorry_id" style="display:none;"/>' +
         '<input type="text" id="phone"/>' +
         '<input type="text" id="name"/>' +
         '<input type="text" id="id_card"/>' +
         '<input type="text" id="plate_number"/>' +
-        '<input type="text" id="lorry_length"/>' +
-        '<input type="text" id="lorry_type"/>' +
+        '<select id="lorry_length"></select>' +
+        '<select id="lorry_type"></select>' +
         '<input type="text" id="lorry_weight"/>' +
         '</div>' +
         '<h3>身份证正面</h3>' +
@@ -124,6 +125,25 @@ function lorry_xq(id){
         '<button id="order_sure">确定</button><button id="order_cancle">取消</button>' +
         '</div>'
     });
+    $api.get(url+'app.php/lorry_type',function(ret){
+        if(ret.result==0){
+            for(var i=0;i<ret.lorry_type.length;i++){
+                $api.append($api.dom('#vehicle_t'),'<option value="'+ret.lorry_type[i].lorry_type_id+'" id="ve_size'+ret.lorry_type[i].lorry_type_id+'">'+ret.lorry_type[i].lorry_type_name+'</option>');
+
+                $api.attr($api.dom('#ve_size'+typ),'selected','selected');
+            }
+        }
+    },'json');
+    $api.get(url+'app.php/lorry_long',function(ret){
+        if(ret.result==0){
+            for(var i=0;i<ret.vehiche_long.length;i++){
+                $api.append($api.dom('#vehicle_c'),'<option value="'+ret.vehiche_long[i].lorry_length_id+'" id="ve_long'+ret.vehiche_long[i].lorry_length_id+'">'+ret.vehiche_long[i].lorry_length+'</option>');
+                $api.attr($api.dom('#ve_long'+len),'selected','selected');
+
+            }
+        }
+    },'json');
+
     $("#order_cancle").on("click",function(){
         layer.close(index);
     });
@@ -135,6 +155,7 @@ function lorry_xq(id){
         data: JSON.stringify({}),
         success: function(msg) {
             // console.log(msg);
+            $("#lorry_id").val(msg.lorrys.app_lorry_id);
             $("#phone").val(msg.lorrys.phone);
             $("#name").val(msg.lorrys.name);
             $("#id_card").val(msg.lorrys.id_number);
@@ -191,6 +212,7 @@ function lorry_xq(id){
     });
 
     $("#order_sure").on("click",function(){
+        var lorry_id=$("#lorry_id").val();
         var phone=$("#phone").val();
         var name=$("#name").val();
         var id_number=$("#id_card").val();
@@ -198,34 +220,37 @@ function lorry_xq(id){
         var lorry_length_name=$("#lorry_length").val();
         var lorry_type_name=$("#lorry_type").val();
         var lorry_load_name=$("#lorry_weight").val();
-        // $("#id_z").attr("src",msg.lorrys.identity_card_z);
-        // $("#id_f").attr("src",msg.lorrys.identity_card_f);
-        // $("#j_z").attr("src",msg.lorrys.driver_license_fp);
-        // $("#j_f").attr("src",msg.lorrys.driver_license_tp);
-        // $("#x_z").attr("src",msg.lorrys.driving_license_fp);
-        // $("#x_f").attr("src",msg.lorrys.driving_license_tp);
-
-        // var file2=$(this).parent().prev().children('.afile');
-//         if(file1!=null&&tenant_id!=null){
-//             var formdata = new FormData();
-//             formdata.append('file1', file1);
-//             var xhr = new XMLHttpRequest();
-//             xhr.open("POST" ,"http://api.uminfo.cn/message.php/upload?tenant_id="+tenant_id , true);
-//             xhr.send(formdata);
-// //                      xhr.upload.onprogress = progressFunction;
-//             xhr.onload = function(e) {
-//                 if (this.status == 200) {
-//                     $("#ImgZoomInBG").hide();
-//                     $("#ImgZoomInImage").hide();
-//                     layer.msg('上传成功');
-//                     file2.val("");
-//                 };
-//             };
-//             return;
-//         }else{
-//             $("#ImgZoomInImage").css('display','none');
-//             $("#ImgZoomInBG").css('display','none');
-//             layer.msg('文件信息不全');
-//         }
+        var id_z=document.getElementsByClassName('id_z')[0].files[0];
+        var id_f=document.getElementsByClassName('id_f')[0].files[0];
+        var j_z=document.getElementsByClassName('j_z')[0].files[0];
+        var j_x=document.getElementsByClassName('j_x')[0].files[0];
+        var x_z=document.getElementsByClassName('x_z')[0].files[0];
+        var x_f=document.getElementsByClassName('x_f')[0].files[0];
+            var formdata = new FormData();
+           formdata.append('app_lorry_id', lorry_id);
+           formdata.append('phone', phone);
+           formdata.append('name', name);
+           formdata.append('id_number', id_number);
+           formdata.append('plate_number', plate_number);
+           formdata.append('lorry_length_name', lorry_length_name);
+           formdata.append('lorry_type_name', lorry_type_name);
+           formdata.append('lorry_load_name', lorry_load_name);
+           formdata.append('identity_card_z', id_z);
+           formdata.append('identity_card_f', id_f);
+           formdata.append('driver_license_fp', j_z);
+           formdata.append('driver_license_tp', j_x);
+           formdata.append('driving_license_fp', x_z);
+           formdata.append('driving_license_tp', x_f);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST" ,"http://api.uminfo.cn/message.php/upload?tenant_id="+tenant_id , true);
+            xhr.send(formdata);
+            xhr.onload = function(e) {
+                if (this.status == 200) {
+                    $("#ImgZoomInBG").hide();
+                    $("#ImgZoomInImage").hide();
+                    layer.msg('上传成功');
+                    file2.val("");
+                };
+            };
     });
 }
