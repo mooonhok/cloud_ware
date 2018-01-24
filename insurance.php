@@ -153,7 +153,6 @@ $app->post('/one_insurance',function()use($app){
     $duration=$body->duration;
     $insurance_amount=$body->insurance_amount;
     $insurance_start_time=$body->insurance_start_time;
-    $g_type=$body->g_type;
     $selectStatement = $database->select()
         ->from('scheduling')
         ->join('schedule_order','schedule_order.schedule_id','=','scheduling.scheduling_id','INNER')
@@ -171,9 +170,9 @@ $app->post('/one_insurance',function()use($app){
         ->where('tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
     $data2 = $stmt->fetchAll();
-    $insertStatement = $database->insert(array('insurance_price', 'insurance_lorry_id', 'insurance_start_time', '	tenant_id', 'duration', 'insurance_amount', 'from_c_id', 'receive_c_id', 'g_type','insurance_id'))
+    $insertStatement = $database->insert(array('insurance_price', 'insurance_lorry_id', 'insurance_start_time', '	tenant_id', 'duration', 'insurance_amount', 'from_c_id', 'receive_c_id','insurance_id'))
         ->into('insurance')
-        ->values(array($insurance_price,$lorry_id, $insurance_start_time, $tenant_id, $duration, $insurance_amount, $data1[0]['send_city_id'],  $data1[0]['receive_city_id'],$g_type ,(count($data2)+1)));
+        ->values(array($insurance_price,$lorry_id, $insurance_start_time, $tenant_id, $duration, $insurance_amount, $data1[0]['send_city_id'],  $data1[0]['receive_city_id'],(count($data2)+1)));
     $insertId = $insertStatement->execute(false);
     for($i=0;$i<count($data1);$i++){
         $updateStatement = $database->update(array('is_insurance'=>2))
