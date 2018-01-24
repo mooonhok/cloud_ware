@@ -88,7 +88,7 @@ function lorry_xq(id){
     var index=layer.open({
         type: 1,
         skin: 'layui-layer-rim', //加上边框
-        area: ['800px', '800px'], //宽高
+        area: ['800px', '600px'], //宽高
         content: '<div class="tenant_tk">' +
         '<h1 style="text-align:center;">修改车辆信息</h1>' +
         '<div>' +
