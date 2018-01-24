@@ -2168,11 +2168,11 @@ $app->get('/agreement_lorrys',function()use($app){
          $data2[$i]['count_zon']=$data3['count_zon'];
          array_push($data5,$data4['name']);
      }
-     array_unique($data5);
+     $data5=array_unique($data5);
      for($x=0;$x<count($data5);$x++){
         $data1['receive_tj_citys']=$data1['receive_tj_citys'].','.$data5[$x];
      }
-     echo json_encode(array('result' => '0', 'desc' => '','agreement_schedulings'=>$data2,'agreement'=>$data1));
+     echo json_encode(array('result' => '0', 'desc' => '','agreement_schedulings'=>$data2,'agreement'=>$data1,'data'=>$data5));
  });
 
 $app->get('/agreement_status',function()use($app){
