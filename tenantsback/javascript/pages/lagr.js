@@ -84,10 +84,17 @@ function loadorders(tenant_id,page) {
                             var arr = []
                                 ,thisData=msg.argees;
                             layui.each(thisData, function(index, item){
+                            	var a="";
+                            	  if(item.agreement_status==1){
+                            	  	a="作废";
+                            	  }else if(item.agreement_status==2){
+                            	  	a="出险";
+                            	  }
                                 arr.push('<tr><td>'+item.agreement_id+'</td><td>'
                                 +item.platenumber+'</td><td>'
                                 +item.driver_name+'</td><td>'
                                 +item.driver_phone+'</td><td>'
+                                +a+'</td><td>'
                                 +item.freight+'</td><td>'
                                 +item.agreement_time+'</td><td><a href="http://api.uminfo.cn/tenantsback/agreement.html?agreement_id='
                                 +item.agreement_id+'&tenant_id='+tenant_id+'" style="color:blue;">查看</a></td></tr>');
