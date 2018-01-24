@@ -2170,7 +2170,12 @@ $app->get('/agreement_lorrys',function()use($app){
      }
      $data5=array_unique($data5);
      for($x=0;$x<count($data5);$x++){
-        $data1['receive_tj_citys']=$data1['receive_tj_citys'].','.$data5[$x];
+         if($data1['receive_tj_citys']){
+             $data1['receive_tj_citys'].=','.$data5[$x];
+         }else{
+             $data1['receive_tj_citys']=$data5[$x];
+         }
+
      }
      echo json_encode(array('result' => '0', 'desc' => '','agreement_schedulings'=>$data2,'agreement'=>$data1,'data'=>$data5));
  });
