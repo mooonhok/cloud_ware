@@ -825,6 +825,12 @@ $app->post('/addmini',function()use($app){
     $pic3=$body->pic3;
     $pic4=$body->pic4;
     $pic5=$body->pic5;
+    $lujing1=null;
+    $lujing2=null;
+    $lujing3=null;
+    $lujing4=null;
+    $lujing5=null;
+    $lujing6=null;
     if($name!=null||$name!=""){
         if($flag!=null||$flag!=""){
             if($person!=null||$person!=""){
