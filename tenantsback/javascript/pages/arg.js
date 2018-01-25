@@ -54,7 +54,7 @@ function loader(agr_id) {
               $("#do_comment").html(msg.agree.agreement_require);
               $(".do_schedules").append(msg.agree.schedules)
               $(".contract_time").html(msg.agree.agreement_time);
-              $("#pic").attr('src', msg.customer.pic);
+             $("#sure").html("<img src='"+msg.agree.sign_img+'">);
 			} else {
 				alert(msg.desc);
 			}
