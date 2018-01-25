@@ -458,12 +458,13 @@ $app->post('/tenant',function()use($app) {
                                                                  $num01++;
                                                              }
                                                          }
-                                                         $username='u'.$data01['area_code'].'0001';
+//                                                         $username='u'.$data01['area_code'].'0001';
                                                          $num01++;
                                                          while(strlen($num01)<4){
                                                              $num01='0'.$num01;
                                                          }
                                                          $tenant_num=$data01['area_code'].$num01;
+                                                         $username='u'.$tenant_num;
                                                          $tenant_id=count($data02)+1000000501;
                                                          $ad_img1='http://files.uminfo.cn:8000/client/advertise/ad_img1.png';
                                                          $ad_img2='http://files.uminfo.cn:8000/client/advertise/ad_img2.png';
