@@ -1410,8 +1410,8 @@ $app->post('/receivesc',function()use($app){
         }
     }
     $arrays['scheduling_status']=5;
-    $arrays['is_contract']=0;
-    $arrays['is_insurance']=0;
+//    $arrays['is_contract']=0;
+//    $arrays['is_insurance']=0;
     $arrays['sure_img']=$lujing;
     $arrays['change_datetime']=time();
     date_default_timezone_set("PRC");
