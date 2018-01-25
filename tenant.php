@@ -391,6 +391,13 @@ $app->post('/tenant',function()use($app) {
     $name2=$time2.$name2;
    move_uploaded_file($_FILES["trans_contract_p"]["tmp_name"],"/files/trans_contract_p/".$name2);
    $trans_c_p='http://files.uminfo.cn:8000/trans_contract_p/'.$time2.$name21.'';
+
+    $time3=time();
+    $name31=$_FILES["order_logo"]["name"];
+    $name3=iconv("UTF-8","gb2312", $name31);
+    $name3=$time2.$name2;
+   move_uploaded_file($_FILES["order_logo"]["tmp_name"],"/files/tenant/".$name3);
+    $order_img='http://files.uminfo.cn:8000/tenant/'.$time3.$name31.'';
 //    $time3=time();
 //    $name31=$_FILES["file1"]["name"];
 //    $name3=iconv("UTF-8","gb2312", $name31);
@@ -465,7 +472,7 @@ $app->post('/tenant',function()use($app) {
                                                          $ad_img5='http://files.uminfo.cn:8000/client/advertise/ad_img5.png';
                                                          $ad_img6='http://files.uminfo.cn:8000/client/advertise/ad_img6.png';
                                                          $ad_img7='http://files.uminfo.cn:8000/client/advertise/ad_img7.png';
-                                                         $order_img='http://files.uminfo.cn:8000/tenant/5230001_order.jpg';
+//                                                         $order_img='http://files.uminfo.cn:8000/tenant/5230001_order.jpg';
                                                          $insertStatement = $database->insert(array('company','from_city_id','receive_city_id','contact_id','exist','business_l'
                                                          ,'sales_id','address','order_t_p','trans_contract_p','service_items','c_introduction'
                                                          ,'begin_time','qq','email','insurance_balance','tenant_num','tenant_id','longitude','latitude','jcompany','ad_img1','ad_img2','ad_img3','ad_img4','ad_img5','ad_img6','ad_img7','order_img'))
