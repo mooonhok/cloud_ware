@@ -391,15 +391,15 @@ $app->post('/tenant',function()use($app) {
     $name2=$time2.$name2;
    move_uploaded_file($_FILES["trans_contract_p"]["tmp_name"],"/files/trans_contract_p/".$name2);
    $trans_c_p='http://files.uminfo.cn:8000/trans_contract_p/'.$time2.$name21.'';
-    $time3=time();
-    $name31=$_FILES["file1"]["name"];
-    $name3=iconv("UTF-8","gb2312", $name31);
-    $name3=$time3.$name3;
-    move_uploaded_file($_FILES["file1"]["tmp_name"],"/files/business_l_p/".$name3);
-    $business_l_p='http://files.uminfo.cn:8000/business_l_p/'.$time3.$name31.'';
+//    $time3=time();
+//    $name31=$_FILES["file1"]["name"];
+//    $name3=iconv("UTF-8","gb2312", $name31);
+//    $name3=$time3.$name3;
+//    move_uploaded_file($_FILES["file1"]["tmp_name"],"/files/business_l_p/".$name3);
+//    $business_l_p='http://files.uminfo.cn:8000/business_l_p/'.$time3.$name31.'';
     if($company!=null||$company!=""){
         if($business_l!=""||$business_l!=null){
-             if($business_l_p!=""||$business_l_p!=null){
+//             if($business_l_p!=""||$business_l_p!=null){
                  if($contact_name!=null||$contact_name!=""){
                      if($telephone!=null||$telephone!=""){
                          if($address!=""||$address!=null){
@@ -460,11 +460,11 @@ $app->post('/tenant',function()use($app) {
                                                          $tenant_id=count($data02)+1000000501;
                                                          $ad_img3='http://files.uminfo.cn:8000/tenant/insurance.png';
                                                          $insertStatement = $database->insert(array('company','from_city_id','receive_city_id','contact_id','exist','business_l'
-                                                         ,'sales_id','address','business_l_p','order_t_p','trans_contract_p','service_items','c_introduction'
+                                                         ,'sales_id','address','order_t_p','trans_contract_p','service_items','c_introduction'
                                                          ,'begin_time','qq','email','insurance_balance','tenant_num','tenant_id','longitude','latitude','jcompany','ad_img3'))
                                                              ->into('tenant')
                                                              ->values(array($company,$from_city_id,$receive_city_id,$num,0,$business_l
-                                                             ,$sales_id,$address,$business_l_p,$order_t_p, $trans_c_p
+                                                             ,$sales_id,$address,$order_t_p, $trans_c_p
                                                              ,$service_items,$c_introduction,
                                                                  $begin_time,$qq,$email,0,$tenant_num,$tenant_id,$longitude,$latitude,$jcompany,$ad_img3));
                                                          $insertId = $insertStatement->execute(false);
@@ -525,9 +525,9 @@ $app->post('/tenant',function()use($app) {
                  }else{
                      echo json_encode(array("result"=>"12","desc"=>"缺少负责人姓名"));
                  }
-             }else{
-                 echo json_encode(array("result"=>"13","desc"=>"缺少营业执照照片"));
-             }
+//             }else{
+//                 echo json_encode(array("result"=>"13","desc"=>"缺少营业执照照片"));
+//             }
         }else{
             echo json_encode(array("result"=>"14","desc"=>"缺少营业执照号码"));
         }
