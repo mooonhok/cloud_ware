@@ -62,7 +62,7 @@ $app->post('/client_version',function()use($app){
         $i++;
     }
     if($i==2){
-        $array['client_version']=$client_version;
+        $array['version']=$client_version;
         $array['asar_url']=$lujing1;
         $array['package_url']=$lujing2;
         $insertStatement = $database->insert(array_keys($array))
