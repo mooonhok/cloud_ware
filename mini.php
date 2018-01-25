@@ -756,7 +756,7 @@ $app->get('/name',function()use($app){
     }
 });
 //添加路线全省
-$app->post('/addroute',function()use($app){
+$app->post('/addbypro',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
@@ -792,6 +792,34 @@ $app->post('/addroute',function()use($app){
             }else{
                 echo json_encode(array("result"=>"3","desc"=>"省份不存在"));
             }
+        }else{
+            echo json_encode(array("result"=>"2","desc"=>"尚未小程序id"));
+        }
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"尚未输入省份id"));
+    }
+});
+//单个线路添加
+$app->post('/addroute',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $tcity=$body->tcityid;
+    $mtid=$body->tid;
+    $fcity=$body->fcityid;
+    if($tcity!=null||$tcity!=""){
+        if($mtid!=null||$mtid!=""){
+            $selectStatement = $database->select()
+                ->from('mini_route');
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetchAll();
+            $insertStatement = $database->insert(array('id', 'fcity_id', 'tcity_id', 'tid'))
+                ->into('mini_route')
+                ->values(array(count($data3) + 1, $fcity,$tcity,$mtid));
+            $insertId = $insertStatement->execute(false);
+            echo json_encode(array("result"=>"0","desc"=>"添加成功"));
         }else{
             echo json_encode(array("result"=>"2","desc"=>"尚未小程序id"));
         }
@@ -968,10 +996,8 @@ $app->post('/addmini',function()use($app){
     }else{
         echo json_encode(array("result"=>"1","desc"=>"尚未输入公司名称"));
     }
-
-
-
 });
+
 $app->run();
 
 function localhost(){
