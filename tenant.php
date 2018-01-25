@@ -458,15 +458,22 @@ $app->post('/tenant',function()use($app) {
                                                          }
                                                          $tenant_num=$data01['area_code'].$num01;
                                                          $tenant_id=count($data02)+1000000501;
-                                                         $ad_img3='http://files.uminfo.cn:8000/tenant/insurance.png';
+                                                         $ad_img1='http://files.uminfo.cn:8000/client/advertise/ad_img1.png';
+                                                         $ad_img2='http://files.uminfo.cn:8000/client/advertise/ad_img2.png';
+                                                         $ad_img3='http://files.uminfo.cn:8000/client/advertise/ad_img3.png';
+                                                         $ad_img4='http://files.uminfo.cn:8000/client/advertise/ad_img4.png';
+                                                         $ad_img5='http://files.uminfo.cn:8000/client/advertise/ad_img5.png';
+                                                         $ad_img6='http://files.uminfo.cn:8000/client/advertise/ad_img6.png';
+                                                         $ad_img7='http://files.uminfo.cn:8000/client/advertise/ad_img7.png';
+                                                         $order_img='http://files.uminfo.cn:8000/tenant/5230001_order.jpg';
                                                          $insertStatement = $database->insert(array('company','from_city_id','receive_city_id','contact_id','exist','business_l'
                                                          ,'sales_id','address','order_t_p','trans_contract_p','service_items','c_introduction'
-                                                         ,'begin_time','qq','email','insurance_balance','tenant_num','tenant_id','longitude','latitude','jcompany','ad_img3'))
+                                                         ,'begin_time','qq','email','insurance_balance','tenant_num','tenant_id','longitude','latitude','jcompany','ad_img1','ad_img2','ad_img3','ad_img4','ad_img5','ad_img6','ad_img7','order_img'))
                                                              ->into('tenant')
                                                              ->values(array($company,$from_city_id,$receive_city_id,$num,0,$business_l
                                                              ,$sales_id,$address,$order_t_p, $trans_c_p
                                                              ,$service_items,$c_introduction,
-                                                                 $begin_time,$qq,$email,0,$tenant_num,$tenant_id,$longitude,$latitude,$jcompany,$ad_img3));
+                                                                 $begin_time,$qq,$email,0,$tenant_num,$tenant_id,$longitude,$latitude,$jcompany,$ad_img1,$ad_img2,$ad_img3,$ad_img4,$ad_img5,$ad_img6,$ad_img7,$order_img));
                                                          $insertId = $insertStatement->execute(false);
                                                          if($insertId!=""||$insertId!=null){
                                                              $selectStatement = $database->select()
