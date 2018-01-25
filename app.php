@@ -2164,14 +2164,16 @@ $app->get('/agreement_lorrys',function()use($app){
              ->where('scheduling_id','=',$data2[$i]['scheduling_id']);
          $stmt = $selectStatement->execute();
          $data6 = $stmt->fetch();
-         if($data6['receive_city_id']!=$data2[$i]['receive_city_id']){
              $selectStatement = $database->select()
                  ->from('city')
                  ->where('id','=',$data6['receive_city_id']);
              $stmt = $selectStatement->execute();
              $data4 = $stmt->fetch();
-             array_push($data5,$data4['name']);
-         }
+             if($data4['name']!=$data2[$i]['rcity']){
+                 array_push($data5,$data4['name']);
+             }
+
+
 
          $data2[$i]['weight_zon']=$data3['weight_zon'];
          $data2[$i]['capacity_zon']=$data3['capacity_zon'];
