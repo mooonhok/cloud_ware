@@ -9,7 +9,7 @@
 
 $(function() {
 var adminid=$.session.get('adminid');
-  
+ 
     if(adminid==null||adminid==""){
     	window.location.href="http://api.uminfo.cn/tenantsback/login.html";
     }
@@ -26,7 +26,7 @@ var adminid=$.session.get('adminid');
 
 function loader(agr_id) {
 	$.ajax({
-		url: "http://api.uminfo.cn/tenantsback.php/agredet?agreementid=" + agr_id,
+		url: "http://api.uminfo.cn/tenantsback.php/agredet?agreementid="+agr_id,
 		dataType: 'json',
 		type: 'get',
 		ContentType: "application/json;charset=utf-8",
@@ -54,7 +54,8 @@ function loader(agr_id) {
               $("#do_comment").html(msg.agree.agreement_require);
               $(".do_schedules").append(msg.agree.schedules)
               $(".contract_time").html(msg.agree.agreement_time);
-             $("#sure").html("<img src='"+msg.agree.sign_img+'">);
+              alert(msg.agree.sign_img);
+              $("#surepic").attr("src",msg.agree.sign_img);
 			} else {
 				alert(msg.desc);
 			}
