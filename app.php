@@ -2172,13 +2172,9 @@ $app->get('/agreement_lorrys',function()use($app){
              if($data4['name']!=$data2[$i]['rcity']){
                  array_push($data5,$data4['name']);
              }
-
-
-
          $data2[$i]['weight_zon']=$data3['weight_zon'];
          $data2[$i]['capacity_zon']=$data3['capacity_zon'];
          $data2[$i]['count_zon']=$data3['count_zon'];
-
      }
      $data5=array_unique($data5);
      for($x=0;$x<count($data5);$x++){
