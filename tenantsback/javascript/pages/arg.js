@@ -8,8 +8,8 @@
 })(jQuery);
 
 $(function() {
-	var adminid=$.session.get('adminid');
-//  var adminid=3;
+var adminid=$.session.get('adminid');
+  
     if(adminid==null||adminid==""){
     	window.location.href="http://api.uminfo.cn/tenantsback/login.html";
     }
@@ -54,7 +54,7 @@ function loader(agr_id) {
               $("#do_comment").html(msg.agree.agreement_require);
               $(".do_schedules").append(msg.agree.schedules)
               $(".contract_time").html(msg.agree.agreement_time);
-              $(".sure_img").attr("src",msg.agree.sure_img);
+              $(".sure_img").attr("src",msg.agree.sign_img);
 			} else {
 				alert(msg.desc);
 			}
