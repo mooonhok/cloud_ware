@@ -9,7 +9,7 @@
 
 $(function() {
 var adminid=$.session.get('adminid');
- 
+    
     if(adminid==null||adminid==""){
     	window.location.href="http://api.uminfo.cn/tenantsback/login.html";
     }
