@@ -582,7 +582,7 @@ $app->get('/agredet',function()use($app){
             $data['ordercount']=$num5;
             $rcity="";
             if(count($city2)>1) {
-                $rcity=$city2[0].'经';
+                $rcity=$city2[0].'，经';
                 for ($i = 1; $i < count($city2); $i++) {
                     $rcity.=$city2[$i];
                 }
