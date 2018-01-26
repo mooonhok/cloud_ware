@@ -584,7 +584,7 @@ $app->get('/agredet',function()use($app){
             if(count($city2)>1) {
                 $rcity=$city2[0].'，经';
                 for ($i = 1; $i < count($city2); $i++) {
-                    $rcity.=$city2[$i];
+                    $rcity.=$city2[$i].',';
                 }
             }else{
                 $rcity=$city2[0];
