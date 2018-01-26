@@ -541,7 +541,7 @@ $app->get('/agredet',function()use($app){
             $city=array();
             $city2=array();
             for($j=0;$j<count($data5);$j++){
-               if($j==count($data5)){
+               if($j==count($data5)-1){
                    $sum.=$data5[$j]['scheduling_id'];
                }else{
                    $sum.=$data5[$j]['scheduling_id'].",";
