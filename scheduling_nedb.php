@@ -616,6 +616,7 @@ $app->get('/getSchedulings12',function()use($app){
         $selectStatement = $database->select()
             ->from('scheduling')
             ->where('exist', '=', 0)
+            ->whereNotIn('scheduling_status',array(6,8,7,9))
             ->where('is_contract', '=', $is_contract)
             ->where('tenant_id', '=', $tenant_id);
         $stmt = $selectStatement->execute();
@@ -671,6 +672,7 @@ $app->get('/getSchedulings13',function()use($app){
             ->from('scheduling')
             ->where('exist', '=', 0)
             ->where('lorry_id', '=', $lorry_id)
+            ->whereNotIn('scheduling_status',array(6,8,7,9))
             ->where('is_contract', '=', $is_contract)
             ->where('tenant_id', '=', $tenant_id);
         $stmt = $selectStatement->execute();
@@ -724,6 +726,7 @@ $app->get('/getSchedulings14',function()use($app){
         $selectStatement = $database->select()
             ->from('scheduling')
             ->where('exist', '=', 0)
+            ->whereNotIn('scheduling_status',array(6,8,7,9))
             ->where('is_insurance', '=', $is_insurance)
             ->where('tenant_id', '=', $tenant_id);
         $stmt = $selectStatement->execute();
@@ -779,6 +782,7 @@ $app->get('/getSchedulings15',function()use($app){
             ->from('scheduling')
             ->where('exist', '=', 0)
             ->where('lorry_id', '=', $lorry_id)
+            ->whereNotIn('scheduling_status',array(6,8,7,9))
             ->where('is_insurance', '=', $is_insurance)
             ->where('tenant_id', '=', $tenant_id);
         $stmt = $selectStatement->execute();
