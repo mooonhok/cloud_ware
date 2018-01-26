@@ -541,7 +541,15 @@ $app->get('/agredet',function()use($app){
             $city=array();
             $city2=array();
             for($j=0;$j<count($data5);$j++){
-               $sum.=$data5[$j]['scheduling_id'].",";
+                if(count($data5)>1){
+                    if($j=count($data5)-1){
+                        $sum.=$data5[$j]['scheduling_id'];
+                    }else{
+                        $sum.=$data5[$j]['scheduling_id'].",";
+                    }
+                }else{
+                    $sum.=$data5[$j]['scheduling_id'];
+                }
                 $selectStament=$database->select()
                     ->from('schedule_order')
                     ->where('tenant_id','=',$data['tenant_id'])
