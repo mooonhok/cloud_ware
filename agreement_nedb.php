@@ -20,7 +20,7 @@ $app->post('/addAgreement',function()use($app) {
     $agreement_id=$body->agreement_id;
     $secondparty_id = $body->secondparty_id;
     $freight = $body->freight;
-	$agreement_time=$body->agreement_time;
+//	$agreement_time=$body->agreement_time;
     $array = array();
     foreach ($body as $key => $value) {
         $array[$key] = $value;
@@ -29,7 +29,6 @@ $app->post('/addAgreement',function()use($app) {
         if($agreement_id!=null||$agreement_id!=''){
             if($secondparty_id!=null||$secondparty_id!=''){
                 if($freight!=null||$freight!=''){
-                                if($agreement_time!=null||$agreement_time!=''){
                                     $array['tenant_id']=$tenant_id;
                                     $array['exist']=0;
                                     $insertStatement = $database->insert(array_keys($array))
@@ -37,9 +36,6 @@ $app->post('/addAgreement',function()use($app) {
                                         ->values(array_values($array));
                                     $insertId = $insertStatement->execute(false);
                                     echo json_encode(array("result" => "0", "desc" => "success"));
-                                }else{
-                                    echo json_encode(array("result" => "1", "desc" => "缺少合同生成时间"));
-                                }
                 }else{
                     echo json_encode(array("result" => "5", "desc" => "缺少运费"));
                 }

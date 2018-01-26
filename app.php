@@ -1749,7 +1749,7 @@ $app->post('/change_orders_status',function()use($app){
     $body=json_decode($body);
     $lorryid=$body->lorryid;
     $scheduling_id=$body->scheduling_id;
-    $back_reason=$body->reason;
+    $back_comment=$body->reason;
     $time=time();
         if($lorryid!=null||$lorryid!=""){
             $selectStament=$database->select()
@@ -1782,7 +1782,7 @@ $app->post('/change_orders_status',function()use($app){
 //                        $data3=$stmt->fetch();
                         date_default_timezone_set("PRC");
                         $shijian=date("Y-m-d H:i:s",time());
-                        $updateStatement = $database->update(array('scheduling_status'=>6,'back_reason'=>$back_reason,'back_time'=>$shijian))
+                        $updateStatement = $database->update(array('scheduling_status'=>6,'back_reason'=> '驾驶员申请退单','back_time'=>$shijian,'back_comment'=>$back_comment,))
                             ->table('scheduling')
                             ->where('exist','=',0)
                             ->where('scheduling_status','=',4)
@@ -2254,7 +2254,12 @@ $app->post('/sign_agreement',function()use($app){
 //                    ->where('agreement_id','=',$agreement_id);
 //                $stmt = $selectStatement->execute();
 //                $data3= $stmt->fetch();
-                $updateStatement = $database->update(array('sign_img'=>$lujing,'agreement_status'=>1))
+                date_default_timezone_set("PRC");
+                $year=date("Y");
+                $month=date("m");
+                $day=date("d");
+                $agreement_time=$year.'年'.$month.'月'.$day.'日';
+                $updateStatement = $database->update(array('sign_img'=>$lujing,'agreement_status'=>1,'agreement_time'=>$agreement_time))
                     ->table('agreement')
                     ->where('tenant_id', '=', $data2[$i]['tenant_id'])
                     ->where('secondparty_id', '=', $data2[$i]['lorry_id'])
