@@ -138,7 +138,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<div class="bor"></div>
 					<div class="dizhi1">
 						<div class="lab">
-							<label for="">地址:</label>
+							<label for="" style="background-color:#A6FFFF;">地址:</label>
 						</div>
 					</div>
 					<div class="bor"></div>
