@@ -2063,6 +2063,7 @@ $app->get('/agreement_lorrys',function()use($app){
     $database=localhost();
     $lorry_id = $app->request->get("lorry_id");
     $arrays=array();
+    $arrays1=array();
     if($lorry_id!=null||$lorry_id!=''){
         $selectStament=$database->select()
             ->from('app_lorry')
@@ -2092,11 +2093,28 @@ $app->get('/agreement_lorrys',function()use($app){
                        ->where('lorry.lorry_id','=', $data2[$i]['lorry_id'])
                        ->where('agreement.tenant_id','=', $data2[$i]['tenant_id'])
                        ->where('agreement.secondparty_id', '=', $data2[$i]['lorry_id'])
-                       ->orderBy('agreement.agreement_status');
+                       ->where('agreement.agreement_status', '=',0)
+                       ->orderBy('agreement.agreement_id','DESC');
                    $stmt = $selectStatement->execute();
                    $data3= $stmt->fetchAll();
                    $arrays=array_merge($arrays,$data3);
+                   $selectStatement = $database->select()
+                       ->from('agreement')
+                       ->join('lorry','lorry.lorry_id','=','agreement.secondparty_id','INNER')
+                       ->join('tenant','tenant.tenant_id','=','agreement.tenant_id','INNER')
+                       ->where('agreement.exist','=','0')
+                       ->where('tenant.tenant_id','=', $data2[$i]['tenant_id'])
+                       ->where('lorry.tenant_id','=', $data2[$i]['tenant_id'])
+                       ->where('lorry.lorry_id','=', $data2[$i]['lorry_id'])
+                       ->where('agreement.tenant_id','=', $data2[$i]['tenant_id'])
+                       ->where('agreement.secondparty_id', '=', $data2[$i]['lorry_id'])
+                       ->where('agreement.agreement_status', '!=',0)
+                       ->orderBy('agreement.agreement_id','DESC');
+                   $stmt = $selectStatement->execute();
+                   $data4= $stmt->fetchAll();
+                   $arrays1=array_merge($arrays1,$data4);
                }
+                   $arrays=array_merge($arrays,$arrays1);
                 echo json_encode(array('result' => '0','desc' => '','agreements'=>$arrays));
             }else{
                 echo json_encode(array('result' => '1', 'desc' => '司机尚未有过订单'));
