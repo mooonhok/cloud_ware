@@ -42,7 +42,7 @@ function loader(agr_id) {
               $(".do_spphone").html(msg.agree.driver_phone);
               $(".do_spnumber").html(msg.agree.plate_number);
               $(".do_send_city").html(msg.agree.scity);
-              $(".do_receive_city").html(msg.agree.rcity);
+              $(".do_receive_city").html(msg.agree.cityname);
               $(".do_corder").html(msg.agree.ordercount);
               $(".do_ccount").html(msg.agree.ordercountgood);
               $(".do_ccapacity").html(msg.agree.ordersize);
