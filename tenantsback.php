@@ -538,6 +538,8 @@ $app->get('/agredet',function()use($app){
            $num3=0;
            $num4=0;
            $num5=0;
+            $city=array();
+            $city2=array();
             for($j=0;$j<count($data5);$j++){
                $sum.=$data5[$j]['scheduling_id'].",";
                 $selectStament=$database->select()
@@ -546,7 +548,19 @@ $app->get('/agredet',function()use($app){
                     ->where('schedule_id','=',$data5[$j]['scheduling_id']);
                 $stmt=$selectStament->execute();
                 $data6=$stmt->fetchAll();
-              $num5+=count($data6);
+                $selectStament=$database->select()
+                    ->from('scheduling')
+                    ->where('tenant_id','=',$data['tenant_id'])
+                    ->where('scheduling_id','=',$data5[$j]['scheduling_id']);
+                $stmt=$selectStament->execute();
+                $data9=$stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('city')
+                    ->where('id','=',$data9['receive_city_id']);
+                $stmt=$selectStament->execute();
+                $data10=$stmt->fetch();
+                array_push($city,$data10['name']);
+                $city2=array_values(array_unique($city));
                 for($x=0;$x<count($data6);$x++){
                     $selectStament=$database->select()
                         ->from('goods')
@@ -566,6 +580,16 @@ $app->get('/agredet',function()use($app){
             $data['orderweight']=$num3;
             $data['ordervalue']=$num4;
             $data['ordercount']=$num5;
+            $rcity="";
+            if(count($city2)>1) {
+                $rcity=$city2[0].'经';
+                for ($i = 1; $i < count($city2); $i++) {
+                    $rcity.=$city2[$i];
+                }
+            }else{
+                $rcity=$city2[0];
+            }
+            $data['cityname']=$rcity;
             echo json_encode(array('result'=>'0','desc'=>'','agree'=>$data));
         }else{
             echo json_encode(array('result'=>'2','desc'=>'合同不存在'));
