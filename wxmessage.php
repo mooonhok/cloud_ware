@@ -143,7 +143,59 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                                     ->values(array($str,$tenant_id, $str2,0,$data7['goods_package_id'],$goods_name,$goods_weight,$goods_capacity,$goods_count,$special_need,$good_worth));
                                                                                                 $insertId = $insertStatement->execute(false);
                                                                                                 if($insertId!=null){
-                                                                                                    echo json_encode(array("result"=>"1","desc"=>"success"));
+                                                                                                    $selectStament=$database->select()
+                                                                                                        ->from('tenant')
+                                                                                                        ->where('exist','=',0)
+                                                                                                        ->where('tenant_id','=',$tenant_id);
+                                                                                                    $stmt=$selectStament->execute();
+                                                                                                    $data10=$stmt->fetch();
+                                                                                                    $selectStament=$database->select()
+                                                                                                        ->from('customer')
+                                                                                                        ->where('customer_id','=',$data10['contact_id'])
+                                                                                                        ->where('tenant_id','=',$tenant_id);
+                                                                                                    $stmt=$selectStament->execute();
+                                                                                                    $data11=$stmt->fetch();
+                                                                                                    if($data10!=null){
+                                                                                                        if($data10['appid']!=null&&$data10['secret']!=null){
+                                                                                                            $appid=$data10['appid'];
+                                                                                                            $appsecret=$data10['secret'];
+                                                                                                            $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
+                                                                                                            $ch = curl_init();
+                                                                                                            curl_setopt($ch, CURLOPT_URL, $url);
+                                                                                                            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+                                                                                                            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+                                                                                                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                                                                                                            $output = curl_exec($ch);
+                                                                                                            curl_close($ch);
+                                                                                                            $jsoninfo = json_decode($output, true);
+                                                                                                            $access_token = $jsoninfo["access_token"];
+                                                                                                            $template=array("touser"=>$data11['wx_openid'],"template_id"=>"0XdWHw-LDDWHgtrIbKq1F3JaGXQmQxE5SR2cb9iEf-c"
+                                                                                                            ,"data"=>array("first"=>array("value"=>$data10['company'],"color"=>"#173177"),
+                                                                                                                    "keyword1"=>array("value"=>$shijian,"color"=>"#173177"),
+                                                                                                                    "keyword2"=>array("value"=>"您有新的订单，请打开客户端查看","color"=>"#173177")));
+                                                                                                            $url="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;
+                                                                                                            $postJson = urldecode( json_encode( $template));
+                                                                                                            $ch1 = curl_init();
+                                                                                                            curl_setopt($ch1, CURLOPT_URL, $url);
+                                                                                                            curl_setopt($ch1, CURLOPT_RETURNTRANSFER, 1);
+                                                                                                            curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, FALSE);
+                                                                                                            curl_setopt($ch1, CURLOPT_SSL_VERIFYHOST, FALSE);
+                                                                                                            // POST数据
+                                                                                                            curl_setopt($ch1, CURLOPT_POST, 1);
+                                                                                                            // 把post的变量加上
+                                                                                                            curl_setopt($ch1, CURLOPT_POSTFIELDS, $postJson);
+                                                                                                            $output2 = curl_exec($ch1);
+                                                                                                            curl_close($ch1);
+                                                                                                            $res2=json_decode($output2,true);
+//                                                                                                            echo  json_encode(array("result"=>"0","desc"=>$res2));
+                                                                                                            echo json_encode(array("result"=>"1","desc"=>"success"));
+                                                                                                        }else{
+                                                                                                            echo  json_encode(array("result"=>"20","desc"=>"数据库缺少微信账号信息"));
+                                                                                                        }
+                                                                                                    }else{
+                                                                                                        echo  json_encode(array("result"=>"19","desc"=>"租户不存在"));
+                                                                                                    }
+
                                                                                                 }else{
                                                                                                     echo json_encode(array("result"=>"2","desc"=>"微信添加货物失败"));
                                                                                                 }
