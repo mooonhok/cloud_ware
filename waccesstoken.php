@@ -133,7 +133,7 @@ $app->post('/addpic',function()use($app){
             $type = $result[2];
             date_default_timezone_set("PRC");
             $time1 = time();
-            $new_file = "weixincontrol/image/";
+            $new_file = "/weixincontrol/image/";
             if (!file_exists($new_file)) {
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                 mkdir($new_file, 0700);
@@ -307,6 +307,9 @@ $app->post("/addmessage",function()use($app){
         echo  json_encode(array("result"=>"1","desc"=>"未选择租户"));
     }
 });
+
+
+
 //发送消息
 $app->post('/sendall',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -384,12 +387,9 @@ $app->post('/wxmomessage',function()use($app){
     $database = localhost();
     $tenant_id=$body->tenant_id;
     $openid=$body->openid;
-    $templateid="SaD2X7v12wNaS70wbDatq_yYTw555Ow9QX9on8FCz0A";
+    $templateid="0XdWHw-LDDWHgtrIbKq1F3JaGXQmQxE5SR2cb9iEf-c";
     $title=$body->title;
-    $order_id=$body->id;
-    $fcity=$body->fcity;
-    $tcity=$body->tcity;
-    $goods=$body->goods;
+    $message=$body->message;
     date_default_timezone_set("PRC");
     $time = date("Y-m-d H:i",time());
     if($tenant_id!=null||$tenant_id!=""){
@@ -415,10 +415,8 @@ $app->post('/wxmomessage',function()use($app){
                 $access_token = $jsoninfo["access_token"];
                  $template=array("touser"=>$openid,"template_id"=>$templateid
                  ,"data"=>array("first"=>array("value"=>$title,"color"=>"#173177"),
-                         "keyword1"=>array("value"=>$order_id,"color"=>"#173177"),
-                         "keyword2"=>array("value"=>$fcity.'-'.$tcity,"color"=>"#173177"),
-                         "keyword3"=>array("value"=>$goods,"color"=>"#173177"),
-                         "keyword4"=>array("value"=>$time,"color"=>"#173177"),));
+                         "keyword1"=>array("value"=>$time,"color"=>"#173177"),
+                         "keyword2"=>array("value"=>$message,"color"=>"#173177")));
                 $url="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;
                 $postJson = urldecode( json_encode( $template));
                  $ch1 = curl_init();
@@ -432,7 +430,6 @@ $app->post('/wxmomessage',function()use($app){
                   curl_setopt($ch1, CURLOPT_POSTFIELDS, $postJson);
                   $output2 = curl_exec($ch1);
                   curl_close($ch1);
-
                 $res2=json_decode($output2,true);
                 echo  json_encode(array("result"=>"0","desc"=>$res2));
 //                 if ($res['errcode']==0){
