@@ -182,6 +182,8 @@ $app->get('/getCustomers1',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
     $tenant_id = $app->request->headers->get("tenant-id");
+    $array=array();
+    $array1=array();
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('tenant')
@@ -199,7 +201,25 @@ $app->get('/getCustomers1',function()use($app){
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
 
-        echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$data));
+        for($i=0;$i<count($data);$i++){
+          for($g=count($data);$g>$i;$g--){
+              if($data[$i]['customer_name']==$data[$g]['customer_name']&&$data[$i]['customer_phone']==$data[$g]['customer_phone']){
+                $data[$i]['times']+=$data[$g]['times'];
+                array_push($array,$g);
+              }
+          }
+        }
+        for($i=0;$i<count($data);$i++){
+           for($x=0;$x<count($array);$x++){
+              if($i==$array[$x]){
+                 break;
+              }
+               if($x==(count($array)-1)){
+                  array_push($array1,$data[$i]);
+               }
+           }
+        }
+        echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$array1));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
