@@ -142,8 +142,6 @@ $app->get('/sales_tenant',function()use($app){
                         date_default_timezone_set("PRC");
                         $begintime=date("Y-m-d",strtotime($data2[$x]['begin_time']));
                         $array['begin_time']=$begintime;
-
-
                         $array['company']=$data2[$x]['company'];
                         array_push($arrays,$array);
                     }
@@ -212,8 +210,7 @@ $app->put('/tenantchange',function()use($app){
                     $affectedRows = $updateStatement->execute();
                     $updateStatement = $database->update($array1)
                         ->table('customer')
-                        ->where('customer_id', '=', $data2['contact_id'])
-                        ->where('exist','=',0);
+                        ->where('customer_id', '=', $data2['contact_id']);
                     $affectedRows = $updateStatement->execute();
                     echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
                 } else {
