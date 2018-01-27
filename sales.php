@@ -78,6 +78,7 @@ $app->get('/sales_tenant',function()use($app){
                     for($x=0;$x<count($data2);$x++){
                         $selectStatement = $database->select()
                             ->from('customer')
+                            ->where('tenant_id', '=', $$data2[$x]['tenant_id'])
                             ->where('customer_id', '=', $data2[$x]['contact_id']);
                         $stmt = $selectStatement->execute();
                         $data3 = $stmt->fetch();
@@ -132,6 +133,7 @@ $app->get('/sales_tenant',function()use($app){
                     for($x=0;$x<count($data2);$x++){
                         $selectStatement = $database->select()
                             ->from('customer')
+                            ->where('tenant_id', '=', $$data2[$x]['tenant_id'])
                             ->where('customer_id', '=', $data2[$x]['contact_id']);
                         $stmt = $selectStatement->execute();
                         $data3 = $stmt->fetch();
@@ -210,6 +212,7 @@ $app->put('/tenantchange',function()use($app){
                     $affectedRows = $updateStatement->execute();
                     $updateStatement = $database->update($array1)
                         ->table('customer')
+                        ->where('tenant_id', '=', $tenant_id)
                         ->where('customer_id', '=', $data2['contact_id']);
                     $affectedRows = $updateStatement->execute();
                     echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
