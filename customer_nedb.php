@@ -202,7 +202,7 @@ $app->get('/getCustomers1',function()use($app){
         $data = $stmt->fetchAll();
 
         for($i=0;$i<count($data);$i++){
-          for($g=count($data);$g>$i;$g--){
+          for($g=(count($data)-1);$g>$i;$g--){
               if($data[$i]['customer_name']==$data[$g]['customer_name']&&$data[$i]['customer_phone']==$data[$g]['customer_phone']){
                 $data[$i]['times']+=$data[$g]['times'];
                 array_push($array,$g);
