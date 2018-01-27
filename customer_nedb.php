@@ -256,6 +256,9 @@ $app->get('/limitCustomers0',function()use($app){
     $tenant_id = $app->request->headers->get("tenant-id");
     $size=$app->request->get('size');
     $offset=$app->request->get('offset');
+    $array=array();
+    $array1=array();
+    $array2=array();
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('tenant')
@@ -270,14 +273,38 @@ $app->get('/limitCustomers0',function()use($app){
             ->whereNotNull('times')
             ->where('type', '=', 1)
             ->where('exist', '=', 0)
-            ->orderBy('id')
-            ->limit((int)$size,(int)$offset);
+            ->orderBy('id');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         for($i=0;$i<count($data);$i++){
-            $data[$i]['number']=$offset+$i+1;
+            for($g=(count($data)-1);$g>$i;$g--){
+                if($data[$i]['customer_name']==$data[$g]['customer_name']&&$data[$i]['customer_phone']==$data[$g]['customer_phone']){
+                    $data[$i]['times']+=$data[$g]['times'];
+                    array_push($array,$g);
+                }
+            }
         }
-        echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$data));
+        for($i=0;$i<count($data);$i++){
+            for($x=0;$x<count($array);$x++){
+                if($i==$array[$x]){
+                    break;
+                }
+                if($x==(count($array)-1)){
+                    array_push($array1,$data[$i]);
+                }
+            }
+        }
+        $num=0;
+        if($offset<count($array1)&&$offset<(count($array1)-$size)){
+            $num=$offset+$size;
+        }else{
+            $num=count($array1);
+        }
+        for($g=$offset;$g<$num;$g++){
+            $data[$g]['number']=$g+1;
+            array_push($array2,$data[$g]);
+        }
+        echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$array2));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
