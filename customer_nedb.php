@@ -301,8 +301,8 @@ $app->get('/limitCustomers0',function()use($app){
             $num=count($array1);
         }
         for($g=$offset;$g<$num;$g++){
-            $data[$g]['number']=$g+1;
-            array_push($array2,$data[$g]);
+            $array1[$g]['number']=$g+1;
+            array_push($array2,$array1[$g]);
         }
         echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$array2));
     }else{
