@@ -1120,16 +1120,7 @@ $app->post('/wx_order_z', function () use ($app) {
                        $array['order_time4'] = $data4['order_datetime4'];
                        $array['order_time5'] = $data4['order_datetime5'];
                        $array['sure_img']=$data4['sure_img'];
-                       if($data4['pickup_id']!=null){
-                           $selectStatement = $database->select()
-                               ->from('pickup')
-                               ->where('pickup_id','=',$data4['pickup_id']);
-                           $stmt = $selectStatement->execute();
-                           $data12= $stmt->fetch();
-                           $array['pickupname']=$data12['pickup_name'];
-                           $array['pickupphone']=$data12['pickup_phone'];
-                           $array['pickupnumber']=$data12['pickup_number'];
-                       }
+
                    }
                }
                 $selectStatement = $database->select()
@@ -1167,7 +1158,16 @@ $app->post('/wx_order_z', function () use ($app) {
                    $data11= $stmt->fetch();
                    $array['plate_number']=$data11['plate_number'];
                }
-
+               if($data3['pickup_id']!=null){
+                   $selectStatement = $database->select()
+                       ->from('pickup')
+                       ->where('pickup_id','=',$data3['pickup_id']);
+                   $stmt = $selectStatement->execute();
+                   $data12= $stmt->fetch();
+                   $array['pickupname']=$data12['pickup_name'];
+                   $array['pickupphone']=$data12['pickup_phone'];
+                   $array['pickupnumber']=$data12['pickup_number'];
+               }
 
 //
 //                $selectStatement = $database->select()
