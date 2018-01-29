@@ -397,7 +397,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                         //隐藏微信id
                         $array1['order_idd']=$data2[$i]['message_id'];
 
-                        if($data2[$i]['order_status']==-1||$data2[$i]['order_status']==-2||$data2[$i]['order_status']==0){
+                        if($data2[$i]['order_status']==-1||$data2[$i]['order_status']==-2||$data2[$i]['order_status']==0||$data2[$i]['order_status']==5){
                             $array1['order_id']='暂无';
                         }else{
                             $array1['order_id']=$data2[$i]['order_id'];
@@ -637,7 +637,7 @@ $app->post('/wx_orders_r', function () use ($app) {
                         //隐藏运单号
                         $array1['order_idd']=$data2[$i]['message_id'];
 
-                        if($data2[$i]['order_status']==-1||$data2[$i]['order_status']==-2||$data2[$i]['order_status']==0){
+                        if($data2[$i]['order_status']==-1||$data2[$i]['order_status']==-2||$data2[$i]['order_status']==0||$data2[$i]['order_status']==5){
                             $array1['order_id']='暂无';
                         }else{
                             $array1['order_id']= $data2[$i]['order_id'];
