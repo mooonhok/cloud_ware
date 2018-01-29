@@ -397,7 +397,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                         //隐藏微信id
                         $array1['order_idd']=$data2[$i]['message_id'];
 
-                        if($data2[$i]['order_status']==-1||$data2[$i]['order_status']==-2||$data2[$i]['order_status']==0||$data2[$i]['order_status']==5){
+                        if($data2[$i]['order_status']==-1||$data2[$i]['order_status']==-2||$data2[$i]['order_status']==0){
                             $array1['order_id']='暂无';
                         }else{
                             $array1['order_id']=$data2[$i]['order_id'];
@@ -410,8 +410,9 @@ $app->post('/wx_orders_s', function () use ($app) {
                         }else{
                             $array1['order_cost']=$array1['order_cost'].'元';
                         }
-                        if(($array1['status']==0&&$array1['order_cost']=='暂无')||$array1['status']==5){
+                        if(($array1['status']==0&&$array1['order_cost']=='暂无')||($array1['status']==5&&$array1['order_cost']=='暂无')){
 //                            $array1['order_cost']='受理中';
+                            $array1['order_id']='暂无';
                             $array1['receive']='未签收';
                             $array1['status']='受理中';
                             $array1['order_cost']='暂无';
@@ -496,8 +497,9 @@ $app->post('/wx_orders_s', function () use ($app) {
                         }else{
                             $array1['order_cost']=$array1['order_cost'].'元';
                         }
-                        if(($array1['status']==0&&$array1['order_cost']=='暂无')||$array1['status']==5){
+                        if(($array1['status']==0&&$array1['order_cost']=='暂无')||($array1['status']==5&&$array1['order_cost']=='暂无')){
 //                            $array1['order_cost']='受理中';
+                            $array1['order_id']='暂无';
                             $array1['receive']='未签收';
                             $array1['status']='受理中';
                             $array1['order_cost']='暂无';
@@ -910,8 +912,9 @@ $app->post('/wx_order', function () use ($app) {
                             }else{
                                 $array1['order_cost']=$array1['order_cost'].'元';
                             }
-                            if (($array2['status'] == 0 && $array2['order_cost'] == '暂无')||$array2['status']==5) {
+                            if (($array2['status'] == 0 && $array2['order_cost'] == '暂无')||($array2['status']==5&&$array2['order_cost']=='暂无')) {
 //                                $array2['order_cost'] = '受理中';
+                                $array2['order_id']='暂无';
                                 $array2['receive'] = '未签收';
                                 $array2['status'] = '受理中';
                                 $array2['order_cost']='暂无';
@@ -993,8 +996,9 @@ $app->post('/wx_order', function () use ($app) {
                                 }else{
                                     $array1['order_cost']=$array1['order_cost'].'元';
                                 }
-                                if(($array1['status']==0&&$array1['order_cost']=='暂无')||$array1['status']==5){
+                                if(($array1['status']==0&&$array1['order_cost']=='暂无')||($array1['status']==5&&$array1['order_cost']=='暂无')) {
 //                                    $array1['order_cost']='受理中';
+                                    $array1['order_id']='暂无';
                                     $array1['receive']='未签收';
                                     $array1['status']='受理中';
                                     $array1['order_cost']='暂无';
