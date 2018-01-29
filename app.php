@@ -1477,7 +1477,7 @@ $app->post('/receivesc',function()use($app){
                                 ->where('tenant_id','!=',$data3[$x]['tenant_id'])
                                 ->where('order_id','=',$data3[$x]['order_id']);
                             $affectedRows = $updateStatement->execute();
-                            $shi=mb_strlen($data7['name'],'utf-8');
+                            $shi=mb_substr($data7['name'],0,-1,'utf-8');
                             echo json_encode(array('result' => '0', 'desc' => '确认成功','shi'=>$shi));
                         }
                         }else{
