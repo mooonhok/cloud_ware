@@ -1116,7 +1116,7 @@ $app->post('/wx_order_z', function () use ($app) {
                        ->limit(1);
                    $stmt = $selectStatement->execute();
                    $data4 = $stmt->fetch();
-                   if($data4['order_status']>=$data3['order_status']){
+                   if($data4['order_status']<=$data3['order_status']){
                        $array['order_status']=$data4['order_status'];
                        $array['order_time4'] = $data4['order_datetime4'];
                        $array['order_time5'] = $data4['order_datetime5'];
