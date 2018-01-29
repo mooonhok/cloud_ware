@@ -1070,50 +1070,73 @@ $app->post('/wx_order_z', function () use ($app) {
     $body = $app->request->getBody();
     $body = json_decode($body);
     $order_id = $body->order_id;
-//    $order_id = $app->request->get("order_id");
     $database = localhost();
     $array=array();
     if ($tenant_id != null || $tenant_id != "") {
-//        $selectStatement = $database->select()
-//            ->from('tenant')
-//            ->where('exist', "=", 0)
-//            ->where('tenant_id', '=', $tenant_id);
-//        $stmt = $selectStatement->execute();
-//        $data1= $stmt->fetch();
-//        if ($data1 != null) {
             $selectStatement = $database->select()
                 ->from('orders')
                 ->where('exist', "=", 0)
-//                ->where('tenant_id','=',$tenant_id)
                 ->where('order_id','=',$order_id);
             $stmt = $selectStatement->execute();
-            $data2= $stmt->fetch();
-            if($data2!=null){
-                $array['order_status']=$data2['order_status'];
-                $array['order_time0']=$data2['order_datetime0'];
-                $array['order_time1']=$data2['order_datetime1'];
-                $array['order_time2']=$data2['order_datetime2'];
-                $array['order_time3']=$data2['order_datetime3'];
-                $array['order_time4']=$data2['order_datetime4'];
-                $array['order_time5']=$data2['order_datetime5'];
+            $data2= $stmt->fetchAll();
+           if($data2!=null){
+               $selectStatement = $database->select()
+                   ->from('orders')
+                   ->where('exist', "=", 0)
+                   ->where('order_id','=',$order_id)
+                  ->orderBy('order_datetime0')
+                  ->limit(1);
+               $stmt = $selectStatement->execute();
+               $data3= $stmt->fetch();
+                $array['order_time0']=$data3['order_datetime0'];
+                $array['order_time1']=$data3['order_datetime1'];
+                $array['order_time2']=$data3['order_datetime2'];
+                $array['order_time3']=$data3['order_datetime3'];
+               $selectStatement = $database->select()
+                   ->from('customer')
+                   ->where('exist', "=", 0)
+                   ->where('customer_id','=',$data3['sender_id'])
+                   ->where('tenant_id', '=', $data3['tenant_id']);
+               $stmt = $selectStatement->execute();
+               $data7= $stmt->fetch();
+               $selectStatement = $database->select()
+                   ->from('city')
+                   ->where('id', '=', $data7['customer_city_id']);
+               $stmt = $selectStatement->execute();
+               $data8= $stmt->fetch();
+               $array['sendcity']=$data8['name'];
+               if($data3['order_status']>=3) {
+                   $array['order_status']=$data3['order_status'];
+                   $selectStatement = $database->select()
+                       ->from('orders')
+                       ->where('exist', "=", 0)
+                       ->where('order_id', '=', $order_id)
+                       ->orderBy('order_datetime0', 'DESC')
+                       ->limit(1);
+                   $stmt = $selectStatement->execute();
+                   $data4 = $stmt->fetch();
+                   if($data4['order_status']>=$data3['order_status']){
+                       $array['order_status']=$data4['order_status'];
+                       $array['order_time4'] = $data4['order_datetime4'];
+                       $array['order_time5'] = $data4['order_datetime5'];
+                       $array['sure_img']=$data4['sure_img'];
+                       if($data4['pickup_id']!=null){
+                           $selectStatement = $database->select()
+                               ->from('pickup')
+                               ->where('pickup_id','=',$data4['pickup_id']);
+                           $stmt = $selectStatement->execute();
+                           $data12= $stmt->fetch();
+                           $array['pickupname']=$data12['pickup_name'];
+                           $array['pickupphone']=$data12['pickup_phone'];
+                           $array['pickupnumber']=$data12['pickup_number'];
+                       }
+                   }
+               }
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('exist', "=", 0)
-                    ->where('customer_id','=',$data2['sender_id'])
-                    ->where('tenant_id', '=', $data2['tenant_id']);
-                $stmt = $selectStatement->execute();
-                $data7= $stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id', '=', $data7['customer_city_id']);
-                $stmt = $selectStatement->execute();
-                $data8= $stmt->fetch();
-                $array['sendcity']=$data8['name'];
-                $selectStatement = $database->select()
-                    ->from('customer')
-                    ->where('exist', "=", 0)
-                    ->where('customer_id','=',$data2['receiver_id'])
-                    ->where('tenant_id', '=', $data2['tenant_id']);
+                    ->where('customer_id','=',$data3['receiver_id'])
+                    ->where('tenant_id', '=', $data3['tenant_id']);
                 $stmt = $selectStatement->execute();
                 $data9= $stmt->fetch();
                 $selectStatement = $database->select()
@@ -1125,50 +1148,42 @@ $app->post('/wx_order_z', function () use ($app) {
                 $selectStatement = $database->select()
                     ->from('schedule_order')
                     ->where('exist', "=", 0)
-                    ->where('order_id','=',$order_id)
-                    ->where('tenant_id', '=', $data2['tenant_id']);
+                    ->where('order_id','=',$order_id);
                 $stmt = $selectStatement->execute();
-                $data4= $stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('scheduling')
-                    ->where('exist', "=", 0)
-                    ->where('scheduling_id','=',$data4['schedule_id'])
-                    ->where('tenant_id', '=', $data2['tenant_id']);
-                $stmt = $selectStatement->execute();
-                $data5= $stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('lorry')
-                    ->where('exist', "=", 0)
-                    ->where('lorry_id','=',$data5['lorry_id'])
-                    ->where('tenant_id', '=', $data2['tenant_id']);
-                $stmt = $selectStatement->execute();
-                $data6= $stmt->fetch();
-                $array['plate_number']=$data6['plate_number'];
-                $selectStatement = $database->select()
-                    ->from('goods')
-                    ->where('tenant_id','=',$data2['tenant_id'])
-                    ->where('order_id', '=', $order_id);
-                $stmt = $selectStatement->execute();
-                $data7= $stmt->fetch();
-                 $array['special']=$data7['special_need'];
-                 $array['sure_img']=$data2['sure_img'];
-                  if($data2['pickup_id']!=null){
-                      $selectStatement = $database->select()
-                          ->from('pickup')
-                          ->where('pickup_id','=',$data2['pickup_id']);
-                      $stmt = $selectStatement->execute();
-                      $data8= $stmt->fetch();
-                      $array['pickupname']=$data8['pickup_name'];
-                      $array['pickupphone']=$data8['pickup_phone'];
-                      $array['pickupnumber']=$data8['pickup_number'];
-                  }
+                $data5= $stmt->fetchAll();
+               for($i=0;$i<count($data5);$i++){
+                   $selectStatement = $database->select()
+                       ->from('scheduling')
+                       ->where('exist', "=", 0)
+                       ->where('scheduling_id','=',$data5[$i]['schedule_id'])
+                       ->where('scheduling_status', '=',4);
+                   $stmt = $selectStatement->execute();
+                   $data6= $stmt->fetch();
+                   $selectStatement = $database->select()
+                       ->from('lorry')
+                       ->where('exist', "=", 0)
+                       ->where('lorry_id','=',$data6['lorry_id'])
+                       ->where('tenant_id', '=', $data6['tenant_id']);
+                   $stmt = $selectStatement->execute();
+                   $data11= $stmt->fetch();
+                   $array['plate_number']=$data11['plate_number'];
+               }
+
+
+//
+//                $selectStatement = $database->select()
+//                    ->from('goods')
+//                    ->where('tenant_id','=',$data2['tenant_id'])
+//                    ->where('order_id', '=', $order_id);
+//                $stmt = $selectStatement->execute();
+//                $data7= $stmt->fetch();
+//                 $array['special']=$data7['special_need'];
+//
+
                 echo json_encode(array("result" => "0", "desc" => "success", "orders" => $array));
-            }else{
-                echo json_encode(array("result" => "1", "desc" => "订单不存在", "orders" => ""));
-            }
-//        } else {
-//            echo json_encode(array("result" => "2", "desc" => "租户不存在", "orders" => ""));
-//        }
+         }else{
+              echo json_encode(array("result" => "1", "desc" => "订单不存在", "orders" => ""));
+        }
     } else {
         echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => ""));
     }
