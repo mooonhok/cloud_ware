@@ -1105,8 +1105,9 @@ $app->post('/wx_order_z', function () use ($app) {
                $stmt = $selectStatement->execute();
                $data8= $stmt->fetch();
                $array['sendcity']=$data8['name'];
+               $array['order_status']=$data3['order_status'];
                if($data3['order_status']>=3&&$data3['is_transfer']==1) {
-                   $array['order_status']=$data3['order_status'];
+//                   $array['order_status']=$data3['order_status'];
                    $selectStatement = $database->select()
                        ->from('orders')
                        ->where('exist', "=", 0)
@@ -1120,7 +1121,6 @@ $app->post('/wx_order_z', function () use ($app) {
                        $array['order_time4'] = $data4['order_datetime4'];
                        $array['order_time5'] = $data4['order_datetime5'];
                        $array['sure_img']=$data4['sure_img'];
-
                    }
                }
                 $selectStatement = $database->select()
