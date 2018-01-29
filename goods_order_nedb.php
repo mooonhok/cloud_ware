@@ -168,16 +168,22 @@ $app->get('/getGoodsOrders1',function()use($app){
                     ->orderBy('id');
                 $stmt = $selectStatement->execute();
                 $data12 = $stmt->fetchAll();
-
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->whereNotNull('reach_city')
+                    ->where('order_id', '=', $data1[$i]['order_id'])
+                    ->orderBy('id','DESC');
+                $stmt = $selectStatement->execute();
+                $data13 = $stmt->fetchAll();
                 $next_cost='';
                 $last_order_status='';
                 $last_reach_city='';
                 if($data12!=null){
                     $next_cost=$data12[0]['transfer_cost'];
                     $last_order_status=$data12[(count($data12)-1)]['order_status'];
-                    $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
-                }else{
-                    $last_reach_city=$data10['reach_city'];
+                }
+                if($data13!=null){
+                    $last_reach_city=$data13[0]['reach_city'];
                 }
                 $is_transfer='';
                 if($data11!=null){
@@ -1212,15 +1218,22 @@ $app->get('/limitGoodsOrders5',function()use($app){
                         ->orderBy('id');
                     $stmt = $selectStatement->execute();
                     $data12 = $stmt->fetchAll();
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->whereNotNull('reach_city')
+                        ->where('order_id', '=', $array[$i]['order_id'])
+                        ->orderBy('id','DESC');
+                    $stmt = $selectStatement->execute();
+                    $data13 = $stmt->fetchAll();
                     $next_cost='';
                     $last_order_status='';
                     $last_reach_city='';
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
                         $last_order_status=$data12[(count($data12)-1)]['order_status'];
-                        $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
-                    }else{
-                        $last_reach_city=$data10['reach_city'];
+                    }
+                    if($data13!=null){
+                        $last_reach_city=$data13[0]['reach_city'];
                     }
                     $is_transfer='';
                     if($data11!=null){
@@ -2240,15 +2253,22 @@ $app->get('/getGoodsOrders7',function()use($app){
                 ->orderBy('id');
             $stmt = $selectStatement->execute();
             $data12 = $stmt->fetchAll();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->whereNotNull('reach_city')
+                ->where('order_id', '=', $data1[$i]['order_id'])
+                ->orderBy('id','DESC');
+            $stmt = $selectStatement->execute();
+            $data13= $stmt->fetchAll();
             $last_order_status='';
             $next_cost='';
             $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
-                $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
-            }else{
-                $last_reach_city=$data10['reach_city'];
+            }
+            if($data13!=null){
+                $last_reach_city=$data13[0]['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
@@ -2577,15 +2597,22 @@ $app->get('/limitGoodsOrders12',function()use($app){
                         ->orderBy('id');
                     $stmt = $selectStatement->execute();
                     $data12 = $stmt->fetchAll();
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->whereNotNull('reach_city')
+                        ->where('order_id', '=', $data1[$i]['order_id'])
+                        ->orderBy('id','DESC');
+                    $stmt = $selectStatement->execute();
+                    $data13 = $stmt->fetchAll();
                     $next_cost='';
                     $last_order_status='';
                     $last_reach_city='';
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
                         $last_order_status=$data12[(count($data12)-1)]['order_status'];
-                        $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
-                    }else{
-                        $last_reach_city=$data10['reach_city'];
+                    }
+                    if($data13!=null){
+                        $last_reach_city=$data13[0]['reach_city'];
                     }
                     $is_transfer='';
                     if($data11!=null){
@@ -2791,15 +2818,22 @@ $app->get('/getGoodsOrders4',function()use($app){
                 ->orderBy('id');
             $stmt = $selectStatement->execute();
             $data12 = $stmt->fetchAll();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->whereNotNull('reach_city')
+                ->where('order_id', '=', $data1[$i]['order_id'])
+                ->orderBy('id','DESC');
+            $stmt = $selectStatement->execute();
+            $data13 = $stmt->fetchAll();
             $next_cost='';
             $last_order_status='';
             $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
-                $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
-            }else{
-                $last_reach_city=$data10['reach_city'];
+            }
+            if($data13!=null){
+                $last_reach_city=$data13[0]['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
@@ -2926,15 +2960,22 @@ $app->get('/getGoodsOrders5',function()use($app){
                 ->orderBy('id');
             $stmt = $selectStatement->execute();
             $data12 = $stmt->fetchAll();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->whereNotNull('reach_city')
+                ->where('order_id', '=', $data1[$i]['order_id'])
+                ->orderBy('id','DESC');
+            $stmt = $selectStatement->execute();
+            $data13 = $stmt->fetchAll();
             $next_cost='';
             $last_order_status='';
             $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
-                $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
-            }else{
-                $last_reach_city=$data10['reach_city'];
+            }
+            if($data13!=null){
+                $last_reach_city=$data13[0]['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
@@ -3044,15 +3085,22 @@ $app->get('/getGoodsOrders6',function()use($app){
                 ->orderBy('id');
             $stmt = $selectStatement->execute();
             $data12 = $stmt->fetchAll();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->whereNotNull('reach_city')
+                ->where('order_id', '=', $data1[$i]['order_id'])
+                ->orderBy('id','DESC');
+            $stmt = $selectStatement->execute();
+            $data13 = $stmt->fetchAll();
             $next_cost='';
             $last_order_status='';
             $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
-                $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
-            }else{
-                $last_reach_city=$data10['reach_city'];
+            }
+            if($data13!=null){
+                $last_reach_city=$data13[0]['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
@@ -3181,15 +3229,22 @@ $app->get('/getGoodsOrders9',function()use($app){
                 ->orderBy('id');
             $stmt = $selectStatement->execute();
             $data12 = $stmt->fetchAll();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->whereNotNull('reach_city')
+                ->where('order_id', '=', $dataa[$i]['order_id'])
+                ->orderBy('id','DESC');
+            $stmt = $selectStatement->execute();
+            $data13= $stmt->fetchAll();
             $next_cost='';
             $last_order_status='';
             $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
-                $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
-            }else{
-                $last_reach_city=$data10['reach_city'];
+            }
+            if($data13!=null){
+                $last_reach_city=$data13[0]['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
@@ -3324,6 +3379,13 @@ $app->get('/getGoodsOrders8',function()use($app){
                 ->orderBy('id');
             $stmt = $selectStatement->execute();
             $data12 = $stmt->fetchAll();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->whereNotNull('reach_city')
+                ->where('order_id', '=', $dataa[$i]['order_id'])
+                ->orderBy('id','DESC');
+            $stmt = $selectStatement->execute();
+            $data13 = $stmt->fetchAll();
             $next_cost='';
             $last_order_status='';
             $last_reach_city='';
@@ -3331,8 +3393,9 @@ $app->get('/getGoodsOrders8',function()use($app){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
                 $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
-            }else{
-                $last_reach_city=$data10['reach_city'];
+            }
+            if($data13!=null){
+                $last_reach_city=$data13[0]['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
@@ -3458,15 +3521,22 @@ $app->get('/getGoodsOrders10',function()use($app){
                 ->orderBy('id');
             $stmt = $selectStatement->execute();
             $data12 = $stmt->fetchAll();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->whereNotNull('reach_city')
+                ->where('order_id', '=', $dataa[$i]['order_id'])
+                ->orderBy('id','DESC');
+            $stmt = $selectStatement->execute();
+            $data13 = $stmt->fetchAll();
             $next_cost='';
             $last_order_status='';
             $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
-                $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
-            }else{
-                $last_reach_city=$data10['reach_city'];
+            }
+            if($data13!=null){
+                $last_reach_city=$data13[0]['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
@@ -3605,15 +3675,22 @@ $app->get('/limitGoodsOrders13',function()use($app){
                 ->orderBy('id');
             $stmt = $selectStatement->execute();
             $data12 = $stmt->fetchAll();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->whereNotNull('reach_city')
+                ->where('order_id', '=', $dataa[$i]['order_id'])
+                ->orderBy('id','DESC');
+            $stmt = $selectStatement->execute();
+            $data13 = $stmt->fetchAll();
             $next_cost='';
             $last_order_status='';
             $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
-                $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
-            }else{
-                $last_reach_city=$data10['reach_city'];
+            }
+            if($data13!=null){
+                $last_reach_city=$data13[0]['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
@@ -3751,15 +3828,22 @@ $app->get('/limitGoodsOrders14',function()use($app){
                 ->orderBy('id');
             $stmt = $selectStatement->execute();
             $data12 = $stmt->fetchAll();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->whereNotNull('reach_city')
+                ->where('order_id', '=', $dataa[$i]['order_id'])
+                ->orderBy('id','DESC');
+            $stmt = $selectStatement->execute();
+            $data13 = $stmt->fetchAll();
             $next_cost='';
             $last_order_status='';
             $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
-                $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
-            }else{
-                $last_reach_city=$data10['reach_city'];
+            }
+            if($data13!=null){
+                $last_reach_city=$data13[0]['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
@@ -3895,15 +3979,22 @@ $app->get('/limitGoodsOrders15',function()use($app){
                 ->orderBy('id');
             $stmt = $selectStatement->execute();
             $data12 = $stmt->fetchAll();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->whereNotNull('reach_city')
+                ->where('order_id', '=', $dataa[$i]['order_id'])
+                ->orderBy('id','DESC');
+            $stmt = $selectStatement->execute();
+            $data13 = $stmt->fetchAll();
             $next_cost='';
             $last_order_status='';
             $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
-                $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
-            }else{
-                $last_reach_city=$data10['reach_city'];
+            }
+            if($data13!=null){
+                $last_reach_city=$data13[0]['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
@@ -4018,15 +4109,22 @@ $app->get('/limitGoodsOrders9',function()use($app){
                         ->orderBy('id');
                     $stmt = $selectStatement->execute();
                     $data12 = $stmt->fetchAll();
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->whereNotNull('reach_city')
+                        ->where('order_id', '=', $data1[$i]['order_id'])
+                        ->orderBy('id','DESC');
+                    $stmt = $selectStatement->execute();
+                    $data13 = $stmt->fetchAll();
                     $next_cost='';
                     $last_order_status='';
                     $last_reach_city='';
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
                         $last_order_status=$data12[(count($data12)-1)]['order_status'];
-                        $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
-                    }else{
-                        $last_reach_city=$data10['reach_city'];
+                    }
+                    if($data13!=null){
+                        $last_reach_city=$data13[0]['reach_city'];
                     }
                     $is_transfer='';
                     if($data11!=null){
@@ -4171,15 +4269,22 @@ $app->get('/limitGoodsOrders10',function()use($app){
                         ->orderBy('id');
                     $stmt = $selectStatement->execute();
                     $data12 = $stmt->fetchAll();
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->whereNotNull('reach_city')
+                        ->where('order_id', '=', $data1[$i]['order_id'])
+                        ->orderBy('id','DESC');
+                    $stmt = $selectStatement->execute();
+                    $data13 = $stmt->fetchAll();
                     $next_cost='';
                     $last_order_status='';
                     $last_reach_city='';
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
                         $last_order_status=$data12[(count($data12)-1)]['order_status'];
-                        $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
-                    }else{
-                        $last_reach_city=$data10['reach_city'];
+                    }
+                    if($data13!=null){
+                        $last_reach_city=$data13[0]['reach_city'];
                     }
                     $is_transfer='';
                     if($data11!=null){
@@ -4300,6 +4405,13 @@ $app->get('/limitGoodsOrders11',function()use($app){
                         ->orderBy('id');
                     $stmt = $selectStatement->execute();
                     $data12 = $stmt->fetchAll();
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->whereNotNull('reach_city')
+                        ->where('order_id', '=', $data1[$i]['order_id'])
+                        ->orderBy('id','DESC');
+                    $stmt = $selectStatement->execute();
+                    $data13 = $stmt->fetchAll();
                     $next_cost='';
                     $last_order_status='';
                     $last_reach_city='';
@@ -4307,8 +4419,9 @@ $app->get('/limitGoodsOrders11',function()use($app){
                         $next_cost=$data12[0]['transfer_cost'];
                         $last_order_status=$data12[(count($data12)-1)]['order_status'];
                         $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
-                    }else{
-                        $last_reach_city=$data10['reach_city'];
+                    }
+                    if($data13!=null){
+                        $last_reach_city=$data13[0]['reach_city'];
                     }
                     $is_transfer='';
                     if($data11!=null){
