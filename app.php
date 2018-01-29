@@ -1477,8 +1477,11 @@ $app->post('/receivesc',function()use($app){
                                 ->where('tenant_id','!=',$data3[$x]['tenant_id'])
                                 ->where('order_id','=',$data3[$x]['order_id']);
                             $affectedRows = $updateStatement->execute();
-                            $shi=mb_substr($data7['name'],0,-1,'utf-8');
-                            echo json_encode(array('result' => '0', 'desc' => '确认成功','shi'=>$shi));
+//                            $shi=mb_substr($data7['name'],0,-1,'utf-8');
+                            $a=mb_strlen('朱志鹏','utf-8');
+                            $c=mb_strlen('朱志鹏','utf8');
+                            $b=mb_strlen('朱志鹏','GBK');
+                            echo json_encode(array('result' => '0', 'desc' => '确认成功','shi'=>$a.'///'.$c.'///'.$b));
                         }
                         }else{
                             echo json_encode(array('result' => '5', 'desc' => '该清单不是您的'));
