@@ -142,6 +142,19 @@ $app->get('/getCustomer1',function()use($app){
                     ->where('id', '=', $data6['pid']);
                 $stmt = $selectStatement->execute();
                 $data8 = $stmt->fetch();
+                if($data['contact_tenant_id']!=null){
+                    $selectStatement = $database->select()
+                        ->from('tenant')
+                        ->where('exist', '=', 0)
+                        ->where('tenant_id', '=', $data['contact_tenant_id']);
+                    $stmt = $selectStatement->execute();
+                    $data9 = $stmt->fetch();
+                    $data['contact_company']=$data9['company'];
+                    $data['contact_jcompany']=$data9['jcompany'];
+                }else{
+                    $data['contact_company']='';
+                    $data['contact_jcompany']='';
+                }
                 $data['customer_city']=$data6['name'];
                 $data['province']=$data8['name'];
             echo json_encode(array("result" => "0", "desc" => "success",'customer'=>$data));

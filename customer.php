@@ -863,6 +863,21 @@ $app->get('/old_customers_w',function()use($app){
         ->orderBy('id','DESC');
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
+    for($i=0;$i<count($data1);$i++){
+      if($data1[$i]['contact_tenant_id']){
+          $selectStatement = $database->select()
+              ->from('tenant')
+              ->where('tenant_id','=',$data1[$i]['contact_tenant_id'])
+              ->where('exist','=',0);
+          $stmt = $selectStatement->execute();
+          $data2 = $stmt->fetch();
+          $data1[$i]['contact_company']=$data2['company'];
+          $data1[$i]['contact_jcompany']=$data2['jcompany'];
+      }else{
+          $data1[$i]['contact_company']='';
+          $data1[$i]['contact_jcompany']='';
+      }
+    }
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$data1));
 });
 
