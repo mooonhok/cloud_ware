@@ -1461,6 +1461,11 @@ $app->post('/receivesc',function()use($app){
                                 ->where('tenant_id','=',$data3[$x]['tenant_id'])
                                 ->where('order_id','=',$data3[$x]['order_id']);
                             $affectedRows = $updateStatement->execute();
+                            $updateStatement = $database->update(array('order_status'=>7))
+                                ->table('orders')
+                                ->where('tenant_id','!=',$data3[$x]['tenant_id'])
+                                ->where('order_id','=',$data3[$x]['order_id']);
+                            $affectedRows = $updateStatement->execute();
                             echo json_encode(array('result' => '0', 'desc' => '确认成功'));
                         }
                         }else{
