@@ -1088,6 +1088,7 @@ $app->post('/wx_order_z', function () use ($app) {
                   ->limit(1);
                $stmt = $selectStatement->execute();
                $data3= $stmt->fetch();
+               $array['sure_img']=$data3['sure_img'];
                 $array['order_time0']=$data3['order_datetime0'];
                 $array['order_time1']=$data3['order_datetime1'];
                 $array['order_time2']=$data3['order_datetime2'];
@@ -1107,7 +1108,6 @@ $app->post('/wx_order_z', function () use ($app) {
                $array['sendcity']=$data8['name'];
                $array['order_status']=$data3['order_status'];
                if($data3['order_status']>=3&&$data3['is_transfer']==1) {
-//                   $array['order_status']=$data3['order_status'];
                    $selectStatement = $database->select()
                        ->from('orders')
                        ->where('exist', "=", 0)
@@ -1168,8 +1168,6 @@ $app->post('/wx_order_z', function () use ($app) {
                    $array['pickupphone']=$data12['pickup_phone'];
                    $array['pickupnumber']=$data12['pickup_number'];
                }
-
-
                 $selectStatement = $database->select()
                     ->from('goods')
                     ->where('tenant_id','=',$data3['tenant_id'])
@@ -1177,8 +1175,6 @@ $app->post('/wx_order_z', function () use ($app) {
                 $stmt = $selectStatement->execute();
                 $data7= $stmt->fetch();
                  $array['special']=$data7['special_need'];
-
-
                 echo json_encode(array("result" => "0", "desc" => "success", "orders" => $array));
          }else{
               echo json_encode(array("result" => "1", "desc" => "订单不存在", "orders" => ""));
