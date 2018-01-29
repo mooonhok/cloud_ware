@@ -1092,9 +1092,9 @@ $app->post('/wx_order_z', function () use ($app) {
                 $array['order_time1']=$data3['order_datetime1'];
                 $array['order_time2']=$data3['order_datetime2'];
                 $array['order_time3']=$data3['order_datetime3'];
+               $array['order_time4'] = $data3['order_datetime4'];
                $selectStatement = $database->select()
                    ->from('customer')
-                   ->where('exist', "=", 0)
                    ->where('customer_id','=',$data3['sender_id'])
                    ->where('tenant_id', '=', $data3['tenant_id']);
                $stmt = $selectStatement->execute();
@@ -1105,7 +1105,7 @@ $app->post('/wx_order_z', function () use ($app) {
                $stmt = $selectStatement->execute();
                $data8= $stmt->fetch();
                $array['sendcity']=$data8['name'];
-               if($data3['order_status']>=3) {
+               if($data3['order_status']>=3&&$data3['is_transfer']==1) {
                    $array['order_status']=$data3['order_status'];
                    $selectStatement = $database->select()
                        ->from('orders')
@@ -1134,7 +1134,6 @@ $app->post('/wx_order_z', function () use ($app) {
                }
                 $selectStatement = $database->select()
                     ->from('customer')
-                    ->where('exist', "=", 0)
                     ->where('customer_id','=',$data3['receiver_id'])
                     ->where('tenant_id', '=', $data3['tenant_id']);
                 $stmt = $selectStatement->execute();
