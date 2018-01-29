@@ -148,48 +148,12 @@
 						}),
 						success: function(msg) {
 						    console.log(msg)
-							//alert(tenant_id+"////"+order_id);
-							if(msg.orders.order_status == -2) {
-								var a = "<p>运单号 :<span>" + order_id + "</span></p>";
-								$(".top").html(a);
-								if(msg.orders.sendcity == null) {
-									msg.orders.sendcity = "";
-								}
-								var sendcity = "发站:<span>" + msg.orders.sendcity + "</span>";
-								$(".center1-1").html(sendcity);
-								if(msg.orders.receivercity == null) {
-									msg.orders.receivercity = "";
-								}
-								var acceptcity = "到站:<span>" + msg.orders.receivercity + "</span>";
-								$(".center1-2").html(acceptcity);
-								var xiadan = "<div class='foot2-1'>订单状态</div><div class='foot2-2'>" +
-									"未受理" + "</div>";
-								$(".foot2").html(xiadan);
-								$(".syuan1").css("background", "#02F78E");
-								var ruku = "<div class='foot3-1'>入库</div><div class='foot3-2'>" +
-									"</div>";
-								$(".foot3").html(ruku);
-								var chuku = "<div class='foot4-1'>出库</div><div class='foot4-2'>" +
-									"</div>";
-								$(".foot4").html(chuku);
-								var zaitu = "<div class='foot5-1'><p>在途 <span>" + "</span></p></div><div class='foot5-2'>" +
-									"</div>";
-								$(".foot5").html(zaitu);
-								var daoda = "<div class='foot6-1'>到达</div><div class='foot6-2'>" +
-									"</div>";
-								$(".foot6").html(daoda);
-								var shouhuo = "<div class='foot7-1'>收货</div><div class='foot7-2'>" +
-									"</div>";
-								$(".foot7").html(shouhuo);
-							//	var wc = "<div class='foot8-1'>运输完成</div>";
-								$(".foot8").html(wc);
-		
-							} else {
-								var a = "<p>运单号 :<span>" + order_id + "</span></p>";
-								$(".top").html(a);
-								if(msg.orders.sendcity == null) {
-									msg.orders.sendcity = "";
-								}
+						    alert(msg.orders.order_status);
+							var a = "<p>运单号 :<span>" + order_id + "</span></p>";
+							$(".top").html(a);
+							if(msg.orders.sendcity == null) {
+								msg.orders.sendcity = "";
+							}
 								var sendcity = "发站:<span>" + msg.orders.sendcity + "</span>";
 								$(".center1-1").html(sendcity);
 								if(msg.orders.receivercity == null) {
@@ -236,7 +200,7 @@
 												$(".foot5").html(zaitu);
 												$(".syuan4").css("background", "#02F78E");
 												$(".sxian3").css("background", "#02F78E");
-												if(msg.orders.order_status == 4) {
+												if(msg.orders.order_status >= 4) {
                                                     var time4=msg.orders.order_time4;
                                                     if(time4==null){
                                                         time4=time3;
@@ -246,7 +210,7 @@
 													$(".foot6").html(daoda);
 													$(".syuan5").css("background", "#02F78E");
 													$(".sxian4").css("background", "#02F78E");
-													if(msg.orders.order_status >= 7) {
+													if(msg.orders.order_status == 7) {
                                                         var time5=msg.orders.order_time5;
                                                         if(time5==null){
                                                             time5=time4;
@@ -272,7 +236,7 @@
 														$(".foot8").html(wc);
 													}
 												}
-											}
+//											}
 										}
 									}
 								}
