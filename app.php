@@ -1441,11 +1441,11 @@ $app->post('/receivesc',function()use($app){
             $stmt = $selectStatement->execute();
             $data7 = $stmt->fetch();
 
-//            if(substr($data7['name'],(strlen($data7['name'])-2))=='市'){
-//               $arrays1['reach_city']=substr($data7['name'],0,(strlen($data7['name'])-2));
-//            }else{
-//                $arrays1['reach_city']=$data7['name'];
-//            }
+            if(mb_substr($data7['name'],(mb_strlen($data7['name'],'utf-8')-1),'utf-8')=='市'){
+               $arrays1['reach_city']=mb_substr($data7['name'],0,(mb_strlen($data7['name'],'utf-8')-1),'utf-8');
+            }else{
+                $arrays1['reach_city']=$data7['name'];
+            }
             if($data3!=null){
                 $selectStament=$database->select()
                     ->from('lorry')
@@ -1477,8 +1477,7 @@ $app->post('/receivesc',function()use($app){
                                 ->where('tenant_id','!=',$data3[$x]['tenant_id'])
                                 ->where('order_id','=',$data3[$x]['order_id']);
                             $affectedRows = $updateStatement->execute();
-                            $shi=sizeof($data7['name']).'';
-                            echo json_encode(array('result' => '0', 'desc' => '确认成功','shi'=>$shi));
+                            echo json_encode(array('result' => '0', 'desc' => '确认成功'));
                         }
                         }else{
                             echo json_encode(array('result' => '5', 'desc' => '该清单不是您的'));
