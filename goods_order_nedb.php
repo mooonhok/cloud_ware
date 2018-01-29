@@ -1217,7 +1217,7 @@ $app->get('/limitGoodsOrders5',function()use($app){
                     if($data11!=null){
                         $is_transfer=$data11[0]['is_transfer'];
                     }
-                    $data1[$i]['last_order_status']=$last_order_status;
+                    $array[$i]['last_order_status']=$last_order_status;
                     $array[$i]['next_cost']=$next_cost;
                     $array[$i]['pre_company']=$is_transfer;
                     $array[$i]['goods_package']=$data2;
@@ -3565,7 +3565,7 @@ $app->get('/limitGoodsOrders13',function()use($app){
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
-            $data1[$i]['last_order_status']=$last_order_status;
+            $dataa[$i]['last_order_status']=$last_order_status;
             $dataa[$i]['next_cost']=$next_cost;
             $dataa[$i]['pre_company']=$is_transfer;
             $dataa[$i]['goods_package']=$data2;
@@ -3706,7 +3706,7 @@ $app->get('/limitGoodsOrders14',function()use($app){
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
-            $data1[$i]['last_order_status']=$last_order_status;
+            $dataa[$i]['last_order_status']=$last_order_status;
             $dataa[$i]['next_cost']=$next_cost;
             $dataa[$i]['pre_company']=$is_transfer;
             $dataa[$i]['goods_package']=$data2;
