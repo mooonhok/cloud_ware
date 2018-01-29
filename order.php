@@ -1169,15 +1169,15 @@ $app->post('/wx_order_z', function () use ($app) {
                    $array['pickupnumber']=$data12['pickup_number'];
                }
 
-//
-//                $selectStatement = $database->select()
-//                    ->from('goods')
-//                    ->where('tenant_id','=',$data2['tenant_id'])
-//                    ->where('order_id', '=', $order_id);
-//                $stmt = $selectStatement->execute();
-//                $data7= $stmt->fetch();
-//                 $array['special']=$data7['special_need'];
-//
+
+                $selectStatement = $database->select()
+                    ->from('goods')
+                    ->where('tenant_id','=',$data3['tenant_id'])
+                    ->where('order_id', '=', $order_id);
+                $stmt = $selectStatement->execute();
+                $data7= $stmt->fetch();
+                 $array['special']=$data7['special_need'];
+
 
                 echo json_encode(array("result" => "0", "desc" => "success", "orders" => $array));
          }else{
