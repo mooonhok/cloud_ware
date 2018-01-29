@@ -168,14 +168,18 @@ $app->get('/getGoodsOrders1',function()use($app){
                     ->orderBy('id');
                 $stmt = $selectStatement->execute();
                 $data12 = $stmt->fetchAll();
+
                 $next_cost='';
+                $last_order_status='';
                 if($data12!=null){
                     $next_cost=$data12[0]['transfer_cost'];
+                    $last_order_status=$data12[(count($data12)-1)]['order_status'];
                 }
                 $is_transfer='';
                 if($data11!=null){
                     $is_transfer=$data11[0]['is_transfer'];
                 }
+                $data1[$i]['last_order_status']=$last_order_status;
                 $data1[$i]['next_cost']=$next_cost;
                 $data1[$i]['pre_company']=$is_transfer;
                 $data1[$i]['goods_package']=$data2;
@@ -1204,14 +1208,17 @@ $app->get('/limitGoodsOrders5',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data12 = $stmt->fetchAll();
                     $next_cost='';
+                    $last_order_status='';
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
+                        $last_order_status=$data12[(count($data12)-1)]['order_status'];
                     }
-                    $array[$i]['next_cost']=$next_cost;
                     $is_transfer='';
                     if($data11!=null){
                         $is_transfer=$data11[0]['is_transfer'];
                     }
+                    $data1[$i]['last_order_status']=$last_order_status;
+                    $array[$i]['next_cost']=$next_cost;
                     $array[$i]['pre_company']=$is_transfer;
                     $array[$i]['goods_package']=$data2;
                     $array[$i]['sender']=$data3;
@@ -2223,15 +2230,18 @@ $app->get('/getGoodsOrders7',function()use($app){
                 ->orderBy('id');
             $stmt = $selectStatement->execute();
             $data12 = $stmt->fetchAll();
+            $last_order_status='';
             $next_cost='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
+                $last_order_status=$data12[(count($data12)-1)]['order_status'];
             }
-            $data1[$i]['next_cost']=$next_cost;
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
+            $data1[$i]['last_order_status']=$last_order_status;
+            $data1[$i]['next_cost']=$next_cost;
                 $data1[$i]['pre_company']=$is_transfer;
                 $data1[$i]['sender']=$data3;
                 $data1[$i]['sender']['sender_city']=$data6;
@@ -2553,13 +2563,16 @@ $app->get('/limitGoodsOrders12',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data12 = $stmt->fetchAll();
                     $next_cost='';
+                    $last_order_status='';
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
+                        $last_order_status=$data12[(count($data12)-1)]['order_status'];
                     }
                     $is_transfer='';
                     if($data11!=null){
                         $is_transfer=$data11[0]['is_transfer'];
                     }
+                    $data1[$i]['last_order_status']=$last_order_status;
                     $data1[$i]['next_cost']=$next_cost;
                     $data1[$i]['pre_company']=$is_transfer;
                     $data1[$i]['goods_package']=$data2;
@@ -2759,14 +2772,17 @@ $app->get('/getGoodsOrders4',function()use($app){
             $stmt = $selectStatement->execute();
             $data12 = $stmt->fetchAll();
             $next_cost='';
+            $last_order_status='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
+                $last_order_status=$data12[(count($data12)-1)]['order_status'];
             }
-            $data1[$i]['next_cost']=$next_cost;
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
+            $data1[$i]['last_order_status']=$last_order_status;
+            $data1[$i]['next_cost']=$next_cost;
             $data1[$i]['pre_company']=$is_transfer;
             $data1[$i]['goods_package']=$data2;
             $data1[$i]['sender']=$data3;
@@ -2886,14 +2902,16 @@ $app->get('/getGoodsOrders5',function()use($app){
             $stmt = $selectStatement->execute();
             $data12 = $stmt->fetchAll();
             $next_cost='';
+            $last_order_status='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
+                $last_order_status=$data12[(count($data12)-1)]['order_status'];
             }
-
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
+            $data1[$i]['last_order_status']=$last_order_status;
 
             $data1[$i]['next_cost']=$next_cost;
             $data1[$i]['pre_company']=$is_transfer;
@@ -2997,16 +3015,18 @@ $app->get('/getGoodsOrders6',function()use($app){
             $stmt = $selectStatement->execute();
             $data12 = $stmt->fetchAll();
             $next_cost='';
+            $last_order_status='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
+                $last_order_status=$data12[(count($data12)-1)]['order_status'];
             }
-            $data1[$i]['next_cost']=$next_cost;
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
+            $data1[$i]['last_order_status']=$last_order_status;
+            $data1[$i]['next_cost']=$next_cost;
             $data1[$i]['pre_company']=$is_transfer;
-
             $data1[$i]['goods_package']=$data2;
             $data1[$i]['sender']=$data3;
             $data1[$i]['sender']['sender_city']=$data6;
@@ -3123,18 +3143,20 @@ $app->get('/getGoodsOrders9',function()use($app){
                 ->from('orders')
                 ->where('id','>',$data10['id'])
                 ->where('order_id', '=', $dataa[$i]['order_id'])
-                ->orderBy('id')
-                ->limit(1);
+                ->orderBy('id');
             $stmt = $selectStatement->execute();
-            $data12 = $stmt->fetch();
+            $data12 = $stmt->fetchAll();
             $next_cost='';
+            $last_order_status='';
             if($data12!=null){
-                $next_cost=$data12['transfer_cost'];
+                $next_cost=$data12[0]['transfer_cost'];
+                $last_order_status=$data12[(count($data12)-1)]['order_status'];
             }
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
+            $dataa[$i]['last_order_status']=$last_order_status;
             $dataa[$i]['pre_company']=$is_transfer;
             $dataa[$i]['next_cost']=$next_cost;
             $dataa[$i]['goods_package']=$data2;
@@ -3263,13 +3285,16 @@ $app->get('/getGoodsOrders8',function()use($app){
             $stmt = $selectStatement->execute();
             $data12 = $stmt->fetchAll();
             $next_cost='';
+            $last_order_status='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
+                $last_order_status=$data12[(count($data12)-1)]['order_status'];
             }
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
+            $dataa[$i]['last_order_status']=$last_order_status;
             $dataa[$i]['pre_company']=$is_transfer;
             $dataa[$i]['next_cost']=$next_cost;
             $dataa[$i]['goods_package']=$data2;
@@ -3389,13 +3414,16 @@ $app->get('/getGoodsOrders10',function()use($app){
             $stmt = $selectStatement->execute();
             $data12 = $stmt->fetchAll();
             $next_cost='';
+            $last_order_status='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
+                $last_order_status=$data12[(count($data12)-1)]['order_status'];
             }
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
+            $dataa[$i]['last_order_status']=$last_order_status;
             $dataa[$i]['pre_company']=$is_transfer;
             $dataa[$i]['next_cost']=$next_cost;
             $dataa[$i]['goods_package']=$data2;
@@ -3528,13 +3556,16 @@ $app->get('/limitGoodsOrders13',function()use($app){
             $stmt = $selectStatement->execute();
             $data12 = $stmt->fetchAll();
             $next_cost='';
+            $last_order_status='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
+                $last_order_status=$data12[(count($data12)-1)]['order_status'];
             }
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
+            $data1[$i]['last_order_status']=$last_order_status;
             $dataa[$i]['next_cost']=$next_cost;
             $dataa[$i]['pre_company']=$is_transfer;
             $dataa[$i]['goods_package']=$data2;
@@ -3666,13 +3697,16 @@ $app->get('/limitGoodsOrders14',function()use($app){
             $stmt = $selectStatement->execute();
             $data12 = $stmt->fetchAll();
             $next_cost='';
+            $last_order_status='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
+                $last_order_status=$data12[(count($data12)-1)]['order_status'];
             }
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
+            $data1[$i]['last_order_status']=$last_order_status;
             $dataa[$i]['next_cost']=$next_cost;
             $dataa[$i]['pre_company']=$is_transfer;
             $dataa[$i]['goods_package']=$data2;
@@ -3802,13 +3836,16 @@ $app->get('/limitGoodsOrders15',function()use($app){
             $stmt = $selectStatement->execute();
             $data12 = $stmt->fetchAll();
             $next_cost='';
+            $last_order_status='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
+                $last_order_status=$data12[(count($data12)-1)]['order_status'];
             }
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
+            $dataa[$i]['last_order_status']=$last_order_status;
             $dataa[$i]['next_cost']=$next_cost;
             $dataa[$i]['pre_company']=$is_transfer;
             $dataa[$i]['goods_package']=$data2;
@@ -3917,15 +3954,17 @@ $app->get('/limitGoodsOrders9',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data12 = $stmt->fetchAll();
                     $next_cost='';
+                    $last_order_status='';
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
+                        $last_order_status=$data12[(count($data12)-1)]['order_status'];
                     }
-                    $data1[$i]['next_cost']=$next_cost;
                     $is_transfer='';
                     if($data11!=null){
                         $is_transfer=$data11[0]['is_transfer'];
                     }
-
+                    $data1[$i]['last_order_status']=$last_order_status;
+                    $data1[$i]['next_cost']=$next_cost;
                     $data1[$i]['pre_company']=$is_transfer;
                     $data1[$i]['goods_package']=$data2;
                     $data1[$i]['sender']=$data3;
@@ -4063,14 +4102,17 @@ $app->get('/limitGoodsOrders10',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data12 = $stmt->fetchAll();
                     $next_cost='';
+                    $last_order_status='';
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
+                        $last_order_status=$data12[(count($data12)-1)]['order_status'];
                     }
-                    $data1[$i]['next_cost']=$next_cost;
                     $is_transfer='';
                     if($data11!=null){
                         $is_transfer=$data11[0]['is_transfer'];
                     }
+                    $data1[$i]['last_order_status']=$last_order_status;
+                    $data1[$i]['next_cost']=$next_cost;
                     $data1[$i]['pre_company']=$is_transfer;
                     $data1[$i]['goods_package']=$data2;
                     $data1[$i]['sender']=$data3;
@@ -4184,14 +4226,17 @@ $app->get('/limitGoodsOrders11',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data12 = $stmt->fetchAll();
                     $next_cost='';
+                    $last_order_status='';
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
+                        $last_order_status=$data12[(count($data12)-1)]['order_status'];
                     }
-                    $data1[$i]['next_cost']=$next_cost;
                     $is_transfer='';
                     if($data11!=null){
                         $is_transfer=$data11[0]['is_transfer'];
                     }
+                    $data1[$i]['last_order_status']=$last_order_status;
+                    $data1[$i]['next_cost']=$next_cost;
                     $data1[$i]['pre_company']=$is_transfer;
                     $data1[$i]['goods_package']=$data2;
                     $data1[$i]['sender']=$data3;

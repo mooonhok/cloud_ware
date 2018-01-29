@@ -1435,6 +1435,17 @@ $app->post('/receivesc',function()use($app){
                 ->where('scheduling_id','=',$schedule_id);
             $stmt=$selectStament->execute();
             $data3=$stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data3['receive_city_id']);
+            $stmt = $selectStatement->execute();
+            $data7 = $stmt->fetch();
+
+            if(substr($data7['name'],(strlen($data7['name'])-1))=='市'){
+               $arrays1['reach_city']=substr($data7['name'],0,(strlen($data7['name'])-2));
+            }else{
+                $arrays1['reach_city']=$data7['name'];
+            }
             if($data3!=null){
                 $selectStament=$database->select()
                     ->from('lorry')
@@ -1461,7 +1472,7 @@ $app->post('/receivesc',function()use($app){
                                 ->where('tenant_id','=',$data3[$x]['tenant_id'])
                                 ->where('order_id','=',$data3[$x]['order_id']);
                             $affectedRows = $updateStatement->execute();
-                            $updateStatement = $database->update(array('order_status'=>7))
+                            $updateStatement = $database->update(array('order_status'=>7,'sure_img'=>$lujing))
                                 ->table('orders')
                                 ->where('tenant_id','!=',$data3[$x]['tenant_id'])
                                 ->where('order_id','=',$data3[$x]['order_id']);
