@@ -171,14 +171,19 @@ $app->get('/getGoodsOrders1',function()use($app){
 
                 $next_cost='';
                 $last_order_status='';
+                $last_reach_city='';
                 if($data12!=null){
                     $next_cost=$data12[0]['transfer_cost'];
                     $last_order_status=$data12[(count($data12)-1)]['order_status'];
+                    $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
+                }else{
+                    $last_reach_city=$data10['reach_city'];
                 }
                 $is_transfer='';
                 if($data11!=null){
                     $is_transfer=$data11[0]['is_transfer'];
                 }
+                $data1[$i]['last_reach_city']=$last_reach_city;
                 $data1[$i]['last_order_status']=$last_order_status;
                 $data1[$i]['next_cost']=$next_cost;
                 $data1[$i]['pre_company']=$is_transfer;
@@ -1209,14 +1214,19 @@ $app->get('/limitGoodsOrders5',function()use($app){
                     $data12 = $stmt->fetchAll();
                     $next_cost='';
                     $last_order_status='';
+                    $last_reach_city='';
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
                         $last_order_status=$data12[(count($data12)-1)]['order_status'];
+                        $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
+                    }else{
+                        $last_reach_city=$data10['reach_city'];
                     }
                     $is_transfer='';
                     if($data11!=null){
                         $is_transfer=$data11[0]['is_transfer'];
                     }
+                    $array[$i]['last_reach_city']=$last_reach_city;
                     $array[$i]['last_order_status']=$last_order_status;
                     $array[$i]['next_cost']=$next_cost;
                     $array[$i]['pre_company']=$is_transfer;
@@ -2232,16 +2242,21 @@ $app->get('/getGoodsOrders7',function()use($app){
             $data12 = $stmt->fetchAll();
             $last_order_status='';
             $next_cost='';
+            $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
+                $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
+            }else{
+                $last_reach_city=$data10['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
-            $data1[$i]['last_order_status']=$last_order_status;
-            $data1[$i]['next_cost']=$next_cost;
+               $data1[$i]['last_reach_city']=$last_reach_city;
+               $data1[$i]['last_order_status']=$last_order_status;
+               $data1[$i]['next_cost']=$next_cost;
                 $data1[$i]['pre_company']=$is_transfer;
                 $data1[$i]['sender']=$data3;
                 $data1[$i]['sender']['sender_city']=$data6;
@@ -2564,14 +2579,19 @@ $app->get('/limitGoodsOrders12',function()use($app){
                     $data12 = $stmt->fetchAll();
                     $next_cost='';
                     $last_order_status='';
+                    $last_reach_city='';
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
                         $last_order_status=$data12[(count($data12)-1)]['order_status'];
+                        $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
+                    }else{
+                        $last_reach_city=$data10['reach_city'];
                     }
                     $is_transfer='';
                     if($data11!=null){
                         $is_transfer=$data11[0]['is_transfer'];
                     }
+                    $data1[$i]['last_reach_city']=$last_reach_city;
                     $data1[$i]['last_order_status']=$last_order_status;
                     $data1[$i]['next_cost']=$next_cost;
                     $data1[$i]['pre_company']=$is_transfer;
@@ -2773,14 +2793,19 @@ $app->get('/getGoodsOrders4',function()use($app){
             $data12 = $stmt->fetchAll();
             $next_cost='';
             $last_order_status='';
+            $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
+                $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
+            }else{
+                $last_reach_city=$data10['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
+            $data1[$i]['last_reach_city']=$last_reach_city;
             $data1[$i]['last_order_status']=$last_order_status;
             $data1[$i]['next_cost']=$next_cost;
             $data1[$i]['pre_company']=$is_transfer;
@@ -2903,14 +2928,19 @@ $app->get('/getGoodsOrders5',function()use($app){
             $data12 = $stmt->fetchAll();
             $next_cost='';
             $last_order_status='';
+            $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
+                $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
+            }else{
+                $last_reach_city=$data10['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
+            $data1[$i]['last_reach_city']=$last_reach_city;
             $data1[$i]['last_order_status']=$last_order_status;
 
             $data1[$i]['next_cost']=$next_cost;
@@ -3016,14 +3046,19 @@ $app->get('/getGoodsOrders6',function()use($app){
             $data12 = $stmt->fetchAll();
             $next_cost='';
             $last_order_status='';
+            $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
+                $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
+            }else{
+                $last_reach_city=$data10['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
+            $data1[$i]['last_reach_city']=$last_reach_city;
             $data1[$i]['last_order_status']=$last_order_status;
             $data1[$i]['next_cost']=$next_cost;
             $data1[$i]['pre_company']=$is_transfer;
@@ -3148,14 +3183,19 @@ $app->get('/getGoodsOrders9',function()use($app){
             $data12 = $stmt->fetchAll();
             $next_cost='';
             $last_order_status='';
+            $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
+                $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
+            }else{
+                $last_reach_city=$data10['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
+            $dataa[$i]['last_reach_city']=$last_reach_city;
             $dataa[$i]['last_order_status']=$last_order_status;
             $dataa[$i]['pre_company']=$is_transfer;
             $dataa[$i]['next_cost']=$next_cost;
@@ -3286,14 +3326,19 @@ $app->get('/getGoodsOrders8',function()use($app){
             $data12 = $stmt->fetchAll();
             $next_cost='';
             $last_order_status='';
+            $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
+                $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
+            }else{
+                $last_reach_city=$data10['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
+            $dataa[$i]['last_reach_city']=$last_reach_city;
             $dataa[$i]['last_order_status']=$last_order_status;
             $dataa[$i]['pre_company']=$is_transfer;
             $dataa[$i]['next_cost']=$next_cost;
@@ -3415,14 +3460,19 @@ $app->get('/getGoodsOrders10',function()use($app){
             $data12 = $stmt->fetchAll();
             $next_cost='';
             $last_order_status='';
+            $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
+                $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
+            }else{
+                $last_reach_city=$data10['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
+            $dataa[$i]['last_reach_city']=$last_reach_city;
             $dataa[$i]['last_order_status']=$last_order_status;
             $dataa[$i]['pre_company']=$is_transfer;
             $dataa[$i]['next_cost']=$next_cost;
@@ -3557,14 +3607,19 @@ $app->get('/limitGoodsOrders13',function()use($app){
             $data12 = $stmt->fetchAll();
             $next_cost='';
             $last_order_status='';
+            $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
+                $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
+            }else{
+                $last_reach_city=$data10['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
+            $dataa[$i]['last_reach_city']=$last_reach_city;
             $dataa[$i]['last_order_status']=$last_order_status;
             $dataa[$i]['next_cost']=$next_cost;
             $dataa[$i]['pre_company']=$is_transfer;
@@ -3698,14 +3753,19 @@ $app->get('/limitGoodsOrders14',function()use($app){
             $data12 = $stmt->fetchAll();
             $next_cost='';
             $last_order_status='';
+            $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
+                $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
+            }else{
+                $last_reach_city=$data10['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
+            $dataa[$i]['last_reach_city']=$last_reach_city;
             $dataa[$i]['last_order_status']=$last_order_status;
             $dataa[$i]['next_cost']=$next_cost;
             $dataa[$i]['pre_company']=$is_transfer;
@@ -3837,14 +3897,19 @@ $app->get('/limitGoodsOrders15',function()use($app){
             $data12 = $stmt->fetchAll();
             $next_cost='';
             $last_order_status='';
+            $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
+                $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
+            }else{
+                $last_reach_city=$data10['reach_city'];
             }
             $is_transfer='';
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
+            $dataa[$i]['last_reach_city']=$last_reach_city;
             $dataa[$i]['last_order_status']=$last_order_status;
             $dataa[$i]['next_cost']=$next_cost;
             $dataa[$i]['pre_company']=$is_transfer;
@@ -3955,14 +4020,19 @@ $app->get('/limitGoodsOrders9',function()use($app){
                     $data12 = $stmt->fetchAll();
                     $next_cost='';
                     $last_order_status='';
+                    $last_reach_city='';
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
                         $last_order_status=$data12[(count($data12)-1)]['order_status'];
+                        $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
+                    }else{
+                        $last_reach_city=$data10['reach_city'];
                     }
                     $is_transfer='';
                     if($data11!=null){
                         $is_transfer=$data11[0]['is_transfer'];
                     }
+                    $data1[$i]['last_reach_city']=$last_reach_city;
                     $data1[$i]['last_order_status']=$last_order_status;
                     $data1[$i]['next_cost']=$next_cost;
                     $data1[$i]['pre_company']=$is_transfer;
@@ -4103,14 +4173,19 @@ $app->get('/limitGoodsOrders10',function()use($app){
                     $data12 = $stmt->fetchAll();
                     $next_cost='';
                     $last_order_status='';
+                    $last_reach_city='';
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
                         $last_order_status=$data12[(count($data12)-1)]['order_status'];
+                        $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
+                    }else{
+                        $last_reach_city=$data10['reach_city'];
                     }
                     $is_transfer='';
                     if($data11!=null){
                         $is_transfer=$data11[0]['is_transfer'];
                     }
+                    $data1[$i]['last_reach_city']=$last_reach_city;
                     $data1[$i]['last_order_status']=$last_order_status;
                     $data1[$i]['next_cost']=$next_cost;
                     $data1[$i]['pre_company']=$is_transfer;
@@ -4227,14 +4302,19 @@ $app->get('/limitGoodsOrders11',function()use($app){
                     $data12 = $stmt->fetchAll();
                     $next_cost='';
                     $last_order_status='';
+                    $last_reach_city='';
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
                         $last_order_status=$data12[(count($data12)-1)]['order_status'];
+                        $last_reach_city=$data12[(count($data12)-1)]['reach_city'];
+                    }else{
+                        $last_reach_city=$data10['reach_city'];
                     }
                     $is_transfer='';
                     if($data11!=null){
                         $is_transfer=$data11[0]['is_transfer'];
                     }
+                    $data1[$i]['last_reach_city']=$last_reach_city;
                     $data1[$i]['last_order_status']=$last_order_status;
                     $data1[$i]['next_cost']=$next_cost;
                     $data1[$i]['pre_company']=$is_transfer;

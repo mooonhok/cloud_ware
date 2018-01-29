@@ -682,12 +682,12 @@ $app->put('/alterOrder13',function()use($app){
                     ->table('orders')
                     ->where('id','=',$data1[0]['id']);
                 $affectedRows = $updateStatement->execute();
-                for($i=1;$i<count($data1);$i++){
-                    $updateStatement = $database->update(array('reach_city'=>$reach_city))
-                        ->table('orders')
-                        ->where('id','=',$data1[$i]['id']);
-                    $affectedRows = $updateStatement->execute();
-                }
+//                for($i=1;$i<count($data1);$i++){
+//                    $updateStatement = $database->update(array('reach_city'=>$reach_city))
+//                        ->table('orders')
+//                        ->where('id','=',$data1[$i]['id']);
+//                    $affectedRows = $updateStatement->execute();
+//                }
                 echo json_encode(array("result" => "0", "desc" => "success"));
             }else{
                 echo json_encode(array("result" => "1", "desc" => "缺少运单时间"));
