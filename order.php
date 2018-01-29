@@ -1106,7 +1106,11 @@ $app->post('/wx_order_z', function () use ($app) {
                $stmt = $selectStatement->execute();
                $data8= $stmt->fetch();
                $array['sendcity']=$data8['name'];
-               $array['order_status']=$data3['order_status'];
+               if($data3['is_transfer']==1&&$data3['order_status']==4){
+                   $array['order_status']=$data3['order_status']-1;
+               }else{
+                   $array['order_status']=$data3['order_status'];
+               }
                if($data3['order_status']>=3&&$data3['is_transfer']==1) {
                    $selectStatement = $database->select()
                        ->from('orders')
