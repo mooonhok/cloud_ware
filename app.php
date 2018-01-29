@@ -1441,7 +1441,7 @@ $app->post('/receivesc',function()use($app){
             $stmt = $selectStatement->execute();
             $data7 = $stmt->fetch();
 
-            if(mb_substr($data7['name'],(mb_strlen($data7['name'],'utf-8')-1),'utf-8')=='市'){
+            if(mb_substr($data7['name'],(mb_strlen($data7['name'],'utf-8')-1),1,'utf-8')=='市'){
                $arrays1['reach_city']=mb_substr($data7['name'],0,(mb_strlen($data7['name'],'utf-8')-1),'utf-8');
             }else{
                 $arrays1['reach_city']=$data7['name'];
