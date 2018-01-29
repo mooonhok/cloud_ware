@@ -675,14 +675,19 @@ $app->put('/alterOrder13',function()use($app){
                     ->where('id', '<', $data['id'])
                     ->where('order_id', '=', $order_id)
                     ->where('exist','=',0)
-                    ->orderBy('id','DESC')
-                    ->limit(1);
+                    ->orderBy('id','DESC');
                 $stmt = $selectStatement->execute();
-                $data1 = $stmt->fetch();
+                $data1 = $stmt->fetchAll();
                 $updateStatement = $database->update(array('order_status'=>4,'order_datetime4'=>$order_datetime4,'reach_city'=>$reach_city))
                     ->table('orders')
-                    ->where('id','=',$data1['id']);
+                    ->where('id','=',$data1[0]['id']);
                 $affectedRows = $updateStatement->execute();
+                for($i=1;$i<count($data1);$i++){
+                    $updateStatement = $database->update(array('reach_city'=>$reach_city))
+                        ->table('orders')
+                        ->where('id','=',$data1[$i]['id']);
+                    $affectedRows = $updateStatement->execute();
+                }
                 echo json_encode(array("result" => "0", "desc" => "success"));
             }else{
                 echo json_encode(array("result" => "1", "desc" => "缺少运单时间"));
