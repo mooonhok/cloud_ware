@@ -748,7 +748,7 @@ $app->put('/alterOrder14',function()use($app){
                         ->into('map')
                         ->values(array($data2['schedule_id'],$data3['longitude'],$data3['latitude'],time(),count($data4)+1));
                     $insertId = $insertStatement->execute(false);
-                    echo json_encode(array("result" => "0", "desc" => "success",'shuju'=>$data2['schedule_id'].'///'.$data3['longitude'].'///'.count($data4)));
+                    echo json_encode(array("result" => "0", "desc" => "success"));
                 }else{
                     echo json_encode(array("result" => "1", "desc" => "缺少转运费"));
                 }
