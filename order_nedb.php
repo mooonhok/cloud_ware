@@ -728,26 +728,26 @@ $app->put('/alterOrder14',function()use($app){
                         ->where('tenant_id','=',$tenant_id)
                         ->where('order_id','=',$order_id);
                     $affectedRows = $updateStatement->execute();
-//                    $selectStatement = $database->select()
-//                        ->from('schedule_order')
-//                        ->where('order_id', '=', $order_id)
-//                        ->orderBy('id')
-//                        ->limit(1);
-//                    $stmt = $selectStatement->execute();
-//                    $data2 = $stmt->fetch();
-//                    $selectStatement = $database->select()
-//                        ->from('tenant')
-//                        ->where('tenant_id', '=', $tenant_id);
-//                    $stmt = $selectStatement->execute();
-//                    $data3 = $stmt->fetch();
-//                    $selectStatement = $database->select()
-//                        ->from('map');
-//                    $stmt = $selectStatement->execute();
-//                    $data4 = $stmt->fetchAll();
-//                    $insertStatement = $database->insert(array('scheduling_id','longitude','latitude','accept_time','id'))
-//                        ->into('map')
-//                        ->values(array($data2['schedule_id'],$data3['longitude'],$data3['latitude'],time(),count($data4)+1));
-//                    $insertId = $insertStatement->execute(false);
+                    $selectStatement = $database->select()
+                        ->from('schedule_order')
+                        ->where('order_id', '=', $order_id)
+                        ->orderBy('id')
+                        ->limit(1);
+                    $stmt = $selectStatement->execute();
+                    $data2 = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('tenant')
+                        ->where('tenant_id', '=', $tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data3 = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('map');
+                    $stmt = $selectStatement->execute();
+                    $data4 = $stmt->fetchAll();
+                    $insertStatement = $database->insert(array('scheduling_id','longitude','latitude','accept_time','id'))
+                        ->into('map')
+                        ->values(array($data2['schedule_id'],$data3['longitude'],$data3['latitude'],time(),count($data4)+1));
+                    $insertId = $insertStatement->execute(false);
                     echo json_encode(array("result" => "0", "desc" => "success"));
                 }else{
                     echo json_encode(array("result" => "1", "desc" => "缺少转运费"));
