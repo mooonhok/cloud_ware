@@ -747,7 +747,7 @@ $app->put('/alterOrder14',function()use($app){
                     $data4 = $stmt->fetchAll();
                     $insertStatement = $database->insert(array('scheduling_id','longitude','latitude','id'))
                         ->into('map')
-                        ->values(array($data2['schedule_id'],$data3['longitude'],$data3['latitude'],count($data4)));
+                        ->values(array($data2['schedule_id'],$data3['longitude'],$data3['latitude'],count($data4)+1));
                     $insertId = $insertStatement->execute(false);
                     echo json_encode(array("result" => "0", "desc" => "success"));
                 }else{
