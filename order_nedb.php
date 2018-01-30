@@ -27,19 +27,30 @@ $app->post('/addOrder', function () use ($app) {
     if ($sender_id != null || $sender_id != "") {
         if ($receiver_id != null || $receiver_id > 0) {
             if ($order_id != null || $order_id != "") {
-                if($tenant_id!=null||$tenant_id!=''){
-                    $array["is_schedule"]=0;
-                    $array["is_transfer"]=0;
-                    $array['exist']=0;
-                    $array['tenant_id']=$tenant_id;
-                    $insertStatement = $database->insert(array_keys($array))
-                                            ->into('orders')
-                                            ->values(array_values($array));
-                     $insertId = $insertStatement->execute(false);
-                     echo json_encode(array("result" => "0", "desc" => "success"));
-                        }else{
-                    echo json_encode(array("result" => "4", "desc" => "缺少租户id"));
-                       }
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('order_id', '=', $order_id);
+                $stmt = $selectStatement->execute();
+                $data = $stmt->fetch();
+                if($data==null){
+                    if($tenant_id!=null||$tenant_id!=''){
+                        $array["is_schedule"]=0;
+                        $array["is_transfer"]=0;
+                        $array['exist']=0;
+                        $array['tenant_id']=$tenant_id;
+                        $insertStatement = $database->insert(array_keys($array))
+                            ->into('orders')
+                            ->values(array_values($array));
+                        $insertId = $insertStatement->execute(false);
+                        echo json_encode(array("result" => "0", "desc" => "success"));
+                    }else{
+                        echo json_encode(array("result" => "4", "desc" => "缺少租户id"));
+                    }
+                }else{
+                    echo json_encode(array("result" => "5", "desc" => "运单id重复"));
+                }
+
                  } else {
                 echo json_encode(array("result" => "3", "desc" => "缺少运单id"));
             }
