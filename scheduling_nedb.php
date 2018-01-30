@@ -34,13 +34,24 @@ $app->post('/addScheduling',function()use($app) {
                 if($receiver_id!=null||$receiver_id!=''){
                     if($receive_city_id!=null||$receive_city_id!=''){
                         if($lorry_id!=null||$lorry_id!=''){
-                            $array['tenant_id']=$tenant_id;
-                            $array['exist']=0;
-                            $insertStatement = $database->insert(array_keys($array))
-                                ->into('scheduling')
-                                ->values(array_values($array));
-                            $insertId = $insertStatement->execute(false);
-                            echo json_encode(array("result" => "0", "desc" => "success"));
+                            $selectStatement = $database->select()
+                                ->from('scheduling')
+                                ->where('tenant_id', '=', $tenant_id)
+                                ->where('scheduling_id', '=', $scheduling_id);
+                            $stmt = $selectStatement->execute();
+                            $data = $stmt->fetch();
+                            if($data==null){
+                                $array['tenant_id']=$tenant_id;
+                                $array['exist']=0;
+                                $insertStatement = $database->insert(array_keys($array))
+                                    ->into('scheduling')
+                                    ->values(array_values($array));
+                                $insertId = $insertStatement->execute(false);
+                                echo json_encode(array("result" => "0", "desc" => "success"));
+                            }else{
+                                echo json_encode(array("result" => "7", "desc" => "调度单重复"));
+                            }
+
                         }else{
                             echo json_encode(array("result" => "1", "desc" => "缺少车辆id"));
                         }

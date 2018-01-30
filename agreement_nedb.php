@@ -29,13 +29,24 @@ $app->post('/addAgreement',function()use($app) {
         if($agreement_id!=null||$agreement_id!=''){
             if($secondparty_id!=null||$secondparty_id!=''){
                 if($freight!=null||$freight!=''){
-                                    $array['tenant_id']=$tenant_id;
-                                    $array['exist']=0;
-                                    $insertStatement = $database->insert(array_keys($array))
-                                        ->into('agreement')
-                                        ->values(array_values($array));
-                                    $insertId = $insertStatement->execute(false);
-                                    echo json_encode(array("result" => "0", "desc" => "success"));
+                    $selectStatement = $database->select()
+                        ->from('agreement')
+                        ->where('agreement_id','=',$agreement_id)
+                        ->where('tenant_id','=',$tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data = $stmt->fetchAll();
+                    if($data==null){
+                        $array['tenant_id']=$tenant_id;
+                        $array['exist']=0;
+                        $insertStatement = $database->insert(array_keys($array))
+                            ->into('agreement')
+                            ->values(array_values($array));
+                        $insertId = $insertStatement->execute(false);
+                        echo json_encode(array("result" => "0", "desc" => "success"));
+                    }else{
+                        echo json_encode(array("result" => "1", "desc" => "重复的合同号"));
+                    }
+
                 }else{
                     echo json_encode(array("result" => "5", "desc" => "缺少运费"));
                 }
