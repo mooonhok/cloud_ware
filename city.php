@@ -49,6 +49,17 @@ $app->get('/citys',function()use($app){
     echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
 });
 
+$app->get('/all',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $table=$app->request->get('table_name');
+    $database=localhost();
+    $selectStatement = $database->select()
+        ->from($table.'');
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    echo  json_encode(array("result"=>"0","desc"=>"success","tables"=>$data));
+});
 
 $app->run();
 
