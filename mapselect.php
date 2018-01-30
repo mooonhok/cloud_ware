@@ -180,6 +180,15 @@ $app->post('/addmap',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '缺少运单号'));
     }
 });
+
+
+$app->get('/test',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $a="南通市";
+    echo json_encode(array('result' => '1', 'desc' => mb_substr($a,0,-1,'utf-8')));
+});
+
+
 $app->run();
 
 function localhost(){
