@@ -146,7 +146,40 @@ $app->get('/allmap',function()use($app){
             echo json_encode(array('result' => '0', 'desc' => '', 'map' => $arrays,'teant'=>$arrays2));
 });
 
-
+//扫码添加
+$app->post('/addmap',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $order_id = $body->order_id;
+    if($order_id!=null||$order_id!=""){
+            $selectStatement = $database->select()
+            ->from('schedule_order')
+            ->where('order_id', '=', $order_id)
+            ->orderBy('id')
+            ->limit(1);
+           $stmt = $selectStatement->execute();
+           $data2 = $stmt->fetch();
+            $selectStatement = $database->select()
+             ->from('tenant')
+             ->where('tenant_id', '=', $tenant_id);
+          $stmt = $selectStatement->execute();
+        $data3 = $stmt->fetch();
+         $selectStatement = $database->select()
+        ->from('map');
+         $stmt = $selectStatement->execute();
+       $data4 = $stmt->fetchAll();
+       $insertStatement = $database->insert(array('scheduling_id','longitude','latitude','accept_time','id'))
+        ->into('map')
+       ->values(array($data2['schedule_id'],$data3['longitude'],$data3['latitude'],time(),count($data4)+1));
+       $insertId = $insertStatement->execute(false);
+        echo json_encode(array('result' => '0', 'desc' => '添加坐标成功'));
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '缺少运单号'));
+    }
+});
 $app->run();
 
 function localhost(){
