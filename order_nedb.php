@@ -731,7 +731,6 @@ $app->put('/alterOrder14',function()use($app){
                     $selectStatement = $database->select()
                         ->from('schedule_order')
                         ->where('order_id', '=', $order_id)
-                        ->where('tenant_id', '=', $tenant_id)
                         ->orderBy('id')
                         ->limit(1);
                     $stmt = $selectStatement->execute();
