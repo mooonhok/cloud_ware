@@ -13,7 +13,39 @@ require 'connect.php';
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 
+$app->post('/addAdmin',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $array=array();
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+         $insertStatement = $database->insert(array_keys($array))
+                   ->into('lisence_admin')
+                   ->values(array_values($array));
+         $insertId = $insertStatement->execute(false);
+         echo json_encode(array("result"=>"0","desc"=>"success"));
 
+});
+
+$app->get('/getAdmin0',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database = localhost();
+    $username=$app->request->get('username');
+    $passwd=$app->request->get('passwd');
+    $selectStatement = $database->select()
+        ->from('lisence_admin')
+        ->where('exist','=',0)
+        ->where('username','=',$username)
+        ->where('passwd','=',$passwd);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetch();
+    echo  json_encode(array("result"=>"0","desc"=>"success","tenant"=>$data));
+});
 
 
 $app->get('/getTenant0',function()use($app){
