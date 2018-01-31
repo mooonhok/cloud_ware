@@ -47,6 +47,19 @@ $app->get('/getAdmin0',function()use($app){
     echo  json_encode(array("result"=>"0","desc"=>"success","tenant"=>$data));
 });
 
+$app->get('/getAdmin1',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database = localhost();
+    $username=$app->request->get('username');
+    $selectStatement = $database->select()
+        ->from('lisence_admin')
+        ->where('exist','=',0)
+        ->where('username','=',$username);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    echo  json_encode(array("result"=>"0","desc"=>"success","lisence_admins"=>$data));
+});
 
 $app->get('/getTenant0',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
