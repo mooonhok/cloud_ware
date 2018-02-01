@@ -31,23 +31,23 @@ $app->post('/addAdmin',function()use($app){
 
 });
 
-$app->get('/getAdmin0',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $database = localhost();
-    $username=$app->request->get('username');
-    $passwd=$app->request->get('passwd');
-    $selectStatement = $database->select()
-        ->from('lisence_admin')
-        ->where('exist','=',0)
-        ->where('username','=',$username)
-        ->where('passwd','=',$passwd);
-    $stmt = $selectStatement->execute();
-    $data = $stmt->fetch();
-    echo  json_encode(array("result"=>"0","desc"=>"success","tenant"=>$data));
-});
+//$app->get('/getAdmin0',function()use($app){
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
+//    $database = localhost();
+//    $username=$app->request->get('username');
+//    $passwd=$app->request->get('passwd');
+//    $selectStatement = $database->select()
+//        ->from('lisence_admin')
+//        ->where('exist','=',0)
+//        ->where('username','=',$username)
+//        ->where('passwd','=',$passwd);
+//    $stmt = $selectStatement->execute();
+//    $data = $stmt->fetch();
+//    echo  json_encode(array("result"=>"0","desc"=>"success","tenant"=>$data));
+//});
 
-$app->get('/getAdmin1',function()use($app){
+$app->get('/getAdmin0',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database = localhost();
@@ -58,7 +58,7 @@ $app->get('/getAdmin1',function()use($app){
         ->where('username','=',$username);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
-    echo  json_encode(array("result"=>"0","desc"=>"success","lisence_admins"=>$data));
+    echo  json_encode(array("result"=>"0","desc"=>"success","lisence_admin"=>$data));
 });
 
 $app->get('/getTenant0',function()use($app){
