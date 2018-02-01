@@ -57,7 +57,7 @@ $app->get('/getAdmin1',function()use($app){
         ->where('exist','=',0)
         ->where('username','=',$username);
     $stmt = $selectStatement->execute();
-    $data = $stmt->fetchAll();
+    $data = $stmt->fetch();
     echo  json_encode(array("result"=>"0","desc"=>"success","lisence_admins"=>$data));
 });
 
