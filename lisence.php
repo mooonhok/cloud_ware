@@ -78,6 +78,37 @@ $app->get('/getTenant0',function()use($app){
     echo  json_encode(array("result"=>"0","desc"=>"success","tenant"=>$data));
 });
 
+
+$app->get('/getAdmins',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database = localhost();
+    $selectStatement = $database->select()
+        ->from('lisence_admin')
+        ->where('exist','=',0);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    echo  json_encode(array("result"=>"0","desc"=>"success","lisence_admin"=>$data));
+});
+
+$app->get('/limitAdmins',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database = localhost();
+    $size=$app->request->get('size');
+    $offset=$app->request->get('offset');
+    $selectStatement = $database->select()
+        ->from('lisence_admin')
+        ->where('exist','=',0)
+        ->orderBy('id')
+        ->limit((int)$size,(int)$offset);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    echo  json_encode(array("result"=>"0","desc"=>"success","lisence_admin"=>$data));
+});
+
+
+
 $app->run();
 function localhost(){
     return connect();
