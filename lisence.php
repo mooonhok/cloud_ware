@@ -144,6 +144,24 @@ $app->put('/alterAdmin',function()use($app){
     }
 });
 
+$app->put('/removeAdmin',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $id=$body->id;
+    $updateStatement = $database->delete()
+        ->table('lisence_admin')
+        ->where('id', '=', $id);
+    $affectedRows = $updateStatement->execute();
+    if($affectedRows!=null){
+        echo json_encode(array("result" => "0", "desc" => "success"));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "未执行"));
+    }
+});
+
 $app->run();
 function localhost(){
     return connect();
