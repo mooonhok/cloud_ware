@@ -144,7 +144,7 @@ $app->put('/alterAdmin',function()use($app){
     }
 });
 
-$app->put('/removeAdmin',function()use($app){
+$app->post('/removeAdmin',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
