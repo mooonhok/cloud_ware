@@ -130,7 +130,7 @@ $app->put('/alterAdmin',function()use($app){
     $body=json_decode($body);
     $id=$body->id;
     $array['username']=$body->username;
-    $array['password']=$body->password;
+    $array['password']=$body->passwd;
     $array['permission']=$body->permission;
     $array['exist']=$body->exist;
     $updateStatement = $database->update($array)
@@ -143,6 +143,7 @@ $app->put('/alterAdmin',function()use($app){
         echo json_encode(array("result" => "1", "desc" => "未执行"));
     }
 });
+
 $app->run();
 function localhost(){
     return connect();
