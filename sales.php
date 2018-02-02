@@ -78,7 +78,7 @@ $app->get('/sales_tenant',function()use($app){
                     for($x=0;$x<count($data2);$x++){
                         $selectStatement = $database->select()
                             ->from('customer')
-                            ->where('tenant_id', '=', $$data2[$x]['tenant_id'])
+                            ->where('tenant_id', '=', $data2[$x]['tenant_id'])
                             ->where('customer_id', '=', $data2[$x]['contact_id']);
                         $stmt = $selectStatement->execute();
                         $data3 = $stmt->fetch();
