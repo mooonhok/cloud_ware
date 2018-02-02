@@ -95,6 +95,10 @@ $app->post("/sendtwo",function()use($app,$clapi){
                                             $insertId = $insertStatement->execute(false);
                                             echo json_encode(array("result" => "0", "desc" => '发送成功'));
                                         }else{
+                                            $insertStatement = $database->insert(array('tenant_id','order_id','fcity','tcity','phone','type','exist','time','error_desc'))
+                                                ->into('note')
+                                                ->values(array($tenantid,$orderid,$address1,$address2,$phone,$type,0,$time,$output['errorMsg']));
+                                            $insertId = $insertStatement->execute(false);
                                          echo  json_encode(array("result" => "9", "desc" => $output['errorMsg'].$title));
                                         }
                                     }else{
@@ -186,13 +190,16 @@ $app->post("/schedules_sign",function()use($app,$clapi){
                         ->where('tenant_id', '=', $data1[$i]['tenant_id']);
                     $affectedRows = $updateStatement->execute();
                     date_default_timezone_set("PRC");
-
                     $insertStatement = $database->insert(array('tenant_id','order_id','fcity','tcity','phone','type','exist','time'))
                         ->into('note')
                         ->values(array($data1[$i]['tenant_id'],$orderid,$data3['name'],$data4['name'],$phone,4,0,date("Y-m-d H:i",time())));
                     $insertId = $insertStatement->execute(false);
                     echo json_encode(array("result" => "0", "desc" => '发送成功'));
                 }else{
+                    $insertStatement = $database->insert(array('tenant_id','order_id','fcity','tcity','phone','type','exist','time','error_desc'))
+                        ->into('note')
+                        ->values(array($data1[$i]['tenant_id'],$orderid,$data3['name'],$data4['name'],$phone,4,0,date("Y-m-d H:i",time()),$output['errorMsg']));
+                    $insertId = $insertStatement->execute(false);
                     echo  json_encode(array("result" => "3", "desc" => $output['errorMsg'].$title));
                 }
             }else{
