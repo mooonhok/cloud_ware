@@ -107,6 +107,19 @@ $app->get('/limitAdmins',function()use($app){
     echo  json_encode(array("result"=>"0","desc"=>"success","lisence_admin"=>$data));
 });
 
+$app->get('/getAdmin1',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database = localhost();
+    $id=$app->request->get('id');
+    $selectStatement = $database->select()
+        ->from('lisence_admin')
+        ->where('exist','=',0)
+        ->where('id','=',$id);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetch();
+    echo  json_encode(array("result"=>"0","desc"=>"success","lisence_admin"=>$data));
+});
 
 
 $app->run();
