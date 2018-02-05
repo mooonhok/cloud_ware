@@ -293,7 +293,7 @@ $app->post('/addlorry3',function()use($app){
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                 mkdir($new_file, 0700);
             }
-            $new_file = $new_file . time() . ".{$type}";
+            $new_file = $new_file . $time1 . ".{$type}";
             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
                 $lujing1 = "http://files.uminfo.cn:8000/lorry/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
             }
@@ -311,7 +311,7 @@ $app->post('/addlorry3',function()use($app){
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                    mkdir($new_file, 0700);
                }
-               $new_file = $new_file . time() . ".{$type}";
+               $new_file = $new_file . $time1 . ".{$type}";
                if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
                    $lujing2 = "http://files.uminfo.cn:8000/lorry2/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                }
@@ -328,7 +328,7 @@ $app->post('/addlorry3',function()use($app){
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                    mkdir($new_file, 0700);
                }
-               $new_file = $new_file . time() . ".{$type}";
+               $new_file = $new_file . $time1 . ".{$type}";
                if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
                    $lujing3 = "http://files.uminfo.cn:8000/lorry3/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                }
@@ -346,7 +346,7 @@ $app->post('/addlorry3',function()use($app){
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                        mkdir($new_file, 0700);
                    }
-                   $new_file = $new_file . time() . ".{$type}";
+                   $new_file = $new_file . $time1 . ".{$type}";
                    if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
                        $lujing4 = "http://files.uminfo.cn:8000/lorry4/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                    }
@@ -401,7 +401,7 @@ $app->post('/addlorry4',function()use($app){
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                 mkdir($new_file, 0700);
             }
-            $new_file = $new_file . time() . ".{$type}";
+            $new_file = $new_file . $time1 . ".{$type}";
             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
                 $lujing3 = "http://files.uminfo.cn:8000/lorry3/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
             }
@@ -419,7 +419,7 @@ $app->post('/addlorry4',function()use($app){
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                     mkdir($new_file, 0700);
                 }
-                $new_file = $new_file . time() . ".{$type}";
+                $new_file = $new_file . $time1 . ".{$type}";
                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
                     $lujing2 = "http://files.uminfo.cn:8000/lorry4/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                 }
@@ -473,7 +473,7 @@ $app->post('/addlorry5',function()use($app){
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                 mkdir($new_file, 0700);
             }
-            $new_file = $new_file . time() . ".{$type}";
+            $new_file = $new_file . $time1 . ".{$type}";
             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
                 $lujing5 = "http://files.uminfo.cn:8000/idcard5/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
             }
@@ -491,7 +491,7 @@ $app->post('/addlorry5',function()use($app){
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                     mkdir($new_file, 0700);
                 }
-                $new_file = $new_file . time() . ".{$type}";
+                $new_file = $new_file . $time1 . ".{$type}";
                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
                     $lujing6 = "http://files.uminfo.cn:8000/idcard6/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                 }
@@ -665,7 +665,7 @@ $app->post('/updriveringpic',function()use($app){
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                 mkdir($new_file, 0700);
             }
-            $new_file = $new_file . time() . ".{$type}";
+            $new_file = $new_file . $time1 . ".{$type}";
             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
                 $lujing3 = "http://files.uminfo.cn:8000/lorry3/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
             }
@@ -683,7 +683,7 @@ $app->post('/updriveringpic',function()use($app){
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                     mkdir($new_file, 0700);
                 }
-                $new_file = $new_file . time() . ".{$type}";
+                $new_file = $new_file . $time1 . ".{$type}";
                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
                     $lujing4 = "http://files.uminfo.cn:8000/lorry4/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                 }
@@ -741,7 +741,7 @@ $app->post('/updriverpic',function()use($app){
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                 mkdir($new_file, 0700);
             }
-            $new_file = $new_file . time() . ".{$type}";
+            $new_file = $new_file . $time1 . ".{$type}";
             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
                 $lujing1 = "http://files.uminfo.cn:8000/lorry/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
             }
@@ -759,7 +759,7 @@ $app->post('/updriverpic',function()use($app){
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                     mkdir($new_file, 0700);
                 }
-                $new_file = $new_file . time() . ".{$type}";
+                $new_file = $new_file . $time1 . ".{$type}";
                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
                     $lujing2 = "http://files.uminfo.cn:8000/lorry2/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                 }
@@ -809,7 +809,7 @@ $app->post('/uphead',function()use($app){
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                 mkdir($new_file, 0700);
             }
-            $new_file = $new_file . time() . ".{$type}";
+            $new_file = $new_file . $time1 . ".{$type}";
             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
                 $lujing1 = "http://files.uminfo.cn:8000/lorryhead/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
             }
@@ -1404,7 +1404,7 @@ $app->post('/receivesc',function()use($app){
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
             mkdir($new_file, 0700);
         }
-        $new_file = $new_file.time().".{$type}";
+        $new_file = $new_file.$time1.".{$type}";
         if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))){
             $lujing="http://files.uminfo.cn:8000/sure/".date('Ymd',$time1)."/".$time1.".{$type}";
         }
@@ -2257,7 +2257,7 @@ $app->post('/sign_agreement',function()use($app){
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
             mkdir($new_file, 0700);
         }
-        $new_file = $new_file.time().".{$type}";
+        $new_file = $new_file.$time1.".{$type}";
         if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))){
             $lujing="http://files.uminfo.cn:8000/agreement_sure/".date('Ymd',$time1)."/".$time1.".{$type}";
         }
