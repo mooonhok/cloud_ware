@@ -223,14 +223,19 @@ $app->get('/getCustomers1',function()use($app){
           }
         }
         for($i=0;$i<count($data);$i++){
-           for($x=0;$x<count($array);$x++){
-              if($i==$array[$x]){
-                 break;
-              }
-               if($x==(count($array)-1)){
-                  array_push($array1,$data[$i]);
-               }
-           }
+            if($array){
+                for($x=0;$x<count($array);$x++){
+                    if($i==$array[$x]){
+                        break;
+                    }
+                    if($x==(count($array)-1)){
+                        array_push($array1,$data[$i]);
+                    }
+                }
+            }else{
+                $array1=$data;
+            }
+
         }
         echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$array1));
     }else{
@@ -298,13 +303,17 @@ $app->get('/limitCustomers0',function()use($app){
             }
         }
         for($i=0;$i<count($data);$i++){
-            for($x=0;$x<count($array);$x++){
-                if($i==$array[$x]){
-                    break;
+            if($array){
+                for($x=0;$x<count($array);$x++){
+                    if($i==$array[$x]){
+                        break;
+                    }
+                    if($x==(count($array)-1)){
+                        array_push($array1,$data[$i]);
+                    }
                 }
-                if($x==(count($array)-1)){
-                    array_push($array1,$data[$i]);
-                }
+            }else{
+                $array1=$data;
             }
         }
         $num=0;
