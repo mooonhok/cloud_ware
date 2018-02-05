@@ -55,6 +55,58 @@ $app->get('/usersign',function ()use($app){
 
 });
 //获取该业务员名下的公司
+$app->get('/sales_tenanttwo',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $sales_id = $app->request->get("sales_id");
+    $size=$app->request->get('size');
+    $offset=$app->request->get('offset');
+    $database=localhost();
+    if($sales_id!=null||$sales_id!=""){
+//            $arrays=array();
+        $selectStatement = $database->select()
+            ->from('sales')
+            ->where('exist','=',0)
+            ->where('id', '=', $sales_id);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        if($data1!=null){
+            $selectStatement = $database->select()
+                ->from('tenant')
+                ->where('exist','=',0)
+                ->where('sales_id', '=', $sales_id)
+                ->orderBy('begin_time')
+                ->limit((int)$size,(int)$offset);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetchAll();
+            if($data2!=null){
+                for($x=0;$x<count($data2);$x++){
+                    $selectStatement = $database->select()
+                        ->from('customer')
+                        ->where('tenant_id', '=', $data2[$x]['tenant_id'])
+                        ->where('customer_id', '=', $data2[$x]['contact_id']);
+                    $stmt = $selectStatement->execute();
+                    $data3 = $stmt->fetch();
+                    //        $array['user_name']=$data1['user_name'];
+                    $data2[$x]['customer_name']=$data3['customer_name'];
+                    $data2[$x]['customer_phone']=$data3['customer_phone'];
+//                        date_default_timezone_set("PRC");
+//                        $begintime=date("Y-m-d",strtotime($data2[$x]['begin_time']));
+//                        $data2[$x]['begin_time']=$begintime;
+//                        array_push($arrays,$array);
+                }
+                echo json_encode(array('result'=>'0','desc'=>'','company'=>$data2));
+            }else{
+                echo json_encode(array('result'=>'1','desc'=>'该业务员尚未有业务数据','company'=>''));
+            }
+        }else{
+            echo json_encode(array('result'=>'2','desc'=>'业务员不存在','company'=>''));
+        }
+    }else{
+        echo json_encode(array('result'=>'3','desc'=>'业务员id不能为空','company'=>''));
+    }
+});
+
 $app->get('/sales_tenant',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -62,7 +114,6 @@ $app->get('/sales_tenant',function()use($app){
     $page = $app->request->get('page');
     $per_page=$app->request->get('per_page');
     $database=localhost();
-
     if($page==null||$per_page==null){
         $arrays=array();
         if($sales_id!=null||$sales_id!=""){
