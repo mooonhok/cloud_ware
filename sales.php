@@ -7,14 +7,16 @@ require 'connect.php';
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 //业务员登录
-$app->post('/usersign',function ()use($app){
+$app->get('/usersign',function ()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $username=$body->username;
-    $password1=$body->password;
+    $username = $app->request->get("username");
+    $password1=$app->request->get("pawword");
+//    $body=$app->request->getBody();
+//    $body=json_decode($body);
+//    $username=$body->username;
+//    $password1=$body->password;
     $str1=str_split($password1,3);
     $password=null;
     for ($x=0;$x<count($str1);$x++){
