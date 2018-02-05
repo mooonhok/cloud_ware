@@ -239,3 +239,6 @@ html,body{
 .plus>img{
 	width:30%;
 }
+#beian_id{
+	text-decoration:none;
+}
