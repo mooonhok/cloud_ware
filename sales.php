@@ -40,7 +40,7 @@ $app->get('/usersign',function ()use($app){
              if($data2!=null){
                  echo json_encode(array('result'=>'0','desc'=>'登录成功','user'=>$data2));
              }else{
-                 echo json_encode(array('result'=>'3','desc'=>'密码错误'.$password,'user'=>''));
+                 echo json_encode(array('result'=>'3','desc'=>'密码错误'.$password1.'////'.$str1['0'].'&&&'.$password,'user'=>''));
              }
          }else{
              echo json_encode(array('result'=>'2','desc'=>'用户不存在','user'=>''));
