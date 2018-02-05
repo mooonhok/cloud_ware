@@ -97,7 +97,7 @@ $app->get('/sales_tenanttwo',function()use($app){
                 }
                 echo json_encode(array('result'=>'0','desc'=>'','company'=>$data2));
             }else{
-                echo json_encode(array('result'=>'1','desc'=>'该业务员尚未有业务数据','company'=>''));
+                echo json_encode(array('result'=>'1','desc'=>'此页尚未有数据','company'=>''));
             }
         }else{
             echo json_encode(array('result'=>'2','desc'=>'业务员不存在','company'=>''));
