@@ -867,6 +867,7 @@ $app->post('/addmini',function()use($app){
                         ->from('mini_tenant');
                     $stmt = $selectStatement->execute();
                     $data5= $stmt->fetchAll();
+                    $time1=time();
                         if($pic1!=null){
                             $base64_image_content = $pic1;
                             if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
@@ -877,7 +878,7 @@ $app->post('/addmini',function()use($app){
                                   //检查是否有该文件夹，如果没有就创建，并给予最高权限
                                     mkdir($new_file, 0700);
                                 }
-                                $new_file = $new_file . time() . ".{$type}";
+                                $new_file = $new_file . $time1 . ".{$type}";
                                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
                                     $lujing1 = "https://files.uminfo.cn:8000/mini/" . count($data5) . ".{$type}";
                                 }
@@ -893,7 +894,7 @@ $app->post('/addmini',function()use($app){
                                     //检查是否有该文件夹，如果没有就创建，并给予最高权限
                                     mkdir($new_file, 0700);
                                 }
-                                $new_file = $new_file . time() . ".{$type}";
+                                $new_file = $new_file .$time1 . ".{$type}";
                                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
                                     $lujing2 = "https://files.uminfo.cn:8000/mini/" . count($data5) . "-1.{$type}";
                                 }
@@ -904,13 +905,12 @@ $app->post('/addmini',function()use($app){
                             if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
                                 $type = $result[2];
                                 date_default_timezone_set("PRC");
-                                $time1 = time();
                                 $new_file = "/files/mini/";
                                 if (!file_exists($new_file)) {
                                     //检查是否有该文件夹，如果没有就创建，并给予最高权限
                                     mkdir($new_file, 0700);
                                 }
-                                $new_file = $new_file . time() . ".{$type}";
+                                $new_file = $new_file . $time1 . ".{$type}";
                                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
                                     $lujing3 = "https://files.uminfo.cn:8000/mini/" . count($data5) . "-2.{$type}";
                                 }
@@ -921,13 +921,12 @@ $app->post('/addmini',function()use($app){
                             if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
                                 $type = $result[2];
                                 date_default_timezone_set("PRC");
-                                $time1 = time();
                                 $new_file = "/files/mini/";
                                 if (!file_exists($new_file)) {
                                     //检查是否有该文件夹，如果没有就创建，并给予最高权限
                                     mkdir($new_file, 0700);
                                 }
-                                $new_file = $new_file . time() . ".{$type}";
+                                $new_file = $new_file . $time1 . ".{$type}";
                                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
                                     $lujing4 = "https://files.uminfo.cn:8000/mini/" . count($data5) . "-3.{$type}";
                                 }
@@ -939,13 +938,12 @@ $app->post('/addmini',function()use($app){
                             if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
                                 $type = $result[2];
                                 date_default_timezone_set("PRC");
-                                $time1 = time();
                                 $new_file = "/files/mini/";
                                 if (!file_exists($new_file)) {
                                     //检查是否有该文件夹，如果没有就创建，并给予最高权限
                                     mkdir($new_file, 0700);
                                 }
-                                $new_file = $new_file . time() . ".{$type}";
+                                $new_file = $new_file . $time1 . ".{$type}";
                                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
                                     $lujing5 = "https://files.uminfo.cn:8000/mini/" . count($data5) . "-4.{$type}";
                                 }
@@ -961,7 +959,7 @@ $app->post('/addmini',function()use($app){
                                 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                                 mkdir($new_file, 0700);
                             }
-                            $new_file = $new_file . time() . ".{$type}";
+                            $new_file = $new_file . $time1 . ".{$type}";
                             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
                                 $lujing6 = "https://files.uminfo.cn:8000/mini/" . count($data5) . ".{$type}";
                             }
