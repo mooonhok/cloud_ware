@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Z7ZjajqB1B4SRU895btxr6ZsLwGeKQOj"></script>
+	     <style type="text/css">
+	     	#allmap{
+	     		width: 100%;
+	     		height:800px;
+	     	}
+	     </style>
+	</head>
+	<body>
+		<div id="allmap"></div>
+	</body>
+	
+	<script>
+		var map = new BMap.Map("allmap");
+	    map.centerAndZoom(new BMap.Point(114.278, 30.915), 6);
+//	    map.enableScrollWheelZoom(); 
+	    map.enableScrollWheelZoom(true);
+		$.ajax({
+			url: "http://api.uminfo.cn/mapselect.php/mapsbyor?order_id=5230001000001",
+			dataType: 'json',
+			type: 'get',
+			ContentType: "application/json;charset=utf-8",
+			data: JSON.stringify({}),
+			success: function(msg) {
+				if(msg.result==0){
+//				var a = [];
+//				for(var x = msg.map.length-1; x >0 ; x--) {
+//					alert(x-1);
+//					var p= new BMap.Point(msg.map[x-1].longitude, msg.map[x-1].latitude);
+//					a.push(p);
+//					var marker = new BMap.Marker(p);
+//					var opts = {
+//	                    position : p,    // 指定文本标注所在的地理位置
+//	                   offset   : new BMap.Size(-30,0)    //设置文本偏移量
+//	                    }
+//	           	     var label = new BMap.Label(msg.map[x].time, opts);  // 创建文本标注对象
+//		              label.setStyle({
+//				       color : "black",
+//				       fontSize : "12px",
+//			  	       height : "20px",
+//					   lineHeight : "20px",
+//		          	    fontFamily:"微软雅黑"
+//		           });
+//					map.addOverlay(marker);  
+//					map.addOverlay(label);   
+//				}
+//				var polyline = new BMap.Polyline(a, {strokeColor:"#0E1A49", strokeWeight:4, strokeOpacity:0.5});
+//				map.addOverlay(polyline);
+
+     			var data_info = [];
+				for(var y =0; y <msg.map.length ; y++) {
+					var p2 =[msg.map[y].longitude, msg.map[y].latitude,msg.map[y].time];
+					data_info.push(p2);
+					var c = 0;
+				}
+				var opts = {
+					width: 10, // 信息窗口宽度
+					height: 5, // 信息窗口高度
+					title: "", // 信息窗口标题
+					enableMessage: true //设置允许信息窗发送短息
+				};
+//				alert(data_info[1][0]);
+				for(var i = 0; i < data_info.length; i++) {
+					var marker = new BMap.Marker(new BMap.Point(data_info[i][0], data_info[i][1]));// 创建标注
+					var content = data_info[i][2];
+					map.addOverlay(marker); // 将标注添加到地图中
+					addClickHandler(content, marker);
+					
+				}
+
+				function addClickHandler(content, marker) {
+					marker.addEventListener("click", function(e) {
+					var p = e.target;
+					var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+					var infoWindow = new BMap.InfoWindow(content, opts); // 创建信息窗口对象 
+					map.openInfoWindow(infoWindow, point); //开启信息窗口
+					});
+				}		
+				}else{
+				alert(msg.desc);
+				}
+			},
+			error: function(xhr) {
+				alert("获取后台失败");
+			}
+		});
+	</script>
+</html>
