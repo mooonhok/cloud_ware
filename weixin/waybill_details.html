@@ -278,7 +278,7 @@
 				var a = [];
 	 			var map = new BMap.Map("allmap");
 				map.centerAndZoom(new BMap.Point(114.278, 30.915), 6);
-				for(var x = msg.map.length-1; x >0; x--) {
+				for(var x = msg.map.length; x >0; x--) {
 					var p= new BMap.Point(msg.map[x].longitude, msg.map[x].latitude);
 					a.push(p);
 					var marker = new BMap.Marker(p);
