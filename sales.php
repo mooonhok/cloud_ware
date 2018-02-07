@@ -594,7 +594,7 @@ $app->get('/salesdown',function()use($app){
             $selectStatement = $database->select()
                 ->from('sales')
                 ->where('exist','=',0)
-                ->where('highter_id', '=', $sales_id)
+                ->where('higher_id', '=', $sales_id)
                 ->limit((int)$size,(int)$offset);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
@@ -624,7 +624,7 @@ $app->get('/countds',function()use($app){
             $selectStatement = $database->select()
                 ->from('sales')
                 ->where('exist','=',0)
-                ->where('highter_id', '=', $sales_id);
+                ->where('higher_id', '=', $sales_id);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
             echo json_encode(array('result'=>'0','desc'=>'','count'=>count($data2)));
