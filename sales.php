@@ -461,7 +461,7 @@ $app->post('/addsales',function()use($app){
     $card_id=$body->card_id;
     $telephone=$body->telephone;
     $address=$body->address;
-    $zip_code=$body->zip_code;
+    $email=$body->email;
     $qq=$body->qq;
     $weixin=$body->weixin;
     $higherlevel=$body->higherlevel;
@@ -477,7 +477,7 @@ $app->post('/addsales',function()use($app){
                   if($data1==null){
                        if($telephone!=null||$telephone!=""){
                            if($address!=null||$address!=""){
-                               if($zip_code!=null||$zip_code!=""){
+                               if($email!=null||$email!=""){
                                    if($higherlevel!=null||$higherlevel!=""){
                                        $selectStatement = $database->select()
                                            ->from('sales')
@@ -493,14 +493,14 @@ $app->post('/addsales',function()use($app){
                                            $password.=$str1[$x].$x;
                                        }
                                        $sales_id=null;
-                                       if($data5['teamid']<10){
-                                         $sales_id='MT00'.$data5['teamid'];
-                                       }else if($data5['teamid']>9&&$data5['teamid']<100){
-                                         $sales_id='MT0'.$data5['teamid'];
+                                       if($data5['team_id']<10){
+                                         $sales_id='MT00'.$data5['team_id'];
+                                       }else if($data5['team_id']>9&&$data5['team_id']<100){
+                                         $sales_id='MT0'.$data5['team_id'];
                                        }
                                        $selectStatement = $database->select()
                                            ->from('sales')
-                                           ->where('teamid','=',$data5['teamid']);
+                                           ->where('team_id','=',$data5['team_id']);
                                        $stmt = $selectStatement->execute();
                                        $data6 = $stmt->fetchAll();
                                        $num2=count($data6)+1;
@@ -514,10 +514,10 @@ $app->post('/addsales',function()use($app){
                                            $sales_id.=$num2.'';
                                        }
                                        $insertStatement = $database->insert(array('exist','sales_name','sex','card_id','telephone','address'
-                                         ,'zip_code','qq','weixin','password','higher_id','teamid','sales_id'))
+                                         ,'email','qq','weixin','password','higher_id','team_id','sales_id'))
                                            ->into('sales')
-                                           ->values(array(0,$sales_name,$sex,$card_id,$telephone,$address,$zip_code,$qq,$weixin,$password
-                                           ,$higherlevel,$data5['teamid'],$sales_id));
+                                           ->values(array(0,$sales_name,$sex,$card_id,$telephone,$address,$email,$qq,$weixin,$password
+                                           ,$higherlevel,$data5['team_id'],$sales_id));
                                        $insertId = $insertStatement->execute(false);
                                        $arrays['password']=$password1;
                                        echo json_encode(array('result' => '0', 'desc' => '添加成功','sales'=>$arrays));

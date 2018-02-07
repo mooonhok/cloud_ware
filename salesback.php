@@ -53,7 +53,7 @@ $app->get('/sales',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $admin_id = $app->request->get("adminid");
-    $teamid=$app->request->get('teamid');
+    $teamid=$app->request->get('team_id');
     $page = $app->request->get('page');
     $per_page=$app->request->get('per_page');
     $num=0;
@@ -195,7 +195,7 @@ $app->get('/sales',function()use($app){
                     if($data['type']==2||$data['type']==1){
                         $selectStament=$database->select()
                             ->from('sales')
-                            ->where('teamid','=',$teamid);
+                            ->where('team_id','=',$teamid);
                         $stmt=$selectStament->execute();
                         $data2=$stmt->fetchAll();
                         $num=count($data2);
@@ -248,7 +248,7 @@ $app->get('/sales',function()use($app){
                     if($data['type']==1||$data['type']==2){
                         $selectStament=$database->select()
                             ->from('sales')
-                            ->where('teamid','=',$teamid);
+                            ->where('team_id','=',$teamid);
                         $stmt=$selectStament->execute();
                         $data3=$stmt->fetchAll();
                         $num=count($data3);
@@ -272,7 +272,7 @@ $app->get('/sales',function()use($app){
                         }
                         $selectStament=$database->select()
                             ->from('sales')
-                            ->where('teamid','=',$teamid)
+                            ->where('team_id','=',$teamid)
                         ->limit((int)$per_page, (int)$per_page * (int)$page);
                         $stmt=$selectStament->execute();
                         $data2=$stmt->fetchAll();
@@ -328,7 +328,7 @@ $app->post('/upsales',function()use($app){
     $sales_id=$body->sales_id;
     $admin_id=$body->admin_id;
     $arrays['exist']=$body->change;
-    $arrays['teamid']=$body->change;
+    $arrays['team_id']=$body->change;
     if($admin_id!=null||$admin_id!=""){
         $selectStament=$database->select()
             ->from('admin')
@@ -416,7 +416,7 @@ $app->post('/addsales',function()use($app){
                                  }
                                  $selectStatement = $database->select()
                                      ->from('sales')
-                                     ->where('teamid','=',$teamid);
+                                     ->where('team_id','=',$teamid);
                                  $stmt = $selectStatement->execute();
                                  $data6 = $stmt->fetchAll();
                                  $num2=count($data6)+1;
