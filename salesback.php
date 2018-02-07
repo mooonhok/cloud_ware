@@ -374,7 +374,7 @@ $app->post('/addsales',function()use($app){
     $card_id=$body->card_id;
     $telephone=$body->telephone;
     $address=$body->address;
-    $zip_code=$body->zip_code;
+    $email=$body->email;
     $qq=$body->qq;
     $weixin=$body->weixin;
     $teamid=0;
@@ -400,7 +400,7 @@ $app->post('/addsales',function()use($app){
                  if($data1==null){
                         if($telephone!=null||$telephone!=""){
                          if($address!=null||$address!=""){
-                             if($zip_code!=null||$zip_code!=""){
+                             if($email!=null||$email!=""){
                                     $password1=substr($card_id,-6);
                                     // $num2=rand(1000000,10000000000);
                                     $str1=str_split($password1,3);
@@ -430,9 +430,9 @@ $app->post('/addsales',function()use($app){
                                      $sales_id.=$num2.'';
                                  }
                                     $insertStatement = $database->insert(array('exist','sales_name','sex','card_id','telephone','address'
-                                    ,'zip_code','qq','weixin','password','higher_id','teamid','sales_id'))
+                                    ,'email','qq','weixin','password','higher_id','team_id','sales_id'))
                                         ->into('sales')
-                                        ->values(array(0,$sales_name,$sex,$card_id,$telephone,$address,$zip_code,$qq,$weixin,$password
+                                        ->values(array(0,$sales_name,$sex,$card_id,$telephone,$address,$email,$qq,$weixin,$password
                                         ,0,$teamid,$sales_id));
                                     $insertId = $insertStatement->execute(false);
                                     $arrays['password']=$password1;
