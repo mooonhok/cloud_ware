@@ -54,6 +54,34 @@ $app->get('/usersign',function ()use($app){
     }
 
 });
+//统计公司总数
+$app->get('/alltenants',function()use($app) {
+    $app->response->headers->set('Access-Control-Allow-Origin', '*');
+    $app->response->headers->set('Content-Type', 'application/json');
+    $sales_id = $app->request->get("sales_id");
+    $database=localhost();
+    if($sales_id!=null||$sales_id!=""){
+        $selectStatement = $database->select()
+            ->from('sales')
+            ->where('exist','=',0)
+            ->where('id', '=', $sales_id);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        if($data1!=null){
+            $selectStatement = $database->select()
+                ->from('tenant')
+                ->where('exist','=',0)
+                ->where('sales_id', '=', $sales_id);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetchAll();
+            echo json_encode(array('result'=>'0','desc'=>'','count'=>count($data2)));
+        }else{
+            echo json_encode(array('result'=>'2','desc'=>'业务员不存在'));
+        }
+    }else{
+        echo json_encode(array('result'=>'3','desc'=>'业务员id不能为空'));
+    }
+});
 //获取该业务员名下的公司
 $app->get('/sales_tenanttwo',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
