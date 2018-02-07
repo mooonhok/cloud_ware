@@ -100,28 +100,51 @@ $(function(){
 		  location.href = 'login.html';
 		});
 	});
+
+
+	$("#shxx_message").on("click",function(){
+        layer.prompt({title: '请输入公司商务编号或公司简称或公司所在城市', formType: 1}, function(pass, index){
+            layer.close(index);
+            $.ajax({
+                url: "http://api.uminfo.cn/adminall.php/tenants?admin_id="+adminid+"&page="+page+"&per_page=10",
+                dataType: 'json',
+                type: 'get',
+                ContentType: "application/json;charset=utf-8",
+                data: JSON.stringify({}),
+                success: function(msg) {                }
+            });
+            layer.open({
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                area: ['420px', '240px'], //宽高
+                content: '<table style="width:100%;">' +
+				'<tr><td>南通物流</td></tr>' +
+				'</table>'
+            });
+        });
+	})
 });
 
 //捐赠
-function reciprocate(){
-	layer.open({
-	  type: 1,
-	  skin: 'layui-layer-demo',
-	  closeBtn:1,
-	  anim: 2,
-	  shadeClose: false,
-	  title:'喝杯咖啡O(∩_∩)O',
-	  content: '<div class="pl-20 pr-20">'
-		  +'<table class="table table-bordered table-striped mt-10">'
-		  	+'<tr>'
-		  		+'<td><img src="images/wechat_qrcode.jpg" style="width:auto;max-width:100%;height:120px;"/></td>'
-		  		+'<td><img src="images/alipay_qrcode.jpg" style="width:auto;max-width:100%;height:120px;"/></td>'
-		  	+'</tr>'
-		  	+'<tr class="cen">'
-		  		+'<td class="text-primary">微信打赏</td>'
-		  		+'<td class="text-primary">支付宝打赏</td>'
-		  	+'</tr>'
-		  +'</table>'
-	  +'</div>'
-	});
-}
+// function reciprocate(){
+// 	layer.open({
+// 	  type: 1,
+// 	  skin: 'layui-layer-demo',
+// 	  closeBtn:1,
+// 	  anim: 2,
+// 	  shadeClose: false,
+// 	  title:'喝杯咖啡O(∩_∩)O',
+// 	  content: '<div class="pl-20 pr-20">'
+// 		  +'<table class="table table-bordered table-striped mt-10">'
+// 		  	+'<tr>'
+// 		  		+'<td><img src="images/wechat_qrcode.jpg" style="width:auto;max-width:100%;height:120px;"/></td>'
+// 		  		+'<td><img src="images/alipay_qrcode.jpg" style="width:auto;max-width:100%;height:120px;"/></td>'
+// 		  	+'</tr>'
+// 		  	+'<tr class="cen">'
+// 		  		+'<td class="text-primary">微信打赏</td>'
+// 		  		+'<td class="text-primary">支付宝打赏</td>'
+// 		  	+'</tr>'
+// 		  +'</table>'
+// 	  +'</div>'
+// 	});
+// }

@@ -1324,6 +1324,23 @@ $app->get('/feedback',function()use($app){
     echo json_encode(array("result"=>"0","desc"=>"success",'contact_companys'=>$data1,'count'=>count($data0)));
 });
 
+//根据商户编号或公司名字或公司简称或公司所在城市
+$app->get("/get_tenant",function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $name=$app->request->get("name");
+    $selectStatement = $database->select()
+        ->from('tenant')
+        ->join('city','city.id','=','tenant.from_city_id','INNER')
+        ->where('tenant.jcompany','=',$name)
+        ->orWhereLike('tenant.company','%'.$name.'%')
+        ->orWhere('city.name','=',$name);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    echo json_encode(array("result"=>"0","desc"=>"success",'tenants'=>$data));
+});
+
 $app->run();
 
 function localhost(){
