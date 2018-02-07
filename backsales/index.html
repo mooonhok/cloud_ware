@@ -209,7 +209,7 @@
 				teamid = "";
 			}
 			$.ajax({
-				url: "http://api.uminfo.cn/salesback.php/sales?adminid=" + id + "&teamid=" + teamid + "&page=" + page + "&per_page=10",
+				url: "http://api.uminfo.cn/salesback.php/sales?adminid=" + id + "&team_id=" + teamid + "&page=" + page + "&per_page=10",
 				dataType: 'json',
 				type: 'get',
 				ContentType: "application/json;charset=utf-8",
@@ -254,7 +254,7 @@
 //												item.teamid + '</td><td>' +
 												item.sales_id + '</td><td>' +
 												item.telephone + '</td><td>' +
-												item.zip_code + '</td><td>' +
+												item.email + '</td><td>' +
 												item.money + '</td><td>' +
 												((item.tenantcount / msg.moneycount) * msg.moneycount * 500 + item.money) + '</td><td>'
 												+item.tenantcount+'</td></tr>');
@@ -265,7 +265,7 @@
 //											    item.teamid + '</td><td>' +
 												item.sales_id  + '</td><td>' +
 												item.telephone + '</td><td>' +
-												item.zip_code + '</td><td>' +
+												item.email + '</td><td>' +
 												item.money + '</td><td>' +
 												item.money + '</td><td>'
 												+item.tenantcount+'</td></tr>');
