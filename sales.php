@@ -574,6 +574,67 @@ $app->post('/addsales',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '业务员姓名为空','sales'=>''));
     }
 });
+//名下业务员
+$app->get('/salesdown',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $sales_id = $app->request->get("sales_id");
+    $size=$app->request->get('size');
+    $offset=$app->request->get('offset');
+    $database=localhost();
+    if($sales_id!=null||$sales_id!=""){
+//            $arrays=array();
+        $selectStatement = $database->select()
+            ->from('sales')
+            ->where('exist','=',0)
+            ->where('id', '=', $sales_id);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        if($data1!=null){
+            $selectStatement = $database->select()
+                ->from('sales')
+                ->where('exist','=',0)
+                ->where('highter_id', '=', $sales_id)
+                ->limit((int)$size,(int)$offset);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetchAll();
+            echo json_encode(array('result'=>'0','desc'=>'','sales'=>$data2));
+        }else{
+            echo json_encode(array('result'=>'2','desc'=>'业务员不存在','sales'=>''));
+        }
+    }else{
+        echo json_encode(array('result'=>'3','desc'=>'业务员id不能为空','sales'=>''));
+    }
+});
+//名下业务员总数
+$app->get('/countds',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $sales_id = $app->request->get("sales_id");
+    $database=localhost();
+    if($sales_id!=null||$sales_id!=""){
+//            $arrays=array();
+        $selectStatement = $database->select()
+            ->from('sales')
+            ->where('exist','=',0)
+            ->where('id', '=', $sales_id);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        if($data1!=null){
+            $selectStatement = $database->select()
+                ->from('sales')
+                ->where('exist','=',0)
+                ->where('highter_id', '=', $sales_id);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetchAll();
+            echo json_encode(array('result'=>'0','desc'=>'','count'=>count($data2)));
+        }else{
+            echo json_encode(array('result'=>'2','desc'=>'业务员不存在','sales'=>''));
+        }
+    }else{
+        echo json_encode(array('result'=>'3','desc'=>'业务员id不能为空','sales'=>''));
+    }
+});
 $app->run();
 
 function localhost(){
