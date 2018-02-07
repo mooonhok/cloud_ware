@@ -105,22 +105,36 @@ $(function(){
 	$("#shxx_message").on("click",function(){
         layer.prompt({title: '请输入公司商务编号或公司简称或公司所在城市', formType: 1}, function(pass, index){
             layer.close(index);
-            $.ajax({
-                url: "http://api.uminfo.cn/adminall.php/tenants?admin_id="+adminid+"&page="+page+"&per_page=10",
-                dataType: 'json',
-                type: 'get',
-                ContentType: "application/json;charset=utf-8",
-                data: JSON.stringify({}),
-                success: function(msg) {                }
-            });
-            layer.open({
-                type: 1,
-                skin: 'layui-layer-rim', //加上边框
-                area: ['420px', '240px'], //宽高
-                content: '<table style="width:100%;">' +
-				'<tr><td>南通物流</td></tr>' +
-				'</table>'
-            });
+            if(pass){
+                $.ajax({
+                    url: "https://api.uminfo.cn/adminall.php/get_tenant?name="+pass+"",
+                    dataType: 'json',
+                    type: 'get',
+                    ContentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({}),
+                    success: function(msg) {
+                    	if(msg.result==0){
+                            layer.open({
+                                type: 1,
+                                skin: 'layui-layer-rim', //加上边框
+                                area: ['420px', '240px'], //宽高
+                                content: '<table style="width:100%;">' +
+                                '<tr><td>南通物流</td></tr>' +
+                                '</table>'
+                            });
+						}else{
+                            layer.open({
+                                type: 1,
+                                skin: 'layui-layer-rim', //加上边框
+                                area: ['420px', '240px'], //宽高
+                                content: '没有与之匹配的物流公司'
+                            });
+						}
+					}
+                });
+			}
+
+
         });
 	})
 });
