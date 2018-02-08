@@ -402,9 +402,16 @@ $app->get('/tenantbyid',function()use($app){
                 ->where('tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data3 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=',$data2['from_city_id']);
+            $stmt = $selectStatement->execute();
+            $data4 = $stmt->fetch();
             $array['customer_name']=$data3['customer_name'];
             $array['customer_phone']=$data3['customer_phone'];
             $array['company']=$data2['company'];
+            $array['jcompany']=$data2['jcompany'];
+            $array['province']=$data4['pid'];
             //$array['begin_time']=$data2['begin_time'];
             date_default_timezone_set("PRC");
             $array['location']=$data2['longitude'].','.$data2['latitude'];
