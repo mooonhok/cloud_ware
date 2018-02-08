@@ -873,7 +873,7 @@ $app->post('/addmini',function()use($app){
                             if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
                                 $type = $result[2];
                                 date_default_timezone_set("PRC");
-                                $new_file = "/files/mini/";
+                                $new_file = "/files/mini/" . date('Ymd', $time1) . "/";
                                 if (!file_exists($new_file)) {
                                   //检查是否有该文件夹，如果没有就创建，并给予最高权限
                                     mkdir($new_file, 0700);
@@ -889,7 +889,7 @@ $app->post('/addmini',function()use($app){
                             if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
                                 $type = $result[2];
                                 date_default_timezone_set("PRC");
-                                $new_file = "/files/mini/";
+                                $new_file = "/files/mini/" . date('Ymd', $time1) . "/";
                                 if (!file_exists($new_file)) {
                                     //检查是否有该文件夹，如果没有就创建，并给予最高权限
                                     mkdir($new_file, 0700);
@@ -905,7 +905,7 @@ $app->post('/addmini',function()use($app){
                             if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
                                 $type = $result[2];
                                 date_default_timezone_set("PRC");
-                                $new_file = "/files/mini/";
+                                $new_file = "/files/mini/" . date('Ymd', $time1) . "/";
                                 if (!file_exists($new_file)) {
                                     //检查是否有该文件夹，如果没有就创建，并给予最高权限
                                     mkdir($new_file, 0700);
@@ -921,7 +921,7 @@ $app->post('/addmini',function()use($app){
                             if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
                                 $type = $result[2];
                                 date_default_timezone_set("PRC");
-                                $new_file = "/files/mini/";
+                                $new_file = "/files/mini/" . date('Ymd', $time1) . "/";
                                 if (!file_exists($new_file)) {
                                     //检查是否有该文件夹，如果没有就创建，并给予最高权限
                                     mkdir($new_file, 0700);
@@ -938,7 +938,7 @@ $app->post('/addmini',function()use($app){
                             if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
                                 $type = $result[2];
                                 date_default_timezone_set("PRC");
-                                $new_file = "/files/mini/";
+                                $new_file = "/files/mini/" . date('Ymd', $time1) . "/";
                                 if (!file_exists($new_file)) {
                                     //检查是否有该文件夹，如果没有就创建，并给予最高权限
                                     mkdir($new_file, 0700);
@@ -954,7 +954,7 @@ $app->post('/addmini',function()use($app){
                         if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
                             $type = $result[2];
                             date_default_timezone_set("PRC");
-                            $new_file = "/files/mini/";
+                            $new_file = "/files/mini/" . date('Ymd', $time1) . "/";
                             if (!file_exists($new_file)) {
                                 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                                 mkdir($new_file, 0700);
