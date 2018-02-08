@@ -183,7 +183,7 @@ function lorry_xq(id){
                 success: function(ret) {
                     // console.log(msg);
                     if(ret.result==0){
-                        for(var i=0;i<ret.lorry_type.length;i++){
+                        for(var i=0;i<ret.lorry_length.length;i++){
                             $('#lorry_length').append('<option value="'+ret.vehiche_long[i].lorry_length_id+'" id="ve_long'+ret.vehiche_long[i].lorry_length_id+'">'+ret.vehiche_long[i].lorry_length+'</option>');
 
                             $('#ve_long'+lorry_length_id).attr('selected','selected');
