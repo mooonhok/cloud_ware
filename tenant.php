@@ -106,7 +106,7 @@ $app->put('/tenant',function()use($app){
     $company=$body->company;
     $company_type=$body->company_type;
     $from_city_id=$body->from_city_id;
-    $receive_city_id=$body->receive_city_id;
+//    $receive_city_id=$body->receive_city_id;
     $contact_id=$body->contact_id;
     $array=array();
     foreach($body as $key=>$value){
@@ -116,7 +116,7 @@ $app->put('/tenant',function()use($app){
         if($company!=null||$company!=''){
             if($company_type!=null||$company_type!=''){
                 if($from_city_id!=null||$from_city_id!=''){
-                    if($receive_city_id!=null||$receive_city_id!=''){
+//                    if($receive_city_id!=null||$receive_city_id!=''){
                         if($contact_id!=null||$contact_id!=''){
                             $selectStatement = $database->select()
                                 ->from('tenant')
@@ -143,14 +143,7 @@ $app->put('/tenant',function()use($app){
                                     if($data2==null){
                                         echo json_encode(array("result"=>"2","desc"=>"发货人城市不存在"));
                                     }else{
-                                        $selectStatement = $database->select()
-                                            ->from('city')
-                                            ->where('id','=',$receive_city_id);
-                                        $stmt = $selectStatement->execute();
-                                        $data3 = $stmt->fetch();
-                                        if($data3==null){
-                                            echo json_encode(array("result"=>"3","desc"=>"收货人城市不存在"));
-                                        }else{
+
                                             $selectStatement = $database->select()
                                                 ->from('customer')
                                                 ->where('exist','=','0')
@@ -167,7 +160,7 @@ $app->put('/tenant',function()use($app){
                                                 $affectedRows = $updateStatement->execute();
                                                 echo json_encode(array("result"=>"0","desc"=>"success"));
                                             }
-                                        }
+
                                     }
                                 }
                             }else{
@@ -176,9 +169,6 @@ $app->put('/tenant',function()use($app){
                         }else{
                             echo json_encode(array('result'=>'7','desc'=>'缺少公司联系人id'));
                         }
-                    }else{
-                        echo json_encode(array('result'=>'8','desc'=>'缺少收货城市id'));
-                    }
                 }else{
                     echo json_encode(array('result'=>'9','desc'=>'缺少发货城市id'));
                 }
@@ -374,7 +364,7 @@ $app->post('/tenant',function()use($app) {
     $longitude=$arr[0];
     $latitude=$arr[1];
     //  $order_t_p = $app->request->params('order_t_p');
-    $receive_city_id = $app->request->params('receive_city_id');
+
     $sales_id = $app->request->params('sales_id');
     $service_items = $app->request->params('service_items');
  //   $trans_contract_p = $app->request->params('trans_contract_p');
@@ -411,7 +401,7 @@ $app->post('/tenant',function()use($app) {
                      if($telephone!=null||$telephone!=""){
                          if($address!=""||$address!=null){
                              if($from_city_id!=""||$from_city_id=null){
-                                 if($receive_city_id!=null||$receive_city_id!=""){
+
                                      date_default_timezone_set("PRC");
                                             $begin_time=date("Y-m-d H:i", time());
 
@@ -474,11 +464,11 @@ $app->post('/tenant',function()use($app) {
                                                          $ad_img6='http://files.uminfo.cn:8000/client/advertise/ad_img6.png';
                                                          $ad_img7='http://files.uminfo.cn:8000/client/advertise/ad_img7.png';
 //                                                         $order_img='http://files.uminfo.cn:8000/tenant/5230001_order.jpg';
-                                                         $insertStatement = $database->insert(array('company','from_city_id','receive_city_id','contact_id','exist','business_l'
+                                                         $insertStatement = $database->insert(array('company','from_city_id','contact_id','exist','business_l'
                                                          ,'sales_id','address','order_t_p','trans_contract_p','service_items','c_introduction'
                                                          ,'begin_time','qq','email','insurance_balance','tenant_num','tenant_id','longitude','latitude','jcompany','ad_img1','ad_img2','ad_img3','ad_img4','ad_img5','ad_img6','ad_img7','order_img'))
                                                              ->into('tenant')
-                                                             ->values(array($company,$from_city_id,$receive_city_id,$num,0,$business_l
+                                                             ->values(array($company,$from_city_id,$num,0,$business_l
                                                              ,$sales_id,$address,$order_t_p, $trans_c_p
                                                              ,$service_items,$c_introduction,
                                                                  $begin_time,$qq,$email,0,$tenant_num,$tenant_id,$longitude,$latitude,$jcompany,$ad_img1,$ad_img2,$ad_img3,$ad_img4,$ad_img5,$ad_img6,$ad_img7,$order_img));
@@ -524,10 +514,6 @@ $app->post('/tenant',function()use($app) {
                                                             echo json_encode(array("result"=>"5","desc"=>"缺少sales_id"));
                                                         }
 
-
-                                          }else{
-                                              echo json_encode(array("result"=>"8","desc"=>"缺少收货城市"));
-                                          }
                                       }else{
                                           echo json_encode(array("result"=>"9","desc"=>"缺少发货城市"));
                                       }
@@ -673,24 +659,6 @@ $app->get('/one_tenant_customer',function()use($app){
     }
 });
 
-
-$app->get('/company_name',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $database=localhost();
-    $tenant_id=$app->request->get('company');
-    if($tenant_id!=null||$tenant_id!='') {
-        $selectStatement = $database->select()
-            ->from('tenant')
-            ->where('exist', "=", 0)
-            ->where('tenant_id', "=", $tenant_id);
-        $stmt = $selectStatement->execute();
-        $data = $stmt->fetch();
-        echo  json_encode(array("result"=>"0","desc"=>"success","company_name"=>$data['company']));
-    }else{
-        echo  json_encode(array("result"=>"1","desc"=>""));
-    }
-});
 
 $app->run();
 
