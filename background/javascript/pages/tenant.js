@@ -119,7 +119,7 @@ function tenant_ensure(adminid){
 
 function change_tenant(tenant_id){
     $.ajax({
-        url: "http://api.uminfo.cn/tenant.php/company_name",
+        url: "http://api.uminfo.cn/tenant.php/company_name?company="+tenant_id,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -132,7 +132,6 @@ function change_tenant(tenant_id){
                 $.session.set('company_name',msg.company_name);
                 window.location.reload();
             }
-
         },
         error: function(xhr) {
             alert("获取后台失败！");
