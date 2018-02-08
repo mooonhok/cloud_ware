@@ -1,6 +1,8 @@
 $(function(){
     var adminid=$.session.get('adminid');
+    var company=$.session.get('company');
     var company_name=$.session.get('company_name');
+    $('#shmz_name').html(company_name);
     var page = $.getUrlParam('page');
     var agreement_id='';
     loadagreements(agreement_id,page) ;
@@ -11,7 +13,7 @@ $(function(){
     $(".sousuo_z").on("click",function(){
         alert(1)
         var agreement_id=$(".agreement_id").val();
-        loadagreements(agreement_id,page) ;
+        loadagreements(agreement_id,page,company) ;
     })
 });
 
@@ -24,15 +26,18 @@ $(function(){
     }
 })(jQuery);
 
-function loadagreements(agreement_id,page) {
+function loadagreements(agreement_id,page,company) {
     if(agreement_id==null){
         agreement_id="";
     }
     if(page==null){
         page=1;
     }
+    if(company==null){
+        company='';
+    }
     $.ajax({
-        url: "http://api.uminfo.cn/agreement.php/agreements_suoyou?agreement_id="+agreement_id+"&page="+page+"&per_page=10",
+        url: "http://api.uminfo.cn/agreement.php/agreements_suoyou?agreement_id="+agreement_id+"&page="+page+"&per_page=10&company="+company,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -50,7 +55,7 @@ function loadagreements(agreement_id,page) {
                     ,limit: 10
                     ,jump: function(obj,first){
                         if(!first){
-                            loadagreements(agreement_id,obj.curr);
+                            loadagreements(agreement_id,obj.curr,company);
                         }
                         //模拟渲染
                         document.getElementById('tb1').innerHTML = function(){

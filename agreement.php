@@ -527,17 +527,20 @@ $app->get("/agreements_suoyou",function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
+    $tenant_id=$app->request->get('company');
     $agreement_id=$app->request->get('agreement_id');
     $page=$app->request->get("page");
     $per_page=$app->request->get("per_page");
     $page=$page-1;
     $selectStatement = $database->select()
         ->from('agreement')
+        ->whereLike('tenant_id','%'.$tenant_id.'%')
         ->whereLike('agreement_id','%'.$agreement_id.'%');
     $stmt = $selectStatement->execute();
     $data0= $stmt->fetchAll();
     $selectStatement = $database->select()
         ->from('agreement')
+        ->whereLike('tenant_id','%'.$tenant_id.'%')
         ->whereLike('agreement_id','%'.$agreement_id.'%')
         ->limit((int)$per_page,(int)$per_page*(int)$page)
         ->orderBy('id','DESC');
