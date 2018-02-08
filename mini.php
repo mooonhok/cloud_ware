@@ -1031,7 +1031,7 @@ $app->get('/byminiid',function()use($app){
         $data1 = $stmt->fetch();
         if($data1!=null){
             $selectStatement = $database->select()
-                ->from('mini_rounte')
+                ->from('mini_route')
                 ->where('tid','=',$tid);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
