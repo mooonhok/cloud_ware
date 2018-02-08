@@ -279,6 +279,8 @@ $app->put('/tenantchange',function()use($app){
     $arrays['latitude']=$lat;
     $array1['customer_name']=$customer_name;
     $array1['customer_phone']=$customer_phone;
+    $array1['customer_city_id']=$cityid;
+    $array1['customer_address']=$address;
     if($sales_id!=null||$sales_id!=""){
         if($tenant_id!=null||$tenant_id!="") {
             $selectStatement = $database->select()
