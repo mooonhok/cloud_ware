@@ -125,24 +125,8 @@ function lorry_xq(id){
         '<button id="order_sure">确定</button><button id="order_cancle">取消</button>' +
         '</div>'
     });
-    $api.get(url+'app.php/lorry_type',function(ret){
-        if(ret.result==0){
-            for(var i=0;i<ret.lorry_type.length;i++){
-                $api.append($api.dom('#vehicle_t'),'<option value="'+ret.lorry_type[i].lorry_type_id+'" id="ve_size'+ret.lorry_type[i].lorry_type_id+'">'+ret.lorry_type[i].lorry_type_name+'</option>');
 
-                $api.attr($api.dom('#ve_size'+typ),'selected','selected');
-            }
-        }
-    },'json');
-    $api.get(url+'app.php/lorry_long',function(ret){
-        if(ret.result==0){
-            for(var i=0;i<ret.vehiche_long.length;i++){
-                $api.append($api.dom('#vehicle_c'),'<option value="'+ret.vehiche_long[i].lorry_length_id+'" id="ve_long'+ret.vehiche_long[i].lorry_length_id+'">'+ret.vehiche_long[i].lorry_length+'</option>');
-                $api.attr($api.dom('#ve_long'+len),'selected','selected');
 
-            }
-        }
-    },'json');
 
     $("#order_cancle").on("click",function(){
         layer.close(index);
@@ -160,8 +144,8 @@ function lorry_xq(id){
             $("#name").val(msg.lorrys.name);
             $("#id_card").val(msg.lorrys.id_number);
             $("#plate_number").val(msg.lorrys.plate_number);
-            $("#lorry_length").val(msg.lorrys.lorry_length_name);
-            $("#lorry_type").val(msg.lorrys.lorry_type_name);
+            // $("#lorry_length").val(msg.lorrys.lorry_length_name);
+            // $("#lorry_type").val(msg.lorrys.lorry_type_name);
             $("#lorry_weight").val(msg.lorrys.lorry_load_name);
             $("#id_z").attr("src",msg.lorrys.identity_card_z);
             $("#id_f").attr("src",msg.lorrys.identity_card_f);
@@ -169,6 +153,47 @@ function lorry_xq(id){
             $("#j_f").attr("src",msg.lorrys.driver_license_tp);
             $("#x_z").attr("src",msg.lorrys.driving_license_fp);
             $("#x_f").attr("src",msg.lorrys.driving_license_tp);
+            $.ajax({
+                url: "http://api.uminfo.cn/app.php/lorry_type",
+                dataType: 'json',
+                type: 'get',
+                ContentType: "application/json;charset=utf-8",
+                data: JSON.stringify({}),
+                success: function(ret) {
+                    // console.log(msg);
+                    if(ret.result==0){
+                        for(var i=0;i<ret.lorry_type.length;i++){
+                            $('#lorry_type').append('<option value="'+ret.lorry_type[i].lorry_type_id+'" id="ve_size'+ret.lorry_type[i].lorry_type_id+'">'+ret.lorry_type[i].lorry_type_name+'</option>');
+
+                            $('#ve_size'+msg.lorrys.lorry_type_id).attr('selected','selected');
+                        }
+                    }
+                },
+                error: function(xhr) {
+                    alert("获取后台失败！");
+                }
+            });
+
+            $.ajax({
+                url: "http://api.uminfo.cn/app.php/lorry_long",
+                dataType: 'json',
+                type: 'get',
+                ContentType: "application/json;charset=utf-8",
+                data: JSON.stringify({}),
+                success: function(ret) {
+                    // console.log(msg);
+                    if(ret.result==0){
+                        for(var i=0;i<ret.lorry_type.length;i++){
+                            $('#lorry_length').append('<option value="'+ret.vehiche_long[i].lorry_length_id+'" id="ve_long'+ret.vehiche_long[i].lorry_length_id+'">'+ret.vehiche_long[i].lorry_length+'</option>');
+
+                            $('#ve_long'+lorry_length_id).attr('selected','selected');
+                        }
+                    }
+                },
+                error: function(xhr) {
+                    alert("获取后台失败！");
+                }
+            });
         },
         error: function(xhr) {
             alert("获取后台失败！");
