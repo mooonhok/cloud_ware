@@ -5,7 +5,7 @@ $(function(){
     $('#shmz_name').html(company_name);
     var page = $.getUrlParam('page');
     var agreement_id='';
-    loadagreements(agreement_id,page) ;
+    loadagreements(agreement_id,page,company) ;
     $('#order_close').on("click",function () {
         $(".tenant_tk").css("display","none");
     })
