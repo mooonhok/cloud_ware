@@ -45,7 +45,7 @@ function loadtenants(adminid,page) {
                             var arr = []
                                 ,thisData = msg.tenants;
                             layui.each(thisData, function(index, item){
-                                    arr.push( '<tr><td onclick="change_tenant('+item.tenant_id + ','+item.company+')" style="cursor:pointer;">'+item.company+'</td><td>'+item.from_city+'</td><td>'+item.receive_city+'</td><td>'+item.tenant_num+'</td><td>'+item.customer.customer_name+'</td><td>'+item.sales_name+'</td><td>'+item.begin_time+'</td><td>'+item.note_remain+'</td><td onclick="tenant_xq('+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
+                                    arr.push( '<tr><td onclick="change_tenant('+item.tenant_id + ',"'+item.company+'")" style="cursor:pointer;">'+item.company+'</td><td>'+item.from_city+'</td><td>'+item.receive_city+'</td><td>'+item.tenant_num+'</td><td>'+item.customer.customer_name+'</td><td>'+item.sales_name+'</td><td>'+item.begin_time+'</td><td>'+item.note_remain+'</td><td onclick="tenant_xq('+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
                             });
                             return arr.join('');
                         }();
