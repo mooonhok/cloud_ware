@@ -116,10 +116,10 @@ $(function(){
                     	if(msg.result==0){
                     		var tenant='';
                     		for(var i=0;i<msg.tenants.length;i++){
-                                tenant+='<tr><td id="'+msg.tenants[i].tenant_id+'">'+msg.tenants[i].company+'</td></tr>';
+                                tenant+='<tr><td id="'+msg.tenants[i].tenant_id+'" style="cursor:pointer;">'+msg.tenants[i].company+'</td></tr>';
 							}
 							var company='<table style="width:100%;" id="gssh_biao">'+tenant+'</table>';
-                            layer.open({
+                            var index1=layer.open({
                                 type: 1,
                                 skin: 'layui-layer-rim', //加上边框
                                 area: ['420px', '240px'], //宽高
@@ -129,6 +129,7 @@ $(function(){
                                 // alert($(this).attr('id'))
 								$.session.remove('company');
                                 $.session.set('company',$(this).attr('id'));
+                                layer.close(index1);
 							})
 						}else{
                             layer.open({
@@ -146,6 +147,7 @@ $(function(){
 
         });
 	})
+
 });
 
 //捐赠

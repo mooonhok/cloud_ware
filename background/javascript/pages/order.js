@@ -1,8 +1,9 @@
 $(function(){
     var adminid=$.session.get('adminid');
+    var company=$.session.get('company');
     var page = $.getUrlParam('page');
     var order_id='';
-    loadorders(order_id,page);
+    loadorders(order_id,page,company);
     $('#order_close').on("click",function () {
         $(".tenant_tk").css("display","none");
     })
@@ -10,7 +11,7 @@ $(function(){
     $(".sousuo_z").on("click",function(){
         alert(1)
         var order_id=$(".order_id").val();
-        loadorders(order_id,page);
+        loadorders(order_id,page,company);
     })
 });
 
@@ -23,15 +24,18 @@ $(function(){
     }
 })(jQuery);
 
-function loadorders(order_id,page) {
+function loadorders(order_id,page,company) {
     if(order_id==null){
        order_id="";
     }
     if(page==null){
         page=1;
     }
+    if(company==null){
+        company='';
+    }
     $.ajax({
-        url: "http://api.uminfo.cn/order.php/orders?order_id="+order_id+"&page="+page+"&per_page=10",
+        url: "http://api.uminfo.cn/order.php/orders?order_id="+order_id+"&page="+page+"&per_page=10&company="+company,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -49,7 +53,7 @@ function loadorders(order_id,page) {
                     ,limit: 10
                     ,jump: function(obj,first){
                         if(!first){
-                            loadorders(order_id,obj.curr);
+                            loadorders(order_id,obj.curr,company);
                         }
                         //模拟渲染
                         document.getElementById('tb1').innerHTML = function(){

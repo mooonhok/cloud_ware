@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>后台管理系统-HTML5后台管理系统</title>
+    <meta name="keywords"  content="设置关键词..." />
+    <meta name="description" content="设置描述..." />
+    <meta name="author" content="DeathGhost" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <link rel="icon" href="images/icon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="javascript/jquery.js"></script>
+    <script src="javascript/plug-ins/customScrollbar.min.js"></script>
+    <script src="javascript/plug-ins/echarts.min.js"></script>
+    <script src="javascript/plug-ins/layerUi/layer.js"></script>
+    <script src="editor/ueditor.config.js"></script>
+    <script src="editor/ueditor.all.js"></script>
+    <script src="javascript/plug-ins/pagination.js"></script>
+    <script src="javascript/public.js"></script>
+    <script src="javascript/pages/addmini.js"></script>
+    <style>
+        .addmini{
+            width:100%;
+            height:900px;
+        }
+        .top1{
+        	width:100%;
+        	text-align:center;
+        	height:100px;
+        	line-height:100px;
+        	font-size:24px;
+        }
+        .center1{
+        	width:60%;
+        	margin-left: 15%;
+        	height:40px;
+        	line-height:40px;
+        }
+         .center2{
+        	width:60%;
+        	margin-left: 15%;
+        	height:40px;
+        	line-height:40px;
+        }
+        .center1 input{
+            outline-style: none;
+            background: none;
+            border-bottom-style:solid;
+            border-right-style: none;
+            border-top-style:none;
+            border-left-style: none;
+			height: 30px;
+			line-height: 30px;
+		    margin-left: 5px;
+			width:90%;
+        }
+        .center2 input{
+            outline-style: none;
+            background: none;
+            border-bottom-style:solid;
+            border-right-style: none;
+            border-top-style:none;
+            border-left-style: none;
+			height: 30px;
+			line-height: 30px;
+		    margin-left: 10px;
+			width:42%;
+        }
+         .center3{
+        	width:60%;
+        	margin-left: 15%;
+        	height:40px;
+        	line-height:40px;
+        }
+        .center4{
+        	width:60%;
+        	margin-left: 15%;
+        	height:40px;
+        	line-height:40px;
+        }
+        .center5{
+        	width:60%;
+        	margin-left: 15%;
+        	height:40px;
+        	line-height:40px;
+        }
+        .center3 input{
+            outline-style: none;
+            background: none;
+            border-bottom-style:solid;
+            border-right-style: none;
+            border-top-style:none;
+            border-left-style: none;
+			height: 30px;
+			line-height: 30px;
+		    margin-left: 5px;
+			width:45%;
+        }
+        .center3 button{
+        	height: 30px;
+			line-height: 30px;
+		    margin-left:5%;
+			width:30%;
+        }
+        .center1 select{
+        	width:20%;
+        	height:30px;
+        	line-height: 30px;
+        	margin-left:5%;
+        }
+        .center4 select{
+        	width:40%;
+        	height:30px;
+        	line-height: 30px;
+        	margin-left:3%;
+        }
+          .center5 input{
+        	height: 30px;
+			line-height: 30px;
+		    margin-left:5%;
+		    margin-right:10%;
+			width:10%;
+        }
+        .center6{
+        	height: 50px;
+			line-height: 50px;
+			background:green;
+			width:40%;
+			margin-left:30%;
+			text-align:center;
+			font-size:24px;
+			border-radius: 10px;
+			margin-top:30px;
+        }
+    </style>
+</head>
+<body>
+<div class="main-wrap">
+    <div class="side-nav">
+        <div class="side-logo">
+            <div class="logo">
+				<span class="logo-ico">
+					<i class="i-l-1"></i>
+					<i class="i-l-2"></i>
+					<i class="i-l-3"></i>
+				</span>
+                <strong>江苏酉铭后台管理</strong>
+            </div>
+        </div>
+
+        <nav class="side-menu content mCustomScrollbar" data-mcs-theme="minimal-dark">
+            <h2>
+                <a href="tenant.html" class="InitialPage"><i class="icon-dashboard"></i>租户概况</a>
+            </h2>
+            <h2>
+                <a href="order.html" class="InitialPage"><i class="icon-dashboard"></i>运单概况</a>
+            </h2>
+            <h2>
+                <a href="scheduling.html" class="InitialPage"><i class="icon-dashboard"></i>调度单概况</a>
+            </h2>
+            <h2>
+                <a href="agreement.html" class="InitialPage"><i class="icon-dashboard"></i>合同单概况</a>
+            </h2>
+            <h2>
+                <a href="lorry.html" class="InitialPage"><i class="icon-dashboard"></i>车辆概况</a>
+            </h2>
+            <h2>
+                <a href="news.html" class="InitialPage"><i class="icon-dashboard"></i>公告发布</a>
+            </h2>
+            <h2>
+                <a href="add_client.html" class="InitialPage"><i class="icon-dashboard"></i>客户端更新发布</a>
+            </h2>
+            <h2>
+                <a href="feedback.html" class="InitialPage"><i class="icon-dashboard"></i>反馈意见</a>
+            </h2>
+            <h2>
+                <a href="contact_company.html" class="InitialPage"><i class="icon-dashboard"></i>申请加入公司</a>
+            </h2>
+            <h2>
+                <a href="change_app.html" class="InitialPage"><i class="icon-dashboard"></i>修改app的包</a>
+            </h2>
+            <ul>
+
+            </ul>
+        </nav>
+        <footer class="side-footer">© unimfo 版权所有</footer>
+    </div>
+    <div class="content-wrap">
+        <header class="top-hd">
+            <div class="hd-lt">
+                <a class="icon-reorder"></a>
+            </div>
+            <div class="hd-rt">
+                <ul>
+                    <li>
+                        <a><i class="icon-user"></i>管理员:<em>unimfo</em></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" id="JsSignOut"><i class="icon-signout"></i>安全退出</a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+       <div class="addmini">
+       	<div class="top1">小程序添加公司</div>
+       	<div class="center1">公司名称:<input id="companyname" placeholder="必填"/></div>
+       	<div class="center1">路线介绍:<input id="line" placeholder="必填"/></div>
+       	<div class="center2">联系&nbsp;人:<input id="name" placeholder="必填"/>手机号码:<input id="telephone" placeholder="必填"/></div>
+       	<div class="center3">地理坐标:<input id="location" placeholder="必填"/><button  id="getlocation">拾取坐标</button></div>
+       	<div class="center1">是否精品(必选):<select  id="type" >
+								<option value="0">是</option>
+								<option value="1">否</option>
+							</select></div>
+       	<div class="center4">出发城市(必选):<select name="province" id="province1" onchange="getPro1()" class="pro">
+								<option value="">请选择</option>
+							</select>
+							<select name="city" id="city1" class="cit">
+								<option value="">请选择</option>
+							</select></div>
+       	<div class="center4">到达城市(必选):<select name="province" id="province2" onchange="getPro2()" class="pro">
+								<option value="">请选择</option>
+							</select>
+							<select name="city" id="city2" class="cit">
+								<option value="">请选择</option>
+							</select></div>
+       	<div class="center1">公司地址(必填):<input id="address"/></div>
+       	<div class="center1">公司介绍:<input id="intro"/></div>
+       	<div class="center1">座机号码:<input id="phone"/></div>
+       	<div class="center1">微信公众号:<input id="publicname"/></div>
+       	<div class="center5">广告图片1(必传):<input type="file" name="pic1" id="pic1"/>公众号二维码:<input type="file" id="pic6"/></div>
+       	<div class="center5">广告图片2(必传):<input type="file" id="pic2"/>广告图片3:<input type="file" id="pic3"/></div>
+       	<div class="center5">广告图片4:<input type="file" id="pic4"/>广告图片5:<input type="file" id="pic5"/></div>
+       	<input id="pic1s" style="display: none;"/>
+       	<input id="pic2s" style="display: none;"/>
+       	<input id="pic3s" style="display: none;"/>
+       	<input id="pic4s" style="display: none;"/>
+       	<input id="pic5s" style="display: none;"/>
+       	<input id="pic6s" style="display: none;"/>
+       	<div class="center6">提交</div>
+       </div>
+        <footer class="btm-ft">
+            <p class="clear">
+                <span class="fl">©Copyright 2016 <a href="#" title="DeathGhost" target="_blank">unimfo.cn</a></span>
+            </p>
+        </footer>
+    </div>
+
+</div>
+</body>
+</html>
