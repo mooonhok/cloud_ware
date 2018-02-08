@@ -1016,8 +1016,9 @@ $app->get('/allmini',function()use($app){
     $data2 = $stmt->fetchAll();
     echo json_encode(array("result"=>"0","desc"=>"",'mini_tenant'=>$data2,'count'=>count($data1)));
 });
-//对应的小程序的所有线路信息
-$app->get('/byminiid',function()use($app){
+
+//获取租户详细信息
+$app->get('/minibyid',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
@@ -1026,9 +1027,9 @@ $app->get('/byminiid',function()use($app){
         $selectStatement = $database->select()
             ->from('mini_tenant')
             ->where('exist','=',0)
-            ->where('id','=',$tid);
+           ->where('tid','=',$tid);
         $stmt = $selectStatement->execute();
-        $data1 = $stmt->fetch();
+        $data1 = $stmt->fetchAll();
         if($data1!=null){
             $selectStatement = $database->select()
                 ->from('mini_route')
@@ -1049,7 +1050,8 @@ $app->get('/byminiid',function()use($app){
                 $data4 = $stmt->fetch();
                 $data2[$j]['tpid']=$data4['pid'];
             }
-            echo json_encode(array("result"=>"0","desc"=>"",'routes'=>$data2));
+            $data1['route']=$data2;
+            echo json_encode(array("result"=>"0","desc"=>"",'routes'=>$data1));
         }else{
             echo json_encode(array("result"=>"2","desc"=>"租户不存在"));
         }
@@ -1057,7 +1059,6 @@ $app->get('/byminiid',function()use($app){
         echo json_encode(array("result"=>"1","desc"=>"没有租户id"));
     }
 });
-
 
 $app->run();
 
