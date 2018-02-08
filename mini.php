@@ -995,6 +995,69 @@ $app->post('/addmini',function()use($app){
         echo json_encode(array("result"=>"1","desc"=>"尚未输入公司名称"));
     }
 });
+//获取所有的小程序用户
+$app->get('/allmini',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $page = $app->request->get('page');
+    $per_page=$app->request->get('per_page');
+    $page=(int)$page-1;
+    $selectStatement = $database->select()
+        ->from('mini_tenant')
+        ->where('exist','=',0);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetchAll();
+    $selectStatement = $database->select()
+        ->from('mini_tenant')
+        ->where('exist','=',0)
+        ->limit((int)$per_page, (int)$per_page * (int)$page);
+    $stmt = $selectStatement->execute();
+    $data2 = $stmt->fetchAll();
+    echo json_encode(array("result"=>"0","desc"=>"",'mini_tenant'=>$data2,'count'=>count($data1)));
+});
+//对应的小程序的所有线路信息
+$app->get('/byminiid',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tid=$app->request->get('tid');
+    if($tid!=null||$tid!=""){
+        $selectStatement = $database->select()
+            ->from('mini_tenant')
+            ->where('exist','=',0)
+            ->where('id','=',$tid);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        if($data1!=null){
+            $selectStatement = $database->select()
+                ->from('mini_rounte')
+                ->where('tid','=',$tid);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetchAll();
+            for($j=0;$j<count($data2);$j++){
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id','=',$data2[$j]['fcity_id']);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetch();
+                $data2[$j]['fpid']=$data3['pid'];
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id','=',$data2[$j]['tcity_id']);
+                $stmt = $selectStatement->execute();
+                $data4 = $stmt->fetch();
+                $data2[$j]['tpid']=$data4['pid'];
+            }
+            echo json_encode(array("result"=>"0","desc"=>"",'routes'=>$data2));
+        }else{
+            echo json_encode(array("result"=>"2","desc"=>"租户不存在"));
+        }
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"没有租户id"));
+    }
+});
+
 
 $app->run();
 
