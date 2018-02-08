@@ -444,12 +444,7 @@ $app->get('/tenants',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data4 = $stmt->fetch();
                     $data[$x]['from_city']=$data4['name'];
-                    $selectStatement = $database->select()
-                        ->from('city')
-                        ->where('id','=',$data[$x]['receive_city_id']);
-                    $stmt = $selectStatement->execute();
-                    $data5 = $stmt->fetch();
-                    $data[$x]['receive_city']=$data5['name'];
+
                     $data[$x]['customer']=$data2;
                     $selectStament=$database->select()
                         ->from('sales')
@@ -531,12 +526,7 @@ $app->get('/tenants',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data4 = $stmt->fetch();
                     $data[$x]['from_city']=$data4['name'];
-                    $selectStatement = $database->select()
-                        ->from('city')
-                        ->where('id','=',$data[$x]['receive_city_id']);
-                    $stmt = $selectStatement->execute();
-                    $data5 = $stmt->fetch();
-                    $data[$x]['receive_city']=$data5['name'];
+
                     $data[$x]['customer']=$data2;
                     $selectStament=$database->select()
                         ->from('sales')
@@ -690,12 +680,7 @@ $app->get('/tenantbyid',function()use($app){
             $stmt = $selectStatement->execute();
             $data4 = $stmt->fetch();
             $data['from_city']=$data4['name'];
-            $selectStatement = $database->select()
-                ->from('city')
-                ->where('id','=',$data['receive_city_id']);
-            $stmt = $selectStatement->execute();
-            $data5 = $stmt->fetch();
-            $data['receive_city']=$data5['name'];
+
             $data['customer']=$data2;
             //   array_push($arrayt,$array1);
             $selectStatement = $database->select()
@@ -774,12 +759,6 @@ $app->get('/tenantbycityaname',function()use($app){
             $stmt = $selectStatement->execute();
             $data4 = $stmt->fetch();
             $data['from_city']=$data4['name'];
-            $selectStatement = $database->select()
-                ->from('city')
-                ->where('id','=',$data['receive_city_id']);
-            $stmt = $selectStatement->execute();
-            $data5 = $stmt->fetch();
-            $data['receive_city']=$data5['name'];
             $data['customer']=$data2;
             //   array_push($arrayt,$array1);
             $selectStatement = $database->select()
@@ -1322,28 +1301,6 @@ $app->get('/feedback',function()use($app){
         $data1[$i]['staff_name']=$data3['name'];
     }
     echo json_encode(array("result"=>"0","desc"=>"success",'contact_companys'=>$data1,'count'=>count($data0)));
-});
-
-//根据商户编号或公司名字或公司简称或公司所在城市
-$app->get("/get_tenant",function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $database=localhost();
-    $name=$app->request->get("name");
-    $selectStatement = $database->select()
-        ->from('tenant')
-        ->join('city','city.id','=','tenant.from_city_id','INNER')
-        ->where('tenant.jcompany','=',$name)
-        ->orWhereLike('tenant.company','%'.$name.'%')
-        ->orWhere('city.name','=',$name);
-    $stmt = $selectStatement->execute();
-    $data = $stmt->fetchAll();
-    if($data!=null){
-        echo json_encode(array("result"=>"0","desc"=>"success",'tenants'=>$data));
-    }else{
-        echo json_encode(array("result"=>"1","desc"=>""));
-    }
-
 });
 
 $app->run();
