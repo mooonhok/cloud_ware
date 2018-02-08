@@ -262,6 +262,7 @@ $app->put('/tenantchange',function()use($app){
     $customer_name=$body->customer_name;
     $customer_phone=$body->customer_phone;
     $address=$body->address;
+    $jcompany=$body->jcompany;
     $long=$body->longitude;
     $lat=$body->latitude;
     $cityid=$body->fcity;
@@ -271,6 +272,7 @@ $app->put('/tenantchange',function()use($app){
     $array1=array();
     $arrays['address']=$address;
     $arrays['from_city_id']=$cityid;
+    $arrays['jcompany']=$jcompany;
     $arrays['qq']=$qq;
     $arrays['email']=$email;
     $arrays['longitude']=$long;
