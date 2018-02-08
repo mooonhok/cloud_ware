@@ -101,7 +101,8 @@ $(function(){
 		});
 	});
 
-
+    var company_name=$.session.get('company_name');
+    $('#shmz_name').html(company_name);
 	$("#shxx_message").on("click",function(){
         layer.prompt({title: '请输入公司商务编号或公司简称或公司所在城市'}, function(pass, index){
             layer.close(index);
@@ -128,8 +129,11 @@ $(function(){
                             $("#gssh_biao tr td").on("click",function(){
                                 // alert($(this).attr('id'))
 								$.session.remove('company');
+                                $.session.remove('company_name');
                                 $.session.set('company',$(this).attr('id'));
-                                $("#shmz_name").text($(this).text());
+                                $.session.set('company_name',$(this).text());
+                                $('#shmz_name').html($(this).text());
+                                window.location.reload();
                                 layer.close(index1);
 
 							})

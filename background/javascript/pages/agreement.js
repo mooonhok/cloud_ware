@@ -1,5 +1,6 @@
 $(function(){
     var adminid=$.session.get('adminid');
+    var company_name=$.session.get('company_name');
     var page = $.getUrlParam('page');
     var agreement_id='';
     loadagreements(agreement_id,page) ;

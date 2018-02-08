@@ -1,6 +1,8 @@
 $(function(){
     var adminid=$.session.get('adminid');
     var company=$.session.get('company');
+    var company_name=$.session.get('company_name');
+    $('#shmz_name').html(company_name);
     var page = $.getUrlParam('page');
     var order_id='';
     loadorders(order_id,page,company);
