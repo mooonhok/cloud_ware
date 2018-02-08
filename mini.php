@@ -1029,7 +1029,7 @@ $app->get('/minibyid',function()use($app){
             ->where('exist','=',0)
            ->where('id','=',$tid);
         $stmt = $selectStatement->execute();
-        $data1 = $stmt->fetchAll();
+        $data1 = $stmt->fetch();
         if($data1!=null){
             $selectStatement = $database->select()
                 ->from('mini_route')
