@@ -403,7 +403,8 @@ $app->get('/tenantbyid',function()use($app){
             $array['company']=$data2['company'];
             //$array['begin_time']=$data2['begin_time'];
             date_default_timezone_set("PRC");
-
+            $array['location']=$data2['longitude'].','.$data2['latitude'];
+            $array['cityid']=$data2['from_city_id'];
             $array['address']=$data2['address'];
             $array['qq']=$data2['qq'];
             $array['email']=$data2['email'];
