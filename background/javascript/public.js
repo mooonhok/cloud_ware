@@ -103,7 +103,7 @@ $(function(){
 
 
 	$("#shxx_message").on("click",function(){
-        layer.prompt({title: '请输入公司商务编号或公司简称或公司所在城市', formType: 1}, function(pass, index){
+        layer.prompt({title: '请输入公司商务编号或公司简称或公司所在城市'}, function(pass, index){
             layer.close(index);
             if(pass){
                 $.ajax({
@@ -114,14 +114,22 @@ $(function(){
                     data: JSON.stringify({}),
                     success: function(msg) {
                     	if(msg.result==0){
+                    		var tenant='';
+                    		for(var i=0;i<msg.tenants.length;i++){
+                                tenant+='<tr><td id="'+msg.tenants[i].tenant_id+'">'+msg.tenants[i].company+'</td></tr>';
+							}
+							var company='<table style="width:100%;" id="gssh_biao">'+tenant+'</table>';
                             layer.open({
                                 type: 1,
                                 skin: 'layui-layer-rim', //加上边框
                                 area: ['420px', '240px'], //宽高
-                                content: '<table style="width:100%;">' +
-                                '<tr><td>南通物流</td></tr>' +
-                                '</table>'
+                                content: company
                             });
+                            $("#gssh_biao tr td").on("click",function(){
+                                // alert($(this).attr('id'))
+								$.session.remove('company');
+                                $.session.set('company',$(this).attr('id'));
+							})
 						}else{
                             layer.open({
                                 type: 1,
@@ -130,6 +138,7 @@ $(function(){
                                 content: '没有与之匹配的物流公司'
                             });
 						}
+
 					}
                 });
 			}

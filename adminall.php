@@ -1341,7 +1341,7 @@ $app->get("/get_tenant",function()use($app){
     if($data!=null){
         echo json_encode(array("result"=>"0","desc"=>"success",'tenants'=>$data));
     }else{
-        echo json_encode(array("result"=>"1","desc"=>"success"));
+        echo json_encode(array("result"=>"1","desc"=>""));
     }
 
 });
