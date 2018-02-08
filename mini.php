@@ -1027,7 +1027,7 @@ $app->get('/minibyid',function()use($app){
         $selectStatement = $database->select()
             ->from('mini_tenant')
             ->where('exist','=',0)
-           ->where('tid','=',$tid);
+           ->where('id','=',$tid);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
         if($data1!=null){
