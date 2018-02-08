@@ -3,7 +3,7 @@ $(function(){
     var company=$.session.get('company');
     var page = $.getUrlParam('page');
     var scheduling_id='';
-    loadschedulings(scheduling_id,page) ;
+    loadschedulings(scheduling_id,page,company) ;
     $('#order_close').on("click",function () {
         $(".tenant_tk").css("display","none");
     })
@@ -53,7 +53,7 @@ function loadschedulings(scheduling_id,page,company) {
                     ,limit: 10
                     ,jump: function(obj,first){
                         if(!first){
-                            loadschedulings(scheduling_id,obj.curr);
+                            loadschedulings(scheduling_id,obj.curr,company);
                         }
                         //模拟渲染
                         document.getElementById('tb1').innerHTML = function(){
