@@ -165,7 +165,7 @@ function lorry_xq(id){
                         for(var i=0;i<ret.lorry_type.length;i++){
                             $('#lorry_type').append('<option value="'+ret.lorry_type[i].lorry_type_id+'" id="ve_size'+ret.lorry_type[i].lorry_type_id+'">'+ret.lorry_type[i].lorry_type_name+'</option>');
 
-                            $('#ve_size'+msg.lorrys.lorry_type_id).attr('selected','selected');
+                            $('#ve_size'+msg.lorrys.type).attr('selected','selected');
                         }
                     }
                 },
@@ -186,7 +186,7 @@ function lorry_xq(id){
                         for(var i=0;i<ret.vehiche_long.length;i++){
                             $('#lorry_length').append('<option value="'+ret.vehiche_long[i].lorry_length_id+'" id="ve_long'+ret.vehiche_long[i].lorry_length_id+'">'+ret.vehiche_long[i].lorry_length+'</option>');
 
-                            $('#ve_long'+lorry_length_id).attr('selected','selected');
+                            $('#ve_long'+msg.lorrys.length).attr('selected','selected');
                         }
                     }
                 },
