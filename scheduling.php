@@ -343,7 +343,7 @@ $app->put('/scheduling',function()use($app){
 $app->get('/schedulings_scheduling_id',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin', '*');
     $app->response->headers->set('Content-Type', 'application/json');
-    $tenant_id = $app->request->headers->get("tenant-id");
+    $tenant_id = $app->request->get("company");
     $page = $app->request->get('page');
     $page=$page-1;
     $per_page = $app->request->get("per_page");
@@ -351,11 +351,13 @@ $app->get('/schedulings_scheduling_id',function()use($app) {
     $scheduling_id=$app->request->get('scheduling_id');
     $selectStatement = $database->select()
         ->from('scheduling')
+        ->whereLike('tenant_id','%'.$tenant_id.'%')
         ->whereLike('scheduling_id','%'.$scheduling_id.'%');
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
     $selectStatement = $database->select()
         ->from('scheduling')
+        ->whereLike('tenant_id','%'.$tenant_id.'%')
         ->whereLike('scheduling_id','%'.$scheduling_id.'%')
         ->orderBy('id','DESC')
         ->limit((int)$per_page, (int)$per_page * (int)$page);

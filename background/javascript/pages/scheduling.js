@@ -1,5 +1,6 @@
 $(function(){
     var adminid=$.session.get('adminid');
+    var company=$.session.get('company');
     var page = $.getUrlParam('page');
     var scheduling_id='';
     loadschedulings(scheduling_id,page) ;
@@ -10,7 +11,7 @@ $(function(){
     $(".sousuo_z").on("click",function(){
         alert(1)
         var scheduling_id=$(".scheduling_id").val();
-        loadschedulings(scheduling_id,page) ;
+        loadschedulings(scheduling_id,page,company) ;
     })
 });
 
@@ -23,15 +24,18 @@ $(function(){
     }
 })(jQuery);
 
-function loadschedulings(scheduling_id,page) {
+function loadschedulings(scheduling_id,page,company) {
     if(scheduling_id==null){
         scheduling_id="";
     }
     if(page==null){
         page=1;
     }
+    if(company==null){
+        company='';
+    }
     $.ajax({
-        url: "http://api.uminfo.cn/scheduling.php/schedulings_scheduling_id?scheduling_id="+scheduling_id+"&page="+page+"&per_page=10",
+        url: "http://api.uminfo.cn/scheduling.php/schedulings_scheduling_id?scheduling_id="+scheduling_id+"&page="+page+"&per_page=10&company="+company,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
