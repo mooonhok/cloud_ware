@@ -130,7 +130,7 @@ function change_tenant(tenant_id){
                 $.session.remove('company_name');
                 $.session.set('company',tenant_id);
                 $.session.set('company_name',msg.company_name);
-                window.reload();
+                window.location.reload();
             }
 
         },
