@@ -129,7 +129,9 @@ $(function(){
                                 // alert($(this).attr('id'))
 								$.session.remove('company');
                                 $.session.set('company',$(this).attr('id'));
+                                $("#shmz_name").text($(this).text());
                                 layer.close(index1);
+
 							})
 						}else{
                             layer.open({
