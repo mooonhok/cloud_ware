@@ -45,7 +45,7 @@ function loadtenants(adminid,page) {
                             var arr = []
                                 ,thisData = msg.tenants;
                             layui.each(thisData, function(index, item){
-                                    arr.push( '<tr><td onclick="change_tenant('+item.tenant_id + ',"'+item.company+'")" style="cursor:pointer;">'+item.company+'</td><td>'+item.from_city+'</td><td>'+item.receive_city+'</td><td>'+item.tenant_num+'</td><td>'+item.customer.customer_name+'</td><td>'+item.sales_name+'</td><td>'+item.begin_time+'</td><td>'+item.note_remain+'</td><td onclick="tenant_xq('+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
+                                    arr.push( '<tr><td onclick="change_tenant('+item.tenant_id + ')" style="cursor:pointer;">'+item.company+'</td><td>'+item.from_city+'</td><td>'+item.receive_city+'</td><td>'+item.tenant_num+'</td><td>'+item.customer.customer_name+'</td><td>'+item.sales_name+'</td><td>'+item.begin_time+'</td><td>'+item.note_remain+'</td><td onclick="tenant_xq('+item.tenant_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
                             });
                             return arr.join('');
                         }();
@@ -117,10 +117,26 @@ function tenant_ensure(adminid){
     });
 }
 
-function change_tenant(tenant_id,tenant_company){
-    $.session.remove('company');
-    $.session.remove('company_name');
-    $.session.set('company',tenant_id);
-    $.session.set('company_name',tenant_company);
-    window.reload();
+function change_tenant(tenant_id){
+    $.ajax({
+        url: "http://api.uminfo.cn/tenant.php/company_name",
+        dataType: 'json',
+        type: 'get',
+        ContentType: "application/json;charset=utf-8",
+        data: JSON.stringify({}),
+        success: function(msg) {
+            if(msg.result==0){
+                $.session.remove('company');
+                $.session.remove('company_name');
+                $.session.set('company',tenant_id);
+                $.session.set('company_name',msg.company_name);
+                window.reload();
+            }
+
+        },
+        error: function(xhr) {
+            alert("获取后台失败！");
+        }
+    });
+
 }

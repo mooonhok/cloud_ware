@@ -674,6 +674,24 @@ $app->get('/one_tenant_customer',function()use($app){
 });
 
 
+$app->get('/company_name',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->get('company');
+    if($tenant_id!=null||$tenant_id!='') {
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist', "=", 0)
+            ->where('tenant_id', "=", $tenant_id);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetch();
+        echo  json_encode(array("result"=>"0","desc"=>"success","company_name"=>$data['company']));
+    }else{
+        echo  json_encode(array("result"=>"1","desc"=>""));
+    }
+});
+
 $app->run();
 
 function localhost(){
