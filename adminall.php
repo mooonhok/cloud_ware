@@ -614,7 +614,7 @@ $app->put('/uptenant',function()use($app){
          if($admin_id!=null||$admin_id!=""){
              $selectStament=$database->select()
                  ->from('admin')
-                 ->where('type','=',1)
+                 ->whereIn('type',array(1,4))
                  ->where('id','=',$admin_id);
              $stmt=$selectStament->execute();
              $data=$stmt->fetch();
