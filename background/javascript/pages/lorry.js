@@ -201,7 +201,6 @@ function lorry_xq(id){
 
     $(".id_z").on("change",function(){
         var file1=document.getElementsByClassName('id_z')[0].files[0];
-        console.log(file1);
         url=window.URL.createObjectURL(file1);
             document.getElementById('id_z').setAttribute("src",url);
     });
@@ -248,7 +247,7 @@ function lorry_xq(id){
         var id_z=document.getElementsByClassName('id_z')[0].files[0];
         var id_f=document.getElementsByClassName('id_f')[0].files[0];
         var j_z=document.getElementsByClassName('j_z')[0].files[0];
-        var j_x=document.getElementsByClassName('j_x')[0].files[0];
+        var j_x=document.getElementsByClassName('j_f')[0].files[0];
         var x_z=document.getElementsByClassName('x_z')[0].files[0];
         var x_f=document.getElementsByClassName('x_f')[0].files[0];
             var formdata = new FormData();
