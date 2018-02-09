@@ -97,7 +97,7 @@ $(function(){
 		  title:'系统提示',
 		  btn: ['确定','取消']
 		}, function(){
-		  location.href = 'login.html';
+		  location.href = 'index.html';
 		});
 	});
 
