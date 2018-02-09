@@ -561,7 +561,7 @@ $app->post('/tenant',function()use($app) {
     $pic2=$body->agreement_file;
     $trans_c_p=null;
     $pic3=$body->logo_file;
-    $order_img="http://files.uminfo.cn:8000/tenant/5130001_order_logo.png";
+    $order_img=null;
     $pic4=$body->business_file;
     $business_l_p=null;
     if($pic1!=null) {
@@ -614,9 +614,11 @@ $app->post('/tenant',function()use($app) {
                     }
                     $new_file = $new_file . $time1 . ".{$type}";
                     if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                        $trans_c_p = "http://files.uminfo.cn:8000/tenant/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                        $order_img = "http://files.uminfo.cn:8000/tenant/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                     }
                 }
+            }else{
+                $order_img="http://files.uminfo.cn:8000/tenant/5130001_order_logo.png";
             }
                 if($pic4!=null) {
                     $base64_image_content = $pic4;
