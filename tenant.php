@@ -761,7 +761,7 @@ $app->post('/tenant',function()use($app) {
                                 echo json_encode(array("result"=>"9","desc"=>"缺少发货城市"));
                             }
                         }else {
-                            echo json_encode(array("result" => "10", "desc" => "缺少经营地址".$address));
+                            echo json_encode(array("result" => "10", "desc" => "缺少经营地址".$address.'123'));
                         }
                     }else{
                         echo json_encode(array("result"=>"11","desc"=>"缺少负责人电话"));
