@@ -1042,13 +1042,12 @@ $app->get('/minibyid',function()use($app){
                     ->where('id','=',$data2[$j]['fcity_id']);
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetch();
-                $data2[$j]['fpid']=$data3['pid'];
                 $selectStatement = $database->select()
                     ->from('city')
                     ->where('id','=',$data2[$j]['tcity_id']);
                 $stmt = $selectStatement->execute();
                 $data4 = $stmt->fetch();
-                $data2[$j]['tpid']=$data4['pid'];
+                $data2[$j]['line']='出'.$data3['name'].'到'.$data4['name'];
             }
             $data1['route']=$data2;
             $data1['routecount']=count($data2);
