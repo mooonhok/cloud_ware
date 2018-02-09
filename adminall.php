@@ -1268,6 +1268,7 @@ $app->post('/add_user',function()use($app){
                 ->into('admin')
                 ->values(array_values($array));
             $insertId = $insertStatement->execute(false);
+            echo json_encode(array('result' => '0', 'desc' => 'success'));
         }else{
             echo json_encode(array('result' => '1', 'desc' => '缺少管理员名字'));
         }
