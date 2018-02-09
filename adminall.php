@@ -638,7 +638,7 @@ $app->put('/uptenant',function()use($app){
                  }else{
                      echo json_encode(array('result' => '4', 'desc' => '租户不存在'));
                  }
-             }else{
+              }else{
                  echo json_encode(array('result' => '3', 'desc' => '您没有操作权限'));
              }
          }else{
