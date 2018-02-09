@@ -1248,8 +1248,8 @@ $app->post('/add_user',function()use($app){
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
-    $ry_type=$body->ry_type;
-    $ry_name=$body->ry_name;
+    $ry_type=$body->type;
+    $ry_name=$body->username;
     $array=array();
     foreach($body as $key=>$value){
         $array[$key]=$value;
