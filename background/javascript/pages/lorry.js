@@ -245,6 +245,7 @@ function lorry_xq(id){
         var lorry_type_name=$("#lorry_type").val();
         var lorry_load_name=$("#lorry_weight").val();
         var id_z=document.getElementsByClassName('id_z')[0].files[0];
+        alert(id_z)
         var id_f=document.getElementsByClassName('id_f')[0].files[0];
         var j_z=document.getElementsByClassName('j_z')[0].files[0];
         var j_x=document.getElementsByClassName('j_x')[0].files[0];
