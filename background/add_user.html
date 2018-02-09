@@ -145,7 +145,7 @@
     $(".client_json").on("click",function(){
         var ry_type=$(".ry_type").val();
         var ry_name=$(".ry_name").val();
-        if(ry_name.length==0){
+        if(ry_name.length!=0){
             $.ajax({
                 url: "http://api.uminfo.cn/adminall.php/add_user",
                 dataType: 'json',
