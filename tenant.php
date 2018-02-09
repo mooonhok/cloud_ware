@@ -586,7 +586,7 @@ $app->post('/tenant',function()use($app) {
             $base64_image_content = $pic2;
 //匹配出图片的格式
             if (preg_match('/^(data:\s*application\/(\w+);base64,)/', $base64_image_content, $result)) {
-                $type = $result[2];
+                $type2 = $result[2];
                 date_default_timezone_set("PRC");
                 $time1 = time();
                 $new_file = "/files/trans_contract_p/" . date('Ymd', $time1) . "/";
@@ -594,9 +594,9 @@ $app->post('/tenant',function()use($app) {
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                     mkdir($new_file, 0700);
                 }
-                $new_file = $new_file . $time1 . ".{$type}";
+                $new_file = $new_file . $time1 . ".{$type2}";
                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                    $trans_c_p = "http://files.uminfo.cn:8000/trans_contract_p/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                    $trans_c_p = "http://files.uminfo.cn:8000/trans_contract_p/" . date('Ymd', $time1) . "/" . $time1 . ".{$type2}";
                 }
             }
         }
@@ -920,8 +920,8 @@ $app->get('/company_name',function()use($app){
     }else{
         echo  json_encode(array("result"=>"1","desc"=>"租户公司不存在"));
     }
-
 });
+
 
 $app->run();
 
