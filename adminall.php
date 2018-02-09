@@ -413,7 +413,7 @@ $app->get('/tenants',function()use($app){
         $selectStament=$database->select()
             ->from('admin')
             ->where('id','=',$admin_id)
-            ->where('type','=',1);
+            ->whereIn('type',array(1,4));
         $stmt=$selectStament->execute();
         $data15=$stmt->fetch();
         if($data15!=null){
