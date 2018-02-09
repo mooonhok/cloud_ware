@@ -586,7 +586,7 @@ $app->post('/tenant',function()use($app) {
             $base64_image_content = $pic2;
 //匹配出图片的格式
             if (preg_match('/^(data:\s*application\/(\w+);base64,)/', $base64_image_content, $result)) {
-                $type ='doc';
+                $type =$result[2];
                 date_default_timezone_set("PRC");
                 $time1 = time();
                 $new_file = "/files/trans_contract_p/" . date('Ymd', $time1) . "/";
@@ -596,7 +596,7 @@ $app->post('/tenant',function()use($app) {
                 }
                 $new_file = $new_file . $time1 . ".{$type}";
                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                    $trans_c_p = "http://files.uminfo.cn:8000/trans_contract_p/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                    $trans_c_p = "http://files.uminfo.cn:8000/trans_contract_p/" . date('Ymd', $time1) . "/" . $time1 . ".doc";
                 }
             }
         }
