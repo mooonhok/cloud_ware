@@ -98,13 +98,19 @@ $(function(){
 		  btn: ['确定','取消']
 		}, function(){
 		  location.href = 'index.html';
+		  $.session.remove('adminid');
+          $.session.remove('admintype');
+          $.session.remove('adminusername');
+          $.session.remove('company');
+          $.session.remove('company_name');
 		});
 	});
 
     var company_name=$.session.get('company_name');
     $('#shmz_name').html(company_name);
     var adminusername=$.session.get('adminusername');
-    $("#gly_username").html(adminusername);
+    alert(adminusername)
+    $("#gly_username").text(adminusername);
 	$("#shxx_message").on("click",function(){
         layer.prompt({title: '请输入公司商务编号或公司简称或公司所在城市'}, function(pass, index){
             layer.close(index);

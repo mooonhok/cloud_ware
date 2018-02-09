@@ -23,8 +23,7 @@ $(function(){
 				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({
 					name:name,
-					password:password,
-					type:1
+					password:password
 				}),
 				success: function(msg) {
 				   if(msg.result == 0) {
