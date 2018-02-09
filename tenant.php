@@ -567,7 +567,7 @@ $app->post('/tenant',function()use($app) {
     if($pic1!=null) {
         $base64_image_content = $pic1;
 //匹配出图片的格式
-        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+        if (preg_match('/^(data:\s*\/(\w+);base64,)/', $base64_image_content, $result)) {
             $type = $result[2];
             date_default_timezone_set("PRC");
             $time1 = time();
@@ -585,7 +585,7 @@ $app->post('/tenant',function()use($app) {
         if($pic2!=null) {
             $base64_image_content = $pic2;
 //匹配出图片的格式
-            if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+            if (preg_match('/^(data:\s*\/(\w+);base64,)/', $base64_image_content, $result)) {
                 $type = $result[2];
                 date_default_timezone_set("PRC");
                 $time1 = time();
