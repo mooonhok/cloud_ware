@@ -544,7 +544,7 @@ $app->post('/tenant',function()use($app) {
     $body=$app->request->getBody();
     $body=json_decode($body);
     $qq = $body->qq;
-    $address=$app->address;
+    $address=$body->address;
     $business_l=$body->business;
     $company = $body->company;
     $contact_name = $body->name;
@@ -761,7 +761,7 @@ $app->post('/tenant',function()use($app) {
                                 echo json_encode(array("result"=>"9","desc"=>"缺少发货城市"));
                             }
                         }else {
-                            echo json_encode(array("result" => "10", "desc" => "缺少经营地址".$address.'123'));
+                            echo json_encode(array("result" => "10", "desc" => "缺少经营地址"));
                         }
                     }else{
                         echo json_encode(array("result"=>"11","desc"=>"缺少负责人电话"));
