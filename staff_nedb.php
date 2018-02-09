@@ -40,7 +40,7 @@ $app->post('/addstaff',function()use($app){
                                 $array['exist']=0;
                                 $array['password']=encode('123456' , 'cxphp');
                                 $array['tenant_id']=$tenant_id;
-                                $array['bg_img']="http://files.uminfo.cn:8000/skin/bg1.jpg";
+                                $array['bg_img']="http://files.uminfo.cn:8000/client/skin/bg1.jpg";
                                 $insertStatement = $database->insert(array_keys($array))
                                     ->into('staff')
                                     ->values(array_values($array));
