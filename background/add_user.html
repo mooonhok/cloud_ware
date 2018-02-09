@@ -164,6 +164,8 @@
                 success: function(msg) {
                     if(msg.result == 0) {
                         layer.msg('添加管理人员成功');
+                    }else{
+                        layer.msg(msg.desc);
                     }
                 },
                 error: function(xhr) {

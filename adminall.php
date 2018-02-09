@@ -1256,19 +1256,28 @@ $app->post('/add_user',function()use($app){
     }
     if($ry_type!=null||$ry_type!=""){
         if($ry_name!=null||$ry_name!=""){
-            $array['exist']=0;
-            $password1='888888';
-            $str1=str_split($password1,3);
-            $password=null;
-            for ($x=0;$x<count($str1);$x++){
-                $password.=$str1[$x].$x;
+            $selectStament=$database->select()
+                ->from('admin')
+                ->where('username','=',$ry_name);
+            $stmt=$selectStament->execute();
+            $data=$stmt->fetch();
+            if($data!=null){
+                echo json_encode(array('result' => '3', 'desc' => '管理员名字重复'));
+            }else{
+                $array['exist']=0;
+                $password1='888888';
+                $str1=str_split($password1,3);
+                $password=null;
+                for($x=0;$x<count($str1);$x++){
+                    $password.=$str1[$x].$x;
+                }
+                $array['password']=$password;
+                $insertStatement = $database->insert(array_keys($array))
+                    ->into('admin')
+                    ->values(array_values($array));
+                $insertId = $insertStatement->execute(false);
+                echo json_encode(array('result' => '0', 'desc' => 'success'));
             }
-            $array['password']=$password;
-            $insertStatement = $database->insert(array_keys($array))
-                ->into('admin')
-                ->values(array_values($array));
-            $insertId = $insertStatement->execute(false);
-            echo json_encode(array('result' => '0', 'desc' => 'success'));
         }else{
             echo json_encode(array('result' => '1', 'desc' => '缺少管理员名字'));
         }
