@@ -28,13 +28,13 @@ $app->post('/sign',function()use($app){
         $selectStament=$database->select()
             ->from('admin')
             ->where('exist','=',0)
-            ->where('type','=','1')
+            ->whereIn('type',array(1,4))
             ->where('username','=',$name);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
         if($data!=null||$data!=""){
            if($data['password']==$password){
-               echo json_encode(array('result' => '0', 'desc' => '登录成功',"admin"=>$data['id']));
+               echo json_encode(array('result' => '0', 'desc' => '登录成功',"admin"=>$data));
            }else{
                echo json_encode(array('result' => '3', 'desc' => '密码错误'));
            }

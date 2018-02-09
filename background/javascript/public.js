@@ -103,6 +103,8 @@ $(function(){
 
     var company_name=$.session.get('company_name');
     $('#shmz_name').html(company_name);
+    var adminusername=$.session.get('adminusername');
+    $("#gly_username").html(adminusername);
 	$("#shxx_message").on("click",function(){
         layer.prompt({title: '请输入公司商务编号或公司简称或公司所在城市'}, function(pass, index){
             layer.close(index);

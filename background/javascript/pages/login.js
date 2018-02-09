@@ -30,7 +30,9 @@ $(function(){
 				   if(msg.result == 0) {
                        $('.mask,.dialog').hide();
 					   window.location.href = "http://api.uminfo.cn/background/tenant.html";
-                       $.session.set('adminid',msg.admin);
+                       $.session.set('adminid',msg.admin.id);
+                       $.session.set('admintype',msg.admin.type);
+                       $.session.set('adminusername',msg.admin.username);
 				  }
 				},
 				error: function(xhr) {
