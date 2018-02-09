@@ -1051,7 +1051,7 @@ $app->get('/minibyid',function()use($app){
                 $data2[$j]['tpid']=$data4['pid'];
             }
             $data1['route']=$data2;
-            $data1['routecount']=$data3;
+            $data1['routecount']=count($data2);
             echo json_encode(array("result"=>"0","desc"=>"",'routes'=>$data1));
         }else{
             echo json_encode(array("result"=>"2","desc"=>"租户不存在"));
