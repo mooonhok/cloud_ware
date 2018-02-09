@@ -349,8 +349,6 @@ $app->post('/tenant',function()use($app) {
     $database = localhost();
     $qq = $app->request->params('qq');
     $address = $app->request->params('address');
-
-
     $business_l = $app->request->params('business_l');
     //$business_l_p = $app->request->params('business_l_p');
     $company = $app->request->params('company');
@@ -659,6 +657,24 @@ $app->get('/one_tenant_customer',function()use($app){
     }
 });
 
+$app->get('/company_name',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->get('company');
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->whereLike('tenant_id','%'.$tenant_id.'%')
+            ->where('exist',"=",0);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetch();
+        echo  json_encode(array("result"=>"0","desc"=>"success","company_name"=>$data['company']));
+    }else{
+        echo  json_encode(array("result"=>"1","desc"=>"租户公司不存在"));
+    }
+
+});
 
 $app->run();
 
