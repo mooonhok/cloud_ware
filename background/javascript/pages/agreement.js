@@ -76,7 +76,7 @@ function loadagreements(agreement_id,page,company) {
                                 // }else if(item.scheduling_status==6){
                                 //     info='取消';
                                 // }
-                                arr.push( '<tr><td>'+item.agreement_id+'</td><td>'+item.tenant.company+'</td><td>'+item.lorry.plate_number+'</td><td>'+item.lorry.driver_name+'</td><td>'+item.lorry.driver_phone+'</td><td>'+item.rcity+'</td><td>'+item.agreement_time+'</td><td>'+item.agreement_require+'</td><td onclick="scheduling_xq('+(item.agreement_id+'') +')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
+                                arr.push( '<tr><td>'+item.agreement_id+'</td><td>'+item.tenant.company+'</td><td>'+item.lorry.plate_number+'</td><td>'+item.lorry.driver_name+'</td><td>'+item.lorry.driver_phone+'</td><td>'+item.rcity+'</td><td>'+item.agreement_time+'</td><td>'+item.agreement_require+'</td></tr>');
                             });
                             return arr.join('');
                         }();
