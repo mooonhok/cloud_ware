@@ -360,9 +360,7 @@ $app->post('/tenant',function()use($app) {
     $email = $app->request->params('email');
     $loca = $app->request->params('location');
     $jcompany = $app->request->params('jcompany');
-    $arr=explode(",",$loca);
-    $longitude=$arr[0];
-    $latitude=$arr[1];
+
     //  $order_t_p = $app->request->params('order_t_p');
 
     $sales_id = $app->request->params('sales_id');
@@ -396,7 +394,10 @@ $app->post('/tenant',function()use($app) {
     $business_l_p='http://files.uminfo.cn:8000/business_l_p/'.$time3.$name31.'';
     if($company!=null||$company!=""){
         if($business_l!=""||$business_l!=null){
-//             if($business_l_p!=""||$business_l_p!=null){
+             if($loca!=""||$loca!=null){
+                 $arr=explode(",",$loca);
+                 $longitude=$arr[0];
+                 $latitude=$arr[1];
             if($contact_name!=null||$contact_name!=""){
                 if($telephone!=null||$telephone!=""){
                     if($address!=""||$address!=null){
@@ -526,9 +527,9 @@ $app->post('/tenant',function()use($app) {
             }else{
                 echo json_encode(array("result"=>"12","desc"=>"缺少负责人姓名"));
             }
-//             }else{
-//                 echo json_encode(array("result"=>"13","desc"=>"缺少营业执照照片"));
-//             }
+             }else{
+                 echo json_encode(array("result"=>"13","desc"=>"地理坐标不能为空"));
+             }
         }else{
             echo json_encode(array("result"=>"14","desc"=>"缺少营业执照号码"));
         }
