@@ -737,22 +737,23 @@ $app->post('/tenant',function()use($app) {
                                                         ->into('staff')
                                                         ->values(array($data4['tenant_id'],100001,$username,encode('888888','cxphp'),$contact_name,$telephone,'负责人',1,1111111,'http://files.uminfo.cn:8000/client/skin/bg1.jpg',"http://files.uminfo.cn:8000/staff/5230001_head.jpg",0));
                                                     $insertId = $insertStatement->execute(false);
-                                                    //echo json_encode(array('result'=>'0','desc'=>'添加成功'));
-                                                    $app->redirect('http://www.uminfo.cn/zhuce.html?desc=企业登记成功');
+                                                    echo json_encode(array('result'=>'0','desc'=>'添加成功'));
+//                                                    $app->redirect('http://www.uminfo.cn/zhuce.html?desc=企业登记成功');
                                                 }else{
-                                                    $app->redirect('http://www.uminfo.cn/zhuce.html?desc=添加租户信息失败');
-//                                                                        echo json_encode(array("result"=>"1","desc"=>"添加租户信息失败"));
+//                                                    $app->redirect('http://www.uminfo.cn/zhuce.html?desc=添加租户信息失败');
+                                                                        echo json_encode(array("result"=>"1","desc"=>"添加租户信息失败"));
                                                 }
                                             }else{
-                                                $app->redirect('http://www.uminfo.cn/zhuce.html?desc=添加负责人信息失败');
-//                                                                    echo json_encode(array("result"=>"3","desc"=>"添加负责人信息失败"));
+//                                                $app->redirect('http://www.uminfo.cn/zhuce.html?desc=添加负责人信息失败');
+                                                                    echo json_encode(array("result"=>"2","desc"=>"添加负责人信息失败"));
                                             }
                                         }else {
-                                            $app->redirect('http://www.uminfo.cn/zhuce.html?desc=该业务员不存在');
-//                                                                echo json_encode(array("result"=>"4","desc"=>"该业务员不存在"));
+//                                            $app->redirect('http://www.uminfo.cn/zhuce.html?desc=该业务员不存在');
+                                                                echo json_encode(array("result"=>"3","desc"=>"该业务员不存在"));
                                         }
                                     }else {
-                                        $app->redirect('http://www.uminfo.cn/zhuce.html?desc=该公司已存在');
+//
+                                        echo json_encode(array("result"=>"4","desc"=>"该公司已存在"));
                                     }
                                 }else{
                                     echo json_encode(array("result"=>"5","desc"=>"缺少sales_id"));
