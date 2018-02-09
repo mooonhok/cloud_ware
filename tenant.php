@@ -646,7 +646,6 @@ $app->post('/tenant',function()use($app) {
                     if($telephone!=null||$telephone!=""){
                         if($address!=""||$address!=null){
                             if($from_city_id!=""||$from_city_id=null){
-
                                 date_default_timezone_set("PRC");
                                 $begin_time=date("Y-m-d H:i", time());
 
@@ -758,12 +757,11 @@ $app->post('/tenant',function()use($app) {
                                 }else{
                                     echo json_encode(array("result"=>"5","desc"=>"缺少sales_id"));
                                 }
-
                             }else{
                                 echo json_encode(array("result"=>"9","desc"=>"缺少发货城市"));
                             }
                         }else {
-                            echo json_encode(array("result" => "10", "desc" => "缺少经营地址"));
+                            echo json_encode(array("result" => "10", "desc" => "缺少经营地址".$address));
                         }
                     }else{
                         echo json_encode(array("result"=>"11","desc"=>"缺少负责人电话"));
