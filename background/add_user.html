@@ -146,8 +146,9 @@
     var admintype=$.session.get('admintype');
     if(admintype!=1){
        $(".company_body").text('您暂无权限');
+       $(".company_body").css('text-align','center');
     }
-    $(".client_json").on("click",function(){
+    $(".version_sure").on("click",function(){
         var ry_type=$(".ry_type").val();
         var ry_name=$(".ry_name").val();
         if(ry_name.length!=0){
