@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>后台管理系统-HTML5后台管理系统</title>
+    <meta name="keywords"  content="设置关键词..." />
+    <meta name="description" content="设置描述..." />
+    <meta name="author" content="DeathGhost" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <link rel="icon" href="images/icon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="javascript/jquery.js"></script>
+    <script src="javascript/plug-ins/customScrollbar.min.js"></script>
+    <script src="javascript/plug-ins/echarts.min.js"></script>
+    <script src="javascript/plug-ins/layerUi/layer.js"></script>
+    <script src="editor/ueditor.config.js"></script>
+    <script src="editor/ueditor.all.js"></script>
+    <script src="javascript/plug-ins/pagination.js"></script>
+    <script src="javascript/public.js"></script>
+    <style>
+        .company_top{
+            width:100%;
+            height:50px;
+            text-align:center;
+            font-size:30px;
+            line-height:50px;
+        }
+        .company_body{
+            width:500px;
+            margin:30px auto;
+        }
+        .client_name,.client_asar,.client_json{
+            height:50px;
+            text-align: center;
+        }
+        input,select{
+            width:150px;
+        }
+        .version_sure{
+            margin:0 auto;
+            text-align:center;
+        }
+        #shxx_message{
+            height:20px;
+            margin: 0 auto;
+            vertical-align: middle;
+            border:1px solid #BAC498;
+        }
+    </style>
+</head>
+<body>
+<div class="main-wrap">
+    <div class="side-nav">
+        <div class="side-logo">
+            <div class="logo">
+				<span class="logo-ico">
+					<i class="i-l-1"></i>
+					<i class="i-l-2"></i>
+					<i class="i-l-3"></i>
+				</span>
+                <strong>江苏酉铭后台管理</strong>
+            </div>
+        </div>
+
+        <nav class="side-menu content mCustomScrollbar" data-mcs-theme="minimal-dark">
+            <h2>
+                <a href="tenant.html" class="InitialPage"><i class="icon-dashboard"></i>租户概况</a>
+            </h2>
+            <h2>
+                <a href="order.html" class="InitialPage"><i class="icon-dashboard"></i>运单概况</a>
+            </h2>
+            <h2>
+                <a href="scheduling.html" class="InitialPage"><i class="icon-dashboard"></i>调度单概况</a>
+            </h2>
+            <h2>
+                <a href="agreement.html" class="InitialPage"><i class="icon-dashboard"></i>合同单概况</a>
+            </h2>
+            <h2>
+                <a href="lorry.html" class="InitialPage"><i class="icon-dashboard"></i>车辆概况</a>
+            </h2>
+            <h2>
+                <a href="news.html" class="InitialPage"><i class="icon-dashboard"></i>公告发布</a>
+            </h2>
+            <h2>
+                <a href="add_client.html" class="InitialPage"><i class="icon-dashboard"></i>客户端更新发布</a>
+            </h2>
+            <h2>
+                <a href="feedback.html" class="InitialPage"><i class="icon-dashboard"></i>反馈意见</a>
+            </h2>
+            <h2>
+                <a href="contact_company.html" class="InitialPage"><i class="icon-dashboard"></i>申请加入公司</a>
+            </h2>
+            <h2>
+                <a href="add_user.html" class="InitialPage"><i class="icon-dashboard"></i>添加控制后台用户</a>
+            </h2>
+            <ul>
+
+            </ul>
+        </nav>
+        <footer class="side-footer">© unimfo 版权所有</footer>
+    </div>
+    <div class="content-wrap">
+        <header class="top-hd">
+            <div class="hd-lt">
+                <a class="icon-reorder"></a>
+            </div>
+            <div class="hd-rt">
+                <ul>
+                    <li>
+                        <a id="shmz_name">南通物流公司</a>
+                    </li>
+                    <li>
+                        <a id="shxx_message">商户信息</a>
+                    </li>
+                    <li>
+                        <a><i class="icon-user"></i>管理员:<em id="gly_username">unimfo</em></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" id="JsSignOut"><i class="icon-signout"></i>安全退出</a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+            <main class="main-cont content mCustomScrollbar">
+                <div id="" class="company_top">添加后台管理人员</div>
+                <div class="company_body">
+                    <div class="client_name">人员类型<select class="ry_type"><option value="2">财务人员</option><option value="3">多租户管理人员</option><option value="4">客服人员</option></select></div>
+                    <div  class="client_asar">人员名字<input type="text" class="ry_name"/></div>
+
+                    <div class="client_json"><input type="submit" value="确定" class="version_sure"/></div>
+                </div>
+
+                <img src="" id="list"/>
+            </main>
+        <footer class="btm-ft">
+            <p class="clear">
+                <span class="fl">©Copyright 2016 <a href="#" title="DeathGhost" target="_blank">unimfo.cn</a></span>
+            </p>
+        </footer>
+    </div>
+
+</div>
+<script>
+    $(".client_json").on("click",function(){
+        var ry_type=$(".ry_type").val();
+        var ry_name=$(".ry_name").val();
+        if(ry_name.length==0){
+            $.ajax({
+                url: "http://api.uminfo.cn/adminall.php/add_user",
+                dataType: 'json',
+                type: 'post',
+                ContentType: "application/json;charset=utf-8",
+                data: JSON.stringify({
+                    ry_type:ry_type,
+                    ry_name:ry_name
+                }),
+                success: function(msg) {
+                    if(msg.result == 0) {
+                        layer.msg('添加管理人员成功');
+                    }
+                },
+                error: function(xhr) {
+                    layer.msg("获取后台失败");
+                }
+            });
+        }else{
+            layer.msg('姓名不能为空');
+        }
+    })
+    //    $(".but").on('click',function(){
+    //        var file1=document.getElementById("notice").files[0];
+    //        if(file1!=null){
+    //            var formdata = new FormData();
+    //            formdata.append('file1', file1);
+    //            var xhr = new XMLHttpRequest();
+    //            xhr.open("POST","http://api.uminfo.cn/tenant_insurancepolicy.php/upnotice",true);
+    //            xhr.send(formdata);
+    //            xhr.onload = function(e) {
+    //                if (this.status == 200) {
+    //                    alert('上传成功');
+    //                    $("#notice").val("");
+    //                };
+    //            };
+    //            return;
+    //        }else{
+    //            alert('文件信息不全');
+    //        }
+    //    });
+
+</script>
+</body>
+</html>

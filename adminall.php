@@ -1242,6 +1242,40 @@ $app->post('/upsales',function()use($app){
     }
 });
 
+$app->post('/add_user',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $ry_type=$body->ry_type;
+    $ry_name=$body->ry_name;
+    $array=array();
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+    if($ry_type!=null||$ry_type!=""){
+        if($ry_name!=null||$ry_name!=""){
+            $array['exist']=0;
+            $password1='888888';
+            $str1=str_split($password1,3);
+            $password=null;
+            for ($x=0;$x<count($str1);$x++){
+                $password.=$str1[$x].$x;
+            }
+            $array['password']=$password;
+            $insertStatement = $database->insert(array_keys($array))
+                ->into('admin')
+                ->values(array_values($array));
+            $insertId = $insertStatement->execute(false);
+        }else{
+            echo json_encode(array('result' => '1', 'desc' => '缺少管理员名字'));
+        }
+    }else{
+        echo json_encode(array('result' => '2', 'desc' => '缺少管理员类型'));
+    }
+});
+
 //获取contact_company列表
 $app->get('/contact_company',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
