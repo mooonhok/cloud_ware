@@ -561,7 +561,7 @@ $app->post('/tenant',function()use($app) {
     $pic2=$body->agreement_file;
     $trans_c_p=null;
     $pic3=$body->logo_file;
-    $order_img=null;
+    $order_img="http://files.uminfo.cn:8000/tenant/5130001_order_logo.png";
     $pic4=$body->business_file;
     $business_l_p=null;
     if($pic1!=null) {
