@@ -134,11 +134,11 @@
         </header>
         <form id="formid"  name= "myform" method = 'post'  action="http://api.uminfo.cn/client.php/client_version" enctype="multipart/form-data" >
             <main class="main-cont content mCustomScrollbar">
-                <div id="" class="company_top">江苏酉铭客户端更新发布</div>
+                <div id="" class="company_top">江苏酉铭app更新发布</div>
                 <div class="company_body">
-                    <div class="client_name">新版本名<input type="text" name="client_version"/></div>
-                    <div  class="client_asar">asar文件<input type="file" name="version_asar"/></div>
-                    <div class="client_json">json文件<input type="file" name="version_json"/></div>
+                    <div class="client_name">新版本名<input type="text" name="client_version" id="app_version"/></div>
+                    <div  class="client_asar">apk文件<input type="file" name="version_asar" id="app_apk"/></div>
+                    <!--<div class="client_json">json文件<input type="file" name="version_json"/></div>-->
                     <div class="client_json"><input type="submit" value="确定" class="version_sure"/></div>
                 </div>
 
@@ -154,25 +154,31 @@
 
 </div>
 <script>
-    //    $(".but").on('click',function(){
-    //        var file1=document.getElementById("notice").files[0];
-    //        if(file1!=null){
-    //            var formdata = new FormData();
-    //            formdata.append('file1', file1);
-    //            var xhr = new XMLHttpRequest();
-    //            xhr.open("POST","http://api.uminfo.cn/tenant_insurancepolicy.php/upnotice",true);
-    //            xhr.send(formdata);
-    //            xhr.onload = function(e) {
-    //                if (this.status == 200) {
-    //                    alert('上传成功');
-    //                    $("#notice").val("");
-    //                };
-    //            };
-    //            return;
-    //        }else{
-    //            alert('文件信息不全');
-    //        }
-    //    });
+        $(".version_sure").on('click',function(){
+            var file1=document.getElementById("app_apk").files[0];
+            var app_v=document.getElementById("app_version").value;
+            if(app_v.length!=0){
+                if(file1!=null){
+                    var formdata = new FormData();
+                    formdata.append('file1', file1);
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST","http://api.uminfo.cn/tenant_insurancepolicy.php/upnotice",true);
+                    xhr.send(formdata);
+                    xhr.onload = function(e) {
+                        if (this.status == 200) {
+                            alert('上传成功');
+                            $("#notice").val("");
+                        };
+                    };
+                    return;
+                }else{
+                    layer.msg('文件信息不全');
+                }
+            }else{
+                layer.msg('app的版本不为空');
+            }
+
+        });
 
 </script>
 </body>
