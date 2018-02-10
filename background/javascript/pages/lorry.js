@@ -8,8 +8,9 @@ $(function(){
     })
 
     $(".sousuo_z").on("click",function(){
-        alert(1)
+
         var plate_number=$(".plate_number").val();
+        alert(plate_number)
         loadlorrys(plate_number,page) ;
     })
 });
