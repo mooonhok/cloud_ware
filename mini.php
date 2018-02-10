@@ -812,14 +812,25 @@ $app->post('/addroute',function()use($app){
     if($tcity!=null||$tcity!=""){
         if($mtid!=null||$mtid!=""){
             $selectStatement = $database->select()
-                ->from('mini_route');
+                ->from('mini_route')
+                ->where('tid','=',$mtid)
+                ->where('tcity_id','=',$tcity)
+                ->where('fcity_id','=',$fcity);
             $stmt = $selectStatement->execute();
-            $data3 = $stmt->fetchAll();
-            $insertStatement = $database->insert(array('id', 'fcity_id', 'tcity_id', 'tid'))
-                ->into('mini_route')
-                ->values(array(count($data3) + 1, $fcity,$tcity,$mtid));
-            $insertId = $insertStatement->execute(false);
-            echo json_encode(array("result"=>"0","desc"=>"添加成功"));
+            $data = $stmt->fetch();
+            if($data==null) {
+                $selectStatement = $database->select()
+                    ->from('mini_route');
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetchAll();
+                $insertStatement = $database->insert(array('id', 'fcity_id', 'tcity_id', 'tid'))
+                    ->into('mini_route')
+                    ->values(array(count($data3) + 1, $fcity, $tcity, $mtid));
+                $insertId = $insertStatement->execute(false);
+                echo json_encode(array("result" => "0", "desc" => "添加成功"));
+            }else{
+                echo json_encode(array("result"=>"3","desc"=>"该公司该线路已经存在"));
+            }
         }else{
             echo json_encode(array("result"=>"2","desc"=>"尚未小程序id"));
         }
