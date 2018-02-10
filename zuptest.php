@@ -34,7 +34,9 @@ $app->post('/test',function()use($app){
                 mkdir($new_file, 0700);
             }
             $new_file = $new_file . $time1 . ".{$type}";
-          $a="data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,";
+//          $a="data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,";
+             $arr=explode(",",$base64_image_content);
+            $a=$arr[0];
             if (file_put_contents($new_file, base64_decode(str_replace($a, '', $base64_image_content)))) {
                 $trans_c_p = "http://files.uminfo.cn:8000/trans_contract_p/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
             }
