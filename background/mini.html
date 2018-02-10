@@ -38,7 +38,7 @@
             /*left:20%;*/
             /*position:absolute;*/
             /*background-color:rgb(215,211,218);*/
-            /*display: none;*/
+         /*   display: none;*/
         }
         .tenant_tk>h1{
             width:100%;
@@ -72,6 +72,48 @@
             height:8%;
             margin-top:2.5%;
         }
+        .tenant_tk2{
+            z-index:1000;
+            width:60%;
+            height:100%;
+            top:100px;
+            left:20%;
+            position:absolute;
+            background-color:rgb(215,211,218);
+            display: none;
+        }
+        .tenant_tk2>h1{
+            width:100%;
+            height:10%;
+            font-size: 20px;
+        }
+        .tenant_tk2>div{
+            float:left;
+            width:30%;
+            height:80%;
+            margin-left:10%;
+            margin-right:10%;
+        }
+        .tenant_tk2>div>div{
+            float:left;
+            width:100%;
+            height:8%;
+            margin-top:2.5%;
+            text-align:right;
+            vertical-align:middle;
+        }
+        .tenant_tk2>div>input{
+            float:left;
+            width:100%;
+            height:8%;
+            margin-top:2.5%;
+        }
+         .tenant_tk2>div>select{
+            float:left;
+            width:100%;
+            height:8%;
+            margin-top:2.5%;
+        }
         /*button{*/
             /*width:100%;*/
             /*height:10%;*/
@@ -98,7 +140,7 @@
             margin-left:10%;
             margin-top:10px;
         }
-          #route_sure{
+         #route_sure{
           width:40%;
           height:40px;
           margin-left:5%;
@@ -109,6 +151,18 @@
             height:40px;
             margin-left:5%;
             margin-bottom: 5%;
+        }
+         #route_add{
+          width:40%;
+          height:40px;
+          margin-left:5%;
+          margin-top:10px;
+        }
+        #cancle{
+            width:40%;
+            height:40px;
+            margin-left:10%;
+            margin-top:10px;
         }
          
         #shxx_message{
@@ -204,34 +258,26 @@
             </div>
         </header>
         <main class="main-cont content mCustomScrollbar">
-            <!--<div class="tenant_tk">
+            <div class="tenant_tk2">
                 <h1 style="text-align:center;">详情</h1>
                 <div>
                     <div>公司编号</div>
                     <div>公司名称</div>
-                    <div>联系人</div>
-                    <div>电话</div>
-                    <div>地址</div>
-                    <div>坐标</div>
-                    <div>座机电话</div>
-                    <div>类型</div>
-                     <div>公众号名称</div>
-                     <div>路线介绍</div>
+                    <div>出发城市</div>
+                    <div></div>
+                    <div>到达城市</div>
+                    <div></div>
                 </div>
                 <div>
                     <input type="text" id="id" disabled="disabled"/>
                     <input type="text" id="name" disabled="disabled"/>
-                    <input type="text" id="person" disabled="disabled"/>
-                    <input type="text" id="telephone" disabled="disabled"/>
-                     <input type="text" id="address" disabled="disabled"/>
-                    <input type="text" id="location" disabled="disabled"/>
-                       <input type="text" id="phone" disabled="disabled"/>
-                    <input type="text" id="flag" disabled="disabled"/>
-                     <input type="text" id="publicname" disabled="disabled"/>
-                      <input type="text" id="line" disabled="disabled"/>
+                   <select name="province" id="province1" onchange="getPro1()" class="pro"><option value="">请选择</option></select>
+			        <select name="city" id="city1" class="cit"><option value="">请选择</option></select>
+			       <select name="province" id="province2" onchange="getPro2()" class="pro"><option value="">请选择</option>
+			       </select><select name="city" id="city2" class="cit"><option value="">请选择</option></select>
                 </div>
-                <button id="miniclose">关闭</button>
-            </div>-->
+               <button id="route_add">确认</button><button id="cancle">取消</button>
+            </div>
             <!--开始::内容-->
             <div  style="width:100%;overflow: auto">
                 <table style="width:100%;">
@@ -247,6 +293,7 @@
                         <th>座机号</th>
                         <th>操作</th>
                         <th>路线信息</th>
+                        <th>添加线路</th>
                     </tr>
                     </thead>
                     <tbody id="tb1">
