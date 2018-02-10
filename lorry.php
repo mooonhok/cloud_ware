@@ -397,8 +397,7 @@ $app->post('/app_lorry',function()use($app){
     $array['deadweight']=$lorry_load_name;
     $time2=time();
     if(isset($_FILES["identity_card_z"]["name"])){
-    $name21=$_FILES["identity_card_z"]["name"];
-
+        $name21=$_FILES["identity_card_z"]["name"];
         $name2=iconv("UTF-8","gb2312", $name21);
         $name2=$time2.$name2;
         move_uploaded_file($_FILES["identity_card_z"]["tmp_name"],"/files/idcard5/".$name2);
@@ -407,8 +406,8 @@ $app->post('/app_lorry',function()use($app){
     }
 
     $time2=time();
-    $name21=$_FILES["identity_card_f"]["name"];
-    if($name21!=null){
+    if(isset($_FILES["identity_card_f"]["name"])){
+        $name21=$_FILES["identity_card_f"]["name"];
         $name2=iconv("UTF-8","gb2312", $name21);
         $name2=$time2.$name2;
         move_uploaded_file($_FILES["identity_card_f"]["tmp_name"],"/files/idcard6/".$name2);
@@ -417,8 +416,8 @@ $app->post('/app_lorry',function()use($app){
     }
 
     $time2=time();
-    $name21=$_FILES["driver_license_fp"]["name"];
-    if($name21!=null) {
+    if(isset($_FILES["driver_license_fp"]["name"])){
+        $name21=$_FILES["driver_license_fp"]["name"];
         $name2 = iconv("UTF-8", "gb2312", $name21);
         $name2 = $time2 . $name2;
         move_uploaded_file($_FILES["driver_license_fp"]["tmp_name"], "/files/lorry/" . $name2);
@@ -426,8 +425,8 @@ $app->post('/app_lorry',function()use($app){
         $array['driver_license_fp']=$driver_license_fp;
     }
     $time2=time();
-    $name21=$_FILES["driver_license_tp"]["name"];
-    if($name21!=null){
+    if(isset($_FILES["driver_license_tp"]["name"])){
+        $name21=$_FILES["driver_license_tp"]["name"];
         $name2=iconv("UTF-8","gb2312", $name21);
         $name2=$time2.$name2;
         move_uploaded_file($_FILES["driver_license_tp"]["tmp_name"],"/files/lorry2/".$name2);
@@ -436,8 +435,8 @@ $app->post('/app_lorry',function()use($app){
     }
 
     $time2=time();
-    $name21=$_FILES["driving_license_fp"]["name"];
-    if($name21!=null){
+    if(isset($_FILES["driving_license_fp"]["name"])){
+        $name21=$_FILES["driving_license_fp"]["name"];
         $name2=iconv("UTF-8","gb2312", $name21);
         $name2=$time2.$name2;
         move_uploaded_file($_FILES["driving_license_fp"]["tmp_name"],"/files/lorry3/".$name2);
@@ -446,8 +445,8 @@ $app->post('/app_lorry',function()use($app){
     }
 
     $time2=time();
-    $name21=$_FILES["driving_license_tp"]["name"];
-    if($name21!=''){
+    if(isset($_FILES["driving_license_tp"]["name"])){
+        $name21=$_FILES["driving_license_tp"]["name"];
         $name2=iconv("UTF-8","gb2312", $name21);
         $name2=$time2.$name2;
         move_uploaded_file($_FILES["driving_license_tp"]["tmp_name"],"/files/lorry4/".$name2);
