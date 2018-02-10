@@ -20,11 +20,11 @@ $app->post('/test',function()use($app){
     $trans_c_p=null;
     if($pic2!=null) {
         $base64_image_content = $pic2;
-        echo json_encode(array("result"=>"0","desc"=>"",'a'=>$base64_image_content));
+//        echo json_encode(array("result"=>"0","desc"=>"",'a'=>$base64_image_content));
 //匹配出图片的格式
-        if (preg_match('/^(data:\s*application\/(\w+);base64,)/', $base64_image_content, $result)) {
+        if (preg_match('/^(data:\s*document\/(\w+);base64,)/', $base64_image_content, $result)) {
             $type = $result[2];
-//            echo json_encode(array("result"=>"0","desc"=>"",'a'=>$type));
+           echo json_encode(array("result"=>"0","desc"=>"",'a'=>$type));
             date_default_timezone_set("PRC");
             $time1 = time();
             $new_file = "/files/trans_contract_p/" . date('Ymd', $time1) . "/";
