@@ -266,14 +266,11 @@ function lorry_xq(id){
            formdata.append('driving_license_fp', x_z);
            formdata.append('driving_license_tp', x_f);
             var xhr = new XMLHttpRequest();
-            xhr.open("POST" ,"http://api.uminfo.cn/message.php/upload?tenant_id="+tenant_id , true);
+            xhr.open("POST" ,"http://api.uminfo.cn/lorry.php/app_lorry", true);
             xhr.send(formdata);
             xhr.onload = function(e) {
                 if (this.status == 200) {
-                    $("#ImgZoomInBG").hide();
-                    $("#ImgZoomInImage").hide();
                     layer.msg('上传成功');
-                    file2.val("");
                 };
             };
     });

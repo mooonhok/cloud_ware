@@ -377,9 +377,7 @@ $app->get('/getAppLorry',function()use($app){
 $app->post('/app_lorry',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $tenant_id=$app->request->headers->get("tenant-id");
-    $body=$app->request->getBody();
-    $body=json_decode($body);
+    $array=array();
     $database=localhost();
     $app_lorry_id = $app->request->params('app_lorry_id');
     $phone = $app->request->params('phone');
@@ -389,50 +387,84 @@ $app->post('/app_lorry',function()use($app){
     $lorry_length_name = $app->request->params('lorry_length_name');
     $lorry_type_name = $app->request->params('lorry_type_name');
     $lorry_load_name = $app->request->params('lorry_load_name');
+    $array['app_lorry_id']=$app_lorry_id;
+    $array['phone']=$phone;
+    $array['name']=$name;
+    $array['id_number']=$id_number;
+    $array['plate_number']=$plate_number;
+    $array['length']=$lorry_length_name;
+    $array['type']=$lorry_type_name;
+    $array['deadweight']=$lorry_load_name;
     $time2=time();
-    $name21=$_FILES["trans_contract_p"]["name"];
-    $name2=iconv("UTF-8","gb2312", $name21);
-    $name2=$time2.$name2;
-    move_uploaded_file($_FILES["trans_contract_p"]["tmp_name"],"/files/trans_contract_p/".$name2);
-    $trans_c_p='http://files.uminfo.cn:8000/trans_contract_p/'.$time2.$name21.'';
-    $array=array();
-    foreach($body as $key=>$value){
-        $array[$key]=$value;
+    $name21=$_FILES["identity_card_z"]["name"];
+    if($name21!=null){
+        $name2=iconv("UTF-8","gb2312", $name21);
+        $name2=$time2.$name2;
+        move_uploaded_file($_FILES["identity_card_z"]["tmp_name"],"/files/idcard5/".$name2);
+        $identity_card_z='http://files.uminfo.cn:8000/idcard5/'.$time2.$name21.'';
+        $array['identity_card_z']=$identity_card_z;
     }
-    if($tenant_id!=''||$tenant_id!=null){
-        $selectStatement = $database->select()
-            ->from('tenant')
-            ->where('exist',"=",0)
-            ->where('tenant_id','=',$tenant_id);
-        $stmt = $selectStatement->execute();
-        $data2 = $stmt->fetch();
-        if($data2!=null){
-            if($lorry_id!=''||$lorry_id!=null){
-                $selectStatement = $database->select()
-                    ->from('lorry')
-                    ->where('tenant_id','=',$tenant_id)
-                    ->where('exist','=',0);
-                $stmt = $selectStatement->execute();
-                $data = $stmt->fetchAll();
-                if($data!=null){
-                    $updateStatement = $database->update($array)
-                        ->table('lorry')
-                        ->where('tenant_id','=',$tenant_id)
-                        ->where('exist','=',0)
-                        ->where('lorry_id','=',$lorry_id);
-                    $affectedRows = $updateStatement->execute();
-                    echo json_encode(array("result"=>"0","desc"=>"success"));
-                }else{
-                    echo json_encode(array("result"=>"1","desc"=>"车辆不存在"));
-                }
-            }else{
-                echo json_encode(array("result"=>"2","desc"=>"缺少车辆id"));
-            }
-        }else{
-            echo json_encode(array("result"=>"3","desc"=>"该租户不存在"));
-        }
+
+    $time2=time();
+    $name21=$_FILES["identity_card_f"]["name"];
+    if($name21!=null){
+        $name2=iconv("UTF-8","gb2312", $name21);
+        $name2=$time2.$name2;
+        move_uploaded_file($_FILES["identity_card_f"]["tmp_name"],"/files/idcard6/".$name2);
+        $identity_card_f='http://files.uminfo.cn:8000/idcard6/'.$time2.$name21.'';
+        $array['identity_card_f']=$identity_card_f;
+    }
+
+    $time2=time();
+    $name21=$_FILES["driver_license_fp"]["name"];
+    if($name21!=null) {
+        $name2 = iconv("UTF-8", "gb2312", $name21);
+        $name2 = $time2 . $name2;
+        move_uploaded_file($_FILES["driver_license_fp"]["tmp_name"], "/files/lorry/" . $name2);
+        $driver_license_fp = 'http://files.uminfo.cn:8000/lorry/' . $time2 . $name21 . '';
+        $array['driver_license_fp']=$driver_license_fp;
+    }
+    $time2=time();
+    $name21=$_FILES["driver_license_tp"]["name"];
+    if($name21!=null){
+        $name2=iconv("UTF-8","gb2312", $name21);
+        $name2=$time2.$name2;
+        move_uploaded_file($_FILES["driver_license_tp"]["tmp_name"],"/files/lorry2/".$name2);
+        $driver_license_tp='http://files.uminfo.cn:8000/lorry2/'.$time2.$name21.'';
+        $array['driver_license_tp']=$driver_license_tp;
+    }
+
+    $time2=time();
+    $name21=$_FILES["driving_license_fp"]["name"];
+    if($name21!=null){
+        $name2=iconv("UTF-8","gb2312", $name21);
+        $name2=$time2.$name2;
+        move_uploaded_file($_FILES["driving_license_fp"]["tmp_name"],"/files/lorry3/".$name2);
+        $driving_license_fp='http://files.uminfo.cn:8000/lorry3/'.$time2.$name21.'';
+        $array['driving_license_fp']=$driving_license_fp;
+    }
+
+    $time2=time();
+    $name21=$_FILES["driving_license_tp"]["name"];
+    if($name21!=''){
+        $name2=iconv("UTF-8","gb2312", $name21);
+        $name2=$time2.$name2;
+        move_uploaded_file($_FILES["driving_license_tp"]["tmp_name"],"/files/lorry4/".$name2);
+        $driving_license_tp='http://files.uminfo.cn:8000/lorry4/'.$time2.$name21.'';
+        $array['driving_license_tp']=$driving_license_tp;
+    }
+
+
+
+    if($app_lorry_id!=''||$app_lorry_id!=null){
+        $updateStatement = $database->update($array)
+            ->table('app_lorry')
+            ->where('exist','=',0)
+            ->where('app_lorry_id','=',$app_lorry_id);
+        $affectedRows = $updateStatement->execute();
+        echo json_encode(array("result"=>"0","desc"=>"success"));
     }else{
-        echo json_encode(array("result"=>"4","desc"=>"缺少租户id"));
+        echo json_encode(array("result"=>"1","desc"=>"缺少车辆id"));
     }
 });
 
