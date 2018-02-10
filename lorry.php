@@ -396,8 +396,9 @@ $app->post('/app_lorry',function()use($app){
     $array['type']=$lorry_type_name;
     $array['deadweight']=$lorry_load_name;
     $time2=time();
+    if(isset($_FILES["identity_card_z"]["name"])){
     $name21=$_FILES["identity_card_z"]["name"];
-    if($name21!=null){
+
         $name2=iconv("UTF-8","gb2312", $name21);
         $name2=$time2.$name2;
         move_uploaded_file($_FILES["identity_card_z"]["tmp_name"],"/files/idcard5/".$name2);
