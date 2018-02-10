@@ -308,12 +308,14 @@ $app->get('/lorrys_plate_number',function()use($app){
     $plate_number=$app->request->get('plate_number');
     $selectStatement = $database->select()
         ->from('app_lorry')
-        ->whereLike('plate_number','%'.$plate_number.'%');
+        ->whereLike('plate_number','%'.$plate_number.'%')
+        ->orWhereLike('phone','%'.$plate_number.'%');
     $stmt = $selectStatement->execute();
     $data0 = $stmt->fetchAll();
     $selectStatement = $database->select()
         ->from('app_lorry')
         ->whereLike('plate_number','%'.$plate_number.'%')
+        ->orWhereLike('phone','%'.$plate_number.'%')
         ->orderBy('id','DESC')
         ->limit((int)$per_page,(int)$per_page * (int)$page);
     $stmt = $selectStatement->execute();
