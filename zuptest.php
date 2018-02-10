@@ -19,11 +19,11 @@ $app->post('/test',function()use($app){
     $pic2=$body->name;
     $trans_c_p=null;
     if($pic2!=null) {
-
         $base64_image_content = $pic2;
 //匹配出图片的格式
         if (preg_match('/^(data:\s*application\/(\w+);base64,)/', $base64_image_content, $result)) {
             $type = $result[2];
+            echo json_encode(array("result"=>"0","desc"=>"",'a'=>$type));
             date_default_timezone_set("PRC");
             $time1 = time();
             $new_file = "/files/trans_contract_p/" . date('Ymd', $time1) . "/";
@@ -37,7 +37,7 @@ $app->post('/test',function()use($app){
             }
         }
     }
-    echo json_encode(array("result"=>"3","desc"=>"",'a'=>$trans_c_p));
+//    echo json_encode(array("result"=>"0","desc"=>"",'a'=>$trans_c_p));
 });
 
 $app->run();
