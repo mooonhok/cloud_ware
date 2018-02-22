@@ -25,7 +25,7 @@ $app->get('/getLatest',function()use($app){
         $client=$data[0];
         $pack = explode('/',$client['package_url']);
         $client_url='/'.$pack[3].'/'.$pack[4].'/app.asar';
-        $size = filesize('../../files'.$client_url);
+        $size = filesize('../files'.$client_url);
         echo  json_encode(array("result"=>"0","desc"=>"success","client"=>$client,'size'=>$size));
     }else{
         echo  json_encode(array("result"=>"1","desc"=>"无客户端版本"));
