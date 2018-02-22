@@ -18,7 +18,7 @@ function size(){
 	var bodyHeight=$("body").height();
 	var headerHeight=$(".navbar-top").outerHeight();
 	var footerHeight=$("#footer").outerHeight();
-	if(windowWidth>768){
+	if(windowWidth>=768){
 		if(windowHeight>bodyHeight+headerHeight+footerHeight){
 			$(".navbar-side").css("height",windowHeight-headerHeight-footerHeight);
 			$("#view").css("height",windowHeight-headerHeight-footerHeight);
