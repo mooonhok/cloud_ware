@@ -12,6 +12,27 @@ $(document).ready(function(){
 	});
 });
 
+function size(){
+	var windowWidth=$(window).width(); 
+	var windowHeight=$(window).height();
+	var bodyHeight=$("body").height();
+	var headerHeight=$(".navbar-top").outerHeight();
+	var footerHeight=$("#footer").outerHeight();
+	if(windowWidth>768){
+		if(windowHeight>bodyHeight+headerHeight+footerHeight){
+			$(".navbar-side").css("height",windowHeight-headerHeight-footerHeight);
+			$("#view").css("height",windowHeight-headerHeight-footerHeight);
+		}else{
+			$(".navbar-side").css("height",$("#view").outerHeight());
+		}
+	}else{
+		$(".navbar-side").css("height","auto");
+		$("#view").css("height","auto");
+	}
+}
+window.onload=size;
+setInterval(size,100);
+
 function logout(){
 	Confirm.confirm({message:"确定退出登录？"}).on(function(e){
 		if(!e){
