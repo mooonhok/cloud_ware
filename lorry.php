@@ -7,6 +7,7 @@
  */
 require 'Slim/Slim.php';
 require 'connect.php';
+require 'files_url.php';
 use Slim\PDO\Database;
 
 
@@ -381,6 +382,7 @@ $app->post('/app_lorry',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $array=array();
     $database=localhost();
+    $file_url=file_url();
     $app_lorry_id = $app->request->params('app_lorry_id');
     $phone = $app->request->params('phone');
     $name = $app->request->params('name');
@@ -403,7 +405,7 @@ $app->post('/app_lorry',function()use($app){
         $name2=iconv("UTF-8","gb2312", $name21);
         $name2=$time2.$name2;
         move_uploaded_file($_FILES["identity_card_z"]["tmp_name"],"/files/idcard5/".$name2);
-        $identity_card_z='http://files.uminfo.cn:8000/idcard5/'.$time2.$name21.'';
+        $identity_card_z=$file_url.'idcard5/'.$time2.$name21.'';
         $array['identity_card_z']=$identity_card_z;
     }
 
@@ -413,7 +415,7 @@ $app->post('/app_lorry',function()use($app){
         $name2=iconv("UTF-8","gb2312", $name21);
         $name2=$time2.$name2;
         move_uploaded_file($_FILES["identity_card_f"]["tmp_name"],"/files/idcard6/".$name2);
-        $identity_card_f='http://files.uminfo.cn:8000/idcard6/'.$time2.$name21.'';
+        $identity_card_f=$file_url.'idcard6/'.$time2.$name21.'';
         $array['identity_card_f']=$identity_card_f;
     }
 
@@ -423,7 +425,7 @@ $app->post('/app_lorry',function()use($app){
         $name2 = iconv("UTF-8", "gb2312", $name21);
         $name2 = $time2 . $name2;
         move_uploaded_file($_FILES["driver_license_fp"]["tmp_name"], "/files/lorry/" . $name2);
-        $driver_license_fp = 'http://files.uminfo.cn:8000/lorry/' . $time2 . $name21 . '';
+        $driver_license_fp = $file_url.'lorry/' . $time2 . $name21 . '';
         $array['driver_license_fp']=$driver_license_fp;
     }
     $time2=time();
@@ -432,7 +434,7 @@ $app->post('/app_lorry',function()use($app){
         $name2=iconv("UTF-8","gb2312", $name21);
         $name2=$time2.$name2;
         move_uploaded_file($_FILES["driver_license_tp"]["tmp_name"],"/files/lorry2/".$name2);
-        $driver_license_tp='http://files.uminfo.cn:8000/lorry2/'.$time2.$name21.'';
+        $driver_license_tp=$file_url.'lorry2/'.$time2.$name21.'';
         $array['driver_license_tp']=$driver_license_tp;
     }
 
@@ -442,7 +444,7 @@ $app->post('/app_lorry',function()use($app){
         $name2=iconv("UTF-8","gb2312", $name21);
         $name2=$time2.$name2;
         move_uploaded_file($_FILES["driving_license_fp"]["tmp_name"],"/files/lorry3/".$name2);
-        $driving_license_fp='http://files.uminfo.cn:8000/lorry3/'.$time2.$name21.'';
+        $driving_license_fp=$file_url.'lorry3/'.$time2.$name21.'';
         $array['driving_license_fp']=$driving_license_fp;
     }
 
@@ -452,7 +454,7 @@ $app->post('/app_lorry',function()use($app){
         $name2=iconv("UTF-8","gb2312", $name21);
         $name2=$time2.$name2;
         move_uploaded_file($_FILES["driving_license_tp"]["tmp_name"],"/files/lorry4/".$name2);
-        $driving_license_tp='http://files.uminfo.cn:8000/lorry4/'.$time2.$name21.'';
+        $driving_license_tp=$file_url.'lorry4/'.$time2.$name21.'';
         $array['driving_license_tp']=$driving_license_tp;
     }
 
@@ -471,6 +473,11 @@ $app->post('/app_lorry',function()use($app){
 });
 
 $app->run();
+
+function file_url(){
+    return files_url();
+}
+
 
 function localhost(){
     return connect();

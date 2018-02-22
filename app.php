@@ -13,14 +13,14 @@ require 'files_url.php';
 $app = new \Slim\Slim();
 
 
-$app->post('/change_app',function ()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $phone = $app->request->params('phone');
-    unlink('/files/client/1.0.0/app.asar');
-    unlink('/files/client/1.0.0/package1.json');
-    rmdir('/files/client/1.0.0');
-});
+//$app->post('/change_app',function ()use($app){
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
+//    $phone = $app->request->params('phone');
+//    unlink('/files/client/1.0.0/app.asar');
+//    unlink('/files/client/1.0.0/package1.json');
+//    rmdir('/files/client/1.0.0');
+//});
 
 //客户端获取app二维码
 $app->get('/getApp',function()use($app){
@@ -107,6 +107,7 @@ $app->post('/addlorry0',function()use($app){
         echo  json_encode(array("result"=>"1","desc"=>"您未填写电话号码"));
     }
 });
+
 $app->get("/schedule_on",function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -280,6 +281,7 @@ $app->post('/addlorry3',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
+    $file_url=file_url();
     $body=$app->request->getBody();
     $body=json_decode($body);
     $lorryid=$body->lorryid;
@@ -306,7 +308,7 @@ $app->post('/addlorry3',function()use($app){
             }
             $new_file = $new_file . $time1 . ".{$type}";
             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                $lujing1 = "http://files.uminfo.cn:8000/lorry/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                $lujing1 = $file_url."lorry/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
             }
         }
         $arrays['driver_license_fp']=$lujing1;
@@ -324,7 +326,7 @@ $app->post('/addlorry3',function()use($app){
                }
                $new_file = $new_file . $time1 . ".{$type}";
                if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                   $lujing2 = "http://files.uminfo.cn:8000/lorry2/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                   $lujing2 = $file_url."lorry2/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                }
            }
            $arrays['driver_license_tp']=$lujing2;
@@ -341,7 +343,7 @@ $app->post('/addlorry3',function()use($app){
                }
                $new_file = $new_file . $time1 . ".{$type}";
                if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                   $lujing3 = "http://files.uminfo.cn:8000/lorry3/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                   $lujing3 = $file_url."lorry3/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                }
            }
            $arrays['driving_license_fp']=$lujing3;
@@ -359,7 +361,7 @@ $app->post('/addlorry3',function()use($app){
                    }
                    $new_file = $new_file . $time1 . ".{$type}";
                    if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                       $lujing4 = "http://files.uminfo.cn:8000/lorry4/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                       $lujing4 = $file_url."lorry4/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                    }
                }
            }
@@ -393,6 +395,7 @@ $app->post('/addlorry4',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
+    $file_url=file_url();
     $body=$app->request->getBody();
     $body=json_decode($body);
     $lorryid=$body->lorryid;
@@ -414,7 +417,7 @@ $app->post('/addlorry4',function()use($app){
             }
             $new_file = $new_file . $time1 . ".{$type}";
             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                $lujing3 = "http://files.uminfo.cn:8000/lorry3/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                $lujing3 = $file_url."lorry3/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
             }
         }
         $arrays['driving_license_fp']=$lujing3;
@@ -432,7 +435,7 @@ $app->post('/addlorry4',function()use($app){
                 }
                 $new_file = $new_file . $time1 . ".{$type}";
                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                    $lujing2 = "http://files.uminfo.cn:8000/lorry4/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                    $lujing2 = $file_url."lorry4/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                 }
             }
             $arrays['driving_license_tp']=$lujing4;
@@ -464,6 +467,7 @@ $app->post('/addlorry5',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
+    $file_url=file_url();
     $body=$app->request->getBody();
     $body=json_decode($body);
     $lorryid=$body->lorryid;
@@ -486,7 +490,7 @@ $app->post('/addlorry5',function()use($app){
             }
             $new_file = $new_file . $time1 . ".{$type}";
             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                $lujing5 = "http://files.uminfo.cn:8000/idcard5/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                $lujing5 = $file_url."idcard5/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
             }
         }
         $arrays['identity_card_z']=$lujing5;
@@ -504,7 +508,7 @@ $app->post('/addlorry5',function()use($app){
                 }
                 $new_file = $new_file . $time1 . ".{$type}";
                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                    $lujing6 = "http://files.uminfo.cn:8000/idcard6/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                    $lujing6 = $file_url."idcard6/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                 }
             }
             $arrays['identity_card_f']=$lujing6;
@@ -652,6 +656,7 @@ $app->post('/updriveringpic',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
+    $file_url=file_url();
     $body=$app->request->getBody();
     $body=json_decode($body);
     $lorryid=$body->lorryid;
@@ -678,7 +683,7 @@ $app->post('/updriveringpic',function()use($app){
             }
             $new_file = $new_file . $time1 . ".{$type}";
             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                $lujing3 = "http://files.uminfo.cn:8000/lorry3/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                $lujing3 = $file_url."lorry3/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
             }
         }
         $arrays['driving_license_fp']=$lujing3;
@@ -696,7 +701,7 @@ $app->post('/updriveringpic',function()use($app){
                 }
                 $new_file = $new_file . $time1 . ".{$type}";
                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                    $lujing4 = "http://files.uminfo.cn:8000/lorry4/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                    $lujing4 = $file_url."lorry4/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                 }
             }
             $arrays['driving_license_tp']=$lujing4;
@@ -733,6 +738,7 @@ $app->post('/updriverpic',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
+    $file_url=file_url();
     $body=$app->request->getBody();
     $body=json_decode($body);
     $lorryid=$body->lorryid;
@@ -754,7 +760,7 @@ $app->post('/updriverpic',function()use($app){
             }
             $new_file = $new_file . $time1 . ".{$type}";
             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                $lujing1 = "http://files.uminfo.cn:8000/lorry/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                $lujing1 = $file_url."lorry/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
             }
         }
         $arrays['driver_license_fp']=$lujing1;
@@ -772,7 +778,7 @@ $app->post('/updriverpic',function()use($app){
                 }
                 $new_file = $new_file . $time1 . ".{$type}";
                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                    $lujing2 = "http://files.uminfo.cn:8000/lorry2/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                    $lujing2 = $file_url."lorry2/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                 }
             }
             $arrays['driver_license_tp']=$lujing2;
@@ -803,6 +809,7 @@ $app->post('/uphead',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
+    $file_url=file_url();
     $body=$app->request->getBody();
     $body=json_decode($body);
     $lorryid=$body->lorryid;
@@ -822,7 +829,7 @@ $app->post('/uphead',function()use($app){
             }
             $new_file = $new_file . $time1 . ".{$type}";
             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                $lujing1 = "http://files.uminfo.cn:8000/lorryhead/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                $lujing1 = $file_url."lorryhead/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
             }
         }
         $arrays['head_img']=$lujing1;
@@ -1397,6 +1404,7 @@ $app->post('/receivesc',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
+    $file_url=file_url();
     $body=$app->request->getBody();
     $body=json_decode($body);
     $schedule_id=$body->schedule_id;
@@ -1417,7 +1425,7 @@ $app->post('/receivesc',function()use($app){
         }
         $new_file = $new_file.$time1.".{$type}";
         if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))){
-            $lujing="http://files.uminfo.cn:8000/sure/".date('Ymd',$time1)."/".$time1.".{$type}";
+            $lujing=$file_url."sure/".date('Ymd',$time1)."/".$time1.".{$type}";
         }
     }
     $arrays['scheduling_status']=5;
@@ -1556,8 +1564,6 @@ $app->post('/last_map',function()use($app) {
             $insertId = $insertStatement->execute(false);
             echo json_encode(array('result' => '0', 'desc' => '上传成功'));
         }else {
-
-
                 $selectStament = $database->select()
                     ->from('scheduling')
                     ->where('exist', '=', 0)
@@ -2237,6 +2243,7 @@ $app->get('/agreement_status',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
+
     $agreement_id = $app->request->get("agreement_id");
     $selectStatement = $database->select()
         ->from('agreement')
@@ -2250,6 +2257,7 @@ $app->post('/sign_agreement',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
+    $file_url=file_url();
     $body=$app->request->getBody();
     $body=json_decode($body);
     $lorry_id=$body->lorryid;
@@ -2270,7 +2278,7 @@ $app->post('/sign_agreement',function()use($app){
         }
         $new_file = $new_file.$time1.".{$type}";
         if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))){
-            $lujing="http://files.uminfo.cn:8000/agreement_sure/".date('Ymd',$time1)."/".$time1.".{$type}";
+            $lujing=$file_url."agreement_sure/".date('Ymd',$time1)."/".$time1.".{$type}";
         }
     }
     if($lorry_id!=null||$lorry_id!=''){

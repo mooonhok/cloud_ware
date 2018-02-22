@@ -8,6 +8,7 @@
 
 require 'Slim/Slim.php';
 require 'connect.php';
+require 'files_url.php';
 use Slim\PDO\Database;
 
 
@@ -637,6 +638,7 @@ $app->post('/uploadLorry',function()use($app) {
     $lorry_id=$app->request->params('lorry_id');
     $tenant_id=$app->request->params('tenant_id');
     $database = localhost();
+    $file_url=file_url();
     $array=array();
     if(isset($_FILES["driving_license"])){
         $name11 = $_FILES["driving_license"]["name"];
@@ -646,10 +648,10 @@ $app->post('/uploadLorry',function()use($app) {
             $shijian = time();
             $name1 = $shijian .".". $name1;
             move_uploaded_file($_FILES["driving_license"]["tmp_name"], "/files/lorry/" . $name1);
-            $array['driving_license']="http://files.uminfo.cn:8000/lorry/".$name1;
+            $array['driving_license']=$file_url."lorry/".$name1;
         }
     }else{
-        $array['driving_license']="http://files.uminfo.cn:8000/lorry/photo1.png";
+        $array['driving_license']=$file_url."lorry/photo1.png";
     }
     if(isset($_FILES["vehicle_travel_license"])){
         $name21 = $_FILES["vehicle_travel_license"]["name"];
@@ -659,10 +661,10 @@ $app->post('/uploadLorry',function()use($app) {
             $shijian = time().'a';
             $name2 = $shijian .'.'. $name2;
             move_uploaded_file($_FILES["vehicle_travel_license"]["tmp_name"], "/files/lorry/" . $name2);
-            $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/".$name2;
+            $array['vehicle_travel_license']=$file_url."lorry/".$name2;
         }
     }else{
-        $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/photo2.png";
+        $array['vehicle_travel_license']=$file_url."lorry/photo2.png";
     }
 
     if($tenant_id!=null||$tenant_id!=''){
@@ -792,6 +794,9 @@ $app->put('/recoverLorry',function()use($app){
 
 $app->run();
 
+function file_url(){
+    return files_url();
+}
 function localhost(){
     return connect();
 }

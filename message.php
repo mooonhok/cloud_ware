@@ -7,16 +7,18 @@
  */
 require 'Slim/Slim.php';
 require 'connect.php';
-
+require 'files_url.php';
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
+
 
 
 $app->post('/upload',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin', '*');
 //    $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
+    $file_url=file_url();
     $tenant_id = $app->request->get('tenant_id');
     $name3='';
     if(isset($_FILES['file1'])){
@@ -34,7 +36,7 @@ $app->post('/upload',function()use($app) {
         if ($tenant_id != null || $tenant_id != '') {
             $insertStatement = $database->insert(array('tenant_id', 'url','datetime','from_user','content','is_read'))
                 ->into('message')
-                ->values(array($tenant_id,"http://files.uminfo.cn:8000/insurance_policy/".$name3,$shijian,'保险公司','您有一条新的保险单','1'));
+                ->values(array($tenant_id,$file_url."insurance_policy/".$name3,$shijian,'保险公司','您有一条新的保险单','1'));
             $insertId = $insertStatement->execute(false);
             echo json_encode(array("result" => "0", "desc" => "success"));
         } else {
@@ -64,6 +66,7 @@ $app->post('/upnotice',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin', '*');
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
+    $file_url=file_url();
     $name3='';
     if(isset($_FILES['file1'])){
         $name31 = $_FILES["file1"]["name"];
@@ -82,7 +85,7 @@ $app->post('/upnotice',function()use($app) {
     for($i=0;$i<count($data1);$i++){
         $insertStatement = $database->insert(array( 'tenant_id','url','datetime','from_user','content','is_read'))
             ->into('message')
-            ->values(array($data1[$i]['tenant_id'],"http://files.uminfo.cn:8000/insurance_policy/".$name3,$shijian,'江苏酉铭','您有一条新的公告','1'));
+            ->values(array($data1[$i]['tenant_id'],$file_url."insurance_policy/".$name3,$shijian,'江苏酉铭','您有一条新的公告','1'));
         $insertId = $insertStatement->execute(false);
     }
 
@@ -165,6 +168,11 @@ $app->delete('/deleteMessage',function()use($app) {
 });
 
 $app->run();
+
+function file_url(){
+    return files_url();
+}
+
 function localhost(){
     return connect();
 }

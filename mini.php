@@ -7,6 +7,7 @@
  */
 require 'Slim/Slim.php';
 require 'connect.php';
+require 'files_url.php';
 use Slim\PDO\Database;
 
 \Slim\Slim::registerAutoloader();
@@ -843,6 +844,7 @@ $app->post('/addmini',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
+    $file_url=file_url();
     $body=$app->request->getBody();
     $body=json_decode($body);
     $name=$body->name;
@@ -891,7 +893,7 @@ $app->post('/addmini',function()use($app){
                                 }
                                 $new_file = $new_file . $time1 . ".{$type}";
                                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                                    $lujing1 = "https://files.uminfo.cn:8000/mini/" . count($data5) . ".{$type}";
+                                    $lujing1 = $file_url."mini/" . count($data5) . ".{$type}";
                                 }
                             }
                         }
@@ -907,7 +909,7 @@ $app->post('/addmini',function()use($app){
                                 }
                                 $new_file = $new_file .$time1 . ".{$type}";
                                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                                    $lujing2 = "https://files.uminfo.cn:8000/mini/" . count($data5) . "-1.{$type}";
+                                    $lujing2 = $file_url."mini/" . count($data5) . "-1.{$type}";
                                 }
                             }
                         }
@@ -923,7 +925,7 @@ $app->post('/addmini',function()use($app){
                                 }
                                 $new_file = $new_file . $time1 . ".{$type}";
                                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                                    $lujing3 = "https://files.uminfo.cn:8000/mini/" . count($data5) . "-2.{$type}";
+                                    $lujing3 = $file_url."mini/" . count($data5) . "-2.{$type}";
                                 }
                             }
                         }
@@ -939,7 +941,7 @@ $app->post('/addmini',function()use($app){
                                 }
                                 $new_file = $new_file . $time1 . ".{$type}";
                                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                                    $lujing4 = "https://files.uminfo.cn:8000/mini/" . count($data5) . "-3.{$type}";
+                                    $lujing4 = $file_url."mini/" . count($data5) . "-3.{$type}";
                                 }
                             }
 
@@ -956,7 +958,7 @@ $app->post('/addmini',function()use($app){
                                 }
                                 $new_file = $new_file . $time1 . ".{$type}";
                                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                                    $lujing5 = "https://files.uminfo.cn:8000/mini/" . count($data5) . "-4.{$type}";
+                                    $lujing5 = $file_url."mini/" . count($data5) . "-4.{$type}";
                                 }
                             }
                         }
@@ -972,7 +974,7 @@ $app->post('/addmini',function()use($app){
                             }
                             $new_file = $new_file . $time1 . ".{$type}";
                             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                                $lujing6 = "https://files.uminfo.cn:8000/mini/" . count($data5) . ".{$type}";
+                                $lujing6 = $file_url."mini/" . count($data5) . ".{$type}";
                             }
                         }
                     }
@@ -1072,6 +1074,10 @@ $app->get('/minibyid',function()use($app){
 });
 
 $app->run();
+
+function file_url(){
+    return files_url();
+}
 
 function localhost(){
     return connect();

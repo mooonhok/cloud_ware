@@ -7,7 +7,7 @@
  */
 require 'Slim/Slim.php';
 require 'connect.php';
-
+require 'files_url.php';
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
@@ -37,7 +37,7 @@ $app->post('/client_version',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $client_version = $app->request->params('client_version');
     $database = localhost();
-
+    $file_url=file_url();
     $version_asar = $_FILES["version_asar"]["name"];
     $i=0;
     $lujing1='';
@@ -48,7 +48,7 @@ $app->post('/client_version',function()use($app){
             mkdir($new_file, 0700);
         }
         move_uploaded_file($_FILES["version_asar"]["tmp_name"], $new_file . $version_asar);
-        $lujing1 = "http://files.uminfo.cn:8000/client/".$client_version."/".$version_asar;
+        $lujing1 = $file_url."client/".$client_version."/".$version_asar;
         $i++;
     }
     $version_json = $_FILES["version_json"]["name"];
@@ -58,7 +58,7 @@ $app->post('/client_version',function()use($app){
             mkdir($new_file, 0700);
         }
         move_uploaded_file($_FILES["version_json"]["tmp_name"], $new_file . $version_json);
-        $lujing2 = "http://files.uminfo.cn:8000/client/".$client_version."/".$version_json;
+        $lujing2 = $file_url."client/".$client_version."/".$version_json;
         $i++;
     }
     if($i==2){
@@ -76,6 +76,11 @@ $app->post('/client_version',function()use($app){
 
 
 $app->run();
+
+function file_url(){
+    return files_url();
+}
+
 function localhost(){
     return connect();
 }

@@ -7,7 +7,7 @@
  */
 require 'Slim/Slim.php';
 require 'connect.php';
-
+require 'files_url.php';
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
@@ -541,6 +541,7 @@ $app->post('/tenant',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database = localhost();
+    $file_url=file_url();
     $body=$app->request->getBody();
     $body=json_decode($body);
     $qq = $body->qq;
@@ -578,7 +579,7 @@ $app->post('/tenant',function()use($app) {
             }
             $new_file = $new_file . $time1 . ".{$type}";
             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                $order_t_p = "http://files.uminfo.cn:8000/order_t_p/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                $order_t_p = $file_url."order_t_p/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
             }
         }
     }
@@ -598,7 +599,7 @@ $app->post('/tenant',function()use($app) {
                 $arr=explode(",",$base64_image_content);
                 $a=$arr[0];
                 if (file_put_contents($new_file, base64_decode(str_replace($a, '', $base64_image_content)))) {
-                    $trans_c_p = "http://files.uminfo.cn:8000/trans_contract_p/" . date('Ymd', $time1) . "/" . $time1 . ".{$type2}";
+                    $trans_c_p = $file_url."trans_contract_p/" . date('Ymd', $time1) . "/" . $time1 . ".{$type2}";
                 }
 //            }
         }
@@ -616,11 +617,11 @@ $app->post('/tenant',function()use($app) {
                     }
                     $new_file = $new_file . $time1 . ".{$type}";
                     if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                        $order_img = "http://files.uminfo.cn:8000/tenant/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                        $order_img = $file_url."tenant/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                     }
                 }
             }else{
-                $order_img="http://files.uminfo.cn:8000/tenant/5130001_order_logo.png";
+                $order_img=$file_url."tenant/5130001_order_logo.png";
             }
                 if($pic4!=null) {
                     $base64_image_content = $pic4;
@@ -636,7 +637,7 @@ $app->post('/tenant',function()use($app) {
                         }
                         $new_file = $new_file . $time1 . ".{$type}";
                         if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                            $business_l_p = "http://files.uminfo.cn:8000/business_l_p/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                            $business_l_p = $file_url."business_l_p/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                         }
                     }
                 }
@@ -704,13 +705,13 @@ $app->post('/tenant',function()use($app) {
                                                 $tenant_num=$data01['area_code'].$num01;
                                                 $username='u'.$tenant_num;
                                                 $tenant_id=count($data02)+1000000501;
-                                                $ad_img1='http://files.uminfo.cn:8000/client/advertise/ad_img1.png';
-                                                $ad_img2='http://files.uminfo.cn:8000/client/advertise/ad_img2.png';
-                                                $ad_img3='http://files.uminfo.cn:8000/client/advertise/ad_img3.png';
-                                                $ad_img4='http://files.uminfo.cn:8000/client/advertise/ad_img4.png';
-                                                $ad_img5='http://files.uminfo.cn:8000/client/advertise/ad_img5.png';
-                                                $ad_img6='http://files.uminfo.cn:8000/client/advertise/ad_img6.png';
-                                                $ad_img7='http://files.uminfo.cn:8000/client/advertise/ad_img7.png';
+                                                $ad_img1=$file_url.'client/advertise/ad_img1.png';
+                                                $ad_img2=$file_url.'client/advertise/ad_img2.png';
+                                                $ad_img3=$file_url.'client/advertise/ad_img3.png';
+                                                $ad_img4=$file_url.'client/advertise/ad_img4.png';
+                                                $ad_img5=$file_url.'client/advertise/ad_img5.png';
+                                                $ad_img6=$file_url.'client/advertise/ad_img6.png';
+                                                $ad_img7=$file_url.'client/advertise/ad_img7.png';
 //                                                         $order_img='http://files.uminfo.cn:8000/tenant/5230001_order.jpg';
                                                 $insertStatement = $database->insert(array('company','from_city_id','contact_id','exist','business_l','business_l_p'
                                                 ,'sales_id','address','order_t_p','trans_contract_p','service_items','c_introduction'
@@ -739,7 +740,7 @@ $app->post('/tenant',function()use($app) {
                                                     $insertStatement = $database->insert(array('tenant_id','staff_id','username','password'
                                                     ,'name','telephone','position','status','permission','bg_img','head_img','exist'))
                                                         ->into('staff')
-                                                        ->values(array($data4['tenant_id'],100001,$username,encode('888888','cxphp'),$contact_name,$telephone,'负责人',1,1111111,'http://files.uminfo.cn:8000/client/skin/bg1.jpg',"http://files.uminfo.cn:8000/staff/5230001_head.jpg",0));
+                                                        ->values(array($data4['tenant_id'],100001,$username,encode('888888','cxphp'),$contact_name,$telephone,'负责人',1,1111111,$file_url.'client/skin/bg1.jpg',$file_url."staff/5230001_head.jpg",0));
                                                     $insertId = $insertStatement->execute(false);
                                                     echo json_encode(array('result'=>'0','desc'=>'添加成功'));
 //                                                    $app->redirect('http://www.uminfo.cn/zhuce.html?desc=企业登记成功');
@@ -927,6 +928,9 @@ $app->get('/company_name',function()use($app){
 
 $app->run();
 
+function file_url(){
+    return files_url();
+}
 function localhost(){
     return connect();
 }
