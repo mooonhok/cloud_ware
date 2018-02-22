@@ -13,7 +13,10 @@ $(document).ready(function(){
 });
 
 function logout(){
-	if(confirm("确定退出登录？")){
+	Confirm.confirm({message:"确定退出登录？"}).on(function(e){
+		if(!e){
+			return;
+		}
 		window.location.href=link+"login.html";
-	}
+	});
 }

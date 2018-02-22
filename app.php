@@ -7,7 +7,7 @@
  */
 require 'Slim/Slim.php';
 require 'connect.php';
-
+require 'files_url.php';
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
@@ -2374,6 +2374,11 @@ $app->get('/tongji_agreement',function()use($app){
 
 
 $app->run();
+
+function file_url(){
+    return files_url();
+}
+
 function localhost(){
     return connect();
 }
