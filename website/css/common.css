@@ -79,7 +79,6 @@
 }
 #view{
 	padding:15px 15px;
-	min-height:600px;
 	background:#ffffff;
 }
 .breadcrumb li a{
@@ -88,17 +87,16 @@
 @media(min-width:768px){
 	.navbar-side{
 		width:260px;
-		min-height:1200px;
 		background:#f8f8f8;
 		position:absolute;
 		z-index:1;
 	}
 	#view{
 		margin:0 0 0 260px;
-		min-height:1200px;
 	}
 }
 #footer{
+	width:100%;
 	font:normal 15px "微软雅黑";
 	padding:20px 0;
 	text-align:center;
