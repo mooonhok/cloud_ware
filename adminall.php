@@ -7,6 +7,7 @@
  */
 require 'Slim/Slim.php';
 require 'connect.php';
+require 'files_url.php';
 use Slim\PDO\Database;
 
 \Slim\Slim::registerAutoloader();
@@ -1365,6 +1366,10 @@ $app->get('/get_tenant',function()use($app){
 });
 
 $app->run();
+
+function file_url(){
+    return files_url();
+}
 
 function localhost(){
     return connect();

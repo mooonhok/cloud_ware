@@ -11,6 +11,17 @@ require 'connect.php';
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
+
+
+$app->post('/change_app',function ()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $phone = $app->request->params('phone');
+    unlink('/files/client/1.0.0/app.asar');
+    unlink('/files/client/1.0.0/package1.json');
+    rmdir('/files/client/1.0.0');
+});
+
 //客户端获取app二维码
 $app->get('/getApp',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
