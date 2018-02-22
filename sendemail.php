@@ -42,8 +42,8 @@ $app->post('/scheduling',function()use($app,$mail){
     $message=$body->text;//邮件内容
     $title=$body->title;//邮件标题
     if($emailaddress!=null||$emailaddress!=""){
-        $mail->setFrom($emailaddress, $sendname);
-//        $mail->addAddress('2900856528@qq.com');               //无称呼时使用
+        $mail->setFrom( 'jsyouming@163.com','江苏酉铭');
+        $mail->addAddress($emailaddress,$sendname);               //无称呼时使用
 //        $mail->addAttachment('./1.png', 'new.doc');    // 添加附件
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = "=?UTF-8?B?" . base64_encode($title) . "?=";
