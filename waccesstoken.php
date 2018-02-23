@@ -8,7 +8,7 @@
 
 require 'Slim/Slim.php';
 require 'connect.php';
-
+require 'files_url.php';
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
@@ -124,6 +124,7 @@ $app->post('/addpic',function()use($app){
     $body=$app->request->getBody();
     $body=json_decode($body);
     $pic=$body->pic;
+    $file_url=file_url();
     $tenant_id=$body->tenant_id;
     $size=$body->size;
     $database = localhost();
@@ -140,7 +141,7 @@ $app->post('/addpic',function()use($app){
             }
             $new_file = $new_file . time() . ".{$type}";
             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                $lujing1 = "http://api.uminfo.cn/weixincontrol/image/" . $time1 . ".{$type}";
+                $lujing1 = $file_url."tenant/image/" . $time1 . ".{$type}";
             }
         }
        if($size!=null||$size!=""){
@@ -279,7 +280,6 @@ $app->post("/addmessage",function()use($app){
         ),
     );
     $postJson = urldecode( json_encode( $array ) );
-
     //1.初始化curl
     $curl = curl_init();
     //2.设置curl的参数
@@ -307,8 +307,6 @@ $app->post("/addmessage",function()use($app){
         echo  json_encode(array("result"=>"1","desc"=>"未选择租户"));
     }
 });
-
-
 
 //发送消息
 $app->post('/sendall',function()use($app){
@@ -354,18 +352,18 @@ $app->post('/sendall',function()use($app){
                 );
                 $postJson = json_encode( $array );
                 $curl = curl_init();
-//2.设置curl的参数
+                //2.设置curl的参数
                 curl_setopt($curl, CURLOPT_URL, $url);
                 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
                 curl_setopt($curl, CURLOPT_SSL_VERIFYHOST,2);
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
                 curl_setopt($curl, CURLOPT_POST, 1);
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $postJson);
-//3.采集
+               //3.采集
                 $output = curl_exec($curl);
-//4.关闭
+               //4.关闭
                 curl_close($curl);
-//                echo json_decode($output,true);
+               // echo json_decode($output,true);
                 $res2=json_decode($output,true);
                 echo  json_encode(array("result"=>"0","desc"=>$res2));
               }else{
@@ -376,7 +374,7 @@ $app->post('/sendall',function()use($app){
             }
     }else{
     echo  json_encode(array("result"=>"1","desc"=>"未选择租户"));
-}
+  }
 });
 
 $app->post('/wxmomessage',function()use($app){
@@ -426,17 +424,12 @@ $app->post('/wxmomessage',function()use($app){
                 curl_setopt($ch1, CURLOPT_SSL_VERIFYHOST, FALSE);
                  // POST数据
                  curl_setopt($ch1, CURLOPT_POST, 1);
-            // 把post的变量加上
+                // 把post的变量加上
                   curl_setopt($ch1, CURLOPT_POSTFIELDS, $postJson);
                   $output2 = curl_exec($ch1);
                   curl_close($ch1);
                 $res2=json_decode($output2,true);
                 echo  json_encode(array("result"=>"0","desc"=>$res2));
-//                 if ($res['errcode']==0){
-//                   echo '发送成功';
-//                  }else{
-//                   echo $output;
-//                 }
             }else{
                 echo  json_encode(array("result"=>"2","desc"=>"数据库缺少微信账号信息"));
             }
@@ -450,6 +443,10 @@ $app->post('/wxmomessage',function()use($app){
 });
 
 $app->run();
+
+function file_url(){
+    return files_url();
+}
 
 function localhost(){
     return connect();
