@@ -31,7 +31,7 @@ function load_contact_companys(telephone,page) {
         page=1;
     }
     $.ajax({
-        url: "http://api.uminfo.cn/adminall.php/contact_company?telephone="+telephone+"&page="+page+"&per_page=10",
+        url: p_url+"adminall.php/contact_company?telephone="+telephone+"&page="+page+"&per_page=10",
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",

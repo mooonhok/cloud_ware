@@ -21,7 +21,7 @@ function loadtenants(adminid,page) {
         page=1;
     }
     $.ajax({
-        url: "http://api.uminfo.cn/adminall.php/tenants?admin_id="+adminid+"&page="+page+"&per_page=10",
+        url: p_url+"adminall.php/tenants?admin_id="+adminid+"&page="+page+"&per_page=10",
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -64,7 +64,7 @@ function tenant_xq(id){
     $(".tenant_tk").css("display","block");
     $(".tenant_tk div input").val("");
     $.ajax({
-        url: "http://api.uminfo.cn/tenant_nedb.php/getTenant1?tenant_id="+id,
+        url: p_url+"tenant_nedb.php/getTenant1?tenant_id="+id,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -90,7 +90,7 @@ function tenant_xq(id){
 
 function tenant_ensure(adminid){
     $.ajax({
-        url: "http://api.uminfo.cn/adminall.php/uptenant",
+        url: p_url+"adminall.php/uptenant",
         dataType: 'json',
         type: 'put',
         ContentType: "application/json;charset=utf-8",
@@ -119,7 +119,7 @@ function tenant_ensure(adminid){
 
 function change_tenant(tenant_id){
     $.ajax({
-        url: "http://api.uminfo.cn/tenant.php/company_name?company="+tenant_id,
+        url: p_url+"tenant.php/company_name?company="+tenant_id,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",

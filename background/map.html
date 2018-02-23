@@ -15,6 +15,7 @@
 				font-family: "微软雅黑";
 			}
 		</style>
+		<script src="javascript/pages/config.js"></script>
 		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Z7ZjajqB1B4SRU895btxr6ZsLwGeKQOj"></script>
 		<title>地图展示</title>
 	</head>
@@ -30,7 +31,7 @@
 	map.centerAndZoom(new BMap.Point(114.278, 30.915), 6);
 	map.enableScrollWheelZoom(true);
 	$.ajax({
-		url: "http://api.uminfo.cn/mapselect.php/allmap",
+		url: p_url+"mapselect.php/allmap",
 		dataType: 'json',
 		type: 'get',
 		ContentType: "application/json;charset=utf-8",

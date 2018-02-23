@@ -10,6 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
     <link rel="icon" href="images/icon/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="javascript/pages/config.js"></script>
     <script src="javascript/jquery.js"></script>
     <script src="javascript/plug-ins/customScrollbar.min.js"></script>
     <script src="javascript/plug-ins/echarts.min.js"></script>
@@ -159,7 +160,7 @@
         var ry_name=$(".ry_name").val();
         if(ry_name.length!=0){
             $.ajax({
-                url: "http://api.uminfo.cn/adminall.php/add_user",
+                url: p_url+"adminall.php/add_user",
                 dataType: 'json',
                 type: 'post',
                 ContentType: "application/json;charset=utf-8",

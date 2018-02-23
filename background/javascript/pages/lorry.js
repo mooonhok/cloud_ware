@@ -32,7 +32,7 @@ function loadlorrys(plate_number,page) {
         page=1;
     }
     $.ajax({
-        url: "http://api.uminfo.cn/lorry.php/lorrys_plate_number?plate_number="+plate_number+"&page="+page+"&per_page=10",
+        url: p_url+"lorry.php/lorrys_plate_number?plate_number="+plate_number+"&page="+page+"&per_page=10",
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -133,7 +133,7 @@ function lorry_xq(id){
         layer.close(index);
     });
     $.ajax({
-        url: "http://api.uminfo.cn/lorry.php/getAppLorry?app_lorry_id="+id+"",
+        url: p_url+"lorry.php/getAppLorry?app_lorry_id="+id+"",
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -176,7 +176,7 @@ function lorry_xq(id){
             });
 
             $.ajax({
-                url: "http://api.uminfo.cn/app.php/lorry_long",
+                url: p_url+"app.php/lorry_long",
                 dataType: 'json',
                 type: 'get',
                 ContentType: "application/json;charset=utf-8",
@@ -267,7 +267,7 @@ function lorry_xq(id){
            formdata.append('driving_license_fp', x_z);
            formdata.append('driving_license_tp', x_f);
             var xhr = new XMLHttpRequest();
-            xhr.open("POST" ,"http://api.uminfo.cn/lorry.php/app_lorry", true);
+            xhr.open("POST" ,p_url+"lorry.php/app_lorry", true);
             xhr.send(formdata);
             xhr.onload = function(e) {
                 if (this.status == 200) {

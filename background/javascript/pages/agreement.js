@@ -37,7 +37,7 @@ function loadagreements(agreement_id,page,company) {
         company='';
     }
     $.ajax({
-        url: "http://api.uminfo.cn/agreement.php/agreements_suoyou?agreement_id="+agreement_id+"&page="+page+"&per_page=10&company="+company,
+        url: p_url+"agreement.php/agreements_suoyou?agreement_id="+agreement_id+"&page="+page+"&per_page=10&company="+company,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",

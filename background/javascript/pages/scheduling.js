@@ -35,7 +35,7 @@ function loadschedulings(scheduling_id,page,company) {
         company='';
     }
     $.ajax({
-        url: "http://api.uminfo.cn/scheduling.php/schedulings_scheduling_id?scheduling_id="+scheduling_id+"&page="+page+"&per_page=10&company="+company,
+        url: p_url+"scheduling.php/schedulings_scheduling_id?scheduling_id="+scheduling_id+"&page="+page+"&per_page=10&company="+company,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -97,7 +97,7 @@ function scheduling_xq(id){
     $(".tenant_tk").css("display","block");
     $(".tenant_tk div input").val("");
     $.ajax({
-        url: "http://api.uminfo.cn/scheduling.php/scheduling_orders_scheduling_id?scheduling_id="+id+"",
+        url: p_url+"scheduling.php/scheduling_orders_scheduling_id?scheduling_id="+id+"",
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",

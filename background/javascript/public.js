@@ -115,7 +115,7 @@ $(function(){
             layer.close(index);
             if(pass){
                 $.ajax({
-                    url: "https://api.uminfo.cn/adminall.php/get_tenant?name="+pass+"",
+                    url: p_url+"adminall.php/get_tenant?name="+pass+"",
                     dataType: 'json',
                     type: 'get',
                     ContentType: "application/json;charset=utf-8",

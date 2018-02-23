@@ -2,7 +2,7 @@ $(function() {
 	var adminid = $.session.get('adminid');
 	var page = null;
 $.ajax({
-	url: "http://api.uminfo.cn/city.php/province",
+	url: p_url+"city.php/province",
 	dataType: 'json',
 	type: 'get',
 	ContentType: "application/json;charset=utf-8",
@@ -17,7 +17,7 @@ $.ajax({
 	}
 });
  $.ajax({
-	url: "http://api.uminfo.cn/city.php/province",
+	url: p_url+"city.php/province",
 	dataType: 'json',
 	type: 'get',
 	ContentType: "application/json;charset=utf-8",
@@ -38,7 +38,7 @@ function getPro1() {
 	$("#city1").empty();
 	var pid = $("#province1 option:selected").val();
 	$.ajax({
-		url: "http://api.uminfo.cn/city.php/city?pid=" + pid,
+		url: p_url+"city.php/city?pid=" + pid,
 		dataType: 'json',
 		type: 'get',
 		ContentType: "application/json;charset=utf-8",
@@ -58,7 +58,7 @@ function getPro2() {
 	$("#city2").empty();
 	var pid = $("#province2 option:selected").val();
 	$.ajax({
-		url: "http://api.uminfo.cn/city.php/city?pid=" + pid,
+		url: p_url+"city.php/city?pid=" + pid,
 		dataType: 'json',
 		type: 'get',
 		ContentType: "application/json;charset=utf-8",
@@ -79,7 +79,7 @@ function loadminis(page) {
 		page = 1;
 	}
 	$.ajax({
-		url: "http://api.uminfo.cn/mini.php/allmini?page=" + page + "&per_page=10",
+		url: p_url+"mini.php/allmini?page=" + page + "&per_page=10",
 		dataType: 'json',
 		type: 'get',
 		ContentType: "application/json;charset=utf-8",
@@ -193,7 +193,7 @@ function minishow(id) {
 		layer.close(index);
 	});
 	$.ajax({
-		url: "http://api.uminfo.cn/mini.php/minibyid?tid=" + id,
+		url: p_url+"mini.php/minibyid?tid=" + id,
 		dataType: 'json',
 		type: 'get',
 		ContentType: "application/json;charset=utf-8",
@@ -251,7 +251,7 @@ function routeshow(id) {
 		layer.close(index);
 	});
 	$.ajax({
-		url: "http://api.uminfo.cn/mini.php/minibyid?tid=" + id,
+		url: p_url+"mini.php/minibyid?tid=" + id,
 		dataType: 'json',
 		type: 'get',
 		ContentType: "application/json;charset=utf-8",
@@ -281,7 +281,7 @@ function  addroute(id){
 		$(".tenant_tk2").css("display","none");
 	});
 	$.ajax({
-		url: "http://api.uminfo.cn/mini.php/minibyid?tid=" + id,
+		url: p_url+"mini.php/minibyid?tid=" + id,
 		dataType: 'json',
 		type: 'get',
 		ContentType: "application/json;charset=utf-8",
@@ -304,7 +304,7 @@ function  addroute(id){
 	    var tcity=$("#city2").val();
 	    var id=$("#id").val();
     	$.ajax({
-		url: "http://api.uminfo.cn/mini.php/addroute",
+		url: p_url+"mini.php/addroute",
 		dataType: 'json',
 		type: 'post',
 		ContentType: "application/json;charset=utf-8",

@@ -63,6 +63,7 @@
 				margin-top:50px;
 			}
 		</style>
+		<script src="javascript/pages/config.js"></script>
 	</head>
 	<body>
 		<div class="box">
@@ -101,7 +102,7 @@
 			var b=$("#secret").val();
 		
 			$.ajax({
-				url: "http://api.uminfo.cn/waccesstoken.php/access",
+				url: p_url+"waccesstoken.php/access",
 				dataType: 'json',
 				type: 'post',
 				ContentType: "application/json;charset=utf-8",

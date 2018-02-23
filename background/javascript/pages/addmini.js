@@ -58,7 +58,7 @@ $(function() {
 });
 //获取省份和城市列表1
 $.ajax({
-	url: "http://api.uminfo.cn/city.php/province",
+	url: p_url+"city.php/province",
 	dataType: 'json',
 	type: 'get',
 	ContentType: "application/json;charset=utf-8",
@@ -77,7 +77,7 @@ function getPro1() {
 	$("#city1").empty();
 	var pid = $("#province1 option:selected").val();
 	$.ajax({
-		url: "http://api.uminfo.cn/city.php/city?pid=" + pid,
+		url: p_url+"city.php/city?pid=" + pid,
 		dataType: 'json',
 		type: 'get',
 		ContentType: "application/json;charset=utf-8",
@@ -94,7 +94,7 @@ function getPro1() {
 }
 //获取城市列表2
 $.ajax({
-	url: "http://api.uminfo.cn/city.php/province",
+	url: p_url+"city.php/province",
 	dataType: 'json',
 	type: 'get',
 	ContentType: "application/json;charset=utf-8",
@@ -113,7 +113,7 @@ function getPro2() {
 	$("#city2").empty();
 	var pid = $("#province2 option:selected").val();
 	$.ajax({
-		url: "http://api.uminfo.cn/city.php/city?pid=" + pid,
+		url: p_url+"city.php/city?pid=" + pid,
 		dataType: 'json',
 		type: 'get',
 		ContentType: "application/json;charset=utf-8",
@@ -163,7 +163,7 @@ function addmini(){
     	alert("出发城市和到达城市不能为空");
     }else{
     	$.ajax({
-        url: "http://api.uminfo.cn/mini.php/addmini",
+        url: p_url+"mini.php/addmini",
         dataType: 'json',
         type: 'post',
         ContentType: "application/json;charset=utf-8",

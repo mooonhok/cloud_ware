@@ -37,7 +37,7 @@ function loadorders(order_id,page,company) {
         company='';
     }
     $.ajax({
-        url: "http://api.uminfo.cn/order.php/orders?order_id="+order_id+"&page="+page+"&per_page=10&company="+company,
+        url: p_url+"order.php/orders?order_id="+order_id+"&page="+page+"&per_page=10&company="+company,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -120,7 +120,7 @@ function order_xq(id){
         '</div>'
     });
     $.ajax({
-        url: "http://api.uminfo.cn/goods.php/goods_order_id?order_id="+id,
+        url: p_url+"goods.php/goods_order_id?order_id="+id,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
