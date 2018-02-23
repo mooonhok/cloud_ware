@@ -666,7 +666,7 @@ $app->get('/limitGoodsOrders0',function()use($app){
                         ->limit(1);
                     $stmt=$selectStament->execute();
                     $data12=$stmt->fetch();
-                    $is_transfer='';
+                    $is_transfer=null;
                     if($data12!=null){
                         $is_transfer=$data12['is_transfer'];
                     }
