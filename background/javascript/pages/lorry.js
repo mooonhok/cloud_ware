@@ -155,7 +155,7 @@ function lorry_xq(id){
             $("#x_z").attr("src",msg.lorrys.driving_license_fp);
             $("#x_f").attr("src",msg.lorrys.driving_license_tp);
             $.ajax({
-                url: "http://api.uminfo.cn/app.php/lorry_type",
+                url: p_url+"app.php/lorry_type",
                 dataType: 'json',
                 type: 'get',
                 ContentType: "application/json;charset=utf-8",
@@ -165,7 +165,6 @@ function lorry_xq(id){
                     if(ret.result==0){
                         for(var i=0;i<ret.lorry_type.length;i++){
                             $('#lorry_type').append('<option value="'+ret.lorry_type[i].lorry_type_id+'" id="ve_size'+ret.lorry_type[i].lorry_type_id+'">'+ret.lorry_type[i].lorry_type_name+'</option>');
-
                             $('#ve_size'+msg.lorrys.type).attr('selected','selected');
                         }
                     }
@@ -185,7 +184,6 @@ function lorry_xq(id){
                     if(ret.result==0){
                         for(var i=0;i<ret.vehiche_long.length;i++){
                             $('#lorry_length').append('<option value="'+ret.vehiche_long[i].lorry_length_id+'" id="ve_long'+ret.vehiche_long[i].lorry_length_id+'">'+ret.vehiche_long[i].lorry_length+'</option>');
-
                             $('#ve_long'+msg.lorrys.length).attr('selected','selected');
                         }
                     }
