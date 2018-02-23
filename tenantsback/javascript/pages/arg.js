@@ -11,13 +11,13 @@ $(function() {
 var adminid=$.session.get('adminid');
     
     if(adminid==null||adminid==""){
-    	window.location.href="http://api.uminfo.cn/tenantsback/login.html";
+    	window.location.href=p_url+"tenantsback/login.html";
     }
 	var agr_id = $.getUrlParam("agreement_id");
 	var tenant_id=$.getUrlParam("tenant_id");
 	loader(agr_id);
 	$(".sousuo_z").on("click",function(){
-	window.location.href="http://api.uminfo.cn/tenantsback/lagreement.html?tenant_id="+tenant_id;
+	window.location.href=p_url+"tenantsback/lagreement.html?tenant_id="+tenant_id;
     })
 	$(".print").on("click",function(){
 		$("div .printa").printArea();  
@@ -26,7 +26,7 @@ var adminid=$.session.get('adminid');
 
 function loader(agr_id) {
 	$.ajax({
-		url: "http://api.uminfo.cn/tenantsback.php/agredet?agreementid="+agr_id,
+		url: p_url+"tenantsback.php/agredet?agreementid="+agr_id,
 		dataType: 'json',
 		type: 'get',
 		ContentType: "application/json;charset=utf-8",

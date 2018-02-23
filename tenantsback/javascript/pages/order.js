@@ -1,11 +1,11 @@
 $(function(){
 	var adminid=$.session.get('adminid');
      if(adminid==null||adminid==""){
-    	window.location.href="http://api.uminfo.cn/tenantsback/login.html";
+    	window.location.href=p_url+"tenantsback/login.html";
     }else{
     var page = $.getUrlParam('page');
     $.ajax({
-	 url: "http://api.uminfo.cn/tenantsback.php/gettenants?adminid="+adminid,
+	 url: p_url+"tenantsback.php/gettenants?adminid="+adminid,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -38,7 +38,7 @@ $(function(){
          $("#count2").html("");
          $("#count3").html("");
          $.ajax({
-	 url: "http://api.uminfo.cn/tenantsback.php/ordertongji?tenant-id="+tenant_id,
+	 url: p_url+"tenantsback.php/ordertongji?tenant-id="+tenant_id,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -82,7 +82,7 @@ function loadorders(tenant_id,page,payway) {
         page=1;
     }
     $.ajax({
-        url: "http://api.uminfo.cn/tenantsback.php/getGoodsOrders?tenant-id="+tenant_id+"&page="+page+"&perpage=10&payway="+payway,
+        url: p_url+"tenantsback.php/getGoodsOrders?tenant-id="+tenant_id+"&page="+page+"&perpage=10&payway="+payway,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",

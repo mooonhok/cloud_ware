@@ -2,11 +2,11 @@ $(function(){
   var adminid=$.session.get('adminid');
 //  var adminid=3;
     if(adminid==null||adminid==""){
-    	window.location.href="http://api.uminfo.cn/tenantsback/login.html";
+    	window.location.href=p_url+"tenantsback/login.html";
     }
     var page = $.getUrlParam('page');
     $.ajax({
-	 url: "http://api.uminfo.cn/tenantsback.php/gettenants?adminid="+adminid,
+	 url: p_url+"tenantsback.php/gettenants?adminid="+adminid,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -57,7 +57,7 @@ function loadorders(tenant_id,page) {
         page=1;
     }
     $.ajax({
-        url: "http://api.uminfo.cn/tenantsback.php/lagrs?tenant-id="+tenant_id+"&page="+page+"&perpage=10",
+        url: p_url+"tenantsback.php/lagrs?tenant-id="+tenant_id+"&page="+page+"&perpage=10",
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -100,7 +100,7 @@ function loadorders(tenant_id,page) {
                                 +item.driver_phone+'</td><td>'
                                 +a+'</td><td>'
                                 +item.freight+'</td><td>'
-                                +item.agreement_time+'</td><td><a href="http://api.uminfo.cn/tenantsback/agreement.html?agreement_id='
+                                +item.agreement_time+'</td><td><a href='+p_url+'"tenantsback/agreement.html?agreement_id='
                                 +item.agreement_id+'&tenant_id='+tenant_id+'" style="color:blue;">查看</a></td></tr>');
                             });
                             return arr.join('');

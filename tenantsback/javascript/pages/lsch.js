@@ -1,11 +1,11 @@
 $(function(){
  var adminid=$.session.get('adminid');
     if(adminid==null||adminid==""){
-    	window.location.href="http://api.uminfo.cn/tenantsback/login.html";
+    	window.location.href=p_url+"tenantsback/login.html";
     }
     var page = $.getUrlParam('page');
     $.ajax({
-	 url: "http://api.uminfo.cn/tenantsback.php/gettenants?adminid="+adminid,
+	 url: p_url+"tenantsback.php/gettenants?adminid="+adminid,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -57,7 +57,7 @@ function loadorders(tenant_id,page) {
         page=1;
     }
     $.ajax({
-        url: "http://api.uminfo.cn/tenantsback.php/lsch?tenant-id="+tenant_id+"&page="+page+"&perpage=10",
+        url: p_url+"tenantsback.php/lsch?tenant-id="+tenant_id+"&page="+page+"&perpage=10",
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",

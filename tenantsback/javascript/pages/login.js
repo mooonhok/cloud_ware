@@ -17,7 +17,7 @@ $(function(){
 			var name=$('#adminName').val();
 			var password=$('#adminPwd').val();
 			$.ajax({
-				url: "http://api.uminfo.cn/tenantsback.php/sign",
+				url: p_url+"tenantsback.php/sign",
 				dataType: 'json',
 				type: 'post',
 				ContentType: "application/json;charset=utf-8",
@@ -29,7 +29,7 @@ $(function(){
 				success: function(msg) {
 				   if(msg.result == 0) {
                        $('.mask,.dialog').hide();
-					   window.location.href = "http://api.uminfo.cn/tenantsback/index.html";
+					   window.location.href = p_url+"tenantsback/index.html";
                        $.session.set('adminid',msg.admin);
 				  }else{
 				  		alert(msg.desc);
