@@ -167,7 +167,7 @@
                     xhr.onload = function(e) {
                         if (this.status == 200) {
                             alert('上传成功');
-                            $("#notice").val("");
+                            window.location.reload();
                         };
                     };
                     return;
