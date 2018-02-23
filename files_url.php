@@ -7,7 +7,8 @@
  */
 
 function files_url(){
-    return  'http://files.uminfor.cn:8000/';
+    $url=explode(".",$_SERVER["HTTP_HOST"]);
+    return  'http://files.'.$url[1].'cn:8000/';
 //    return  'http://files.uminfo.cn:8000/';
 }
 
