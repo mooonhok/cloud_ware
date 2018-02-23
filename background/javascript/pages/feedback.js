@@ -1,17 +1,11 @@
 $(function(){
     var adminid=$.session.get('adminid');
     var page = $.getUrlParam('page');
-    var telephone='';
-    load_contact_companys(telephone,page) ;
+    load_feed_backs(page)
     $('#order_close').on("click",function () {
         $(".tenant_tk").css("display","none");
     })
-
-    $(".sousuo_z").on("click",function(){
-        alert(1)
-        var telephone=$(".telephone").val();
-        load_contact_companys(telephone,page) ;
-    })
+    
 });
 
 (function($) {
