@@ -28,6 +28,7 @@ $(function(){
 				success: function(msg) {
 				   if(msg.result == 0) {
                        $('.mask,.dialog').hide();
+                       alert(p_url)
 					   window.location.href = p_url+"background/tenant.html";
                        $.session.set('adminid',msg.admin.id);
                        $.session.set('admintype',msg.admin.type);
