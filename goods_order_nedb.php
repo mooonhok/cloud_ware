@@ -185,7 +185,7 @@ $app->get('/getGoodsOrders1',function()use($app){
                 if($data13!=null){
                     $last_reach_city=$data13[0]['reach_city'];
                 }
-                $is_transfer='';
+                $is_transfer=null;
                 if($data11!=null){
                     $is_transfer=$data11[0]['is_transfer'];
                 }
@@ -772,7 +772,7 @@ $app->get('/limitGoodsOrders1',function()use($app){
                         ->limit(1);
                     $stmt=$selectStament->execute();
                     $data12=$stmt->fetch();
-                    $is_transfer='';
+                    $is_transfer=null;
                     if($data12!=null){
                         $is_transfer=$data12['is_transfer'];
                     }
@@ -879,7 +879,7 @@ $app->get('/limitGoodsOrders2',function()use($app){
                         ->limit(1);
                     $stmt=$selectStament->execute();
                     $data12=$stmt->fetch();
-                    $is_transfer='';
+                    $is_transfer=null;
                     if($data12!=null){
                         $is_transfer=$data12['is_transfer'];
                     }
@@ -986,7 +986,7 @@ $app->get('/limitGoodsOrders3',function()use($app){
                         ->limit(1);
                     $stmt=$selectStament->execute();
                     $data12=$stmt->fetch();
-                    $is_transfer='';
+                    $is_transfer=null;
                     if($data12!=null){
                         $is_transfer=$data12['is_transfer'];
                     }
@@ -1093,7 +1093,7 @@ $app->get('/limitGoodsOrders4',function()use($app){
                         ->limit(1);
                     $stmt=$selectStament->execute();
                     $data12=$stmt->fetch();
-                    $is_transfer='';
+                    $is_transfer=null;
                     if($data12!=null){
                         $is_transfer=$data12['is_transfer'];
                     }
@@ -1235,7 +1235,7 @@ $app->get('/limitGoodsOrders5',function()use($app){
                     if($data13!=null){
                         $last_reach_city=$data13[0]['reach_city'];
                     }
-                    $is_transfer='';
+                    $is_transfer=null;
                     if($data11!=null){
                         $is_transfer=$data11[0]['is_transfer'];
                     }
@@ -1347,7 +1347,7 @@ $app->get('/getGoodsOrder',function()use($app){
                     ->limit(1);
                 $stmt=$selectStament->execute();
                 $data12=$stmt->fetch();
-                $is_transfer='';
+                $is_transfer=null;
                 if($data12!=null){
                     $is_transfer=$data12['is_transfer'];
                 }
@@ -2270,7 +2270,7 @@ $app->get('/getGoodsOrders7',function()use($app){
             if($data13!=null){
                 $last_reach_city=$data13[0]['reach_city'];
             }
-            $is_transfer='';
+            $is_transfer=null;
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
@@ -2614,7 +2614,7 @@ $app->get('/limitGoodsOrders12',function()use($app){
                     if($data13!=null){
                         $last_reach_city=$data13[0]['reach_city'];
                     }
-                    $is_transfer='';
+                    $is_transfer=null;
                     if($data11!=null){
                         $is_transfer=$data11[0]['is_transfer'];
                     }
@@ -2835,7 +2835,7 @@ $app->get('/getGoodsOrders4',function()use($app){
             if($data13!=null){
                 $last_reach_city=$data13[0]['reach_city'];
             }
-            $is_transfer='';
+            $is_transfer=null;
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
@@ -2977,7 +2977,7 @@ $app->get('/getGoodsOrders5',function()use($app){
             if($data13!=null){
                 $last_reach_city=$data13[0]['reach_city'];
             }
-            $is_transfer='';
+            $is_transfer=null;
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
@@ -3102,7 +3102,7 @@ $app->get('/getGoodsOrders6',function()use($app){
             if($data13!=null){
                 $last_reach_city=$data13[0]['reach_city'];
             }
-            $is_transfer='';
+            $is_transfer=null;
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
@@ -3246,7 +3246,7 @@ $app->get('/getGoodsOrders9',function()use($app){
             if($data13!=null){
                 $last_reach_city=$data13[0]['reach_city'];
             }
-            $is_transfer='';
+            $is_transfer=null;
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
@@ -3397,7 +3397,7 @@ $app->get('/getGoodsOrders8',function()use($app){
             if($data13!=null){
                 $last_reach_city=$data13[0]['reach_city'];
             }
-            $is_transfer='';
+            $is_transfer=null;
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
@@ -3538,7 +3538,7 @@ $app->get('/getGoodsOrders10',function()use($app){
             if($data13!=null){
                 $last_reach_city=$data13[0]['reach_city'];
             }
-            $is_transfer='';
+            $is_transfer=null;
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
@@ -3692,7 +3692,7 @@ $app->get('/limitGoodsOrders13',function()use($app){
             if($data13!=null){
                 $last_reach_city=$data13[0]['reach_city'];
             }
-            $is_transfer='';
+            $is_transfer=null;
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
@@ -3845,7 +3845,7 @@ $app->get('/limitGoodsOrders14',function()use($app){
             if($data13!=null){
                 $last_reach_city=$data13[0]['reach_city'];
             }
-            $is_transfer='';
+            $is_transfer=null;
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
@@ -3996,7 +3996,7 @@ $app->get('/limitGoodsOrders15',function()use($app){
             if($data13!=null){
                 $last_reach_city=$data13[0]['reach_city'];
             }
-            $is_transfer='';
+            $is_transfer=null;
             if($data11!=null){
                 $is_transfer=$data11[0]['is_transfer'];
             }
@@ -4126,7 +4126,7 @@ $app->get('/limitGoodsOrders9',function()use($app){
                     if($data13!=null){
                         $last_reach_city=$data13[0]['reach_city'];
                     }
-                    $is_transfer='';
+                    $is_transfer=null;
                     if($data11!=null){
                         $is_transfer=$data11[0]['is_transfer'];
                     }
@@ -4286,7 +4286,7 @@ $app->get('/limitGoodsOrders10',function()use($app){
                     if($data13!=null){
                         $last_reach_city=$data13[0]['reach_city'];
                     }
-                    $is_transfer='';
+                    $is_transfer=null;
                     if($data11!=null){
                         $is_transfer=$data11[0]['is_transfer'];
                     }
@@ -4423,7 +4423,7 @@ $app->get('/limitGoodsOrders11',function()use($app){
                     if($data13!=null){
                         $last_reach_city=$data13[0]['reach_city'];
                     }
-                    $is_transfer='';
+                    $is_transfer=null;
                     if($data11!=null){
                         $is_transfer=$data11[0]['is_transfer'];
                     }
