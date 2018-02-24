@@ -1264,7 +1264,6 @@ window.alert = function(name){
 			var jiazhi = parseInt($(".jiazhi").val());
 			var money = $(".money").val();
 			var baozhuang=$("#package").val();
-			alert(baozhuang+"//"+$("#package").val());
 			var str = 4;
 			if(money == "到付") {
 				str = 1;
