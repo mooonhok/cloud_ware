@@ -61,6 +61,42 @@ $app->get('/all',function()use($app){
     echo  json_encode(array("result"=>"0","desc"=>"success","tables"=>$data));
 });
 
+$app->post('/addpackage',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $package=$body->name;
+    if($package!=null||$package!=""){
+        $selectStatement = $database->select()
+            ->from('goods_package')
+            ->where('goods_package','=',$package);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetch();
+        if($data!=null){
+            $selectStatement = $database->select()
+                ->from('goods_package');
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetchAll();
+            $insertStatement = $database->insert(array('goods_package_id','goods_package'))
+                    ->into('goods_package')
+                     ->values(array(count($data1)+1,$package));
+            $insertId = $insertStatement->execute(false);
+            if($insertId!=""||$insertId!=null){
+                echo  json_encode(array("result"=>"0","desc"=>"添加成功"));
+            }else{
+                echo  json_encode(array("result"=>"3","desc"=>"添加失败"));
+            }
+        }else{
+            echo  json_encode(array("result"=>"2","desc"=>"包装的方式已经存在"));
+        }
+    }else{
+        echo  json_encode(array("result"=>"1","desc"=>"包装的方式为空"));
+    }
+});
+
+
 $app->run();
 
 function localhost(){
