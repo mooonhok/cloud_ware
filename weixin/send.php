@@ -60,7 +60,7 @@ $signPackage = $jssdk->GetSignPackage();
 				</div>
 				<div class="center_4">
 					<div class="wenzi">包装</div>
-					<div class="text1">
+					<div class="text10">
 						<select name="package" id="package">
 								<option value="">请选择</option>
 						</select>

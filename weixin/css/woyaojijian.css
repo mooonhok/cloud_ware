@@ -141,8 +141,22 @@ html,body{height:100%; width:100%;
 	margin-top: 14px;
 	margin-right: 10%;
 }
-.text1 select{
-	width: 50%;
+.text1 input{
+	width: 100%;
+	text-align: right;
+	border: 0;outline-style: none;
+	background: white;
+    color:black;
+	font-family:'黑体';
+}
+.text10{
+	float: right;
+	width: 30%;
+	margin-top: 14px;
+	margin-right: 10%;
+}
+.text10 select{
+	width: 100%;
 	text-align: right;
 	border: 0;outline-style: none;
 	background: white;
