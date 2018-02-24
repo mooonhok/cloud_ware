@@ -5,7 +5,7 @@ $(function(){
     $('#order_close').on("click",function () {
         $(".tenant_tk").css("display","none");
     })
-    
+
 });
 
 (function($) {
@@ -23,7 +23,7 @@ function load_feed_backs(page) {
         page=1;
     }
     $.ajax({
-        url: p_url+"adminall.php/contact_company?page="+page+"&per_page=10",
+        url: p_url+"adminall.php/feedback?page="+page+"&per_page=10",
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -46,9 +46,9 @@ function load_feed_backs(page) {
                         //模拟渲染
                         document.getElementById('tb1').innerHTML = function(){
                             var arr = []
-                                ,thisData = msg.contact_companys;
+                                ,thisData = msg.feedbacks;
                             layui.each(thisData, function(index, item){
-                                arr.push( '<tr><td style="display:none">+item.id+</td><td>'+item.company_name+'</td><td>'+item.telephone+'</td><td>'+item.contact_name+'</td><td>'+item.address+'</td></tr>');
+                                arr.push( '<tr><td style="display:none">+item.company_name+</td><td>'+item.staff_name+'</td><td>'+item.content+'</td><td>'+item.time+'</td></tr>');
                             });
                             return arr.join('');
                         }();

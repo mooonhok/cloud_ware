@@ -1345,7 +1345,7 @@ $app->get('/feedback',function()use($app){
         $data1[$i]['company_name']=$data2['company'];
         $data1[$i]['staff_name']=$data3['name'];
     }
-    echo json_encode(array("result"=>"0","desc"=>"success",'contact_companys'=>$data1,'count'=>count($data0)));
+    echo json_encode(array("result"=>"0","desc"=>"success",'feedbacks'=>$data1,'count'=>count($data0)));
 });
 
 $app->get('/get_tenant',function()use($app){
