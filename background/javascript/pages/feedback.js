@@ -48,7 +48,7 @@ function load_feed_backs(page) {
                             var arr = []
                                 ,thisData = msg.feedbacks;
                             layui.each(thisData, function(index, item){
-                                arr.push( '<tr><td>+item.company_name+</td><td>'+item.staff_name+'</td><td>'+item.content+'</td><td>'+item.time+'</td></tr>');
+                                arr.push( '<tr><td>'+item.company_name+'</td><td>'+item.staff_name+'</td><td>'+item.content+'</td><td>'+item.time+'</td></tr>');
                             });
                             return arr.join('');
                         }();
