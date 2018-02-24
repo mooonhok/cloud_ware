@@ -151,9 +151,10 @@ html,body{height:100%; width:100%;
 }
 .text10{
 	float: right;
-	width: 30%;
+	width: 73%;
 	margin-top: 14px;
 	margin-right: 10%;
+	text-align: right;
 }
 .text10 select{
 	width: 100%;
