@@ -61,7 +61,9 @@ $signPackage = $jssdk->GetSignPackage();
 				<div class="center_4">
 					<div class="wenzi">包装</div>
 					<div class="text1">
-						<input type="text" placeholder="必填项" class="baozhuang" disabled="disabled" style="color: black;">
+						<select name="package" id="package">
+								<option value="">请选择</option>
+						</select>
 					</div>
 				</div>
 				<div class="center_5">
@@ -265,7 +267,7 @@ $signPackage = $jssdk->GetSignPackage();
 			<div style="clear:both;"></div>
 		</div>
 		<!-- box4 -->
-		<div class="box4">
+		<!--<div class="box4">
 			<div class="box4-1">
 				<div class="qx2">取消</div>
 				<div class="h5"><h5>包装类型</h5></div>
@@ -281,7 +283,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<div class="box4-3-3" value="6">无包装</div>
 				</div>
 			</div>
-		</div>
+		</div>-->
 		<div class="box6">
 			<div class="box6-1">
 				<div class="qx3">取消</div>
@@ -566,39 +568,39 @@ window.alert = function(name){
              	layer.msg("您必须选择两个备注");
              }
 	     });
-		$(".center_4").on("click", function() {
-			$(".box4").css("display", "block");
-		})
-		$(".box4-2-1").on("click", function() {
-			var box4 = $(this).html();
-			$(".baozhuang").val(box4);
-			$(".box4").css("display", "none");
-		})
-		$(".box4-2-2").on("click", function() {
-			var box4 = $(this).html();
-			$(".baozhuang").val(box4);
-			$(".box4").css("display", "none");
-		})
-		$(".box4-2-3").on("click", function() {
-			var box4 = $(this).html();
-			$(".baozhuang").val(box4);
-			$(".box4").css("display", "none");
-		})
-		$(".box4-3-1").on("click", function() {
-			var box4 = $(this).html();
-			$(".baozhuang").val(box4);
-			$(".box4").css("display", "none");
-		})
-		$(".box4-3-2").on("click", function() {
-			var box4 = $(this).html();
-			$(".baozhuang").val(box4);
-			$(".box4").css("display", "none");
-		})
-		$(".box4-3-3").on("click", function() {
-			var box4 = $(this).html();
-			$(".baozhuang").val(box4);
-			$(".box4").css("display", "none");
-		})
+//		$(".center_4").on("click", function() {
+//			$(".box4").css("display", "block");
+//		})
+//		$(".box4-2-1").on("click", function() {
+//			var box4 = $(this).html();
+//			$(".baozhuang").val(box4);
+//			$(".box4").css("display", "none");
+//		})
+//		$(".box4-2-2").on("click", function() {
+//			var box4 = $(this).html();
+//			$(".baozhuang").val(box4);
+//			$(".box4").css("display", "none");
+//		})
+//		$(".box4-2-3").on("click", function() {
+//			var box4 = $(this).html();
+//			$(".baozhuang").val(box4);
+//			$(".box4").css("display", "none");
+//		})
+//		$(".box4-3-1").on("click", function() {
+//			var box4 = $(this).html();
+//			$(".baozhuang").val(box4);
+//			$(".box4").css("display", "none");
+//		})
+//		$(".box4-3-2").on("click", function() {
+//			var box4 = $(this).html();
+//			$(".baozhuang").val(box4);
+//			$(".box4").css("display", "none");
+//		})
+//		$(".box4-3-3").on("click", function() {
+//			var box4 = $(this).html();
+//			$(".baozhuang").val(box4);
+//			$(".box4").css("display", "none");
+//		})
 	</script>
 	<script type="text/javascript">
 		$(".foot2").on("click", function() {
@@ -626,6 +628,21 @@ window.alert = function(name){
 		})
 	</script>
 	<script>
+		$.ajax({
+			url: "http://api.uminfo.cn/goods_package_nedb.php/getGoodsPackages",
+			dataType: 'json',
+			type: 'get',
+			ContentType: "application/json;charset=utf-8",
+			data: JSON.stringify({}),
+			success: function(msg) {
+				for(var i = 0; i < msg.goods_package.length; i++) {
+					$("#package").append('<option value="' + msg.goods_package[i].goods_package_id + '">' + msg.goods_package[i].goods_package + '</option>');
+				}
+			},
+			error: function(e) {
+				layer.msg("省份列表1信息出错!");
+			}
+		});
 		//获取省份和城市列表1
 		$.ajax({
 			url: "http://api.uminfo.cn/city.php/province",
@@ -1246,6 +1263,7 @@ window.alert = function(name){
 			var needs = $(".needs").val();
 			var jiazhi = parseInt($(".jiazhi").val());
 			var money = $(".money").val();
+			var baozhuang=$("#package").val();
 			var str = 4;
 			if(money == "到付") {
 				str = 1;
