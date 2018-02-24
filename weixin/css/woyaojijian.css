@@ -142,7 +142,7 @@ html,body{height:100%; width:100%;
 	margin-right: 10%;
 }
 .text1 select{
-	width: 100%;
+	width: 50%;
 	text-align: right;
 	border: 0;outline-style: none;
 	background: white;
