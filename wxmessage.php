@@ -133,14 +133,14 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                                 }while(strlen($strrrr)<4);
                                                                                                 $time2=base_convert(time(), 10, 32);
                                                                                                 $str2=$time2.$strrrr;
-                                                                                                $selectStatement = $database->select()
-                                                                                                    ->from('goods_package')
-                                                                                                    ->where('goods_package','=',$goods_package);
-                                                                                                $stmt = $selectStatement->execute();
-                                                                                                $data7= $stmt->fetch();
+//                                                                                                $selectStatement = $database->select()
+//                                                                                                    ->from('goods_package')
+//                                                                                                    ->where('goods_package','=',$goods_package);
+//                                                                                                $stmt = $selectStatement->execute();
+//                                                                                                $data7= $stmt->fetch();
                                                                                                 $insertStatement = $database->insert(array('order_id', 'tenant_id', 'goods_id','exist','goods_package_id','goods_name','goods_weight','goods_capacity','goods_count','special_need','goods_value'))
                                                                                                     ->into('goods')
-                                                                                                    ->values(array($str,$tenant_id, $str2,0,$data7['goods_package_id'],$goods_name,$goods_weight,$goods_capacity,$goods_count,$special_need,$good_worth));
+                                                                                                    ->values(array($str,$tenant_id, $str2,0,$goods_package,$goods_name,$goods_weight,$goods_capacity,$goods_count,$special_need,$good_worth));
                                                                                                 $insertId = $insertStatement->execute(false);
                                                                                                 if($insertId!=null){
                                                                                                     $selectStament=$database->select()
