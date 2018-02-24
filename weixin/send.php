@@ -640,7 +640,7 @@ window.alert = function(name){
 				}
 			},
 			error: function(e) {
-				layer.msg("省份列表1信息出错!");
+				layer.msg("包装列表出错!");
 			}
 		});
 		//获取省份和城市列表1
@@ -1258,7 +1258,7 @@ window.alert = function(name){
 			var zhong = str1 * 1;
 			var str2 = $(".tiji").val();
 			var tiji = str2 * 1;
-			var baozhuang = $(".baozhuang").val();
+			
 			var jianshu = parseInt($(".jianshu").val());
 			var needs = $(".needs").val();
 			var jiazhi = parseInt($(".jiazhi").val());
