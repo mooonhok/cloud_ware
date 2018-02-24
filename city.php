@@ -74,7 +74,7 @@ $app->post('/addpackage',function()use($app){
             ->where('goods_package','=',$package);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetch();
-        if($data!=null){
+        if($data==null){
             $selectStatement = $database->select()
                 ->from('goods_package');
             $stmt = $selectStatement->execute();
