@@ -133,7 +133,8 @@
                 </ul>
             </div>
         </header>
-        <form id="formid"  name= "myform" method = 'post'  action="http://api.uminfo.cn/client.php/client_version" enctype="multipart/form-data" >
+        <!--<form id="formid"  name= "myform" method = 'post'  action="http://api.uminfo.cn/client.php/client_version" enctype="multipart/form-data" >-->
+        <form id="formid"  name= "myform" method = 'post'  enctype="multipart/form-data" >
             <main class="main-cont content mCustomScrollbar">
                 <div id="" class="company_top">江苏酉铭客户端更新发布</div>
                 <div class="company_body">
@@ -155,6 +156,7 @@
 
 </div>
 <script>
+    $("#formid").attr({action:""+p_url+"client.php/client_version"})
 //    $(".but").on('click',function(){
 //        var file1=document.getElementById("notice").files[0];
 //        if(file1!=null){
