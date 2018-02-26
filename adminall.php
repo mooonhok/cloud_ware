@@ -639,7 +639,7 @@ $app->put('/uptenant',function()use($app){
                      $shijian=date("Y-m-d H:i:s",time());
                      $insertStatement = $database->insert(array('service_id','tab_name','tab_id','tenant_id','time'))
                          ->into('operate_admin')
-                         ->values(array($admin_id,'tenant',$data2['id'],$tenant_id,$shijian));
+                         ->values(array($admin_id,'tenant',$tenant_id,$tenant_id,$shijian));
                      $insertId = $insertStatement->execute(false);
                      $insertStatement = $database->insert(array('service_id','tab_name','tab_id','tenant_id','time'))
                          ->into('operate_admin')
