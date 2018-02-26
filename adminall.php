@@ -1375,6 +1375,28 @@ $app->get('/get_tenant',function()use($app){
     echo json_encode(array("result"=>"0","desc"=>"success",'tenants'=>$data));
 });
 
+$app->get('/operate_admin',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $admin_id=$app->request->get("adminid");
+    $selectStament=$database->select()
+        ->from('admin')
+        ->where('type','=',1)
+        ->where('admin_id','=',$admin_id);
+    $stmt=$selectStament->execute();
+    $data=$stmt->fetch();
+    if($data!=null){
+        $selectStatement = $database->select()
+            ->from('operate_admin');
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetchAll();
+        echo json_encode(array("result"=>"0","desc"=>"success",'operate_admins'=>$data1));
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"没有权限"));
+    }
+});
+
 $app->run();
 
 function file_url(){
