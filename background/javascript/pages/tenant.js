@@ -86,7 +86,7 @@ function tenant_xq(id){
     //         alert("获取后台失败！");
     //     }
     // });
-
+    var adminid=$.session.get('adminid');
     var index=layer.open({
         type: 1,
         skin: 'layui-layer-rim', //加上边框
@@ -168,7 +168,7 @@ function tenant_xq(id){
             success: function(msg) {
                 console.log(msg);
                 layer.msg(msg.desc);
-                $(".tenant_tk").css("display","none");
+                layer.close(index);
             },
             error: function(xhr) {
                 alert("获取后台失败！");
