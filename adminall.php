@@ -1413,7 +1413,7 @@ $app->get('/paixun',function()use($app){
                 ->table('admin')
                 ->where('id', '>', count($data))
                 ->orderBy('id','desc')
-                ->limit(1);
+                ->limit(1,1);
             $affectedRows = $updateStatement->execute();
         }
     }
