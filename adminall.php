@@ -635,6 +635,16 @@ $app->put('/uptenant',function()use($app){
                          ->table('customer')
                          ->where('customer_id', '=', $data2['contact_id']);
                      $affectedRows = $updateStatement->execute();
+                     date_default_timezone_set("PRC");
+                     $shijian=date("Y-m-d H:i:s",time());
+                     $insertStatement = $database->insert(array('service_id','tab_name','tab_id','tenant_id','time'))
+                         ->into('operate_admin')
+                         ->values(array($admin_id,'tenant',$data2['id'],$tenant_id,$shijian));
+                     $insertId = $insertStatement->execute(false);
+                     $insertStatement = $database->insert(array('service_id','tab_name','tab_id','tenant_id','time'))
+                         ->into('operate_admin')
+                         ->values(array($admin_id,'customer',$data2['contact_id'],$tenant_id,$shijian));
+                     $insertId = $insertStatement->execute(false);
                      echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
                  }else{
                      echo json_encode(array('result' => '4', 'desc' => '租户不存在'));
