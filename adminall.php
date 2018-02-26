@@ -1383,7 +1383,7 @@ $app->get('/operate_admin',function()use($app){
     $selectStament=$database->select()
         ->from('admin')
         ->where('type','=',1)
-        ->where('admin_id','=',$admin_id);
+        ->where('id','=',$admin_id);
     $stmt=$selectStament->execute();
     $data=$stmt->fetch();
     if($data!=null){
