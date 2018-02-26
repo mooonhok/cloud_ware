@@ -1409,11 +1409,16 @@ $app->get('/paixun',function()use($app){
     if($data!=null){
         for($x=0;$x<count($data);$x++){
             $arrays['id']=(int)count($x)-(int)$x;
-            $updateStatement = $database->update($arrays)
-                ->table('admin')
+            $selectStatement = $database->select()
+                ->from('admin')
                 ->where('id', '>', count($data))
                 ->orderBy('id','desc')
-                ->limit(1,1);
+                ->limit(1);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $updateStatement = $database->update($arrays)
+                ->table('admin')
+                ->where('id','=',$data2['id']);
             $affectedRows = $updateStatement->execute();
         }
     }
