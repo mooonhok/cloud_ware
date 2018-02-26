@@ -1398,12 +1398,10 @@ $app->get('/operate_admin',function()use($app){
 });
 
 
-$app->post('/paixun',function()use($app){
+$app->get('/paixun',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
-    $body=$app->request->getBody();
-    $body=json_decode($body);
     $selectStatement = $database->select()
         ->from('admin');
     $stmt = $selectStatement->execute();
@@ -1418,7 +1416,6 @@ $app->post('/paixun',function()use($app){
                 ->limit(1);
             $affectedRows = $updateStatement->execute();
         }
-
     }
     echo json_encode(array("result"=>"1","desc"=>"操作成功"));
 });
