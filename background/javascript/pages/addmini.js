@@ -188,7 +188,7 @@ function addmini(){
         	pic3:pic3,
         	pic4:pic4,
         	pic5:pic5,
-			adminid:adminid,
+			adminid:adminid
         }),
         success: function(msg) {
         	if(msg.result==0){
