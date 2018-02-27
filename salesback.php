@@ -535,7 +535,7 @@ $app->get('/showadmin',function()use($app){
                     ->limit((int)$per_page,(int)$per_page * (int)$page);
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetchAll();
-                echo json_encode(array('result' => '0', 'desc' => '','jilu'=>$data2,'count'=>count($data3)));
+                echo json_encode(array('result' => '0', 'desc' => '','jilu'=>$data3,'count'=>count($data2)));
             } else {
                 echo json_encode(array('result' => '3', 'desc' => '管理员不存在'));
             }
