@@ -383,6 +383,7 @@ $app->post('/app_lorry',function()use($app){
     $array=array();
     $database=localhost();
     $file_url=file_url();
+    $admin_id = $app->request->params('admin_id');
     $app_lorry_id = $app->request->params('app_lorry_id');
     $phone = $app->request->params('phone');
     $name = $app->request->params('name');
@@ -399,6 +400,7 @@ $app->post('/app_lorry',function()use($app){
     $array['length']=$lorry_length_name;
     $array['type']=$lorry_type_name;
     $array['deadweight']=$lorry_load_name;
+
     $time2=time();
     if(isset($_FILES["identity_card_z"]["name"])){
         $name21=$_FILES["identity_card_z"]["name"];
@@ -466,6 +468,13 @@ $app->post('/app_lorry',function()use($app){
             ->where('exist','=',0)
             ->where('app_lorry_id','=',$app_lorry_id);
         $affectedRows = $updateStatement->execute();
+
+        date_default_timezone_set("PRC");
+        $shijian=date("Y-m-d H:i:s",time());
+        $insertStatement = $database->insert(array('service_id','tab_name','tab_id','tenant_id','time'))
+            ->into('operate_admin')
+            ->values(array($admin_id,'app_lorry',$app_lorry_id,-1,$shijian));
+        $insertId = $insertStatement->execute(false);
         echo json_encode(array("result"=>"0","desc"=>"success"));
     }else{
         echo json_encode(array("result"=>"1","desc"=>"缺少车辆id"));

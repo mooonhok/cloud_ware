@@ -235,6 +235,7 @@ function lorry_xq(id){
     });
 
     $("#order_sure").on("click",function(){
+        var adminid=$.session.get('adminid');
         var lorry_id=$("#lorry_id").val();
         var phone=$("#phone").val();
         var name=$("#name").val();
@@ -250,6 +251,7 @@ function lorry_xq(id){
         var x_z=document.getElementsByClassName('x_z')[0].files[0];
         var x_f=document.getElementsByClassName('x_f')[0].files[0];
             var formdata = new FormData();
+           formdata.append('admin_id', adminid);
            formdata.append('app_lorry_id', lorry_id);
            formdata.append('phone', phone);
            formdata.append('name', name);
