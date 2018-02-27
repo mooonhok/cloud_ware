@@ -128,10 +128,8 @@ function getPro2() {
 		}
 	});
 }
-
+var adminid=$.session.get('adminid');
 function addmini(){
-    var adminid=$.session.get('adminid');
-    alert(adminid)
 	var company=$("#companyname").val();
 	var line=$("#line").val();
 	var name=$("#name").val();
