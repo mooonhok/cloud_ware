@@ -101,7 +101,7 @@
 
 	<body>
 		<div class="box">
-			<div class="top">客服操作纪录<div id="top1">返回业务员报表</div><div id="top2">退出登录</div></div>
+			<div class="top">客服操作纪录<div id="top1">业务员</div><div id="top2">退出登录</div></div>
 			<div class="center">
 				<!--<div class="center1">
 					<div class="center1_1">奖池总金额:
@@ -225,6 +225,10 @@
 		$("#top2").on('click',function(){
 			$.session.remove("adminid");
 			window.location.href=p_url+"backsales/login.html";
+		});
+		$("#top1").on('click',function(){
+			$.session.remove("adminid");
+			window.location.href=p_url+"backsales/index.html";
 		});
 		$(".foot").on('click',function(){
 			$("div .print").printArea();  
