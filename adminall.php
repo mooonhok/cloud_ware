@@ -1416,10 +1416,12 @@ $app->get('/paixun',function()use($app){
                 ->limit(1);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetch();
+            if($data2!=null){
             $updateStatement = $database->update($arrays)
                 ->table('admin')
                 ->where('id','=',$data2['id']);
             $affectedRows = $updateStatement->execute();
+            }
         }
     }
     echo json_encode(array("result"=>"1","desc"=>"操作成功"));
