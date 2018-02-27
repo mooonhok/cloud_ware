@@ -30,6 +30,7 @@ $app->post('/sadmin',function()use($app){
             $selectStament=$database->select()
                 ->from('admin')
                 ->where('exist','=',0)
+                ->where('type','=',1)
                 ->where('password','=',$password)
                 ->where('username','=',$username);
             $stmt=$selectStament->execute();
@@ -62,11 +63,11 @@ $app->get('/sales',function()use($app){
         if($admin_id!=""||$admin_id!=null){
             $selectStament=$database->select()
                 ->from('admin')
+                ->where('type','=',1)
                 ->where('id','=',$admin_id);
             $stmt=$selectStament->execute();
             $data=$stmt->fetch();
             if($data!=null){
-                if($data['type']==2||$data['type']==1){
                     $selectStament=$database->select()
                         ->from('sales');
                     $stmt=$selectStament->execute();
@@ -100,9 +101,6 @@ $app->get('/sales',function()use($app){
                     }else{
                         echo json_encode(array('result' => '4', 'desc' => '尚未有业务员'));
                     }
-                }else{
-                    echo json_encode(array('result' => '3', 'desc' => '您没有足够权限'));
-                }
             }else{
                 echo json_encode(array('result' => '2', 'desc' => '管理员不存在'));
             }
@@ -114,11 +112,12 @@ $app->get('/sales',function()use($app){
         if($admin_id!=""||$admin_id!=null){
             $selectStament=$database->select()
                 ->from('admin')
+                ->where('type','=',1)
                 ->where('id','=',$admin_id);
             $stmt=$selectStament->execute();
             $data=$stmt->fetch();
             if($data!=null){
-                if($data['type']==1||$data['type']==2){
+
                     $selectStament=$database->select()
                         ->from('sales');
                     $stmt=$selectStament->execute();
@@ -173,9 +172,6 @@ $app->get('/sales',function()use($app){
                     }else{
                         echo json_encode(array('result' => '4', 'desc' => '尚未有业务员'));
                     }
-                }else{
-                    echo json_encode(array('result' => '3', 'desc' => '您没有足够权限'));
-                }
             }else{
                 echo json_encode(array('result' => '2', 'desc' => '管理员不存在'));
             }
@@ -188,11 +184,11 @@ $app->get('/sales',function()use($app){
             if($admin_id!=""||$admin_id!=null){
                 $selectStament=$database->select()
                     ->from('admin')
+                    ->where('type','=',1)
                     ->where('id','=',$admin_id);
                 $stmt=$selectStament->execute();
                 $data=$stmt->fetch();
                 if($data!=null){
-                    if($data['type']==2||$data['type']==1){
                         $selectStament=$database->select()
                             ->from('sales')
                             ->where('team_id','=',$teamid);
@@ -227,9 +223,6 @@ $app->get('/sales',function()use($app){
                         }else{
                             echo json_encode(array('result' => '4', 'desc' => '尚未有业务员'));
                         }
-                    }else{
-                        echo json_encode(array('result' => '3', 'desc' => '您没有足够权限'));
-                    }
                 }else{
                     echo json_encode(array('result' => '2', 'desc' => '管理员不存在'));
                 }
@@ -241,11 +234,12 @@ $app->get('/sales',function()use($app){
             if($admin_id!=""||$admin_id!=null){
                 $selectStament=$database->select()
                     ->from('admin')
+                    ->where('type','=',1)
                     ->where('id','=',$admin_id);
                 $stmt=$selectStament->execute();
                 $data=$stmt->fetch();
                 if($data!=null){
-                    if($data['type']==1||$data['type']==2){
+
                         $selectStament=$database->select()
                             ->from('sales')
                             ->where('team_id','=',$teamid);
@@ -304,9 +298,6 @@ $app->get('/sales',function()use($app){
                         }else{
                             echo json_encode(array('result' => '4', 'desc' => '尚未有业务员'));
                         }
-                    }else{
-                        echo json_encode(array('result' => '3', 'desc' => '您没有足够权限'));
-                    }
                 }else{
                     echo json_encode(array('result' => '2', 'desc' => '管理员不存在'));
                 }
@@ -314,8 +305,6 @@ $app->get('/sales',function()use($app){
                 echo json_encode(array('result' => '1', 'desc' => '缺少管理员id'));
             }
         }
-
-
     }
 });
 //修改业务员状态
@@ -332,11 +321,11 @@ $app->post('/upsales',function()use($app){
     if($admin_id!=null||$admin_id!=""){
         $selectStament=$database->select()
             ->from('admin')
+            ->where('type','=',1)
             ->where('id','=',$admin_id);
         $stmt=$selectStament->execute();
         $data=$stmt->fetch();
         if($data!=null){
-            if($data['type']==1){
                 $selectStament=$database->select()
                     ->from('sales')
                     ->where('id','=',$sales_id);
@@ -351,9 +340,6 @@ $app->post('/upsales',function()use($app){
                 }else{
                     echo json_encode(array('result' => '4', 'desc' => '业务员不存在'));
                 }
-            }else{
-                echo json_encode(array('result' => '3', 'desc' => '您没有权限进行操作'));
-            }
         }else{
             echo json_encode(array('result' => '2', 'desc' => '管理员不存在'));
         }
@@ -480,11 +466,12 @@ $app->get('/bysalesid',function()use($app){
         if($name!=null||$name!=""){
             $selectStament=$database->select()
                 ->from('admin')
+                ->where('type','=',1)
                 ->where('id','=',$admin_id);
             $stmt=$selectStament->execute();
             $data=$stmt->fetch();
             if($data!=null){
-                if($data['type']==1||$data['type']==2){
+
                     $selectStament=$database->select()
                         ->from('sales')
                         ->where('sales_name','=',$name);
@@ -495,9 +482,6 @@ $app->get('/bysalesid',function()use($app){
                     }else{
                         echo json_encode(array('result' => '5', 'desc' => '没有名字为'.$name.'的业务员'));
                     }
-                }else{
-                    echo json_encode(array('result' => '4', 'desc' => '管理员没有权限'));
-                }
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '管理员不存在'));
             }
@@ -521,6 +505,7 @@ $app->get('/showadmin',function()use($app){
         if ($admin_id != null || $admin_id != "") {
             $selectStament = $database->select()
                 ->from('admin')
+                ->where('type','=',1)
                 ->where('id', '=', $admin_id);
             $stmt = $selectStament->execute();
             $data = $stmt->fetch();
