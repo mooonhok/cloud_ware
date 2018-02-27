@@ -235,6 +235,7 @@ $app->get('/getCustomers1',function()use($app){
             }else{
                 $array1=$data;
             }
+
         }
         echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$array1));
     }else{
@@ -245,8 +246,6 @@ $app->get('/getCustomers1',function()use($app){
 $app->get('/getCustomers2',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
-    $array=array();
-    $array1=array();
     $tenant_id = $app->request->headers->get("tenant-id");
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
@@ -263,29 +262,7 @@ $app->get('/getCustomers2',function()use($app){
             ->where('exist', '=', 0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        for($i=0;$i<count($data);$i++){
-            for($g=(count($data)-1);$g>$i;$g--){
-                if($data[$i]['contact_tenant_id']==$data[$g]['contact_tenant_id']){
-                    $data[$i]['times']+=$data[$g]['times'];
-                    array_push($array,$g);
-                }
-            }
-        }
-        for($i=0;$i<count($data);$i++){
-            if($array){
-                for($x=0;$x<count($array);$x++){
-                    if($i==$array[$x]){
-                        break;
-                    }
-                    if($x==(count($array)-1)){
-                        array_push($array1,$data[$i]);
-                    }
-                }
-            }else{
-                $array1=$data;
-            }
-        }
-        echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$array1));
+        echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
@@ -358,9 +335,6 @@ $app->get('/limitCustomers0',function()use($app){
 $app->get('/limitCustomers1',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
-    $array=array();
-    $array1=array();
-    $array2=array();
     $tenant_id = $app->request->headers->get("tenant-id");
     $size=$app->request->get('size');
     $offset=$app->request->get('offset');
@@ -382,43 +356,14 @@ $app->get('/limitCustomers1',function()use($app){
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         for($i=0;$i<count($data);$i++){
-            for($g=(count($data)-1);$g>$i;$g--){
-                if($data[$i]['contact_tenant_id']==$data[$g]['contact_tenant_id']){
-                    $data[$i]['times']+=$data[$g]['times'];
-                    array_push($array,$g);
-                }
-            }
-        }
-        for($i=0;$i<count($data);$i++){
-            if($array){
-                for($x=0;$x<count($array);$x++){
-                    if($i==$array[$x]){
-                        break;
-                    }
-                    if($x==(count($array)-1)){
-                        array_push($array1,$data[$i]);
-                    }
-                }
-            }else{
-                $array1=$data;
-            }
-        }
-        $num=0;
-        if($offset<count($array1)&&$offset<(count($array1)-$size)){
-            $num=$offset+$size;
-        }else{
-            $num=count($array1);
-        }
-        for($i=$offset;$i<$num;$i++){
             $selectStatement = $database->select()
                 ->from('tenant')
                 ->where('tenant_id', '=', $data[$i]['contact_tenant_id']);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetch();
-            $array1[$i]['contact_tenant']=$data2;
-            array_push($array2,$array1[$i]);
+            $data[$i]['contact_tenant']=$data2;
         }
-        echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$array2));
+        echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
