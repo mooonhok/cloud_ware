@@ -8,6 +8,7 @@
 	    <link rel="icon" href="img/logo.png" type="image/x-icon"/>
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery.session.js"></script>
+		<script type="text/javascript" src="js/config.js"></script>
 		<style>
 			* {
 				margin: 0;
@@ -139,12 +140,12 @@
 			$("#city1").append('<option value="' + i + '">第' + i + '组</option>');
 		}
 		$(".top1").on("click",function(){
-			window.location.href = "http://api.uminfo.cn/backsales/index.html";
+			window.location.href = p_url+"backsales/index.html";
 		});
 		var adminid = $.session.get('adminid');
 	//	var sales_id=1;
 		if(adminid=""||adminid==null){
-			window.location.href = "http://api.uminfo.cn/backsales/login.html";
+			window.location.href = p_url+"backsales/login.html";
 		}
 		$("#register").on("click", function() {
 			var adminid = $.session.get('adminid');
@@ -164,7 +165,7 @@
 					alert("身份证格式不对");
 				}else {
 					$.ajax({
-						url: "http://api.uminfo.cn/salesback.php/addsales",
+						url: p_url+"salesback.php/addsales",
 						dataType: 'json',
 						type: 'post',
 						ContentType: "application/json;charset=utf-8",
@@ -184,7 +185,7 @@
 						success: function(msg) {
 							if(msg.result == 0) {
 								alert("请记住密码" + msg.sales.password);
-								window.location.href="http://api.uminfo.cn/backsales/index.html";
+								window.location.href=p_url+"backsales/index.html";
 							} else {
 								alert(msg.desc);
 							}
