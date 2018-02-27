@@ -6,6 +6,7 @@
 		<title>业务员管理</title>
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery.session.js"></script>
+		<script type="text/javascript" src="js/config.js"></script>
 		<style>
 			* {
 				margin: 0;
@@ -186,7 +187,7 @@
 			var name=$("#username").val();
 			var password=$("#password").val();
 		$.ajax({
-				url: "http://api.uminfo.cn/salesback.php/sadmin",
+				url: p_url+"salesback.php/sadmin",
 				dataType: 'json',
 				type: 'post',
 				ContentType: "application/json;charset=utf-8",
@@ -198,7 +199,7 @@
 				success: function(msg) {
 				   if(msg.result == 0) {
                        $('.mask,.dialog').hide();
-					   window.location.href = "http://api.uminfo.cn/backsales/index.html";
+					   window.location.href = p_url+"backsales/index.html";
                        $.session.set('adminid',msg.admin);
 				  }else{
 				  	alert(msg.desc);

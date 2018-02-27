@@ -200,6 +200,7 @@
 	<script src="js/jquery.session.js"></script>
 	<script type="text/javascript" src="src/layui.js"></script>
 	<script type="text/javascript" src="js/jquery.PrintArea.js"></script>
+	<script type="text/javascript" src="js/config.js"></script>
 	<script type="text/javascript">
 		function sales(id, page, teamid) {
 			if(page == null) {
@@ -209,7 +210,7 @@
 				teamid = "";
 			}
 			$.ajax({
-				url: "http://api.uminfo.cn/salesback.php/sales?adminid=" + id + "&team_id=" + teamid + "&page=" + page + "&per_page=10",
+				url: p_url+"salesback.php/sales?adminid=" + id + "&team_id=" + teamid + "&page=" + page + "&per_page=10",
 				dataType: 'json',
 				type: 'get',
 				ContentType: "application/json;charset=utf-8",
@@ -302,7 +303,7 @@
 		var teamid = $.getUrlParam('teamid');
 //		$("#city1").val(teamid);
 		if(user == null || user == "") {
-		 window.location.href = "http://api.uminfo.cn/backsales/login.html";
+		 window.location.href = p_url+"backsales/login.html";
 		} else {
 			sales(user, page, teamid);
 		}
@@ -311,11 +312,11 @@
 //			window.location.href = "http://api.uminfo.cn/backsales/index.html?teamid=" + teamid;
 //		});
 		$("#top1").on('click',function(){
-			window.location.href="http://api.uminfo.cn/backsales/addsales.html";
+			window.location.href=p_url+"backsales/addsales.html";
 		});
 		$("#top2").on('click',function(){
 			$.session.remove("adminid");
-			window.location.href="http://api.uminfo.cn/backsales/login.html";
+			window.location.href=p_url+"backsales/login.html";
 		});
 		$(".foot").on('click',function(){
 			$("div .print").printArea();  
