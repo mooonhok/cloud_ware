@@ -1408,7 +1408,7 @@ $app->get('/paixun',function()use($app){
     $data = $stmt->fetchAll();
     if($data!=null){
         for($x=0;$x<count($data);$x++){
-            $arrays['id']=(int)count($x)-(int)$x;
+            $arrays['id']=(int)count($data)-(int)$x;
             $selectStatement = $database->select()
                 ->from('admin')
                 ->where('id', '>', count($data))
