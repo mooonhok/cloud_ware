@@ -1398,34 +1398,34 @@ $app->get('/operate_admin',function()use($app){
 });
 
 
-$app->get('/paixun',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $database=localhost();
-    $selectStatement = $database->select()
-        ->from('admin');
-    $stmt = $selectStatement->execute();
-    $data = $stmt->fetchAll();
-    if($data!=null){
-        for($x=0;$x<count($data);$x++){
-            $arrays['id']=(int)count($data)-(int)$x;
-            $selectStatement = $database->select()
-                ->from('admin')
-                ->where('id', '>', count($data))
-                ->orderBy('id','desc')
-                ->limit(1);
-            $stmt = $selectStatement->execute();
-            $data2 = $stmt->fetch();
-            if($data2!=null){
-            $updateStatement = $database->update($arrays)
-                ->table('admin')
-                ->where('id','=',$data2['id']);
-            $affectedRows = $updateStatement->execute();
-            }
-        }
-    }
-    echo json_encode(array("result"=>"1","desc"=>"操作成功"));
-});
+//$app->get('/paixun',function()use($app){
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
+//    $database=localhost();
+//    $selectStatement = $database->select()
+//        ->from('admin');
+//    $stmt = $selectStatement->execute();
+//    $data = $stmt->fetchAll();
+//    if($data!=null){
+//        for($x=0;$x<count($data);$x++){
+//            $arrays['id']=(int)count($data)-(int)$x;
+//            $selectStatement = $database->select()
+//                ->from('admin')
+//                ->where('id', '>', count($data))
+//                ->orderBy('id','desc')
+//                ->limit(1);
+//            $stmt = $selectStatement->execute();
+//            $data2 = $stmt->fetch();
+//            if($data2!=null){
+//            $updateStatement = $database->update($arrays)
+//                ->table('admin')
+//                ->where('id','=',$data2['id']);
+//            $affectedRows = $updateStatement->execute();
+//            }
+//        }
+//    }
+//    echo json_encode(array("result"=>"1","desc"=>"操作成功"));
+//});
 
 $app->run();
 
