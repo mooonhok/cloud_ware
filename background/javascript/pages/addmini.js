@@ -196,6 +196,7 @@ function addmini(){
         	if(msg.result==0){
         		layer.close(index);
         		alert("添加成功");
+        		window.location.reload();
         	}else{
         		alert(msg.desc);
         	}
