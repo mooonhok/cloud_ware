@@ -143,13 +143,24 @@
 				border-radius:10px;
 				color:white;
 			}
-			
+			#addsales{
+				width:80px;
+				height:30px;
+				/*margin-top:10px;*/
+				line-height:30px;
+				background:#0099cc;
+				float:right;
+				text-align:center;
+				margin-right:20px;
+				border-radius:10px;
+				color:white;
+			}
 		</style>
 	</head>
 
 	<body>
 		<div class="box">
-			<div class="top">外勤工程师管理<div id="top1">添加</div><div id="top2">退出登录</div></div>
+			<div class="top">外勤工程师管理<div id="top1">客服纪录报表</div><div id="top2">退出登录</div></div>
 			<div class="center">
 				<div class="center1">
 					<div class="center1_1">奖池总金额:
@@ -193,7 +204,7 @@
 				</div>
 				<div id="demo20"></div>
 			</div>
-			
+			<div id="addsales">添加业务员</div>
 		</div>
 	</body>
 	<script src="js/jquery-3.2.1.min.js"></script>
@@ -299,7 +310,6 @@
 		})(jQuery);
 		var page = null;
 		var user = $.session.get('adminid');
-//      var user=1;
 		var teamid = $.getUrlParam('teamid');
 //		$("#city1").val(teamid);
 		if(user == null || user == "") {
@@ -312,11 +322,15 @@
 //			window.location.href = "http://api.uminfo.cn/backsales/index.html?teamid=" + teamid;
 //		});
 		$("#top1").on('click',function(){
-			window.location.href=p_url+"backsales/addsales.html";
+			window.location.href=p_url+"backsales/caozuojil.html";
 		});
 		$("#top2").on('click',function(){
 			$.session.remove("adminid");
 			window.location.href=p_url+"backsales/login.html";
+		});
+		$("#addsales").on('click',function(){
+			$.session.remove("adminid");
+			window.location.href=p_url+"backsales/addsales.html";
 		});
 		$(".foot").on('click',function(){
 			$("div .print").printArea();  
