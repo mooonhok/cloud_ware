@@ -508,6 +508,46 @@ $app->get('/bysalesid',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '缺少管理员id'));
     }
 });
+
+
+$app->get('/showadmin',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $admin_id=$app->request->get('adminid');
+    $page = $app->request->get('page');
+    $per_page=$app->request->get('per_page');
+    if($page!=null&&$page!=""&&$per_page!=null||$per_page) {
+        if ($admin_id != null || $admin_id != "") {
+            $selectStament = $database->select()
+                ->from('admin')
+                ->where('id', '=', $admin_id);
+            $stmt = $selectStament->execute();
+            $data = $stmt->fetch();
+            if ($data != null) {
+                $page=(int)$page-1;
+                $selectStament=$database->select()
+                    ->from('operate_admin');
+                $stmt=$selectStament->execute();
+                $data2=$stmt->fetchAll();
+                $selectStatement = $database->select()
+                    ->from('contact_company')
+                    ->limit((int)$per_page,(int)$per_page * (int)$page);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetchAll();
+                echo json_encode(array('result' => '0', 'desc' => '','jilu'=>$data2,'count'=>count($data3)));
+            } else {
+                echo json_encode(array('result' => '3', 'desc' => '管理员不存在'));
+            }
+        } else {
+            echo json_encode(array('result' => '1', 'desc' => '缺少管理员id'));
+        }
+    } else {
+    echo json_encode(array('result' => '1', 'desc' => '缺少页码参数'));
+}
+});
+
+
 $app->run();
 
 function localhost(){
