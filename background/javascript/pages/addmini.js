@@ -131,6 +131,7 @@ function getPro2() {
 
 function addmini(){
     var adminid=$.session.get('adminid');
+    alert(adminid)
 	var company=$("#companyname").val();
 	var line=$("#line").val();
 	var name=$("#name").val();
