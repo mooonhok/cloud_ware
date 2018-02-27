@@ -531,7 +531,7 @@ $app->get('/showadmin',function()use($app){
                 $stmt=$selectStament->execute();
                 $data2=$stmt->fetchAll();
                 $selectStatement = $database->select()
-                    ->from('contact_company')
+                    ->from('operate_admin')
                     ->limit((int)$per_page,(int)$per_page * (int)$page);
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetchAll();
