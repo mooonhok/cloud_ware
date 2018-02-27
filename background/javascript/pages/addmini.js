@@ -130,6 +130,7 @@ function getPro2() {
 }
 
 function addmini(){
+    var adminid=$.session.get('adminid');
 	var company=$("#companyname").val();
 	var line=$("#line").val();
 	var name=$("#name").val();
@@ -187,6 +188,7 @@ function addmini(){
         	pic3:pic3,
         	pic4:pic4,
         	pic5:pic5,
+			adminid:adminid,
         }),
         success: function(msg) {
         	if(msg.result==0){

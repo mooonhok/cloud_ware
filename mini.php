@@ -858,6 +858,7 @@ $app->post('/addmini',function()use($app){
     $lng=$body->lng;
     $publicname=$body->pubname;
     $public_img=$body->pubimg;
+    $adminid=$body->adminid;
     $flag=$body->flag;
     $fcity=$body->fcity;
     $tcity=$body->tcity;
@@ -872,6 +873,7 @@ $app->post('/addmini',function()use($app){
     $lujing4=null;
     $lujing5=null;
     $lujing6=null;
+
     if($name!=null||$name!=""){
         if($flag!=null||$flag!=""){
             if($person!=null||$person!=""){
@@ -993,6 +995,17 @@ $app->post('/addmini',function()use($app){
                     $insertStatement = $database->insert(array('id','fcity_id','tcity_id','tid'))
                         ->into('mini_route')
                         ->values(array(count($data3)+1,$fcity,$tcity,count($data5)+1));
+                    $insertId = $insertStatement->execute(false);
+
+                    date_default_timezone_set("PRC");
+                    $shijian=date("Y-m-d H:i:s",time());
+                    $insertStatement = $database->insert(array('service_id','tab_name','tab_id','tenant_id','time'))
+                        ->into('operate_admin')
+                        ->values(array($adminid,'mini_tenant',count($data5)+1,-1,$shijian));
+                    $insertId = $insertStatement->execute(false);
+                    $insertStatement = $database->insert(array('service_id','tab_name','tab_id','tenant_id','time'))
+                        ->into('operate_admin')
+                        ->values(array($adminid,'mini_route',count($data3)+1,-1,$shijian));
                     $insertId = $insertStatement->execute(false);
                     echo json_encode(array("result"=>"0","desc"=>"添加成功"));
                 }else{
