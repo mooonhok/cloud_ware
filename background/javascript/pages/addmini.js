@@ -130,6 +130,9 @@ function getPro2() {
 }
 var adminid=$.session.get('adminid');
 function addmini(){
+    var index = layer.load(1, {
+        shade: [0.1,'#fff'] //0.1透明度的白色背景
+    });
 	var company=$("#companyname").val();
 	var line=$("#line").val();
 	var name=$("#name").val();
@@ -191,6 +194,7 @@ function addmini(){
         }),
         success: function(msg) {
         	if(msg.result==0){
+        		layer.close(index);
         		alert("添加成功");
         	}else{
         		alert(msg.desc);
