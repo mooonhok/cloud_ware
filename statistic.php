@@ -452,7 +452,7 @@ $app->get('/getStatistic4',function()use($app){
                         if($data1200!=null){
                             $next_cost=$data1200[0]['transfer_cost'];
                         }
-                        if(substr($data300[$y]['order_id'],0,7)==$tenant_num&&$is_transfer==1){
+                        if(substr($data300[$y]['order_id'],0,7)!=$tenant_num&&$is_transfer==1){
                             $count3+=$data1100[0]['transfer_cost'];
                         }
                         if($next_cost!=''||$next_cost!=null){
