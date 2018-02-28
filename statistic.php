@@ -152,10 +152,10 @@ $app->get('/getStatistic2',function()use($app){
                 ->orderBy('agreement_id');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
-            $count=0;
-            $count1=0;
-            $count2=0;
             for($x=0;$x<count($data);$x++){
+                $count=0;
+                $count1=0;
+                $count2=0;
                 $selectStatement = $database->select()
                     ->from('agreement_schedule')
                     ->where('agreement_id','=',$data[$x]['agreement_id'])
@@ -224,11 +224,10 @@ $app->get('/getStatistic3',function()use($app){
                 ->orderBy('agreement_id');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
-
-            $count=0;
-            $count1=0;
-            $count2=0;
             for($x=0;$x<count($data);$x++){
+                $count=0;
+                $count1=0;
+                $count2=0;
                 $selectStatement = $database->select()
                     ->from('agreement_schedule')
                     ->where('agreement_id','=',$data[$x]['agreement_id'])
