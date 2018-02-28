@@ -148,7 +148,7 @@ $app->get('/getStatistic2',function()use($app){
                 ->from('agreement')
                 ->where('secondparty_id','=',$lorry_id)
                 ->where('tenant_id','=',$tenant_id)
-                ->where('agreement_status','!=',1)
+                ->where('agreement_status','!=',2)
                 ->orderBy('agreement_id');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
@@ -220,7 +220,7 @@ $app->get('/getStatistic3',function()use($app){
 //                ->where('agreement_time','>',$time1)
 //                ->where('agreement_time','<',$time3)
                 ->where('tenant_id','=',$tenant_id)
-                ->where('agreement_status','!=',1)
+                ->where('agreement_status','!=',2)
                 ->orderBy('agreement_id');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
