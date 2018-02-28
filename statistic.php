@@ -326,11 +326,13 @@ $app->get('/getStatistic4',function()use($app){
                             ->where('tenant_id','=',$tenant_id);
                         $stmt = $selectStatement->execute();
                         $data5= $stmt->fetch();
-                        $count2+=$data5['order_cost'];
+                        if($data5['pay_menthod']==1){
+                           $count2+=$data5['order_cost'];
+                        }
                     }
                     $data2[$j]['weight']=$count1;
                     $data2[$j]['count']=$count;
-                    $data2[$j]['cost']=$count2;
+                    $data2[$j]['d_cost']=$count2;
                     array_push($arrays1,$data2[$j]);
                 }
             }
