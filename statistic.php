@@ -331,8 +331,8 @@ $app->get('/getStatistic4',function()use($app){
                     $data2[$j]['weight']=$count1;
                     $data2[$j]['count']=$count;
                     $data2[$j]['cost']=$count2;
+                    array_push($arrays1,$data2[$j]);
                 }
-                array_push($arrays1,$data2);
             }
             echo  json_encode(array("result"=>"0","desc"=>"success","scheduling"=>$arrays1));
         }else{
