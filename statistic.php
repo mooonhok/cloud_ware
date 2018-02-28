@@ -214,7 +214,7 @@ $app->get('/getStatistic3',function()use($app){
     if($tenant_id!=null||$tenant_id!=""){
         if($lorry_id!=null||$lorry_id!=""){
             $selectStatement = $database->select()
-                ->from('orders')
+                ->from('agreement')
                 ->where('secondparty_id','=',$lorry_id)
                 ->where('agreement_time','>',$time1)
                 ->where('agreement_time','<',$time3)
