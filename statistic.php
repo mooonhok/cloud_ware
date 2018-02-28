@@ -264,8 +264,10 @@ $app->get('/getStatistic3',function()use($app){
                 $data[$x]['cost']=$count2;
                 $arr = date_parse_from_format ( "Y年m月d日" ,$data[$x]['agreement_time']);
                 $timestamp = mktime(0,0,0,$arr['month'],$arr['day'],$arr['year']);
-                if($timestamp<(strtotime($time2)+86400)&&$timestamp>strtotime($time1)){
-                    array_push($array1,$data[$x]);
+                if($timestamp<=(strtotime($time2)+86400)){
+                    if($timestamp>strtotime($time1)){
+                        array_push($array1,$data[$x]);
+                    }
                 }
             }
             echo  json_encode(array("result"=>"0","desc"=>"success","agreement"=>$array1));
