@@ -389,6 +389,7 @@ $app->get('/limitCustomers1',function()use($app){
                 }
             }
         }
+
         for($i=0;$i<count($data);$i++){
             if($array){
                 for($x=0;$x<count($array);$x++){
@@ -409,8 +410,8 @@ $app->get('/limitCustomers1',function()use($app){
         }else{
             $num=count($array1);
         }
+        $data=array_values(array_unique($data));
         for($i=$offset;$i<$num;$i++){
-            $i=(int)$i;
             $selectStatement = $database->select()
                 ->from('tenant')
                 ->where('tenant_id', '=', $data[$i]['contact_tenant_id']);
