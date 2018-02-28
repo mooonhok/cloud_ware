@@ -410,7 +410,7 @@ $app->get('/limitCustomers1',function()use($app){
         }else{
             $num=count($array1);
         }
-       
+        $data= array_unset_tt($data,'contact_tenant_id');
         for($i=$offset;$i<$num;$i++){
             $selectStatement = $database->select()
                 ->from('tenant')
@@ -571,6 +571,26 @@ $app->put('/recoverCustomer',function()use($app){
 
 $app->run();
 
+
+function array_unset_tt($arr,$key){
+    //建立一个目标数组
+    $res = array();
+    foreach ($arr as $value) {
+        //查看有没有重复项
+
+        if(isset($res[$value[$key]])){
+            //有：销毁
+
+            unset($value[$key]);
+
+        }
+        else{
+
+            $res[$value[$key]] = $value;
+        }
+    }
+    return $res;
+}
 function localhost(){
     return connect();
 }
