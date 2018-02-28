@@ -377,7 +377,7 @@ $app->get('/getStatistic4',function()use($app){
                     array_push($arrays1,$data2[$j]);
                 }
             }
-            echo  json_encode(array("result"=>"0","desc"=>"success","scheduling"=>$data2));
+            echo  json_encode(array("result"=>"0","desc"=>"success","scheduling"=>$arrays1));
 
 //            $selectStatement = $database->select()
 //                ->from('customer')
