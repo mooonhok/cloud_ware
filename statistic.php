@@ -326,7 +326,7 @@ $app->get('/getStatistic4',function()use($app){
                             ->where('tenant_id','=',$tenant_id);
                         $stmt = $selectStatement->execute();
                         $data5= $stmt->fetch();
-                        if($data5['pay_menthod']==1){
+                        if($data5['pay_method']==1){
                            $count2+=$data5['order_cost'];
                         }
                     }
