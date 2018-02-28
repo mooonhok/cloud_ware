@@ -410,7 +410,7 @@ $app->get('/limitCustomers1',function()use($app){
         }else{
             $num=count($array1);
         }
-        $data=array_values(array_unique($data));
+       
         for($i=$offset;$i<$num;$i++){
             $selectStatement = $database->select()
                 ->from('tenant')
