@@ -180,7 +180,7 @@ $app->get('/getStatistic2',function()use($app){
                        $count1+=$data4['goods_weight'];//总吨数
                        $selectStatement = $database->select()
                            ->from('orders')
-                           ->where('sender_id','=',$data3[$y]['order_id'])
+                           ->where('order_id','=',$data3[$y]['order_id'])
                            ->where('tenant_id','=',$tenant_id);
                        $stmt = $selectStatement->execute();
                        $data5= $stmt->fetch();
@@ -251,7 +251,7 @@ $app->get('/getStatistic3',function()use($app){
                         $count1+=$data4['goods_weight'];//总吨数
                         $selectStatement = $database->select()
                             ->from('orders')
-                            ->where('sender_id','=',$data3[$y]['order_id'])
+                            ->where('order_id','=',$data3[$y]['order_id'])
                             ->where('tenant_id','=',$tenant_id);
                         $stmt = $selectStatement->execute();
                         $data5= $stmt->fetch();
