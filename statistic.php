@@ -80,7 +80,7 @@ $app->get('/getStatistic1',function()use($app){
     $time1=$app->request->get('begintime');
     $time2=$app->request->get('endtime');
     date_default_timezone_set("PRC");
-    $time3=date("Y-m-d H:i:s",strtotime($time2)+86400);
+    $time3=date("Y-m-d H:i:s",strtotime($time2)+86401);
     if($tenant_id!=null||$tenant_id!=""){
         if($customer_id!=null||$customer_id!=""){
             $selectStatement = $database->select()
@@ -298,6 +298,7 @@ $app->get('/getStatistic4',function()use($app){
                 $selectStatement = $database->select()
                     ->from('scheduling')
                     ->where('receiver_id','=',$data[$x]['customer_id'])
+                    ->whereNotIn('scheduling_status',array(6,7,8,9))
                     ->where('tenant_id','=',$tenant_id);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetchAll();
@@ -345,7 +346,78 @@ $app->get('/getStatistic4',function()use($app){
     }
 });
 
-
+$app->get('/getStatistic5',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database=localhost();
+    $customer_id=$app->request->get('tenant-id');
+    $time1=$app->request->get('begintime');
+    $time2=$app->request->get('endtime');
+    date_default_timezone_set("PRC");
+    $time3=date("Y-m-d H:i:s",strtotime($time2)+86401);
+    $arrays1=array();
+    if($tenant_id!=null||$tenant_id!=""){
+        if($tenant_id!=null||$tenant_id!=""){
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('contact_tenant_id','=',$customer_id);
+            $stmt = $selectStatement->execute();
+            $data = $stmt->fetchAll();
+            for($x=0;$x<count($data);$x++){
+                $selectStatement = $database->select()
+                    ->from('scheduling')
+                    ->where('receiver_id','=',$data[$x]['customer_id'])
+                    ->where('scheduling_datetime','>',$time1)
+                    ->where('scheduling_datetime','<',$time3)
+                    ->whereNotIn('scheduling_status',array(6,7,8,9))
+                    ->where('tenant_id','=',$tenant_id);
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetchAll();
+                for($j=0;$j<count($data2);$j++){
+                    $count=0;
+                    $count1=0;
+                    $count2=0;
+                    $selectStatement = $database->select()
+                        ->from('schedule_order')
+                        ->where('schedule_id','=',$data2[$j]['scheduling_id'])
+                        ->where('tenant_id','=',$tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data3 = $stmt->fetchAll();
+                    for($y=0;$y<count($data3);$y++){
+                        $selectStatement = $database->select()
+                            ->from('goods')
+                            ->where('order_id','=',$data3[$y]['order_id'])
+                            ->where('tenant_id','=',$tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data4 = $stmt->fetch();
+                        $count+=$data4['goods_count'];//总件数
+                        $count1+=$data4['goods_weight'];//总吨数
+                        $selectStatement = $database->select()
+                            ->from('orders')
+                            ->where('order_id','=',$data3[$y]['order_id'])
+                            ->where('tenant_id','=',$tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data5= $stmt->fetch();
+                        if($data5['pay_method']==1){
+                            $count2+=$data5['order_cost'];
+                        }
+                    }
+                    $data2[$j]['weight']=$count1;
+                    $data2[$j]['count']=$count;
+                    $data2[$j]['d_cost']=$count2;
+                    array_push($arrays1,$data2[$j]);
+                }
+            }
+            echo  json_encode(array("result"=>"0","desc"=>"success","scheduling"=>$arrays1));
+        }else{
+            echo  json_encode(array("result"=>"1","desc"=>"缺少客户id"));
+        }
+    }else{
+        echo  json_encode(array("result"=>"1","desc"=>"缺少租户id"));
+    }
+});
 
 
 
