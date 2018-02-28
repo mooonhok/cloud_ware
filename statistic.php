@@ -316,7 +316,7 @@ $app->get('/getStatistic4',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data3 = $stmt->fetchAll();
                     for($y=0;$y<count($data3);$y++){
-                        $next_cost='';
+                        $next_cost=0;
                         $selectStatement = $database->select()
                             ->from('goods')
                             ->where('order_id','=',$data3[$y]['order_id'])
@@ -376,6 +376,96 @@ $app->get('/getStatistic4',function()use($app){
                     array_push($arrays1,$data2[$j]);
                 }
             }
+
+
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$customer_id)
+                ->where('contact_tenant_id','=',$tenant_id);
+            $stmt = $selectStatement->execute();
+            $data100 = $stmt->fetchAll();
+            for($x=0;$x<count($data100);$x++){
+                $selectStatement = $database->select()
+                    ->from('scheduling')
+                    ->where('receiver_id','=',$data100[$x]['customer_id'])
+                    ->whereNotIn('scheduling_status',array(6,7,8,9))
+                    ->where('tenant_id','=',$customer_id);
+                $stmt = $selectStatement->execute();
+                $data200 = $stmt->fetchAll();
+                for($j=0;$j<count($data200);$j++){
+                    $count=0;
+                    $count1=0;
+                    $count2=0;
+                    $count3=0;
+                    $count4=0;
+                    $selectStatement = $database->select()
+                        ->from('schedule_order')
+                        ->where('schedule_id','=',$data200[$j]['scheduling_id'])
+                        ->where('tenant_id','=',$customer_id);
+                    $stmt = $selectStatement->execute();
+                    $data300 = $stmt->fetchAll();
+                    for($y=0;$y<count($data300);$y++){
+                        $next_cost=0;
+                        $selectStatement = $database->select()
+                            ->from('goods')
+                            ->where('order_id','=',$data300[$y]['order_id'])
+                            ->where('tenant_id','=',$customer_id);
+                        $stmt = $selectStatement->execute();
+                        $data400= $stmt->fetch();
+                        $count+=$data400['goods_count'];//总件数
+                        $count1+=$data400['goods_weight'];//总吨数
+                        $selectStatement = $database->select()
+                            ->from('orders')
+                            ->where('order_id','=',$data300[$y]['order_id'])
+                            ->where('tenant_id','=',$customer_id);
+                        $stmt = $selectStatement->execute();
+                        $data500= $stmt->fetch();
+                        if($data500['pay_method']==1){
+                            $count2+=$data500['order_cost'];
+                        }
+                        $selectStatement = $database->select()
+                            ->from('orders')
+                            ->where('tenant_id','=',$tenant_id)
+                            ->where('order_id', '=', $data300[$y]['order_id']);
+                        $stmt = $selectStatement->execute();
+                        $data1000 = $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('orders')
+                            ->where('id','<',$data1000['id'])
+                            ->where('order_id', '=', $data300[$y]['order_id'])
+                            ->orderBy('id','DESC');
+                        $stmt = $selectStatement->execute();
+                        $data1100 = $stmt->fetchAll();
+                        $is_transfer=null;
+                        if($data1100!=null){
+                            $is_transfer=$data1100[0]['is_transfer'];
+                        }
+                        $selectStatement = $database->select()
+                            ->from('orders')
+                            ->where('id','>',$data1000['id'])
+                            ->where('order_id', '=', $data300[$y]['order_id'])
+                            ->orderBy('id');
+                        $stmt = $selectStatement->execute();
+                        $data1200 = $stmt->fetchAll();
+                        if($data1200!=null){
+                            $next_cost=$data1200[0]['transfer_cost'];
+                        }
+                        if(substr($data300[$y]['order_id'],0,7)==$tenant_num&&$is_transfer==1){
+                            $count3+=$data500['transfer_cost'];
+                        }
+                        if($next_cost!=''||$next_cost!=null){
+                            $count4+=$next_cost;
+                        }
+                    }
+                    $data200[$j]['weight']=$count1;
+                    $data200[$j]['count']=$count;
+                    $data200[$j]['d_cost']=$count2;
+                    $data200[$j]['transfer_cost']=$count3;
+                    $data200[$j]['next_cost']=$count4;
+                    array_push($arrays1,$data200[$j]);
+                }
+            }
+
             echo  json_encode(array("result"=>"0","desc"=>"success","scheduling"=>$arrays1));
         }else{
             echo  json_encode(array("result"=>"1","desc"=>"缺少客户id"));
@@ -428,7 +518,7 @@ $app->get('/getStatistic5',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data3 = $stmt->fetchAll();
                     for($y=0;$y<count($data3);$y++){
-                        $next_cost='';
+                        $next_cost=0;
                         $selectStatement = $database->select()
                             ->from('goods')
                             ->where('order_id','=',$data3[$y]['order_id'])
