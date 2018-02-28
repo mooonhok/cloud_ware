@@ -334,7 +334,7 @@ $app->get('/getStatistic4',function()use($app){
                 $data2[$j]['cost']=$count2;
                 array_push($arrays1,$data2);
             }
-            echo  json_encode(array("result"=>"0","desc"=>"success","scheduling"=>$arrays1));
+            echo  json_encode(array("result"=>"0","desc"=>"success","scheduling"=>$data2));
         }else{
             echo  json_encode(array("result"=>"1","desc"=>"缺少客户id"));
         }
