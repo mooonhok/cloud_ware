@@ -444,7 +444,13 @@ $app->get('/getStatistic4',function()use($app){
                         }
                         $selectStatement = $database->select()
                             ->from('orders')
-                            ->where('id','>',$data1000['id'])
+                            ->where('tenant_id','=',$tenant_id)
+                            ->where('order_id', '=', $data300[$y]['order_id']);
+                        $stmt = $selectStatement->execute();
+                        $data1400 = $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('orders')
+                            ->where('id','>',$data1400['id'])
                             ->where('order_id', '=', $data300[$y]['order_id'])
                             ->orderBy('id');
                         $stmt = $selectStatement->execute();
