@@ -23,12 +23,8 @@ $app->get('/getStatistic0',function()use($app){
                 ->from('orders')
                 ->where('sender_id','=',$customer_id)
                 ->where('tenant_id','=',$tenant_id)
-                ->where('order_status','=',1)
-                ->where('order_status','=',2)
-                ->where('order_status','=',3)
-                ->where('order_status','=',4)
-                ->where('order_status','=',5)
-                ->where('order_status','=',7)
+                ->where('order_status','>',0)
+                ->where('order_status','!=',6)
                 ->orderBy('order_id');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
@@ -93,12 +89,8 @@ $app->get('/getStatistic1',function()use($app){
                 ->where('order_datetime1','>',$time1)
                 ->where('order_datetime1','<',$time3)
                 ->where('tenant_id','=',$tenant_id)
-                ->where('order_status','=',1)
-                ->where('order_status','=',2)
-                ->where('order_status','=',3)
-                ->where('order_status','=',4)
-                ->where('order_status','=',5)
-                ->where('order_status','=',7)
+                ->where('order_status','>',0)
+                ->where('order_status','!=',6)
                 ->orderBy('order_id');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
