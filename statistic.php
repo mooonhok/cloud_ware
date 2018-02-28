@@ -450,7 +450,7 @@ $app->get('/getStatistic4',function()use($app){
                         $stmt = $selectStatement->execute();
                         $data1200 = $stmt->fetchAll();
                         if($data1200!=null){
-                            $next_cost=$data1200[0]['transfer_cost'];
+                            $next_cost=$data1200[0]['order_cost'];
                         }
                         if(substr($data300[$y]['order_id'],0,7)==$tenant_num&&$is_transfer==1){
                             $count3+=$data500['transfer_cost'];
