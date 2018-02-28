@@ -415,7 +415,7 @@ $app->get('/limitCustomers1',function()use($app){
                 ->where('tenant_id', '=', $data[$i]['contact_tenant_id']);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetch();
-            $array1[$i]['contact_tenant']=$data[$i]['contact_tenant_id'];
+            $array1[$i]['contact_tenant']=$i;
 //            $array1[$i]['contact_tenant']=$data2;
             array_push($array2,$array1[$i]);
         }
