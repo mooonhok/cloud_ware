@@ -210,19 +210,21 @@ $app->get('/getStatistic3',function()use($app){
     $time1=$app->request->get('begintime');
     $time2=$app->request->get('endtime');
     date_default_timezone_set("PRC");
-    $time3=date("Y-m-d H:i:s",strtotime($time2)+86400);
+//    $time3=date("Y-m-d H:i:s",strtotime($time2)+86400);
+    $array1=array();
     if($tenant_id!=null||$tenant_id!=""){
         if($lorry_id!=null||$lorry_id!=""){
             $selectStatement = $database->select()
                 ->from('agreement')
                 ->where('secondparty_id','=',$lorry_id)
-                ->where('agreement_time','>',$time1)
-                ->where('agreement_time','<',$time3)
+//                ->where('agreement_time','>',$time1)
+//                ->where('agreement_time','<',$time3)
                 ->where('tenant_id','=',$tenant_id)
                 ->where('agreement_status','!=',1)
                 ->orderBy('agreement_id');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
+
             $count=0;
             $count1=0;
             $count2=0;
@@ -261,8 +263,13 @@ $app->get('/getStatistic3',function()use($app){
                 $data[$x]['weight']=$count1;
                 $data[$x]['count']=$count;
                 $data[$x]['cost']=$count2;
+                $arr = date_parse_from_format ( "Y年m月d日" ,$data[$x]['agreement_time']);
+                $timestamp = mktime(0,0,0,$arr['month'],$arr['day'],$arr['year']);
+                if($timestamp<=(strtotime($time2)+86400)&&$timestamp>=strtotime($time1)){
+                    array_push($array1,$data[$x]);
+                }
             }
-            echo  json_encode(array("result"=>"0","desc"=>"success","agreement"=>$data));
+            echo  json_encode(array("result"=>"0","desc"=>"success","agreement"=>$array1));
         }else{
             echo  json_encode(array("result"=>"1","desc"=>"缺少客户id"));
         }
