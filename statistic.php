@@ -285,7 +285,6 @@ $app->get('/getStatistic4',function()use($app){
     $tenant_id = $app->request->headers->get("tenant-id");
     $database=localhost();
     $customer_id=$app->request->get('tenant-id');
-    $arrays1=array();
     if($tenant_id!=null||$tenant_id!=""){
         if($tenant_id!=null||$tenant_id!=""){
             $selectStatement = $database->select()
@@ -331,10 +330,9 @@ $app->get('/getStatistic4',function()use($app){
                     $data2[$j]['weight']=$count1;
                     $data2[$j]['count']=$count;
                     $data2[$j]['cost']=$count2;
-                    array_push($arrays1,$data2);
                 }
             }
-            echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$arrays1));
+            echo  json_encode(array("result"=>"0","desc"=>"success","schedules"=>$data2));
         }else{
             echo  json_encode(array("result"=>"1","desc"=>"缺少客户id"));
         }
