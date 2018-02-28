@@ -300,6 +300,7 @@ $app->get('/getStatistic4',function()use($app){
                     ->from('scheduling')
                     ->where('receiver_id','=',$data[$x]['customer_id'])
                     ->whereNotIn('scheduling_status',array(6,7,8,9))
+                    ->where('is_scan','=',1)
                     ->where('tenant_id','=',$tenant_id);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetchAll();
@@ -389,6 +390,7 @@ $app->get('/getStatistic4',function()use($app){
                     ->from('scheduling')
                     ->where('receiver_id','=',$data100[$x]['customer_id'])
                     ->whereNotIn('scheduling_status',array(6,7,8,9))
+                    ->where('is_scan','=',1)
                     ->where('tenant_id','=',$customer_id);
                 $stmt = $selectStatement->execute();
                 $data200 = $stmt->fetchAll();
