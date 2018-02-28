@@ -439,8 +439,8 @@ $app->get('/getStatistic4',function()use($app){
                         $stmt = $selectStatement->execute();
                         $data1100 = $stmt->fetchAll();
                         $is_transfer=null;
-                        if($data1100!=null){
-                            $is_transfer=$data1100[0]['is_transfer'];
+                        if($data500!=null){
+                            $is_transfer=$data500[0]['is_transfer'];
                         }
                         $selectStatement = $database->select()
                             ->from('orders')
@@ -453,7 +453,7 @@ $app->get('/getStatistic4',function()use($app){
                             $next_cost=$data1200[0]['transfer_cost'];
                         }
                         if(substr($data300[$y]['order_id'],0,7)!=$tenant_num&&$is_transfer==1){
-                            $count3+=$data1100[0]['transfer_cost'];
+                            $count3+=$data500[0]['transfer_cost'];
                         }
                         if($next_cost!=''||$next_cost!=null){
                             $count4+=$next_cost;
