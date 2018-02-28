@@ -439,8 +439,8 @@ $app->get('/getStatistic4',function()use($app){
                         $stmt = $selectStatement->execute();
                         $data1100 = $stmt->fetchAll();
                         $is_transfer=null;
-                        if($data500!=null){
-                            $is_transfer=$data500['is_transfer'];
+                        if($data1100!=null){
+                            $is_transfer=$data1100[0]['is_transfer'];
                         }
                         $selectStatement = $database->select()
                             ->from('orders')
