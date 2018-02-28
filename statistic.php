@@ -57,4 +57,3 @@ function localhost(){
     return connect();
 }
 ?>
-?>
