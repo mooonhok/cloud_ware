@@ -328,13 +328,13 @@ $app->get('/getStatistic4',function()use($app){
                         $data5= $stmt->fetch();
                         $count2+=$data5['order_cost'];
                     }
-                    $data2[$j]['weight']=$count1;
-                    $data2[$j]['count']=$count;
-                    $data2[$j]['cost']=$count2;
                 }
+                $data2[$j]['weight']=$count1;
+                $data2[$j]['count']=$count;
+                $data2[$j]['cost']=$count2;
                 array_push($arrays1,$data2);
             }
-            echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$arrays1));
+            echo  json_encode(array("result"=>"0","desc"=>"success","scheduling"=>$arrays1));
         }else{
             echo  json_encode(array("result"=>"1","desc"=>"缺少客户id"));
         }
