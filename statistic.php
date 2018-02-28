@@ -377,7 +377,7 @@ $app->get('/getStatistic4',function()use($app){
                     array_push($arrays1,$data2[$j]);
                 }
             }
-
+            echo  json_encode(array("result"=>"0","desc"=>"success","scheduling"=>$data2));
 
 //            $selectStatement = $database->select()
 //                ->from('customer')
@@ -468,7 +468,7 @@ $app->get('/getStatistic4',function()use($app){
 //                }
 //            }
 
-            echo  json_encode(array("result"=>"0","desc"=>"success","scheduling"=>$data));
+
         }else{
             echo  json_encode(array("result"=>"1","desc"=>"缺少客户id"));
         }
