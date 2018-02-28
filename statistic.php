@@ -427,7 +427,7 @@ $app->get('/getStatistic4',function()use($app){
                         }
                         $selectStatement = $database->select()
                             ->from('orders')
-                            ->where('tenant_id','=',$tenant_id)
+                            ->where('tenant_id','=',$customer_id)
                             ->where('order_id', '=', $data300[$y]['order_id']);
                         $stmt = $selectStatement->execute();
                         $data1000 = $stmt->fetch();
@@ -469,7 +469,6 @@ $app->get('/getStatistic4',function()use($app){
                     array_push($arrays1,$data200[$j]);
                 }
             }
-
             echo  json_encode(array("result"=>"0","desc"=>"success","scheduling"=>$arrays1));
         }else{
             echo  json_encode(array("result"=>"1","desc"=>"缺少客户id"));
