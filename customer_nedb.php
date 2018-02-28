@@ -419,15 +419,6 @@ $app->get('/limitCustomers1',function()use($app){
             array_push($array2,$array1[$i]);
         }
         echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$array2));
-//        for($x=0;$x<count($array1);$x++){
-//            $selectStatement = $database->select()
-//                ->from('tenant')
-//                ->where('tenant_id', '=', $array1[$x]['contact_tenant_id']);
-//            $stmt = $selectStatement->execute();
-//            $data2 = $stmt->fetch();
-//            $array1[$x]['contact_tenant']=$data2;
-//        }
-//        echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
