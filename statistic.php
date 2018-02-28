@@ -435,7 +435,7 @@ $app->get('/getStatistic4',function()use($app){
                             ->from('orders')
                             ->where('id','<',$data1000['id'])
                             ->where('order_id', '=', $data300[$y]['order_id'])
-                            ->orderBy('id','DESC');
+                            ->orderBy('id');
                         $stmt = $selectStatement->execute();
                         $data1100 = $stmt->fetchAll();
                         $is_transfer=null;
