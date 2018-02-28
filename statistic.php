@@ -11,7 +11,7 @@ require 'files_url.php';
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
-$app->get('/getstatistic0',function()use($app){
+$app->get('/getStatistic0',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
@@ -33,6 +33,17 @@ $app->get('/getstatistic0',function()use($app){
         echo  json_encode(array("result"=>"1","desc"=>"缺少租户id"));
     }
 });
+
+
+
+
+
+
+
+
+
+
+
 
 
 
