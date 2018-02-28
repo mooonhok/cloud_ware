@@ -410,6 +410,7 @@ $app->get('/limitCustomers1',function()use($app){
             $num=count($array1);
         }
         for($i=$offset;$i<$num;$i++){
+            $array1[$i]['contact_tenant']="";
             $selectStatement = $database->select()
                 ->from('tenant')
                 ->where('tenant_id', '=', $data[$i]['contact_tenant_id']);
