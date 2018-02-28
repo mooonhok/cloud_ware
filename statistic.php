@@ -307,6 +307,8 @@ $app->get('/getStatistic4',function()use($app){
                     $count=0;
                     $count1=0;
                     $count2=0;
+                    $count3=0;
+                    $count4=0;
                     $selectStatement = $database->select()
                         ->from('schedule_order')
                         ->where('schedule_id','=',$data2[$j]['scheduling_id'])
@@ -360,15 +362,17 @@ $app->get('/getStatistic4',function()use($app){
                             $next_cost=$data12[0]['transfer_cost'];
                         }
                         if(substr($data3[$y]['order_id'],0,7)==$tenant_num&&$is_transfer==1){
-                            $data2[$j]['transfer_cost']+=$data5['transfer_cost'];
+                            $count3+=$data5['transfer_cost'];
                         }
                         if($next_cost!=''||$next_cost!=null){
-                            $data2[$j]['next_cost']+=$next_cost;
+                           $count4+=$next_cost;
                         }
                     }
                     $data2[$j]['weight']=$count1;
                     $data2[$j]['count']=$count;
                     $data2[$j]['d_cost']=$count2;
+                    $data2[$j]['transfer_cost']=$count3;
+                    $data2[$j]['next_cost']=$count4;
                     array_push($arrays1,$data2[$j]);
                 }
             }
