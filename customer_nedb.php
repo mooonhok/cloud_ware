@@ -381,53 +381,53 @@ $app->get('/limitCustomers1',function()use($app){
             ->limit((int)$size,(int)$offset);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        for($x=0;$x<count($data);$x++){
+        for($i=0;$i<count($data);$i++){
+            for($g=(count($data)-1);$g>$i;$g--){
+                if($data[$i]['contact_tenant_id']==$data[$g]['contact_tenant_id']){
+                    $data[$i]['times']+=$data[$g]['times'];
+                    array_push($array,$g);
+                }
+            }
+        }
+        for($i=0;$i<count($data);$i++){
+            if($array){
+                for($x=0;$x<count($array);$x++){
+                    if($i==$array[$x]){
+                        break;
+                    }
+                    if($x==(count($array)-1)){
+                        array_push($array1,$data[$i]);
+                    }
+                }
+            }else{
+                $array1=$data;
+            }
+        }
+        $num=0;
+        if($offset<count($array1)&&$offset<(count($array1)-$size)){
+            $num=$offset+$size;
+        }else{
+            $num=count($array1);
+        }
+        for($i=$offset;$i<$num;$i++){
             $selectStatement = $database->select()
                 ->from('tenant')
-                ->where('tenant_id', '=', $data[$x]['contact_tenant_id']);
+                ->where('tenant_id', '=', $data[$i]['contact_tenant_id']);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetch();
-            $data[$x]['contact_tenant']=$data2;
+            $array1[$i]['contact_tenant']=$data2;
+            array_push($array2,$array1[$i]);
         }
-        echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$data));
-//        for($i=0;$i<count($data);$i++){
-//            for($g=(count($data)-1);$g>$i;$g--){
-//                if($data[$i]['contact_tenant_id']==$data[$g]['contact_tenant_id']){
-//                    $data[$i]['times']+=$data[$g]['times'];
-//                    array_push($array,$g);
-//                }
-//            }
-//        }
-//        for($i=0;$i<count($data);$i++){
-//            if($array){
-//                for($x=0;$x<count($array);$x++){
-//                    if($i==$array[$x]){
-//                        break;
-//                    }
-//                    if($x==(count($array)-1)){
-//                        array_push($array1,$data[$i]);
-//                    }
-//                }
-//            }else{
-//                $array1=$data;
-//            }
-//        }
-//        $num=0;
-//        if($offset<count($array1)&&$offset<(count($array1)-$size)){
-//            $num=$offset+$size;
-//        }else{
-//            $num=count($array1);
-//        }
-//        for($i=$offset;$i<$num;$i++){
+        echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$array2));
+//        for($x=0;$x<count($array1);$x++){
 //            $selectStatement = $database->select()
 //                ->from('tenant')
-//                ->where('tenant_id', '=', $data[$i]['contact_tenant_id']);
+//                ->where('tenant_id', '=', $array1[$x]['contact_tenant_id']);
 //            $stmt = $selectStatement->execute();
 //            $data2 = $stmt->fetch();
-//            $array1[$i]['contact_tenant']=$data2;
-//            array_push($array2,$array1[$i]);
+//            $array1[$x]['contact_tenant']=$data2;
 //        }
-//        echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$array2));
+//        echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
