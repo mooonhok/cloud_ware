@@ -1426,13 +1426,13 @@ $app->get('/getSchedulingOrders12',function()use($app){
             for ($i = 0; $i < count($data); $i++) {
                 $selectStatement = $database->select()
                     ->from('lorry')
-                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('tenant_id', '=', $data17[$x]['tenant_id'])
                     ->where('lorry_id', '=', $data[$i]['lorry_id']);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('goods')
-                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('tenant_id', '=', $data17[$x]['tenant_id'])
                     ->where('order_id', '=', $data[$i]['order_id']);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetch();
@@ -1443,7 +1443,7 @@ $app->get('/getSchedulingOrders12',function()use($app){
                 $data5 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('scheduling')
-                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('tenant_id', '=', $data17[$x]['tenant_id'])
                     ->where('scheduling_id', '=', $data[$i]['scheduling_id']);
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetch();
@@ -1452,7 +1452,7 @@ $app->get('/getSchedulingOrders12',function()use($app){
                 $data[$i]['change_datetime'] = $changedatetime;
                 $selectStatement = $database->select()
                     ->from('customer')
-                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('tenant_id', '=', $data17[$x]['tenant_id'])
                     ->where('customer_id', '=', $data3['receiver_id']);
                 $stmt = $selectStatement->execute();
                 $data4 = $stmt->fetch();
@@ -1486,13 +1486,13 @@ $app->get('/getSchedulingOrders12',function()use($app){
                 }
                 $selectStatement = $database->select()
                     ->from('orders')
-                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('tenant_id', '=', $data17[$x]['tenant_id'])
                     ->where('order_id', '=', $data2['order_id']);
                 $stmt = $selectStatement->execute();
                 $data11 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('customer')
-                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('tenant_id', '=',$data17[$x]['tenant_id'])
                     ->where('customer_id', '=', $data11['receiver_id']);
                 $stmt = $selectStatement->execute();
                 $data12 = $stmt->fetch();
@@ -1503,7 +1503,7 @@ $app->get('/getSchedulingOrders12',function()use($app){
                 $data14 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('customer')
-                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('tenant_id', '=', $data17[$x]['tenant_id'])
                     ->where('customer_id', '=', $data11['sender_id']);
                 $stmt = $selectStatement->execute();
                 $data13 = $stmt->fetch();
