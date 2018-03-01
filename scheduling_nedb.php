@@ -159,6 +159,45 @@ $app->get('/getSchedulings1',function()use($app){
     }
 });
 
+$app->get('/getSchedulings16',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $arrays1=array();
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('customer')
+            ->where('contact_tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        for($x=0;$x<count($data);$x++){
+            $selectStatement = $database->select()
+                ->from('scheduling')
+                ->where('exist', '=', 0)
+                ->where('recevier_id', '=', $data[$x]['customer_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetchAll();
+            for($i=0;$i<count($data);$i++){
+                $selectStatement = $database->select()
+                    ->sum('order_cost','zon')
+                    ->from('schedule_order')
+                    ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+                    ->where('schedule_order.schedule_id','=',$data2[$i]['scheduling_id'])
+                    ->where('schedule_order.tenant_id', '=', $data2[$i]['tenant_id'])
+                    ->where('orders.pay_method','=',1)
+                    ->where('orders.tenant_id', '=', $data2[$i]['tenant_id']);
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetch();
+                $data2[$i]['sum']=$data1['zon'];
+            }
+            array_push($arrays1,$data2);
+        }
+        echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$arrays1));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
 $app->get('/getScheduling',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
