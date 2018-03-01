@@ -208,6 +208,8 @@ $app->get('/limitSchedulings6',function()use($app){
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     $arrays1=array();
+    $size= $app->request->get('size');
+    $offset= $app->request->get('offset');
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('customer')
@@ -220,7 +222,8 @@ $app->get('/limitSchedulings6',function()use($app){
                 ->where('exist', '=', 0)
                 ->where('is_scan','=',1)
                 ->where('tenant_id', '=', $data[$x]['tenant_id'])
-                ->where('receiver_id', '=', $data[$x]['customer_id']);
+                ->where('receiver_id', '=', $data[$x]['customer_id'])
+                ->limit((int)$size,(int)$offset);;
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
             for($i=0;$i<count($data2);$i++){
@@ -235,8 +238,9 @@ $app->get('/limitSchedulings6',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
                 $data2[$i]['sum']=$data1['zon'];
+                array_push($arrays1,$data2[$i]);
             }
-            array_push($arrays1,$data2);
+
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$arrays1));
     }else{
