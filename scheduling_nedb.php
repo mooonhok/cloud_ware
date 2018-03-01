@@ -189,8 +189,9 @@ $app->get('/getSchedulings16',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
                 $data2[$i]['sum']=$data1['zon'];
-                array_push($arrays1,$data2);
+                array_push($arrays1,$data2[$i]);
             }
+
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$arrays1));
     }else{
