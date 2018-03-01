@@ -560,6 +560,7 @@ $app->get('/getSchedulings17',function()use($app){
         for($x=0;$x<count($data3);$x++) {
             $selectStatement = $database->select()
                 ->from('scheduling')
+                ->where('is_scan','=',1)
                 ->where('scheduling_id', '=', $scheduling_id)
                 ->where('tenant_id', '=', $data3[$x]['tenant_id'])
                 ->where('exist', '=', 0);
@@ -637,6 +638,7 @@ $app->get('/getSchedulings18',function()use($app){
         $selectStatement = $database->select()
             ->from('scheduling')
             ->join('city','city.id','=','scheduling.send_city_id','INNER')
+            ->where('scheduling.is_scan','=',1)
             ->where('city.name','=',$from_city_name)
             ->where('scheduling.tenant_id', '=', $data9[$x]['tenant_id'])
             ->where('scheduling.exist', '=', 0);
@@ -1452,6 +1454,7 @@ $app->get('/limitSchedulings7',function()use($app){
             $selectStatement = $database->select()
                 ->from('scheduling')
                 ->where('exist', '=', 0)
+                ->where('is_scan','=',1)
                 ->where('scheduling_id', '=', $scheduling_id)
                 ->where('tenant_id', '=', $data9[$x]['tenant_id'])
                 ->orderBy('scheduling_status')
@@ -1522,6 +1525,7 @@ $app->get('/limitSchedulings8',function()use($app){
                 ->from('scheduling')
                 ->join('city', 'city.id', '=', 'scheduling.send_city_id', 'INNER')
                 ->where('city.name', '=', $from_city_name)
+                ->where('scheduling.is_scan','=',1)
                 ->where('scheduling.exist', '=', 0)
                 ->whereIn('scheduling.scheduling_status', array(6, 8))
                 ->where('scheduling.tenant_id', '=', $data9[$x]['tenant_id'])
@@ -1533,6 +1537,7 @@ $app->get('/limitSchedulings8',function()use($app){
                 ->from('scheduling')
                 ->join('city', 'city.id', '=', 'scheduling.send_city_id', 'INNER')
                 ->where('city.name', '=', $from_city_name)
+                ->where('scheduling.is_scan','=',1)
                 ->where('scheduling.exist', '=', 0)
                 ->whereIn('scheduling.scheduling_status', array(1, 2, 3, 4))
                 ->where('scheduling.tenant_id', '=', $data9[$x]['tenant_id'])
@@ -1545,6 +1550,7 @@ $app->get('/limitSchedulings8',function()use($app){
                 ->join('city', 'city.id', '=', 'scheduling.send_city_id', 'INNER')
                 ->where('city.name', '=', $from_city_name)
                 ->where('scheduling.exist', '=', 0)
+                ->where('scheduling.is_scan','=',1)
                 ->whereIn('scheduling.scheduling_status', array(5, 7, 9))
                 ->where('scheduling.tenant_id', '=',$data9[$x]['tenant_id'])
                 ->orderBy('scheduling.scheduling_status')
