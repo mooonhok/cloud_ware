@@ -174,7 +174,7 @@ $app->get('/getSchedulings16',function()use($app){
             $selectStatement = $database->select()
                 ->from('scheduling')
                 ->where('exist', '=', 0)
-                ->where('recevier_id', '=', $data[$x]['customer_id']);
+                ->where('receiver_id', '=', $data[$x]['customer_id']);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
             for($i=0;$i<count($data);$i++){
