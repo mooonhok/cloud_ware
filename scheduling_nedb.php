@@ -223,7 +223,8 @@ $app->get('/limitSchedulings6',function()use($app){
                 ->where('is_scan','=',1)
                 ->where('tenant_id', '=', $data[$x]['tenant_id'])
                 ->where('receiver_id', '=', $data[$x]['customer_id'])
-                ->limit((int)$size,(int)$offset);
+                ->limit((int)$size,(int)$offset)
+                ->orderby('change_datetime','DESC');
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
             for($i=0;$i<count($data2);$i++){
@@ -1523,7 +1524,7 @@ $app->get('/limitSchedulings7',function()use($app){
                 ->where('scheduling_id', '=', $scheduling_id)
                 ->where('tenant_id', '=', $data9[$x]['tenant_id'])
                 ->orderBy('scheduling_status')
-                ->orderBy('scheduling_id', 'DESC');
+                ->orderBy('change_datetime', 'DESC');
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
             for($i=0;$i<count($data2);$i++){
@@ -1594,8 +1595,7 @@ $app->get('/limitSchedulings8',function()use($app){
                 ->where('scheduling.exist', '=', 0)
                 ->whereIn('scheduling.scheduling_status', array(6, 8))
                 ->where('scheduling.tenant_id', '=', $data9[$x]['tenant_id'])
-                ->orderBy('scheduling.scheduling_status')
-                ->orderBy('scheduling.scheduling_id', 'DESC');
+                ->orderBy('change_datetime', 'DESC');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
             $selectStatement = $database->select()
@@ -1606,8 +1606,7 @@ $app->get('/limitSchedulings8',function()use($app){
                 ->where('scheduling.exist', '=', 0)
                 ->whereIn('scheduling.scheduling_status', array(1, 2, 3, 4))
                 ->where('scheduling.tenant_id', '=', $data9[$x]['tenant_id'])
-                ->orderBy('scheduling.scheduling_status', 'DESC')
-                ->orderBy('scheduling.scheduling_id', 'DESC');
+                ->orderBy('change_datetime', 'DESC');
             $stmt = $selectStatement->execute();
             $dataa = $stmt->fetchAll();
             $selectStatement = $database->select()
@@ -1618,8 +1617,7 @@ $app->get('/limitSchedulings8',function()use($app){
                 ->where('scheduling.is_scan','=',1)
                 ->whereIn('scheduling.scheduling_status', array(5, 7, 9))
                 ->where('scheduling.tenant_id', '=',$data9[$x]['tenant_id'])
-                ->orderBy('scheduling.scheduling_status')
-                ->orderBy('scheduling.scheduling_id', 'DESC');
+                ->orderBy('change_datetime', 'DESC');
             $stmt = $selectStatement->execute();
             $datad = $stmt->fetchAll();
             $data = array_merge($data, $dataa, $datad);
@@ -1919,39 +1917,35 @@ $app->get('/limitSchedulings9',function()use($app){
                 ->where('scheduling.exist', '=', 0)
                 ->where('scheduling.is_scan', '=', 1)
                 ->where('lorry.tenant_id', '=', $data9[$i]['tenant_id'])
-                ->whereIn('scheduling.scheduling_status', array(6, 8))
                 ->where('scheduling.tenant_id', '=', $data9[$i]['tenant_id'])
-                ->orderBy('scheduling.scheduling_status')
-                ->orderBy('scheduling.scheduling_id', 'DESC');
+                ->orderBy('change_datetime', 'DESC');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
-
-            $selectStatement = $database->select()
-                ->from('scheduling')
-                ->join('lorry', 'lorry.lorry_id', '=', 'scheduling.lorry_id', 'INNER')
-                ->where('lorry.plate_number', '=', $plate_number)
-                ->where('scheduling.exist', '=', 0)
-                ->where('scheduling.is_scan', '=', 1)
-                ->where('lorry.tenant_id', '=', $data9[$i]['tenant_id'])
-                ->whereIn('scheduling.scheduling_status', array(1, 2, 3, 4))
-                ->where('scheduling.tenant_id', '=',$data9[$i]['tenant_id'])
-                ->orderBy('scheduling.scheduling_status', 'DESC')
-                ->orderBy('scheduling.scheduling_id', 'DESC');
-            $stmt = $selectStatement->execute();
-            $dataa = $stmt->fetchAll();
-            $selectStatement = $database->select()
-                ->from('scheduling')
-                ->join('lorry', 'lorry.lorry_id', '=', 'scheduling.lorry_id', 'INNER')
-                ->where('lorry.plate_number', '=', $plate_number)
-                ->where('scheduling.is_scan', '=', 1)
-                ->where('scheduling.exist', '=', 0)
-                ->where('lorry.tenant_id', '=', $data9[$i]['tenant_id'])
-                ->whereIn('scheduling.scheduling_status', array(5, 7, 9))
-                ->where('scheduling.tenant_id', '=', $data9[$i]['tenant_id'])
-                ->orderBy('scheduling.scheduling_id', 'DESC');
-            $stmt = $selectStatement->execute();
-            $datad = $stmt->fetchAll();
-            $data = array_merge($data, $dataa, $datad);
+//            $selectStatement = $database->select()
+//                ->from('scheduling')
+//                ->join('lorry', 'lorry.lorry_id', '=', 'scheduling.lorry_id', 'INNER')
+//                ->where('lorry.plate_number', '=', $plate_number)
+//                ->where('scheduling.exist', '=', 0)
+//                ->where('scheduling.is_scan', '=', 1)
+//                ->where('lorry.tenant_id', '=', $data9[$i]['tenant_id'])
+//                ->whereIn('scheduling.scheduling_status', array(1, 2, 3, 4))
+//                ->where('scheduling.tenant_id', '=',$data9[$i]['tenant_id'])
+//                ->orderBy('change_datetime', 'DESC');
+//            $stmt = $selectStatement->execute();
+//            $dataa = $stmt->fetchAll();
+//            $selectStatement = $database->select()
+//                ->from('scheduling')
+//                ->join('lorry', 'lorry.lorry_id', '=', 'scheduling.lorry_id', 'INNER')
+//                ->where('lorry.plate_number', '=', $plate_number)
+//                ->where('scheduling.is_scan', '=', 1)
+//                ->where('scheduling.exist', '=', 0)
+//                ->where('lorry.tenant_id', '=', $data9[$i]['tenant_id'])
+//                ->whereIn('scheduling.scheduling_status', array(5, 7, 9))
+//                ->where('scheduling.tenant_id', '=', $data9[$i]['tenant_id'])
+//                ->orderBy('change_datetime', 'DESC');
+//            $stmt = $selectStatement->execute();
+//            $datad = $stmt->fetchAll();
+//            $data = array_merge($data, $dataa, $datad);
             $num = 0;
             if ($offset < count($data) && $offset < (count($data) - $size)) {
                 $num = $offset + $size;
