@@ -657,7 +657,7 @@ $app->post('/tenant',function()use($app) {
                                 if($sales_id!=null||$sales_id!=""){
                                     $selectStatement = $database->select()
                                         ->from('tenant')
-                                        ->where('business_l','=',$business_l)
+                                        ->where('company','=',$company)
                                         ->where('exist','=',0);
                                     $stmt = $selectStatement->execute();
                                     $data5 = $stmt->fetch();
@@ -758,7 +758,7 @@ $app->post('/tenant',function()use($app) {
                                         }
                                     }else {
 //
-                                        echo json_encode(array("result"=>"4","desc"=>"该公司已存在"));
+                                        echo json_encode(array("result"=>"4","desc"=>"该公司名已存在"));
                                     }
                                 }else{
                                     echo json_encode(array("result"=>"5","desc"=>"缺少sales_id"));
