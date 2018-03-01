@@ -1381,8 +1381,6 @@ $app->get('/limitSchedulings1',function()use($app){
                 $data7 = $stmt->fetch();
                 $data6=$data7['jcompany'];
             }
-
-
             $selectStatement = $database->select()
                 ->from('city')
                 ->where('id', '=', $data[$i]['send_city_id']);
@@ -1515,6 +1513,7 @@ $app->get('/limitSchedulings7',function()use($app){
                 $data[$i]['sum'] = $data5['zon'];
                 array_push($datab, $data[$i]);
             }
+            $datab=array_values(array_unset_tt($datab,'scheduling_id'));
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$datab));
     }else{
@@ -2259,7 +2258,33 @@ $app->get('/getSchedulings_scheduling_id_or_sendercity',function()use($app){
     }
 });
 
+
+
+
 $app->run();
+
+
+
+
+function array_unset_tt($arr,$key){
+    //建立一个目标数组
+    $res = array();
+    foreach ($arr as $value) {
+        //查看有没有重复项
+
+        if(isset($res[$value[$key]])){
+            //有：销毁
+
+            unset($value[$key]);
+
+        }
+        else{
+
+            $res[$value[$key]] = $value;
+        }
+    }
+    return $res;
+}
 function localhost(){
     return connect();
 }
