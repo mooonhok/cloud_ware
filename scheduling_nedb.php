@@ -223,10 +223,26 @@ $app->get('/limitSchedulings6',function()use($app){
                 ->where('is_scan','=',1)
                 ->where('tenant_id', '=', $data[$x]['tenant_id'])
                 ->where('receiver_id', '=', $data[$x]['customer_id'])
-                ->limit((int)$size,(int)$offset);;
+                ->limit((int)$size,(int)$offset);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
             for($i=0;$i<count($data2);$i++){
+                $selectStatement = $database->select()
+                    ->from('lorry')
+                    ->where('tenant_id', '=', $data[$x]['tenant_id'])
+                    ->where('lorry_id', '=', $data[$x]['lorry_id']);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('tenant')
+                    ->where('tenant_id', '=', $data[$x]['tenant_id']);
+                $stmt = $selectStatement->execute();
+                $data4 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data4['from_city_id']);
+                $stmt = $selectStatement->execute();
+                $data5 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->sum('order_cost','zon')
                     ->from('schedule_order')
@@ -238,6 +254,12 @@ $app->get('/limitSchedulings6',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
                 $data2[$i]['sum']=$data1['zon'];
+                $data2[$i]['drivername']=$data3['driver_name'];
+                $data2[$i]['driverphone']=$data3['driver_phone'];
+                $data2[$i]['platenumber']=$data3['plate_number'];
+                $data2[$i]['companyname']=$data4['company'];
+                $data2[$i]['jcompany']=$data4['jcompany'];
+                $data2[$i]['fromcity']=$data5['name'];
                 array_push($arrays1,$data2[$i]);
             }
 
