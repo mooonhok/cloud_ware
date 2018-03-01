@@ -1422,45 +1422,44 @@ $app->get('/limitSchedulings7',function()use($app){
             ->where('contact_tenant_id','=',$tenant_id);
         $stmt = $selectStatement->execute();
         $data9 = $stmt->fetchAll();
-        $datab=array();
+//        $datab=array();
         for($x=0;$x<count($data9);$x++) {
             $selectStatement = $database->select()
                 ->from('scheduling')
                 ->where('exist', '=', 0)
                 ->where('scheduling_id', '=', $scheduling_id)
                 ->where('tenant_id', '=', $data9[$x]['tenant_id'])
-                ->whereIn('scheduling_status', array(6, 8))
                 ->orderBy('scheduling_status')
                 ->orderBy('scheduling_id', 'DESC');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
-            $selectStatement = $database->select()
-                ->from('scheduling')
-                ->where('exist', '=', 0)
-                ->where('scheduling_id', '=', $scheduling_id)
-                ->where('tenant_id', '=',  $data9[$x]['tenant_id'])
-                ->whereIn('scheduling_status', array(1, 2, 3, 4))
-                ->orderBy('scheduling_status', 'DESC')
-                ->orderBy('scheduling_id', 'DESC');
-            $stmt = $selectStatement->execute();
-            $dataa = $stmt->fetchAll();
-            $selectStatement = $database->select()
-                ->from('scheduling')
-                ->where('exist', '=', 0)
-                ->where('tenant_id', '=',  $data9[$x]['tenant_id'])
-                ->whereIn('scheduling_status', array(5, 7, 9))
-                ->orderBy('scheduling_status')
-                ->orderBy('scheduling_id', 'DESC');
-            $stmt = $selectStatement->execute();
-            $datad = $stmt->fetchAll();
-            $data = array_merge($data, $dataa);
-            $num = 0;
-            if ($offset < count($data) && $offset < (count($data) - $size)) {
-                $num = $offset + $size;
-            } else {
-                $num = count($data);
-            }
-            for ($i = $offset; $i < $num; $i++) {
+//            $selectStatement = $database->select()
+//                ->from('scheduling')
+//                ->where('exist', '=', 0)
+//                ->where('scheduling_id', '=', $scheduling_id)
+//                ->where('tenant_id', '=',  $data9[$x]['tenant_id'])
+//                ->whereIn('scheduling_status', array(1, 2, 3, 4))
+//                ->orderBy('scheduling_status', 'DESC')
+//                ->orderBy('scheduling_id', 'DESC');
+//            $stmt = $selectStatement->execute();
+//            $dataa = $stmt->fetchAll();
+//            $selectStatement = $database->select()
+//                ->from('scheduling')
+//                ->where('exist', '=', 0)
+//                ->where('tenant_id', '=',  $data9[$x]['tenant_id'])
+//                ->whereIn('scheduling_status', array(5, 7, 9))
+//                ->orderBy('scheduling_status')
+//                ->orderBy('scheduling_id', 'DESC');
+//            $stmt = $selectStatement->execute();
+//            $datad = $stmt->fetchAll();
+//            $data = array_merge($data, $dataa);
+//            $num = 0;
+//            if ($offset < count($data) && $offset < (count($data) - $size)) {
+//                $num = $offset + $size;
+//            } else {
+//                $num = count($data);
+//            }
+            for ($i = $data; $i < count($data); $i++) {
                 $selectStatement = $database->select()
                     ->sum('order_cost', 'zon')
                     ->from('schedule_order')
