@@ -229,13 +229,13 @@ $app->get('/limitSchedulings6',function()use($app){
             for($i=0;$i<count($data2);$i++){
                 $selectStatement = $database->select()
                     ->from('lorry')
-                    ->where('tenant_id', '=', $data[$x]['tenant_id'])
-                    ->where('lorry_id', '=', $data[$x]['lorry_id']);
+                    ->where('tenant_id', '=', $data2[$i]['tenant_id'])
+                    ->where('lorry_id', '=', $data2[$i]['lorry_id']);
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('tenant')
-                    ->where('tenant_id', '=', $data[$x]['tenant_id']);
+                    ->where('tenant_id', '=', $data2[$i]['tenant_id']);
                 $stmt = $selectStatement->execute();
                 $data4 = $stmt->fetch();
                 $selectStatement = $database->select()
