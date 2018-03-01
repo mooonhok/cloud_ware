@@ -1459,7 +1459,7 @@ $app->get('/limitSchedulings7',function()use($app){
 //            } else {
 //                $num = count($data);
 //            }
-            for ($i = $data; $i < count($data); $i++) {
+            for ($i = 0; $i < count($data); $i++) {
                 $selectStatement = $database->select()
                     ->sum('order_cost', 'zon')
                     ->from('schedule_order')
