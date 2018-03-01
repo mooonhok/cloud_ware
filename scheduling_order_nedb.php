@@ -1526,10 +1526,10 @@ $app->get('/getSchedulingOrders12',function()use($app){
                 $data[$i]['order_receiver'] = $data12;
                 $data[$i]['order_sender_city'] = $data15;
                 $data[$i]['order_receiver_city'] = $data14;
-                array_push($arrays1,$data[$i]);
+
             }
         }
-        echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$arrays1));
+        echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
