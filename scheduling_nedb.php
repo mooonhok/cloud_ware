@@ -177,7 +177,7 @@ $app->get('/getSchedulings16',function()use($app){
                 ->where('receiver_id', '=', $data[$x]['customer_id']);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
-            for($i=0;$i<count($data);$i++){
+            for($i=0;$i<count($data2);$i++){
                 $selectStatement = $database->select()
                     ->sum('order_cost','zon')
                     ->from('schedule_order')
