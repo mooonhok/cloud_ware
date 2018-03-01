@@ -1952,13 +1952,13 @@ $app->get('/limitSchedulings9',function()use($app){
             } else {
                 $num = count($data);
             }
-//            for ($i = $offset; $i < $num; $i++) {
-//                $selectStatement = $database->select()
-//                    ->from('lorry')
-//                    ->where('tenant_id', '=', $data[$i]['tenant_id'])
-//                    ->where('lorry_id', '=', $data[$i]['lorry_id']);
-//                $stmt = $selectStatement->execute();
-//                $data3 = $stmt->fetch();
+            for ($i = $offset; $i < $num; $i++) {
+                $selectStatement = $database->select()
+                    ->from('lorry')
+                    ->where('tenant_id', '=', $data[$i]['tenant_id'])
+                    ->where('lorry_id', '=', $data[$i]['lorry_id']);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetch();
 //                $selectStatement = $database->select()
 //                    ->from('tenant')
 //                    ->where('tenant_id', '=', $data[$i]['tenant_id']);
@@ -1980,17 +1980,17 @@ $app->get('/limitSchedulings9',function()use($app){
 //                $stmt = $selectStatement->execute();
 //                $data1 = $stmt->fetch();
 //                $data[$i]['sum']=$data1['zon'];
-//                $data[$i]['drivername']=$data3['driver_name'];
-//                $data[$i]['driverphone']=$data3['driver_phone'];
-//                $data[$i]['platenumber']=$data3['plate_number'];
+                $data[$i]['drivername']=$data3['driver_name'];
+                $data[$i]['driverphone']=$data3['driver_phone'];
+                $data[$i]['platenumber']=$data3['plate_number'];
 //                $data[$i]['companyname']=$data4['company'];
 //                $data[$i]['jcompany']=$data4['jcompany'];
 //                $data[$i]['fromcity']=$data5['name'];
-//                array_push($datab, $data[$i]);
-//            }
+                array_push($datab, $data[$i]);
+            }
             $datab=array_values(array_unset_tt($datab,'scheduling_id'));
        }
-        echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$num));
+        echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$datab));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
