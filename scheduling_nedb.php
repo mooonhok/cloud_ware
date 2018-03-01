@@ -587,12 +587,6 @@ $app->get('/getSchedulings17',function()use($app){
 
 
 
-
-
-
-
-
-
 $app->get('/getSchedulings7',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
@@ -625,6 +619,49 @@ $app->get('/getSchedulings7',function()use($app){
         echo json_encode(array("result" => "1", "desc" => "租户id为空"));
     }
 });
+
+
+$app->get('/getSchedulings18',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $receive_city_name=$app->request->get('receive_city_name');
+    $database = localhost();
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('customer')
+            ->where('contact_tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data3 = $stmt->fetchAll();
+        for($x=0;$x<count($data3);$x++) {
+        $selectStatement = $database->select()
+            ->from('scheduling')
+            ->join('city','city.id','=','scheduling.receive_city_id','INNER')
+            ->where('city.name','=',$receive_city_name)
+            ->where('scheduling.tenant_id', '=', $data3[$x]['tenant_id'])
+            ->where('scheduling.exist', '=', 0);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        for($i=0;$i<count($data);$i++){
+            $selectStatement = $database->select()
+                ->sum('order_cost','zon')
+                ->from('schedule_order')
+                ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+                ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id'])
+                ->where('schedule_order.tenant_id', '=', $data3[$x]['tenant_id'])
+                ->where('orders.pay_method','=',1)
+                ->where('orders.tenant_id', '=',$data3[$x]['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            $data[$i]['sum']=$data1['zon'];
+        }
+        }
+        echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "租户id为空"));
+    }
+});
+
+
 
 $app->get('/getSchedulings8',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
