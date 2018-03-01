@@ -175,6 +175,7 @@ $app->get('/getSchedulings16',function()use($app){
                 ->from('scheduling')
                 ->where('exist', '=', 0)
                 ->where('is_scan','=',1)
+                ->where('tenant_id', '=', $data[$x]['tenant_id'])
                 ->where('receiver_id', '=', $data[$x]['customer_id']);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
@@ -217,6 +218,8 @@ $app->get('/limitSchedulings6',function()use($app){
             $selectStatement = $database->select()
                 ->from('scheduling')
                 ->where('exist', '=', 0)
+                ->where('is_scan','=',1)
+                ->where('tenant_id', '=', $data[$x]['tenant_id'])
                 ->where('receiver_id', '=', $data[$x]['customer_id']);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
