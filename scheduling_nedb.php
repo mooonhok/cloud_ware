@@ -678,6 +678,7 @@ $app->get('/getSchedulings18',function()use($app){
             $data[$i]['fromcity']=$data5['name'];
             array_push($datab,$data[$i]);
         }
+            $datab=array_values(array_unset_tt($datab,'scheduling_id'));
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$datab));
     }else{
@@ -1593,6 +1594,7 @@ $app->get('/limitSchedulings8',function()use($app){
                 $data[$i]['fromcity']=$data5['name'];
                 array_push($datab, $data[$i]);
             }
+            $datab=array_values(array_unset_tt($datab,'scheduling_id'));
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$datab));
     }else{
