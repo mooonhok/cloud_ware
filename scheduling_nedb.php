@@ -1422,7 +1422,7 @@ $app->get('/limitSchedulings7',function()use($app){
             ->where('contact_tenant_id','=',$tenant_id);
         $stmt = $selectStatement->execute();
         $data9 = $stmt->fetchAll();
-//        $datab=array();
+       $datab=array();
         for($x=0;$x<count($data9);$x++) {
             $selectStatement = $database->select()
                 ->from('scheduling')
