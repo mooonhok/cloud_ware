@@ -1376,6 +1376,116 @@ $app->get('/limitSchedulings1',function()use($app){
     }
 });
 
+$app->get('/limitSchedulings7',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $scheduling_id=$app->request->get('scheduling_id');
+    $database = localhost();
+    $size= $app->request->get('size');
+    $offset= $app->request->get('offset');
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('customer')
+            ->where('contact_tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data9 = $stmt->fetchAll();
+        $datab=array();
+        for($x=0;$x<count($data9);$x++) {
+            $selectStatement = $database->select()
+                ->from('scheduling')
+                ->where('exist', '=', 0)
+                ->where('scheduling_id', '=', $scheduling_id)
+                ->where('tenant_id', '=', $data9[$x]['tenant_id'])
+                ->whereIn('scheduling_status', array(6, 8))
+                ->orderBy('scheduling_status')
+                ->orderBy('scheduling_id', 'DESC');
+            $stmt = $selectStatement->execute();
+            $data = $stmt->fetchAll();
+            $selectStatement = $database->select()
+                ->from('scheduling')
+                ->where('exist', '=', 0)
+                ->where('scheduling_id', '=', $scheduling_id)
+                ->where('tenant_id', '=',  $data9[$x]['tenant_id'])
+                ->whereIn('scheduling_status', array(1, 2, 3, 4))
+                ->orderBy('scheduling_status', 'DESC')
+                ->orderBy('scheduling_id', 'DESC');
+            $stmt = $selectStatement->execute();
+            $dataa = $stmt->fetchAll();
+            $selectStatement = $database->select()
+                ->from('scheduling')
+                ->where('exist', '=', 0)
+                ->where('tenant_id', '=',  $data9[$x]['tenant_id'])
+                ->whereIn('scheduling_status', array(5, 7, 9))
+                ->orderBy('scheduling_status')
+                ->orderBy('scheduling_id', 'DESC');
+            $stmt = $selectStatement->execute();
+            $datad = $stmt->fetchAll();
+            $data = array_merge($data, $dataa, $datad);
+            $num = 0;
+            if ($offset < count($data) && $offset < (count($data) - $size)) {
+                $num = $offset + $size;
+            } else {
+                $num = count($data);
+            }
+            for ($i = $offset; $i < $num; $i++) {
+                $selectStatement = $database->select()
+                    ->sum('order_cost', 'zon')
+                    ->from('schedule_order')
+                    ->join('orders', 'schedule_order.order_id', '=', 'orders.order_id', 'INNER')
+                    ->where('schedule_order.schedule_id', '=', $data[$i]['scheduling_id'])
+                    ->where('schedule_order.tenant_id', '=', $data9[$x]['tenant_id'])
+                    ->where('orders.pay_method', '=', 1)
+                    ->where('orders.tenant_id', '=',  $data9[$x]['tenant_id']);
+                $stmt = $selectStatement->execute();
+                $data5 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('tenant_id', '=',  $data9[$x]['tenant_id'])
+                    ->where('customer_id', '=', $data[$i]['receiver_id']);
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetch();
+                $data6 = '';
+                if ($data1['contact_tenant_id'] != null) {
+                    $selectStatement = $database->select()
+                        ->from('tenant')
+                        ->where('tenant_id', '=', $data1['contact_tenant_id']);
+                    $stmt = $selectStatement->execute();
+                    $data7 = $stmt->fetch();
+                    $data6 = $data7['jcompany'];
+                }
+
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data[$i]['send_city_id']);
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data[$i]['receive_city_id']);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('lorry')
+                    ->where('tenant_id', '=', $data9[$x]['tenant_id'])
+                    ->where('lorry_id', '=', $data[$i]['lorry_id']);
+                $stmt = $selectStatement->execute();
+                $data4 = $stmt->fetch();
+                $data[$i]['receiver'] = $data1;
+                $data[$i]['receiver']['jcompany'] = $data6;
+                $data[$i]['send_city'] = $data2;
+                $data[$i]['receive_city'] = $data3;
+                $data[$i]['lorry'] = $data4;
+                $data[$i]['sum'] = $data5['zon'];
+                array_push($datab, $data[$i]);
+            }
+        }
+        echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$datab));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
+
 $app->get('/limitSchedulings2',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
