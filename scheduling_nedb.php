@@ -1918,7 +1918,8 @@ $app->get('/limitSchedulings9',function()use($app){
                 ->where('scheduling.is_scan', '=', 1)
                 ->where('lorry.tenant_id', '=', $data9[$i]['tenant_id'])
                 ->where('scheduling.tenant_id', '=', $data9[$i]['tenant_id'])
-                ->orderBy('change_datetime', 'DESC');
+                ->orderBy('change_datetime', 'DESC')
+                ->limit((int)$size,(int)$offset);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
 //            $selectStatement = $database->select()
@@ -1946,19 +1947,19 @@ $app->get('/limitSchedulings9',function()use($app){
 //            $stmt = $selectStatement->execute();
 //            $datad = $stmt->fetchAll();
 //            $data = array_merge($data, $dataa, $datad);
-            $num = 0;
-            if ($offset < count($data) && $offset < (count($data) - $size)) {
-                $num = $offset + $size;
-            } else {
-                $num = count($data);
-            }
-            for ($i = $offset; $i < $num; $i++) {
-//                $selectStatement = $database->select()
-//                    ->from('lorry')
-//                    ->where('tenant_id', '=', $data[$i]['tenant_id'])
-//                    ->where('lorry_id', '=', $data[$i]['lorry_id']);
-//                $stmt = $selectStatement->execute();
-//                $data3 = $stmt->fetch();
+//            $num = 0;
+//            if ($offset < count($data) && $offset < (count($data) - $size)) {
+//                $num = $offset + $size;
+//            } else {
+//                $num = count($data);
+//            }
+            for ($i = 0; $i < count($data); $i++) {
+                $selectStatement = $database->select()
+                    ->from('lorry')
+                    ->where('tenant_id', '=', $data[$i]['tenant_id'])
+                    ->where('lorry_id', '=', $data[$i]['lorry_id']);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('tenant')
                     ->where('tenant_id', '=', $data[$i]['tenant_id']);
@@ -1979,10 +1980,10 @@ $app->get('/limitSchedulings9',function()use($app){
                     ->where('orders.tenant_id', '=', $data[$i]['tenant_id']);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
-//                $data[$i]['sum']=$data1['zon'];
-//                $data[$i]['drivername']=$data3['driver_name'];
-//                $data[$i]['driverphone']=$data3['driver_phone'];
-//                $data[$i]['platenumber']=$data3['plate_number'];
+                $data[$i]['sum']=$data1['zon'];
+                $data[$i]['drivername']=$data3['driver_name'];
+                $data[$i]['driverphone']=$data3['driver_phone'];
+                $data[$i]['platenumber']=$data3['plate_number'];
                 $data[$i]['companyname']=$data4['company'];
                 $data[$i]['jcompany']=$data4['jcompany'];
                 $data[$i]['fromcity']=$data5['name'];
