@@ -17,11 +17,11 @@ $signPackage = $jssdk->GetSignPackage();
 		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 		<title>选择门店</title>
 		<style>
-			.cneter{
+			#cneter{
 				width:100%;
 				height:100%;
 			}
-			.center div{
+			#center div{
 				width:40%;
 				text-align:center;
 				margin-left:5%;
