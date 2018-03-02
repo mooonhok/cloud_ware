@@ -28,6 +28,29 @@ $app->get('/tenant',function()use($app){
 });
 
 
+$app->get('/sontenants',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->get('tenant-id');
+    $database=localhost();
+    $selectStatement = $database->select()
+        ->from('tenant')
+        ->where('tenant_id','=',$tenant_id);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetch();
+    if($data1['business_l']!=null||$data1['business_l']!=""){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('business_l','=',$data1['business_l']);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        echo json_encode(array('result'=>'0','desc'=>'','tenants'=>$data2));
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'尚未有数据','tenant'=>''));
+    }
+});
+
+
 $app->run();
 
 function localhost(){
