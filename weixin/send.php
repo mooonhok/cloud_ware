@@ -39,7 +39,6 @@ $signPackage = $jssdk->GetSignPackage();
 				height:80px;
 				/*background-color:#24D9C9;*/
 				border-radius: 5px;
-				float:left;
 			}
 		</style>
 	</head>
@@ -80,7 +79,7 @@ $signPackage = $jssdk->GetSignPackage();
 			data: JSON.stringify({}),
 			success: function(msg) {
 			    for(var i=0;i<msg.tenants.length;i++){
-			    	$("#center").append("<div class='but' id='center"+i+"'>"+msg.tenants[i].jcompany+"</br>"+msg.tenants[i].telephone+"<div><img src='images/left-arrow.png' class='picl'>");
+			    	$("#center").append("<div class='but' id='center"+i+"'>"+msg.tenants[i].jcompany+"</br>"+msg.tenants[i].telephone+"<div><img src='images/left_arrow.png' class='picl'>");
 //			    	alert(msg.tenants[i].tenantimg);
                     if(i%3==0){
                         $("#center"+i).css("background-color","#227e69");
