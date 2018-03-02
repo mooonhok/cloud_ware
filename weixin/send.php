@@ -22,9 +22,9 @@ $signPackage = $jssdk->GetSignPackage();
 				height:100%;
 			}
 			.but{
-				width:80%;
+				width:90%;
 				text-align:center;
-				margin-left:10%;
+				margin-left:5%;
 				margin-top:20px;
 				height:80px;
 				line-height:80px;
@@ -71,7 +71,7 @@ $signPackage = $jssdk->GetSignPackage();
 			data: JSON.stringify({}),
 			success: function(msg) {
 			    for(var i=0;i<msg.tenants.length;i++){
-			    	$("#center").append("<div class='but' id='center"+i+"'>"+msg.tenants[i].jcompany+"<div>");
+			    	$("#center").append("<div class='but' id='center"+i+"'>"+msg.tenants[i].jcompany+msg.tenants[i].telephone+"<div>");
 //			    	alert(msg.tenants[i].tenantimg);
 			    	$("#center"+i).css("background","url('"+msg.tenants[i].tenantimg+"')");
 			    	  $(".but").css("background-size","100% 80px");
