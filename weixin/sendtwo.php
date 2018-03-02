@@ -1320,6 +1320,7 @@ window.alert = function(name){
 						openid: openid
 					}),
 					success: function(msg) {
+						alert(msg.result);
                         if(msg.result==1){
                         	 alert("订单提交成功");
                         	wx.closeWindow();
