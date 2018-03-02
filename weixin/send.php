@@ -88,11 +88,11 @@ $signPackage = $jssdk->GetSignPackage();
 			    	$("#center").append("<div class='tet'><div class='but' id='center"+i+"'>"+msg.tenants[i].jcompany+"</br>"+msg.tenants[i].telephone+"</div><img src='images/left_arrow.png' class='picl'></div>");
 //			    	alert(msg.tenants[i].tenantimg);
                     if(i%3==0){
-                        $("#center"+i).css("background-color","#227e69");
+                        $(".tet").css("background-color","#227e69");
                     }else if(i%3==1){
-                    	$("#center"+i).css("background-color","#4ea039");
+                    	$(".tet").css("background-color","#4ea039");
                     }else{
-                    	$("#center"+i).css("background-color","#0689b0");
+                    	$(".tet").css("background-color","#0689b0");
                     }
 			    
 			    	$("#center"+i).on("click",function(){
