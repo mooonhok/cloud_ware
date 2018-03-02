@@ -74,7 +74,7 @@ $signPackage = $jssdk->GetSignPackage();
 			    for(var i=0;i<msg.tenants.length;i++){
 			    	$("#center").append("<div id='center"+i+"'>"+msg.tenants[i].jcompany+"<div>");
 			    	$("#center"+i).on("click",function(){
-			    		alert(i);
+			    		alert($(this).attr('id'));
 			    		window.location.href="http://api.uminfo.cn/weixin/sendtwo.php?tenant_id="+msg.tenants[i].tenant_id+'&appid='+appid+'&secret='+secret;
 			    	});
 			    }
