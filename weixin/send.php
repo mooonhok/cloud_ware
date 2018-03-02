@@ -29,6 +29,8 @@ $signPackage = $jssdk->GetSignPackage();
 				margin-top:20px;
 				height:50px;
 				line-height:50px;
+				background:#24D9C9;
+				color: white;
 			}
 		</style>
 	</head>
@@ -69,7 +71,7 @@ $signPackage = $jssdk->GetSignPackage();
 			data: JSON.stringify({}),
 			success: function(msg) {
 			    for(var i=0;i<msg.tenants.length;i++){
-			    	$("#center").append("<div id='center'"+i+"><div>");
+			    	$("#center").append("<div id='center'"+i+">"+msg.tenants[i].jcompany+"<div>");
 			    	$("#center"+i).on("click",function(){
 			    		window.location.href="http://api.uminfo.cn/weixin/sendtwo.php?tenant_id="+msg.tenants[i].tenant_id+'&appid='+appid+'&secret='+secret;
 			    	});
