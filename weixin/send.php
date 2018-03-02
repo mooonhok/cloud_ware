@@ -15,17 +15,16 @@ $signPackage = $jssdk->GetSignPackage();
 		<meta http-equiv="Access-Control-Allow-Origin" content="*">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-		<title>选择门店</title>
+		<title>选择专线</title>
 		<style>
 			#cneter{
 				width:100%;
 				height:100%;
 			}
 			.but{
-				width:40%;
+				width:80%;
 				text-align:center;
-				margin-left:5%;
-				margin-right:5%;
+				margin-left:10%;
 				margin-top:20px;
 				height:50px;
 				line-height:50px;
@@ -75,8 +74,9 @@ $signPackage = $jssdk->GetSignPackage();
 			    	$("#center").append("<div class='but' id='center"+i+"'>"+msg.tenants[i].jcompany+"<div>");
 			    	$("#center"+i).on("click",function(){
 			    		var a=$(this).attr('id').substring(6);
+//			    		msg.tenant[a].tenantimg
 			    		$.cookie("openid"+msg.tenants[a].tenant_id,openid);
-			    		window.location.href="http://api.uminfo.cn/weixin/sendtwo.php?tenant_id="+msg.tenants[a].tenant_id+'&appid='+appid+'&secret='+secret;
+			    		window.location.href="http://api.uminfo.cn/weixin/sendtwo.php?tenant_id="+msg.tenants[a].tenant_id+'&appid='+appid+'&secret='+secret+'&tenantname='+msg.tenants[a].jcompany;
 			    	});
 			    }
 			},
