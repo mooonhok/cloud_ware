@@ -252,7 +252,7 @@ $signPackage = $jssdk->GetSignPackage();
 	</script>
 	<script>
 		//我寄的
-        alert(openid)
+
 		$.ajax({
 			url: "http://api.uminfo.cn/order.php/wx_orders_s",
 			beforeSend: function(request) {
