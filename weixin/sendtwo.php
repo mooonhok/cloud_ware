@@ -459,7 +459,7 @@ $signPackage = $jssdk->GetSignPackage();
 				return null;
 			}
 		})(jQuery);
-		var tenant_name=$.getUrlParam('tenant_name');
+		var tenant_name=$.getUrlParam('tenantname');
 		var tenant_id=$.getUrlParam('tenant_id');
 		 $(document).attr("title",tenant_name);
 		//判断openid是否已经被注册
