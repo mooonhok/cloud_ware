@@ -44,7 +44,7 @@ $app->get('/sontenants',function()use($app){
             ->where('tenant_id','!=',$tenant_id)
             ->where('business_l','=',$data1['business_l']);
         $stmt = $selectStatement->execute();
-        $data2 = $stmt->fetch();
+        $data2 = $stmt->fetchAll();
         echo json_encode(array('result'=>'0','desc'=>'','tenants'=>$data2));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'尚未有数据','tenant'=>''));
