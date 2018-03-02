@@ -22,16 +22,17 @@ $signPackage = $jssdk->GetSignPackage();
 				height:100%;
 			}
 			.tet{
-				width:100%;
+				width:90%;
 				height:80px;
 				margin-top:20px;
+				margin-left:5%;
 				border-style: line;
+				border-radius: 5px;
 			}
 			.but{
-				width:70%;
+				width:84%;
 				text-align:center;
 				margin-left:5%;
-			
 				height:80px;
 				line-height:40px;
 				/*background-color:#24D9C9;*/
@@ -40,7 +41,7 @@ $signPackage = $jssdk->GetSignPackage();
 				float:left;
 			}
 			.picl{
-				width:15%;
+				width:14%;
 			
 				height:80px;
 				/*background-color:#24D9C9;*/
