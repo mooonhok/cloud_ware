@@ -31,7 +31,7 @@ $signPackage = $jssdk->GetSignPackage();
 				width:70%;
 				text-align:center;
 				margin-left:5%;
-				margin-top:20px;
+			
 				height:80px;
 				line-height:40px;
 				/*background-color:#24D9C9;*/
@@ -41,7 +41,7 @@ $signPackage = $jssdk->GetSignPackage();
 			}
 			.picl{
 				width:15%;
-				margin-top:20px;
+			
 				height:80px;
 				/*background-color:#24D9C9;*/
 				border-radius: 5px;
