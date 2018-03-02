@@ -30,7 +30,7 @@ $signPackage = $jssdk->GetSignPackage();
 				border-radius: 5px;
 			}
 			.but{
-				width:84%;
+				width:75%;
 				text-align:center;
 				margin-left:5%;
 				height:80px;
@@ -41,7 +41,7 @@ $signPackage = $jssdk->GetSignPackage();
 				float:left;
 			}
 			.picl{
-				width:14%;
+				width:15%;
 			
 				height:80px;
 				/*background-color:#24D9C9;*/
