@@ -72,7 +72,7 @@ $signPackage = $jssdk->GetSignPackage();
 			success: function(msg) {
 			    for(var i=0;i<msg.tenants.length;i++){
 			    	$("#center").append("<div class='but' id='center"+i+"'>"+msg.tenants[i].jcompany+"<div>");
-			    	alert(msg.tenants[i].tenantimg);
+//			    	alert(msg.tenants[i].tenantimg);
 			    	$("#center"+i).css("background","url('"+msg.tenants[i].tenantimg+"')");
 			    	  $(".but").css("background-size","100% 80px");
 			    	$("#center"+i).on("click",function(){
