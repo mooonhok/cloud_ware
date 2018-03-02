@@ -382,7 +382,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                 ->where('customer.customer_city_id','!=','-1')
                 ->where('customer.wx_openid','=',$wx_openid)
 //                ->where('orders.tenant_id', '=', $tenant_id)
-                ->whereIn('customer.tenant_id', '=', array_column($data1a, 'tenant_id'))
+                ->whereIn('customer.tenant_id', array_column($data1a, 'tenant_id'))
 //				->where('wx_message.tenant_id', '=', $tenant_id)
                 ->whereIn('wx_message.tenant_id',array_column($data1a, 'tenant_id'))
 				->orderBy('wx_message.ms_date','DESC');
@@ -463,7 +463,7 @@ $app->post('/wx_orders_s', function () use ($app) {
                             ->from('customer')
                            // ->where('exist', "=", 0)
                             ->where('customer_id','=',$data2[$i]['receiver_id'])
-                            ->where('tenant_id', '=', $tenant_id);
+                            ->where('tenant_id', '=', $data2[$i]['tenant_id']);
                         $stmt = $selectStatement->execute();
                         $data4= $stmt->fetch();
                         $array1['acceptname']=$data4['customer_name'];
