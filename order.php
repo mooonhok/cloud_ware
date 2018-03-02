@@ -366,15 +366,15 @@ $app->post('/wx_orders_s', function () use ($app) {
             ->where('tenant_id', '=', $tenant_id);
         $stmt = $selectStatement->execute();
         $data1= $stmt->fetch();
-//        $selectStatement = $database->select()
-//            ->from('tenant')
-//            ->where('exist', "=", 0)
-//            ->where('business_l', '=', $data1['business_l']);
-//        $stmt = $selectStatement->execute();
-//        $data1a= $stmt->fetchAll();
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist', "=", 0)
+            ->where('business_l', '=', $data1['business_l']);
+        $stmt = $selectStatement->execute();
+        $data1a= $stmt->fetchAll();
 //        $array_tenant=array();
-//        $array_tenant=array_column($data1a, 'tenant_id');
-        echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => $data1['business_l']));
+//        $array_tenant=array_column($data1a,'tenant_id');
+        echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => $data1a));
 //        if ($data1 != null) {
 //            $selectStatement = $database->select()
 //                ->from('customer')
