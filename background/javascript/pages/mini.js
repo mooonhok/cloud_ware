@@ -184,13 +184,17 @@ function minishow(id) {
 			'<label><img src="" id="swiper_img3" class="image1"/><input type="file" style="display:none;" class="x_z"</label>' +
 			'<h3>滚动广告4</h3>' +
 			'<label><img src="" id="swiper_img4" class="image1"/><input type="file" style="display:none;" class="x_f"/></label>' +
-			//      '<button id="order_sure">确定</button><button id="order_cancle">取消</button>' +
-			'<button id="order_cancle">关闭</button>' +
+			 '<button id="order_sure">确定</button><button id="order_cancle">取消</button>' +
+			// '<button id="order_cancle">关闭</button>' +
 			'</div>'
 	});
 
 	$("#order_cancle").on("click", function() {
 		layer.close(index);
+	});
+
+    $("#order_sure").on("click",function(){
+
 	});
 
     $(".id_z").on("change",function(){

@@ -366,6 +366,12 @@ $app->post('/wx_orders_s', function () use ($app) {
             ->where('tenant_id', '=', $tenant_id);
         $stmt = $selectStatement->execute();
         $data1= $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('exist', "=", 0)
+            ->where('business_l', '=', $data1['business_l']);
+        $stmt = $selectStatement->execute();
+        $data1a= $stmt->fetchAll();
         if ($data1 != null) {
             $selectStatement = $database->select()
                 ->from('customer')
@@ -376,8 +382,9 @@ $app->post('/wx_orders_s', function () use ($app) {
                 ->where('customer.customer_city_id','!=','-1')
                 ->where('customer.wx_openid','=',$wx_openid)
 //                ->where('orders.tenant_id', '=', $tenant_id)
-                ->where('customer.tenant_id', '=', $tenant_id)
-				->where('wx_message.tenant_id', '=', $tenant_id)
+                ->whereIn('customer.tenant_id', '=', array_column($data1a, 'tenant_id'))
+//				->where('wx_message.tenant_id', '=', $tenant_id)
+                ->whereIn('wx_message.tenant_id',array_column($data1a, 'tenant_id'))
 				->orderBy('wx_message.ms_date','DESC');
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetchAll();
@@ -476,8 +483,8 @@ $app->post('/wx_orders_s', function () use ($app) {
                     $selectStatement = $database->select()
                         ->from('orders')
                         ->join('wx_message','wx_message.order_id','=','orders.order_id','INNER')
-                        ->where('wx_message.tenant_id', "=", $tenant_id)
-                        ->where('orders.tenant_id', "=", $tenant_id)
+                        ->whereIn('wx_message.tenant_id', array_column($data1a, 'tenant_id'))
+                        ->whereIn('orders.tenant_id', array_column($data1a, 'tenant_id'))
                         ->where('wx_message.is_show', "=", 0)
                         ->where('orders.order_id','=',$order_id);
 //                        ->where('tenant_id', '=', $tenant_id);
