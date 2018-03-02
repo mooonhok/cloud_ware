@@ -45,6 +45,15 @@ $app->get('/sontenants',function()use($app){
             ->where('business_l','=',$data1['business_l']);
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetchAll();
+        for($x=0;$x<count($data2);$x++){
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('customer_id','=',$data2[$x]['contact_id'])
+                ->where('tenant_id','=',$data2[$x]['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            $data2['telephone']=$data3['customer_name'].$data3['customer_phone'];
+        }
         echo json_encode(array('result'=>'0','desc'=>'','tenants'=>$data2));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'尚未有数据','tenant'=>''));
