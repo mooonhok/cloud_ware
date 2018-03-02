@@ -70,6 +70,7 @@ $signPackage = $jssdk->GetSignPackage();
 			ContentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
+				alert(msg.tenants.length);
 			    for(var i=0;i<msg.tenants.length;i++){
 			    	$("#center").append("<div id='center"+i+"'>"+msg.tenants[i].jcompany+"<div>");
 			    	$("#center"+i).on("click",function(){
