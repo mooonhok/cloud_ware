@@ -37,6 +37,7 @@ $signPackage = $jssdk->GetSignPackage();
    </body>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
 <script type="text/javascript" src="layer/layer.js"></script>
 <script type="text/javascript">
 		(function($) {
@@ -61,7 +62,7 @@ $signPackage = $jssdk->GetSignPackage();
 	   var appid=$.getUrlParam('appid');
 	   var secret=$.getUrlParam('secret');
 	     $.ajax({
-			url: "http://api.uminfo.cn/wx_test.php/sontenants",
+			url: "http://api.uminfo.cn/wx_test.php/sontenants?tenant-id="+tenant_id,
 			dataType: 'json',
 			type: 'get',
 			ContentType: "application/json;charset=utf-8",
