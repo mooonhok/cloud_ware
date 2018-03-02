@@ -52,7 +52,7 @@ $app->get('/sontenants',function()use($app){
                 ->where('tenant_id','=',$data2[$x]['tenant_id']);
             $stmt = $selectStatement->execute();
             $data3 = $stmt->fetch();
-            $data2['telephone']=$data3['customer_name'].$data3['customer_phone'];
+            $data2[$x]['telephone']=$data3['customer_name'].$data3['customer_phone'];
         }
         echo json_encode(array('result'=>'0','desc'=>'','tenants'=>$data2));
     }else{
