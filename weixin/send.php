@@ -27,7 +27,7 @@ $signPackage = $jssdk->GetSignPackage();
 				margin-left:5%;
 				margin-top:20px;
 				height:80px;
-				line-height:80px;
+				line-height:30px;
 				/*background-color:#24D9C9;*/
 				color: white;
 				border-radius: 5px;
