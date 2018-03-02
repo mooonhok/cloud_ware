@@ -24,6 +24,8 @@ $signPackage = $jssdk->GetSignPackage();
 			.tet{
 				width:100%;
 				height:80px;
+				margin-top:20px;
+				border-style: line;
 			}
 			.but{
 				width:70%;
@@ -83,7 +85,7 @@ $signPackage = $jssdk->GetSignPackage();
 			data: JSON.stringify({}),
 			success: function(msg) {
 			    for(var i=0;i<msg.tenants.length;i++){
-			    	$("#center").append("<div class='tet'><div class='but' id='center"+i+"'>"+msg.tenants[i].jcompany+"</br>"+msg.tenants[i].telephone+"<div><img src='images/left_arrow.png' class='picl'></div>");
+			    	$("#center").append("<div class='tet'><div class='but' id='center"+i+"'>"+msg.tenants[i].jcompany+"</br>"+msg.tenants[i].telephone+"</div><img src='images/left_arrow.png' class='picl'></div>");
 //			    	alert(msg.tenants[i].tenantimg);
                     if(i%3==0){
                         $("#center"+i).css("background-color","#227e69");
