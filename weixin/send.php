@@ -21,7 +21,7 @@ $signPackage = $jssdk->GetSignPackage();
 				width:100%;
 				height:100%;
 			}
-			#center div{
+			.but{
 				width:40%;
 				text-align:center;
 				margin-left:5%;
@@ -31,6 +31,7 @@ $signPackage = $jssdk->GetSignPackage();
 				line-height:50px;
 				background-color:#24D9C9;
 				color: white;
+				border-radius: 5px;
 			}
 		</style>
 	</head>
@@ -72,7 +73,7 @@ $signPackage = $jssdk->GetSignPackage();
 			success: function(msg) {
 				alert(msg.tenants.length);
 			    for(var i=0;i<msg.tenants.length;i++){
-			    	$("#center").append("<div id='center"+i+"'>"+msg.tenants[i].jcompany+"<div>");
+			    	$("#center").append("<div class='but' id='center"+i+"'>"+msg.tenants[i].jcompany+"<div>");
 			    	$("#center"+i).on("click",function(){
 			    		var a=$(this).attr('id').substring(6);
 			    		alert(a);
