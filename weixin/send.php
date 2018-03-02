@@ -71,7 +71,7 @@ $signPackage = $jssdk->GetSignPackage();
 			data: JSON.stringify({}),
 			success: function(msg) {
 			    for(var i=0;i<msg.tenants.length;i++){
-			    	$("#center").append("<div class='but' id='center"+i+"'>"+msg.tenants[i].jcompany+msg.tenants[i].telephone+"<div>");
+			    	$("#center").append("<div class='but' id='center"+i+"'>"+msg.tenants[i].jcompany+"</br>"+msg.tenants[i].telephone+"<div>");
 //			    	alert(msg.tenants[i].tenantimg);
 			    	$("#center"+i).css("background","url('"+msg.tenants[i].tenantimg+"')");
 			    	  $(".but").css("background-size","100% 80px");
