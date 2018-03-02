@@ -1320,10 +1320,11 @@ window.alert = function(name){
 						openid: openid
 					}),
 					success: function(msg) {
-					 alert("订单提交成功");
+					
 //						  window.location.href = "http://api.uminfo.cn/weixin/c_name.php?tenant_id="+tenant_id;
     
                         if(msg.result==1){
+                        	 alert("订单提交成功");
                         	wx.closeWindow();
                         };
 					},
