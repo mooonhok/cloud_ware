@@ -73,11 +73,16 @@ $signPackage = $jssdk->GetSignPackage();
 			    for(var i=0;i<msg.tenants.length;i++){
 			    	$("#center").append("<div class='but' id='center"+i+"'>"+msg.tenants[i].jcompany+"</br>"+msg.tenants[i].telephone+"<div>");
 //			    	alert(msg.tenants[i].tenantimg);
-			    	$("#center"+i).css("background","url('"+msg.tenants[i].tenantimg+"')");
-			    	  $(".but").css("background-size","100% 80px");
+                    if(i%3==0){
+                    		$("#center"+i).css("background-color","#227e69");
+                    }else if(i%3==1){
+                    	$("#center"+i).css("background-color","#4ea039");
+                    }else{
+                    	$("#center"+i).css("background-color","#0689b0");
+                    }
+			    
 			    	$("#center"+i).on("click",function(){
 			    		var a=$(this).attr('id').substring(6);
-//			    		
 			    		$.cookie("openid"+msg.tenants[a].tenant_id,openid);
 			    		window.location.href="http://api.uminfo.cn/weixin/sendtwo.php?tenant_id="+msg.tenants[a].tenant_id+'&appid='+appid+'&secret='+secret+'&tenantname='+msg.tenants[a].jcompany;
 			    	});
