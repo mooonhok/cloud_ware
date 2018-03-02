@@ -373,221 +373,222 @@ $app->post('/wx_orders_s', function () use ($app) {
         $stmt = $selectStatement->execute();
         $data1a= $stmt->fetchAll();
         $array_tenant=array();
-        $array_tenant=array_column($data1a,'tenant_id');
-        echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => $array_tenant));
-//        if ($data1 != null) {
-//            $selectStatement = $database->select()
-//                ->from('customer')
-//                ->join('orders','orders.sender_id','=','customer.customer_id','INNER')
-//				->join('wx_message','orders.order_id','=','wx_message.order_id','INNER')
-//                ->where('wx_message.is_show', "=", 0)
-//                ->where('customer.customer_address','!=','-1')
-//                ->where('customer.customer_city_id','!=','-1')
-//                ->where('customer.wx_openid','=',$wx_openid)
-////                ->where('orders.tenant_id', '=', $tenant_id)
-//                ->whereIn('customer.tenant_id',$array_tenant)
-////				->where('wx_message.tenant_id', '=', $tenant_id)
-//                ->whereIn('wx_message.tenant_id',$array_tenant)
-//				->orderBy('wx_message.ms_date','DESC');
-//            $stmt = $selectStatement->execute();
-//            $data2= $stmt->fetchAll();
-//            if($data2==null){
-//                echo json_encode(array("result" => "0", "desc" => "用户不存在", "orders" => ""));
-//            }else{
-//                if($order_id==null){
-//                    $num1=count($data2);
-//                    $array=array();
-//                    for($i=0;$i<$num1;$i++){
-//                        $array1=array();
-//                        $selectStatement = $database->select()
-//                            ->from('city')
-//                            ->where('id', '=', $data2[$i]['customer_city_id']);
-//                        $stmt = $selectStatement->execute();
-//                        $data7= $stmt->fetch();
-//                        $array1['sendcity']=$data7['name'];
-//                        $array1['sendname']=$data2[$i]['customer_name'];
-//
-//                        //隐藏微信id
-//                        $array1['order_idd']=$data2[$i]['message_id'];
-//
-//                        if($data2[$i]['order_status']==-1||$data2[$i]['order_status']==-2||$data2[$i]['order_status']==0){
-//                            $array1['order_id']='暂无';
-//                        }else{
-//                            $array1['order_id']=$data2[$i]['order_id'];
-//                        }
-//
-//                        $array1['status']=$data2[$i]['order_status'];
-//                        $array1['order_cost']=$data2[$i]['order_cost'];
-//                        if($array1['order_cost']==null||$array1['order_cost']==''){
-//                            $array1['order_cost']='暂无';
-//                        }else{
-//                            $array1['order_cost']=$array1['order_cost'].'元';
-//                        }
-//                        if(($array1['status']==0&&$array1['order_cost']=='暂无')||($array1['status']==5&&$array1['order_cost']=='暂无')){
-////                            $array1['order_cost']='受理中';
-//                            $array1['order_id']='暂无';
-//                            $array1['receive']='未签收';
-//                            $array1['status']='受理中';
-//                            $array1['order_cost']='暂无';
-//                        }else if($array1['status']==1){
-//                            $array1['receive']='未签收';
-////							$array1['order_cost']='未签收';
-//                            $array1['status']='托运中';
-//                        }else if($array1['status']==2){
-//                            $array1['receive']='未签收';
-////							$array1['order_cost']='未签收';
-//                            $array1['status']='托运中';
-//                        }else if($array1['status']==3){
-//                            $array1['receive']='未签收';
-////							$array1['order_cost']='未签收';
-//                            $array1['status']='托运中';
-//                        }else if($array1['status']==4){
-//                            $array1['receive']='未签收';
-////							$array1['order_cost']='未签收';
-//                            $array1['status']='托运中';
-//                        }else if($array1['status']==7){
-//                            $array1['receive']='签收时间'.$data2[$i]['order_datetime5'];
-////							$array1['order_cost']='未签收';
-//                            $array1['status']='已签收';
-//                        }else if($array1['status']==-1||$array1['status']==6){
-////                            $array1['order_cost']='拒受理';
-//                            $array1['receive']='拒受理';
-//                            $array1['status']='拒受理';
-//                        }else if($array1['status']==-2){
-////                            $array1['order_cost']='未受理';
-//                            $array1['receive']='未受理';
-//                            $array1['status']='未受理';
-//                        }else if($array1['status']==0&&$array1['order_cost']!='暂无'){
-//                            $array1['receive']='未签收';
-//                            $array1['status']='已受理';
-////							$array1['order_cost']='未签收';
-//                        }
-//                        $selectStatement = $database->select()
-//                            ->from('customer')
-//                           // ->where('exist', "=", 0)
-//                            ->where('customer_id','=',$data2[$i]['receiver_id'])
-//                            ->where('tenant_id', '=', $data2[$i]['tenant_id']);
-//                        $stmt = $selectStatement->execute();
-//                        $data4= $stmt->fetch();
-//                        $array1['acceptname']=$data4['customer_name'];
-//
-//                        $selectStatement = $database->select()
-//                            ->from('city')
-//                            ->where('id', '=', $data4['customer_city_id']);
-//                        $stmt = $selectStatement->execute();
-//                        $data5= $stmt->fetch();
-//                        $array1['acceptcity']=$data5['name'];
-//                        array_push($array,$array1);
-//                    }
-//                    echo json_encode(array("result" => "1", "desc" => "success", "orders" => $array,"data"=>$data2));
-//                }else{
-//                    $array=array();
-//                    $array1=array();
-//                    $selectStatement = $database->select()
-//                        ->from('orders')
-//                        ->join('wx_message','wx_message.order_id','=','orders.order_id','INNER')
-//                        ->whereIn('wx_message.tenant_id', $array_tenant)
-//                        ->whereIn('orders.tenant_id',$array_tenant)
-//                        ->where('wx_message.is_show', "=", 0)
-//                        ->where('orders.order_id','=',$order_id);
-////                        ->where('tenant_id', '=', $tenant_id);
-//                    $stmt = $selectStatement->execute();
-//                    $data3= $stmt->fetch();
-//                    if($data3!=null){
-//                        //隐藏微信id
-//                        $array1['order_idd']=$data3['message_id'];
-//
-//                        if($data3['tenant_id']!=null||$data3['tenant_id']!=''){
-//                            $array1['order_id']='暂无';
-//                        }else{
-//                            $array1['order_id']=$data3['order_id'];
-//                        }
-//                        $array1['order_id']=$data3['order_id'];
-//                        $array1['status']=$data3['order_status'];
-//                        $array1['order_cost']=$data3['order_cost'];
-//                        if($array1['order_cost']==null||$array1['order_cost']==''){
-//                            $array1['order_cost']='暂无';
-//                        }else{
-//                            $array1['order_cost']=$array1['order_cost'].'元';
-//                        }
-//                        if(($array1['status']==0&&$array1['order_cost']=='暂无')||($array1['status']==5&&$array1['order_cost']=='暂无')){
-////                            $array1['order_cost']='受理中';
-//                            $array1['order_id']='暂无';
-//                            $array1['receive']='未签收';
-//                            $array1['status']='受理中';
-//                            $array1['order_cost']='暂无';
-//                        }else if($array1['status']==1){
-//                            $array1['receive']='未签收';
-////							$array1['order_cost']='未签收';
-//                            $array1['status']='托运中';
-//                        }else if($array1['status']==2){
-//                            $array1['receive']='未签收';
+        for($u=0;$u<count($data1a);$u++){
+         array_push($array_tenant,$data1a[$u]['tenant_id']);
+        }
+        if ($data1 != null) {
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->join('orders','orders.sender_id','=','customer.customer_id','INNER')
+				->join('wx_message','orders.order_id','=','wx_message.order_id','INNER')
+                ->where('wx_message.is_show', "=", 0)
+                ->where('customer.customer_address','!=','-1')
+                ->where('customer.customer_city_id','!=','-1')
+                ->where('customer.wx_openid','=',$wx_openid)
+//                ->where('orders.tenant_id', '=', $tenant_id)
+                ->whereIn('customer.tenant_id',$array_tenant)
+//				->where('wx_message.tenant_id', '=', $tenant_id)
+                ->whereIn('wx_message.tenant_id',$array_tenant)
+				->orderBy('wx_message.ms_date','DESC');
+            $stmt = $selectStatement->execute();
+            $data2= $stmt->fetchAll();
+            if($data2==null){
+                echo json_encode(array("result" => "0", "desc" => "用户不存在", "orders" => ""));
+            }else{
+                if($order_id==null){
+                    $num1=count($data2);
+                    $array=array();
+                    for($i=0;$i<$num1;$i++){
+                        $array1=array();
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data2[$i]['customer_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data7= $stmt->fetch();
+                        $array1['sendcity']=$data7['name'];
+                        $array1['sendname']=$data2[$i]['customer_name'];
+
+                        //隐藏微信id
+                        $array1['order_idd']=$data2[$i]['message_id'];
+
+                        if($data2[$i]['order_status']==-1||$data2[$i]['order_status']==-2||$data2[$i]['order_status']==0){
+                            $array1['order_id']='暂无';
+                        }else{
+                            $array1['order_id']=$data2[$i]['order_id'];
+                        }
+
+                        $array1['status']=$data2[$i]['order_status'];
+                        $array1['order_cost']=$data2[$i]['order_cost'];
+                        if($array1['order_cost']==null||$array1['order_cost']==''){
+                            $array1['order_cost']='暂无';
+                        }else{
+                            $array1['order_cost']=$array1['order_cost'].'元';
+                        }
+                        if(($array1['status']==0&&$array1['order_cost']=='暂无')||($array1['status']==5&&$array1['order_cost']=='暂无')){
+//                            $array1['order_cost']='受理中';
+                            $array1['order_id']='暂无';
+                            $array1['receive']='未签收';
+                            $array1['status']='受理中';
+                            $array1['order_cost']='暂无';
+                        }else if($array1['status']==1){
+                            $array1['receive']='未签收';
 //							$array1['order_cost']='未签收';
-//                            $array1['status']='托运中';
-//                        }else if($array1['status']==3){
-//                            $array1['receive']='未签收';
-////							$array1['order_cost']='未签收';
-//                            $array1['status']='托运中';
-//                        }else if($array1['status']==4){
-//                            $array1['receive']='未签收';
-////							$array1['order_cost']='未签收';
-//                            $array1['status']='托运中';
-//                        }else if($array1['status']==7){
-//                            $array1['receive']='签收时间'.$data3['order_datetime5'];
-//                            $array1['status']='已签收';
-////							$array1['order_cost']='已签收';
-//                        }else if($array1['status']==-1||$array1['status']==6){
-////                            $array1['order_cost']='拒受理';
-//                            $array1['receive']='拒受理';
-//                            $array1['status']='拒受理';
-//                        }else if($array1['status']==-2){
-////                            $array1['order_cost']='未受理';
-//                            $array1['receive']='未受理';
-//                            $array1['status']='未受理';
-//                        }else if($array1['status']==0&&$array1['order_cost']!='暂无'){
-//                            $array1['receive']='未签收';
-////							$array1['order_cost']='未签收';
-//                            $array1['status']='已受理';
-//                        }
-//
-//                        $selectStatement = $database->select()
-//                            ->from('customer')
-//                            //->where('exist', "=", 0)
-//                            ->where('customer_id','=',$data3['receiver_id'])
-//                            ->where('tenant_id', '=', $data3['tenant_id']);
-//                        $stmt = $selectStatement->execute();
-//                        $data4= $stmt->fetch();
-//                        $array1['acceptname']=$data4['customer_name'];
-//                        $selectStatement = $database->select()
-//                            ->from('city')
-//                            ->where('id', '=', $data4['customer_city_id']);
-//                        $stmt = $selectStatement->execute();
-//                        $data5= $stmt->fetch();
-//                        $array1['acceptcity']=$data5['name'];
-//                        $selectStatement = $database->select()
-//                            ->from('customer')
-//                            //->where('exist', "=", 0)
-//                            ->where('customer_id','=',$data3['sender_id'])
-//                            ->where('tenant_id', '=', $data3['tenant_id']);
-//                        $stmt = $selectStatement->execute();
-//                        $data6= $stmt->fetch();
-//                        $array1['sendname']=$data6['customer_name'];
-//                        $selectStatement = $database->select()
-//                            ->from('city')
-//                            ->where('id', '=', $data4['customer_city_id']);
-//                        $stmt = $selectStatement->execute();
-//                        $data7= $stmt->fetch();
-//                        $array1['sendcity']=$data7['name'];
-//                        array_push($array,$array1);
-//                        echo json_encode(array("result" => "1", "desc" => "success", "orders" => $array));
-//                    }else{
-//                        echo json_encode(array("result" => "1", "desc" => "success", "orders" => $array));
-//                    }
-//                }
-//            }
-//        } else {
-//            echo json_encode(array("result" => "2", "desc" => "租户不存在", "orders" => ""));
-//        }
+                            $array1['status']='托运中';
+                        }else if($array1['status']==2){
+                            $array1['receive']='未签收';
+//							$array1['order_cost']='未签收';
+                            $array1['status']='托运中';
+                        }else if($array1['status']==3){
+                            $array1['receive']='未签收';
+//							$array1['order_cost']='未签收';
+                            $array1['status']='托运中';
+                        }else if($array1['status']==4){
+                            $array1['receive']='未签收';
+//							$array1['order_cost']='未签收';
+                            $array1['status']='托运中';
+                        }else if($array1['status']==7){
+                            $array1['receive']='签收时间'.$data2[$i]['order_datetime5'];
+//							$array1['order_cost']='未签收';
+                            $array1['status']='已签收';
+                        }else if($array1['status']==-1||$array1['status']==6){
+//                            $array1['order_cost']='拒受理';
+                            $array1['receive']='拒受理';
+                            $array1['status']='拒受理';
+                        }else if($array1['status']==-2){
+//                            $array1['order_cost']='未受理';
+                            $array1['receive']='未受理';
+                            $array1['status']='未受理';
+                        }else if($array1['status']==0&&$array1['order_cost']!='暂无'){
+                            $array1['receive']='未签收';
+                            $array1['status']='已受理';
+//							$array1['order_cost']='未签收';
+                        }
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                           // ->where('exist', "=", 0)
+                            ->where('customer_id','=',$data2[$i]['receiver_id'])
+                            ->where('tenant_id', '=', $data2[$i]['tenant_id']);
+                        $stmt = $selectStatement->execute();
+                        $data4= $stmt->fetch();
+                        $array1['acceptname']=$data4['customer_name'];
+
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data4['customer_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data5= $stmt->fetch();
+                        $array1['acceptcity']=$data5['name'];
+                        array_push($array,$array1);
+                    }
+                    echo json_encode(array("result" => "1", "desc" => "success", "orders" => $array,"data"=>$data2));
+                }else{
+                    $array=array();
+                    $array1=array();
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->join('wx_message','wx_message.order_id','=','orders.order_id','INNER')
+                        ->whereIn('wx_message.tenant_id', $array_tenant)
+                        ->whereIn('orders.tenant_id',$array_tenant)
+                        ->where('wx_message.is_show', "=", 0)
+                        ->where('orders.order_id','=',$order_id);
+//                        ->where('tenant_id', '=', $tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data3= $stmt->fetch();
+                    if($data3!=null){
+                        //隐藏微信id
+                        $array1['order_idd']=$data3['message_id'];
+
+                        if($data3['tenant_id']!=null||$data3['tenant_id']!=''){
+                            $array1['order_id']='暂无';
+                        }else{
+                            $array1['order_id']=$data3['order_id'];
+                        }
+                        $array1['order_id']=$data3['order_id'];
+                        $array1['status']=$data3['order_status'];
+                        $array1['order_cost']=$data3['order_cost'];
+                        if($array1['order_cost']==null||$array1['order_cost']==''){
+                            $array1['order_cost']='暂无';
+                        }else{
+                            $array1['order_cost']=$array1['order_cost'].'元';
+                        }
+                        if(($array1['status']==0&&$array1['order_cost']=='暂无')||($array1['status']==5&&$array1['order_cost']=='暂无')){
+//                            $array1['order_cost']='受理中';
+                            $array1['order_id']='暂无';
+                            $array1['receive']='未签收';
+                            $array1['status']='受理中';
+                            $array1['order_cost']='暂无';
+                        }else if($array1['status']==1){
+                            $array1['receive']='未签收';
+//							$array1['order_cost']='未签收';
+                            $array1['status']='托运中';
+                        }else if($array1['status']==2){
+                            $array1['receive']='未签收';
+							$array1['order_cost']='未签收';
+                            $array1['status']='托运中';
+                        }else if($array1['status']==3){
+                            $array1['receive']='未签收';
+//							$array1['order_cost']='未签收';
+                            $array1['status']='托运中';
+                        }else if($array1['status']==4){
+                            $array1['receive']='未签收';
+//							$array1['order_cost']='未签收';
+                            $array1['status']='托运中';
+                        }else if($array1['status']==7){
+                            $array1['receive']='签收时间'.$data3['order_datetime5'];
+                            $array1['status']='已签收';
+//							$array1['order_cost']='已签收';
+                        }else if($array1['status']==-1||$array1['status']==6){
+//                            $array1['order_cost']='拒受理';
+                            $array1['receive']='拒受理';
+                            $array1['status']='拒受理';
+                        }else if($array1['status']==-2){
+//                            $array1['order_cost']='未受理';
+                            $array1['receive']='未受理';
+                            $array1['status']='未受理';
+                        }else if($array1['status']==0&&$array1['order_cost']!='暂无'){
+                            $array1['receive']='未签收';
+//							$array1['order_cost']='未签收';
+                            $array1['status']='已受理';
+                        }
+
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            //->where('exist', "=", 0)
+                            ->where('customer_id','=',$data3['receiver_id'])
+                            ->where('tenant_id', '=', $data3['tenant_id']);
+                        $stmt = $selectStatement->execute();
+                        $data4= $stmt->fetch();
+                        $array1['acceptname']=$data4['customer_name'];
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data4['customer_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data5= $stmt->fetch();
+                        $array1['acceptcity']=$data5['name'];
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            //->where('exist', "=", 0)
+                            ->where('customer_id','=',$data3['sender_id'])
+                            ->where('tenant_id', '=', $data3['tenant_id']);
+                        $stmt = $selectStatement->execute();
+                        $data6= $stmt->fetch();
+                        $array1['sendname']=$data6['customer_name'];
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data4['customer_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data7= $stmt->fetch();
+                        $array1['sendcity']=$data7['name'];
+                        array_push($array,$array1);
+                        echo json_encode(array("result" => "1", "desc" => "success", "orders" => $array));
+                    }else{
+                        echo json_encode(array("result" => "1", "desc" => "success", "orders" => $array));
+                    }
+                }
+            }
+        } else {
+            echo json_encode(array("result" => "2", "desc" => "租户不存在", "orders" => ""));
+        }
     } else {
         echo json_encode(array("result" => "3", "desc" => "缺少租户id", "orders" => ""));
     }
