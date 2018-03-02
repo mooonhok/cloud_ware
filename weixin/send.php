@@ -21,13 +21,17 @@ $signPackage = $jssdk->GetSignPackage();
 				width:100%;
 				height:100%;
 			}
+			.tet{
+				width:100%;
+				height:80px;
+			}
 			.but{
 				width:70%;
 				text-align:center;
 				margin-left:5%;
 				margin-top:20px;
 				height:80px;
-				line-height:30px;
+				line-height:40px;
 				/*background-color:#24D9C9;*/
 				color: white;
 				border-radius: 5px;
@@ -79,7 +83,7 @@ $signPackage = $jssdk->GetSignPackage();
 			data: JSON.stringify({}),
 			success: function(msg) {
 			    for(var i=0;i<msg.tenants.length;i++){
-			    	$("#center").append("<div class='but' id='center"+i+"'>"+msg.tenants[i].jcompany+"</br>"+msg.tenants[i].telephone+"<img src='images/left_arrow.png' class='picl'><div>");
+			    	$("#center").append("<div class='tet'><div class='but' id='center"+i+"'>"+msg.tenants[i].jcompany+"</br>"+msg.tenants[i].telephone+"<div><img src='images/left_arrow.png' class='picl'></div>");
 //			    	alert(msg.tenants[i].tenantimg);
                     if(i%3==0){
                         $("#center"+i).css("background-color","#227e69");
