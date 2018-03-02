@@ -26,8 +26,8 @@ $signPackage = $jssdk->GetSignPackage();
 				text-align:center;
 				margin-left:10%;
 				margin-top:20px;
-				height:50px;
-				line-height:50px;
+				height:80px;
+				line-height:80px;
 				background-color:#24D9C9;
 				color: white;
 				border-radius: 5px;
@@ -71,10 +71,12 @@ $signPackage = $jssdk->GetSignPackage();
 			data: JSON.stringify({}),
 			success: function(msg) {
 			    for(var i=0;i<msg.tenants.length;i++){
+			    	alert(i);
 			    	$("#center").append("<div class='but' id='center"+i+"'>"+msg.tenants[i].jcompany+"<div>");
+			    	$("#center"+i).css("background","url('"+msg.tenant[i].tenantimg+"')");
 			    	$("#center"+i).on("click",function(){
 			    		var a=$(this).attr('id').substring(6);
-//			    		msg.tenant[a].tenantimg
+//			    		
 			    		$.cookie("openid"+msg.tenants[a].tenant_id,openid);
 			    		window.location.href="http://api.uminfo.cn/weixin/sendtwo.php?tenant_id="+msg.tenants[a].tenant_id+'&appid='+appid+'&secret='+secret+'&tenantname='+msg.tenants[a].jcompany;
 			    	});
