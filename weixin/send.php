@@ -42,8 +42,8 @@ $signPackage = $jssdk->GetSignPackage();
 			}
 			.picl{
 				width:15%;
-			
-				height:80px;
+				height:60px;
+				margin-top:10px;
 				/*background-color:#24D9C9;*/
 				border-radius: 5px;
 			}
