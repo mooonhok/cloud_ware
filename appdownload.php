@@ -73,9 +73,9 @@ return files_url();
 		</style>
 	</head>
 	<body>
-		<div class="center"  style="background:url("<php  echo  $file_url;?>"+app/appdown.jpg)">
+		<div class="center"  style="background:url(<php  echo  $file_url.'app/appdown.jpg';?>);">
 		<div class="center1">交付帮手</div>
-		<div class="center2"><a   href=""+<php  echo  $file_url;?>+"/app/jiaofu.apk">点击下载</a></div>
+		<div class="center2"><a   href="<php  echo  $file_url.'/app/jiaofu.apk';?>">点击下载</a></div>
 	    </div>
 	</body>
 </html>
