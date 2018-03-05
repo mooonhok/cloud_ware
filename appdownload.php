@@ -1,7 +1,7 @@
 ﻿<php
 require 'files_url.php';
 $file_url=file_url();
-
+echo $file_url;
 function file_url(){
 return files_url();
 }
