@@ -1,6 +1,6 @@
 ﻿<php
 require 'files_url.php';
-
+$file_url=file_url();
 echo  '<!DOCTYPE html>
 <html>
 	<head>
