@@ -1,7 +1,12 @@
 ﻿<php
 require 'files_url.php';
 $file_url=file_url();
-echo  '<!DOCTYPE html>
+
+function file_url(){
+return files_url();
+}
+?>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8" />
@@ -25,7 +30,7 @@ echo  '<!DOCTYPE html>
 			.center{
 				width:100%;
 				height:100%;
-				background: url('.$file_url.'app/appdown.jpg);
+				background:
 				background-size:100%,100%;
 	            background-repeat: no-repeat;			
 			}
@@ -68,16 +73,13 @@ echo  '<!DOCTYPE html>
 		</style>
 	</head>
 	<body>
-		<div class="center">
+		<div class="center"  style="background:url("<php  echo  $file_url;?>"+app/appdown.jpg)">
 		<div class="center1">交付帮手</div>
-		<div class="center2"><a   href="'.$file_url.'/app/jiaofu.apk">点击下载</a></div>
+		<div class="center2"><a   href=""+<php  echo  $file_url;?>+"/app/jiaofu.apk">点击下载</a></div>
 	    </div>
 	</body>
-</html>';
+</html>
 
 
 
-function file_url(){
-    return files_url();
-}
-?>
+
