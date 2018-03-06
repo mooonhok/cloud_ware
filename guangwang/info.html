@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+	<title>个人资料</title>
+	<link rel="icon" href="images/icon.png" type="image/x-icon"/>
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/common.css"/>
+	<style>
+		*{
+			font:normal 16px "微软雅黑";
+		}
+		#name,#phone,#card_id,#qq,#wechat,#email,#address{
+			font:normal 16px "微软雅黑";
+		}
+		#save{
+			margin:12px 20px 0 0;
+		}
+		#cancel{
+			margin:12px 0 0 0;
+		}
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-top" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+				<span class="sr-only">切换导航</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-name" href="index.html"><img id="logo" src="images/icon.png" align="absmiddle" />江苏酉铭</a>
+		</div>
+	</nav>
+	<nav class="navbar-default navbar-side" role="navigation">
+		<div class="sidebar-collapse">
+			<ul class="nav" id="main-menu">
+				<li>
+					<div class="sales-img-div">
+						<img class="img-thumbnail" src="images/head.jpg" />
+						<div><span id="sales-name"></span><span id="sales-id"></span></div>
+					</div>
+				</li>
+				<li>
+					<a href="statistics.html"><i class="glyphicon glyphicon-signal"></i>业务统计</a>
+				</li>
+				<li>
+					<a class="active-menu" href="info.html"><i class="glyphicon glyphicon-flag"></i>个人资料</a>
+				</li>
+				<li class="dropdown">
+					<a href="#"><i class="glyphicon glyphicon-fire"></i>企业客户<span class="glyphicon arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li>
+							<a href="tenant_register.html"><i class="glyphicon glyphicon-star"></i>企业注册</a>                  
+						</li>
+						<li>
+							<a href="tenant_list.html"><i class="glyphicon glyphicon-th-list"></i>客户信息</a>
+						</li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#"><i class="glyphicon glyphicon-tag"></i>推荐伙伴<span class="glyphicon arrow"></span></a>
+					<ul class="nav nav-second-level">
+						 <li>
+							<a href="salesman_register.html"><i class="glyphicon glyphicon-heart"></i>推荐注册</a>
+						</li>
+						<li>
+							<a href="salesman_list.html"><i class="glyphicon glyphicon-th-list"></i>伙伴信息</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" onclick="logout()"><i class="glyphicon glyphicon-log-out"></i>退出登录</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div id="view">
+		<ol class="breadcrumb">
+			<li><a href="index.html">江苏酉铭</a></li>
+			<li class="active">个人资料</li>
+		</ol>
+		<form class="form-horizontal" role="form">
+			<fieldset>
+				<div class="form-group">
+					<label for="name" class="col-sm-3 control-label">姓名</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="name">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="sex" class="col-sm-3 control-label">性别</label>
+					<div class="col-sm-6">
+						<label class="radio-inline">
+							<input type="radio" name="sex" id="sex_male" value="1"> 男
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="sex" id="sex_female"  value="0"> 女
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="phone" class="col-sm-3 control-label">联系电话</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="phone">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="card_id" class="col-sm-3 control-label">身份证号</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="card_id">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="qq" class="col-sm-3 control-label">QQ</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="qq">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="wechat" class="col-sm-3 control-label">微信</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="wechat">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="email" class="col-sm-3 control-label">邮箱</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="email">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="address" class="col-sm-3 control-label">联系地址</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="address">
+					</div>
+				</div>
+			</fieldset>
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-6">
+					<a class="btn btn-danger a-btn" id="save" href="#" role="button" onclick="save()">保存修改</a>
+					<a class="btn btn-warning a-btn" id="cancel" href="#" role="button" onclick="cancel()">取消</a>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal fade" id="alert" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="alert-title" aria-hidden="true">
+		<div class="modal-dialog modal-small">
+			<div class="modal-content">
+				<div class="modal-header">
+					<a class="close" href="#" role="button" data-dismiss="modal" aria-hidden="true">&times;</a>
+					<h4 class="modal-title" id="alert-title">提示</h4>
+				</div>
+				<div class="modal-body"><span id="alert-content"></span></div>
+				<div class="modal-footer">
+					<a class="btn btn-success" href="#" role="button" data-dismiss="modal">知道了</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+        江苏酉铭信息科技有限公司 &nbsp; Copyright &copy; 2017-2018 JiangSu Unitary All Rights Reserved. <a href="http://www.miitbeian.gov.cn" target="_blank">苏ICP备17054068号</a>
+    </div>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/jquery.metisMenu.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript" src="js/confirm.js"></script>
+	<script>
+		var url="http://api.uminfo.cn/";
+		<!-- var link="http://www.uminfo.cn/"; -->
+		var link="";
+		
+		$(document).ready(function(){
+			$("#sales-name").text(sessionStorage.getItem('sales_name'));
+			$("#sales-id").text(sessionStorage.getItem('sales_id'));
+			info();
+		});
+		
+		function info(){
+			var sexList=document.getElementsByName("sex");
+		　　for(var i=0;i<sexList.length;i++){
+		　　　　sexList[i].checked=false;
+		　　}
+			$.ajax({
+				url:url+"sales.php/sales?sales_id="+sessionStorage.getItem('id'),
+				dataType:'json',
+				type:'get',
+				ContentType:"application/hson;charset=utf-8",
+				data:JSON.stringify({
+				}),
+				success:function(msg){
+					$("#name").val(msg.sales.sales_name);
+					if(msg.sales.sex==0){
+					　　document.getElementById("sex_female").checked=true;
+					}else{
+					　　document.getElementById("sex_male").checked=true;
+					}
+					$("#phone").val(msg.sales.telephone);
+					$("#card_id").val(msg.sales.card_id);
+					$("#qq").val(msg.sales.qq);
+					$("#wechat").val(msg.sales.weixin);
+					$("#email").val(msg.sales.email);
+					$("#address").val(msg.sales.address);
+				},
+				error:function(xhr){
+					$("#alert-content").text("获取后台失败！");$('#alert').modal();
+				}
+			});
+		}
+		
+		function save(){
+			var name=$("#name").val();
+			var sex=$("input[name='sex']:checked").val();
+			var phone=$("#phone").val();
+			var card_id=$("#card_id").val();
+			var qq=$("#qq").val();
+			var wechat=$("#wechat").val();
+			var email=$("#email").val();
+			var address=$("#address").val();
+			if(name==""){
+				$("#alert-content").text("请填写姓名！");$('#alert').modal();$("#name").focus();
+			}else if(!/^[\u4E00-\u9FA5A-Za-z]+$/.test(name)){
+				$("#alert-content").text("姓名格式不正确！");$('#alert').modal();$("#name").focus();
+			}else if(phone==""){
+				$("#alert-content").text("请填写联系电话！");$('#alert').modal();
+			}else if(!/^1(3[0-9]|4[57]|5[0-35-9]|7[0135678]|8[0-9])\d{8}$/.test(phone)){
+				$("#alert-content").text("联系电话格式不正确！");$('#alert').modal();
+			}else if(card_id==""){
+				$("#alert-content").text("请填写身份证号！");$('#alert').modal();
+			}else if(!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(card_id)){
+				$("#alert-content").text("身份证号格式不正确！");$('#alert').modal();
+			}else if((qq!="")&&!/^[1-9]\d{4,14}$/.test(qq)){
+				$("#alert-content").text("QQ号格式不正确！");$('#alert').modal();
+			}else if((wechat!="")&&!/^[a-zA-Z]{1}[-_a-zA-Z0-9]{5,19}$/.test(wechat)){
+				$("#alert-content").text("微信号格式不正确！");$('#alert').modal();
+			}else if((email!="")&&!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)){
+				$("#alert-content").text("邮箱格式不正确！");$('#alert').modal();
+			}else if(address==""){
+				$("#alert-content").text("请填写联系地址！");$('#alert').modal();
+			}else{
+				Confirm.confirm({message:"确定保存修改？"}).on(function(e){
+					if(!e){
+						return;
+					}
+					$.ajax({
+						url:url+"sales.php/sales",
+						dataType:'json',
+						type:'put',
+						ContentType:"application/json;charset=utf-8",
+						data:JSON.stringify({
+							sales_id:sessionStorage.getItem('id'),
+							sales_name:name,
+							sex:sex,
+							telephone:phone,
+							card_id:card_id,
+							qq:qq,
+							weixin:wechat,
+							email:email,
+							address:address
+						}),
+						success:function(msg){
+							$("#alert-content").text(msg.desc+"！");$('#alert').modal();
+						},
+						error:function(xhr){
+							$("#alert-content").text("获取后台失败！");$('#alert').modal();
+						}
+					});
+				});
+			}
+		}
+		
+		function cancel(){
+			Confirm.confirm({message:"确定取消修改？"}).on(function(e){
+                if(!e){
+                    return;
+                }
+                info();
+            });
+		}
+	</script>
+</body>
+</html>

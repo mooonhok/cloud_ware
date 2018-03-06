@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+	<title>业务统计</title>
+	<link rel="icon" href="images/icon.png" type="image/x-icon"/>
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/common.css"/>
+	<style>
+		*{
+			font:normal 16px "微软雅黑";
+		}
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-top" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+				<span class="sr-only">切换导航</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-name" href="index.html"><img id="logo" src="images/icon.png" align="absmiddle" />江苏酉铭</a>
+		</div>
+	</nav>
+	<nav class="navbar-default navbar-side" role="navigation">
+		<div class="sidebar-collapse">
+			<ul class="nav" id="main-menu">
+				<li>
+					<div class="sales-img-div">
+						<img class="img-thumbnail" src="images/head.jpg" />
+						<div><span id="sales-name"></span><span id="sales-id"></span></div>
+					</div>
+				</li>
+				<li>
+					<a class="active-menu" href="statistics.html"><i class="glyphicon glyphicon-signal"></i>业务统计</a>
+				</li>
+				<li>
+					<a href="info.html"><i class="glyphicon glyphicon-flag"></i>个人资料</a>
+				</li>
+				<li class="dropdown">
+					<a href="#"><i class="glyphicon glyphicon-fire"></i>企业客户<span class="glyphicon arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li>
+							<a href="tenant_register.html"><i class="glyphicon glyphicon-star"></i>企业注册</a>                  
+						</li>
+						<li>
+							<a href="tenant_list.html"><i class="glyphicon glyphicon-th-list"></i>客户信息</a>
+						</li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#"><i class="glyphicon glyphicon-tag"></i>推荐伙伴<span class="glyphicon arrow"></span></a>
+					<ul class="nav nav-second-level">
+						 <li>
+							<a href="salesman_register.html"><i class="glyphicon glyphicon-heart"></i>推荐注册</a>
+						</li>
+						<li>
+							<a href="salesman_list.html"><i class="glyphicon glyphicon-th-list"></i>伙伴信息</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" onclick="logout()"><i class="glyphicon glyphicon-log-out"></i>退出登录</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div id="view">
+		<ol class="breadcrumb">
+			<li><a href="index.html">江苏酉铭</a></li>
+			<li class="active">业务统计</li>
+		</ol>
+		<div id="container"></div>
+	</div>
+	<div id="footer">
+        江苏酉铭信息科技有限公司 &nbsp; Copyright &copy; 2017-2018 JiangSu Unitary All Rights Reserved. <a href="http://www.miitbeian.gov.cn" target="_blank">苏ICP备17054068号</a>
+    </div>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/jquery.metisMenu.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript" src="js/highcharts.js"></script>
+	<script>
+		var url="http://api.uminfo.cn/";
+		<!-- var link="http://www.uminfo.cn/"; -->
+		var link="";
+		
+		$(document).ready(function(){
+			$("#sales-name").text(sessionStorage.getItem('sales_name'));
+			$("#sales-id").text(sessionStorage.getItem('sales_id'));
+			chart();
+		});
+		
+		function chart(){
+			$.ajax({
+				url:"http://api.uminfo.cn/sales.php/tenantsum?sales_id="+sessionStorage.getItem('id'),
+				dataType:'json',
+				type:'get',
+				ContentType:"application/json;charset=utf-8",
+				data:JSON.stringify({
+				}),
+				success:function(msg){
+					if(msg.result==0){
+						var chart=new Highcharts.Chart('container',{
+							title:{
+								text:'业务员月份业务统计',
+								x:-20
+							},
+							xAxis:{
+								categories:['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月']
+							},
+							yAxis:{
+								title:{
+									text:'商家数量（个）'
+								},
+								plotLines:[{
+									value:0,
+									width:1,
+									color:'#808080'
+								}]
+							},
+							tooltip:{
+								valueSuffix:'个'
+							},
+							legend:{
+								layout:'vertical',
+								align:'right',
+								verticalAlign:'middle',
+								borderWidth:0
+							},
+							series: [{
+								name:'商家数量',
+								data:[msg.count[0],msg.count[1],msg.count[2],msg.count[3],msg.count[4],msg.count[5],msg.count[6],msg.count[7],msg.count[8],msg.count[9],msg.count[10],msg.count[11]]
+							}]
+						});
+					} else{
+						alert(msg.desc);
+					}
+				},
+				error:function(xhr){
+					alert("获取后台失败"+xhr.responseText);
+				}
+			});
+		}
+	</script>
+</body>
+</html>

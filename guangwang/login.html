@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+	<title>业务员登录</title>
+	<link rel="icon" href="images/icon.png" type="image/x-icon"/>
+	<style>
+		*{
+			background:transparent;
+		}
+		#box{
+			width:280px;
+			height:220px;
+			margin:auto;
+            position:absolute;
+            left:50%;
+            top:50%;
+            margin-left:-140px;
+            margin-top:-110px;
+		}
+		#title{
+			width:280px;
+			height:40px;
+			font:bold 20px "微软雅黑";
+			color:#f25a24;
+			line-height:40px;
+			text-align:center;
+			margin-bottom:30px;
+			cursor:default;
+		}
+		#logo{
+			width:30px;
+			height:30px;
+			margin-right:10px;
+		}
+		.img{
+			width:22px;
+			height:22px;
+			position:absolute;
+			margin-top:9px;
+			margin-left:-32px;
+		}
+		#sales_id,#password{
+			width:280px;
+			height:40px;
+			font:normal 16px "微软雅黑";
+			outline:0;
+			padding:0 40px 0 10px;
+			box-sizing:border-box;
+			border-left:1px solid #f25a24;
+			border-right:1px solid #f25a24;
+		}
+		#sales_id{
+			border-top:1px solid #f25a24;
+			border-bottom:1px solid #f25a24;
+			border-top-left-radius:5px;
+			border-top-right-radius:5px;
+		}
+		#password{
+			border-top:none;
+			border-bottom:1px solid #f25a24;
+			border-bottom-left-radius:5px;
+			border-bottom-right-radius:5px;
+		}
+		#login{
+			width:280px;
+			height:40px;
+			font:normal 16px "微软雅黑";
+			border-radius:5px;
+			box-sizing:border-box;
+			color:#ffffff;
+			background:#f25a24;
+			border:none;
+			outline:0;
+			margin-top:30px;
+			cursor:pointer;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div id="title"><img id="logo" src="images/icon.png" align="absmiddle" />江苏酉铭</div>
+		<div><input id="sales_id" type="text" placeholder="业务员编号" /><img class="img" src="images/sales_id.png" /></div>
+		<div><input id="password" type="password" placeholder="密码" /><img class="img" src="images/passwd.png" /></div>
+		<div><input id="login" type="button" value="登 录" onclick="login()" /></div>
+	</div>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" color="242,90,32" opacity="0.5" count="100" zIndex="-1" src="js/canvas-nest.js"></script>
+	<script>
+		var url="http://api.uminfo.cn/";
+		<!-- var link="http://www.uminfo.cn/"; -->
+		var link="";
+		
+		function login(){
+			var sales_id=$("#sales_id").val();
+			var password=$("#password").val();
+			if(sales_id==""){
+				alert("请输入业务员编号！");$("#sales_id").focus();
+			}else if(password==""){
+				alert("请输入密码！");$("#password").focus();
+			}else{
+				$.ajax({
+					url:url+"sales.php/usersign?username="+sales_id+"&password="+password,
+					beforeSend:function(request){
+					},
+					dataType:'jsonp',
+					jsonp:"callback",
+					jsonpCallback:"success_callback",
+					type:'get',
+					contentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						if(msg.result==0){
+							sessionStorage.setItem('id',msg.user.id);
+							sessionStorage.setItem('sales_id',msg.user.sales_id);
+							sessionStorage.setItem('sales_name',msg.user.sales_name);
+							window.location.href=link+"statistics.html";
+						}else{
+							alert("业务员编号或密码错误！");
+						}
+					},
+					error:function(xhr){
+						console.log(xhr.responseText);
+					}
+				});
+			}
+		}
+	</script>
+	</body>
+</html>

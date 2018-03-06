@@ -1,0 +1,148 @@
+.navbar-top{
+	border-radius:0;
+	margin-bottom:0;
+}
+.navbar-name{
+	display:inline-block;
+	width:259px;
+	height:50px;
+	font:bold 20px "微软雅黑";
+	line-height:50px;
+	color:#f25a24;
+	background:#dddddd;
+	text-align:center;
+}
+.navbar-name:hover{
+	color:#f25a24;
+	text-decoration:none;
+}
+#logo{
+	display:inline;
+	width:30px;
+	height:30px;
+	margin-right:10px;
+}
+.navbar-side *{
+	color:#000000;
+}
+#main-menu li a{
+	border-bottom:1px solid #dddddd;
+}
+#main-menu li a:hover,#main-menu li a:focus{
+	color:#000000;
+	background:#eeeeee;
+}
+#main-menu li i{
+	margin-right:10px;
+}
+.active-menu{
+	color:#ffffff!important;
+	background-color:#f25a24!important;
+}
+.active-menu i{
+	color:#ffffff!important;
+}
+.sales-img-div{
+	padding:20px 30px;
+	background:#202020;
+	cursor:default;
+}
+.sales-img-div img{
+	height:70px;
+	vertical-align:bottom;
+}
+.sales-img-div div{
+	display:inline-block;
+	width:124px;
+	height:70px;
+	text-align:right;
+	padding:12px 0;
+}
+.sales-img-div span{
+	display:inline-block;
+	color:#ffffff;
+}
+#sales-name{
+	font:normal 18px "微软雅黑";
+}
+.arrow{
+	float:right;
+}
+.glyphicon.arrow:before {
+    content:"\e079";
+}
+.active > a > .glyphicon.arrow:before {
+    content:"\e114";
+}
+.nav-second-level li a{
+	padding-left:40px;
+}
+#view{
+	padding:15px 15px;
+	background:#ffffff;
+}
+.breadcrumb li a{
+	color:#f25a24;
+}
+@media(min-width:768px){
+	.navbar-side{
+		width:260px;
+		background:#f8f8f8;
+		position:absolute;
+		z-index:1;
+	}
+	#view{
+		margin:0 0 0 260px;
+	}
+}
+#footer{
+	width:100%;
+	font:normal 15px "微软雅黑";
+	padding:20px 0;
+	text-align:center;
+	color:#000000;
+	background:#dddddd;
+	z-index:2;
+}
+#footer a{
+	font:normal 15px "微软雅黑";
+	color:#000000!important;
+}
+#footer a:hover,a:focus{
+	text-decoration:none;
+}
+
+.modal-small{
+	width:300px;
+	height:60px;
+	margin:0 auto;
+}
+.modal-default{
+	margin:0 auto;
+}
+.modal-footer a{
+	font:normal 16px "微软雅黑";
+}
+input[type='radio']{
+	width:18px;
+	height:18px;
+}
+.a-btn{
+	font:bold 16px "微软雅黑";
+	padding:7px 23px;
+}
+th,td{
+	text-align:center;
+	vertical-align:middle !important;
+}
+.page{
+	font:normal 16px "微软雅黑";
+	text-align:center;
+	margin:20px auto;
+}
+textarea{
+	resize:none;
+}
+.grey{
+	color:#888888;
+}

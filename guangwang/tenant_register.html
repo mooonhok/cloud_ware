@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+	<title>业务员首页</title>
+	<link rel="icon" href="images/icon.png" type="image/x-icon"/>
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/common.css"/>
+	<style>
+		*{
+			font:normal 16px "微软雅黑";
+		}
+		#company,#jcompany,#name,#phone,#qq,#email,#province,#city,#address,#location,#business,#business_file,#logo_file,#order_file,#agreement_file,#introduction,#service,#copy,#pickup{
+			font:normal 16px "微软雅黑";
+		}
+		#business_file,#logo_file,#order_file,#agreement_file{
+			padding:4px 10px;
+		}
+		#business_show,#logo_show,#order_show,#agreement_show{
+			font:normal 15px "微软雅黑";
+		}
+		#business_img{
+			width:160px;
+			height:284px;
+			border:1px solid #cccccc;
+		}
+		#logo_img{
+			width:80px;
+			height:40px;
+			border:1px solid #cccccc;
+		}
+		#order_img{
+			width:284px;
+			height:160px;
+			border:1px solid #cccccc;
+		}
+		#register{
+			margin:12px 20px 0 0;
+		}
+		#empty{
+			margin:12px 0 0 0;
+		}
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-top" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+				<span class="sr-only">切换导航</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-name" href="index.html"><img id="logo" src="images/icon.png" align="absmiddle" />江苏酉铭</a>
+		</div>
+	</nav>
+	<nav class="navbar-default navbar-side" role="navigation">
+		<div class="sidebar-collapse">
+			<ul class="nav" id="main-menu">
+				<li>
+					<div class="sales-img-div">
+						<img class="img-thumbnail" src="images/head.jpg" />
+						<div><span id="sales-name"></span><span id="sales-id"></span></div>
+					</div>
+				</li>
+				<li>
+					<a href="statistics.html"><i class="glyphicon glyphicon-signal"></i>业务统计</a>
+				</li>
+				<li>
+					<a href="info.html"><i class="glyphicon glyphicon-flag"></i>个人资料</a>
+				</li>
+				<li class="dropdown">
+					<a href="#"><i class="glyphicon glyphicon-fire"></i>企业客户<span class="glyphicon arrow"></span></a>
+					<ul class="nav nav-second-level collapse in">
+						<li>
+							<a class="active-menu" href="tenant_register.html"><i class="glyphicon glyphicon-star"></i>企业注册</a>                  
+						</li>
+						<li>
+							<a href="tenant_list.html"><i class="glyphicon glyphicon-th-list"></i>客户信息</a>
+						</li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#"><i class="glyphicon glyphicon-tag"></i>推荐伙伴<span class="glyphicon arrow"></span></a>
+					<ul class="nav nav-second-level">
+						 <li>
+							<a href="salesman_register.html"><i class="glyphicon glyphicon-heart"></i>推荐注册</a>
+						</li>
+						<li>
+							<a href="salesman_list.html"><i class="glyphicon glyphicon-th-list"></i>伙伴信息</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" onclick="logout()"><i class="glyphicon glyphicon-log-out"></i>退出登录</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div id="view">
+		<ol class="breadcrumb">
+			<li><a href="index.html">江苏酉铭</a></li>
+			<li>企业客户</li>
+			<li class="active">企业注册</li>
+		</ol>
+		<form class="form-horizontal" role="form">
+			<fieldset>
+				<div class="form-group">
+					<label for="company" class="col-sm-3 control-label">公司全称</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="company" placeholder="请填写公司全称">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="jcompany" class="col-sm-3 control-label">公司简称</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="jcompany" placeholder="请填写公司简称">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="name" class="col-sm-3 control-label">负责人</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="name" placeholder="请填写负责人姓名">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="phone" class="col-sm-3 control-label">联系电话</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="phone" placeholder="请填写联系电话">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="qq" class="col-sm-3 control-label grey">QQ</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="qq" placeholder="请填写QQ号（选填）">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="email" class="col-sm-3 control-label grey">邮箱</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="email" placeholder="请填写邮箱（选填）">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="address" class="col-sm-3 control-label">地址</label>
+					<div class="col-sm-6">
+						<select class="form-control" id="province" onchange="change(parseInt(this.value))">
+						</select>
+						<select class="form-control" id="city">
+						</select>
+						<input type="text" class="form-control" id="address" placeholder="请填写详细地址">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="location" class="col-sm-3 control-label">百度坐标</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="location" placeholder="请粘贴百度坐标">
+						<a class="btn btn-default a-btn" href="#" role="button" id="copy" onclick="copy()">复制地址</a>
+						<a class="btn btn-default a-btn" href="http://api.map.baidu.com/lbsapi/getpoint/index.html" target="_blank" role="button" id="pickup">拾取公司地理坐标</a>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="business" class="col-sm-3 control-label">营业执照</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="business" placeholder="请填写营业执照号码">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="business_file" class="col-sm-3 control-label">营业执照</label>
+					<div class="col-sm-6">
+						<input type="file" class="form-control" id="business_file" accept="image/*">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="business_show" class="col-sm-3 control-label"></label>
+					<div class="col-sm-6">
+						<div id="business_show">支持jpg、jpeg、png、gif等所有图像文件</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="logo_file" class="col-sm-3 control-label grey">运单logo</label>
+					<div class="col-sm-6">
+						<input type="file" class="form-control" id="logo_file" accept="image/*">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="logo_show" class="col-sm-3 control-label"></label>
+					<div class="col-sm-6">
+						<div id="logo_show">支持jpg、jpeg、png、gif等所有图像文件，图片尺寸为80*40</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="order_file" class="col-sm-3 control-label grey">运单模板</label>
+					<div class="col-sm-6">
+						<input type="file" class="form-control" id="order_file" accept="image/*">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="order_show" class="col-sm-3 control-label"></label>
+					<div class="col-sm-6">
+						<div id="order_show">支持jpg、jpeg、png、gif等所有图像文件</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="agreement_file" class="col-sm-3 control-label grey">合同模板</label>
+					<div class="col-sm-6">
+						<input type="file" class="form-control" id="agreement_file" accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="agreement_show" class="col-sm-3 control-label"></label>
+					<div class="col-sm-6">
+						<div id="agreement_show">仅支持doc或docx格式文件</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="introduction" class="col-sm-3 control-label grey">公司介绍</label>
+					<div class="col-sm-6">
+						<textarea class="form-control" rows="4" id="introduction" placeholder="请填写公司介绍（选填）"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="service" class="col-sm-3 control-label grey">服务项目</label>
+					<div class="col-sm-6">
+						<textarea class="form-control" rows="4" id="service" placeholder="请填写服务项目（选填）"></textarea>
+					</div>
+				</div>
+				<div id="business_hide" style="display:none;"></div>
+				<div id="logo_hide" style="display:none;"></div>
+				<div id="order_hide" style="display:none;"></div>
+				<div id="agreement_hide" style="display:none;"></div>
+			</fieldset>
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-6">
+					<!-- <button class="btn btn-danger a-btn" id="register" type="submit">客户注册</button> -->
+					<a class="btn btn-danger a-btn" id="register" href="#" role="submit" onclick="register()">客户注册</a>
+					<a class="btn btn-warning a-btn" id="empty" href="#" role="button" onclick="empty()">清空</a>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal fade" id="alert" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="alert-title" aria-hidden="true">
+		<div class="modal-dialog modal-small">
+			<div class="modal-content">
+				<div class="modal-header">
+					<a class="close" href="#" role="button" data-dismiss="modal" aria-hidden="true">&times;</a>
+					<h4 class="modal-title" id="alert-title">提示</h4>
+				</div>
+				<div class="modal-body"><span id="alert-content"></span></div>
+				<div class="modal-footer">
+					<a class="btn btn-success" href="#" role="button" data-dismiss="modal">知道了</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+        江苏酉铭信息科技有限公司 &nbsp; Copyright &copy; 2017-2018 JiangSu Unitary All Rights Reserved. <a href="http://www.miitbeian.gov.cn" target="_blank">苏ICP备17054068号</a>
+    </div>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/jquery.metisMenu.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript" src="js/clipboard.min.js"></script>
+	<script type="text/javascript" src="js/confirm.js"></script>
+	<script>
+		var url="http://api.uminfo.cn/";
+		<!-- var link="http://www.uminfo.cn/"; -->
+		var link="";
+		
+		$(document).ready(function(){
+			$("#sales-name").text(sessionStorage.getItem('sales_name'));
+			$("#sales-id").text(sessionStorage.getItem('sales_id'));
+			city();
+		});
+		
+		function city(){
+			$.ajax({
+				url:url+"city.php/province",
+				dataType:'json',
+				type:'get',
+				ContentType:"application/json;charset=utf-8",
+				data:JSON.stringify({
+				}),
+				success:function(msg){
+					$("#province").empty();
+					$("#city").empty();
+					var province="";
+					province+="<option value='0'>请选择省</option>";
+					for(var i=0;i<msg.province.length;i++){
+						province+="<option value='"+msg.province[i].id+"'>"+msg.province[i].name+"</option>";
+					}
+					$("#province").append(province);
+					var city="";
+					city+="<option value='0'>请选择市</option>";
+					$("#city").append(city);
+				},
+				error:function(xhr){
+					$("#alert-content").text("获取后台失败！");$('#alert').modal();
+				}
+			});
+		}
+		
+		function change(province_id){
+			$.ajax({
+				url:url+"city.php/city?pid="+province_id,
+				dataType:'json',
+				type:'get',
+				ContentType:"application/json;charset=utf-8",
+				data:JSON.stringify({
+				}),
+				success:function(msg){
+					$("#city").empty();
+					var city="";
+					city+="<option value='0'>请选择市</option>";
+					for(var i=0;i<msg.city.length;i++){
+						city+="<option value='"+msg.city[i].id+"'>"+msg.city[i].name+"</option>";
+					}
+					$("#city").append(city);
+				},
+				error:function(xhr){
+					console.log(xhr.responseText);
+				}
+			});
+		}
+		
+		function copy(){
+			var province_name=$("#province").find("option:selected").text();
+			var city_name=$("#city").find("option:selected").text();
+			var address=$("#address").val();
+			if(province_name=="请选择省"){
+				$("#alert-content").text("请选择省！");$('#alert').modal();
+			}else if(city_name=="请选择市"){
+				$("#alert-content").text("请选择市！");$('#alert').modal();
+			}else if(address==""){
+				$("#alert-content").text("请填写详细地址！");$('#alert').modal();
+			}else{
+				var clipboard=new Clipboard('#copy',{
+					text:function(){
+						return province_name+city_name+address;
+					}
+				});
+				clipboard.on('success',function(e){
+					$("#alert-content").text("复制地址成功，请在拾取坐标系统中粘贴！");$('#alert').modal();
+				});
+				clipboard.on('error',function(e){
+					$("#alert-content").text("复制出现异常错误！");$('#alert').modal();
+				});
+			}
+		}
+		
+		var business_img=document.querySelector('#business_file');
+		business_img.addEventListener('change',function(e){
+			var files=this.files;
+			if(files.length){
+				businessFile(this.files);
+			}
+		});
+		function businessFile(files){
+			var file=files[0];
+			var reader=new FileReader();
+			if(!/image\/\w+/.test(file.type)){
+				$("#alert-content").text("请确保营业执照文件为图像类型！");$('#alert').modal();
+				$("#business_file").val("");
+				business_show.innerHTML="支持jpg、jpeg、png、gif等所有图像文件";
+				return false;
+			}
+			reader.onload=function(e){
+				business_show.innerHTML='<img src="'+e.target.result+'" id="business_img">';
+				business_hide.innerHTML=e.target.result;
+			}
+			reader.readAsDataURL(file);
+		}
+		
+		var logo_img=document.querySelector('#logo_file');
+		logo_img.addEventListener('change',function(e){
+			var files=this.files;
+			if(files.length){
+				logoFile(this.files);
+			}
+		});
+		function logoFile(files){
+			var file=files[0];
+			var reader=new FileReader();
+			if(!/image\/\w+/.test(file.type)){
+				$("#alert-content").text("请确保运单logo文件为图像类型！");$('#alert').modal();
+				$("#logo_file").val("");
+				logo_show.innerHTML="支持jpg、jpeg、png、gif等所有图像文件";
+				return false;
+			}
+			reader.onload=function(e){
+				logo_show.innerHTML='<img src="'+e.target.result+'" id="logo_img">';
+				logo_hide.innerHTML=e.target.result;
+			}
+			reader.readAsDataURL(file);
+		}
+		
+		var order_img=document.querySelector('#order_file');
+		order_img.addEventListener('change',function(e){
+			var files=this.files;
+			if(files.length){
+				orderFile(this.files);
+			}
+		});
+		function orderFile(files){
+			var file=files[0];
+			var reader=new FileReader();
+			if(!/image\/\w+/.test(file.type)){
+				$("#alert-content").text("请确保运单模板文件为图像类型！");$('#alert').modal();
+				$("#order_file").val("");
+				order_show.innerHTML="支持jpg、jpeg、png、gif等所有图像文件";
+				return false;
+			}
+			reader.onload=function(e){
+				order_show.innerHTML='<img src="'+e.target.result+'" id="order_img">';
+				order_hide.innerHTML=e.target.result;
+			}
+			reader.readAsDataURL(file);
+		}
+		
+		var agreement_img=document.querySelector('#agreement_file');
+		agreement_img.addEventListener('change',function(e){
+			var files=this.files;
+			if(files.length){
+				agreementFile(this.files);
+			}
+		});
+		function agreementFile(files){
+			var file=files[0];
+			var reader=new FileReader();
+			var validExts=new Array(".doc",".docx");
+			var fileExt=file.name;
+			fileExt=fileExt.substring(fileExt.lastIndexOf('.'));
+			if(validExts.indexOf(fileExt)<0){
+				$("#alert-content").text("请确保合同模板文件为doc或docx格式！");$('#alert').modal();
+				$("#agreement_file").val("");
+				agreement_show.innerHTML="仅支持doc或docx格式文件";
+				return false;
+			}
+			reader.onload=function(e){
+				agreement_hide.innerHTML=e.target.result;
+			}
+			reader.readAsDataURL(file);
+		}
+		
+		$("#sales_id").val(sessionStorage.getItem('id'));
+		function register(){
+			var company=$("#company").val();
+			var jcompany=$("#jcompany").val();
+			var name=$("#name").val();
+			var phone=$("#phone").val();
+			var qq=$("#qq").val();
+			var email=$("#email").val();
+			var province=$("#province").val();
+			var city=$("#city").val();
+			var address=$("#address").val();
+			var location=$("#location").val();
+			var business=$("#business").val();
+			<!-- var business_file=$("#business_file").val(); -->
+			<!-- var logo_file=$("#logo_file").val(); -->
+			<!-- var order_file=$("#order_file").val(); -->
+			<!-- var agreement_file=$("#agreement_file").val(); -->
+			var business_file=$("#business_hide").html();
+			var logo_file=$("#logo_hide").html();
+			var order_file=$("#order_hide").html();
+			var agreement_file=$("#agreement_hide").html();
+			var introduction=$("#introduction").val();
+			var service=$("#service").val();
+			console.log(business_file);
+			console.log(logo_file);
+			console.log(order_file);
+			console.log(agreement_file);
+			if(jcompany==""){
+				$("#alert-content").text("请填写公司简称！");$('#alert').modal();
+			}else if(name==""){
+				$("#alert-content").text("请填写负责人姓名！");$('#alert').modal();
+			}else if(!/^[\u4E00-\u9FA5A-Za-z]+$/.test(name)){
+				$("#alert-content").text("负责人姓名格式不正确！");$('#alert').modal();
+			}else if(phone==""){
+				$("#alert-content").text("请填写联系电话！");$('#alert').modal();
+			}else if(!/^1(3[0-9]|4[57]|5[0-35-9]|7[0135678]|8[0-9])\d{8}$/.test(phone)){
+				$("#alert-content").text("联系电话格式不正确！");$('#alert').modal();
+			}else if((qq!="")&&!/^[1-9]\d{4,14}$/.test(qq)){
+				$("#alert-content").text("QQ号格式不正确！");$('#alert').modal();
+			}else if((email!="")&&!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)){
+				$("#alert-content").text("邮箱格式不正确！");$('#alert').modal();
+			}else if(province=="0"){
+				$("#alert-content").text("请选择省！");$('#alert').modal();
+			}else if(city=="0"){
+				$("#alert-content").text("请选择市！");$('#alert').modal();
+			}else if(address==""){
+				$("#alert-content").text("请填写详细地址！");$('#alert').modal();
+			}else if(location==""){
+				$("#alert-content").text("请粘贴百度坐标！");$('#alert').modal();
+			}else if(!/^[\-\+]?(0?\d{1,2}\.\d{1,6}|1[0-7]?\d{1}\.\d{1,6}|180\.0{1,6})$/.test(location.split(",")[0])){
+				$("#alert-content").text("百度坐标格式不正确！");$('#alert').modal();
+			}else if(!/^[\-\+]?([0-8]?\d{1}\.\d{1,6}|90\.0{1,6})$/.test(location.split(",")[1])){
+				$("#alert-content").text("百度坐标格式不正确！");$('#alert').modal();
+			}else if(business==""){
+				$("#alert-content").text("请填写营业执照号码！");$('#alert').modal();
+			}else if(business_file==""){
+				$("#alert-content").text("请上传营业执照图片！");$('#alert').modal();
+			}else{
+				Confirm.confirm({message:"确定该公司试用物牛管理系统？"}).on(function(e){
+					if(!e){
+						return;
+					}
+					$.ajax({
+						url:url+"tenant.php/tenant",
+						dataType:'json',
+						type:'post',
+						ContentType:"application/json;charset=utf-8",
+						data:JSON.stringify({
+							company:company,
+							jcompany:jcompany,
+							name:name,
+							phone:phone,
+							qq:qq,
+							email:email,
+							city:city,
+							address:address,
+							location:location,
+							business:business,
+							business_file:business_file,
+							logo_file:logo_file,
+							order_file:order_file,
+							agreement_file:agreement_file,
+							introduction:introduction,
+							service:service,
+							sales_id:sessionStorage.getItem('id')
+						}),
+						success:function(msg){
+							console.log(msg);
+							$("#alert-content").text("客户注册成功！");$('#alert').modal();
+							<!-- $("input[type='text']").val(""); -->
+							<!-- $("input[type='file']").val(""); -->
+							<!-- $("textarea").val(""); -->
+							<!-- city(); -->
+						},
+						error:function(xhr){
+							$("#alert-content").text("获取后台失败！"+xhr.responseText);$('#alert').modal();
+						}
+					});
+				});
+			}
+		}
+		
+		function empty(){
+			Confirm.confirm({message:"确定清空信息？"}).on(function(e){
+                if(!e){
+                    return;
+                }
+				$("input[type='text']").val("");
+				$("input[type='file']").val("");
+				$("textarea").val("");
+				city();
+            });
+		}
+	</script>
+</body>
+</html>
