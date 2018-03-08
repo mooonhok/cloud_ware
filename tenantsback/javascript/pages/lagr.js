@@ -5,6 +5,8 @@ $(function(){
     	window.location.href=p_url+"tenantsback/login.html";
     }
     var page = $.getUrlParam('page');
+    var tenant_id=null;
+    tenant_id=$.getUrlParam("tenant_id");
     $.ajax({
 	 url: p_url+"tenantsback.php/gettenants?adminid="+adminid,
         dataType: 'json',
@@ -13,26 +15,24 @@ $(function(){
         data: JSON.stringify({}),
         success: function(msg) {
         	if(msg.result==0){
+        		if(tenant_id==null||tenant_id==""){
+        		tenant_id=msg.tenants[0].tenant_id;
+        		}
         		$(".order_id").val("");
         		for(var i=0;i<msg.tenants.length;i++){
         		$(".order_id").append('<option value="' + msg.tenants[i].tenant_id + '">' + msg.tenants[i].name + '</option>');
         		}
         	}
+        	loadorders(tenant_id,page);
         },
         error: function(xhr) {
             alert("获取后台失败！");
         }
     });
     
-     
-    var tenant_id=$.getUrlParam("tenant_id");
-    loadorders(tenant_id,page);
     $(".sousuo_z").on("click",function(){
-        var tenant_id=$(".order_id").val();
-       
-//      alert(tenant_id);
+         tenant_id=$(".order_id").val();
         loadorders(tenant_id,page);
-    
     });
 });
 
