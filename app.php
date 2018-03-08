@@ -2265,9 +2265,6 @@ $app->post('/sign_agreement',function()use($app){
     $lorry_id=$body->lorryid;
     $agreement_id=$body->agreement_id;
     $pic=$body->pic;
-    $pic1=explode('"',$pic);
-    $pic=$pic1[1];
-    $pic="data:image/jpeg;base64,".$pic;
     $lujing=null;
     $base64_image_content = $pic;
 //匹配出图片的格式
@@ -2317,7 +2314,7 @@ $app->post('/sign_agreement',function()use($app){
                 $month=date("m");
                 $day=date("d");
                 $agreement_time=$year.'年'.$month.'月'.$day.'日';
-                $updateStatement = $database->update(array('sign_img'=>$lujing,'agreement_status'=>1,'agreement_time'=>$agreement_time,'pic'=>$pic))
+                $updateStatement = $database->update(array('sign_img'=>$lujing,'agreement_status'=>1,'agreement_time'=>$agreement_time))
                     ->table('agreement')
                     ->where('tenant_id', '=', $data2[$i]['tenant_id'])
                     ->where('secondparty_id', '=', $data2[$i]['lorry_id'])
