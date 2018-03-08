@@ -100,7 +100,7 @@ function loadorders(tenant_id,page) {
                                 +item.driver_phone+'</td><td>'
                                 +a+'</td><td>'
                                 +item.freight+'</td><td>'
-                                +item.agreement_time+'</td><td><a href='+p_url+'"tenantsback/agreement.html?agreement_id='
+                                +item.agreement_time+'</td><td><a href="'+p_url+'tenantsback/agreement.html?agreement_id='
                                 +item.agreement_id+'&tenant_id='+tenant_id+'" style="color:blue;">查看</a></td></tr>');
                             });
                             return arr.join('');
