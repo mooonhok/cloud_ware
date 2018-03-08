@@ -23,6 +23,7 @@ $(function(){
         		$(".order_id").append('<option value="' + msg.tenants[i].tenant_id + '">' + msg.tenants[i].name + '</option>');
         		}
         		var tenant_id=$(".order_id").val();
+        		alert(tenant_id);
         		loadorders(tenant_id,page);
         	}
         },
