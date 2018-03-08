@@ -23,6 +23,23 @@ $(function(){
         		$(".order_id").append('<option value="' + msg.tenants[i].tenant_id + '">' + msg.tenants[i].name + '</option>');
         		}
         		tenant_id=msg.tenants[0].tenant_id;
+        		$.ajax({
+		            url: p_url+"tenantsback.php/ordertongji?tenant-id="+tenant_id,
+	               dataType: 'json',
+	                type: 'get',
+	               ContentType: "application/json;charset=utf-8",
+	               data: JSON.stringify({}),
+	              success: function(msg) {
+	            	if(msg.result==0){
+	         		$("#count1").html(msg.countorder);
+	        		$("#count2").html(msg.countorder1);
+	        		$("#count3").html(msg.countorder2);
+	        	   }
+	              },
+	            error: function(xhr) {
+	              alert("获取后台失败！");
+	          }
+	          });
         	}
         	loadorders(tenant_id,page);
         },
