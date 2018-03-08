@@ -2265,6 +2265,8 @@ $app->post('/sign_agreement',function()use($app){
     $lorry_id=$body->lorryid;
     $agreement_id=$body->agreement_id;
     $pic=$body->pic;
+    $pic1=explode('"',$pic);
+    $pic=$pic1[1];
     $pic="data:image/jpeg;base64,".$pic;
     $lujing=null;
     $base64_image_content = $pic;
