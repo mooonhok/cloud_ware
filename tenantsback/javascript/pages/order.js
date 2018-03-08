@@ -4,6 +4,12 @@ $(function(){
     	window.location.href=p_url+"tenantsback/login.html";
     }else{
     var page = $.getUrlParam('page');
+    var tenant_id=null;
+    $(".payway").append('<option value="' +0+ '">现付</option>');
+      $(".payway").append('<option value="' +1+ '">到付</option>');
+      $(".payway").append('<option value="' +2+ '">月结</option>');
+      $(".payway").append('<option value="' +3+ '">回单</option>');
+       var payway=$(".payway").val();
     $.ajax({
 	 url: p_url+"tenantsback.php/gettenants?adminid="+adminid,
         dataType: 'json',
@@ -16,6 +22,8 @@ $(function(){
         		for(var i=0;i<msg.tenants.length;i++){
         		$(".order_id").append('<option value="' + msg.tenants[i].tenant_id + '">' + msg.tenants[i].name + '</option>');
         		}
+        		var tenant_id=$(".order_id").val();
+        		loadorders(tenant_id,page);
         	}
         },
         error: function(xhr) {
@@ -23,13 +31,6 @@ $(function(){
         }
     });
     
-      $(".payway").append('<option value="' +0+ '">现付</option>');
-      $(".payway").append('<option value="' +1+ '">到付</option>');
-      $(".payway").append('<option value="' +2+ '">月结</option>');
-      $(".payway").append('<option value="' +3+ '">回单</option>');
-    var tenant_id=$(".order_id").val();
-    var payway=$(".payway").val();
-    loadorders(tenant_id,page);
     $(".sousuo_z").on("click",function(){
         var tenant_id=$(".order_id").val();
         var payway=$(".payway").val();
@@ -37,32 +38,27 @@ $(function(){
         $("#count1").html("");
          $("#count2").html("");
          $("#count3").html("");
-         $.ajax({
-	 url: p_url+"tenantsback.php/ordertongji?tenant-id="+tenant_id,
-        dataType: 'json',
-        type: 'get',
-        ContentType: "application/json;charset=utf-8",
-        data: JSON.stringify({}),
-        success: function(msg) {
-        	if(msg.result==0){
-        		
-        		$("#count1").html(msg.countorder);
-        		$("#count2").html(msg.countorder1);
-        		$("#count3").html(msg.countorder2);
-        	}
-        },
-        error: function(xhr) {
-            alert("获取后台失败！");
-        }
-    });
-          
-        
+	   $.ajax({
+		 url: p_url+"tenantsback.php/ordertongji?tenant-id="+tenant_id,
+	        dataType: 'json',
+	        type: 'get',
+	        ContentType: "application/json;charset=utf-8",
+	        data: JSON.stringify({}),
+	        success: function(msg) {
+	        	if(msg.result==0){
+	        		
+	        		$("#count1").html(msg.countorder);
+	        		$("#count2").html(msg.countorder1);
+	        		$("#count3").html(msg.countorder2);
+	        	}
+	        },
+	        error: function(xhr) {
+	            alert("获取后台失败！");
+	        }
+	    });
     })
     }
 });
-
-
-
 
 
 (function($) {
