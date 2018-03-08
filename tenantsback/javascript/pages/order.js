@@ -22,10 +22,10 @@ $(function(){
         		for(var i=0;i<msg.tenants.length;i++){
         		$(".order_id").append('<option value="' + msg.tenants[i].tenant_id + '">' + msg.tenants[i].name + '</option>');
         		}
-        		var tenant_id=$(".order_id").val();
-        		alert(tenant_id);
-        		loadorders(tenant_id,page);
+        		tenant_id=msg.tenants[0].tenant_id;
+        	     alert(tenant_id);
         	}
+        	loadorders(tenant_id,page);
         },
         error: function(xhr) {
             alert("获取后台失败！");
@@ -33,7 +33,7 @@ $(function(){
     });
     
     $(".sousuo_z").on("click",function(){
-        var tenant_id=$(".order_id").val();
+        tenant_id=$(".order_id").val();
         var payway=$(".payway").val();
         loadorders(tenant_id,page,payway);
         $("#count1").html("");
