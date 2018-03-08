@@ -23,7 +23,6 @@ $(function(){
         		$(".order_id").append('<option value="' + msg.tenants[i].tenant_id + '">' + msg.tenants[i].name + '</option>');
         		}
         		tenant_id=msg.tenants[0].tenant_id;
-        	     alert(tenant_id);
         	}
         	loadorders(tenant_id,page);
         },
@@ -47,7 +46,6 @@ $(function(){
 	        data: JSON.stringify({}),
 	        success: function(msg) {
 	        	if(msg.result==0){
-	        		
 	        		$("#count1").html(msg.countorder);
 	        		$("#count2").html(msg.countorder1);
 	        		$("#count3").html(msg.countorder2);
@@ -72,12 +70,14 @@ $(function(){
 })(jQuery);
 
 function loadorders(tenant_id,page,payway) {
-	alert(tenant_id);
     if(tenant_id==null){
        tenant_id="";
     }
     if(page==null){
         page=1;
+    }
+    if(payway==null){
+    	payway="";
     }
     $.ajax({
         url: p_url+"tenantsback.php/getGoodsOrders?tenant-id="+tenant_id+"&page="+page+"&perpage=10&payway="+payway,
