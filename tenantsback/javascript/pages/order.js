@@ -72,6 +72,7 @@ $(function(){
 })(jQuery);
 
 function loadorders(tenant_id,page,payway) {
+	alert(tenant_id);
     if(tenant_id==null){
        tenant_id="";
     }
