@@ -2314,7 +2314,12 @@ $app->post('/sign_agreement',function()use($app){
                 $month=date("m");
                 $day=date("d");
                 $agreement_time=$year.'年'.$month.'月'.$day.'日';
-                $updateStatement = $database->update(array('sign_img'=>$lujing,'agreement_status'=>1,'agreement_time'=>$agreement_time,'pic'=>$pic))
+                $pic1=explode("\n",$pic);
+                $va=null;
+                foreach ($pic1 as $value){
+                    $va.=$value;
+                }
+                $updateStatement = $database->update(array('sign_img'=>$lujing,'agreement_status'=>1,'agreement_time'=>$agreement_time,'pic'=>$va))
                     ->table('agreement')
                     ->where('tenant_id', '=', $data2[$i]['tenant_id'])
                     ->where('secondparty_id', '=', $data2[$i]['lorry_id'])
