@@ -2265,8 +2265,6 @@ $app->post('/sign_agreement',function()use($app){
     $lorry_id=$body->lorryid;
     $agreement_id=$body->agreement_id;
     $pic=$body->pic;
-    $pic1=explode('"',$pic);
-    $pic=$pic1[0].$pic1[1].$pic1[2];
     $lujing=null;
     $base64_image_content = $pic;
 //匹配出图片的格式
