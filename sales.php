@@ -557,7 +557,6 @@ $app->post('/addsales',function()use($app){
     $qq=$body->qq;
     $weixin=$body->weixin;
     $higherlevel=$body->higherlevel;
-    $mac=$body->mac;
     if($sales_name!=null||$sales_name!=""){
          if($sex!=null||$sex!=""){
               if($card_id!=null||$card_id!=""){
@@ -606,10 +605,10 @@ $app->post('/addsales',function()use($app){
                                            $sales_id.=$num2.'';
                                        }
                                        $insertStatement = $database->insert(array('exist','sales_name','sex','card_id','telephone','address'
-                                         ,'email','qq','weixin','password','higher_id','team_id','sales_id','mac'))
+                                         ,'email','qq','weixin','password','higher_id','team_id','sales_id'))
                                            ->into('sales')
                                            ->values(array(0,$sales_name,$sex,$card_id,$telephone,$address,$email,$qq,$weixin,$password
-                                           ,$higherlevel,$data5['team_id'],$sales_id,$mac));
+                                           ,$higherlevel,$data5['team_id'],$sales_id));
                                        $insertId = $insertStatement->execute(false);
                                        $arrays['password']=$password1;
                                        echo json_encode(array('result' => '0', 'desc' => '添加成功','sales'=>$arrays));
