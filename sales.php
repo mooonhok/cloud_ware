@@ -522,7 +522,7 @@ $app->put('/sales',function()use($app){
 
 
 //业务员信息修改
-$app->put('/alertSaleTenant',function()use($app){
+$app->put('/alterSaleTenant',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
