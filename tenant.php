@@ -942,11 +942,14 @@ $app->delete('/emptyTenant',function()use($app){
             ->orderBy('id','DESC');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        $deleteStatement = $database->delete()
-            ->from('customer')
-            ->where('id','!=',$data[0]['id'])
-            ->where('tenant_id', '=', $tenant_id);
-        $affectedRows = $deleteStatement->execute();
+        if($data){
+            $deleteStatement = $database->delete()
+                ->from('customer')
+                ->where('id','!=',$data[0]['id'])
+                ->where('tenant_id', '=', $tenant_id);
+            $affectedRows = $deleteStatement->execute();
+        }
+
         $deleteStatement = $database->delete()
             ->from('agreement')
             ->where('tenant_id', '=', $tenant_id);
