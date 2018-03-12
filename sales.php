@@ -520,12 +520,16 @@ $app->put('/sales',function()use($app){
     }
 });
 
-
-//业务员信息修改
 $app->options('/alterSaleTenant',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $app->response->headers->set("Access-Control-Allow-Methods", "PUT");
+});
+
+//业务员信息修改
+$app->put('/alterSaleTenant',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
@@ -534,12 +538,6 @@ $app->options('/alterSaleTenant',function()use($app){
     $email=$body->email;
     $telephone=$body->telephone;
     $sales_name=$body->sales_name;
-    $arrays=array();
-    foreach($body as $key=>$value){
-        if($key!="sales_id"){
-            $arrays[$key]=$value;
-        }
-    }
     $arrays2['qq']=$qq;
     $arrays2['email']=$email;
     $arrays3['customer_phone']=$telephone;
@@ -554,29 +552,26 @@ $app->options('/alterSaleTenant',function()use($app){
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetch();
         if($data1!=null){
-            $updateStatement = $database->update($arrays)
-                ->table('sales')
-                ->where('id', '=', $sales_id);
-            $affectedRows = $updateStatement->execute();
-            $updateStatement = $database->update($arrays2)
-                ->table('tenant')
-                ->where('tenant_id','<','1000000000')
-                ->where('sales_id', '=', $sales_id);
-            $affectedRows = $updateStatement->execute();
             $selectStatement = $database->select()
                 ->from('tenant')
-                ->where('tenant_id','<','1000000000')
-                ->where('sales_id', '=', $sales_id);
+                ->where('sales_id', '=', $sales_id)
+                ->orderBy('tenant_id')
+                ->limit(1);
             $stmt = $selectStatement->execute();
-            $data2 = $stmt->fetch();
+            $data3 = $stmt->fetch();
+            $updateStatement = $database->update($arrays2)
+                ->table('tenant')
+                ->where('tenant_id','=',$data3['tenant_id'])
+                ->where('sales_id', '=', $sales_id);
+            $affectedRows = $updateStatement->execute();
             $updateStatement = $database->update($arrays3)
                 ->table('customer')
-                ->where('tenant_id','=',$data2['tenant_id'])
-                ->where('customer_id', '=', $data2['contact_id']);
+                ->where('tenant_id','=',$data3['tenant_id'])
+                ->where('customer_id', '=', $data3['contact_id']);
             $affectedRows = $updateStatement->execute();
             $updateStatement = $database->update($arrays4)
                 ->table('staff')
-                ->where('tenant_id','=',$data2['tenant_id'])
+                ->where('tenant_id','=',$data3['tenant_id'])
                 ->where('staff_id', '=','100001');
             $affectedRows = $updateStatement->execute();
             echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
@@ -627,6 +622,7 @@ $app->post('/addsales',function()use($app){
     $qq=$body->qq;
     $weixin=$body->weixin;
     $higherlevel=$body->higherlevel;
+    $mac=$body->mac;
     if($sales_name!=null||$sales_name!=""){
          if($sex!=null||$sex!=""){
               if($card_id!=null||$card_id!=""){
@@ -675,12 +671,18 @@ $app->post('/addsales',function()use($app){
                                            $sales_id.=$num2.'';
                                        }
                                        $insertStatement = $database->insert(array('exist','sales_name','sex','card_id','telephone','address'
-                                         ,'email','qq','weixin','password','higher_id','team_id','sales_id'))
+                                         ,'email','qq','weixin','password','higher_id','team_id','sales_id','mac'))
                                            ->into('sales')
                                            ->values(array(0,$sales_name,$sex,$card_id,$telephone,$address,$email,$qq,$weixin,$password
-                                           ,$higherlevel,$data5['team_id'],$sales_id));
+                                           ,$higherlevel,$data5['team_id'],$sales_id,$mac));
                                        $insertId = $insertStatement->execute(false);
                                        $arrays['password']=$password1;
+                                       $selectStatement = $database->select()
+                                           ->from('sales')
+                                           ->where('card_id', '=',$card_id);
+                                       $stmt = $selectStatement->execute();
+                                       $data10 = $stmt->fetch();
+                                       $arrays['id']=$data10['id'];
                                        echo json_encode(array('result' => '0', 'desc' => '添加成功','sales'=>$arrays));
                                    }else{
                                        echo json_encode(array('result' => '8', 'desc' => '上一级不能为空','sales'=>''));
