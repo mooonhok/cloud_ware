@@ -354,7 +354,7 @@ $app->put('/tenantchange',function()use($app){
                     $updateStatement = $database->update($array2)
                         ->table('staff')
                         ->where('tenant_id', '=', $tenant_id)
-                        ->where('staff_id', '=',10001);
+                        ->where('staff_id', '=','10001');
                     $affectedRows = $updateStatement->execute();
                     echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
                 } else {
