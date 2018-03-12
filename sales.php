@@ -548,25 +548,26 @@ $app->options('/alterSaleTenant',function()use($app){
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetch();
         if($data1!=null){
-            $updateStatement = $database->update($arrays2)
-                ->table('tenant')
-                ->where('tenant_id','<','1000000000')
-                ->where('sales_id', '=', $sales_id);
-            $affectedRows = $updateStatement->execute();
             $selectStatement = $database->select()
                 ->from('tenant')
                 ->where('tenant_id','<','1000000000')
-                ->where('sales_id', '=', $sales_id);
+                ->where('id', '=', $sales_id);
             $stmt = $selectStatement->execute();
-            $data2 = $stmt->fetch();
+            $data3 = $stmt->fetch();
+
+            $updateStatement = $database->update($arrays2)
+                ->table('tenant')
+                ->where('tenant_id','=',$data3['tenant_id'])
+                ->where('sales_id', '=', $sales_id);
+            $affectedRows = $updateStatement->execute();
             $updateStatement = $database->update($arrays3)
                 ->table('customer')
-                ->where('tenant_id','=',$data2['tenant_id'])
-                ->where('customer_id', '=', $data2['contact_id']);
+                ->where('tenant_id','=',$data3['tenant_id'])
+                ->where('customer_id', '=', $data3['contact_id']);
             $affectedRows = $updateStatement->execute();
             $updateStatement = $database->update($arrays4)
                 ->table('staff')
-                ->where('tenant_id','=',$data2['tenant_id'])
+                ->where('tenant_id','=',$data3['tenant_id'])
                 ->where('staff_id', '=','100001');
             $affectedRows = $updateStatement->execute();
             echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
