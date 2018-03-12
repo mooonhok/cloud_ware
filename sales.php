@@ -866,9 +866,10 @@ $app->post('/addSaleTenant',function()use($app) {
                                                     $num01='0'.$num01;
                                                 }
                                                 $tenant_num=$data01['area_code'].$num01;
-                                                $username='u'.$tenant_num;
+
                                                 $tenant_id=999999999-count($data02);
                                                 $tenant_num=9999999-count($data02);
+                                                $username='u'.$tenant_num;
                                                 $ad_img1=$file_url.'client/advertise/ad_img1.png';
                                                 $ad_img2=$file_url.'client/advertise/ad_img2.png';
                                                 $ad_img3=$file_url.'client/advertise/ad_img3.png';

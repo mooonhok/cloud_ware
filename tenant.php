@@ -925,6 +925,73 @@ $app->get('/company_name',function()use($app){
     }
 });
 
+$app->delete('/emptyTenant',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    if($tenant_id!=null||$tenant_id!=""){
+        $deleteStatement = $database->delete()
+            ->from('staff')
+            ->where('tenant_id', '=', $tenant_id)
+            ->where('id', '!=', 100001);
+        $affectedRows = $deleteStatement->execute();
+        $selectStatement = $database->select()
+            ->from('customer')
+            ->where('tenant_id','=',$tenant_id)
+            ->orderBy('id','DESC');
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        $deleteStatement = $database->delete()
+            ->from('customer')
+            ->where('id','!=',$data[0]['id'])
+            ->where('tenant_id', '=', $tenant_id);
+        $affectedRows = $deleteStatement->execute();
+        $deleteStatement = $database->delete()
+            ->from('agreement')
+            ->where('tenant_id', '=', $tenant_id);
+        $affectedRows = $deleteStatement->execute();
+        $deleteStatement = $database->delete()
+            ->from('agreement_schedule')
+            ->where('tenant_id', '=', $tenant_id);
+        $affectedRows = $deleteStatement->execute();
+        $deleteStatement = $database->delete()
+            ->from('exception')
+            ->where('tenant_id', '=', $tenant_id);
+        $affectedRows = $deleteStatement->execute();
+        $deleteStatement = $database->delete()
+            ->from('insurance')
+            ->where('tenant_id', '=', $tenant_id);
+        $affectedRows = $deleteStatement->execute();
+        $deleteStatement = $database->delete()
+            ->from('insurance_scheduling')
+            ->where('tenant_id', '=', $tenant_id);
+        $affectedRows = $deleteStatement->execute();
+        $deleteStatement = $database->delete()
+            ->from('inventory_loc')
+            ->where('tenant_id', '=', $tenant_id);
+        $affectedRows = $deleteStatement->execute();
+        $deleteStatement = $database->delete()
+            ->from('map')
+            ->where('tenant_id', '=', $tenant_id);
+        $affectedRows = $deleteStatement->execute();
+        $deleteStatement = $database->delete()
+            ->from('pickup')
+            ->where('tenant_id', '=', $tenant_id);
+        $affectedRows = $deleteStatement->execute();
+        $deleteStatement = $database->delete()
+            ->from('scheduling')
+            ->where('tenant_id', '=', $tenant_id);
+        $affectedRows = $deleteStatement->execute();
+        $deleteStatement = $database->delete()
+            ->from('schedule_order')
+            ->where('tenant_id', '=', $tenant_id);
+        $affectedRows = $deleteStatement->execute();
+        echo json_encode(array("result"=>"0",'desc'=>'success'));
+    }else{
+        echo json_encode(array("result"=>"4",'desc'=>'缺少租户id'));
+    }
+});
 
 $app->run();
 
