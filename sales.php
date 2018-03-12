@@ -530,18 +530,22 @@ $app->options('/alterSaleTenant',function()use($app){
     $body=$app->request->getBody();
     $body=json_decode($body);
     $sales_id=$body->sales_id;
+    $qq=$body->qq;
+    $email=$body->email;
+    $telephone=$body->telephone;
+    $sales_name=$body->sales_name;
     $arrays=array();
     foreach($body as $key=>$value){
         if($key!="sales_id"){
             $arrays[$key]=$value;
         }
     }
-    $arrays2['qq']=$arrays['qq'];
-    $arrays2['email']=$arrays['email'];
-    $arrays3['customer_phone']=$arrays['telephone'];
-    $arrays3['customer_name']=$arrays['sales_name'];
-    $arrays4['name']=$arrays['sales_name'];
-    $arrays4['telephone']=$arrays['telephone'];
+    $arrays2['qq']=$qq;
+    $arrays2['email']=$email;
+    $arrays3['customer_phone']=$telephone;
+    $arrays3['customer_name']=$sales_name;
+    $arrays4['name']=$sales_name;
+    $arrays4['telephone']=$telephone;
     if($sales_id!=null||$sales_id!=""){
         $selectStatement = $database->select()
             ->from('sales')
@@ -583,6 +587,7 @@ $app->options('/alterSaleTenant',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '缺少业务员id'));
     }
 });
+
 
 //获取业务员信息
 $app->get('/sales',function()use($app){
