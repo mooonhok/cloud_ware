@@ -975,10 +975,10 @@ $app->delete('/emptyTenant',function()use($app){
             ->where('tenant_id', '=', $tenant_id);
         $affectedRows = $deleteStatement->execute();
 
-        $deleteStatement = $database->delete()
-            ->from('pickup')
-            ->where('tenant_id', '=', $tenant_id);
-        $affectedRows = $deleteStatement->execute();
+//        $deleteStatement = $database->delete()
+//            ->from('pickup')
+//            ->where('tenant_id', '=', $tenant_id);
+//        $affectedRows = $deleteStatement->execute();
         $deleteStatement = $database->delete()
             ->from('scheduling')
             ->where('tenant_id', '=', $tenant_id);
