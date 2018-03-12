@@ -860,7 +860,8 @@ $app->post('/addSaleTenant',function()use($app) {
                                                 }
                                                 $tenant_num=$data01['area_code'].$num01;
                                                 $username='u'.$tenant_num;
-                                                $tenant_id=count($data02)+1000000501;
+                                                $tenant_id=9999999-count($data02);
+                                                $tenant_num=$tenant_id;
                                                 $ad_img1=$file_url.'client/advertise/ad_img1.png';
                                                 $ad_img2=$file_url.'client/advertise/ad_img2.png';
                                                 $ad_img3=$file_url.'client/advertise/ad_img3.png';
@@ -869,20 +870,16 @@ $app->post('/addSaleTenant',function()use($app) {
                                                 $ad_img6=$file_url.'client/advertise/ad_img6.png';
                                                 $ad_img7=$file_url.'client/advertise/ad_img7.png';
 //                                                         $order_img='http://files.uminfo.cn:8000/tenant/5230001_order.jpg';
-                                                $selectStatement = $database->select()
-                                                    ->from('tenant');
-                                                $stmt = $selectStatement->execute();
-                                                $dataa1 = $stmt->fetchAll();
-                                                $insertStatement = $database->insert(array('tenant_id','company','from_city_id','contact_id','exist','business_l','business_l_p'
+                                                $insertStatement = $database->insert(array('company','from_city_id','contact_id','exist','business_l','business_l_p'
                                                 ,'sales_id','address','order_t_p','trans_contract_p','service_items','c_introduction'
                                                 ,'begin_time','qq','email','insurance_balance','tenant_num','tenant_id','longitude','latitude','jcompany','ad_img1','ad_img2','ad_img3','ad_img4','ad_img5','ad_img6','ad_img7','order_img'))
                                                     ->into('tenant')
-                                                    ->values(array((9999999-count($dataa1)),$company,$from_city_id,$num,0,$business_l,$business_l_p
+                                                    ->values(array($company,$from_city_id,$num,0,$business_l,$business_l_p
                                                     ,$sales_id,$address,$order_t_p, $trans_c_p
                                                     ,$service_items,$c_introduction,
-                                                        $begin_time,$qq,$email,0,(9999999-count($dataa1)),$tenant_id,$longitude,$latitude,$jcompany,$ad_img1,$ad_img2,$ad_img3,$ad_img4,$ad_img5,$ad_img6,$ad_img7,$order_img));
+                                                        $begin_time,$qq,$email,0,$tenant_id,$tenant_id,$longitude,$latitude,$jcompany,$ad_img1,$ad_img2,$ad_img3,$ad_img4,$ad_img5,$ad_img6,$ad_img7,$order_img));
                                                 $insertId = $insertStatement->execute(false);
-                                                $tenant_num=9999999-count($dataa1);
+
                                                 if($insertId!=""||$insertId!=null){
                                                     $selectStatement = $database->select()
                                                         ->from('tenant')
