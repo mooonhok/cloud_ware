@@ -522,10 +522,11 @@ $app->put('/sales',function()use($app){
 
 
 //业务员信息修改
-$app->options('/alterSaleTenant',function()use($app){
+//$app->options('/alterSaleTenant',function()use($app){
+$app->put('/alterSaleTenant',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $app->response->headers->set("Access-Control-Allow-Methods", "PUT");
+//    $app->response->headers->set("Access-Control-Allow-Methods", "PUT");
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
@@ -555,7 +556,6 @@ $app->options('/alterSaleTenant',function()use($app){
                 ->limit(1);
             $stmt = $selectStatement->execute();
             $data3 = $stmt->fetch();
-
             $updateStatement = $database->update($arrays2)
                 ->table('tenant')
                 ->where('tenant_id','=',$data3['tenant_id'])
@@ -571,7 +571,7 @@ $app->options('/alterSaleTenant',function()use($app){
                 ->where('tenant_id','=',$data3['tenant_id'])
                 ->where('staff_id', '=','100001');
             $affectedRows = $updateStatement->execute();
-            echo json_encode(array('result' => '0', 'desc' => '修改信息成功'.$data3['tenant_id'],));
+            echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
         }else{
             echo json_encode(array('result' => '2', 'desc' => '该业务员不存在'));
         }
