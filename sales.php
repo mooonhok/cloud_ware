@@ -556,12 +556,12 @@ $app->options('/alterSaleTenant',function()use($app){
             $affectedRows = $updateStatement->execute();
             $updateStatement = $database->update($arrays2)
                 ->table('tenant')
-                ->where('tenant_id','>','9000000000')
+                ->where('tenant_id','<','1000000000')
                 ->where('sales_id', '=', $sales_id);
             $affectedRows = $updateStatement->execute();
             $selectStatement = $database->select()
                 ->from('tenant')
-                ->where('tenant_id','>','9000000000')
+                ->where('tenant_id','<','1000000000')
                 ->where('sales_id', '=', $sales_id);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetch();
