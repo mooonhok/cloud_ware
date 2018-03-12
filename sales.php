@@ -322,6 +322,8 @@ $app->put('/tenantchange',function()use($app){
     $array1['customer_phone']=$customer_phone;
     $array1['customer_city_id']=$cityid;
     $array1['customer_address']=$address;
+    $array2['telephone']=$customer_phone;
+    $array2['name']=$customer_name;
     if($sales_id!=null||$sales_id!=""){
         if($tenant_id!=null||$tenant_id!="") {
             $selectStatement = $database->select()
@@ -348,6 +350,11 @@ $app->put('/tenantchange',function()use($app){
                         ->table('customer')
                         ->where('tenant_id', '=', $tenant_id)
                         ->where('customer_id', '=', $data2['contact_id']);
+                    $affectedRows = $updateStatement->execute();
+                    $updateStatement = $database->update($array2)
+                        ->table('staff')
+                        ->where('tenant_id', '=', $tenant_id)
+                        ->where('staff_id', '=',10001);
                     $affectedRows = $updateStatement->execute();
                     echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
                 } else {
