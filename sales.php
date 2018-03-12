@@ -692,6 +692,260 @@ $app->get('/countds',function()use($app){
         echo json_encode(array('result'=>'3','desc'=>'业务员id不能为空','sales'=>''));
     }
 });
+
+$app->post('/addSaleTenant',function()use($app) {
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database = localhost();
+    $file_url=file_url();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $qq = $body->qq;
+    $address=$body->address;
+    $business_l=$body->business;
+    $company = $body->company;
+    $contact_name = $body->name;
+    $from_city_id = $body->city;
+    $c_introduction = $body->introduction;
+    $email =$body->email;
+    $loca =$body->location;
+    $jcompany = $body->jcompany;
+    $sales_id =  $body->sales_id;
+    $service_items =  $body->service;
+    $telephone= $body->phone;
+    $pic1=$body->order_file;
+    $order_t_p=null;
+    $pic2=$body->agreement_file;
+    $trans_c_p=null;
+    $pic3=$body->logo_file;
+    $order_img=null;
+    $pic4=$body->business_file;
+    $business_l_p=null;
+    if($pic1!=null) {
+        $base64_image_content = $pic1;
+//匹配出图片的格式
+        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+            $type = $result[2];
+            date_default_timezone_set("PRC");
+            $time1 = time();
+            $new_file = "/files/order_t_p/" . date('Ymd', $time1) . "/";
+            if (!file_exists($new_file)) {
+//检查是否有该文件夹，如果没有就创建，并给予最高权限
+                mkdir($new_file, 0700);
+            }
+            $new_file = $new_file . $time1 . ".{$type}";
+            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                $order_t_p = $file_url."order_t_p/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+            }
+        }
+    }
+    if($pic2!=null) {
+        $base64_image_content = $pic2;
+//匹配出图片的格式
+//            if (preg_match('/^(data:\s*application\/(\w+);base64,)/', $base64_image_content, $result)) {
+        $type2 = "doc";
+        date_default_timezone_set("PRC");
+        $time1 = time();
+        $new_file = "/files/trans_contract_p/" . date('Ymd', $time1) . "/";
+        if (!file_exists($new_file)) {
+//检查是否有该文件夹，如果没有就创建，并给予最高权限
+            mkdir($new_file, 0700);
+        }
+        $new_file = $new_file . $time1 . ".{$type2}";
+        $arr=explode(",",$base64_image_content);
+        $a=$arr[0];
+        if (file_put_contents($new_file, base64_decode(str_replace($a, '', $base64_image_content)))) {
+            $trans_c_p = $file_url."trans_contract_p/" . date('Ymd', $time1) . "/" . $time1 . ".{$type2}";
+        }
+//            }
+    }
+    if($pic3!=null) {
+        $base64_image_content = $pic3;
+//匹配出图片的格式
+        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+            $type = $result[2];
+            date_default_timezone_set("PRC");
+            $time1 = time();
+            $new_file = "/files/tenant/" . date('Ymd', $time1) . "/";
+            if (!file_exists($new_file)) {
+//检查是否有该文件夹，如果没有就创建，并给予最高权限
+                mkdir($new_file, 0700);
+            }
+            $new_file = $new_file . $time1 . ".{$type}";
+            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                $order_img = $file_url."tenant/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+            }
+        }
+    }else{
+        $order_img=$file_url."tenant/5130001_order_logo.png";
+    }
+    if($pic4!=null) {
+        $base64_image_content = $pic4;
+//匹配出图片的格式
+        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+            $type = $result[2];
+            date_default_timezone_set("PRC");
+            $time1 = time();
+            $new_file = "/files/business_l_p/" . date('Ymd', $time1) . "/";
+            if (!file_exists($new_file)) {
+//检查是否有该文件夹，如果没有就创建，并给予最高权限
+                mkdir($new_file, 0700);
+            }
+            $new_file = $new_file . $time1 . ".{$type}";
+            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                $business_l_p = $file_url."business_l_p/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+            }
+        }
+    }
+    if($company!=null||$company!=""){
+        if($business_l!=""||$business_l!=null){
+            if($loca!=""||$loca!=null){
+                $arr=explode(",",$loca);
+                $longitude=$arr[0];
+                $latitude=$arr[1];
+                if($contact_name!=null||$contact_name!=""){
+                    if($telephone!=null||$telephone!=""){
+                        if($address!=""||$address!=null){
+                            if($from_city_id!=""||$from_city_id=null){
+                                date_default_timezone_set("PRC");
+                                $begin_time=date("Y-m-d H:i", time());
+
+                                if($sales_id!=null||$sales_id!=""){
+                                    $selectStatement = $database->select()
+                                        ->from('tenant')
+                                        ->where('company','=',$company)
+                                        ->where('exist','=',0);
+                                    $stmt = $selectStatement->execute();
+                                    $data5 = $stmt->fetch();
+                                    if($data5==null) {
+                                        $selectStatement = $database->select()
+                                            ->from('sales')
+                                            ->where('id','=',$sales_id)
+                                            ->where('exist',"=",0);
+                                        $stmt = $selectStatement->execute();
+                                        $data1 = $stmt->fetch();
+                                        if($data1!=null||$data1!=""){
+                                            $chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+                                            $str1 = substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+                                            do{
+                                                $str1.= substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+                                            }while(strlen($str1)<4);
+                                            $time=base_convert(time(), 10, 32);
+                                            $num=$time.$str1;
+                                            $insertStatement = $database->insert(array('customer_id','customer_name','customer_phone','exist'
+                                            ,'customer_city_id','customer_address'))
+                                                ->into('customer')
+                                                ->values(array($num,$contact_name,$telephone,0,$from_city_id,$address));
+                                            $insertId = $insertStatement->execute(false);
+                                            if($insertId!=null||$insertId!=""){
+                                                $selectStatement = $database->select()
+                                                    ->from('city')
+                                                    ->where('id','=',$from_city_id);
+                                                $stmt = $selectStatement->execute();
+                                                $data01 = $stmt->fetch();
+                                                $selectStatement = $database->select()
+                                                    ->from('tenant');
+                                                $stmt = $selectStatement->execute();
+                                                $data02 = $stmt->fetchAll();
+                                                $num01=0;
+                                                for($i=0;$i<count($data02);$i++){
+                                                    if(substr($data02[$i]['tenant_num'],0,3)==$data01['area_code']){
+                                                        $num01++;
+                                                    }
+                                                }
+//                                                         $username='u'.$data01['area_code'].'0001';
+                                                $num01++;
+                                                while(strlen($num01)<4){
+                                                    $num01='0'.$num01;
+                                                }
+                                                $tenant_num=$data01['area_code'].$num01;
+                                                $username='u'.$tenant_num;
+                                                $tenant_id=count($data02)+1000000501;
+                                                $ad_img1=$file_url.'client/advertise/ad_img1.png';
+                                                $ad_img2=$file_url.'client/advertise/ad_img2.png';
+                                                $ad_img3=$file_url.'client/advertise/ad_img3.png';
+                                                $ad_img4=$file_url.'client/advertise/ad_img4.png';
+                                                $ad_img5=$file_url.'client/advertise/ad_img5.png';
+                                                $ad_img6=$file_url.'client/advertise/ad_img6.png';
+                                                $ad_img7=$file_url.'client/advertise/ad_img7.png';
+//                                                         $order_img='http://files.uminfo.cn:8000/tenant/5230001_order.jpg';
+                                                $selectStatement = $database->select()
+                                                    ->from('tenant');
+                                                $stmt = $selectStatement->execute();
+                                                $dataa1 = $stmt->fetchAll();
+                                                $insertStatement = $database->insert(array('tenant_id','company','from_city_id','contact_id','exist','business_l','business_l_p'
+                                                ,'sales_id','address','order_t_p','trans_contract_p','service_items','c_introduction'
+                                                ,'begin_time','qq','email','insurance_balance','tenant_num','tenant_id','longitude','latitude','jcompany','ad_img1','ad_img2','ad_img3','ad_img4','ad_img5','ad_img6','ad_img7','order_img'))
+                                                    ->into('tenant')
+                                                    ->values(array((9999999-count($dataa1)),$company,$from_city_id,$num,0,$business_l,$business_l_p
+                                                    ,$sales_id,$address,$order_t_p, $trans_c_p
+                                                    ,$service_items,$c_introduction,
+                                                        $begin_time,$qq,$email,0,(9999999-count($dataa1)),$tenant_id,$longitude,$latitude,$jcompany,$ad_img1,$ad_img2,$ad_img3,$ad_img4,$ad_img5,$ad_img6,$ad_img7,$order_img));
+                                                $insertId = $insertStatement->execute(false);
+                                                $tenant_num=9999999-count($dataa1);
+                                                if($insertId!=""||$insertId!=null){
+                                                    $selectStatement = $database->select()
+                                                        ->from('tenant')
+                                                        ->where('company','=',$company)
+                                                        ->where('business_l','=',$business_l)
+                                                        ->where('contact_id','=',$num);
+                                                    $stmt = $selectStatement->execute();
+                                                    $data4 = $stmt->fetch();
+                                                    $array=array();
+                                                    $key='tenant_id';
+                                                    $array[$key]=$data4['tenant_id'];
+                                                    $updateStatement = $database->update($array)
+                                                        ->table('customer')
+                                                        ->where('customer_id','=',$num);
+                                                    $affectedRows = $updateStatement->execute();
+                                                    $insertStatement = $database->insert(array('tenant_id','staff_id','username','password'
+                                                    ,'name','telephone','position','status','permission','bg_img','head_img','exist'))
+                                                        ->into('staff')
+                                                        ->values(array($data4['tenant_id'],100001,$username,encode('888888','cxphp'),$contact_name,$telephone,'负责人',1,1111111,$file_url.'client/skin/bg1.jpg',$file_url."staff/5230001_head.jpg",0));
+                                                    $insertId = $insertStatement->execute(false);
+                                                    echo json_encode(array('result'=>'0','desc'=>'添加成功'));
+//                                                    $app->redirect('http://www.uminfo.cn/zhuce.html?desc=企业登记成功');
+                                                }else{
+//                                                    $app->redirect('http://www.uminfo.cn/zhuce.html?desc=添加租户信息失败');
+                                                    echo json_encode(array("result"=>"1","desc"=>"添加租户信息失败"));
+                                                }
+                                            }else{
+//                                                $app->redirect('http://www.uminfo.cn/zhuce.html?desc=添加负责人信息失败');
+                                                echo json_encode(array("result"=>"2","desc"=>"添加负责人信息失败"));
+                                            }
+                                        }else {
+//                                            $app->redirect('http://www.uminfo.cn/zhuce.html?desc=该业务员不存在');
+                                            echo json_encode(array("result"=>"3","desc"=>"该业务员不存在"));
+                                        }
+                                    }else {
+//
+                                        echo json_encode(array("result"=>"4","desc"=>"该公司名已存在"));
+                                    }
+                                }else{
+                                    echo json_encode(array("result"=>"5","desc"=>"缺少sales_id"));
+                                }
+                            }else{
+                                echo json_encode(array("result"=>"9","desc"=>"缺少发货城市"));
+                            }
+                        }else {
+                            echo json_encode(array("result" => "10", "desc" => "缺少经营地址"));
+                        }
+                    }else{
+                        echo json_encode(array("result"=>"11","desc"=>"缺少负责人电话"));
+                    }
+                }else{
+                    echo json_encode(array("result"=>"12","desc"=>"缺少负责人姓名"));
+                }
+            }else{
+                echo json_encode(array("result"=>"13","desc"=>"地理坐标不能为空"));
+            }
+        }else{
+            echo json_encode(array("result"=>"14","desc"=>"缺少营业执照号码"));
+        }
+    }else{
+        echo json_encode(array("result"=>"15","desc"=>"缺少公司名称"));
+    }
+});
 $app->run();
 
 function localhost(){
