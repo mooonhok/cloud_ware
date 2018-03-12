@@ -955,6 +955,10 @@ function localhost(){
     return connect();
 }
 
+function file_url(){
+    return files_url();
+}
+
 //加密
 function encode($string , $skey ) {
     $strArr = str_split(base64_encode($string));
