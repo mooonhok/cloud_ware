@@ -850,7 +850,8 @@ $app->post('/addSaleTenant',function()use($app) {
                                                 $stmt = $selectStatement->execute();
                                                 $data01 = $stmt->fetch();
                                                 $selectStatement = $database->select()
-                                                    ->from('tenant');
+                                                    ->from('tenant')
+                                                    ->whereLike('tenant_id','9'."%");
                                                 $stmt = $selectStatement->execute();
                                                 $data02 = $stmt->fetchAll();
                                                 $num01=0;
@@ -866,8 +867,8 @@ $app->post('/addSaleTenant',function()use($app) {
                                                 }
                                                 $tenant_num=$data01['area_code'].$num01;
                                                 $username='u'.$tenant_num;
-                                                $tenant_id=9999999-count($data02);
-                                                $tenant_num=$tenant_id;
+                                                $tenant_id=999999999-count($data02);
+                                                $tenant_num=9999999-count($data02);
                                                 $ad_img1=$file_url.'client/advertise/ad_img1.png';
                                                 $ad_img2=$file_url.'client/advertise/ad_img2.png';
                                                 $ad_img3=$file_url.'client/advertise/ad_img3.png';
