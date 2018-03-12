@@ -804,7 +804,7 @@ $app->post('/addSaleTenant',function()use($app) {
         }
     }
     if($company!=null||$company!=""){
-        if($business_l!=""||$business_l!=null){
+//        if($business_l!=""||$business_l!=null){
             if($loca!=""||$loca!=null){
                 $arr=explode(",",$loca);
                 $longitude=$arr[0];
@@ -943,9 +943,9 @@ $app->post('/addSaleTenant',function()use($app) {
             }else{
                 echo json_encode(array("result"=>"13","desc"=>"地理坐标不能为空"));
             }
-        }else{
-            echo json_encode(array("result"=>"14","desc"=>"缺少营业执照号码"));
-        }
+//        }else{
+//            echo json_encode(array("result"=>"14","desc"=>"缺少营业执照号码"));
+//        }
     }else{
         echo json_encode(array("result"=>"15","desc"=>"缺少公司名称"));
     }
