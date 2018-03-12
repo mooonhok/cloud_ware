@@ -697,11 +697,7 @@ $app->get('/countds',function()use($app){
     }
 });
 
-$app->options('/addSaleTenant',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $app->response->headers->set("Access-Control-Allow-Methods", "POST");
-});
+
 
 $app->post('/addSaleTenant',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -957,5 +953,14 @@ $app->run();
 
 function localhost(){
     return connect();
+}
+
+//加密
+function encode($string , $skey ) {
+    $strArr = str_split(base64_encode($string));
+    $strCount = count($strArr);
+    foreach (str_split($skey) as $key => $value)
+        $key < $strCount && $strArr[$key].=$value;
+    return str_replace(array('=', '+', '/'), array('O0O0O', 'o000o', 'oo00o'), join('', $strArr));
 }
 ?>
