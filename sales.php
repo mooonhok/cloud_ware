@@ -534,12 +534,6 @@ $app->options('/alterSaleTenant',function()use($app){
     $email=$body->email;
     $telephone=$body->telephone;
     $sales_name=$body->sales_name;
-    $arrays=array();
-    foreach($body as $key=>$value){
-        if($key!="sales_id"){
-            $arrays[$key]=$value;
-        }
-    }
     $arrays2['qq']=$qq;
     $arrays2['email']=$email;
     $arrays3['customer_phone']=$telephone;
@@ -554,10 +548,6 @@ $app->options('/alterSaleTenant',function()use($app){
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetch();
         if($data1!=null){
-            $updateStatement = $database->update($arrays)
-                ->table('sales')
-                ->where('id', '=', $sales_id);
-            $affectedRows = $updateStatement->execute();
             $updateStatement = $database->update($arrays2)
                 ->table('tenant')
                 ->where('tenant_id','<','1000000000')
