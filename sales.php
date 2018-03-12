@@ -550,8 +550,9 @@ $app->options('/alterSaleTenant',function()use($app){
         if($data1!=null){
             $selectStatement = $database->select()
                 ->from('tenant')
-                ->where('tenant_id','<','1000000000')
-                ->where('sales_id', '=', $sales_id);
+                ->where('sales_id', '=', $sales_id)
+                ->orderBy('tenant_id')
+                ->limit(1);
             $stmt = $selectStatement->execute();
             $data3 = $stmt->fetch();
 
@@ -570,7 +571,7 @@ $app->options('/alterSaleTenant',function()use($app){
                 ->where('tenant_id','=',$data3['tenant_id'])
                 ->where('staff_id', '=','100001');
             $affectedRows = $updateStatement->execute();
-            echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
+            echo json_encode(array('result' => '0', 'desc' => '修改信息成功'.$data3['tenant_id'],));
         }else{
             echo json_encode(array('result' => '2', 'desc' => '该业务员不存在'));
         }
@@ -673,6 +674,12 @@ $app->post('/addsales',function()use($app){
                                            ,$higherlevel,$data5['team_id'],$sales_id,$mac));
                                        $insertId = $insertStatement->execute(false);
                                        $arrays['password']=$password1;
+                                       $selectStatement = $database->select()
+                                           ->from('sales')
+                                           ->where('card_id', '=',$card_id);
+                                       $stmt = $selectStatement->execute();
+                                       $data10 = $stmt->fetch();
+                                       $arrays['id']=$data10['id'];
                                        echo json_encode(array('result' => '0', 'desc' => '添加成功','sales'=>$arrays));
                                    }else{
                                        echo json_encode(array('result' => '8', 'desc' => '上一级不能为空','sales'=>''));
