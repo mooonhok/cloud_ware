@@ -499,10 +499,44 @@ $app->put('/sales',function()use($app){
             $arrays[$key]=$value;
         }
     }
+    if($sales_id!=null||$sales_id!=""){
+        $selectStatement = $database->select()
+            ->from('sales')
+            ->where('exist','=',0)
+            ->where('id', '=', $sales_id);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        if($data1!=null){
+            $updateStatement = $database->update($arrays)
+                ->table('sales')
+                ->where('id', '=', $sales_id);
+            $affectedRows = $updateStatement->execute();
+            echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '该业务员不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '缺少业务员id'));
+    }
+});
+
+
+//业务员信息修改
+$app->put('/alertSaleTenant',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $sales_id=$body->sales_id;
+    $arrays=array();
+    foreach($body as $key=>$value){
+        if($key!="sales_id"){
+            $arrays[$key]=$value;
+        }
+    }
     $arrays2['qq']=$arrays['qq'];
     $arrays2['email']=$arrays['email'];
-    $arrays2['address']=$arrays['address'];
-    $arrays3['customer_address']=$arrays['address'];
     $arrays3['customer_phone']=$arrays['telephone'];
     $arrays3['customer_name']=$arrays['sales_name'];
     $arrays4['name']=$arrays['sales_name'];
@@ -548,6 +582,7 @@ $app->put('/sales',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '缺少业务员id'));
     }
 });
+
 //获取业务员信息
 $app->get('/sales',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
