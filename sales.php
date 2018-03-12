@@ -499,6 +499,14 @@ $app->put('/sales',function()use($app){
             $arrays[$key]=$value;
         }
     }
+    $arrays2['qq']=$arrays['qq'];
+    $arrays2['email']=$arrays['email'];
+    $arrays2['address']=$arrays['address'];
+    $arrays3['customer_address']=$arrays['address'];
+    $arrays3['customer_phone']=$arrays['telephone'];
+    $arrays3['customer_name']=$arrays['sales_name'];
+    $arrays4['name']=$arrays['sales_name'];
+    $arrays4['telephone']=$arrays['telephone'];
     if($sales_id!=null||$sales_id!=""){
         $selectStatement = $database->select()
             ->from('sales')
@@ -510,6 +518,27 @@ $app->put('/sales',function()use($app){
             $updateStatement = $database->update($arrays)
                 ->table('sales')
                 ->where('id', '=', $sales_id);
+            $affectedRows = $updateStatement->execute();
+            $updateStatement = $database->update($arrays2)
+                ->table('tenant')
+                ->where('tenant_id','>','9000000000')
+                ->where('sales_id', '=', $sales_id);
+            $affectedRows = $updateStatement->execute();
+            $selectStatement = $database->select()
+                ->from('tenant')
+                ->where('tenant_id','>','9000000000')
+                ->where('sales_id', '=', $sales_id);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $updateStatement = $database->update($arrays3)
+                ->table('customer')
+                ->where('tenant_id','=',$data2['tenant_id'])
+                ->where('customer_id', '=', $data2['contact_id']);
+            $affectedRows = $updateStatement->execute();
+            $updateStatement = $database->update($arrays4)
+                ->table('staff')
+                ->where('tenant_id','=',$data2['tenant_id'])
+                ->where('staff_id', '=','100001');
             $affectedRows = $updateStatement->execute();
             echo json_encode(array('result' => '0', 'desc' => '修改信息成功'));
         }else{
@@ -804,7 +833,7 @@ $app->post('/addSaleTenant',function()use($app) {
         }
     }
     if($company!=null||$company!=""){
-//        if($business_l!=""||$business_l!=null){
+        if($business_l!=""||$business_l!=null){
             if($loca!=""||$loca!=null){
                 $arr=explode(",",$loca);
                 $longitude=$arr[0];
@@ -867,7 +896,7 @@ $app->post('/addSaleTenant',function()use($app) {
                                                 }
                                                 $tenant_num=$data01['area_code'].$num01;
 
-                                                $tenant_id=999999999-count($data02);
+                                                $tenant_id=9999999999-count($data02);
                                                 $tenant_num=9999999-count($data02);
                                                 $username='u'.$tenant_num;
                                                 $ad_img1=$file_url.'client/advertise/ad_img1.png';
@@ -944,9 +973,9 @@ $app->post('/addSaleTenant',function()use($app) {
             }else{
                 echo json_encode(array("result"=>"13","desc"=>"地理坐标不能为空"));
             }
-//        }else{
-//            echo json_encode(array("result"=>"14","desc"=>"缺少营业执照号码"));
-//        }
+        }else{
+            echo json_encode(array("result"=>"14","desc"=>"缺少营业执照号码"));
+        }
     }else{
         echo json_encode(array("result"=>"15","desc"=>"缺少公司名称"));
     }
