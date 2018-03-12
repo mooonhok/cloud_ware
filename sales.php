@@ -550,6 +550,7 @@ $app->post('/addsales',function()use($app){
     $qq=$body->qq;
     $weixin=$body->weixin;
     $higherlevel=$body->higherlevel;
+    $mac=$body->mac;
     if($sales_name!=null||$sales_name!=""){
          if($sex!=null||$sex!=""){
               if($card_id!=null||$card_id!=""){
@@ -562,7 +563,6 @@ $app->post('/addsales',function()use($app){
                   if($data1==null){
                        if($telephone!=null||$telephone!=""){
                            if($address!=null||$address!=""){
-                               if($email!=null||$email!=""){
                                    if($higherlevel!=null||$higherlevel!=""){
                                        $selectStatement = $database->select()
                                            ->from('sales')
@@ -599,19 +599,17 @@ $app->post('/addsales',function()use($app){
                                            $sales_id.=$num2.'';
                                        }
                                        $insertStatement = $database->insert(array('exist','sales_name','sex','card_id','telephone','address'
-                                         ,'email','qq','weixin','password','higher_id','team_id','sales_id'))
+                                         ,'email','qq','weixin','password','higher_id','team_id','sales_id','mac'))
                                            ->into('sales')
                                            ->values(array(0,$sales_name,$sex,$card_id,$telephone,$address,$email,$qq,$weixin,$password
-                                           ,$higherlevel,$data5['team_id'],$sales_id));
+                                           ,$higherlevel,$data5['team_id'],$sales_id,$mac));
                                        $insertId = $insertStatement->execute(false);
                                        $arrays['password']=$password1;
                                        echo json_encode(array('result' => '0', 'desc' => '添加成功','sales'=>$arrays));
                                    }else{
                                        echo json_encode(array('result' => '8', 'desc' => '上一级不能为空','sales'=>''));
                                    }
-                               }else{
-                                   echo json_encode(array('result' => '7', 'desc' => '邮箱不能为空','sales'=>''));
-                               }
+
                            }else{
                                echo json_encode(array('result' => '6', 'desc' => '地址不能为空','sales'=>''));
                            }
