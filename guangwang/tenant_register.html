@@ -466,10 +466,6 @@
 			var agreement_file=$("#agreement_hide").html();
 			var introduction=$("#introduction").val();
 			var service=$("#service").val();
-			console.log(business_file);
-			console.log(logo_file);
-			console.log(order_file);
-			console.log(agreement_file);
 			if(jcompany==""){
 				$("#alert-content").text("请填写公司简称！");$('#alert').modal();
 			}else if(name==""){
@@ -538,7 +534,7 @@
 							<!-- city(); -->
 						},
 						error:function(xhr){
-							$("#alert-content").text("获取后台失败！"+xhr.responseText);$('#alert').modal();
+							$("#alert-content").text("获取后台失败！");$('#alert').modal();
 						}
 					});
 				});

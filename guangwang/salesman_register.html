@@ -11,7 +11,7 @@
 		*{
 			font:normal 16px "微软雅黑";
 		}
-		#name,#phone,#card_id,#qq,#wechat,#email,#address{
+		#name,#phone,#card_id,#qq,#wechat,#email,#address,#mac{
 			font:normal 16px "微软雅黑";
 		}
 		#register{
@@ -138,6 +138,12 @@
 						<input type="text" class="form-control" id="address" placeholder="请填写联系地址">
 					</div>
 				</div>
+				<div class="form-group">
+					<label for="mac" class="col-sm-3 control-label grey">mac地址</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="mac" placeholder="请填写mac地址（选填）">
+					</div>
+				</div>
 			</fieldset>
 			<div class="form-group">
 				<div class="col-sm-offset-3 col-sm-6">
@@ -171,6 +177,7 @@
 	<script type="text/javascript" src="js/confirm.js"></script>
 	<script>
 		var url="http://api.uminfo.cn/";
+		var url_test="http://api.uminfor.cn/";
 		<!-- var link="http://www.uminfo.cn/"; -->
 		var link="";
 		
@@ -188,10 +195,11 @@
 			var wechat=$("#wechat").val();
 			var email=$("#email").val();
 			var address=$("#address").val();
+			var mac=$("#mac").val();
 			if(name==""){
-				$("#alert-content").text("请填写姓名！");$('#alert').modal();$("#name").focus();
+				$("#alert-content").text("请填写姓名！");$('#alert').modal();
 			}else if(!/^[\u4E00-\u9FA5A-Za-z]+$/.test(name)){
-				$("#alert-content").text("姓名格式不正确！");$('#alert').modal();$("#name").focus();
+				$("#alert-content").text("姓名格式不正确！");$('#alert').modal();
 			}else if(sex==undefined){
 				$("#alert-content").text("请选择性别！");$('#alert').modal();
 			}else if(phone==""){
@@ -210,13 +218,15 @@
 				$("#alert-content").text("邮箱格式不正确！");$('#alert').modal();
 			}else if(address==""){
 				$("#alert-content").text("请填写联系地址！");$('#alert').modal();
+			}else if((mac!="")&&!/^[A-F0-9]{2}(-[A-F0-9]{2}){5}$/.test(mac)){
+				$("#alert-content").text("mac地址格式不正确！");$('#alert').modal();
 			}else{
 				Confirm.confirm({message:"确定该伙伴加入你的团队？"}).on(function(e){
 					if(!e){
 						return;
 					}
 					$.ajax({
-						url:url+"sales.php/addsales",
+						url:url_test+"sales.php/addsales",
 						dataType:'json',
 						type:'post',
 						ContentType:"application/json;charset=utf-8",
@@ -229,6 +239,7 @@
 							weixin:wechat,
 							email:email,
 							address:address,
+							mac:mac,
 							higherlevel:sessionStorage.getItem('id')
 						}),
 						success:function(msg){
@@ -239,6 +250,38 @@
 							　　for(var i=0;i<sexList.length;i++){
 							　　　　sexList[i].checked=false;
 							　　}
+								console.log(msg.sales);
+								$.ajax({
+									url:url_test+"sales.php/addSaleTenant",
+									dataType:'json',
+									type:'post',
+									ContentType:"application/json;charset=utf-8",
+									data:JSON.stringify({
+										company:"江苏酉铭信息科技有限公司",
+										jcompany:"江苏酉铭",
+										name:name,
+										phone:phone,
+										qq:qq,
+										email:email,
+										city:190,
+										address:"港闸区幸福环美工贸园区附近",
+										location:"120.847502,32.083777",
+										business:"",
+										business_file:"",
+										logo_file:"",
+										order_file:"",
+										agreement_file:"",
+										introduction:"",
+										service:"",
+										sales_id:msg.sales.id
+									}),
+									success:function(msg){
+										console.log(msg);
+									},
+									error:function(xhr){
+										$("#alert-content").text("获取后台失败！");$('#alert').modal();
+									}
+								});
 							}else{
 								$("#alert-content").text(msg.desc+"！");$('#alert').modal();
 							}
