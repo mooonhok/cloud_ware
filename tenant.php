@@ -974,10 +974,7 @@ $app->delete('/emptyTenant',function()use($app){
             ->from('inventory_loc')
             ->where('tenant_id', '=', $tenant_id);
         $affectedRows = $deleteStatement->execute();
-        $deleteStatement = $database->delete()
-            ->from('map')
-            ->where('tenant_id', '=', $tenant_id);
-        $affectedRows = $deleteStatement->execute();
+
         $deleteStatement = $database->delete()
             ->from('pickup')
             ->where('tenant_id', '=', $tenant_id);
@@ -986,6 +983,18 @@ $app->delete('/emptyTenant',function()use($app){
             ->from('scheduling')
             ->where('tenant_id', '=', $tenant_id);
         $affectedRows = $deleteStatement->execute();
+        $selectStatement = $database->select()
+            ->from('scheduling')
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetchAll();
+        for($i=0;$i<count($data1);$i++){
+            $deleteStatement = $database->delete()
+                ->from('map')
+                ->where('scheduling_id', '=', $data1[$i]['scheduling_id']);
+            $affectedRows = $deleteStatement->execute();
+        }
+
         $deleteStatement = $database->delete()
             ->from('schedule_order')
             ->where('tenant_id', '=', $tenant_id);
