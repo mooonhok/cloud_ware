@@ -2,7 +2,7 @@
 
 require 'Slim/Slim.php';
 require 'connect.php';
-
+require 'files_url.php';
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
