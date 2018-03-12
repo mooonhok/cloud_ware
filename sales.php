@@ -700,7 +700,7 @@ $app->get('/countds',function()use($app){
 $app->options('/addSaleTenant',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $app->response->headers->set("Access-Control-Allow-Methods", "post");
+    $app->response->headers->set("Access-Control-Allow-Methods", "POST");
 });
 
 $app->post('/addSaleTenant',function()use($app) {
