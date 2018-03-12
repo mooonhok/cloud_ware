@@ -887,13 +887,13 @@ $app->post('/addSaleTenant',function()use($app) {
                                 $begin_time=date("Y-m-d H:i", time());
 
                                 if($sales_id!=null||$sales_id!=""){
-                                    $selectStatement = $database->select()
-                                        ->from('tenant')
-                                        ->where('company','=',$company)
-                                        ->where('exist','=',0);
-                                    $stmt = $selectStatement->execute();
-                                    $data5 = $stmt->fetch();
-                                    if($data5==null) {
+//                                    $selectStatement = $database->select()
+//                                        ->from('tenant')
+//                                        ->where('company','=',$company)
+//                                        ->where('exist','=',0);
+//                                    $stmt = $selectStatement->execute();
+//                                    $data5 = $stmt->fetch();
+//                                    if($data5==null) {
                                         $selectStatement = $database->select()
                                             ->from('sales')
                                             ->where('id','=',$sales_id)
@@ -992,10 +992,10 @@ $app->post('/addSaleTenant',function()use($app) {
 //                                            $app->redirect('http://www.uminfo.cn/zhuce.html?desc=该业务员不存在');
                                             echo json_encode(array("result"=>"3","desc"=>"该业务员不存在"));
                                         }
-                                    }else {
-//
-                                        echo json_encode(array("result"=>"4","desc"=>"该公司名已存在"));
-                                    }
+//                                    }else {
+////
+//                                        echo json_encode(array("result"=>"4","desc"=>"该公司名已存在"));
+//                                    }
                                 }else{
                                     echo json_encode(array("result"=>"5","desc"=>"缺少sales_id"));
                                 }
