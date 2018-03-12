@@ -551,7 +551,7 @@ $app->options('/alterSaleTenant',function()use($app){
             $selectStatement = $database->select()
                 ->from('tenant')
                 ->where('tenant_id','<','1000000000')
-                ->where('id', '=', $sales_id);
+                ->where('sales_id', '=', $sales_id);
             $stmt = $selectStatement->execute();
             $data3 = $stmt->fetch();
 
@@ -618,6 +618,7 @@ $app->post('/addsales',function()use($app){
     $qq=$body->qq;
     $weixin=$body->weixin;
     $higherlevel=$body->higherlevel;
+    $mac=$body->mac;
     if($sales_name!=null||$sales_name!=""){
          if($sex!=null||$sex!=""){
               if($card_id!=null||$card_id!=""){
@@ -666,10 +667,10 @@ $app->post('/addsales',function()use($app){
                                            $sales_id.=$num2.'';
                                        }
                                        $insertStatement = $database->insert(array('exist','sales_name','sex','card_id','telephone','address'
-                                         ,'email','qq','weixin','password','higher_id','team_id','sales_id'))
+                                         ,'email','qq','weixin','password','higher_id','team_id','sales_id','mac'))
                                            ->into('sales')
                                            ->values(array(0,$sales_name,$sex,$card_id,$telephone,$address,$email,$qq,$weixin,$password
-                                           ,$higherlevel,$data5['team_id'],$sales_id));
+                                           ,$higherlevel,$data5['team_id'],$sales_id,$mac));
                                        $insertId = $insertStatement->execute(false);
                                        $arrays['password']=$password1;
                                        echo json_encode(array('result' => '0', 'desc' => '添加成功','sales'=>$arrays));
