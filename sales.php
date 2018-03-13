@@ -1026,6 +1026,7 @@ $app->post('/addSaleTenant',function()use($app) {
 
 
 $app->post('/addSaleLorry',function()use($app) {
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $body = $app->request->getBody();
@@ -1135,6 +1136,7 @@ $app->post('/addSaleLorry',function()use($app) {
 });
 
 $app->post('/addSaleGood',function()use($app) {
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
     $tenant_id = $app->request->headers->get("tenant-id");
@@ -1185,6 +1187,7 @@ $app->post('/addSaleGood',function()use($app) {
 });
 
 $app->post('/addSaleOrder', function () use ($app) {
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
@@ -1238,6 +1241,7 @@ $app->post('/addSaleOrder', function () use ($app) {
 
 
 $app->post('/addSaleCustomer',function()use($app) {
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
     $tenant_id = $app->request->headers->get("tenant-id");
