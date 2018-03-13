@@ -19,8 +19,8 @@ $app->get('/getDownload',function()use($app){
     $selectStament=$database->select()
         ->from('download');
     $stmt=$selectStament->execute();
-    $data=$stmt->fetch();
-    echo json_encode(array('result' => '0', 'desc' => 'success', 'download'=>$data));
+    $data=$stmt->fetchAll();
+    echo json_encode(array('result' => '0', 'desc' => 'success', 'downloads'=>$data));
 });
 
 
