@@ -1024,7 +1024,11 @@ $app->post('/addSaleTenant',function()use($app) {
     }
 });
 
-
+$app->options('/addSaleLorry',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set("Access-Control-Allow-Methods", "POST");
+});
 $app->post('/addSaleLorry',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type', 'application/json');
@@ -1135,6 +1139,12 @@ $app->post('/addSaleLorry',function()use($app) {
     }
 });
 
+$app->options('/addSaleGood',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set("Access-Control-Allow-Methods", "POST");
+});
+
 $app->post('/addSaleGood',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type', 'application/json');
@@ -1186,6 +1196,11 @@ $app->post('/addSaleGood',function()use($app) {
     }
 });
 
+$app->options('/addSaleOrder',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set("Access-Control-Allow-Methods", "POST");
+});
 $app->post('/addSaleOrder', function () use ($app) {
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type', 'application/json');
@@ -1239,7 +1254,11 @@ $app->post('/addSaleOrder', function () use ($app) {
     }
 });
 
-
+$app->options('/addSaleCustomer',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set("Access-Control-Allow-Methods", "POST");
+});
 $app->post('/addSaleCustomer',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type', 'application/json');
