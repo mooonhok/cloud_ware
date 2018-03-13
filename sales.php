@@ -1200,7 +1200,7 @@ $app->options('/addSaleOrder',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $app->response->headers->set("Access-Control-Allow-Methods", "POST");
-    $app->response->headers->set("Access-Control-Allow-Headers", "tenant-id");
+    $app->response->headers->set("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With");
 });
 $app->post('/addSaleOrder', function () use ($app) {
     $app->response->headers->set('Access-Control-Allow-Origin','*');
