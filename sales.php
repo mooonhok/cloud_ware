@@ -1236,6 +1236,54 @@ $app->post('/addSaleOrder', function () use ($app) {
     }
 });
 
+
+$app->post('/addSaleCustomer',function()use($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $customer_id=$body->customer_id;
+    $customer_name = $body->customer_name;
+    $customer_phone = $body->customer_phone;
+    $customer_city_id = $body->customer_city_id;
+    $customer_address = $body->customer_address;
+    $array=array();
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+    if($tenant_id!=null||$tenant_id!=''){
+        if($customer_id!=null||$customer_id!=''){
+            if($customer_name!=null||$customer_name!=''){
+                if($customer_phone!=null||$customer_phone!=''){
+                    if($customer_city_id!=null||$customer_city_id!=''){
+                        if($customer_address!=null||$customer_address!=''){
+                            $array['tenant_id']=$tenant_id;
+                            $array['exist']=0;
+                            $insertStatement = $database->insert(array_keys($array))
+                                ->into('customer')
+                                ->values(array_values($array));
+                            $insertId = $insertStatement->execute(false);
+                            echo json_encode(array("result" => "0", "desc" => "success"));
+                        }else{
+                            echo json_encode(array("result" => "2", "desc" => "缺少用户城市的地址"));
+                        }
+                    }else{
+                        echo json_encode(array("result" => "3", "desc" => "缺少用户的城市id"));
+                    }
+                }else{
+                    echo json_encode(array("result" => "4", "desc" => "缺少用户手机"));
+                }
+            }else{
+                echo json_encode(array("result" => "5", "desc" => "缺少用户名字"));
+            }
+        }else{
+            echo json_encode(array("result" => "6", "desc" => "缺少用户id"));
+        }
+    }else{
+        echo json_encode(array("result" => "7", "desc" => "缺少租户id"));
+    }
+});
 $app->run();
 
 function localhost(){
