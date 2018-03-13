@@ -82,21 +82,35 @@ $app->get('/getMust',function()use($app){
     $database = localhost();
     $selectStatement = $database->select()
         ->from('client')
-        ->where('version','=',$now_version);
+        ->where('is_must','=',1)
+        ->orderBy('id','DESC')
+        ->limit(1);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
     if($data!=null){
-        $selectStatement = $database->select()
-            ->from('client')
-            ->where('is_must','=',1)
-            ->where('id','>',$data['id'])
-            ->orderBy('id','DESC')
-            ->limit(1);
-        $stmt = $selectStatement->execute();
-        $data1 = $stmt->fetch();
-        echo  json_encode(array("result"=>"0","desc"=>"success","client"=>$data1));
+      $aa=explode(".",$data['version']);
+      $bb=explode(".",$now_version);
+      if($aa[0]>$bb[0]){
+          echo  json_encode(array("result"=>"0","desc"=>"success","client"=>$data));
+      }else if($aa[0]==$bb[0]){
+          if($aa[1]>$bb[1]){
+              echo  json_encode(array("result"=>"0","desc"=>"success","client"=>$data));
+          }else if($aa[1]==$bb[1]){
+              if($aa[2]>$bb[2]){
+                  echo  json_encode(array("result"=>"0","desc"=>"success","client"=>$data));
+              }else if($aa[2]==$bb[2]){
+                  echo  json_encode(array("result"=>"0","desc"=>"success","client"=>null));
+              }else{
+                  echo  json_encode(array("result"=>"0","desc"=>"success","client"=>null));
+              }
+          }else{
+              echo  json_encode(array("result"=>"0","desc"=>"success","client"=>null));
+          }
+      }else{
+          echo  json_encode(array("result"=>"0","desc"=>"success","client"=>null));
+      }
     }else{
-        echo  json_encode(array("result"=>"1","desc"=>"无客户端版本"));
+        echo  json_encode(array("result"=>"0","desc"=>"success","client"=>null));
     }
 });
 
@@ -109,4 +123,5 @@ function file_url(){
 function localhost(){
     return connect();
 }
+
 ?>
