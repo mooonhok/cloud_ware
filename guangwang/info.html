@@ -11,7 +11,7 @@
 		*{
 			font:normal 16px "微软雅黑";
 		}
-		#name,#phone,#card_id,#qq,#wechat,#email,#address{
+		#name,#phone,#card_id,#qq,#wechat,#email,#address,#mac{
 			font:normal 16px "微软雅黑";
 		}
 		#save{
@@ -72,6 +72,9 @@
 					</ul>
 				</li>
 				<li>
+					<a href="download.html"><i class="glyphicon glyphicon-download-alt"></i>下载专区</a>
+				</li>
+				<li>
 					<a href="#" onclick="logout()"><i class="glyphicon glyphicon-log-out"></i>退出登录</a>
 				</li>
 			</ul>
@@ -87,7 +90,7 @@
 				<div class="form-group">
 					<label for="name" class="col-sm-3 control-label">姓名</label>
 					<div class="col-sm-6">
-						<input type="text" class="form-control" id="name">
+						<input type="text" class="form-control" id="name" readonly="readonly">
 					</div>
 				</div>
 				<div class="form-group">
@@ -110,7 +113,7 @@
 				<div class="form-group">
 					<label for="card_id" class="col-sm-3 control-label">身份证号</label>
 					<div class="col-sm-6">
-						<input type="text" class="form-control" id="card_id">
+						<input type="text" class="form-control" id="card_id" readonly="readonly">
 					</div>
 				</div>
 				<div class="form-group">
@@ -135,6 +138,12 @@
 					<label for="address" class="col-sm-3 control-label">联系地址</label>
 					<div class="col-sm-6">
 						<input type="text" class="form-control" id="address">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="mac" class="col-sm-3 control-label">mac地址</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="mac" readonly="readonly">
 					</div>
 				</div>
 			</fieldset>
@@ -204,6 +213,7 @@
 					$("#wechat").val(msg.sales.weixin);
 					$("#email").val(msg.sales.email);
 					$("#address").val(msg.sales.address);
+					$("#mac").val(msg.sales.mac);
 				},
 				error:function(xhr){
 					$("#alert-content").text("获取后台失败！");$('#alert').modal();
@@ -263,6 +273,21 @@
 						}),
 						success:function(msg){
 							$("#alert-content").text(msg.desc+"！");$('#alert').modal();
+							$.ajax({
+								url:url_test+"sales.php/alterSaleTenant",
+								dataType:'json',
+								type:'put',
+								ContentType:"application/json;charset=utf-8",
+								data:JSON.stringify({
+									sales_id:sessionStorage.getItem('id')
+								}),
+								success:function(msg){
+									console.log(msg);
+								},
+								error:function(xhr){
+									$("#alert-content").text("获取后台失败！");$('#alert').modal();
+								}
+							});
 						},
 						error:function(xhr){
 							$("#alert-content").text("获取后台失败！");$('#alert').modal();
