@@ -1200,6 +1200,7 @@ $app->options('/addSaleOrder',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $app->response->headers->set("Access-Control-Allow-Methods", "POST");
+    $app->response->headers->set("Access-Control-Allow-Headers", "Content-Type");
 });
 $app->post('/addSaleOrder', function () use ($app) {
     $app->response->headers->set('Access-Control-Allow-Origin','*');
