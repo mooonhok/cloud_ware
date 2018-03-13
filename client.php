@@ -75,6 +75,31 @@ $app->post('/client_version',function()use($app){
 });
 
 
+$app->get('/getMust',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $now_version = $app->request->get("now_version");
+    $database = localhost();
+    $selectStatement = $database->select()
+        ->from('client')
+        ->where('version','=',$now_version);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetch();
+    if($data!=null){
+        $selectStatement = $database->select()
+            ->from('client')
+            ->where('is_must','=',1)
+            ->where('id','>',$data['id'])
+            ->orderBy('id','DESC')
+            ->limit(1);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        echo  json_encode(array("result"=>"0","desc"=>"success","client"=>$data1));
+    }else{
+        echo  json_encode(array("result"=>"1","desc"=>"无客户端版本"));
+    }
+});
+
 $app->run();
 
 function file_url(){
