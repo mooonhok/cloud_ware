@@ -688,7 +688,8 @@ $app->post('/tenant',function()use($app) {
                                                 $stmt = $selectStatement->execute();
                                                 $data01 = $stmt->fetch();
                                                 $selectStatement = $database->select()
-                                                    ->from('tenant');
+                                                    ->from('tenant')
+                                                    ->whereNotLike('tenant_id','9'.'%');
                                                 $stmt = $selectStatement->execute();
                                                 $data02 = $stmt->fetchAll();
                                                 $num01=0;
