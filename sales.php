@@ -1196,11 +1196,11 @@ $app->post('/addSaleGood',function()use($app) {
     }
 });
 
-//$app->options('/addSaleOrder',function()use($app){
-//    $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
-//    $app->response->headers->set("Access-Control-Allow-Methods", "POST");
-//});
+$app->options('/addSaleOrder',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set("Access-Control-Allow-Methods", "POST");
+});
 $app->post('/addSaleOrder', function () use ($app) {
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type', 'application/json');
