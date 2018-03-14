@@ -960,6 +960,42 @@ $app->delete('/emptyTenant',function()use($app){
             ->where('tenant_id', '=', $tenant_id)
             ->where('customer_id','=',10000000002);
         $affectedRows = $updateStatement->execute();
+        $selectStatement = $database->select()
+            ->from('orders')
+            ->where('tenant_id','=',$tenant_id)
+            ->orderBy('id','DESC');
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        if($data!=null){
+            $deleteStatement = $database->delete()
+                ->from('orders')
+                ->where('id','>',$data[0]['id'])
+                ->where('tenant_id', '=', $tenant_id);
+            $affectedRows = $deleteStatement->execute();
+            $updateStatement = $database->update(array('sender_id'=>'10000000001','receiver_id'=>'10000000002','order_status'=>1,'order_datetime0'=>'2018-01-01 12:12:12','order_datetime1'=>'2018-01-01 12:12:12','order_datetime2'=>null,'order_datetime3'=>null,'order_datetime4'=>null,'order_datetime5'=>null,'inventory_loc_id'=>null,'inventory_type'=>0,'is_schedule'=>0,'is_transfer'=>0,'order_comment'=>null,'exception_id'=>null,'reach_city'=>null,'pickup_id'=>null,'transfer_cost'=>null,'sure_img'=>null,'is_back'=>0))
+                ->table('orders')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('id','=',$data[0]['id']);
+            $affectedRows = $updateStatement->execute();
+        }
+        $selectStatement = $database->select()
+            ->from('goods')
+            ->where('tenant_id','=',$tenant_id)
+            ->orderBy('id','DESC');
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        if($data!=null){
+            $deleteStatement = $database->delete()
+                ->from('goods')
+                ->where('id','>',$data[0]['id'])
+                ->where('tenant_id', '=', $tenant_id);
+            $affectedRows = $deleteStatement->execute();
+            $updateStatement = $database->update(array('goods_name'=>'电脑设备','goods_weight'=>16,'goods_capacity'=>32,'goods_package_id'=>1,'goods_count'=>68,'goods_value'=>24))
+                ->table('goods')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('id','=',$data[0]['id']);
+            $affectedRows = $updateStatement->execute();
+        }
         $deleteStatement = $database->delete()
             ->from('agreement')
             ->where('tenant_id', '=', $tenant_id);
@@ -1004,7 +1040,9 @@ $app->delete('/emptyTenant',function()use($app){
                 ->where('scheduling_id', '=', $data1[$i]['scheduling_id']);
             $affectedRows = $deleteStatement->execute();
         }
-
+        $deleteStatement = $database->delete()
+            ->from('pickup');
+        $affectedRows = $deleteStatement->execute();
         $deleteStatement = $database->delete()
             ->from('schedule_order')
             ->where('tenant_id', '=', $tenant_id);
