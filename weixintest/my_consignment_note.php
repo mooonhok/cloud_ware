@@ -127,7 +127,7 @@ $signPackage = $jssdk->GetSignPackage();
 				}),
 				success: function(msg) {
 				if(msg.result == 0) {
-						window.location.href = "http://api.uminfor.cn/weixin/test.html?tenant_id="+tenant_id+"&page=5";
+						window.location.href = "http://api.uminfor.cn/weixintest/test.html?tenant_id="+tenant_id+"&page=5";
 					}
 				},
 				error: function(xhr) {
@@ -236,7 +236,7 @@ $signPackage = $jssdk->GetSignPackage();
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
 //					     window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
                         if(sendid!='暂无'){
-                            window.location.href = "http://api.uminfor.cn/weixin/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
+                            window.location.href = "http://api.uminfor.cn/weixintest/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
                         }
 					});
 					}
@@ -290,7 +290,7 @@ $signPackage = $jssdk->GetSignPackage();
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
                         if(sendid!='暂无'){
-                            window.location.href = "http://api.uminfor.cn/weixin/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
+                            window.location.href = "http://api.uminfor.cn/weixintest/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
                         }
 //					   window.location.href = "http://api.uminfo.cn/weixin/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
 					});
@@ -339,7 +339,7 @@ $signPackage = $jssdk->GetSignPackage();
 					$(".yundan").click(function() {
 						var sendid = $(this).children().eq(0).children().eq(0).children().eq(0).text();
 						if(sendid!='暂无'){
-                            window.location.href = "http://api.uminfor.cn/weixin/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
+                            window.location.href = "http://api.uminfor.cn/weixintest/waybill_details.html?order_id="+sendid+"&tenant_id="+tenant_id;
                         }
 					});
 			},
@@ -369,7 +369,7 @@ $signPackage = $jssdk->GetSignPackage();
           a=res.resultStr.split(",");
           alert(a[1]);
           if(a[1]!=null){
-              window.location.href="http://api.uminfor.cn/weixin/waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
+              window.location.href="http://api.uminfor.cn/weixintest/waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
           }else{
               layer.msg("没有扫描到条形码");
           }
