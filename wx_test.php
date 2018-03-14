@@ -41,7 +41,6 @@ $app->get('/sontenants',function()use($app){
     if($data1['business_l']!=null||$data1['business_l']!=""){
         $selectStatement = $database->select()
             ->from('tenant')
-            ->where('tenant_id','!=',$tenant_id)
             ->where('business_l','=',$data1['business_l']);
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetchAll();
