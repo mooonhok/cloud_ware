@@ -14,8 +14,8 @@ if ($_COOKIE['openid'.$tenant_id] == null) {
       //  $appid = 'wx81d659de6151801e';
         $redirect_uri = urlencode('http://api.uminfor.cn/weixintest/menu.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret.'&page='.$page);
         $scope = 'snsapi_base';
-//      $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
-         $url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$secret&code=code&grant_type=authorization_code";
+      $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+//       $url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$secret&code=code&grant_type=authorization_code";
         header('Location:' . $url);
     } else {
        // $appid = "wx81d659de6151801e";

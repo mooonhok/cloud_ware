@@ -356,7 +356,6 @@
 						success:function(msg){
 							$("#alert-content").text(msg.desc+"！");$('#alert').modal();
 							salesman();
-							console.log(id);
 							$.ajax({
 								url:url_test+"sales.php/alterSaleTenant",
 								dataType:'json',
@@ -370,7 +369,6 @@
 									email:email
 								}),
 								success:function(msg){
-									console.log(msg);
 								},
 								error:function(xhr){
 									$("#alert-content").text("获取后台失败！");$('#alert').modal();
