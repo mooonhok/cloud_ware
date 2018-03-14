@@ -946,7 +946,7 @@ $app->delete('/emptyTenant',function()use($app){
         if($data2[2]!=null){
             $deleteStatement = $database->delete()
                 ->from('customer')
-                ->where('id','>',$data[2]['id'])
+                ->where('id','>',$data2[2]['id'])
                 ->where('tenant_id', '=', $tenant_id);
             $affectedRows = $deleteStatement->execute();
         }
