@@ -12,7 +12,7 @@ $secret=substr($arr[3],0,32);
 if ($_COOKIE['openid'.$tenant_id] == null) {
     if (!isset($_GET['code'])) {
       //  $appid = 'wx81d659de6151801e';
-        $redirect_uri = urlencode('http://api.uminfor.cn/weixin/menu.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret.'&page='.$page);
+        $redirect_uri = urlencode('http://api.uminfor.cn/weixintest/menu.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret.'&page='.$page);
         $scope = 'snsapi_base';
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
         header('Location:' . $url);
@@ -32,36 +32,36 @@ if ($_COOKIE['openid'.$tenant_id] == null) {
         // echo $json_obj['openid'];
         setcookie('openid'.$tenant_id, $json_obj['openid']);
         if ($page==7){
-            header('location:http://api.uminfor.cn/weixin/build.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/build.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==6){
-            header('location:http://api.uminfor.cn/weixin/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==5){
-            header('location:http://api.uminfor.cn/weixin/register.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/register.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==4){
-            header('location:http://api.uminfor.cn/weixin/c_tenant.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/c_tenant.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
        }else if($page==3){
-            header('location:http://api.uminfor.cn/weixin/c_name.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/c_name.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==2){
-           header('location:http://api.uminfor.cn/weixin/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+           header('location:http://api.uminfor.cn/weixintest/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==1){
-            header('location:http://api.uminfor.cn/weixin/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }
     }
 }else{
         if ($page==7){
-            header('location:http://api.uminfo.cn/weixin/build.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/build.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==6){
-            header('location:http://api.uminfo.cn/weixin/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==5){
-            header('location:http://api.uminfo.cn/weixin/register.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/register.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==4){
-            header('location:http://api.uminfo.cn/weixin/c_tenant.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/c_tenant.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
        }else if($page==3){
-            header('location:http://api.uminfo.cn/weixin/c_name.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/c_name.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==2){
-           header('location:http://api.uminfo.cn/weixin/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+           header('location:http://api.uminfor.cn/weixintest/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==1){
-            header('location:http://api.uminfo.cn/weixin/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }
 }
 
