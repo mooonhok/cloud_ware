@@ -1041,9 +1041,6 @@ $app->delete('/emptyTenant',function()use($app){
             $affectedRows = $deleteStatement->execute();
         }
         $deleteStatement = $database->delete()
-            ->from('pickup');
-        $affectedRows = $deleteStatement->execute();
-        $deleteStatement = $database->delete()
             ->from('schedule_order')
             ->where('tenant_id', '=', $tenant_id);
         $affectedRows = $deleteStatement->execute();
