@@ -182,7 +182,7 @@ $signPackage = $jssdk->GetSignPackage();
 				       layer.msg("订单不存在");
 					}else{
 					// alert(order_id);
-		            window.location.href="http://api.uminfor.cn/weixin/waybill_details.html?order_id="+order_id+"&tenant_id="+tenant_id;
+		            window.location.href="http://api.uminfor.cn/weixintest/waybill_details.html?order_id="+order_id+"&tenant_id="+tenant_id;
 					}
 				},
 				error: function(xhr) {
@@ -212,7 +212,7 @@ $signPackage = $jssdk->GetSignPackage();
 				}),
 				success: function(msg) {
 					if(msg.result == 0) {
-						 window.location.href = "http://api.uminfor.cn/weixin/test.html?tenant_id="+tenant_id+"&page=5";
+						 window.location.href = "http://api.uminfor.cn/weixintest/test.html?tenant_id="+tenant_id+"&page=5";
 					}
 				},
 				error: function(xhr) {
@@ -266,7 +266,7 @@ $signPackage = $jssdk->GetSignPackage();
 					if(msg.result == 1) {
 				     layer.msg("订单不存在");
 					}else{
-		            window.location.href="http://api.uminfor.cn/weixin/waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
+		            window.location.href="http://api.uminfor.cn/weixintest/waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
 					}
 				},
 				error: function(xhr) {

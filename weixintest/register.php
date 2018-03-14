@@ -198,7 +198,7 @@ $signPackage = $jssdk->GetSignPackage();
 										success: function(msg) {
 											layer.msg("用户注册成功");
 											$("#submit").removeAttr('onclick');
-												window.location.href = "http://api.uminfor.cn/weixin/test.html?tenant_id="+tenant_id+"&page=1";
+												window.location.href = "http://api.uminfor.cn/weixintest/test.html?tenant_id="+tenant_id+"&page=1";
 										},
 										error: function(xhr) {
 											alert("获取后台失败！");
