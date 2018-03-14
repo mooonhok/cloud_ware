@@ -655,11 +655,22 @@ $app->post('/addsales',function()use($app){
                                        }else if($data5['team_id']>9&&$data5['team_id']<100){
                                          $sales_id='MT0'.$data5['team_id'];
                                        }
-                                       $selectStatement = $database->select()
-                                           ->from('sales')
-                                           ->where('team_id','=',$data5['team_id']);
-                                       $stmt = $selectStatement->execute();
-                                       $data6 = $stmt->fetchAll();
+                                       $data6=array();
+                                       if($data5['team_id']==null){
+                                           $selectStatement = $database->select()
+                                               ->from('sales')
+                                               ->where('team_id','=',null);
+                                           $stmt = $selectStatement->execute();
+                                           $data6 = $stmt->fetchAll();
+                                       }else{
+                                           $selectStatement = $database->select()
+                                               ->from('sales')
+                                               ->where('team_id','=',$data5['team_id']);
+                                           $stmt = $selectStatement->execute();
+                                           $data6 = $stmt->fetchAll();
+                                       }
+
+
                                        $num2=count($data6)+1;
                                        if(count($data6)<10){
                                            $sales_id.='000'.$num2.'';
