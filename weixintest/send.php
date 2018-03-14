@@ -99,7 +99,7 @@ $signPackage = $jssdk->GetSignPackage();
 			    	$("#center"+i).on("click",function(){
 			    		var a=$(this).attr('id').substring(6);
 			    		$.cookie("openid"+msg.tenants[a].tenant_id,openid);
-			    		window.location.href="http://api.uminfor.cn/weixin/sendtwo.php?tenant_id="+msg.tenants[a].tenant_id+'&appid='+appid+'&secret='+secret+'&tenantname='+msg.tenants[a].jcompany;
+			    		window.location.href="http://api.uminfor.cn/weixintest/sendtwo.php?tenant_id="+msg.tenants[a].tenant_id+'&appid='+appid+'&secret='+secret+'&tenantname='+msg.tenants[a].jcompany;
 			    	});
 			    }
 			},
