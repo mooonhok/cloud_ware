@@ -943,13 +943,13 @@ $app->delete('/emptyTenant',function()use($app){
             ->orderBy('id','DESC');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        if($data[2]!=null){
-            $deleteStatement = $database->delete()
-                ->from('customer')
-                ->where('id','>',$data[2]['id'])
-                ->where('tenant_id', '=', $tenant_id);
-            $affectedRows = $deleteStatement->execute();
-        }
+//        if($data[2]!=null){
+//            $deleteStatement = $database->delete()
+//                ->from('customer')
+//                ->where('id','>',$data[2]['id'])
+//                ->where('tenant_id', '=', $tenant_id);
+//            $affectedRows = $deleteStatement->execute();
+//        }
         $updateStatement = $database->update(array('type'=>1,'times'=>1))
             ->table('customer')
             ->where('tenant_id', '=', $tenant_id)
@@ -983,7 +983,7 @@ $app->delete('/emptyTenant',function()use($app){
             ->where('tenant_id','=',$tenant_id)
             ->orderBy('id','DESC');
         $stmt = $selectStatement->execute();
-        $data = $stmt->fetchAll();
+        $data2 = $stmt->fetchAll();
         if($data!=null){
             $deleteStatement = $database->delete()
                 ->from('goods')
@@ -1047,7 +1047,7 @@ $app->delete('/emptyTenant',function()use($app){
             ->from('schedule_order')
             ->where('tenant_id', '=', $tenant_id);
         $affectedRows = $deleteStatement->execute();
-        echo json_encode(array("result"=>"0",'desc'=>'success'));
+        echo json_encode(array("result"=>"0",'desc'=>'success','cur'=>$data2[2]['id']));
     }else{
         echo json_encode(array("result"=>"4",'desc'=>'缺少租户id'));
     }
