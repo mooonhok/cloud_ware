@@ -957,7 +957,7 @@ $app->post('/addSaleTenant',function()use($app) {
                                                     ->values(array($company,$from_city_id,$num,0,$business_l,$business_l_p
                                                     ,$sales_id,$address,$order_t_p, $trans_c_p
                                                     ,$service_items,$c_introduction,
-                                                        $begin_time,$qq,$email,0,$tenant_id,$tenant_id,$longitude,$latitude,$jcompany,$ad_img1,$ad_img2,$ad_img3,$ad_img4,$ad_img5,$ad_img6,$ad_img7,$order_img));
+                                                        $begin_time,$qq,$email,0,$tenant_num,$tenant_id,$longitude,$latitude,$jcompany,$ad_img1,$ad_img2,$ad_img3,$ad_img4,$ad_img5,$ad_img6,$ad_img7,$order_img));
                                                 $insertId = $insertStatement->execute(false);
 
                                                 if($insertId!=""||$insertId!=null){
