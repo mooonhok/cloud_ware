@@ -683,7 +683,7 @@ $app->post('/addsales',function()use($app){
                                        $stmt = $selectStatement->execute();
                                        $data10 = $stmt->fetch();
                                        $arrays['id']=$data10['id'];
-                                       echo json_encode(array('result' => '0', 'desc' => '添加成功','sales'=>$arrays));
+                                       echo json_encode(array('result' => '0', 'desc' => '添加成功','sales'=>$arrays,'data'=>$data6));
                                    }else{
                                        echo json_encode(array('result' => '8', 'desc' => '上一级不能为空','sales'=>''));
                                    }
