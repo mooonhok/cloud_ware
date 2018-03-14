@@ -940,16 +940,16 @@ $app->delete('/emptyTenant',function()use($app){
         $selectStatement = $database->select()
             ->from('customer')
             ->where('tenant_id','=',$tenant_id)
-            ->orderBy('id','DESC');
+            ->orderBy('id');
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetchAll();
-//        if($data[2]!=null){
-//            $deleteStatement = $database->delete()
-//                ->from('customer')
-//                ->where('id','>',$data[2]['id'])
-//                ->where('tenant_id', '=', $tenant_id);
-//            $affectedRows = $deleteStatement->execute();
-//        }
+        if($data2[2]!=null){
+            $deleteStatement = $database->delete()
+                ->from('customer')
+                ->where('id','>',$data[2]['id'])
+                ->where('tenant_id', '=', $tenant_id);
+            $affectedRows = $deleteStatement->execute();
+        }
         $updateStatement = $database->update(array('type'=>1,'times'=>1))
             ->table('customer')
             ->where('tenant_id', '=', $tenant_id)
