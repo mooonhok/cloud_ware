@@ -1057,7 +1057,7 @@ $app->delete('/emptyTenant',function()use($app){
             ->where('lorry_id','!=','100000001')
             ->where('tenant_id', '=', $tenant_id);
         $affectedRows = $deleteStatement->execute();
-        echo json_encode(array("result"=>"0",'desc'=>'success','cur'=>$data2[2]['id']));
+        echo json_encode(array("result"=>"0",'desc'=>'success'));
     }else{
         echo json_encode(array("result"=>"4",'desc'=>'缺少租户id'));
     }
