@@ -659,7 +659,7 @@ $app->post('/addsales',function()use($app){
                                        if($data5['team_id']==null){
                                            $selectStatement = $database->select()
                                                ->from('sales')
-                                               ->where('team_id','=',null);
+                                               ->whereNull('team_id');
                                            $stmt = $selectStatement->execute();
                                            $data6 = $stmt->fetchAll();
                                        }else{
