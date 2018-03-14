@@ -1047,6 +1047,16 @@ $app->delete('/emptyTenant',function()use($app){
             ->from('schedule_order')
             ->where('tenant_id', '=', $tenant_id);
         $affectedRows = $deleteStatement->execute();
+        $updateStatement = $database->update(array('exist'=>'0'))
+            ->table('lorry')
+            ->where('tenant_id', '=', $tenant_id)
+            ->where('lorry_id','=','100000001');
+        $affectedRows = $updateStatement->execute();
+        $deleteStatement = $database->delete()
+            ->from('lorry')
+            ->where('lorry_id','!=','100000001')
+            ->where('tenant_id', '=', $tenant_id);
+        $affectedRows = $deleteStatement->execute();
         echo json_encode(array("result"=>"0",'desc'=>'success','cur'=>$data2[2]['id']));
     }else{
         echo json_encode(array("result"=>"4",'desc'=>'缺少租户id'));
