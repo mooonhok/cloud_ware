@@ -963,7 +963,7 @@ $app->delete('/emptyTenant',function()use($app){
         $selectStatement = $database->select()
             ->from('orders')
             ->where('tenant_id','=',$tenant_id)
-            ->orderBy('id','DESC');
+            ->orderBy('id');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         if($data!=null){
@@ -981,7 +981,7 @@ $app->delete('/emptyTenant',function()use($app){
         $selectStatement = $database->select()
             ->from('goods')
             ->where('tenant_id','=',$tenant_id)
-            ->orderBy('id','DESC');
+            ->orderBy('id');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         if($data!=null){
