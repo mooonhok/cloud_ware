@@ -244,12 +244,40 @@ $app->post('/addRecord',function()use($app){
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少tenantid"));
     }
-
-
-
 });
 
+$app->get('/getRecords1',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $id=$app->request->get('admin_id');
+    $tenant_id=$app->request->get('tenant_id');
+    $selectStatement = $database->select()
+        ->from('lisence_record')
+        ->where('tenant_id','=',$tenant_id)
+        ->where('admin_id','=',$id);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    echo json_encode(array("result" => "0", "desc" => "","lisence_record"=>$data));
+});
 
+$app->get('/limitRecords1',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $id=$app->request->get('admin_id');
+    $tenant_id=$app->request->get('tenant_id');
+    $size= $app->request->get('size');
+    $offset= $app->request->get('offset');
+    $selectStatement = $database->select()
+        ->from('lisence_record')
+        ->where('tenant_id','=',$tenant_id)
+        ->where('admin_id','=',$id)
+        ->limit((int)$size,(int)$offset);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    echo json_encode(array("result" => "0", "desc" => "","lisence_record"=>$data));
+});
 
 
 $app->run();
