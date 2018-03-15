@@ -664,7 +664,7 @@ $app->post('/tenant',function()use($app) {
                                     if($data5==null) {
                                         $selectStatement = $database->select()
                                             ->from('sales')
-                                            ->where('sales_id','=',$sales_id)
+                                            ->where('id','=',$sales_id)
                                             ->where('exist',"=",0);
                                         $stmt = $selectStatement->execute();
                                         $data1 = $stmt->fetch();
