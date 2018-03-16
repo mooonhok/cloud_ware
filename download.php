@@ -38,8 +38,6 @@ $app->post('/addRecord',function()use($app){
     if($sales_id!=null||$sales_id!=""){
         if($type!=null||$type!=""){
             if($time!=null||$time!=""){
-                if($ip!=null||$ip!=""){
-                    if($area!=null||$area!=""){
                         $selectStatement = $database->select()
                             ->from('download_record');
                         $stmt = $selectStatement->execute();
@@ -49,12 +47,7 @@ $app->post('/addRecord',function()use($app){
                             ->values(array(count($data)+1,$sales_id,$type,$time,$ip,$area));
                         $insertId = $insertStatement->execute(false);
                         echo json_encode(array("result" => "0", "desc" => "添加成功"));
-                    }else{
-                        echo json_encode(array("result" => "5", "desc" => "缺少所属地区"));
-                    }
-                }else{
-                    echo json_encode(array("result" => "4", "desc" => "缺少ip"));
-                }
+
             }else{
                 echo json_encode(array("result" => "3", "desc" => "缺少时间"));
             }
