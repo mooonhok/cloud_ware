@@ -78,6 +78,20 @@
 		</ol>
 		<div id="container"></div>
 	</div>
+	<div class="modal fade" id="alert" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="alert-title" aria-hidden="true">
+		<div class="modal-dialog modal-small">
+			<div class="modal-content">
+				<div class="modal-header">
+					<a class="close" href="#" role="button" data-dismiss="modal" aria-hidden="true">&times;</a>
+					<h4 class="modal-title" id="alert-title">提示</h4>
+				</div>
+				<div class="modal-body"><span id="alert-content"></span></div>
+				<div class="modal-footer">
+					<a class="btn btn-success" href="#" role="button" data-dismiss="modal">知道了</a>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div id="footer">
         江苏酉铭信息科技有限公司 &nbsp; Copyright &copy; 2017-2018 JiangSu Unitary All Rights Reserved. <a href="http://www.miitbeian.gov.cn" target="_blank">苏ICP备17054068号</a>
     </div>
@@ -139,12 +153,12 @@
 								data:[msg.count[0],msg.count[1],msg.count[2],msg.count[3],msg.count[4],msg.count[5],msg.count[6],msg.count[7],msg.count[8],msg.count[9],msg.count[10],msg.count[11]]
 							}]
 						});
-					} else{
-						alert(msg.desc);
+					}else{
+						$("#alert-content").text("您还未有业务数据！");$('#alert').modal();
 					}
 				},
 				error:function(xhr){
-					alert("获取后台失败"+xhr.responseText);
+					$("#alert-content").text("获取后台失败！");$('#alert').modal();
 				}
 			});
 		}

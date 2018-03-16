@@ -433,7 +433,7 @@
 											$("#alert-content").text(msg.desc+"！");$('#alert').modal();
 										}
 									},
-									error: function(xhr) {
+									error:function(xhr) {
 										$("#alert-content").text("获取后台失败！");$('#alert').modal();
 									}
 								});
@@ -441,7 +441,7 @@
 								$("#alert-content").text(msg.desc+"！");$('#alert').modal();
 							}
 						},
-						error: function(xhr) {
+						error:function(xhr) {
 							$("#alert-content").text("获取后台失败！");$('#alert').modal();
 						}
 					});

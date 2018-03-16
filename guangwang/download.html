@@ -55,7 +55,7 @@
 					</div>
 				</li>
 				<li>
-					<a class="active-menu" href="statistics.html"><i class="glyphicon glyphicon-signal"></i>业务统计</a>
+					<a href="statistics.html"><i class="glyphicon glyphicon-signal"></i>业务统计</a>
 				</li>
 				<li>
 					<a href="info.html"><i class="glyphicon glyphicon-flag"></i>个人资料</a>
@@ -83,7 +83,7 @@
 					</ul>
 				</li>
 				<li>
-					<a href="download.html"><i class="glyphicon glyphicon-download-alt"></i>下载专区</a>
+					<a class="active-menu" href="download.html"><i class="glyphicon glyphicon-download-alt"></i>下载专区</a>
 				</li>
 				<li>
 					<a href="#" onclick="logout()"><i class="glyphicon glyphicon-log-out"></i>退出登录</a>
@@ -124,6 +124,7 @@
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/jquery.metisMenu.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
+	<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>  
 	<script>
 		var url="http://api.uminfo.cn/";
 		<!-- var link="http://www.uminfo.cn/"; -->
@@ -147,7 +148,13 @@
 						tbody+="<td><span class='bold'>"+msg.downloads[i].name+"</span></td>";
 						tbody+="<td>"+msg.downloads[i].size+"MB</td>";
 						tbody+="<td>"+msg.downloads[i].time+"发布</td>";
-						tbody+="<td><a class='download' href='"+msg.downloads[i].url+"'>下载</a></td>";
+						if(msg.downloads[i].name=="物牛管理系统"){
+							tbody+="<td><a class='download' href='"+msg.downloads[i].url+"' onclick='down(0)'>下载</a></td>";
+						}else if(msg.downloads[i].name=="物牛管理系统（演示版）"){
+							tbody+="<td><a class='download' href='"+msg.downloads[i].url+"' onclick='down(1)'>下载</a></td>";
+						}else{
+							tbody+="<td><a class='download' href='"+msg.downloads[i].url+"'>下载</a></td>";
+						}
 						tbody+="</tr>";
 					}
 					$("tbody").append(tbody);
@@ -157,6 +164,52 @@
 				}
 			});
 		});
+		
+		function down(type){
+			date();
+			$.ajax({
+				url:url+"download.php/addRecord",
+				dataType:'json',
+				type:'post',
+				ContentType:"application/hson;charset=utf-8",
+				data:JSON.stringify({
+					sales_id:sessionStorage.getItem('id'),
+					type:type,
+					time:time,
+					ip:returnCitySN["cip"],
+					area:returnCitySN["cname"]
+				}),
+				success:function(msg){
+				},
+				error:function(xhr){
+					$("#alert-content").text("获取后台失败！");$('#alert').modal();
+				}
+			});
+		}
+		
+		var time="";
+		function date(){
+			var date=new Date();
+			var seperator1="-";
+			var seperator2=":";
+			var month=date.getMonth()+1;
+			var strDate=date.getDate();
+			var hour=date.getHours();
+			var minute=date.getMinutes();
+			var second=date.getSeconds();
+			if (month>=1&&month<=9){
+				month="0"+month;
+			}if (strDate>=0&&strDate<=9){
+				strDate="0"+strDate;
+			}if (hour>=0&&hour<=9){
+				hour="0"+hour;
+			}if (minute>=0&&minute<=9){
+				minute="0"+minute;
+			}if (second>=0&&second<=9){
+				second="0"+second;
+			}
+			time=date.getFullYear()+seperator1+month+seperator1+strDate+" "+hour+seperator2+minute+seperator2+second;
+		}
 	</script>
 </body>
 </html>
