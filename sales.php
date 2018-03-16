@@ -26,7 +26,7 @@ $app->get('/usersign',function ()use($app){
         $selectStaement=$database->select()
             ->from('sales')
             ->where('exist','=',0)
-            ->where('sales_id','=',$username);
+            ->where('telephone','=',$username);
         $stmt=$selectStaement->execute();
         $data=$stmt->fetch();
          if ($data!=null){
@@ -34,7 +34,7 @@ $app->get('/usersign',function ()use($app){
                  ->from('sales')
                  ->where('password','=',$password)
                  ->where('exist','=',0)
-                 ->where('sales_id','=',$username);
+                 ->where('telephone','=',$username);
              $stmt=$selectStaement->execute();
              $data2=$stmt->fetch();
              if($data2!=null){
