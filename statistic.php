@@ -730,49 +730,53 @@ $app->get('/getStatistic6',function()use($app){
     if($tenant_id!=null||$tenant_id!=""){
         if($customer_id!=null||$customer_id!=""){
             if($pay_method!=null||$pay_method!=""){
-            $selectStatement = $database->select()
-                ->from('orders')
-                ->where('sender_id','=',$customer_id)
-                ->where('tenant_id','=',$tenant_id)
-                ->where('pay_method','=',$pay_method)
-                ->where('order_status','>',0)
-                ->where('order_status','!=',6)
-                ->orderBy('order_id');
-            $stmt = $selectStatement->execute();
-            $data = $stmt->fetchAll();
-            for($x=0;$x<count($data);$x++){
-                $selectStatement = $database->select()
-                    ->from('goods')
-                    ->where('order_id','=',$data[$x]['order_id'])
-                    ->where('tenant_id','=',$tenant_id);
-                $stmt = $selectStatement->execute();
-                $data2 = $stmt->fetch();
-                $data[$x]['goods']=$data2;
-                $selectStatement = $database->select()
-                    ->from('customer')
-                    ->where('customer_id','=',$data[$x]['sender_id'])
-                    ->where('tenant_id','=',$tenant_id);
-                $stmt = $selectStatement->execute();
-                $data3 = $stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id','=',$data3['customer_city_id']);
-                $stmt = $selectStatement->execute();
-                $data4 = $stmt->fetch();
-                $data[$x]['fcity']=$data4['name'];
-                $selectStatement = $database->select()
-                    ->from('customer')
-                    ->where('customer_id','=',$data[$x]['receiver_id'])
-                    ->where('tenant_id','=',$tenant_id);
-                $stmt = $selectStatement->execute();
-                $data5 = $stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id','=',$data5['customer_city_id']);
-                $stmt = $selectStatement->execute();
-                $data7 = $stmt->fetch();
-                $data[$x]['tcity']=$data7['name'];
-            }
+                $length=str_split((int)$pay_method,1);
+                for($i=0;$i<count($length);$i++) {
+//                    echo $length[$i];
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('sender_id', '=', $customer_id)
+                        ->where('tenant_id', '=', $tenant_id)
+                        ->where('pay_method', '=', $length[$i])
+                        ->where('order_status', '>', 0)
+                        ->where('order_status', '!=', 6)
+                        ->orderBy('order_id');
+                    $stmt = $selectStatement->execute();
+                    $data = $stmt->fetchAll();
+                    for ($x = 0; $x < count($data); $x++) {
+                        $selectStatement = $database->select()
+                            ->from('goods')
+                            ->where('order_id', '=', $data[$x]['order_id'])
+                            ->where('tenant_id', '=', $tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data2 = $stmt->fetch();
+                        $data[$x]['goods'] = $data2;
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id', '=', $data[$x]['sender_id'])
+                            ->where('tenant_id', '=', $tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data3 = $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data3['customer_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data4 = $stmt->fetch();
+                        $data[$x]['fcity'] = $data4['name'];
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id', '=', $data[$x]['receiver_id'])
+                            ->where('tenant_id', '=', $tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data5 = $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data5['customer_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data7 = $stmt->fetch();
+                        $data[$x]['tcity'] = $data7['name'];
+                    }
+                }
             echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$data));
             }else{
                 echo  json_encode(array("result"=>"2","desc"=>"缺少付款方式"));
@@ -799,7 +803,7 @@ $app->get('/getStatistic7',function()use($app){
     $time3=date("Y-m-d H:i:s",strtotime($time2)+86401);
     if($tenant_id!=null||$tenant_id!=""){
         if($customer_id!=null||$customer_id!=""){
-            if($pay_method!=null||$pay_method!="") {
+            if($pay_method!=null||$pay_method!=""){
                 $selectStatement = $database->select()
                     ->from('orders')
                     ->where('sender_id', '=', $customer_id)
