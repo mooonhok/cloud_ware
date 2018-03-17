@@ -778,7 +778,7 @@ $app->get('/getStatistic6',function()use($app){
                         $data[$x]['tcity'] = $data7['name'];
                     }
                 }
-            echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$data,'pay'=>$length[2]));
+            echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$data));
             }else{
                 echo  json_encode(array("result"=>"2","desc"=>"缺少付款方式"));
             }
