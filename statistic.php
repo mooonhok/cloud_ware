@@ -777,7 +777,9 @@ $app->get('/getStatistic6',function()use($app){
                         $data7 = $stmt->fetch();
                         $data[$x]['tcity'] = $data7['name'];
                     }
+                    if($data!=null){
                     array_push($arrays1,$data);
+                    }
                 }
             echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$arrays1));
             }else{
@@ -855,7 +857,9 @@ $app->get('/getStatistic7',function()use($app){
                     $data7 = $stmt->fetch();
                     $data[$x]['tcity'] = $data7['name'];
                 }
-                    array_push($arrays1,$data);
+                    if($data!=null){
+                        array_push($arrays1,$data);
+                    }
                 }
                 echo json_encode(array("result" => "0", "desc" => "success", "orders" => $arrays1));
             }else{
