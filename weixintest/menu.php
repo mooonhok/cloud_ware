@@ -32,36 +32,36 @@ if ($_COOKIE['openid'.$tenant_id] == null) {
         // echo $json_obj['openid'];
         setcookie('openid'.$tenant_id, $json_obj['openid']);
          if ($page==7){
-            header('location:https://api.uminfor.cn/weixintest/build.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/build.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==6){
-            header('location:https://api.uminfor.cn/weixintest/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==5){
-            header('location:https://api.uminfor.cn/weixintest/register.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/register.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==4){
-            header('location:https://api.uminfor.cn/weixintest/c_tenant.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/c_tenant.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
        }else if($page==3){
-            header('location:https://api.uminfor.cn/weixintest/c_name.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/c_name.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==2){
-           header('location:https://api.uminfor.cn/weixintest/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+           header('location:http://api.uminfor.cn/weixintest/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==1){
-            header('location:https://api.uminfor.cn/weixintest/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }
     }
 }else{
         if ($page==7){
-            header('location:https://api.uminfor.cn/weixintest/build.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/build.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==6){
-            header('location:https://api.uminfor.cn/weixintest/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==5){
             header('location:http://api.uminfor.cn/weixintest/register.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==4){
-            header('location:https://api.uminfor.cn/weixintest/c_tenant.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/c_tenant.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
        }else if($page==3){
-            header('location:https://api.uminfor.cn/weixintest/c_name.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/c_name.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==2){
-           header('location:https://api.uminfor.cn/weixintest/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+           header('location:http://api.uminfor.cn/weixintest/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==1){
-            header('location:https://api.uminfor.cn/weixintest/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:http://api.uminfor.cn/weixintest/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }
 }
 
