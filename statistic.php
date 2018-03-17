@@ -730,8 +730,7 @@ $app->get('/getStatistic6',function()use($app){
     if($tenant_id!=null||$tenant_id!=""){
         if($customer_id!=null||$customer_id!=""){
             if($pay_method!=null||$pay_method!=""){
-                $a=(int)$pay_method;
-                $length=str_split($a,1);
+                $length=str_split($pay_method,1);
                 for($i=0;$i<count($length);$i++) {
 //                    echo $length[$i];
                     $selectStatement = $database->select()
