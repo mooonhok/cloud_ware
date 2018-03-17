@@ -32,7 +32,7 @@ if ($_COOKIE['openid'.$tenant_id] == null) {
         // echo $json_obj['openid'];
         setcookie('openid'.$tenant_id, $json_obj['openid']);
          if ($page==7){
-            header('location:https://api.uminfor.cn/weixintest/sguangao.html?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:https://api.uminfor.cn/weixintest/build.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==6){
             header('location:https://api.uminfor.cn/weixintest/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==5){
@@ -49,7 +49,7 @@ if ($_COOKIE['openid'.$tenant_id] == null) {
     }
 }else{
         if ($page==7){
-            header('location:https://api.uminfor.cn/weixintest/sguangao.html?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('location:https://api.uminfor.cn/weixintest/build.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==6){
             header('location:https://api.uminfor.cn/weixintest/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==5){
