@@ -737,7 +737,7 @@ $app->get('/getStatistic6',function()use($app){
                         ->from('orders')
                         ->where('sender_id', '=', $customer_id)
                         ->where('tenant_id', '=', $tenant_id)
-                        ->where('pay_method', '=', $length[$i])
+                        ->where('pay_method', '=',$length[$i])
                         ->where('order_status', '>', 0)
                         ->where('order_status', '!=', 6)
                         ->orderBy('order_id');
@@ -777,7 +777,7 @@ $app->get('/getStatistic6',function()use($app){
                         $data[$x]['tcity'] = $data7['name'];
                     }
                 }
-            echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$data));
+            echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$data,'length'=>$length));
             }else{
                 echo  json_encode(array("result"=>"2","desc"=>"缺少付款方式"));
             }
