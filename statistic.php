@@ -727,6 +727,7 @@ $app->get('/getStatistic6',function()use($app){
     $database=localhost();
     $customer_id=$app->request->get('customer_id');
     $pay_method=$app->request->get('pay_method');
+    $arrays1=array();
     if($tenant_id!=null||$tenant_id!=""){
         if($customer_id!=null||$customer_id!=""){
             if($pay_method!=null||$pay_method!=""){
@@ -776,8 +777,9 @@ $app->get('/getStatistic6',function()use($app){
                         $data7 = $stmt->fetch();
                         $data[$x]['tcity'] = $data7['name'];
                     }
+                    array_push($arrays1,$data);
                 }
-            echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$data,'length'=>$length[0],'count'=>count($length)));
+            echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$arrays1));
             }else{
                 echo  json_encode(array("result"=>"2","desc"=>"缺少付款方式"));
             }
@@ -800,10 +802,14 @@ $app->get('/getStatistic7',function()use($app){
     $time1=$app->request->get('begintime');
     $time2=$app->request->get('endtime');
     date_default_timezone_set("PRC");
+    $arrays1=array();
     $time3=date("Y-m-d H:i:s",strtotime($time2)+86401);
     if($tenant_id!=null||$tenant_id!=""){
         if($customer_id!=null||$customer_id!=""){
             if($pay_method!=null||$pay_method!=""){
+                $length=str_split($pay_method,1);
+                for($i=0;$i<count($length);$i++) {
+//                    echo $length[$i];
                 $selectStatement = $database->select()
                     ->from('orders')
                     ->where('sender_id', '=', $customer_id)
@@ -849,7 +855,9 @@ $app->get('/getStatistic7',function()use($app){
                     $data7 = $stmt->fetch();
                     $data[$x]['tcity'] = $data7['name'];
                 }
-                echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
+                    array_push($arrays1,$data);
+                }
+                echo json_encode(array("result" => "0", "desc" => "success", "orders" => $arrays1));
             }else{
                 echo  json_encode(array("result"=>"2","desc"=>"缺少付款方式"));
             }
