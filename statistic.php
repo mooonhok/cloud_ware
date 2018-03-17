@@ -28,7 +28,20 @@ $app->get('/getStatistic0',function()use($app){
                 ->orderBy('order_id');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
+            $num1=0;
+            $num2=0;
+            $num3=0;
+            $num4=0;
             for($x=0;$x<count($data);$x++){
+                if($data[$x]['pay_method']==0){
+                    $num1=$num1+1;
+                }else if($data[$x]['pay_method']==1){
+                    $num2=$num2+1;
+                }else if($data[$x]['pay_method']==2){
+                    $num3=$num3+1;
+                }else if($data[$x]['pay_method']==3){
+                    $num4=$num4+1;
+                }
                 $selectStatement = $database->select()
                     ->from('goods')
                     ->where('order_id','=',$data[$x]['order_id'])
@@ -61,7 +74,7 @@ $app->get('/getStatistic0',function()use($app){
                 $data7 = $stmt->fetch();
                 $data[$x]['tcity']=$data7['name'];
             }
-            echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$data));
+            echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$data,'count1'=>$num1,'count2'=>$num2,'count3'=>$num3,'count4'=>$num4));
         }else{
             echo  json_encode(array("result"=>"1","desc"=>"缺少客户id"));
         }
@@ -94,7 +107,20 @@ $app->get('/getStatistic1',function()use($app){
                 ->orderBy('order_id');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
+            $num1=0;
+            $num2=0;
+            $num3=0;
+            $num4=0;
             for($x=0;$x<count($data);$x++){
+                if($data[$x]['pay_method']==0){
+                    $num1=$num1+1;
+                }else if($data[$x]['pay_method']==1){
+                    $num2=$num2+1;
+                }else if($data[$x]['pay_method']==2){
+                    $num3=$num3+1;
+                }else if($data[$x]['pay_method']==3){
+                    $num4=$num4+1;
+                }
                 $selectStatement = $database->select()
                     ->from('goods')
                     ->where('order_id','=',$data[$x]['order_id'])
@@ -127,7 +153,7 @@ $app->get('/getStatistic1',function()use($app){
                 $data7 = $stmt->fetch();
                 $data[$x]['tcity']=$data7['name'];
             }
-            echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$data));
+            echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$data,'count1'=>$num1,'count2'=>$num2,'count3'=>$num3,'count4'=>$num4));
         }else{
             echo  json_encode(array("result"=>"1","desc"=>"缺少客户id"));
         }
