@@ -738,7 +738,7 @@ $app->get('/getStatistic6',function()use($app){
                         ->from('orders')
                         ->where('sender_id', '=', $customer_id)
                         ->where('tenant_id', '=', $tenant_id)
-                        ->where('pay_method', '=',$length[$i])
+                        ->where('pay_method', '=',(int)$length[$i]-1)
                         ->where('order_status', '>', 0)
                         ->where('order_status', '!=', 6)
                         ->orderBy('order_id');
@@ -817,7 +817,7 @@ $app->get('/getStatistic7',function()use($app){
                     ->where('sender_id', '=', $customer_id)
                     ->where('order_datetime1', '>', $time1)
                     ->where('order_datetime1', '<', $time3)
-                    ->where('pay_method', '=', $pay_method)
+                    ->where('pay_method', '=',(int)$length[$i]-1)
                     ->where('tenant_id', '=', $tenant_id)
                     ->where('order_status', '>', 0)
                     ->where('order_status', '!=', 6)
