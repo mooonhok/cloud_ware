@@ -12,7 +12,6 @@ $signPackage = $jssdk->GetSignPackage();
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<meta name="referrer" content="no-referrer"/>
 		<meta http-equiv="Access-Control-Allow-Origin" content="*">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
