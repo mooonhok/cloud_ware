@@ -778,10 +778,10 @@ $app->get('/getStatistic6',function()use($app){
                         $data[$x]['tcity'] = $data7['name'];
                     }
                     if($data!=null){
-                    array_push($arrays1,$data);
+                     $arrays1=array_merge($arrays1,$data);
                     }
                 }
-            echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$arrays1));
+                echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$arrays1));
             }else{
                 echo  json_encode(array("result"=>"2","desc"=>"缺少付款方式"));
             }
@@ -858,7 +858,7 @@ $app->get('/getStatistic7',function()use($app){
                     $data[$x]['tcity'] = $data7['name'];
                 }
                     if($data!=null){
-                        array_push($arrays1,$data);
+                        $arrays1=array_merge($arrays1,$data);
                     }
                 }
                 echo json_encode(array("result" => "0", "desc" => "success", "orders" => $arrays1));
