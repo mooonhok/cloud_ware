@@ -730,7 +730,8 @@ $app->get('/getStatistic6',function()use($app){
     if($tenant_id!=null||$tenant_id!=""){
         if($customer_id!=null||$customer_id!=""){
             if($pay_method!=null||$pay_method!=""){
-                $length=str_split((int)$pay_method,1);
+                $a=(int)$pay_method;
+                $length=str_split($a,1);
                 for($i=0;$i<count($length);$i++) {
 //                    echo $length[$i];
                     $selectStatement = $database->select()
@@ -777,7 +778,7 @@ $app->get('/getStatistic6',function()use($app){
                         $data[$x]['tcity'] = $data7['name'];
                     }
                 }
-            echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$data));
+            echo  json_encode(array("result"=>"0","desc"=>"success","orders"=>$data,'pay'=>$length[2]));
             }else{
                 echo  json_encode(array("result"=>"2","desc"=>"缺少付款方式"));
             }
