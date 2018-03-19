@@ -83,6 +83,7 @@ $app->get('/getSchedulingOrders0',function()use($app){
             $data[$i]['sender_province']=$data8;
             $data[$i]['receiver_city']=$data7;
             $data[$i]['receiver_province']=$data9;
+
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
     }else{
