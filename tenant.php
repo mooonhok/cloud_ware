@@ -926,7 +926,7 @@ $app->get('/company_name',function()use($app){
     }
 });
 
-$app->delete('/EmptyStaff',function()use($app){
+$app->delete('/emptyStaff',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
@@ -938,7 +938,7 @@ $app->delete('/EmptyStaff',function()use($app){
     $affectedRows = $deleteStatement->execute();
 });
 
-$app->delete('/EmptyCustomer',function()use($app){
+$app->delete('/emptyCustomer',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
@@ -968,7 +968,7 @@ $app->delete('/EmptyCustomer',function()use($app){
     $affectedRows = $updateStatement->execute();
 });
 
-$app->delete('/EmptyOrder',function()use($app){
+$app->delete('/emptyOrder',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
@@ -993,7 +993,7 @@ $app->delete('/EmptyOrder',function()use($app){
     }
 });
 
-$app->delete('/EmptyGoods',function()use($app){
+$app->delete('/emptyGoods',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
@@ -1018,7 +1018,7 @@ $app->delete('/EmptyGoods',function()use($app){
     }
 });
 
-$app->delete('/EmptyAgreement',function()use($app){
+$app->delete('/emptyAgreement',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
@@ -1029,7 +1029,7 @@ $app->delete('/EmptyAgreement',function()use($app){
     $affectedRows = $deleteStatement->execute();
 });
 
-$app->delete('/EmptyAgreementSchedule',function()use($app){
+$app->delete('/emptyAgreementSchedule',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
@@ -1040,7 +1040,7 @@ $app->delete('/EmptyAgreementSchedule',function()use($app){
     $affectedRows = $deleteStatement->execute();
 });
 
-$app->delete('/EmptyException',function()use($app){
+$app->delete('/emptyException',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
@@ -1062,7 +1062,7 @@ $app->delete('/EmptyInsurance',function()use($app){
     $affectedRows = $deleteStatement->execute();
 });
 
-$app->delete('/EmptyInsuranceScheduling',function()use($app){
+$app->delete('/emptyInsuranceScheduling',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
@@ -1084,7 +1084,7 @@ $app->delete('/EmptyInventoryLoc',function()use($app){
     $affectedRows = $deleteStatement->execute();
 });
 
-$app->delete('/EmptyScheduling',function()use($app){
+$app->delete('/emptyScheduling',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
@@ -1106,7 +1106,7 @@ $app->delete('/EmptyScheduling',function()use($app){
     }
 });
 
-$app->delete('/EmptyScheduleOrder',function()use($app){
+$app->delete('/emptyScheduleOrder',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
@@ -1117,7 +1117,7 @@ $app->delete('/EmptyScheduleOrder',function()use($app){
     $affectedRows = $deleteStatement->execute();
 });
 
-$app->delete('/EmptyLorry',function()use($app){
+$app->delete('/emptyLorry',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
