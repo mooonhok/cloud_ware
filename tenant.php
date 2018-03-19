@@ -1051,7 +1051,7 @@ $app->delete('/emptyException',function()use($app){
     $affectedRows = $deleteStatement->execute();
 });
 
-$app->delete('/EmptyInsurance',function()use($app){
+$app->delete('/emptyInsurance',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
@@ -1073,7 +1073,7 @@ $app->delete('/emptyInsuranceScheduling',function()use($app){
     $affectedRows = $deleteStatement->execute();
 });
 
-$app->delete('/EmptyInventoryLoc',function()use($app){
+$app->delete('/emptyInventoryLoc',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
