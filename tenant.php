@@ -936,6 +936,7 @@ $app->delete('/emptyStaff',function()use($app){
         ->where('tenant_id', '=', $tenant_id)
         ->where('staff_id', '!=', 100001);
     $affectedRows = $deleteStatement->execute();
+    echo  json_encode(array("result"=>"0","desc"=>"success"));
 });
 
 $app->delete('/emptyCustomer',function()use($app){
@@ -966,6 +967,8 @@ $app->delete('/emptyCustomer',function()use($app){
         ->where('tenant_id', '=', $tenant_id)
         ->where('customer_id','=',10000000002);
     $affectedRows = $updateStatement->execute();
+
+    echo  json_encode(array("result"=>"0","desc"=>"success"));
 });
 
 $app->delete('/emptyOrder',function()use($app){
@@ -991,6 +994,7 @@ $app->delete('/emptyOrder',function()use($app){
             ->where('id','=',$data[0]['id']);
         $affectedRows = $updateStatement->execute();
     }
+    echo  json_encode(array("result"=>"0","desc"=>"success"));
 });
 
 $app->delete('/emptyGoods',function()use($app){
@@ -1016,6 +1020,7 @@ $app->delete('/emptyGoods',function()use($app){
             ->where('id','=',$data[0]['id']);
         $affectedRows = $updateStatement->execute();
     }
+    echo  json_encode(array("result"=>"0","desc"=>"success"));
 });
 
 $app->delete('/emptyAgreement',function()use($app){
@@ -1027,6 +1032,7 @@ $app->delete('/emptyAgreement',function()use($app){
         ->from('agreement')
         ->where('tenant_id', '=', $tenant_id);
     $affectedRows = $deleteStatement->execute();
+    echo  json_encode(array("result"=>"0","desc"=>"success"));
 });
 
 $app->delete('/emptyAgreementSchedule',function()use($app){
@@ -1038,6 +1044,7 @@ $app->delete('/emptyAgreementSchedule',function()use($app){
         ->from('agreement_schedule')
         ->where('tenant_id', '=', $tenant_id);
     $affectedRows = $deleteStatement->execute();
+    echo  json_encode(array("result"=>"0","desc"=>"success"));
 });
 
 $app->delete('/emptyException',function()use($app){
@@ -1049,6 +1056,7 @@ $app->delete('/emptyException',function()use($app){
         ->from('exception')
         ->where('tenant_id', '=', $tenant_id);
     $affectedRows = $deleteStatement->execute();
+    echo  json_encode(array("result"=>"0","desc"=>"success"));
 });
 
 $app->delete('/emptyInsurance',function()use($app){
@@ -1060,6 +1068,7 @@ $app->delete('/emptyInsurance',function()use($app){
         ->from('insurance')
         ->where('tenant_id', '=', $tenant_id);
     $affectedRows = $deleteStatement->execute();
+    echo  json_encode(array("result"=>"0","desc"=>"success"));
 });
 
 $app->delete('/emptyInsuranceScheduling',function()use($app){
@@ -1071,6 +1080,7 @@ $app->delete('/emptyInsuranceScheduling',function()use($app){
         ->from('insurance_scheduling')
         ->where('tenant_id', '=', $tenant_id);
     $affectedRows = $deleteStatement->execute();
+    echo  json_encode(array("result"=>"0","desc"=>"success"));
 });
 
 $app->delete('/emptyInventoryLoc',function()use($app){
@@ -1082,6 +1092,7 @@ $app->delete('/emptyInventoryLoc',function()use($app){
         ->from('inventory_loc')
         ->where('tenant_id', '=', $tenant_id);
     $affectedRows = $deleteStatement->execute();
+    echo  json_encode(array("result"=>"0","desc"=>"success"));
 });
 
 $app->delete('/emptyScheduling',function()use($app){
@@ -1104,6 +1115,7 @@ $app->delete('/emptyScheduling',function()use($app){
             ->where('scheduling_id', '=', $data1[$i]['scheduling_id']);
         $affectedRows = $deleteStatement->execute();
     }
+    echo  json_encode(array("result"=>"0","desc"=>"success"));
 });
 
 $app->delete('/emptyScheduleOrder',function()use($app){
@@ -1115,6 +1127,7 @@ $app->delete('/emptyScheduleOrder',function()use($app){
         ->from('schedule_order')
         ->where('tenant_id', '=', $tenant_id);
     $affectedRows = $deleteStatement->execute();
+    echo  json_encode(array("result"=>"0","desc"=>"success"));
 });
 
 $app->delete('/emptyLorry',function()use($app){
@@ -1132,6 +1145,7 @@ $app->delete('/emptyLorry',function()use($app){
         ->where('lorry_id','!=','100000001')
         ->where('tenant_id', '=', $tenant_id);
     $affectedRows = $deleteStatement->execute();
+    echo  json_encode(array("result"=>"0","desc"=>"success"));
 });
 
 $app->delete('/emptyTenant',function()use($app){
