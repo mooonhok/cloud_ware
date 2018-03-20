@@ -1,6 +1,12 @@
 $(function() {
 	var adminid = $.session.get('adminid');
-	var page = null;
+    $.getUrlParam = function(name) {
+         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+         var r = window.location.search.substr(1).match(reg);
+         if(r != null) return decodeURI(r[2]);
+          return null;
+       }
+	var page = $.getUrlParam('page');
 $.ajax({
 	url: p_url+"city.php/province",
 	dataType: 'json',
@@ -358,7 +364,9 @@ function  addroute(id){
 			if(msg.result==0){
 				alert("添加成功");
 				$(".tenant_tk2").css("display","none");
-				window.location.reload();
+				$a=(int)(id/10);
+				alert(a);
+				window.location.location=p_url+"background/mini.html?page="+a;
 			}else{
 				alert(msg.desc);
 			}
