@@ -149,9 +149,9 @@ $obj = new GetMac(PHP_OS);
 print_r($obj->result);
 echo $obj->macAddr;
 //获取客户端
-//$result=`arp -a $REMOTE_ADDR`;
-//$result=`nbtstat -a $REMOTE_ADDR`;
-//print_r($result);
+$result=`arp -a $REMOTE_ADDR`;
+$result=`nbtstat -a $REMOTE_ADDR`;
+print_r($result);
 
 
 ?>
