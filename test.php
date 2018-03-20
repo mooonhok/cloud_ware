@@ -91,7 +91,7 @@
 //$mac = new GetMacAddr(PHP_OS);
 //echo $mac->mac_addr; //这里是机器的真实MAC地址，请注释掉
 
- $mac_addr = array();
+ $mac_addr = null;
     switch ($os_type) {
         case 'windows':
             @exec("ipconfig /all", $mac_addr);
