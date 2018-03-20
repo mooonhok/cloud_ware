@@ -888,18 +888,19 @@ $app->post('/addmini',function()use($app){
                             if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
                                 $type = $result[2];
                                 date_default_timezone_set("PRC");
-                                $new_file = "/files/mini/" . date('Ymd', $time1) . "/";
+                                $new_file = "/files/mini/" . date('Ymd',$time1) . "/";
                                 if (!file_exists($new_file)) {
                                   //检查是否有该文件夹，如果没有就创建，并给予最高权限
                                     mkdir($new_file, 0700);
                                 }
                                 $new_file = $new_file . $time1 . ".{$type}";
                                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                                    $lujing1 = $file_url."mini/" . count($data5) . ".{$type}";
+                                    $lujing1= $file_url."mini/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                                 }
                             }
                         }
                         if($pic2!=null){
+                            $time2=(int)$time1+1;
                             $base64_image_content = $pic2;
                             if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
                                 $type = $result[2];
@@ -909,14 +910,15 @@ $app->post('/addmini',function()use($app){
                                     //检查是否有该文件夹，如果没有就创建，并给予最高权限
                                     mkdir($new_file, 0700);
                                 }
-                                $new_file = $new_file .$time1 . ".{$type}";
+                                $new_file = $new_file .$time2 . ".{$type}";
                                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                                    $lujing2 = $file_url."mini/" . count($data5) . "-1.{$type}";
+                                    $lujing2 = $file_url."mini/" . date('Ymd', $time1) . "/" . $time2 . ".{$type}";
                                 }
                             }
                         }
                         if($pic3!=null){
                             $base64_image_content = $pic3;
+                            $time3=(int)$time1+2;
                             if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
                                 $type = $result[2];
                                 date_default_timezone_set("PRC");
@@ -925,14 +927,15 @@ $app->post('/addmini',function()use($app){
                                     //检查是否有该文件夹，如果没有就创建，并给予最高权限
                                     mkdir($new_file, 0700);
                                 }
-                                $new_file = $new_file . $time1 . ".{$type}";
+                                $new_file = $new_file . $time3 . ".{$type}";
                                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                                    $lujing3 = $file_url."mini/" . count($data5) . "-2.{$type}";
+                                    $lujing3 = $file_url."mini/" . date('Ymd', $time1) . "/" . $time3 . ".{$type}";
                                 }
                             }
                         }
                         if($pic4!=null){
                             $base64_image_content = $pic4;
+                            $time4=(int)$time1+3;
                             if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
                                 $type = $result[2];
                                 date_default_timezone_set("PRC");
@@ -941,15 +944,16 @@ $app->post('/addmini',function()use($app){
                                     //检查是否有该文件夹，如果没有就创建，并给予最高权限
                                     mkdir($new_file, 0700);
                                 }
-                                $new_file = $new_file . $time1 . ".{$type}";
+                                $new_file = $new_file . $time4 . ".{$type}";
                                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                                    $lujing4 = $file_url."mini/" . count($data5) . "-3.{$type}";
+                                    $lujing4 = $file_url."mini/" . date('Ymd', $time1) . "/" . $time4 . ".{$type}";
                                 }
                             }
 
                         }
                         if($pic5!=null){
                             $base64_image_content = $pic5;
+                            $time5=(int)$time1+4;
                             if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
                                 $type = $result[2];
                                 date_default_timezone_set("PRC");
@@ -958,14 +962,15 @@ $app->post('/addmini',function()use($app){
                                     //检查是否有该文件夹，如果没有就创建，并给予最高权限
                                     mkdir($new_file, 0700);
                                 }
-                                $new_file = $new_file . $time1 . ".{$type}";
+                                $new_file = $new_file . $time5 . ".{$type}";
                                 if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                                    $lujing5 = $file_url."mini/" . count($data5) . "-4.{$type}";
+                                    $lujing5 =  $file_url."mini/" . date('Ymd', $time1) . "/" . $time5 . ".{$type}";
                                 }
                             }
                         }
                     if($public_img!=null){
                         $base64_image_content = $public_img;
+                        $time6=(int)$time1+5;
                         if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
                             $type = $result[2];
                             date_default_timezone_set("PRC");
@@ -974,9 +979,9 @@ $app->post('/addmini',function()use($app){
                                 //检查是否有该文件夹，如果没有就创建，并给予最高权限
                                 mkdir($new_file, 0700);
                             }
-                            $new_file = $new_file . $time1 . ".{$type}";
+                            $new_file = $new_file . $time6 . ".{$type}";
                             if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                                $lujing6 = $file_url."mini/" . count($data5) . ".{$type}";
+                                $lujing6 =  $file_url."mini/" . date('Ymd', $time1) . "/" . $time6 . ".{$type}";
                             }
                         }
                     }
