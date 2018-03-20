@@ -133,7 +133,7 @@ function loadminis(page) {
 			});
 		},
 		error: function(xhr) {
-			alert("获取后台失败！");
+			alert("获取mini列表失败！");
 		}
 	});
 
@@ -265,7 +265,7 @@ function minishow(id) {
 			}
 		},
 		error: function(xhr) {
-			alert("获取后台失败！");
+			alert("获取公司详细信息后台失败！");
 		}
 	});
 
@@ -311,7 +311,7 @@ function routeshow(id) {
 			}
 		},
 		error: function(xhr) {
-			alert("获取后台失败！");
+			alert("获取所有路线后台失败！");
 		}
 	});
 }
@@ -336,7 +336,7 @@ function  addroute(id){
 			}
 		},
 		error: function(xhr) {
-			alert("获取后台失败！");
+			alert("获取添加公司名称失败！");
 		}
 	});
      
@@ -358,12 +358,13 @@ function  addroute(id){
 			if(msg.result==0){
 				alert("添加成功");
 				$(".tenant_tk2").css("display","none");
+				window.location.reload();
 			}else{
 				alert(msg.desc);
 			}
 		},
 		error: function(xhr) {
-			alert("获取后台失败！");
+			alert("获取添加路线后台失败！");
 		}
 	  });
     });
