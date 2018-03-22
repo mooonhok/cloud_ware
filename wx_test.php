@@ -52,6 +52,12 @@ $app->get('/sontenants',function()use($app){
             $stmt = $selectStatement->execute();
             $data3 = $stmt->fetch();
             $data2[$x]['telephone']=$data3['customer_name'].$data3['customer_phone'];
+            $selectStatement = $database->select()
+                ->from('wxtprice')
+                ->where('tenant_id','=',$data2[$x]['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data4 = $stmt->fetchAll();
+            $data2[$x]['routeprice']=$data4;
         }
         echo json_encode(array('result'=>'0','desc'=>'','tenants'=>$data2));
     }else{
