@@ -43,7 +43,7 @@ $signPackage = $jssdk->GetSignPackage();
 			.picl{
 				width:15%;
 				height:60px;
-				margin-top:40px;
+				margin-top:30px;
 				/*background-color:#24D9C9;*/
 				border-radius: 5px;
 			}
@@ -89,6 +89,7 @@ $signPackage = $jssdk->GetSignPackage();
 			    for(var i=0;i<msg.tenants[j].routeprice.length;i++){
 			    	$("#center").append("<div class='tet'><div class='but' id='center"+j+i+"'>"+msg.tenants[j].jcompany+msg.tenants[j].routeprice[i].routename+"</br>"+msg.tenants[j].telephone+"</br>轻:"+
 			    	msg.tenants[j].routeprice[i].priceone+"  重:"+msg.tenants[j].routeprice[i].pricetwo+"</div><img src='images/lefttwo.png' class='picl'></div>");
+//			    	alert(msg.tenants[i].tenantimg);
                     if(i%3==0){
                         $(".tet").css("background-color","#227e69");
                     }else if(i%3==1){
@@ -96,8 +97,10 @@ $signPackage = $jssdk->GetSignPackage();
                     }else{
                     	$(".tet").css("background-color","#0689b0");
                     }
+			    
 			    	$("#center"+j+i).on("click",function(){
-			    		alert(j);
+			    		var a=$(this).attr('id').substring(6);
+			    		alert($(this).attr('id'));
 			    		$.cookie("openid"+msg.tenants[j].tenant_id,openid);
 			    		window.location.href="http://api.uminfo.cn/weixin/sendtwo.php?tenant_id="+msg.tenants[j].tenant_id+'&appid='+appid+'&secret='+secret+'&tenantname='+msg.tenants[j].jcompany;
 			    	});
