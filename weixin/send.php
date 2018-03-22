@@ -97,10 +97,8 @@ $signPackage = $jssdk->GetSignPackage();
                     }else{
                     	$(".tet").css("background-color","#0689b0");
                     }
-			    
 			    	$("#center"+j+i).on("click",function(){
-			    		var a=$(this).attr('id').substring(6);
-			    		alert(a);
+			    		alert(msg.tenants[j].tenant_id);
 			    		$.cookie("openid"+msg.tenants[j].tenant_id,openid);
 			    		window.location.href="http://api.uminfo.cn/weixin/sendtwo.php?tenant_id="+msg.tenants[j].tenant_id+'&appid='+appid+'&secret='+secret+'&tenantname='+msg.tenants[j].jcompany;
 			    	});
