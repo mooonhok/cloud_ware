@@ -28,7 +28,7 @@ $signPackage = $jssdk->GetSignPackage();
 				margin-left:5%;
 				border-style: line;
 				border-radius: 5px;
-				background-color: #006666;
+				background-color: #3333FF;
 			}
 			.but{
 				width:75%;
@@ -37,7 +37,7 @@ $signPackage = $jssdk->GetSignPackage();
 				height:80px;
 				line-height:40px;
 				/*background-color:#24D9C9;*/
-				color: white;
+				color: #FFFF33;
 				border-radius: 5px;
 				float:left;
 			}
