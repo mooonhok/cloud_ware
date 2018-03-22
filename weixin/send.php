@@ -87,7 +87,7 @@ $signPackage = $jssdk->GetSignPackage();
 			success: function(msg) {
 				for(var j=0;j<msg.tenants.length;j++){
 			    for(var i=0;i<msg.tenants[j].routeprice.length;i++){
-			    	$("#center").append("<div class='tet'><div class='but' id='center"+j+i+"'>"+msg.tenants[i].jcompany+msg.tenants[j].routeprice[i].routename+"</br>"+msg.tenants[i].telephone+"</br>轻:"+
+			    	$("#center").append("<div class='tet'><div class='but' id='center"+j+i+"'>"+msg.tenants[j].jcompany+msg.tenants[j].routeprice[i].routename+"</br>"+msg.tenants[j].telephone+"</br>轻:"+
 			    	msg.tenants[j].routeprice[i].priceone+"  重:"+msg.tenants[j].routeprice[i].pricetwo+"</div><img src='images/lefttwo.png' class='picl'></div>");
 //			    	alert(msg.tenants[i].tenantimg);
                     if(i%3==0){
@@ -99,9 +99,9 @@ $signPackage = $jssdk->GetSignPackage();
                     }
 			    
 			    	$("#center"+j+i).on("click",function(){
-			    		var a=$(this).attr('id').substring(6);
-			    		$.cookie("openid"+msg.tenants[a].tenant_id,openid);
-			    		window.location.href="http://api.uminfo.cn/weixin/sendtwo.php?tenant_id="+msg.tenants[a].tenant_id+'&appid='+appid+'&secret='+secret+'&tenantname='+msg.tenants[a].jcompany;
+//			    		var a=$(this).attr('id').substring(6);
+			    		$.cookie("openid"+msg.tenants[j].tenant_id,openid);
+			    		window.location.href="http://api.uminfo.cn/weixin/sendtwo.php?tenant_id="+msg.tenants[j].tenant_id+'&appid='+appid+'&secret='+secret+'&tenantname='+msg.tenants[j].jcompany;
 			    	});
 			    }
 			    }
