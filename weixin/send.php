@@ -99,7 +99,7 @@ $signPackage = $jssdk->GetSignPackage();
                     }
 			    
 			    	$("#center"+j+i).on("click",function(){
-			    		var a=$(this).attr('id').substring(5,7);
+			    		var a=$(this).attr('id').substring(6,7);
 			    		alert(a);
 			    		$.cookie("openid"+msg.tenants[a].tenant_id,openid);
 			    		window.location.href="http://api.uminfo.cn/weixin/sendtwo.php?tenant_id="+msg.tenants[a].tenant_id+'&appid='+appid+'&secret='+secret+'&tenantname='+msg.tenants[a].jcompany;
