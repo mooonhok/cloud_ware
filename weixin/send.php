@@ -28,6 +28,7 @@ $signPackage = $jssdk->GetSignPackage();
 				margin-left:5%;
 				border-style: line;
 				border-radius: 5px;
+				background-color: #3333FF;
 			}
 			.but{
 				width:75%;
@@ -89,15 +90,7 @@ $signPackage = $jssdk->GetSignPackage();
 			    for(var i=0;i<msg.tenants[j].routeprice.length;i++){
 			    	$("#center").append("<div class='tet'><div class='but' id='center"+j+i+"'>"+msg.tenants[j].jcompany+msg.tenants[j].routeprice[i].routename+"</br>"+msg.tenants[j].telephone+"</br>轻:"+
 			    	msg.tenants[j].routeprice[i].priceone+"  重:"+msg.tenants[j].routeprice[i].pricetwo+"</div><img src='images/lefttwo.png' class='picl'></div>");
-//			    	alert(msg.tenants[i].tenantimg);
-                    if(i%3==0){
-                        $(".tet").css("background-color","#227e69");
-                    }else if(i%3==1){
-                    	$(".tet").css("background-color","#4ea039");
-                    }else{
-                    	$(".tet").css("background-color","#0689b0");
-                    }
-			    
+//			    	alert(msg.tenants[i].tenantimg);    
 			    	$("#center"+j+i).on("click",function(){
 			    		var a=$(this).attr('id').substring(6,7);
 			    		$.cookie("openid"+msg.tenants[a].tenant_id,openid);
