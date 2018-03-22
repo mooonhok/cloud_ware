@@ -28,7 +28,7 @@ $signPackage = $jssdk->GetSignPackage();
 				margin-left:5%;
 				border-style: line;
 				border-radius: 5px;
-				background-color: #0033CC;
+				background-color: #006666;
 			}
 			.but{
 				width:75%;
