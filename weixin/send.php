@@ -23,8 +23,8 @@ $signPackage = $jssdk->GetSignPackage();
 			}
 			.tet{
 				width:90%;
-				height:80px;
-				margin-top:20px;
+				height:150px;
+				margin-top:30px;
 				margin-left:5%;
 				border-style: line;
 				border-radius: 5px;
@@ -34,7 +34,7 @@ $signPackage = $jssdk->GetSignPackage();
 				text-align:center;
 				margin-left:5%;
 				height:80px;
-				line-height:40px;
+				line-height:30px;
 				/*background-color:#24D9C9;*/
 				color: white;
 				border-radius: 5px;
@@ -43,7 +43,7 @@ $signPackage = $jssdk->GetSignPackage();
 			.picl{
 				width:15%;
 				height:60px;
-				margin-top:10px;
+				margin-top:40px;
 				/*background-color:#24D9C9;*/
 				border-radius: 5px;
 			}
@@ -85,8 +85,10 @@ $signPackage = $jssdk->GetSignPackage();
 			ContentType: "application/json;charset=utf-8",
 			data: JSON.stringify({}),
 			success: function(msg) {
-			    for(var i=0;i<msg.tenants.length;i++){
-			    	$("#center").append("<div class='tet'><div class='but' id='center"+i+"'>"+msg.tenants[i].jcompany+"</br>"+msg.tenants[i].telephone+"</div><img src='images/lefttwo.png' class='picl'></div>");
+				for(var j=0;j<msg.tenants.length;j++){
+			    for(var i=0;i<msg.tenants[j].routeprice.length;i++){
+			    	$("#center").append("<div class='tet'><div class='but' id='center"+j+i+"'>"+msg.tenants[i].jcompany+msg.tenants[j].routeprice[i].routename+"</br>"+msg.tenants[i].telephone+"</br>轻:"+
+			    	msg.tenants[j].routeprice[i].priceone+"  重:"+msg.tenants[j].routeprice[i].pricetwo+"</div><img src='images/lefttwo.png' class='picl'></div>");
 //			    	alert(msg.tenants[i].tenantimg);
                     if(i%3==0){
                         $(".tet").css("background-color","#227e69");
@@ -96,11 +98,12 @@ $signPackage = $jssdk->GetSignPackage();
                     	$(".tet").css("background-color","#0689b0");
                     }
 			    
-			    	$("#center"+i).on("click",function(){
+			    	$("#center"+j+i).on("click",function(){
 			    		var a=$(this).attr('id').substring(6);
 			    		$.cookie("openid"+msg.tenants[a].tenant_id,openid);
 			    		window.location.href="http://api.uminfo.cn/weixin/sendtwo.php?tenant_id="+msg.tenants[a].tenant_id+'&appid='+appid+'&secret='+secret+'&tenantname='+msg.tenants[a].jcompany;
 			    	});
+			    }
 			    }
 			},
 			error: function(e) {
