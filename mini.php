@@ -1099,8 +1099,7 @@ $app->get('/pro_citys',function()use($app){
         ->from('province')
         ->join('city','city.pid','=','province.id','INNER')
 
-        ->groupBy('province.pid')
-        ->orderBy('province.pid');
+        ->groupBy('province.pid');
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
     echo json_encode(array("result"=>"0","desc"=>"",'routes'=>$data));
