@@ -1,5 +1,4 @@
 $(function() {
-
 	// var adminid = $.session.get('adminid');
   $("#getlocation").on("click", function() {
 	window.open("http://lbs.qq.com/tool/getpoint/");
@@ -94,55 +93,21 @@ function getPro1() {
 	});
 }
 //获取城市列表2
-// $.ajax({
-// 	url: p_url+"city.php/province",
-// 	dataType: 'json',
-// 	type: 'get',
-// 	ContentType: "application/json;charset=utf-8",
-// 	data: JSON.stringify({}),
-// 	success: function(msg) {
-// 		alert(1)
-// 		for(var i = 0; i < msg.province.length; i++) {
-// 			$("#xuyaoxuzedecity").append('<div id="p' + msg.province[i].id + '" style="float:left;width:100%;height:30px;background-color:red;z-index:9999;">' + msg.province[i].name + '</div>');
-// 			var pid=msg.province[i].id;
-//             $.ajax({
-//                 url: p_url+"city.php/city?pid=" + pid,
-//                 dataType: 'json',
-//                 type: 'get',
-//                 ContentType: "application/json;charset=utf-8",
-//                 data: JSON.stringify({}),
-//                 success: function(msg) {
-//                     for(var j = 0; j < msg.city.length; j++) {
-//                         $("#p"+pid).append('<div id="c' + msg.city[j].id + '" style="float:left;width:100%;height:30px;background-color:red;z-index:9999;">' + msg.city[j].name + '</div>');
-//                     }
-//                 },
-//                 error: function(e) {
-//                     $("#city1").append('<option value="">请选择市</option>');
-//                 }
-//             });
-// 		}
-// 	},
-// 	error: function(e) {
-// 		alert("省份列表2信息出错!");
-// 	}
-// });
-
-// $.ajax({
-//     url: p_url+"city.php/province",
-//     dataType: 'json',
-//     type: 'get',
-//     ContentType: "application/json;charset=utf-8",
-//     data: JSON.stringify({}),
-//     success: function(msg) {
-//         for(var i = 0; i < msg.province.length; i++) {
-//             $(".daoda").append('<div id="p' + msg.province[i].id + '">' + msg.province[i].name + '</div>');
-//         }
-//
-//     },
-//     error: function(e) {
-//         alert("省份列表2信息出错!");
-//     }
-// });
+$.ajax({
+	url: p_url+"city.php/province",
+	dataType: 'json',
+	type: 'get',
+	ContentType: "application/json;charset=utf-8",
+	data: JSON.stringify({}),
+	success: function(msg) {
+		for(var i = 0; i < msg.province.length; i++) {
+			$("#province2").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+		}
+	},
+	error: function(e) {
+		alert("省份列表2信息出错!");
+	}
+});
 
 function getPro2() {
 	$("#city2").empty();
