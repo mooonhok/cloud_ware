@@ -295,7 +295,6 @@
                         ContentType: "application/json;charset=utf-8",
                         data: JSON.stringify({}),
                         success: function(msg) {
-                            alert(1)
                             for(var j = 0; j < msg.city.length; j++) {
                                 $(this).after('<div id="c' + msg.city[j].id + '" style="float:left;width:100%;height:30px;background-color:red;z-index:9999;">' + msg.city[j].name + '</div>');
                             }
