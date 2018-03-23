@@ -102,11 +102,44 @@ $.ajax({
 	success: function(msg) {
 		for(var i = 0; i < msg.province.length; i++) {
 			$("#province2").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+			var pid=msg.province[i].id;
+            $.ajax({
+                url: p_url+"city.php/city?pid=" + pid,
+                dataType: 'json',
+                type: 'get',
+                ContentType: "application/json;charset=utf-8",
+                data: JSON.stringify({}),
+                success: function(msg) {
+                    for(var j = 0; j < msg.city.length; j++) {
+                        $("#p"+pid).append('<div id="c' + msg.city[j].id + '">' + msg.city[j].name + '</div>');
+                    }
+                },
+                error: function(e) {
+                    $("#city1").append('<option value="">请选择市</option>');
+                }
+            });
 		}
 	},
 	error: function(e) {
 		alert("省份列表2信息出错!");
 	}
+});
+
+$.ajax({
+    url: p_url+"city.php/province",
+    dataType: 'json',
+    type: 'get',
+    ContentType: "application/json;charset=utf-8",
+    data: JSON.stringify({}),
+    success: function(msg) {
+        for(var i = 0; i < msg.province.length; i++) {
+            $(".daoda").append('<div id="p' + msg.province[i].id + '">' + msg.province[i].name + '</div>');
+        }
+
+    },
+    error: function(e) {
+        alert("省份列表2信息出错!");
+    }
 });
 
 function getPro2() {
