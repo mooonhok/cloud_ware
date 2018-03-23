@@ -156,7 +156,7 @@ function addmini(){
     	alert("公司名称不能为空");
     }else if(line==null||line==""){
     	alert("路线不能为空");
-    }else if(telephone==null||telephone==""){
+    }else if(phone==null||phone==""){
     	alert("手机号码不能为空");
     }else if(loaction==null||location==""){
     	alert("地理坐标不能为空");
