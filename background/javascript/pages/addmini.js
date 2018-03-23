@@ -101,7 +101,7 @@ $.ajax({
 	data: JSON.stringify({}),
 	success: function(msg) {
 		for(var i = 0; i < msg.province.length; i++) {
-			$("#province2").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+			$("#xuyaoxuzedecity").append('<div id="p' + msg.province[i].id + '">' + msg.province[i].name + '</div>');
 			var pid=msg.province[i].id;
             $.ajax({
                 url: p_url+"city.php/city?pid=" + pid,
@@ -125,22 +125,22 @@ $.ajax({
 	}
 });
 
-$.ajax({
-    url: p_url+"city.php/province",
-    dataType: 'json',
-    type: 'get',
-    ContentType: "application/json;charset=utf-8",
-    data: JSON.stringify({}),
-    success: function(msg) {
-        for(var i = 0; i < msg.province.length; i++) {
-            $(".daoda").append('<div id="p' + msg.province[i].id + '">' + msg.province[i].name + '</div>');
-        }
-
-    },
-    error: function(e) {
-        alert("省份列表2信息出错!");
-    }
-});
+// $.ajax({
+//     url: p_url+"city.php/province",
+//     dataType: 'json',
+//     type: 'get',
+//     ContentType: "application/json;charset=utf-8",
+//     data: JSON.stringify({}),
+//     success: function(msg) {
+//         for(var i = 0; i < msg.province.length; i++) {
+//             $(".daoda").append('<div id="p' + msg.province[i].id + '">' + msg.province[i].name + '</div>');
+//         }
+//
+//     },
+//     error: function(e) {
+//         alert("省份列表2信息出错!");
+//     }
+// });
 
 function getPro2() {
 	$("#city2").empty();
