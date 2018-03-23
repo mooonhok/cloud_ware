@@ -1095,9 +1095,11 @@ $app->get('/pro_citys',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
-    $selectStatement = $database->select()
+    $selectStatement = $database->select('province.name','city.id','city.name')
         ->from('province')
-        ->join('city','city.pid','=','province.id','INNER');
+        ->join('city','city.pid','=','province.id','INNER')
+        ->orderBy('province.pid')
+        ->groupBy('province.pid');
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
     echo json_encode(array("result"=>"0","desc"=>"",'routes'=>$data));
