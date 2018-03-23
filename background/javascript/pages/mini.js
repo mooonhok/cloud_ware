@@ -364,7 +364,7 @@ function  addroute(id){
 			if(msg.result==0){
 				alert("添加成功");
 				$(".tenant_tk2").css("display","none");
-				$a=parseInt(id/10);
+				var a=parseInt(id/10);
 				alert(a);
 				window.location.location=p_url+"background/mini.html?page="+a;
 			}else{
