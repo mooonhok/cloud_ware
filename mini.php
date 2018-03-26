@@ -1003,7 +1003,7 @@ $app->post('/addmini',function()use($app){
                                ->from('city')
                                ->where('name','=',$c_citys[$j]);
                            $stmt = $selectStatement->execute();
-                           $data22= $stmt->fetchAll();
+                           $data22= $stmt->fetch();
                            $insertStatement = $database->insert(array('id','fcity_id','tcity_id','tid'))
                                ->into('mini_route')
                                ->values(array(count($data3)+1,$fcity,$data22['id'],count($data5)+1));
