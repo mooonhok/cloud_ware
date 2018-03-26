@@ -37,6 +37,26 @@ $app->get('/city',function()use($app){
     }
 });
 
+$app->get('/city_p_name',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $p_name=$app->request->get('p_name');
+    if($p_name!=null||$p_name!=""){
+        $selectStatement = $database->select()
+            ->from('province')
+            ->where('name','=',$p_name);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('pid','=',$data1['pid']);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
+    }
+});
+
 //获得所有city
 $app->get('/citys',function()use($app){
       $app->response->headers->set('Access-Control-Allow-Origin','*');
