@@ -144,7 +144,7 @@ function addmini(){
     var publicname=$("#publicname").val();
 	var type=$("#type").val();
 	var fcity=$("#city1").val();
-	var tcity=$("#city2").val();
+	var tcity=$("#daoda_citys").val();
     var pic1=$("#pic1s").val();
     var pic2=$("#pic2s").val();
     var pic3=$("#pic3s").val();

@@ -997,10 +997,19 @@ $app->post('/addmini',function()use($app){
                           ->from('mini_route');
                        $stmt = $selectStatement->execute();
                        $data3= $stmt->fetchAll();
-                    $insertStatement = $database->insert(array('id','fcity_id','tcity_id','tid'))
-                        ->into('mini_route')
-                        ->values(array(count($data3)+1,$fcity,$tcity,count($data5)+1));
-                    $insertId = $insertStatement->execute(false);
+                       $c_citys=explode(',',$tcity);
+                       for($j=0;$j<count($c_citys);$j++){
+                           $selectStatement = $database->select()
+                               ->from('city')
+                               ->where('name','=',$c_citys[$j]);
+                           $stmt = $selectStatement->execute();
+                           $data22= $stmt->fetchAll();
+                           $insertStatement = $database->insert(array('id','fcity_id','tcity_id','tid'))
+                               ->into('mini_route')
+                               ->values(array(count($data3)+1,$fcity,$data22['id'],count($data5)+1));
+                           $insertId = $insertStatement->execute(false);
+                       }
+
 
                     date_default_timezone_set("PRC");
                     $shijian=date("Y-m-d H:i:s",time());

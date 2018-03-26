@@ -27,23 +27,23 @@
             height:900px;
         }
         .top1{
-        	width:100%;
-        	text-align:center;
-        	height:100px;
-        	line-height:100px;
-        	font-size:24px;
+            width:100%;
+            text-align:center;
+            height:100px;
+            line-height:100px;
+            font-size:24px;
         }
         .center1{
-        	width:60%;
-        	margin-left: 15%;
-        	height:40px;
-        	line-height:40px;
+            width:60%;
+            margin-left: 15%;
+            height:40px;
+            line-height:40px;
         }
-         .center2{
-        	width:60%;
-        	margin-left: 15%;
-        	height:40px;
-        	line-height:40px;
+        .center2{
+            width:60%;
+            margin-left: 15%;
+            height:40px;
+            line-height:40px;
         }
         .center1 input{
             outline-style: none;
@@ -52,10 +52,10 @@
             border-right-style: none;
             border-top-style:none;
             border-left-style: none;
-			height: 30px;
-			line-height: 30px;
-		    margin-left: 5px;
-			width:90%;
+            height: 30px;
+            line-height: 30px;
+            margin-left: 5px;
+            width:90%;
         }
         .center2 input{
             outline-style: none;
@@ -64,28 +64,28 @@
             border-right-style: none;
             border-top-style:none;
             border-left-style: none;
-			height: 30px;
-			line-height: 30px;
-		    margin-left: 10px;
-			width:42%;
+            height: 30px;
+            line-height: 30px;
+            margin-left: 10px;
+            width:42%;
         }
-         .center3{
-        	width:60%;
-        	margin-left: 15%;
-        	height:40px;
-        	line-height:40px;
+        .center3{
+            width:60%;
+            margin-left: 15%;
+            height:40px;
+            line-height:40px;
         }
         .center4{
-        	width:60%;
-        	margin-left: 15%;
-        	height:40px;
-        	line-height:40px;
+            width:60%;
+            margin-left: 15%;
+            height:40px;
+            line-height:40px;
         }
         .center5{
-        	width:60%;
-        	margin-left: 15%;
-        	height:40px;
-        	line-height:40px;
+            width:60%;
+            margin-left: 15%;
+            height:40px;
+            line-height:40px;
         }
         .center3 input{
             outline-style: none;
@@ -94,46 +94,94 @@
             border-right-style: none;
             border-top-style:none;
             border-left-style: none;
-			height: 30px;
-			line-height: 30px;
-		    margin-left: 5px;
-			width:45%;
+            height: 30px;
+            line-height: 30px;
+            margin-left: 5px;
+            width:45%;
         }
         .center3 button{
-        	height: 30px;
-			line-height: 30px;
-		    margin-left:5%;
-			width:30%;
+            height: 30px;
+            line-height: 30px;
+            margin-left:5%;
+            width:30%;
         }
         .center1 select{
-        	width:20%;
-        	height:30px;
-        	line-height: 30px;
-        	margin-left:5%;
+            width:20%;
+            height:30px;
+            line-height: 30px;
+            margin-left:5%;
         }
         .center4 select{
-        	width:40%;
-        	height:30px;
-        	line-height: 30px;
-        	margin-left:3%;
+            width:40%;
+            height:30px;
+            line-height: 30px;
+            margin-left:3%;
         }
-          .center5 input{
-        	height: 30px;
-			line-height: 30px;
-		    margin-left:5%;
-		    margin-right:10%;
-			width:10%;
+        .daoda1{
+            float:left;
+            width:40%;
+            height:40px;
+            line-height: 40px;
+
+        }
+        .daoda{
+            background-color:blue;
+            float:left;
+            width:40%;
+            margin-left:3%;
+        }
+        .center5 input{
+            height: 30px;
+            line-height: 30px;
+            margin-left:5%;
+            margin-right:10%;
+            width:10%;
         }
         .center6{
-        	height: 50px;
-			line-height: 50px;
-			background:green;
-			width:40%;
-			margin-left:30%;
-			text-align:center;
-			font-size:24px;
-			border-radius: 10px;
-			margin-top:30px;
+            height: 50px;
+            line-height: 50px;
+            background:green;
+            width:40%;
+            margin-left:30%;
+            text-align:center;
+            font-size:24px;
+            border-radius: 10px;
+            margin-top:30px;
+        }
+
+        .for_citys{
+
+            height:400px;
+            width:400px;
+            border:1px solid #666666;
+
+            background-color:white;
+            display:none;
+        }
+        .chose_city{
+            width:100%;
+            height:30px;
+            background-color:red;
+            z-index:9999;
+            display:block;
+        }
+        .daoda:hover .for_citys{
+            display:block;
+        }
+        .chose_provinces{
+            float:left;
+            width:100%;
+            height:30px;
+            /*background-color:red;*/
+            z-index:9999;
+        }
+        .chose_citys{
+            float:left;
+            margin-left:20%;
+            width:80%;
+            height:30px;
+            /*background-color:red;*/
+            z-index:9999;
         }
     </style>
 </head>
@@ -213,43 +261,38 @@
                 </ul>
             </div>
         </header>
-       <div class="addmini">
-       	<div class="top1">小程序添加公司</div>
-       	<div class="center1">公司名称:<input id="companyname" placeholder="必填"/></div>
-       	<div class="center1">路线介绍:<input id="line" placeholder="必填"/></div>
-       	<div class="center2">联系&nbsp;人:<input id="name" placeholder="必填"/>手机号码:<input id="phone" placeholder="必填"/></div>
-       	<div class="center3">地理坐标:<input id="location" placeholder="必填"/><button  id="getlocation">拾取坐标</button></div>
-       	<div class="center1">是否精品(必选):<select  id="type" >
-								<option value="0">是</option>
-								<option value="1">否</option>
-							</select></div>
-       	<div class="center4">出发城市(必选):<select name="province" id="province1" onchange="getPro1()" class="pro">
-								<option value="">请选择</option>
-							</select>
-							<select name="city" id="city1" class="cit">
-								<option value="">请选择</option>
-							</select></div>
-       	<div class="center4">到达城市(必选):<select name="province" id="province2" onchange="getPro2()" class="pro">
-								<option value="">请选择</option>
-							</select>
-							<select name="city" id="city2" class="cit">
-								<option value="">请选择</option>
-							</select></div>
-       	<div class="center1">公司地址:<input id="address" placeholder="必填"/></div>
-       	<div class="center1">公司介绍:<input id="intro"/></div>
-       	<div class="center1">座机号码:<input id="telephone"/></div>
-       	<div class="center1">微信公众号:<input id="publicname"/></div>
-       	<div class="center5">广告图片1(必传):<input type="file" name="pic1" id="pic1"/>公众号二维码:<input type="file" id="pic6"/></div>
-       	<div class="center5">广告图片2(必传):<input type="file" id="pic2"/>广告图片3:<input type="file" id="pic3"/></div>
-       	<div class="center5">广告图片4:<input type="file" id="pic4"/>广告图片5:<input type="file" id="pic5"/></div>
-       	<input id="pic1s" style="display: none;"/>
-       	<input id="pic2s" style="display: none;"/>
-       	<input id="pic3s" style="display: none;"/>
-       	<input id="pic4s" style="display: none;"/>
-       	<input id="pic5s" style="display: none;"/>
-       	<input id="pic6s" style="display: none;"/>
-       	<div class="center6">提交</div>
-       </div>
+        <div class="addmini">
+            <div class="top1">小程序添加公司</div>
+            <div class="center1">公司名称:<input id="companyname" placeholder="必填"/></div>
+            <div class="center1">路线介绍:<input id="line" placeholder="必填"/></div>
+            <div class="center2">联系&nbsp;人:<input id="name" placeholder="必填"/>手机号码:<input id="phone" placeholder="必填"/></div>
+            <div class="center3">地理坐标:<input id="location" placeholder="必填"/><button  id="getlocation">拾取坐标</button></div>
+            <div class="center1">是否精品(必选):<select  id="type" >
+                <option value="0">是</option>
+                <option value="1">否</option>
+            </select></div>
+            <div class="center4">出发城市(必选):<select name="province" id="province1" onchange="getPro1()" class="pro">
+                <option value="">请选择</option>
+            </select>
+                <select name="city" id="city1" class="cit">
+                    <option value="">请选择</option>
+                </select></div>
+            <div class="center4"><div class="daoda1">到达城市(必选)：</div><div class="daoda"><div class="chose_city"><input type="text" style="width:100%;" id="daoda_citys"/><div style="position:absolute;scrollbar-base-color:black;overflow:auto;" class="for_citys" ></div></div></div></div>
+            <div class="center1">公司地址:<input id="address" placeholder="必填"/></div>
+            <div class="center1">公司介绍:<input id="intro"/></div>
+            <div class="center1">座机号码:<input id="telephone"/></div>
+            <div class="center1">微信公众号:<input id="publicname"/></div>
+            <div class="center5">广告图片1(必传):<input type="file" name="pic1" id="pic1"/>公众号二维码:<input type="file" id="pic6"/></div>
+            <div class="center5">广告图片2(必传):<input type="file" id="pic2"/>广告图片3:<input type="file" id="pic3"/></div>
+            <div class="center5">广告图片4:<input type="file" id="pic4"/>广告图片5:<input type="file" id="pic5"/></div>
+            <input id="pic1s" style="display: none;"/>
+            <input id="pic2s" style="display: none;"/>
+            <input id="pic3s" style="display: none;"/>
+            <input id="pic4s" style="display: none;"/>
+            <input id="pic5s" style="display: none;"/>
+            <input id="pic6s" style="display: none;"/>
+            <div class="center6">提交</div>
+        </div>
         <footer class="btm-ft">
             <p class="clear">
                 <span class="fl">©Copyright 2016 <a href="#" title="DeathGhost" target="_blank">unimfo.cn</a></span>
@@ -259,4 +302,64 @@
 
 </div>
 </body>
+<script>
+    $(function() {
+        var p_url='http://api.uminfor.cn/';
+        $.ajax({
+            url: p_url+"city.php/province",
+            dataType: 'json',
+            type: 'get',
+            ContentType: "application/json;charset=utf-8",
+            data: JSON.stringify({}),
+            success: function(msg) {
+                for(var i = 0; i < msg.province.length; i++) {
+                    $(".for_citys").append('<div class="chose_provinces">' + msg.province[i].name + '</div>');
+//			$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+                }
+                $(".chose_provinces").each(function(j){
+                    var pid=$(".chose_provinces").eq(j).text();
+
+                    $.ajax({
+                        url: p_url+"city.php/city_p_name?p_name=" + pid,
+                        dataType: 'json',
+                        type: 'get',
+                        ContentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({}),
+                        success: function(msg1) {
+                            for(var i = 0; i < msg1.city.length; i++) {
+                                $(".chose_provinces").eq(j).after('<div class="chose_citys"><input  type="checkbox" name="citys_s" value="'+msg1.city[i].name+'" class="in_citys"/>'+msg1.city[i].name+'</div>');
+                                $(".in_citys").on("click",function(){
+                                    text = $("input:checkbox[name='citys_s']:checked").map(function(index,elem) {
+                                        return $(elem).val();
+                                    }).get().join(',');
+                                    $("#daoda_citys").val('');
+                                    $("#daoda_citys").val(text);
+
+                                })
+                            }
+
+                        },
+                        error: function(e) {
+
+                        }
+                    });
+                });
+
+            },
+            error: function(e) {
+                alert("省份列表1信息出错!");
+            }
+
+        });
+
+//		$(".for_citys").append('<div class="chose_citys">beijing</div>');
+        $(".chose_citys").each(function(i){
+//            $(this).on("click",function(){
+//            	$(this).append('<div class="chose_citys">beijing</div>');
+////            	alert($(".for_citys").eq(i).text());
+//            })
+            $(".chose_citys").eq(i).after('<div>beijing</div>');
+        });
+    })
+</script>
 </html>
