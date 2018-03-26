@@ -50,7 +50,7 @@ $app->get('/city_p_name',function()use($app){
         $data1 = $stmt->fetch();
         $selectStatement = $database->select()
             ->from('city')
-            ->where('pid','=',$data1['pid']);
+            ->where('pid','=',$data1['id']);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
