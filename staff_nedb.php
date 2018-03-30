@@ -464,6 +464,36 @@ $app->put('/alterStaff2',function()use($app){
     }
 });
 
+$app->put('/alterStaff3',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $bg_img=$body->head_img;
+    $staff_id=$body->staff_id;
+    $array['head_img']=$bg_img;
+    if($tenant_id!=null||$tenant_id!=''){
+        if($bg_img!=null||$bg_img!=''){
+            if($staff_id!=null||$staff_id!=''){
+                $updateStatement = $database->update($array)
+                    ->table('staff')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('staff_id','=',$staff_id)
+                    ->where('exist',"=",0);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array('result'=>'0','desc'=>'success'));
+            }else{
+                echo json_encode(array('result'=>'1','desc'=>'员工id为空'));
+            }
+        }else{
+            echo json_encode(array('result'=>'2','desc'=>'头像图为空'));
+        }
+    }else{
+        echo json_encode(array('result'=>'3','desc'=>'租户为空'));
+    }
+});
 $app->run();
 
 function localhost(){
