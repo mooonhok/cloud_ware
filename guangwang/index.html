@@ -74,8 +74,158 @@
 			color:#f15b25;
 			border-bottom:4px solid #f15b25;
 		}
+		.item{
+			cursor:pointer;
+		}
 		#view-project{
 			margin-top:20px;
+		}
+		.order_view{
+			text-align:center;
+			margin-bottom:20px;
+			font:normal 16px "微软雅黑";
+		}
+		.order_box{
+			width:220px;
+			height:80px;
+			display:inline-block;
+			margin:0 40px;
+		}
+		.order_name{
+			font:normal 17px "微软雅黑";
+		}
+		.order_total{
+			width:220px;
+			height:80px;
+			display:inline-block;
+			border:2px solid #bbbbbb;
+			cursor:pointer;
+		}
+		.order_active{
+			border:2px solid #f16836;
+		}
+		.order_total *{
+			display:inline-block;
+			float:left;
+		}
+		.order_sign{
+			font:bold 20px "微软雅黑";
+			color:#f16836;
+			margin-top:20px;
+			margin-left:60px;
+		}
+		.order_cost{
+			font:bold 20px "微软雅黑";
+			color:#f16836;
+			margin-right:-80px;
+			margin-top:20px;
+		}
+		.order_ocost{
+			color:#999999;
+			margin-right:-80px;
+			margin-top:40px;
+			text-decoration:line-through;
+		}
+		.slant{
+			height:60px;
+			border-top:1px solid #4c4c4c;  
+			width:60px;
+			transform:rotate(120deg);
+			-o-transform:rotate(120deg);
+			-moz-transform:rotate(120deg);
+			-webkit-transform:rotate(120deg);
+			margin-top:-5px;
+		}
+		.order_num{
+			margin-top:40px;
+		}
+		.order_view label{
+			font:normal 16px "微软雅黑";
+			margin-top:6px;
+			text-align:right;
+		}
+		.order_view input[type='text']{
+			font:normal 16px "微软雅黑";
+			height:36px;
+		}
+		.input-group-addon{
+			font:normal 16px "微软雅黑";
+		}
+		.order_end{
+			width:220px;
+			height:40px;
+			font:bold 17px "微软雅黑";
+			display:inline-block;
+			margin:2px 40px 10px 40px;
+		}
+		#order_pay{
+			font:bold 20px "微软雅黑";
+			line-height:40px;
+			color:#f16836;
+		}
+		.view_input{
+			width:140px;
+			height:38px;
+			background:#f16836;
+			color:#ffffff;
+			border:none;
+			border-radius:5px;
+		}
+		.promote_view{
+			text-align:center;
+			margin-bottom:20px;
+		}
+		.promote_total{
+			width:142px;
+			height:80px;
+			display:inline-block;
+			border:2px solid #bbbbbb;
+			margin:4px 24px 0 24px;
+			cursor:pointer;
+		}
+		.promote_active{
+			border:2px solid #f16836;
+		}
+		.promote_total *{
+			display:inline-block;
+			float:left;
+		}
+		.promote_cost{
+			font:bold 20px "微软雅黑";
+			color:#f16836;
+			margin-left:26px;
+			margin-top:20px;
+			margin-right:-45px;
+		}
+		.promote_sign{
+			font:normal 17px "微软雅黑";
+			margin-top:23px;
+			margin-left:47px;
+			margin-right:-45px;
+		}
+		.promote_num{
+			margin-top:40px;
+		}
+		.promote_view label{
+			font:normal 16px "微软雅黑";
+			margin-top:6px;
+			text-align:right;
+		}
+		.promote_view input[type='text']{
+			font:normal 16px "微软雅黑";
+			height:36px;
+		}
+		.promote_end{
+			width:220px;
+			height:40px;
+			font:bold 17px "微软雅黑";
+			display:inline-block;
+			margin:2px 40px 10px 40px;
+		}
+		#promote_pay{
+			font:bold 20px "微软雅黑";
+			line-height:40px;
+			color:#f16836;
 		}
 		#footer{
 			width:100%;
@@ -347,6 +497,12 @@
 				width:320px;
 			}
 		}
+		#alert{
+			text-align:center;
+		}
+		#pay{
+			width:220px;
+		}
 	</style>
 </head>
 <body>
@@ -366,24 +522,20 @@
 		<div id="view-tab">
 			<span class="tab-item active" onclick="tabTo(0)">首页</span>
 			<span class="tab-item" onclick="tabTo(1)">关于酉铭</span>
-			<span class="tab-item" onclick="tabTo(2)">联系我们</span>
-			<span class="tab-item" onclick="tabTo(3)">外勤团队</span>
+			<span class="tab-item" onclick="tabTo(2)">订购推广</span>
+			<span class="tab-item" onclick="tabTo(3)">联系我们</span>
 		</div>
 		<div id="view-slide" class="carousel slide">
 			<ol class="carousel-indicators">
 				<li data-target="#view-slide" data-slide-to="0" class="active"></li>
 				<li data-target="#view-slide" data-slide-to="1"></li>
-				<li data-target="#view-slide" data-slide-to="2"></li>
 			</ol>
 			<div class="carousel-inner">
 				<div class="item active">
-					<img src="images/banner1_1.png">
+					<img src="images/banner1_1.png" onclick="imgTo()">
 				</div>
 				<div class="item">
 					<img src="images/banner1_2.png">
-				</div>
-				<div class="item">
-					<img src="images/banner1_3.png">
 				</div>
 			</div>
 			<a class="left carousel-control" href="#view-slide" role="button" data-slide="prev">
@@ -403,6 +555,20 @@
 					<li onclick="tabTo(6)"><img src="images/3.png" /></li>
 					<li onclick="tabTo(7)"><img src="images/4.png" /></li>
 				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="alert" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="alert-title" aria-hidden="true">
+		<div class="modal-dialog modal-small">
+			<div class="modal-content">
+				<div class="modal-header">
+					<a class="close" href="#" role="button" data-dismiss="modal" aria-hidden="true">&times;</a>
+					<h4 class="modal-title" id="alert-title">请进行支付</h4>
+				</div>
+				<div class="modal-body"><img id="pay" src="images/pay.jpg"></div>
+				<div class="modal-footer">
+					<a class="btn btn-success" href="#" role="button" data-dismiss="modal" onclick="pay_final()">支付好了</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -441,7 +607,7 @@
 		var link="";
 		
 		function tabTo(i){
-			if(i==0||i==1||i==2){
+			if(i==0||i==1||i==3){
 				$(".tab-item").removeClass("active");
 				$(".tab-item").eq(i).addClass("active");
 				$("#view-slide").empty();
@@ -450,17 +616,13 @@
 					slide+='<ol class="carousel-indicators">';
 					slide+='<li data-target="#view-slide" data-slide-to="0" class="active"></li>';
 					slide+='<li data-target="#view-slide" data-slide-to="1"></li>';
-					slide+='<li data-target="#view-slide" data-slide-to="2"></li>';
 					slide+='</ol>';
 					slide+='<div class="carousel-inner">';
-					slide+='<div class="item active">';
+					slide+='<div class="item active" onclick="imgTo()">';
 					slide+='<img src="images/banner1_1.png">';
 					slide+='</div>';
 					slide+='<div class="item">';
 					slide+='<img src="images/banner1_2.png">';
-					slide+='</div>';
-					slide+='<div class="item">';
-					slide+='<img src="images/banner1_3.png">';
 					slide+='</div>';
 					slide+='</div>';
 					slide+='<a class="left carousel-control" href="#view-slide" role="button" data-slide="prev">';
@@ -480,7 +642,7 @@
 					slide+='</div>';
 					slide+='</div>';
 					$("#view-slide").append(slide);
-				}else if(i==2){
+				}else if(i==3){
 					var slide='';
 					slide+='<div class="carousel-inner">';
 					slide+='<div class="item active">';
@@ -501,8 +663,68 @@
 				project+='</div>';
 				$("#view-project").append(project);
 				flexisel();
-			}else if(i==3){
-				window.location.href=link+"login.html";
+			}else if(i==2){
+				$(".tab-item").removeClass("active");
+				$(".tab-item").eq(i).addClass("active");
+				$("#view-slide").empty();
+				var slide='';
+				slide+='<div class="carousel-inner">';
+				slide+='<div class="item active">';
+				slide+='<img src="images/banner5.png">';
+				slide+='</div>';
+				slide+='</div>';
+				slide+='<div class="carousel-tab">';
+				slide+='<span class="carousel-item link" onclick="tabClick(0)">物流系统订购</span>';
+				slide+='<span class="carousel-item" onclick="tabClick(1)">微信公众号开发</span>';
+				slide+='<span class="carousel-item" onclick="tabClick(2)">微信小程序推广</span>';
+				slide+='<span class="carousel-item" onclick="tabClick(3)">手机App开发</span>';
+				slide+='</div>';
+				$("#view-slide").append(slide);
+				$("#view-project").empty();
+				var project='';
+				project+='<div class="view-cases">';
+				project+='<div class="order_view">';
+				project+='<div class="order_box">';
+				project+='<div class="order_name">物流管理系统</div>';
+				project+='<div class="order_name">↓</div>';
+				project+='<div class="order_total order_active" onclick="order_total(this)">';
+				project+='<span class="order_sign">￥</span><span class="order_cost">998</span>';
+				project+='<span class="order_ocost">&nbsp;1288&nbsp;</span>';
+				project+='<span class="slant"></span><span class="order_num">年</span>';
+				project+='</div>';
+				project+='</div>';
+				project+='<div class="order_box">';
+				project+='<div class="order_name">物流管理系统+微信公众号</div>';
+				project+='<div class="order_name">↓</div>';
+				project+='<div class="order_total" onclick="order_total(this)">';
+				project+='<span class="order_sign">￥</span><span class="order_cost">1688</span>';
+				project+='<span class="order_ocost">&nbsp;1988&nbsp;</span>';
+				project+='<span class="slant"></span><span class="order_num">年</span>';
+				project+='</div>';
+				project+='</div>';
+				project+='</div>';
+				project+='<div class="order_view">';
+				project+='<label class="col-sm-2 col-sm-offset-3">站点数量</label>';
+				project+='<div class="col-sm-3 input-group">';
+				project+='<input type="text" class="form-control" id="site" value="1" oninput="order_amount()" onkeyup="keyUp(this)" onafterpaste="afterPaste(this)" />';
+				project+='<span class="input-group-addon">个</span>';
+				project+='</div>';
+				project+='</div>';
+				project+='<div class="order_view">';
+				project+='<label class="col-sm-2 col-sm-offset-3">终端数量</label>';
+				project+='<div class="col-sm-3 input-group">';
+				project+='<input type="text" class="form-control" id="terminal" value="1" oninput="order_amount()" onkeyup="keyUp(this)" onafterpaste="afterPaste(this)" />';
+				project+='<span class="input-group-addon">台</span>';
+				project+='</div>';
+				project+='</div>';
+				project+='</div>';
+				project+='<div class="order_view">';
+				project+='<div class="order_end">应付金额：<span id="order_pay">998</span>元</div>';
+				project+='<div class="order_end"><input class="view_input" type="button" value="确认订购" onclick="order_pay()"></div>';
+				project+='</div>';
+				project+='</div>';
+				project+='</div>';
+				$("#view-project").append(project);
 			}else if(i==4||i==5||i==6||i==7){
 				$(".tab-item").removeClass("active");
 				$("#view-slide").empty();
@@ -514,22 +736,22 @@
 				slide+='</div>';
 				slide+='<div class="carousel-tab">';
 				if(i==4){
-					slide+='<span class="carousel-item link" onclick="tabOn(0)">软件开发</span>';
+					slide+='<span class="carousel-item link" onclick="tabOn(0)">物流管理系统</span>';
 					slide+='<span class="carousel-item" onclick="tabOn(1)">微信公众号</span>';
 					slide+='<span class="carousel-item" onclick="tabOn(2)">微信小程序</span>';
 					slide+='<span class="carousel-item" onclick="tabOn(3)">手机APP</span>';
 				}else if(i==5){
-					slide+='<span class="carousel-item" onclick="tabOn(0)">软件开发</span>';
+					slide+='<span class="carousel-item" onclick="tabOn(0)">物流管理系统</span>';
 					slide+='<span class="carousel-item link" onclick="tabOn(1)">微信公众号</span>';
 					slide+='<span class="carousel-item" onclick="tabOn(2)">微信小程序</span>';
 					slide+='<span class="carousel-item" onclick="tabOn(3)">手机APP</span>';
 				 }else if(i==6){
-					slide+='<span class="carousel-item" onclick="tabOn(0)">软件开发</span>';
+					slide+='<span class="carousel-item" onclick="tabOn(0)">物流管理系统</span>';
 					slide+='<span class="carousel-item" onclick="tabOn(1)">微信公众号</span>';
 					slide+='<span class="carousel-item link" onclick="tabOn(2)">微信小程序</span>';
 					slide+='<span class="carousel-item" onclick="tabOn(3)">手机APP</span>';
 				 }else if(i==7){
-					slide+='<span class="carousel-item" onclick="tabOn(0)">软件开发</span>';
+					slide+='<span class="carousel-item" onclick="tabOn(0)">物流管理系统</span>';
 					slide+='<span class="carousel-item" onclick="tabOn(1)">微信公众号</span>';
 					slide+='<span class="carousel-item" onclick="tabOn(2)">微信小程序</span>';
 					slide+='<span class="carousel-item link" onclick="tabOn(3)">手机APP</span>';
@@ -586,6 +808,70 @@
 			}
 		}
 		
+		function imgTo(){
+			$(".tab-item").removeClass("active");
+			$(".tab-item").eq(2).addClass("active");
+			$("#view-slide").empty();
+			var slide='';
+			slide+='<div class="carousel-inner">';
+			slide+='<div class="item active">';
+			slide+='<img src="images/banner5.png">';
+			slide+='</div>';
+			slide+='</div>';
+			slide+='<div class="carousel-tab">';
+			slide+='<span class="carousel-item link" onclick="tabClick(0)">物流系统订购</span>';
+			slide+='<span class="carousel-item" onclick="tabClick(1)">微信公众号开发</span>';
+			slide+='<span class="carousel-item" onclick="tabClick(2)">微信小程序推广</span>';
+			slide+='<span class="carousel-item" onclick="tabClick(3)">手机App开发</span>';
+			slide+='</div>';
+			$("#view-slide").append(slide);
+			$("#view-project").empty();
+			var project='';
+			project+='<div class="view-cases">';
+			project+='<div class="order_view">';
+			project+='<div class="order_box">';
+			project+='<div class="order_name">物流管理系统</div>';
+			project+='<div class="order_name">↓</div>';
+			project+='<div class="order_total order_active" onclick="order_total(this)">';
+			project+='<span class="order_sign">￥</span><span class="order_cost">998</span>';
+			project+='<span class="order_ocost">&nbsp;1288&nbsp;</span>';
+			project+='<span class="slant"></span><span class="order_num">年</span>';
+			project+='</div>';
+			project+='</div>';
+			project+='<div class="order_box">';
+			project+='<div class="order_name">物流管理系统+微信公众号</div>';
+			project+='<div class="order_name">↓</div>';
+			project+='<div class="order_total" onclick="order_total(this)">';
+			project+='<span class="order_sign">￥</span><span class="order_cost">1688</span>';
+			project+='<span class="order_ocost">&nbsp;1988&nbsp;</span>';
+			project+='<span class="slant"></span><span class="order_num">年</span>';
+			project+='</div>';
+			project+='</div>';
+			project+='</div>';
+			project+='<div class="order_view">';
+			project+='<label class="col-sm-2 col-sm-offset-3">站点数量</label>';
+			project+='<div class="col-sm-3 input-group">';
+			project+='<input type="text" class="form-control" id="site" value="1" oninput="order_amount()" onkeyup="keyUp(this)" onafterpaste="afterPaste(this)" />';
+			project+='<span class="input-group-addon">个</span>';
+			project+='</div>';
+			project+='</div>';
+			project+='<div class="order_view">';
+			project+='<label class="col-sm-2 col-sm-offset-3">终端数量</label>';
+			project+='<div class="col-sm-3 input-group">';
+			project+='<input type="text" class="form-control" id="terminal" value="1" oninput="order_amount()" onkeyup="keyUp(this)" onafterpaste="afterPaste(this)" />';
+			project+='<span class="input-group-addon">台</span>';
+			project+='</div>';
+			project+='</div>';
+			project+='</div>';
+			project+='<div class="order_view">';
+			project+='<div class="order_end">应付金额：<span id="order_pay">998</span>元</div>';
+			project+='<div class="order_end"><input class="view_input" type="button" value="确认订购" onclick="order_pay()"></div>';
+			project+='</div>';
+			project+='</div>';
+			project+='</div>';
+			$("#view-project").append(project);
+		}
+		
 		function tabOn(i){
 			$(".carousel-item").removeClass("link");
 			$(".carousel-item").eq(i).addClass("link");
@@ -624,6 +910,178 @@
 				detail+='<div class="case_right case_mobile3"><div class="case_text">当司机到达目的地后可以出示交付二维码让对方物流公司接收货物，将货物信息准确地传送到下家物流公司的软件系统中，如果对家物流公司未安装此管理系统或者是直达的企业用户无法扫码接单，不用担心，签字功能可以帮助完成签收的闭合流程。签字的内容将会传到物流公司的台账中，并可打印附有真实签字笔记的回单。</div></div>';
 			}
 			$(".cases-detail").append(detail);
+		}
+		
+		function tabClick(i){
+			$(".carousel-item").removeClass("link");
+			$(".carousel-item").eq(i).addClass("link");
+			$("#view-project").empty();
+			var project='';
+			project+='<div class="view-cases">';
+			if(i==0){
+				project+='<div class="order_view">';
+				project+='<div class="order_box">';
+				project+='<div class="order_name">物流管理系统</div>';
+				project+='<div class="order_name">↓</div>';
+				project+='<div class="order_total order_active" onclick="order_total(this)">';
+				project+='<span class="order_sign">￥</span><span class="order_cost">998</span>';
+				project+='<span class="order_ocost">&nbsp;1288&nbsp;</span>';
+				project+='<span class="slant"></span><span class="order_num">年</span>';
+				project+='</div>';
+				project+='</div>';
+				project+='<div class="order_box">';
+				project+='<div class="order_name">物流管理系统+微信公众号</div>';
+				project+='<div class="order_name">↓</div>';
+				project+='<div class="order_total" onclick="order_total(this)">';
+				project+='<span class="order_sign">￥</span><span class="order_cost">1688</span>';
+				project+='<span class="order_ocost">&nbsp;1988&nbsp;</span>';
+				project+='<span class="slant"></span><span class="order_num">年</span>';
+				project+='</div>';
+				project+='</div>';
+				project+='</div>';
+				project+='<div class="order_view">';
+				project+='<label class="col-sm-2 col-sm-offset-3">站点数量</label>';
+				project+='<div class="col-sm-3 input-group">';
+				project+='<input type="text" class="form-control" id="site" value="1" oninput="order_amount()" onkeyup="keyUp(this)" onafterpaste="afterPaste(this)" />';
+				project+='<span class="input-group-addon">个</span>';
+				project+='</div>';
+				project+='</div>';
+				project+='<div class="order_view">';
+				project+='<label class="col-sm-2 col-sm-offset-3">终端数量</label>';
+				project+='<div class="col-sm-3 input-group">';
+				project+='<input type="text" class="form-control" id="terminal" value="1" oninput="order_amount()" onkeyup="keyUp(this)" onafterpaste="afterPaste(this)" />';
+				project+='<span class="input-group-addon">台</span>';
+				project+='</div>';
+				project+='</div>';
+				project+='</div>';
+				project+='<div class="order_view">';
+				project+='<div class="order_end">应付金额：<span id="order_pay">998</span>元</div>';
+				project+='<div class="order_end"><input class="view_input" type="button" value="确认订购" onclick="order_pay()"></div>';
+				project+='</div>';
+			}else if(i==2){
+				project+='<div class="promote_view">';
+				project+='<div class="promote_total promote_active" onclick="promote_total(this)">';
+				project+='<span class="promote_cost">200</span><span class="promote_sign">元</span>';
+				project+='<span class="slant"></span><span class="promote_num">年</span>';
+				project+='</div>';
+				project+='<div class="promote_total" onclick="promote_total(this)">';
+				project+='<span class="promote_cost">100</span><span class="promote_sign">元</span>';
+				project+='<span class="slant"></span><span class="promote_num">年</span>';
+				project+='</div>';
+				project+='<div class="promote_total" onclick="promote_total(this)">';
+				project+='<span class="promote_cost">15</span><span class="promote_sign">元</span>';
+				project+='<span class="slant"></span><span class="promote_num">月</span>';
+				project+='</div>';
+				project+='</div>';
+				project+='<div class="promote_view">';
+				project+='<label class="col-sm-2 col-sm-offset-3">推广时间</label>';
+				project+='<div class="col-sm-3 input-group">';
+				project+='<input type="text" class="form-control" id="time" value="1" oninput="promote_amount()" onkeyup="keyUp(this)" onafterpaste="afterPaste(this)" />';
+				project+='<span class="input-group-addon" id="time_type">年</span>';
+				project+='</div>';
+				project+='</div>';
+				project+='<div class="promote_view">';
+				project+='<div class="promote_end">应付金额：<span id="promote_pay">200</span>元</div>';
+				project+='<div class="promote_end"><input class="view_input" type="button" value="确认购买" onclick="promote_pay()"></div>';
+				project+='</div>';
+			}else if(i==1||i==3){
+				project+='<div class="promote_view">';
+				project+='<div>具体请联系客服QQ：206353932</div>';
+				project+='<div>或拨打电话：15365580443</div>';
+				project+='</div>';
+			}
+			project+='</div>';
+			project+='</div>';
+			$("#view-project").append(project);
+		}
+		
+		function order_total(obj){
+			$(".order_total").removeClass("order_active");
+			$(obj).addClass("order_active");
+			var site=$("#site").val();
+			var terminal=$("#terminal").val();
+			if(site==""||terminal==""){
+				$("#order_pay").text(0);
+			}else{
+				var order_pay=$(obj).children(".order_cost").text()*site+198*(terminal-1);
+				$("#order_pay").text(order_pay);
+			}
+		}
+		
+		function order_amount(){
+			var site=$("#site").val();
+			var terminal=$("#terminal").val();
+			if(site==""||terminal==""){
+				$("#order_pay").text(0);
+			}else{
+				var order_pay=$(".order_active").children(".order_cost").text()*site+198*(terminal-1);
+				$("#order_pay").text(order_pay);
+			}
+		}
+		
+		function order_pay(){
+			var order_pay=$("#order_pay").text();
+			if(order_pay==0){
+				alert("请填写站点或终端数量！");
+			}else{
+				$('#alert').modal();
+			}
+		}
+		
+		function promote_total(obj){
+			$(".promote_total").removeClass("promote_active");
+			$(obj).addClass("promote_active");
+			if($(obj).children(".promote_cost").text()=="15"){
+				$("#time_type").text("月");
+			}else{
+				$("#time_type").text("年");
+			}
+			var time=$("#time").val();
+			if(time==""){
+				$("#promote_pay").text(0);
+			}else{
+				var promote_pay=$(obj).children(".promote_cost").text()*time;
+				$("#promote_pay").text(promote_pay);
+			}
+		}
+		
+		function promote_amount(){
+			var time=$("#time").val();
+			if(time==""){
+				$("#promote_pay").text(0);
+			}else{
+				var promote_pay=$(".promote_active").children(".promote_cost").text()*time;
+				$("#promote_pay").text(promote_pay);
+			}
+		}
+		
+		function promote_pay(){
+			var promote_pay=$("#promote_pay").text();
+			if(promote_pay==0){
+				alert("请填写推广时间！");
+			}else{
+				$('#alert').modal();
+			}
+		}
+		
+		function pay_final(){
+			alert("请联系客服QQ：206353932\n或拨打电话：15365580443！");
+		}
+		
+		function keyUp(obj){
+			if(obj.value.length==1){
+				obj.value=obj.value.replace(/[^1-9]/g,'');
+			}else{
+				obj.value=obj.value.replace(/\D/g,'');
+			}
+		}
+		
+		function afterPaste(obj){
+			if(obj.value.length==1){
+				obj.value=obj.value.replace(/[^1-9]/g,'');
+			}else{
+				obj.value=obj.value.replace(/\D/g,'');
+			}
 		}
 		
 		function flexisel(){
