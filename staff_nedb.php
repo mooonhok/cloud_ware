@@ -520,7 +520,7 @@ $app->post('/uploadStaff',function()use($app) {
                     ->where('staff_id','=',$staff_id)
                     ->where('exist',"=",0);
                 $affectedRows = $updateStatement->execute();
-                echo json_encode(array('result'=>'0','desc'=>'success'));
+                echo json_encode(array('result'=>'0','desc'=>'success','url'=>$array['head_img']));
             }else{
                 echo json_encode(array('result'=>'1','desc'=>'员工id为空'));
             }
