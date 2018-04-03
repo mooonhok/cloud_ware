@@ -8,7 +8,7 @@
 
 require 'Slim/Slim.php';
 require 'connect.php';
-
+require 'files_url.php';
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
@@ -500,19 +500,13 @@ $app->post('/uploadStaff',function()use($app) {
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->params('tenant_id');
     $staff_id=$app->request->params('staff_id');
-//    $tenant_id=$app->request->headers->get('tenant_id');
     $database=localhost();
-//    $body=$app->request->getBody();
-//    $body=json_decode($body);
-//    $bg_img=$body->head_img;
-//    $staff_id=$body->staff_id;
     $file_url=file_url();
     $array=array();
     if(isset($_FILES["head_img"])){
         $name11 = $_FILES["head_img"]["name"];
         if($name11){
             $name1=substr(strrchr($name11, '.'), 1);
-//        $name1 = iconv("UTF-8", "gb2312", $name11);
             $shijian = time();
             $name1 = $shijian .".". $name1;
             move_uploaded_file($_FILES["head_img"]["tmp_name"], "/files/staff/" . $name1);
@@ -530,9 +524,9 @@ $app->post('/uploadStaff',function()use($app) {
             }else{
                 echo json_encode(array('result'=>'1','desc'=>'员工id为空'));
             }
-    }else{
+       }else{
             echo json_encode(array('result'=>'2','desc'=>'头像图为空'));
-    }
+      }
     }else{
         echo json_encode(array('result'=>'3','desc'=>'租户为空'));
     }
