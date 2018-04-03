@@ -498,7 +498,7 @@ $app->put('/alterStaff3',function()use($app){
 $app->post('/uploadStaff',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $tenant_id=$app->request->headers->get('tenant-id');
+    $tenant_id=$app->request->headers->get('tenant_id');
     $database=localhost();
     $body=$app->request->getBody();
     $body=json_decode($body);
