@@ -494,8 +494,54 @@ $app->put('/alterStaff3',function()use($app){
         echo json_encode(array('result'=>'3','desc'=>'租户为空'));
     }
 });
-$app->run();
 
+$app->post('/uploadStaff',function()use($app) {
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+//    $bg_img=$body->head_img;
+    $staff_id=$body->staff_id;
+    $file_url=file_url();
+    $array=array();
+    if(isset($_FILES["head_img"])){
+        $name11 = $_FILES["head_img"]["name"];
+        if($name11){
+            $name1=substr(strrchr($name11, '.'), 1);
+//        $name1 = iconv("UTF-8", "gb2312", $name11);
+            $shijian = time();
+            $name1 = $shijian .".". $name1;
+            move_uploaded_file($_FILES["head_img"]["tmp_name"], "/files/staff/" . $name1);
+            $array['head_img']=$file_url."staff/".$name1;
+        }
+        if($tenant_id!=null||$tenant_id!=''){
+            if($staff_id!=null||$staff_id!=''){
+                $updateStatement = $database->update($array)
+                    ->table('staff')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('staff_id','=',$staff_id)
+                    ->where('exist',"=",0);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array('result'=>'0','desc'=>'success'));
+            }else{
+                echo json_encode(array('result'=>'1','desc'=>'员工id为空'));
+            }
+    }else{
+            echo json_encode(array('result'=>'2','desc'=>'头像图为空'));
+    }
+    }else{
+        echo json_encode(array('result'=>'3','desc'=>'租户为空'));
+    }
+});
+
+
+
+$app->run();
+function file_url(){
+    return files_url();
+}
 function localhost(){
     return connect();
 }
