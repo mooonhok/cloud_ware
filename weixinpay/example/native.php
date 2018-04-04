@@ -72,7 +72,7 @@ $url2 = $result["code_url"];
                        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
                    }
              xmlhttp.onreadystatechange=function(){
-                 alert(1)
+                console.log(xmlhttp)
                         if (xmlhttp.readyState==4 && xmlhttp.status==200){
                               trade_state=xmlhttp.responseText;
                               if(trade_state=='SUCCESS'){
