@@ -66,6 +66,7 @@ $url2 = $result["code_url"];
                if (window.XMLHttpRequest){
                         // code for IE7+, Firefox, Chrome, Opera, Safari
                      xmlhttp=new XMLHttpRequest();
+                     alert(1)
                   }else{
                        // code for IE6, IE5
                        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
