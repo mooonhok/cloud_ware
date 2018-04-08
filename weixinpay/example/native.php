@@ -73,6 +73,7 @@ $url2 = $result["code_url"];
                    }
              xmlhttp.onreadystatechange=function(){
                 console.log(xmlhttp)
+                 document.getElementById("myDiv").innerHTML='支付成功';
                         if (xmlhttp.readyState==4 && xmlhttp.status==200){
                               trade_state=xmlhttp.responseText;
                               if(trade_state=='SUCCESS'){
