@@ -30,6 +30,7 @@ $url1 = $notify->GetPrePayUrl("123456789");
 $input = new WxPayUnifiedOrder();
 $input->SetBody("test");
 $input->SetAttach("test");
+$num=WxPayConfig::MCHID.date("YmdHis");
 $input->SetOut_trade_no(WxPayConfig::MCHID.date("YmdHis"));
 $input->SetTotal_fee("1");
 $input->SetTime_start(date("YmdHis"));
