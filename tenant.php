@@ -1577,51 +1577,55 @@ $app->get('/getTenants4',function()use($app){
         }
         echo json_encode(array("result"=>"0",'desc'=>'','tenants'=>$arrays1));
     }else{
-        echo json_encode(array("result"=>"4",'desc'=>'缺少城市id'));
+        echo json_encode(array("result"=>"4",'desc'=>'缺少客户姓名'));
     }
 });
 
 $app->get('/limitTenants4',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type', 'application/json');
-    $city_id=$app->request->get('city_id');
+    $customer_name=$app->request->get('customer_name');
     $size=$app->request->get('size');
     $offset=$app->request->get('offset');
     $database=localhost();
-    if($city_id!=null||$city_id!=""){
+    $arrays1=array();
+    if($customer_name!=null||$customer_name!=""){
         $selectStatement = $database->select()
-            ->from('tenant')
-            ->where('from_city_id','=',$city_id)
-            ->where('exist','=','0')
-            ->limit((int)$size,(int)$offset);
+            ->from('customer')
+            ->where('customer_name','=',$customer_name);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         if($data!=null){
             for($x=0;$x<count($data);$x++){
                 $selectStatement = $database->select()
                     ->from('city')
-                    ->where('id','=',$data[$x]['from_city_id']);
+                    ->where('id','=',$data[$x]['customer_city_id']);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetch();
-                $data[$x]['from_city_name']=$data2['name'];
+                $data[$x]['customer_city_name']=$data2['name'];
                 $selectStatement = $database->select()
-                    ->from('customer')
-                    ->where('customer_id','=',$data[$x]['contact_id'])
-                    ->where('tenant_id','=',$data[$x]['tenant_id']);
+                    ->from('tenant')
+                    ->where('contact_id','=',$data[$x]['customer_id'])
+                    ->where('tenant_id','=',$data[$x]['tenant_id'])
+                    ->where('exist','=',0)
+                    ->limit((int)$size,(int)$offset);
                 $stmt = $selectStatement->execute();
-                $data3 = $stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id','=',$data3['customer_city_id']);
-                $stmt = $selectStatement->execute();
-                $data4 = $stmt->fetch();
-                $data3['customer_city_name']=$data4['name'];
-                $data[$x]['customer']=$data3;
+                $data3 = $stmt->fetchAll();
+                if($data3!=null) {
+                    $selectStatement = $database->select()
+                        ->from('city')
+                        ->where('id', '=', $data3['city_id']);
+                    $stmt = $selectStatement->execute();
+                    $data4 = $stmt->fetch();
+                    $data3['city_name'] = $data4['name'];
+                    $data3['customer'] = $data[$x];
+                    array_merge($arrays1,$data3);
+                }
             }
         }
-        echo json_encode(array("result"=>"0",'desc'=>'','tenants'=>$data));
+        echo json_encode(array("result"=>"0",'desc'=>'','tenants'=>$arrays1));
     }else{
-        echo json_encode(array("result"=>"4",'desc'=>'缺少城市id'));
+        echo json_encode(array("result"=>"4",'desc'=>'缺少客户名称'));
     }
 });
 
