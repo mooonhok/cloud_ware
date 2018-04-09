@@ -1581,7 +1581,7 @@ $app->get('/getTenants4',function()use($app){
                 if($data3!=null) {
                     $selectStatement = $database->select()
                         ->from('city')
-                        ->where('id', '=', $data3['city_id']);
+                        ->where('id', '=', $data3['from_city_id']);
                     $stmt = $selectStatement->execute();
                     $data4 = $stmt->fetch();
                     $data3['city_name'] = $data4['name'];
@@ -1631,7 +1631,7 @@ $app->get('/limitTenants4',function()use($app){
                 if($data3!=null) {
                     $selectStatement = $database->select()
                         ->from('city')
-                        ->where('id', '=', $data3['city_id']);
+                        ->where('id', '=', $data3['from_city_id']);
                     $stmt = $selectStatement->execute();
                     $data4 = $stmt->fetch();
                     $data3['city_name'] = $data4['name'];
