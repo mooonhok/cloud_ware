@@ -1585,7 +1585,7 @@ $app->get('/getTenants4',function()use($app){
                             ->where('id', '=', $data3[$j]['from_city_id']);
                         $stmt = $selectStatement->execute();
                         $data4 = $stmt->fetch();
-                        $data3[$j]['city_name'] = $data4['name'];
+                        $data3[$j]['from_city_name'] = $data4['name'];
                         $data3[$j]['customer'] = $data[$x];
                         array_push($arrays1,$data3[$j]);
                     }
@@ -1637,7 +1637,7 @@ $app->get('/limitTenants4',function()use($app){
                             ->where('id', '=', $data3[$j]['from_city_id']);
                         $stmt = $selectStatement->execute();
                         $data4 = $stmt->fetch();
-                        $data3[$j]['city_name'] = $data4['name'];
+                        $data3[$j]['from_city_name'] = $data4['name'];
                         $data3[$j]['customer'] = $data[$x];
                         array_push($arrays1,$data3[$j]);
                     }
