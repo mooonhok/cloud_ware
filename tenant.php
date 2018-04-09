@@ -1327,15 +1327,15 @@ $app->get('/limitTenants1',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type', 'application/json');
     $city_id=$app->request->get('city_id');
-    $page=$app->request->get('page');
-    $per_page=$app->request->get("per_page");
+    $size=$app->request->get('size');
+    $offset=$app->request->get('offset');
     $database=localhost();
     if($city_id!=null||$city_id!=""){
         $selectStatement = $database->select()
             ->from('tenant')
             ->where('from_city_id','=',$city_id)
             ->where('exist','=','0')
-            ->limit((int)$per_page,(int)$per_page*(int)$page);
+            ->limit((int)$size,(int)$offset);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         if($data!=null){
