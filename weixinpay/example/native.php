@@ -101,7 +101,6 @@ $url2 = $result["code_url"];
                                        document.getElementById("myDiv").innerHTML='支付失败';
                                     clearInterval(myIntval);
                                   }
-
                            }
                   }
               //orderquery.php 文件返回订单状态，通过订单状态确定支付状态

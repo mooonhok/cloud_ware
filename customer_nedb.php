@@ -257,7 +257,7 @@ $app->get('/getCustomers2',function()use($app){
         $selectStatement = $database->select()
             ->from('customer')
             ->where('tenant_id', '=', $tenant_id)
-            ->where('times','!=',0)
+//            ->where('times','!=',0)
             ->whereNotNull('times')
             ->where('type', '=', 3)
             ->where('exist', '=', 0);
@@ -375,7 +375,7 @@ $app->get('/limitCustomers1',function()use($app){
             ->where('tenant_id', '=', $tenant_id)
             ->where('type', '=', 3)
             ->whereNotNull('times')
-            ->where('times','!=',0)
+//            ->where('times','!=',0)
             ->where('exist', '=', 0)
             ->orderBy('customer_id')
             ->limit((int)$size,(int)$offset);
