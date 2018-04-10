@@ -859,7 +859,7 @@ $app->get('/old_customers_w',function()use($app){
         ->where('exist','=',0)
         ->where('type','=',3)
         ->whereNotNull('times')
-        ->where('times','!=',0)
+//        ->where('times','!=',0)
         ->orderBy('id','DESC');
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
