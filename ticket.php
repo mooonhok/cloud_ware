@@ -35,7 +35,22 @@ $app->get('/getticket',function()use($app){
         ->where('id','=',$id);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
-    echo  json_encode(array("result"=>"1","desc"=>"",'ticket'=>$data));
+    echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
+});
+
+$app->get('/getticket_lorry',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $id=$app->request->get('id');
+    $app_lorry_id=$app->request->get('app_lorry_id');
+    $database = localhost();
+    $selectStatement = $database->select()
+        ->from('ticket_lorry')
+        ->where('lorry_id','=',$app_lorry_id)
+        ->where('company_id','=',$id);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetch();
+    echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
 });
 
 $app->post('/addticketlorry',function()use($app){
