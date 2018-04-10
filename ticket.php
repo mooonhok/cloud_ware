@@ -75,9 +75,11 @@ $app->post('/addticketlorry',function()use($app){
             if($data1!=null){
                 $arrays['company_id']=$id;
                 $arrays['lorry_id']=$app_lorry_id;
-                $insertStatement = $database->insert(array('company_id','lorry_id','sign_img'))
+                date_default_timezone_set("PRC");
+                $shijian=date("Y-m-d H:i:s",time());
+                $insertStatement = $database->insert(array('company_id','lorry_id','sign_img','time'))
                     ->into('ticket_lorry')
-                    ->values(array($id,$app_lorry_id,$arrays['sign_img']));
+                    ->values(array($id,$app_lorry_id,$arrays['sign_img'],$shijian));
                 $insertId = $insertStatement->execute(false);
                 echo  json_encode(array("result"=>"0","desc"=>"success"));
             }else{
