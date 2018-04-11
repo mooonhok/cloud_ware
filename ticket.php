@@ -141,6 +141,22 @@ $app->get('/getTickets',function()use($app){
     echo  json_encode(array("result"=>"0","desc"=>"",'tickets'=>$data));
 });
 
+
+$app->get('/getTicket',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $id = $app->request->get("id");
+    $database = localhost();
+    $selectStatement = $database->select()
+        ->from('ticket')
+        ->where('id','=',$id);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetch();
+    echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
+});
+
+
+
 $app->run();
 
 function file_url(){
