@@ -125,21 +125,21 @@ $app->get('/getTickets',function()use($app){
         ->from('ticket');
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
-    $selectStatement = $database->select()
-        ->from('ticket_tenant')
-        ->where('tenant_id','=',$tenant_id);
-    $stmt = $selectStatement->execute();
-    $data2 = $stmt->fetchAll();
+    for($x=0;$x<count($data);$x++){
+        $selectStatement = $database->select()
+            ->from('ticket_tenant')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('company_id','=',$data[$x]['id']);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
     if($data2!=null){
-      $data['is_league']=1;
+      $data[$x]['is_league']=1;
     }else{
-        $data['is_league']=0;
+        $data[$x]['is_league']=0;
+    }
     }
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
 });
-
-
-
 
 $app->run();
 
