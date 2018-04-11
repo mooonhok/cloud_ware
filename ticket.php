@@ -92,11 +92,19 @@ $app->post('/addticketlorry',function()use($app){
                 $arrays['lorry_id']=$app_lorry_id;
                 date_default_timezone_set("PRC");
                 $shijian=date("Y-m-d H:i:s",time());
-                $insertStatement = $database->insert(array('company_id','lorry_id','sign_img','time'))
-                    ->into('ticket_lorry')
-                    ->values(array($id,$app_lorry_id,$arrays['sign_img'],$shijian));
-                $insertId = $insertStatement->execute(false);
-                echo  json_encode(array("result"=>"0","desc"=>"success"));
+                $selectStament=$database->select()
+                    ->from('ticket_lorry')
+                    ->where('company_id','=',$id)
+                    ->where('lorry_id','=',$app_lorry_id);
+                $stmt=$selectStament->execute();
+                $data2=$stmt->fetch();
+                if($data2==null){
+                    $insertStatement = $database->insert(array('company_id','lorry_id','sign_img','time'))
+                        ->into('ticket_lorry')
+                        ->values(array($id,$app_lorry_id,$arrays['sign_img'],$shijian));
+                    $insertId = $insertStatement->execute(false);
+                }
+                echo  json_encode(array("result"=>"0","desc"=>"添加成功"));
             }else{
                 echo  json_encode(array("result"=>"3","desc"=>"您未填写电话和密码"));
             }
