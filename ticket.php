@@ -138,7 +138,7 @@ $app->get('/getTickets',function()use($app){
         $data[$x]['is_league']=0;
     }
     }
-    echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
+    echo  json_encode(array("result"=>"0","desc"=>"",'tickets'=>$data));
 });
 
 $app->run();
