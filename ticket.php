@@ -119,11 +119,22 @@ $app->post('/addticketlorry',function()use($app){
 $app->get('/getTickets',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     $selectStatement = $database->select()
         ->from('ticket');
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
+    $selectStatement = $database->select()
+        ->from('ticket_tenant')
+        ->where('tenant_id','=',$tenant_id);
+    $stmt = $selectStatement->execute();
+    $data2 = $stmt->fetchAll();
+    if($data2!=null){
+      $data['is_league']=1;
+    }else{
+        $data['is_league']=0;
+    }
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
 });
 
