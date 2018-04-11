@@ -116,6 +116,20 @@ $app->post('/addticketlorry',function()use($app){
     }
 });
 
+$app->get('/getTickets',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database = localhost();
+    $selectStatement = $database->select()
+        ->from('ticket');
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
+});
+
+
+
+
 $app->run();
 
 function file_url(){
