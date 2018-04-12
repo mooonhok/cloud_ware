@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin:*');
 ini_set('date.timezone','Asia/Shanghai');
 error_reporting(E_ERROR);
 require_once "../lib/WxPay.Api.php";
