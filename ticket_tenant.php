@@ -25,7 +25,7 @@ $app->get('/getTicketTenants0',function()use($app){
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket_tenants'=>$data2));
 });
 
-$app->get('/getTicketCompany0',function()use($app){
+$app->get('/getTicketTenant0',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->get('tenant_id');
