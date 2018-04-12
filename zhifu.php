@@ -23,6 +23,7 @@ $app->get('/gettickets',function()use($app,$notify,$input){
 
     $input->SetBody("test");
     $input->SetAttach("test");
+    date_default_timezone_set("PRC");
     $num=WxPayConfig::MCHID.date("YmdHis");
     $input->SetOut_trade_no(WxPayConfig::MCHID.date("YmdHis"));
     $input->SetTotal_fee("1");
