@@ -5,7 +5,7 @@
  * Date: 2018/4/12
  * Time: 15:28
  */
-require "weixinpay/example/WxPay.Api.php";
+require "weixinpay/lib/WxPay.Api.php";
 require "weixinpay/example/WxPay.NativePay.php";
 require 'weixinpay/example/log.php';
 require 'Slim/Slim.php';
