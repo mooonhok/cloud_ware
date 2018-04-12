@@ -5,9 +5,9 @@
  * Date: 2018/4/12
  * Time: 15:28
  */
-//require "weixinpay/example/lib/WxPay.Api.php";
-//require "weixinpay/example/WxPay.NativePay.php";
-//require 'weixinpay/example/log.php';
+require "weixinpay/example/lib/WxPay.Api.php";
+require "weixinpay/example/WxPay.NativePay.php";
+require 'weixinpay/example/log.php';
 require 'Slim/Slim.php';
 require 'connect.php';
 require 'files_url.php';
@@ -17,7 +17,7 @@ $app = new \Slim\Slim();
 $notify = new NativePay();
 $input = new WxPayUnifiedOrder();
 
-$app->get('/gettickets',function()use($app){
+$app->get('/gettickets',function()use($app,$notify,$input){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
 
