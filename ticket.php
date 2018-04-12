@@ -22,7 +22,7 @@ $app->get('/gettickets',function()use($app){
         ->orderBy('sign_img','desc');
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
-    for($i<0;$i<count($data);$i++){
+    for($i=0;$i<count($data);$i++){
         $selectStatement = $database->select()
             ->from('ticket')
             ->where('company','=',$data[$i]['company']);
