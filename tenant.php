@@ -1713,7 +1713,25 @@ $app->get('/limitTenants4',function()use($app){
     }
 });
 
-
+$app->get('/getTenant5',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type', 'application/json');
+    $business_l=$app->request->get('business_l');
+//    $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    if($business_l!=null||$business_l!=""){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('business_l','!=',$business_l)
+            ->where('nature','=',0)
+            ->where('exist','=',0);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetch();
+        echo json_encode(array("result"=>"0",'desc'=>'','tenant'=>$data));
+    }else{
+        echo json_encode(array("result"=>"4",'desc'=>'缺少营业执照编号'));
+    }
+});
 
 
 
