@@ -21,21 +21,21 @@ $input = new WxPayUnifiedOrder();
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 $app->get('/zhifu',function()use($app,$notify,$input){
-    $input = new WxPayUnifiedOrder();
-    $input->SetBody("test");
-    $input->SetAttach("test");
-    $num=WxPayConfig::MCHID.date("YmdHis");
-    $input->SetOut_trade_no(WxPayConfig::MCHID.date("YmdHis"));
-    $input->SetTotal_fee("1");
-    $input->SetTime_start(date("YmdHis"));
-    $input->SetTime_expire(date("YmdHis", time() + 600));
-    $input->SetGoods_tag("test");
-    $input->SetNotify_url("http://api.uminfo.cn/weixinpay/example/notify.php");
-    $input->SetTrade_type("NATIVE");
-    $input->SetProduct_id("123456789");
-    $result = $notify->GetPayUrl($input);
-    $url2 = $result["code_url"];
-    echo json_encode(array("result" => "0", "desc" => $url2));
+//    $input = new WxPayUnifiedOrder();
+//    $input->SetBody("test");
+//    $input->SetAttach("test");
+//    $num=WxPayConfig::MCHID.date("YmdHis");
+//    $input->SetOut_trade_no(WxPayConfig::MCHID.date("YmdHis"));
+//    $input->SetTotal_fee("1");
+//    $input->SetTime_start(date("YmdHis"));
+//    $input->SetTime_expire(date("YmdHis", time() + 600));
+//    $input->SetGoods_tag("test");
+//    $input->SetNotify_url("http://api.uminfo.cn/weixinpay/example/notify.php");
+//    $input->SetTrade_type("NATIVE");
+//    $input->SetProduct_id("123456789");
+//    $result = $notify->GetPayUrl($input);
+//    $url2 = $result["code_url"];
+    echo json_encode(array("result" => "0", "desc" => ''));
 
 });
 
