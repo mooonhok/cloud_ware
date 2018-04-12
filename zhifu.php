@@ -35,7 +35,7 @@ $app->get('/gettickets',function()use($app,$notify,$input){
     $input->SetProduct_id("123456789");
     $result = $notify->GetPayUrl($input);
     $url2 = $result["code_url"];
-    echo  json_encode(array("result"=>"1","desc"=>"",'ticket'=>'http://api.uminfo.cn/weixinpay/example/qrcode.php?data='.urlencode($url2)));
+    echo  json_encode(array("result"=>"1","desc"=>$num,'ticket'=>'http://api.uminfo.cn/weixinpay/example/qrcode.php?data='.urlencode($url2)));
 });
 
 
