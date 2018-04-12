@@ -107,7 +107,7 @@ $app->post('/addticketlorry',function()use($app){
                 $stmt=$selectStament->execute();
                 $data2=$stmt->fetch();
                 if($data2==null){
-                    $insertStatement = $database->insert(array('company_id','lorry_id','sign_img','time'))
+                    $insertStatement = $database->insert(array('company_id','lorry_id','sign_img','commit_time'))
                         ->into('ticket_lorry')
                         ->values(array($id,$app_lorry_id,$arrays['sign_img'],$shijian));
                     $insertId = $insertStatement->execute(false);
