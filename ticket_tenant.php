@@ -37,7 +37,7 @@ $app->get('/getTicketTenant0',function()use($app){
         ->where('company_id','=',$company_id);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
-    echo  json_encode(array("result"=>"0","desc"=>"",'tenant_company'=>$data));
+    echo  json_encode(array("result"=>"0","desc"=>"",'ticket_tenant'=>$data));
 });
 
 $app->run();
