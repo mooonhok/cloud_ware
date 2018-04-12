@@ -134,12 +134,15 @@ $app->get('/getTickets',function()use($app){
         $data2 = $stmt->fetch();
     if($data2!=null){
       $data[$x]['is_league']=1;
+        $data[$x]['tenant']=$data2;
     }else{
         $data[$x]['is_league']=0;
+        $data[$x]['tenant']=null;
     }
     }
     echo  json_encode(array("result"=>"0","desc"=>"",'tickets'=>$data));
 });
+
 
 
 $app->get('/getTicket',function()use($app){
