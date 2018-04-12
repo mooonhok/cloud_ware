@@ -35,7 +35,7 @@ $app->get('/zhifu',function()use($app,$notify,$input){
     $input->SetProduct_id("123456789");
     $result = $notify->GetPayUrl($input);
     $url2 = $result["code_url"];
-    echo json_encode(array("result" => "1", "desc" => $url2));
+    echo json_encode(array("result" => "0", "desc" => $url2));
 
 });
 
