@@ -5,19 +5,19 @@
  * Date: 2018/4/12
  * Time: 13:15
  */
-require "./weixinpay/lib/WxPay.Api.php";
-require "./weixinpay/example/WxPay.NativePay.php";
-require './weixinpay/example/log.php';
+//require "./weixinpay/lib/WxPay.Api.php";
+//require "./weixinpay/example/WxPay.NativePay.php";
+//require './weixinpay/example/log.php';
 require 'Slim/Slim.php';
 require 'connect.php';
 require 'files_url.php';
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
-$notify = new NativePay();
-$input = new WxPayUnifiedOrder();
+//$notify = new NativePay();
+//$input = new WxPayUnifiedOrder();
 
-$app->get('/gettickets',function()use($app,$notify,$input){
+$app->get('/gettickets',function()use($app){
 //    $input->SetBody("test");
 //    $input->SetAttach("test");
 //    $num=WxPayConfig::MCHID.date("YmdHis");
