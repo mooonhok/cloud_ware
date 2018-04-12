@@ -5,23 +5,22 @@
  * Date: 2018/4/12
  * Time: 15:28
  */
-require "weixinpay/example/lib/WxPay.Api.php";
-require "weixinpay/example/WxPay.NativePay.php";
-require 'weixinpay/example/log.php';
+//require "weixinpay/example/lib/WxPay.Api.php";
+//require "weixinpay/example/WxPay.NativePay.php";
+//require 'weixinpay/example/log.php';
 require 'Slim/Slim.php';
 require 'connect.php';
 require 'files_url.php';
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
-//$notify = new NativePay();
-//$input = new WxPayUnifiedOrder();
+$notify = new NativePay();
+$input = new WxPayUnifiedOrder();
 
 $app->get('/gettickets',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $notify = new NativePay();
-    $input = new WxPayUnifiedOrder();
+
 //    $input->SetBody("test");
 //    $input->SetAttach("test");
 //    $num=WxPayConfig::MCHID.date("YmdHis");
