@@ -22,6 +22,14 @@ $app->get('/gettickets',function()use($app){
         ->orderBy('sign_img','desc');
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
+    for($i<0;$i<count($data);$i++){
+        $selectStatement = $database->select()
+            ->from('ticket')
+            ->where('company','=',$data[$i]['company']);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        $data[$i]['id']=$data1['id'];
+    }
         echo  json_encode(array("result"=>"1","desc"=>"",'ticket'=>$data));
 });
 
