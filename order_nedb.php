@@ -758,7 +758,7 @@ $app->put('/alterOrder15',function()use($app){
     $body = $app->request->getBody();
     $body = json_decode($body);
     $order_id = $body->order_id;
-    $order_datetime1 = $body->order_datetime1;
+    $order_datetime1 = date('Y-m-d H:i:s',time());
     if($tenant_id!=null||$tenant_id!=''){
         if($order_id!=null||$order_id!=''){
             $updateStatement = $database->update(array('order_status'=>1,'order_datetime1'=>$order_datetime1,'order_datetime2'=>null,'order_datetime3'=>null))
