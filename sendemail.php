@@ -23,8 +23,8 @@ $app = new \Slim\Slim();
 $app->post('/scheduling',function()use($app,$mail){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $body = $app->request->getBody();
-    $body=json_decode($body);
+//    $body = $app->request->getBody();
+//    $body=json_decode($body);
     $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
     $mail->CharSet = "utf-8"; // 设置字符集编码 utf-8
     $mail->Encoding = "base64";//设置文本编码方式
@@ -37,10 +37,25 @@ $app->post('/scheduling',function()use($app,$mail){
     $mail->Password = '70607102jsym';                           // SMTP password
     $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
     $mail->Port = 465;                                    // TCP port to connect to
-    $emailaddress=$body->sendtoemail;//收件邮箱地址
-    $sendname=$body->sendname;//收件人称呼
-    $message=$body->text;//邮件内容
-    $title=$body->title;//邮件标题
+//    $emailaddress=$body->sendtoemail;//收件邮箱地址
+//    $sendname=$body->sendname;//收件人称呼
+//    $title=$body->title;//邮件标题
+    $emailaddress='1026413232@qq.com';//收件邮箱地址
+    $sendname='你';//收件人称呼
+//    $message=$body->text;//邮件内容
+    $message='<table border="1" cellspacing="0" cellpadding="0">'.
+                            '<tr bgcolor="yellow">'.
+                                '<td>姓名</td>'.
+                                '<td>年龄</td>'.
+                                '<td>地址</td>'.
+                            '</tr>'.
+                            '<tr>'.
+                                '<td>乐杨俊</td>'.
+                                '<td>24</td>'.
+                                '<td>江西省</td>'.
+                            '</tr>'.
+                       '</table>';
+    $title='保险';//邮件标题
     if($emailaddress!=null||$emailaddress!=""){
         $mail->setFrom( 'jsyouming@163.com','江苏酉铭');
         $mail->addAddress($emailaddress,$sendname);               //无称呼时使用
