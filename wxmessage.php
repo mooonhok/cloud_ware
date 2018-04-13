@@ -310,6 +310,7 @@ $app->post('/wxmessage',function()use($app){
                                $messageid=count($data)+100000001;
                            }
                            $array['message_id']=$messageid;
+                           $array['ms_date']=date('Y-m-d H:i:s',time());
                            $insertStatement = $database->insert(array_keys($array))
                                ->into('wx_message')
                                ->values(array_values($array));
