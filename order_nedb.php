@@ -20,6 +20,7 @@ $app->post('/addOrder', function () use ($app) {
     $order_id = $body->order_id;
     $sender_id = $body->sender_id;
     $receiver_id=$body->receiver_id;
+    $flag=$body->flag;
     $array=array();
     foreach($body as $key=>$value){
         $array[$key]=$value;
@@ -41,7 +42,11 @@ $app->post('/addOrder', function () use ($app) {
                         $array["is_schedule"]=0;
                         $array["is_transfer"]=0;
                         $array['order_datetime0']=date('Y-m-d H:i:s',time());
-                        $array['order_datetime1']=date('Y-m-d H:i:s',time());
+                        if($flag==0){
+                            $array['order_datetime1']=date('Y-m-d H:i:s',time());
+                        }else{
+                            $array['order_datetime1']=null;
+                        }
                         $array['exist']=0;
                         $array['tenant_id']=$tenant_id;
                         $insertStatement = $database->insert(array_keys($array))
