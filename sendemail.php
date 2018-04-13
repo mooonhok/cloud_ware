@@ -43,21 +43,17 @@ $app->post('/scheduling',function()use($app,$mail){
     $emailaddress='1026413232@qq.com';//收件邮箱地址
     $sendname='你';//收件人称呼
 //    $message=$body->text;//邮件内容
-    $message='<table border="1" cellspacing="0" cellpadding="0">'.
+    $message='<table border="1" cellspacing="0" cellpadding="0" width="600px;">'.
                             '<thead bgcolor="white" >'.
                               '<td colspan="5">南通物流公司货运险投保明细<td>'.
                             '</thead>'.
-                            '<tr bgcolor="white">'.
+                            '<tr>'.
                                 '<td>投保人:</td>'.
-                                '<td colspan="2"></td>'.
-                                '<td></td>'.
-                                '<td></td>'.
+                                '<td colspan="4"></td>'.
                             '</tr>'.
-                            '<tr bgcolor="white">'.
+                            '<tr>'.
                             '<td>被保险人:</td>'.
-                            '<td colspan="2"></td>'.
-                            '<td></td>'.
-                            '<td></td>'.
+                            '<td colspan="4"></td>'.
                             '</tr>'.
                             '<tr>'.
                                 '<td colspan="3">实际货主名称及统一社会代码证号码：</td>'.
