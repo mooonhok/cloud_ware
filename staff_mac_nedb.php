@@ -22,7 +22,7 @@ $app->post('/addStaffMac',function()use($app){
     $mac=$body->mac;
     $staff_id=$body->staff_id;
     $tenant_id=$body->tenant_id;
-    $login_time=$body->login_time;
+    $login_time=date('Y-m-d H:i:s',time());
     $array=array();
     foreach($body as $key=>$value){
         $array[$key]=$value;
@@ -31,6 +31,7 @@ $app->post('/addStaffMac',function()use($app){
         if($mac!=null||$mac!=''){
             if($staff_id!=null||$staff_id!=''){
                 if($login_time!=null||$login_time!=''){
+                    $array['login_time']=date('Y-m-d H:i:s',time());
                     $insertStatement = $database->insert(array_keys($array))
                         ->into('staff_mac')
                         ->values(array_values($array));
