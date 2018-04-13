@@ -40,7 +40,7 @@ $app->post('/scheduling',function()use($app,$mail){
 //    $emailaddress=$body->sendtoemail;//收件邮箱地址
 //    $sendname=$body->sendname;//收件人称呼
 //    $title=$body->title;//邮件标题
-    $emailaddress='1026413232@qq.com';//收件邮箱地址
+    $emailaddress='417656325@qq.com';//收件邮箱地址
     $sendname='你';//收件人称呼
 //    $message=$body->text;//邮件内容
     $message='<table border="1" cellspacing="0" cellpadding="0" width="600px;">'.
