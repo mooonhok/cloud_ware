@@ -521,6 +521,7 @@ $app->put('/alterOrder7',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
         if($order_id!=null||$order_id!=''){
             $array['order_status']=2;
+            $array['order_datetime2']=date('Y-m-d H:i:s',time());
             $updateStatement = $database->update($array)
                 ->table('orders')
                 ->where('tenant_id','=',$tenant_id)
@@ -657,7 +658,7 @@ $app->put('/alterOrder12',function()use($app){
     $body = json_decode($body);
     $order_id = $body->order_id;
     $pickup_id = $body->pickup_id;
-    $order_datetime5 = $body->order_datetime5;
+    $order_datetime5 = date('Y-m-d H:i:s',time());
         if($order_id!=null||$order_id!=''){
             if($pickup_id!=null||$pickup_id!=''){
                 $updateStatement = $database->update(array('pickup_id'=>$pickup_id,'order_datetime5'=>$order_datetime5,'order_status'=>7))
