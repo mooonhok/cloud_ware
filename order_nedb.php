@@ -676,7 +676,7 @@ $app->put('/alterOrder13',function()use($app){
     $body = $app->request->getBody();
     $body = json_decode($body);
     $order_id = $body->order_id;
-    $order_datetime4 = $body->order_datetime4;
+    $order_datetime4 = date('Y-m-d H:i:s',time());
     $reach_city = $body->reach_city;
         if($order_id!=null||$order_id!=''){
             if($order_datetime4!=null||$order_datetime4!=''){
@@ -721,7 +721,7 @@ $app->put('/alterOrder14',function()use($app){
     $body = $app->request->getBody();
     $body = json_decode($body);
     $order_id = $body->order_id;
-    $order_datetime1= $body->order_datetime1;
+    $order_datetime1= date('Y-m-d H:i:s',time());
     $pay_method = $body->pay_method;
     $transfer_cost=$body->transfer_cost;
     if($order_id!=null||$order_id!=''){
