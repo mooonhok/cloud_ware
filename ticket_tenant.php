@@ -54,11 +54,19 @@ $app->post('/addTicketTenant',function()use($app) {
 //    $business_img=$body->business_img;
     if (isset($_FILES["business_img"]["name"])) {
     $name = $_FILES["business_img"]["name"];
-    $name1 = iconv("UTF-8", "gb2312", $name);
-    $time1 = time();
-    $name1 = $time1 . $name1;
-    move_uploaded_file($_FILES["business_img"]["tmp_name"], '/files/business/' . $name1);
-    $business_img = $file_url . 'business/' . $time1 . $name . '';
+//    $name1 = iconv("UTF-8", "gb2312", $name);
+//    $time1 = time();
+//    $name1 = $time1 . $name1;
+//    move_uploaded_file($_FILES["business_img"]["tmp_name"], '/files/business/' . $name1);
+//    $business_img = $file_url . 'business/' . $time1 . $name . '';
+        if($name){
+            $name1=substr(strrchr($name, '.'), 1);
+//        $name1 = iconv("UTF-8", "gb2312", $name11);
+            $shijian = time();
+            $name1 = $shijian .".". $name1;
+            move_uploaded_file($_FILES["business_img"]["tmp_name"], "/files/business/" . $name1);
+            $business_img=$file_url."business/".$name1;
+        }
    }else{
         $business_img =null;
     }
