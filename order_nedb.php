@@ -40,6 +40,8 @@ $app->post('/addOrder', function () use ($app) {
                     if($tenant_id!=null||$tenant_id!=''){
                         $array["is_schedule"]=0;
                         $array["is_transfer"]=0;
+                        $array['order_datetime0']=date('Y-m-d H:i:s',time());
+                        $array['order_datetime1']=date('Y-m-d H:i:s',time());
                         $array['exist']=0;
                         $array['tenant_id']=$tenant_id;
                         $insertStatement = $database->insert(array_keys($array))
