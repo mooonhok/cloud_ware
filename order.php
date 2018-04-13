@@ -1620,7 +1620,7 @@ $app->put('/update_order_id',function()use($app){
     $order_id2=$body->order_id_n;
     $order_cost=$body->order_cost;
     $order_status=$body->order_status;
-    $order_datetime1=$body->order_datetime1;
+    $order_datetime1=date('Y-m-d H:i:s',time());
     $inventory_type=$body->inventory_type;
     $pay_method=$body->pay_method;
     if($tenant_id!=null||$tenant_id!=''){
