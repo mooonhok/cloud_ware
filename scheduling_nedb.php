@@ -2123,7 +2123,7 @@ $app->put('/alterScheduling5',function()use($app){
     $body = $app->request->getBody();
     $body = json_decode($body);
     $scheduling_id=$body->scheduling_id;
-    $scheduling_datetime=$body->scheduling_datetime;
+    $scheduling_datetime=date('Y-m-d H:m:s',time());
     if($tenant_id!=null||$tenant_id!=''){
         $updateStatement = $database->update(array('scheduling_datetime'=>$scheduling_datetime))
             ->table('scheduling')
