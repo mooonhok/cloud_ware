@@ -59,7 +59,9 @@ $app->post('/addTicketTenant',function()use($app) {
     $name1 = $time1 . $name1;
     move_uploaded_file($_FILES["business_img"]["tmp_name"], '/files/business/' . $name1);
     $business_img = $file_url . 'business/' . $time1 . $name . '';
-}
+   }else{
+        $business_img =null;
+    }
     if($tenant_id!=null||$tenant_id!=null){
         if($company_id!=null||$company_id!=""){
             $selectStatement = $database->select()
@@ -77,6 +79,7 @@ $app->post('/addTicketTenant',function()use($app) {
                     ->into('ticket_tenant')
                     ->values(array(count($data2),$tenant_id,$company_id,$company_name,$business,$business_img,0,date('Y-m-d H:i:s',time())));
                 $insertId = $insertStatement->execute(false);
+                echo json_encode(array("result" => "0", "desc" => "success"));
             }else{
                 echo  json_encode(array("result"=>"3","desc"=>"该纪录已存在"));
             }
