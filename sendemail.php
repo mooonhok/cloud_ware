@@ -44,16 +44,52 @@ $app->post('/scheduling',function()use($app,$mail){
     $sendname='你';//收件人称呼
 //    $message=$body->text;//邮件内容
     $message='<table border="1" cellspacing="0" cellpadding="0">'.
-                            '<tr bgcolor="yellow">'.
-                                '<td>姓名</td>'.
-                                '<td>年龄</td>'.
-                                '<td>地址</td>'.
+                            '<thead bgcolor="white" >'.
+                              '<td colspan="5">南通物流公司货运险投保明细<td>'.
+                            '</thead>'.
+                            '<tr bgcolor="white">'.
+                                '<td>投保人:</td>'.
+                                '<td colspan="2"></td>'.
+                                '<td></td>'.
+                                '<td></td>'.
+                            '</tr>'.
+                            '<tr bgcolor="white">'.
+                            '<td>被保险人:</td>'.
+                            '<td colspan="2"></td>'.
+                            '<td></td>'.
+                            '<td></td>'.
                             '</tr>'.
                             '<tr>'.
-                                '<td>乐杨俊</td>'.
-                                '<td>24</td>'.
-                                '<td>江西省</td>'.
+                                '<td colspan="3">实际货主名称及统一社会代码证号码：</td>'.
+                                '<td colspan="2">联系电话：</td>'.
                             '</tr>'.
+                            '<tr>'.
+                            '<td colspan="3">启运地/中转地：</td>'.
+                            '<td colspan="2" rowspan="3">运输工具：</td>'.
+                            '</tr>'.
+                            '<tr>'.
+                            '<td colspan="3">目的地：</td>'.
+                            '</tr>'.
+                            '<tr>'.
+                            '<td colspan="3">车牌号/车型/吨位：</td>'.
+                            '</tr>'.
+                            '<tr>'.
+                            '<td colspan="5">起运日期：</td>'.
+                            '</tr>'.
+        '<tr>'.
+        '<td colspan="5">运单号/货票号码：</td>'.
+        '</tr>'.
+        '<tr>'.
+        '<td colspan="3">货物名称：</td>'.
+        '<td colspan="2">件数：</td>'.
+        '</tr>'.
+        '<tr>'.
+        '<td colspan="3">重量（吨）：</td>'.
+        '<td colspan="2">包装：</td>'.
+        '</tr>'.
+        '<tr>'.
+        '<td colspan="5">保险金额：</td>'.
+        '</tr>'.
                        '</table>';
     $title='保险';//邮件标题
     if($emailaddress!=null||$emailaddress!=""){
