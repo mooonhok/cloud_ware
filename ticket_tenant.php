@@ -43,9 +43,7 @@ $app->get('/getTicketTenant0',function()use($app){
 $app->post('/addTicketTenant',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin', '*');
     $app->response->headers->set('Content-Type', 'application/json');
-    $body = $app->request->getBody();
     $file_url = file_url();
-    $body = json_decode($body);
     $database = localhost();
     $tenant_id = $app->request->params('tenant_id');
     $company_id = $app->request->params('company_id');
@@ -59,8 +57,8 @@ $app->post('/addTicketTenant',function()use($app) {
             $name1=substr(strrchr($name, '.'), 1);
             $shijian = time();
             $name1 = $shijian .".". $name1;
-            move_uploaded_file($_FILES["business_img"]["tmp_name"], "/files/business/" . $name1);
-            $business_img=$file_url."business/".$name1;
+            move_uploaded_file($_FILES["business_img"]["tmp_name"], "/files/business_l_p/" . $name1);
+            $business_img=$file_url."business_l_p/".$name1;
         }
    }
     if($tenant_id!=null||$tenant_id!=null){
@@ -76,9 +74,11 @@ $app->post('/addTicketTenant',function()use($app) {
                     ->from('ticket_tenant');
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetchAll();
-                $insertStatement = $database->insert(array('id','tenant_id','company_id','name','business','business_img','is_check','commit_time'))
+                $insertStatement = $database->insert(array('id','tenant_id','company_id',
+                    'name','business','business_img','is_check','commit_time'))
                     ->into('ticket_tenant')
-                    ->values(array(count($data2)+1,$tenant_id,$company_id,$company_name,$business,$business_img,0,date('Y-m-d H:i:s',time())));
+                    ->values(array(count($data2)+1,$tenant_id,$company_id,
+                        $company_name,$business,$business_img,0,date('Y-m-d H:i:s',time())));
                 $insertId = $insertStatement->execute(false);
                 echo json_encode(array("result" => "0", "desc" => "success"));
             }else{
