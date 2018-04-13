@@ -545,7 +545,7 @@ $app->put('/alterOrder8',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
         if($order_id!=null||$order_id!=''){
             $array['order_status']=3;
-            $array['order_datetime3']=date('Y-m-d H:m:s',time());
+            $array['order_datetime3']=date('Y-m-d H:i:s',time());
             $updateStatement = $database->update($array)
                 ->table('orders')
                 ->where('tenant_id','=',$tenant_id)
