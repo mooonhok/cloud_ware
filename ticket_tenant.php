@@ -51,6 +51,7 @@ $app->post('/addTicketTenant',function()use($app) {
     $company_id = $app->request->params('company_id');
     $company_name = $app->request->params('name');
     $business = $app->request->params('business');
+    $business_img=null;
 //    $business_img=$body->business_img;
     if (isset($_FILES["business_img"]["name"])) {
     $name = $_FILES["business_img"]["name"];
@@ -67,9 +68,7 @@ $app->post('/addTicketTenant',function()use($app) {
             move_uploaded_file($_FILES["business_img"]["tmp_name"], "/files/business/" . $name1);
             $business_img=$file_url."business/".$name1;
         }
-   }else{
-        $business_img =null;
-    }
+   }
     if($tenant_id!=null||$tenant_id!=null){
         if($company_id!=null||$company_id!=""){
             $selectStatement = $database->select()
