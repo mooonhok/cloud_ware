@@ -23,7 +23,7 @@ $app->post('/addException',function()use($app){
     $exception_source=$body->exception_source;
 	$exception_person=$body->exception_person;
 	$exception_comment=$body->exception_comment;
-	$exception_time=$body->exception_time;
+	$exception_time=date('Y-m-d H:i:s',time());
 	$order_id=$body->order_id;
     foreach($body as $key=>$value){
         $array[$key]=$value;
@@ -36,6 +36,7 @@ $app->post('/addException',function()use($app){
                 if($exception_comment!=null||$exception_comment!=''){
                     if($exception_time!=null||$exception_time!=''){
                         if($order_id!=null||$order_id!=''){
+                            $array['exception_time']=date('Y-m-d H:i:s',time());
                             $insertStatement = $database->insert(array_keys($array))
                                 ->into('exception')
                                 ->values(array_values($array));
