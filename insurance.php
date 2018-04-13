@@ -152,7 +152,7 @@ $app->post('/one_insurance',function()use($app){
     $insurance_price=$body->insurance_price;
     $duration=$body->duration;
     $insurance_amount=$body->insurance_amount;
-    $insurance_start_time=$body->insurance_start_time;
+    $insurance_start_time=date('Y-m-d H:i:s',time());
     $selectStatement = $database->select()
         ->from('scheduling')
         ->join('schedule_order','schedule_order.schedule_id','=','scheduling.scheduling_id','INNER')
