@@ -19,23 +19,23 @@ $app->post('/addFeedback',function()use($app) {
     $staff_id=$body->staff_id;
     $tenant_id = $body->tenant_id;
     $content = $body->content;
-    $time= $body->time;
-    $array=array();
-    foreach($body as $key=>$value){
-        $array[$key]=$value;
-    }
+//    $time= $body->time;
+//    $array=array();
+//    foreach($body as $key=>$value){
+//        $array[$key]=$value;
+//    }
     if($tenant_id!=null||$tenant_id!=''){
         if($staff_id!=null||$staff_id!=''){
             if($content!=null||$content!=''){
-                if($time!=null||$time!=''){
-                            $insertStatement = $database->insert(array_keys($array))
+//                if($time!=null||$time!=''){
+                            $insertStatement = $database->insert(array('tenant_id','staff_id','content','time'))
                                 ->into('feedback')
-                                ->values(array_values($array));
+                                ->values(array($tenant_id,$staff_id,$content,date('Y-m-d H:m:s',time())));
                             $insertId = $insertStatement->execute(false);
                             echo json_encode(array("result" => "0", "desc" => "success"));
-                }else{
-                    echo json_encode(array("result" => "1", "desc" => "缺少次数"));
-                }
+//                }else{
+//                    echo json_encode(array("result" => "1", "desc" => "缺少次数"));
+//                }
             }else{
                 echo json_encode(array("result" => "2", "desc" => "缺少content"));
             }
