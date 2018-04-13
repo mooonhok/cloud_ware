@@ -30,7 +30,7 @@ $app->post('/addFeedback',function()use($app) {
 //                if($time!=null||$time!=''){
                             $insertStatement = $database->insert(array('tenant_id','staff_id','content','time'))
                                 ->into('feedback')
-                                ->values(array($tenant_id,$staff_id,$content,date('Y-m-d H:m:s',time())));
+                                ->values(array($tenant_id,$staff_id,$content,date('Y-m-d H:i:s',time())));
                             $insertId = $insertStatement->execute(false);
                             echo json_encode(array("result" => "0", "desc" => "success"));
 //                }else{
