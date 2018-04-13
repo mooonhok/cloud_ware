@@ -42,6 +42,7 @@ $app->post('/addScheduling',function()use($app) {
                             $data = $stmt->fetch();
                             if($data==null){
                                 $array['tenant_id']=$tenant_id;
+                                $array['scheduling_datetime']=date('Y-m-d H:i:s',time());
                                 $array['exist']=0;
                                 $insertStatement = $database->insert(array_keys($array))
                                     ->into('scheduling')
