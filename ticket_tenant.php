@@ -55,14 +55,8 @@ $app->post('/addTicketTenant',function()use($app) {
 //    $business_img=$body->business_img;
     if (isset($_FILES["business_img"]["name"])) {
     $name = $_FILES["business_img"]["name"];
-//    $name1 = iconv("UTF-8", "gb2312", $name);
-//    $time1 = time();
-//    $name1 = $time1 . $name1;
-//    move_uploaded_file($_FILES["business_img"]["tmp_name"], '/files/business/' . $name1);
-//    $business_img = $file_url . 'business/' . $time1 . $name . '';
         if($name){
             $name1=substr(strrchr($name, '.'), 1);
-//        $name1 = iconv("UTF-8", "gb2312", $name11);
             $shijian = time();
             $name1 = $shijian .".". $name1;
             move_uploaded_file($_FILES["business_img"]["tmp_name"], "/files/business/" . $name1);
@@ -84,7 +78,7 @@ $app->post('/addTicketTenant',function()use($app) {
                 $data2 = $stmt->fetchAll();
                 $insertStatement = $database->insert(array('id','tenant_id','company_id','name','business','business_img','is_check','commit_time'))
                     ->into('ticket_tenant')
-                    ->values(array(count($data2),$tenant_id,$company_id,$company_name,$business,$business_img,0,date('Y-m-d H:i:s',time())));
+                    ->values(array(count($data2)+1,$tenant_id,$company_id,$company_name,$business,$business_img,0,date('Y-m-d H:i:s',time())));
                 $insertId = $insertStatement->execute(false);
                 echo json_encode(array("result" => "0", "desc" => "success"));
             }else{
