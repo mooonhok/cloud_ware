@@ -209,7 +209,7 @@ $app->put('/alterStaffMac3',function()use($app){
     $body=$app->request->getBody();
     $body=json_decode($body);
     $id=$body->id;
-    $login_time=$body->login_time;
+    $login_time=date('Y-m-d H:i:s',time());
     if($id!=null||$id!=''){
         $updateStatement = $database->update(array('login_time'=>$login_time))
             ->table('staff_mac')
