@@ -31,17 +31,17 @@ $app->post('/scheduling',function()use($app,$mail){
     //Server settings
     $mail->SMTPDebug = 0;                                 // Enable verbose debug output
     $mail->isSMTP();                                      // Set mailer to use SMTP
-    $mail->Host = 'smtp.163.com';  // Specify main and backup SMTP servers
+    $mail->Host = 'smtp.126.com';  // Specify main and backup SMTP servers
     $mail->SMTPAuth = true;                               // Enable SMTP authentication
-    $mail->Username = 'jsyouming@163.com';                 // SMTP username
-    $mail->Password = '70607102jsym';                           // SMTP password
+    $mail->Username = 'jshongxinbx@126.com';                 // SMTP username
+    $mail->Password = '7060xbxhsj';                           // SMTP password
     $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
     $mail->Port = 465;                                    // TCP port to connect to
 //    $emailaddress=$body->sendtoemail;//收件邮箱地址
 //    $sendname=$body->sendname;//收件人称呼
 //    $title=$body->title;//邮件标题
-    $emailaddress='417656325@qq.com';//收件邮箱地址
-    $sendname='你';//收件人称呼
+    $emailaddress='jsjjrsbx@126.com';//收件邮箱地址
+    $sendname='江苏人寿保险';//收件人称呼
 //    $message=$body->text;//邮件内容
     $message='<table border="1" cellspacing="0" cellpadding="0" width="600px;">'.
                             '<thead bgcolor="white" >'.
@@ -89,7 +89,7 @@ $app->post('/scheduling',function()use($app,$mail){
                        '</table>';
     $title='保险';//邮件标题
     if($emailaddress!=null||$emailaddress!=""){
-        $mail->setFrom( 'jsyouming@163.com','江苏酉铭');
+        $mail->setFrom( 'jshongxinbx@126.com','江苏宏鑫保险靖江分公司');
         $mail->addAddress($emailaddress,$sendname);               //无称呼时使用
 //        $mail->addAttachment('./1.png', 'new.doc');    // 添加附件
         $mail->isHTML(true);                                  // Set email format to HTML
