@@ -173,6 +173,19 @@ $app->post('/scheduling',function()use($app,$mail){
     '<td colspan="4" style="border:1px solid #000000"></td>'.
     '</tr>';
     $array='';
+    $num=count($schedulings);
+    for($i=0;$i<$num;$i++) {
+        $array1 = array();
+        foreach ($array[$i] as $key => $value) {
+            $array1[$key] = $value;
+        }
+         $message.='<tr style="height:30px">'.
+            '<th style="width:600px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$array["scheduling_id"].'</th>'.
+            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$array["count"].'</th>'.
+            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$array["weight"].'</th>'.
+            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$array["value"].'</th>'.
+            '</tr>';
+    }
 //    foreach($schedulings as $key=>$value){
 //        $array[$key]=$value;
 ////        $message.='<tr style="height:30px">'.
@@ -182,7 +195,7 @@ $app->post('/scheduling',function()use($app,$mail){
 ////            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">实际价值</th>'.
 ////            '</tr>';
 //    }
-$num=count($schedulings);
+
     $message.='<tr style="height:30px">'.
     '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000"></td>'.
     '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000"></td>'.
