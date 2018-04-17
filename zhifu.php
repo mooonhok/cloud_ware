@@ -21,7 +21,8 @@ $app->get('/gettickets',function()use($app,$notify,$input){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $fee=$app->request->get('fee');
-    $input->SetBody("test1");
+    $title=$app->request->get('title');
+    $input->SetBody($title);
     $input->SetAttach("test2");
     date_default_timezone_set("PRC");
     $num=WxPayConfig::MCHID.date("YmdHis");
