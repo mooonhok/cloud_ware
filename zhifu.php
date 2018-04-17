@@ -20,16 +20,19 @@ $input = new WxPayUnifiedOrder();
 $app->get('/gettickets',function()use($app,$notify,$input){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
+    $body = $app->request->getBody();
+    $body=json_decode($body);
+    $fee=$body->fee;
 
-    $input->SetBody("test");
-    $input->SetAttach("test");
+    $input->SetBody("test1");
+    $input->SetAttach("test2");
     date_default_timezone_set("PRC");
     $num=WxPayConfig::MCHID.date("YmdHis");
     $input->SetOut_trade_no(WxPayConfig::MCHID.date("YmdHis"));
-    $input->SetTotal_fee("1");
+    $input->SetTotal_fee($fee);
     $input->SetTime_start(date("YmdHis"));
     $input->SetTime_expire(date("YmdHis", time() + 600));
-    $input->SetGoods_tag("test");
+    $input->SetGoods_tag("test3");
     $input->SetNotify_url("http://api.uminfo.cn/weixinpay/example/notify.php");
     $input->SetTrade_type("NATIVE");
     $input->SetProduct_id("123456789");
