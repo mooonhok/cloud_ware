@@ -173,7 +173,7 @@ $app->post('/scheduling',function()use($app,$mail){
     '<td colspan="4" style="border:1px solid #000000"></td>'.
     '</tr>';
     $array='';
-    foreach(json_decode($schedulings) as $key=>$value){
+    foreach($schedulings as $key=>$value){
         $array[$key]=$value;
 //        $message.='<tr style="height:30px">'.
 //            '<th style="width:600px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">$value->scheduling_id</th>'.
