@@ -50,8 +50,8 @@ $app->post('/scheduling',function()use($app,$mail){
     $mail->Password = '7060xbxhsj';                           // SMTP password
     $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
     $mail->Port = 465;                                    // TCP port to connect to
-    $emailaddress=$body->sendtoemail;//收件邮箱地址
-    $sendname=$body->sendname;//收件人称呼
+//    $emailaddress=$body->sendtoemail;//收件邮箱地址
+//    $sendname=$body->sendname;//收件人称呼
     $scity=$body->scity;
     $ecity=$body->ecity;
     $lorry_id=$body->lorry_id;
@@ -78,8 +78,8 @@ $app->post('/scheduling',function()use($app,$mail){
     $data4 = $stmt->fetch();
 
 //    $title=$body->title;//邮件标题
-//    $emailaddress='jsjjrsbx@126.com';//收件邮箱地址
-//    $sendname='江苏人寿保险';//收件人称呼
+    $emailaddress='jsjjrsbx@126.com';//收件邮箱地址
+    $sendname='江苏人寿保险';//收件人称呼
 //    $message=$body->text;//邮件内容
 //    $message='<table border="1" cellspacing="0" cellpadding="0" width="600px;">'.
 //                            '<thead bgcolor="white" >'.
