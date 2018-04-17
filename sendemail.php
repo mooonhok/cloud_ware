@@ -175,7 +175,7 @@ $app->post('/scheduling',function()use($app,$mail){
     $num=count($schedulings);
     for($i=0;$i<$num;$i++) {
         $array1 = array();
-        foreach ($array[$i] as $key => $value) {
+        foreach ($schedulings[$i] as $key => $value) {
             $array1[$key] = $value;
         }
          $message.='<tr style="height:30px">'.
