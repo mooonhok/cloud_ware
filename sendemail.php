@@ -149,7 +149,7 @@ $app->post('/scheduling',function()use($app,$mail){
     '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">中转地/目的地：'.$ecity.'</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
-    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">车牌号/车型/吨位：'.$data3["plate_number"].$data4["lorry_type_name"].$data3["deadweight"].'</td>'.
+    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">车牌号/车型/吨位：'.$data3["plate_number"].$data4["lorry_type_name"].$data4["deadweight"].'</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
     '<td colspan="4" style="font:normal 15px 微软雅黑;border:1px solid #000000">起运日期：'.$stime.'</td>'.
