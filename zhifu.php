@@ -20,10 +20,7 @@ $input = new WxPayUnifiedOrder();
 $app->get('/gettickets',function()use($app,$notify,$input){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $body = $app->request->getBody();
-    $body=json_decode($body);
-    $fee=$body->fee;
-
+    $fee=$app->request->get('fee');
     $input->SetBody("test1");
     $input->SetAttach("test2");
     date_default_timezone_set("PRC");
