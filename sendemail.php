@@ -182,7 +182,7 @@ $app->post('/scheduling',function()use($app,$mail){
 //    $num=count($schedulings);
 //    for($i=0;$i<$num;$i++) {
         $array1 = array();
-        foreach ($schedulings[$i] as $key => $value) {
+        foreach ($schedulings as $key => $value) {
             $array1[$key] = $value;
         }
 //        $selectStatement = $database->select()
