@@ -117,6 +117,16 @@ $app->post('/addpackage',function()use($app){
 });
 
 
+$app->get('/time',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $time=date('Y-m-d H:i:s');
+    echo  json_encode(array("result"=>"0","desc"=>"success","time"=>$time));
+});
+
+
+
+
 $app->run();
 
 function localhost(){
