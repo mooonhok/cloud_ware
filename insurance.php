@@ -140,7 +140,7 @@ $app->get('/lorry_insurance_count',function ()use($app){
     echo json_encode(array('result'=>'1','desc'=>'success','count'=>count($data1)));
 });
 
-//客户端，确认一个投保
+//客户端，确认一个投保,暂不用
 $app->post('/one_insurance',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
