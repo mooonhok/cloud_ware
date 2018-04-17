@@ -24,6 +24,18 @@ $app->post('/scheduling',function()use($app,$mail){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get("tenant-id");
+    $database=localhost();
+    $selectStatement = $database->select()
+        ->from('tenant')
+        ->where('tenant_id', '=', $tenant_id);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetch();
+    $selectStatement = $database->select()
+        ->from('customer')
+        ->where('tenant_id', '=', $tenant_id)
+        ->where('customer_id', '=', $data1['contact_id']);
+    $stmt = $selectStatement->execute();
+    $data2 = $stmt->fetch();
     $body = $app->request->getBody();
     $body=json_decode($body);
     $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
@@ -48,6 +60,23 @@ $app->post('/scheduling',function()use($app,$mail){
     $weight=$body->weight;
     $value=$body->value;
     $schedulings=$body->schedulings;
+    $price=$body->price;
+    $cost=$body->cost;
+    $selectStatement = $database->select()
+        ->from('lorry')
+        ->where('tenant_id', '=', $tenant_id)
+        ->where('lorry_id','=',$lorry_id);
+    $stmt = $selectStatement->execute();
+    $data3= $stmt->fetch();
+    $selectStatement = $database->select()
+        ->from('app_lorry')
+        ->leftJoin('lorry_type','app_lorry.type','=','lorry_type.lorry_type_id')
+        ->where('plate_number', '=', $data3['plate_number'])
+        ->where('name', '=', $data3['driver_name'])
+        ->where('phone', '=',$data3['driver_phone']);
+    $stmt = $selectStatement->execute();
+    $data4 = $stmt->fetch();
+
 //    $title=$body->title;//邮件标题
 //    $emailaddress='jsjjrsbx@126.com';//收件邮箱地址
 //    $sendname='江苏人寿保险';//收件人称呼
@@ -99,57 +128,62 @@ $app->post('/scheduling',function()use($app,$mail){
 
     $message='<table cellspacing="0" cellpadding="0" style="border:1px solid #000000">'.
     '<tr style="height:30px">'.
-    '<td colspan="4" style="height:40px;font:bold 17px 微软雅黑;text-align:center;border:1px solid #000000">靖江万事鑫联运服务有限公司承运人责任险投保明细</td>'.
+    '<td colspan="4" style="height:40px;font:bold 17px 微软雅黑;text-align:center;border:1px solid #000000">'.$data1["company"].'承运人责任险投保明细</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
-    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">投保人：靖江万事鑫联运服务有限公司</td>'.
+    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">投保人：'.$data1["company"].'</td>'.
     '<td colspan="2" rowspan="2" style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">已付款</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
-    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">被投保人：靖江万事鑫联运服务有限公司</td>'.
+    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">被投保人：'.$data1["company"].'</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
-    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">统一社会代码证号码：物流公司营业执照号码</td>'.
-    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">联系电话：物流公司电话</td>'.
+    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">统一社会代码证号码：'.$data1["business_l"].'</td>'.
+    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">联系电话：'.$data2["customer_phone"].'</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
-    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">启运地：仅有一个</td>'.
+    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">启运地：'.$scity.'</td>'.
     '<td colspan="2" rowspan="3" style="font:normal 15px 微软雅黑;border:1px solid #000000">运输工具：货车</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
-    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">中转地/目的地：全填</td>'.
+    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">中转地/目的地：'.$ecity.'</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
-    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">车牌号/车型/吨位：实际驾驶员信息</td>'.
+    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">车牌号/车型/吨位：'.$data3["plate_number"].$data4["lorry_type_name"].$data3["deadweight"].'</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
-    '<td colspan="4" style="font:normal 15px 微软雅黑;border:1px solid #000000">起运日期：按实际填的</td>'.
+    '<td colspan="4" style="font:normal 15px 微软雅黑;border:1px solid #000000">起运日期：'.$stime.'</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
     '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">货物名称：普通货物</td>'.
-    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">件数：总件数</td>'.
+    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">件数：'.$count.'</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
-    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">重量（吨）：总重量</td>'.
+    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">重量（吨）：'.$weight.'</td>'.
     '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">包装：见清单</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
-    '<td colspan="4" style="font:normal 15px 微软雅黑;border:1px solid #000000">货物实际价值：总价值</td>'.
+    '<td colspan="4" style="font:normal 15px 微软雅黑;border:1px solid #000000">货物实际价值：'.$value.'</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
-    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">保险金额：投保金额</td>'.
-    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">保险费：投保金额*0.012%</td>'.
+    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">保险金额：'.$price.'</td>'.
+    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">保险费：'.$cost.'</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
     '<td colspan="4" style="border:1px solid #000000"></td>'.
-    '</tr>'.
-    '<tr style="height:30px">'.
-    '<th style="width:600px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">清单号</th>'.
-    '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">件数</th>'.
-    '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">重量</th>'.
-    '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">实际价值</th>'.
-    '</tr>'.
-    '<tr style="height:30px">'.
+    '</tr>';
+    $array='';
+    foreach($schedulings as $key=>$value){
+        $array.=$value.',';
+//        $message.='<tr style="height:30px">'.
+//            '<th style="width:600px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">$value->scheduling_id</th>'.
+//            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">件数</th>'.
+//            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">重量</th>'.
+//            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">实际价值</th>'.
+//            '</tr>';
+    }
+
+    $message.='<tr style="height:30px">'.
     '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000"></td>'.
     '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000"></td>'.
     '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000"></td>'.
@@ -170,7 +204,7 @@ $app->post('/scheduling',function()use($app,$mail){
             echo json_encode(array("result" => "2", "desc" =>"发送失败",'errortext'=>$mail));
             exit;
         }
-        echo json_encode(array("result" => "0", "desc" =>"发送成功"));
+        echo json_encode(array("result" => "0", "desc" =>"发送成功",'dd'=>$array));
     }else{
         echo json_encode(array("result" => "1", "desc" => "收件邮箱不能为空"));
     }
