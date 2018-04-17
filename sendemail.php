@@ -174,7 +174,7 @@ $app->post('/scheduling',function()use($app,$mail){
     '</tr>';
     $array='';
     foreach(json_decode($schedulings) as $key=>$value){
-        $array.=$value.',';
+        $array[$key]=$value;
 //        $message.='<tr style="height:30px">'.
 //            '<th style="width:600px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">$value->scheduling_id</th>'.
 //            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">件数</th>'.
@@ -182,7 +182,7 @@ $app->post('/scheduling',function()use($app,$mail){
 //            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">实际价值</th>'.
 //            '</tr>';
     }
-
+$num=count($array);
     $message.='<tr style="height:30px">'.
     '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000"></td>'.
     '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000"></td>'.
@@ -204,7 +204,7 @@ $app->post('/scheduling',function()use($app,$mail){
             echo json_encode(array("result" => "2", "desc" =>"发送失败",'errortext'=>$mail));
             exit;
         }
-        echo json_encode(array("result" => "0", "desc" =>"发送成功",'dd'=>$array));
+        echo json_encode(array("result" => "0", "desc" =>"发送成功",'dd'=>$array,'num'=>$num));
     }else{
         echo json_encode(array("result" => "1", "desc" => "收件邮箱不能为空"));
     }
