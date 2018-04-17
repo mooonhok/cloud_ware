@@ -172,7 +172,6 @@ $app->post('/scheduling',function()use($app,$mail){
     '<tr style="height:30px">'.
     '<td colspan="4" style="border:1px solid #000000"></td>'.
     '</tr>';
-    $array='';
     $num=count($schedulings);
     for($i=0;$i<$num;$i++) {
         $array1 = array();
@@ -180,10 +179,10 @@ $app->post('/scheduling',function()use($app,$mail){
             $array1[$key] = $value;
         }
          $message.='<tr style="height:30px">'.
-            '<th style="width:600px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$array["scheduling_id"].'</th>'.
-            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$array["count"].'</th>'.
-            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$array["weight"].'</th>'.
-            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$array["value"].'</th>'.
+            '<th style="width:600px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$array1["scheduling_id"].'</th>'.
+            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$array1["count"].'</th>'.
+            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$array1["weight"].'</th>'.
+            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$array1["value"].'</th>'.
             '</tr>';
     }
 //    foreach($schedulings as $key=>$value){
