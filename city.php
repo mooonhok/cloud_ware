@@ -117,7 +117,7 @@ $app->post('/addpackage',function()use($app){
 });
 
 
-$app->get('/time',function()use($app){
+$app->get('/datetime',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $time=date('Y-m-d H:i:s');
