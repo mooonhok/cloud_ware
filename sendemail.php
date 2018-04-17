@@ -173,16 +173,16 @@ $app->post('/scheduling',function()use($app,$mail){
     '<td colspan="4" style="border:1px solid #000000"></td>'.
     '</tr>';
     $array='';
-    foreach($schedulings as $key=>$value){
-        $array[$key]=$value;
-//        $message.='<tr style="height:30px">'.
-//            '<th style="width:600px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">$value->scheduling_id</th>'.
-//            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">件数</th>'.
-//            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">重量</th>'.
-//            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">实际价值</th>'.
-//            '</tr>';
-    }
-$num=count($array);
+//    foreach($schedulings as $key=>$value){
+//        $array[$key]=$value;
+////        $message.='<tr style="height:30px">'.
+////            '<th style="width:600px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">$value->scheduling_id</th>'.
+////            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">件数</th>'.
+////            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">重量</th>'.
+////            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">实际价值</th>'.
+////            '</tr>';
+//    }
+$num=count($schedulings);
     $message.='<tr style="height:30px">'.
     '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000"></td>'.
     '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000"></td>'.
