@@ -180,10 +180,6 @@ $app->post('/scheduling',function()use($app,$mail){
     '</tr>';
     $num=count($schedulings);
     for($i=0;$i<$num;$i++) {
-        $array1 = array();
-        foreach ($schedulings[$i] as $key => $value) {
-            $array1[$key] = $value;
-        }
         $selectStatement = $database->select()
             ->sum('order_cost','zon_cost')
             ->sum('goods_weight','zon_weight')
@@ -191,7 +187,7 @@ $app->post('/scheduling',function()use($app,$mail){
             ->from('schedule_order')
             ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
             ->join('goods','goods.order_id','=','orders.order_id','INNER')
-            ->where('schedule_order.schedule_id','=',$array1['0'])
+            ->where('schedule_order.schedule_id','=',$schedulings[$i])
             ->where('schedule_order.tenant_id', '=', $tenant_id)
             ->where('goods.tenant_id', '=',$tenant_id)
             ->where('orders.tenant_id', '=',$tenant_id);
