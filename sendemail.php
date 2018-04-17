@@ -178,7 +178,6 @@ $app->post('/scheduling',function()use($app,$mail){
     '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">重量</td>'.
     '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">实际价值</td>'.
     '</tr>';
-    $schedulings=json_decode($schedulings);
 //    $num=count($schedulings);
 //    for($i=0;$i<$num;$i++) {
         $array1 = array();
