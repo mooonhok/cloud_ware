@@ -171,6 +171,12 @@ $app->post('/scheduling',function()use($app,$mail){
     '</tr>'.
     '<tr style="height:30px">'.
     '<td colspan="4" style="border:1px solid #000000"></td>'.
+    '</tr>'.
+    '<tr style="height:30px">'.
+    '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">调度单号</td>'.
+    '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">件数</td>'.
+    '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">重量</td>'.
+    '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">实际价值</td>'.
     '</tr>';
     $num=count($schedulings);
     for($i=0;$i<$num;$i++) {
@@ -195,13 +201,7 @@ $app->post('/scheduling',function()use($app,$mail){
 ////            '</tr>';
 //    }
 
-    $message.='<tr style="height:30px">'.
-    '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000"></td>'.
-    '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000"></td>'.
-    '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000"></td>'.
-    '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000"></td>'.
-    '</tr>'.
-    '</table>';
+    $message.= '</table>';
 
     $title='保险';//邮件标题
     if($emailaddress!=null||$emailaddress!=""){
