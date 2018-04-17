@@ -54,7 +54,7 @@ $app->post('/scheduling',function()use($app,$mail){
     $sendname=$body->sendname;//收件人称呼
     $scity=$body->scity;
     $ecity=$body->ecity;
-    $lorry_id=$body->loryy_id;
+    $lorry_id=$body->lorry_id;
     $stime=$body->stime;
     $count=$body->count;
     $weight=$body->weight;
