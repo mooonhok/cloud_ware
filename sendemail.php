@@ -216,7 +216,7 @@ $app->post('/scheduling',function()use($app,$mail){
             echo json_encode(array("result" => "2", "desc" =>"发送失败",'errortext'=>$mail));
             exit;
         }
-        echo json_encode(array("result" => "0", "desc" =>"发送成功",'dd'=>$array,'num'=>$num));
+        echo json_encode(array("result" => "0", "desc" =>"发送成功"));
     }else{
         echo json_encode(array("result" => "1", "desc" => "收件邮箱不能为空"));
     }
