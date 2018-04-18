@@ -104,4 +104,7 @@ class Pinyin{
         return $_Res;
     }
 }
+
+//echo $pinyin->getFirstChar("湖北武汉")."<br/>"; 首个字的拼音大写
+//echo $pinyin->getPinyin("我")."<br/>";      拼音全称
 ?>
