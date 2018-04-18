@@ -22,8 +22,14 @@ $app->post('/addOrder', function () use ($app) {
     $receiver_id=$body->receiver_id;
     $flag=$body->flag;
     $array=array();
+    $array1=array();
     foreach($body as $key=>$value){
         $array[$key]=$value;
+    }
+    foreach($array as $key=>$value){
+        if($key!="flag"){
+        $array1[$key]=$value;
+        }
     }
     if ($sender_id != null || $sender_id != "") {
         if ($receiver_id != null || $receiver_id > 0) {
@@ -36,7 +42,6 @@ $app->post('/addOrder', function () use ($app) {
                 $data = $stmt->fetch();
                 if($data){
                     echo json_encode(array("result" => "5", "desc" => "运单id重复"));
-
                 }else{
                     if($tenant_id!=null||$tenant_id!=''){
                         $array["is_schedule"]=0;
@@ -50,16 +55,15 @@ $app->post('/addOrder', function () use ($app) {
                         }
                         $array['exist']=0;
                         $array['tenant_id']=$tenant_id;
-                        $insertStatement = $database->insert(array_keys($array))
+                        $insertStatement = $database->insert(array_keys($array1))
                             ->into('orders')
-                            ->values(array_values($array));
+                            ->values(array_values($array1));
                         $insertId = $insertStatement->execute(false);
                         echo json_encode(array("result" => "0", "desc" => "success"));
                     }else{
                         echo json_encode(array("result" => "4", "desc" => "缺少租户id"));
                     }
                 }
-
                  } else {
                 echo json_encode(array("result" => "3", "desc" => "缺少运单id"));
             }
