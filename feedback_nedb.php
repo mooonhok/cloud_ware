@@ -28,6 +28,7 @@ $app->post('/addFeedback',function()use($app) {
         if($staff_id!=null||$staff_id!=''){
             if($content!=null||$content!=''){
 //                if($time!=null||$time!=''){
+                            date_default_timezone_set("PRC");
                             $insertStatement = $database->insert(array('tenant_id','staff_id','content','time'))
                                 ->into('feedback')
                                 ->values(array($tenant_id,$staff_id,$content,date('Y-m-d H:i:s',time())));
