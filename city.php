@@ -120,6 +120,7 @@ $app->post('/addpackage',function()use($app){
 $app->get('/datetime',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
+    date_default_timezone_set("PRC");
     $time=date('Y-m-d H:i:s');
     echo  json_encode(array("result"=>"0","desc"=>"success","time"=>$time));
 });
