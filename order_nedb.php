@@ -27,6 +27,7 @@ $app->post('/addOrder', function () use ($app) {
         $array[$key]=$value;
     }
     foreach($array as $key=>$value){
+//        $array1['tenant_id']=$tenant_id;
         if($key!="flag"){
         $array1[$key]=$value;
         }
@@ -44,17 +45,17 @@ $app->post('/addOrder', function () use ($app) {
                     echo json_encode(array("result" => "5", "desc" => "运单id重复"));
                 }else{
                     if($tenant_id!=null||$tenant_id!=''){
-                        $array["is_schedule"]=0;
-                        $array["is_transfer"]=0;
+                        $array1["is_schedule"]=0;
+                        $array1["is_transfer"]=0;
                         date_default_timezone_set("PRC");
-                        $array['order_datetime0']=date('Y-m-d H:i:s',time());
+                        $array1['order_datetime0']=date('Y-m-d H:i:s',time());
                         if($flag==0){
-                            $array['order_datetime1']=date('Y-m-d H:i:s',time());
+                            $array1['order_datetime1']=date('Y-m-d H:i:s',time());
                         }else{
-                            $array['order_datetime1']=null;
+                            $array1['order_datetime1']=null;
                         }
-                        $array['exist']=0;
-                        $array['tenant_id']=$tenant_id;
+                        $array1['exist']=0;
+                        $array1['tenant_id']=$tenant_id;
                         $insertStatement = $database->insert(array_keys($array1))
                             ->into('orders')
                             ->values(array_values($array1));
