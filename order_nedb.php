@@ -41,6 +41,7 @@ $app->post('/addOrder', function () use ($app) {
                     if($tenant_id!=null||$tenant_id!=''){
                         $array["is_schedule"]=0;
                         $array["is_transfer"]=0;
+                        date_default_timezone_set("PRC");
                         $array['order_datetime0']=date('Y-m-d H:i:s',time());
                         if($flag==0){
                             $array['order_datetime1']=date('Y-m-d H:i:s',time());
@@ -521,6 +522,7 @@ $app->put('/alterOrder7',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
         if($order_id!=null||$order_id!=''){
             $array['order_status']=2;
+            date_default_timezone_set("PRC");
             $array['order_datetime2']=date('Y-m-d H:i:s',time());
             $updateStatement = $database->update($array)
                 ->table('orders')
@@ -551,6 +553,7 @@ $app->put('/alterOrder8',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
         if($order_id!=null||$order_id!=''){
             $array['order_status']=3;
+            date_default_timezone_set("PRC");
             $array['order_datetime3']=date('Y-m-d H:i:s',time());
             $updateStatement = $database->update($array)
                 ->table('orders')
@@ -609,6 +612,7 @@ $app->put('/alterOrder10',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
         if($order_id!=null||$order_id!=''){
             $array['order_status']=3;
+            date_default_timezone_set("PRC");
             $array['order_datetime2']=date('Y-m-d H:i:s',time());
             $array['order_datetime3']=date('Y-m-d H:i:s',time());
             $updateStatement = $database->update($array)
@@ -658,6 +662,7 @@ $app->put('/alterOrder12',function()use($app){
     $body = json_decode($body);
     $order_id = $body->order_id;
     $pickup_id = $body->pickup_id;
+    date_default_timezone_set("PRC");
     $order_datetime5 = date('Y-m-d H:i:s',time());
         if($order_id!=null||$order_id!=''){
             if($pickup_id!=null||$pickup_id!=''){
@@ -682,6 +687,7 @@ $app->put('/alterOrder13',function()use($app){
     $body = $app->request->getBody();
     $body = json_decode($body);
     $order_id = $body->order_id;
+    date_default_timezone_set("PRC");
     $order_datetime4 = date('Y-m-d H:i:s',time());
     $reach_city = $body->reach_city;
         if($order_id!=null||$order_id!=''){
@@ -727,6 +733,7 @@ $app->put('/alterOrder14',function()use($app){
     $body = $app->request->getBody();
     $body = json_decode($body);
     $order_id = $body->order_id;
+    date_default_timezone_set("PRC");
     $order_datetime1= date('Y-m-d H:i:s',time());
     $pay_method = $body->pay_method;
     $transfer_cost=$body->transfer_cost;
@@ -758,6 +765,7 @@ $app->put('/alterOrder15',function()use($app){
     $body = $app->request->getBody();
     $body = json_decode($body);
     $order_id = $body->order_id;
+    date_default_timezone_set("PRC");
     $order_datetime1 = date('Y-m-d H:i:s',time());
     if($tenant_id!=null||$tenant_id!=''){
         if($order_id!=null||$order_id!=''){
