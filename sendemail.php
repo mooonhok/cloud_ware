@@ -183,26 +183,27 @@ $app->post('/scheduling',function()use($app,$mail){
         $array1 = array();
         foreach ($schedulings as $key => $value) {
             $array1[$key] = $value;
+         $selectStatement = $database->select()
+            ->sum('order_cost','zon_cost')
+            ->sum('goods_weight','zon_weight')
+            ->sum('goods_count','zon_count')
+            ->from('schedule_order')
+            ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+            ->join('goods','goods.order_id','=','orders.order_id','INNER')
+            ->where('schedule_order.schedule_id','=',$value)
+            ->where('schedule_order.tenant_id', '=', $tenant_id)
+            ->where('goods.tenant_id', '=',$tenant_id)
+            ->where('orders.tenant_id', '=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data5= $stmt->fetch();
+         $message.='<tr style="height:30px">'.
+            '<th style="width:600px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$value.'</th>'.
+            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_count"].'</th>'.
+            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_weight"].'</th>'.
+            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_cost"].'</th>'.
+            '</tr>';
         }
-//        $selectStatement = $database->select()
-//            ->sum('order_cost','zon_cost')
-//            ->sum('goods_weight','zon_weight')
-//            ->sum('goods_count','zon_count')
-//            ->from('schedule_order')
-//            ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
-//            ->join('goods','goods.order_id','=','orders.order_id','INNER')
-//            ->where('schedule_order.schedule_id','=',$array1['0'])
-//            ->where('schedule_order.tenant_id', '=', $tenant_id)
-//            ->where('goods.tenant_id', '=',$tenant_id)
-//            ->where('orders.tenant_id', '=',$tenant_id);
-//        $stmt = $selectStatement->execute();
-//        $data5= $stmt->fetch();
-//         $message.='<tr style="height:30px">'.
-//            '<th style="width:600px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$array1['0'].'</th>'.
-//            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_count"].'</th>'.
-//            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_weight"].'</th>'.
-//            '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_cost"].'</th>'.
-//            '</tr>';
+
 //    }
 //    foreach($schedulings as $key=>$value){
 //        $array[$key]=$value;
