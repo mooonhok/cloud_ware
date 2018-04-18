@@ -173,7 +173,7 @@ $app->post('/scheduling',function()use($app,$mail){
     '<td colspan="4" style="border:1px solid #000000"></td>'.
     '</tr>'.
     '<tr style="height:30px">'.
-    '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">调度单号</td>'.
+    '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">清单号</td>'.
     '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">件数</td>'.
     '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">重量</td>'.
     '<td style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">实际价值</td>'.
@@ -200,7 +200,7 @@ $app->post('/scheduling',function()use($app,$mail){
     $stmt = $selectStatement->execute();
     $data5= $stmt->fetch();
     $message.='<tr style="height:30px">'.
-        '<th style="width:600px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$value."".'</th>'.
+        '<th style="width:600px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$value.''.'</th>'.
         '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_count"].'</th>'.
         '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_weight"].'</th>'.
         '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_cost"].'</th>'.
