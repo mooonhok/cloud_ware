@@ -272,6 +272,7 @@ $app->post('/insurance_scheduling_orders',function()use($app){
         ->from('schedule_order')
         ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
         ->join('goods','goods.order_id','=','schedule_order.order_id','INNER')
+        ->join('goods_package','goods.goods_package_id','=','goods_package.goods_package_id','INNER')
         ->where('schedule_order.schedule_id','=',$scheduling_id)
         ->where('goods.tenant_id','=',$tenant_id)
         ->where('orders.tenant_id','=',$tenant_id)
