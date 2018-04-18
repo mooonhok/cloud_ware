@@ -62,6 +62,7 @@ $app->post('/addInsurance',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
         $array['exist']=0;
         $array['tenant_id']=$tenant_id;
+        date_default_timezone_set("PRC");
         $array['insurance_start_time']=date('Y-m-d H:i:s',time());
         $insertStatement = $database->insert(array_keys($array))
             ->into('insurance')
