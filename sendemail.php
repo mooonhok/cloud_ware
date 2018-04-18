@@ -222,7 +222,7 @@ $app->post('/scheduling',function()use($app,$mail){
 
     $message.= '</table>';
 
-    $title='保险';//邮件标题
+    $title=$data1["company"].'承运人责任险投保明细';//邮件标题
     if($emailaddress!=null||$emailaddress!=""){
         $mail->setFrom( 'jshongxinbx@126.com','江苏宏鑫保险靖江分公司');
         $mail->addAddress($emailaddress,$sendname);               //无称呼时使用
