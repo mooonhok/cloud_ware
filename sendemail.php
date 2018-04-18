@@ -181,7 +181,6 @@ $app->post('/scheduling',function()use($app,$mail){
 //    $num=count($schedulings);
 //    for($i=0;$i<$num;$i++) {
         $array1 = array();
-        $nuuu='';
         foreach ($schedulings as $key => $value) {
             $array1[$key] = $value;
      $selectStatement = $database->select()
@@ -236,7 +235,7 @@ $app->post('/scheduling',function()use($app,$mail){
             echo json_encode(array("result" => "2", "desc" =>"发送失败",'errortext'=>$mail));
             exit;
         }
-        echo json_encode(array("result" => "0", "desc" =>"发送成功",'num'=>$array1,'nnn'=>$nuuu));
+        echo json_encode(array("result" => "0", "desc" =>"发送成功"));
     }else{
         echo json_encode(array("result" => "1", "desc" => "收件邮箱不能为空"));
     }
