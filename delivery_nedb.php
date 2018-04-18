@@ -108,6 +108,7 @@ $app->post('/addDelivery',function()use($app) {
             if($lorry_id!=null||$lorry_id!=''){
                 if($delivery_cost!=null||$delivery_cost!=''){
                     $array['tenant_id']=$tenant_id;
+                    date_default_timezone_set("PRC");
                     $array['delivery_datetime']=date('Y-m-d H:i:s',time());
                     $array['exist']=0;
                     $insertStatement = $database->insert(array_keys($array))
