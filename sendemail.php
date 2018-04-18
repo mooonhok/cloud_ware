@@ -166,8 +166,8 @@ $app->post('/scheduling',function()use($app,$mail){
     '<td colspan="4" style="font:normal 15px 微软雅黑;border:1px solid #000000">货物实际价值：'.$value.'</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
-    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">保险金额：'.$price.'</td>'.
-    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">保险费：'.$cost.'</td>'.
+    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">保险金额：'.$price.'万元</td>'.
+    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">保险费：'.$cost.'元</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
     '<td colspan="4" style="border:1px solid #000000"></td>'.
