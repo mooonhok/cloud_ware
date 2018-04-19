@@ -135,7 +135,8 @@ $app->get('/cityping',function()use($app,$pinyin){
     $data = $stmt->fetchAll();
     for($x=0;$x<count($data);$x++){
             $a=$pinyin->getPinyin($data[$x]['name']);
-             $data[$x]['china']=str_replace(' ','|',$a);
+            $data[$x]['china']=str_replace(' ','|',$a);
+            $data[$x]['firstchar']=$pinyin->getFirstChar($data[$x]['name']);
     }
     echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
 });
