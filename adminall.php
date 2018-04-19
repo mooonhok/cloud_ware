@@ -392,6 +392,16 @@ $app->get('/dbadmin',function()use($app){
                 $data5[$x]['receiver_city'] = $data632['name'];
                 $data5[$x]['goods_id'] = $data7['goods_id'];
                 $data5[$x]['goods_name'] = $data7['goods_name'];
+                $data5[$x]['goods_weight']=$data7['goods_weight'];
+                $data5[$x]['goods_capacity']=$data7['goods_capacity'];
+                $data5[$x]['goods_count']=$data7['goods_count'];
+                $data5[$x]['goods_value']=$data7['goods_value'];
+                $selectStament=$database->select()
+                    ->from('goods_package')
+                    ->where('goods_package_id','=',$data7['goods_package_id']);
+                $stmt=$selectStament->execute();
+                $data8=$stmt->fetch();
+                $data5[$x]['goods_package']=$data8['goods_package'];
             }
             $data['schedule_orders']=$data5;
             echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$data));
