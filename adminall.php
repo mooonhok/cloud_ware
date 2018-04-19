@@ -318,6 +318,7 @@ $app->get('/dbadmin',function()use($app){
     $data['customer_id']=$data2['customer_id'];
     $data['customer_name']=$data2['customer_name'];
     $data['customer_phone']=$data2['customer_phone'];
+    $data['customer_address']=$data2['customer_address'];
     $selectStament=$database->select()
         ->from('tenant')
         ->where('tenant_id','=',$data['tenant_id']);
