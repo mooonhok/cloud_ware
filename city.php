@@ -138,8 +138,9 @@ $app->get('/cityping',function()use($app,$pinyin){
 //            $a=$Pinyin->TransformWithoutTone($data[$x]['name'],' ');
 //            $data[$x]['china']=str_replace(' ','|',$a);
         $data[$x]['china']=null;
-        for($j=0;$j<strlen($data[$x]['name']);$j++){}
+        for($j=0;$j<strlen($data[$x]['name']);$j++){
         $data[$x]['china']+=$pinyin->TransformWithTone($data[$x]['name'][$j]);
+        }
 //        TransformWithoutTone($data[$x]['name'],' ');
     }
     echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
