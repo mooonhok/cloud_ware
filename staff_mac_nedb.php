@@ -22,6 +22,7 @@ $app->post('/addStaffMac',function()use($app){
     $mac=$body->mac;
     $staff_id=$body->staff_id;
     $tenant_id=$body->tenant_id;
+    date_default_timezone_set("PRC");
     $login_time=date('Y-m-d H:i:s',time());
     $array=array();
     foreach($body as $key=>$value){
@@ -209,6 +210,7 @@ $app->put('/alterStaffMac3',function()use($app){
     $body=$app->request->getBody();
     $body=json_decode($body);
     $id=$body->id;
+    date_default_timezone_set("PRC");
     $login_time=date('Y-m-d H:i:s',time());
     if($id!=null||$id!=''){
         $updateStatement = $database->update(array('login_time'=>$login_time))

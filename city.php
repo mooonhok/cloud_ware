@@ -7,8 +7,8 @@
  */
 require 'Slim/Slim.php';
 require 'connect.php';
-
-
+require 'pinyin.php';
+$pinyin = new Pinyin();
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 $app->get('/province',function ()use($app){
@@ -125,7 +125,19 @@ $app->get('/datetime',function()use($app){
     echo  json_encode(array("result"=>"0","desc"=>"success","time"=>$time));
 });
 
-
+$app->get('/cityping',function()use($app,$pinyin){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $selectStatement = $database->select()
+        ->from('city');
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    for($x=0;$x<count($data);$x++){
+        $data[$x]['china']=$pinyin->getPinyin($data[$x]['name']);
+    }
+    echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
+});
 
 
 $app->run();

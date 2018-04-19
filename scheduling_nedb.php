@@ -42,6 +42,7 @@ $app->post('/addScheduling',function()use($app) {
                             $data = $stmt->fetch();
                             if($data==null){
                                 $array['tenant_id']=$tenant_id;
+                                date_default_timezone_set("PRC");
                                 $array['scheduling_datetime']=date('Y-m-d H:i:s',time());
                                 $array['exist']=0;
                                 $insertStatement = $database->insert(array_keys($array))
@@ -2233,6 +2234,7 @@ $app->put('/alterScheduling5',function()use($app){
     $body = $app->request->getBody();
     $body = json_decode($body);
     $scheduling_id=$body->scheduling_id;
+    date_default_timezone_set("PRC");
     $scheduling_datetime=date('Y-m-d H:i:s',time());
     if($tenant_id!=null||$tenant_id!=''){
         $updateStatement = $database->update(array('scheduling_datetime'=>$scheduling_datetime))

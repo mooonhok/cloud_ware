@@ -152,6 +152,7 @@ $app->post('/one_insurance',function()use($app){
     $insurance_price=$body->insurance_price;
     $transtime=$body->transtime;
     $insurance_amount=$body->insurance_amount;
+    date_default_timezone_set("PRC");
     $insurance_start_time=date('Y-m-d H:i:s',time());
     $selectStatement = $database->select()
         ->from('scheduling')
