@@ -137,7 +137,8 @@ $app->get('/cityping',function()use($app,$pinyin){
     for($x=0;$x<count($data);$x++){
 //            $a=$Pinyin->TransformWithoutTone($data[$x]['name'],' ');
 //            $data[$x]['china']=str_replace(' ','|',$a);
-        for($j=0;$j<count($data[$x]['name']);$j++){}
+        $data[$x]['china']=null;
+        for($j=0;$j<strlen($data[$x]['name']);$j++){}
         $data[$x]['china']+=$pinyin->TransformWithTone($data[$x]['name'][$j]);
 //        TransformWithoutTone($data[$x]['name'],' ');
     }
