@@ -8,9 +8,10 @@
 require 'Slim/Slim.php';
 require 'connect.php';
 require 'ChinesePinyin/ChinesePinyin.class.php';
-$Pinyin = new ChinesePinyin();
+
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
+$pinyin=new ChinesePinyin();
 $app->get('/province',function ()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -125,7 +126,7 @@ $app->get('/datetime',function()use($app){
     echo  json_encode(array("result"=>"0","desc"=>"success","time"=>$time));
 });
 
-$app->get('/cityping',function()use($app,$Pinyin){
+$app->get('/cityping',function()use($app,$pinyin){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
@@ -134,8 +135,10 @@ $app->get('/cityping',function()use($app,$Pinyin){
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
     for($x=0;$x<count($data);$x++){
-            $a=$Pinyin->TransformWithoutTone($data[$x]['name'],' ');
-            $data[$x]['china']=str_replace(' ','|',$a);
+//            $a=$Pinyin->TransformWithoutTone($data[$x]['name'],' ');
+//            $data[$x]['china']=str_replace(' ','|',$a);
+        $data[$x]['china']=$pinyin->TransformWithoutTone($data[$x]['name'],' ');
+//        TransformWithoutTone($data[$x]['name'],' ');
     }
     echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
 });
