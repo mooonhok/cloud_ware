@@ -197,7 +197,7 @@ $app->post('/scheduling',function()use($app,$mail){
     $stmt = $selectStatement->execute();
     $data5= $stmt->fetch();
     $message.='<tr style="height:30px">'.
-        '<th style="width:600px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$value.''.'</th>'.
+        '<th style="width:600px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000"><a href="">'.$value.''.'</a></th>'.
         '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_count"].'</th>'.
         '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_weight"].'</th>'.
         '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_cost"].'</th>'.
