@@ -144,6 +144,7 @@
         </div>
 	</body>
 	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/config.js"></script>
 	<script src="js/jquery.session.js"></script>
 	<script type="text/javascript" src="src/layui.js"></script>
 	<script type="text/javascript" src="js/jquery.PrintArea.js"></script>
@@ -157,7 +158,7 @@
 			}
 		})(jQuery);
 		$.ajax({
-			url: "http://api.uminfo.cn/city.php/province",
+			url: p_url+"city.php/province",
 			dataType: 'json',
 			type: 'get',
 			ContentType: "application/json;charset=utf-8",
@@ -175,7 +176,7 @@
 			$("#city1").empty();
 			var pid = $("#province1 option:selected").val();
 			$.ajax({
-				url: "http://api.uminfo.cn/city.php/city?pid=" + pid,
+				url: p_url+"city.php/city?pid=" + pid,
 				dataType: 'json',
 				type: 'get',
 				ContentType: "application/json;charset=utf-8",
@@ -204,7 +205,7 @@
 				company = "";
 			}
 			$.ajax({
-				url: "http://api.uminfo.cn/tenant.php/tenant?from_city_id=" + city_id + "&company=" + company+"&page="+page+"&per_page=10",
+				url: p_url+"tenant.php/tenant?from_city_id=" + city_id + "&company=" + company+"&page="+page+"&per_page=10",
 				dataType: 'json',
 				type: 'get',
 				ContentType: "application/json;charset=utf-8",
@@ -306,7 +307,7 @@
 		$(".box3_2").on("click", function() {
 			var id = $("#makesure").val();
 			$.ajax({
-				url: "http://api.uminfo.cn/rechange_insurance.php/sure_rechanges",
+				url: p_url+"rechange_insurance.php/sure_rechanges",
 				dataType: 'json',
 				type: 'put',
 				ContentType: "application/json;charset=utf-8",
@@ -334,7 +335,7 @@
 		var user = $.session.get('userid');
 		alert(user);
 		if(user == null || user == "") {
-			window.location.href = "http://insurance.uminfo.cn/login.html";
+			window.location.href = p_url+"insurance/login.html";
 		} else {
 			loadrechanges(city_id, company,page);
 		}	
@@ -345,13 +346,13 @@
 			if(city_id==null||city_id==""){
 				alert("请先选择城市");
 			}else{
-				window.location.href="http://insurance.uminfo.cn/upload.html?from_city_id=" + city_id+"&company="+company+"&page=";			
+				window.location.href=p_url+"insurance/upload.html?from_city_id=" + city_id+"&company="+company+"&page=";
 			}
 		});
 		</script>
 	<script type="text/javascript">
 		$(".all").on("click",function(){
-			window.location.href="http://insurance.uminfo.cn/upload.html";
+			window.location.href=p_url+"insurance/upload.html";
 		})
 	</script>
 	<script type="text/javascript">

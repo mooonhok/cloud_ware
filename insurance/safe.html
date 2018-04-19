@@ -284,6 +284,7 @@
 			</div>
 	</body>
 	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/config.js"></script>
 	<script src="js/jquery.session.js"></script>
 	<script type="text/javascript" src="src/layui.js"></script>
 	<script type="text/javascript" src="js/jquery.PrintArea.js"></script>
@@ -297,7 +298,7 @@
 			}
 		})(jQuery);
 		$.ajax({
-			url: "http://api.uminfo.cn/city.php/province",
+			url: p_url+"city.php/province",
 			dataType: 'json',
 			type: 'get',
 			ContentType: "application/json;charset=utf-8",
@@ -315,7 +316,7 @@
 			$("#city1").empty();
 			var pid = $("#province1 option:selected").val();
 			$.ajax({
-				url: "http://api.uminfo.cn/city.php/city?pid=" + pid,
+				url: p_url+"city.php/city?pid=" + pid,
 				dataType: 'json',
 				type: 'get',
 				ContentType: "application/json;charset=utf-8",
@@ -344,7 +345,7 @@
 				company = "";
 			}
 			$.ajax({
-				url: "http://api.uminfo.cn/rechange_insurance.php/insurance_rechanges?city_id=" + city_id + "&company=" + company+"&page="+page+"&per_page=10",
+				url: p_url+"rechange_insurance.php/insurance_rechanges?city_id=" + city_id + "&company=" + company+"&page="+page+"&per_page=10",
 				dataType: 'json',
 				type: 'get',
 				ContentType: "application/json;charset=utf-8",
@@ -389,7 +390,7 @@
 		function agree(id) {
 			$(".bigbox").css("display", "block");
 			$.ajax({
-				url: "http://api.uminfo.cn/rechange_insurance.php/year_insurance?id=" + id,
+				url: p_url+"rechange_insurance.php/year_insurance?id=" + id,
 				dataType: 'json',
 				type: 'get',
 				ContentType: "application/json;charset=utf-8",
@@ -410,7 +411,7 @@
 			$(".box3").css("display", "block");
 			$("#makesure").val(id);
 			$.ajax({
-				url: "http://api.uminfo.cn/rechange_insurance.php/rechange_insurance_id?id=" + id,
+				url: p_url+"rechange_insurance.php/rechange_insurance_id?id=" + id,
 				dataType: 'json',
 				type: 'get',
 				ContentType: "application/json;charset=utf-8",
@@ -426,7 +427,7 @@
 		$(".box3_2").on("click", function() {
 			var id = $("#makesure").val();
 			$.ajax({
-				url: "http://api.uminfo.cn/rechange_insurance.php/sure_rechanges",
+				url: p_url+"rechange_insurance.php/sure_rechanges",
 				dataType: 'json',
 				type: 'put',
 				ContentType: "application/json;charset=utf-8",
@@ -449,7 +450,7 @@
 		function ins(id) {
 			$(".box5").css("display", "block");
 			$.ajax({
-				url: "http://api.uminfo.cn/rechange_insurance.php/lastinsurance?tenant_id=" + id,
+				url: p_url+"rechange_insurance.php/lastinsurance?tenant_id=" + id,
 				dataType: 'json',
 				type: 'get',
 				ContentType: "application/json;charset=utf-8",
@@ -541,14 +542,14 @@
 		var user = $.session.get('userid');
 		alert(user);
 		if(user == null || user == "") {
-			window.location.href = "http://insurance.uminfo.cn/login.html";
+			window.location.href = p_url+"insurance/login.html";
 		} else {
 			loadrechanges(city_id, company,page);
 		}	
 		//选择搜索按钮的事件
 		$("#city1").on('change', function() {
 			city_id = $("#city1 option:selected").val();
-			window.location.href="http://insurance.uminfo.cn/safe.html?city_id=" + city_id+"&company="+"&page=";	
+			window.location.href=p_url+"insurance/safe.html?city_id=" + city_id+"&company="+"&page=";
 		})
 		//搜索框
 		$(".select_2_2").on('click', function() {
@@ -557,13 +558,13 @@
 			if(city_id==null||city_id==""){
 				alert("请先选择城市");
 			}else{
-				window.location.href="http://insurance.uminfo.cn/safe.html?city_id=" + city_id+"&company="+company+"&page=";			
+				window.location.href=p_url+"insurance/safe.html?city_id=" + city_id+"&company="+company+"&page=";
 			}
 		});
 		</script>
 	<script type="text/javascript">
 		$(".all").on("click",function(){
-			window.location.href="http://insurance.uminfo.cn/safe.html";
+			window.location.href=p_url+"insurance/safe.html";
 		})
 	</script>
 	<script type="text/javascript">
