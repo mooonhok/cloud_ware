@@ -30,6 +30,17 @@ $app->post('/scheduling',function()use($app,$mail){
         ->where('tenant_id', '=', $tenant_id);
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('nature','=',0)
+            ->where('business_l', '=', $data1['business_l']);
+        $stmt = $selectStatement->execute();
+        $data1a = $stmt->fetch();
+    $selectStatement = $database->select()
+        ->from('tenant')
+        ->where('tenant_id', '=', $tenant_id);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetch();
     $selectStatement = $database->select()
         ->from('customer')
         ->where('tenant_id', '=', $tenant_id)
@@ -128,14 +139,14 @@ $app->post('/scheduling',function()use($app,$mail){
 
     $message='<table cellspacing="0" cellpadding="0" style="border:1px solid #000000">'.
     '<tr style="height:30px">'.
-    '<td colspan="4" style="height:40px;font:bold 17px 微软雅黑;text-align:center;border:1px solid #000000">'.$data1["company"].'承运人责任险投保明细</td>'.
+    '<td colspan="4" style="height:40px;font:bold 17px 微软雅黑;text-align:center;border:1px solid #000000">'.$data1a["company"].'承运人责任险投保明细</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
     '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">投保人：'.$data1["company"].'</td>'.
     '<td colspan="2" rowspan="2" style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">已付款</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
-    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">被投保人：'.$data1["company"].'</td>'.
+    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">被投保人：'.$data1a["company"].'</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
     '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">统一社会代码证号码：'.$data1["business_l"].'</td>'.
@@ -222,7 +233,7 @@ $app->post('/scheduling',function()use($app,$mail){
 
     $message.= '</table>';
 
-    $title=$data1["company"].'承运人责任险投保明细';//邮件标题
+    $title=$data1a["company"].'承运人责任险投保明细';//邮件标题
     if($emailaddress!=null||$emailaddress!=""){
         $mail->setFrom( 'jshongxinbx@126.com','江苏宏鑫保险靖江分公司');
         $mail->addAddress($emailaddress,$sendname);               //无称呼时使用
