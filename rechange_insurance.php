@@ -373,7 +373,7 @@ $app->get('/insurances_sure',function ()use($app) {
         $selectStatement = $database->select()
             ->from('insurance')
             ->leftJoin('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id')
-            ->whereLike('tenant.company','%'.$company.'%');
+            ->whereLike('tenant.company','%'.$company.'%')
             ->orderBy('insurance.insurance_start_time', 'desc')
             ->limit((int)$per_page, (int)$per_page * (int)$page);
         $stmt = $selectStatement->execute();
