@@ -215,7 +215,8 @@
                       ,thisData = msg.insurances;
                   layui.each(thisData, function(index, item){
                       arr.push( '<tr><td>'+item.company+'</td><td>'
-                          +item.contact_phone+'</td><td>'
+                          +item.contact_phone+'</td><td>' +
+                          +item.lorry_name+'</td><td>'+
                           +item.lorry_plate_number+'</td>'
                           +'<td class="det" onclick="detil('
                           +item.insurance_id+')"><span style="color:blue; cursor:pointer;">清单详情</span></td><td>'
