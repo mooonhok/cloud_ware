@@ -442,7 +442,7 @@ $app->get('/insurances_id',function ()use($app){
         ->where('tenant_id', '=', $data1['tenant_id'])
         ->where('insurance_id', '=', $data1['insurance_id']);
     $stmt = $selectStatement->execute();
-    $data2 = $stmt->fetch();
+    $data2 = $stmt->fetchAll();
     echo json_encode(array('result'=>'0','desc'=>'','insurance_schedulings'=>$data2));
 });
 

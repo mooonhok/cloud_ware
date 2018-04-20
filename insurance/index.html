@@ -431,9 +431,9 @@ function detil(id) {
         type: 1,
         skin: 'layui-layer-rim', //加上边框
         area: ['800px', '600px'], //宽高
-        content: '<div class="tenant_tk" >' +
+        content: '<div class="tenant_tk" id="tenant_tk">' +
         '<h1 style="text-align:center;">清单号</h1>' +
-		'<textarea id="tenant_tk"></textarea>'+
+
         '</div>'
     });
     $.ajax({
@@ -445,12 +445,9 @@ function detil(id) {
         success: function(ret) {
             console.log(ret);
             if(ret.result==0){
-                var v='';
                 for(var i=0;i<ret.insurance_schedulings.length;i++){
-                   v+=ret.insurance_schedulings.scheduling_id+',';
+                    $('#tenant_tk').append('<div>'+ret.insurance_schedulings[i].scheduling_id+'</div>');
                 }
-                alert(ret.insurance_schedulings.length)
-                $('#tenant_tk').val(v);
             }
         },
         error: function(xhr) {
