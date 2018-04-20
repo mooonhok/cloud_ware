@@ -426,18 +426,8 @@ var city_id = $.getUrlParam('city_id');
 //		}
 
 function detil(id) {
-
-    var index = layer.open({
-        type: 1,
-        skin: 'layui-layer-rim', //加上边框
-        area: ['800px', '600px'], //宽高
-        content: '<div class="tenant_tk">' +
-        '<h1 style="text-align:center;">清单号</h1>' +
-
-        '</div>'
-    });
     $.ajax({
-        url: p_url+"rechange_insurance.php/insurances_id",
+        url: p_url+"rechange_insurance.php/insurances_id?id="+id,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -454,6 +444,16 @@ function detil(id) {
             alert("获取后台失败！");
         }
     });
+    var index = layer.open({
+        type: 1,
+        skin: 'layui-layer-rim', //加上边框
+        area: ['800px', '600px'], //宽高
+        content: '<div class="tenant_tk">' +
+        '<h1 style="text-align:center;">清单号</h1>' +
+
+        '</div>'
+    });
+
 }
    </script>
    <script type="text/javascript">
