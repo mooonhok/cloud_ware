@@ -374,8 +374,8 @@ $app->get('/insurances_sure',function ()use($app) {
             ->from('insurance')
             ->leftJoin('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id')
             ->whereLike('tenant.company','%'.$company.'%');
-//            ->orderBy('insurance.insurance_start_time', 'desc')
-//            ->limit((int)$per_page, (int)$per_page * (int)$page);
+            ->orderBy('insurance.insurance_start_time', 'desc')
+            ->limit((int)$per_page, (int)$per_page * (int)$page);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
 //        for($i=0;$i<count($data1);$i++){
