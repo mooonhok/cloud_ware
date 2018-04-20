@@ -371,8 +371,8 @@ $app->get('/insurances_sure',function ()use($app) {
     $database=localhost();
     $selectStatement = $database->select()
         ->from('insurance')
-        ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
-        ->whereLike('tenant.company',$company)
+        ->leftJoin('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id')
+        ->whereLike('tenant.company','%'.$company.'%')
         ->orderBy('insurance.insurance_start_time', 'desc')
         ->limit((int)$per_page, (int)$per_page * (int)$page);
     $stmt = $selectStatement->execute();
@@ -387,8 +387,7 @@ $app->get('/insurances_sure',function ()use($app) {
         $data1[$i]['lorry_plate_number']=$data2['plate_number'];
         $data1[$i]['lorry_name']=$data2['driver_name'];
     }
-
-    echo json_encode(array('result'=>0,'desc'=>"",'insurance'=>$data1));
+    echo json_encode(array('result'=>0,'desc'=>"",'insurances'=>$data1));
 });
 
 //获取保险记录
