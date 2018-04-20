@@ -39,7 +39,7 @@ $app->post('/userlogin',function ()use($app){
                 ->from('admin')
                 ->where('password','=',$password)
                 ->where('exist','=',0)
-                ->where('type','=',0)
+                ->where('type','=',1)
                 ->where('username','=',$username);
             $stmt=$selectStaement->execute();
             $data2=$stmt->fetch();
