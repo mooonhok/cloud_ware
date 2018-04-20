@@ -382,7 +382,7 @@ $app->get('/insurances_sure',function ()use($app) {
             $selectStatement = $database->select()
                 ->from('customer')
                 ->where('customer.tenant_id','=',$data1[$i]['tenant_id'])
-                ->where('customer.customer_id','=',$data1[$i]['	contact_id']);
+                ->where('customer.customer_id','=',$data1[$i]['contact_id']);
             $stmt = $selectStatement->execute();
             $data3 = $stmt->fetch();
             $selectStatement = $database->select()
@@ -407,7 +407,7 @@ $app->get('/insurances_sure',function ()use($app) {
             $selectStatement = $database->select()
                 ->from('customer')
                 ->where('customer.tenant_id','=',$data1[$i]['tenant_id'])
-                ->where('customer.customer_id','=',$data1[$i]['	contact_id']);
+                ->where('customer.customer_id','=',$data1[$i]['contact_id']);
             $stmt = $selectStatement->execute();
             $data3 = $stmt->fetch();
             $selectStatement = $database->select()
