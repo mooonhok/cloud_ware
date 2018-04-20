@@ -212,19 +212,16 @@
               //模拟渲染
               document.getElementById('tb2').innerHTML = function(){
                   var arr = []
-                      ,thisData = msg.rechange_insurance;
+                      ,thisData = msg.insurances;
                   layui.each(thisData, function(index, item){
                       arr.push( '<tr><td>'+item.company+'</td><td>'
-                          +item.customer_phone+'</td><td>'
-                          +item.plate_number+'</td><td>'
-                          +item.driver_name+'</td><td>'
-                          +item.receive_city+'</td><td>'
-                          +item.from_city+'</td><td class="det" onclick="detil('
-                          +item.insurance_id+')"><span style="color:blue; cursor:pointer;">详情</span></td><td>'
+                          +item.contact_phone+'</td><td>'
+                          +item.lorry_plate_number+'</td>'
+                          +'<td class="det" onclick="detil('
+                          +item.insurance_id+')"><span style="color:blue; cursor:pointer;">清单详情</span></td><td>'
                           +item.insurance_price+'</td><td>'
                           +item.insurance_amount+'</td><td>'
-                          +item.insurance_start_time+'</td><td>'
-                          +item.duration+'</td></tr>');
+                          +item.insurance_start_time+'</td></tr>');
                   });
                   return arr.join('');
               }();
