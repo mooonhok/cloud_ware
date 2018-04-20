@@ -85,6 +85,12 @@
 	            background: #E0E1E7;
 	            cursor:pointer;
            }
+			.tenant_tk{
+				text-align: center;
+			}
+			.tenant_tk>*{
+				text-align: center;
+			}
 		</style>
 	</head>
 	<body>
@@ -446,7 +452,7 @@ function detil(id) {
             console.log(ret);
             if(ret.result==0){
                 for(var i=0;i<ret.insurance_schedulings.length;i++){
-                    $('#tenant_tk').append('<div>'+ret.insurance_schedulings[i].scheduling_id+'</div>');
+                    $('#tenant_tk').append('<a href="'+p_url+'"insurance/insurancegoods.html?scheduling_id="'+ret.insurance_schedulings[i].scheduling_id+'>'+ret.insurance_schedulings[i].scheduling_id+'</a>');
                 }
             }
         },
