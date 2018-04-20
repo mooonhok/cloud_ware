@@ -378,16 +378,16 @@ $app->get('/insurances_sure',function ()use($app) {
             ->limit((int)$per_page, (int)$per_page * (int)$page);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
-//        for($i=0;$i<count($data1);$i++){
-//            $selectStatement = $database->select()
-//                ->from('lorry')
-//                ->where('lorry.tenant_id','=',$data1[$i]['tenant_id'])
-//                ->where('lorry.lorry_id','=',$data1[$i]['insurance_lorry_id']);
-//            $stmt = $selectStatement->execute();
-//            $data2 = $stmt->fetch();
-//            $data1[$i]['lorry_plate_number']=$data2['plate_number'];
-//            $data1[$i]['lorry_name']=$data2['driver_name'];
-//        }
+        for($i=0;$i<count($data1);$i++){
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('lorry.tenant_id','=',$data1[$i]['tenant_id'])
+                ->where('lorry.lorry_id','=',$data1[$i]['insurance_lorry_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $data1[$i]['lorry_plate_number']=$data2['plate_number'];
+            $data1[$i]['lorry_name']=$data2['driver_name'];
+        }
     }else{
         $selectStatement = $database->select()
             ->from('insurance')
