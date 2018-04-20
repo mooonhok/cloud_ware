@@ -369,24 +369,45 @@ $app->get('/insurances_sure',function ()use($app) {
     $page = $app->request->get('page');
     $per_page = $app->request->get('per_page');
     $database=localhost();
-    $selectStatement = $database->select()
-        ->from('insurance')
-        ->leftJoin('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id')
-        ->whereLike('tenant.company','%'.$company.'%')
-        ->orderBy('insurance.insurance_start_time', 'desc')
-        ->limit((int)$per_page, (int)$per_page * (int)$page);
-    $stmt = $selectStatement->execute();
-    $data1 = $stmt->fetchAll();
-    for($i=0;$i<count($data1);$i++){
+    if($company){
         $selectStatement = $database->select()
-            ->from('lorry')
-            ->where('lorry.tenant_id','=',$data1[$i]['tenant_id'])
-            ->where('lorry.lorry_id','=',$data1[$i]['insurance_lorry_id']);
+            ->from('insurance')
+            ->leftJoin('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id')
+            ->whereLike('tenant.company','%'.$company.'%');
+//            ->orderBy('insurance.insurance_start_time', 'desc')
+//            ->limit((int)$per_page, (int)$per_page * (int)$page);
         $stmt = $selectStatement->execute();
-        $data2 = $stmt->fetch();
-        $data1[$i]['lorry_plate_number']=$data2['plate_number'];
-        $data1[$i]['lorry_name']=$data2['driver_name'];
+        $data1 = $stmt->fetchAll();
+//        for($i=0;$i<count($data1);$i++){
+//            $selectStatement = $database->select()
+//                ->from('lorry')
+//                ->where('lorry.tenant_id','=',$data1[$i]['tenant_id'])
+//                ->where('lorry.lorry_id','=',$data1[$i]['insurance_lorry_id']);
+//            $stmt = $selectStatement->execute();
+//            $data2 = $stmt->fetch();
+//            $data1[$i]['lorry_plate_number']=$data2['plate_number'];
+//            $data1[$i]['lorry_name']=$data2['driver_name'];
+//        }
+    }else{
+        $selectStatement = $database->select()
+            ->from('insurance')
+            ->leftJoin('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id')
+            ->orderBy('insurance.insurance_start_time', 'desc')
+            ->limit((int)$per_page, (int)$per_page * (int)$page);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetchAll();
+        for($i=0;$i<count($data1);$i++){
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('lorry.tenant_id','=',$data1[$i]['tenant_id'])
+                ->where('lorry.lorry_id','=',$data1[$i]['insurance_lorry_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $data1[$i]['lorry_plate_number']=$data2['plate_number'];
+            $data1[$i]['lorry_name']=$data2['driver_name'];
+        }
     }
+
     echo json_encode(array('result'=>0,'desc'=>"",'insurances'=>$data1));
 });
 
