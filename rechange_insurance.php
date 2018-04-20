@@ -380,11 +380,18 @@ $app->get('/insurances_sure',function ()use($app) {
         $data1 = $stmt->fetchAll();
         for($i=0;$i<count($data1);$i++){
             $selectStatement = $database->select()
+                ->from('customer')
+                ->where('customer.tenant_id','=',$data1[$i]['tenant_id'])
+                ->where('customer.customer_id','=',$data1[$i]['	contact_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            $selectStatement = $database->select()
                 ->from('lorry')
                 ->where('lorry.tenant_id','=',$data1[$i]['tenant_id'])
                 ->where('lorry.lorry_id','=',$data1[$i]['insurance_lorry_id']);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetch();
+            $data1[$i]['contact_phone']=$data3['customer_phone'];
             $data1[$i]['lorry_plate_number']=$data2['plate_number'];
             $data1[$i]['lorry_name']=$data2['driver_name'];
         }
@@ -398,11 +405,18 @@ $app->get('/insurances_sure',function ()use($app) {
         $data1 = $stmt->fetchAll();
         for($i=0;$i<count($data1);$i++){
             $selectStatement = $database->select()
+                ->from('customer')
+                ->where('customer.tenant_id','=',$data1[$i]['tenant_id'])
+                ->where('customer.customer_id','=',$data1[$i]['	contact_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            $selectStatement = $database->select()
                 ->from('lorry')
                 ->where('lorry.tenant_id','=',$data1[$i]['tenant_id'])
                 ->where('lorry.lorry_id','=',$data1[$i]['insurance_lorry_id']);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetch();
+            $data1[$i]['contact_phone']=$data3['customer_phone'];
             $data1[$i]['lorry_plate_number']=$data2['plate_number'];
             $data1[$i]['lorry_name']=$data2['driver_name'];
         }
