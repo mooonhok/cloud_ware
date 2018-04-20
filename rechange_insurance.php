@@ -477,7 +477,6 @@ $app->get('/insurances',function ()use($app){
                     $arrays1['plate_number'] = $data1[$x]['plate_number'];
                     $arrays1['driver_name'] = $data1[$x]['driver_name'];
                     $arrays1['insurance_start_time'] = $data1[$x]['insurance_start_time'];
-                    $arrays1['duration'] = $data1[$x]['duration'];
                     $arrays1['insurance_amount'] = $data1[$x]['insurance_amount'];
                     $arrays1['insurance_price'] = $data1[$x]['insurance_price'];
                     $arrays1['insurance_id'] = $data1[$x]['insurance_id'];
@@ -508,7 +507,6 @@ $app->get('/insurances',function ()use($app){
                     ->join('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id', 'INNER')
                     ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
                     ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
-                    ->where('insurance.sure_insurance', '=', '1')
                     ->where('tenant.from_city_id', '=', $city_id)
                     ->where('tenant.company', '=', $company)
                     ->orderBy('insurance.insurance_start_time', 'desc');
@@ -534,7 +532,6 @@ $app->get('/insurances',function ()use($app){
                         $arrays1['plate_number'] = $data1[$x]['plate_number'];
                         $arrays1['driver_name'] = $data1[$x]['driver_name'];
                         $arrays1['insurance_start_time'] = $data1[$x]['insurance_start_time'];
-                        $arrays1['duration'] = $data1[$x]['duration'];
                         $arrays1['insurance_amount'] = $data1[$x]['insurance_amount'];
                         $arrays1['insurance_price'] = $data1[$x]['insurance_price'];
                         $arrays1['insurance_id'] = $data1[$x]['insurance_id'];
@@ -584,7 +581,6 @@ $app->get('/insurances',function ()use($app){
                         $arrays1['plate_number'] = $data1[$x]['plate_number'];
                         $arrays1['driver_name'] = $data1[$x]['driver_name'];
                         $arrays1['insurance_start_time'] = $data1[$x]['insurance_start_time'];
-                        $arrays1['duration'] = $data1[$x]['duration'];
                         $arrays1['insurance_amount'] = $data1[$x]['insurance_amount'];
                         $arrays1['insurance_price'] = $data1[$x]['insurance_price'];
                         $arrays1['insurance_id'] = $data1[$x]['insurance_id'];
@@ -633,7 +629,6 @@ $app->get('/insurances',function ()use($app){
                     $arrays1['plate_number'] = $data1[$x]['plate_number'];
                     $arrays1['driver_name'] = $data1[$x]['driver_name'];
                     $arrays1['insurance_start_time'] = $data1[$x]['insurance_start_time'];
-                    $arrays1['duration'] = $data1[$x]['duration'];
                     $arrays1['insurance_amount'] = $data1[$x]['insurance_amount'];
                     $arrays1['insurance_price'] = $data1[$x]['insurance_price'];
                     $arrays1['insurance_id'] = $data1[$x]['insurance_id'];
