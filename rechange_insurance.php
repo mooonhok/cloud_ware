@@ -382,7 +382,6 @@ $app->get('/insurances',function ()use($app){
                     ->join('lorry', 'lorry.lorry_id', '=', 'insurance.insurance_lorry_id', 'INNER')
                     ->join('customer', 'tenant.contact_id', '=', 'customer.customer_id', 'INNER')
                     ->where('tenant.from_city_id', '=', $city_id)
-                    ->where('insurance.sure_insurance', '=', '1')
                     ->where('tenant.company', '=', $company)
                     ->orderBy('insurance.insurance_start_time', 'desc');
                 $stmt = $selectStatement->execute();
