@@ -426,6 +426,26 @@ $app->get('/insurances_sure',function ()use($app) {
     echo json_encode(array('result'=>0,'desc'=>"",'insurances'=>$data1));
 });
 
+//根据保单号查调度单号信息
+$app->get('/insurances_id',function ()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $insurance_id=$app->request->get('insurance_id');
+    $database=localhost();
+    $selectStatement = $database->select()
+        ->from('insurance')
+        ->where('id', '=', $insurance_id);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetch();
+    $selectStatement = $database->select()
+        ->from('insurance_scheduling')
+        ->where('tenant_id', '=', $data1['tenant_id'])
+        ->where('insurance_id', '=', $data1['insurance_id']);
+    $stmt = $selectStatement->execute();
+    $data2 = $stmt->fetch();
+    echo json_encode(array('result'=>'0','desc'=>'','insurance_schedulings'=>$data2));
+});
+
 //获取保险记录
 $app->get('/insurances',function ()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
