@@ -328,7 +328,7 @@ var city_id = $.getUrlParam('city_id');
 		if(user == null || user == "") {
 			window.location.href = p_url+"insurance/login.html";
 		}else{
-			insurance(city_id,company,page);
+			insurance(company,page);
 		}
 		$(".det").on("click",function(){
 			$(".box2").css("display","block");
