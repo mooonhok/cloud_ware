@@ -367,6 +367,7 @@ $app->get('/insurances_sure',function ()use($app) {
     $app->response->headers->set('Content-Type', 'application/json');
     $company = $app->request->get('company');
     $page = $app->request->get('page');
+    $page=$page-1;
     $per_page = $app->request->get('per_page');
     $database=localhost();
     if($company){
