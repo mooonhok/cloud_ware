@@ -70,8 +70,8 @@ $app->get('/insurances',function()use($app){
         ->join('tenant', 'tenant.tenant_id', '=', 'insurance.tenant_id', 'INNER')
         ->where('tenant.from_city_id', '=', $city_id)
         ->where('tenant.company','=',$company)
-        ->limit((int)$per_page,(int)$per_page*(int)$page)
-        ->orderBy('insurance.insurance_start_time', 'desc');
+        ->orderBy('insurance.insurance_start_time', 'desc')
+        ->limit((int)$per_page,(int)$per_page*(int)$page);
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
     echo json_encode(array("desc"=>$data1));
