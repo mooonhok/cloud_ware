@@ -139,6 +139,11 @@
         }
     })(jQuery);
     var insurance_id = $.getUrlParam('insurance_id');
+    var page = $.getUrlParam('page');
+    function insurance(insurance_id,page) {
+        if(page==null){
+            page=1;
+        }
         $.ajax({
             url: p_url + "rechange_insurance.php/one_goods?insurance_id=" + insurance_id + "&page=" + page + "&per_page=10",
             dataType: 'json',
@@ -177,5 +182,6 @@
                 alert("获取保险记录后台失败！");
             }
         });
+    }
 </script>
 </html>
