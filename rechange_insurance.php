@@ -426,34 +426,46 @@ $app->get('/insurances_sure',function ()use($app) {
             }
         }
     }else{
+        $array=array();
+        $array2=array();
         $datetime1=strtotime($datetime1);
         $datetime2=strtotime($datetime2);
         $selectStatement = $database->select()
             ->from('insurance')
             ->leftJoin('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id')
-            ->where('UNIX_TIMESTAMP(insurance.insurance_start_time)', '>',$datetime1)
-            ->where('UNIX_TIMESTAMP(insurance.insurance_start_time)', '<',$datetime2)
-            ->orderBy('insurance.insurance_start_time', 'desc')
-            ->limit((int)$per_page, (int)$per_page * (int)$page);
+            ->orderBy('insurance.insurance_start_time', 'desc');
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
-        for ($i = 0; $i < count($data1); $i++) {
+        for($i=0;$i<count($data1);$i++){
+            if(strtotime($data1[$i]['insurance_start_time'])>=$datetime1&&strtotime($data1[$i]['insurance_start_time'])<=$datetime2){
+                array_push($array,$data1[$i]);
+            }
+        }
+        $num=0;
+        if((int)$per_page*(int)$page<(count($array)-$per_page)){
+            $num=(int)$per_page*(int)($page+1);
+        }else{
+            $num=count($array);
+        }
+        for ($i =(int)$per_page*(int)$page; $i <$num; $i++) {
             $selectStatement = $database->select()
                 ->from('customer')
-                ->where('customer.tenant_id', '=', $data1[$i]['tenant_id'])
-                ->where('customer.customer_id', '=', $data1[$i]['contact_id']);
+                ->where('customer.tenant_id', '=', $array[$i]['tenant_id'])
+                ->where('customer.customer_id', '=', $array[$i]['contact_id']);
             $stmt = $selectStatement->execute();
             $data3 = $stmt->fetch();
             $selectStatement = $database->select()
                 ->from('lorry')
-                ->where('lorry.tenant_id', '=', $data1[$i]['tenant_id'])
-                ->where('lorry.lorry_id', '=', $data1[$i]['insurance_lorry_id']);
+                ->where('lorry.tenant_id', '=', $array[$i]['tenant_id'])
+                ->where('lorry.lorry_id', '=', $array[$i]['insurance_lorry_id']);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetch();
-            $data1[$i]['contact_phone'] = $data3['customer_phone'];
-            $data1[$i]['lorry_plate_number'] = $data2['plate_number'];
-            $data1[$i]['lorry_name'] = $data2['driver_name'];
+            $array[$i]['contact_phone'] = $data3['customer_phone'];
+            $array[$i]['lorry_plate_number'] = $data2['plate_number'];
+            $array[$i]['lorry_name'] = $data2['driver_name'];
+            array_push($array2,$array[$i]);
         }
+        $data1=$array2;
     }
 
     echo json_encode(array('result'=>0,'desc'=>"",'insurances'=>$data1));
