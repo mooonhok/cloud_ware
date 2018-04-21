@@ -367,7 +367,7 @@ $app->get('/insurances_sure',function ()use($app) {
     $app->response->headers->set('Content-Type', 'application/json');
     $company = $app->request->get('company');
     $datetime1 = $app->request->get('datetime1');
-    $datetime2 = $app->request->get('datetime1');
+    $datetime2 = $app->request->get('datetime2');
     $page = $app->request->get('page');
     $page=$page-1;
     $per_page = $app->request->get('per_page');
@@ -428,7 +428,8 @@ $app->get('/insurances_sure',function ()use($app) {
     }else{
         $array=array();
         $array2=array();
-
+        $datetime1=strtotime($datetime1);
+        $datetime2=strtotime($datetime2);
         $selectStatement = $database->select()
             ->from('insurance')
             ->leftJoin('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id')
