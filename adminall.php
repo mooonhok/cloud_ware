@@ -289,12 +289,17 @@ $app->get('/schs',function()use($app){
 $app->get('/dbadmin',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $scheduling_id= $app->request->get("sch_id");
+    $id= $app->request->get("id");
     $database=localhost();
+    $selectStament=$database->select()
+        ->from('insurance_scheduling')
+        ->where('id','=',$id);
+    $stmt=$selectStament->execute();
+    $dataa=$stmt->fetch();
     $array=array();
     $selectStament=$database->select()
         ->from('scheduling')
-        ->where('scheduling_id','=',$scheduling_id);
+        ->where('scheduling_id','=',$dataa['scheduling_id']);
     $stmt=$selectStament->execute();
     $data=$stmt->fetch();
     $selectStament=$database->select()

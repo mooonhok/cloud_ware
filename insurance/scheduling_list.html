@@ -172,7 +172,7 @@
                                     , thisData = msg.insurance_schedulings;
                                 layui.each(thisData, function (index, item) {
                                     arr.push('<tr><td>' + item.scheduling_id + '</td><td class="det" onclick="detil('
-                                        + item.scheduling_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
+                                        + item.id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
                                 });
                                 return arr.join('');
                             }();
@@ -184,7 +184,8 @@
             }
         });
     }
-    function detil(scheduling_id){
+    function detil(id){
+        alert(id);
             var index = layer.open({
                 type: 1,
                 skin: 'layui-layer-rim', //加上边框
@@ -224,7 +225,7 @@
             '</div>'
             });
         $.ajax({
-            url:"http://api.uminfor.cn/adminall.php/dbadmin?sch_id="+scheduling_id,
+            url:"http://api.uminfor.cn/adminall.php/dbadmin?id="+id,
             dataType: 'json',
             type: 'get',
             ContentType: "application/json;charset=utf-8",
@@ -232,7 +233,7 @@
             }),
             success: function(msg) {
                 if(msg.result == 0) {
-                    $(".title").append(scheduling_id);
+                    $(".title").append(msg.schedules.scheduling_id);
                     $(".sendname").append(msg.schedules.company);
                     $(".sendtel").append(msg.schedules.contant_tel);
                     $(".sendaddress").append(msg.schedules.send_city+msg.schedules.address);
