@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <link rel="icon" href="head.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="css/safe.css">
+    <link rel="stylesheet" href="src/css/layui.css">
+    <title>保险</title>
+    <style>
+        table {
+            border-right: 1px solid #DDDDDD;
+            border-bottom: 1px solid #DDDDDD;
+        }
+        table td {
+            border-left: 1px solid #DDDDDD;
+            border-top: 1px solid #DDDDDD;
+            height: 50px;
+            text-align: center;
+        }
+        table thead tr th {
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border-left: 1px solid #DDDDDD;
+            border-top: 1px solid #DDDDDD;
+            /* background: #9CBA60; */
+        }
+        a {
+            text-decoration: none;
+        }
+        button {
+            width: 100px;
+            height: 30px;
+            background: #FF8903;
+            border: 0;
+            border-radius: 5px;s
+        color: white;
+        }
+        .top_4_3{
+            width: 100px;
+            height: 10px;
+            background:white;
+            float: left;
+        }
+        .top_4_1{
+            width: 100px;
+            height: 10px;
+            background:white;
+            float: left;
+        }
+        .top_4_2{
+            width: 100px;
+            height: 10px;
+            background:#E0E1E7;
+            float: left;
+        }
+        .gps_3{
+            width: 100px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            float: left;
+            color:white;
+            background: #424F63;
+            cursor:pointer;
+        }
+        .gps_1{
+            width: 100px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            float: left;
+            color:white;
+            background: #424F63;
+            cursor:pointer;
+        }
+        .gps_2{
+            width: 100px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            float: left;
+            color:#A2A49E;
+            background: #E0E1E7;
+            cursor:pointer;
+        }
+        .tenant_tk{
+            text-align: center;
+        }
+        .tenant_tk>*{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="top">
+        <!--<div class="top_1">-->
+        <!--<img src="images/1.jpg" alt="">-->
+        <!--</div>-->
+        <!--<div class="top_2">-->
+        <!--<img src="images/2.jpg" alt="">-->
+        <!--</div>-->
+        <img src="images/header.png"/>
+    </div>
+    <div class="top_3"></div>
+    <div class="top_4">
+        <div class="top_4_1"></div>
+        <div class="top_4_2"></div>
+        <div class="top_4_3"></div>
+    </div>
+    <div class="tab_1">
+        <table id="tables" width="1200" border="0" cellspacing="0" cellpadding="0">
+            <thead>
+            <tr>
+                <th>清单号</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="tb2">
+            </tbody>
+        </table>
+        <div id="demo20"></div>
+    </div>
+</div>
+</body>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/jquery.session.js"></script>
+<script type="text/javascript" src="src/layui.js"></script>
+<script>
+    (function($) {
+        $.getUrlParam = function(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r != null) return decodeURI(r[2]);
+            return null;
+        }
+    })(jQuery);
+    var insurance_id = $.getUrlParam('insurance_id');
+    $.ajax({
+        url:p_url+"rechange_insurance.php/one_goods?insurance_id="+insurance_id,
+        dataType:'json',
+        type:'get',
+        ContentType: "application/json;charset=utf-8",
+        data: JSON.stringify({}),
+        success:function(msg){
+            $("#tb2").html("");
+            console.log(msg);
+            //调用分页
+            layui.use(['laypage', 'layer'], function(){
+                var laypage = layui.laypage;
+                laypage.render({
+                    elem: 'demo20'
+                    ,count:msg.count
+                    ,curr:page
+                    ,limit: 10
+                    ,jump: function(obj,first){
+                        if(!first){
+                            insurance(company,obj.curr);
+                        }
+                        //模拟渲染
+                        document.getElementById('tb2').innerHTML = function(){
+                            var arr = []
+                                ,thisData = msg.insurances;
+                            layui.each(thisData, function(index, item){
+                                arr.push( '<tr><td>'+item.scheduling_id+'</td><td class="det" onclick="detil('
+                                    +item.scheduling_id+')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
+                            });
+                            return arr.join('');
+                        }();
+                    }
+                });
+            });
+        },error:function(xhr){
+            alert("获取保险记录后台失败！");
+        }
+    });
+</script>
+</html>
