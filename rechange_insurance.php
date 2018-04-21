@@ -366,61 +366,69 @@ $app->get('/insurances_sure',function ()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin', '*');
     $app->response->headers->set('Content-Type', 'application/json');
     $company = $app->request->get('company');
+    $datetime1 = $app->request->get('shijian1');
+    $datetime2 = $app->request->get('shijian2');
     $page = $app->request->get('page');
     $page=$page-1;
     $per_page = $app->request->get('per_page');
     $database=localhost();
-    if($company){
-        $selectStatement = $database->select()
-            ->from('insurance')
-            ->leftJoin('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id')
-            ->whereLike('tenant.company','%'.$company.'%')
-            ->orderBy('insurance.insurance_start_time', 'desc')
-            ->limit((int)$per_page, (int)$per_page * (int)$page);
-        $stmt = $selectStatement->execute();
-        $data1 = $stmt->fetchAll();
-        for($i=0;$i<count($data1);$i++){
+    if((!$datetime1)||(!$datetime2)) {
+        if ($company) {
             $selectStatement = $database->select()
-                ->from('customer')
-                ->where('customer.tenant_id','=',$data1[$i]['tenant_id'])
-                ->where('customer.customer_id','=',$data1[$i]['contact_id']);
+                ->from('insurance')
+                ->leftJoin('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id')
+                ->whereLike('tenant.company', '%' . $company . '%')
+                ->orderBy('insurance.insurance_start_time', 'desc')
+                ->limit((int)$per_page, (int)$per_page * (int)$page);
             $stmt = $selectStatement->execute();
-            $data3 = $stmt->fetch();
+            $data1 = $stmt->fetchAll();
+            for ($i = 0; $i < count($data1); $i++) {
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('customer.tenant_id', '=', $data1[$i]['tenant_id'])
+                    ->where('customer.customer_id', '=', $data1[$i]['contact_id']);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('lorry')
+                    ->where('lorry.tenant_id', '=', $data1[$i]['tenant_id'])
+                    ->where('lorry.lorry_id', '=', $data1[$i]['insurance_lorry_id']);
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetch();
+                $data1[$i]['contact_phone'] = $data3['customer_phone'];
+                $data1[$i]['lorry_plate_number'] = $data2['plate_number'];
+                $data1[$i]['lorry_name'] = $data2['driver_name'];
+            }
+        } else {
             $selectStatement = $database->select()
-                ->from('lorry')
-                ->where('lorry.tenant_id','=',$data1[$i]['tenant_id'])
-                ->where('lorry.lorry_id','=',$data1[$i]['insurance_lorry_id']);
+                ->from('insurance')
+                ->leftJoin('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id')
+                ->orderBy('insurance.insurance_start_time', 'desc')
+                ->limit((int)$per_page, (int)$per_page * (int)$page);
             $stmt = $selectStatement->execute();
-            $data2 = $stmt->fetch();
-            $data1[$i]['contact_phone']=$data3['customer_phone'];
-            $data1[$i]['lorry_plate_number']=$data2['plate_number'];
-            $data1[$i]['lorry_name']=$data2['driver_name'];
+            $data1 = $stmt->fetchAll();
+            for ($i = 0; $i < count($data1); $i++) {
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('customer.tenant_id', '=', $data1[$i]['tenant_id'])
+                    ->where('customer.customer_id', '=', $data1[$i]['contact_id']);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('lorry')
+                    ->where('lorry.tenant_id', '=', $data1[$i]['tenant_id'])
+                    ->where('lorry.lorry_id', '=', $data1[$i]['insurance_lorry_id']);
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetch();
+                $data1[$i]['contact_phone'] = $data3['customer_phone'];
+                $data1[$i]['lorry_plate_number'] = $data2['plate_number'];
+                $data1[$i]['lorry_name'] = $data2['driver_name'];
+            }
         }
     }else{
-        $selectStatement = $database->select()
-            ->from('insurance')
-            ->leftJoin('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id')
-            ->orderBy('insurance.insurance_start_time', 'desc')
-            ->limit((int)$per_page, (int)$per_page * (int)$page);
-        $stmt = $selectStatement->execute();
-        $data1 = $stmt->fetchAll();
-        for($i=0;$i<count($data1);$i++){
-            $selectStatement = $database->select()
-                ->from('customer')
-                ->where('customer.tenant_id','=',$data1[$i]['tenant_id'])
-                ->where('customer.customer_id','=',$data1[$i]['contact_id']);
-            $stmt = $selectStatement->execute();
-            $data3 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('lorry')
-                ->where('lorry.tenant_id','=',$data1[$i]['tenant_id'])
-                ->where('lorry.lorry_id','=',$data1[$i]['insurance_lorry_id']);
-            $stmt = $selectStatement->execute();
-            $data2 = $stmt->fetch();
-            $data1[$i]['contact_phone']=$data3['customer_phone'];
-            $data1[$i]['lorry_plate_number']=$data2['plate_number'];
-            $data1[$i]['lorry_name']=$data2['driver_name'];
-        }
+        $datetime1=date("Y-m-d H:i:s",strtotime($datetime1));
+        $datetime2=date("Y-m-d H:i:s",strtotime($datetime2));
+
     }
 
     echo json_encode(array('result'=>0,'desc'=>"",'insurances'=>$data1));
@@ -1025,6 +1033,7 @@ $app->get('/shijian',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $shijian=$app->request->get('shijan');
+    $shijian=date("Y-m-d H:i:s",strtotime($shijian));
     $database = localhost();
     $selectStatement = $database->select()
         ->from('insurance');
