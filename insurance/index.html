@@ -217,6 +217,7 @@
 		if(company==null){
 				company="";
 			}
+			alert(page+"///"+datetime1+"///"+datetime2+"///"+company);
 	$.ajax({
 		url:p_url+"rechange_insurance.php/insurances_sure?company=" + company+"&page="+page+"&per_page=10&datetime1="+datetime1+"&datetime2="+datetime2,
 		dataType:'json',
