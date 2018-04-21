@@ -1027,11 +1027,14 @@ $app->get('/shijian',function()use($app){
     $shijian=$app->request->get('shijan');
     $database = localhost();
     $selectStatement = $database->select()
-        ->from('insurance')
-        ->where('insurance_start_time', '<', $shijian);
+        ->from('insurance');
     $stmt = $selectStatement->execute();
     $data2 = $stmt->fetchAll();
-    echo json_encode(array('insurance'=>$data2,'shijian'=>$shijian));
+    if($data2[0]['insurance_start_time']>$shijian){
+        echo json_encode(array('yes'=>$data2));
+    }else{
+        echo json_encode(array('no'=>$data2));
+    }
 });
 $app->run();
 
