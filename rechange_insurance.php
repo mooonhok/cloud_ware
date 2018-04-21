@@ -366,8 +366,8 @@ $app->get('/insurances_sure',function ()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin', '*');
     $app->response->headers->set('Content-Type', 'application/json');
     $company = $app->request->get('company');
-    $datetime1 = $app->request->get('datetime1');
-    $datetime2 = $app->request->get('datetime2');
+    $datetime1 = $app->request->get('datetime11');
+    $datetime2 = $app->request->get('datetime22');
 
     $page = $app->request->get('page');
     $page=$page-1;
@@ -429,8 +429,8 @@ $app->get('/insurances_sure',function ()use($app) {
     }else{
         $array=array();
         $array2=array();
-    $datetime1=strtotime($datetime1);
-    $datetime2=strtotime($datetime2);
+    $datetime1=strtotime($datetime11);
+    $datetime2=strtotime($datetime22);
         $selectStatement = $database->select()
             ->from('insurance')
             ->leftJoin('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id')
@@ -469,7 +469,7 @@ $app->get('/insurances_sure',function ()use($app) {
         $data1=$array2;
     }
 
-    echo json_encode(array('result'=>0,'desc'=>"",'insurances'=>$data1,'datetime1'=>$datetime1,'datetime2'=>$datetime2));
+    echo json_encode(array('result'=>0,'desc'=>"",'insurances'=>$data1,'datetime1'=>$datetime11,'datetime2'=>$datetime22));
 });
 
 //根据保单号查调度单号信息
