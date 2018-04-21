@@ -366,7 +366,7 @@ $app->get('/insurances_sure',function ()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin', '*');
     $app->response->headers->set('Content-Type', 'application/json');
     $company = $app->request->get('company');
-    $datetime11 = $app->request->get('datetime1');
+    $datetime11=$app->request->get('datetime1');
     $datetime22 = $app->request->get('datetime2');
 
     $page = $app->request->get('page');
