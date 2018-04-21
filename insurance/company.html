@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <link rel="icon" href="head.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="css/safe.css">
+    <link rel="stylesheet" href="src/css/layui.css">
+    <title>保险</title>
+    <style>
+        table {
+            border-right: 1px solid #DDDDDD;
+            border-bottom: 1px solid #DDDDDD;
+        }
+        table td {
+            border-left: 1px solid #DDDDDD;
+            border-top: 1px solid #DDDDDD;
+            height: 50px;
+            text-align: center;
+        }
+        table thead tr th {
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border-left: 1px solid #DDDDDD;
+            border-top: 1px solid #DDDDDD;
+            /* background: #9CBA60; */
+        }
+        a {
+            text-decoration: none;
+        }
+        button {
+            width: 100px;
+            height: 30px;
+            background: #FF8903;
+            border: 0;
+            border-radius: 5px;s
+        color: white;
+        }
+        .top_4_3{
+            width: 100px;
+            height: 10px;
+            background:white;
+            float: left;
+        }
+        .top_4_1{
+            width: 100px;
+            height: 10px;
+            background:white;
+            float: left;
+        }
+        .top_4_2{
+            width: 100px;
+            height: 10px;
+            background:#E0E1E7;
+            float: left;
+        }
+        .gps_3{
+            width: 100px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            float: left;
+            color:white;
+            background: #424F63;
+            cursor:pointer;
+        }
+        .gps_1{
+            width: 100px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            float: left;
+            color:white;
+            background: #424F63;
+            cursor:pointer;
+        }
+        .gps_2{
+            width: 100px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            float: left;
+            color:#A2A49E;
+            background: #E0E1E7;
+            cursor:pointer;
+        }
+        .tenant_tk{
+            text-align: center;
+        }
+        .tenant_tk>*{
+            text-align: center;
+        }
+        .pro,.cit{
+            float:left;
+            width:180px;
+        }
+        .dao{
+            float:left;
+            width:40px;
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="top">
+        <!--<div class="top_1">-->
+        <!--<img src="images/1.jpg" alt="">-->
+        <!--</div>-->
+        <!--<div class="top_2">-->
+        <!--<img src="images/2.jpg" alt="">-->
+        <!--</div>-->
+        <img src="images/header.png"/>
+    </div>
+    <div class="top_3"></div>
+    <div class="top_4">
+        <div class="top_4_1"></div>
+        <div class="top_4_2"></div>
+        <div class="top_4_3"></div>
+    </div>
+    <!--<div class="gps">-->
+    <!--<div class="gps_1" onclick="window.location.href='http://insurance.uminfo.cn/safe.html'">支付信息</div>-->
+    <!--<div class="gps_2">历史保单</div>-->
+    <!--<div class="gps_3" onclick="window.location.href='http://insurance.uminfo.cn/upload.html'">上传保单</div>-->
+    <!--</div>-->
+    <!--<div class="select">-->
+        <!--<div class="all">显示全部</div>-->
+        <!--<div class="select_2">-->
+            <!--<div class="select_2_1"><input id="coname" type="text" placeholder="请输入公司名称"></div>-->
+            <!--<div class="select_2_2"><img src="images/seek.png" alt="" width="30" height="30"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!-- 历史保单 -->
+    <div class="tab_1">
+        <table id="tables" width="1200" border="0" cellspacing="0" cellpadding="0">
+            <thead>
+            <tr>
+                <th>物流公司</th>
+                <th>物流公司负责人</th>
+                <th>物流公司联系电话</th>
+
+                <th>投保次数</th>
+
+            </tr>
+            </thead>
+            <tbody id="tb2">
+            </tbody>
+        </table>
+        <div id="demo20"></div>
+        <!--<div class="box5">-->
+        <!--<div class="box5_1">-->
+        <!--<h3>货物详情</h3></div>-->
+        <!---->
+        <!--<div class="box5_3"><button class="but_1">返回</button></div>-->
+        <!--<div class="box5_4">-->
+        <!--<table id="table" width="800" border="0" cellspacing="0" cellpadding="0">-->
+        <!--<thead>-->
+        <!--<tr>-->
+        <!--<th>运单号</th>-->
+        <!--<th>货物名称</th>-->
+        <!--<th>货物重量</th>-->
+        <!--<th>货物体积</th>-->
+        <!--<th>货物数量</th>-->
+        <!--<th>货物价值</th>s-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody id="tb3">-->
+        <!--</tbody>-->
+        <!--</table>-->
+        <!--<div style="clear: both;"></div>-->
+        <!--</div>-->
+        <!--<div class="box5_5">-->
+        <!--<div class="tables_footer clearfix" style="width: 500px;"></div>-->
+        <!--<div class="page_out fr"></div>-->
+        <!--</div>-->
+        <!--</div>-->
+    </div>
+</div>
+</body>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/jquery.session.js"></script>
+<script type="text/javascript" src="src/layui.js"></script>
+<script type="text/javascript">
+
+    function company(){
+        $.ajax({
+            url:p_url+"rechange_insurance.php/insurances_sure?company=" + company+"&page="+page+"&per_page=10&datetime1="+datetime1+"&datetime2="+datetime2,
+            dataType:'json',
+            type:'get',
+            ContentType: "application/json;charset=utf-8",
+            data: JSON.stringify({}),
+            success:function(msg){
+                $("#tb2").html("");
+                console.log(msg);
+                //调用分页
+                layui.use(['laypage', 'layer'], function(){
+                    var laypage = layui.laypage;
+                    laypage.render({
+                        elem: 'demo20'
+                        ,count:msg.count
+                        ,curr:page
+                        ,limit: 10
+                        ,jump: function(obj,first){
+                            if(!first){
+                                insurance(company,obj.curr,datetime1,datetime2);
+                            }
+                            //模拟渲染
+                            document.getElementById('tb2').innerHTML = function(){
+                                var arr = []
+                                    ,thisData = msg.insurances;
+                                layui.each(thisData, function(index, item){
+                                    arr.push( '<tr><td>'+item.company+'</td><td>'
+                                        +item.contact_phone+'</td><td>'
+                                        +item.lorry_plate_number+'</td><td>'
+                                        +item.lorry_name+'</td><td class="det" onclick="detil('
+                                        +item.id+')"><span style="color:blue; cursor:pointer;">查看</span></td><td>'
+                                        +item.insurance_price+'</td><td>'
+                                        +item.insurance_amount+'</td><td>'
+                                        +item.insurance_start_time+'</td></tr>');
+                                });
+                                return arr.join('');
+                            }();
+                        }
+                    });
+                });
+            },error:function(xhr){
+                alert("获取保险记录后台失败！");
+            }
+        });
+    }
+    // function detil(id){
+    //   	      	$.ajax({
+    //   	      	   url: "http://api.uminfo.cn/rechange_insurance.php/one_goods?insurance_id=" + id,
+    // 			dataType: 'json',
+    // 			type: 'get',
+    // 			ContentType: "application/json;charset=utf-8",
+    // 			data: JSON.stringify({}),
+    // 			success: function(msg) {
+    // 				$(".box2").css("display","block");
+    // 			},
+    // 			error: function(e) {
+    // 				alert("获取货物详情出错!");
+    // 			}
+    //   	      	});
+    // }
+</script>
+<script>
+    (function($) {
+        $.getUrlParam = function(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r != null) return decodeURI(r[2]);
+            return null;
+        }
+    })(jQuery);
+    //获取省份和城市列表1
+    $.ajax({
+        url: p_url+"city.php/province",
+        dataType: 'json',
+        type: 'get',
+        ContentType: "application/json;charset=utf-8",
+        data: JSON.stringify({}),
+        success: function(msg) {
+            for(var i = 0; i < msg.province.length; i++) {
+                $("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+            }
+        },
+        error: function(e) {
+            alert("省份列表1信息出错!");
+        }
+    });
+    function getPro1() {
+        $("#city1").empty();
+        var pid = $("#province1 option:selected").val();
+        $.ajax({
+            url: p_url+"city.php/city?pid=" + pid,
+            dataType: 'json',
+            type: 'get',
+            ContentType: "application/json;charset=utf-8",
+            data: JSON.stringify({}),
+            success: function(msg){
+                $("#city1").append('<option value="0">请选择市</option>')
+                for(var i = 0; i < msg.city.length; i++) {
+                    $("#city1").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
+                }
+            },
+            error: function(e) {
+                alert("城市1列表信息出错!");
+            }
+        });
+    }
+</script>
+<script>
+    //选择搜索按钮的事件
+    $("#city1").on('change', function() {
+        city_id = $("#city1 option:selected").val();
+        window.location.href=p_url+"insurance/index.html?city_id=" + city_id+"&company=";
+    })
+    //搜索框
+    $(".select_2_2").on('click', function() {
+        // alert("1");
+        company = $("#coname").val();
+
+        window.location.href=p_url+"insurance/index.html?company="+company;
+
+    });
+</script>
+<script type="text/javascript">
+    $(".all").on("click",function(){
+
+        window.location.href=p_url+"insurance/index.html";
+    })
+</script>
+<script>
+    var city_id = $.getUrlParam('city_id');
+    var company = $.getUrlParam('company');
+    var datetime1 = $.getUrlParam('datetime1');
+    var datetime2 = $.getUrlParam('datetime2');
+    var page=null;
+    var user = $.session.get('userid');
+    //		alert(datetime2)
+    //		alert(user);
+    if(user == null || user == "") {
+        window.location.href = p_url+"insurance/login.html";
+    }else{
+        insurance(company,page,datetime1,datetime2);
+    }
+    $(".det").on("click",function(){
+        $(".box2").css("display","block");
+    })
+    $(".box2_2").on("click", function() {
+        $(".box2").css("display", "none");
+    })
+    $(".quxiao").on("click",function(){
+        $(".bigbox").css("display","none");
+    })
+</script>
+<script type="text/javascript">
+    //   	function detil(id) {
+    //			$(".box5").css("display", "block");
+    //			$.ajax({
+    //				url: p_url+"rechange_insurance.php/one_goods?insurance_id=" + id,
+    //				dataType: 'json',
+    //				type: 'get',
+    //				ContentType: "application/json;charset=utf-8",
+    //				data: JSON.stringify({}),
+    //				success: function(msg) {
+    //					console.log(msg);
+    //					TablePage('#table', 7);
+    //					function TablePage(id, size) {
+    //					$("#tb3").html("");
+    //					for(var i = 0; i < msg.goods.length; i++) {
+    //						var c = "<tr><td>" + msg.goods[i].order_id + "</td><td>" +
+    //							msg.goods[i].goods_name + "</td><td>" +
+    //							msg.goods[i].goods_weight + "</td><td>" +
+    //							msg.goods[i].goods_capacity + "</td><td>"+
+    //							msg.goods[i].goods_count+"</td><td>" +
+    //							msg.goods[i].goods_value + "</td></tr>";
+    //						$("#tb3").append(c);
+    //					}
+    //								var $table = $(id);
+    //						var currentPage = 0; //当前页
+    //						var pageSize = 2; //每页行数（不包括表头）
+    //						$table.bind("repaginate", function() {
+    //							$table.find("#tb3 tr").hide().slice(currentPage * pageSize, (currentPage + 1) * pageSize).show();
+    //						});
+    //						var numRows = $table.find("#tb3 tr").length; //记录宗条数
+    //						var numPages = Math.ceil(numRows / pageSize); //总页数
+    //						var $pager = $("<div class='page'><a href='javascript:void(0)'><span id='Prev' style='margin-right:4px;'>上一页</span></a></div>"); //分页div
+    //
+    //						for(var page = 0; page < numPages; page++) {
+    //							//为分页标签加上链接
+    //							$("<a href='javascript:void(0)'><span id='" + (page + 1) + "'>" + (page + 1) + "</span></a>").bind("click", { "newPage": page }, function(event) {
+    //									currentPage = event.data["newPage"];
+    //									$(this).children("span").attr("class", "click_page");
+    //									$(this).children("span").css({ "color": "red"});
+    //									$(".page a span").not($(this).children("span")).attr("class", "");
+    //									$(".page a span").not($(this).children("span")).css({ "color": "#1155BB" });
+    //									$table.trigger("repaginate");
+    //								})
+    //								.appendTo($pager);
+    //							$pager.append("  ");
+    //						}
+    //						var next = $("<a href='javascript:void(0)'><span id='Next'>下一页</span></a>");
+    //						$pager.append(next);
+    //						$('.page_out').append($pager);
+    //						$("#1").attr("class", "click_page");
+    //						$("#1").css({ "color": "red" });
+    //						$table.trigger("repaginate");
+    //						$("#Prev").bind("click", function() {
+    //							var prev = Number($(".click_page").text()) - 2;
+    //							currentPage = prev;
+    //							$(this).css({ "background": "white" });
+    //							if(currentPage < 0) {
+    //								$(this).css({ "background": "white" });
+    //								return;
+    //							}
+    //							$("#" + (prev + 1)).attr("class", "click_page");
+    //							$("#" + (prev + 1)).css({ "color": "red" });
+    //							$(".page a span").not($("#" + (prev + 1))).attr("class", "");
+    //							$(".page a span").not($("#" + (prev + 1))).css({ "color": "#1155BB" });
+    //							$table.trigger("repaginate");
+    //						});
+    //						$("#Next").bind("click", function() {
+    //							var next = $(".click_page").attr("id");
+    //							currentPage = Number(next);
+    //							$(this).css({ "background": "#FFFFFF" });
+    //							if((currentPage + 1) > numPages) {
+    //								$(this).css({ "background": "white" });
+    //								return;
+    //							}
+    //							$("#" + (currentPage + 1)).attr("class", "click_page");
+    //							$("#" + (currentPage + 1)).css({ "color": "#FFFFFF" });
+    //							$(".page a span").not($("#" + (currentPage + 1))).attr("class", "");
+    //							$(".page a span").not($("#" + (currentPage + 1))).css({ "color": "#1155BB" });
+    //							$table.trigger("repaginate");
+    //						});
+    //					}
+    //				},
+    //				error: function(e) {
+    //					alert("获取货物详情出错!");
+    //				}
+    //			});
+    //		}
+
+    function detil(id) {
+
+//    var index = layer.open({
+//        type: 1,
+//        skin: 'layui-layer-rim', //加上边框
+//        area: ['800px', '600px'], //宽高
+//        content: '<div class="tenant_tk" id="tenant_tk">' +
+//        '<h1 style="text-align:center;">清单号</h1>' +
+//
+//        '</div>'
+//    });
+//    $.ajax({
+//        url: p_url+"rechange_insurance.php/insurances_id?insurance_id="+id,
+//        dataType: 'json',
+//        type: 'get',
+//        ContentType: "application/json;charset=utf-8",
+//        data: JSON.stringify({}),
+//        success: function(ret) {
+//            console.log(ret);
+//            if(ret.result==0){
+//                for(var i=0;i<ret.insurance_schedulings.length;i++){
+//                    $('#tenant_tk').append('<a href="'+p_url+'insurance/insurancegoods.html?scheduling_id='+ret.insurance_schedulings[i].scheduling_id+'">'+ret.insurance_schedulings[i].scheduling_id+'&nbsp;&nbsp;查询</a>');
+//                }
+//            }
+//        },
+//        error: function(xhr) {
+//            alert("获取后台失败！");
+//        }
+//    });
+        window.location.href=p_url+"insurance/scheduling_list.html?insurance_id="+id;
+    }
+</script>
+<script type="text/javascript">
+    $(".but_1").on("click", function() {
+        $(".box5").css("display", "none");
+        window.location.reload();
+    })
+    $("#datetime2").on("change",function(){
+        var shijian1=$("#datetime1").val();
+        var shijian2=$("#datetime2").val();
+        if(!shijian1){
+            alert("开始时间未填写");
+            $("#datetime2").val("");
+        }else if(shijian1>shijian2){
+            alert("结束时间不能小于开始时间未填写");
+            $("#datetime2").val("");
+        }else{
+            alert("时间填写成功");
+            alert(shijian1+"////"+shijian2);
+            window.location.href=p_url+"insurance/index.html?datetime1="+shijian1+"&datetime2="+shijian2;
+        }
+//    $.ajax({
+//        url: p_url+"rechange_insurance.php/shijian?shijian="+shijian2,
+//        dataType: 'json',
+//        type: 'get',
+//        ContentType: "application/json;charset=utf-8",
+//        data: JSON.stringify({}),
+//        success: function(ret) {
+//            console.log(ret);
+////            if(ret.result==0){
+////                for(var i=0;i<ret.insurance_schedulings.length;i++){
+////                    $('#tenant_tk').append('<a href="'+p_url+'insurance/insurancegoods.html?scheduling_id='+ret.insurance_schedulings[i].scheduling_id+'">'+ret.insurance_schedulings[i].scheduling_id+'&nbsp;&nbsp;查询</a>');
+////                }
+////            }
+//        },
+//        error: function(xhr) {
+//            alert("获取后台失败！");
+//        }
+//    });
+    })
+</script>
+</html>

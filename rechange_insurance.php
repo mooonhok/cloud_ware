@@ -1067,21 +1067,17 @@ if($per_page==null||$page==null) {
 
 
 //根据时间
-$app->get('/shijian',function()use($app){
+$app->get('/company',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $shijian=$app->request->get('shijan');
-    $shijian=date("Y-m-d H:i:s",strtotime($shijian));
     $database = localhost();
     $selectStatement = $database->select()
-        ->from('insurance');
+        ->count('tenant_id','zon')
+        ->from('insurance')
+        ->groupBy('tenant_id');
     $stmt = $selectStatement->execute();
-    $data2 = $stmt->fetchAll();
-    if($data2[0]['insurance_start_time']>$shijian){
-        echo json_encode(array('yes'=>$data2));
-    }else{
-        echo json_encode(array('no'=>$data2));
-    }
+    $data1 = $stmt->fetchAll();
+    echo json_encode(array('result' => '1', 'desc' => '租户id为空', 'rechanges' => $data1));
 });
 $app->run();
 
