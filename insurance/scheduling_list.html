@@ -169,7 +169,7 @@
                             //模拟渲染
                             document.getElementById('tb2').innerHTML = function () {
                                 var arr = []
-                                    , thisData = msg.insurances;
+                                    , thisData = msg.insurance_schedulings;
                                 layui.each(thisData, function (index, item) {
                                     arr.push('<tr><td>' + item.scheduling_id + '</td><td class="det" onclick="detil('
                                         + item.scheduling_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
