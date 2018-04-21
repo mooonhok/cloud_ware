@@ -209,7 +209,7 @@
         '</div>'+
         '<div class="orders">'+
         '<div class="ordertile">运单列表：</div>'+
-        '<table id="tables" width="800" border="1px" cellspacing="0" cellpadding="0">'+
+        '<table id="tables2" width="800" border="1px" cellspacing="0" cellpadding="0">'+
         '<thead>'+
         '<tr>'+
          '<th>运单编号</th>'+
@@ -245,7 +245,7 @@
                     $(".platenumber").append(msg.schedules.plate_number);
                     $(".sendtime").append(msg.schedules.scheduling_datetime);
                     for(var i=0;i<msg.schedules.schedule_orders.length;i++){
-                        $("#tables").append("<tr><td>"+msg.schedules.schedule_orders[i].order_id
+                        $("#tables2").append("<tr><td>"+msg.schedules.schedule_orders[i].order_id
                             +"</td><td>"+msg.schedules.schedule_orders[i].goods_name
                             +"</td><td>"+msg.schedules.schedule_orders[i].goods_weight
                             +"</td><td>"+msg.schedules.schedule_orders[i].goods_capacity
