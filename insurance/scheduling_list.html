@@ -140,6 +140,7 @@
     })(jQuery);
     var insurance_id = $.getUrlParam('insurance_id');
     var page = $.getUrlParam('page');
+    insurance(insurance_id,page);
     function insurance(insurance_id,page) {
         if(page==null){
             page=1;
