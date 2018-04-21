@@ -134,11 +134,11 @@
 						<!--<option value="0">请选择市</option>-->
 					<!--</select>-->
 					<div class="pro">
-                        <input type="datetime-local" style="width:170px;">
+                        <input type="datetime-local" style="width:170px;" id="datetime1">
 					</div>
 					<div class="dao">到</div>
 					<div class="cit">
-						<input type="datetime-local" style="width:170px;">
+						<input type="datetime-local" style="width:170px;" id="datetime2">
 					</div>
 				</div>
 				<div class="select_2">
@@ -203,6 +203,7 @@
 <script src="js/jquery.session.js"></script>
 <script type="text/javascript" src="src/layui.js"></script>
 <script type="text/javascript">
+
 	function insurance(company,page){
 	    if(page==null){
 	        page=1;
@@ -484,6 +485,27 @@ function detil(id) {
 			$(".box5").css("display", "none");
 			window.location.reload();
 		})
-   
+   $("#datetime1").on("change",function(){
+      alert($("#datetime1").val());
+      var shijian=$("#datetime1").val();
+    $.ajax({
+        url: p_url+"rechange_insurance.php/shijian?shijian="+shijian,
+        dataType: 'json',
+        type: 'get',
+        ContentType: "application/json;charset=utf-8",
+        data: JSON.stringify({}),
+        success: function(ret) {
+            console.log(ret);
+//            if(ret.result==0){
+//                for(var i=0;i<ret.insurance_schedulings.length;i++){
+//                    $('#tenant_tk').append('<a href="'+p_url+'insurance/insurancegoods.html?scheduling_id='+ret.insurance_schedulings[i].scheduling_id+'">'+ret.insurance_schedulings[i].scheduling_id+'&nbsp;&nbsp;查询</a>');
+//                }
+//            }
+        },
+        error: function(xhr) {
+            alert("获取后台失败！");
+        }
+    });
+   })
    </script>
 </html>
