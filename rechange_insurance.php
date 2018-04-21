@@ -431,6 +431,9 @@ $app->get('/insurances_id',function ()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $insurance_id=$app->request->get('insurance_id');
+    $page = $app->request->get('page');
+    $page=$page-1;
+    $per_page = $app->request->get('per_page');
     $database=localhost();
     $selectStatement = $database->select()
         ->from('insurance')
@@ -443,7 +446,14 @@ $app->get('/insurances_id',function ()use($app){
         ->where('insurance_id', '=', $data1['insurance_id']);
     $stmt = $selectStatement->execute();
     $data2 = $stmt->fetchAll();
-    echo json_encode(array('result'=>'0','desc'=>'','insurance_schedulings'=>$data2));
+    $selectStatement = $database->select()
+        ->from('insurance_scheduling')
+        ->where('tenant_id', '=', $data1['tenant_id'])
+        ->where('insurance_id', '=', $data1['insurance_id'])
+        ->limit((int)$per_page, (int)$per_page * (int)$page);
+    $stmt = $selectStatement->execute();
+    $data3 = $stmt->fetchAll();
+    echo json_encode(array('result'=>'0','desc'=>'','insurance_schedulings'=>$data3,"count"=>count($data2)));
 });
 
 //获取保险记录
