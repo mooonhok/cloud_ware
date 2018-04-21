@@ -204,10 +204,16 @@
 <script type="text/javascript" src="src/layui.js"></script>
 <script type="text/javascript">
 
-	function insurance(company,page){
+	function insurance(company,page,datetime1,datetime2){
 	    if(page==null){
 	        page=1;
 		}
+        if(datetime1==null){
+            datetime1='';
+        }
+        if(datetime2=null){
+            datetime2='';
+        }
 		if(company==null){
 				company="";
 			}
@@ -230,7 +236,7 @@
     ,limit: 10
     ,jump: function(obj,first){
           if(!first){
-              insurance(company,obj.curr);
+              insurance(company,obj.curr,datetime1,datetime2);
           }
               //模拟渲染
               document.getElementById('tb2').innerHTML = function(){
@@ -342,13 +348,15 @@
 <script>
 var city_id = $.getUrlParam('city_id');
 		 var company = $.getUrlParam('company');
+var datetime1 = $.getUrlParam('datetime1');
+var datetime2 = $.getUrlParam('datetime2');
 		 var page=null;
 		var user = $.session.get('userid');
 		alert(user);
 		if(user == null || user == "") {
 			window.location.href = p_url+"insurance/login.html";
 		}else{
-			insurance(company,page);
+			insurance(company,page,datetime1,datetime2);
 		}
 		$(".det").on("click",function(){
 			$(".box2").css("display","block");
@@ -496,25 +504,28 @@ function detil(id) {
           $("#datetime2").val("");
 	  }else{
 	      alert("时间填写成功");
+          var company = $.getUrlParam('company');
+          var page=1;
+	      insurance(company,page,shijian1,shijian2);
 	  }
-    $.ajax({
-        url: p_url+"rechange_insurance.php/shijian?shijian="+shijian2,
-        dataType: 'json',
-        type: 'get',
-        ContentType: "application/json;charset=utf-8",
-        data: JSON.stringify({}),
-        success: function(ret) {
-            console.log(ret);
-//            if(ret.result==0){
-//                for(var i=0;i<ret.insurance_schedulings.length;i++){
-//                    $('#tenant_tk').append('<a href="'+p_url+'insurance/insurancegoods.html?scheduling_id='+ret.insurance_schedulings[i].scheduling_id+'">'+ret.insurance_schedulings[i].scheduling_id+'&nbsp;&nbsp;查询</a>');
-//                }
-//            }
-        },
-        error: function(xhr) {
-            alert("获取后台失败！");
-        }
-    });
+//    $.ajax({
+//        url: p_url+"rechange_insurance.php/shijian?shijian="+shijian2,
+//        dataType: 'json',
+//        type: 'get',
+//        ContentType: "application/json;charset=utf-8",
+//        data: JSON.stringify({}),
+//        success: function(ret) {
+//            console.log(ret);
+////            if(ret.result==0){
+////                for(var i=0;i<ret.insurance_schedulings.length;i++){
+////                    $('#tenant_tk').append('<a href="'+p_url+'insurance/insurancegoods.html?scheduling_id='+ret.insurance_schedulings[i].scheduling_id+'">'+ret.insurance_schedulings[i].scheduling_id+'&nbsp;&nbsp;查询</a>');
+////                }
+////            }
+//        },
+//        error: function(xhr) {
+//            alert("获取后台失败！");
+//        }
+//    });
    })
    </script>
 </html>
