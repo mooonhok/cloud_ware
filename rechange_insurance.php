@@ -426,9 +426,34 @@ $app->get('/insurances_sure',function ()use($app) {
             }
         }
     }else{
-        $datetime1=date("Y-m-d H:i:s",strtotime($datetime1));
-        $datetime2=date("Y-m-d H:i:s",strtotime($datetime2));
-
+        $datetime1=strtotime($datetime1);
+        $datetime2=strtotime($datetime2);
+        $selectStatement = $database->select()
+            ->from('insurance')
+            ->leftJoin('tenant', 'insurance.tenant_id', '=', 'tenant.tenant_id')
+            ->where('UNIX_TIMESTAMP(insurance.insurance_start_time)', '>',$datetime1)
+            ->where('UNIX_TIMESTAMP(insurance.insurance_start_time)', '<',$datetime2)
+            ->orderBy('insurance.insurance_start_time', 'desc')
+            ->limit((int)$per_page, (int)$per_page * (int)$page);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetchAll();
+        for ($i = 0; $i < count($data1); $i++) {
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('customer.tenant_id', '=', $data1[$i]['tenant_id'])
+                ->where('customer.customer_id', '=', $data1[$i]['contact_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('lorry.tenant_id', '=', $data1[$i]['tenant_id'])
+                ->where('lorry.lorry_id', '=', $data1[$i]['insurance_lorry_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $data1[$i]['contact_phone'] = $data3['customer_phone'];
+            $data1[$i]['lorry_plate_number'] = $data2['plate_number'];
+            $data1[$i]['lorry_name'] = $data2['driver_name'];
+        }
     }
 
     echo json_encode(array('result'=>0,'desc'=>"",'insurances'=>$data1));
