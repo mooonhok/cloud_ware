@@ -353,7 +353,8 @@ var datetime1 = $.getUrlParam('datetime1');
 var datetime2 = $.getUrlParam('datetime2');
 		 var page=null;
 		var user = $.session.get('userid');
-		alert(user);
+		alert(datetime2)
+//		alert(user);
 		if(user == null || user == "") {
 			window.location.href = p_url+"insurance/login.html";
 		}else{
