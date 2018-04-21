@@ -366,14 +366,14 @@ $app->get('/insurances_sure',function ()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin', '*');
     $app->response->headers->set('Content-Type', 'application/json');
     $company = $app->request->get('company');
-    $datetime1 = $app->request->get('datetime11');
-    $datetime2 = $app->request->get('datetime22');
+    $datetime11 = $app->request->get('datetime1');
+    $datetime22 = $app->request->get('datetime2');
 
     $page = $app->request->get('page');
     $page=$page-1;
     $per_page = $app->request->get('per_page');
     $database=localhost();
-    if((!$datetime1)||(!$datetime2)) {
+    if((!$datetime11)||(!$datetime22)) {
         if ($company) {
             $selectStatement = $database->select()
                 ->from('insurance')
