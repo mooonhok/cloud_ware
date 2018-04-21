@@ -485,27 +485,36 @@ function detil(id) {
 			$(".box5").css("display", "none");
 			window.location.reload();
 		})
-   $("#datetime1").on("change",function(){
-      alert($("#datetime1").val());
-      var shijian=$("#datetime1").val();
-    $.ajax({
-        url: p_url+"rechange_insurance.php/shijian?shijian="+shijian,
-        dataType: 'json',
-        type: 'get',
-        ContentType: "application/json;charset=utf-8",
-        data: JSON.stringify({}),
-        success: function(ret) {
-            console.log(ret);
-//            if(ret.result==0){
-//                for(var i=0;i<ret.insurance_schedulings.length;i++){
-//                    $('#tenant_tk').append('<a href="'+p_url+'insurance/insurancegoods.html?scheduling_id='+ret.insurance_schedulings[i].scheduling_id+'">'+ret.insurance_schedulings[i].scheduling_id+'&nbsp;&nbsp;查询</a>');
-//                }
-//            }
-        },
-        error: function(xhr) {
-            alert("获取后台失败！");
-        }
-    });
+   $("#datetime2").on("change",function(){
+      var shijian1=$("#datetime1").val();
+      var shijian2=$("#datetime2").val();
+      if(!shijian1){
+          alert("开始时间未填写");
+          $("#datetime2").val("");
+	  }else if(shijian1>shijian2){
+          alert("结束时间不能小于开始时间未填写");
+          $("#datetime2").val("");
+	  }else{
+	      alert("时间填写成功");
+	  }
+//    $.ajax({
+//        url: p_url+"rechange_insurance.php/shijian?shijian="+shijian,
+//        dataType: 'json',
+//        type: 'get',
+//        ContentType: "application/json;charset=utf-8",
+//        data: JSON.stringify({}),
+//        success: function(ret) {
+//            console.log(ret);
+////            if(ret.result==0){
+////                for(var i=0;i<ret.insurance_schedulings.length;i++){
+////                    $('#tenant_tk').append('<a href="'+p_url+'insurance/insurancegoods.html?scheduling_id='+ret.insurance_schedulings[i].scheduling_id+'">'+ret.insurance_schedulings[i].scheduling_id+'&nbsp;&nbsp;查询</a>');
+////                }
+////            }
+//        },
+//        error: function(xhr) {
+//            alert("获取后台失败！");
+//        }
+//    });
    })
    </script>
 </html>
