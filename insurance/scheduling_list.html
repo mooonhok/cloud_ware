@@ -184,5 +184,84 @@
             }
         });
     }
+    function detil(){
+            var index = layer.open({
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                area: ['800px', '600px'], //宽高
+                content: '<div class="title">清单号：</div>'+
+        '<div class="send">'+
+            '<div class="sendname">清单发货公司：</div>'+
+        '<div class="sendtel">清单公司电话：</div>'+
+        '<div class="sendaddress">清单发货地址：</div>'+
+        '</div>'+
+        '<div class="receive">'+
+        '<div class="receivename">清单收货人姓名：</div>'+
+        '<div class="receivetel">清单收货人电话：</div>'+
+        '<div class="receiveaddress">清单收货人地址：</div>'+
+        '</div>'+
+        '<div class="lorry">'+
+         '<div class="lorryname">司机姓名：</div>'+
+        '<div class="lorrytel">司机电话：</div>'+
+        '<div class="platenumber">车牌号：</div>'+
+        '<div class="sendtime">货物出发时间：</div>'+
+        '</div>'+
+        '<div class="orders">'+
+        '<div class="ordertile">运单列表：</div>'+
+        '<table id="tables" width="800" border="1px" cellspacing="0" cellpadding="0">'+
+        '<thead>'+
+        '<tr>'+
+         '<th>运单编号</th>'+
+          '<th>货物名称</th>'+
+            '<th>货物重量</th>'+
+           '<th>货物体积</th>'+
+            '<th>货物总数</th>'+
+            '<th>货物价值</th>'+
+            '<th>货物包装</th>'+
+            '</tr>'+
+            '</thead>'+
+            '</table>'+
+            '</div>'
+            });
+        $.ajax({
+            url:"http://api.uminfor.cn/adminall.php/dbadmin?sch_id="+scheduling_id,
+            dataType: 'json',
+            type: 'get',
+            ContentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+            }),
+            success: function(msg) {
+                if(msg.result == 0) {
+                    $(".title").append(scheduling_id);
+                    $(".sendname").append(msg.schedules.company);
+                    $(".sendtel").append(msg.schedules.contant_tel);
+                    $(".sendaddress").append(msg.schedules.send_city+msg.schedules.address);
+                    $(".receivename").append(msg.schedules.customer_name);
+                    $(".receivetel").append(msg.schedules.customer_phone);
+                    $(".receiveaddress").append(msg.schedules.receive_city+msg.schedules.customer_address);
+                    $(".lorryname").append(msg.schedules.driver_name);
+                    $(".lorrytel").append(msg.schedules.driver_phone);
+                    $(".platenumber").append(msg.schedules.plate_number);
+                    $(".sendtime").append(msg.schedules.scheduling_datetime);
+                    for(var i=0;i<msg.schedules.schedule_orders.length;i++){
+                        $("#tables").append("<tr><td>"+msg.schedules.schedule_orders[i].order_id
+                            +"</td><td>"+msg.schedules.schedule_orders[i].goods_name
+                            +"</td><td>"+msg.schedules.schedule_orders[i].goods_weight
+                            +"</td><td>"+msg.schedules.schedule_orders[i].goods_capacity
+                            +"</td><td>"+msg.schedules.schedule_orders[i].goods_count
+                            +"</td><td>"+msg.schedules.schedule_orders[i].goods_value
+                            +"</td><td>"+msg.schedules.schedule_orders[i].goods_package
+                            +"</td></tr>");
+                    }
+                }else{
+                    alert(msg.desc);
+                }
+            },
+            error: function(xhr) {
+                alert("获取后台失败");
+            }
+        });
+    }
+
 </script>
 </html>
