@@ -1031,7 +1031,7 @@ $app->get('/shijian',function()use($app){
         ->where('insurance_start_time', '<', $shijian);
     $stmt = $selectStatement->execute();
     $data2 = $stmt->fetchAll();
-    echo json_encode(array('insurance'=>$data2));
+    echo json_encode(array('insurance'=>$data2,'shijian'=>$shijian));
 });
 $app->run();
 
