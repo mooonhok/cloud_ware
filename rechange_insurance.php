@@ -1018,6 +1018,21 @@ if($per_page==null||$page==null) {
     }
 }
 });
+
+
+//根据时间
+$app->get('/shijian',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $shijian=$app->request->get('shijan');
+    $database = localhost();
+    $selectStatement = $database->select()
+        ->from('insurance')
+        ->where('insurance_start_time', '<', $shijian);
+    $stmt = $selectStatement->execute();
+    $data2 = $stmt->fetchAll();
+    echo json_encode(array('insurance'=>$data2));
+});
 $app->run();
 
 function localhost(){
