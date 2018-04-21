@@ -139,43 +139,43 @@
         }
     })(jQuery);
     var insurance_id = $.getUrlParam('insurance_id');
-    $.ajax({
-        url:p_url+"rechange_insurance.php/one_goods?insurance_id="+insurance_id,
-        dataType:'json',
-        type:'get',
-        ContentType: "application/json;charset=utf-8",
-        data: JSON.stringify({}),
-        success:function(msg){
-            $("#tb2").html("");
-            console.log(msg);
-            //调用分页
-            layui.use(['laypage', 'layer'], function(){
-                var laypage = layui.laypage;
-                laypage.render({
-                    elem: 'demo20'
-                    ,count:msg.count
-                    ,curr:page
-                    ,limit: 10
-                    ,jump: function(obj,first){
-                        if(!first){
-                            insurance(company,obj.curr);
+        $.ajax({
+            url: p_url + "rechange_insurance.php/one_goods?insurance_id=" + insurance_id + "&page=" + page + "&per_page=10",
+            dataType: 'json',
+            type: 'get',
+            ContentType: "application/json;charset=utf-8",
+            data: JSON.stringify({}),
+            success: function (msg) {
+                $("#tb2").html("");
+                console.log(msg);
+                //调用分页
+                layui.use(['laypage', 'layer'], function () {
+                    var laypage = layui.laypage;
+                    laypage.render({
+                        elem: 'demo20'
+                        , count: msg.count
+                        , curr: page
+                        , limit: 10
+                        , jump: function (obj, first) {
+                            if (!first) {
+                                insurance(company, obj.curr);
+                            }
+                            //模拟渲染
+                            document.getElementById('tb2').innerHTML = function () {
+                                var arr = []
+                                    , thisData = msg.insurances;
+                                layui.each(thisData, function (index, item) {
+                                    arr.push('<tr><td>' + item.scheduling_id + '</td><td class="det" onclick="detil('
+                                        + item.scheduling_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
+                                });
+                                return arr.join('');
+                            }();
                         }
-                        //模拟渲染
-                        document.getElementById('tb2').innerHTML = function(){
-                            var arr = []
-                                ,thisData = msg.insurances;
-                            layui.each(thisData, function(index, item){
-                                arr.push( '<tr><td>'+item.scheduling_id+'</td><td class="det" onclick="detil('
-                                    +item.scheduling_id+')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
-                            });
-                            return arr.join('');
-                        }();
-                    }
+                    });
                 });
-            });
-        },error:function(xhr){
-            alert("获取保险记录后台失败！");
-        }
-    });
+            }, error: function (xhr) {
+                alert("获取保险记录后台失败！");
+            }
+        });
 </script>
 </html>
