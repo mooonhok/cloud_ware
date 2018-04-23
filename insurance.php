@@ -372,7 +372,7 @@ $app->get('/insurances_platenumber',function()use($app){
             ->where('insurance_id','=',$array[$j]['insurance_id'])
             ->orderBy('insurance.insurance_start_time',"DESC");
         $stmt = $selectStatement->execute();
-        $data3= $stmt->fetchAll();
+        $data3= $stmt->fetch();
         array_push($array1,$data3);
         if($array1){
             array_push($array1,$data3);
