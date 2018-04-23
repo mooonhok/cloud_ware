@@ -1072,6 +1072,7 @@ $app->get('/company',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database = localhost();
     $page = $app->request->get('page');
+    $page=$page-1;
     $per_page=$app->request->get('per_page');
     $selectStatement = $database->select()
         ->count('tenant_id','zon')
