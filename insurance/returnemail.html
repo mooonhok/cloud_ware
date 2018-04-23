@@ -63,7 +63,7 @@
 	</head>
 	<body>
 		<div class="title">回复邮件</div>
-		<div class="name">物流公司名字：</div>
+		<div class="name">投保人：</div>
 		<div class="schedulings">投保清单号：</div>
 		<div class="insurance">保险单号：<input id="insurance_num"></input></div>
 		<div class="sure">确认</div>
@@ -88,7 +88,7 @@
             data: JSON.stringify({}),
             success: function(msg) {
                 if(msg.result == 0) {
-                    $(".name").text('物流公司名字：'+msg.company['company']);
+                    $(".name").text('投保人：'+msg.company['company']);
                     insurance_id=msg.rechanges[0]['insurance_id'];
                     for(var i=0;i<msg.rechanges.length;i++){
                        $(".schedulings").after('<div class="scheduling_id">'+msg.rechanges[i]['scheduling_id']+'</div>');

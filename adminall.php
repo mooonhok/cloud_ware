@@ -431,6 +431,18 @@ $app->get('/dbadmin1',function()use($app){
     $stmt=$selectStament->execute();
     $data=$stmt->fetch();
     $selectStament=$database->select()
+        ->from('insurance_scheduling')
+        ->where('scheduling_id','=',$scheduling_id);
+    $stmt=$selectStament->execute();
+    $data1a=$stmt->fetch();
+    $selectStament=$database->select()
+        ->from('insurance')
+        ->where('tenant_id','=',$data1a['tenant_id'])
+        ->where('insurance_id','=',$data1a['insurance_id']);
+    $stmt=$selectStament->execute();
+    $data2a=$stmt->fetch();
+    $data['transtime']=$data2a['transtime'];
+    $selectStament=$database->select()
         ->from('city')
         ->where('id','=',$data['send_city_id']);
     $stmt=$selectStament->execute();
