@@ -1071,18 +1071,21 @@ $app->get('/company',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database = localhost();
+    $company=$app->request->get('company');
     $page = $app->request->get('page');
     $page=$page-1;
     $per_page=$app->request->get('per_page');
     $selectStatement = $database->select()
         ->count('tenant_id','zon')
         ->from('insurance')
+        ->whereLike('company','%'.$company.'%')
         ->groupBy('tenant_id');
     $stmt = $selectStatement->execute();
     $dataa = $stmt->fetchAll();
     $selectStatement = $database->select()
         ->count('tenant_id','zon')
         ->from('insurance')
+        ->whereLike('company','%'.$company.'%')
         ->groupBy('tenant_id')
         ->limit((int)$per_page,(int)$per_page*(int)$page);
     $stmt = $selectStatement->execute();
