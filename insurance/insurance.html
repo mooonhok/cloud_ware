@@ -245,7 +245,11 @@
                   var arr = []
                       ,thisData = msg.insurances;
                   layui.each(thisData, function(index, item){
-                      arr.push( '<tr><td>'+item.insurance_num+'</td><td>'+item.company+'</td><td>'
+                      var dd='-';
+                      if(item.insurance_num){
+                           dd=item.insurance_num;
+					  }
+                      arr.push( '<tr><td>'+dd+'</td><td>'+item.company+'</td><td>'
                           +item.contact_phone+'</td><td>'
                           +item.lorry_plate_number+'</td><td>'
                           +item.lorry_name+'</td><td class="det" onclick="detil('
