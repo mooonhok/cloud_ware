@@ -242,6 +242,10 @@
 <script src="js/jquery.session.js"></script>
 <script type="text/javascript" src="src/layui.js"></script>
 <script>
+    var user = $.session.get('userid');
+    if(user == null || user == "") {
+        window.location.href = p_url+"insurance/login.html";
+    }
     (function($) {
         $.getUrlParam = function(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -358,5 +362,8 @@
         });
     }
 
+    $(".top").on('click',function(){
+        window.location.href = p_url+"insurance/index.html";
+    });
 </script>
 </html>
