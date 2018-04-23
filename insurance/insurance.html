@@ -151,6 +151,7 @@
 				<table id="tables" width="1200" border="0" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
+							<th>保单号</th>
 							<th>投保公司</th>
 							<th>投保公司联系电话</th>
 							<th>车牌</th>
@@ -244,7 +245,7 @@
                   var arr = []
                       ,thisData = msg.insurances;
                   layui.each(thisData, function(index, item){
-                      arr.push( '<tr><td>'+item.company+'</td><td>'
+                      arr.push( '<tr><td>'+item.insurance_num+'</td><td>'+item.company+'</td><td>'
                           +item.contact_phone+'</td><td>'
                           +item.lorry_plate_number+'</td><td>'
                           +item.lorry_name+'</td><td class="det" onclick="detil('
