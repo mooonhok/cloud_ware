@@ -1077,6 +1077,12 @@ $app->get('/company',function()use($app){
     $selectStatement = $database->select()
         ->count('tenant_id','zon')
         ->from('insurance')
+        ->groupBy('tenant_id');
+    $stmt = $selectStatement->execute();
+    $dataa = $stmt->fetchAll();
+    $selectStatement = $database->select()
+        ->count('tenant_id','zon')
+        ->from('insurance')
         ->groupBy('tenant_id')
         ->limit((int)$per_page,(int)$per_page*(int)$page);
     $stmt = $selectStatement->execute();
@@ -1097,7 +1103,7 @@ $app->get('/company',function()use($app){
         $data1[$i]['contact_phone']=$data3['customer_phone'];
         $data1[$i]['contact_customer']=$data3['customer_name'];
     }
-    echo json_encode(array('result' => '0', 'desc' => '', 'rechanges' => $data1));
+    echo json_encode(array('result' => '0', 'desc' => '', 'rechanges' => $data1,'count'=>count($dataa)));
 });
 $app->run();
 
