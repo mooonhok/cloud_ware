@@ -215,7 +215,7 @@
                                     ,thisData = msg.rechanges;
                                 layui.each(thisData, function(index, item){
                                     arr.push( '<tr><td class="det" onclick="detil('
-                                        +item.company+')"><span style="color:blue; cursor:pointer;">'+item.company+'</span></td><td>'
+                                        +item.tenant_id+')"><span style="color:blue; cursor:pointer;">'+item.company+'</span></td><td>'
                                         +item.contact_customer+'</td><td>'
                                         +item.contact_phone+'</td><td>'
                                         +item.zon+'</td></tr>');
@@ -436,25 +436,21 @@
 //
 //        '</div>'
 //    });
-//    $.ajax({
-//        url: p_url+"rechange_insurance.php/insurances_id?insurance_id="+id,
-//        dataType: 'json',
-//        type: 'get',
-//        ContentType: "application/json;charset=utf-8",
-//        data: JSON.stringify({}),
-//        success: function(ret) {
-//            console.log(ret);
-//            if(ret.result==0){
-//                for(var i=0;i<ret.insurance_schedulings.length;i++){
-//                    $('#tenant_tk').append('<a href="'+p_url+'insurance/insurancegoods.html?scheduling_id='+ret.insurance_schedulings[i].scheduling_id+'">'+ret.insurance_schedulings[i].scheduling_id+'&nbsp;&nbsp;查询</a>');
-//                }
-//            }
-//        },
-//        error: function(xhr) {
-//            alert("获取后台失败！");
-//        }
-//    });
-        window.location.href=p_url+"insurance/insurance.html?company="+id;
+    $.ajax({
+        url: p_url+"tenant_nedb.php/getTenant1?tenant_id="+id,
+        dataType: 'json',
+        type: 'get',
+        ContentType: "application/json;charset=utf-8",
+        data: JSON.stringify({}),
+        success: function(ret) {
+            console.log(ret);
+            window.location.href=p_url+"insurance/insurance.html?company="+ret.tenant.company;
+        },
+        error: function(xhr) {
+            alert("获取后台失败！");
+        }
+    });
+
     }
 </script>
 <script type="text/javascript">
