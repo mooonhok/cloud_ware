@@ -432,6 +432,7 @@ $app->get('/dbadmin1',function()use($app){
     $data=$stmt->fetch();
     $selectStament=$database->select()
         ->from('insurance_scheduling')
+        ->where('tenant_id','=',$data['tenant_id'])
         ->where('scheduling_id','=',$scheduling_id);
     $stmt=$selectStament->execute();
     $data1a=$stmt->fetch();
