@@ -415,8 +415,10 @@ $app->get('/per_insurances_platenumber',function()use($app){
     for($j=0;$j<count($array);$j++){
         $selectStatement = $database->select()
             ->from('insurance')
-            ->where('tenant_id','=',$tenant_id)
-            ->where('insurance_id','=',$array[$j]['insurance_id']);
+            ->join('lorry','lorry.lorry_id','=','insurance.insurance_lorry_id','INNER')
+            ->where('lorry.tenant_id','=',$tenant_id)
+            ->where('insurance.tenant_id','=',$tenant_id)
+            ->where('insurance.insurance_id','=',$array[$j]['insurance_id']);
         $stmt = $selectStatement->execute();
         $data3= $stmt->fetch();
 
