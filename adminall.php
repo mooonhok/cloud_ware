@@ -285,7 +285,7 @@ $app->get('/schs',function()use($app){
         echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$data,'count'=>$num));
     }
 });
-//根据清单号拿信息
+//根据id号拿信息
 $app->get('/dbadmin',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -300,6 +300,134 @@ $app->get('/dbadmin',function()use($app){
     $selectStament=$database->select()
         ->from('scheduling')
         ->where('scheduling_id','=',$dataa['scheduling_id']);
+    $stmt=$selectStament->execute();
+    $data=$stmt->fetch();
+    $selectStament=$database->select()
+        ->from('city')
+        ->where('id','=',$data['send_city_id']);
+    $stmt=$selectStament->execute();
+    $datam=$stmt->fetch();
+    $data['send_city']=$datam['name'];
+    $selectStament=$database->select()
+        ->from('city')
+        ->where('id','=',$data['receive_city_id']);
+    $stmt=$selectStament->execute();
+    $dataf=$stmt->fetch();
+    $data['receive_city']=$dataf['name'];
+    $selectStament=$database->select()
+        ->from('customer')
+        ->where('tenant_id','=',$data['tenant_id'])
+        ->where('customer_id','=',$data['receiver_id']);
+    $stmt=$selectStament->execute();
+    $data2=$stmt->fetch();
+    $data['customer_id']=$data2['customer_id'];
+    $data['customer_name']=$data2['customer_name'];
+    $data['customer_phone']=$data2['customer_phone'];
+    $data['customer_address']=$data2['customer_address'];
+    $selectStament=$database->select()
+        ->from('tenant')
+        ->where('tenant_id','=',$data['tenant_id']);
+    $stmt=$selectStament->execute();
+    $data3=$stmt->fetch();
+    $data['tenant_id']=$data3['tenant_id'];
+    $data['company']=$data3['company'];
+    $data['address']=$data3['address'];
+    $selectStament=$database->select()
+        ->from('customer')
+        ->where('customer_id','=',$data3['contact_id']);
+    $stmt=$selectStament->execute();
+    $data32=$stmt->fetch();
+    $data['contact_id']=$data3['contact_id'];
+    $data['contant_name']=$data32['customer_name'];
+    $data['contant_tel']=$data32['customer_phone'];
+    $selectStament=$database->select()
+        ->from('lorry')
+        ->where('lorry_id','=',$data['lorry_id']);
+    $stmt=$selectStament->execute();
+    $data4=$stmt->fetch();
+    $data['lorry_id']=$data4['lorry_id'];
+    $data['plate_number']=$data4['plate_number'];
+    $data['driver_name']=$data4['driver_name'];
+    $data['driver_phone']=$data4['driver_phone'];
+    if($data!=null){
+        $selectStament=$database->select()
+            ->from('schedule_order')
+            ->where('schedule_id','=',$dataa['scheduling_id']);
+        $stmt=$selectStament->execute();
+        $data5=$stmt->fetchAll();
+        if($data5!=null){
+            for($x=0;$x<count($data5);$x++){
+                $selectStament=$database->select()
+                    ->from('orders')
+                    ->where('order_id','=',$data5[$x]['order_id']);
+                $stmt=$selectStament->execute();
+                $data6=$stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('customer')
+                    ->where('customer_id','=',$data6['sender_id']);
+                $stmt=$selectStament->execute();
+                $data62=$stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('city')
+                    ->where('id','=',$data62['customer_city_id']);
+                $stmt=$selectStament->execute();
+                $data622=$stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('customer')
+                    ->where('customer_id','=',$data6['receiver_id']);
+                $stmt=$selectStament->execute();
+                $data63=$stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('city')
+                    ->where('id','=',$data63['customer_city_id']);
+                $stmt=$selectStament->execute();
+                $data632=$stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('goods')
+                    ->where('order_id','=',$data5[$x]['order_id']);
+                $stmt=$selectStament->execute();
+                $data7=$stmt->fetch();
+                $data5[$x]['order_id'] = $data6['order_id'];
+                $data5[$x]['sender_id'] = $data62['customer_id'];
+                $data5[$x]['sender_phone'] = $data62['customer_phone'];
+                $data5[$x]['sender_name'] = $data62['customer_name'];
+                $data5[$x]['sendcity'] = $data622['name'];
+                $data5[$x]['receiver_id'] = $data63['customer_id'];
+                $data5[$x]['receiver_name'] = $data63['customer_name'];
+                $data5[$x]['receiver_phone'] = $data63['customer_phone'];
+                $data5[$x]['receiver_city'] = $data632['name'];
+                $data5[$x]['goods_id'] = $data7['goods_id'];
+                $data5[$x]['goods_name'] = $data7['goods_name'];
+                $data5[$x]['goods_weight']=$data7['goods_weight'];
+                $data5[$x]['goods_capacity']=$data7['goods_capacity'];
+                $data5[$x]['goods_count']=$data7['goods_count'];
+                $data5[$x]['goods_value']=$data7['goods_value'];
+                $selectStament=$database->select()
+                    ->from('goods_package')
+                    ->where('goods_package_id','=',$data7['goods_package_id']);
+                $stmt=$selectStament->execute();
+                $data8=$stmt->fetch();
+                $data5[$x]['goods_package']=$data8['goods_package'];
+            }
+            $data['schedule_orders']=$data5;
+            echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$data));
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '清单没有关联运单'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '清单不存在'));
+    }
+});
+//根据清单号
+$app->get('/dbadmin1',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $scheduling_id= $app->request->get("sch_id");
+    $database=localhost();
+    $array=array();
+    $selectStament=$database->select()
+        ->from('scheduling')
+        ->where('scheduling_id','=',$scheduling_id);
     $stmt=$selectStament->execute();
     $data=$stmt->fetch();
     $selectStament=$database->select()
