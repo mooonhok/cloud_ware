@@ -431,7 +431,7 @@ $app->get('/per_insurances_platenumber',function()use($app){
         $num=count($array1);
     }
 for ($i =(int)$offset; $i <$num; $i++) {
-  array_push($array2,$array[$i]);
+  array_push($array2,$array1[$i]);
 }
     echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$array2));
 });
