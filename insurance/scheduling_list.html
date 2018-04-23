@@ -335,11 +335,11 @@
             success: function(msg) {
                 if(msg.result == 0) {
                     $('.ordertile').text('起运时间：'+msg.schedules.transtime);
-                    $("#scheduling_id").text('清单号：'+scheduling_id);
+                    $("#scheduling_id").text('清单号：'+msg.schedules.scheduling_id);
                     $("#fa_zhan").text('发站：'+msg.schedules.send_city);
                     $("#dao_zhan").text('到站：'+msg.schedules.receive_city);
                     for(var i=0;i<msg.schedules.schedule_orders.length;i++){
-                        $("#tables").append("<tr><td>"+msg.schedules.schedule_orders[i].order_id
+                        $("#table2").append("<tr><td>"+msg.schedules.schedule_orders[i].order_id
                             +"</td><td>"+msg.schedules.schedule_orders[i].goods_name
                             +"</td><td>"+msg.schedules.schedule_orders[i].goods_count
                             +"</td><td>"+msg.schedules.schedule_orders[i].goods_weight
