@@ -1121,8 +1121,13 @@ $app->get('/scheduling_id',function()use($app){
     $data1 = $stmt->fetch();
     $selectStatement = $database->select()
         ->from('tenant')
+        ->where('tenant_id','=',$tenant_id);
+    $stmt = $selectStatement->execute();
+    $data11 = $stmt->fetch();
+    $selectStatement = $database->select()
+        ->from('tenant')
         ->where('nature','=',0)
-        ->where('business_l', '=', $data1['business_l']);
+        ->where('business_l', '=', $data11['business_l']);
     $stmt = $selectStatement->execute();
     $data1a = $stmt->fetch();
     $selectStatement = $database->select()
