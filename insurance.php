@@ -334,7 +334,47 @@ $app->get('/per_insurances',function()use($app){
     echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$data1));
 });
 
-
+//客户端根据车牌，获得历史保险
+$app->get('/insurances_platenumber',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $array=array();
+    $array1=array();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $plate_number=$app->request->get("plate_number");
+    $selectStatement = $database->select()
+        ->from('lorry')
+        ->where('tenant_id','=',$tenant_id)
+        ->where('plate_number','=',$plate_number);
+    $stmt = $selectStatement->execute();
+    $data1= $stmt->fetchAll();
+    for($i=0;$i<count($data1);$i++){
+        $selectStatement = $database->select('insurance.id')
+            ->from('scheduling')
+            ->join('insurance_scheduling','insurance_scheduling.scheduling_id','=','scheduling.scheduling_id','INNER')
+            ->join('insurance','insurance.insurance_id','=','insurance_scheduling.insurance_id','INNER')
+            ->where('insurance_scheduling.tenant_id','=',$tenant_id)
+            ->where('scheduling.tenant_id','=',$tenant_id)
+            ->where('insurance.tenant_id','=',$tenant_id)
+            ->where('scheduling.lorry_id','=',$data1[$i]['lorry_id'])
+            ->groupBy('insurance_scheduling.insurance_id');
+        $stmt = $selectStatement->execute();
+        $data2= $stmt->fetchAll();
+        array_push($array,$data2);
+    }
+    for($j=0;$j<count($array);$j++){
+        $selectStatement = $database->select()
+            ->from('insurance')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('id','=',$array[$j]['id'])
+            ->orderBy('insurance.insurance_start_time',"DESC");
+        $stmt = $selectStatement->execute();
+        $data3= $stmt->fetchAll();
+        array_push($array1,$data3);
+    }
+    echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$array1));
+});
 
 //客户端，通过调度id修改is_insurance
 $app->put('/is_insurance',function()use($app){
