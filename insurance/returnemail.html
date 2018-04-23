@@ -91,7 +91,7 @@
                     $(".scheduling_id").text('物流公司名字：'+msg.company['company']);
                     insurance_id=msg.rechanges[0]['insurance_id'];
                     for(var i=0;i<msg.rechanges.length;i++){
-                       $(".schedulings").after('<div class="scheduling_id">'+msg.rechanges[$i]['scheduling_id']+'</div>');
+                       $(".schedulings").after('<div class="scheduling_id">'+msg.rechanges[i]['scheduling_id']+'</div>');
 					}
                 }
             },
