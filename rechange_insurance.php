@@ -1076,16 +1076,18 @@ $app->get('/company',function()use($app){
     $page=$page-1;
     $per_page=$app->request->get('per_page');
     $selectStatement = $database->select()
-        ->count('tenant_id','zon')
+        ->count('insurance.tenant_id','zon')
         ->from('insurance')
-        ->whereLike('company','%'.$company.'%')
-        ->groupBy('tenant_id');
+        ->join('tenant','tenant.tenant_id','=','insurance.tenant_id','INNER')
+        ->whereLike('tenant.company','%'.$company.'%')
+        ->groupBy('tenant.tenant_id');
     $stmt = $selectStatement->execute();
     $dataa = $stmt->fetchAll();
     $selectStatement = $database->select()
-        ->count('tenant_id','zon')
+        ->count('insurance.tenant_id','zon')
         ->from('insurance')
-        ->whereLike('company','%'.$company.'%')
+        ->join('tenant','tenant.tenant_id','=','insurance.tenant_id','INNER')
+        ->whereLike('tenant.company','%'.$company.'%')
         ->groupBy('tenant_id')
         ->limit((int)$per_page,(int)$per_page*(int)$page);
     $stmt = $selectStatement->execute();
