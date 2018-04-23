@@ -294,41 +294,41 @@
 			}
 		})(jQuery);
 		//获取省份和城市列表1
-		$.ajax({
-			url: p_url+"city.php/province",
-			dataType: 'json',
-			type: 'get',
-			ContentType: "application/json;charset=utf-8",
-			data: JSON.stringify({}),
-			success: function(msg) {
-				for(var i = 0; i < msg.province.length; i++) {
-					$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
-				}
-			},
-			error: function(e) {
-				alert("省份列表1信息出错!");
-			}
-		});
-		function getPro1() {
-			$("#city1").empty();
-			var pid = $("#province1 option:selected").val();
-			$.ajax({
-				url: p_url+"city.php/city?pid=" + pid,
-				dataType: 'json',
-				type: 'get',
-				ContentType: "application/json;charset=utf-8",
-				data: JSON.stringify({}),
-				success: function(msg){
-				$("#city1").append('<option value="0">请选择市</option>')
-					for(var i = 0; i < msg.city.length; i++) {
-						$("#city1").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
-					}
-				},
-				error: function(e) {
-					alert("城市1列表信息出错!");
-				}
-			});
-		}
+//		$.ajax({
+//			url: p_url+"city.php/province",
+//			dataType: 'json',
+//			type: 'get',
+//			ContentType: "application/json;charset=utf-8",
+//			data: JSON.stringify({}),
+//			success: function(msg) {
+//				for(var i = 0; i < msg.province.length; i++) {
+//					$("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+//				}
+//			},
+//			error: function(e) {
+//				alert("省份列表1信息出错!");
+//			}
+//		});
+//		function getPro1() {
+//			$("#city1").empty();
+//			var pid = $("#province1 option:selected").val();
+//			$.ajax({
+//				url: p_url+"city.php/city?pid=" + pid,
+//				dataType: 'json',
+//				type: 'get',
+//				ContentType: "application/json;charset=utf-8",
+//				data: JSON.stringify({}),
+//				success: function(msg){
+//				$("#city1").append('<option value="0">请选择市</option>')
+//					for(var i = 0; i < msg.city.length; i++) {
+//						$("#city1").append('<option value="' + msg.city[i].id + '">' + msg.city[i].name + '</option>');
+//					}
+//				},
+//				error: function(e) {
+//					alert("城市1列表信息出错!");
+//				}
+//			});
+//		}
 	</script>
 <script>
 		//选择搜索按钮的事件
