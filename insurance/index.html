@@ -193,6 +193,9 @@
         if(page==null){
             page=1;
         }
+        if(company==null){
+          company='';
+        }
         $.ajax({
             url:p_url+"rechange_insurance.php/company?page="+page+"&per_page=10&company="+company,
             dataType:'json',
@@ -324,7 +327,13 @@
     var company = $.getUrlParam('company');
 //    var datetime1 = $.getUrlParam('datetime1');
 //    var datetime2 = $.getUrlParam('datetime2');
-    var page=null;
+    var page=$.getUrlParam('page');
+    if(!page){
+        page=null;
+    }
+if(!company){
+    company=null;
+}
     var user = $.session.get('userid');
     //		alert(datetime2)
     //		alert(user);
