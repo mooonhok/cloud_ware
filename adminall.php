@@ -480,7 +480,7 @@ $app->get('/dbadmin1',function()use($app){
     if($data!=null){
         $selectStament=$database->select()
             ->from('schedule_order')
-            ->where('schedule_id','=',$dataa['scheduling_id']);
+            ->where('schedule_id','=',$scheduling_id);
         $stmt=$selectStament->execute();
         $data5=$stmt->fetchAll();
         if($data5!=null){
