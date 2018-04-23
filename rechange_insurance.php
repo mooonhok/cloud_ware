@@ -1071,13 +1071,31 @@ $app->get('/company',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database = localhost();
+    $page = $app->request->get('page');
+    $per_page=$app->request->get('per_page');
     $selectStatement = $database->select()
         ->count('tenant_id','zon')
         ->from('insurance')
-        ->groupBy('tenant_id');
+        ->groupBy('tenant_id')
+        ->limit((int)$per_page,(int)$per_page*(int)$page);
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
-    echo json_encode(array('result' => '1', 'desc' => '租户id为空', 'rechanges' => $data1));
+    for($i=0;$i<count($data1);$i++){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('tenant_id','=',$data1[$i]['tenant_id']);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('customer')
+            ->where('customer_id','=',$data2['contact_id'])
+            ->where('tenant_id','=',$data1[$i]['tenant_id']);
+        $stmt = $selectStatement->execute();
+        $data3 = $stmt->fetch();
+        $data1[$i]['company']=$data2['company'];
+        $data1[$i]['contact_customer']=$data2['customer_name'];
+    }
+    echo json_encode(array('result' => '0', 'desc' => '', 'rechanges' => $data1));
 });
 $app->run();
 
