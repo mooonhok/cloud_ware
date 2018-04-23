@@ -350,7 +350,7 @@ $app->get('/insurances_platenumber',function()use($app){
     $stmt = $selectStatement->execute();
     $data1= $stmt->fetchAll();
     for($i=0;$i<count($data1);$i++){
-        $selectStatement = $database->select('insurance_scheduling.insurance_id')
+        $selectStatement = $database->select()
             ->from('scheduling')
             ->join('insurance_scheduling','insurance_scheduling.scheduling_id','=','scheduling.scheduling_id','INNER')
             ->where('insurance_scheduling.tenant_id','=',$tenant_id)
