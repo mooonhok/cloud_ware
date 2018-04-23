@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>邮件回复</title>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/config.js"></script>
+		<style>
+			.title{
+				width:100%;
+				height:50px;
+				text-align: center;
+				line-height: 50px;
+				font-size:24px;
+			}
+			.name{
+				width:60%;
+				margin-left:20%;
+				height:50px;
+				text-align: left;
+				line-height: 50px;
+			}
+			.schedulings{
+				width:60%;
+				margin-left:20%;
+				height:50px;
+				text-align: left;
+				line-height: 50px;
+			}
+			.insurance{
+				width:60%;
+				margin-left:20%;
+				height:50px;
+				text-align: left;
+				line-height: 50px;
+			}
+			#insurance_num{
+				width:60%;
+				height:35px;
+				text-align:center;
+				line-height:35px;
+				font-size: 20px;
+			}
+			.sure{
+				width:30%;
+				height:40px;
+				background: #007DDB;
+				color: white;
+				line-height:40px;
+				text-align:center;
+				margin-left:20%;
+				margin-top:10px;
+				border-radius: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="title">回复邮件</div>
+		<div class="name">物流公司id：</div>
+		<div class="schedulings">投保清单号：</div>
+		<div class="insurance">保险单号：<input id="insurance_num"></input></div>
+		<div class="sure">确认</div>
+	</body>
+	<script>
+		(function($) {
+           $.getUrlParam = function(name) {
+               var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+               var r = window.location.search.substr(1).match(reg);
+               if(r != null) return decodeURI(r[2]);
+               return null;
+           }
+       })(jQuery);
+       var tenant_id=$.getUrlParam('tenant_id');
+       var scheduling=$.getUrlParam('scheduling_id');
+       $(".name").append(tenant_id);
+       $(".schedulings").append(scheduling+".....");
+       $(".sure").on("click",function(){
+    		$.ajax({
+				url: p_url+"sendemail.php/addinsurancenum",
+				beforeSend: function(request) {
+					request.setRequestHeader("tenant-id",tenant_id);
+				},
+				dataType: 'json',
+				type: 'post',
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					scheduling:scheduling,
+					insurance_num:insurance_num
+				}),
+				success: function(msg) {
+					if(msg.result == 0) {
+				    alert("提交成功");
+					}
+				},
+				error: function(xhr) {
+					alert("获取后台失败");
+				}
+			});
+	   });
+	</script>
+</html>
