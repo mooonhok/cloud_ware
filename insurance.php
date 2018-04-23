@@ -421,7 +421,6 @@ $app->get('/per_insurances_platenumber',function()use($app){
             ->where('insurance.insurance_id','=',$array[$j]['insurance_id']);
         $stmt = $selectStatement->execute();
         $data3= $stmt->fetch();
-
             array_push($array1,$data3);
     }
     $num=0;
