@@ -379,7 +379,7 @@ $app->get('/insurances_platenumber',function()use($app){
             $array1=$data3;
         }
     }
-    echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$array1,'array'=>$array));
+    echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$array1,'array'=>$array,'count'=>count($array)));
 });
 
 $app->get('/per_insurances_platenumber',function()use($app){
