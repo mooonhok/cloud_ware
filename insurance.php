@@ -365,17 +365,22 @@ $app->get('/insurances_platenumber',function()use($app){
             $array=$data2;
         }
     }
-//    for($j=0;$j<count($array);$j++){
-//        $selectStatement = $database->select()
-//            ->from('insurance')
-//            ->where('tenant_id','=',$tenant_id)
-//            ->where('insurance_id','=',$array[$j]['insurance_id'])
-//            ->orderBy('insurance.insurance_start_time',"DESC");
-//        $stmt = $selectStatement->execute();
-//        $data3= $stmt->fetchAll();
-//        array_push($array1,$data3);
-//    }
-    echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$array1,'lorry'=>$data1,'arra'=>$array));
+    for($j=0;$j<count($array);$j++){
+        $selectStatement = $database->select()
+            ->from('insurance')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('insurance_id','=',$array[$j]['insurance_id'])
+            ->orderBy('insurance.insurance_start_time',"DESC");
+        $stmt = $selectStatement->execute();
+        $data3= $stmt->fetchAll();
+        array_push($array1,$data3);
+        if($array1){
+            array_push($array1,$data3);
+        }else{
+            $array1=$data3;
+        }
+    }
+    echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$array1));
 });
 
 //客户端，通过调度id修改is_insurance
