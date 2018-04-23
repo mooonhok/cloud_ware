@@ -1093,7 +1093,7 @@ $app->get('/company',function()use($app){
         $stmt = $selectStatement->execute();
         $data3 = $stmt->fetch();
         $data1[$i]['company']=$data2['company'];
-        $data1[$i]['contact_customer']=$data2['customer_name'];
+        $data1[$i]['contact_customer']=$data3['customer_name'];
     }
     echo json_encode(array('result' => '0', 'desc' => '', 'rechanges' => $data1));
 });
