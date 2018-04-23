@@ -1080,7 +1080,7 @@ $app->get('/company',function()use($app){
         ->from('insurance')
         ->join('tenant','tenant.tenant_id','=','insurance.tenant_id','INNER')
         ->whereLike('tenant.company','%'.$company.'%')
-        ->groupBy('tenant.tenant_id');
+        ->groupBy('insurance.tenant_id');
     $stmt = $selectStatement->execute();
     $dataa = $stmt->fetchAll();
     $selectStatement = $database->select()
@@ -1088,7 +1088,7 @@ $app->get('/company',function()use($app){
         ->from('insurance')
         ->join('tenant','tenant.tenant_id','=','insurance.tenant_id','INNER')
         ->whereLike('tenant.company','%'.$company.'%')
-        ->groupBy('tenant.tenant_id')
+        ->groupBy('insurance.tenant_id')
         ->limit((int)$per_page,(int)$per_page*(int)$page);
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
