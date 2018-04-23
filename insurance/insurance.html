@@ -217,7 +217,7 @@
 		if(company==null){
 				company="";
 			}
-			alert(page+"///"+datetime1+"///"+datetime2+"///"+company);
+//			alert(page+"///"+datetime1+"///"+datetime2+"///"+company);
 	$.ajax({
 		url:p_url+"rechange_insurance.php/insurances_sure?company=" + company+"&page="+page+"&per_page=10&datetime1="+datetime1+"&datetime2="+datetime2,
 		dataType:'json',
@@ -506,7 +506,7 @@ function detil(id) {
           $("#datetime2").val("");
 	  }else{
 	      alert("时间填写成功");
-	      alert(shijian1+"////"+shijian2);
+//	      alert(shijian1+"////"+shijian2);
           window.location.href=p_url+"insurance/insurance.html?datetime1="+shijian1+"&datetime2="+shijian2;
 	  }
 //    $.ajax({
