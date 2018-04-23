@@ -184,7 +184,7 @@
 <script type="text/javascript" src="src/layui.js"></script>
 <script type="text/javascript">
 
-    function company(page){
+    function get_company(page){
         if(page==null){
             page=1;
         }
@@ -207,7 +207,7 @@
                         ,limit: 10
                         ,jump: function(obj,first){
                             if(!first){
-                                company(obj.curr);
+                                get_company(obj.curr);
                             }
                             //模拟渲染
                             document.getElementById('tb2').innerHTML = function(){
@@ -314,10 +314,10 @@
     })
 </script>
 <script>
-    var city_id = $.getUrlParam('city_id');
-    var company = $.getUrlParam('company');
-    var datetime1 = $.getUrlParam('datetime1');
-    var datetime2 = $.getUrlParam('datetime2');
+//    var city_id = $.getUrlParam('city_id');
+//    var company = $.getUrlParam('company');
+//    var datetime1 = $.getUrlParam('datetime1');
+//    var datetime2 = $.getUrlParam('datetime2');
     var page=null;
     var user = $.session.get('userid');
     //		alert(datetime2)
@@ -325,7 +325,7 @@
     if(user == null || user == "") {
         window.location.href = p_url+"insurance/login.html";
     }else{
-        company(page);
+        get_company(page);
     }
     $(".det").on("click",function(){
         $(".box2").css("display","block");
