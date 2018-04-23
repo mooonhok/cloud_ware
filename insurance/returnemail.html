@@ -27,6 +27,13 @@
 				text-align: left;
 				line-height: 50px;
 			}
+			.scheduling_id{
+				width:60%;
+				margin-left:20%;
+				height:50px;
+				text-align: left;
+				line-height: 50px;
+			}
 			.insurance{
 				width:60%;
 				margin-left:20%;
@@ -56,7 +63,7 @@
 	</head>
 	<body>
 		<div class="title">回复邮件</div>
-		<div class="name">物流公司id：</div>
+		<div class="name">物流公司名字：</div>
 		<div class="schedulings">投保清单号：</div>
 		<div class="insurance">保险单号：<input id="insurance_num"></input></div>
 		<div class="sure">确认</div>
@@ -70,32 +77,57 @@
                return null;
            }
        })(jQuery);
+		var insurance_id;
        var tenant_id=$.getUrlParam('tenant_id');
        var scheduling=$.getUrlParam('scheduling_id');
-       $(".name").append(tenant_id);
-       $(".schedulings").append(scheduling+".....");
-       $(".sure").on("click",function(){
-    		$.ajax({
-				url: p_url+"sendemail.php/addinsurancenum",
-				beforeSend: function(request) {
-					request.setRequestHeader("tenant-id",tenant_id);
-				},
-				dataType: 'json',
-				type: 'post',
-				contentType: "application/json;charset=utf-8",
-				data: JSON.stringify({
-					scheduling:scheduling,
-					insurance_num:insurance_num
-				}),
-				success: function(msg) {
-					if(msg.result == 0) {
-				    alert("提交成功");
+        $.ajax({
+            url: p_url+"rechange_insurance.php/scheduling_id?tenant_id="+tenant_id+"&scheduling_id="+scheduling,
+            dataType: 'json',
+            type: 'get',
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({}),
+            success: function(msg) {
+                if(msg.result == 0) {
+                    $(".scheduling_id").text('物流公司名字：'+msg.company['company']);
+                    insurance_id=msg.rechanges[$i]['insurance_id'];
+                    for(var i=0;i<msg.rechanges.length;i++){
+                       $(".schedulings").after('<div class="scheduling_id">'+msg.rechanges[$i]['scheduling_id']+'</div>');
 					}
-				},
-				error: function(xhr) {
-					alert("获取后台失败");
-				}
-			});
+                }
+            },
+            error: function(xhr) {
+                alert("获取后台失败");
+            }
+        });
+       $(".sure").on("click",function(){
+           var insurance_num=$("#insurance_num").val();
+           if(insurance_num.length==0){
+               alert('请填写保单号');
+		   }else{
+               $.ajax({
+                   url: p_url+"sendemail.php/addinsurancenum",
+                   dataType: 'json',
+                   type: 'post',
+                   contentType: "application/json;charset=utf-8",
+                   data: JSON.stringify({
+                       tenant_id:tenant_id,
+                       insurance_id:insurance_id,
+                       insurance_num:insurance_num
+                   }),
+                   success: function(msg) {
+                       if(msg.result == 0) {
+                           alert("提交成功");
+                           window.close();
+                       }else{
+                           alert("提交失败");
+					   }
+                   },
+                   error: function(xhr) {
+                       alert("获取后台失败");
+                   }
+               });
+		   }
+
 	   });
 	</script>
 </html>

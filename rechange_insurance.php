@@ -1105,6 +1105,36 @@ $app->get('/company',function()use($app){
     }
     echo json_encode(array('result' => '0', 'desc' => '', 'rechanges' => $data1,'count'=>count($dataa)));
 });
+
+//根据调度单号，查询保单相关的
+$app->get('/scheduling_id',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database = localhost();
+    $scheduling_id = $app->request->get('scheduling_id');
+    $tenant_id = $app->request->get('tenant_id');
+    $selectStatement = $database->select()
+        ->from('insurance_scheduling')
+        ->where('scheduling_id','=',$scheduling_id)
+        ->where('tenant_id','=',$tenant_id);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetch();
+    $selectStatement = $database->select()
+        ->from('tenant')
+        ->where('nature','=',0)
+        ->where('business_l', '=', $data1['business_l']);
+    $stmt = $selectStatement->execute();
+    $data1a = $stmt->fetch();
+    $selectStatement = $database->select()
+        ->from('insurance_scheduling')
+        ->leftJoin('tenant','tenant.tenant_id','=','insurance_scheduling.tenant_id')
+        ->where('insurance_scheduling.insurance_id','=',$data1['insurance_id'])
+        ->where('tenant.tenant_id','=',$tenant_id)
+        ->where('insurance_scheduling.tenant_id','=',$tenant_id);
+    $stmt = $selectStatement->execute();
+    $data2 = $stmt->fetchAll();
+    echo json_encode(array('result' => '0', 'desc' => '', 'rechanges' => $data2,'company'=>$data1a));
+});
 $app->run();
 
 function localhost(){

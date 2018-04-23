@@ -213,7 +213,7 @@ $app->post('/scheduling',function()use($app,$mail){
         '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_cost"].'</th>'.
         '</tr>';
         }
-    $message.='<a href="http://api.uminfor.cn/insurance/returnemail.html?scheduling_id="'.$schedulings.'"&tenant_id="'.$tenant_id.'>回复保单号</a>';
+    $message.='<a href="http://api.uminfor.cn/insurance/returnemail.html?scheduling_id='.$array1[0].'&tenant_id='.$tenant_id.'">回复保单号</a>';
 //        foreach($array1 as $value){
 //
 //
@@ -251,6 +251,26 @@ $app->post('/scheduling',function()use($app,$mail){
     }
 });
 
+$app->post('/addinsurancenum',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database = localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $tenant_id=$body->tenant_id;
+    $insurance_id=$body->insurance_id;
+    $insurance_num=$body->insurance_num;
+    $updateStatement = $database->update(array('insurance_num'=>$insurance_num))
+        ->table('insurance')
+        ->where('tenant_id', '=', $tenant_id)
+        ->where('insurance_id','=',$insurance_id);
+    $affectedRows = $updateStatement->execute();
+    if($affectedRows>0){
+        echo json_encode(array("result" => "0", "desc" =>"发送成功"));
+    }else{
+        echo json_encode(array("result" => "1", "desc" =>"失败"));
+    }
+});
 
 $app->run();
 
