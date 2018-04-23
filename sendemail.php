@@ -15,7 +15,6 @@ require './email/Exception.php';
 require './email/PHPMailer.php';
 require './email/SMTP.php';
 
-
 $mail = new PHPMailer(true);
 
 \Slim\Slim::registerAutoloader();
@@ -214,7 +213,7 @@ $app->post('/scheduling',function()use($app,$mail){
         '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_cost"].'</th>'.
         '</tr>';
         }
-
+    $message.='<a href="http://api.uminfor.cn/insurance/returnemail.html?scheduling_id="'.$schedulings.'"&tenant_id="'.$tenant_id.'>回复保单号</a>';
 //        foreach($array1 as $value){
 //
 //
@@ -254,6 +253,7 @@ $app->post('/scheduling',function()use($app,$mail){
 
 
 $app->run();
+
 function localhost(){
     return connect();
 }
