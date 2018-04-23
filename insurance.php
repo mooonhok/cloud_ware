@@ -369,8 +369,7 @@ $app->get('/insurances_platenumber',function()use($app){
         $selectStatement = $database->select()
             ->from('insurance')
             ->where('tenant_id','=',$tenant_id)
-            ->where('insurance_id','=',$array[$j]['insurance_id'])
-            ->orderBy('insurance.insurance_start_time',"DESC");
+            ->where('insurance_id','=',$array[$j]['insurance_id']);
         $stmt = $selectStatement->execute();
         $data3= $stmt->fetch();
         array_push($array1,$data3);
