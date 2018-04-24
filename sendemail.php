@@ -194,7 +194,7 @@ $app->post('/scheduling',function()use($app,$mail){
         foreach ($schedulings as $key => $value) {
             $array1[$key] = $value;
      $selectStatement = $database->select()
-        ->sum('order_cost','zon_cost')
+        ->sum('goods_value','zon_cost')
         ->sum('goods_weight','zon_weight')
         ->sum('goods_count','zon_count')
         ->from('schedule_order')
