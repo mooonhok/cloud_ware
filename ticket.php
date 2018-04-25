@@ -166,7 +166,35 @@ $app->get('/getTicket',function()use($app){
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
 });
 
+$app->get('/getTicket1',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $id = $app->request->get("id");
+    $mac = $app->request->get("mac");
+    $database = localhost();
+    $selectStatement = $database->select()
+        ->from('ticket')
+        ->where('mac','=',$mac)
+        ->where('id','=',$id);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetch();
+    echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
+});
 
+$app->get('/getTicket2',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $business = $app->request->get("business");
+    $passwd = $app->request->get("passwd");
+    $database = localhost();
+    $selectStatement = $database->select()
+        ->from('ticket')
+        ->where('business','=',$business)
+        ->where('passwd','=',$passwd);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetch();
+    echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
+});
 
 $app->run();
 
