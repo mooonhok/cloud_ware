@@ -279,7 +279,7 @@ $app->get('/getStaffMacs0',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data2 = $stmt->fetch();
                     $data1[$i]['staff']=$data2;
-                    $data1[$i]['password_decode']=decode($data2['password'],'cxphp');
+                    $data1[$i]['staff']['password_decode']=decode($data2['password'],'cxphp');
                 }
                 echo json_encode(array("result"=>"0","desc"=>"success","staff_macs"=>$data1));
         }else{
