@@ -182,7 +182,7 @@ $app->get('/getTicket1',function()use($app){
         ->where('id','=',$id);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
-    $data['passwd_decode']=encode($data['passwd'], 'cxphp');
+    $data['passwd_decode']=decode($data['passwd'], 'cxphp');
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
 });
 
