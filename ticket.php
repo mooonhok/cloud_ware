@@ -29,6 +29,7 @@ $app->get('/gettickets',function()use($app){
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetch();
         $data[$i]['id']=$data1['id'];
+        $data[$i]['passwd_decode']=decode($data[$i]['passwd'], 'cxphp');
     }
         echo  json_encode(array("result"=>"1","desc"=>"",'ticket'=>$data));
 });
@@ -43,6 +44,7 @@ $app->get('/getticket',function()use($app){
         ->where('id','=',$id);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
+    $data['passwd_decode']=decode($data['passwd'], 'cxphp');
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
 });
 
@@ -140,6 +142,7 @@ $app->get('/getTickets',function()use($app){
             ->where('company_id','=',$data[$x]['id']);
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetch();
+        $data[$x]['passwd_decode']=decode($data[$x]['passwd'], 'cxphp');
     if($data2!=null){
       $data[$x]['is_league']=1;
         $data[$x]['tenant']=$data2;
@@ -163,6 +166,7 @@ $app->get('/getTicket',function()use($app){
         ->where('id','=',$id);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
+    $data['passwd_decode']=decode($data['passwd'], 'cxphp');
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
 });
 
@@ -178,6 +182,7 @@ $app->get('/getTicket1',function()use($app){
         ->where('id','=',$id);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
+    $data['passwd_decode']=encode($data['passwd'], 'cxphp');
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
 });
 
@@ -190,10 +195,41 @@ $app->get('/getTicket2',function()use($app){
     $selectStatement = $database->select()
         ->from('ticket')
         ->where('business','=',$business)
-        ->where('passwd','=',$passwd);
+        ->where('passwd','=',encode($passwd, 'cxphp') );
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
+});
+
+$app->get('/password',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+    $strr = substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+    do{
+        $strr.= substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+    }while(strlen($strr)<10);
+    echo json_encode(array("password"=>$strr));
+});
+
+$app->post('/en_password',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $password=$body->passwd;
+    $password=encode($password , 'cxphp' );
+    echo json_encode(array("password"=>$password));
+});
+
+$app->post('/de_password',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $password=$body->passwd;
+    $password=decode($password , 'cxphp' );
+    echo json_encode(array("password"=>$password));
 });
 
 $app->run();
@@ -204,5 +240,22 @@ function file_url(){
 
 function localhost(){
     return connect();
+}
+//加密
+function encode($string , $skey ) {
+    $strArr = str_split(base64_encode($string));
+    $strCount = count($strArr);
+    foreach (str_split($skey) as $key => $value)
+        $key < $strCount && $strArr[$key].=$value;
+    return str_replace(array('=', '+', '/'), array('O0O0O', 'o000o', 'oo00o'), join('', $strArr));
+}
+
+//解密
+function decode($string, $skey) {
+    $strArr = str_split(str_replace(array('O0O0O', 'o000o', 'oo00o'), array('=', '+', '/'), $string), 2);
+    $strCount = count($strArr);
+    foreach (str_split($skey) as $key => $value)
+        $key <= $strCount  && isset($strArr[$key]) && $strArr[$key][1] === $value && $strArr[$key] = $strArr[$key][0];
+    return base64_decode(join('', $strArr));
 }
 ?>
