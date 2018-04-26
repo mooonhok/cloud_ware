@@ -217,6 +217,25 @@ $app->get('/getTicket2',function()use($app){
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
 });
 
+$app->put('/alterTicket0',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $id=$app->request->get('id');
+    $database=localhost();
+    if($id!=null||$id!=''){
+        date_default_timezone_set("PRC");
+        $shijian=date("Y-m-d H:i:s",time());
+                $updateStatement = $database->update(array('is_first'=>1,'login_time'=>$shijian))
+                    ->table('ticket')
+                    ->where('id','=',$id)
+                    ->where('exist',"=",0);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array('result'=>'0','desc'=>'success'));
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'id为空'));
+    }
+});
+
 $app->get('/password',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
