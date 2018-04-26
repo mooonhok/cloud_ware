@@ -50,8 +50,6 @@ $app->get('/getticket',function()use($app){
     $data = $stmt->fetch();
     if($data['passwd']){
         $data['passwd_decode']=decode($data['passwd'], 'cxphp');
-    }else{
-        $data['passwd_decode']='';
     }
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
 });
@@ -183,7 +181,6 @@ $app->get('/getTicket',function()use($app){
     if($data['passwd']){
         $data['passwd_decode']=decode($data['passwd'], 'cxphp');
     }
-
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
 });
 
@@ -201,8 +198,6 @@ $app->get('/getTicket1',function()use($app){
     $data = $stmt->fetch();
     if($data['passwd']){
         $data['passwd_decode']=decode($data['passwd'], 'cxphp');
-    }else{
-        $data['passwd_decode']='';
     }
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
 });
