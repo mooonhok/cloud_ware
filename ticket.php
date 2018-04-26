@@ -182,8 +182,6 @@ $app->get('/getTicket',function()use($app){
     $data = $stmt->fetch();
     if($data['passwd']){
         $data['passwd_decode']=decode($data['passwd'], 'cxphp');
-    }else{
-        $data['passwd_decode']='';
     }
 
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
