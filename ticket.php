@@ -143,7 +143,12 @@ $app->get('/getTickets',function()use($app){
             ->where('company_id','=',$data[$x]['id']);
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetch();
-        $data[$x]['passwd_decode']=decode($data[$x]['passwd'], 'cxphp');
+        if($data[$x]['passwd']){
+            $data[$x]['passwd_decode']=decode($data[$x]['passwd'], 'cxphp');
+        }else{
+            $data[$x]['passwd_decode']='';
+        }
+
     if($data2!=null){
       $data[$x]['is_league']=1;
         $data[$x]['tenant']=$data2;
@@ -167,7 +172,12 @@ $app->get('/getTicket',function()use($app){
         ->where('id','=',$id);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
-    $data['passwd_decode']=decode($data['passwd'], 'cxphp');
+    if($data['passwd']){
+        $data['passwd_decode']=decode($data['passwd'], 'cxphp');
+    }else{
+        $data['passwd_decode']='';
+    }
+
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
 });
 
