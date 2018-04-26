@@ -29,7 +29,11 @@ $app->get('/gettickets',function()use($app){
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetch();
         $data[$i]['id']=$data1['id'];
-        $data[$i]['passwd_decode']=decode($data[$i]['passwd'], 'cxphp');
+        if($data[$i]['passwd']){
+            $data[$i]['passwd_decode']=decode($data[$i]['passwd'], 'cxphp');
+        }else{
+            $data[$i]['passwd_decode']='';
+        }
     }
         echo  json_encode(array("result"=>"1","desc"=>"",'ticket'=>$data));
 });
@@ -44,7 +48,11 @@ $app->get('/getticket',function()use($app){
         ->where('id','=',$id);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
-    $data['passwd_decode']=decode($data['passwd'], 'cxphp');
+    if($data['passwd']){
+        $data['passwd_decode']=decode($data['passwd'], 'cxphp');
+    }else{
+        $data['passwd_decode']='';
+    }
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
 });
 
@@ -193,7 +201,11 @@ $app->get('/getTicket1',function()use($app){
         ->where('id','=',$id);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
-    $data['passwd_decode']=decode($data['passwd'], 'cxphp');
+    if($data['passwd']){
+        $data['passwd_decode']=decode($data['passwd'], 'cxphp');
+    }else{
+        $data['passwd_decode']='';
+    }
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
 });
 
