@@ -132,7 +132,8 @@ $app->get('/getTickets',function()use($app){
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     $selectStatement = $database->select()
-        ->from('ticket');
+        ->from('ticket')
+        ->where('exist','=',0);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
     for($x=0;$x<count($data);$x++){
