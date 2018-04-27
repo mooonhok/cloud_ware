@@ -545,6 +545,7 @@ $app->post('/tenant',function()use($app) {
     $body=$app->request->getBody();
     $body=json_decode($body);
     $qq = $body->qq;
+    $nature=$body->nature;
     $address=$body->address;
     $business_l=$body->business;
     $company = $body->company;
@@ -716,12 +717,14 @@ $app->post('/tenant',function()use($app) {
 //                                                         $order_img='http://files.uminfo.cn:8000/tenant/5230001_order.jpg';
                                                 $insertStatement = $database->insert(array('company','from_city_id','contact_id','exist','business_l','business_l_p'
                                                 ,'sales_id','address','order_t_p','trans_contract_p','service_items','c_introduction'
-                                                ,'begin_time','qq','email','tenant_num','tenant_id','longitude','latitude','jcompany','ad_img1','ad_img2','ad_img3','ad_img4','ad_img5','ad_img6','ad_img7','order_img'))
+                                                ,'begin_time','qq','email','tenant_num','tenant_id','longitude','latitude','jcompany','ad_img1',
+                                                    'ad_img2','ad_img3','ad_img4','ad_img5','ad_img6','ad_img7','order_img','nature'))
                                                     ->into('tenant')
                                                     ->values(array($company,$from_city_id,$num,0,$business_l,$business_l_p
                                                     ,$sales_id,$address,$order_t_p, $trans_c_p
                                                     ,$service_items,$c_introduction,
-                                                        $begin_time,$qq,$email,$tenant_num,$tenant_id,$longitude,$latitude,$jcompany,$ad_img1,$ad_img2,$ad_img3,$ad_img4,$ad_img5,$ad_img6,$ad_img7,$order_img));
+                                                        $begin_time,$qq,$email,$tenant_num,$tenant_id,$longitude,$latitude,$jcompany,$ad_img1
+                                                    ,$ad_img2,$ad_img3,$ad_img4,$ad_img5,$ad_img6,$ad_img7,$order_img,$nature));
                                                 $insertId = $insertStatement->execute(false);
                                                 if($insertId!=""||$insertId!=null){
                                                     $selectStatement = $database->select()
