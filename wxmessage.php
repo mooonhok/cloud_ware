@@ -156,7 +156,7 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                                     $stmt=$selectStament->execute();
                                                                                                     $data11=$stmt->fetch();
                                                                                                     if($data10!=null){
-                                                                                                        if($data10['appid']!=null&&$data10['secret']!=null){
+                                                                                                        if($data10['appid']!=null&&$data10['secret']!=null&&$data11['wx_openid']!=null){
                                                                                                             $appid=$data10['appid'];
                                                                                                             $appsecret=$data10['secret'];
                                                                                                             $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
@@ -188,10 +188,9 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                                             curl_close($ch1);
                                                                                                             $res2=json_decode($output2,true);
 //                                                                                                            echo  json_encode(array("result"=>"0","desc"=>$res2));
-                                                                                                            echo json_encode(array("result"=>"1","desc"=>"success"));
-                                                                                                        }else{
-                                                                                                            echo  json_encode(array("result"=>"20","desc"=>"数据库缺少微信账号信息"));
+
                                                                                                         }
+                                                                                                        echo json_encode(array("result"=>"1","desc"=>"success"));
                                                                                                     }else{
                                                                                                         echo  json_encode(array("result"=>"19","desc"=>"租户不存在"));
                                                                                                     }
