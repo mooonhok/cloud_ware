@@ -1,5 +1,5 @@
-var link="http://www.uminfo.cn/";
-//var link="";
+//var link="http://www.uminfo.cn/";
+var link="";
 
 $(document).ready(function(){
 	$('#main-menu').metisMenu();
