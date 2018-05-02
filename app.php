@@ -1412,6 +1412,7 @@ $app->post('/receivesc',function()use($app){
     $schedule_id=$body->schedule_id;
     $lorry_id=$body->lorry_id;
     $pic=$body->pic;
+    $is_wuliu=$body->is_wuliu;
     $lujing=null;
     $base64_image_content = $pic;
 //匹配出图片的格式
@@ -1430,91 +1431,181 @@ $app->post('/receivesc',function()use($app){
             $lujing=$file_url."sure/".date('Ymd',$time1)."/".$time1.".{$type}";
         }
     }
-    $arrays['scheduling_status']=5;
+    if($is_wuliu==2){
+        $arrays['scheduling_status']=5;
 //    $arrays['is_contract']=0;
 //    $arrays['is_insurance']=0;
-    $arrays['sure_img']=$lujing;
-    $arrays['change_datetime']=time();
-    date_default_timezone_set("PRC");
-    $arrays1['sure_img']=$lujing;
-    $arrays1['order_status']=7;
-    $arrays1['order_datetime4']=date("Y-m-d H:i:s",time());
-    $arrays1['order_datetime5']=date("Y-m-d H:i:s",time());
-    if($lorry_id!=null||$lorry_id!=""){
-        $selectStament=$database->select()
-            ->from('app_lorry')
-            ->where('exist','=',0)
-            ->where('flag','=',0)
-            ->where('app_lorry_id','=',$lorry_id);
-        $stmt=$selectStament->execute();
-        $data1=$stmt->fetch();
-        if($data1!=null){
+        $arrays['sure_img']=$lujing;
+        $arrays['change_datetime']=time();
+        date_default_timezone_set("PRC");
+        $arrays1['sure_img']=$lujing;
+        $arrays1['order_status']=7;
+        $arrays1['order_datetime4']=date("Y-m-d H:i:s",time());
+        $arrays1['order_datetime5']=date("Y-m-d H:i:s",time());
+        if($lorry_id!=null||$lorry_id!=""){
             $selectStament=$database->select()
-                ->from('scheduling')
+                ->from('app_lorry')
                 ->where('exist','=',0)
-                ->where('scheduling_status','=',4)
-                ->where('scheduling_id','=',$schedule_id);
+                ->where('flag','=',0)
+                ->where('app_lorry_id','=',$lorry_id);
             $stmt=$selectStament->execute();
-            $data3=$stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('city')
-                ->where('id', '=', $data3['receive_city_id']);
-            $stmt = $selectStatement->execute();
-            $data7 = $stmt->fetch();
-
-            if(substr($data7['name'],((strlen($data7['name']))-3),3)=='市'){
-               $arrays1['reach_city']=substr($data7['name'],0,((strlen($data7['name']))-3));
-            }else{
-                $arrays1['reach_city']=$data7['name'];
-            }
-            if($data3!=null){
+            $data1=$stmt->fetch();
+            if($data1!=null){
                 $selectStament=$database->select()
-                    ->from('lorry')
+                    ->from('scheduling')
                     ->where('exist','=',0)
-                    ->where('tenant_id','=',$data3['tenant_id'])
-                    ->where('lorry_id','=',$data3['lorry_id']);
+                    ->where('scheduling_status','=',4)
+                    ->where('scheduling_id','=',$schedule_id);
                 $stmt=$selectStament->execute();
-                $data4=$stmt->fetch();
-                if($data4!=null){
-                    if($data1['phone']==$data4['driver_phone']&&$data1['plate_number']==$data4['plate_number']){
-                        $updateStatement = $database->update($arrays)
-                            ->table('scheduling')
-                            ->where('scheduling_id', '=', $schedule_id);
-                        $affectedRows = $updateStatement->execute();
-                        $selectStament=$database->select()
-                            ->from('schedule_order')
-                            ->where('exist','=',0)
-                            ->where('schedule_id','=',$schedule_id);
-                        $stmt=$selectStament->execute();
-                        $data3=$stmt->fetchAll();
-                        for($x=0;$x<count($data3);$x++) {
-                            $updateStatement = $database->update($arrays1)
-                                ->table('orders')
-                                ->where('tenant_id','=',$data3[$x]['tenant_id'])
-                                ->where('order_id','=',$data3[$x]['order_id']);
+                $data3=$stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data3['receive_city_id']);
+                $stmt = $selectStatement->execute();
+                $data7 = $stmt->fetch();
+
+                if(substr($data7['name'],((strlen($data7['name']))-3),3)=='市'){
+                    $arrays1['reach_city']=substr($data7['name'],0,((strlen($data7['name']))-3));
+                }else{
+                    $arrays1['reach_city']=$data7['name'];
+                }
+                if($data3!=null){
+                    $selectStament=$database->select()
+                        ->from('lorry')
+                        ->where('exist','=',0)
+                        ->where('tenant_id','=',$data3['tenant_id'])
+                        ->where('lorry_id','=',$data3['lorry_id']);
+                    $stmt=$selectStament->execute();
+                    $data4=$stmt->fetch();
+                    if($data4!=null){
+                        if($data1['phone']==$data4['driver_phone']&&$data1['plate_number']==$data4['plate_number']){
+                            $updateStatement = $database->update($arrays)
+                                ->table('scheduling')
+                                ->where('scheduling_id', '=', $schedule_id);
                             $affectedRows = $updateStatement->execute();
-                            $updateStatement = $database->update(array('order_status'=>7,'sure_img'=>$lujing))
-                                ->table('orders')
-                                ->where('tenant_id','!=',$data3[$x]['tenant_id'])
-                                ->where('order_id','=',$data3[$x]['order_id']);
-                            $affectedRows = $updateStatement->execute();
-                            echo json_encode(array('result' => '0', 'desc' => '确认成功'));
-                        }
+                            $selectStament=$database->select()
+                                ->from('schedule_order')
+                                ->where('exist','=',0)
+                                ->where('schedule_id','=',$schedule_id);
+                            $stmt=$selectStament->execute();
+                            $data3=$stmt->fetchAll();
+                            for($x=0;$x<count($data3);$x++) {
+                                $updateStatement = $database->update($arrays1)
+                                    ->table('orders')
+                                    ->where('tenant_id','=',$data3[$x]['tenant_id'])
+                                    ->where('order_id','=',$data3[$x]['order_id']);
+                                $affectedRows = $updateStatement->execute();
+                                $updateStatement = $database->update(array('order_status'=>7,'sure_img'=>$lujing))
+                                    ->table('orders')
+                                    ->where('tenant_id','!=',$data3[$x]['tenant_id'])
+                                    ->where('order_id','=',$data3[$x]['order_id']);
+                                $affectedRows = $updateStatement->execute();
+                                echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+                            }
                         }else{
                             echo json_encode(array('result' => '5', 'desc' => '该清单不是您的'));
                         }
+                    }else{
+                        echo json_encode(array('result' => '4', 'desc' => '该清单上的司机不存在'));
+                    }
                 }else{
-                    echo json_encode(array('result' => '4', 'desc' => '该清单上的司机不存在'));
+                    echo json_encode(array('result' => '3', 'desc' => '清单已被接收或不存在'));
                 }
             }else{
-                echo json_encode(array('result' => '3', 'desc' => '清单已被接收或不存在'));
+                echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
             }
         }else{
-            echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+            echo json_encode(array('result' => '1', 'desc' => '缺少司机id'));
         }
     }else{
-        echo json_encode(array('result' => '1', 'desc' => '缺少司机id'));
+        $arrays['scheduling_status']=5;
+//    $arrays['is_contract']=0;
+//    $arrays['is_insurance']=0;
+        $arrays['sure_img']=$lujing;
+        $arrays['change_datetime']=time();
+        date_default_timezone_set("PRC");
+        $arrays1['sure_img']=$lujing;
+        $arrays1['order_status']=4;
+        $arrays1['order_datetime4']=date("Y-m-d H:i:s",time());
+        $arrays1['is_sign']=2;
+//        $arrays1['order_datetime5']=date("Y-m-d H:i:s",time());
+        if($lorry_id!=null||$lorry_id!=""){
+            $selectStament=$database->select()
+                ->from('app_lorry')
+                ->where('exist','=',0)
+                ->where('flag','=',0)
+                ->where('app_lorry_id','=',$lorry_id);
+            $stmt=$selectStament->execute();
+            $data1=$stmt->fetch();
+            if($data1!=null){
+                $selectStament=$database->select()
+                    ->from('scheduling')
+                    ->where('exist','=',0)
+                    ->where('scheduling_status','=',4)
+                    ->where('scheduling_id','=',$schedule_id);
+                $stmt=$selectStament->execute();
+                $data3=$stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '=', $data3['receive_city_id']);
+                $stmt = $selectStatement->execute();
+                $data7 = $stmt->fetch();
+
+                if(substr($data7['name'],((strlen($data7['name']))-3),3)=='市'){
+                    $arrays1['reach_city']=substr($data7['name'],0,((strlen($data7['name']))-3));
+                }else{
+                    $arrays1['reach_city']=$data7['name'];
+                }
+                if($data3!=null){
+                    $selectStament=$database->select()
+                        ->from('lorry')
+                        ->where('exist','=',0)
+                        ->where('tenant_id','=',$data3['tenant_id'])
+                        ->where('lorry_id','=',$data3['lorry_id']);
+                    $stmt=$selectStament->execute();
+                    $data4=$stmt->fetch();
+                    if($data4!=null){
+                        if($data1['phone']==$data4['driver_phone']&&$data1['plate_number']==$data4['plate_number']){
+                            $updateStatement = $database->update($arrays)
+                                ->table('scheduling')
+                                ->where('scheduling_id', '=', $schedule_id);
+                            $affectedRows = $updateStatement->execute();
+                            $selectStament=$database->select()
+                                ->from('schedule_order')
+                                ->where('exist','=',0)
+                                ->where('schedule_id','=',$schedule_id);
+                            $stmt=$selectStament->execute();
+                            $data3=$stmt->fetchAll();
+                            for($x=0;$x<count($data3);$x++) {
+                                $updateStatement = $database->update($arrays1)
+                                    ->table('orders')
+                                    ->where('tenant_id','=',$data3[$x]['tenant_id'])
+                                    ->where('order_id','=',$data3[$x]['order_id']);
+                                $affectedRows = $updateStatement->execute();
+                                $updateStatement = $database->update(array('order_status'=>4,'sure_img'=>$lujing,'is_sign'=>2))
+                                    ->table('orders')
+                                    ->where('tenant_id','!=',$data3[$x]['tenant_id'])
+                                    ->where('order_id','=',$data3[$x]['order_id']);
+                                $affectedRows = $updateStatement->execute();
+                                echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+                            }
+                        }else{
+                            echo json_encode(array('result' => '5', 'desc' => '该清单不是您的'));
+                        }
+                    }else{
+                        echo json_encode(array('result' => '4', 'desc' => '该清单上的司机不存在'));
+                    }
+                }else{
+                    echo json_encode(array('result' => '3', 'desc' => '清单已被接收或不存在'));
+                }
+            }else{
+                echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+            }
+        }else{
+            echo json_encode(array('result' => '1', 'desc' => '缺少司机id'));
+        }
     }
+
 });
 
 
