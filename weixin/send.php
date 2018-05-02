@@ -88,8 +88,14 @@ $signPackage = $jssdk->GetSignPackage();
 			success: function(msg) {
 				for(var j=0;j<msg.tenants.length;j++){
 			    for(var i=0;i<msg.tenants[j].routeprice.length;i++){
-			    	$("#center").append("<div class='tet'><div class='but' id='center"+j+i+"'>"+msg.tenants[j].jcompany+msg.tenants[j].routeprice[i].routename+"</br>"+msg.tenants[j].telephone+"</br>轻:"+
-			    	msg.tenants[j].routeprice[i].priceone+"  重:"+msg.tenants[j].routeprice[i].pricetwo+"</div><img src='images/lefttwo.png' class='picl'></div>");
+			    	var a="";
+			    	if(msg.tenants[j].routeprice[i].priceone!=null&&msg.tenants[j].routeprice[i].priceone!=""&&msg.tenants[j].routeprice[i].pricetwo!=null||msg.tenants[j].routeprice[i].pricetwo!=""){
+			    		a="轻:"+msg.tenants[j].routeprice[i].priceone+"  重:"+msg.tenants[j].routeprice[i].pricetwo;
+			    	}else{
+			    		a="尚无价格数据";
+			    	}
+			    	$("#center").append("<div class='tet'><div class='but' id='center"+j+i+"'>"+msg.tenants[j].jcompany+msg.tenants[j].routeprice[i].routename+"</br>"
+			    	+msg.tenants[j].telephone+"</br>"+a+"</div><img src='images/lefttwo.png' class='picl'></div>");
 //			    	alert(msg.tenants[i].tenantimg);    
 			    	$("#center"+j+i).on("click",function(){
 			    		var a=$(this).attr('id').substring(6,7);
