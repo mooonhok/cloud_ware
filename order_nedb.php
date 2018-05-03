@@ -824,12 +824,30 @@ $app->put('/alterOrder17',function()use($app){
     $is_sign= $body->is_sign;
     if($tenant_id!=null||$tenant_id!=''){
         if($order_id!=null||$order_id!=''){
-            $updateStatement = $database->update(array('is_sign'=>$is_sign))
-                ->table('orders')
-                ->where('tenant_id','=',$tenant_id)
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('order_id', '=', $order_id)
                 ->where('exist','=',0)
-                ->where('order_id','=',$order_id);
-            $affectedRows = $updateStatement->execute();
+                ->where('tenant_id', '=', $tenant_id);
+            $stmt = $selectStatement->execute();
+            $data = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id', '<', $data['id'])
+                ->where('exist','=',0)
+                ->where('order_id', '=', $order_id)
+                ->orderBy('id','DESC')
+                ->limit(1);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            if($data2){
+                $updateStatement = $database->update(array('is_sign'=>$is_sign))
+                    ->table('orders')
+                    ->where('id','=',$data2['id'])
+                    ->where('exist','=',0)
+                    ->where('order_id','=',$order_id);
+                $affectedRows = $updateStatement->execute();
+            }
             echo json_encode(array("result" => "0", "desc" => "success"));
         }else{
             echo json_encode(array("result" => "1", "desc" => "缺少运单id"));
