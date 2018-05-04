@@ -1231,7 +1231,7 @@ $app->get('/limitGoodsOrders5',function()use($app){
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
                         $last_order_status=$data12[(count($data12)-1)]['order_status'];
-                        $last_is_sign=$data12[(count($data12)-1)]['is_sign'];
+//                        $last_is_sign=$data12[(count($data12)-1)]['is_sign'];
                     }
                     if($data13!=null){
                         $last_reach_city=$data13[0]['reach_city'];
@@ -1242,7 +1242,7 @@ $app->get('/limitGoodsOrders5',function()use($app){
                     }
                     $array[$i]['last_reach_city']=$last_reach_city;
                     $array[$i]['last_order_status']=$last_order_status;
-                    $array[$i]['last_is_sign']=$last_is_sign;
+//                    $array[$i]['last_is_sign']=$last_is_sign;
                     $array[$i]['next_cost']=$next_cost;
                     $array[$i]['pre_company']=$is_transfer;
                     $array[$i]['goods_package']=$data2;
