@@ -602,8 +602,8 @@ $app->get('/lsch',function()use($app){
        $page=(int)$page-1;
        $selectStament=$database->select()
            ->from('scheduling')
-           ->where('scheduling_datetime1','>',$time1)
-           ->where('scheduling_datetime1','<',$time2)
+           ->where('scheduling_datetime','>',$time1)
+           ->where('scheduling_datetime','<',$time2)
            ->where('exist','=',0)
            ->where('tenant_id','=',$tenant_id);
        $stmt=$selectStament->execute();
@@ -611,8 +611,8 @@ $app->get('/lsch',function()use($app){
        $num=count($data);
     $selectStament=$database->select()
         ->from('scheduling')
-        ->where('scheduling_datetime1','>',$time1)
-        ->where('scheduling_datetime1','<',$time2)
+        ->where('scheduling_datetime','>',$time1)
+        ->where('scheduling_datetime','<',$time2)
         ->where('exist','=',0)
         ->where('tenant_id','=',$tenant_id)
         ->limit((int)$perpage, (int)$perpage * (int)$page);
@@ -662,7 +662,7 @@ $app->get('/lsch',function()use($app){
             $page=(int)$page-1;
             $selectStament=$database->select()
                 ->from('scheduling')
-                ->where('scheduling_datetime1','<',$time2)
+                ->where('scheduling_datetime','<',$time2)
                 ->where('exist','=',0)
                 ->where('tenant_id','=',$tenant_id);
             $stmt=$selectStament->execute();
@@ -670,7 +670,7 @@ $app->get('/lsch',function()use($app){
             $num=count($data);
             $selectStament=$database->select()
                 ->from('scheduling')
-                ->where('scheduling_datetime1','<',$time2)
+                ->where('scheduling_datetime','<',$time2)
                 ->where('exist','=',0)
                 ->where('tenant_id','=',$tenant_id)
                 ->limit((int)$perpage, (int)$perpage * (int)$page);
