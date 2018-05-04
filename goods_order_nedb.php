@@ -1255,7 +1255,7 @@ $app->get('/limitGoodsOrders5',function()use($app){
                     $array[$i]['inventory_loc']=$data5;
                     array_push($array1,$array[$i]);
                 }
-                echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$array1));
+                echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$array1,'count'=>count($data12)));
             }else{
                 echo json_encode(array('result'=>'1','desc'=>'偏移量为空'));
             }
