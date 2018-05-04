@@ -140,7 +140,7 @@ $app->get('/getMust',function()use($app){
         ->from('client')
         ->where('is_must','=',1)
         ->where('type','=',$client_type)
-        ->where('system','=',client_system)
+        ->where('system','=',$client_system)
         ->orderBy('id','DESC')
         ->limit(1);
     $stmt = $selectStatement->execute();
