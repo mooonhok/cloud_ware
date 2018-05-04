@@ -17,6 +17,7 @@ $(function(){
         data: JSON.stringify({}),
         success: function(msg) {
         	if(msg.result==0){
+        		$("#companytitle").html(msg.tenants[0].name);
         		if(tenant_id==null||tenant_id==""){
         		tenant_id=msg.tenants[0].tenant_id;
         		}

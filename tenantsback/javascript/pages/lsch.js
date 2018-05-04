@@ -15,6 +15,7 @@ $(function(){
         data: JSON.stringify({}),
         success: function(msg) {
         	if(msg.result==0){
+        		$("#companytitle").html(msg.tenants[0].name);
         		tenant_id=msg.tenants[0].tenant_id;
         		$(".order_id").val("");
         		for(var i=0;i<msg.tenants.length;i++){
