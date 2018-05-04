@@ -20,6 +20,7 @@ $(function(){
         data: JSON.stringify({}),
         success: function(msg) {
         	if(msg.result==0){
+        		$("#companytitle").html(msg.tenants[0].name);
         		$(".order_id").val("");
         		for(var i=0;i<msg.tenants.length;i++){
         		$(".order_id").append('<option value="' + msg.tenants[i].tenant_id + '">' + msg.tenants[i].name + '</option>');
