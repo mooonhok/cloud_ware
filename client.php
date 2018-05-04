@@ -16,8 +16,8 @@ $app->get('/getLatest',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database = localhost();
-    $type1 = $app->request->get("type");
-    if($type1=="http://api.uminfo.cn/"){
+    $client_type = $app->request->get("client_type");
+    if($client_type=="0"){
         $selectStatement = $database->select()
             ->from('client')
             ->where('type','=',0)
@@ -33,10 +33,26 @@ $app->get('/getLatest',function()use($app){
         }else{
             echo  json_encode(array("result"=>"1","desc"=>"无客户端版本"));
         }
-    }else if($type1=="http://api.uminfor.cn/"){
+    }else if($client_type=="1"){
         $selectStatement = $database->select()
             ->from('client')
             ->where('type','=',1)
+            ->orderBy('id','desc');
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        if($data!=null){
+            $client=$data[0];
+            $pack = explode('/',$client['package_url']);
+            $client_url='/'.$pack[3].'/'.$pack[4].'/app.asar';
+            $size = filesize('/files'.$client_url);
+            echo  json_encode(array("result"=>"0","desc"=>"success","client"=>$client,'size'=>$size));
+        }else{
+            echo  json_encode(array("result"=>"1","desc"=>"无客户端版本"));
+        }
+    }else if($client_type=="2"){
+        $selectStatement = $database->select()
+            ->from('client')
+            ->where('type','=',2)
             ->orderBy('id','desc');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
@@ -101,8 +117,8 @@ $app->get('/getMust',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $now_version = $app->request->get("now_version");
     $database = localhost();
-    $type1 = $app->request->get("type");
-    if($type1=="http://api.uminfo.cn/"){
+    $client_type = $app->request->get("client_type");
+    if($client_type=="0"){
         $selectStatement = $database->select()
             ->from('client')
             ->where('is_must','=',1)
@@ -136,11 +152,45 @@ $app->get('/getMust',function()use($app){
         }else{
             echo  json_encode(array("result"=>"0","desc"=>"success","client"=>null));
         }
-    }else if($type1=="http://api.uminfor.cn/"){
+    }else if($client_type=="1"){
         $selectStatement = $database->select()
             ->from('client')
             ->where('is_must','=',1)
             ->where('type','=',1)
+            ->orderBy('id','DESC')
+            ->limit(1);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetch();
+        if($data!=null){
+            $aa=explode(".",$data['version']);
+            $bb=explode(".",$now_version);
+            if($aa[0]>$bb[0]){
+                echo  json_encode(array("result"=>"0","desc"=>"success","client"=>$data));
+            }else if($aa[0]==$bb[0]){
+                if($aa[1]>$bb[1]){
+                    echo  json_encode(array("result"=>"0","desc"=>"success","client"=>$data));
+                }else if($aa[1]==$bb[1]){
+                    if($aa[2]>$bb[2]){
+                        echo  json_encode(array("result"=>"0","desc"=>"success","client"=>$data));
+                    }else if($aa[2]==$bb[2]){
+                        echo  json_encode(array("result"=>"0","desc"=>"success","client"=>null));
+                    }else{
+                        echo  json_encode(array("result"=>"0","desc"=>"success","client"=>null));
+                    }
+                }else{
+                    echo  json_encode(array("result"=>"0","desc"=>"success","client"=>null));
+                }
+            }else{
+                echo  json_encode(array("result"=>"0","desc"=>"success","client"=>null));
+            }
+        }else{
+            echo  json_encode(array("result"=>"0","desc"=>"success","client"=>null));
+        }
+    }else if($client_type=="2"){
+        $selectStatement = $database->select()
+            ->from('client')
+            ->where('is_must','=',1)
+            ->where('type','=',2)
             ->orderBy('id','DESC')
             ->limit(1);
         $stmt = $selectStatement->execute();
