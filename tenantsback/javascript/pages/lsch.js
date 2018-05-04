@@ -117,7 +117,7 @@ function loadorders(tenant_id,page) {
                 });
             });
             }else{
-             $("#tb1").html("租户下没有订单");	
+             $("#tb1").html("尚未有数据");	
             }
         },
         error: function(xhr) {
