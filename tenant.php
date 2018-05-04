@@ -744,7 +744,7 @@ $app->post('/tenant',function()use($app) {
                                                     $insertStatement = $database->insert(array('tenant_id','staff_id','username','password'
                                                     ,'name','telephone','position','status','permission','bg_img','head_img','exist'))
                                                         ->into('staff')
-                                                        ->values(array($data4['tenant_id'],100001,$username,encode('888888','cxphp'),$contact_name,$telephone,'负责人',1,1111111,$file_url.'client/skin/bg1.jpg',$file_url."staff/5230001_head.jpg",0));
+                                                        ->values(array($data4['tenant_id'],100001,$username,encode('888888','cxphp'),$contact_name,$telephone,'负责人',1,11111111,$file_url.'client/skin/bg1.jpg',$file_url."staff/5230001_head.jpg",0));
                                                     $insertId = $insertStatement->execute(false);
                                                     echo json_encode(array('result'=>'0','desc'=>'添加成功'));
 //                                                    $app->redirect('http://www.uminfo.cn/zhuce.html?desc=企业登记成功');
