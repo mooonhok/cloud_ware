@@ -5,6 +5,8 @@ $(function(){
     }
     var page = $.getUrlParam('page');
     var tenant_id=null;
+    var time1=$(".time1").val();
+       var time2=$(".time2").val();
     $.ajax({
 	 url: p_url+"tenantsback.php/gettenants?adminid="+adminid,
         dataType: 'json',
@@ -20,7 +22,7 @@ $(function(){
         		}
         	
         	}
-        	 loadorders(tenant_id,page);
+        	 loadorders(tenant_id,page,time1,time2);
         },
         error: function(xhr) {
             alert("获取后台失败！");
@@ -29,9 +31,10 @@ $(function(){
     
     $(".sousuo_z").on("click",function(){
        tenant_id=$(".order_id").val();
-       
+        time1=$(".time1").val();
+        time2=$(".time2").val();
 //      alert(tenant_id);
-        loadorders(tenant_id,page);
+        loadorders(tenant_id,page,time1,time2);
     
     });
 });
@@ -49,7 +52,7 @@ $(function(){
     }
 })(jQuery);
 
-function loadorders(tenant_id,page) {
+function loadorders(tenant_id,page,time1,time2) {
     if(tenant_id==null){
        tenant_id="";
     }
@@ -57,7 +60,7 @@ function loadorders(tenant_id,page) {
         page=1;
     }
     $.ajax({
-        url: p_url+"tenantsback.php/lsch?tenant-id="+tenant_id+"&page="+page+"&perpage=10",
+        url: p_url+"tenantsback.php/lsch?tenant-id="+tenant_id+"&page="+page+"&perpage=10&time1="+time1+"&time2="+time2,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -76,7 +79,7 @@ function loadorders(tenant_id,page) {
                     ,limit: 10
                     ,jump: function(obj,first){
                         if(!first){
-                            loadorders(tenant_id,obj.curr);
+                            loadorders(tenant_id,obj.curr,time1,time2);
                         }
                         //模拟渲染
                         document.getElementById('tb1').innerHTML = function(){

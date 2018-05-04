@@ -10,6 +10,8 @@ $(function(){
       $(".payway").append('<option value="' +2+ '">月结</option>');
       $(".payway").append('<option value="' +3+ '">回单</option>');
        var payway=$(".payway").val();
+       var time1=$(".time1").val();
+       var time2=$(".time2").val();
     $.ajax({
 	 url: p_url+"tenantsback.php/gettenants?adminid="+adminid,
         dataType: 'json',
@@ -41,7 +43,7 @@ $(function(){
 	          }
 	          });
         	}
-        	loadorders(tenant_id,page);
+        	loadorders(tenant_id,page,time1,time2);
         },
         error: function(xhr) {
             alert("获取后台失败！");
@@ -51,15 +53,15 @@ $(function(){
     $(".sousuo_z").on("click",function(){
         tenant_id=$(".order_id").val();
          payway=$(".payway").val();
-          var time1=$(".time1").val();
-       var time2=$(".time2").val();
-       alert(time1+"&&&&"+time2);
-        loadorders(tenant_id,page,payway);
+         time1=$(".time1").val();
+        time2=$(".time2").val();
+//     alert(time1+"&&&&"+time2);
+        loadorders(tenant_id,page,payway,time1,time2);
         $("#count1").html("");
          $("#count2").html("");
          $("#count3").html("");
 	   $.ajax({
-		 url: p_url+"tenantsback.php/ordertongji?tenant-id="+tenant_id,
+		 url: p_url+"tenantsback.php/ordertongji?tenant-id="+tenant_id+"&time1="+time1+"&time2="+time2,
 	        dataType: 'json',
 	        type: 'get',
 	        ContentType: "application/json;charset=utf-8",
@@ -89,7 +91,7 @@ $(function(){
     }
 })(jQuery);
 
-function loadorders(tenant_id,page,payway) {
+function loadorders(tenant_id,page,payway,time1,time2) {
     if(tenant_id==null){
        tenant_id="";
     }
@@ -100,7 +102,7 @@ function loadorders(tenant_id,page,payway) {
     	payway="";
     }
     $.ajax({
-        url: p_url+"tenantsback.php/getGoodsOrders?tenant-id="+tenant_id+"&page="+page+"&perpage=10&payway="+payway,
+        url: p_url+"tenantsback.php/getGoodsOrders?tenant-id="+tenant_id+"&page="+page+"&perpage=10&payway="+payway+"&time1="+time1+"&time2="+time2,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -119,7 +121,7 @@ function loadorders(tenant_id,page,payway) {
                     ,limit: 10
                     ,jump: function(obj,first){
                         if(!first){
-                            loadorders(tenant_id,obj.curr,payway);
+                            loadorders(tenant_id,obj.curr,payway,time1,time2);
                         }
                         //模拟渲染
                         document.getElementById('tb1').innerHTML = function(){
