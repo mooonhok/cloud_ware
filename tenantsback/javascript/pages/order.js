@@ -50,7 +50,10 @@ $(function(){
     
     $(".sousuo_z").on("click",function(){
         tenant_id=$(".order_id").val();
-        var payway=$(".payway").val();
+         payway=$(".payway").val();
+          var time1=$(".time1").val();
+       var time2=$(".time2").val();
+       alert(time1+"&&&&"+time2);
         loadorders(tenant_id,page,payway);
         $("#count1").html("");
          $("#count2").html("");
