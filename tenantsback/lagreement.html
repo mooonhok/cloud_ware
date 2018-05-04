@@ -33,8 +33,6 @@
 				border-top: 1px solid #DDDDDD;
 				/* background: #9CBA60; */
 			}
-			
-			
 		</style>
 		<script src="javascript/pages/config.js"></script>
 		<script src="javascript/jquery.js"></script>
@@ -75,6 +73,9 @@
 					<h2>
                 <a href="lagreement.html" class="InitialPage"><i class="icon-dashboard"></i>历史合同</a>
             </h2>
+            <h2>
+                <a href="lorry.html" class="InitialPage"><i class="icon-dashboard"></i>车辆管理</a>
+            </h2>
 				</nav>
 				<footer class="side-footer">© unimfo 版权所有</footer>
 			</div>
@@ -86,7 +87,7 @@
 					<div class="hd-rt">
 						<ul>
 							<li>
-								<span  id="companytitle" ></span>
+								<span id="companytitle"></span>
 							</li>
 							<li>
 								<a href="javascript:void(0)" id="JsSignOut"><i class="icon-signout"></i>安全退出</a>
@@ -98,15 +99,15 @@
 
 					<!--开始::内容-->
 					<div style="width:100%;">
-						<div class="sousuo"  style="height:50px;line-height: 50px;margin-top:10px;">
+						<div class="sousuo" style="height:50px;line-height: 50px;margin-top:10px;">
 							<select type="text" style="float:left;margin-left:50px;width:300px;" class="order_id">
-							<!--	<option value="">请选择租户</option>-->
-							</select>	
-							<span style="height:30px;line-height:30px;float:left;margin-left:10px;width:100px;">开始时间：</span><input type="date"  style="height:30px;line-height:30px;float:left;margin-left:10px;width:150px;" class="time1"  value=""/>
-							<span style="height:30px;line-height:30px;float:left;margin-left:10px;width:100px;">结束时间：</span><input type="date"  style="height:30px;line-height:30px;float:left;margin-left:10px;width:150px;" class="time2"  value=""/>
-							
+								<!--	<option value="">请选择租户</option>-->
+							</select>
+							<span style="height:30px;line-height:30px;float:left;margin-left:10px;width:100px;">开始时间：</span><input type="date" style="height:30px;line-height:30px;float:left;margin-left:10px;width:150px;" class="time1" value="" />
+							<span style="height:30px;line-height:30px;float:left;margin-left:10px;width:100px;">结束时间：</span><input type="date" style="height:30px;line-height:30px;float:left;margin-left:10px;width:150px;" class="time2" value="" />
+
 							<div style="background-color:rgb(77,126,217);color:white;border-radius:3px;float:left;margin-left:10px;height:30px;line-height:30px;cursor:pointer;" class="sousuo_z">&nbsp;搜&nbsp;索&nbsp;</div>
-							
+
 						</div>
 						<table style="width:100%;">
 							<thead>
@@ -126,8 +127,8 @@
 						</table>
 						<div id="demo20"></div>
 					</div>
-					    <div style="float:left;margin-left:20px;font-size:18px;color:#E63F00;">总运费:</div>
-						<div style="float:left;font-size:18px;color:#E63F00;margin-left:5px;" id="count1"></div>  
+					<div style="float:left;margin-left:20px;font-size:18px;color:#E63F00;">总运费:</div>
+					<div style="float:left;font-size:18px;color:#E63F00;margin-left:5px;" id="count1"></div>
 					<script>
 					</script>
 					<!--开始::结束-->
@@ -142,4 +143,3 @@
 	</body>
 
 </html>
-
