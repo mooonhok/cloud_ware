@@ -64,7 +64,7 @@ function loadorders(tenant_id,page) {
         ContentType: "application/json;charset=utf-8",
         data: JSON.stringify({}),
         success: function(msg) {
-           
+           alert(msg.lorrys[0].plate_number);
             $("#tb1").html("");
           if(msg.lorrys!=null){
             //调用分页
