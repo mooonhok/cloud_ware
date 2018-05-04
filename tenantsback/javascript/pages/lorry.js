@@ -82,7 +82,7 @@ function loadorders(tenant_id,page) {
                         //模拟渲染
                         document.getElementById('tb1').innerHTML = function(){
                             var arr = []
-                                ,thisData=msg.argees;
+                                ,thisData=msg.lorrys;
                             layui.each(thisData, function(index, item){
                                 arr.push('<tr><td style="display:none">'+item.applorryid+'</td><td>'+item.plate_number+'</td><td>'
                                 +item.driver_name+'</td><td>'
