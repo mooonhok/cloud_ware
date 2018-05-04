@@ -983,7 +983,7 @@ $app->get('/lorrys',function()use($app){
                     ->where('exist','=',0)
                     ->where('phone','=',$data2[$x]['driver_phone'])
                     ->where('plate_number','=',$data2[$x]['plate_number'])
-                    ->where('name','=','driver_name');
+                    ->where('name','=',$data2[$x]['driver_name']);
                 $stmt=$selectStament->execute();
                 $data3=$stmt->fetch();
                 $data2[$x]['deadweight']=$data3['deadweight'];
