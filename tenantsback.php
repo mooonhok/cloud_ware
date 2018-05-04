@@ -950,7 +950,103 @@ $app->get('/agredet',function()use($app){
         echo json_encode(array('result'=>'1','desc'=>'合同id为空'));
     }
 });
+
+
+$app->get('/lorrys',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->get('tenant-id');
+    $page=$app->request->get('page');
+    $perpage=$app->request->get('perpage');
+    if($tenant_id!=null||$tenant_id!=""){
+        $selectStament=$database->select()
+            ->from('lorry')
+            ->where('exist','=',0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetchAll();
+        $num=count($data);
+        $page=(int)$page-1;
+        $selectStament=$database->select()
+            ->from('lorry')
+            ->where('exist','=',0)
+            ->where('tenant_id','=',$tenant_id)
+            ->limit((int)$perpage, (int)$perpage * (int)$page);
+        $stmt=$selectStament->execute();
+        $data2=$stmt->fetchAll();
+//        $data2= array_values(array_unset_tt($data2,'lorry_id'));
+        if($data2!=null){
+            for($x=0;$x<count($data2);$x++){
+                $selectStament=$database->select()
+                    ->from('app_lorry')
+                    ->where('exist','=',0)
+                    ->where('phone','=',$data2[$x]['driver_phone'])
+                    ->where('plate_number','=',$data2[$x]['plate_number'])
+                    ->where('name','=','driver_name');
+                $stmt=$selectStament->execute();
+                $data3=$stmt->fetch();
+                $data2[$x]['deadweight']=$data3['deadweight'];
+                $data2[$x]['length']=$data3['length'];
+                $selectStament=$database->select()
+                    ->from('lorry_type')
+                    ->where('lorry_type_id','=',$data3['type']);
+                $stmt=$selectStament->execute();
+                $data4=$stmt->fetch();
+                $data2[$x]['typename']=$data4['lorry_type_name'];
+                $data2[$x]['applorryid']=$data3['id'];
+            }
+            echo json_encode(array('result'=>'0','desc'=>'','lorrys'=>$data2,'count'=>$num));
+        }else{
+            echo json_encode(array('result'=>'2','desc'=>'该公司尚未有合作车辆'));
+        }
+    }else{
+        echo json_encode(array('result'=>'3','desc'=>'缺少租户id'));
+    }
+});
+
+$app->get('/lorrydetil',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $lorry_id=$app->request->get('lorry_id');
+    if($lorry_id!=null||$lorry_id!=""){
+        $selectStament=$database->select()
+            ->from('app_lorry')
+            ->where('exist','=',0)
+            ->where('id','=',$lorry_id);
+        $stmt=$selectStament->execute();
+        $data2=$stmt->fetchAll();
+        echo json_encode(array('result'=>'0','desc'=>'','lorrydetil'=>$data2));
+    }else{
+        echo json_encode(array('result'=>'3','desc'=>'缺少司机id'));
+    }
+});
+
+
 $app->run();
+
+function array_unset_tt($arr,$key){
+    //建立一个目标数组
+    $res = array();
+    foreach ($arr as $value) {
+        //查看有没有重复项
+
+        if(isset($res[$value[$key]])){
+            //有：销毁
+
+            unset($value[$key]);
+
+        }
+        else{
+
+            $res[$value[$key]] = $value;
+        }
+    }
+    return $res;
+}
+
+
 
 function localhost(){
     return connect();
