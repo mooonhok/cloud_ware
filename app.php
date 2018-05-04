@@ -1527,7 +1527,7 @@ $app->post('/receivesc',function()use($app){
         $arrays1['sure_img']=$lujing;
         $arrays1['order_status']=4;
         $arrays1['order_datetime4']=date("Y-m-d H:i:s",time());
-        $arrays1['is_sign']=1;
+//        $arrays1['is_sign']=1;
 //        $arrays1['order_datetime5']=date("Y-m-d H:i:s",time());
         if($lorry_id!=null||$lorry_id!=""){
             $selectStament=$database->select()
