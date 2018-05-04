@@ -1228,10 +1228,11 @@ $app->get('/limitGoodsOrders5',function()use($app){
                     $next_cost='';
                     $last_order_status='';
                     $last_reach_city='';
+                    $last_is_sign='';
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
                         $last_order_status=$data12[(count($data12)-1)]['order_status'];
-//                        $last_is_sign=$data12[(count($data12)-1)]['is_sign'];
+                        $last_is_sign=$data12[(count($data12)-1)]['is_sign'];
                     }
                     if($data13!=null){
                         $last_reach_city=$data13[0]['reach_city'];
@@ -1255,7 +1256,7 @@ $app->get('/limitGoodsOrders5',function()use($app){
                     $array[$i]['inventory_loc']=$data5;
                     array_push($array1,$array[$i]);
                 }
-                echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$array1,'count'=>count($data12)));
+                echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$array1));
             }else{
                 echo json_encode(array('result'=>'1','desc'=>'偏移量为空'));
             }
@@ -2609,6 +2610,7 @@ $app->get('/limitGoodsOrders12',function()use($app){
                     $next_cost='';
                     $last_order_status='';
                     $last_reach_city='';
+                    $last_is_sign='';
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
                         $last_order_status=$data12[(count($data12)-1)]['order_status'];
@@ -3688,6 +3690,7 @@ $app->get('/limitGoodsOrders13',function()use($app){
             $data13 = $stmt->fetchAll();
             $next_cost='';
             $last_order_status='';
+            $last_is_sign='';
             $last_reach_city='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
@@ -3844,6 +3847,7 @@ $app->get('/limitGoodsOrders14',function()use($app){
             $next_cost='';
             $last_order_status='';
             $last_reach_city='';
+            $last_is_sign='';
             if($data12!=null){
                 $next_cost=$data12[0]['transfer_cost'];
                 $last_order_status=$data12[(count($data12)-1)]['order_status'];
@@ -4127,6 +4131,7 @@ $app->get('/limitGoodsOrders9',function()use($app){
                     $next_cost='';
                     $last_order_status='';
                     $last_reach_city='';
+                    $last_is_sign='';
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
                         $last_order_status=$data12[(count($data12)-1)]['order_status'];
@@ -4289,6 +4294,7 @@ $app->get('/limitGoodsOrders10',function()use($app){
                     $next_cost='';
                     $last_order_status='';
                     $last_reach_city='';
+                    $last_is_sign='';
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
                         $last_order_status=$data12[(count($data12)-1)]['order_status'];
@@ -4427,6 +4433,7 @@ $app->get('/limitGoodsOrders11',function()use($app){
                     $next_cost='';
                     $last_order_status='';
                     $last_reach_city='';
+                    $last_is_sign='';
                     if($data12!=null){
                         $next_cost=$data12[0]['transfer_cost'];
                         $last_order_status=$data12[(count($data12)-1)]['order_status'];
