@@ -156,3 +156,74 @@ function lorry_xq(id){
         '</div>'
     });
 }
+
+
+  $("#order_cancle").on("click",function(){
+        layer.close(index);
+  });
+  
+    $.ajax({
+        url: p_url+"lorry.php/getAppLorry?app_lorry_id="+id+"",
+        dataType: 'json',
+        type: 'get',
+        ContentType: "application/json;charset=utf-8",
+        data: JSON.stringify({}),
+        success: function(msg) {
+            // console.log(msg);
+            $("#lorry_id").val(msg.lorrys.app_lorry_id);
+            $("#phone").val(msg.lorrys.phone);
+            $("#name").val(msg.lorrys.name);
+            $("#id_card").val(msg.lorrys.id_number);
+            $("#plate_number").val(msg.lorrys.plate_number);
+            // $("#lorry_length").val(msg.lorrys.lorry_length_name);
+            // $("#lorry_type").val(msg.lorrys.lorry_type_name);
+            $("#lorry_weight").val(msg.lorrys.lorry_load_name);
+            $("#id_z").attr("src",msg.lorrys.identity_card_z);
+            $("#id_f").attr("src",msg.lorrys.identity_card_f);
+            $("#j_z").attr("src",msg.lorrys.driver_license_fp);
+            $("#j_f").attr("src",msg.lorrys.driver_license_tp);
+            $("#x_z").attr("src",msg.lorrys.driving_license_fp);
+            $("#x_f").attr("src",msg.lorrys.driving_license_tp);
+            $.ajax({
+                url: p_url+"app.php/lorry_type",
+                dataType: 'json',
+                type: 'get',
+                ContentType: "application/json;charset=utf-8",
+                data: JSON.stringify({}),
+                success: function(ret) {
+                    // console.log(msg);
+                    if(ret.result==0){
+                        for(var i=0;i<ret.lorry_type.length;i++){
+                            $('#lorry_type').append('<option value="'+ret.lorry_type[i].lorry_type_id+'" id="ve_size'+ret.lorry_type[i].lorry_type_id+'">'+ret.lorry_type[i].lorry_type_name+'</option>');
+                            $('#ve_size'+msg.lorrys.type).attr('selected','selected');
+                        }
+                    }
+                },
+                error: function(xhr) {
+                    alert("获取后台失败！");
+                }
+            });
+
+            $.ajax({
+                url: p_url+"app.php/lorry_long",
+                dataType: 'json',
+                type: 'get',
+                ContentType: "application/json;charset=utf-8",
+                data: JSON.stringify({}),
+                success: function(ret) {
+                    if(ret.result==0){
+                        for(var i=0;i<ret.vehiche_long.length;i++){
+                            $('#lorry_length').append('<option value="'+ret.vehiche_long[i].lorry_length_id+'" id="ve_long'+ret.vehiche_long[i].lorry_length_id+'">'+ret.vehiche_long[i].lorry_length+'</option>');
+                            $('#ve_long'+msg.lorrys.length).attr('selected','selected');
+                        }
+                    }
+                },
+                error: function(xhr) {
+                    alert("获取后台失败！");
+                }
+            });
+        },
+        error: function(xhr) {
+            alert("获取后台失败！");
+        }
+    });

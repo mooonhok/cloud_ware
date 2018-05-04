@@ -994,7 +994,7 @@ $app->get('/lorrys',function()use($app){
                 $stmt=$selectStament->execute();
                 $data4=$stmt->fetch();
                 $data2[$x]['typename']=$data4['lorry_type_name'];
-                $data2[$x]['applorryid']=$data3['id'];
+                $data2[$x]['applorryid']=$data3['app_lorry_id'];
             }
             echo json_encode(array('result'=>'0','desc'=>'','lorrys'=>$data2,'count'=>$num));
         }else{
