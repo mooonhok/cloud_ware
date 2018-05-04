@@ -152,10 +152,10 @@ function lorry_xq(id){
         '<label><img src="" id="x_z" class="image1" style="width:80%;margin-left:10%;"/><input type="file" style="display:none;" class="x_z"</label>'+
         '<h3>行驶证反面</h3>' +
         '<label><img src="" id="x_f" class="image1" style="width:80%;margin-left:10%;"/><input type="file" style="display:none;" class="x_f"/></label>'+
-        '<button id="order_sure">确定</button><button id="order_cancle">取消</button>' +
+        '<button id="order_cancle">关闭</button>' +
         '</div>'
     });
-}
+
 
 
   $("#order_cancle").on("click",function(){
@@ -227,3 +227,5 @@ function lorry_xq(id){
             alert("获取后台失败！");
         }
     });
+    
+}
