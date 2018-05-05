@@ -2549,7 +2549,7 @@ $app->get('/tongji_agreement',function()use($app){
 });
 
 $app->get('/get_agreement_html',function()use($app){
-    return '<div style="font-size:20px;text-align:center;">甲方的权利与义务</div>
+    echo '<div style="font-size:20px;text-align:center;">甲方的权利与义务</div>
     <div>1.甲方须如实填写货物信息，严禁夹带法律禁运物品，造成后果由甲方负责。</div>
     <div>2.甲方应对所托货物按照行业标准妥善包装，使其适合运输。</div>
     <div>3.甲方应确保所提供收货人信息准确，电话通畅，如因此造成收货延误，乙方不负违约责任。乙方确认交货后，甲方如有异议须在三天内以书面方式提出，否则视同乙方运输义务完成。运输完成后，甲方应主动按约定支付运费。</div>
