@@ -2548,7 +2548,7 @@ $app->get('/tongji_agreement',function()use($app){
     }
 });
 
-$app->get('/get_agreement_html',function($app){
+$app->get('/get_agreement_html',function()()use($app){
     return '<div style="font-size:20px;text-align:center;">甲方的权利与义务</div>
     <div>1.甲方须如实填写货物信息，严禁夹带法律禁运物品，造成后果由甲方负责。</div>
     <div>2.甲方应对所托货物按照行业标准妥善包装，使其适合运输。</div>
