@@ -174,7 +174,7 @@ function lorry_xq(id){
               $("#id_card").val(msg.lorrydetil.id_number);
               $("#plate_number").val(msg.lorrydetil.plate_number);
               $("#lorry_weight").val(msg.lorrydetil.deadweight);
-                 $("#id_z").attr("src",msg.lorrys.identity_card_z);
+                 $("#id_z").attr("src",msg.lorrydetil.identity_card_z);
             $("#id_f").attr("src",msg.lorrydetil.identity_card_f);
             $("#j_z").attr("src",msg.lorrydetil.driver_license_fp);
             $("#j_f").attr("src",msg.lorrydetil.driver_license_tp);
