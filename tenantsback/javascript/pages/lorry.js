@@ -120,7 +120,7 @@ function lorry_xq(id){
         skin: 'layui-layer-rim', //加上边框
         area: ['800px', '600px'], //宽高
         content: '<div class="tenant_tk">' +
-        '<h1 style="text-align:center;">修改车辆信息</h1>' +
+        '<h1 style="text-align:center;">车辆信息</h1>' +
         '<div>' +
         '<div>手机号</div>' +
         '<div>司机名字</div>' +
@@ -131,27 +131,26 @@ function lorry_xq(id){
         '<div>载重</div>' +
         '</div>' +
         '<div>' +
-        '<input type="text" id="lorry_id" style="display:none;"/>' +
         '<input type="text" id="phone" disabled="disabled"/>' +
         '<input type="text" id="name" disabled="disabled"/>' +
         '<input type="text" id="id_card" disabled="disabled"/>' +
         '<input type="text" id="plate_number" disabled="disabled"/>' +
-        '<select id="lorry_length" disabled="disabled"></select>' +
-        '<select id="lorry_type" disabled="disabled"></select>' +
+        '<input id="lorry_length" disabled="disabled"/>' +
+        '<input id="lorry_type" disabled="disabled"/>' +
         '<input type="text" id="lorry_weight" disabled="disabled"/>' +
         '</div>' +
         '<h3>身份证正面</h3>' +
-        '<label><img src="" id="id_z" disabled="disabled" class="image1" style="width:80%;margin-left:10%;"/><input type="file" style="display:none;" class="id_z"/></label>'+
+        '<label><img src="" id="id_z" disabled="disabled" class="image1" style="width:80%;margin-left:10%;"/></label>'+
         '<h3>身份证反面</h3>' +
-        '<label><img src="" id="id_f" disabled="disabled" class="image1" style="width:80%;margin-left:10%;"/><input type="file" style="display:none;" class="id_f"/></label>'+
+        '<label><img src="" id="id_f" disabled="disabled" class="image1" style="width:80%;margin-left:10%;"/></label>'+
         '<h3>驾驶证正面</h3>' +
-        '<label><img src="" id="j_z"  disabled="disabled" class="image1" style="width:80%;margin-left:10%;"/><input type="file" style="display:none;" class="j_z"/></label>'+
+        '<label><img src="" id="j_z"  disabled="disabled" class="image1" style="width:80%;margin-left:10%;"/></label>'+
         '<h3>驾驶证反面</h3>' +
-        '<label><img src="" id="j_f" disabled="disabled" class="image1" style="width:80%;margin-left:10%;"/><input type="file" style="display:none;" class="j_f"/></label>'+
+        '<label><img src="" id="j_f" disabled="disabled" class="image1" style="width:80%;margin-left:10%;"/></label>'+
         '<h3>行驶证正面</h3>' +
-        '<label><img src="" id="x_z" disabled="disabled"  class="image1" style="width:80%;margin-left:10%;"/><input type="file" style="display:none;" class="x_z"</label>'+
+        '<label><img src="" id="x_z" disabled="disabled"  class="image1" style="width:80%;margin-left:10%;"/></label>'+
         '<h3>行驶证反面</h3>' +
-        '<label><img src="" disabled="disabled" id="x_f" class="image1" style="width:80%;margin-left:10%;"/><input type="file" style="display:none;" class="x_f"/></label>'+
+        '<label><img src="" disabled="disabled" id="x_f" class="image1" style="width:80%;margin-left:10%;"/></label>'+
         '<button id="order_cancle">关闭</button>' +
         '</div>'
     });
@@ -163,65 +162,29 @@ function lorry_xq(id){
   });
   
     $.ajax({
-        url: p_url+"lorry.php/getAppLorry?app_lorry_id="+id+"",
+        url: p_url+"tenantsback.php/lorrydetil?id="+id+"",
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
         data: JSON.stringify({}),
         success: function(msg) {
-            // console.log(msg);
-            $("#lorry_id").val(msg.lorrys.app_lorry_id);
-            $("#phone").val(msg.lorrys.phone);
-            $("#name").val(msg.lorrys.name);
-            $("#id_card").val(msg.lorrys.id_number);
-            $("#plate_number").val(msg.lorrys.plate_number);
-            // $("#lorry_length").val(msg.lorrys.lorry_length_name);
-            // $("#lorry_type").val(msg.lorrys.lorry_type_name);
-            $("#lorry_weight").val(msg.lorrys.lorry_load_name);
-            $("#id_z").attr("src",msg.lorrys.identity_card_z);
-            $("#id_f").attr("src",msg.lorrys.identity_card_f);
-            $("#j_z").attr("src",msg.lorrys.driver_license_fp);
-            $("#j_f").attr("src",msg.lorrys.driver_license_tp);
-            $("#x_z").attr("src",msg.lorrys.driving_license_fp);
-            $("#x_f").attr("src",msg.lorrys.driving_license_tp);
-            $.ajax({
-                url: p_url+"app.php/lorry_type",
-                dataType: 'json',
-                type: 'get',
-                ContentType: "application/json;charset=utf-8",
-                data: JSON.stringify({}),
-                success: function(ret) {
-                    // console.log(msg);
-                    if(ret.result==0){
-                        for(var i=0;i<ret.lorry_type.length;i++){
-                            $('#lorry_type').append('<option value="'+ret.lorry_type[i].lorry_type_id+'" id="ve_size'+ret.lorry_type[i].lorry_type_id+'">'+ret.lorry_type[i].lorry_type_name+'</option>');
-                            $('#ve_size'+msg.lorrys.type).attr('selected','selected');
-                        }
-                    }
-                },
-                error: function(xhr) {
-                    alert("获取后台失败！");
-                }
-            });
-
-            $.ajax({
-                url: p_url+"app.php/lorry_long",
-                dataType: 'json',
-                type: 'get',
-                ContentType: "application/json;charset=utf-8",
-                data: JSON.stringify({}),
-                success: function(ret) {
-                    if(ret.result==0){
-                        for(var i=0;i<ret.vehiche_long.length;i++){
-                            $('#lorry_length').append('<option value="'+ret.vehiche_long[i].lorry_length_id+'" id="ve_long'+ret.vehiche_long[i].lorry_length_id+'">'+ret.vehiche_long[i].lorry_length+'</option>');
-                            $('#ve_long'+msg.lorrys.length).attr('selected','selected');
-                        }
-                    }
-                },
-                error: function(xhr) {
-                    alert("获取后台失败！");
-                }
-            });
+            if(msg.result==0){
+            	$("#phone").val(msg.lorrydetil.phone);
+            	$("#name").val(msg.lorrydetil.name);
+              $("#id_card").val(msg.lorrydetil.id_number);
+              $("#plate_number").val(msg.lorrydetil.plate_number);
+              $("#lorry_weight").val(msg.lorrydetil.deadweight);
+                 $("#id_z").attr("src",msg.lorrys.identity_card_z);
+            $("#id_f").attr("src",msg.lorrydetil.identity_card_f);
+            $("#j_z").attr("src",msg.lorrydetil.driver_license_fp);
+            $("#j_f").attr("src",msg.lorrydetil.driver_license_tp);
+            $("#x_z").attr("src",msg.lorrydetil.driving_license_fp);
+            $("#x_f").attr("src",msg.lorrydetil.driving_license_tp);
+            $('#lorry_type').val(msg.lorrydetil.typename);
+            $('#lorry_length').val(msg.lorrydetil.length);
+            }else{
+            	alert(msg.desc);
+            }
         },
         error: function(xhr) {
             alert("获取后台失败！");
