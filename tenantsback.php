@@ -1009,14 +1009,20 @@ $app->get('/lorrydetil',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
-    $lorry_id=$app->request->get('lorry_id');
+    $lorry_id=$app->request->get('id');
     if($lorry_id!=null||$lorry_id!=""){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->where('exist','=',0)
-            ->where('id','=',$lorry_id);
+            ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
-        $data2=$stmt->fetchAll();
+        $data2=$stmt->fetch();
+        $selectStament=$database->select()
+            ->from('lorry_type')
+            ->where('lorry_type_id','=',$data2['type']);
+        $stmt=$selectStament->execute();
+        $data3=$stmt->fetch();
+        $data2['typename']=$data3['lorry_type_name'];
         echo json_encode(array('result'=>'0','desc'=>'','lorrydetil'=>$data2));
     }else{
         echo json_encode(array('result'=>'3','desc'=>'缺少司机id'));
