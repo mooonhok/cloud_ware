@@ -494,6 +494,24 @@ $app->get('/insurance_goods',function()use($app){
     echo json_encode(array('result'=>'1','desc'=>'success','insurance_goods'=>$data1));
 });
 
+$app->get('/insurance_list',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $page=$app->request->get("page");
+    $page=$page-1;
+    $per_page=$app->request->get("per_page");
+    $insurance_id=$app->request->get('insurance_id');
+    $selectStatement = $database->select()
+        ->from('insurance')
+        ->join('tenant','tenant.tenant_id','=','insurance.tenant_id','INNER')
+        ->whereLike('insurance.insurance_id','%'.$insurance_id.'%')
+        ->orderBy('insurance.id')
+        ->limit((int)$per_page,(int)$page*(int)$per_page);
+    $stmt = $selectStatement->execute();
+    $data= $stmt->fetchAll();
+});
+
 $app->run();
 
 function localhost(){
