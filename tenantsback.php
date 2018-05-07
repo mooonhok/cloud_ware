@@ -987,7 +987,6 @@ $app->get('/lorrys',function()use($app){
                 $stmt=$selectStament->execute();
                 $data3=$stmt->fetch();
                 $data2[$x]['deadweight']=$data3['deadweight'];
-                $data2[$x]['length']=$data3['length'];
                 $selectStament=$database->select()
                     ->from('lorry_type')
                     ->where('lorry_type_id','=',$data3['type']);
@@ -995,6 +994,12 @@ $app->get('/lorrys',function()use($app){
                 $data4=$stmt->fetch();
                 $data2[$x]['typename']=$data4['lorry_type_name'];
                 $data2[$x]['applorryid']=$data3['app_lorry_id'];
+                $selectStament=$database->select()
+                    ->from('lorry_length')
+                    ->where('lorry_length_id','=',$data3['length']);
+                $stmt=$selectStament->execute();
+                $data5=$stmt->fetch();
+                $data2[$x]['length']=$data5['lorry_length'];
             }
             echo json_encode(array('result'=>'0','desc'=>'','lorrys'=>$data2,'count'=>$num));
         }else{
@@ -1023,6 +1028,13 @@ $app->get('/lorrydetil',function()use($app){
         $stmt=$selectStament->execute();
         $data3=$stmt->fetch();
         $data2['typename']=$data3['lorry_type_name'];
+        $selectStament=$database->select()
+            ->from('lorry_length')
+            ->where('lorry_length_id','=',$data2['length']);
+        $stmt=$selectStament->execute();
+        $data5=$stmt->fetch();
+         $data2['length']=$data5['lorry_length'];
+
         echo json_encode(array('result'=>'0','desc'=>'','lorrydetil'=>$data2));
     }else{
         echo json_encode(array('result'=>'3','desc'=>'缺少司机id'));
