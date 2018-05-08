@@ -99,11 +99,16 @@ $app->put('/alterAppLorry0',function()use($app){
     $body = json_decode($body);
     $lorry_status=$body->lorry_status;
     $app_lorry_id=$body->app_lorry_id;
-        $updateStatement = $database->update(array('lorry_status'=>$lorry_status))
+    $updateStatement = $database->update(array('lorry_status'=>$lorry_status))
             ->table('app_lorry')
             ->where('app_lorry_id','=',$app_lorry_id);
-        $affectedRows = $updateStatement->execute();
+    $affectedRows = $updateStatement->execute();
+    if($affectedRows){
         echo json_encode(array("result" => "0", "desc" => "success"));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "没有app_lorry_id"));
+    }
+
 });
 
 $app->run();
