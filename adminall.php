@@ -1050,22 +1050,22 @@ $app->get('/lastinsurance',function()use($app){
                         $arrays1['tenant_id']=$data1['tenant_id'];
                         $arrays1['company'] = $data1['company'];
                         $arrays1['insurance_start_time'] = $data2[$i]['insurance_start_time'];
-                        $arrays1['duration'] = $data2[$i]['duration'];
+//                        $arrays1['duration'] = $data2[$i]['duration'];
                         $arrays1['insurance_amount'] = $data2[$i]['insurance_amount'];
                         $arrays1['insurance_price'] = $data2[$i]['insurance_price'];
                         $arrays1['insurance_id'] = $data2[$i]['insurance_id'];
-                        $selectStatement = $database->select()
-                            ->from('city')
-                            ->where('id', '=', $data2[$i]['from_c_id']);
-                        $stmt = $selectStatement->execute();
-                        $data3 = $stmt->fetch();
-                        $arrays1['from_city'] = $data3['name'];
-                        $selectStatement = $database->select()
-                            ->from('city')
-                            ->where('id', '=', $data2[$i]['receive_c_id']);
-                        $stmt = $selectStatement->execute();
-                        $data4 = $stmt->fetch();
-                        $arrays1['receive_city'] = $data4['name'];
+//                        $selectStatement = $database->select()
+//                            ->from('city')
+//                            ->where('id', '=', $data2[$i]['from_c_id']);
+//                        $stmt = $selectStatement->execute();
+//                        $data3 = $stmt->fetch();
+//                        $arrays1['from_city'] = $data3['name'];
+//                        $selectStatement = $database->select()
+//                            ->from('city')
+//                            ->where('id', '=', $data2[$i]['receive_c_id']);
+//                        $stmt = $selectStatement->execute();
+//                        $data4 = $stmt->fetch();
+//                        $arrays1['receive_city'] = $data4['name'];
                         $selectStatement = $database->select()
                             ->from('lorry')
                             ->where('lorry_id', '=', $data2[$i]['insurance_lorry_id']);
@@ -1079,7 +1079,7 @@ $app->get('/lastinsurance',function()use($app){
                         $stmt = $selectStatement->execute();
                         $data6 = $stmt->fetch();
                         $arrays1['customer_phone'] = $data6['customer_phone'];
-                        $arrays1['goods_name'] = $data2[$i]['g_type'];
+//                        $arrays1['goods_name'] = $data2[$i]['g_type'];
                         array_push($arrays, $arrays1);
                     }
                     echo json_encode(array('result' => '0', 'desc' => '', 'rechanges' => $arrays,'count'=>$num));
@@ -1122,22 +1122,22 @@ $app->get('/lastinsurance',function()use($app){
                         $arrays1['tenant_id']=$data1['tenant_id'];
                         $arrays1['company'] = $data1['company'];
                         $arrays1['insurance_start_time'] = $data2[$i]['insurance_start_time'];
-                        $arrays1['duration'] = $data2[$i]['duration'];
+//                        $arrays1['duration'] = $data2[$i]['duration'];
                         $arrays1['insurance_amount'] = $data2[$i]['insurance_amount'];
                         $arrays1['insurance_price'] = $data2[$i]['insurance_price'];
                         $arrays1['insurance_id'] = $data2[$i]['insurance_id'];
-                        $selectStatement = $database->select()
-                            ->from('city')
-                            ->where('id', '=', $data2[$i]['from_c_id']);
-                        $stmt = $selectStatement->execute();
-                        $data3 = $stmt->fetch();
-                        $arrays1['from_city'] = $data3['name'];
-                        $selectStatement = $database->select()
-                            ->from('city')
-                            ->where('id', '=', $data2[$i]['receive_c_id']);
-                        $stmt = $selectStatement->execute();
-                        $data4 = $stmt->fetch();
-                        $arrays1['receive_city'] = $data4['name'];
+//                        $selectStatement = $database->select()
+//                            ->from('city')
+//                            ->where('id', '=', $data2[$i]['from_c_id']);
+//                        $stmt = $selectStatement->execute();
+//                        $data3 = $stmt->fetch();
+//                        $arrays1['from_city'] = $data3['name'];
+//                        $selectStatement = $database->select()
+//                            ->from('city')
+//                            ->where('id', '=', $data2[$i]['receive_c_id']);
+//                        $stmt = $selectStatement->execute();
+//                        $data4 = $stmt->fetch();
+//                        $arrays1['receive_city'] = $data4['name'];
                         $selectStatement = $database->select()
                             ->from('lorry')
                             ->where('lorry_id', '=', $data2[$i]['insurance_lorry_id']);
@@ -1151,7 +1151,7 @@ $app->get('/lastinsurance',function()use($app){
                         $stmt = $selectStatement->execute();
                         $data6 = $stmt->fetch();
                         $arrays1['customer_phone'] = $data6['customer_phone'];
-                        $arrays1['goods_name'] = $data2[$i]['g_type'];
+//                        $arrays1['goods_name'] = $data2[$i]['g_type'];
                         array_push($arrays, $arrays1);
                     }
                     echo json_encode(array('result' => '0', 'desc' => '', 'rechanges' => $arrays,'count'=>$num));

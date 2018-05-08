@@ -494,37 +494,7 @@ $app->get('/insurance_goods',function()use($app){
     echo json_encode(array('result'=>'1','desc'=>'success','insurance_goods'=>$data1));
 });
 
-$app->get('/insurance_list',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $database=localhost();
-    $page=$app->request->get("page");
-    $page=$page-1;
-    $per_page=$app->request->get("per_page");
-    $insurance_id=$app->request->get('insurance_id');
-    $selectStatement = $database->select()
-        ->from('insurance')
-        ->whereLike('insurance_id','%'.$insurance_id.'%')
-        ->orderBy('id')
-        ->limit((int)$per_page,(int)$page*(int)$per_page);
-    $stmt = $selectStatement->execute();
-    $data= $stmt->fetchAll();
-    for($i=0;$i<count($data);$i++){
-        $selectStatement = $database->select()
-            ->from('tenant')
-            ->where('tenant_id','=',$data[$i]['tenant_id']);
-        $stmt = $selectStatement->execute();
-        $data1= $stmt->fetch();
-        $selectStatement = $database->select()
-            ->from('lorry')
-            ->where('tenant_id','=',$data[$i]['tenant_id']);
-        $stmt = $selectStatement->execute();
-        $data2= $stmt->fetch();
-        $data[$i]['tenant']=$data1;
-        $data[$i]['lorry']=$data2;
-    }
-    echo json_encode(array('result'=>'0','desc'=>'success','insurances'=>$data));
-});
+
 
 $app->run();
 

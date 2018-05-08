@@ -1,7 +1,8 @@
 $(function(){
 var adminid=$.session.get('adminid');
     var page = $.getUrlParam('page');
-    var tenant_id=$.getUrlParam("tenant_id");
+    // var tenant_id=$.getUrlParam("tenant_id");
+    var tenant_id=$.session.get('company');
     loadinsurances(tenant_id,page);
     $("#tenant_sure").on("click",function(){
         tenant_ensure(adminid);
@@ -47,10 +48,9 @@ function loadinsurances(tenant_id,page) {
                                 ,thisData = msg.rechanges;
                             layui.each(thisData, function(index, item){
                             		 arr.push( '<tr><td>'+item.tenant_id+'</td><td>'
-                                    +item.company+'</td><td>'+item.insurance_start_time+'</td><td>'+item.duration+'</td><td>'
+                                    +item.company+'</td><td>'+item.insurance_start_time+'</td><td>'
                                     +item.insurance_amount+'</td><td>'+item.insurance_price+'</td><td>'+
-                                    item.insurance_id+'</td><td>'+item.from_city+'</td><td>'+
-                                    item.receive_city+'</td><td>'+item.plate_number+'</td><td>'+
+                                    item.insurance_id+'</td><td>'+item.plate_number+'</td><td>'+
                                     item.driver_name+'</td><td>'+item.customer_phone+'</td><td>'+item.goods_name+'</td></tr>');
                             });
                             return arr.join('');
