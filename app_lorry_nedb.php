@@ -108,7 +108,27 @@ $app->put('/alterAppLorry0',function()use($app){
     }else{
         echo json_encode(array("result" => "1", "desc" => "没有app_lorry_id"));
     }
+});
 
+$app->get('/getAppLorry_app',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $applorry=$app->request->get("app_lorry_id");
+    if($applorry!=null||$applorry!=null){
+        $selectStatement = $database->select()
+            ->from('app_lorry')
+            ->where('app_lorry_id','=',$applorry);
+        $stmt = $selectStatement->execute();
+        $data= $stmt->fetch();
+        if($data!=null){
+            echo json_encode(array("result"=>"0","desc"=>"","lorrys"=>$data));
+        }else{
+            echo json_encode(array("result"=>"2","desc"=>"司机不存在"));
+        }
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"缺少司机ID"));
+    }
 });
 
 $app->run();
