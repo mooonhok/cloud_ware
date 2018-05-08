@@ -91,6 +91,9 @@ $app->get('/getAppLorry1',function()use($app){
         echo json_encode(array("result"=>"1","desc"=>"缺少司机ID"));
     }
 });
+
+
+
 $app->run();
 
 function localhost(){
