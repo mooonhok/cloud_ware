@@ -167,7 +167,6 @@
 		});
 		
 		function down(type){
-			date();
 			$.ajax({
 				url:url+"download.php/addRecord",
 				dataType:'json',
@@ -176,7 +175,6 @@
 				data:JSON.stringify({
 					sales_id:sessionStorage.getItem('id'),
 					type:type,
-					time:time,
 					ip:returnCitySN["cip"],
 					area:returnCitySN["cname"]
 				}),
@@ -186,30 +184,6 @@
 					$("#alert-content").text("获取后台失败！");$('#alert').modal();
 				}
 			});
-		}
-		
-		var time="";
-		function date(){
-			var date=new Date();
-			var seperator1="-";
-			var seperator2=":";
-			var month=date.getMonth()+1;
-			var strDate=date.getDate();
-			var hour=date.getHours();
-			var minute=date.getMinutes();
-			var second=date.getSeconds();
-			if (month>=1&&month<=9){
-				month="0"+month;
-			}if (strDate>=0&&strDate<=9){
-				strDate="0"+strDate;
-			}if (hour>=0&&hour<=9){
-				hour="0"+hour;
-			}if (minute>=0&&minute<=9){
-				minute="0"+minute;
-			}if (second>=0&&second<=9){
-				second="0"+second;
-			}
-			time=date.getFullYear()+seperator1+month+seperator1+strDate+" "+hour+seperator2+minute+seperator2+second;
 		}
 	</script>
 </body>
