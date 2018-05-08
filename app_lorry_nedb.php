@@ -98,14 +98,12 @@ $app->put('/alterAppLorry0',function()use($app){
     $database = localhost();
     $body = $app->request->getBody();
     $body = json_decode($body);
-    $schedule_id=$body->schedule_id;
-    $order_id=$body->order_id;
+    $lorry_status=$body->lorry_status;
+    $app_lorry_id=$body->app_lorry_id;
     if($tenant_id!=null||$tenant_id!=''){
-        $updateStatement = $database->update(array('exist'=>0))
+        $updateStatement = $database->update(array('lorry_status'=>$lorry_status))
             ->table('app_lorry')
-            ->where('phone','=',$phone)
-            ->where('plate_number','=',$plate_number)
-            ->where('order_id','=',$order_id);
+            ->where('app_lorry_id','=',$app_lorry_id);
         $affectedRows = $updateStatement->execute();
         echo json_encode(array("result" => "0", "desc" => "success"));
     }else{
