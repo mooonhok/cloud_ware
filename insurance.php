@@ -504,12 +504,26 @@ $app->get('/insurance_list',function()use($app){
     $insurance_id=$app->request->get('insurance_id');
     $selectStatement = $database->select()
         ->from('insurance')
-        ->join('tenant','tenant.tenant_id','=','insurance.tenant_id','INNER')
-        ->whereLike('insurance.insurance_id','%'.$insurance_id.'%')
-        ->orderBy('insurance.id')
+        ->whereLike('insurance_id','%'.$insurance_id.'%')
+        ->orderBy('id')
         ->limit((int)$per_page,(int)$page*(int)$per_page);
     $stmt = $selectStatement->execute();
     $data= $stmt->fetchAll();
+    for($i=0;$i<count($data);$i++){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('tenant_id','=',$data[$i]['tenant_id']);
+        $stmt = $selectStatement->execute();
+        $data1= $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('lorry')
+            ->where('tenant_id','=',$data[$i]['tenant_id']);
+        $stmt = $selectStatement->execute();
+        $data2= $stmt->fetch();
+        $data[$i]['tenant']=$data1;
+        $data[$i]['lorry']=$data2;
+    }
+    echo json_encode(array('result'=>'0','desc'=>'success','insurances'=>$data));
 });
 
 $app->run();
