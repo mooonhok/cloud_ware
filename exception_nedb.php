@@ -23,6 +23,7 @@ $app->post('/addException',function()use($app){
     $exception_source=$body->exception_source;
 	$exception_person=$body->exception_person;
 	$exception_comment=$body->exception_comment;
+    date_default_timezone_set("PRC");
 	$exception_time=date('Y-m-d H:i:s',time());
 	$order_id=$body->order_id;
     foreach($body as $key=>$value){
