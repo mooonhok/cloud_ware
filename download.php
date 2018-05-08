@@ -32,7 +32,9 @@ $app->post('/addRecord',function()use($app){
     $body=json_decode($body);
     $sales_id=$body->sales_id;
     $type=$body->type;
-    $time=$body->time;
+    date_default_timezone_set("PRC");
+//    $time=$body->time;
+    $time=date('Y-m-d H:i:s',time());
     $ip=$body->ip;
     $area=$body->area;
     if($sales_id!=null||$sales_id!=""){
