@@ -92,7 +92,26 @@ $app->get('/getAppLorry1',function()use($app){
     }
 });
 
-
+$app->put('/alterAppLorry0',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $schedule_id=$body->schedule_id;
+    $order_id=$body->order_id;
+    if($tenant_id!=null||$tenant_id!=''){
+        $updateStatement = $database->update(array('exist'=>0))
+            ->table('app_lorry')
+            ->where('phone','=',$phone)
+            ->where('plate_number','=',$plate_number)
+            ->where('order_id','=',$order_id);
+        $affectedRows = $updateStatement->execute();
+        echo json_encode(array("result" => "0", "desc" => "success"));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
 
 $app->run();
 

@@ -19,8 +19,10 @@ $app->post('/addAppLorryReject',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database = localhost();
     $tenant_id = $app->request->headers->get("tenant-id");
-    $reason=$app->request->get("reason");
-    $app_lorry_id=$app->request->get("app_lorry_id");
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $reason=$body->reason;
+    $app_lorry_id = $body->app_lorry_id;
     if($tenant_id!=null||$tenant_id!=""){
         if($reason!=null||$reason!=""){
             if($app_lorry_id!=null||$app_lorry_id!=""){
