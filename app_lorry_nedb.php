@@ -122,7 +122,7 @@ $app->get('/getAppLorry_app',function()use($app){
         $stmt = $selectStatement->execute();
         $data= $stmt->fetch();
         if($data!=null){
-            echo json_encode(array("result"=>"0","desc"=>"","lorrys"=>$data));
+            echo json_encode(array("result"=>"0","desc"=>"","lorry"=>$data));
         }else{
             echo json_encode(array("result"=>"2","desc"=>"司机不存在"));
         }
