@@ -43,7 +43,7 @@ $app->post('/addException',function()use($app){
                                 ->into('exception')
                                 ->values(array_values($array));
                             $insertId = $insertStatement->execute(false);
-                            echo json_encode(array("result" => "0", "desc" => "缺少租户id"));
+                            echo json_encode(array("result" => "0", "desc" => ""));
                         }else{
                             echo json_encode(array("result" => "1", "desc" => "缺少运单id"));
                         }
