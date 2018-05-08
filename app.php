@@ -2611,14 +2611,14 @@ $app->post('/change_lorry_status',function()use($app){
     $pic6=$body->pic6;
     $plate_number=$body->plate_number;
     $phone=$body->phone;
-    $id_card=$body->id_card;
+    $id_number=$body->id_card;
     $length=$body->length;
     $name=$body->name;
     $weight=$body->weight;
     $type=$body->type;
     $arrays['plate_number']=$plate_number;
     $arrays['phone']=$phone;
-    $arrays['id_number']=$id_card;
+    $arrays['id_number']=$id_number;
     $arrays['length']=$length;
     $arrays['name']=$name;
     $arrays['deadweight']=$weight;
