@@ -2563,6 +2563,37 @@ $app->get('/get_agreement_html',function()use($app){
     </div><div class="pop_close">关闭</div>';
 });
 
+
+$app->get("/get_lorry_status",function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $lorry_id = $app->request->get("lorry_id");
+    $database=localhost();
+    if($lorry_id!=null||$lorry_id!=""){
+        $selectStament=$database->select()
+            ->from('app_lorry')
+            ->where('exist','=',0)
+            ->where('lorry_status','=',1)
+            ->where('app_lorry_id','=',$lorry_id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetch();
+        if($data){
+            $selectStament=$database->select()
+                ->from('app_lorry_reject')
+                ->join('tenant','tenant.tenant_id','=','app_lorry_reject.tenant_id',"INNER")
+                ->where('app_lorry_reject.app_lorry_id','=',$lorry_id)
+                ->orderBy('app_lorry_reject.time','DESC')
+                ->limit(1);
+            $stmt=$selectStament->execute();
+            $data1=$stmt->fetch();
+            echo json_encode(array('result' => '0', 'desc' => '司机不行','reject'=>$data1));
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '司机良好'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '缺少司机id'));
+    }
+});
 $app->run();
 
 function file_url(){
