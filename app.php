@@ -2594,6 +2594,160 @@ $app->get("/get_lorry_status",function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '缺少司机id'));
     }
 });
+
+$app->post('/change_lorry_status',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body = $app->request->getBody();
+    $body=json_decode($body);
+    $file_url=file_url();
+    $lorry_id=$body->lorryid;
+    $pic1=$body->pic1;
+    $pic2=$body->pic2;
+    $pic3=$body->pic3;
+    $pic4=$body->pic4;
+    $pic5=$body->pic5;
+    $pic6=$body->pic6;
+    $plate_number=$body->plate_number;
+    $phone=$body->phone;
+    $id_card=$body->id_card;
+    $length=$body->length;
+    $name=$body->name;
+    $weight=$body->weight;
+    $type=$body->type;
+    $arrays['plate_number']=$plate_number;
+    $arrays['phone']=$phone;
+    $arrays['id_number']=$id_card;
+    $arrays['length']=$length;
+    $arrays['name']=$name;
+    $arrays['deadweight']=$weight;
+    $arrays['type']=$type;
+    if($pic1){
+        $base64_image_content = $pic1;
+//匹配出图片的格式
+        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+            $type = $result[2];
+            date_default_timezone_set("PRC");
+            $time1 = time();
+            $new_file = "/files/idcard5/" . date('Ymd', $time1) . "/";
+            if (!file_exists($new_file)) {
+//检查是否有该文件夹，如果没有就创建，并给予最高权限
+                mkdir($new_file, 0700);
+            }
+            $new_file = $new_file . $time1 . ".{$type}";
+            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                $lujing3 = $file_url."idcard5/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+            }
+        }
+        $arrays['identity_card_z']=$lujing3;
+    }
+    if($pic2){
+        $base64_image_content = $pic2;
+//匹配出图片的格式
+        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+            $type = $result[2];
+            date_default_timezone_set("PRC");
+            $time1 = time();
+            $new_file = "/files/idcard6/" . date('Ymd', $time1) . "/";
+            if (!file_exists($new_file)) {
+//检查是否有该文件夹，如果没有就创建，并给予最高权限
+                mkdir($new_file, 0700);
+            }
+            $new_file = $new_file . $time1 . ".{$type}";
+            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                $lujing3 = $file_url."idcard6/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+            }
+        }
+        $arrays['identity_card_f']=$lujing3;
+    }
+    if($pic3){
+        $base64_image_content = $pic3;
+//匹配出图片的格式
+        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+            $type = $result[2];
+            date_default_timezone_set("PRC");
+            $time1 = time();
+            $new_file = "/files/lorry/" . date('Ymd', $time1) . "/";
+            if (!file_exists($new_file)) {
+//检查是否有该文件夹，如果没有就创建，并给予最高权限
+                mkdir($new_file, 0700);
+            }
+            $new_file = $new_file . $time1 . ".{$type}";
+            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                $lujing3 = $file_url."lorry/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+            }
+        }
+        $arrays['driver_license_fp']=$lujing3;
+    }
+    if($pic4){
+        $base64_image_content = $pic4;
+//匹配出图片的格式
+        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+            $type = $result[2];
+            date_default_timezone_set("PRC");
+            $time1 = time();
+            $new_file = "/files/lorry2/" . date('Ymd', $time1) . "/";
+            if (!file_exists($new_file)) {
+//检查是否有该文件夹，如果没有就创建，并给予最高权限
+                mkdir($new_file, 0700);
+            }
+            $new_file = $new_file . $time1 . ".{$type}";
+            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                $lujing3 = $file_url."lorry2/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+            }
+        }
+        $arrays['driver_license_tp']=$lujing3;
+    }
+    if($pic5){
+        $base64_image_content = $pic5;
+//匹配出图片的格式
+        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+            $type = $result[2];
+            date_default_timezone_set("PRC");
+            $time1 = time();
+            $new_file = "/files/lorry3/" . date('Ymd', $time1) . "/";
+            if (!file_exists($new_file)) {
+//检查是否有该文件夹，如果没有就创建，并给予最高权限
+                mkdir($new_file, 0700);
+            }
+            $new_file = $new_file . $time1 . ".{$type}";
+            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                $lujing3 = $file_url."lorry3/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+            }
+        }
+        $arrays['driving_license_fp']=$lujing3;
+    }
+    if($pic6){
+        $base64_image_content = $pic6;
+//匹配出图片的格式
+        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+            $type = $result[2];
+            date_default_timezone_set("PRC");
+            $time1 = time();
+            $new_file = "/files/lorry4/" . date('Ymd', $time1) . "/";
+            if (!file_exists($new_file)) {
+//检查是否有该文件夹，如果没有就创建，并给予最高权限
+                mkdir($new_file, 0700);
+            }
+            $new_file = $new_file . $time1 . ".{$type}";
+            if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                $lujing3 = $file_url."lorry4/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+            }
+        }
+        $arrays['driving_license_tp']=$lujing3;
+    }
+    $arrays['lorry_status']=0;
+    $updateStatement = $database->update($arrays)
+        ->table('app_lorry')
+        ->where('app_lorry_id','=',$lorry_id);
+    $affectedRows = $updateStatement->execute();
+    if($affectedRows>0){
+        echo json_encode(array('result' => '0', 'desc' => 'success'));
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '未找到该司机信息'));
+    }
+});
 $app->run();
 
 function file_url(){
