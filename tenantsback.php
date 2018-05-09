@@ -47,69 +47,6 @@ $app->post('/sign',function()use($app){
     }
 });
 
-//获取历史清单
-$app->get('/lscheduling',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $database = localhost();
-    $admin_id=$app->request->get('adminid');
-    if($admin_id!=null||$admin_id!=""){
-        $selectStament=$database->select()
-            ->from('admin')
-            ->where('exist','=',0)
-            ->where('type','=','3')
-            ->where('id','=',$admin_id);
-        $stmt=$selectStament->execute();
-        $data=$stmt->fetch();
-        if($data!=null){
-            $selectStament=$database->select()
-                ->from('tenant_admin')
-                ->where('exist','=',0)
-                ->where('admin_id','=',$admin_id);
-            $stmt=$selectStament->execute();
-            $data2=$stmt->fetchAll();
-            if($data2!=null){
-               for($i=0;$i<count($data2);$i++){
-                   $selectStament=$database->select()
-                       ->from('scheduling')
-                       ->where('exist','=',0)
-                       ->where('tenant_id','=',$data2[$i]['tenant_id']);
-                   $stmt=$selectStament->execute();
-                   $data3=$stmt->fetchAll();
-                   for($j=0;$j<count($data3);$j++){
-                       $selectStament=$database->select()
-                           ->from('city')
-                           ->where('id','=',$data3[$j]['send_city_id']);
-                       $stmt=$selectStament->execute();
-                       $data4=$stmt->fetch();
-                       $data3[$j]['sendcity']=$data4['name'];
-                       $selectStament=$database->select()
-                           ->from('city')
-                           ->where('id','=',$data3[$j]['receive_city_id']);
-                       $stmt=$selectStament->execute();
-                       $data5=$stmt->fetch();
-                       $data3[$j]['receivercity']=$data5['name'];
-                       $selectStament=$database->select()
-                           ->from('customer')
-                           ->where('tenant_id','=',$data3[$j]['tenant_id'])
-                           ->where('customer_id','=',$data3[$j]['receiver_id']);
-                       $stmt=$selectStament->execute();
-                       $data6=$stmt->fetch();
-                       $data3[$i]['receivername']=$data6['customer_name'];
-                       $data3[$i]['receivertel']=$data6['customer_phone'];
-                   }
-               }
-                echo json_encode(array('result' => '0', 'desc' =>'','scheduling'=>$data3));
-            }else{
-                echo json_encode(array('result' => '3', 'desc' =>'该管理账号下没有公司'));
-            }
-        }else{
-            echo json_encode(array('result' => '2', 'desc' => '管理员账号不存在'));
-        }
-    }else{
-        echo json_encode(array('result' => '1', 'desc' => '管理员id为空'));
-    }
-});
 //统计运单
 $app->get('/ordertongji',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
