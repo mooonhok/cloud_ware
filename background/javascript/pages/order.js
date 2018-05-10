@@ -83,10 +83,7 @@ function loadorders(order_id,page,company) {
                                 +item.sender.customer_name+'</td><td>'
                                 +item.receiver.customer_name+'</td><td>'
                                 +item.order_datetime1+'</td><td>'
-                                +info+'</td><td id="d'+item.order_id + '"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
-                                $("#d"+item.order_id).on('click',function(){
-                                    alert(1);
-                                });
+                                +info+'</td><td onclick="order_xq(1'+item.order_id+')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
                             });
                             return arr.join('');
                         }();
