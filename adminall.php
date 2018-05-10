@@ -1597,6 +1597,18 @@ $app->get('/operate_admin',function()use($app){
 //    echo json_encode(array("result"=>"1","desc"=>"操作成功"));
 //});
 
+$app->get('/get_tenant_boss',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $selectStatement = $database->select()
+        ->from('admin')
+        ->where('type','=',3);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    echo json_encode(array("result"=>"0","desc"=>"success",'admins'=>$data));
+});
+
 $app->run();
 
 function file_url(){

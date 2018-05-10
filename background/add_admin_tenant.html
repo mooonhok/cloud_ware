@@ -35,14 +35,41 @@
             width:600px;
             height:400px;
             margin:0 auto;
-            background-color:red;
         }
-        .t_body_a{
+        .t_body_a,.t_body_b{
             width:100%;
             height:50px;
+            margin:0 auto;
         }
         .t_body_a_a,.t_body_a_b{
             float:left;
+        }
+        .t_body_a_a,.t_body_b_a{
+            margin-left:180px;
+            font-size:20px;
+        }
+        .t_body_top{
+            margin:0 auto;
+            margin-top:30px;
+            width:100%;
+            text-align:center;
+            height:50px;
+            line-height:50px;
+            font-size:30px;
+            font-weight:900;
+        }
+        .t_body_b>div{
+            float:left;
+        }
+        .tianjia{
+            width:150px;
+            height:30px;
+            border-radius:10px;
+            background-color:deepskyblue;
+            margin:0 auto;
+            text-align:center;
+            line-height:30px;
+            color: white;
         }
     </style>
 </head>
@@ -135,10 +162,11 @@
             </div>
         </header>
         <div class="t_body">
+            <div class="t_body_top">钻石用户添加子用户</div>
             <div class="t_body_a">
                 <div class="t_body_a_a">多用户管理员</div>
                 <div class="t_body_a_b">
-                    <select>
+                    <select id="t_body_a_c">
                          <option>江苏酉铭</option>
                     </select>
                 </div>
@@ -146,12 +174,12 @@
             <div class="t_body_b">
                 <div class="t_body_b_a">下属公司</div>
                 <div class="t_body_b_b">
-                    <select>
+                    <select id="t_body_b_c">
                         <option>江苏物流</option>
                     </select>
                 </div>
             </div>
-            <div></div>
+            <div class="tianjia">添加</div>
         </div>
         <footer class="btm-ft">
             <p class="clear">
@@ -162,7 +190,23 @@
 
 </div>
 <script>
-
+    $(function() {
+        $.ajax({
+            url: p_url+"city.php/province",
+            dataType: 'json',
+            type: 'get',
+            ContentType: "application/json;charset=utf-8",
+            data: JSON.stringify({}),
+            success: function(msg) {
+                for(var i = 0; i < msg.province.length; i++) {
+                    $("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+                }
+            },
+            error: function(e) {
+                alert("省份列表1信息出错!");
+            }
+        });
+    })
 
 </script>
 </body>
