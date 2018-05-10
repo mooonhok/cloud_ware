@@ -76,7 +76,14 @@ function loadorders(order_id,page,company) {
                                 }else if(item.order_status==5){
                                       info='收货';
                                 }
-                                arr.push( '<tr><td>'+item.order_id+'</td><td>'+item.tenant.company+'</td><td>'+item.from_city.name+'</td><td>'+item.receiver.receiver_city+'</td><td>'+'"'+item.sender.customer_name+'"'+'</td><td>'+item.receiver.customer_name+'</td><td>'+item.order_datetime1+'</td><td>'+info+'</td><td onclick="order_xq('+item.order_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
+                                arr.push( '<tr><td>'+item.order_id+'</td><td>'
+                                +item.tenant.company+'</td><td>'
+                                +item.from_city.name+'</td><td>'
+                                +item.receiver.receiver_city+'</td><td>'
+                                +item.sender.customer_name+'</td><td>'
+                                +item.receiver.customer_name+'</td><td>'
+                                +item.order_datetime1+'</td><td>'
+                                +info+'</td><td onclick="order_xq('+'"'+item.order_id +'"'+ ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
                             });
                             return arr.join('');
                         }();
