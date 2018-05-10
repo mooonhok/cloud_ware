@@ -92,6 +92,7 @@ function loadorders(order_id,page,company) {
 
 
 function order_xq(id){
+	alert(id);
     $(".tenant_tk").css("display","block");
     $(".tenant_tk div input").val("");
     layer.open({
