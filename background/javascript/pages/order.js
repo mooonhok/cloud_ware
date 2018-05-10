@@ -76,6 +76,7 @@ function loadorders(order_id,page,company) {
                                 }else if(item.order_status==5){
                                       info='收货';
                                 }
+                                var order_id=item.order_id;
                                 arr.push( '<tr><td>'+item.order_id+'</td><td>'
                                 +item.tenant.company+'</td><td>'
                                 +item.from_city.name+'</td><td>'
@@ -84,7 +85,11 @@ function loadorders(order_id,page,company) {
                                 +item.receiver.customer_name+'</td><td>'
                                 +item.order_datetime1+'</td><td>'
                                 +info+'</td><td id="d'+item.order_id + '"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
-                                alert(item.order_id);
+                                // $("#d"+order_id).on('click',function(){
+                                //     var id=$(this).attr('id');
+                                //     order_xq(id);
+                                // });
+                                alert($("#d"+order_id).attr('id'));
                             });
                             return arr.join('');
                         }();
