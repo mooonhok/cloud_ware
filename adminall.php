@@ -1609,6 +1609,26 @@ $app->get('/get_tenant_boss',function()use($app){
     echo json_encode(array("result"=>"0","desc"=>"success",'admins'=>$data));
 });
 
+$app->get('/get_tenant_son',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $selectStatement = $database->select()
+        ->from('tenant_admin');
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    $array=array();
+    for($i=0;$i<count($data);$i++){
+      array_push($array,$array[$i]['tenant_id']);
+    }
+    $selectStatement = $database->select()
+        ->from('tenant')
+        ->whereNotIn('tenant_id',array_values($array));
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    echo json_encode(array("result"=>"0","desc"=>"success",'tenants'=>$data));
+});
+
 $app->run();
 
 function file_url(){
