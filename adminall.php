@@ -1620,7 +1620,7 @@ $app->get('/get_tenant_son',function()use($app){
     $array=array();
     for($i=0;$i<count($data);$i++){
         if($array){
-            array_merge($array,$data[$i]['tenant_id']);
+            array_push($array,$data[$i]['tenant_id']);
         }else{
             $array[0]=$data[$i]['tenant_id'];
         }
