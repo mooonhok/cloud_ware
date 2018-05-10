@@ -71,6 +71,17 @@
             line-height:30px;
             color: white;
         }
+        .t_body_b_d{
+            width:200px;
+            height:30px;
+            font-size:25px;
+            text-align: center;
+            line-height:30px;
+            border:1px solid rgb(111,111,111);
+            border-radius:10px;
+            margin: 0 auto;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -167,7 +178,6 @@
                 <div class="t_body_a_a">多用户管理员</div>
                 <div class="t_body_a_b">
                     <select id="t_body_a_c">
-                         <option>江苏酉铭</option>
                     </select>
                 </div>
             </div>
@@ -175,10 +185,10 @@
                 <div class="t_body_b_a">下属公司</div>
                 <div class="t_body_b_b">
                     <select id="t_body_b_c">
-                        <option>江苏物流</option>
                     </select>
                 </div>
             </div>
+            <!--<div class="t_body_b_d">+</div>-->
             <div class="tianjia">添加</div>
         </div>
         <footer class="btm-ft">
@@ -192,20 +202,67 @@
 <script>
     $(function() {
         $.ajax({
-            url: p_url+"city.php/province",
+            url: p_url+"adminall.php/get_tenant_boss",
             dataType: 'json',
             type: 'get',
             ContentType: "application/json;charset=utf-8",
             data: JSON.stringify({}),
             success: function(msg) {
-                for(var i = 0; i < msg.province.length; i++) {
-                    $("#province1").append('<option value="' + msg.province[i].id + '">' + msg.province[i].name + '</option>');
+                for(var i = 0; i < msg.admins.length; i++) {
+                    $("#t_body_a_c").append('<option value="' + msg.admins[i].id + '">' + msg.admins[i].username + '</option>');
                 }
             },
             error: function(e) {
-                alert("省份列表1信息出错!");
+                alert("信息出错!");
             }
         });
+
+        $.ajax({
+            url: p_url+"adminall.php/get_tenant_son",
+            dataType: 'json',
+            type: 'get',
+            ContentType: "application/json;charset=utf-8",
+            data: JSON.stringify({}),
+            success: function(msg) {
+                for(var i = 0; i < msg.tenants.length; i++) {
+                    $("#t_body_b_c").append('<option value="' + msg.tenants[i].tenant_id + '">' + msg.tenants[i].company + '</option>');
+                }
+            },
+            error: function(e) {
+                alert("信息出错!");
+            }
+        });
+
+        $(".tianjia").on("click",function() {
+            var boss=$("#t_body_a_c").val();
+            var son=$("#t_body_b_c").val();
+            if(boss&&son){
+                $.ajax({
+                    url: p_url+"adminall.php/add_tenant_admin",
+                    dataType: 'json',
+                    type: 'post',
+                    ContentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({
+                        id:boss,
+                        tenant_id:son,
+                    }),
+                    success: function(msg) {
+                        if(msg.result==0){
+                            window.reload();
+                        }else{
+                            alert(msg.desc);
+                        }
+                    },
+                    error: function(e) {
+                        alert("省份列表1信息出错!");
+                    }
+                });
+            }else{
+                   alert('不能为空');
+            }
+
+        })
+
     })
 
 </script>

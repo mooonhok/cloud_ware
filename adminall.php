@@ -1633,6 +1633,25 @@ $app->get('/get_tenant_son',function()use($app){
     echo json_encode(array("result"=>"0","desc"=>"success",'tenants'=>$data));
 });
 
+$app->post('/add_tenant_admin',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $id=$body->id;
+    $tenant_id=$body->tenant_id;
+    $insertStatement = $database->insert(array('admin_id','tenant_id'))
+        ->into('tenant_admin')
+        ->values(array($id,$tenant_id));
+    $insertId = $insertStatement->execute(false);
+    if($insertId){
+        echo json_encode(array("result"=>"0","desc"=>"success"));
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"信息出错"));
+    }
+});
+
 $app->run();
 
 function file_url(){
