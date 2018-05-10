@@ -89,7 +89,7 @@ function loadorders(order_id,page,company) {
                                 //     var id=$(this).attr('id');
                                 //     order_xq(id);
                                 // });
-                                alert($("#d"+order_id).html());
+                                alert(order_id);
                             });
                             return arr.join('');
                         }();
