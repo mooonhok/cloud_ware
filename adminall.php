@@ -1661,6 +1661,50 @@ $app->post('/add_tenant_admin',function()use($app){
     }
 });
 
+$app->post('/add_type',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $type=$body->type;
+    $selectStatement = $database->select()
+        ->from('lorry_type');
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    $insertStatement = $database->insert(array('lorry_type_id','lorry_type'))
+        ->into('lorry_type')
+        ->values(array((count($data)+1),$type));
+    $insertId = $insertStatement->execute(false);
+    if($insertId){
+        echo json_encode(array("result"=>"0","desc"=>"success"));
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"信息出错"));
+    }
+});
+
+$app->post('/add_length',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $length=$body->length;
+    $selectStatement = $database->select()
+        ->from('lorry_length');
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    $insertStatement = $database->insert(array('lorry_length_id','lorry_length'))
+        ->into('lorry_length')
+        ->values(array((count($data)+1),$length));
+    $insertId = $insertStatement->execute(false);
+    if($insertId){
+        echo json_encode(array("result"=>"0","desc"=>"success"));
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"信息出错"));
+    }
+});
+
 $app->run();
 
 function file_url(){

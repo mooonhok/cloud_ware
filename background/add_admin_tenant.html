@@ -189,7 +189,25 @@
                 </div>
             </div>
             <!--<div class="t_body_b_d">+</div>-->
-            <div class="tianjia">添加</div>
+            <div class="tianjia" id="tianjia">添加</div>
+            <div class="t_body_top">添加车辆长度</div>
+            <div class="t_body_a">
+                <div class="t_body_a_a">车辆长度</div>
+                <div class="t_body_a_b">
+                        <input  id="t_body_a_b_a1"/>
+                </div>
+            </div>
+            <!--<div class="t_body_b_d">+</div>-->
+            <div class="tianjia" id="tianjia1">添加</div>
+            <div class="t_body_top">添加车辆类型</div>
+            <div class="t_body_a">
+                <div class="t_body_a_a">车辆类型</div>
+                <div class="t_body_a_b">
+                         <input id="t_body_a_b_a2"/>
+                </div>
+            </div>
+            <!--<div class="t_body_b_d">+</div>-->
+            <div class="tianjia" id="tianjia2">添加</div>
         </div>
         <footer class="btm-ft">
             <p class="clear">
@@ -233,7 +251,7 @@
             }
         });
 
-        $(".tianjia").on("click",function() {
+        $("#tianjia").on("click",function() {
             var boss=$("#t_body_a_c").val();
             var son=$("#t_body_b_c").val();
             if(boss&&son){
@@ -248,21 +266,75 @@
                     }),
                     success: function(msg) {
                         if(msg.result==0){
+                            layer.msg('添加成功');
                             window.location.reload()
                         }else{
                             alert(msg.desc);
                         }
                     },
                     error: function(e) {
-                        alert("省份列表1信息出错!");
+                        alert("信息出错!");
                     }
                 });
             }else{
                    alert('不能为空');
             }
-
+        })
+        $("#tianjia1").on("click",function() {
+            var length=$("#t_body_a_b_a1").val();
+            if(length){
+                $.ajax({
+                    url: p_url+"adminall.php/add_length",
+                    dataType: 'json',
+                    type: 'post',
+                    ContentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({
+                        length:length,
+                    }),
+                    success: function(msg) {
+                        if(msg.result==0){
+                            layer.msg('添加成功');
+                            window.location.reload()
+                        }else{
+                            alert(msg.desc);
+                        }
+                    },
+                    error: function(e) {
+                        alert("信息出错!");
+                    }
+                });
+            }else{
+                alert('不能为空');
+            }
         })
 
+        $("#tianjia2").on("click",function() {
+            var type=$("#t_body_a_b_a2").val();
+            if(type){
+                $.ajax({
+                    url: p_url+"adminall.php/add_type",
+                    dataType: 'json',
+                    type: 'post',
+                    ContentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({
+                        type:type,
+                    }),
+                    success: function(msg) {
+                        if(msg.result==0){
+                            layer.msg('添加成功');
+                            window.location.reload()
+                        }else{
+                            alert(msg.desc);
+                        }
+                    },
+                    error: function(e) {
+                        alert("信息出错!");
+                    }
+                });
+            }else{
+                alert('不能为空');
+            }
+        })
     })
 
 </script>
