@@ -88,7 +88,7 @@ function loadorders(order_id,page,company) {
                                 //     var id=$(this).attr('id');
                                 //     order_xq(id);
                                 // });
-                                alert($("#d"+item.order_id).attr('id'));
+                                alert($("#d"+item.order_id).attr('id')+'//'+item.order_id);
                             });
                             return arr.join('');
                         }();
