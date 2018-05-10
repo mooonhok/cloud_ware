@@ -264,6 +264,7 @@ $app->get("/goods_order_id",function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $order_id=$app->request->get('order_id');
+    $order_id=$order_id.substr(1);
     $selectStatement=$database->select()
         ->from('orders')
         ->where('order_id','=',$order_id)

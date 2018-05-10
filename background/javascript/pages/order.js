@@ -83,7 +83,7 @@ function loadorders(order_id,page,company) {
                                 +item.sender.customer_name+'</td><td>'
                                 +item.receiver.customer_name+'</td><td>'
                                 +item.order_datetime1+'</td><td>'
-                                +info+'</td><td onclick="order_xq('+item.order_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
+                                +info+'</td><td onclick="order_xq(d'+item.order_id + ')"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
                             });
                             return arr.join('');
                         }();
@@ -99,7 +99,6 @@ function loadorders(order_id,page,company) {
 
 
 function order_xq(id){
-	alert(id);
     $(".tenant_tk").css("display","block");
     $(".tenant_tk div input").val("");
     layer.open({
