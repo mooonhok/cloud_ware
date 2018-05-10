@@ -1619,7 +1619,11 @@ $app->get('/get_tenant_son',function()use($app){
     $data = $stmt->fetchAll();
     $array=array();
     for($i=0;$i<count($data);$i++){
-      array_merge($array,$array[$i]['tenant_id']);
+        if($array){
+            array_push($array,$array[$i]['tenant_id']);
+        }else{
+            $array=$array[$i]['tenant_id'];
+        }
     }
     $selectStatement = $database->select()
         ->from('tenant')
