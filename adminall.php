@@ -1625,11 +1625,20 @@ $app->get('/get_tenant_son',function()use($app){
             $array[0]=$data[$i]['tenant_id'];
         }
     }
-    $selectStatement = $database->select()
-        ->from('tenant')
-        ->whereNotIn('tenant_id',array_values($array));
-    $stmt = $selectStatement->execute();
-    $data = $stmt->fetchAll();
+    $data=array();
+    if($array){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->whereNotIn('tenant_id',array_values($array));
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+    }else{
+        $selectStatement = $database->select()
+            ->from('tenant');
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+    }
+
     echo json_encode(array("result"=>"0","desc"=>"success",'tenants'=>$data));
 });
 
