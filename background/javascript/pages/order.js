@@ -84,10 +84,11 @@ function loadorders(order_id,page,company) {
                                 +item.receiver.customer_name+'</td><td>'
                                 +item.order_datetime1+'</td><td>'
                                 +info+'</td><td id="d'+item.order_id + '"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
-                                $("#d"+item.order_id).on('click',function(){
-                                    var id=$(this).attr('id');
-                                    order_xq(id);
-                                });
+                                // $("#d"+item.order_id).on('click',function(){
+                                //     var id=$(this).attr('id');
+                                //     order_xq(id);
+                                // });
+                                alert($("#d"+item.order_id).attr('id'));
                             });
                             return arr.join('');
                         }();
