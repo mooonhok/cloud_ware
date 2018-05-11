@@ -97,7 +97,7 @@ function scheduling_xq(id){
     $(".tenant_tk").css("display","block");
     $(".tenant_tk div input").val("");
     $.ajax({
-        url: p_url+"scheduling.php/scheduling_orders_scheduling_id?scheduling_id="+id+"",
+        url: p_url+"adminall.php/schedulingdetil?scheduling_id="+id+"",
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -107,9 +107,18 @@ function scheduling_xq(id){
             $("#tenant_id").val(msg.lorry.lorry_id);
             $("#tenant_num").val(msg.lorry.driver_name);
             $("#app_id").val(msg.lorry.plate_number);
+            var a='';
             for(var i=0;i<msg.order_goods.length;i++){
-                var a='<div></div>'
+                a+='<tr><td>'+msg.order_goods.order_id+'</td><td>'
+                   +msg.order_goods.goods_name+'</td><td>'
+                   +msg.order_goods.goods_count+'</td><td>'
+                   +msg.order_goods.goods_capacity+'</td><td>'
+                   +msg.order_goods.goods_weight+'</td><td>'
+                    +msg.order_goods.need+'</td><td>'
+                     +msg.order_goods.goods_package+'</td><td>'
+                      +msg.order_goods.goods_values+'</td></tr>'
             }
+            $("#tb4").append(a);
         },
         error: function(xhr) {
             alert("获取后台失败！");

@@ -192,9 +192,24 @@
                     <input type="text" id="tenant_id" disabled="disabled"/>
                     <input type="text" id="tenant_num" disabled="disabled"/>
                     <input type="text" id="app_id" disabled="disabled"/>
-                    <input type="text" id="secret" disabled="disabled"/>
-                    <input type="text" id="customer_name" disabled="disabled"/>
-                    <input type="text" id="customer_phone" disabled="disabled"/>
+                      <div id="ordertables">
+                    	<table style="width:100%;">
+                    <thead>
+                    <tr>
+                        <th>运单号</th>
+                        <th>货物名称</th>
+                        <th>货物数量</th>
+                        <th>货物体积</th>
+                        <th>货物重量</th>
+                        <th>特殊需求</th>
+                        <th>货物价值</th>
+                        <th>货物包装</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tb4">
+                    </tbody>
+                </table>
+                    </div>
                 </div>
                 <button id="order_close">关闭</button>
             </div>
