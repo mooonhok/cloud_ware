@@ -90,6 +90,9 @@ $app->post('/client_version',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $client_version = $app->request->params('client_version');
+    $client_sys = $app->request->params('client_sys');
+    $is_must = $app->request->params('is_must');
+    $client_sys_i = $app->request->params('client_sys_i');
     $database = localhost();
     $file_url=file_url();
     $version_asar = $_FILES["version_asar"]["name"];
@@ -119,6 +122,9 @@ $app->post('/client_version',function()use($app){
         $array['version']=$client_version;
         $array['asar_url']=$lujing1;
         $array['package_url']=$lujing2;
+        $array['system']=$client_sys;
+        $array['is_must']=$is_must;
+        $array['type']=$client_sys_i;
         $insertStatement = $database->insert(array_keys($array))
             ->into('client')
             ->values(array_values($array));

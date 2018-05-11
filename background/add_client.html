@@ -32,9 +32,20 @@
             width:500px;
             margin:30px auto;
         }
-        .client_name,.client_asar,.client_json{
+        .client_name,.client_asar,.client_json,.client_system{
             height:50px;
             text-align: center;
+        }
+        .client_system{
+            width:200px;
+            margin:0 auto;
+        }
+        .client_system>*{
+            float:left;
+        }
+        .client_sys{
+            width:130px;
+            height:30px;
         }
         input{
             width:150px;
@@ -145,7 +156,9 @@
                 <div id="" class="company_top">江苏酉铭客户端更新发布</div>
                 <div class="company_body">
                     <div class="client_name">新版本名<input type="text" name="client_version"/></div>
-                    <div class="client_system">电脑位数<select><option>32位</option><option>64位</option></select></div>
+                    <div class="client_system"><div class="client_sys_z">电脑位数</div><select class="client_sys" name="client_sys"><option value="1">32位</option><option value="0">64位</option></select></div>
+                    <div class="client_system"><div class="client_sys_z">是否强制</div><select class="client_sys" name="is_must"><option value="1">是</option><option value="0">否</option></select></div>
+                    <div class="client_system"><div class="client_sys_z">版本</div><select class="client_sys_i" name=""><option value="1">测试版</option><option value="2">演示版</option><option value="0">正式版</option></select></div>
                     <div  class="client_asar">asar文件<input type="file" name="version_asar"/></div>
                     <div class="client_json">json文件<input type="file" name="version_json"/></div>
                     <div class="client_json"><input type="submit" value="确定" class="version_sure"/></div>
