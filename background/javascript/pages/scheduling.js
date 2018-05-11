@@ -115,7 +115,7 @@ function scheduling_xq(id){
                    +msg.order_goods[i].goods_capacity+'</td><td>'
                    +msg.order_goods[i].goods_weight+'</td><td>'
                     +msg.order_goods[i].need+'</td><td>'
-                     +msg.order_goods[i].goodspackage+'</td><td>'
+                     +msg.order_goods[i].goodpackage+'</td><td>'
                       +msg.order_goods[i].goods_value+'</td></tr>'
             }
             $("#tb4").append(a);
