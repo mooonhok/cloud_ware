@@ -58,26 +58,7 @@ $(function(){
         time2=$(".time2").val();
 //     alert(time1+"&&&&"+time2);
         loadorders(tenant_id,page,payway,time1,time2);
-        $("#count1").html("");
-         $("#count2").html("");
-         $("#count3").html("");
-	   $.ajax({
-		 url: p_url+"tenantsback.php/ordertongji?tenant-id="+tenant_id+"&time1="+time1+"&time2="+time2,
-	        dataType: 'json',
-	        type: 'get',
-	        ContentType: "application/json;charset=utf-8",
-	        data: JSON.stringify({}),
-	        success: function(msg) {
-	        	if(msg.result==0){
-	        		$("#count1").html(msg.countorder);
-	        		$("#count2").html(msg.countorder1);
-	        		$("#count3").html(msg.countorder2);
-	        	}
-	        },
-	        error: function(xhr) {
-	            alert("获取后台失败！");
-	        }
-	    });
+   
     })
     }
 });
@@ -109,6 +90,26 @@ function loadorders(tenant_id,page,payway,time1,time2) {
         ContentType: "application/json;charset=utf-8",
         data: JSON.stringify({}),
         success: function(msg) {
+        	     $("#count1").html("");
+         $("#count2").html("");
+         $("#count3").html("");
+	   $.ajax({
+		 url: p_url+"tenantsback.php/ordertongji?tenant-id="+tenant_id+"&time1="+time1+"&time2="+time2+"&page="+page+"&perpage=10&payway="+payway,
+	        dataType: 'json',
+	        type: 'get',
+	        ContentType: "application/json;charset=utf-8",
+	        data: JSON.stringify({}),
+	        success: function(msg) {
+	        	if(msg.result==0){
+	        		$("#count1").html(msg.countorder);
+	        		$("#count2").html(msg.countorder1);
+	        		$("#count3").html(msg.countorder2);
+	        	}
+	        },
+	        error: function(xhr) {
+	            alert("获取后台失败！");
+	        }
+	    });
             console.log(msg)
             $("#tb1").html("");
             if(msg.goods_orders.length!=0){
