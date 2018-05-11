@@ -756,9 +756,7 @@ $app->get('/lagrs',function()use($app){
         $num=count($data);
         $num2=0;
         if($data!=null){
-            for($j=0;$j<count($data);$j++){
-                $num2+=$data[$j]['freight'];
-            }
+
              $page=(int)$page-1;
             $selectStament=$database->select()
                 ->from('agreement')
@@ -767,6 +765,9 @@ $app->get('/lagrs',function()use($app){
                 ->limit((int)$perpage, (int)$perpage * (int)$page);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetchAll();
+            for($j=0;$j<count($data1);$j++){
+                $num2+=$data1[$j]['freight'];
+            }
             if($data1!=null){
                 for($i=0;$i<count($data1);$i++){
                     $selectStament=$database->select()
@@ -801,9 +802,7 @@ $app->get('/lagrs',function()use($app){
             $num=count($data);
             $num2=0;
             if($data!=null){
-                for($j=0;$j<count($data);$j++){
-                    $num2+=$data[$j]['freight'];
-                }
+
                 $page=(int)$page-1;
                 $selectStament=$database->select()
                     ->from('agreement')
@@ -812,6 +811,9 @@ $app->get('/lagrs',function()use($app){
                     ->limit((int)$perpage, (int)$perpage * (int)$page);
                 $stmt=$selectStament->execute();
                 $data1=$stmt->fetchAll();
+                for($j=0;$j<count($data1);$j++){
+                    $num2+=$data1[$j]['freight'];
+                }
                 if($data1!=null){
                     for($i=0;$i<count($data1);$i++){
                         $selectStament=$database->select()
