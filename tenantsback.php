@@ -53,9 +53,13 @@ $app->get('/ordertongji',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database = localhost();
     $tenant_id=$app->request->get('tenant-id');
+    $page=$app->request->get('page');
+    $perpage=$app->request->get('perpage');
+    $paymethod=$app->request->get('payway');
     $time1=$app->request->get('time1');
     $time2=$app->request->get('time2');
     date_default_timezone_set("PRC");
+    $page=(int)$page-1;
     if($time2==null||$time2==""){
         $time2=date('Y-m-d H:i:s',time());
     }
@@ -68,10 +72,13 @@ $app->get('/ordertongji',function()use($app){
                 ->where('orders.order_datetime1','<',$time2)
                 ->where('goods.tenant_id', '=', $tenant_id)
                 ->where('orders.tenant_id', '=', $tenant_id)
+                ->where('pay_method','=',$paymethod)
+                ->limit((int)$perpage, (int)$perpage * (int)$page)
                 ->whereNotIn('orders.order_status', array(-1, -2, 0, 6))
                 ->where('orders.exist', '=', 0);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
+            $page=(int)$page-1;
             if ($data != null) {
                 $num1 = 0;
                 $num2 = 0;
@@ -94,6 +101,8 @@ $app->get('/ordertongji',function()use($app){
                 ->where('orders.order_datetime1','<',$time2)
                 ->where('goods.tenant_id', '=', $tenant_id)
                 ->where('orders.tenant_id', '=', $tenant_id)
+                ->where('pay_method','=',$paymethod)
+                ->limit((int)$perpage, (int)$perpage * (int)$page)
                 ->whereNotIn('orders.order_status', array(-1, -2, 0, 6))
                 ->where('orders.exist', '=', 0);
             $stmt = $selectStatement->execute();
