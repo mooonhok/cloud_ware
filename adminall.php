@@ -1597,6 +1597,158 @@ $app->get('/operate_admin',function()use($app){
 //    echo json_encode(array("result"=>"1","desc"=>"操作成功"));
 //});
 
+$app->get('/get_tenant_boss',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $selectStatement = $database->select()
+        ->from('admin')
+        ->where('type','=',3);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    echo json_encode(array("result"=>"0","desc"=>"success",'admins'=>$data));
+});
+
+$app->get('/get_tenant_son',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $selectStatement = $database->select()
+        ->from('tenant_admin');
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    $array=array();
+    for($i=0;$i<count($data);$i++){
+        if($array){
+            array_push($array,$data[$i]['tenant_id']);
+        }else{
+            $array[0]=$data[$i]['tenant_id'];
+        }
+    }
+    $data=array();
+    if($array){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->whereNotIn('tenant_id',array_values($array));
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+    }else{
+        $selectStatement = $database->select()
+            ->from('tenant');
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+    }
+
+    echo json_encode(array("result"=>"0","desc"=>"success",'tenants'=>$data));
+});
+
+$app->post('/add_tenant_admin',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $id=$body->id;
+    $tenant_id=$body->tenant_id;
+    $admin_id=$body->adminid;
+    $insertStatement = $database->insert(array('admin_id','tenant_id'))
+        ->into('tenant_admin')
+        ->values(array($id,$tenant_id));
+    $insertId = $insertStatement->execute(false);
+    if($insertId){
+        $selectStatement = $database->select()
+            ->from('tenant_admin');
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        date_default_timezone_set("PRC");
+        $shijian=date("Y-m-d H:i:s",time());
+        $insertStatement = $database->insert(array('service_id','tab_name','tab_id','tenant_id','time'))
+            ->into('operate_admin')
+            ->values(array($admin_id,'tenant_admin',count($data),-1,$shijian));
+        $insertId = $insertStatement->execute(false);
+        echo json_encode(array("result"=>"0","desc"=>"success"));
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"信息出错"));
+    }
+});
+
+$app->post('/add_type',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $type=$body->type;
+    $admin_id=$body->adminid;
+    $selectStatement = $database->select()
+        ->from('lorry_type')
+        ->where('lorry_type_name','=',$type);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetch();
+    if($data1){
+        echo json_encode(array("result"=>"2","desc"=>"不可重复添加"));
+    }else{
+        $selectStatement = $database->select()
+            ->from('lorry_type');
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        $insertStatement = $database->insert(array('lorry_type_id','lorry_type_name'))
+            ->into('lorry_type')
+            ->values(array((count($data)+1),$type));
+        $insertId = $insertStatement->execute(false);
+        if($insertId){
+            date_default_timezone_set("PRC");
+            $shijian=date("Y-m-d H:i:s",time());
+            $insertStatement = $database->insert(array('service_id','tab_name','tab_id','tenant_id','time'))
+                ->into('operate_admin')
+                ->values(array($admin_id,'lorry_type',(count($data)+1),-1,$shijian));
+            $insertId = $insertStatement->execute(false);
+            echo json_encode(array("result"=>"0","desc"=>"success"));
+        }else{
+            echo json_encode(array("result"=>"1","desc"=>"信息出错"));
+        }
+    }
+
+});
+
+$app->post('/add_length',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $length=$body->length;
+    $admin_id=$body->adminid;
+    $selectStatement = $database->select()
+        ->from('lorry_length')
+        ->where('lorry_length','=',$length);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetch();
+    if($data){
+        echo json_encode(array("result"=>"2","desc"=>"不可重复添加"));
+    }else{
+        $selectStatement = $database->select()
+            ->from('lorry_length');
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        $insertStatement = $database->insert(array('lorry_length_id','lorry_length'))
+            ->into('lorry_length')
+            ->values(array((count($data)+1),$length));
+        $insertId = $insertStatement->execute(false);
+        if($insertId){
+            date_default_timezone_set("PRC");
+            $shijian=date("Y-m-d H:i:s",time());
+            $insertStatement = $database->insert(array('service_id','tab_name','tab_id','tenant_id','time'))
+                ->into('operate_admin')
+                ->values(array($admin_id,'lorry_length',(count($data)+1),-1,$shijian));
+            $insertId = $insertStatement->execute(false);
+            echo json_encode(array("result"=>"0","desc"=>"success"));
+        }else{
+            echo json_encode(array("result"=>"1","desc"=>"信息出错"));
+        }
+    }
+});
+
 $app->get('/schedulingdetil',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
