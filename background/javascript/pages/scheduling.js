@@ -109,14 +109,14 @@ function scheduling_xq(id){
             $("#app_id").val(msg.lorry.plate_number);
             var a='';
             for(var i=0;i<msg.order_goods.length;i++){
-                a+='<tr><td>'+msg.order_goods.order_id+'</td><td>'
-                   +msg.order_goods.goods_name+'</td><td>'
-                   +msg.order_goods.goods_count+'</td><td>'
-                   +msg.order_goods.goods_capacity+'</td><td>'
-                   +msg.order_goods.goods_weight+'</td><td>'
-                    +msg.order_goods.need+'</td><td>'
-                     +msg.order_goods.goods_package+'</td><td>'
-                      +msg.order_goods.goods_value+'</td></tr>'
+                a+='<tr><td>'+msg.order_goods[i].order_id+'</td><td>'
+                   +msg.order_goods[i].goods_name+'</td><td>'
+                   +msg.order_goods[i].goods_count+'</td><td>'
+                   +msg.order_goods[i].goods_capacity+'</td><td>'
+                   +msg.order_goods[i].goods_weight+'</td><td>'
+                    +msg.order_goods[i].need+'</td><td>'
+                     +msg.order_goods[i].goods_package+'</td><td>'
+                      +msg.order_goods[i].goods_value+'</td></tr>'
             }
             $("#tb4").append(a);
         },
