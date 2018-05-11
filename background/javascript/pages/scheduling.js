@@ -116,7 +116,7 @@ function scheduling_xq(id){
                    +msg.order_goods.goods_weight+'</td><td>'
                     +msg.order_goods.need+'</td><td>'
                      +msg.order_goods.goods_package+'</td><td>'
-                      +msg.order_goods.goods_values+'</td></tr>'
+                      +msg.order_goods.goods_value+'</td></tr>'
             }
             $("#tb4").append(a);
         },
