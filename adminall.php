@@ -1633,7 +1633,7 @@ $app->get('/schedulingdetil',function()use($app){
         $data2[$i]['need']=$data4['special_need'];
         $selectStatement = $database->select()
             ->from('goods_package')
-            ->where('goods_package__id','=',$data4['goods_package_id']);
+            ->where('goods_package_id','=',$data4['goods_package_id']);
         $stmt = $selectStatement->execute();
         $data5 = $stmt->fetch();
         $data2[$i]['goodpackage']=$data5['goods_package'];
