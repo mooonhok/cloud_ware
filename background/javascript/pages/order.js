@@ -74,7 +74,11 @@ function loadorders(order_id,page,company) {
                                 }else if(item.order_status==4){
                                       info='到达';
                                 }else if(item.order_status==5){
-                                      info='收货';
+                                      info='异常';
+                                }else if(item.order_status==6){
+                                    info='作废';
+                                }else if(item.order_status==7){
+                                    info='签收';
                                 }
                                 arr.push( '<tr><td>'+item.order_id+'</td><td>'
                                 +item.tenant.company+'</td><td>'
