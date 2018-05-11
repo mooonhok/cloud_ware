@@ -62,17 +62,23 @@ function loadschedulings(scheduling_id,page,company) {
                             layui.each(thisData, function(index, item){
                                 var info='-';
                                 if(item.scheduling_status==1){
-                                    info='等待装车';
+                                    info='司机未确认';
                                 }else if(item.scheduling_status==2){
-                                    info='装车完成';
+                                    info='司机已确认';
                                 }else if(item.scheduling_status==3){
-                                    info='司机确认';
+                                    info='装车完成';
                                 }else if(item.scheduling_status==4){
                                     info='在途';
                                 }else if(item.scheduling_status==5){
                                     info='到达';
                                 }else if(item.scheduling_status==6){
-                                    info='取消';
+                                    info='退单中';
+                                }else if(item.scheduling_status==7){
+                                    info='已退单';
+                                } else if(item.scheduling_status==8){
+                                    info='出险';
+                                }else if(item.scheduling_status==9){
+                                    info='已处理单子';
                                 }
                                 arr.push( '<tr><td>'+item.scheduling_id+'</td><td>'+item.tenant.company+'</td><td>'+item.tenant_suoshu.name+'</td><td>'+item.send_city.name+'</td><td>'+item.receive_city.name+'</td><td>'+item.receiver.customer_name+'</td><td>'+item.scheduling_datetime+'</td><td>'+info+'</td><td class="look"><span style="color:blue; cursor:pointer;">查看</span></td></tr>');
                             });
