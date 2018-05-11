@@ -1631,6 +1631,7 @@ $app->get('/schedulingdetil',function()use($app){
         $data2[$i]['goods_capacity']=$data4['goods_capacity'];
         $data2[$i]['goods_weight']=$data4['goods_weight'];
         $data2[$i]['need']=$data4['special_need'];
+        $data2[$i]['goods_value']=$data4['goods_value'];
         $selectStatement = $database->select()
             ->from('goods_package')
             ->where('goods_package_id','=',$data4['goods_package_id']);
