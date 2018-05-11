@@ -107,6 +107,7 @@ function scheduling_xq(id){
             $("#tenant_id").val(msg.lorry.lorry_id);
             $("#tenant_num").val(msg.lorry.driver_name);
             $("#app_id").val(msg.lorry.plate_number);
+            $("#tb4").html("");
             var a='';
             for(var i=0;i<msg.order_goods.length;i++){
                 a+='<tr><td>'+msg.order_goods[i].order_id+'</td><td>'
