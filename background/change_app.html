@@ -159,6 +159,13 @@
 
 </div>
 <script>
+    var adminid=$.session.get('adminid');
+    if(!adminid){
+        location.href = 'index.html';
+    }
+</script>
+<script>
+
         $(".version_sure").on('click',function(){
             var file1=document.getElementById("app_apk").files[0];
             var app_v=document.getElementById("app_version").value;

@@ -242,4 +242,10 @@
 <div>11</div>
 
 </body>
+<script>
+    var adminid=$.session.get('adminid');
+    if(!adminid){
+        location.href = 'index.html';
+    }
+</script>
 </html>

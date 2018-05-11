@@ -309,6 +309,10 @@
 </body>
 <script>
     $(function() {
+        var adminid=$.session.get('adminid');
+        if(!adminid){
+            location.href = 'index.html';
+        }
         var p_url='http://api.uminfor.cn/';
         $.ajax({
             url: p_url+"city.php/province",

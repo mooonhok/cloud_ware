@@ -159,6 +159,10 @@
 
 </div>
 <script>
+    var adminid=$.session.get('adminid');
+    if(!adminid){
+        location.href = 'index.html';
+    }
     var admintype=$.session.get('admintype');
     if(admintype!=1){
        $(".company_body").text('您暂无权限');
