@@ -63,6 +63,7 @@ $app->get('/ordertongji',function()use($app){
     if($time2==null||$time2==""){
         $time2=date('Y-m-d H:i:s',time());
     }
+    if($paymethod!=null||$paymethod!=""){
     if($tenant_id!=null||$tenant_id!=''){
         if($time1!=null||$time1!="") {
             $selectStatement = $database->select()
@@ -126,6 +127,70 @@ $app->get('/ordertongji',function()use($app){
         }
     }else{
         echo json_encode(array('result'=>'1','desc'=>'租户id为空'));
+    }
+    }else{
+        if($tenant_id!=null||$tenant_id!=''){
+            if($time1!=null||$time1!="") {
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+                    ->where('orders.order_datetime1','>',$time1)
+                    ->where('orders.order_datetime1','<',$time2)
+                    ->where('goods.tenant_id', '=', $tenant_id)
+                    ->where('orders.tenant_id', '=', $tenant_id)
+                    ->limit((int)$perpage, (int)$perpage * (int)$page)
+                    ->whereNotIn('orders.order_status', array(-1, -2, 0, 6))
+                    ->where('orders.exist', '=', 0);
+                $stmt = $selectStatement->execute();
+                $data = $stmt->fetchAll();
+                $page=(int)$page-1;
+                if ($data != null) {
+                    $num1 = 0;
+                    $num2 = 0;
+                    $num3 = 0;
+                    for ($i = 0; $i < count($data); $i++) {
+                        $num1 += $data[$i]['order_cost'];
+                        $num2 += $data[$i]['transfer_cost'];
+                        if ($data[$i]['pay_method'] == 1) {
+                            $num3 += $data[$i]['order_cost'];
+                        }
+                    }
+                    echo json_encode(array('result' => '0', 'desc' => '', 'countorder' => $num1, 'countorder1' => $num2, 'countorder2' => $num3));
+                } else {
+                    echo json_encode(array('result' => '2', 'desc' => '尚未有数据'));
+                }
+            }else{
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+                    ->where('orders.order_datetime1','<',$time2)
+                    ->where('goods.tenant_id', '=', $tenant_id)
+                    ->where('orders.tenant_id', '=', $tenant_id)
+                    ->limit((int)$perpage, (int)$perpage * (int)$page)
+                    ->whereNotIn('orders.order_status', array(-1, -2, 0, 6))
+                    ->where('orders.exist', '=', 0);
+                $stmt = $selectStatement->execute();
+                $data = $stmt->fetchAll();
+                if ($data != null) {
+                    $num1 = 0;
+                    $num2 = 0;
+                    $num3 = 0;
+                    for ($i = 0; $i < count($data); $i++) {
+                        $num1 += $data[$i]['order_cost'];
+                        $num2 += $data[$i]['transfer_cost'];
+                        if ($data[$i]['pay_method'] == 1) {
+                            $num3 += $data[$i]['order_cost'];
+                        }
+                    }
+                    echo json_encode(array('result' => '0', 'desc' => '', 'countorder' => $num1, 'countorder1' => $num2, 'countorder2' => $num3));
+                } else {
+                    echo json_encode(array('result' => '2', 'desc' => '尚未有数据'));
+                }
+
+            }
+        }else{
+            echo json_encode(array('result'=>'1','desc'=>'租户id为空'));
+        }
     }
 });
 
