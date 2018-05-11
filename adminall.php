@@ -1670,7 +1670,7 @@ $app->post('/add_type',function()use($app){
     $type=$body->type;
     $selectStatement = $database->select()
         ->from('lorry_type')
-        ->where('lorry_type','=',$type);
+        ->where('lorry_type_name','=',$type);
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetch();
     if($data1){
@@ -1680,7 +1680,7 @@ $app->post('/add_type',function()use($app){
             ->from('lorry_type');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        $insertStatement = $database->insert(array('lorry_type_id','lorry_type'))
+        $insertStatement = $database->insert(array('lorry_type_id','lorry_type_name'))
             ->into('lorry_type')
             ->values(array((count($data)+1),$type));
         $insertId = $insertStatement->execute(false);
