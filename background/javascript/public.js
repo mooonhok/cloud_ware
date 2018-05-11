@@ -161,6 +161,11 @@ $(function(){
         });
 	})
 
+    var adminid=$.session.get('adminid');
+	if(!adminid){
+        location.href = 'index.html';
+	}
+
 });
 
 //捐赠

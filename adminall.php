@@ -1650,11 +1650,22 @@ $app->post('/add_tenant_admin',function()use($app){
     $body=json_decode($body);
     $id=$body->id;
     $tenant_id=$body->tenant_id;
+    $admin_id=$body->adminid;
     $insertStatement = $database->insert(array('admin_id','tenant_id'))
         ->into('tenant_admin')
         ->values(array($id,$tenant_id));
     $insertId = $insertStatement->execute(false);
     if($insertId){
+        $selectStatement = $database->select()
+            ->from('tenant_admin');
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        date_default_timezone_set("PRC");
+        $shijian=date("Y-m-d H:i:s",time());
+        $insertStatement = $database->insert(array('service_id','tab_name','tab_id','tenant_id','time'))
+            ->into('operate_admin')
+            ->values(array($admin_id,'tenant_admin',count($data),-1,$shijian));
+        $insertId = $insertStatement->execute(false);
         echo json_encode(array("result"=>"0","desc"=>"success"));
     }else{
         echo json_encode(array("result"=>"1","desc"=>"信息出错"));
@@ -1668,6 +1679,7 @@ $app->post('/add_type',function()use($app){
     $body=$app->request->getBody();
     $body=json_decode($body);
     $type=$body->type;
+    $admin_id=$body->adminid;
     $selectStatement = $database->select()
         ->from('lorry_type')
         ->where('lorry_type_name','=',$type);
@@ -1685,6 +1697,12 @@ $app->post('/add_type',function()use($app){
             ->values(array((count($data)+1),$type));
         $insertId = $insertStatement->execute(false);
         if($insertId){
+            date_default_timezone_set("PRC");
+            $shijian=date("Y-m-d H:i:s",time());
+            $insertStatement = $database->insert(array('service_id','tab_name','tab_id','tenant_id','time'))
+                ->into('operate_admin')
+                ->values(array($admin_id,'lorry_type',(count($data)+1),-1,$shijian));
+            $insertId = $insertStatement->execute(false);
             echo json_encode(array("result"=>"0","desc"=>"success"));
         }else{
             echo json_encode(array("result"=>"1","desc"=>"信息出错"));
@@ -1700,6 +1718,7 @@ $app->post('/add_length',function()use($app){
     $body=$app->request->getBody();
     $body=json_decode($body);
     $length=$body->length;
+    $admin_id=$body->adminid;
     $selectStatement = $database->select()
         ->from('lorry_length')
         ->where('lorry_length','=',$length);
@@ -1717,6 +1736,12 @@ $app->post('/add_length',function()use($app){
             ->values(array((count($data)+1),$length));
         $insertId = $insertStatement->execute(false);
         if($insertId){
+            date_default_timezone_set("PRC");
+            $shijian=date("Y-m-d H:i:s",time());
+            $insertStatement = $database->insert(array('service_id','tab_name','tab_id','tenant_id','time'))
+                ->into('operate_admin')
+                ->values(array($admin_id,'lorry_length',(count($data)+1),-1,$shijian));
+            $insertId = $insertStatement->execute(false);
             echo json_encode(array("result"=>"0","desc"=>"success"));
         }else{
             echo json_encode(array("result"=>"1","desc"=>"信息出错"));
