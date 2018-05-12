@@ -4158,7 +4158,7 @@ $app->get('/limitGoodsOrders16',function()use($app){
                     ->where('orders.order_status','=',1)
                     ->where('orders.inventory_type','=',1)
                     ->where('orders.exist','=',0)
-                    ->whereLike('.city.name','%'.$reach_city.'%')
+                    ->whereLike('city.name','%'.$reach_city.'%')
                     ->orderBy('orders.order_id')
                     ->limit((int)$size,(int)$offset);
                 $stmt = $selectStatement->execute();
