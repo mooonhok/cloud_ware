@@ -84,7 +84,7 @@ function loadorders(tenant_id,page,payway,time1,time2) {
     	payway="";
     }
     $.ajax({
-        url: p_url+"tenantsback.php/getGoodsOrders?tenant-id="+tenant_id+"&page="+page+"&perpage=10&payway="+payway+"&time1="+time1+"&time2="+time2,
+        url: p_url+"tenantsback.php/getGoodsOrders?tenant-id="+tenant_id+"&page="+page+"&perpage=8&payway="+payway+"&time1="+time1+"&time2="+time2,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
@@ -94,7 +94,7 @@ function loadorders(tenant_id,page,payway,time1,time2) {
          $("#count2").html("");
          $("#count3").html("");
 	   $.ajax({
-		 url: p_url+"tenantsback.php/ordertongji?tenant-id="+tenant_id+"&time1="+time1+"&time2="+time2+"&page="+page+"&perpage=10&payway="+payway,
+		 url: p_url+"tenantsback.php/ordertongji?tenant-id="+tenant_id+"&time1="+time1+"&time2="+time2+"&page="+page+"&perpage=8&payway="+payway,
 	        dataType: 'json',
 	        type: 'get',
 	        ContentType: "application/json;charset=utf-8",
