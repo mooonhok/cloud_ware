@@ -741,13 +741,20 @@ $app->get('/lagrs',function()use($app){
     $time2=$app->request->get('time2');
     date_default_timezone_set("PRC");
     if($time2==null||$time2==""){
-        $time2=date('Y-m-d H:i:s',time());
+        $a=date('Y',time());
+        $b=date('m',time());
+        $c=date('d',time());
+        $time2=$a.'年'.$b.'月'.$c.'日';
     }
     if($time1!=null||$time1!=""){
     if($tenant_id!=null||$tenant_id!=""){
+        $e=date('Y',strtotime($time1));
+        $f=date('m',strtotime($time1));
+        $g=date('d',strtotime($time1));
+        $time3=$e.'年'.$f.'月'.$g.'日';
         $selectStament=$database->select()
             ->from('agreement')
-            ->where('agreement_time','>',$time1)
+            ->where('agreement_time','>',$time3)
             ->where('agreement_time','<',$time2)
             ->where('exist','=',0)
             ->where('tenant_id','=',$tenant_id);
@@ -756,12 +763,13 @@ $app->get('/lagrs',function()use($app){
         $num=count($data);
         $num2=0;
         if($data!=null){
-
              $page=(int)$page-1;
             $selectStament=$database->select()
                 ->from('agreement')
                 ->where('exist','=',0)
                 ->where('tenant_id','=',$tenant_id)
+                ->where('agreement_time','>',$time3)
+                ->where('agreement_time','<',$time2)
                 ->limit((int)$perpage, (int)$perpage * (int)$page);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetchAll();
@@ -802,11 +810,11 @@ $app->get('/lagrs',function()use($app){
             $num=count($data);
             $num2=0;
             if($data!=null){
-
                 $page=(int)$page-1;
                 $selectStament=$database->select()
                     ->from('agreement')
                     ->where('exist','=',0)
+                    ->where('agreement_time','<',$time2)
                     ->where('tenant_id','=',$tenant_id)
                     ->limit((int)$perpage, (int)$perpage * (int)$page);
                 $stmt=$selectStament->execute();
