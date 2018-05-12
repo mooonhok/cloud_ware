@@ -2748,6 +2748,37 @@ $app->post('/change_lorry_status',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '未找到该司机信息'));
     }
 });
+
+$app->get('/tongji_wait_sure_schedulings',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $lorry_id = $app->request->get("lorry_id");
+    if($lorry_id!=''||$lorry_id!=null){
+        $selectStament=$database->select()
+            ->from('app_lorry')
+            ->where('exist','=',0)
+            ->where('lorry_status','=',2)
+            ->where('app_lorry_id','=',$lorry_id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetch();
+        if($data){
+            $selectStament=$database->select()
+                ->from('lorry')
+                ->where('exist','=',0)
+                ->where('driver_phone','=',$data['phone'])
+                ->where('app_lorry_id','=',$lorry_id);
+            $stmt=$selectStament->execute();
+            $data=$stmt->fetch();
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '司机id不存在'));
+    }
+
+});
+
 $app->run();
 
 function file_url(){
