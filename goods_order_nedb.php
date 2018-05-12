@@ -1845,11 +1845,14 @@ $app->get('/getGoodsOrdersNum6',function()use($app){
         $selectStatement = $database->select()
             ->from('orders')
             ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+            ->join('customer','customer.customer_id','=','orders.receiver_id','INNER')
+            ->join('city','city.id','=','customer.customer_city_id','INNER')
             ->where('goods.tenant_id','=',$tenant_id)
             ->where('orders.tenant_id','=',$tenant_id)
+            ->where('customer.tenant_id','=',$tenant_id)
             ->where('orders.order_status','=',1)
             ->where('orders.inventory_type','=',1)
-            ->whereLike('orders.reach_city','%'.$reach_city.'%')
+            ->whereLike('city.name','%'.$reach_city.'%')
             ->where('orders.exist','=',0);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
@@ -4147,12 +4150,15 @@ $app->get('/limitGoodsOrders16',function()use($app){
                 $selectStatement = $database->select()
                     ->from('orders')
                     ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+                    ->join('customer','customer.customer_id','=','orders.receiver_id','INNER')
+                    ->join('city','city.id','=','customer.customer_city_id','INNER')
                     ->where('goods.tenant_id','=',$tenant_id)
                     ->where('orders.tenant_id','=',$tenant_id)
+                    ->where('customer.tenant_id','=',$tenant_id)
                     ->where('orders.order_status','=',1)
                     ->where('orders.inventory_type','=',1)
                     ->where('orders.exist','=',0)
-                    ->whereLike('orders.reach_city','%'.$reach_city.'%')
+                    ->whereLike('.city.name','%'.$reach_city.'%')
                     ->orderBy('orders.order_id')
                     ->limit((int)$size,(int)$offset);
                 $stmt = $selectStatement->execute();
