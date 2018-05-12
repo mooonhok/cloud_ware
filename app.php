@@ -889,6 +889,85 @@ $app->post('/upintro',function()use($app){
     }
 });
 
+$app->get('/wait_schedulings',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $lorry_id = $app->request->get("lorry_id");
+    $arrays=array();
+//    $arraysa=array();
+    if($lorry_id!=null||$lorry_id!=""){
+        $selectStament=$database->select()
+            ->from('app_lorry')
+            ->where('exist','=',0)
+            ->where('flag','=',0)
+            ->where('app_lorry_id','=',$lorry_id);
+        $stmt=$selectStament->execute();
+        $data1=$stmt->fetch();
+        if($data1!=null){
+            $selectStament=$database->select()
+                ->from('lorry')
+                ->where('exist','=',0)
+                ->where('tenant_id','!=','0')
+                ->where('driver_phone','=',$data1['phone']);
+            $stmt=$selectStament->execute();
+            $data2=$stmt->fetchAll();
+            if($data2!=null){
+                for($x=0;$x<count($data2);$x++){
+                    $selectStament=$database->select()
+                        ->from('scheduling')
+                        ->where('scheduling_status','=',1)
+                        ->whereIn('is_alter',array(0,3))
+                        ->where('tenant_id','=',$data2[$x]['tenant_id'])
+                        ->where('lorry_id','=',$data2[$x]['lorry_id'])
+                        ->orderBy('change_datetime','desc');
+                    $stmt=$selectStament->execute();
+                    $data3=$stmt->fetchAll();
+
+                    for($i=0;$i<count($data3);$i++){
+                        $selectStament=$database->select()
+                            ->from('customer')
+                            ->where('tenant_id','=',$data3[$i]['tenant_id'])
+                            ->where('customer_id','=',$data3[$i]['receiver_id']);
+                        $stmt=$selectStament->execute();
+                        $data4=$stmt->fetch();
+                        $arrays1['sure_image']=$data3[$i]['sure_img'];
+                        $arrays1['scheduling_id']=$data3[$i]['scheduling_id'];
+                        $arrays1['customer_name']=$data4['customer_name'];
+                        $arrays1['customer_phone']=$data4['customer_phone'];
+                        $arrays1['scheduling_status']=$data3[$i]['scheduling_status'];
+                        $selectStament=$database->select()
+                            ->from('city')
+                            ->where('id','=',$data4['customer_city_id']);
+                        $stmt=$selectStament->execute();
+                        $data5=$stmt->fetch();
+                        $arrays1['address']=$data4['customer_address'];
+                        $selectStament=$database->select()
+                            ->from('city')
+                            ->where('id','=',$data3[$i]['send_city_id']);
+                        $stmt=$selectStament->execute();
+                        $data6=$stmt->fetch();
+                        $arrays1['sendcity']=$data6['name'];
+                        $selectStament=$database->select()
+                            ->from('city')
+                            ->where('id','=',$data3[$i]['receive_city_id']);
+                        $stmt=$selectStament->execute();
+                        $data7=$stmt->fetch();
+                        $arrays1['receivecity']=$data7['name'];
+                        array_push($arrays,$arrays1);
+                    }
+                }
+                echo json_encode(array('result' => '0', 'desc' => '','schedules'=>$arrays));
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '暂无数据'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '缺少司机id'));
+    }
+});
 
 //历史清单列表
 $app->get('/schistory',function()use($app){
