@@ -511,7 +511,7 @@ $app->post('/getbyperson',function()use($app){
                 }
                 echo json_encode(array("result"=>"0","desc"=>"",'mini_tenants'=>$arrays));
             }else{
-                echo json_encode(array("result"=>"2","desc"=>"尚未有公司加盟"));
+                echo json_encode(array("result"=>"3","desc"=>"尚未有公司加盟"));
             }
         }else{
             $selectStatement = $database->select()
