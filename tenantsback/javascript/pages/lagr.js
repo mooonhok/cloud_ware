@@ -62,7 +62,7 @@ function loadorders(tenant_id,page,time1,time2) {
         page=1;
     }
     $.ajax({
-        url: p_url+"tenantsback.php/lagrs?tenant-id="+tenant_id+"&page="+page+"&perpage=10&time1="+time1+"&time2="+time2,
+        url: p_url+"tenantsback.php/lagrs?tenant-id="+tenant_id+"&page="+page+"&perpage=8&time1="+time1+"&time2="+time2,
         dataType: 'json',
         type: 'get',
         ContentType: "application/json;charset=utf-8",
