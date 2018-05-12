@@ -21,9 +21,9 @@ $app->post('/addGood',function()use($app) {
     $order_id = $body->order_id;
     $goods_name = $body->goods_name;
     $goods_weight= $body->goods_weight;
-    $goods_package_id= $body->goods_package_id;
-    $goods_count=$body->goods_count;
-    $goods_value=$body->goods_value;
+//    $goods_package_id= $body->goods_package_id;
+//    $goods_count=$body->goods_count;
+//    $goods_value=$body->goods_value;
     $array=array();
     foreach($body as $key=>$value){
         $array[$key]=$value;
@@ -33,7 +33,6 @@ $app->post('/addGood',function()use($app) {
             if($order_id!=null||$order_id!=''){
                 if($goods_name!=null||$goods_name!=''){
                     if($goods_weight!=null||$goods_weight!=''){
-                        if($goods_count!=null||$goods_count!=''){
                             $array['tenant_id']=$tenant_id;
                             $array['exist']=0;
                                 $insertStatement = $database->insert(array_keys($array))
@@ -41,9 +40,6 @@ $app->post('/addGood',function()use($app) {
                                     ->values(array_values($array));
                                 $insertId = $insertStatement->execute(false);
                                 echo json_encode(array("result" => "0", "desc" => "success"));
-                        }else{
-                                echo json_encode(array("result" => "1", "desc" => "缺少货物数量"));
-                        }
                     }else{
                         echo json_encode(array("result" => "2", "desc" => "缺少货物重量"));
                     }
