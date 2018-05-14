@@ -1074,7 +1074,7 @@ $app->post('/wx_order', function () use ($app) {
                         echo json_encode(array("result" => "2", "desc" => "", "orders" => ''));
                     }
         } else {
-            echo json_encode(array("result" => "3", "desc" => "租户idkong", "orders" => ""));
+            echo json_encode(array("result" => "3", "desc" => "租户id为空", "orders" => ""));
         }
 
 });
