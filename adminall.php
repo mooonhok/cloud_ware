@@ -662,7 +662,7 @@ $app->get('/tenants',function()use($app){
                 }
                 echo json_encode(array('result' => '0', 'desc' => '','tenants'=>$data,'count'=>$num));
             }else{
-                echo json_encode(array('result' => '1', 'desc' => '尚未有公司'));
+                echo json_encode(array('result' => '3', 'desc' => '尚未有公司'));
             }
         }else {
             $page=(int)$page-1;
