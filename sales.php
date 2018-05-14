@@ -603,7 +603,7 @@ $app->get('/sales',function()use($app){
             echo json_encode(array('result' => '1', 'desc' => '业务员不存在','sales'=>''));
         }
     }else{
-        echo json_encode(array('result' => '1', 'desc' => '缺少销售人员id','sales'=>''));
+        echo json_encode(array('result' => '2', 'desc' => '缺少销售人员id','sales'=>''));
     }
 });
 //添加业务员
