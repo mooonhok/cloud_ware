@@ -121,7 +121,6 @@ $app->put('/alterGood',function()use($app){
     $goods_name=$body->goods_name;
     $goods_weight=$body->goods_weight;
     $goods_package_id=$body->goods_package_id;
-    $goods_count=$body->goods_count;
     $goods_value=$body->goods_value;
     $array=array();
     foreach($body as $key=>$value){
@@ -133,16 +132,12 @@ $app->put('/alterGood',function()use($app){
                 if($goods_weight!=null||$goods_weight!=''){
                     if($goods_package_id!=null||$goods_package_id!=''){
                         if($goods_value!=null||$goods_value!=''){
-                            if($goods_count!=null||$goods_count!=''){
                                 $updateStatement = $database->update($array)
                                     ->table('goods')
                                     ->where('tenant_id','=',$tenant_id)
                                     ->where('order_id','=',$order_id);
                                 $affectedRows = $updateStatement->execute();
                                 echo json_encode(array("result" => "0", "desc" => "success"));
-                            }else{
-                                echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
-                            }
                         }else{
                             echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
                         }
