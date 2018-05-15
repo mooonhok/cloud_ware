@@ -1165,12 +1165,12 @@ $app->get('/sandoandg',function()use($app){
                 if($data5['goods_count']){
                     $arrays1['goods_count'] = $data5['goods_count'];
                 }else{
-                    $arrays1['goods_count'] = '-';
+                    $arrays1['goods_count'] = '—';
                 }
                 if($data5['goods_capacity']){
                     $arrays1['goods_capacity'] = $data5['goods_capacity'];
                 }else{
-                    $arrays1['goods_capacity'] = '-';
+                    $arrays1['goods_capacity'] = '—';
                 }
                 $arrays1['goods_weight'] = $data5['goods_weight'];
                 $selectStament = $database->select()
