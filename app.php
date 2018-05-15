@@ -2414,7 +2414,6 @@ $app->get('/agreement_lorrys',function()use($app){
          }else{
              $data2[$i]['count_zon']='—';
          }
-         $data2[$i]['count_zon']=$data3['count_zon'];
      }
      $data5=array_unique($data5);
      for($x=0;$x<count($data5);$x++){
