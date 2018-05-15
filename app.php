@@ -18,9 +18,14 @@ $app->post('/change_app',function ()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $file_url=file_url();
     $phone = $app->request->params('client_version');
-    unlink('/files/app/jiaofu.apk');
+
     if(isset($_FILES["app_apk"]["name"])){
+        unlink('/files/app/jiaofu.apk');
         move_uploaded_file($_FILES["app_apk"]["tmp_name"],"/files/app/jiaofu.apk");
+    }
+    if(isset($_FILES["app_ipa"]["name"])){
+        unlink('/files/app/jiaofu.ipa');
+        move_uploaded_file($_FILES["app_ipa"]["tmp_name"],"/files/app/jiaofu.ipa");
     }
 });
 
