@@ -88,7 +88,7 @@ $app->post('/scheduling',function()use($app,$mail){
     $data4 = $stmt->fetch();
 
 //    $title=$body->title;//邮件标题
-    $emailaddress='jsjjrsbx@126.com';//收件邮箱地址
+    $emailaddress='417656325@qq.com';//收件邮箱地址
     $sendname='江苏人寿保险';//收件人称呼
 //    $message=$body->text;//邮件内容
 //    $message='<table border="1" cellspacing="0" cellpadding="0" width="600px;">'.
