@@ -18,7 +18,7 @@ require './email/SMTP.php';
 $mail = new PHPMailer(true);
 
 \Slim\Slim::registerAutoloader();
-$app = new \Slim\Slim();
+$app = new \Slim\Slim(array( 'debug' => true ));
 $app->post('/scheduling',function()use($app,$mail){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
