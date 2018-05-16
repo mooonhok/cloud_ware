@@ -207,13 +207,13 @@ $app->post('/scheduling',function()use($app,$mail){
     $stmt = $selectStatement->execute();
     $data5= $stmt->fetch();
     $message.='<tr style="height:30px">'.
-        '<th style="width:600px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000"><a href="http://api.uminfor.cn/insurance/insurancegoods.html?scheduling_id='.$value.'">'.$value.''.'</a></th>'.
+        '<th style="width:600px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000"><a href="http://api.uminfo.cn/insurance/insurancegoods.html?scheduling_id='.$value.'">'.$value.''.'</a></th>'.
         '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_count"].'</th>'.
         '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_weight"].'</th>'.
         '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_cost"].'</th>'.
         '</tr>';
         }
-    $message.='<a href="http://api.uminfor.cn/insurance/returnemail.html?scheduling_id='.$array1[0].'&tenant_id='.$tenant_id.'" target="_blank" style="font-size:40px;">回复保单号</a>';
+    $message.='<a href="http://api.uminfo.cn/insurance/returnemail.html?scheduling_id='.$array1[0].'&tenant_id='.$tenant_id.'" target="_blank" style="font-size:40px;">回复保单号</a>';
 //        foreach($array1 as $value){
 //
 //
