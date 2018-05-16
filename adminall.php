@@ -625,34 +625,34 @@ $app->get('/tenants',function()use($app){
                     $data[$x]['sales_name']=$data11['sales_name'];
                     $data[$x]['sales_phone']=$data11['telephone'];
                     //   array_push($arrayt,$array1);
-                    $selectStatement = $database->select()
-                        ->from('insurance')
-                        ->where('tenant_id','=',$data[$x]['tenant_id']);
-                    $stmt = $selectStatement->execute();
-                    $data6 = $stmt->fetchAll();
-                    for($y=0;$y<count($data6);$y++){
-                        $selectStatement = $database->select()
-                            ->from('city')
-                            ->where('id','=',$data6[$y]['from_c_id']);
-                        $stmt = $selectStatement->execute();
-                        $data7 = $stmt->fetch();
-                        $data6[$y]['from_city']=$data7['name'];
-                        $selectStatement = $database->select()
-                            ->from('city')
-                            ->where('id','=',$data6[$y]['receive_c_id']);
-                        $stmt = $selectStatement->execute();
-                        $data8 = $stmt->fetch();
-                        $data6[$y]['receive_city']=$data8['name'];
-                        $selectStatement = $database->select()
-                            ->from('lorry')
-                            ->where('lorry_id','=',$data6[$y]['insurance_lorry_id']);
-                        $stmt = $selectStatement->execute();
-                        $data9 = $stmt->fetch();
-                        $data6[$y]['plate_number']=$data9['plate_number'];
-                        $data6[$y]['driver_name']=$data9['driver_name'];
-                        $data6[$y]['driver_phone']=$data9['driver_phone'];
-                    }
-                    $data[$x]['insurance']=$data6;
+//                    $selectStatement = $database->select()
+//                        ->from('insurance')
+//                        ->where('tenant_id','=',$data[$x]['tenant_id']);
+//                    $stmt = $selectStatement->execute();
+//                    $data6 = $stmt->fetchAll();
+//                    for($y=0;$y<count($data6);$y++){
+//                        $selectStatement = $database->select()
+//                            ->from('city')
+//                            ->where('id','=',$data6[$y]['from_c_id']);
+//                        $stmt = $selectStatement->execute();
+//                        $data7 = $stmt->fetch();
+//                        $data6[$y]['from_city']=$data7['name'];
+//                        $selectStatement = $database->select()
+//                            ->from('city')
+//                            ->where('id','=',$data6[$y]['receive_c_id']);
+//                        $stmt = $selectStatement->execute();
+//                        $data8 = $stmt->fetch();
+//                        $data6[$y]['receive_city']=$data8['name'];
+//                        $selectStatement = $database->select()
+//                            ->from('lorry')
+//                            ->where('lorry_id','=',$data6[$y]['insurance_lorry_id']);
+//                        $stmt = $selectStatement->execute();
+//                        $data9 = $stmt->fetch();
+//                        $data6[$y]['plate_number']=$data9['plate_number'];
+//                        $data6[$y]['driver_name']=$data9['driver_name'];
+//                        $data6[$y]['driver_phone']=$data9['driver_phone'];
+//                    }
+//                    $data[$x]['insurance']=$data6;
                     $selectStatement = $database->select()
                         ->from('rechanges_insurance')
                         ->where('tenant_id','=',$data[$x]['tenant_id']);
@@ -707,34 +707,34 @@ $app->get('/tenants',function()use($app){
                     $data[$x]['sales_name']=$data11['sales_name'];
                     $data[$x]['sales_phone']=$data11['telephone'];
                     //   array_push($arrayt,$array1);
-                    $selectStatement = $database->select()
-                        ->from('insurance')
-                        ->where('tenant_id','=',$data[$x]['tenant_id']);
-                    $stmt = $selectStatement->execute();
-                    $data6 = $stmt->fetchAll();
-                    for($y=0;$y<count($data6);$y++){
-                        $selectStatement = $database->select()
-                            ->from('city')
-                            ->where('id','=',$data6[$y]['from_c_id']);
-                        $stmt = $selectStatement->execute();
-                        $data7 = $stmt->fetch();
-                        $data6[$y]['from_city']=$data7['name'];
-                        $selectStatement = $database->select()
-                            ->from('city')
-                            ->where('id','=',$data6[$y]['receive_c_id']);
-                        $stmt = $selectStatement->execute();
-                        $data8 = $stmt->fetch();
-                        $data6[$y]['receive_city']=$data8['name'];
-                        $selectStatement = $database->select()
-                            ->from('lorry')
-                            ->where('lorry_id','=',$data6[$y]['insurance_lorry_id']);
-                        $stmt = $selectStatement->execute();
-                        $data9 = $stmt->fetch();
-                        $data6[$y]['plate_number']=$data9['plate_number'];
-                        $data6[$y]['driver_name']=$data9['driver_name'];
-                        $data6[$y]['driver_phone']=$data9['driver_phone'];
-                    }
-                    $data[$x]['insurance']=$data6;
+//                    $selectStatement = $database->select()
+//                        ->from('insurance')
+//                        ->where('tenant_id','=',$data[$x]['tenant_id']);
+//                    $stmt = $selectStatement->execute();
+//                    $data6 = $stmt->fetchAll();
+//                    for($y=0;$y<count($data6);$y++){
+//                        $selectStatement = $database->select()
+//                            ->from('city')
+//                            ->where('id','=',$data6[$y]['from_c_id']);
+//                        $stmt = $selectStatement->execute();
+//                        $data7 = $stmt->fetch();
+//                        $data6[$y]['from_city']=$data7['name'];
+//                        $selectStatement = $database->select()
+//                            ->from('city')
+//                            ->where('id','=',$data6[$y]['receive_c_id']);
+//                        $stmt = $selectStatement->execute();
+//                        $data8 = $stmt->fetch();
+//                        $data6[$y]['receive_city']=$data8['name'];
+//                        $selectStatement = $database->select()
+//                            ->from('lorry')
+//                            ->where('lorry_id','=',$data6[$y]['insurance_lorry_id']);
+//                        $stmt = $selectStatement->execute();
+//                        $data9 = $stmt->fetch();
+//                        $data6[$y]['plate_number']=$data9['plate_number'];
+//                        $data6[$y]['driver_name']=$data9['driver_name'];
+//                        $data6[$y]['driver_phone']=$data9['driver_phone'];
+//                    }
+//                    $data[$x]['insurance']=$data6;
                     $selectStatement = $database->select()
                         ->from('rechanges_insurance')
                         ->where('tenant_id','=',$data[$x]['tenant_id']);
