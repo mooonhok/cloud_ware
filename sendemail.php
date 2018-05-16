@@ -48,7 +48,7 @@ $app->post('/scheduling',function()use($app,$mail){
     $data2 = $stmt->fetch();
     $body = $app->request->getBody();
     $body=json_decode($body);
-    $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+    //$mail = new PHPMailer(true);                              // Passing `true` enables exceptions
     $mail->CharSet = "utf-8"; // 设置字符集编码 utf-8
     $mail->Encoding = "base64";//设置文本编码方式
     //Server settings
