@@ -1041,8 +1041,8 @@ $app->get('/lastinsurance',function()use($app){
                 //  $arrays['count']=ceil($num/(int)$per_page);
                 if ($data2 != null || $data2 != "") {
                     for ($i = 0; $i < count($data2); $i++) {
-                        $arrays1['tenant_id']=$data2['tenant_id'];
-                        $arrays1['company'] = $data2['company'];
+                        $arrays1['tenant_id']= $data2[$i]['tenant_id'];
+                        $arrays1['company'] =  $data2[$i]['company'];
                         $arrays1['insurance_start_time'] = $data2[$i]['insurance_start_time'];
 //                        $arrays1['duration'] = $data2[$i]['duration'];
                         $arrays1['insurance_amount'] = $data2[$i]['insurance_amount'];
@@ -1069,7 +1069,7 @@ $app->get('/lastinsurance',function()use($app){
                         $arrays1['driver_name'] = $data5['driver_name'];
                         $selectStatement = $database->select()
                             ->from('customer')
-                            ->where('customer_id', '=', $data2['contact_id']);
+                            ->where('customer_id', '=', $data2[$i]['contact_id']);
                         $stmt = $selectStatement->execute();
                         $data6 = $stmt->fetch();
                         $arrays1['customer_phone'] = $data6['customer_phone'];
@@ -1087,15 +1087,15 @@ $app->get('/lastinsurance',function()use($app){
         $page=(int)$page-1;
         $arrays = array();
         if ($tenant_id != null || $tenant_id != "") {
-            $selectStatement = $database->select()
-                ->from('tenant')
-                ->where('tenant_id', '=', $tenant_id);
-            $stmt = $selectStatement->execute();
-            $data1 = $stmt->fetch();
-            if ($data1 != null || $data1 != "") {
+//            $selectStatement = $database->select()
+//                ->from('tenant')
+//                ->where('tenant_id', '=', $tenant_id);
+//            $stmt = $selectStatement->execute();
+//            $data1 = $stmt->fetch();
+//            if ($data1 != null || $data1 != "") {
                 $selectStatement = $database->select()
                     ->from('insurance')
-                    ->where('tenant_id', '=', $tenant_id)
+                    ->whereLike('tenant_id', '%'.$tenant_id.'%')
                     ->orderBy('insurance_start_time', 'desc');
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetchAll();
@@ -1110,8 +1110,8 @@ $app->get('/lastinsurance',function()use($app){
                 $data2 = $stmt->fetchAll();
                 if ($data2 != null || $data2 != "") {
                     for ($i = 0; $i < count($data2); $i++) {
-                        $arrays1['tenant_id']=$data1['tenant_id'];
-                        $arrays1['company'] = $data1['company'];
+                        $arrays1['tenant_id']= $data2[$i]['tenant_id'];
+                        $arrays1['company'] =  $data2[$i]['company'];
                         $arrays1['insurance_start_time'] = $data2[$i]['insurance_start_time'];
 //                        $arrays1['duration'] = $data2[$i]['duration'];
                         $arrays1['insurance_amount'] = $data2[$i]['insurance_amount'];
@@ -1138,7 +1138,7 @@ $app->get('/lastinsurance',function()use($app){
                         $arrays1['driver_name'] = $data5['driver_name'];
                         $selectStatement = $database->select()
                             ->from('customer')
-                            ->where('customer_id', '=', $data1['contact_id']);
+                            ->where('customer_id', '=', $data2[$i]['contact_id']);
                         $stmt = $selectStatement->execute();
                         $data6 = $stmt->fetch();
                         $arrays1['customer_phone'] = $data6['customer_phone'];
@@ -1152,10 +1152,8 @@ $app->get('/lastinsurance',function()use($app){
             } else {
                 echo json_encode(array('result' => '2', 'desc' => '该公司不存在', 'rechanges' => ''));
             }
-        } else {
-            echo json_encode(array('result' => '1', 'desc' => '租户id为空', 'rechanges' => ''));
-        }
-    }
+
+}
 });
 //根据tenant_id查询保险充值记录分页
 $app->get('/insurance_rechanges',function()use($app){
