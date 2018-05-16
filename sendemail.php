@@ -141,7 +141,7 @@ $app->post('/scheduling',function()use($app,$mail){
     '<td colspan="4" style="height:40px;font:bold 17px 微软雅黑;text-align:center;border:1px solid #000000">'.$data1a["company"].'承运人责任险投保明细</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
-    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">投保人：'.$data1["company"].'</td>'.
+    '<td colspan="2" style="font:normal 15px 微软雅黑;border:1px solid #000000">投保人：'.$data1a["company"].'</td>'.
     '<td colspan="2" rowspan="2" style="font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">已付款</td>'.
     '</tr>'.
     '<tr style="height:30px">'.
