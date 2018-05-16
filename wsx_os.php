@@ -14,8 +14,8 @@ use Slim\PDO\Database;
 $app = new \Slim\Slim();
 
 $app->get('/getProvinces',function ()use($app){
-//    $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $selectStatement = $database->select()
         ->from('province')
@@ -28,8 +28,8 @@ $app->get('/getProvinces',function ()use($app){
 
 
 $app->get('/getCitys0',function()use($app){
-//    $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $selectStatement = $database->select()
         ->from('city');
@@ -40,8 +40,8 @@ $app->get('/getCitys0',function()use($app){
 
 
 $app->get('/getGoodsPackages',function()use($app){
-//    $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $selectStatement = $database->select()
         ->from('goods_package');
@@ -52,8 +52,8 @@ $app->get('/getGoodsPackages',function()use($app){
 
 
 $app->get('/getCitys1',function()use($app){
-//    $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $pid=$app->request->get('province_id');
     if($pid!=null||$pid!=""){
@@ -69,8 +69,8 @@ $app->get('/getCitys1',function()use($app){
 });
 
 $app->get('/getCity1',function()use($app){
-//    $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $city_id=$app->request->get('city_id');
     if($city_id!=null||$city_id!=""){
