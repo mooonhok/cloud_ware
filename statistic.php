@@ -212,7 +212,7 @@ $app->get('/getStatistic2',function()use($app){
                        $count+=$data4['goods_count'];//总件数
                        $count1+=$data4['goods_weight'];//总吨数
                        $sss=(explode('.',$data4['goods_weight']));
-                       if($sss[1]){
+                       if(count($sss)>1){
                            if($num111<strlen($sss[1])){
                                $num111=strlen((explode('.',$data4['goods_weight']))[1]);
                            };
@@ -228,7 +228,7 @@ $app->get('/getStatistic2',function()use($app){
 
                        $count2+=$data5['order_cost'];
                        $sss=(explode('.',$data5['order_cost']));
-                       if($sss[1]) {
+                       if(count($sss)>1) {
                            if ($num222 < strlen($sss[1])) {
                                $num222 = strlen((explode('.', $data5['order_cost']))[1]);
                            };
