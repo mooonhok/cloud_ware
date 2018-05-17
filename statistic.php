@@ -221,8 +221,28 @@ $app->get('/getStatistic2',function()use($app){
                    }
                }
                 $data[$x]['weight']=sprintf("%.3f",$count1);
+                $arr=explode($data[$x]['weight'],'.');
+                if(substr($arr,2,1)){
+                    $data[$x]['weight']=$data[$x]['weight'];
+                }else if(substr($arr,1,1)){
+                    $data[$x]['weight']=sprintf("%.2f",$count1);
+                }else if(substr($arr,0,1)){
+                    $data[$x]['weight']=sprintf("%.1f",$count1);
+                }else{
+                    $data[$x]['weight']=sprintf("%.0f",$count1);
+                }
                 $data[$x]['count']=$count;
                 $data[$x]['cost']=sprintf("%.3f",$count2);
+                $arr=explode($data[$x]['cost'],'.');
+                if(substr($arr,2,1)){
+                    $data[$x]['cost']=$data[$x]['cost'];
+                }else if(substr($arr,1,1)){
+                    $data[$x]['cost']=sprintf("%.2f",$count2);
+                }else if(substr($arr,0,1)){
+                    $data[$x]['cost']=sprintf("%.1f",$count2);
+                }else{
+                    $data[$x]['cost']=sprintf("%.0f",$count2);
+                }
             }
             echo  json_encode(array("result"=>"0","desc"=>"success","agreement"=>$data));
         }else{
