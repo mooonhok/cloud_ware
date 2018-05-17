@@ -205,12 +205,12 @@ $app->get('/getStatistic2',function()use($app){
                            ->where('tenant_id','=',$tenant_id);
                        $stmt = $selectStatement->execute();
                        $data4 = $stmt->fetch();
-                       if($array){
+                       if(!$array){
                            $array=array($data4['goods_count']);
                        }else{
                            $array=$array+array($data4['goods_count']);
                        }
-                       if($array2){
+                       if(!$array2){
                            $array2=array($data4['goods_weight']);
                        }else{
                            $array2=$array2+array($data4['goods_weight']);
@@ -223,7 +223,7 @@ $app->get('/getStatistic2',function()use($app){
                            ->where('tenant_id','=',$tenant_id);
                        $stmt = $selectStatement->execute();
                        $data5= $stmt->fetch();
-                       if($array3){
+                       if(!$array3){
                            $array3=array($data5['order_cost']);
                        }else{
                            $array3=$array3+array($data5['order_cost']);
@@ -300,12 +300,12 @@ $app->get('/getStatistic3',function()use($app){
                         $data4 = $stmt->fetch();
 //                        $count+=$data4['goods_count'];//总件数
 //                        $count1+=$data4['goods_weight'];//总吨数
-                        if($array){
+                        if(!$array){
                             $array=array($data4['goods_count']);
                         }else{
                             $array=$array+array($data4['goods_count']);
                         }
-                        if($array2){
+                        if(!$array2){
                             $array2=array($data4['goods_weight']);
                         }else{
                             $array2=$array2+array($data4['goods_weight']);
@@ -317,7 +317,7 @@ $app->get('/getStatistic3',function()use($app){
                         $stmt = $selectStatement->execute();
                         $data5= $stmt->fetch();
 //                        $count2+=$data5['order_cost'];
-                        if($array3){
+                        if(!$array3){
                             $array3=array($data5['order_cost']);
                         }else{
                             $array3=$array3+array($data5['order_cost']);
