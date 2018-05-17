@@ -28,7 +28,7 @@ $app->post('/staff_login',function()use($app){
                 $selectStatement = $database->select()
                     ->from('staff')
                     ->where('tenant_id','=',$tenant_id)
-                    ->where('name','=',$name)
+                    ->where('username','=',$name)
                     ->where('password','=',encode($password,'cxphp'));
                 $stmt = $selectStatement->execute();
                 $data = $stmt->fetch();
