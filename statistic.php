@@ -199,7 +199,7 @@ $app->get('/getStatistic2',function()use($app){
                     ->where('orders.tenant_id','=',$tenant_id)
                     ->where('goods.tenant_id','=',$tenant_id);
                 $stmt = $selectStatement->execute();
-                $data2 = $stmt->fetchAll();
+                $data2 = $stmt->fetch();
 //               for($j=0;$j<count($data2);$j++){
 //                   $selectStatement = $database->select()
 //                       ->from('schedule_order')
