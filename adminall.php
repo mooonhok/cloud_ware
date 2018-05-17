@@ -1119,6 +1119,7 @@ $app->get('/lastinsurance',function()use($app){
                         $arrays1['insurance_amount'] = $data2[$i]['insurance_amount'];
                         $arrays1['insurance_price'] = $data2[$i]['insurance_price'];
                         $arrays1['insurance_id'] = $data2[$i]['insurance_id'];
+                        $arrays1['insurance_num'] = $data2[$i]['insurance_num'];
 //                        $selectStatement = $database->select()
 //                            ->from('city')
 //                            ->where('id', '=', $data2[$i]['from_c_id']);
