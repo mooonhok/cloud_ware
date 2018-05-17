@@ -341,7 +341,7 @@ $app->get('/getStatistic3',function()use($app){
                         }
                     }
                 }
-                $data[$x]['weight']=sprintf("%.3f",$count1);
+                $data[$x]['weight']=sprintf("%.".$num111."f",$count1);
 
 //                $arr=explode('.',$data[$x]['weight']);
 //                if(substr($arr[1],2,1)){
@@ -354,7 +354,7 @@ $app->get('/getStatistic3',function()use($app){
 //                    $data[$x]['weight']=sprintf("%.0f",$count1);
 //                }
                 $data[$x]['count']=$count;
-                $data[$x]['cost']=sprintf("%.3f",$count2);
+                $data[$x]['cost']=sprintf("%.".$num222."f",$count2);
 //                $arr=explode('.',$data[$x]['cost']);
 //                if(substr($arr[1],2,1)){
 //                    $data[$x]['cost']=$data[$x]['cost'];
