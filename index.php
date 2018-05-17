@@ -34,8 +34,8 @@ $app = new \Slim\Slim();
 $app->get(
     '/',
     function () {
-        header('Refresh:3,Url=guangwang');
-        echo '3s 后跳转';
+        header("Location: http://www.uminfo.cn");
+
 //由于只是普通页面展示，提示的样式容易定制
         die;
 //        $template = <<<EOT
