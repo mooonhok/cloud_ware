@@ -1030,11 +1030,12 @@ $app->get('/lastinsurance',function()use($app){
     if($per_page==null||$page==null) {
         $page=(int)$page-1;
         $arrays = array();
-        if ($tenant_id != null || $tenant_id != "") {
+//        if ($tenant_id != null || $tenant_id != "") {
                 $selectStatement = $database->select()
                     ->from('insurance')
-                    ->whereLike('tenant_id','%'.$tenant_id.'%')
-                    ->orderBy('insurance_start_time', 'desc');
+                    ->join('tenant','tenant.tenant_id','=','insurance.tenant_id','INNER')
+                    ->whereLike('insurance.tenant_id','%'.$tenant_id.'%')
+                    ->orderBy('insurance.insurance_start_time', 'desc');
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetchAll();
                 $num=count($data2);
@@ -1080,13 +1081,13 @@ $app->get('/lastinsurance',function()use($app){
                 } else {
                     echo json_encode(array('result' => '3', 'desc' => '该公司无历史保单', 'rechanges' => ''));
                 }
-        } else {
-            echo json_encode(array('result' => '1', 'desc' => '租户id为空', 'rechanges' => ''));
-        }
+//        } else {
+//            echo json_encode(array('result' => '1', 'desc' => '租户id为空', 'rechanges' => ''));
+//        }
     }else{
         $page=(int)$page-1;
         $arrays = array();
-        if ($tenant_id != null || $tenant_id != "") {
+//        if ($tenant_id != null || $tenant_id != "") {
 //            $selectStatement = $database->select()
 //                ->from('tenant')
 //                ->where('tenant_id', '=', $tenant_id);
@@ -1095,19 +1096,20 @@ $app->get('/lastinsurance',function()use($app){
 //            if ($data1 != null || $data1 != "") {
                 $selectStatement = $database->select()
                     ->from('insurance')
-                    ->whereLike('tenant_id', '%'.$tenant_id.'%')
-                    ->orderBy('insurance_start_time', 'desc');
+                    ->join('tenant','tenant.tenant_id','=','insurance.tenant_id','INNER')
+                    ->whereLike('insurance.tenant_id', '%'.$tenant_id.'%')
+                    ->orderBy('insurance.insurance_start_time', 'desc');
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetchAll();
                 $num=count($data2);
                 $sum=ceil($num/(int)$per_page);
-                $selectStatement = $database->select()
-                    ->from('insurance')
-                    ->where('tenant_id', '=', $tenant_id)
-                    ->orderBy('insurance_start_time', 'desc')
-                    ->limit((int)$per_page, (int)$per_page * (int)$page);
-                $stmt = $selectStatement->execute();
-                $data2 = $stmt->fetchAll();
+//                $selectStatement = $database->select()
+//                    ->from('insurance')
+//                    ->where('tenant_id', '=', $tenant_id)
+//                    ->orderBy('insurance_start_time', 'desc')
+//                    ->limit((int)$per_page, (int)$per_page * (int)$page);
+//                $stmt = $selectStatement->execute();
+//                $data2 = $stmt->fetchAll();
                 if ($data2 != null || $data2 != "") {
                     for ($i = 0; $i < count($data2); $i++) {
                         $arrays1['tenant_id']= $data2[$i]['tenant_id'];
@@ -1149,9 +1151,9 @@ $app->get('/lastinsurance',function()use($app){
                 } else {
                     echo json_encode(array('result' => '3', 'desc' => '该公司无历史保单', 'rechanges' => ''));
                 }
-            } else {
-                echo json_encode(array('result' => '2', 'desc' => '该公司不存在', 'rechanges' => ''));
-            }
+//            } else {
+//                echo json_encode(array('result' => '2', 'desc' => '该公司不存在', 'rechanges' => ''));
+//            }
 
 }
 });
