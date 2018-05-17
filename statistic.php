@@ -280,6 +280,8 @@ $app->get('/getStatistic3',function()use($app){
     date_default_timezone_set("PRC");
 //    $time3=date("Y-m-d H:i:s",strtotime($time2)+86400);
     $array1=array();
+    $num111=0;
+    $num222=0;
     if($tenant_id!=null||$tenant_id!=""){
         if($lorry_id!=null||$lorry_id!=""){
             $selectStatement = $database->select()
@@ -318,6 +320,12 @@ $app->get('/getStatistic3',function()use($app){
                         $data4 = $stmt->fetch();
                         $count+=$data4['goods_count'];//总件数
                         $count1+=$data4['goods_weight'];//总吨数
+                        $sss=(explode('.',$data4['goods_weight']));
+                        if(count($sss)>1){
+                            if($num111<strlen($sss[1])){
+                                $num111=strlen((explode('.',$data4['goods_weight']))[1]);
+                            };
+                        }
                         $selectStatement = $database->select()
                             ->from('orders')
                             ->where('order_id','=',$data3[$y]['order_id'])
@@ -325,32 +333,38 @@ $app->get('/getStatistic3',function()use($app){
                         $stmt = $selectStatement->execute();
                         $data5= $stmt->fetch();
                         $count2+=$data5['order_cost'];
+                        $sss=(explode('.',$data5['order_cost']));
+                        if(count($sss)>1) {
+                            if ($num222 < strlen($sss[1])) {
+                                $num222 = strlen((explode('.', $data5['order_cost']))[1]);
+                            };
+                        }
                     }
                 }
                 $data[$x]['weight']=sprintf("%.3f",$count1);
 
-                $arr=explode('.',$data[$x]['weight']);
-                if(substr($arr[1],2,1)){
-                    $data[$x]['weight']=$data[$x]['weight'];
-                }else if(substr($arr[1],1,1)){
-                    $data[$x]['weight']=sprintf("%.2f",$count1);
-                }else if(substr($arr[1],0,1)){
-                    $data[$x]['weight']=sprintf("%.1f",$count1);
-                }else{
-                    $data[$x]['weight']=sprintf("%.0f",$count1);
-                }
+//                $arr=explode('.',$data[$x]['weight']);
+//                if(substr($arr[1],2,1)){
+//                    $data[$x]['weight']=$data[$x]['weight'];
+//                }else if(substr($arr[1],1,1)){
+//                    $data[$x]['weight']=sprintf("%.2f",$count1);
+//                }else if(substr($arr[1],0,1)){
+//                    $data[$x]['weight']=sprintf("%.1f",$count1);
+//                }else{
+//                    $data[$x]['weight']=sprintf("%.0f",$count1);
+//                }
                 $data[$x]['count']=$count;
                 $data[$x]['cost']=sprintf("%.3f",$count2);
-                $arr=explode('.',$data[$x]['cost']);
-                if(substr($arr[1],2,1)){
-                    $data[$x]['cost']=$data[$x]['cost'];
-                }else if(substr($arr[1],1,1)){
-                    $data[$x]['cost']=sprintf("%.2f",$count2);
-                }else if(substr($arr[1],0,1)){
-                    $data[$x]['cost']=sprintf("%.1f",$count2);
-                }else{
-                    $data[$x]['cost']=sprintf("%.0f",$count2);
-                }
+//                $arr=explode('.',$data[$x]['cost']);
+//                if(substr($arr[1],2,1)){
+//                    $data[$x]['cost']=$data[$x]['cost'];
+//                }else if(substr($arr[1],1,1)){
+//                    $data[$x]['cost']=sprintf("%.2f",$count2);
+//                }else if(substr($arr[1],0,1)){
+//                    $data[$x]['cost']=sprintf("%.1f",$count2);
+//                }else{
+//                    $data[$x]['cost']=sprintf("%.0f",$count2);
+//                }
                 $arr = date_parse_from_format ( "Y年m月d日" ,$data[$x]['agreement_time']);
                 $timestamp = mktime(0,0,0,$arr['month'],$arr['day'],$arr['year']);
                 if($timestamp<(strtotime($time2)+86400)){
