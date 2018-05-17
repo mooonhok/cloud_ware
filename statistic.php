@@ -211,7 +211,8 @@ $app->get('/getStatistic2',function()use($app){
 //                       $count1=bcadd($left=$count1, $right=$data4['goods_weight'], 3);
                        $count+=$data4['goods_count'];//总件数
                        $count1+=$data4['goods_weight'];//总吨数
-                       if($num111<strlen((explode('.',$data4['goods_weight']))[1])){
+                       $sss=(explode('.',$data4['goods_weight']));
+                       if($num111<strlen($sss[1])){
                            $num111=strlen((explode('.',$data4['goods_weight']))[1]);
                        };
                        $selectStatement = $database->select()
@@ -223,7 +224,8 @@ $app->get('/getStatistic2',function()use($app){
 //                       $count2=bcadd($left=$count2, $right=$data5['order_cost'], 3);
 
                        $count2+=$data5['order_cost'];
-                       if($num222<strlen((explode('.',$data5['order_cost']))[1])){
+                       $sss=(explode('.',$data5['order_cost']));
+                       if($num222<strlen($sss[1])){
                            $num222=strlen((explode('.',$data5['order_cost']))[1]);
                        };
                    }
