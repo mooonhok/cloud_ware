@@ -151,6 +151,6 @@ function order_xq(id){
     });
 
     $("#order_close").on("click",function(){
-      index.close();
+        layer.close(index);
     })
 }
