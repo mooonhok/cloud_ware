@@ -313,7 +313,6 @@ $app->get('/getStatistic3',function()use($app){
                     }
                 }
                 $data[$x]['weight']=sprintf("%.3f",$count1);
-                $data[$x]['weight']=$count1;
 
                 $arr=explode('.',$data[$x]['weight']);
                 if(substr($arr[1],2,1)){
