@@ -205,23 +205,24 @@ $app->get('/getStatistic2',function()use($app){
                            ->where('tenant_id','=',$tenant_id);
                        $stmt = $selectStatement->execute();
                        $data4 = $stmt->fetch();
-                       $count=bcadd($left=$count, $right=$data4['goods_count'], 3);
-                       $count1=bcadd($left=$count1, $right=$data4['goods_weight'], 3);
-//                       $count=array_sum($count,$data4['goods_count']);//总件数
-//                       $count1=array_sum($count1,$data4['goods_weight']);//总吨数
+//                       $count=bcadd($left=$count, $right=$data4['goods_count'], 3);
+//                       $count1=bcadd($left=$count1, $right=$data4['goods_weight'], 3);
+                       $count+=$data4['goods_count'];//总件数
+                       $count1+=$data4['goods_weight'];//总吨数
                        $selectStatement = $database->select()
                            ->from('orders')
                            ->where('order_id','=',$data3[$y]['order_id'])
                            ->where('tenant_id','=',$tenant_id);
                        $stmt = $selectStatement->execute();
                        $data5= $stmt->fetch();
-                       $count2=bcadd($left=$count2, $right=$data5['order_cost'], 3);
-//                       $count2=array_sum($count2,$data5['order_cost']);
+//                       $count2=bcadd($left=$count2, $right=$data5['order_cost'], 3);
+
+                       $count2+=$data5['order_cost'];
                    }
                }
-                $data[$x]['weight']=$count1;
-                $data[$x]['count']=$count;
-                $data[$x]['cost']=$count2;
+                $data[$x]['weight']=sprintf("%.3f",$count1);
+                $data[$x]['count']=sprintf("%.3f",$count);
+                $data[$x]['cost']=sprintf("%.3f",$count2);
             }
             echo  json_encode(array("result"=>"0","desc"=>"success","agreement"=>$data));
         }else{
