@@ -202,15 +202,15 @@ $app->get('/getStatistic2',function()use($app){
                            ->where('tenant_id','=',$tenant_id);
                        $stmt = $selectStatement->execute();
                        $data4 = $stmt->fetch();
-                       $count+=$data4['goods_count'];//总件数
-                       $count1+=$data4['goods_weight'];//总吨数
+                       $count=$count+$data4['goods_count'];//总件数
+                       $count1=$count1+$data4['goods_weight'];//总吨数
                        $selectStatement = $database->select()
                            ->from('orders')
                            ->where('order_id','=',$data3[$y]['order_id'])
                            ->where('tenant_id','=',$tenant_id);
                        $stmt = $selectStatement->execute();
                        $data5= $stmt->fetch();
-                       $count2+=$data5['order_cost'];
+                       $count2=$count2+$data5['order_cost'];
                    }
                }
                 $data[$x]['weight']=$count1;
