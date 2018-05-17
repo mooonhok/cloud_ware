@@ -22,6 +22,9 @@ function loadinsurances(tenant_id,page) {
     if(page==null){
         page=1;
     }
+    if(tenant_id==null){
+        tenant_id='';
+    }
     $.ajax({
         url: p_url+"adminall.php/lastinsurance?tenant_id="+tenant_id+"&page="+page+"&per_page=10",
         dataType: 'json',
@@ -52,7 +55,7 @@ function loadinsurances(tenant_id,page) {
                                     +item.company+'</td><td>'+item.insurance_start_time+'</td><td>'
                                     +item.insurance_amount+'</td><td>'+item.insurance_price+'</td><td>'+
                                     item.insurance_id+'</td><td>'+item.plate_number+'</td><td>'+
-                                    item.driver_name+'</td><td>'+item.customer_phone+'</td><td>'+item.goods_name+'</td></tr>');
+                                    item.driver_name+'</td><td>'+item.customer_phone+'</td><td>'+item.insurance_num+'</td></tr>');
                             });
                             return arr.join('');
                         }();
