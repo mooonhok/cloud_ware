@@ -208,12 +208,12 @@ $app->get('/getStatistic2',function()use($app){
                        if($array){
                            $array=$data4['goods_count'];
                        }else{
-                           array_merge($array,$data4['goods_count']);
+                           $array=$array+$data4['goods_count'];
                        }
                        if($array2){
                            $array2=$data4['goods_weight'];
                        }else{
-                           array_merge($array2,$data4['goods_weight']);
+                           $array2=$array2+$data4['goods_weight'];
                        }
 //                       $count=array_sum($count,$data4['goods_count']);//总件数
 //                       $count1=array_sum($count1,$data4['goods_weight']);//总吨数
@@ -226,7 +226,7 @@ $app->get('/getStatistic2',function()use($app){
                        if($array3){
                            $array3=$data5['order_cost'];
                        }else{
-                           array_merge($array3,$data5['order_cost']);
+                           $array3=$array3+$data5['order_cost'];
                        }
 //                       $count2=array_sum($count2,$data5['order_cost']);
                    }
