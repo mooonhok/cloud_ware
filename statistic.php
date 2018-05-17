@@ -186,43 +186,52 @@ $app->get('/getStatistic2',function()use($app){
                 $count1=0;
                 $count2=0;
                 $selectStatement = $database->select()
+                    ->sum('goods.goods_count','count')
+                    ->sum('goods.goods_weight','weight')
+                    ->sum('orders.order_cost','cost')
                     ->from('agreement_schedule')
-                    ->where('agreement_id','=',$data[$x]['agreement_id'])
-                    ->where('tenant_id','=',$tenant_id);
+                    ->join('schedule_order','schedule_order.schedule_id','=','agreement_schedule.scheduling_id','INNER')
+                    ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
+                    ->join('goods','goods.order_id','=','orders.order_id','INNER')
+                    ->where('agreement_schedule.agreement_id','=',$data[$x]['agreement_id'])
+                    ->where('agreement_schedule.tenant_id','=',$tenant_id)
+                    ->where('schedule_order.tenant_id','=',$tenant_id)
+                    ->where('orders.tenant_id','=',$tenant_id)
+                    ->where('goods.tenant_id','=',$tenant_id);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetchAll();
-               for($j=0;$j<count($data2);$j++){
-                   $selectStatement = $database->select()
-                       ->from('schedule_order')
-                       ->where('schedule_id','=',$data2[$j]['scheduling_id'])
-                       ->where('tenant_id','=',$tenant_id);
-                   $stmt = $selectStatement->execute();
-                   $data3 = $stmt->fetchAll();
-                   for($y=0;$y<count($data3);$y++){
-                       $selectStatement = $database->select()
-                           ->from('goods')
-                           ->where('order_id','=',$data3[$y]['order_id'])
-                           ->where('tenant_id','=',$tenant_id);
-                       $stmt = $selectStatement->execute();
-                       $data4 = $stmt->fetch();
-//                       $count=bcadd($left=$count, $right=$data4['goods_count'], 3);
-//                       $count1=bcadd($left=$count1, $right=$data4['goods_weight'], 3);
-                       $count+=$data4['goods_count'];//总件数
-                       $count1+=$data4['goods_weight'];//总吨数
-                       $selectStatement = $database->select()
-                           ->from('orders')
-                           ->where('order_id','=',$data3[$y]['order_id'])
-                           ->where('tenant_id','=',$tenant_id);
-                       $stmt = $selectStatement->execute();
-                       $data5= $stmt->fetch();
-//                       $count2=bcadd($left=$count2, $right=$data5['order_cost'], 3);
-
-                       $count2+=$data5['order_cost'];
-                   }
-               }
-                $data[$x]['weight']=sprintf("%.3f",$count1);
-                $data[$x]['count']=sprintf("%.3f",$count);
-                $data[$x]['cost']=sprintf("%.3f",$count2);
+//               for($j=0;$j<count($data2);$j++){
+//                   $selectStatement = $database->select()
+//                       ->from('schedule_order')
+//                       ->where('schedule_id','=',$data2[$j]['scheduling_id'])
+//                       ->where('tenant_id','=',$tenant_id);
+//                   $stmt = $selectStatement->execute();
+//                   $data3 = $stmt->fetchAll();
+//                   for($y=0;$y<count($data3);$y++){
+//                       $selectStatement = $database->select()
+//                           ->from('goods')
+//                           ->where('order_id','=',$data3[$y]['order_id'])
+//                           ->where('tenant_id','=',$tenant_id);
+//                       $stmt = $selectStatement->execute();
+//                       $data4 = $stmt->fetch();
+////                       $count=bcadd($left=$count, $right=$data4['goods_count'], 3);
+////                       $count1=bcadd($left=$count1, $right=$data4['goods_weight'], 3);
+//                       $count+=$data4['goods_count'];//总件数
+//                       $count1+=$data4['goods_weight'];//总吨数
+//                       $selectStatement = $database->select()
+//                           ->from('orders')
+//                           ->where('order_id','=',$data3[$y]['order_id'])
+//                           ->where('tenant_id','=',$tenant_id);
+//                       $stmt = $selectStatement->execute();
+//                       $data5= $stmt->fetch();
+////                       $count2=bcadd($left=$count2, $right=$data5['order_cost'], 3);
+//
+//                       $count2+=$data5['order_cost'];
+//                   }
+//               }
+                $data[$x]['weight']=$data2['weight'];
+                $data[$x]['count']=$data2['count'];
+                $data[$x]['cost']=$data2['cost'];
             }
             echo  json_encode(array("result"=>"0","desc"=>"success","agreement"=>$data));
         }else{
