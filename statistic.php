@@ -221,7 +221,7 @@ $app->get('/getStatistic2',function()use($app){
                    }
                }
                 $data[$x]['weight']=sprintf("%.3f",$count1);
-                $arr=explode($data[$x]['weight'],'.');
+                $arr=explode('.',$data[$x]['weight']);
                 if(substr($arr[1],2,1)){
                     $data[$x]['weight']=$data[$x]['weight'];
                 }else if(substr($arr[1],1,1)){
@@ -233,7 +233,7 @@ $app->get('/getStatistic2',function()use($app){
                 }
                 $data[$x]['count']=$count;
                 $data[$x]['cost']=sprintf("%.3f",$count2);
-                $arr=explode($data[$x]['cost'],'.');
+                $arr=explode('.',$data[$x]['cost']);
                 if(substr($arr[1],2,1)){
                     $data[$x]['cost']=$data[$x]['cost'];
                 }else if(substr($arr[1],1,1)){
