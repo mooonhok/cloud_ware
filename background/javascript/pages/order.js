@@ -105,7 +105,7 @@ function loadorders(order_id,page,company) {
 function order_xq(id){
     $(".tenant_tk").css("display","block");
     $(".tenant_tk div input").val("");
-    layer.open({
+    var index=layer.open({
         type: 1,
         skin: 'layui-layer-rim', //加上边框
         area: ['420px', '450px'], //宽高
@@ -149,4 +149,8 @@ function order_xq(id){
             alert("获取后台失败！");
         }
     });
+
+    $("#order_close").on("click",function(){
+      index.close();
+    })
 }

@@ -1030,7 +1030,7 @@ $app->get('/lastinsurance',function()use($app){
     if($per_page==null||$page==null) {
         $page=(int)$page-1;
         $arrays = array();
-
+        if ($tenant_id != null || $tenant_id != "") {
                 $selectStatement = $database->select()
                     ->from('insurance')
                     ->whereLike('tenant_id','%'.$tenant_id.'%')
@@ -1080,11 +1080,13 @@ $app->get('/lastinsurance',function()use($app){
                 } else {
                     echo json_encode(array('result' => '3', 'desc' => '该公司无历史保单', 'rechanges' => ''));
                 }
-
+        } else {
+            echo json_encode(array('result' => '1', 'desc' => '租户id为空', 'rechanges' => ''));
+        }
     }else{
         $page=(int)$page-1;
         $arrays = array();
-
+        if ($tenant_id != null || $tenant_id != "") {
 //            $selectStatement = $database->select()
 //                ->from('tenant')
 //                ->where('tenant_id', '=', $tenant_id);
@@ -1147,7 +1149,9 @@ $app->get('/lastinsurance',function()use($app){
                 } else {
                     echo json_encode(array('result' => '3', 'desc' => '该公司无历史保单', 'rechanges' => ''));
                 }
-
+            } else {
+                echo json_encode(array('result' => '2', 'desc' => '该公司不存在', 'rechanges' => ''));
+            }
 
 }
 });
