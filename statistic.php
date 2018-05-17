@@ -313,8 +313,29 @@ $app->get('/getStatistic3',function()use($app){
                     }
                 }
                 $data[$x]['weight']=$count1;
+                $data[$x]['weight']=sprintf("%.3f",$count1);
+                $arr=explode('.',$data[$x]['weight']);
+                if(substr($arr[1],2,1)){
+                    $data[$x]['weight']=$data[$x]['weight'];
+                }else if(substr($arr[1],1,1)){
+                    $data[$x]['weight']=sprintf("%.2f",$count1);
+                }else if(substr($arr[1],0,1)){
+                    $data[$x]['weight']=sprintf("%.1f",$count1);
+                }else{
+                    $data[$x]['weight']=sprintf("%.0f",$count1);
+                }
                 $data[$x]['count']=$count;
                 $data[$x]['cost']=$count2;
+                $arr=explode('.',$data[$x]['cost']);
+                if(substr($arr[1],2,1)){
+                    $data[$x]['cost']=$data[$x]['cost'];
+                }else if(substr($arr[1],1,1)){
+                    $data[$x]['cost']=sprintf("%.2f",$count2);
+                }else if(substr($arr[1],0,1)){
+                    $data[$x]['cost']=sprintf("%.1f",$count2);
+                }else{
+                    $data[$x]['cost']=sprintf("%.0f",$count2);
+                }
                 $arr = date_parse_from_format ( "Y年m月d日" ,$data[$x]['agreement_time']);
                 $timestamp = mktime(0,0,0,$arr['month'],$arr['day'],$arr['year']);
                 if($timestamp<(strtotime($time2)+86400)){
