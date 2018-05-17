@@ -206,14 +206,14 @@ $app->get('/getStatistic2',function()use($app){
                        $stmt = $selectStatement->execute();
                        $data4 = $stmt->fetch();
                        if(!$array){
-                           $array=array($data4['goods_count']);
+                           $array=$data4['goods_count'];
                        }else{
-                           $array=$array+array($data4['goods_count']);
+                           array_push($array,$data4['goods_count']);
                        }
                        if(!$array2){
-                           $array2=array($data4['goods_weight']);
+                           $array2=$data4['goods_weight'];
                        }else{
-                           $array2=$array2+array($data4['goods_weight']);
+                           array_push($array2,array($data4['goods_weight']));
                        }
 //                       $count=array_sum($count,$data4['goods_count']);//总件数
 //                       $count1=array_sum($count1,$data4['goods_weight']);//总吨数
@@ -224,9 +224,9 @@ $app->get('/getStatistic2',function()use($app){
                        $stmt = $selectStatement->execute();
                        $data5= $stmt->fetch();
                        if(!$array3){
-                           $array3=array($data5['order_cost']);
+                           $array3=$data5['order_cost'];
                        }else{
-                           $array3=$array3+array($data5['order_cost']);
+                           array_push($array3,array($data5['order_cost']));
                        }
 //                       $count2=array_sum($count2,$data5['order_cost']);
                    }
@@ -301,14 +301,14 @@ $app->get('/getStatistic3',function()use($app){
 //                        $count+=$data4['goods_count'];//总件数
 //                        $count1+=$data4['goods_weight'];//总吨数
                         if(!$array){
-                            $array=array($data4['goods_count']);
+                            $array=$data4['goods_count'];
                         }else{
-                            $array=$array+array($data4['goods_count']);
+                            array_push($array,$data4['goods_count']);
                         }
                         if(!$array2){
-                            $array2=array($data4['goods_weight']);
+                            $array2=$data4['goods_weight'];
                         }else{
-                            $array2=$array2+array($data4['goods_weight']);
+                            array_push($array2,$data4['goods_weight']);
                         }
                         $selectStatement = $database->select()
                             ->from('orders')
@@ -318,9 +318,9 @@ $app->get('/getStatistic3',function()use($app){
                         $data5= $stmt->fetch();
 //                        $count2+=$data5['order_cost'];
                         if(!$array3){
-                            $array3=array($data5['order_cost']);
+                            $array3=$data5['order_cost'];
                         }else{
-                            $array3=$array3+array($data5['order_cost']);
+                            array_push($array3,$data5['order_cost']);
                         }
                     }
                 }
