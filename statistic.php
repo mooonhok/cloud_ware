@@ -206,12 +206,12 @@ $app->get('/getStatistic2',function()use($app){
                        $stmt = $selectStatement->execute();
                        $data4 = $stmt->fetch();
                        if($array){
-                           $array=$data4['goods_count'];
+                           $array=array($data4['goods_count']);
                        }else{
                            $array=$array+array($data4['goods_count']);
                        }
                        if($array2){
-                           $array2=$data4['goods_weight'];
+                           $array2=array($data4['goods_weight']);
                        }else{
                            $array2=$array2+array($data4['goods_weight']);
                        }
@@ -224,7 +224,7 @@ $app->get('/getStatistic2',function()use($app){
                        $stmt = $selectStatement->execute();
                        $data5= $stmt->fetch();
                        if($array3){
-                           $array3=$data5['order_cost'];
+                           $array3=array($data5['order_cost']);
                        }else{
                            $array3=$array3+array($data5['order_cost']);
                        }
