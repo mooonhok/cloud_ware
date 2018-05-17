@@ -168,6 +168,9 @@ $app->get('/getStatistic2',function()use($app){
     $tenant_id = $app->request->headers->get("tenant-id");
     $database=localhost();
     $lorry_id=$app->request->get('lorry_id');
+    $array=array();
+    $array2=array();
+    $array3=array();
     if($tenant_id!=null||$tenant_id!=""){
         if($lorry_id!=null||$lorry_id!=""){
             $selectStatement = $database->select()
@@ -202,17 +205,35 @@ $app->get('/getStatistic2',function()use($app){
                            ->where('tenant_id','=',$tenant_id);
                        $stmt = $selectStatement->execute();
                        $data4 = $stmt->fetch();
-                       $count=array_sum($count,$data4['goods_count']);//总件数
-                       $count1=array_sum($count1,$data4['goods_weight']);//总吨数
+                       if($array){
+                           $array=$data4['goods_count'];
+                       }else{
+                           array_push($array,$data4['goods_count']);
+                       }
+                       if($array2){
+                           $array2=$data4['goods_weight'];
+                       }else{
+                           array_push($array2,$data4['goods_weight']);
+                       }
+//                       $count=array_sum($count,$data4['goods_count']);//总件数
+//                       $count1=array_sum($count1,$data4['goods_weight']);//总吨数
                        $selectStatement = $database->select()
                            ->from('orders')
                            ->where('order_id','=',$data3[$y]['order_id'])
                            ->where('tenant_id','=',$tenant_id);
                        $stmt = $selectStatement->execute();
                        $data5= $stmt->fetch();
-                       $count2=array_sum($count2,$data5['order_cost']);
+                       if($array3){
+                           $array3=$data5['order_cost'];
+                       }else{
+                           array_push($array3,$data5['order_cost']);
+                       }
+//                       $count2=array_sum($count2,$data5['order_cost']);
                    }
                }
+                $count=array_sum($array);
+                $count1=array_sum($array2);
+                $count2=array_sum($array3);
                 $data[$x]['weight']=$count1;
                 $data[$x]['count']=$count;
                 $data[$x]['cost']=$count2;
