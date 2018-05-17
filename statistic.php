@@ -171,6 +171,8 @@ $app->get('/getStatistic2',function()use($app){
     $array=array();
     $array2=array();
     $array3=array();
+    $num111=0;
+    $num222=0;
     if($tenant_id!=null||$tenant_id!=""){
         if($lorry_id!=null||$lorry_id!=""){
             $selectStatement = $database->select()
@@ -209,6 +211,9 @@ $app->get('/getStatistic2',function()use($app){
 //                       $count1=bcadd($left=$count1, $right=$data4['goods_weight'], 3);
                        $count+=$data4['goods_count'];//总件数
                        $count1+=$data4['goods_weight'];//总吨数
+                       if($num111<strlen((explode('.',$data4['goods_weight']))[1])){
+                           $num111=strlen((explode('.',$data4['goods_weight']))[1]);
+                       };
                        $selectStatement = $database->select()
                            ->from('orders')
                            ->where('order_id','=',$data3[$y]['order_id'])
@@ -218,31 +223,34 @@ $app->get('/getStatistic2',function()use($app){
 //                       $count2=bcadd($left=$count2, $right=$data5['order_cost'], 3);
 
                        $count2+=$data5['order_cost'];
+                       if($num222<strlen((explode('.',$data5['order_cost']))[1])){
+                           $num222=strlen((explode('.',$data5['order_cost']))[1]);
+                       };
                    }
                }
-                $data[$x]['weight']=sprintf("%.3f",$count1);
-                $arr=explode('.',$data[$x]['weight']);
-                if(substr($arr[1],2,1)){
-                    $data[$x]['weight']=$data[$x]['weight'];
-                }else if(substr($arr[1],1,1)){
-                    $data[$x]['weight']=sprintf("%.2f",$count1);
-                }else if(substr($arr[1],0,1)){
-                    $data[$x]['weight']=sprintf("%.1f",$count1);
-                }else{
-                    $data[$x]['weight']=sprintf("%.0f",$count1);
-                }
+                $data[$x]['weight']=sprintf("%.".$num111."f",$count1);
+//                $arr=explode('.',$data[$x]['weight']);
+//                if(substr($arr[1],2,1)){
+//                    $data[$x]['weight']=$data[$x]['weight'];
+//                }else if(substr($arr[1],1,1)){
+//                    $data[$x]['weight']=sprintf("%.2f",$count1);
+//                }else if(substr($arr[1],0,1)){
+//                    $data[$x]['weight']=sprintf("%.1f",$count1);
+//                }else{
+//                    $data[$x]['weight']=sprintf("%.0f",$count1);
+//                }
                 $data[$x]['count']=$count;
-                $data[$x]['cost']=sprintf("%.3f",$count2);
-                $arr=explode('.',$data[$x]['cost']);
-                if(substr($arr[1],2,1)){
-                    $data[$x]['cost']=$data[$x]['cost'];
-                }else if(substr($arr[1],1,1)){
-                    $data[$x]['cost']=sprintf("%.2f",$count2);
-                }else if(substr($arr[1],0,1)){
-                    $data[$x]['cost']=sprintf("%.1f",$count2);
-                }else{
-                    $data[$x]['cost']=sprintf("%.0f",$count2);
-                }
+                $data[$x]['cost']=sprintf("%.".$num222."f",$count2);
+//                $arr=explode('.',$data[$x]['cost']);
+//                if(substr($arr[1],2,1)){
+//                    $data[$x]['cost']=$data[$x]['cost'];
+//                }else if(substr($arr[1],1,1)){
+//                    $data[$x]['cost']=sprintf("%.2f",$count2);
+//                }else if(substr($arr[1],0,1)){
+//                    $data[$x]['cost']=sprintf("%.1f",$count2);
+//                }else{
+//                    $data[$x]['cost']=sprintf("%.0f",$count2);
+//                }
             }
             echo  json_encode(array("result"=>"0","desc"=>"success","agreement"=>$data));
         }else{
