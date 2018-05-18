@@ -52,9 +52,9 @@ $app->post('/wxmessage_insert',function()use($app){
                                           if($customer_accept_id!=null||$customer_accept_id!=''){
                                             if($goods_name!=''||$goods_name!=null){
                                                 if($goods_weight!=''||$goods_weight!=null){
-                                                    if($goods_capacity!=''||$goods_capacity!=null){
+//                                                    if($goods_capacity!=''||$goods_capacity!=null){
                                                         if($goods_package!=''||$goods_package!=null){
-                                                            if($goods_count!=''||$goods_count!=null){
+//                                                            if($goods_count!=''||$goods_count!=null){
                                                                     if($good_worth!=''||$good_worth!=null){
                                                                             if($wx_openid!=''||$wx_openid!=null){
                                                                                 date_default_timezone_set("PRC");
@@ -222,15 +222,15 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                         echo json_encode(array("result"=>"10","desc"=>"缺少货物价值"));
                                                                     }
 
-                                                            }else{
-                                                                echo json_encode(array("result"=>"12","desc"=>"缺少货物总数"));
-                                                            }
+//                                                            }else{
+//                                                                echo json_encode(array("result"=>"12","desc"=>"缺少货物总数"));
+//                                                            }
                                                         }else{
                                                             echo json_encode(array("result"=>"13","desc"=>"缺少货物包装"));
                                                         }
-                                                    }else{
-                                                        echo json_encode(array("result"=>"14","desc"=>"缺少货物体积"));
-                                                    }
+//                                                    }else{
+//                                                        echo json_encode(array("result"=>"14","desc"=>"缺少货物体积"));
+//                                                    }
                                                 }else{
                                                     echo json_encode(array("result"=>"15","desc"=>"缺少货物重量"));
                                                 }
