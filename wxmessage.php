@@ -215,27 +215,27 @@ $app->post('/wxmessage_insert',function()use($app){
                                                                                     echo json_encode(array("result"=>"7","desc"=>"寄件人信息不存在"));
                                                                                 }
                                                                             }else{
-                                                                                echo json_encode(array("result"=>"8","desc"=>"缺少消息内容"));
+                                                                                echo json_encode(array("result"=>"8","desc"=>"缺少openid"));
                                                                             }
 
                                                                     }else{
-                                                                        echo json_encode(array("result"=>"10","desc"=>"缺少订单创建人电话"));
+                                                                        echo json_encode(array("result"=>"10","desc"=>"缺少货物价值"));
                                                                     }
 
                                                             }else{
-                                                                echo json_encode(array("result"=>"12","desc"=>"缺少运单id"));
+                                                                echo json_encode(array("result"=>"12","desc"=>"缺少货物总数"));
                                                             }
                                                         }else{
-                                                            echo json_encode(array("result"=>"13","desc"=>"缺少租户id"));
+                                                            echo json_encode(array("result"=>"13","desc"=>"缺少货物包装"));
                                                         }
                                                     }else{
-                                                        echo json_encode(array("result"=>"14","desc"=>"缺少消息内容"));
+                                                        echo json_encode(array("result"=>"14","desc"=>"缺少货物体积"));
                                                     }
                                                 }else{
-                                                    echo json_encode(array("result"=>"15","desc"=>"缺少消息标题"));
+                                                    echo json_encode(array("result"=>"15","desc"=>"缺少货物重量"));
                                                 }
                                             }else{
-                                                echo json_encode(array("result"=>"16","desc"=>"缺少订单创建人电话"));
+                                                echo json_encode(array("result"=>"16","desc"=>"缺少货物名称"));
                                             }
                                           }else{
                                               echo json_encode(array("result"=>"17","desc"=>"缺少收件人id"));
@@ -270,8 +270,6 @@ $app->post('/wxmessage_insert',function()use($app){
 }else{
     echo json_encode(array("result"=>"25","desc"=>"缺少租户id"));
 }
-
-
 
 });
 
