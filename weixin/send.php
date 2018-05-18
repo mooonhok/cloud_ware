@@ -55,7 +55,7 @@ $signPackage = $jssdk->GetSignPackage();
 				<div class="center_3">
 					<div class="wenzi">体积(m³)</div>
 					<div class="text4">
-						<input type="number" placeholder="必填项" class="tiji">
+						<input type="number" placeholder="选填" class="tiji">
 					</div>
 				</div>
 				<div class="center_4">
@@ -69,7 +69,7 @@ $signPackage = $jssdk->GetSignPackage();
 				<div class="center_5">
 					<div class="wenzi">件数</div>
 					<div class="text1">
-						<input type="tel" placeholder="必填项" class="jianshu">
+						<input type="tel" placeholder="选填" class="jianshu">
 					</div>
 				</div>
 				<div class="center_6">
@@ -1284,13 +1284,9 @@ window.alert = function(name){
 				layer.msg("缺少货物名");
 			} else if(zhong == "" || zhong == 0) {
 				layer.msg("缺少货物重量或货物重量不能为0");
-			} else if(tiji == "" || tiji == 0) {
-				layer.msg("缺少货物体积或体积不能为0");
-			} else if(baozhuang == "") {
+			}  else if(baozhuang == "") {
 				layer.msg("未选择货物包装");
-			} else if(jianshu == "" || jianshu == 0) {
-				layer.msg("缺少货物件数或货物件数不能为0");
-			} else if(jiazhi == "" || jiazhi == 0) {
+			}  else if(jiazhi == "" || jiazhi == 0) {
 				layer.msg("缺少货物价值或货物价值不能为0");
 			} else if(str == 4) {
 				layer.msg("未选择付款方式");
