@@ -9,8 +9,9 @@ $tenant_id=substr($arr[1],0,10);
 $page=$arr[4];
 $appid=substr($arr[2],0,18);
 $secret=substr($arr[3],0,32);
-
+echo '9';
 if ($_COOKIE['openid'.$tenant_id] == null) {
+    echo '10';
     if (!isset($_GET['code'])) {
       //  $appid = 'wx81d659de6151801e';
         echo '1';
@@ -50,6 +51,8 @@ if ($_COOKIE['openid'.$tenant_id] == null) {
         }else if($page==1){
             echo '4';
             header('http://'.$a.'/weixin/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+        }else{
+            echo '7';
         }
     }
 }else{
@@ -68,6 +71,8 @@ if ($_COOKIE['openid'.$tenant_id] == null) {
         }else if($page==1){
             echo '5';
             header('http://'.$a.'/weixin/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+        }else{
+            echo '8';
         }
 }
 
