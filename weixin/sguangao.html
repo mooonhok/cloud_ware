@@ -8,6 +8,7 @@
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
 		 <script src="js/scale.js"></script>
+		 <script type="text/javascript" src="js/config.js"></script>
 		 <link rel="stylesheet" href="css/scale.css" type="text/css" />
 		 <title>公司介绍</title>
 		 <style>
@@ -292,7 +293,7 @@
        var tenant_id=$.getUrlParam('tenant_id');
 		 $(document).ready(function(){
            $.ajax({
-               url: "http://api.uminfo.cn/tenant.php/tenant_introduction?tenant_id="+tenant_id,
+               url: p_url+"tenant_introduction?tenant_id="+tenant_id,
                beforeSend: function(request) {
                },
                dataType: 'json',

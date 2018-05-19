@@ -16,6 +16,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 		<link rel="stylesheet" href="css/woyaojijian.css">
+		<script type="text/javascript" src="js/config.js"></script>
 		<title>我要寄件</title>
 	</head>
 	<body>
@@ -468,7 +469,7 @@ $signPackage = $jssdk->GetSignPackage();
 		var customer_accept_id = "";
 //		if(openid != null) {
 //			$.ajax({
-//				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid=" + openid,
+//				url: p_url+"customer.php/wx_openid?wx_openid=" + openid,
 //				beforeSend: function(request) {
 //					request.setRequestHeader("tenant-id", tenant_id);
 //				},
@@ -478,7 +479,7 @@ $signPackage = $jssdk->GetSignPackage();
 //				data: JSON.stringify({}),
 //				success: function(msg) {
 //				   if(msg.result == 0) {
-//					   window.location.href = "http://api.uminfo.cn/weixin/test.html?tenant_id="+tenant_id+"&page=5";
+//					   window.location.href = p_url+"weixin/test.html?tenant_id="+tenant_id+"&page=5";
 //				  }
 //				},
 //				error: function(xhr) {
@@ -631,7 +632,7 @@ window.alert = function(name){
 	</script>
 	<script>
 		$.ajax({
-			url: "http://api.uminfo.cn/goods_package_nedb.php/getGoodsPackages",
+			url: p_url+"goods_package_nedb.php/getGoodsPackages",
 			dataType: 'json',
 			type: 'get',
 			ContentType: "application/json;charset=utf-8",
@@ -647,7 +648,7 @@ window.alert = function(name){
 		});
 		//获取省份和城市列表1
 		$.ajax({
-			url: "http://api.uminfo.cn/city.php/province",
+			url: p_url+"city.php/province",
 			dataType: 'json',
 			type: 'get',
 			ContentType: "application/json;charset=utf-8",
@@ -665,7 +666,7 @@ window.alert = function(name){
 			$("#city1").empty();
 			var pid = $("#province1 option:selected").val();
 			$.ajax({
-				url: "http://api.uminfo.cn/city.php/city?pid=" + pid,
+				url: p_url+"city.php/city?pid=" + pid,
 				dataType: 'json',
 				type: 'get',
 				ContentType: "application/json;charset=utf-8",
@@ -684,7 +685,7 @@ window.alert = function(name){
 	<script>
 		//获取城市列表2
 		$.ajax({
-			url: "http://api.uminfo.cn/city.php/province",
+			url: p_url+"city.php/province",
 			dataType: 'json',
 			type: 'get',
 			ContentType: "application/json;charset=utf-8",
@@ -702,7 +703,7 @@ window.alert = function(name){
 			$("#city2").empty();
 			var pid = $("#province2 option:selected").val();
 			$.ajax({
-				url: "http://api.uminfo.cn/city.php/city?pid=" + pid,
+				url: p_url+"city.php/city?pid=" + pid,
 				dataType: 'json',
 				type: 'get',
 				ContentType: "application/json;charset=utf-8",
@@ -721,7 +722,7 @@ window.alert = function(name){
 	<script>
 		//获取城市列表3
 		$.ajax({
-			url: "http://api.uminfo.cn/city.php/province",
+			url: p_url+"city.php/province",
 			dataType: 'json',
 			type: 'get',
 			ContentType: "application/json;charset=utf-8",
@@ -736,7 +737,7 @@ window.alert = function(name){
 			}
 		});
 		$.ajax({
-			url: "http://api.uminfo.cn/city.php/citys",
+			url: p_url+"city.php/citys",
 			dataType: 'json',
 			type: 'get',
 			ContentType: "application/json;charset=utf-8",
@@ -754,7 +755,7 @@ window.alert = function(name){
 			$("#city3").empty();
 			var pid = $("#province3 option:selected").val();
 			$.ajax({
-				url: "http://api.uminfo.cn/city.php/city?pid=" + pid,
+				url: p_url+"city.php/city?pid=" + pid,
 				dataType: 'json',
 				type: 'get',
 				ContentType: "application/json;charset=utf-8",
@@ -773,7 +774,7 @@ window.alert = function(name){
 	<script>
 		//获取城市列表4
 		$.ajax({
-			url: "http://api.uminfo.cn/city.php/province",
+			url: p_url+"city.php/province",
 			dataType: 'json',
 			type: 'get',
 			ContentType: "application/json;charset=utf-8",
@@ -789,7 +790,7 @@ window.alert = function(name){
 		});
 
         $.ajax({
-			url: "http://api.uminfo.cn/city.php/citys",
+			url: p_url+"city.php/citys",
 			dataType: 'json',
 			type: 'get',
 			ContentType: "application/json;charset=utf-8",
@@ -808,7 +809,7 @@ window.alert = function(name){
 			$("#city4").empty();
 			var pid = $("#province4 option:selected").val();
 			$.ajax({
-				url: "http://api.uminfo.cn/city.php/city?pid=" + pid,
+				url: p_url+"city.php/city?pid=" + pid,
 				dataType: 'json',
 				type: 'get',
 				ContentType: "application/json;charset=utf-8",
@@ -845,7 +846,7 @@ window.alert = function(name){
 		//加载寄件人信息
 		function loadsend(openid,tenant_id) {
 			$.ajax({
-				url: "http://api.uminfo.cn/customer.php/wxaddress?wx_openid=" + openid,
+				url: p_url+"customer.php/wxaddress?wx_openid=" + openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
@@ -882,7 +883,7 @@ window.alert = function(name){
 	<script type="text/javascript">
 		function edit(id){
 					$.ajax({
-					url: "http://api.uminfo.cn/customer.php/onewxaddress",
+					url: p_url+"customer.php/onewxaddress",
 					beforeSend: function(request) {
 						request.setRequestHeader("tenant-id", tenant_id);
 					},
@@ -928,7 +929,7 @@ window.alert = function(name){
 				return false;
 			}else{
 				$.ajax({
-					url: "http://api.uminfo.cn/customer.php/customer_address",
+					url: p_url+"customer.php/customer_address",
 					beforeSend: function(request) {
 						request.setRequestHeader("tenant-id", tenant_id);
 					},
@@ -968,7 +969,7 @@ window.alert = function(name){
 				 tenant_id=$.getUrlParam('tenant_id');
 			}
 			$.ajax({
-				url: "http://api.uminfo.cn/customer.php/customer?customerid=" + id+"",
+				url: p_url+"customer.php/customer?customerid=" + id+"",
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
@@ -1012,7 +1013,7 @@ window.alert = function(name){
 		//加载收货地址
 		function loadaccept(openid,tenant_id) {
 			$.ajax({
-				url: "http://api.uminfo.cn/customer.php/wxaddress?wx_openid=" + openid,
+				url: p_url+"customer.php/wxaddress?wx_openid=" + openid,
 				beforeSend: function(request) {
 				request.setRequestHeader("tenant-id", tenant_id);
 			},
@@ -1062,7 +1063,7 @@ window.alert = function(name){
 	<script type="text/javascript">
 		function edit1(id){
 					$.ajax({
-					url: "http://api.uminfo.cn/customer.php/onewxaddress",
+					url: p_url+"customer.php/onewxaddress",
 					beforeSend: function(request) {
 						request.setRequestHeader("tenant-id", tenant_id);
 					},
@@ -1108,7 +1109,7 @@ window.alert = function(name){
 				return false;
 			} else {
 				$.ajax({
-					url: "http://api.uminfo.cn/customer.php/customer_address",
+					url: p_url+"customer.php/customer_address",
 					beforeSend: function(request) {
 						request.setRequestHeader("tenant-id", tenant_id);
 					},
@@ -1164,7 +1165,7 @@ window.alert = function(name){
 				return false;
 			} else {
 				$.ajax({
-					url: "http://api.uminfo.cn/customer.php/plus_customer",
+					url: p_url+"customer.php/plus_customer",
 					beforeSend: function(request) {
 						request.setRequestHeader("tenant-id", tenant_id);
 					},
@@ -1220,7 +1221,7 @@ window.alert = function(name){
 				return false;
 			} else {
 				$.ajax({
-					url: "http://api.uminfo.cn/customer.php/plus_customer",
+					url: p_url+"customer.php/plus_customer",
 					beforeSend: function(request) {
 						request.setRequestHeader("tenant-id", tenant_id);
 					},
@@ -1297,7 +1298,7 @@ window.alert = function(name){
 			}else{
 			    // alert(customer_send_id+"////"+customer_accept_id+"////"+huowu+"////"+zhong+"////"+tiji+"////"+baozhuang+"////"+jianshu+"////"+needs+"////"+jiazhi+"////"+str+"////"+openid);
 				$.ajax({
-					url: "http://api.uminfo.cn/wxmessage.php/wxmessage_insert",
+					url: p_url+"wxmessage.php/wxmessage_insert",
 					beforeSend: function(request) {
 						request.setRequestHeader("tenant-id", tenant_id);
 					},

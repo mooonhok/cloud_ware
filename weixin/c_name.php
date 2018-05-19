@@ -17,6 +17,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+		  <script type="text/javascript" src="js/config.js"></script>
 		<title>联系我们</title>
 		<style>
 			* {
@@ -184,7 +185,7 @@ $signPackage = $jssdk->GetSignPackage();
      var openid = $.cookie('openid'+tenant_id);
         $(document).ready(function(){
            $.ajax({
-               url: "http://api.uminfo.cn/tenant.php/tenant_introduction?tenant_id="+tenant_id,
+               url: p_url+"tenant.php/tenant_introduction?tenant_id="+tenant_id,
                beforeSend: function(request) {
                },
                dataType: 'json',

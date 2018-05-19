@@ -9,6 +9,7 @@
 	</body>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="js/config.js"></script>
 	<script>
 		(function($) {
 			$.getUrlParam = function(name) {
@@ -21,7 +22,7 @@
 		var tenant_id=$.getUrlParam('tenant_id');
 		var page=$.getUrlParam('page');
 		$.ajax({
-				url: "http://api.uminfo.cn/wx_test.php/tenant",
+				url: p_url+"wx_test.php/tenant",
 				dataType: 'json',
 				type: 'get',
 				ContentType: "application/json;charset=utf-8",
@@ -33,7 +34,7 @@
 					for(var i=0;i<msg.tenant.length;i++){
 						if(msg.tenant[i].tenant_id==tenant_id){
 							//alert(msg.tenant[i].appid+"/////"+msg.tenant[i].tenant_id+"/////"+msg.tenant[i].secret);
-							window.location.href="http://api.uminfo.cn/weixin/menu.php?tenant_id="
+							window.location.href=p_url+"weixin/menu.php?tenant_id="
 							+tenant_id+"&appid="+msg.tenant[i].appid+"&secret="+msg.tenant[i].secret+"&page="+page;
 						}
 					}

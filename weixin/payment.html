@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="css/zhifuyunfei.css">
         <title>支付费用</title>
          <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+         <script type="text/javascript" src="js/config.js"></script>
          <script type="text/javascript">
          $(function(){
                 //改变div的高度
@@ -92,7 +93,7 @@
 		var openid = $.cookie('openid'+tenant_id);
 		if(openid != null) {
 			$.ajax({
-				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid="+openid,
+				url: p_url+"customer.php/wx_openid?wx_openid="+openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", "1");
 				},
@@ -103,7 +104,7 @@
 				}),
 				success: function(msg) {
 					if(msg.result == 0) {
-						window.location.href = "http://api.uminfo.cn/weixin/test.html?tenant_id="+tenant_id+"page=5";
+						window.location.href = p_url+"weixin/test.html?tenant_id="+tenant_id+"page=5";
 					} else {
 					//	alert(openid);
 					}

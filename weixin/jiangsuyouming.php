@@ -14,6 +14,7 @@ $signPackage = $jssdk->GetSignPackage();
 	<meta charset="UTF-8">
 	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	 <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+	   <script type="text/javascript" src="js/config.js"></script>
 	<title>靖江万事鑫</title>
 	
 	<style>
@@ -89,7 +90,7 @@ $signPackage = $jssdk->GetSignPackage();
        var openid = $.cookie('openid'+tenant_id);
 //       if(openid != null) {
 //           $.ajax({
-//               url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid="+openid,
+//               url: p_url+"wx_openid?wx_openid="+openid,
 //               beforeSend: function(request) {
 //                   request.setRequestHeader("tenant-id", tenant_id);
 //               },
@@ -114,7 +115,7 @@ $signPackage = $jssdk->GetSignPackage();
        $(document).ready(function(){
        
            $.ajax({
-               url: "http://api.uminfo.cn/tenant.php/tenant_introduction?tenant_id="+tenant_id,
+               url: p_url+"tenant.php/tenant_introduction?tenant_id="+tenant_id,
                beforeSend: function(request) {
                },
                dataType: 'json',

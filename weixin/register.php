@@ -19,6 +19,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
 		<script type="text/javascript" src="layer/layer.js"></script>
+		<script type="text/javascript" src="js/config.js"></script>
 		   <script type="text/javascript">
     	$(function() {
 				//改变div的高度
@@ -145,7 +146,7 @@ $signPackage = $jssdk->GetSignPackage();
 	//	alert(openid)
 		if(openid != null) {
 			$.ajax({
-				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid=" + openid,
+				url: p_url+"customer.php/wx_openid?wx_openid=" + openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
@@ -183,7 +184,7 @@ $signPackage = $jssdk->GetSignPackage();
 									return false;
 								} else {
 									$.ajax({
-										url: "http://api.uminfo.cn/customer.php/wx_customer",
+										url: p_url+"customer.php/wx_customer",
 										beforeSend: function(request) {
 											request.setRequestHeader("tenant-id", tenant_id);
 										},
@@ -198,7 +199,7 @@ $signPackage = $jssdk->GetSignPackage();
 										success: function(msg) {
 											layer.msg("用户注册成功");
 											$("#submit").removeAttr('onclick');
-												window.location.href = "http://api.uminfo.cn/weixin/test.html?tenant_id="+tenant_id+"&page=1";
+												window.location.href = p_url+"weixin/test.html?tenant_id="+tenant_id+"&page=1";
 										},
 										error: function(xhr) {
 											alert("获取后台失败！");

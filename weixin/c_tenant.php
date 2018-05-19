@@ -18,6 +18,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<script type="text/javascript" src="js/jquery.cookie.js"></script>
 		<script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
 		<script type="text/javascript" src="layer/layer.js"></script>
+		  <script type="text/javascript" src="js/config.js"></script>
 		<title>公司介绍</title>
 		<title></title>
 		<style>
@@ -94,7 +95,7 @@ var tenant_id=$.getUrlParam('tenant_id');
        var openid = $.cookie('openid'+tenant_id);
 		 $(document).ready(function(){
            $.ajax({
-               url: "http://api.uminfo.cn/tenant.php/tenant_introduction?tenant_id="+tenant_id,
+               url: p_url+"tenant.php/tenant_introduction?tenant_id="+tenant_id,
                beforeSend: function(request) {
                },
                dataType: 'json',

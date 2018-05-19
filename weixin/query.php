@@ -14,7 +14,7 @@ $signPackage = $jssdk->GetSignPackage();
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
-
+    <script type="text/javascript" src="js/config.js"></script>
 	<title>运单号查询</title>
 	<style type="text/css">
 		*{
@@ -167,7 +167,7 @@ $signPackage = $jssdk->GetSignPackage();
 		var order_id=$("#order_id").val();
 		if(order_id.length!=0){
 			$.ajax({
-				url: "http://api.uminfo.cn/order.php/wx_order_z",
+				url: p_url+"order.php/wx_order_z",
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
@@ -182,7 +182,7 @@ $signPackage = $jssdk->GetSignPackage();
 				       layer.msg("订单不存在");
 					}else{
 					// alert(order_id);
-		            window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+order_id+"&tenant_id="+tenant_id;
+		            window.location.href=p_url+"weixin/waybill_details.html?order_id="+order_id+"&tenant_id="+tenant_id;
 					}
 				},
 				error: function(xhr) {
@@ -201,7 +201,7 @@ $signPackage = $jssdk->GetSignPackage();
 	//	alert(openid);
 		if(openid != null) {
 			$.ajax({
-				url: "http://api.uminfo.cn/customer.php/wx_openid?wx_openid="+openid,
+				url: p_url+"customer.php/wx_openid?wx_openid="+openid,
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id", tenant_id);
 				},
@@ -212,7 +212,7 @@ $signPackage = $jssdk->GetSignPackage();
 				}),
 				success: function(msg) {
 					if(msg.result == 0) {
-						 window.location.href = "http://api.uminfo.cn/weixin/test.html?tenant_id="+tenant_id+"&page=5";
+						 window.location.href = p_url+"weixin/test.html?tenant_id="+tenant_id+"&page=5";
 					}
 				},
 				error: function(xhr) {
@@ -252,7 +252,7 @@ $signPackage = $jssdk->GetSignPackage();
        if(a[1]!=null){
           // alert(a)
 			$.ajax({
-				url: "http://api.uminfo.cn/order.php/wx_order_z",
+				url: p_url+"order.php/wx_order_z",
 				beforeSend: function(request) {
 					request.setRequestHeader("tenant-id",tenant_id);
 				},
@@ -266,7 +266,7 @@ $signPackage = $jssdk->GetSignPackage();
 					if(msg.result == 1) {
 				     layer.msg("订单不存在");
 					}else{
-		            window.location.href="http://api.uminfo.cn/weixin/waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
+		            window.location.href=p_url+"weixin/waybill_details.html?order_id="+a[1]+"&tenant_id="+tenant_id;
 					}
 				},
 				error: function(xhr) {
