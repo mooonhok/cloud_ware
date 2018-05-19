@@ -33,36 +33,36 @@ if ($_COOKIE['openid'.$tenant_id] == null) {
         // echo $json_obj['openid'];
         setcookie('openid'.$tenant_id, $json_obj['openid']);
         if ($page==7){
-            header($a.'/weixin/build.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('http://'.$a.'/weixin/build.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==6){
-            header($a.'/weixin/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('http://'.$a.'/weixin/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==5){
-            header($a.'/weixin/register.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('http://'.$a.'/weixin/register.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==4){
-            header($a.'/weixin/c_tenant.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('http://'.$a.'/weixin/c_tenant.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
        }else if($page==3){
-            header($a.'/weixin/c_name.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('http://'.$a.'/weixin/c_name.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==2){
-           header($a.'/weixin/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+           header('http://'.$a.'/weixin/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==1){
-            header($a.'/weixin/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('http://'.$a.'/weixin/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }
     }
 }else{
         if ($page==7){
-            header($a.'/weixin/build.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('http://'.$a.'/weixin/build.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==6){
-            header($a.'/weixin/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('http://'.$a.'/weixin/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==5){
-            header($a.'/weixin/register.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('http://'.$a.'/weixin/register.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==4){
-            header($a.'/weixin/c_tenant.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('http://'.$a.'/weixin/c_tenant.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
        }else if($page==3){
-            header($a.'/weixin/c_name.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('http://'.$a.'/weixin/c_name.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==2){
-           header($a.'/weixin/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+           header('http://'.$a.'/weixin/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==1){
-            header($a.'/weixin/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header('http://'.$a.'/weixin/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }
 }
 
