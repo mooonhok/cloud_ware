@@ -70,6 +70,7 @@ if ($_COOKIE['openid'.$tenant_id] == null) {
            header('http://'.$a.'/weixin/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==1){
             echo '5';
+            echo 'http://'.$a.'/weixin/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret;
             header('http://'.$a.'/weixin/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else{
             echo '8';
