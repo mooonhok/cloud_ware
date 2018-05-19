@@ -13,9 +13,11 @@ $secret=substr($arr[3],0,32);
 if ($_COOKIE['openid'.$tenant_id] == null) {
     if (!isset($_GET['code'])) {
       //  $appid = 'wx81d659de6151801e';
+        alert(1);
         $redirect_uri = urlencode('http://'.$a.'/weixin/menu.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret.'&page='.$page);
         $scope = 'snsapi_base';
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+        alert(2);
         header('Location:' . $url);
     } else {
        // $appid = "wx81d659de6151801e";
@@ -31,6 +33,7 @@ if ($_COOKIE['openid'.$tenant_id] == null) {
         curl_close($ch);
         $json_obj = json_decode($output, true);
         // echo $json_obj['openid'];
+        alert(3);
         setcookie('openid'.$tenant_id, $json_obj['openid']);
         if ($page==7){
             header('http://'.$a.'/weixin/build.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
@@ -45,6 +48,7 @@ if ($_COOKIE['openid'.$tenant_id] == null) {
         }else if($page==2){
            header('http://'.$a.'/weixin/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==1){
+            alert(4);
             header('http://'.$a.'/weixin/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }
     }
@@ -62,6 +66,7 @@ if ($_COOKIE['openid'.$tenant_id] == null) {
         }else if($page==2){
            header('http://'.$a.'/weixin/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==1){
+            alert(5);
             header('http://'.$a.'/weixin/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }
 }
