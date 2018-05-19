@@ -13,7 +13,7 @@ $secret=substr($arr[3],0,32);
 if ($_COOKIE['openid'.$tenant_id] == null) {
     if (!isset($_GET['code'])) {
       //  $appid = 'wx81d659de6151801e';
-        $redirect_uri = urlencode($a.'/weixin/menu.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret.'&page='.$page);
+        $redirect_uri = urlencode('http://'.$a.'/weixin/menu.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret.'&page='.$page);
         $scope = 'snsapi_base';
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
         header('Location:' . $url);
