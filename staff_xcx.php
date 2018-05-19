@@ -110,7 +110,7 @@ $app->post('/makeOrder',function()use($app){
                                                                         $stmt = $selectStatement->execute();
                                                                         $data1 = $stmt->fetchAll();
                                                                         for($i=0;$i<count($data);$i++){
-                                                                            if(!(preg_match('/[A-Za-z]+/',$data1[$i]['customer_id']))){
+                                                                            if(!(preg_match('/[A-Za-z]*/',$data1[$i]['customer_id']))){
                                                                                 $num1++;
                                                                             }
                                                                         }
@@ -137,7 +137,7 @@ $app->post('/makeOrder',function()use($app){
                                                                         $stmt = $selectStatement->execute();
                                                                         $data3 = $stmt->fetchAll();
                                                                         for($i=0;$i<count($data3);$i++){
-                                                                            if(!(preg_match('/[A-Za-z]+/',$data3[$i]['customer_id']))){
+                                                                            if(!(preg_match('/[A-Za-z]*/',$data3[$i]['customer_id']))){
                                                                                 $num2++;
                                                                             }
                                                                         }
@@ -179,9 +179,9 @@ $app->post('/makeOrder',function()use($app){
                                                                     }
                                                                     date_default_timezone_set("PRC");
                                                                     $shijian=date("Y-m-d H:i:s",time());
-                                                                    $insertStatement = $database->insert(array('order_id','tenant_id','sender_id','receiver_id','pay_method','pay_status','order_cost','order_status','exist','order_datetime0','is_sign','order_datetime1','inventory_type'))
+                                                                    $insertStatement = $database->insert(array('order_status','order_id','tenant_id','sender_id','receiver_id','pay_method','pay_status','order_cost','order_status','exist','order_datetime0','is_sign','order_datetime1','inventory_type'))
                                                                         ->into('orders')
-                                                                        ->values(array($order_id,$tenant_id,$customer_id1,$customer_id2,$pay_method,1,$order_cost,-2,0,$shijian,'0',$shijian,0));
+                                                                        ->values(array(1,$order_id,$tenant_id,$customer_id1,$customer_id2,$pay_method,1,$order_cost,-2,0,$shijian,'0',$shijian,0));
                                                                     $insertId = $insertStatement->execute(false);
                                                                     $selectStatement = $database->select()
                                                                         ->from('goods')
