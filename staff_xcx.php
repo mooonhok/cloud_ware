@@ -147,16 +147,18 @@ $app->post('/makeOrder',function()use($app){
                                                                             ->values(array($customer_id2,$tenant_id,$customer_city_b,$customer_address_b,$customer_name_b,$customer_phone_b,0,0));
                                                                         $insertId = $insertStatement->execute(false);
                                                                     }
-                                                                    $selectStatement = $database->select()
-                                                                        ->from('orders')
-                                                                        ->where('tenant_id','=',$tenant_id);
-                                                                    $stmt = $selectStatement->execute();
-                                                                    $data4 = $stmt->fetchAll();
+
                                                                     $selectStatement = $database->select()
                                                                         ->from('tenant')
                                                                         ->where('tenant_id','=',$tenant_id);
                                                                     $stmt = $selectStatement->execute();
                                                                     $data5= $stmt->fetch();
+                                                                $selectStatement = $database->select()
+                                                                    ->from('orders')
+                                                                    ->whereLike('order_id',$data5['tenant_num'].'%')
+                                                                    ->where('tenant_id','=',$tenant_id);
+                                                                $stmt = $selectStatement->execute();
+                                                                $data4 = $stmt->fetchAll();
                                                                     $order_id=0;
                                                                     if($data4){
                                                                         if(strlen((count($data4)+1).'')==1){
@@ -177,12 +179,13 @@ $app->post('/makeOrder',function()use($app){
                                                                     }
                                                                     date_default_timezone_set("PRC");
                                                                     $shijian=date("Y-m-d H:i:s",time());
-                                                                    $insertStatement = $database->insert(array('order_id','tenant_id','sender_id','receiver_id','pay_method','pay_status','order_cost','order_status','exist','order_datetime0','is_sign'))
+                                                                    $insertStatement = $database->insert(array('order_id','tenant_id','sender_id','receiver_id','pay_method','pay_status','order_cost','order_status','exist','order_datetime0','is_sign','order_datetime1','inventory_type'))
                                                                         ->into('orders')
-                                                                        ->values(array($order_id,$tenant_id,$customer_id1,$customer_id2,$pay_method,1,$order_cost,-2,0,$shijian,'0'));
+                                                                        ->values(array($order_id,$tenant_id,$customer_id1,$customer_id2,$pay_method,1,$order_cost,-2,0,$shijian,'0',$shijian,0));
                                                                     $insertId = $insertStatement->execute(false);
                                                                     $selectStatement = $database->select()
                                                                         ->from('goods')
+                                                                        ->whereLike('goods_id',$data5['tenant_num'].'%')
                                                                         ->where('tenant_id','=',$tenant_id);
                                                                     $stmt = $selectStatement->execute();
                                                                     $data6= $stmt->fetchAll();
@@ -246,10 +249,10 @@ $app->post('/makeOrder',function()use($app){
                 echo json_encode(array('result'=>'13','desc'=>'缺少发货人电话'));
             }
         }else{
-            echo json_encode(array('result'=>'2','desc'=>'缺少发货人名字'));
+            echo json_encode(array('result'=>'14','desc'=>'缺少发货人名字'));
         }
     }else{
-        echo json_encode(array('result'=>'1','desc'=>'缺少租户'));
+        echo json_encode(array('result'=>'15','desc'=>'缺少租户'));
     }
 });
 
