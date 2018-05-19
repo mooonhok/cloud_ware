@@ -2,6 +2,7 @@
 //header("Access-Control-Allow-Origin:*");
 //header("Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS");
 header('Content-type:text/html;charset=utf-8');
+$a=$_SERVER["HTTP_HOST"];
 $str=$_SERVER["QUERY_STRING"];
 $arr=explode("=",$str);
 $tenant_id=substr($arr[1],0,10);
@@ -32,36 +33,36 @@ if ($_COOKIE['openid'.$tenant_id] == null) {
         // echo $json_obj['openid'];
         setcookie('openid'.$tenant_id, $json_obj['openid']);
         if ($page==7){
-            header('location:http://api.uminfo.cn/weixin/build.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header($a.'/weixin/build.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==6){
-            header('location:http://api.uminfo.cn/weixin/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header($a.'/weixin/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==5){
-            header('location:http://api.uminfo.cn/weixin/register.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header($a.'/weixin/register.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==4){
-            header('location:http://api.uminfo.cn/weixin/c_tenant.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header($a.'/weixin/c_tenant.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
        }else if($page==3){
-            header('location:http://api.uminfo.cn/weixin/c_name.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header($a.'/weixin/c_name.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==2){
-           header('location:http://api.uminfo.cn/weixin/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+           header($a.'/weixin/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==1){
-            header('location:http://api.uminfo.cn/weixin/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header($a.'/weixin/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }
     }
 }else{
         if ($page==7){
-            header('location:http://api.uminfo.cn/weixin/build.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header($a.'/weixin/build.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==6){
-            header('location:http://api.uminfo.cn/weixin/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header($a.'/weixin/my_consignment_note.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==5){
-            header('location:http://api.uminfo.cn/weixin/register.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header($a.'/weixin/register.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==4){
-            header('location:http://api.uminfo.cn/weixin/c_tenant.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header($a.'/weixin/c_tenant.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
        }else if($page==3){
-            header('location:http://api.uminfo.cn/weixin/c_name.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header($a.'/weixin/c_name.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==2){
-           header('location:http://api.uminfo.cn/weixin/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+           header($a.'/weixin/query.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }else if($page==1){
-            header('location:http://api.uminfo.cn/weixin/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
+            header($a.'/weixin/send.php?tenant_id='.$tenant_id.'&appid='.$appid.'&secret='.$secret);
         }
 }
 
