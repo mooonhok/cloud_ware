@@ -112,11 +112,11 @@ $app->post('/makeOrder',function()use($app){
                                                                         $stmt = $selectStatement->execute();
                                                                         $data1 = $stmt->fetchAll();
                                                                         for($i=0;$i<count($data);$i++){
-                                                                            if(!(preg_match('/[a-zA-Z]/',$data1[$i]['customer_id']))){
+                                                                            if(preg_match('/[a-zA-Z]/',$data1[$i]['customer_id'])){
                                                                                 $num1++;
                                                                             }
                                                                         }
-                                                                        $customer_id1=$num1+10000000001;
+                                                                        $customer_id1=(count($data1)-$num1)+10000000001;
                                                                         $insertStatement = $database->insert(array('customer_id','tenant_id','customer_city_id','customer_address','customer_name','customer_phone','type','exist'))
                                                                             ->into('customer')
                                                                             ->values(array($customer_id1,$tenant_id,$customer_city_a,$customer_address_a,$customer_name_a,$customer_phone_a,0,0));
@@ -139,11 +139,11 @@ $app->post('/makeOrder',function()use($app){
                                                                         $stmt = $selectStatement->execute();
                                                                         $data3 = $stmt->fetchAll();
                                                                         for($i=0;$i<count($data3);$i++){
-                                                                            if(!(preg_match('/[a-zA-Z]/',$data3[$i]['customer_id']))){
+                                                                            if(preg_match('/[a-zA-Z]/',$data3[$i]['customer_id'])){
                                                                                 $num2++;
                                                                             }
                                                                         }
-                                                                        $customer_id2=$num2+10000000001;
+                                                                        $customer_id2=(count($data3)-$num2)+10000000001;
                                                                         $insertStatement = $database->insert(array('customer_id','tenant_id','customer_city_id','customer_address','customer_name','customer_phone','type','exist'))
                                                                             ->into('customer')
                                                                             ->values(array($customer_id2,$tenant_id,$customer_city_b,$customer_address_b,$customer_name_b,$customer_phone_b,0,0));
