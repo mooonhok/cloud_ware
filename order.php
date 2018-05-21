@@ -1703,7 +1703,72 @@ $app->post('/order_insert',function()use($app){
     }
 });
 
+
+$app->get('/wsxorder',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $wx_openid=$app->request->get('wx_openid');
+    $database=localhost();
+    $array=array();
+        if($wx_openid!=null||$wx_openid!=""){
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('wx_openid','=',$wx_openid);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetchAll();
+            if($data2!=null){
+               $data2=array_values(array_unset_tt($data2,'customer_phone'));
+                for($i=0;$i<count($data2);$i++){
+                    $selectStatement = $database->select()
+                        ->from('order')
+                        ->where('sender_id','=',$data2[$i]['customer_id'])
+                        ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                        ->where('wx_openid','=',$wx_openid);
+                    $stmt = $selectStatement->execute();
+                    $data3 = $stmt->fetchAll();
+                    if($data3!=null){
+                    for($j=0;$j<count($data3);$j++){
+                        $selectStatement = $database->select()
+                            ->from('goods')
+                            ->where('order_id','=',$data3[$j]['order_id'])
+                            ->where('tenant_id','=',$data3[$j]['tenant_id']);
+                        $stmt = $selectStatement->execute();
+                        $data4 = $stmt->fetch();
+                        $data3[$j]['goods']=$data4;
+                    }
+                    }
+                    array_merge($array,$data3);
+                }
+                echo json_encode(array("result"=>"0","desc"=>"success",'orders'=>$array));
+            }else{
+                echo json_encode(array("result"=>"2","desc"=>"该wx_openid没有客户存在"));
+            }
+        }else{
+            echo json_encode(array("result"=>"1","desc"=>"缺少openid"));
+        }
+});
+
+
+
 $app->run();
+
+function array_unset_tt($arr,$key){
+    //建立一个目标数组
+    $res = array();
+    foreach ($arr as $value) {
+        //查看有没有重复项
+
+        if(isset($res[$value[$key]])){
+            //有：销毁
+            unset($value[$key]);
+        }
+        else{
+            $res[$value[$key]] = $value;
+        }
+    }
+    return $res;
+}
+
 
 function localhost()
 {
