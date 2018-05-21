@@ -1736,8 +1736,8 @@ $app->get('/wsxorder',function()use($app){
                         $data4 = $stmt->fetch();
                         $data3[$j]['goods']=$data4;
                     }
+                        array_push($array,$data3);
                     }
-                    array_merge($array,$data3);
                 }
                 echo json_encode(array("result"=>"0","desc"=>"success",'orders'=>$array));
             }else{
