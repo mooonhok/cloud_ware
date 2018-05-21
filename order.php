@@ -1720,7 +1720,7 @@ $app->get('/wsxorder',function()use($app){
                $data2=array_values(array_unset_tt($data2,'customer_phone'));
                 for($i=0;$i<count($data2);$i++){
                     $selectStatement = $database->select()
-                        ->from('order')
+                        ->from('orders')
                         ->where('sender_id','=',$data2[$i]['customer_id'])
                         ->where('tenant_id','=',$data2[$i]['tenant_id'])
                         ->where('wx_openid','=',$wx_openid);
