@@ -110,7 +110,7 @@ $app->post('/makeOrder',function()use($app){
                                                                         $stmt = $selectStatement->execute();
                                                                         $data1 = $stmt->fetchAll();
                                                                         for($i=0;$i<count($data);$i++){
-                                                                            if(!(preg_match('/[A-Za-z]*/',$data1[$i]['customer_id']))){
+                                                                            if(!(preg_match('/[a-zA-Z]/',$data1[$i]['customer_id']))){
                                                                                 $num1++;
                                                                             }
                                                                         }
@@ -137,7 +137,7 @@ $app->post('/makeOrder',function()use($app){
                                                                         $stmt = $selectStatement->execute();
                                                                         $data3 = $stmt->fetchAll();
                                                                         for($i=0;$i<count($data3);$i++){
-                                                                            if(!(preg_match('/[A-Za-z]*/',$data3[$i]['customer_id']))){
+                                                                            if(!(preg_match('/[a-zA-Z]/',$data3[$i]['customer_id']))){
                                                                                 $num2++;
                                                                             }
                                                                         }
