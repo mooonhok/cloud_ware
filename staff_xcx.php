@@ -205,7 +205,7 @@ $app->post('/makeOrder',function()use($app){
                                                                             $goods_id=$data5['tenant_num'].''.(count($data6)+1);
                                                                         }
                                                                     }else{
-                                                                        $goods_id=$data6['tenant_num'].'00000'.'1';
+                                                                        $goods_id=$data5['tenant_num'].'00000'.'1';
                                                                     }
                                                                     $insertStatement = $database->insert(array('goods_id','order_id','tenant_id','goods_name','goods_count','goods_capacity','goods_weight','goods_package_id','goods_value','exist','special_need'))
                                                                         ->into('goods')
