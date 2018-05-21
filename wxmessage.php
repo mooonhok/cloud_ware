@@ -837,6 +837,159 @@ $app->put("/wxmessage_exist",function()use($app){
 
 
 
+$app->post('/gwmessage_insert',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $database=localhost();
+    $customer_send_id=$body->customer_send_id;
+    $customer_accept_id=$body->customer_accept_id;
+    $goods_name=$body->goods_name;
+    $goods_weight=$body->goods_weight;
+    $goods_capacity=$body->goods_capacity;
+    $goods_package=$body->goods_package;
+    $goods_count=$body->goods_count;
+    $special_need=$body->special_need;
+    $good_worth=$body->good_worth;
+    $pay_method=$body->pay_method;
+    $wx_openid=$body->openid;
+    if($tenant_id!=''||$tenant_id!=null){
+        $selectStament=$database->select()
+            ->from('tenant')
+            ->where('exist','=',0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt=$selectStament->execute();
+        $data10=$stmt->fetch();
+        if($data10!=null){
+        if($customer_send_id!=null||$customer_send_id!=''){
+            if($customer_accept_id!=null||$customer_accept_id!=''){
+                if($goods_name!=''||$goods_name!=null){
+                    if($goods_weight!=''||$goods_weight!=null){
+                        if($goods_package!=''||$goods_package!=null){
+                            if($good_worth!=''||$good_worth!=null){
+                                if($wx_openid!=''||$wx_openid!=null){
+                                    date_default_timezone_set("PRC");
+                                    $shijian=date("Y-m-d H:i:s",time());
+                                    $selectStatement = $database->select()
+                                        ->from('customer')
+                                        ->where('tenant_id','=',$tenant_id)
+                                        ->where('exist',"=",0)
+                                        ->where('customer_id','=',$customer_send_id)
+                                        ->where('wx_openid','=',$wx_openid);
+                                    $stmt = $selectStatement->execute();
+                                    $data = $stmt->fetch();
+                                    if($data!=null){
+                                        $selectStatement = $database->select()
+                                            ->from('customer')
+                                            ->where('tenant_id','=',$tenant_id)
+                                            ->where('exist',"=",0)
+                                            ->where('customer_id','=',$customer_accept_id)
+                                            ->where('wx_openid','=',$wx_openid);
+                                        $stmt = $selectStatement->execute();
+                                        $data1 = $stmt->fetch();
+                                        if($data1!=null) {
+                                            $chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+                                            $strr = substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+                                            do{
+                                                $strr.= substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+                                            }while(strlen($strr)<6);
+                                            $time=base_convert(time(), 10, 32);
+                                            $str=$time.$strr;
+                                            $insertStatement = $database->insert(array('wx_openid','tenant_id','order_id', 'pay_method','exist','order_status','sender_id','receiver_id','order_datetime0','pay_status'))
+                                                ->into('orders')
+                                                ->values(array($wx_openid,$tenant_id,$str, $pay_method,0,-2,$data["customer_id"],$data1['customer_id'],$shijian,'1'));
+                                            $insertId = $insertStatement->execute(false);
+                                            if($insertId!=null){
+                                                $strrr = substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+                                                do{
+                                                    $strrr.= substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+                                                }while(strlen($strrr)<6);
+                                                $time1=base_convert(time(), 10, 32);
+                                                $str1=$time1.$strrr;
+                                                $selectStatement = $database->select()
+                                                    ->from('customer')
+                                                    ->where('tenant_id','=',$tenant_id)
+                                                    ->where('exist',"=",0)
+                                                    ->where('customer_address','=','-1')
+                                                    ->where('customer_city_id','=','-1')
+                                                    ->where('wx_openid','=',$wx_openid);
+                                                $stmt = $selectStatement->execute();
+                                                $data6 = $stmt->fetch();
+                                                if($data6==null){
+                                                    $data6=$data;
+                                                }
+
+                                                $insertStatement = $database->insert(array('order_id', 'tenant_id', 'message_id','exist','from_user','mobilephone','is_read','ms_date','title'))
+                                                    ->into('wx_message')
+                                                    ->values(array($str,$tenant_id, $str1,0,$data6['customer_name'],$data6["customer_phone"],0,$shijian,'官网受理'));
+                                                $insertId = $insertStatement->execute(false);
+                                                if($insertId!=null){
+                                                    $strrrr = substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+                                                    do{
+                                                        $strrrr.= substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+                                                    }while(strlen($strrrr)<4);
+                                                    $time2=base_convert(time(), 10, 32);
+                                                    $str2=$time2.$strrrr;
+                                                    $insertStatement = $database->insert(array('order_id', 'tenant_id', 'goods_id','exist','goods_package_id','goods_name','goods_weight','goods_capacity','goods_count','special_need','goods_value'))
+                                                        ->into('goods')
+                                                        ->values(array($str,$tenant_id, $str2,0,$goods_package,$goods_name,$goods_weight,$goods_capacity,$goods_count,$special_need,$good_worth));
+                                                    $insertId = $insertStatement->execute(false);
+                                                    if($insertId!=null){
+                                                            echo json_encode(array("result"=>"1","desc"=>"success"));
+                                                    }else{
+                                                        echo json_encode(array("result"=>"2","desc"=>"微信添加货物失败"));
+                                                    }
+                                                }else{
+                                                    echo json_encode(array("result"=>"3","desc"=>"微信添加微信消息失败"));
+                                                }
+                                            }else{
+                                                echo json_encode(array("result"=>"5","desc"=>"微信添加订单执行失败"));
+                                            }
+                                        }else {
+                                            echo json_encode(array("result"=>"6","desc"=>"收件人信息不存在"));
+                                        }
+                                    }else{
+                                        echo json_encode(array("result"=>"7","desc"=>"寄件人信息不存在"));
+                                    }
+                                }else{
+                                    echo json_encode(array("result"=>"8","desc"=>"缺少openid"));
+                                }
+
+                            }else{
+                                echo json_encode(array("result"=>"10","desc"=>"缺少货物价值"));
+                            }
+                        }else{
+                            echo json_encode(array("result"=>"13","desc"=>"缺少货物包装"));
+                        }
+
+                    }else{
+                        echo json_encode(array("result"=>"15","desc"=>"缺少货物重量"));
+                    }
+                }else{
+                    echo json_encode(array("result"=>"16","desc"=>"缺少货物名称"));
+                }
+            }else{
+                echo json_encode(array("result"=>"17","desc"=>"缺少收件人id"));
+            }
+        }else{
+            echo json_encode(array("result"=>"18","desc"=>"缺少寄件人id"));
+        }
+        }else{
+            echo  json_encode(array("result"=>"19","desc"=>"租户不存在"));
+        }
+    }else{
+        echo json_encode(array("result"=>"20","desc"=>"缺少租户id"));
+    }
+
+});
+
+
+
+
+
+
 $app->run();
 
 function file_url(){
