@@ -74,6 +74,8 @@ $app->post('/makeOrder',function()use($app){
     $special_need=$body->special_need;
     $num1=0;
     $num2=0;
+    $data1=array();
+    $data3=array();
     if($special_need==0){
         $special_need='寄:门店自寄;  收:送货上门';
     }else{
