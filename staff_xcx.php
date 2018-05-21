@@ -213,7 +213,7 @@ $app->post('/makeOrder',function()use($app){
                                                                         ->into('goods')
                                                                         ->values(array($goods_id,$order_id,$tenant_id,$goods_name,$goods_count,$goods_capacity,$goods_weight,$goods_package_id,$goods_value,0,$special_need));
                                                                     $insertId = $insertStatement->execute(false);
-                                                                    echo json_encode(array('result'=>'0','desc'=>'success','num1'=>$data1[0]['customer_id'],'num2'=>$data3[0]['customer_id']));
+                                                                    echo json_encode(array('result'=>'0','desc'=>'success','num1'=>$num1,'num2'=>$num2));
                                                             }else{
                                                                 echo json_encode(array('result'=>'2','desc'=>'缺少运费'));
                                                             }
