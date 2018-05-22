@@ -70,7 +70,7 @@ $signPackage = $jssdk->GetSignPackage();
 				<div class="center_5">
 					<div class="wenzi">件数</div>
 					<div class="text1">
-						<input type="tel" placeholder="选填" class="jianshu" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
+						<input type="number" placeholder="选填" class="jianshu" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
 					</div>
 				</div>
 				<div class="center_6">
@@ -1263,6 +1263,9 @@ window.alert = function(name){
 			var tiji = str2 * 1;
 			
 			var jianshu = parseInt($(".jianshu").val());
+			if(jianshu==""||jianshu==null){
+				jianshu=0;
+			}
 			var needs = $(".needs").val();
 			var jiazhi = $(".jiazhi").val();
 			var money = $(".money").val();
