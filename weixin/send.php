@@ -85,7 +85,7 @@ $signPackage = $jssdk->GetSignPackage();
 				<div class="foot1">
 					<div class="wenzi">货物价值(万元)</div>
 					<div class="text">
-						<input type="number" placeholder="必填项" class="jiazhi">
+						<input type="text" placeholder="必填项" class="jiazhi">
 					</div>
 				</div>
 				<div class="foot2">
