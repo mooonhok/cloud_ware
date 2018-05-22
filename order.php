@@ -1742,7 +1742,7 @@ $app->get('/wsxorder',function()use($app){
                 }
                 echo json_encode(array("result"=>"0","desc"=>"success",'orders'=>$array));
             }else{
-                echo json_encode(array("result"=>"2","desc"=>"该wx_openid没有客户存在"));
+                echo json_encode(array("result"=>"2","desc"=>"",'orders'=>$array));
             }
         }else{
             echo json_encode(array("result"=>"1","desc"=>"缺少openid"));
