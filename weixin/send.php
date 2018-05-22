@@ -441,9 +441,11 @@ $signPackage = $jssdk->GetSignPackage();
 				<div class="h5">
 					<h5>备注</h5></div>
 				<div class="box12_a1"  id="j1"><div class="t1">寄</div>门店自寄</div>
-				<div class="box12_a2" id="j2"><div class="t1">收</div>门店自提</div>
 				<div class="box12_a1" id="r1"><div class="t1">寄</div>上门提货</div>
+				<div class="box12_a2" id="j2"><div class="t1">收</div>门店自提</div>
 				<div class="box12_a2" id="r2" ><div class="t1">收</div>送货上门</div>
+				<div class="box12_a1" id="y1"><div class="t1">运</div>公路运输</div>
+				<div class="box12_a2" id="y2"><div class="t1">运</div>铁路运输</div>
 				<div class="box12_c3">确定</div>
 			</div>
 		</div>
@@ -551,6 +553,14 @@ window.alert = function(name){
 	     	$("#r2").css("background-color","orange");
 	     	$("#j2").css("background-color","#24D9CA");
 	     });
+	     $("#y2").on("click",function(){
+	     	$("#y2").css("background-color","orange");
+	     	$("#y1").css("background-color","#24D9CA");
+	     });
+	      $("#y1").on("click",function(){
+	     	$("#y1").css("background-color","orange");
+	     	$("#y2").css("background-color","#24D9CA");
+	     });
 	     $(".box12_c3").on("click",function(){
 	     
               for(var b=0;b<document.getElementsByClassName("box12_a1").length;b++){
@@ -562,13 +572,17 @@ window.alert = function(name){
                 if(document.getElementsByClassName("box12_a2")[d].style.backgroundColor=="orange"){
                 c=document.getElementsByClassName("box12_a2")[d].textContent.substring(1,5);
                }
+               for(var e=0;e<document.getElementsByClassName("box12_a2").length;d++){
+                if(document.getElementsByClassName("box12_a2")[d].style.backgroundColor=="orange"){
+                f=document.getElementsByClassName("box12_a2")[d].textContent.substring(1,5);
+               }
              } 
             
-             if(a!=null&&c!=null){
-             $(".needs").val("寄:"+a+";  收:"+c);
+             if(a!=null&&c!=null&&f!=null){
+             $(".needs").val("寄:"+a+";  收:"+c+";  运:"+f);
              $(".box12").css("display","none");
              }else{
-             	layer.msg("您必须选择两个备注");
+             	layer.msg("您必须选择三个备注");
              }
 	     });
 //		$(".center_4").on("click", function() {
