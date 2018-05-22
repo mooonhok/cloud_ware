@@ -232,6 +232,7 @@ $app->get('/getOrder2', function () use ($app) {
 
 $app->get('/getOrders0', function () use ($app) {
     $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $tenant_id = $app->request->headers->get("tenant-id");
     $tenant_num=$app->request->get('tenant_num');
     $database = localhost();
