@@ -270,7 +270,7 @@ $app->get('/getOrders_inventory_type', function () use ($app) {
             ->join('goods','goods.order_id','=','orders.order_id','INNER')
             ->where('goods.tenant_id', '=', $tenant_id)
             ->where('orders.tenant_id', '=', $tenant_id)
-            ->where('orders.order_status','=',1)
+            ->whereIn('orders.order_status','=',array(1,0))
             ->where('orders.exist','=',0)
             ->where('orders.inventory_type','=',$inventory_type);
         $stmt = $selectStatement->execute();
