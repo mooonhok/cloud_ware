@@ -1111,7 +1111,19 @@ input[disabled],input:disabled,input.disabled{
 				margin-top: 20px;
 				text-align: center;
 			}
-			
+			.box12_a3 {
+				width: 40%;
+				height: 40px;
+				background: #24D9CA;
+				color: white;
+				float: left;
+				margin-left: 6%;
+				line-height: 40px;
+				/* margin-top: 25px; */
+				border-radius: 5px;
+				margin-top: 20px;
+				text-align: center;
+			}
 			.box12_a2 {
 				width: 40%;
 				height: 40px;

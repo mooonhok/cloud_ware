@@ -444,8 +444,8 @@ $signPackage = $jssdk->GetSignPackage();
 				<div class="box12_a1" id="r1"><div class="t1">寄</div>上门提货</div>
 				<div class="box12_a2" id="j2"><div class="t1">收</div>门店自提</div>
 				<div class="box12_a2" id="r2" ><div class="t1">收</div>送货上门</div>
-				<div class="box12_a1" id="y1"><div class="t1">运</div>公路运输</div>
-				<div class="box12_a2" id="y2"><div class="t1">运</div>铁路运输</div>
+				<div class="box12_a3" id="y1"><div class="t1">运</div>公路运输</div>
+				<div class="box12_a3" id="y2"><div class="t1">运</div>铁路运输</div>
 				<div class="box12_c3">确定</div>
 			</div>
 		</div>
@@ -572,10 +572,11 @@ window.alert = function(name){
                 if(document.getElementsByClassName("box12_a2")[d].style.backgroundColor=="orange"){
                 c=document.getElementsByClassName("box12_a2")[d].textContent.substring(1,5);
                }
-               for(var e=0;e<document.getElementsByClassName("box12_a2").length;d++){
-                if(document.getElementsByClassName("box12_a2")[d].style.backgroundColor=="orange"){
-                f=document.getElementsByClassName("box12_a2")[d].textContent.substring(1,5);
+               for(var e=0;e<document.getElementsByClassName("box12_a3").length;e++){
+                if(document.getElementsByClassName("box12_a3")[e].style.backgroundColor=="orange"){
+                f=document.getElementsByClassName("box12_a3")[e].textContent.substring(1,5);
                }
+  
              } 
             
              if(a!=null&&c!=null&&f!=null){
