@@ -572,6 +572,7 @@ window.alert = function(name){
                 if(document.getElementsByClassName("box12_a2")[d].style.backgroundColor=="orange"){
                 c=document.getElementsByClassName("box12_a2")[d].textContent.substring(1,5);
                }
+               }
                for(var e=0;e<document.getElementsByClassName("box12_a3").length;e++){
                 if(document.getElementsByClassName("box12_a3")[e].style.backgroundColor=="orange"){
                 f=document.getElementsByClassName("box12_a3")[e].textContent.substring(1,5);
