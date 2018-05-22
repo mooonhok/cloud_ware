@@ -853,6 +853,9 @@ $app->get('/agredet',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
+    $num111=0;
+    $num222=0;
+    $num333=0;
     $agreement_id=$app->request->get('agreementid');
     if($agreement_id!=null||$agreement_id!=""){
         $selectStament=$database->select()
@@ -945,12 +948,33 @@ $app->get('/agredet',function()use($app){
                     $num2+=$data8['goods_count'];
                     $num3+=$data8['goods_weight'];
                     $num4+=$data8['goods_value'];
+                    $sss=(explode('.',$data8['goods_capacity']));
+                    if(count($sss)>1) {
+                        if ($num111 < strlen($sss[1])) {
+                            $num111 = strlen((explode('.', $data8['goods_capacity']))[1]);
+                        };
+                    }
+                    $sss=(explode('.',$data8['goods_weight']));
+                    if(count($sss)>1) {
+                        if ($num222 < strlen($sss[1])) {
+                            $num222 = strlen((explode('.', $data8['goods_weight']))[1]);
+                        };
+                    }
+                    $sss=(explode('.',$data8['goods_value']));
+                    if(count($sss)>1) {
+                        if ($num333 < strlen($sss[1])) {
+                            $num333 = strlen((explode('.', $data8['goods_value']))[1]);
+                        };
+                    }
                 }
             }
             $data['schedules']=$sum;
+            $num1=sprintf("%.".$num111."f",$num1);
             $data['ordersize']=$num1;
             $data['ordercountgood']=$num2;
+            $num3=sprintf("%.".$num222."f",$num3);
             $data['orderweight']=$num3;
+            $num4=sprintf("%.".$num333."f",$num4);
             $data['ordervalue']=$num4;
             $data['ordercount']=$num5;
             $rcity="";
