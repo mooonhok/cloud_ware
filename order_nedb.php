@@ -230,23 +230,29 @@ $app->get('/getOrder2', function () use ($app) {
 //    }
 //});
 
-$app->get('/getOrders0', function () use ($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
-    $tenant_id = $app->request->headers->get("tenant-id");
-    $tenant_num=$app->request->get('tenant_num');
-    $database = localhost();
-    if ($tenant_id != null || $tenant_id != "") {
-        $selectStatement = $database->select()
-            ->from('orders')
-            ->where('tenant_id', '=', $tenant_id)
-            ->whereLike('order_id',$tenant_num.'%');
-        $stmt = $selectStatement->execute();
-        $data = $stmt->fetchAll();
-        echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
-    } else {
-        echo json_encode(array("result" => "4", "desc" => "缺少租户id"));
-    }
-});
+//$app->get('/getOrders0', function () use ($app) {
+//    $app->response->headers->set('Content-Type', 'application/json');
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $tenant_id = $app->request->headers->get("tenant-id");
+//    $tenant_num=$app->request->get('tenant_num');
+//    $database = localhost();
+//    if ($tenant_id != null || $tenant_id != "") {
+//        $selectStatement = $database->select()
+//            ->from('orders')
+//            ->where('tenant_id', '=', $tenant_id)
+//            ->whereLike('order_id',$tenant_num.'%');
+//        $stmt = $selectStatement->execute();
+//        $data = $stmt->fetchAll();
+//        echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
+//    } else {
+//        echo json_encode(array("result" => "4", "desc" => "缺少租户id"));
+//    }
+//});
+
+
+
+
+
 
 $app->get('/getOrders1', function () use ($app) {
     $app->response->headers->set('Content-Type', 'application/json');
@@ -279,6 +285,24 @@ $app->get('/getOrders1', function () use ($app) {
     }
 });
 
+
+$app->get('/getOrders0', function () use ($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $tenant_num= $app->request->get('tenant_num');
+    if($tenant_id!=null||$tenant_num!=""){
+        $selectStatement = $database->select()
+            ->from('orders')
+            ->where('tenant_id', '=', $tenant_id)
+            ->whereLike('order_id',$tenant_num.'%');
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
+    } else {
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
 
 
 $app->put('/alterOrder0', function () use ($app) {
