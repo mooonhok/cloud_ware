@@ -313,6 +313,31 @@ $app->get('/getOrders_inventory_type', function () use ($app) {
     }
 });
 
+$app->put('/alterOrderInventoryType',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $order_id=$body->order_id;
+    $inventory_type=$body->inventory_type;
+    if($tenant_id!=null||$tenant_id!=''){
+        if($order_id!=null||$order_id!=''){
+                $updateStatement = $database->update(array('inventory_type'=>$inventory_type))
+                    ->table('orders')
+                    ->where('order_id','=',$order_id)
+                    ->where('tenant_id','=',$tenant_id);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array("result"=>"0","desc"=>"success"));
+        }else{
+            echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
+        }
+    }else{
+        echo json_encode(array('result'=>'2','desc'=>'缺少租户id'));
+    }
+});
+
 $app->run();
 
 function localhost(){
