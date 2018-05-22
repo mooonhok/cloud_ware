@@ -1264,7 +1264,7 @@ window.alert = function(name){
 			
 			var jianshu = parseInt($(".jianshu").val());
 			var needs = $(".needs").val();
-			var jiazhi = parseInt($(".jiazhi").val());
+			var jiazhi = $(".jiazhi").val();
 			var money = $(".money").val();
 			var baozhuang=$("#package").val();
 			var str = 4;
