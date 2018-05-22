@@ -556,7 +556,12 @@ $app->post('/wxaddress',function()use($app){
         echo json_encode(array("result"=>"4","desc"=>"租户为空"));
     }
 });
-
+$app->options('/plus_customer',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set("Access-Control-Allow-Methods", "POST");
+    $app->response->headers->set("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With,tenant-id");
+});
 
 //微信添加寄件人、收件人的地址详情
 $app->post('/plus_customer',function()use($app){
