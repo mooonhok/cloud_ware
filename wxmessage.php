@@ -351,7 +351,7 @@ $app->post('/wxmessages',function()use($app){
                              ->join('orders','orders.order_id','=','wx_message.order_id','INNER')
                              ->where('wx_message.tenant_id','=',$tenant_id)
 //                             ->where('wx_message.title','=','微信受理')
-                             ->whereIn('wx_message.title',array('微信受理','官网受理'))
+                             ->whereIn('wx_message.title',array('微信受理','网页受理'))
                              ->where('orders.exist',"=",0)
                              ->where('wx_message.exist','=',0)
                              ->where('wx_message.is_read','=',$is_read)
@@ -365,7 +365,7 @@ $app->post('/wxmessages',function()use($app){
                 ->from('wx_message')
                 ->join('orders','orders.order_id','=','wx_message.order_id','INNER')
                 ->where('wx_message.tenant_id','=',$tenant_id)
-                ->whereIn('wx_message.title',array('微信受理','官网受理'))
+                ->whereIn('wx_message.title',array('微信受理','网页受理'))
 //                ->where('wx_message.title','=','微信受理')
                 ->where('orders.exist',"=",0)
                 ->where('wx_message.exist','=',0)
@@ -770,7 +770,7 @@ $app->get("/wx_message_source",function()use($app){
             ->from('orders')
             ->join('wx_message','orders.order_id','=','wx_message.order_id','INNER')
             ->where('wx_message.tenant_id','=',$tenant_id)
-            ->whereIn('wx_message.title',array('微信受理','官网受理'))
+            ->whereIn('wx_message.title',array('微信受理','网页受理'))
 //            ->where('wx_message.title','=','微信受理')
             ->where('orders.exist',"=",0)
             ->where('wx_message.exist','=',0);
@@ -930,7 +930,7 @@ $app->post('/gwmessage_insert',function()use($app){
                                                 }
                                                 $insertStatement = $database->insert(array('order_id', 'tenant_id', 'message_id','exist','from_user','mobilephone','is_read','ms_date','title'))
                                                     ->into('wx_message')
-                                                    ->values(array($str,$tenant_id, $str1,0,$data6['customer_name'],$data6["customer_phone"],0,$shijian,'官网受理'));
+                                                    ->values(array($str,$tenant_id, $str1,0,$data6['customer_name'],$data6["customer_phone"],0,$shijian,'网页受理'));
                                                 $insertId = $insertStatement->execute(false);
                                                 if($insertId!=null){
                                                     $strrrr = substr($chars, mt_rand(0, strlen($chars) - 2), 1);
