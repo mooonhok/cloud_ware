@@ -293,7 +293,7 @@
        var tenant_id=$.getUrlParam('tenant_id');
 		 $(document).ready(function(){
            $.ajax({
-               url: p_url+"tenant_introduction?tenant_id="+tenant_id,
+               url: p_url+"tenant.php/tenant_introduction?tenant_id="+tenant_id,
                beforeSend: function(request) {
                },
                dataType: 'json',
