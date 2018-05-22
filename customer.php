@@ -631,7 +631,19 @@ $app->post('/plus_customer',function()use($app){
                    ->where('tenant_id','=',$tenant_id);
                $stmt = $selectStatement->execute();
                $data2 = $stmt->fetchAll();
-               echo json_encode(array("result"=>"1","desc"=>"success",'customers'=>$data2,'customer_id'=>$data2['customer_id']));
+               $selectStatement = $database->select()
+                   ->from('customer')
+                   ->where('exist',"=",0)
+                   ->where('type',"=",$type)
+                   ->where('customer_address',"=",$adress)
+                   ->where('customer_city_id',"=",$city_id)
+                   ->where('customer_name','=',$customer_name)
+                   ->where('customer_phone','=',$phone)
+                   ->where('wx_openid','=',$wx_openid)
+                   ->where('tenant_id','=',$tenant_id);
+               $stmt = $selectStatement->execute();
+               $data3 = $stmt->fetch();
+               echo json_encode(array("result"=>"1","desc"=>"success",'customers'=>$data2,'customer_id'=>$data3['customer_id']));
            }
        }else{
            echo json_encode(array("result"=>"4","desc"=>"缺少openid"));
