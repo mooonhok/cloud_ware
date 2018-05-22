@@ -867,7 +867,7 @@ $app->post('/gwmessage_insert',function()use($app){
             ->where('tenant_id','=',$tenant_id);
         $stmt=$selectStament->execute();
         $data10=$stmt->fetch();
-        if($data10!=null){
+        if($data10==null){
         if($customer_send_id!=null||$customer_send_id!=''){
             if($customer_accept_id!=null||$customer_accept_id!=''){
                 if($goods_name!=''||$goods_name!=null){
