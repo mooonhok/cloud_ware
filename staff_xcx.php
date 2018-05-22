@@ -259,6 +259,24 @@ $app->post('/makeOrder',function()use($app){
     }
 });
 
+$app->get('/getOrders_inventory_type', function () use ($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $inventory_type=$app->request->get('inventory_type');
+    $database = localhost();
+    if ($tenant_id != null || $tenant_id != "") {
+        $selectStatement = $database->select()
+            ->from('orders')
+            ->where('tenant_id', '=', $tenant_id)
+            ->where('order_status','=',1)
+            ->where('inventory_type','=',$inventory_type);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
+    } else {
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
 
 $app->run();
 
