@@ -267,12 +267,46 @@ $app->get('/getOrders_inventory_type', function () use ($app) {
     if ($tenant_id != null || $tenant_id != "") {
         $selectStatement = $database->select()
             ->from('orders')
-            ->where('tenant_id', '=', $tenant_id)
-            ->where('order_status','=',1)
-            ->where('exist','=',0)
-            ->where('inventory_type','=',$inventory_type);
+            ->join('goods','goods.order_id','=','orders.order_id','INNER')
+            ->where('goods.tenant_id', '=', $tenant_id)
+            ->where('orders.tenant_id', '=', $tenant_id)
+            ->where('orders.order_status','=',1)
+            ->where('orders.exist','=',0)
+            ->where('orders.inventory_type','=',$inventory_type);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
+        for($i=0;$i<count($data);$i++){
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('customer_id','=',$data[$i]['sender_id']);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data1['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('customer_id','=',$data[$i]['receiver_id']);
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data3['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data4 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('goods_package')
+                ->where('goods_package_id','=',$data[$i]['goods_package_id']);
+            $stmt = $selectStatement->execute();
+            $data5= $stmt->fetch();
+            $data[$i]['fa_city']=$data2['name'];
+            $data[$i]['shou_city']=$data4['name'];
+            $data[$i]['goods_package']=$data5['goods_package'];
+        }
         echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data,"inven"=>$inventory_type));
     } else {
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
