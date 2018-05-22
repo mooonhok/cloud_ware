@@ -440,12 +440,18 @@ $signPackage = $jssdk->GetSignPackage();
 				<div class="qx5">取消</div>
 				<div class="h5">
 					<h5>备注</h5></div>
+					<div class="box12center">
 				<div class="box12_a1"  id="j1"><div class="t1">寄</div>门店自寄</div>
 				<div class="box12_a1" id="r1"><div class="t1">寄</div>上门提货</div>
+				</div>
+				<div class="box12center">
 				<div class="box12_a2" id="j2"><div class="t1">收</div>门店自提</div>
 				<div class="box12_a2" id="r2" ><div class="t1">收</div>送货上门</div>
+				</div>
+				<div class="box12center">
 				<div class="box12_a3" id="y1"><div class="t1">运</div>公路运输</div>
 				<div class="box12_a3" id="y2"><div class="t1">运</div>铁路运输</div>
+				</div>
 				<div class="box12_c3">确定</div>
 			</div>
 		</div>
