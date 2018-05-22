@@ -835,7 +835,12 @@ $app->put("/wxmessage_exist",function()use($app){
     }
 });
 
-
+$app->options('/gwmessage_insert',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set("Access-Control-Allow-Methods", "POST");
+    $app->response->headers->set("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With,tenant-id");
+});
 
 $app->post('/gwmessage_insert',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -920,7 +925,6 @@ $app->post('/gwmessage_insert',function()use($app){
                                                 if($data6==null){
                                                     $data6=$data;
                                                 }
-
                                                 $insertStatement = $database->insert(array('order_id', 'tenant_id', 'message_id','exist','from_user','mobilephone','is_read','ms_date','title'))
                                                     ->into('wx_message')
                                                     ->values(array($str,$tenant_id, $str1,0,$data6['customer_name'],$data6["customer_phone"],0,$shijian,'官网受理'));
