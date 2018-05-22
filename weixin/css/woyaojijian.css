@@ -1103,7 +1103,7 @@ input[disabled],input:disabled,input.disabled{
 				height: 40px;
 				background: #24D9CA;
 				color: white;
-				float: left;
+				/*float: left;*/
 				margin-left: 5%;
 				line-height: 40px;
 				/* margin-top: 25px; */
@@ -1116,7 +1116,7 @@ input[disabled],input:disabled,input.disabled{
 				height: 40px;
 				background: #24D9CA;
 				color: white;
-				float: left;
+				/*float: left;*/
 				margin-left: 5%;
 				line-height: 40px;
 				/* margin-top: 25px; */
@@ -1129,7 +1129,7 @@ input[disabled],input:disabled,input.disabled{
 				height: 40px;
 				background: #24D9CA;
 				color: white;
-				float: left;
+				/*float: left;*/
 				margin-left: 5%;
 				line-height: 40px;
 				/* margin-top: 25px; */
