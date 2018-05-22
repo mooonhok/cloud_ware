@@ -230,6 +230,12 @@ $app->get('/getOrder2', function () use ($app) {
 //    }
 //});
 
+$app->options('/getOrders0',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set("Access-Control-Allow-Methods", "GET");
+});
+
 $app->get('/getOrders0', function () use ($app) {
     $app->response->headers->set('Content-Type', 'application/json');
     $app->response->headers->set('Access-Control-Allow-Origin','*');
