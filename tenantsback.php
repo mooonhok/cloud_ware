@@ -920,6 +920,7 @@ $app->get('/agredet',function()use($app){
                     ->where('schedule_id','=',$data5[$j]['scheduling_id']);
                 $stmt=$selectStament->execute();
                 $data6=$stmt->fetchAll();
+                $num5+=count($data6);
                 $selectStament=$database->select()
                     ->from('scheduling')
                     ->where('tenant_id','=',$data['tenant_id'])
