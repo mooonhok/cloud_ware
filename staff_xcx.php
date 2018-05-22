@@ -269,10 +269,11 @@ $app->get('/getOrders_inventory_type', function () use ($app) {
             ->from('orders')
             ->where('tenant_id', '=', $tenant_id)
             ->where('order_status','=',1)
+            ->where('exist','=',0)
             ->where('inventory_type','=',$inventory_type);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
+        echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data,"inven"=>$inventory_type));
     } else {
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
