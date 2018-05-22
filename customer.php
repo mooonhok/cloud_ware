@@ -631,7 +631,7 @@ $app->post('/plus_customer',function()use($app){
                    ->where('tenant_id','=',$tenant_id);
                $stmt = $selectStatement->execute();
                $data2 = $stmt->fetchAll();
-               echo json_encode(array("result"=>"1","desc"=>"success",'customers'=>$data2));
+               echo json_encode(array("result"=>"1","desc"=>"success",'customers'=>$data2,'customer_id'=>$data2['customer_id']));
            }
        }else{
            echo json_encode(array("result"=>"4","desc"=>"缺少openid"));
