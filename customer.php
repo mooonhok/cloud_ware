@@ -841,6 +841,14 @@ $app->get('/old_customers_f',function()use($app){
         ->limit(10);
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
+    for($i=0;$i<count($data1);$i++){
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id','=',$data1[$i]['customer_city_id']);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        $data1[$i]['cityname']=$data2['name'];
+    }
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$data1));
 });
 
@@ -860,6 +868,14 @@ $app->get('/old_customers_s',function()use($app){
         ->limit(10);
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
+    for($i=0;$i<count($data1);$i++){
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id','=',$data1[$i]['customer_city_id']);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        $data1[$i]['cityname']=$data2['name'];
+    }
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$data1));
 });
 
