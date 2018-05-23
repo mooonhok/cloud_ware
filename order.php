@@ -1377,7 +1377,7 @@ $app->post('/wx_orders_order_source', function () use ($app) {
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetchAll();
             if($data2!=null){
-             $num1=count($data2);
+                  $num1=count($data2);
                 for($i=0;$i<$num1;$i++){
                     $selectStatement = $database->select()
                         ->from('orders')
@@ -1806,7 +1806,7 @@ $app->get('/limitwsxorder1',function()use($app){
                             ->where('order_id','=',$data3[$j]['order_id'])
                             ->where('tenant_id','=',$data3[$j]['tenant_id']);
                         $stmt = $selectStatement->execute();
-                        $data7 = $stmt->fetchAll();
+                        $data7 = $stmt->fetch();
 
                         $selectStatement = $database->select()
                             ->from('customer')
@@ -1944,7 +1944,7 @@ $app->get('/limitwsxorder2',function()use($app){
                             ->where('order_id','=',$data3[$j]['order_id'])
                             ->where('tenant_id','=',$data3[$j]['tenant_id']);
                         $stmt = $selectStatement->execute();
-                        $data7 = $stmt->fetchAll();
+                        $data7 = $stmt->fetch();
 
                         $selectStatement = $database->select()
                             ->from('customer')
