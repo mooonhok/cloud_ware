@@ -1983,6 +1983,77 @@ $app->get('/limitwsxorder2',function()use($app){
     }
 });
 
+
+$app->get('/orderbyid', function () use ($app) {
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->get("tenant_id");
+    $order_id = $app->request->get('orderid');
+    $database = localhost();
+    if ($tenant_id != null || $tenant_id != "") {
+            if ($order_id != null || $order_id != "") {
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->where('exist', "=", 0)
+                    ->where('order_id', '=',$order_id);
+                $stmt = $selectStatement->execute();
+                $data5= $stmt->fetch();
+                if ($data5 != null) {
+                    $selectStatement = $database->select()
+                        ->from('customer')
+                        ->where('customer_id','=',$data5['sender_id'])
+                        ->where('tenant_id','=',$data5['tenant_id']);
+                    $stmt = $selectStatement->execute();
+                    $data = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('city')
+                        ->where('id','=',$data['customer_city_id']);
+                    $stmt = $selectStatement->execute();
+                    $data4 = $stmt->fetch();
+                    $data['sendcity']=$data4['name'];
+                    $data5['sender']=$data;
+
+                    $selectStatement = $database->select()
+                        ->from('customer')
+                        ->where('customer_id','=',$data5['receiver_id'])
+                        ->where('tenant_id','=',$data5['tenant_id']);
+                    $stmt = $selectStatement->execute();
+                    $data2 = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('city')
+                        ->where('id','=',$data2['customer_city_id']);
+                    $stmt = $selectStatement->execute();
+                    $data6 = $stmt->fetch();
+                    $data2['receivecity']=$data6['name'];
+                    $data5['receiver']=$data2;
+                    $selectStatement = $database->select()
+                        ->from('goods')
+                        ->where('order_id','=',$data5['order_id'])
+                        ->where('tenant_id','=',$data5['tenant_id']);
+                    $stmt = $selectStatement->execute();
+                    $data3 = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('goods_package')
+                        ->where('goods_package_id','=',$data3['goods_package_id']);
+                    $stmt = $selectStatement->execute();
+                    $data7 = $stmt->fetch();
+                    $data3['packagename']=$data7['goods_package'];
+                    $data5['goods']=$data3;
+                    echo json_encode(array("result" => "0", "desc" => "success", "order" => $data));
+                } else {
+                    echo json_encode(array("result" => "1", "desc" => "订单不存在", "order" => ""));
+                }
+            } else {
+                echo json_encode(array("result" => "2", "desc" => "缺少运单id", "order" => ""));
+            }
+    } else {
+        echo json_encode(array("result" => "4", "desc" => "缺少租户id", "order" => ""));
+    }
+});
+
+
+
+
 $app->run();
 
 function array_unset_tt($arr,$key){
