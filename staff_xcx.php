@@ -409,6 +409,7 @@ $app->get('/getOneLorry',function()use($app){
             $data3= $stmt->fetch();
                 $data['lorry_type']=$data2['lorry_type_name'];
             $data['lorry_length']=$data3['lorry_length'];
+            $data['lorry_detail']=$data1;
             echo json_encode(array("result"=>"0","desc"=>"success","lorry"=>$data));
         }else{
             echo json_encode(array('result'=>'2','desc'=>'缺少车辆id'));
