@@ -350,7 +350,7 @@ $app->get('/getTenantLorrys',function()use($app){
             ->where('exist','=',0)
             ->where('tenant_id','=',$tenant_id);
         $stmt = $selectStatement->execute();
-        $data= $stmt->fetch();
+        $data= $stmt->fetchAll();
         echo json_encode(array("result"=>"0","desc"=>"success","lorrys"=>$data));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
