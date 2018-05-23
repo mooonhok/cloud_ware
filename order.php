@@ -1388,6 +1388,13 @@ $app->post('/wx_orders_order_source', function () use ($app) {
                     $stmt = $selectStatement->execute();
                     $data3= $stmt->fetch();
                     $selectStatement = $database->select()
+                        ->from('goods')
+                        ->where('order_id', "=", $data3['order_id'])
+                        ->where('tenant_id','=',$data3['tenant_id']);
+                    $stmt = $selectStatement->execute();
+                    $data5= $stmt->fetch();
+                    $data3['goods']=$data5;
+                    $selectStatement = $database->select()
                         ->from('wx_message')
                         ->where('exist', "=", 0)
                         ->where('order_id','=',$data2[$i]['order_id'])
