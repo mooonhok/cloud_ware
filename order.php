@@ -1988,7 +1988,7 @@ $app->get('/orderbyid', function () use ($app) {
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->get("tenant_id");
-    $order_id = $app->request->get('orderid');
+    $order_id = $app->request->get('order_id');
     $database = localhost();
     if ($tenant_id != null || $tenant_id != "") {
             if ($order_id != null || $order_id != "") {
