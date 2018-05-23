@@ -1737,6 +1737,20 @@ $app->get('/wsxorder1',function()use($app){
                     if($data3!=null){
                     for($j=0;$j<count($data3);$j++){
                         $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id','=',$data3[$j]['sender_id'])
+                            ->where('tenant_id','=',$data3[$j]['tenant_id']);
+                        $stmt = $selectStatement->execute();
+                        $data5 = $stmt->fetch();
+                        $data3[$j]['sender']=$data5;
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id','=',$data3[$j]['receiver_id'])
+                            ->where('tenant_id','=',$data3[$j]['tenant_id']);
+                        $stmt = $selectStatement->execute();
+                        $data6 = $stmt->fetch();
+                        $data3[$j]['receiver']=$data6;
+                        $selectStatement = $database->select()
                             ->from('goods')
                             ->where('order_id','=',$data3[$j]['order_id'])
                             ->where('tenant_id','=',$data3[$j]['tenant_id']);
@@ -1756,6 +1770,86 @@ $app->get('/wsxorder1',function()use($app){
             echo json_encode(array("result"=>"1","desc"=>"缺少openid"));
         }
 });
+
+
+$app->get('/limitwsxorder1',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $wx_openid=$app->request->get('wx_openid');
+    $offset = $app->request->get('offset');
+    $size=$app->request->get('size');
+    $database=localhost();
+    $array=array();
+    $array1=array();
+    if($wx_openid!=null||$wx_openid!=""){
+        $selectStatement = $database->select()
+            ->from('customer')
+            ->where('wx_openid','=',$wx_openid);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetchAll();
+        if($data2!=null){
+            $data2=array_values(array_unset_tt($data2,'customer_phone'));
+            for($i=0;$i<count($data2);$i++){
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->whereIn('order_status',array('-1','-2','0'))
+                    ->where('sender_id','=',$data2[$i]['customer_id'])
+                    ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                    ->where('wx_openid','=',$wx_openid)
+                    ->limit((int)$size,(int)$offset);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetchAll();
+                if($data3!=null){
+                    for($j=0;$j<count($data3);$j++){
+                        $selectStatement = $database->select()
+                            ->from('orders')
+                            ->where('order_id','=',$data3[$j]['order_id'])
+                            ->where('tenant_id','=',$data3[$j]['tenant_id']);
+                        $stmt = $selectStatement->execute();
+                        $data7 = $stmt->fetchAll();
+
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id','=',$data3[$j]['sender_id'])
+                            ->where('tenant_id','=',$data3[$j]['tenant_id']);
+                        $stmt = $selectStatement->execute();
+                        $data5 = $stmt->fetch();
+                        $data7['sender']=$data5;
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id','=',$data3[$j]['receiver_id'])
+                            ->where('tenant_id','=',$data3[$j]['tenant_id']);
+                        $stmt = $selectStatement->execute();
+                        $data6 = $stmt->fetch();
+                        $data7['receiver']=$data6;
+                        $selectStatement = $database->select()
+                            ->from('goods')
+                            ->where('order_id','=',$data3[$j]['order_id'])
+                            ->where('tenant_id','=',$data3[$j]['tenant_id']);
+                        $stmt = $selectStatement->execute();
+                        $data4 = $stmt->fetch();
+                        $data7['goods']=$data4;
+                        $num=$offset+$j+1;
+                        $array1['num']=$num;
+                        $array1['order']=$data7;
+                        array_push($array,$array1);
+                    }
+                }
+            }
+            echo json_encode(array("result"=>"0","desc"=>"success",'orders'=>$array));
+        }else{
+            echo json_encode(array("result"=>"2","desc"=>"",'orders'=>$array));
+        }
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"缺少openid"));
+    }
+});
+
+
+
+
+
+
 
 $app->get('/wsxorder2',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -1783,6 +1877,20 @@ $app->get('/wsxorder2',function()use($app){
                 if($data3!=null){
                     for($j=0;$j<count($data3);$j++){
                         $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id','=',$data3[$j]['sender_id'])
+                            ->where('tenant_id','=',$data3[$j]['tenant_id']);
+                        $stmt = $selectStatement->execute();
+                        $data5 = $stmt->fetch();
+                        $data3[$j]['sender']=$data5;
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id','=',$data3[$j]['receiver_id'])
+                            ->where('tenant_id','=',$data3[$j]['tenant_id']);
+                        $stmt = $selectStatement->execute();
+                        $data6 = $stmt->fetch();
+                        $data3[$j]['receiver']=$data6;
+                        $selectStatement = $database->select()
                             ->from('goods')
                             ->where('order_id','=',$data3[$j]['order_id'])
                             ->where('tenant_id','=',$data3[$j]['tenant_id']);
@@ -1802,7 +1910,78 @@ $app->get('/wsxorder2',function()use($app){
         echo json_encode(array("result"=>"1","desc"=>"缺少openid"));
     }
 });
+$app->get('/limitwsxorder2',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $wx_openid=$app->request->get('wx_openid');
+    $offset = $app->request->get('offset');
+    $size=$app->request->get('size');
+    $database=localhost();
+    $array=array();
+    $array1=array();
+    if($wx_openid!=null||$wx_openid!=""){
+        $selectStatement = $database->select()
+            ->from('customer')
+            ->where('wx_openid','=',$wx_openid);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetchAll();
+        if($data2!=null){
+            $data2=array_values(array_unset_tt($data2,'customer_phone'));
+            for($i=0;$i<count($data2);$i++){
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->whereNotIn('order_status',array('-1','-2','0'))
+                    ->where('sender_id','=',$data2[$i]['customer_id'])
+                    ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                    ->where('wx_openid','=',$wx_openid)
+                    ->limit((int)$size,(int)$offset);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetchAll();
+                if($data3!=null){
+                    for($j=0;$j<count($data3);$j++){
+                        $selectStatement = $database->select()
+                            ->from('orders')
+                            ->where('order_id','=',$data3[$j]['order_id'])
+                            ->where('tenant_id','=',$data3[$j]['tenant_id']);
+                        $stmt = $selectStatement->execute();
+                        $data7 = $stmt->fetchAll();
 
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id','=',$data3[$j]['sender_id'])
+                            ->where('tenant_id','=',$data3[$j]['tenant_id']);
+                        $stmt = $selectStatement->execute();
+                        $data5 = $stmt->fetch();
+                        $data7['sender']=$data5;
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id','=',$data3[$j]['receiver_id'])
+                            ->where('tenant_id','=',$data3[$j]['tenant_id']);
+                        $stmt = $selectStatement->execute();
+                        $data6 = $stmt->fetch();
+                        $data7['receiver']=$data6;
+                        $selectStatement = $database->select()
+                            ->from('goods')
+                            ->where('order_id','=',$data3[$j]['order_id'])
+                            ->where('tenant_id','=',$data3[$j]['tenant_id']);
+                        $stmt = $selectStatement->execute();
+                        $data4 = $stmt->fetch();
+                        $data7['goods']=$data4;
+                        $num=$offset+$j+1;
+                        $array1['num']=$num;
+                        $array1['order']=$data7;
+                        array_push($array,$array1);
+                    }
+                }
+            }
+            echo json_encode(array("result"=>"0","desc"=>"success",'orders'=>$array));
+        }else{
+            echo json_encode(array("result"=>"2","desc"=>"",'orders'=>$array));
+        }
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"缺少openid"));
+    }
+});
 
 $app->run();
 
