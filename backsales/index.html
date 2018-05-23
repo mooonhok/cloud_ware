@@ -202,7 +202,7 @@
 				</div>
 				<div id="demo20"></div>
 			</div>
-			<div id="addsales">添加业务员</div>
+			<!--<div id="addsales">添加业务员</div>-->
 		</div>
 	</body>
 	<script src="js/jquery-3.2.1.min.js"></script>
@@ -326,9 +326,9 @@
 			$.session.remove("adminid");
 			window.location.href=p_url+"backsales/login.html";
 		});
-		$("#addsales").on('click',function(){
-			window.location.href=p_url+"backsales/addsales.html";
-		});
+//		$("#addsales").on('click',function(){
+//			window.location.href=p_url+"backsales/addsales.html";
+//		});
 		$(".foot").on('click',function(){
 			$("div .print").printArea();  
 		});
