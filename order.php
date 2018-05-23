@@ -2039,7 +2039,7 @@ $app->get('/orderbyid', function () use ($app) {
                     $data7 = $stmt->fetch();
                     $data3['packagename']=$data7['goods_package'];
                     $data5['goods']=$data3;
-                    echo json_encode(array("result" => "0", "desc" => "success", "order" => $data));
+                    echo json_encode(array("result" => "0", "desc" => "success", "order" => $data5));
                 } else {
                     echo json_encode(array("result" => "1", "desc" => "订单不存在", "order" => ""));
                 }
