@@ -1728,7 +1728,7 @@ $app->get('/wsxorder1',function()use($app){
                 for($i=0;$i<count($data2);$i++){
                     $selectStatement = $database->select()
                         ->from('orders')
-                        ->whereIn('order_status',array('-1','-2','0'))
+                        ->whereNull('order_datetime1')
                         ->where('sender_id','=',$data2[$i]['customer_id'])
                         ->where('tenant_id','=',$data2[$i]['tenant_id'])
                         ->where('wx_openid','=',$wx_openid);
@@ -1792,7 +1792,7 @@ $app->get('/limitwsxorder1',function()use($app){
             for($i=0;$i<count($data2);$i++){
                 $selectStatement = $database->select()
                     ->from('orders')
-                    ->whereIn('order_status',array('-1','-2','0'))
+                    ->whereNull('order_datetime1')
                     ->where('sender_id','=',$data2[$i]['customer_id'])
                     ->where('tenant_id','=',$data2[$i]['tenant_id'])
                     ->where('wx_openid','=',$wx_openid)
@@ -1868,7 +1868,7 @@ $app->get('/wsxorder2',function()use($app){
             for($i=0;$i<count($data2);$i++){
                 $selectStatement = $database->select()
                     ->from('orders')
-                    ->whereNotIn('order_status',array('-1','-2','0'))
+                    ->whereNotNull('order_datetime1')
                     ->where('sender_id','=',$data2[$i]['customer_id'])
                     ->where('tenant_id','=',$data2[$i]['tenant_id'])
                     ->where('wx_openid','=',$wx_openid);
@@ -1930,7 +1930,7 @@ $app->get('/limitwsxorder2',function()use($app){
             for($i=0;$i<count($data2);$i++){
                 $selectStatement = $database->select()
                     ->from('orders')
-                    ->whereNotIn('order_status',array('-1','-2','0'))
+                    ->whereNotNull('order_datetime1')
                     ->where('sender_id','=',$data2[$i]['customer_id'])
                     ->where('tenant_id','=',$data2[$i]['tenant_id'])
                     ->where('wx_openid','=',$wx_openid)
