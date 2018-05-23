@@ -157,6 +157,7 @@ $app->get('/getCustomer1',function()use($app){
             }
             $data['customer_city']=$data6['name'];
             $data['province']=$data8['name'];
+            $data['province_id']=$data6['pid'];
             echo json_encode(array("result" => "0", "desc" => "success",'customer'=>$data));
         }else{
             echo json_encode(array("result" => "1", "desc" => "缺少客户id"));
