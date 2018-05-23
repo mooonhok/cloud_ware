@@ -331,10 +331,29 @@ $app->put('/alterOrderInventoryType',function()use($app){
                 $affectedRows = $updateStatement->execute();
                 echo json_encode(array("result"=>"0","desc"=>"success"));
         }else{
-            echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
+            echo json_encode(array('result'=>'1','desc'=>'缺少运单号'));
         }
     }else{
         echo json_encode(array('result'=>'2','desc'=>'缺少租户id'));
+    }
+});
+
+$app->get('/getTenantLorrys',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database=localhost();
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('lorry')
+            ->where('flag','=',0)
+            ->where('exist','=',0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data= $stmt->fetch();
+        echo json_encode(array("result"=>"0","desc"=>"success","lorrys"=>$data));
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
     }
 });
 
