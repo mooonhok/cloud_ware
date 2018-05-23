@@ -864,13 +864,6 @@ $app->post('/gwmessage_insert',function()use($app){
     $pay_method=$body->pay_method;
     $wx_openid=$body->openid;
     if($tenant_id!=''||$tenant_id!=null){
-        $selectStament=$database->select()
-            ->from('tenant')
-            ->where('exist','=',0)
-            ->where('tenant_id','=',$tenant_id);
-        $stmt=$selectStament->execute();
-        $data10=$stmt->fetch();
-        if($data10==null){
         if($customer_send_id!=null||$customer_send_id!=''){
             if($customer_accept_id!=null||$customer_accept_id!=''){
                 if($goods_name!=''||$goods_name!=null){
@@ -982,9 +975,6 @@ $app->post('/gwmessage_insert',function()use($app){
             }
         }else{
             echo json_encode(array("result"=>"18","desc"=>"缺少寄件人id"));
-        }
-        }else{
-            echo  json_encode(array("result"=>"19","desc"=>"租户不存在"));
         }
     }else{
         echo json_encode(array("result"=>"20","desc"=>"缺少租户id"));
