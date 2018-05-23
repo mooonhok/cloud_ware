@@ -363,7 +363,7 @@ $app->get('/getTenantLorrys',function()use($app){
             $data1= $stmt->fetch();
             $selectStatement = $database->select()
                 ->from('lorry_type')
-                ->where('lorry_type_id','=',$data[$i]['type']);
+                ->where('lorry_type_id','=',$data1['type']);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetch();
             $data[$i]['lorry_type']=$data2['lorry_type_name'];
