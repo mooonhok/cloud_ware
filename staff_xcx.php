@@ -374,6 +374,50 @@ $app->get('/getTenantLorrys',function()use($app){
     }
 });
 
+$app->get('/getOneLorry',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $lorry_id = $app->request->get("lorry_id");
+    $database=localhost();
+    if($tenant_id!=null||$tenant_id!=''){
+        if($lorry_id!=null||$lorry_id!=''){
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('lorry_id','=',$lorry_id)
+                ->where('tenant_id','=',$tenant_id);
+            $stmt = $selectStatement->execute();
+            $data= $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('app_lorry')
+                    ->where('exist','=',0)
+                    ->where('lorry_status','=',2)
+                    ->where('phone','=',$data['driver_phone'])
+                    ->where('plate_number','=',$data['plate_number'])
+                    ->where('name','=',$data['driver_name']);
+                $stmt = $selectStatement->execute();
+                $data1= $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('lorry_type')
+                    ->where('lorry_type_id','=',$data1['type']);
+                $stmt = $selectStatement->execute();
+                $data2= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('lorry_length')
+                ->where('lorry_length_id','=',$data1['length']);
+            $stmt = $selectStatement->execute();
+            $data3= $stmt->fetch();
+                $data['lorry_type']=$data2['lorry_type_name'];
+            $data['lorry_length']=$data2['lorry_length'];
+            echo json_encode(array("result"=>"0","desc"=>"success","lorry"=>$data));
+        }else{
+            echo json_encode(array('result'=>'2','desc'=>'缺少车辆id'));
+        }
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
+    }
+});
+
 $app->run();
 
 function localhost(){
