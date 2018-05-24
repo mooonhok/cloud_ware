@@ -419,6 +419,135 @@ $app->get('/getOneLorry',function()use($app){
     }
 });
 
+$app->post('/chooseLorry',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $driver_name = $body->driver_name;
+    $driver_phone = $body->driver_phone;
+    $plate_number = $body->plate_number;
+    $status=$body->status;
+    $database=localhost();
+    if($status==2){
+        $updateStatement = $database->update(array("lorry_status"=>2))
+            ->table('app_lorry')
+            ->where('flag','=',0)
+            ->where('phone','=',$driver_phone)
+            ->where('plate_number','=',$plate_number)
+            ->where('name','=',$driver_name);
+        $affectedRows = $updateStatement->execute();
+        if($tenant_id!=''||$tenant_id!=null){
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('tenant_id','=',$tenant_id);
+            $stmt = $selectStatement->execute();
+            $data= $stmt->fetchAll();
+            $selectStatement = $database->select()
+                ->from('app_lorry')
+                ->where('flag','=',0)
+                ->where('lorry_status','=',2)
+                ->where('driver_phone','=',$driver_phone)
+                ->where('plate_number','=',$plate_number)
+                ->where('driver_name','=',$driver_name);
+            $stmt = $selectStatement->execute();
+            $data1= $stmt->fetch();
+            if($data1){
+                $selectStatement = $database->select()
+                    ->from('lorry')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('exist','=',0)
+                    ->where('driver_phone','=',$driver_phone)
+                    ->where('plate_number','=',$plate_number)
+                    ->where('driver_name','=',$driver_name);
+                $stmt = $selectStatement->execute();
+                $data2= $stmt->fetch();
+                if($data2){
+                    echo json_encode(array('result'=>'3','desc'=>'该车辆已添加'));
+                }else{
+                    $insertStatement = $database->insert(array('tenant_id','lorry_id','plate_number','driver_name','driver_phone','flag','exist'))
+                        ->into('lorry')
+                        ->values(array($tenant_id,(count($data)+1),$plate_number,$driver_name,$driver_phone,0,0));
+                    $insertId = $insertStatement->execute(false);
+                    echo json_encode(array('result'=>'0','desc'=>'success'));
+                }
+            }else{
+                echo json_encode(array('result'=>'2','desc'=>'车辆未注册'));
+            }
+        }else{
+            echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
+        }
+    }else{
+        $updateStatement = $database->update(array("lorry_status"=>1))
+            ->table('app_lorry')
+            ->where('flag','=',0)
+            ->where('driver_phone','=',$driver_phone)
+            ->where('plate_number','=',$plate_number)
+            ->where('driver_name','=',$driver_name);
+        $affectedRows = $updateStatement->execute();
+        echo json_encode(array('result'=>'3','desc'=>'已驳回'));
+    }
+});
+
+$app->post('/getAppLorry',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $driver_name = $body->driver_name;
+    $driver_phone = $body->driver_phone;
+    $plate_number = $body->plate_number;
+    $database=localhost();
+        if($tenant_id!=''||$tenant_id!=null){
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('flag','=',0)
+                ->where('exist','=',0)
+                ->where('driver_phone','=',$driver_phone)
+                ->where('plate_number','=',$plate_number)
+                ->where('driver_name','=',$driver_name);
+            $stmt = $selectStatement->execute();
+            $data1= $stmt->fetch();
+            if($data1){
+                echo json_encode(array('result'=>'2','desc'=>'车辆已添加'));
+            }else{
+                $selectStatement = $database->select()
+                    ->from('app_lorry')
+                    ->whereIn('lorry_status',array(0,2))
+                    ->where('exist','=',0)
+                    ->where('flag','=',0)
+                    ->where('phone','=',$driver_phone)
+                    ->where('plate_number','=',$plate_number)
+                    ->where('name','=',$driver_name);
+                $stmt = $selectStatement->execute();
+                $data2= $stmt->fetch();
+                if($data2){
+                    echo json_encode(array('result'=>'0','desc'=>'success','app_lorry'=>$data2));
+                }else{
+                    $selectStatement = $database->select()
+                        ->from('app_lorry')
+                        ->where('lorry_status','=',1)
+                        ->where('exist','=',0)
+                        ->where('flag','=',0)
+                        ->where('phone','=',$driver_phone)
+                        ->where('plate_number','=',$plate_number)
+                        ->where('name','=',$driver_name);
+                    $stmt = $selectStatement->execute();
+                    $data3= $stmt->fetch();
+                    if($data3){
+                        echo json_encode(array('result'=>'1','desc'=>'该车辆审核未通过'));
+                    }else{
+                        echo json_encode(array('result'=>'3','desc'=>'该车辆未注册'));
+                    }
+                }
+            }
+        }else{
+            echo json_encode(array('result'=>'4','desc'=>'缺少租户id'));
+        }
+});
+
 $app->run();
 
 function localhost(){
