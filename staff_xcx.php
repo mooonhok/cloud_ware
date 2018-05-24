@@ -483,6 +483,13 @@ $app->post('/chooseLorry',function()use($app){
         if($data1){
             echo json_encode(array('result'=>'4','desc'=>'无法驳回'));
         }else{
+            $reason=$body->reason;
+            date_default_timezone_set("PRC");
+            $shijian=date("Y-m-d H:i:s",time());
+            $insertStatement = $database->insert(array('tenant_id','lorry_id','reason','time'))
+                ->into('app_lorry_reject')
+                ->values(array($tenant_id,$app_lorry_id,$reason,$shijian));
+            $insertId = $insertStatement->execute(false);
             $updateStatement = $database->update(array("lorry_status"=>1))
                 ->table('app_lorry')
                 ->where('flag','=',0)
