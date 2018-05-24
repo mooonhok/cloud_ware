@@ -425,18 +425,14 @@ $app->post('/chooseLorry',function()use($app){
     $tenant_id = $app->request->headers->get("tenant-id");
     $body=$app->request->getBody();
     $body=json_decode($body);
-    $driver_name = $body->driver_name;
-    $driver_phone = $body->driver_phone;
-    $plate_number = $body->plate_number;
+    $app_lorry_id = $body->app_lorry_id;
     $status=$body->status;
     $database=localhost();
     if($status==2){
         $updateStatement = $database->update(array("lorry_status"=>2))
             ->table('app_lorry')
             ->where('flag','=',0)
-            ->where('phone','=',$driver_phone)
-            ->where('plate_number','=',$plate_number)
-            ->where('name','=',$driver_name);
+            ->where('app_lorry_id','=',$app_lorry_id);
         $affectedRows = $updateStatement->execute();
         if($tenant_id!=''||$tenant_id!=null){
             $selectStatement = $database->select()
@@ -448,9 +444,7 @@ $app->post('/chooseLorry',function()use($app){
                 ->from('app_lorry')
                 ->where('flag','=',0)
                 ->where('lorry_status','=',2)
-                ->where('driver_phone','=',$driver_phone)
-                ->where('plate_number','=',$plate_number)
-                ->where('driver_name','=',$driver_name);
+                ->where('app_lorry_id','=',$app_lorry_id);
             $stmt = $selectStatement->execute();
             $data1= $stmt->fetch();
             if($data1){
@@ -458,9 +452,9 @@ $app->post('/chooseLorry',function()use($app){
                     ->from('lorry')
                     ->where('tenant_id','=',$tenant_id)
                     ->where('exist','=',0)
-                    ->where('driver_phone','=',$driver_phone)
-                    ->where('plate_number','=',$plate_number)
-                    ->where('driver_name','=',$driver_name);
+                    ->where('driver_phone','=',$data1['phone'])
+                    ->where('plate_number','=',$data1['plate_number'])
+                    ->where('driver_name','=',$data1['name']);
                 $stmt = $selectStatement->execute();
                 $data2= $stmt->fetch();
                 if($data2){
@@ -468,7 +462,7 @@ $app->post('/chooseLorry',function()use($app){
                 }else{
                     $insertStatement = $database->insert(array('tenant_id','lorry_id','plate_number','driver_name','driver_phone','flag','exist'))
                         ->into('lorry')
-                        ->values(array($tenant_id,(count($data)+1),$plate_number,$driver_name,$driver_phone,0,0));
+                        ->values(array($tenant_id,(count($data)+1),$data1['plate_number'],$data1['name'],$data1['phone'],0,0));
                     $insertId = $insertStatement->execute(false);
                     echo json_encode(array('result'=>'0','desc'=>'success'));
                 }
@@ -482,9 +476,7 @@ $app->post('/chooseLorry',function()use($app){
         $updateStatement = $database->update(array("lorry_status"=>1))
             ->table('app_lorry')
             ->where('flag','=',0)
-            ->where('driver_phone','=',$driver_phone)
-            ->where('plate_number','=',$plate_number)
-            ->where('driver_name','=',$driver_name);
+            ->where('app_lorry_id','=',$app_lorry_id);
         $affectedRows = $updateStatement->execute();
         echo json_encode(array('result'=>'3','desc'=>'已驳回'));
     }
@@ -524,6 +516,18 @@ $app->post('/getAppLorry',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data2= $stmt->fetch();
                 if($data2){
+                    $selectStatement = $database->select()
+                        ->from('lorry_type')
+                        ->where('lorry_type_id','=',$data2['type']);
+                    $stmt = $selectStatement->execute();
+                    $data4= $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('lorry_length')
+                        ->where('lorry_length_id','=',$data2['length']);
+                    $stmt = $selectStatement->execute();
+                    $data5= $stmt->fetch();
+                    $data2['lorry_type']=$data4['lorry_type_name'];
+                    $data2['lorry_length']=$data5['lorry_length'];
                     echo json_encode(array('result'=>'0','desc'=>'success','app_lorry'=>$data2));
                 }else{
                     $selectStatement = $database->select()
