@@ -59,55 +59,6 @@ $app->get('/sales',function()use($app){
     $per_page=$app->request->get('per_page');
     $num=0;
     if($teamid==null){
-    if($page==null||$page==""){
-        if($admin_id!=""||$admin_id!=null){
-            $selectStament=$database->select()
-                ->from('admin')
-                ->where('type','=',1)
-                ->where('id','=',$admin_id);
-            $stmt=$selectStament->execute();
-            $data=$stmt->fetch();
-            if($data!=null){
-                    $selectStament=$database->select()
-                        ->from('sales');
-                    $stmt=$selectStament->execute();
-                    $data2=$stmt->fetchAll();
-                    $num=count($data2);
-                    $num2=0;
-                    if($data2!=null){
-                        for($i=0;$i<count($data2);$i++){
-                            date_default_timezone_set("PRC");
-                            $beginThismonth=mktime(0,0,0,date('m'),1,date('Y'));
-                            $endThismonth=mktime(23,59,59,date('m'),date('t'),date('Y'));
-                            $selectStament=$database->select()
-                                ->from('tenant')
-                             ->where('sales_id','=',$data2[$i]['id']);
-                            $stmt=$selectStament->execute();
-                            $data5=$stmt->fetchAll();
-                            $data2[$i]['tenantcount']=0;
-                            for($j=0;$j<count($data5);$j++){
-                                if($beginThismonth<=strtotime($data5[$j]['begin_time'])&&strtotime($data5[$j]['begin_time'])<$endThismonth){
-                                    $data2[$i]['tenantcount']++;
-                                }
-                            }
-                            if($data2[$i]['higher_id']==0){
-                                $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
-                            }else{
-                                $data2[$i]['money']=$data2[$i]['tenantcount']*1000;
-                            }
-                            $num2+=$data2[$i]['tenantcount'];
-                        }
-                        echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num,'moneycount'=>$num2));
-                    }else{
-                        echo json_encode(array('result' => '4', 'desc' => '尚未有业务员'));
-                    }
-            }else{
-                echo json_encode(array('result' => '2', 'desc' => '管理员不存在'));
-            }
-        }else{
-            echo json_encode(array('result' => '1', 'desc' => '缺少管理员id'));
-        }
-    }else{
         $page=(int)$page-1;
         if($admin_id!=""||$admin_id!=null){
             $selectStament=$database->select()
@@ -117,7 +68,6 @@ $app->get('/sales',function()use($app){
             $stmt=$selectStament->execute();
             $data=$stmt->fetch();
             if($data!=null){
-
                     $selectStament=$database->select()
                         ->from('sales');
                     $stmt=$selectStament->execute();
@@ -151,22 +101,24 @@ $app->get('/sales',function()use($app){
                             date_default_timezone_set("PRC");
                             $beginThismonth=mktime(0,0,0,date('m'),1,date('Y'));
                             $endThismonth=mktime(23,59,59,date('m'),date('t'),date('Y'));
+                            $beginlastmonth=mktime(0,0,0,date('m')-1,1,date('Y'));
                             $selectStament=$database->select()
                                 ->from('tenant')
                                 ->where('sales_id','=',$data2[$i]['id']);
                             $stmt=$selectStament->execute();
                             $data6=$stmt->fetchAll();
                             $data2[$i]['tenantcount']=0;
+                            $data2[$i]['tenantcount1']=0;
+                            $data2[$i]['tenantcount2']=count($data6);
                             for($j=0;$j<count($data6);$j++){
                                 if($beginThismonth<=strtotime($data6[$j]['begin_time'])&&strtotime($data6[$j]['begin_time'])<$endThismonth){
                                     $data2[$i]['tenantcount']++;
                                 }
+                                if($beginlastmonth<=strtotime($data6[$j]['begin_time'])&&strtotime($data6[$j]['begin_time'])<$beginThismonth){
+                                    $data2[$i]['tenantcount1']++;
+                                }
                             }
-                            if($data2[$i]['higher_id']==0){
-                                $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
-                            }else{
-                                $data2[$i]['money']=$data2[$i]['tenantcount']*1000;
-                            }
+
                         }
                         echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num,'moneycount'=>$num2));
                     }else{
@@ -178,58 +130,7 @@ $app->get('/sales',function()use($app){
         }else{
             echo json_encode(array('result' => '1', 'desc' => '缺少管理员id'));
         }
-    }
     }else{
-        if($page==null||$page==""){
-            if($admin_id!=""||$admin_id!=null){
-                $selectStament=$database->select()
-                    ->from('admin')
-                    ->where('type','=',1)
-                    ->where('id','=',$admin_id);
-                $stmt=$selectStament->execute();
-                $data=$stmt->fetch();
-                if($data!=null){
-                        $selectStament=$database->select()
-                            ->from('sales')
-                            ->where('team_id','=',$teamid);
-                        $stmt=$selectStament->execute();
-                        $data2=$stmt->fetchAll();
-                        $num=count($data2);
-                        $num2=0;
-                        if($data2!=null){
-                            for($i=0;$i<count($data2);$i++){
-                                date_default_timezone_set("PRC");
-                                $beginThismonth=mktime(0,0,0,date('m'),1,date('Y'));
-                                $endThismonth=mktime(23,59,59,date('m'),date('t'),date('Y'));
-                                $selectStament=$database->select()
-                                    ->from('tenant')
-                                    ->where('sales_id','=',$data2[$i]['id']);
-                                $stmt=$selectStament->execute();
-                                $data5=$stmt->fetchAll();
-                                $data2[$i]['tenantcount']=0;
-                                for($j=0;$j<count($data5);$j++){
-                                    if($beginThismonth<=strtotime($data5[$j]['begin_time'])&&strtotime($data5[$j]['begin_time'])<$endThismonth){
-                                        $data2[$i]['tenantcount']++;
-                                    }
-                                }
-                                if($data2[$i]['higher_id']==0){
-                                    $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
-                                }else{
-                                    $data2[$i]['money']=$data2[$i]['tenantcount']*1000;
-                                }
-                                $num2+=$data2[$i]['tenantcount'];
-                            }
-                            echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num,'moneycount'=>$num2));
-                        }else{
-                            echo json_encode(array('result' => '4', 'desc' => '尚未有业务员'));
-                        }
-                }else{
-                    echo json_encode(array('result' => '2', 'desc' => '管理员不存在'));
-                }
-            }else{
-                echo json_encode(array('result' => '1', 'desc' => '缺少管理员id'));
-            }
-        }else{
             $page=(int)$page-1;
             if($admin_id!=""||$admin_id!=null){
                 $selectStament=$database->select()
@@ -239,7 +140,6 @@ $app->get('/sales',function()use($app){
                 $stmt=$selectStament->execute();
                 $data=$stmt->fetch();
                 if($data!=null){
-
                         $selectStament=$database->select()
                             ->from('sales')
                             ->where('team_id','=',$teamid);
@@ -270,28 +170,27 @@ $app->get('/sales',function()use($app){
                         ->limit((int)$per_page, (int)$per_page * (int)$page);
                         $stmt=$selectStament->execute();
                         $data2=$stmt->fetchAll();
-
                         if($data2!=null){
-
                             for($i=0;$i<count($data2);$i++){
                                 date_default_timezone_set("PRC");
                                 $beginThismonth=mktime(0,0,0,date('m'),1,date('Y'));
                                 $endThismonth=mktime(23,59,59,date('m'),date('t'),date('Y'));
+                                $beginlastmonth=mktime(0,0,0,date('m')-1,1,date('Y'));
                                 $selectStament=$database->select()
                                     ->from('tenant')
                                     ->where('sales_id','=',$data2[$i]['id']);
                                 $stmt=$selectStament->execute();
                                 $data6=$stmt->fetchAll();
                                 $data2[$i]['tenantcount']=0;
+                                $data2[$i]['tenantcount1']=0;
+                                $data2[$i]['tenantcount2']=count($data6);
                                 for($j=0;$j<count($data6);$j++){
                                     if($beginThismonth<=strtotime($data6[$j]['begin_time'])&&strtotime($data6[$j]['begin_time'])<$endThismonth){
                                         $data2[$i]['tenantcount']++;
                                     }
-                                }
-                                if($data2[$i]['higher_id']==0){
-                                    $data2[$i]['money']=$data2[$i]['tenantcount']*1500;
-                                }else{
-                                    $data2[$i]['money']=$data2[$i]['tenantcount']*1000;
+                                    if($beginlastmonth<=strtotime($data6[$j]['begin_time'])&&strtotime($data6[$j]['begin_time'])<$beginThismonth){
+                                        $data2[$i]['tenantcount1']++;
+                                    }
                                 }
                             }
                             echo json_encode(array('result' => '0', 'desc' => '','sales'=>$data2,'count'=>$num,'moneycount'=>$num2));
@@ -301,10 +200,9 @@ $app->get('/sales',function()use($app){
                 }else{
                     echo json_encode(array('result' => '2', 'desc' => '管理员不存在'));
                 }
-            }else{
+            }else {
                 echo json_encode(array('result' => '1', 'desc' => '缺少管理员id'));
             }
-        }
     }
 });
 //修改业务员状态
