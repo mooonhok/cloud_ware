@@ -486,7 +486,7 @@ $app->post('/chooseLorry',function()use($app){
             $reason=$body->reason;
             date_default_timezone_set("PRC");
             $shijian=date("Y-m-d H:i:s",time());
-            $insertStatement = $database->insert(array('tenant_id','lorry_id','reason','time'))
+            $insertStatement = $database->insert(array('tenant_id','app_lorry_id','reason','time'))
                 ->into('app_lorry_reject')
                 ->values(array($tenant_id,$app_lorry_id,$reason,$shijian));
             $insertId = $insertStatement->execute(false);
