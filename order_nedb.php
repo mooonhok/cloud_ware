@@ -325,7 +325,7 @@ $app->get('/gwgetOrders1', function () use ($app) {
                 ->where('goods_package_id','=',$data3['goods_package_id']);
             $stmt = $selectStatement->execute();
             $data10= $stmt->fetch();
-           $data3['goodspackage']=$data3['goods_package'];
+           $data3['goodspackage']=$data10['goods_package'];
             $data[$i]['goods']=$data3;
             $selectStatement = $database->select()
                 ->from('customer')
