@@ -313,6 +313,60 @@ $app->get('/gwgetOrders1', function () use ($app) {
             $data2 = $stmt->fetch();
             $data[$i]['tenant']=$data1;
             $data[$i]['from_city']=$data2;
+            $selectStatement = $database->select()
+                ->from('goods')
+                ->where('exist', "=", 0)
+                ->where('order_id','=',$data[$i]['order_id'])
+                ->where('tenant_id', '=', $data[$i]['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data3= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('goods_package')
+                ->where('goods_package_id','=',$data3['goods_package_id']);
+            $stmt = $selectStatement->execute();
+            $data10= $stmt->fetch();
+           $data3['goodspackage']=$data3['goods_package'];
+            $data[$i]['goods']=$data3;
+            $selectStatement = $database->select()
+                ->from('customer')
+//                    ->where('exist', "=", 0)
+                ->where('customer_id','=',$data[$i]['sender_id'])
+                ->where('tenant_id', '=', $data[$i]['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data4= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', "=", $data4['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data6= $stmt->fetch();
+          $data4['sender_city']=$data6['name'];
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id', "=", $data6['pid']);
+            $stmt = $selectStatement->execute();
+            $data7= $stmt->fetch();
+            $data4['sender_province']=$data7['name'];
+            $data[$i]['sender']=$data4;
+            $selectStatement = $database->select()
+                ->from('customer')
+//                    ->where('exist', "=", 0)
+                ->where('customer_id','=',$data[$i]['receiver_id'])
+                ->where('tenant_id', '=', $data[$i]['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data5= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', "=", $data5['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data8= $stmt->fetch();
+            $data5['receiver_city']=$data8['name'];
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id', "=", $data8['pid']);
+            $stmt = $selectStatement->execute();
+            $data9= $stmt->fetch();
+            $data5['receiver_province']=$data9['name'];
+            $data[$i]['receiver']=$data5;
         }
         echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
     } else {
