@@ -161,7 +161,7 @@
 			<div class="top">外勤工程师管理<div id="top1">客服纪录</div><div id="top2">退出登录</div></div>
 			<div class="center">
 				<div class="center1">
-					<div class="center1_1">奖池总金额:
+					<!--<div class="center1_1">奖池总金额:
 						<div id="moneycount"></div>
 					</div>
 					<div class="center1_2">团队总人数:
@@ -169,7 +169,7 @@
 					</div>
 					<div class="center1_3">是否达标:
 						<div id="sure"></div>
-					</div>
+					</div>-->
 				</div>
 				<!--<div class="select_2">
 					<select name="city" id="city1" class="cit">
@@ -191,9 +191,10 @@
 							<th>业务员编号</th>
 							<th>电话</th>
 							<th>邮箱</th>
-							<th>提成</th>
-							<th>应得收入</th>
-							<th>成交数量</th>
+							<th>上级id<th>
+							<th>本月成交数量</th>
+							<th>上月成交数量</th>
+							<th>今年成交数量</th>
 						</tr>
 					</thead>
 					<tbody id="tb2">
@@ -225,13 +226,13 @@
 				ContentType: "application/json;charset=utf-8",
 				data: JSON.stringify({}),
 				success: function(msg) {
-					$("#moneycount").html(msg.moneycount * 500);
-					$("#salescount").html(msg.count);
-					if(msg.count * 2 <= msg.moneycount) {
-						$("#sure").html("是");
-					} else {
-						$("#sure").html("否");
-					}
+//					$("#moneycount").html(msg.moneycount * 500);
+//					$("#salescount").html(msg.count);
+//					if(msg.count * 2 <= msg.moneycount) {
+//						$("#sure").html("是");
+//					} else {
+//						$("#sure").html("否");
+//					}
 					$("#tb2").html("");
 					console.log(msg);
 					//调用分页
@@ -257,7 +258,6 @@
 										}else{
 											c="女";
 										}
-										if(msg.count * 2 <= msg.moneycount) {
 											arr.push('<tr><td>' + item.id + '</td><td>' +
 												item.sales_name + '</td><td>' +
 												c + '</td><td>' +
@@ -265,21 +265,10 @@
 												item.sales_id + '</td><td>' +
 												item.telephone + '</td><td>' +
 												item.email + '</td><td>' +
-												item.money + '</td><td>' +
-												((item.tenantcount / msg.moneycount) * msg.moneycount * 500 + item.money) + '</td><td>'
-												+item.tenantcount+'</td></tr>');
-										} else {
-											arr.push('<tr><td>' + item.id + '</td><td>' +
-												item.sales_name + '</td><td>' +
-											    c+ '</td><td>' +
-//											    item.teamid + '</td><td>' +
-												item.sales_id  + '</td><td>' +
-												item.telephone + '</td><td>' +
-												item.email + '</td><td>' +
-												item.money + '</td><td>' +
-												item.money + '</td><td>'
-												+item.tenantcount+'</td></tr>');
-										}
+												item.higher_id+'</td><td>'+
+												item.tenantcount+ '</td><td>' +
+												 item.tenantcount1+ '</td><td>'
+												+item.tenantcount2+'</td></tr>');
 
 									});
 									return arr.join('');
