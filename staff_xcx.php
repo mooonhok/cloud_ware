@@ -462,7 +462,7 @@ $app->post('/chooseLorry',function()use($app){
                 }else{
                     $insertStatement = $database->insert(array('tenant_id','lorry_id','plate_number','driver_name','driver_phone','flag','exist'))
                         ->into('lorry')
-                        ->values(array($tenant_id,(count($data)+1),$data1['plate_number'],$data1['name'],$data1['phone'],0,0));
+                        ->values(array($tenant_id,(count($data)+100000001),$data1['plate_number'],$data1['name'],$data1['phone'],0,0));
                     $insertId = $insertStatement->execute(false);
                     echo json_encode(array('result'=>'0','desc'=>'success'));
                 }
@@ -568,6 +568,30 @@ $app->post('/getAppLorry',function()use($app){
         }else{
             echo json_encode(array('result'=>'4','desc'=>'缺少租户id'));
         }
+});
+
+$app->put('/pullInBlack',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $lorry_id = $body->lorry_id;
+    $database=localhost();
+    if($tenant_id!=''||$tenant_id!=null){
+        if($lorry_id!=''||$lorry_id!=null){
+            $updateStatement = $database->update(array("exist"=>1))
+                ->table('lorry')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('lorry_id','=',$lorry_id);
+            $affectedRows = $updateStatement->execute();
+            echo json_encode(array('result'=>'0','desc'=>'success'));
+        }else{
+            echo json_encode(array('result'=>'1','desc'=>'缺少车辆信息'));
+        }
+    }else{
+        echo json_encode(array('result'=>'2','desc'=>'缺少租户id'));
+    }
 });
 
 $app->run();
