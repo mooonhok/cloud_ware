@@ -473,12 +473,23 @@ $app->post('/chooseLorry',function()use($app){
             echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
         }
     }else{
-        $updateStatement = $database->update(array("lorry_status"=>1))
-            ->table('app_lorry')
+        $selectStatement = $database->select()
+            ->from('app_lorry')
             ->where('flag','=',0)
+            ->where('lorry_status','=',2)
             ->where('app_lorry_id','=',$app_lorry_id);
-        $affectedRows = $updateStatement->execute();
-        echo json_encode(array('result'=>'3','desc'=>'已驳回'));
+        $stmt = $selectStatement->execute();
+        $data1= $stmt->fetch();
+        if($data1){
+            echo json_encode(array('result'=>'4','desc'=>'无法驳回'));
+        }else{
+            $updateStatement = $database->update(array("lorry_status"=>1))
+                ->table('app_lorry')
+                ->where('flag','=',0)
+                ->where('app_lorry_id','=',$app_lorry_id);
+            $affectedRows = $updateStatement->execute();
+            echo json_encode(array('result'=>'3','desc'=>'已驳回'));
+        }
     }
 });
 
