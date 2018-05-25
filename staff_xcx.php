@@ -515,6 +515,7 @@ $app->post('/getAppLorry',function()use($app){
                 ->from('lorry')
                 ->where('flag','=',0)
                 ->where('exist','=',0)
+                ->where('tenant_id','=',$tenant_id)
                 ->where('driver_phone','=',$driver_phone)
                 ->where('plate_number','=',$plate_number)
                 ->where('driver_name','=',$driver_name);
@@ -591,6 +592,205 @@ $app->put('/pullInBlack',function()use($app){
         }
     }else{
         echo json_encode(array('result'=>'2','desc'=>'缺少租户id'));
+    }
+});
+
+$app->get('/tenantLorry',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database=localhost();
+    if($tenant_id!=''||$tenant_id==null){
+        $selectStatement = $database->select()
+            ->from('lorry')
+            ->where('flag','=',0)
+            ->where('exist','=',0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data= $stmt->fetchAll();
+        echo json_encode(array('result'=>'0','desc'=>'success','lorry'=>$data));
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
+    }
+});
+
+$app->post('/addScheduling',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $send_city_id=$body->send_city_id;
+    $receive_city_id=$body->receive_city_id;
+    $driver_name = $body->driver_name;
+    $driver_phone = $body->driver_phone;
+    $plate_number = $body->plate_number;
+    $customer_name=$body->customer_name;
+    $customer_phone=$body->customer_phone;
+    $customer_address=$body->customer_address;
+    $contact_tenant_id=$body->contact_tenant_id;
+    $order_ids=$body->order_ids;
+    $array1 = array();
+    foreach ($order_ids as $key => $value) {
+        $array1[$key] = $value;
+    }
+    if($tenant_id!=null||$tenant_id!=''){
+        if($send_city_id!=null||$send_city_id!=''){
+            if($receive_city_id!=null||$receive_city_id!=''){
+                    if($customer_name!=null||$customer_name!=''){
+                        if($customer_phone!=null||$customer_phone!=''){
+                            if($customer_address!=null||$customer_address!=''){
+                              if($contact_tenant_id){
+                                  $selectStatement = $database->select()
+                                      ->from('tenant')
+                                      ->where('exist','=',0)
+                                      ->where('tenant_id','=',$contact_tenant_id);
+                                  $stmt = $selectStatement->execute();
+                                  $data= $stmt->fetch();
+                                  if(!$data){
+                                      echo json_encode(array('result'=>'8','desc'=>'商户编号不存在'));
+                                      exit;
+                                  }
+                              }
+                                $selectStatement = $database->select()
+                                    ->from('lorry')
+                                    ->where('exist','=',0)
+                                    ->where('driver_phone','=',$driver_phone)
+                                    ->where('plate_number','=',$plate_number)
+                                    ->where('driver_name','=',$driver_name)
+                                    ->where('tenant_id','=',$tenant_id);
+                                $stmt = $selectStatement->execute();
+                                $data1= $stmt->fetch();
+                                if(!$data1){
+                                    echo json_encode(array('result'=>'9','desc'=>'该车辆不存在'));
+                                    exit;
+                                }
+                                $customer_id='';
+                                $schdeling_id='';
+                                $selectStatement = $database->select()
+                                    ->from('customer')
+                                    ->where('exist','=',0)
+                                    ->where('customer_city_id','=',$receive_city_id)
+                                    ->where('customer_address','=',$customer_address)
+                                    ->where('customer_name','=',$customer_name)
+                                    ->where('customer_phone','=',$customer_phone)
+                                    ->where('contact_tenant_id','=',$contact_tenant_id)
+                                    ->where('tenant_id','=',$tenant_id);
+                                $stmt = $selectStatement->execute();
+                                $data= $stmt->fetch();
+                                if($data){
+                                    $updateStatement = $database->update(array("times"=>($data['times']+1)))
+                                        ->table('customer')
+                                        ->where('tenant_id','=',$tenant_id)
+                                        ->where('customer_id','=',$data['customer_id']);
+                                    $affectedRows = $updateStatement->execute();
+                                    $customer_id=$data['customer_id'];
+                                }else{
+                                    $selectStatement = $database->select()
+                                        ->from('customer')
+                                        ->where('tenant_id','=',$tenant_id);
+                                    $stmt = $selectStatement->execute();
+                                    $data= $stmt->fetchAll();
+                                    $num1=0;
+                                    for($i=0;$i<count($data);$i++){
+                                        if(preg_match('/[a-zA-Z]/',$data[$i]['customer_id'])){
+                                            $num1++;
+                                        }
+                                    }
+                                    $insertStatement = $database->insert(array('customer_id','tenant_id','customer_city_id','customer_address','customer_name','customer_phone','contact_tenant_id','exist','type'))
+                                        ->into('customer')
+                                        ->values(array(((count($data)-$num1)+10000000001),$tenant_id,$receive_city_id,$customer_address,$customer_name,$customer_phone,$contact_tenant_id,'0',3));
+                                    $insertId = $insertStatement->execute(false);
+                                    $customer_id=(count($data)-$num1)+10000000001;
+                                }
+                                $selectStatement = $database->select()
+                                    ->from('scheduliing')
+                                    ->where('tenant_id','=',$tenant_id)
+                                    ->orderBy('id','DESC')
+                                    ->limit(0);
+                                $stmt = $selectStatement->execute();
+                                $data2= $stmt->fetch();
+                                if($data2){
+                                   $schdeling_id='QD'.(substr($data2['scheduling_id'],2)+1);
+                                }else{
+                                    $selectStatement = $database->select()
+                                        ->from('tenant')
+                                        ->where('tenant_id','=',$tenant_id);
+                                    $stmt = $selectStatement->execute();
+                                    $data3= $stmt->fetch();
+                                    $scheduling_id='QD'.$data3['tenant_num'].'000001';
+                                }
+                                date_default_timezone_set("PRC");
+                                $shijian=date("Y-m-d H:i:s",time());
+                                $insertStatement = $database->insert(array('scheduling_id','tenant_id','scheduling_datetime','send_city_id','receive_city_id','lorry_id','receiver_id','scheduling_status','exist','is_show','is_alter','is_load','is_contract','is_insurance','is_scan'))
+                                    ->into('scheduling')
+                                    ->values(array($scheduling_id,$tenant_id,$shijian,$send_city_id,$receive_city_id,$data1['lorry_id'],$customer_id,'1',0,0,0,0,1,1,0));
+                                $insertId = $insertStatement->execute(false);
+                                for($i=0;$i<count($array1);$i++){
+                                    $insertStatement = $database->insert(array('scheduling_id','tenant_id','order_id','exist'))
+                                        ->into('schedule_order')
+                                        ->values(array($scheduling_id,$tenant_id,$array1[$i],0));
+                                    $insertId = $insertStatement->execute(false);
+                                }
+                                echo json_encode(array('result'=>'0','desc'=>'success'));
+                            }else{
+                                echo json_encode(array('result'=>'7','desc'=>'缺少客户地址'));
+                            }
+                        }else{
+                            echo json_encode(array('result'=>'6','desc'=>'缺少客户手机'));
+                        }
+                    }else{
+                        echo json_encode(array('result'=>'5','desc'=>'缺少客户名字'));
+                    }
+            }else{
+                echo json_encode(array('result'=>'3','desc'=>'缺少收货城市'));
+            }
+        }else{
+            echo json_encode(array('result'=>'2','desc'=>'缺少发货城市'));
+        }
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
+    }
+});
+
+$app->get('/orderGoodsCity',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database=localhost();
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('orders')
+            ->join('goods','goods.order_id','=','orders.order_id','INNER')
+            ->where('goods.tenant_id','=',$tenant_id)
+            ->where('orders.tenant_id','=',$tenant_id)
+            ->where('orders.exist','=',0)
+            ->where('orders.order_status','=',1)
+            ->whereNull('orders.exception_id')
+            ->whereIn('orders.inventory_type',array(1,2,3,4))
+            ->where('orders.is_back','=',0)
+            ->where('orders.is_schedule','=',0);
+        $stmt = $selectStatement->execute();
+        $data= $stmt->fetchAll();
+        for($i=0;$i<count($data);$i++){
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('customer_id','=',$data[$i]['	receiver_id']);
+            $stmt = $selectStatement->execute();
+            $data1= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data1['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data2= $stmt->fetch();
+            $data[$i]['receive_name']=$data1['customer_name'];
+            $data[$i]['receive_city_name']=$data2['name'];
+        }
+        echo json_encode(array('result'=>'0','desc'=>'success','orders'=>$data));
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
     }
 });
 
