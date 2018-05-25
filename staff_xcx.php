@@ -773,21 +773,21 @@ $app->get('/orderGoodsCity',function()use($app){
             ->where('orders.is_schedule','=',0);
         $stmt = $selectStatement->execute();
         $data= $stmt->fetchAll();
-        for($i=0;$i<count($data);$i++){
-            $selectStatement = $database->select()
-                ->from('customer')
-                ->where('tenant_id','=',$tenant_id)
-                ->where('customer_id','=',$data[$i]['	receiver_id']);
-            $stmt = $selectStatement->execute();
-            $data1= $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('city')
-                ->where('id','=',$data1['customer_city_id']);
-            $stmt = $selectStatement->execute();
-            $data2= $stmt->fetch();
-            $data[$i]['receive_name']=$data1['customer_name'];
-            $data[$i]['receive_city_name']=$data2['name'];
-        }
+//        for($i=0;$i<count($data);$i++){
+//            $selectStatement = $database->select()
+//                ->from('customer')
+//                ->where('tenant_id','=',$tenant_id)
+//                ->where('customer_id','=',$data[$i]['receiver_id']);
+//            $stmt = $selectStatement->execute();
+//            $data1= $stmt->fetch();
+//            $selectStatement = $database->select()
+//                ->from('city')
+//                ->where('id','=',$data1['customer_city_id']);
+//            $stmt = $selectStatement->execute();
+//            $data2= $stmt->fetch();
+//            $data[$i]['receive_name']=$data1['customer_name'];
+//            $data[$i]['receive_city_name']=$data2['name'];
+//        }
         echo json_encode(array('result'=>'0','desc'=>'success','orders'=>$data));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
