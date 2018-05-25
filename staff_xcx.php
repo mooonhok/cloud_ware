@@ -768,7 +768,7 @@ $app->get('/orderGoodsCity',function()use($app){
             ->where('orders.exist','=',0)
             ->where('orders.order_status','=',1)
             ->whereNull('orders.exception_id')
-            ->where('orders.inventory_type','=',0)
+            ->whereIn('orders.inventory_type',array(1,3,4))
             ->where('orders.is_back','=',0)
             ->where('orders.is_schedule','=',0);
         $stmt = $selectStatement->execute();
