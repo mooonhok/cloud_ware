@@ -758,6 +758,7 @@ $app->get('/orderGoodsCity',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
+    $inventory_type=$app->request->get('inventory_type');
     $database=localhost();
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
@@ -768,7 +769,7 @@ $app->get('/orderGoodsCity',function()use($app){
             ->where('orders.exist','=',0)
             ->where('orders.order_status','=',1)
             ->whereNull('orders.exception_id')
-            ->whereIn('orders.inventory_type',array(1,3,4))
+            ->where('orders.inventory_type','=',$inventory_type)
             ->where('orders.is_back','=',0)
             ->where('orders.is_schedule','=',0);
         $stmt = $selectStatement->execute();
