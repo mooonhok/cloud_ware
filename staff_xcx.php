@@ -811,11 +811,11 @@ $app->post('/orderCustomer',function()use($app){
     $database=localhost();
     $array=array();
     if($tenant_id!=null||$tenant_id!=''){
-        foreach($receive_ids as $key=>$value){
+        for($i=0;$i<count($receive_ids);$i++){
             $selectStatement = $database->select()
                 ->from('customer')
                 ->where('tenant_id','=',$tenant_id)
-                ->where('customer_id','=',$value);
+                ->where('customer_id','=',$receive_ids[$i]['receiver_id']);
             $stmt = $selectStatement->execute();
             $data1= $stmt->fetch();
             if($array){
