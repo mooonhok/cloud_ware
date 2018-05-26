@@ -362,7 +362,7 @@ $app->get('/getGoodsOrders',function()use($app){
                 ->whereIn('goods.tenant_id',$array1)
                 ->where('orders.order_datetime1','>',$time1)
                 ->where('orders.order_datetime1','<',$time2)
-                ->whereIn('orders.tenant_id','=',$array1)
+                ->whereIn('orders.tenant_id',$array1)
                 ->whereNotIn('orders.order_status',array(-1,-2,0,6))
                 ->limit((int)$perpage, (int)$perpage * (int)$page)
                 ->where('orders.exist','=',0);
