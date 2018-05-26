@@ -35,6 +35,7 @@ $(function(){
     
     $(".sousuo_z").on("click",function(){
          tenant_id=$(".order_id").val();
+         $("#count1").html();
          time1=$(".time1").val();
         time2=$(".time2").val();
         loadorders(tenant_id,page,time1,time2);
