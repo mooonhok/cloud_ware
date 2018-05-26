@@ -786,10 +786,45 @@ $app->get('/orderGoodsCity',function()use($app){
                 ->where('id','=',$data1['customer_city_id']);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('goods_package')
+                ->where('goods_package_id','=',$data[$i]['goods_package_id']);
+            $stmt = $selectStatement->execute();
+            $data3= $stmt->fetch();
             $data[$i]['receive_name']=$data1['customer_name'];
             $data[$i]['receive_city_name']=$data2['name'];
+            $data[$i]['goods_package']=$data3['goods_package'];
         }
         echo json_encode(array('result'=>'0','desc'=>'success','orders'=>$data));
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
+    }
+});
+
+$app->post('/orderCustomer',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $receive_ids=$body->receive_ids;
+    $database=localhost();
+    $array=array();
+    if($tenant_id!=null||$tenant_id!=''){
+        foreach($receive_ids as $key=>$value){
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('customer_id','=',$value);
+            $stmt = $selectStatement->execute();
+            $data1= $stmt->fetch();
+            if($array){
+                array_push($array,$data1);
+            }else{
+                $array=$data1;
+            }
+        }
+        echo json_encode(array('result'=>'0','desc'=>'success','orderCustomers'=>$array));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
     }
