@@ -109,6 +109,7 @@ function scheduling_xq(id){
         ContentType: "application/json;charset=utf-8",
         data: JSON.stringify({}),
         success: function(msg) {
+        	$("#allgood").append(msg.allgoods);
             console.log(msg);
             $("#tenant_id").val(msg.lorry.lorry_id);
             $("#tenant_num").val(msg.lorry.driver_name);
