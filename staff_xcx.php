@@ -811,17 +811,19 @@ $app->post('/orderCustomer',function()use($app){
     $database=localhost();
     $array=array();
     if($tenant_id!=null||$tenant_id!=''){
-        for($i=0;$i<count($receive_ids);$i++){
-            $selectStatement = $database->select()
-                ->from('customer')
-                ->where('tenant_id','=',$tenant_id)
-                ->where('customer_id','=',$receive_ids[$i]['receiver_id']);
-            $stmt = $selectStatement->execute();
-            $data1= $stmt->fetch();
-            if($array){
-                array_push($array,$data1);
-            }else{
-                $array=$data1;
+        foreach($receive_ids as $key=>$value){
+            foreach ($value as $key1=>$value1){
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('customer_id','=',$value1['receiver_id']);
+                $stmt = $selectStatement->execute();
+                $data1= $stmt->fetch();
+                if($array){
+                    array_push($array,$data1);
+                }else{
+                    $array=$data1;
+                }
             }
         }
         echo json_encode(array('result'=>'0','desc'=>'success','orderCustomers'=>$array));
