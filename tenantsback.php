@@ -749,9 +749,9 @@ $app->get('/lagrs',function()use($app){
         $c=date('d',time());
         $time2=$a.'年'.$b.'月'.$c.'日';
     }else{
-        $a=date('Y',$time2);
-        $b=date('m',$time2);
-        $c=date('d',$time2);
+        $a=date('Y',strtotime($time2));
+        $b=date('m',strtotime($time2));
+        $c=date('d',strtotime($time2));
         $time2=$a.'年'.$b.'月'.$c.'日';
     }
     $array1=explode(',',$tenant_id);
