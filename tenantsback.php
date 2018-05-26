@@ -63,6 +63,7 @@ $app->get('/ordertongji',function()use($app){
     if($time2==null||$time2==""){
         $time2=date('Y-m-d H:i:s',time());
     }
+    $array1=explode(',',$tenant_id);
     if($paymethod!=null||$paymethod!=""){
     if($tenant_id!=null||$tenant_id!=''){
         if($time1!=null||$time1!="") {
@@ -71,8 +72,8 @@ $app->get('/ordertongji',function()use($app){
                 ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
                 ->where('orders.order_datetime1','>',$time1)
                 ->where('orders.order_datetime1','<',$time2)
-                ->where('goods.tenant_id', '=', $tenant_id)
-                ->where('orders.tenant_id', '=', $tenant_id)
+                ->whereIn('goods.tenant_id', $array1)
+                ->whereIn('orders.tenant_id', $array1)
                 ->where('pay_method','=',$paymethod)
                 ->limit((int)$perpage, (int)$perpage * (int)$page)
                 ->whereNotIn('orders.order_status', array(-1, -2, 0, 6))
@@ -100,8 +101,8 @@ $app->get('/ordertongji',function()use($app){
                 ->from('orders')
                 ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
                 ->where('orders.order_datetime1','<',$time2)
-                ->where('goods.tenant_id', '=', $tenant_id)
-                ->where('orders.tenant_id', '=', $tenant_id)
+                ->whereIn('goods.tenant_id', $array1)
+                ->whereIn('orders.tenant_id', $array1)
                 ->where('pay_method','=',$paymethod)
                 ->limit((int)$perpage, (int)$perpage * (int)$page)
                 ->whereNotIn('orders.order_status', array(-1, -2, 0, 6))
@@ -136,8 +137,8 @@ $app->get('/ordertongji',function()use($app){
                     ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
                     ->where('orders.order_datetime1','>',$time1)
                     ->where('orders.order_datetime1','<',$time2)
-                    ->where('goods.tenant_id', '=', $tenant_id)
-                    ->where('orders.tenant_id', '=', $tenant_id)
+                    ->whereIn('goods.tenant_id', $array1)
+                    ->whereIn('orders.tenant_id', $array1)
                     ->limit((int)$perpage, (int)$perpage * (int)$page)
                     ->whereNotIn('orders.order_status', array(-1, -2, 0, 6))
                     ->where('orders.exist', '=', 0);
@@ -164,8 +165,8 @@ $app->get('/ordertongji',function()use($app){
                     ->from('orders')
                     ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
                     ->where('orders.order_datetime1','<',$time2)
-                    ->where('goods.tenant_id', '=', $tenant_id)
-                    ->where('orders.tenant_id', '=', $tenant_id)
+                    ->whereIn('goods.tenant_id', $array1)
+                    ->whereIn('orders.tenant_id', $array1)
                     ->limit((int)$perpage, (int)$perpage * (int)$page)
                     ->whereNotIn('orders.order_status', array(-1, -2, 0, 6))
                     ->where('orders.exist', '=', 0);
@@ -252,6 +253,7 @@ $app->get('/getGoodsOrders',function()use($app){
     if($time2==null||$time2==""){
         $time2=date('Y-m-d H:i:s',time());
     }
+    $array1=explode(',',$tenant_id);
     if($time1!=null||$time1!=""){
     if($paymethod!=null||$paymethod!=""){
     if($tenant_id!=null||$tenant_id!=''){
@@ -260,8 +262,8 @@ $app->get('/getGoodsOrders',function()use($app){
             ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
             ->where('orders.order_datetime1','>',$time1)
             ->where('orders.order_datetime1','<',$time2)
-            ->where('goods.tenant_id','=',$tenant_id)
-            ->where('orders.tenant_id','=',$tenant_id)
+            ->whereIn('goods.tenant_id', $array1)
+            ->whereIn('orders.tenant_id', $array1)
             ->where('pay_method','=',$paymethod)
             ->whereNotIn('orders.order_status',array(-1,-2,0,6))
             ->where('orders.exist','=',0);
@@ -274,8 +276,8 @@ $app->get('/getGoodsOrders',function()use($app){
             ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
             ->where('orders.order_datetime1','>',$time1)
             ->where('orders.order_datetime1','<',$time2)
-            ->where('goods.tenant_id','=',$tenant_id)
-            ->where('orders.tenant_id','=',$tenant_id)
+            ->whereIn('goods.tenant_id', $array1)
+            ->whereIn('orders.tenant_id', $array1)
             ->where('pay_method','=',$paymethod)
             ->whereNotIn('orders.order_status',array(-1,-2,0,6))
             ->limit((int)$perpage, (int)$perpage * (int)$page)
@@ -290,7 +292,7 @@ $app->get('/getGoodsOrders',function()use($app){
             $data2=$stmt->fetch();
             $selectStament=$database->select()
                 ->from('customer')
-                ->where('tenant_id','=',$tenant_id)
+                ->where('tenant_id','=',$data1[$i]['tenant_id'])
                 ->where('customer_id','=',$data1[$i]['sender_id']);
             $stmt=$selectStament->execute();
             $data3=$stmt->fetch();
@@ -306,7 +308,7 @@ $app->get('/getGoodsOrders',function()use($app){
             $data8 = $stmt->fetch();
             $selectStament=$database->select()
                 ->from('customer')
-                ->where('tenant_id','=',$tenant_id)
+                ->where('tenant_id','=',$data1[$i]['tenant_id'])
                 ->where('customer_id','=',$data1[$i]['receiver_id']);
             $stmt=$selectStament->execute();
             $data4=$stmt->fetch();
@@ -322,7 +324,7 @@ $app->get('/getGoodsOrders',function()use($app){
             $data9 = $stmt->fetch();
             $selectStament=$database->select()
                 ->from('inventory_loc')
-                ->where('tenant_id','=',$tenant_id)
+                ->where('tenant_id','=',$data1[$i]['tenant_id'])
                 ->where('inventory_loc_id','=',$data1[$i]['inventory_loc_id']);
             $stmt=$selectStament->execute();
             $data5=$stmt->fetch();
@@ -344,8 +346,8 @@ $app->get('/getGoodsOrders',function()use($app){
             $selectStatement = $database->select()
                 ->from('orders')
                 ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
-                ->where('goods.tenant_id','=',$tenant_id)
-                ->where('orders.tenant_id','=',$tenant_id)
+                ->whereIn('goods.tenant_id',$array1)
+                ->whereIn('orders.tenant_id',$array1)
                 ->where('orders.order_datetime1','>',$time1)
                 ->where('orders.order_datetime1','<',$time2)
                 ->whereNotIn('orders.order_status',array(-1,-2,0,6))
@@ -357,10 +359,10 @@ $app->get('/getGoodsOrders',function()use($app){
             $selectStatement = $database->select()
                 ->from('orders')
                 ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
-                ->where('goods.tenant_id','=',$tenant_id)
+                ->whereIn('goods.tenant_id',$array1)
                 ->where('orders.order_datetime1','>',$time1)
                 ->where('orders.order_datetime1','<',$time2)
-                ->where('orders.tenant_id','=',$tenant_id)
+                ->whereIn('orders.tenant_id','=',$array1)
                 ->whereNotIn('orders.order_status',array(-1,-2,0,6))
                 ->limit((int)$perpage, (int)$perpage * (int)$page)
                 ->where('orders.exist','=',0);
@@ -374,7 +376,7 @@ $app->get('/getGoodsOrders',function()use($app){
                 $data2=$stmt->fetch();
                 $selectStament=$database->select()
                     ->from('customer')
-                    ->where('tenant_id','=',$tenant_id)
+                    ->where('tenant_id','=',$data1[$i]['tenant_id'])
                     ->where('customer_id','=',$data1[$i]['sender_id']);
                 $stmt=$selectStament->execute();
                 $data3=$stmt->fetch();
@@ -390,7 +392,7 @@ $app->get('/getGoodsOrders',function()use($app){
                 $data8 = $stmt->fetch();
                 $selectStament=$database->select()
                     ->from('customer')
-                    ->where('tenant_id','=',$tenant_id)
+                    ->where('tenant_id','=',$data1[$i]['tenant_id'])
                     ->where('customer_id','=',$data1[$i]['receiver_id']);
                 $stmt=$selectStament->execute();
                 $data4=$stmt->fetch();
@@ -406,7 +408,7 @@ $app->get('/getGoodsOrders',function()use($app){
                 $data9 = $stmt->fetch();
                 $selectStament=$database->select()
                     ->from('inventory_loc')
-                    ->where('tenant_id','=',$tenant_id)
+                    ->where('tenant_id','=',$data1[$i]['tenant_id'])
                     ->where('inventory_loc_id','=',$data1[$i]['inventory_loc_id']);
                 $stmt=$selectStament->execute();
                 $data5=$stmt->fetch();
@@ -431,8 +433,8 @@ $app->get('/getGoodsOrders',function()use($app){
                     ->from('orders')
                     ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
                     ->where('orders.order_datetime1','<',$time2)
-                    ->where('goods.tenant_id','=',$tenant_id)
-                    ->where('orders.tenant_id','=',$tenant_id)
+                    ->whereIn('goods.tenant_id',$array1)
+                    ->whereIn('orders.tenant_id',$array1)
                     ->where('pay_method','=',$paymethod)
                     ->whereNotIn('orders.order_status',array(-1,-2,0,6))
                     ->where('orders.exist','=',0);
@@ -444,8 +446,8 @@ $app->get('/getGoodsOrders',function()use($app){
                     ->from('orders')
                     ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
                     ->where('orders.order_datetime1','<',$time2)
-                    ->where('goods.tenant_id','=',$tenant_id)
-                    ->where('orders.tenant_id','=',$tenant_id)
+                    ->whereIn('goods.tenant_id',$array1)
+                    ->whereIn('orders.tenant_id',$array1)
                     ->where('pay_method','=',$paymethod)
                     ->whereNotIn('orders.order_status',array(-1,-2,0,6))
                     ->limit((int)$perpage, (int)$perpage * (int)$page)
@@ -460,7 +462,7 @@ $app->get('/getGoodsOrders',function()use($app){
                     $data2=$stmt->fetch();
                     $selectStament=$database->select()
                         ->from('customer')
-                        ->where('tenant_id','=',$tenant_id)
+                        ->where('tenant_id','=',$data1[$i]['tenant_id'])
                         ->where('customer_id','=',$data1[$i]['sender_id']);
                     $stmt=$selectStament->execute();
                     $data3=$stmt->fetch();
@@ -476,7 +478,7 @@ $app->get('/getGoodsOrders',function()use($app){
                     $data8 = $stmt->fetch();
                     $selectStament=$database->select()
                         ->from('customer')
-                        ->where('tenant_id','=',$tenant_id)
+                        ->where('tenant_id','=',$data1[$i]['tenant_id'])
                         ->where('customer_id','=',$data1[$i]['receiver_id']);
                     $stmt=$selectStament->execute();
                     $data4=$stmt->fetch();
@@ -492,7 +494,7 @@ $app->get('/getGoodsOrders',function()use($app){
                     $data9 = $stmt->fetch();
                     $selectStament=$database->select()
                         ->from('inventory_loc')
-                        ->where('tenant_id','=',$tenant_id)
+                        ->where('tenant_id','=',$data1[$i]['tenant_id'])
                         ->where('inventory_loc_id','=',$data1[$i]['inventory_loc_id']);
                     $stmt=$selectStament->execute();
                     $data5=$stmt->fetch();
@@ -514,8 +516,8 @@ $app->get('/getGoodsOrders',function()use($app){
                 $selectStatement = $database->select()
                     ->from('orders')
                     ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
-                    ->where('goods.tenant_id','=',$tenant_id)
-                    ->where('orders.tenant_id','=',$tenant_id)
+                    ->whereIn('goods.tenant_id',$array1)
+                    ->whereIn('orders.tenant_id',$array1)
                     ->where('orders.order_datetime1','<',$time2)
                     ->whereNotIn('orders.order_status',array(-1,-2,0,6))
                     ->where('orders.exist','=',0);
@@ -526,9 +528,9 @@ $app->get('/getGoodsOrders',function()use($app){
                 $selectStatement = $database->select()
                     ->from('orders')
                     ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
-                    ->where('goods.tenant_id','=',$tenant_id)
+                    ->whereIn('goods.tenant_id',$array1)
                     ->where('orders.order_datetime1','<',$time2)
-                    ->where('orders.tenant_id','=',$tenant_id)
+                    ->whereIn('orders.tenant_id',$array1)
                     ->whereNotIn('orders.order_status',array(-1,-2,0,6))
                     ->limit((int)$perpage, (int)$perpage * (int)$page)
                     ->where('orders.exist','=',0);
@@ -542,7 +544,7 @@ $app->get('/getGoodsOrders',function()use($app){
                     $data2=$stmt->fetch();
                     $selectStament=$database->select()
                         ->from('customer')
-                        ->where('tenant_id','=',$tenant_id)
+                        ->where('tenant_id','=',$data1[$i]['tenant_id'])
                         ->where('customer_id','=',$data1[$i]['sender_id']);
                     $stmt=$selectStament->execute();
                     $data3=$stmt->fetch();
@@ -558,7 +560,7 @@ $app->get('/getGoodsOrders',function()use($app){
                     $data8 = $stmt->fetch();
                     $selectStament=$database->select()
                         ->from('customer')
-                        ->where('tenant_id','=',$tenant_id)
+                        ->where('tenant_id','=',$data1[$i]['tenant_id'])
                         ->where('customer_id','=',$data1[$i]['receiver_id']);
                     $stmt=$selectStament->execute();
                     $data4=$stmt->fetch();
@@ -574,7 +576,7 @@ $app->get('/getGoodsOrders',function()use($app){
                     $data9 = $stmt->fetch();
                     $selectStament=$database->select()
                         ->from('inventory_loc')
-                        ->where('tenant_id','=',$tenant_id)
+                        ->where('tenant_id','=',$data1[$i]['tenant_id'])
                         ->where('inventory_loc_id','=',$data1[$i]['inventory_loc_id']);
                     $stmt=$selectStament->execute();
                     $data5=$stmt->fetch();
@@ -608,6 +610,7 @@ $app->get('/lsch',function()use($app){
     if($time2==null||$time2==""){
         $time2=date('Y-m-d H:i:s',time());
     }
+    $array1=explode(',',$tenant_id);
     if($time1!=null||$time1!=''){
    if($tenant_id!=null||$tenant_id!=""){
        $page=(int)$page-1;
@@ -616,7 +619,7 @@ $app->get('/lsch',function()use($app){
            ->where('scheduling_datetime','>',$time1)
            ->where('scheduling_datetime','<',$time2)
            ->where('exist','=',0)
-           ->where('tenant_id','=',$tenant_id);
+           ->whereIn('tenant_id',$array1);
        $stmt=$selectStament->execute();
        $data=$stmt->fetchAll();
        $num=count($data);
@@ -625,7 +628,7 @@ $app->get('/lsch',function()use($app){
         ->where('scheduling_datetime','>',$time1)
         ->where('scheduling_datetime','<',$time2)
         ->where('exist','=',0)
-        ->where('tenant_id','=',$tenant_id)
+        ->whereIn('tenant_id',$array1)
         ->limit((int)$perpage, (int)$perpage * (int)$page);
     $stmt=$selectStament->execute();
     $data3=$stmt->fetchAll();
@@ -675,7 +678,7 @@ $app->get('/lsch',function()use($app){
                 ->from('scheduling')
                 ->where('scheduling_datetime','<',$time2)
                 ->where('exist','=',0)
-                ->where('tenant_id','=',$tenant_id);
+                ->whereIn('tenant_id',$array1);
             $stmt=$selectStament->execute();
             $data=$stmt->fetchAll();
             $num=count($data);
@@ -683,7 +686,7 @@ $app->get('/lsch',function()use($app){
                 ->from('scheduling')
                 ->where('scheduling_datetime','<',$time2)
                 ->where('exist','=',0)
-                ->where('tenant_id','=',$tenant_id)
+                ->whereIn('tenant_id',$array1)
                 ->limit((int)$perpage, (int)$perpage * (int)$page);
             $stmt=$selectStament->execute();
             $data3=$stmt->fetchAll();
@@ -746,6 +749,7 @@ $app->get('/lagrs',function()use($app){
         $c=date('d',time());
         $time2=$a.'年'.$b.'月'.$c.'日';
     }
+    $array1=explode(',',$tenant_id);
     if($time1!=null||$time1!=""){
     if($tenant_id!=null||$tenant_id!=""){
         $e=date('Y',strtotime($time1));
@@ -757,7 +761,7 @@ $app->get('/lagrs',function()use($app){
             ->where('agreement_time','>',$time3)
             ->where('agreement_time','<',$time2)
             ->where('exist','=',0)
-            ->where('tenant_id','=',$tenant_id);
+            ->whereIn('tenant_id',$array1);
         $stmt=$selectStament->execute();
         $data=$stmt->fetchAll();
         $num=count($data);
@@ -767,7 +771,7 @@ $app->get('/lagrs',function()use($app){
             $selectStament=$database->select()
                 ->from('agreement')
                 ->where('exist','=',0)
-                ->where('tenant_id','=',$tenant_id)
+                ->whereIn('tenant_id',$array1)
                 ->where('agreement_time','>',$time3)
                 ->where('agreement_time','<',$time2)
                 ->limit((int)$perpage, (int)$perpage * (int)$page);
@@ -804,7 +808,7 @@ $app->get('/lagrs',function()use($app){
                 ->from('agreement')
                 ->where('agreement_time','<',$time2)
                 ->where('exist','=',0)
-                ->where('tenant_id','=',$tenant_id);
+                ->whereIn('tenant_id',$array1);
             $stmt=$selectStament->execute();
             $data=$stmt->fetchAll();
             $num=count($data);
@@ -815,7 +819,7 @@ $app->get('/lagrs',function()use($app){
                     ->from('agreement')
                     ->where('exist','=',0)
                     ->where('agreement_time','<',$time2)
-                    ->where('tenant_id','=',$tenant_id)
+                    ->whereIn('tenant_id',$array1)
                     ->limit((int)$perpage, (int)$perpage * (int)$page);
                 $stmt=$selectStament->execute();
                 $data1=$stmt->fetchAll();
@@ -969,7 +973,6 @@ $app->get('/agredet',function()use($app){
                 }
             }
             $data['schedules']=$sum;
-            $num1=sprintf("%.".$num111."f",$num1);
             $data['ordersize']=$num1;
             $data['ordercountgood']=$num2;
             $num3=sprintf("%.".$num222."f",$num3);
@@ -1005,11 +1008,12 @@ $app->get('/lorrys',function()use($app){
     $tenant_id=$app->request->get('tenant-id');
     $page=$app->request->get('page');
     $perpage=$app->request->get('perpage');
+    $array1=explode(',',$tenant_id);
     if($tenant_id!=null||$tenant_id!=""){
         $selectStament=$database->select()
             ->from('lorry')
             ->where('exist','=',0)
-            ->where('tenant_id','=',$tenant_id);
+            ->whereIn('tenant_id',$array1);
         $stmt=$selectStament->execute();
         $data=$stmt->fetchAll();
         $num=count($data);
@@ -1017,7 +1021,7 @@ $app->get('/lorrys',function()use($app){
         $selectStament=$database->select()
             ->from('lorry')
             ->where('exist','=',0)
-            ->where('tenant_id','=',$tenant_id)
+            ->whereIn('tenant_id',$array1)
             ->limit((int)$perpage, (int)$perpage * (int)$page);
         $stmt=$selectStament->execute();
         $data2=$stmt->fetchAll();
