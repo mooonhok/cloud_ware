@@ -29,7 +29,7 @@ $(function(){
         	loadorders(tenant_id,page,time1,time2);
         },
         error: function(xhr) {
-            alert("获取后台失败！");
+            alert("获取后台失败！"+xhr.responseText);
         }
     });
     
@@ -118,7 +118,7 @@ function loadorders(tenant_id,page,time1,time2) {
             }
         },
         error: function(xhr) {
-            alert("获取后台失败！");
+            alert("获取后台失败！"+xhr.responseText);
         }
     });
 }
