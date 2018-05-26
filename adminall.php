@@ -1745,6 +1745,7 @@ $app->get('/schedulingdetil',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
+    $num111=0;
     $scheduling_id=$app->request->get('scheduling_id');
     $selectStatement = $database->select()
         ->from('scheduling')
@@ -1772,6 +1773,14 @@ $app->get('/schedulingdetil',function()use($app){
         $stmt = $selectStatement->execute();
         $data4 = $stmt->fetch();
         $num+=$data4['goods_value'];
+        $sss=(explode('.',$data4['goods_value']));
+        if(count($sss)>1) {
+            if ($num111 < strlen($sss[1])) {
+                $num111 = strlen((explode('.', $data4['goods_value']))[1]);
+                        };
+        }
+
+        $num=sprintf("%.".$num111."f",$num);
         $data2[$i]['goods_name']=$data4['goods_name'];
         $data2[$i]['goods_count']=$data4['goods_count'];
         $data2[$i]['goods_capacity']=$data4['goods_capacity'];
