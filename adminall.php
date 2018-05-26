@@ -1763,6 +1763,7 @@ $app->get('/schedulingdetil',function()use($app){
         ->where('lorry_id','=',$data1['lorry_id']);
     $stmt = $selectStatement->execute();
     $data3 = $stmt->fetch();
+    $num=0;
     for($i=0;$i<count($data2);$i++){
         $selectStatement = $database->select()
             ->from('goods')
@@ -1770,6 +1771,7 @@ $app->get('/schedulingdetil',function()use($app){
             ->where('order_id','=',$data2[$i]['order_id']);
         $stmt = $selectStatement->execute();
         $data4 = $stmt->fetch();
+        $num+=$data4['goods_value'];
         $data2[$i]['goods_name']=$data4['goods_name'];
         $data2[$i]['goods_count']=$data4['goods_count'];
         $data2[$i]['goods_capacity']=$data4['goods_capacity'];
@@ -1783,7 +1785,7 @@ $app->get('/schedulingdetil',function()use($app){
         $data5 = $stmt->fetch();
         $data2[$i]['goodpackage']=$data5['goods_package'];
     }
-    echo json_encode(array("result"=>"0","desc"=>"success",'order_goods'=>$data2,'lorry'=>$data3));
+    echo json_encode(array("result"=>"0","desc"=>"success",'order_goods'=>$data2,'lorry'=>$data3,'allgoods'=>$num));
 });
 
 
