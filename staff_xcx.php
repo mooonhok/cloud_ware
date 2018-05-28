@@ -728,6 +728,11 @@ $app->post('/addScheduling',function()use($app){
                                     ->values(array($scheduling_id,$tenant_id,$shijian,$send_city_id,$receive_city_id,$data1['lorry_id'],$customer_id,'1',0,0,0,0,1,1,0));
                                 $insertId = $insertStatement->execute(false);
                                 for($i=0;$i<count($array1);$i++){
+                                    $updateStatement = $database->update(array("is_schedule"=>1))
+                                        ->table('orders')
+                                        ->where('tenant_id','=',$tenant_id)
+                                        ->where('order_id','=',$array1[$i]);
+                                    $affectedRows = $updateStatement->execute();
                                     $insertStatement = $database->insert(array('schedule_id','tenant_id','order_id','exist'))
                                         ->into('schedule_order')
                                         ->values(array($scheduling_id,$tenant_id,$array1[$i],0));
