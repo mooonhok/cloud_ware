@@ -706,19 +706,30 @@ $app->post('/addScheduling',function()use($app){
                                 }
                                 $selectStatement = $database->select()
                                     ->from('scheduling')
-                                    ->where('tenant_id','=',$tenant_id)
-                                    ->orderBy('id','DESC')
-                                    ->limit(1);
+                                    ->where('tenant_id','=',$tenant_id);
                                 $stmt = $selectStatement->execute();
-                                $data2= $stmt->fetch();
+                                $data2= $stmt->fetchAll();
+                                $selectStatement = $database->select()
+                                    ->from('tenant')
+                                    ->where('tenant_id','=',$tenant_id);
+                                $stmt = $selectStatement->execute();
+                                $data3= $stmt->fetch();
                                 if($data2){
-                                   $schdeling_id='QD'.(substr($data2['scheduling_id'],2)+1);
+                                    if(strlen((count($data2)+1).'')==1){
+                                        $schdeling_id=$data3['tenant_num'].'00000'.(count($data2)+1);
+                                    }else if(strlen((count($data2)+1).'')==2){
+                                        $schdeling_id=$data3['tenant_num'].'0000'.(count($data2)+1);
+                                    }else if(strlen((count($data2)+1).'')==3){
+                                        $schdeling_id=$data3['tenant_num'].'000'.(count($data2)+1);
+                                    }else if(strlen((count($data2)+1).'')==4){
+                                        $schdeling_id=$data3['tenant_num'].'00'.(count($data2)+1);
+                                    }else if(strlen((count($data2)+1).'')==5){
+                                        $schdeling_id=$data3['tenant_num'].'0'.(count($data2)+1);
+                                    }else if(strlen((count($data2)+1).'')==6){
+                                        $schdeling_id=$data3['tenant_num'].''.(count($data2)+1);
+                                    }
+                                   $schdeling_id='QD'.$schdeling_id;
                                 }else{
-                                    $selectStatement = $database->select()
-                                        ->from('tenant')
-                                        ->where('tenant_id','=',$tenant_id);
-                                    $stmt = $selectStatement->execute();
-                                    $data3= $stmt->fetch();
                                     $scheduling_id='QD'.$data3['tenant_num'].'000001';
                                 }
                                 date_default_timezone_set("PRC");
