@@ -1063,6 +1063,7 @@ $app->get('/lastinsurance',function()use($app){
 //                        $arrays1['receive_city'] = $data4['name'];
                         $selectStatement = $database->select()
                             ->from('lorry')
+                            ->where('tenant_id','=',$data2[$i]['tenant_id'])
                             ->where('lorry_id', '=', $data2[$i]['insurance_lorry_id']);
                         $stmt = $selectStatement->execute();
                         $data5 = $stmt->fetch();
@@ -1134,6 +1135,7 @@ $app->get('/lastinsurance',function()use($app){
 //                        $arrays1['receive_city'] = $data4['name'];
                         $selectStatement = $database->select()
                             ->from('lorry')
+                            ->where('tenant_id','=',$data2[$i]['tenant_id'])
                             ->where('lorry_id', '=', $data2[$i]['insurance_lorry_id']);
                         $stmt = $selectStatement->execute();
                         $data5 = $stmt->fetch();
