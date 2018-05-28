@@ -714,28 +714,28 @@ $app->post('/addScheduling',function()use($app){
                                     ->where('tenant_id','=',$tenant_id);
                                 $stmt = $selectStatement->execute();
                                 $data3= $stmt->fetch();
-                                $schdeling_id=0;
+                                $scheduling_id='';
                                     if(strlen((count($data2)+1).'')==1){
-                                        $schdeling_id='QD'.$data3['tenant_num'].'00000'.(count($data2)+1);
+                                        $scheduling_id='QD'.$data3['tenant_num'].'00000'.(count($data2)+1);
                                     }else if(strlen((count($data2)+1).'')==2){
-                                        $schdeling_id='QD'.$data3['tenant_num'].'0000'.(count($data2)+1);
+                                        $scheduling_id='QD'.$data3['tenant_num'].'0000'.(count($data2)+1);
                                     }else if(strlen((count($data2)+1).'')==3){
-                                        $schdeling_id='QD'.$data3['tenant_num'].'000'.(count($data2)+1);
+                                        $scheduling_id='QD'.$data3['tenant_num'].'000'.(count($data2)+1);
                                     }else if(strlen((count($data2)+1).'')==4){
-                                        $schdeling_id='QD'.$data3['tenant_num'].'00'.(count($data2)+1);
+                                        $scheduling_id='QD'.$data3['tenant_num'].'00'.(count($data2)+1);
                                     }else if(strlen((count($data2)+1).'')==5){
-                                        $schdeling_id='QD'.$data3['tenant_num'].'0'.(count($data2)+1);
+                                        $scheduling_id='QD'.$data3['tenant_num'].'0'.(count($data2)+1);
                                     }else if(strlen((count($data2)+1).'')==6){
-                                        $schdeling_id='QD'.$data3['tenant_num'].''.(count($data2)+1);
+                                        $scheduling_id='QD'.$data3['tenant_num'].''.(count($data2)+1);
                                     }else{
-                                        echo json_encode(array('result'=>'10','desc'=>'调度满仓','aaa'=>$schdeling_id));
+                                        echo json_encode(array('result'=>'10','desc'=>'调度满仓','aaa'=>$scheduling_id));
                                         exit;
                                     }
                                 date_default_timezone_set("PRC");
                                 $shijian=date("Y-m-d H:i:s",time());
                                 $insertStatement = $database->insert(array('scheduling_id','tenant_id','scheduling_datetime','send_city_id','receive_city_id','lorry_id','receiver_id','scheduling_status','exist','is_show','is_alter','is_load','is_contract','is_insurance','is_scan'))
                                     ->into('scheduling')
-                                    ->values(array($schdeling_id,$tenant_id,$shijian,$send_city_id,$receive_city_id,$data1['lorry_id'],$customer_id,'1',0,0,0,0,1,1,0));
+                                    ->values(array($scheduling_id,$tenant_id,$shijian,$send_city_id,$receive_city_id,$data1['lorry_id'],$customer_id,'1',0,0,0,0,1,1,0));
                                 $insertId = $insertStatement->execute(false);
                                 for($i=0;$i<count($array1);$i++){
                                     $updateStatement = $database->update(array("is_schedule"=>1))
@@ -748,7 +748,7 @@ $app->post('/addScheduling',function()use($app){
                                         ->values(array($scheduling_id,$tenant_id,$array1[$i],0));
                                     $insertId = $insertStatement->execute(false);
                                 }
-                                echo json_encode(array('result'=>'0','desc'=>'success','aaa'=>$schdeling_id));
+                                echo json_encode(array('result'=>'0','desc'=>'success','aaa'=>$scheduling_id));
                             }else{
                                 echo json_encode(array('result'=>'7','desc'=>'缺少客户地址'));
                             }
