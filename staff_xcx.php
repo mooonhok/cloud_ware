@@ -736,6 +736,7 @@ $app->post('/addScheduling',function()use($app){
                                 }else{
                                     $scheduling_id='QD'.$data3['tenant_num'].'000001';
                                 }
+                                $scheduling_id=$scheduling_id;
                                 date_default_timezone_set("PRC");
                                 $shijian=date("Y-m-d H:i:s",time());
                                 $insertStatement = $database->insert(array('scheduling_id','tenant_id','scheduling_datetime','send_city_id','receive_city_id','lorry_id','receiver_id','scheduling_status','exist','is_show','is_alter','is_load','is_contract','is_insurance','is_scan'))
