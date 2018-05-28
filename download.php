@@ -38,7 +38,7 @@ $app->post('/addRecord',function()use($app){
     $ip=$body->ip;
     $area=$body->area;
     if($sales_id!=null||$sales_id!=""){
-        if($type!=null||$type!=""){
+//        if($type!=null||$type!=""){
             if($time!=null||$time!=""){
                         $selectStatement = $database->select()
                             ->from('download_record');
@@ -53,9 +53,9 @@ $app->post('/addRecord',function()use($app){
             }else{
                 echo json_encode(array("result" => "3", "desc" => "缺少时间"));
             }
-        }else{
-            echo json_encode(array("result" => "2", "desc" => "缺少下载类别"));
-        }
+//        }else{
+//            echo json_encode(array("result" => "2", "desc" => "缺少下载类别"));
+//        }
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少业务员id"));
     }
