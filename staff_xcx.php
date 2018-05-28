@@ -727,12 +727,12 @@ $app->post('/addScheduling',function()use($app){
                                     ->into('scheduling')
                                     ->values(array($scheduling_id,$tenant_id,$shijian,$send_city_id,$receive_city_id,$data1['lorry_id'],$customer_id,'1',0,0,0,0,1,1,0));
                                 $insertId = $insertStatement->execute(false);
-                                for($i=0;$i<count($array1);$i++){
-                                    $insertStatement = $database->insert(array('scheduling_id','tenant_id','order_id','exist'))
-                                        ->into('schedule_order')
-                                        ->values(array($scheduling_id,$tenant_id,$array1[$i],0));
-                                    $insertId = $insertStatement->execute(false);
-                                }
+//                                for($i=0;$i<count($array1);$i++){
+//                                    $insertStatement = $database->insert(array('scheduling_id','tenant_id','order_id','exist'))
+//                                        ->into('schedule_order')
+//                                        ->values(array($scheduling_id,$tenant_id,$array1[$i],0));
+//                                    $insertId = $insertStatement->execute(false);
+//                                }
                                 echo json_encode(array('result'=>'0','desc'=>'success','aaa'=>$array1[0]));
                             }else{
                                 echo json_encode(array('result'=>'7','desc'=>'缺少客户地址'));
