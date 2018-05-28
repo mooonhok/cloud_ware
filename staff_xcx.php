@@ -709,7 +709,6 @@ $app->post('/addScheduling',function()use($app){
                                             ->values(array(((count($data)-$num1)+10000000001),$tenant_id,$receive_city_id,$customer_address,$customer_name,$customer_phone,'0',3));
                                         $insertId = $insertStatement->execute(false);
                                     }
-
                                     $customer_id=(count($data)-$num1)+10000000001;
                                 }
                                 $selectStatement = $database->select()
@@ -746,11 +745,11 @@ $app->post('/addScheduling',function()use($app){
                                     ->values(array($scheduling_id,$tenant_id,$shijian,$send_city_id,$receive_city_id,$data1['lorry_id'],$customer_id,'1',0,0,0,0,1,1,0));
                                 $insertId = $insertStatement->execute(false);
                                 for($i=0;$i<count($array1);$i++){
-                                    $updateStatement = $database->update(array("is_schedule"=>1))
-                                        ->table('orders')
-                                        ->where('tenant_id','=',$tenant_id)
-                                        ->where('order_id','=',$array1[$i]);
-                                    $affectedRows = $updateStatement->execute();
+//                                    $updateStatement = $database->update(array("is_schedule"=>1))
+//                                        ->table('orders')
+//                                        ->where('tenant_id','=',$tenant_id)
+//                                        ->where('order_id','=',$array1[$i]);
+//                                    $affectedRows = $updateStatement->execute();
                                     $insertStatement = $database->insert(array('schedule_id','tenant_id','order_id','exist'))
                                         ->into('schedule_order')
                                         ->values(array($scheduling_id,$tenant_id,$array1[$i],0));
@@ -841,6 +840,31 @@ $app->post('/orderCustomer',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data1= $stmt->fetch();
         echo json_encode(array('result'=>'0','desc'=>'success','orderCustomer'=>$data1));
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
+    }
+});
+
+$app->post('/changeOrderIsSchedule',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $order_id=$body->order_id;
+    $is_schedule=$body->is_schedule;
+    $database=localhost();
+    if($tenant_id!=null||$tenant_id!=''){
+        if($order_id!=null||$order_id!=''){
+                                    $updateStatement = $database->update(array("is_schedule"=>$is_schedule))
+                                        ->table('orders')
+                                        ->where('tenant_id','=',$tenant_id)
+                                        ->where('order_id','=',$order_id);
+                                    $affectedRows = $updateStatement->execute();
+            echo json_encode(array('result'=>'0','desc'=>'success'));
+        }else{
+            echo json_encode(array('result'=>'2','desc'=>'缺少运单id'));
+        }
     }else{
         echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
     }
