@@ -733,7 +733,7 @@ $app->post('/addScheduling',function()use($app){
                                         ->values(array($scheduling_id,$tenant_id,$array1[$i],0));
                                     $insertId = $insertStatement->execute(false);
                                 }
-                                echo json_encode(array('result'=>'0','desc'=>'success'));
+                                echo json_encode(array('result'=>'0','desc'=>'success','aaa'=>$array1[0]));
                             }else{
                                 echo json_encode(array('result'=>'7','desc'=>'缺少客户地址'));
                             }
