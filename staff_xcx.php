@@ -736,24 +736,24 @@ $app->post('/addScheduling',function()use($app){
                                 }else{
                                     $scheduling_id='QD'.$data3['tenant_num'].'000001';
                                 }
-                                date_default_timezone_set("PRC");
-                                $shijian=date("Y-m-d H:i:s",time());
-                                $insertStatement = $database->insert(array('scheduling_id','tenant_id','scheduling_datetime','send_city_id','receive_city_id','lorry_id','receiver_id','scheduling_status','exist','is_show','is_alter','is_load','is_contract','is_insurance','is_scan'))
-                                    ->into('scheduling')
-                                    ->values(array($scheduling_id,$tenant_id,$shijian,$send_city_id,$receive_city_id,$data1['lorry_id'],$customer_id,'1',0,0,0,0,1,1,0));
-                                $insertId = $insertStatement->execute(false);
-                                for($i=0;$i<count($array1);$i++){
-                                    $updateStatement = $database->update(array("is_schedule"=>1))
-                                        ->table('orders')
-                                        ->where('tenant_id','=',$tenant_id)
-                                        ->where('order_id','=',$array1[$i]);
-                                    $affectedRows = $updateStatement->execute();
-                                    $insertStatement = $database->insert(array('schedule_id','tenant_id','order_id','exist'))
-                                        ->into('schedule_order')
-                                        ->values(array($scheduling_id,$tenant_id,$array1[$i],0));
-                                    $insertId = $insertStatement->execute(false);
-                                }
-                                echo json_encode(array('result'=>'0','desc'=>'success','aaa'=>$array1[0]));
+//                                date_default_timezone_set("PRC");
+//                                $shijian=date("Y-m-d H:i:s",time());
+//                                $insertStatement = $database->insert(array('scheduling_id','tenant_id','scheduling_datetime','send_city_id','receive_city_id','lorry_id','receiver_id','scheduling_status','exist','is_show','is_alter','is_load','is_contract','is_insurance','is_scan'))
+//                                    ->into('scheduling')
+//                                    ->values(array($scheduling_id,$tenant_id,$shijian,$send_city_id,$receive_city_id,$data1['lorry_id'],$customer_id,'1',0,0,0,0,1,1,0));
+//                                $insertId = $insertStatement->execute(false);
+//                                for($i=0;$i<count($array1);$i++){
+//                                    $updateStatement = $database->update(array("is_schedule"=>1))
+//                                        ->table('orders')
+//                                        ->where('tenant_id','=',$tenant_id)
+//                                        ->where('order_id','=',$array1[$i]);
+//                                    $affectedRows = $updateStatement->execute();
+//                                    $insertStatement = $database->insert(array('schedule_id','tenant_id','order_id','exist'))
+//                                        ->into('schedule_order')
+//                                        ->values(array($scheduling_id,$tenant_id,$array1[$i],0));
+//                                    $insertId = $insertStatement->execute(false);
+//                                }
+                                echo json_encode(array('result'=>'0','desc'=>'success','aaa'=>$schdeling_id));
                             }else{
                                 echo json_encode(array('result'=>'7','desc'=>'缺少客户地址'));
                             }
