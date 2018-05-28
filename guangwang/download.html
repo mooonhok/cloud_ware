@@ -149,10 +149,16 @@
 						tbody+="<td><span class='bold'>"+msg.downloads[i].name+"</span></td>";
 						tbody+="<td>"+msg.downloads[i].size+"MB</td>";
 						tbody+="<td>"+msg.downloads[i].time+"发布</td>";
-						if(msg.downloads[i].name=="物牛管理系统"){
+						if(msg.downloads[i].name=="mac生成器"){
 							tbody+="<td><a class='download' href='"+msg.downloads[i].url+"' onclick='down(0)'>下载</a></td>";
-						}else if(msg.downloads[i].name=="物牛管理系统（演示版）"){
+						}else if(msg.downloads[i].name=="酉铭软件（正式版、64位）"){
 							tbody+="<td><a class='download' href='"+msg.downloads[i].url+"' onclick='down(1)'>下载</a></td>";
+						}else if(msg.downloads[i].name=="酉铭软件（正式版、32位）"){
+							tbody+="<td><a class='download' href='"+msg.downloads[i].url+"' onclick='down(2)'>下载</a></td>";
+						}else if(msg.downloads[i].name=="酉铭软件（演示版、64位）"){
+							tbody+="<td><a class='download' href='"+msg.downloads[i].url+"' onclick='down(3)'>下载</a></td>";
+						}else if(msg.downloads[i].name=="酉铭软件（演示版、32位）"){
+							tbody+="<td><a class='download' href='"+msg.downloads[i].url+"' onclick='down(4)'>下载</a></td>";
 						}else{
 							tbody+="<td><a class='download' href='"+msg.downloads[i].url+"'>下载</a></td>";
 						}
@@ -167,6 +173,10 @@
 		});
 		
 		function down(type){
+			console.log(sessionStorage.getItem('id'));
+			console.log(type);
+			console.log(returnCitySN["cip"]);
+			console.log(returnCitySN["cname"]);
 			$.ajax({
 				url:url+"download.php/addRecord",
 				dataType:'json',
