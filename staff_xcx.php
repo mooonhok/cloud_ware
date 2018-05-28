@@ -708,7 +708,7 @@ $app->post('/addScheduling',function()use($app){
                                     ->from('scheduling')
                                     ->where('tenant_id','=',$tenant_id)
                                     ->orderBy('id','DESC')
-                                    ->limit(0);
+                                    ->limit(1);
                                 $stmt = $selectStatement->execute();
                                 $data2= $stmt->fetch();
                                 if($data2){
