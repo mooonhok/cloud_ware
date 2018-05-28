@@ -667,7 +667,7 @@ $app->post('/addScheduling',function()use($app){
                                     exit;
                                 }
                                 $customer_id='';
-                                $schdeling_id='';
+
                                 $selectStatement = $database->select()
                                     ->from('customer')
                                     ->where('exist','=',0)
@@ -714,6 +714,7 @@ $app->post('/addScheduling',function()use($app){
                                     ->where('tenant_id','=',$tenant_id);
                                 $stmt = $selectStatement->execute();
                                 $data3= $stmt->fetch();
+                                $schdeling_id='';
                                 if($data2){
                                     if(strlen((count($data2)+1).'')==1){
                                         $schdeling_id=$data3['tenant_num'].'00000'.(count($data2)+1);
@@ -727,6 +728,9 @@ $app->post('/addScheduling',function()use($app){
                                         $schdeling_id=$data3['tenant_num'].'0'.(count($data2)+1);
                                     }else if(strlen((count($data2)+1).'')==6){
                                         $schdeling_id=$data3['tenant_num'].''.(count($data2)+1);
+                                    }else{
+                                        echo json_encode(array('result'=>'10','desc'=>'调度满仓','aaa'=>$schdeling_id));
+                                        exit;
                                     }
                                    $schdeling_id='QD'.$schdeling_id;
                                 }else{
