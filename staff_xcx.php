@@ -705,7 +705,7 @@ $app->post('/addScheduling',function()use($app){
                                     $customer_id=(count($data)-$num1)+10000000001;
                                 }
                                 $selectStatement = $database->select()
-                                    ->from('scheduliing')
+                                    ->from('scheduling')
                                     ->where('tenant_id','=',$tenant_id)
                                     ->orderBy('id','DESC')
                                     ->limit(0);
