@@ -698,10 +698,18 @@ $app->post('/addScheduling',function()use($app){
                                             $num1++;
                                         }
                                     }
-                                    $insertStatement = $database->insert(array('customer_id','tenant_id','customer_city_id','customer_address','customer_name','customer_phone','contact_tenant_id','exist','type'))
-                                        ->into('customer')
-                                        ->values(array(((count($data)-$num1)+10000000001),$tenant_id,$receive_city_id,$customer_address,$customer_name,$customer_phone,$contact_tenant_id,'0',3));
-                                    $insertId = $insertStatement->execute(false);
+                                    if($contact_tenant_id){
+                                        $insertStatement = $database->insert(array('customer_id','tenant_id','customer_city_id','customer_address','customer_name','customer_phone','contact_tenant_id','exist','type'))
+                                            ->into('customer')
+                                            ->values(array(((count($data)-$num1)+10000000001),$tenant_id,$receive_city_id,$customer_address,$customer_name,$customer_phone,$contact_tenant_id,'0',3));
+                                        $insertId = $insertStatement->execute(false);
+                                    }else{
+                                        $insertStatement = $database->insert(array('customer_id','tenant_id','customer_city_id','customer_address','customer_name','customer_phone','exist','type'))
+                                            ->into('customer')
+                                            ->values(array(((count($data)-$num1)+10000000001),$tenant_id,$receive_city_id,$customer_address,$customer_name,$customer_phone,'0',3));
+                                        $insertId = $insertStatement->execute(false);
+                                    }
+
                                     $customer_id=(count($data)-$num1)+10000000001;
                                 }
                                 $selectStatement = $database->select()
