@@ -635,6 +635,7 @@ $app->post('/addScheduling',function()use($app){
     foreach ($order_ids as $key => $value) {
         $array1[$key] = $value;
     }
+    $array1=array_values($array1);
     if($tenant_id!=null||$tenant_id!=''){
         if($send_city_id!=null||$send_city_id!=''){
             if($receive_city_id!=null||$receive_city_id!=''){
