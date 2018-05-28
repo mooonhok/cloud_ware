@@ -715,7 +715,6 @@ $app->post('/addScheduling',function()use($app){
                                 $stmt = $selectStatement->execute();
                                 $data3= $stmt->fetch();
                                 $schdeling_id='';
-                                if($data2){
                                     if(strlen((count($data2)+1).'')==1){
                                         $schdeling_id='QD'.$data3['tenant_num'].'00000'.(count($data2)+1);
                                     }else if(strlen((count($data2)+1).'')==2){
@@ -732,9 +731,6 @@ $app->post('/addScheduling',function()use($app){
                                         echo json_encode(array('result'=>'10','desc'=>'调度满仓','aaa'=>$schdeling_id));
                                         exit;
                                     }
-                                }else{
-                                    $scheduling_id='QD'.$data3['tenant_num'].'000001';
-                                }
                                 date_default_timezone_set("PRC");
                                 $shijian=date("Y-m-d H:i:s",time());
                                 $insertStatement = $database->insert(array('scheduling_id','tenant_id','scheduling_datetime','send_city_id','receive_city_id','lorry_id','receiver_id','scheduling_status','exist','is_show','is_alter','is_load','is_contract','is_insurance','is_scan'))
