@@ -807,26 +807,17 @@ $app->post('/orderCustomer',function()use($app){
     $tenant_id = $app->request->headers->get("tenant-id");
     $body=$app->request->getBody();
     $body=json_decode($body);
-    $receive_ids=$body->receive_ids;
+    $receive_id=$body->receive_id;
     $database=localhost();
     $array=array();
     if($tenant_id!=null||$tenant_id!=''){
-        foreach($receive_ids as $key=>$value){
-            foreach ($value as $key1=>$value1){
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('tenant_id','=',$tenant_id)
-                    ->where('customer_id','=',$value1['receiver_id']);
+                    ->where('customer_id','=',$receive_id);
                 $stmt = $selectStatement->execute();
                 $data1= $stmt->fetch();
-                if($array){
-                    array_push($array,$data1);
-                }else{
-                    $array=$data1;
-                }
-            }
-        }
-        echo json_encode(array('result'=>'0','desc'=>'success','orderCustomers'=>$array));
+        echo json_encode(array('result'=>'0','desc'=>'success','orderCustomer'=>$data1));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
     }
