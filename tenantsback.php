@@ -1074,7 +1074,7 @@ $app->get('/getSchedules',function()use($app){
                     $data3[$j]['driver_phone']=$data7['driver_phone'];
                 }
             }
-            echo json_encode(array('result'=>'0','desc'=>'','schs'=>$data3));
+            echo json_encode(array('result'=>'0','desc'=>'','schedulings'=>$data3));
         }else{
             $selectStament=$database->select()
                 ->from('scheduling')
@@ -1118,7 +1118,7 @@ $app->get('/getSchedules',function()use($app){
                 }
 
             }
-            echo json_encode(array('result'=>'0','desc'=>'','schs'=>$data3));
+            echo json_encode(array('result'=>'0','desc'=>'','schedulings'=>$data3));
         }
     }else{
         $array1=array();
@@ -1174,7 +1174,7 @@ $app->get('/getSchedules',function()use($app){
                     $data3[$j]['driver_phone']=$data7['driver_phone'];
                 }
             }
-               echo json_encode(array('result'=>'0','desc'=>'','schs'=>$data3));
+               echo json_encode(array('result'=>'0','desc'=>'','schedulings'=>$data3));
             }else{
                     $selectStament=$database->select()
                         ->from('scheduling')
@@ -1217,7 +1217,7 @@ $app->get('/getSchedules',function()use($app){
                             $data3[$j]['driver_phone']=$data7['driver_phone'];
                         }
                     }
-                echo json_encode(array('result'=>'0','desc'=>'','schs'=>$data3));
+                echo json_encode(array('result'=>'0','desc'=>'','schedulings'=>$data3));
             }
     }
 });
@@ -1282,7 +1282,7 @@ $app->get('/limitSchedules',function()use($app){
                     $data3[$j]['driver_phone']=$data7['driver_phone'];
                 }
             }
-            echo json_encode(array('result'=>'0','desc'=>'','schs'=>$data3));
+            echo json_encode(array('result'=>'0','desc'=>'','schedulings'=>$data3));
         }else{
             $selectStament=$database->select()
                 ->from('scheduling')
@@ -1327,7 +1327,7 @@ $app->get('/limitSchedules',function()use($app){
                 }
 
             }
-            echo json_encode(array('result'=>'0','desc'=>'','schs'=>$data3));
+            echo json_encode(array('result'=>'0','desc'=>'','schedulings'=>$data3));
         }
     }else{
         $array1=array();
@@ -1384,7 +1384,7 @@ $app->get('/limitSchedules',function()use($app){
                     $data3[$j]['driver_phone']=$data7['driver_phone'];
                 }
             }
-            echo json_encode(array('result'=>'0','desc'=>'','schs'=>$data3));
+            echo json_encode(array('result'=>'0','desc'=>'','schedulings'=>$data3));
         }else{
             $selectStament=$database->select()
                 ->from('scheduling')
@@ -1428,7 +1428,7 @@ $app->get('/limitSchedules',function()use($app){
                     $data3[$j]['driver_phone']=$data7['driver_phone'];
                 }
             }
-            echo json_encode(array('result'=>'0','desc'=>'','schs'=>$data3));
+            echo json_encode(array('result'=>'0','desc'=>'','schedulings'=>$data3));
         }
     }
 });
@@ -1482,7 +1482,7 @@ $app->get('/getAgreements',function()use($app){
                             $data1[$i]['driver_phone']=$data2['driver_phone'];
                         }
                     }
-                    echo json_encode(array('result'=>'0','desc'=>'','argees'=>$data1));
+                    echo json_encode(array('result'=>'0','desc'=>'','agreements'=>$data1));
             }else{
                     $selectStament=$database->select()
                         ->from('agreement')
@@ -1505,7 +1505,7 @@ $app->get('/getAgreements',function()use($app){
                             $data1[$i]['driver_phone']=$data2['driver_phone'];
                         }
                     }
-            echo json_encode(array('result'=>'0','desc'=>'','argees'=>$data1));
+            echo json_encode(array('result'=>'0','desc'=>'','agreements'=>$data1));
           }
     }else{
             $array1=array();
@@ -1545,7 +1545,7 @@ $app->get('/getAgreements',function()use($app){
                     $data1[$i]['driver_phone']=$data2['driver_phone'];
                 }
             }
-            echo json_encode(array('result'=>'0','desc'=>'','argees'=>$data1));
+            echo json_encode(array('result'=>'0','desc'=>'','agreements'=>$data1));
         }else{
             $selectStament=$database->select()
                 ->from('agreement')
@@ -1568,7 +1568,7 @@ $app->get('/getAgreements',function()use($app){
                     $data1[$i]['driver_phone']=$data2['driver_phone'];
                 }
             }
-            echo json_encode(array('result'=>'0','desc'=>'','argees'=>$data1));
+            echo json_encode(array('result'=>'0','desc'=>'','agreements'=>$data1));
         }
      }
 });
@@ -1627,7 +1627,7 @@ $app->get('/limitAgreements',function()use($app){
                     $data1[$i]['driver_phone']=$data2['driver_phone'];
                 }
             }
-            echo json_encode(array('result'=>'0','desc'=>'','argees'=>$data1));
+            echo json_encode(array('result'=>'0','desc'=>'','agreements'=>$data1));
         }else{
             $selectStament=$database->select()
                 ->from('agreement')
@@ -1651,7 +1651,7 @@ $app->get('/limitAgreements',function()use($app){
                     $data1[$i]['driver_phone']=$data2['driver_phone'];
                 }
             }
-            echo json_encode(array('result'=>'0','desc'=>'','argees'=>$data1));
+            echo json_encode(array('result'=>'0','desc'=>'','agreements'=>$data1));
         }
     }else{
         $array1=array();
@@ -1692,7 +1692,7 @@ $app->get('/limitAgreements',function()use($app){
                     $data1[$i]['driver_phone']=$data2['driver_phone'];
                 }
             }
-            echo json_encode(array('result'=>'0','desc'=>'','argees'=>$data1));
+            echo json_encode(array('result'=>'0','desc'=>'','agreements'=>$data1));
         }else{
             $selectStament=$database->select()
                 ->from('agreement')
@@ -1716,7 +1716,7 @@ $app->get('/limitAgreements',function()use($app){
                     $data1[$i]['driver_phone']=$data2['driver_phone'];
                 }
             }
-            echo json_encode(array('result'=>'0','desc'=>'','argees'=>$data1));
+            echo json_encode(array('result'=>'0','desc'=>'','agreements'=>$data1));
         }
     }
 });
@@ -1934,36 +1934,217 @@ $app->get('/agredet',function()use($app){
 //    }
 //});
 //
-//$app->get('/lorrydetil',function()use($app){
-//    $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
-//    $database=localhost();
-//    $lorry_id=$app->request->get('id');
-//    if($lorry_id!=null||$lorry_id!=""){
-//        $selectStament=$database->select()
-//            ->from('app_lorry')
-//            ->where('exist','=',0)
-//            ->where('app_lorry_id','=',$lorry_id);
-//        $stmt=$selectStament->execute();
-//        $data2=$stmt->fetch();
-//        $selectStament=$database->select()
-//            ->from('lorry_type')
-//            ->where('lorry_type_id','=',$data2['type']);
-//        $stmt=$selectStament->execute();
-//        $data3=$stmt->fetch();
-//        $data2['typename']=$data3['lorry_type_name'];
-//        $selectStament=$database->select()
-//            ->from('lorry_length')
-//            ->where('lorry_length_id','=',$data2['length']);
-//        $stmt=$selectStament->execute();
-//        $data5=$stmt->fetch();
-//         $data2['length']=$data5['lorry_length'];
-//
-//        echo json_encode(array('result'=>'0','desc'=>'','lorrydetil'=>$data2));
-//    }else{
-//        echo json_encode(array('result'=>'3','desc'=>'缺少司机id'));
-//    }
-//});
+$app->get('/getLorrys',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $admin_id=$app->request->get('admin_id');
+    $tenant_id=$app->request->get('tenant_id');
+    if($tenant_id!=null||$tenant_id!=""){
+        $selectStament=$database->select()
+            ->from('lorry')
+            ->where('exist','=',0)
+            ->where('tenant_id','=',$tenant_id);
+        $stmt=$selectStament->execute();
+        $data2=$stmt->fetchAll();
+        if($data2!=null){
+            for($x=0;$x<count($data2);$x++){
+                $selectStament=$database->select()
+                    ->from('app_lorry')
+                    ->where('exist','=',0)
+                    ->where('phone','=',$data2[$x]['driver_phone'])
+                    ->where('plate_number','=',$data2[$x]['plate_number'])
+                    ->where('name','=',$data2[$x]['driver_name']);
+                $stmt=$selectStament->execute();
+                $data3=$stmt->fetch();
+                $data2[$x]['deadweight']=$data3['deadweight'];
+                $selectStament=$database->select()
+                    ->from('lorry_type')
+                    ->where('lorry_type_id','=',$data3['type']);
+                $stmt=$selectStament->execute();
+                $data4=$stmt->fetch();
+                $data2[$x]['typename']=$data4['lorry_type_name'];
+                $data2[$x]['applorryid']=$data3['app_lorry_id'];
+                $selectStament=$database->select()
+                    ->from('lorry_length')
+                    ->where('lorry_length_id','=',$data3['length']);
+                $stmt=$selectStament->execute();
+                $data5=$stmt->fetch();
+                $data2[$x]['length']=$data5['lorry_length'];
+            }
+        }
+        echo json_encode(array('result'=>'0','desc'=>'','lorrys'=>$data2));
+    }else{
+        $array1=array();
+        $selectStament=$database->select()
+            ->from('tenant_admin')
+            ->where('exist','=',0)
+            ->where('admin_id','=',$admin_id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetchAll();
+        for($j=0;$j<count($data);$j++){
+            array_push($array1,$data[$j]['tenant_id']);
+        }
+        $selectStament=$database->select()
+            ->from('lorry')
+            ->where('exist','=',0)
+            ->whereIn('tenant_id',$array1);
+        $stmt=$selectStament->execute();
+        $data2=$stmt->fetchAll();
+        if($data2!=null){
+            for($x=0;$x<count($data2);$x++){
+                $selectStament=$database->select()
+                    ->from('app_lorry')
+                    ->where('exist','=',0)
+                    ->where('phone','=',$data2[$x]['driver_phone'])
+                    ->where('plate_number','=',$data2[$x]['plate_number'])
+                    ->where('name','=',$data2[$x]['driver_name']);
+                $stmt=$selectStament->execute();
+                $data3=$stmt->fetch();
+                $data2[$x]['deadweight']=$data3['deadweight'];
+                $selectStament=$database->select()
+                    ->from('lorry_type')
+                    ->where('lorry_type_id','=',$data3['type']);
+                $stmt=$selectStament->execute();
+                $data4=$stmt->fetch();
+                $data2[$x]['typename']=$data4['lorry_type_name'];
+                $data2[$x]['applorryid']=$data3['app_lorry_id'];
+                $selectStament=$database->select()
+                    ->from('lorry_length')
+                    ->where('lorry_length_id','=',$data3['length']);
+                $stmt=$selectStament->execute();
+                $data5=$stmt->fetch();
+                $data2[$x]['length']=$data5['lorry_length'];
+            }
+        }
+        echo json_encode(array('result'=>'0','desc'=>'','lorrys'=>$data2));
+    }
+});
+
+$app->get('/limitLorrys',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $admin_id=$app->request->get('admin_id');
+    $tenant_id=$app->request->get('tenant_id');
+    $curr=$app->request->get('curr');
+    $curr=(int)$curr-1;
+    $perpage=$app->request->get('perpage');
+    if($tenant_id!=null||$tenant_id!=""){
+        $selectStament=$database->select()
+            ->from('lorry')
+            ->where('exist','=',0)
+            ->where('tenant_id','=',$tenant_id)
+            ->limit((int)$perpage, (int)$perpage * (int)$curr);
+        $stmt=$selectStament->execute();
+        $data2=$stmt->fetchAll();
+        if($data2!=null){
+            for($x=0;$x<count($data2);$x++){
+                $selectStament=$database->select()
+                    ->from('app_lorry')
+                    ->where('exist','=',0)
+                    ->where('phone','=',$data2[$x]['driver_phone'])
+                    ->where('plate_number','=',$data2[$x]['plate_number'])
+                    ->where('name','=',$data2[$x]['driver_name']);
+                $stmt=$selectStament->execute();
+                $data3=$stmt->fetch();
+                $data2[$x]['deadweight']=$data3['deadweight'];
+                $selectStament=$database->select()
+                    ->from('lorry_type')
+                    ->where('lorry_type_id','=',$data3['type']);
+                $stmt=$selectStament->execute();
+                $data4=$stmt->fetch();
+                $data2[$x]['typename']=$data4['lorry_type_name'];
+                $data2[$x]['applorryid']=$data3['app_lorry_id'];
+                $selectStament=$database->select()
+                    ->from('lorry_length')
+                    ->where('lorry_length_id','=',$data3['length']);
+                $stmt=$selectStament->execute();
+                $data5=$stmt->fetch();
+                $data2[$x]['length']=$data5['lorry_length'];
+            }
+        }
+        echo json_encode(array('result'=>'0','desc'=>'','lorrys'=>$data2));
+    }else{
+        $array1=array();
+        $selectStament=$database->select()
+            ->from('tenant_admin')
+            ->where('exist','=',0)
+            ->where('admin_id','=',$admin_id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetchAll();
+        for($j=0;$j<count($data);$j++){
+            array_push($array1,$data[$j]['tenant_id']);
+        }
+        $selectStament=$database->select()
+            ->from('lorry')
+            ->where('exist','=',0)
+            ->whereIn('tenant_id',$array1)
+            ->limit((int)$perpage, (int)$perpage * (int)$curr);
+        $stmt=$selectStament->execute();
+        $data2=$stmt->fetchAll();
+        if($data2!=null){
+            for($x=0;$x<count($data2);$x++){
+                $selectStament=$database->select()
+                    ->from('app_lorry')
+                    ->where('exist','=',0)
+                    ->where('phone','=',$data2[$x]['driver_phone'])
+                    ->where('plate_number','=',$data2[$x]['plate_number'])
+                    ->where('name','=',$data2[$x]['driver_name']);
+                $stmt=$selectStament->execute();
+                $data3=$stmt->fetch();
+                $data2[$x]['deadweight']=$data3['deadweight'];
+                $selectStament=$database->select()
+                    ->from('lorry_type')
+                    ->where('lorry_type_id','=',$data3['type']);
+                $stmt=$selectStament->execute();
+                $data4=$stmt->fetch();
+                $data2[$x]['typename']=$data4['lorry_type_name'];
+                $data2[$x]['applorryid']=$data3['app_lorry_id'];
+                $selectStament=$database->select()
+                    ->from('lorry_length')
+                    ->where('lorry_length_id','=',$data3['length']);
+                $stmt=$selectStament->execute();
+                $data5=$stmt->fetch();
+                $data2[$x]['length']=$data5['lorry_length'];
+            }
+        }
+        echo json_encode(array('result'=>'0','desc'=>'','lorrys'=>$data2));
+    }
+});
+
+
+
+$app->get('/lorrydetil',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $lorry_id=$app->request->get('id');
+    if($lorry_id!=null||$lorry_id!=""){
+        $selectStament=$database->select()
+            ->from('app_lorry')
+            ->where('exist','=',0)
+            ->where('app_lorry_id','=',$lorry_id);
+        $stmt=$selectStament->execute();
+        $data2=$stmt->fetch();
+        $selectStament=$database->select()
+            ->from('lorry_type')
+            ->where('lorry_type_id','=',$data2['type']);
+        $stmt=$selectStament->execute();
+        $data3=$stmt->fetch();
+        $data2['typename']=$data3['lorry_type_name'];
+        $selectStament=$database->select()
+            ->from('lorry_length')
+            ->where('lorry_length_id','=',$data2['length']);
+        $stmt=$selectStament->execute();
+        $data5=$stmt->fetch();
+         $data2['length']=$data5['lorry_length'];
+
+        echo json_encode(array('result'=>'0','desc'=>'','lorrydetil'=>$data2));
+    }else{
+        echo json_encode(array('result'=>'3','desc'=>'缺少司机id'));
+    }
+});
 
 
 $app->run();
