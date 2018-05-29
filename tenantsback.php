@@ -1944,7 +1944,8 @@ $app->get('/getLorrys',function()use($app){
         $selectStament=$database->select()
             ->from('lorry')
             ->where('exist','=',0)
-            ->where('tenant_id','=',$tenant_id);
+            ->where('tenant_id','=',$tenant_id)
+            ->orderBy('id','DESC');
         $stmt=$selectStament->execute();
         $data2=$stmt->fetchAll();
         if($data2!=null){
@@ -1979,7 +1980,8 @@ $app->get('/getLorrys',function()use($app){
         $selectStament=$database->select()
             ->from('tenant_admin')
             ->where('exist','=',0)
-            ->where('admin_id','=',$admin_id);
+            ->where('admin_id','=',$admin_id)
+            ->orderBy('id','DESC');
         $stmt=$selectStament->execute();
         $data=$stmt->fetchAll();
         for($j=0;$j<count($data);$j++){
@@ -2035,7 +2037,8 @@ $app->get('/limitLorrys',function()use($app){
             ->from('lorry')
             ->where('exist','=',0)
             ->where('tenant_id','=',$tenant_id)
-            ->limit((int)$perpage, (int)$perpage * (int)$curr);
+            ->limit((int)$perpage, (int)$perpage * (int)$curr)
+            ->orderBy('id','DESC');
         $stmt=$selectStament->execute();
         $data2=$stmt->fetchAll();
         if($data2!=null){
@@ -2080,7 +2083,8 @@ $app->get('/limitLorrys',function()use($app){
             ->from('lorry')
             ->where('exist','=',0)
             ->whereIn('tenant_id',$array1)
-            ->limit((int)$perpage, (int)$perpage * (int)$curr);
+            ->limit((int)$perpage, (int)$perpage * (int)$curr)
+            ->orderBy('id','DESC');
         $stmt=$selectStament->execute();
         $data2=$stmt->fetchAll();
         if($data2!=null){
