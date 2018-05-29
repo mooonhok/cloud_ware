@@ -2141,7 +2141,7 @@ $app->get('/limitLorrys',function()use($app){
             ->from('app_lorry')
             ->join('lorry', 'lorry.driver_phone', '=', 'app_lorry.phone', 'INNER')
             ->where('lorry.exist','=',0)
-            ->where('lorry.tenant_id','=',$tenant_id)
+            ->whereIn('lorry.tenant_id',$array1)
             ->limit((int)$perpage, (int)$perpage * (int)$curr)
             ->orderBy('lorry.id','DESC');
         $stmt=$selectStament->execute();
