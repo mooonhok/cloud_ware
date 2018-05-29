@@ -107,6 +107,9 @@ $app->get('/getOrders',function()use($app){
     if($time2==null||$time2==""){
         $time2=date('Y-m-d',time());
         $time2=$time2.' 23:59:59';
+    }else{
+        $time2=date("Y-m-d",strtotime("+1 days",strtotime($time2)));
+        $time2=$time2.' 00:00:00';
     }
     if($time1==null||$time1==null){
         $time1=date('Y-m-d H:i:s','0');
@@ -570,6 +573,9 @@ $app->get('/limitOrders',function()use($app){
     if($time2==null||$time2==""){
         $time2=date('Y-m-d H:i:s',time()+1);
         $time2=$time2.' 23:59:59';
+    }else{
+        $time2=date("Y-m-d",strtotime("+1 days",strtotime($time2)));
+        $time2=$time2.' 00:00:00';
     }
     if($time1==null||$time1==null){
         $time1=date('Y-m-d H:i:s','0');
