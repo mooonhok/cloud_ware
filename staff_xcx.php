@@ -870,6 +870,52 @@ $app->post('/changeOrderIsSchedule',function()use($app){
     }
 });
 
+$app->get('/IsSchedulingSchedulings',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $database=localhost();
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('scheduling')
+            ->where('is_show','=',0)
+            ->where('tenant_id','=',$tenant_id)
+            ->whereIn('scheduling_status',array(1,2,3));
+        $stmt = $selectStatement->execute();
+        $data1= $stmt->fetchAll();
+        for($i=0;$i<count($data1);$i++){
+            $selectStatement = $database->select()
+                ->from('schedule_order')
+                ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
+                ->where('orders.tenant_id','=',$tenant_id)
+                ->where('schedule_order.tenant_id','=',$tenant_id)
+                ->where('schedule_order.schedule_id','=',$data1[$i]['scheduling']);
+            $stmt = $selectStatement->execute();
+            $data2= $stmt->fetchAll();
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('customer_id','=',$data1[$i]['receiver_id']);
+            $stmt = $selectStatement->execute();
+            $data3= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('lorry_id','=',$data1[$i]['lorry_id']);
+            $stmt = $selectStatement->execute();
+            $data4= $stmt->fetch();
+            $data1[$i]['orders']=$data2;
+            $data1[$i]['receiver']=$data3;
+            $data1[$i]['lorry']=$data4;
+        }
+        echo json_encode(array('result'=>'0','desc'=>'success','schedulings'=>$data1));
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
+    }
+});
+
 $app->run();
 
 function localhost(){
