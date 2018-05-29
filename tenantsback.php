@@ -2090,12 +2090,12 @@ $app->get('/limitLorrys',function()use($app){
     $perpage=$app->request->get('perpage');
     if($tenant_id!=null||$tenant_id!=""){
         $selectStament=$database->select()
-            ->distinct('driver_phone')
-            ->from('lorry')
+            ->from('app_lorry')
+            ->join('lorry', 'lorry.driver_phone', '=', 'app_lorry.phone', 'INNER')
             ->where('exist','=',0)
-            ->where('tenant_id','=',$tenant_id)
+            ->where('lorry.tenant_id','=',$tenant_id)
             ->limit((int)$perpage, (int)$perpage * (int)$curr)
-            ->orderBy('id','DESC');
+            ->orderBy('lorry.id','DESC');
         $stmt=$selectStament->execute();
         $data2=$stmt->fetchAll();
 //        $data2= array_values(array_unset_tt($data2,'driver_phone'));
@@ -2138,15 +2138,14 @@ $app->get('/limitLorrys',function()use($app){
             array_push($array1,$data[$j]['tenant_id']);
         }
         $selectStament=$database->select()
-            ->distinct('driver_phone')
-            ->from('lorry')
+            ->from('app_lorry')
+            ->join('lorry', 'lorry.driver_phone', '=', 'app_lorry.phone', 'INNER')
             ->where('exist','=',0)
-            ->whereIn('tenant_id',$array1)
+            ->where('lorry.tenant_id','=',$tenant_id)
             ->limit((int)$perpage, (int)$perpage * (int)$curr)
-            ->orderBy('id','DESC');
+            ->orderBy('lorry.id','DESC');
         $stmt=$selectStament->execute();
         $data2=$stmt->fetchAll();
-        $data2= array_values(array_unset_tt($data2,'driver_phone'));
         if($data2!=null){
             for($x=0;$x<count($data2);$x++){
                 $selectStament=$database->select()
