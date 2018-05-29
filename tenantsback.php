@@ -2137,13 +2137,19 @@ $app->get('/limitLorrys',function()use($app){
         for($j=0;$j<count($data);$j++){
             array_push($array1,$data[$j]['tenant_id']);
         }
+//        $selectStament=$database->select()
+//            ->from('app_lorry')
+//            ->join('lorry', 'lorry.driver_phone', '=', 'app_lorry.phone', 'INNER')
+//            ->where('lorry.exist','=',0)
+//            ->whereIn('lorry.tenant_id',$array1)
+//            ->limit((int)$perpage, (int)$perpage * (int)$curr)
+//            ->orderBy('lorry.id','DESC');
+//        $stmt=$selectStament->execute();
+//        $data2=$stmt->fetchAll();
         $selectStament=$database->select()
-            ->from('app_lorry')
-            ->join('lorry', 'lorry.driver_phone', '=', 'app_lorry.phone', 'INNER')
-            ->where('lorry.exist','=',0)
-            ->whereIn('lorry.tenant_id',$array1)
-            ->limit((int)$perpage, (int)$perpage * (int)$curr)
-            ->orderBy('lorry.id','DESC');
+            ->from('lorry')
+            ->where('exist','=',0)
+            ->whereIn('tenant_id',$array1);
         $stmt=$selectStament->execute();
         $data2=$stmt->fetchAll();
         if($data2!=null){
