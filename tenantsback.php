@@ -604,7 +604,7 @@ $app->get('/getOrders',function()use($app){
     $database=localhost();
     $admin_id=$app->request->get('admin_id');
     $tenant_id=$app->request->get('tenant_id');
-    $paymethod=$app->request->get('payway');
+    $paymethod=$app->request->get('pay_method');
     $time1=$app->request->get('time1');
     $time2=$app->request->get('time2');
     date_default_timezone_set("PRC");
@@ -916,7 +916,7 @@ $app->get('/limitOrders',function()use($app){
     $database=localhost();
     $admin_id=$app->request->get('admin_id');
     $tenant_id=$app->request->get('tenant_id');
-    $paymethod=$app->request->get('payway');
+    $paymethod=$app->request->get('pay_method');
     $time1=$app->request->get('time1');
     $time2=$app->request->get('time2');
     $curr=$app->request->get('curr');
