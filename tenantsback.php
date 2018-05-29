@@ -2090,11 +2090,11 @@ $app->get('/limitLorrys',function()use($app){
     $perpage=$app->request->get('perpage');
     if($tenant_id!=null||$tenant_id!=""){
         $selectStament=$database->select()
+            ->distinctCount('driver_phone')
             ->from('lorry')
             ->where('exist','=',0)
             ->where('tenant_id','=',$tenant_id)
             ->limit((int)$perpage, (int)$perpage * (int)$curr)
-            ->distinctCount('driver_phone')
             ->orderBy('id','DESC');
         $stmt=$selectStament->execute();
         $data2=$stmt->fetchAll();
@@ -2138,11 +2138,11 @@ $app->get('/limitLorrys',function()use($app){
             array_push($array1,$data[$j]['tenant_id']);
         }
         $selectStament=$database->select()
+            ->distinctCount('driver_phone')
             ->from('lorry')
             ->where('exist','=',0)
             ->whereIn('tenant_id',$array1)
             ->limit((int)$perpage, (int)$perpage * (int)$curr)
-            ->distinctCount('driver_phone')
             ->orderBy('id','DESC');
         $stmt=$selectStament->execute();
         $data2=$stmt->fetchAll();
