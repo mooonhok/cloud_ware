@@ -2137,47 +2137,49 @@ $app->get('/limitLorrys',function()use($app){
         for($j=0;$j<count($data);$j++){
             array_push($array1,$data[$j]['tenant_id']);
         }
-//        $selectStament=$database->select()
-//            ->from('app_lorry')
-//            ->join('lorry', 'lorry.driver_phone', '=', 'app_lorry.phone', 'INNER')
-//            ->where('lorry.exist','=',0)
-//            ->whereIn('lorry.tenant_id',$array1)
-//            ->limit((int)$perpage, (int)$perpage * (int)$curr)
-//            ->orderBy('lorry.id','DESC');
-//        $stmt=$selectStament->execute();
-//        $data2=$stmt->fetchAll();
         $selectStament=$database->select()
-            ->from('lorry')
-            ->where('exist','=',0)
-            ->whereIn('tenant_id',$array1);
+            ->from('app_lorry');
         $stmt=$selectStament->execute();
-        $data2=$stmt->fetchAll();
-        if($data2!=null){
-            for($x=0;$x<count($data2);$x++){
-                $selectStament=$database->select()
-                    ->from('app_lorry')
-                    ->where('exist','=',0)
-                    ->where('phone','=',$data2[$x]['driver_phone'])
-                    ->where('plate_number','=',$data2[$x]['plate_number'])
-                    ->where('name','=',$data2[$x]['driver_name']);
-                $stmt=$selectStament->execute();
-                $data3=$stmt->fetch();
-                $data2[$x]['deadweight']=$data3['deadweight'];
-                $selectStament=$database->select()
-                    ->from('lorry_type')
-                    ->where('lorry_type_id','=',$data3['type']);
-                $stmt=$selectStament->execute();
-                $data4=$stmt->fetch();
-                $data2[$x]['typename']=$data4['lorry_type_name'];
-                $data2[$x]['applorryid']=$data3['app_lorry_id'];
-                $selectStament=$database->select()
-                    ->from('lorry_length')
-                    ->where('lorry_length_id','=',$data3['length']);
-                $stmt=$selectStament->execute();
-                $data5=$stmt->fetch();
-                $data2[$x]['length']=$data5['lorry_length'];
-            }
+        $data7=$stmt->fetchAll();
+        $data2=array();
+        for($i=0;$i<count($data7);$i++){
+            $selectStament=$database->select()
+                ->from('lorry')
+                ->where('exist','=',0)
+                ->where('driver_phone','=',$data7[$i]['phone'])
+                ->whereIn('tenant_id',$array1)
+                ->limit(1);
+            $stmt=$selectStament->execute();
+            $data6=$stmt->fetch();
+            array_push($data2,$data6);
         }
+
+//        if($data2!=null){
+//            for($x=0;$x<count($data2);$x++){
+//                $selectStament=$database->select()
+//                    ->from('app_lorry')
+//                    ->where('exist','=',0)
+//                    ->where('phone','=',$data2[$x]['driver_phone'])
+//                    ->where('plate_number','=',$data2[$x]['plate_number'])
+//                    ->where('name','=',$data2[$x]['driver_name']);
+//                $stmt=$selectStament->execute();
+//                $data3=$stmt->fetch();
+//                $data2[$x]['deadweight']=$data3['deadweight'];
+//                $selectStament=$database->select()
+//                    ->from('lorry_type')
+//                    ->where('lorry_type_id','=',$data3['type']);
+//                $stmt=$selectStament->execute();
+//                $data4=$stmt->fetch();
+//                $data2[$x]['typename']=$data4['lorry_type_name'];
+//                $data2[$x]['applorryid']=$data3['app_lorry_id'];
+//                $selectStament=$database->select()
+//                    ->from('lorry_length')
+//                    ->where('lorry_length_id','=',$data3['length']);
+//                $stmt=$selectStament->execute();
+//                $data5=$stmt->fetch();
+//                $data2[$x]['length']=$data5['lorry_length'];
+//            }
+//        }
         echo json_encode(array('result'=>'0','desc'=>'','lorrys'=>$data2));
     }
 });
