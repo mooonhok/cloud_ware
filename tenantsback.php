@@ -2151,7 +2151,9 @@ $app->get('/limitLorrys',function()use($app){
                 ->limit(1);
             $stmt=$selectStament->execute();
             $data6=$stmt->fetch();
+            if($data6!=null){
             array_push($data2,$data6);
+            }
         }
 
 //        if($data2!=null){
@@ -2180,7 +2182,7 @@ $app->get('/limitLorrys',function()use($app){
 //                $data2[$x]['length']=$data5['lorry_length'];
 //            }
 //        }
-        echo json_encode(array('result'=>'0','desc'=>'','lorrys'=>$data2));
+        echo json_encode(array('result'=>'0','desc'=>'','lorrys'=>$data2,'lorryname'=>$data2[0]['driver_phone']));
     }
 });
 
