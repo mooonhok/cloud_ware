@@ -105,12 +105,14 @@ $app->get('/getOrders',function()use($app){
     $time2=$app->request->get('time2');
     date_default_timezone_set("PRC");
     if($time2==null||$time2==""){
-        $time2=date('Y-m-d H:i:s',time()+1);
+        $time2=date('Y-m-d',time());
+        $time2=$time2.' 23:59:59';
     }
     if($time1==null||$time1==null){
         $time1=date('Y-m-d H:i:s','0');
     }else{
         $time1=date("Y-m-d",strtotime("-1 days",strtotime($time1)));
+        $time1=$time1.' 23:59:59';
     }
     if($admin_id!=null||$admin_id!=""){
         if($tenant_id!=null||$tenant_id!=""){
@@ -567,11 +569,13 @@ $app->get('/limitOrders',function()use($app){
     date_default_timezone_set("PRC");
     if($time2==null||$time2==""){
         $time2=date('Y-m-d H:i:s',time()+1);
+        $time2=$time2.' 23:59:59';
     }
     if($time1==null||$time1==null){
         $time1=date('Y-m-d H:i:s','0');
     }else{
         $time1=date("Y-m-d",strtotime("-1 days",strtotime($time1)));
+        $time1=$time1.' 23:59:59';
     }
     if($admin_id!=null||$admin_id!=""){
         if($tenant_id!=null||$tenant_id!=""){
@@ -1033,10 +1037,12 @@ $app->get('/getSchedules',function()use($app){
     date_default_timezone_set("PRC");
     if($time2==null||$time2==""){
         $time2=date('Y-m-d H:i:s',time()+1);
+        $time2=$time2.' 23:59:59';
     }
     if($tenant_id!=null||$tenant_id!=""){
         if($time1!=null||$time1!=''){
             $time1=date("Y-m-d",strtotime("-1 days",strtotime($time1)));
+            $time1=$time1.' 23:59:59';
             $selectStament=$database->select()
                 ->from('scheduling')
                 ->where('scheduling_datetime','>',$time1)
@@ -1160,6 +1166,7 @@ $app->get('/getSchedules',function()use($app){
         }
         if($time1!=null||$time1!=''){
             $time1=date("Y-m-d",strtotime("-1 days",strtotime($time1)));
+            $time1=$time1.' 23:59:59';
             $selectStament=$database->select()
                 ->from('scheduling')
                 ->where('scheduling_datetime','>',$time1)
@@ -1285,11 +1292,13 @@ $app->get('/limitSchedules',function()use($app){
     $perpage=$app->request->get('perpage');
     date_default_timezone_set("PRC");
     if($time2==null||$time2==""){
-        $time2=date('Y-m-d H:i:s',time()+1);
+        $time2=date('Y-m-d H:i:s',time());
+        $time2=$time2.' 23:59:59';
     }
     if($tenant_id!=null||$tenant_id!=""){
         if($time1!=null||$time1!=''){
             $time1=date("Y-m-d",strtotime("-1 days",strtotime($time1)));
+            $time1=$time1.' 23:59:59';
             $selectStament=$database->select()
                 ->from('scheduling')
                 ->where('scheduling_datetime','>',$time1)
@@ -1415,6 +1424,7 @@ $app->get('/limitSchedules',function()use($app){
         }
         if($time1!=null||$time1!=''){
             $time1=date("Y-m-d",strtotime("-1 days",strtotime($time1)));
+            $time1=$time1.' 23:59:59';
             $selectStament=$database->select()
                 ->from('scheduling')
                 ->where('scheduling_datetime','>',$time1)
