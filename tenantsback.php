@@ -110,8 +110,7 @@ $app->get('/getOrders',function()use($app){
     if($time1==null||$time1==null){
         $time1=date('Y-m-d H:i:s','0');
     }else{
-       $time1=mktime(59,59,23,date('d',$time1)-1,date('m',$time1),date('Y',$time1));
-        $time1=date('Y-m-d H:i:s',$time1);
+        $time1=date("Y-m-d",strtotime("-1 days",strtotime($time1)));
     }
     if($admin_id!=null||$admin_id!=""){
         if($tenant_id!=null||$tenant_id!=""){
@@ -572,8 +571,7 @@ $app->get('/limitOrders',function()use($app){
     if($time1==null||$time1==null){
         $time1=date('Y-m-d H:i:s','0');
     }else{
-        $time1=mktime(59,59,23,date('d',$time1)-1,date('m',$time1),date('Y',$time1));
-        $time1=date('Y-m-d H:i:s',$time1);
+        $time1=date("Y-m-d",strtotime("-1 days",strtotime($time1)));
     }
     if($admin_id!=null||$admin_id!=""){
         if($tenant_id!=null||$tenant_id!=""){
@@ -1038,8 +1036,7 @@ $app->get('/getSchedules',function()use($app){
     }
     if($tenant_id!=null||$tenant_id!=""){
         if($time1!=null||$time1!=''){
-            $time1=mktime(59,59,23,date('d',$time1)-1,date('m',$time1),date('Y',$time1));
-            $time1=date('Y-m-d H:i:s',$time1);
+            $time1=date("Y-m-d",strtotime("-1 days",strtotime($time1)));
             $selectStament=$database->select()
                 ->from('scheduling')
                 ->where('scheduling_datetime','>',$time1)
@@ -1162,8 +1159,7 @@ $app->get('/getSchedules',function()use($app){
             array_push($array1,$data2[$j]['tenant_id']);
         }
         if($time1!=null||$time1!=''){
-            $time1=mktime(59,59,23,date('d',$time1)-1,date('m',$time1),date('Y',$time1));
-            $time1=date('Y-m-d H:i:s',$time1);
+            $time1=date("Y-m-d",strtotime("-1 days",strtotime($time1)));
             $selectStament=$database->select()
                 ->from('scheduling')
                 ->where('scheduling_datetime','>',$time1)
@@ -1293,8 +1289,7 @@ $app->get('/limitSchedules',function()use($app){
     }
     if($tenant_id!=null||$tenant_id!=""){
         if($time1!=null||$time1!=''){
-            $time1=mktime(59,59,23,date('d',$time1)-1,date('m',$time1),date('Y',$time1));
-            $time1=date('Y-m-d H:i:s',$time1);
+            $time1=date("Y-m-d",strtotime("-1 days",strtotime($time1)));
             $selectStament=$database->select()
                 ->from('scheduling')
                 ->where('scheduling_datetime','>',$time1)
@@ -1419,8 +1414,7 @@ $app->get('/limitSchedules',function()use($app){
             array_push($array1,$data2[$j]['tenant_id']);
         }
         if($time1!=null||$time1!=''){
-            $time1=mktime(59,59,23,date('d',$time1)-1,date('m',$time1),date('Y',$time1));
-            $time1=date('Y-m-d H:i:s',$time1);
+            $time1=date("Y-m-d",strtotime("-1 days",strtotime($time1)));
             $selectStament=$database->select()
                 ->from('scheduling')
                 ->where('scheduling_datetime','>',$time1)
