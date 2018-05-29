@@ -2092,7 +2092,7 @@ $app->get('/limitLorrys',function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->join('lorry', 'lorry.driver_phone', '=', 'app_lorry.phone', 'INNER')
-            ->where('exist','=',0)
+            ->where('lorry.exist','=',0)
             ->where('lorry.tenant_id','=',$tenant_id)
             ->limit((int)$perpage, (int)$perpage * (int)$curr)
             ->orderBy('lorry.id','DESC');
@@ -2140,7 +2140,7 @@ $app->get('/limitLorrys',function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->join('lorry', 'lorry.driver_phone', '=', 'app_lorry.phone', 'INNER')
-            ->where('exist','=',0)
+            ->where('lorry.exist','=',0)
             ->where('lorry.tenant_id','=',$tenant_id)
             ->limit((int)$perpage, (int)$perpage * (int)$curr)
             ->orderBy('lorry.id','DESC');
