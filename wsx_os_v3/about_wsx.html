@@ -1,0 +1,189 @@
+<html>
+	<head>
+        <title>靖江市万事鑫联运</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+		<link type="text/css" href="css/common.css" rel="stylesheet">
+		<link rel="shortcut icon" href="favicon.ico" />
+		<style>
+		</style>
+	</head>
+	<body id="os">
+		<div class="nav">
+			<div class="detail">
+				<div class="logo" onclick="window.location.href='index.html'">
+					<img id="logo" src="images/logo.png" />
+				</div>
+				<div class="nav-items">
+					<div class="nav-item" onclick="navTo(0)" onmouseover="navOver(0)" onmouseout="navOut(0)">首页</div>
+					<div class="nav-item" onclick="navTo(1)" onmouseover="navOver(1)" onmouseout="navOut(1)">产品与服务</div>
+					<div class="nav-item" onclick="navTo(2)" onmouseover="navOver(2)" onmouseout="navOut(2)">线上营运中心</div>
+					<div class="nav-item" onclick="navTo(3)" onmouseover="navOver(3)" onmouseout="navOut(3)">关于万事鑫</div>
+				</div>
+			</div>
+		</div>
+		<div class="subnav">
+			<div class="detail">
+				<div class="subnav-items" onmouseenter="subnavEnter(1)" onmouseleave="subnavLeave()">
+					<div class="subnav-item" onclick="subnavTo(0)">产品介绍</div>
+					<div class="subnav-item" onclick="subnavTo(1)">增值服务</div>
+					<div class="subnav-item" onclick="subnavTo(2)">禁运品</div>
+				</div>
+				<div class="subnav-items" onmouseenter="subnavEnter(3)" onmouseleave="subnavLeave()">
+					<div class="subnav-item" onclick="subnavTo(3)">公司简介</div>
+					<div class="subnav-item" onclick="subnavTo(4)">业务部门</div>
+					<div class="subnav-item" onclick="subnavTo(5)">联系我们</div>
+					<div class="subnav-item" onclick="subnavTo(6)">加盟合作</div>
+				</div>
+			</div>
+		</div>
+		<div class="bg-view"></div>
+		<div class="intro-view">
+			<div class="detail">
+				<div class="intro-left">
+					<div class="intro-title">关于万事鑫</div>
+					<div class="intro-subtitle" onclick="subtitleTo(0)">公司简介</div>
+					<div class="intro-subtitle" onclick="subtitleTo(1)">业务部门</div>
+					<div class="intro-subtitle" onclick="subtitleTo(2)">联系我们</div>
+					<div class="intro-subtitle" onclick="subtitleTo(3)">加盟合作</div>
+					<div class="intro-subtitle"><a href="http://api.uminfo.cn/tenantsback" target="_blank">管理员</a></div>
+				</div>
+				<div class="intro-right">
+					<div class="subtitle-view">
+						<div class="desc-title">公司简介</div>
+						<div class="desc-text">
+							<div class="desc-para">
+								<div class="desc-indent">靖江市万事鑫联运服务有限公司始建于1982年9月，江苏省重点物流企业、国家AAA级现代物流企业、国家联运、运输协会会员单位、泰州市文明单位。下设15个分公司，自备和挂靠运输车辆156辆，长年业务协作500-3万吨的水运（内河、长江、海洋）船舶近300艘、叉车5辆，仓储、堆场面积10000多平方米，联运综合大楼壹幢，占地总面积20000平方米，资产总值3000多万元，现已形成仓储、堆存、装卸、配载、配送相衔接；公、铁、水（路）联运、大型物件运输、集装箱、冷藏保鲜专用运输、综合货运站（场）、信息服务、包装服务为一体的综合性现代物流企业，年营收近亿元。</div>
+							</div>
+						</div>
+						<div class="desc-img">
+							<img src="images/aw-banner0.jpg">
+						</div>
+					</div>
+					<div class="subtitle-view">
+						<div class="desc-title">业务部门</div>
+						<div class="desc-table">
+							<table cellpadding="0" cellspacing="0" frame="void" rules="all" id="apartment">
+								<tr>
+									<th>公司名</th>
+									<th>联系人</th>
+									<th>联系电话</th>
+									<th>地址</th>
+								</tr>
+								<tr v-for="item in apartment">
+									<td>{{item.company}}</td>
+									<td>{{item.name}}</td>
+									<td>{{item.phone}}</td>
+									<td>{{item.address}}</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="subtitle-view">
+						<div class="desc-title">联系我们</div>
+						<div class="desc-text">
+							<div class="desc-map">
+								<div id="company-map"></div>
+							</div>
+							<div class="desc-para">
+								<div class="desc-half"><span class="desc-abstract">公司地址：</span>江苏省靖江市南环路76号联运大厦</div>
+								<div class="desc-half"><span class="desc-abstract">邮政编码：</span>214500</div>
+								<div class="desc-half"><span class="desc-abstract">座机电话：</span>0523-84862770</div>
+								<div class="desc-half"><span class="desc-abstract">传真号码：</span>0523-89119966</div>
+								<div class="desc-half"><span class="desc-abstract">电子邮箱：</span>wanshixin2004@163.com</div>
+								<div class="desc-half" style="color:red"><span class="desc-abstract" style="color:red">客服热线：</span>0523-84862770</div>
+							</div>
+						</div>
+					</div>
+					<div class="subtitle-view">
+						<div class="desc-title">加盟合作</div>
+						<div class="desc-img">
+							<img src="images/aw-banner3.jpg">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="detail">
+				<div class="footer-content footer-logo">
+					<img src="images/logo2.png" />
+				</div>
+				<div class="footer-content footer-contact">
+					<div class="footer-title">联系我们</div>
+					<div class="footer-contact-div"><img src="images/time.png" />工作时间： 8:00 AM - 22:00PM</div>
+					<div class="footer-contact-div"><img src="images/phone.png" />0523-84862770</div>
+					<div class="footer-contact-div"><img src="images/email.png" />wanshixin2004@163.com</div>
+					<div class="footer-contact-div"><img src="images/address.png" />江苏省靖江市南环路76号联运大厦</div>
+				</div>
+				<div class="footer-content footer-scan">
+					<div class="footer-title">关注或下载</div>
+					<div class="footer-qrcode">
+						<img id="qrcode" src="images/qrcode.jpg" />
+						<div class="footer-scan-tip">官方微信公众号</div>
+					</div>
+					<div class="footer-app">
+						<img id="app" src="images/app.png" />
+						<div class="footer-scan-tip">交付帮手APP</div>
+					</div>
+				</div>
+				<div class="footer-copyright">Copyright &copy; 2018 靖江市万事鑫联运服务有限公司. All rights reserved.<a target="_blank" href="#"></a></div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Z7ZjajqB1B4SRU895btxr6ZsLwGeKQOj"></script>
+		<script>
+			var url="http://123.207.144.43/";
+			var vm;
+			vm=new Vue({
+				el:'#os',
+				data:{
+					apartment:{}
+				}
+			});
+			
+			$(document).ready(function(){
+				sessionStorage.setItem("aindex",3);
+				$(".nav-item").removeClass("nav-active");
+				$(".nav-item").eq(3).addClass("nav-active");
+				$(".intro-subtitle").removeClass("subtitle-active");
+				$(".subtitle-view").removeClass("titleview-visible");
+				$(".intro-subtitle").eq(sessionStorage.getItem("awindex")).addClass("subtitle-active");
+				$(".subtitle-view").eq(sessionStorage.getItem("awindex")).addClass("titleview-visible");
+				
+				$.ajax({
+					url:url+"apartment.php/getApartments",
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						vm.apartment=msg.apartments;
+					},
+					error:function(xhr){
+						console.log(xhr.responseText);
+					}
+				});
+				
+				var map=new BMap.Map("company-map");
+				var point=new BMap.Point(120.266173,32.007992);
+				map.centerAndZoom(point,18);
+				var marker=new BMap.Marker(point);
+				map.addOverlay(marker);
+				marker.setAnimation(BMAP_ANIMATION_BOUNCE);
+			});
+			
+			
+			
+			function subtitleTo(index){
+				sessionStorage.setItem("awindex",index);
+				$(".intro-subtitle").removeClass("subtitle-active");
+				$(".intro-subtitle").eq(index).addClass("subtitle-active");
+				$(".subtitle-view").removeClass("titleview-visible");
+				$(".subtitle-view").eq(index).addClass("titleview-visible");
+			}
+		</script>
+	</body>
+</html>

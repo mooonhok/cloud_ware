@@ -1,0 +1,2751 @@
+<html>
+	<head>
+        <title>靖江市万事鑫联运</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+		<link type="text/css" href="css/prompt.css" rel="stylesheet">
+		<link rel="shortcut icon" href="favicon.ico" />
+		<style media="print">  
+			@page{
+				size:auto;
+				margin:0mm;
+			}
+		</style>
+		<style>
+			*{
+				margin:0 auto;
+				padding:0;
+				font-size:0;
+				font-family:"微软雅黑";
+			}
+			.header{
+				width:100%;
+				height:95px;
+				background:#1596fa;
+			}
+			.logo{
+				width:360px;
+				height:55px;
+				position:absolute;
+				top:20px;
+				left:75px;
+				cursor:pointer;
+			}
+			#logo{
+				width:197px;
+				height:55px;
+			}
+			#title{
+				height:55px;
+				font-size:24px;
+				line-height:55px;
+				color:#ffffff;
+				vertical-align:top;
+				margin-left:18px;
+			}
+			.hello{
+				height:50px;
+				position:absolute;
+				top:0;
+				right:75px;
+			}
+			.hello div{
+				display:inline-block;
+				margin-left:30px;
+			}
+			.hello *{
+				font-size:15px;
+				color:#ffffff;
+			}
+			.name{
+				line-height:50px;
+			}
+			.info{
+				line-height:50px;
+				cursor:pointer;
+			}
+			.info img{
+				width:16px;
+				height:16px;
+				vertical-align:top;
+				margin-top:17px;
+			}
+			.exit{
+				width:60px;
+				height:25px;
+				line-height:25px;
+				text-align:center;
+				background:rgba(0,0,0,0.6);
+				cursor:pointer;
+			}
+			.nav{
+				height:45px;
+				position:absolute;
+				top:50px;
+				right:75px;
+			}
+			.nav-item{
+				display:inline-block;
+				width:115px;
+				height:45px;
+				font-size:16px;
+				line-height:40px;
+				color:#ffffff;
+				text-align:center;
+				float:right;
+				cursor:pointer;
+			}
+			.nav-item:hover{
+				background:#ebebeb;
+				color:#1596fa;
+			}
+			.nav-active{
+				background:#ebebeb;
+				color:#1596fa;
+			}
+			
+			.view{
+				display:none;
+				padding:30px 75px 20px 75px;
+				background:#ebebeb;
+			}
+			.info-view{
+				display:none;
+				padding:30px 75px 20px 75px;
+				background:#ebebeb;
+			}
+			.visible{
+				display:block;
+			}
+			
+			.content{
+				display:inline-block;
+				width:77%;
+				margin-right:4%;
+				vertical-align:top;
+			}
+			.detail{
+				width:100%;
+				background:#ffffff;
+				border:1px solid #dddddd;
+				margin-bottom:10px;
+			}
+			.detail-title{
+				font-size:15px;
+				background:#f2f2f2;
+				border-bottom:1px solid #dddddd;
+				padding:9px 20px;
+			}
+			.info-content{
+				padding:30px 0;
+				text-align:center;
+			}
+			.info-div{
+				margin-bottom:10px;
+			}
+			.info-tip{
+				display:inline-block;
+				width:88px;
+				height:32px;
+				font-size:15px;
+				line-height:32px;
+				text-align:right;
+				margin-right:10px;
+			}
+			.info-star{
+				display:inline-block;
+				width:12px;
+				font-size:15px;
+				color:red;
+				text-align:left;
+			}
+			.info-div input{
+				width:320px;
+				height:36px;
+				font-size:15px;
+				padding:0 10px;
+				border:1px solid #dddddd;
+				box-sizing:border-box;
+				outline:0;
+			}
+			.info-btn{
+				margin-top:30px;
+			}
+			.info-btn input{
+				width:120px;
+				height:40px;
+				font-size:16px;
+				background:#1596fa;
+				color:#ffffff;
+				border:none;
+				margin-left:-99px;
+				cursor:pointer;
+			}
+			.consignor-content,.consignee-content,.goods-content,.service-content{
+				padding:20px 0 10px 0;
+			}
+			.order-center{
+				width:840px;
+				margin-bottom:10px;
+			}
+			.order-left,.order-right{
+				display:inline-block;
+				width:420px;
+			}
+			.order-center input{
+				width:200px;
+				height:30px;
+				font-size:15px;
+				padding:0 4px;
+				border:1px solid #dddddd;
+				outline:0;
+			}
+			.order-center select{
+				width:200px;
+				height:30px;
+				font-size:15px;
+				border:1px solid #dddddd;
+				outline:0;
+				margin-right:10px;
+			}
+			.order-unit{
+				font-size:15px;
+				margin-left:5px;
+			}
+			#consignor-address,#consignee-address{
+				width:322px;
+			}
+			.order-tip{
+				margin-top:20px;
+				font-size:15px;
+				color:red;
+			}
+			.protocol{
+				font-size:15px;
+				margin-top:20px;
+			}
+			#is_agree{
+				width:18px;
+				height:18px;
+				vertical-align:middle;
+				margin:0 4px 3px 0;
+				cursor:pointer;
+			}
+			#protocol{
+				font-size:15px;
+				color:blue;
+				text-decoration:underline;
+				cursor:pointer;
+			}
+			.quick-order{
+				text-align:center;
+				margin-bottom:10px;
+			}
+			#quick-order{
+				width:150px;
+				height:40px;
+				font-size:15px;
+				background:#1596fa;
+				color:#ffffff;
+				border:none;
+				margin-top:20px;
+				cursor:pointer;
+			}
+			.table-content{
+				padding:0;
+			}
+			.table-content table{
+				width:100%;
+				box-sizing:border-box;
+			}
+			.table-content table .table-title{
+				height:48px;
+				font-size:18px;
+				font-weight:bold;
+			}
+			.table-content table tr th,.table-content table tr td{
+				height:36px;
+				font-size:15px;
+				text-align:center;
+				border:1px solid #dddddd;
+			}
+			.table-content input{
+				width:66px;
+				height:28px;
+				font-size:15px;
+				background:orange;
+				color:#ffffff;
+				border:none;
+				cursor:pointer;
+			}
+			#order1_table,#order2_table{
+				border-bottom:1px solid #dddddd;
+			}
+			.page{
+				text-align:center;
+				margin:16px auto 10px auto;
+			}
+			.order-search{
+				margin-bottom:10px;
+			}
+			#order-id{
+				width:360px;
+				height:42px;
+				font-size:15px;
+				padding:0 10px;
+				border:1px solid #dddddd;
+				outline:0;
+			}
+			#order-search{
+				width:100px;
+				height:42px;
+				font-size:15px;
+				background:#f6f6f6;
+				border-top:1px solid #dddddd;
+				border-bottom:1px solid #dddddd;
+				border-right:1px solid #dddddd;
+				border-left:none;
+				outline:0;
+				cursor:pointer;
+			}
+			.order-result{
+				padding:20px 30px 0 30px;
+				text-align:left;
+			}
+			.order-state{
+				margin-left:60px;
+			}
+			.order-result1 span{
+				font-size:15px;
+			}
+			.order-result1,.order-result2,.order-result3{
+				display:none;
+				width:870px;
+				font-size:15px;
+			}
+			.order-result1{
+				margin-bottom:20px;
+			}
+			.order-result2{
+				height:105px;
+				white-space:nowrap;
+				overflow-x:auto;
+				overflow-y:hidden;
+			}
+			.order-rate,.order-status,.order-city,.order-time{
+				height:20px;
+			}
+			.order-status span,.order-city span{
+				display:inline-block;
+				width:160px;
+				font-size:15px;
+				text-align:center;
+			}
+			.order-time span{
+				display:inline-block;
+				width:160px;
+				font-size:14px;
+				text-align:center;
+			}
+			.order-result3{
+				margin-bottom:30px;
+			}
+			#order-map{
+				height:320px;
+			}
+			.order-result4{
+				display:none;
+				width:870px;
+				height:400px;
+				text-align:center;
+				padding:25px 45px;
+				box-sizing:border-box;
+				border:1px solid #000000;
+				margin-bottom:20px;
+			}
+			.order2-desc-view{
+				width:780px;
+				height:310px;
+			}
+			.order2_desc_left{
+				width:540px;
+				height:90px;
+				float:left;
+			}
+			.order2_desc_left_top{
+				width:540px;
+				height:68px;
+				margin-left:0;
+				box-sizing:border-box;
+			}
+			.transfer_logo{
+				width:60px;
+				height:48px;
+				float:left;
+				visibility:hidden;
+			}
+			.order2_desc_logo{
+				width:80px;
+				height:40px;
+				margin:15px 0 0 30px;
+				float:left;
+			}
+			.order2_desc_title{
+				float:left;
+				margin-left:10px;
+			}
+			.cname{
+				height:20px;
+				font:bold 20px "楷体";
+				display:block;
+				margin-top:14px;
+				letter-spacing:1px;
+			}
+			.certificate{
+				width:180px;
+				height:24px;
+				font:900 17px "微软雅黑";
+				display:block;
+				letter-spacing:10px;
+				padding-left:10px;
+				border-bottom:2px solid #000000;
+			}
+			.date{
+				width:500px;
+				height:22px;
+				font-size:13px;
+				line-height:22px;
+				margin-top:0;
+				margin-left:0;
+				text-align:left;
+			}
+			.date span,.date div{
+				display:inline-block;
+				font-size:13px;
+			}
+			.dateyear{
+				width:40px;
+				text-align:center;
+			}
+			.datemonth,.dateday{
+				width:22px;
+				text-align:center;
+			}
+			.blank1{
+				margin-left:30px;
+			}
+			.order2_desc_right{
+				width:240px;
+				height:80px;
+				float:left;
+				margin-top:10px;
+			}
+			.barcode{
+				width:240px;
+				height:60px;
+			}
+			.barcode_value{
+				width:240px;
+				height:20px;
+				font-size:16px;
+				text-indent:7px;
+				letter-spacing:7px;
+				text-align:center;
+				margin-top:-8px;
+			}
+			.order2_desc_content{
+				width:778px;
+				height:223px;
+				color:#000000;
+				border:1px solid #000000;
+				float:left;
+				margin:3px 0;
+			}
+			.one_content{
+				height:28px;
+				font-size:13px;
+				text-align:left;
+				padding:3px 8px;
+				box-sizing:border-box;
+				border-bottom:1px solid #dadada;
+			}
+			.one_content span{
+				font-size:13px;
+			}
+			.one_content_first{
+				border-right:1px dashed #dadada;
+				border-bottom:none;
+			}
+			.one_content_last{
+				border-left:1px dashed #dadada;
+				border-bottom:none;
+			}
+			.block{
+				display:inline-block;
+			}
+			.scity,.ecity{
+				width:328px;
+			}
+			.blank2{
+				margin-left:15px;
+			}
+			.two_content{
+				width:388px;
+				height:84px;
+				float:left;
+				text-align:left;
+				box-sizing:border-box;
+			}
+			.sname,.ename{
+				width:315px;
+			}
+			.sphone,.ephone{
+				width:328px;
+			}
+			.saddress,.eaddress{
+				width:328px;
+			}
+			#order2_desc_table{
+				width:778px;
+				height:84px;
+				box-sizing:border-box;
+				text-align:center;
+				border-top:1px solid #dadada;
+				border-bottom:1px solid #dadada;
+			}
+			#order2_desc_table tr th,#order2_desc_table tr td{
+				height:28px;
+				font-size:13px;
+				border:1px solid #dadada;
+			}
+			.last_line span,.last_line div{
+				vertical-align:top;
+			}
+			.upper{
+				display:inline-block;
+				width:22px;
+				text-align:center;
+				font:bold 16px "楷体";
+				margin-right:4px;
+			}
+			.blank3{
+				margin-left:26px;
+			}
+			.sum{
+				width:64px;
+			}
+			.method{
+				width:77px;
+			}
+			.blank4{
+				margin-left:152px;
+			}
+			.sign{
+				width:780px;
+				height:22px;
+				line-height:22px;
+				text-align:left;
+				float:left;
+			}
+			.sign span{
+				font-size:13px;
+			}
+			.blank5{
+				margin-left:256px;
+			}
+			.order-result5{
+				display:none;
+				width:870px;
+				text-align:center;
+				margin-bottom:30px;
+			}
+			#order-print{
+				width:150px;
+				height:40px;
+				font-size:15px;
+				background:#1596fa;
+				color:#ffffff;
+				border:none;
+				cursor:pointer;
+			}
+			.price-content{
+				width:822px;
+				margin:20px auto;
+			}
+			.price-content span{
+				font-size:15px;
+				margin-right:5px;
+			}
+			.price-content select{
+				width:200px;
+				height:30px;
+				font-size:15px;
+				border:1px solid #dddddd;
+				outline:0;
+				margin-right:10px;
+			}
+			.price-content input[type="text"]{
+				width:200px;
+				height:30px;
+				font-size:15px;
+				padding:0 4px;
+				border:1px solid #dddddd;
+				outline:0;
+			}
+			#begin-address,#end-address{
+				width:322px;
+			}
+			.price-query{
+				text-align:center;
+				margin-bottom:20px;
+			}
+			#price-query{
+				width:150px;
+				height:40px;
+				font-size:15px;
+				background:#1596fa;
+				color:#ffffff;
+				border:none;
+				cursor:pointer;
+			}
+			.price-result{
+				display:none;
+				width:822px;
+				margin-bottom:20px;
+			}
+			#map-view{
+				width:100%;
+				height:400px;
+			}
+			#map-view *{
+				font-size:14px;
+			}
+			#map-route{
+				width:100%;
+				margin-bottom:20px;
+			}
+			#map-route *{
+				font-size:14px;
+			}
+			#price-result p{
+				height:28px;
+				font-size:16px;
+			}
+			#route2_table{
+				border-bottom:1px solid #dddddd;
+			}
+			
+			.service{
+				display:inline-block;
+				width:19%;
+				padding:20px 0;
+				background:#ffffff;
+				vertical-align:top;
+				text-align:center;
+			}
+			.service-box{
+				width:86%;
+			}
+			.service-box div{
+				margin-top:20px;
+			}
+			.official{
+				width:86%;
+				height:50px;
+				font-size:18px;
+				line-height:50px;
+				background:#1596fa;
+				color:#ffffff;
+				cursor:pointer;
+			}
+			.service-title{
+				font-size:18px;
+				text-align:left;
+			}
+			.service-hotline{
+				font-size:16px;
+				text-align:left;
+				color:red;
+			}
+			.service-time{
+				font-size:15px;
+				text-align:left;
+			}
+			.service-img img{
+				width:140px;
+			}
+			.service-qq{
+				width:100%;
+				height:40px;
+				background:orange;
+				cursor:pointer;
+			}
+			.service-qq:hover{
+				background:#1596fa;
+			}
+			.service-qq a{
+				font-size:16px;
+				line-height:40px;
+				text-decoration:none;
+				color:#ffffff;
+				vertical-align:top;
+			}
+			.service-qq img{
+				width:22px;
+				height:22px;
+				margin-top:11px;
+			}
+			
+			.footer{
+				width:100%;
+				height:85px;
+				background:#1596fa;
+			}
+			.footer-left{
+				color:#ffffff;
+				float:left;
+				margin:19px 0 0 75px;
+			}
+			.hotline{
+				font-size:18px;
+			}
+			.copyright{
+				font-size:16px;
+			}
+			.footer-right{
+				float:right;
+				margin:22px 75px 0 0;
+			}
+			
+			#protocol-view{
+				display:none;
+				width:720px;
+				height:560px;
+				position:fixed;
+				top:50%;
+				left:50%;
+				margin-top:-280px;
+				margin-left:-360px;
+				background:rgba(0,0,0,0.3);
+				border-radius:6px;
+				z-index:999;
+			}
+			.protocol-view{
+				width:700px;
+				height:540px;
+				background:#ffffff;
+				margin-top:10px;
+				text-align:center;
+			}
+			.protocol-title{
+				height:70px;
+			}
+			#protocol-title{
+				font-size:15px;
+				font-weight:bold;
+				margin:36px 0 0 20px;
+				float:left;
+			}
+			#protocol-close{
+				font-size:26px;
+				font-weight:bold;
+				margin:0 20px 0 0;
+				padding:0 10px;
+				float:right;
+				cursor:pointer;
+			}
+			#protocol-close:hover{
+				background:rgba(0,0,0,0.3);
+			}
+			.protocol-content{
+				width:650px;
+				height:394px;
+				border:1px solid #cccccc;
+				padding:6px 4px 0 4px;
+				overflow-y:auto;
+			}
+			.protocol-content p{
+				font-size:14px;
+				text-align:left;
+			}
+			.protocol-first{
+				margin-bottom:6px;
+			}
+			.protocol-second{
+				margin-top:-6px;
+				margin-bottom:6px;
+				text-indent:28px;
+			}
+			#protocol-confirm{
+				font-size:15px;
+				padding:4px 16px;
+				margin-top:20px;
+				cursor:pointer;
+			}
+			
+			#order1-desc-view{
+				display:none;
+				width:660px;
+				height:334px;
+				position:fixed;
+				top:50%;
+				left:50%;
+				margin-top:-167px;
+				margin-left:-330px;
+				padding:0;
+				background:#ffffff;
+				z-index:999;
+			}
+			.order1_desc_top{
+				height:60px;
+				color:#ffffff;
+				background:#1596fa;
+				text-align:center;
+				box-sizing:border-box;
+				margin-bottom:15px;
+			}
+			.order1_desc_title{
+				font-size:18px;
+				font-weight:bold;
+				line-height:60px;
+				margin-left:48px;
+			}
+			.order1_desc_close{
+				font-size:36px;
+				font-family:"Arial";
+				margin:10px 24px 0 0;
+				float:right;
+				cursor:pointer;
+			}
+			.order1_desc_center{
+			    width:620px;
+				height:130px;
+				margin-bottom:15px;
+				text-align:left;
+			}
+			.order1_desc_center span{
+				font-size:15px;
+			}
+			.order1_desc_left{
+			    width:305px;
+				height:110px;
+				padding:5px 5px 15px 0;
+				border-right:1px solid #000000;
+				float:left;
+			}
+			.order1_desc_right{
+			    width:304px;
+				height:110px;
+				padding:5px 0 15px 5px;
+				float:left;
+			}
+			.order1_desc_left_spans1,.order1_desc_right_spans1{
+				height:50px;
+			}
+			.order1_desc_left_spans2,.order1_desc_right_spans2{
+				height:30px;
+			}
+			.order1_desc_left_spans3,.order1_desc_right_spans3{
+				height:30px;
+			}
+			#order1_desc_table{
+			    width:620px;
+				text-align:center;
+				border:1px solid #000000;
+				margin-bottom:15px;
+			}
+			#order1_desc_table tr th{
+				background:#1596fa;
+				color:#000000;
+			}
+			#order1_desc_table tr th,#order1_desc_table tr td{
+			    height:30px;
+				font-size:15px;
+				border:1px solid #000000;
+			}
+			.order1_desc_bottom{
+			    width:620px;
+				height:28px;
+				font-size:15px;
+				padding:0 20px 9px 20px;
+				text-align:left;
+			}
+			.order1_desc_bottom span{
+				font-size:15px;
+			}
+		</style>
+	</head>
+	<body id="os">
+		<div class="header">
+			<div class="logo" onclick="window.location.href='member.html'">
+				<img id="logo" src="images/logo.png" />
+				<span id="title">线上营运中心</span>
+			</div>
+			<div class="hello">
+				<div class="name"><span id="name"></span>，欢迎您！</div>
+				<div class="info" onclick="info()"><img src="images/info.png" />个人资料</div>
+				<div class="exit" onclick="exit()">退出</div>
+			</div>
+			<div class="nav">
+				<div class="nav-item" onclick="navTo(0)">业务部门</div>
+				<div class="nav-item" onclick="navTo(1)">线路查询</div>
+				<div class="nav-item" onclick="navTo(2)">运价查询</div>
+				<div class="nav-item" onclick="navTo(3)">运单查询</div>
+				<div class="nav-item" onclick="navTo(4)">我的运单</div>
+				<div class="nav-item nav-active" onclick="navTo(5)">快速下单</div>
+			</div>
+		</div>
+		<div class="view">
+			<div class="content">
+				<div class="detail">
+					<div class="detail-title">业务部门</div>
+					<div class="table-content">
+						<table cellpadding="0" cellspacing="0" frame="void" rules="all" id="apartment_table">
+							<tr>
+								<th>公司名</th>
+								<th>联系人</th>
+								<th>联系电话</th>
+								<th>地址</th>
+							</tr>
+							<tr v-for="item in apartment">
+								<td>{{item.company}}</td>
+								<td>{{item.name}}</td>
+								<td>{{item.phone}}</td>
+								<td>{{item.address}}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="service">
+				<div class="official" onclick="window.location.href='index.html'">万事鑫联运官网</div>
+				<div class="service-box">
+					<div class="service-title">客服中心</div>
+					<div class="service-hotline">客服热线：0523 - 8116 5089</div>
+					<div class="service-time">服务时间：8:00 AM - 22:00PM</div>
+					<div class="service-img"><img src="images/service.jpg" /></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=2972769552" target="_self"><img src="images/qq.png" />下单咨询</a></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=1004178122" target="_self"><img src="images/qq.png" />下单咨询</a></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=3499154131" target="_self"><img src="images/qq.png" />意见反馈</a></div>
+				</div>
+			</div>
+		</div>
+		<div class="view">
+			<div class="content">
+				<div class="detail">
+					<div class="detail-title">推荐线路</div>
+					<div class="table-content">
+						<table cellpadding="0" cellspacing="0" frame="void" rules="all" id="route2_table">
+							<tr>
+								<td class="table-title" colspan="7">铁路直达快线</td>
+							</tr>
+							<tr>
+								<th colspan="2">线路</th>
+								<th>服务品牌</th>
+								<th>参考时间</th>
+								<th>单价（重货）</th>
+								<th>单价（轻货）</th>
+								<th>操作</th>
+							</tr>
+							<tr v-for="item in route2">
+								<td width="10%" v-if="item.num!=0" rowspan="{{item.num}}">{{item.province}}</td>
+								<td width="20%">{{item.line}}</td>
+								<td width="14%">{{item.brand}}</td>
+								<td width="14%">{{item.time}}</td>
+								<td width="14%">{{item.price_heavy}}</td>
+								<td width="14%">{{item.price_light}}</td>
+								<td width="14%"><input type="button" value="下单" onclick="route_order()" /></td>
+							</tr>
+						</table>
+						<table cellpadding="0" cellspacing="0" frame="void" rules="all" id="route1_table">
+							<tr>
+								<td class="table-title" colspan="8">公路直达专线</td>
+							</tr>
+							<tr>
+								<th colspan="2">线路</th>
+								<th>服务品牌</th>
+								<th>参考时间</th>
+								<th>单价（重货）</th>
+								<th>单价（轻货）</th>
+								<th>最低一票</th>
+								<th>操作</th>
+							</tr>
+							<tr v-for="item in route1">
+								<td width="10%" v-if="item.num!=0" rowspan="{{item.num}}">{{item.province}}</td>
+								<td width="18%">{{item.line}}</td>
+								<td width="12%">{{item.brand}}</td>
+								<td width="12%">{{item.time}}</td>
+								<td width="12%">{{item.price_heavy}}</td>
+								<td width="12%">{{item.price_light}}</td>
+								<td width="12%">{{item.lowest}}</td>
+								<td width="12%"><input type="button" value="下单" onclick="route_order()" /></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="service">
+				<div class="official" onclick="window.location.href='index.html'">万事鑫联运官网</div>
+				<div class="service-box">
+					<div class="service-title">客服中心</div>
+					<div class="service-hotline">客服热线：0523 - 8116 5089</div>
+					<div class="service-time">服务时间：8:00 AM - 22:00PM</div>
+					<div class="service-img"><img src="images/service.jpg" /></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=2972769552" target="_self"><img src="images/qq.png" />下单咨询</a></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=1004178122" target="_self"><img src="images/qq.png" />下单咨询</a></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=3499154131" target="_self"><img src="images/qq.png" />意见反馈</a></div>
+				</div>
+			</div>
+		</div>
+		<div class="view">
+			<div class="content">
+				<div class="detail">
+					<div class="detail-title">运价查询</div>
+					<div class="price-content">
+						<span>发货地址：</span>
+						<select id="begin-province" onchange="hunt5(parseFloat(this.value))">
+							<option value="0">请选择省</option>
+							<option v-for="item in province" value="{{item.id}}">{{item.name}}</option>
+						</select>
+						<select id="begin-city" onchange="hunt7(parseFloat(this.value))">
+							<option value="0">请选择市</option>
+							<option v-for="item in city1" value="{{item.id}}">{{item.name}}</option>
+						</select>
+						<input type="text" id="begin-address" />
+					</div>
+					<div class="price-content">
+						<span>收货地址：</span>
+						<select id="end-province" onchange="hunt6(parseFloat(this.value))">
+							<option value="0">请选择省</option>
+							<option v-for="item in province" value="{{item.id}}">{{item.name}}</option>
+						</select>
+						<select id="end-city" onchange="hunt8(parseFloat(this.value))">
+							<option value="0">请选择市</option>
+							<option v-for="item in city2" value="{{item.id}}">{{item.name}}</option>
+						</select>
+						<input type="text" id="end-address" />
+					</div>
+					<div class="price-content">
+						<span>货物重量：</span>
+						<span><input type="text" id="gweight" /></span>
+						<span>吨</span>
+					</div>
+					<div class="price-query">
+						<input type="button" value="查询"  id="price-query" onclick="price_query()" />
+					</div>
+					<div class="price-result">
+						<div id="map-view" ></div>
+						<div id="map-route"></div>
+						<div id="price-result"></div>
+					</div>
+				</div>
+			</div>
+			<div class="service">
+				<div class="official" onclick="window.location.href='index.html'">万事鑫联运官网</div>
+				<div class="service-box">
+					<div class="service-title">客服中心</div>
+					<div class="service-hotline">客服热线：0523 - 8116 5089</div>
+					<div class="service-time">服务时间：8:00 AM - 22:00PM</div>
+					<div class="service-img"><img src="images/service.jpg" /></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=2972769552" target="_self"><img src="images/qq.png" />下单咨询</a></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=1004178122" target="_self"><img src="images/qq.png" />下单咨询</a></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=3499154131" target="_self"><img src="images/qq.png" />意见反馈</a></div>
+				</div>
+			</div>
+		</div>
+		<div class="view">
+			<div class="content">
+				<div class="order-search">
+					<input type="text" id="order-id" placeholder="请输入运单号查询" oninput="order_search()" />
+					<input type="button" id="order-search" value="搜索" onclick="order_search()" />
+				</div>
+				<div class="detail">
+					<div class="detail-title">查询结果</div>
+					<div class="order-result">
+						<div class="order-result1">
+						</div>
+						<div class="order-result2">
+							<div class="order-rate"></div>
+							<div class="order-status"></div>
+							<div class="order-city"></div>
+							<div class="order-time"></div>
+						</div>
+						<div class="order-result3">
+							<div id="order-map"></div>
+						</div>
+						<div class="order-result4" id="print-content">
+							<div class="order2-desc-view">
+								<div class="order2_desc_left">
+									<div class="order2_desc_left_top">
+										<img src="images/transfer.png" class="transfer_logo" v-for="item in order2_desc" v-if="item.order_id.substring(0,7)==tenant_num||item.pre_company==null||item.pre_company=='0'||isNaN(item.order_id)==true" style="visibility:hidden" />
+										<img src="images/transfer.png" class="transfer_logo" v-for="item in order2_desc" v-if="item.order_id.substring(0,7)!=tenant_num&&item.pre_company=='1'&&isNaN(item.order_id)==false" style="visibility:visible" />
+										<img class="order2_desc_logo" />
+										<div class="order2_desc_title">
+											<span class="cname"></span>
+											<span class="certificate">货物运输凭证</span>
+										</div>
+									</div>
+									<div class="date">
+										<span>托运日期：</span>
+										<div class="dateyear"></div>年<div class="datemonth"></div>月<div class="dateday"></div>日
+									</div>
+								</div>
+								<div class="order2_desc_right">
+									<img class="barcode" id="barcode" />
+									<p class="barcode_value" id="barcode_value"></p>
+									<div id="o_tip" v-for="item in order2_desc"><span id="o_name">{{item.goods_name}}</span> <span id="o_num"></span>-{{item.goods_count}}</div>
+								</div>
+								<div class="order2_desc_content">
+									<div class="one_content" v-for="item in order2_desc">
+										<span>发站：</span>
+										<span id="scity_doh1" class="scity block">{{item.sender.sender_province}}{{item.sender.sender_city}}</span>
+										<span class="blank2">到站：</span>
+										<span id="ecity_doh1" class="ecity block">{{item.receiver.receiver_province}}{{item.receiver.receiver_city}}</span>
+									</div>
+									<div class="two_content" v-for="item in order2_desc">
+										<div class="one_content one_content_first">
+											<span>托运人：</span>
+											<span class="block sname">{{item.sender.customer_name}}</span>
+										</div>
+										<div class="one_content one_content_first">
+											<span>地址：</span>
+											<span class="block saddress">{{item.sender.customer_address}}</span>
+										</div>
+										<div class="one_content one_content_first">
+											<span>电话：</span>
+											<span class="block sphone">{{item.sender.customer_phone}}</span>
+										</div>
+									</div>
+									<div class="two_content" v-for="item in order2_desc">
+										<div class="one_content one_content_last">
+											<span>收货人：</span>
+											<span class="block ename">{{item.receiver.customer_name}}</span>
+										</div>
+										<div class="one_content one_content_last">
+											<span>地址：</span>
+											<span class="block eaddress">{{item.receiver.customer_address}}</span>
+										</div>
+										<div class="one_content one_content_last">
+											<span>电话：</span>
+											<span class="block ephone">{{item.receiver.customer_phone}}</span>
+										</div>
+									</div>
+									<table cellspacing="0" cellpadding="0" frame="void" rules="all" id="order2_desc_table" v-for="item in order2_desc">
+										<tr>
+											<th width="14%">货物名称</th>
+											<th width="14%">件数/件</th>
+											<th width="14%">体积/m³</th>
+											<th width="14%">重量/吨</th>
+											<th width="14%">包装</th>
+											<th width="14%">实际价值/万元</th>
+											<th width="14%">提货方式</th>
+										</tr>
+										<tr>
+											<td>{{item.goods.goods_name}}</td>
+											<td v-if="item.goods.goods_count==0">-</td>
+											<td v-if="item.goods.goods_count!=0">{{item.goods.goods_count}}</td>
+											<td v-if="item.goods.goods_capacity==0">-</td>
+											<td v-if="item.goods.goods_capacity!=0">{{item.goods.goods_capacity}}</td>
+											<td>{{item.goods.goods_weight}}</td>
+											<td>{{item.goods.goodspackage}}</td>
+											<td>{{item.goods.goods_value}}</td>
+											<td>{{item.goods.special_need.substring(11,15)}}</td>
+										</tr>
+										<tr style="height:28px;">
+											<td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+										</tr>
+									</table>
+									<div class="one_content one_content_last last_line">
+										<span>运费/中转费：</span>
+										<div class="upper" id="upper0"></div>拾
+										<div class="upper" id="upper1"></div>万
+										<div class="upper" id="upper2"></div>仟
+										<div class="upper" id="upper3"></div>佰
+										<div class="upper" id="upper4"></div>拾
+										<div class="upper" id="upper5"></div>元
+										<span class="blank3">¥：</span>
+										<span class="block sum" v-for="item in order2_desc" v-if="item.order_id.substring(0,7)==tenant_num||item.pre_company==null||isNaN(item.order_id)==true">{{item.order_cost}}</span>
+										<span class="block sum" v-for="item in order2_desc" v-if="item.order_id.substring(0,7)!=tenant_num&&item.pre_company=='0'&&isNaN(item.order_id)==false"></span>
+										<span class="block sum" v-for="item in order2_desc" v-if="item.order_id.substring(0,7)!=tenant_num&&item.pre_company=='1'&&isNaN(item.order_id)==false">{{item.transfer_cost}}</span>
+										<span class="blank4">结算方式：</span>
+										<span class="block method" v-for="item in order2_desc">
+											<span v-if="item.pay_method==0">现付</span>
+											<span v-if="item.pay_method==1">到付</span>
+											<span v-if="item.pay_method==2">月结</span>
+											<span v-if="item.pay_method==3">回单</span>
+										</span>
+									</div>
+								</div>
+								<div class="sign">
+									<span>托运人：已同意万事鑫联运运输条款</span>
+									<span class="blank5">承运人：<span class="carrier"></span></span>
+								</div>
+							</div>
+						</div>
+						<div class="order-result5">
+							<input type="button" value="打印运单" id="order-print" onclick="order_print()">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="service">
+				<div class="official" onclick="window.location.href='index.html'">万事鑫联运官网</div>
+				<div class="service-box">
+					<div class="service-title">客服中心</div>
+					<div class="service-hotline">客服热线：0523 - 8116 5089</div>
+					<div class="service-time">服务时间：8:00 AM - 22:00PM</div>
+					<div class="service-img"><img src="images/service.jpg" /></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=2972769552" target="_self"><img src="images/qq.png" />下单咨询</a></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=1004178122" target="_self"><img src="images/qq.png" />下单咨询</a></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=3499154131" target="_self"><img src="images/qq.png" />意见反馈</a></div>
+				</div>
+			</div>
+		</div>
+		<div class="view">
+			<div class="content">
+				<div class="detail">
+					<div class="detail-title">待处理运单</div>
+					<div class="table-content">
+						<table cellpadding="0" cellspacing="0" frame="void" rules="all" id="order1_table">
+							<tr>
+								<th>序号</th>
+								<th>收货人/单位</th>
+								<th>货物名称</th>
+								<th>下单时间</th>
+								<th>运单状态</th>
+								<th>操作</th>
+							</tr>
+							<tr v-for="item in order1">
+								<td>{{item.num}}</td>
+								<td>{{item.order.receiver.customer_name}}</td>
+								<td>{{item.order.goods.goods_name}}</td>
+								<td>{{item.order.order_datetime0}}</td>
+								<td v-if="item.order.order_status==-2">未受理</td>
+								<td v-if="item.order.order_status==-1">已拒绝</td>
+								<td v-if="item.order.order_status==0">已受理</td>
+								<td v-if="item.order.order_status==5">异常</td>
+								<td v-if="item.order.order_status==6">作废</td>
+								<td><input type="button" value="详情" onclick="order_desc1('{{item.order.order_id}}')"></td>
+							</tr>
+						</table>
+					</div>
+					<div class="page" id="o_page1"></div>
+				</div>
+				<div class="detail">
+					<div class="detail-title">历史运单</div>
+					<div class="table-content">
+						<table cellpadding="0" cellspacing="0" frame="void" rules="all" id="order2_table">
+							<tr>
+								<th>运单号</th>
+								<th>收货人/单位</th>
+								<th>货物名称</th>
+								<th>制单时间</th>
+								<th>运单状态</th>
+								<th>运费</th>
+								<th>结算方式</th>
+								<th>操作</th>
+							</tr>
+							<tr v-for="item in order2">
+								<td>{{item.order.order_id}}</td>
+								<td>{{item.order.receiver.customer_name}}</td>
+								<td>{{item.order.goods.goods_name}}</td>
+								<td>{{item.order.order_datetime1}}</td>
+								<td v-if="item.order.order_status==1">入库</td>
+								<td v-if="item.order.order_status==2">出库</td>
+								<td v-if="item.order.order_status==3">在途</td>
+								<td v-if="item.order.order_status==4">到达</td>
+								<td v-if="item.order.order_status==5">异常</td>
+								<td v-if="item.order.order_status==6">作废</td>
+								<td v-if="item.order.order_status==7">签收</td>
+								<td>{{item.order.order_cost}}元</td>
+								<td v-if="item.order.pay_method==0">现付</td>
+								<td v-if="item.order.pay_method==1">到付</td>
+								<td v-if="item.order.pay_method==2">月结</td>
+								<td v-if="item.order.pay_method==3">回单</td>
+								<td><input type="button" value="查询" onclick="order_desc2('{{item.order.order_id}}')"></td>
+							</tr>
+						</table>
+					</div>
+					<div class="page" id="o_page2"></div>
+				</div>
+			</div>
+			<div class="service">
+				<div class="official" onclick="window.location.href='index.html'">万事鑫联运官网</div>
+				<div class="service-box">
+					<div class="service-title">客服中心</div>
+					<div class="service-hotline">客服热线：0523 - 8116 5089</div>
+					<div class="service-time">服务时间：8:00 AM - 22:00PM</div>
+					<div class="service-img"><img src="images/service.jpg" /></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=2972769552" target="_self"><img src="images/qq.png" />下单咨询</a></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=1004178122" target="_self"><img src="images/qq.png" />下单咨询</a></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=3499154131" target="_self"><img src="images/qq.png" />意见反馈</a></div>
+				</div>
+			</div>
+		</div>
+		<div class="view visible">
+			<div class="content">
+				<div class="detail">
+					<div class="detail-title">托运人</div>
+					<div class="consignor-content">
+						<div class="order-center">
+							<div class="order-left consignor-name">
+								<div class="info-tip"><span class="info-star">*</span>托运人：</div>
+								<input type="text" id="consignor-name" />
+							</div>
+							<div class="order-right consignor-phone">
+								<div class="info-tip"><span class="info-star">*</span>电话：</div>
+								<input type="text" id="consignor-phone" />
+							</div>
+						</div>
+						<div class="order-center consignor-address">
+							<div class="info-tip"><span class="info-star">*</span>发货地址：</div>
+							<select id="consignor-province" onchange="hunt1(parseFloat(this.value))">
+								<option value="0">请选择省</option>
+								<option v-for="item in province" value="{{item.id}}">{{item.name}}</option>
+							</select>
+							<select id="consignor-city" onchange="hunt3(parseFloat(this.value))">
+								<option value="0">请选择市</option>
+								<option v-for="item in city1" value="{{item.id}}">{{item.name}}</option>
+							</select>
+							<input type="text" id="consignor-address" />
+						</div>
+					</div>
+				</div>
+				<div class="detail">
+					<div class="detail-title">收货人</div>
+					<div class="consignee-content">
+						<div class="order-center">
+							<div class="order-left consignee-name">
+								<div class="info-tip"><span class="info-star">*</span>收货人：</div>
+								<input type="text" id="consignee-name" />
+							</div>
+							<div class="order-right consignee-phone">
+								<div class="info-tip"><span class="info-star">*</span>电话：</div>
+								<input type="text" id="consignee-phone" />
+							</div>
+						</div>
+						<div class="order-center consignee-address">
+							<div class="info-tip"><span class="info-star">*</span>收货地址：</div>
+							<select id="consignee-province" onchange="hunt2(parseFloat(this.value))">
+								<option value="0">请选择省</option>
+								<option v-for="item in province" value="{{item.id}}">{{item.name}}</option>
+							</select>
+							<select id="consignee-city" onchange="hunt4(parseFloat(this.value))">
+								<option value="0">请选择市</option>
+								<option v-for="item in city2" value="{{item.id}}">{{item.name}}</option>
+							</select>
+							<input type="text" id="consignee-address" />
+						</div>
+					</div>
+				</div>
+				<div class="detail">
+					<div class="detail-title">货物信息</div>
+					<div class="goods-content">
+						<div class="order-center">
+							<div class="order-left">
+								<div class="info-tip"><span class="info-star">*</span>货物名称：</div>
+								<input type="text" id="goods-name" />
+							</div>
+							<div class="order-right">
+								<div class="info-tip"><span class="info-star"></span>件数：</div>
+								<input type="text" id="goods-count" /><span class="order-unit">件</span>
+							</div>
+						</div>
+						<div class="order-center">
+							<div class="order-left">
+								<div class="info-tip"><span class="info-star"></span>体积：</div>
+								<input type="text" id="goods-capacity" /><span class="order-unit">m³</span>
+							</div>
+							<div class="order-right">
+								<div class="info-tip"><span class="info-star">*</span>重量：</div>
+								<input type="text" id="goods-weight" /><span class="order-unit">吨</span>
+							</div>
+						</div>
+						<div class="order-center">
+							<div class="order-left">
+								<div class="info-tip"><span class="info-star">*</span>包装：</div>
+								<select id="goods-package">
+									<option>请选择</option>
+									<option v-for="item in goods_package" value="{{item.goods_package_id}}">{{item.goods_package}}</option>
+								</select>
+							</div>
+							<div class="order-right">
+								<div class="info-tip"><span class="info-star">*</span>实际价值：</div>
+								<input type="text" id="goods-value" /><span class="order-unit">万元</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="detail">
+					<div class="detail-title">服务信息</div>
+					<div class="service-content">
+						<div class="order-center">
+							<div class="order-left">
+								<div class="info-tip"><span class="info-star">*</span>结算方式：</div>
+								<select id="goods-method">
+									<option>请选择</option>
+									<option value="0">现付</option>
+									<option value="1">到付</option>
+									<option value="2">月结</option>
+									<option value="3">回单</option>
+								</select>
+							</div>
+							<div class="order-right">
+								<div class="info-tip"><span class="info-star">*</span>运输方式：</div>
+								<select id="goods-transit">
+									<option>请选择</option>
+									<option value="公路运输">公路运输</option>
+									<option value="铁路运输">铁路运输</option>
+								</select>
+							</div>
+						</div>
+						<div class="order-center">
+							<div class="order-left">
+								<div class="info-tip"><span class="info-star">*</span>寄货方式：</div>
+								<select id="goods-send">
+									<option>请选择</option>
+									<option value="门店自寄">门店自寄</option>
+									<option value="上门提货">上门提货</option>
+								</select>
+							</div>
+							<div class="order-right">
+								<div class="info-tip"><span class="info-star">*</span>提货方式：</div>
+								<select id="goods-accept">
+									<option>请选择</option>
+									<option value="门店自提">门店自提</option>
+									<option value="送货上门">送货上门</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div class="order-tip">注意：只承接靖江周边物流运输业务！</div>
+					<div class="protocol">
+						<input type="checkbox" id="is_agree" />我已阅读并同意遵守<span id="protocol" onclick="protocol()">万事鑫联运运输服务条款</span>
+					</div>
+					<div class="quick-order">
+						<input type="button" value="立即下单" id="quick-order" onclick="quick_order()" />
+					</div>
+				</div>
+			</div>
+			<div class="service">
+				<div class="official" onclick="window.location.href='index.html'">万事鑫联运官网</div>
+				<div class="service-box">
+					<div class="service-title">客服中心</div>
+					<div class="service-hotline">客服热线：0523 - 8116 5089</div>
+					<div class="service-time">服务时间：8:00 AM - 22:00PM</div>
+					<div class="service-img"><img src="images/service.jpg" /></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=2972769552" target="_self"><img src="images/qq.png" />下单咨询</a></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=1004178122" target="_self"><img src="images/qq.png" />下单咨询</a></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=3499154131" target="_self"><img src="images/qq.png" />意见反馈</a></div>
+				</div>
+			</div>
+		</div>
+		<div class="info-view">
+			<div class="content">
+				<div class="detail">
+					<div class="detail-title">个人资料</div>
+					<div class="info-content">
+						<div class="info-div">
+							<div class="info-tip"><span class="info-star">*</span>手机号码：</div>
+							<input type="text" id="info-phone" readonly="readonly" />
+						</div>
+						<div class="info-div">
+							<div class="info-tip"><span class="info-star">*</span>真实姓名：</div>
+							<input type="text" id="info-name" />
+						</div>
+						<div class="info-div">
+							<div class="info-tip"><span class="info-star">*</span>身份证号：</div>
+							<input type="text" id="info-number" />
+						</div>
+						<div class="info-div">
+							<div class="info-tip"><span class="info-star"></span>单位名称：</div>
+							<input type="text" id="info-company" />
+						</div>
+						<div class="info-div">
+							<div class="info-tip"><span class="info-star"></span>联系地址：</div>
+							<input type="text" id="info-address" />
+						</div>
+						<div class="info-div">
+							<div class="info-tip"><span class="info-star"></span>固定电话：</div>
+							<input type="text" id="info-telephone" />
+						</div>
+						<div class="info-div">
+							<div class="info-tip"><span class="info-star"></span>邮箱：</div>
+							<input type="email" id="info-email" />
+						</div>
+						<div class="info-div">
+							<div class="info-tip"><span class="info-star"></span>旧密码：</div>
+							<input type="password" id="info-passwd" placeholder="不更改密码，请留空" />
+						</div>
+						<div class="info-div">
+							<div class="info-tip"><span class="info-star"></span>新密码：</div>
+							<input type="password" id="info-passwd1" placeholder="8-16位，同时包含字符和数字" />
+						</div>
+						<div class="info-div">
+							<div class="info-tip"><span class="info-star"></span>确认密码：</div>
+							<input type="password" id="info-passwd2" placeholder="不更改密码，请留空" />
+						</div>
+						<div class="info-btn">
+							<input type="button" id="info-alter" value="确定修改" onclick="info_alter()" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="service">
+				<div class="official" onclick="window.location.href='index.html'">万事鑫联运官网</div>
+				<div class="service-box">
+					<div class="service-title">客服中心</div>
+					<div class="service-hotline">客服热线：0523 - 8116 5089</div>
+					<div class="service-time">服务时间：8:00 AM - 22:00PM</div>
+					<div class="service-img"><img src="images/service.jpg" /></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=2972769552" target="_self"><img src="images/qq.png" />下单咨询</a></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=1004178122" target="_self"><img src="images/qq.png" />下单咨询</a></div>
+					<div class="service-qq"><a href="http://sighttp.qq.com/msgrd?v=1&uin=3499154131" target="_self"><img src="images/qq.png" />意见反馈</a></div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer-left">
+				<div class="hotline">客服热线：0523 - 8116 5089‬</div>
+				<div class="copyright">Copyright &copy; 2018 靖江市万事鑫联运服务有限公司. All rights reserved.<a target="_blank" href="#"></a></div>
+			</div>
+			<div class="footer-right"><img src="images/slogan.png"></div>
+		</div>
+		<div class="mask"></div>
+		<div class="prompt-view" id="alert-view">
+			<div class="prompt-top">提示</div>
+			<div class="prompt-center"></div>
+			<div class="prompt-bottom">
+				<input type="button" value="知道了" onclick="a_know()" />
+			</div>
+		</div>
+		<div id="protocol-view">
+			<div class="protocol-view">
+				<div class="protocol-title">
+					<span id="protocol-title">万事鑫联运运输服务条款</span>
+					<span id="protocol-close" onclick="protocol_close()">×</span>
+				</div>
+				<div class="protocol-content">
+					<p class="protocol-first">1、托运人应准确填写本单，如实告知承运人所托运货物的名称、重量、数量、价值等必要情况；托运人应对所托货物按照行业标准妥善包装，使其适合运输。</p>
+					<p class="protocol-first">2、对于国家规定限制运输的物品，托运人应在交货前完成或委托承运人完成有关法律、行政法规规定的手续，并附有效凭证。</p>
+					<p class="protocol-first">3、托运人不得托运或在所托运货物中夹带国家禁止运输的物品；因违背此约定造成承运人的一切损失托运人须双倍赔偿。</p>
+					<p class="protocol-first">4、对已接受委托，后发现属于承运人不能安全、合法运送的物品（包括但不限于危险品、违禁品），承运人保留拒绝运送的权利，并由托运人承担违约责任。</p>
+					<p class="protocol-first">5、货运价格一般按照承运人的公布价。依该价格计算得出的费用不包含接送货费以及由于托运人或收货人的原因而增加的其他费用。</p>
+					<p class="protocol-first">6、收货人在收到提货通知后最迟应在三日内提货；收货人在此期限内未提货的应支付超出天数的仓储费和保管费。到货后三个月无人提货且承运人无法退回货物的，承运人对该货有权处置，在处置所得中优先扣除相关费用。</p>
+					<p class="protocol-first">7、托运人或收货人不得无故拒付任何服务费用；收货人拒绝支付费用的，托运人承担支付与托运物品有关费用的连带责任。托运人或收货人无故不支付费用的，承运人可以对承运货物行使处置权、留置权及其他补救性权利，由此而产生的后果由托运人或收货人承担。</p>
+					<p class="protocol-first">8、承运人从货物收运时起到交付时止承担安全运输责任，在此期间若发生货物损坏、短缺、灭失、污染，承运人负赔偿责任。</p>
+					<p class="protocol-first">9、承运人必须如实申报货物价值，如未申报货物价值而发生货物丢损，对货物按照实际损失在丢损货物所对应运费的3倍以内赔偿。按以上方式计算得出的赔偿额超过货物实际价值的部分无效。</p>
+					<p class="protocol-first">10、以下物品不予托运：发票、有价证券、国家禁运的刊物、首饰、护照、私人证件、单证、合同、现金、私人信函、毒品、珠宝、玉器、古玩、字画、邮票、艺术品、稀有金属、液体物品、产地来源不正确的物品、有腐蚀性或放射性、易燃易爆品、白色粉末及一切有关法律禁止及难以客观确定价值的货物。</p>
+					<p class="protocol-first">11、货运时效一般按照承运人的公布时效。时效不影响其他费用的结算和不可抗力免责权。</p>
+					<p class="protocol-first">12、承运人对如下损失不承担责任：</p>
+					<p class="protocol-second">A、因不可抗力（包括但不限于自然灾害、政府行为、战争等社会异常事件）造成货物损坏、短缺、灭失、污染、变质或迟延交付；</p>
+					<p class="protocol-second">B、因货物本身的自然性质、质量瑕疵或缺陷、合理损耗等造成的损失；</p>
+					<p class="protocol-second">C、托运人自行包装或容器不良，但从外部无法发现；</p>
+					<p class="protocol-second">D、托运人自行包装，到达时外包装完好而内件缺少或损坏；</p>
+					<p class="protocol-second">E、承运人包装的非新品运输，外包装完好而内件缺少或损坏；</p>
+					<p class="protocol-second">F、由于托运人故意或过失导致损失；</p>
+					<p class="protocol-second">G、承运过程中发生的一切间接损失（包括但不限于对所托运货物的收益、利润、实际用途、特殊商业价值）。</p>
+					<p class="protocol-first">13、凡因本单或与本单有关的争议，当事人可以通过协商或调解解决，协商或调解不成，任何一方均应向承运人总部所在地人民法院提起诉讼。</p>
+					<p class="protocol-first">14、本单于托运人阅读并同意遵守运输服务条款和承运人受理之时起生效。</p>
+				</div>
+				<input type="button" id="protocol-confirm" value="我已阅读并同意遵守运输服务条款" onclick="protocol_confirm()" />
+			</div>
+		</div>
+		<div id="order1-desc-view">
+			<div class="order1_desc_top">
+				<span class="order1_desc_title">托运信息</span>
+				<span class="order1_desc_close" onclick="order1_desc_close()">×</span>
+			</div>
+			<div class="order1_desc_center">
+				<div class="order1_desc_left">
+					<div class="order1_desc_left_spans1">
+						<span style="font-size:30px">发</span><span>货人：{{order1_desc.sender.customer_name}}</span>
+					</div>
+					<div class="order1_desc_left_spans2">
+						<span>电话：{{order1_desc.sender.customer_phone}}</span>
+					</div>
+					<div class="order1_desc_left_spans3">
+						<span>装货地址：{{order1_desc.sender.sendcity}}{{order1_desc.sender.customer_address}}</span>
+					</div>
+				</div>
+				<div class="order1_desc_right">
+					<div class="order1_desc_right_spans1">
+						<span style="font-size:30px">收</span><span>货人：{{order1_desc.receiver.customer_name}}</span>
+					</div>
+					<div class="order1_desc_right_spans2">
+						<span>电话：{{order1_desc.receiver.customer_phone}}</span>
+					</div>
+					<div class="order1_desc_right_spans3">
+						<span>收货地址：{{order1_desc.receiver.receivecity}}{{order1_desc.receiver.customer_address}}</span>
+					</div>
+				</div>
+			</div>
+			<table cellpadding="0" cellspacing="0" frame="void" rules="all" id="order1_desc_table">
+				<tr>
+					<th>货物名称</th>
+					<th>件数/件</th>
+					<th>体积/m³</th>
+					<th>重量/吨</th>
+					<th>包装</th>
+					<th>实际价值/万元</th>
+					<th>付款方式</th>
+				</tr>
+				<tr>
+					<td>{{order1_desc.goods.goods_name}}</td>
+					<td v-if="order1_desc.goods.goods_count==0">-</td>
+					<td v-if="order1_desc.goods.goods_count!=0">{{order1_desc.goods.goods_count}}</td>
+					<td v-if="order1_desc.goods.goods_capacity==0">-</td>
+					<td v-if="order1_desc.goods.goods_capacity!=0">{{order1_desc.goods.goods_capacity}}</td>
+					<td>{{order1_desc.goods.goods_weight}}</td>
+					<td>{{order1_desc.goods.packagename}}</td>
+					<td>{{order1_desc.goods.goods_value}}</td>
+					<td v-if="order1_desc.pay_method==0">现付</td>
+					<td v-if="order1_desc.pay_method==1">到付</td>
+					<td v-if="order1_desc.pay_method==2">月结</td>
+					<td v-if="order1_desc.pay_method==3">回单</td>
+				</tr>
+			</table>
+			<div class="order1_desc_bottom">
+				<span>特殊需求：</span>
+				<span v-if="order1_desc.goods.special_need==null||order1_desc.goods.special_need==''">无</span>
+				<span v-else>{{order1_desc.goods.special_need}}</span>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="js/prompt.js"></script>
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script type="text/javascript" src="js/laypage/laypage.js"></script>
+		<script type="text/javascript" src="js/JsBarcode.all.min.js"></script>
+		<script type="text/javascript" src="js/jquery.print.min.js"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Z7ZjajqB1B4SRU895btxr6ZsLwGeKQOj"></script>
+		<script>
+			var url="http://123.207.144.43/";
+			var url_ym="http://api.uminfor.cn/";
+			var vm;
+			vm=new Vue({
+				el:'#os',
+				data:{
+					province:{},
+					city1:{},
+					city2:{},
+					goods_package:{},
+					order1:{},
+					order2:{},
+					order1_desc:{
+						order:{},
+						sender:{},
+						receiver:{},
+						goods:{}
+					},
+					tenant_num:{},
+					order2_desc:{},
+					route1:{},
+					route2:{},
+					apartment:{}
+				}
+			});
+			
+			function navTo(index){
+				sessionStorage.setItem("bindex",index);
+				$(".info-view").removeClass("visible");
+				$(".nav-item").removeClass("nav-active");
+				$(".nav-item").eq(index).addClass("nav-active");
+				$(".view").removeClass("visible");
+				$(".view").eq(index).addClass("visible");
+			}
+			
+			$(document).ready(function(){
+				load();
+				$.ajax({
+					url:url+"user.php/getUser3?id="+sessionStorage.getItem("user-id"),
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						if(msg.result==0){
+							$("#name").text(msg.user.name);
+							$("#info-phone").val(msg.user.phone);
+							$("#info-name").val(msg.user.name);
+							$("#info-number").val(msg.user.number);
+							$("#info-company").val(msg.user.company);
+							$("#info-address").val(msg.user.address);
+							$("#info-telephone").val(msg.user.telephone);
+							$("#info-email").val(msg.user.email);
+						}else{
+							window.location.href="operate.html";
+						}
+					},
+					error:function(e){
+						console.log(e);
+					}
+				});
+				$.ajax({
+					url:url_ym+"wsx_os.php/getProvinces",
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					async:false,
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						vm.province=msg.province;
+					},
+					error:function(xhr){
+						console.log(xhr.responseText);
+					}
+				});
+				$.ajax({
+					url:url_ym+"wsx_os.php/getCitys0",
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					async:false,
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						vm.city1=msg.city;
+						vm.city2=msg.city;
+					},
+					error:function(xhr){
+						console.log(xhr.responseText);
+					}
+				});
+				$.ajax({
+					url:url_ym+"wsx_os.php/getGoodsPackages",
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						vm.goods_package=msg.goods_package;
+						$("#begin-province").val(10);
+						$("#begin-city").val(210);
+					},
+					error:function(xhr){
+						console.log(xhr.responseText);
+					}
+				});
+				order1();
+				order2();
+				$.ajax({
+					url:url_ym+"tenant_nedb.php/gwgetTenant1?tenant_id="+sessionStorage.getItem("tenant-id"),
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						vm.tenant_num=msg.tenant.tenant_num;
+						sessionStorage.setItem("tenant-num",msg.tenant.tenant_num);
+						$(".order2_desc_logo").attr("src",msg.tenant.order_img);
+						$(".cname").text(msg.tenant.company);
+						$(".carrier").text(msg.tenant.company);
+					},
+					error:function(xhr){
+						console.log(xhr.responseText);
+					}
+				});
+				route();
+				apartment();
+			});
+			
+			function load(){
+				$(".nav-item").removeClass("nav-active");
+				$(".view").removeClass("visible");
+				if(sessionStorage.getItem("bindex")==null){
+					$(".nav-item").eq(5).addClass("nav-active");
+					$(".view").eq(5).addClass("visible");
+				}else{
+					if(sessionStorage.getItem("bindex")==6){
+						$(".info-view").addClass("visible");
+					}else{
+						$(".nav-item").eq(sessionStorage.getItem("bindex")).addClass("nav-active");
+						$(".view").eq(sessionStorage.getItem("bindex")).addClass("visible");
+						if(sessionStorage.getItem("bindex")==3){
+							if(sessionStorage.getItem("order-id")==null){
+							}else{
+								$("#order-id").val(sessionStorage.getItem("order-id"));
+								$("#order-id").focus();
+								order_search();
+							}
+						}
+					}
+				}
+			}
+			
+			var o_size1=8;  //每一页显示的数目
+			var o_rows1=0;  //总记录数
+			var o_pages1=0;  //总页数
+			var o_offset1=0;  //偏移量
+			function order1(){
+				$.ajax({
+					url:url_ym+"order.php/wsxorder1?wx_openid="+sessionStorage.getItem("user-id"),
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						o_rows1=msg.orders.length;
+						o_pages1=Math.ceil(o_rows1/o_size1);
+						laypage({
+							cont:'o_page1',
+							pages:o_pages1,
+							curr:1,
+							skip:true,
+							jump:function(obj){
+								o_offset1=(obj.curr-1)*o_size1;
+								$.ajax({
+									url:url_ym+"order.php/limitwsxorder1?wx_openid="+sessionStorage.getItem("user-id")+"&offset="+o_offset1+"&size="+o_size1,
+									dataType:'json',
+									type:'get',
+									ContentType:"application/json;charset=utf-8",
+									data:JSON.stringify({
+									}),
+									success:function(msg){
+										vm.order1=msg.orders;
+									},
+									error:function(xhr){
+										console.log(xhr.responseText);
+									}
+								});
+							}
+						})
+					},
+					error:function(xhr){
+						console.log(xhr.responseText);
+					}
+				});
+			}
+			
+			var o_size2=8;  //每一页显示的数目
+			var o_rows2=0;  //总记录数
+			var o_pages2=0;  //总页数
+			var o_offset2=0;  //偏移量
+			function order2(){
+				$.ajax({
+					url:url_ym+"order.php/wsxorder2?wx_openid="+sessionStorage.getItem("user-id"),
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						o_rows2=msg.orders.length;
+						o_pages2=Math.ceil(o_rows2/o_size2);
+						laypage({
+							cont:'o_page2',
+							pages:o_pages2,
+							curr:1,
+							skip:true,
+							jump:function(obj){
+								o_offset2=(obj.curr-1)*o_size2;
+								$.ajax({
+									url:url_ym+"order.php/limitwsxorder2?wx_openid="+sessionStorage.getItem("user-id")+"&offset="+o_offset2+"&size="+o_size2,
+									dataType:'json',
+									type:'get',
+									ContentType:"application/json;charset=utf-8",
+									data:JSON.stringify({
+									}),
+									success:function(msg){
+										vm.order2=msg.orders;
+									},
+									error:function(xhr){
+										console.log(xhr.responseText);
+									}
+								});
+							}
+						})
+					},
+					error:function(xhr){
+						console.log(xhr.responseText);
+					}
+				});
+			}
+			
+			function route(){
+				$.ajax({
+					url:url+"route.php/getRoutes?type=0",
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						vm.route1=msg.routes;
+					},
+					error:function(e){
+						console.log(e);
+					}
+				});
+				$.ajax({
+					url:url+"route.php/getRoutes?type=1",
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						vm.route2=msg.routes;
+					},
+					error:function(e){
+						console.log(e);
+					}
+				});
+			}
+			
+			function apartment(){
+				$.ajax({
+					url:url+"apartment.php/getApartments",
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						vm.apartment=msg.apartments;
+					},
+					error:function(xhr){
+						console.log(xhr.responseText);
+					}
+				});
+			}
+			
+			function info(){
+				sessionStorage.setItem("bindex",6);
+				$(".nav-item").removeClass("nav-active");
+				$(".view").removeClass("visible");
+				$(".info-view").addClass("visible");
+			}
+			function info_alter(){
+				var phone=$("#info-phone").val();
+				var name=$("#info-name").val();
+				var number=$("#info-number").val();
+				var company=$("#info-company").val();
+				var address=$("#info-address").val();
+				var telephone=$("#info-telephone").val();
+				var email=$("#info-email").val();
+				var passwd=$("#info-passwd").val();
+				var passwd1=$("#info-passwd1").val();
+				var passwd2=$("#info-passwd2").val();
+				if(phone==""||!(/^1[34578]\d{9}$/.test(phone))){
+					$(".prompt-center").text("手机号码格式不正确！");a_show();
+				}else if(name==""){
+					$(".prompt-center").text("姓名未填！");a_show();
+				}else if(number==""||!(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(number))){
+					$(".prompt-center").text("身份证号格式不正确！");a_show();
+				}else if(telephone!=""&&!(/^0\d{2,3}-?\d{7,8}$/.test(telephone))){
+					$(".prompt-center").text("固定电话格式不正确！");a_show();
+				}else if(email!=""&&!(/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email))){
+					$(".prompt-center").text("邮箱格式不正确！");a_show();
+				}else{
+					if(passwd!=""){
+						$.ajax({
+							url:url+"user.php/getUser4?id="+sessionStorage.getItem("user-id")+"&passwd="+passwd,
+							dataType:'json',
+							type:'get',
+							ContentType:"application/json;charset=utf-8",
+							data:JSON.stringify({
+							}),
+							success:function(msg){
+								if(msg.result==0){
+									if(passwd1==""||!(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/.test(passwd1))){
+										$(".prompt-center").text("新密码格式不正确！");a_show();
+									}else if(passwd2==""||!(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/.test(passwd2))){
+										$(".prompt-center").text("确认密码格式不正确！");a_show();
+									}else if(passwd1!=passwd2){
+										$(".prompt-center").text("两次密码不一致！");a_show();
+									}else{
+										$.ajax({
+											url:url+"user.php/alterUser2",
+											dataType:'json',
+											type:'post',
+											ContentType:"application/json;charset=utf-8",
+											data:JSON.stringify({
+												id:sessionStorage.getItem("user-id"),
+												phone:phone,
+												name:name,
+												number:number,
+												company:company,
+												address:address,
+												telephone:telephone,
+												email:email,
+												passwd:passwd1
+											}),
+											success:function(msg){
+												console.log(msg);
+												if(msg.result==0){
+													$("#info-passwd").val("");
+													$("#info-passwd1").val("");
+													$("#info-passwd2").val("");
+													$("#name").text(name);
+													$(".prompt-center").text("修改成功！");a_show();
+												}else{
+													$(".prompt-center").text(msg.desc);a_show();
+												}
+											},
+											error:function(e){
+												console.log(e);
+											}
+										});
+									}
+								}else{
+									$(".prompt-center").text("旧密码不正确！");a_show();
+								}
+							},
+							error:function(e){
+								console.log(e);
+							}
+						});
+					}else{
+						$.ajax({
+							url:url+"user.php/alterUser1",
+							dataType:'json',
+							type:'post',
+							ContentType:"application/json;charset=utf-8",
+							data:JSON.stringify({
+								id:sessionStorage.getItem("user-id"),
+								phone:phone,
+								name:name,
+								number:number,
+								company:company,
+								address:address,
+								telephone:telephone,
+								email:email
+							}),
+							success:function(msg){
+								console.log(msg);
+								if(msg.result==0){
+									$("#info-passwd").val("");
+									$("#info-passwd1").val("");
+									$("#info-passwd2").val("");
+									$("#name").text(name);
+									$(".prompt-center").text("修改成功！");a_show();
+								}else{
+									$(".prompt-center").text(msg.desc);a_show();
+								}
+							},
+							error:function(e){
+								console.log(e);
+							}
+						});
+					}
+				}
+			}
+			
+			function exit(){
+				sessionStorage.removeItem("user-id");
+				sessionStorage.removeItem("tenant-id");
+				sessionStorage.removeItem("bindex");
+				window.location.href="operate.html";
+			}
+			
+			function hunt1(province_id){
+				$.ajax({
+					url:url_ym+"wsx_os.php/getCitys1?province_id="+province_id,
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						vm.city1=msg.city;
+					},
+					error:function(xhr){
+						console.log(xhr.responseText);
+					}
+				});
+			}
+			function hunt2(province_id){
+				$.ajax({
+					url:url_ym+"wsx_os.php/getCitys1?province_id="+province_id,
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						vm.city2=msg.city;
+					},
+					error:function(xhr){
+						console.log(xhr.responseText);
+					}
+				});
+			}
+			function hunt3(city_id){
+				if(city_id==0){
+					$("#consignor-province").val(0);
+				}else{
+					$.ajax({
+						url:url_ym+"wsx_os.php/getCity1?city_id="+city_id,
+						dataType:'json',
+						type:'get',
+						ContentType:"application/json;charset=utf-8",
+						data:JSON.stringify({
+						}),
+						success:function(msg){
+							$("#consignor-province").val(msg.city.pid);
+						},
+						error:function(xhr){
+							console.log(xhr.responseText);
+						}
+					});
+				}
+			}
+			function hunt4(city_id){
+				if(city_id==0){
+					$("#consignee-province").val(0);
+				}else{
+					$.ajax({
+						url:url_ym+"wsx_os.php/getCity1?city_id="+city_id,
+						dataType:'json',
+						type:'get',
+						ContentType:"application/json;charset=utf-8",
+						data:JSON.stringify({
+						}),
+						success:function(msg){
+							$("#consignee-province").val(msg.city.pid);
+						},
+						error:function(xhr){
+							console.log(xhr.responseText);
+						}
+					});
+				}
+			}
+			
+			function quick_order(){
+				var sname=$("#consignor-name").val();
+				var sphone=$("#consignor-phone").val();
+				var sprovince_name=$("#consignor-province").find("option:selected").text();
+				var scity_name=$("#consignor-city").find("option:selected").text();
+				var scity_id=$("#consignor-city").val();
+				var saddress=$("#consignor-address").val();
+				var ename=$("#consignee-name").val();
+				var ephone=$("#consignee-phone").val();
+				var eprovince_name=$("#consignee-province").find("option:selected").text();
+				var ecity_name=$("#consignee-city").find("option:selected").text();
+				var ecity_id=$("#consignee-city").val();
+				var eaddress=$("#consignee-address").val();
+				var gname=$("#goods-name").val();
+				var gcount=$("#goods-count").val();
+				var gcapacity=$("#goods-capacity").val();
+				var gweight=$("#goods-weight").val();
+				var gpackage_name=$("#goods-package").find("option:selected").text();
+				var gpackage_id=$("#goods-package").val();
+				var gvalue=$("#goods-value").val();
+				var gmethod_name=$("#goods-method").find("option:selected").text();
+				var gmethod_id=$("#goods-method").val();
+				var gtransit=$("#goods-transit").val();
+				var gsend=$("#goods-send").val();
+				var gaccept=$("#goods-accept").val();
+				var is_agree=$("#is_agree").is(':checked');
+				if(sname==""){
+					$(".prompt-center").text("请填写托运人！");a_show();
+				}else if(sphone==""){
+					$(".prompt-center").text("请填写托运人电话！");a_show();
+				}else if(!((/^1[34578]\d{9}$/.test(sphone))||(/^0\d{2,3}-?\d{7,8}$/.test(sphone)))){
+					$(".prompt-center").text("托运人电话格式有误，请重填！");a_show();
+				}else if(sprovince_name=="请选择省"){
+					$(".prompt-center").text("请选择发货省！");a_show();
+				}else if(scity_name=="请选择市"){
+					$(".prompt-center").text("请选择发货市！");a_show();
+				}else if(saddress==""){
+					$(".prompt-center").text("请填写发货详细地址！");a_show();
+				}else if(ename==""){
+					$(".prompt-center").text("请填写收货人！");a_show();
+				}else if(ephone==""){
+					$(".prompt-center").text("请填写收货人电话！");a_show();
+				}else if(!((/^1[34578]\d{9}$/.test(ephone))||(/^0\d{2,3}-?\d{7,8}$/.test(ephone)))){
+					$(".prompt-center").text("收货人电话格式有误，请重填！");a_show();
+				}else if(eprovince_name=="请选择省"){
+					$(".prompt-center").text("请选择收货省！");a_show();
+				}else if(ecity_name=="请选择市"){
+					$(".prompt-center").text("请选择收货市！");a_show();
+				}else if(eaddress==""){
+					$(".prompt-center").text("请填写收货详细地址！");a_show();
+				}else if(gname==""){
+					$(".prompt-center").text("请填写货物名称！");a_show();
+				}else if(gcount!=""&&!(/^\d*$/.test(gcount))){
+					$(".prompt-center").text("请检查件数是否为数字（不能为负数，且不包含小数点）！");a_show();
+				}else if(gcount!=""&&gcount.substring(0,1)=="0"){
+					$(".prompt-center").text("件数可不填，但件数不能为0！");a_show();
+				}else if(gcapacity!=""&&(isNaN(gcapacity)||gcapacity.substring(0,1)=='-')){
+					$(".prompt-center").text("请检查体积是否为数字（不能为负数，但可包含小数点）！");a_show();
+				}else if(gcapacity!=""&&(gcapacity=='0'||gcapacity*10000000==0)){
+					$(".prompt-center").text("体积可不填，但体积不能为0！");a_show();
+				}else if(gweight==""){
+					$(".prompt-center").text("请填写重量！");a_show();
+				}else if(isNaN(gweight)||gweight.substring(0,1)=='-'){
+					$(".prompt-center").text("请检查重量是否为数字（不能为负数，但可包含小数点）！");a_show();
+				}else if(gweight=='0'||gweight*10000000==0){
+					$(".prompt-center").text("重量不能为0！");a_show();
+				}else if(gpackage_name=="请选择"){
+					$(".prompt-center").text("请选择包装！");a_show();
+				}else if(gvalue==""){
+					$(".prompt-center").text("请填写实际价值！");a_show();
+				}else if(isNaN(gvalue)||gvalue.substring(0,1)=='-'){
+					$(".prompt-center").text("请检查实际价值是否为数字（不能为负数，但可包含小数点）！");a_show();
+				}else if(gvalue=='0'||gvalue*10000000==0){
+					$(".prompt-center").text("实际价值不能为0！");a_show();
+				}else if(gmethod_name=="请选择"){
+					$(".prompt-center").text("请选择结算方式！");a_show();
+				}else if(gtransit=="请选择"){
+					$(".prompt-center").text("请选择运输方式！");a_show();
+				}else if(gsend=="请选择"){
+					$(".prompt-center").text("请选择寄货方式！");a_show();
+				}else if(gaccept=="请选择"){
+					$(".prompt-center").text("请选择提货方式！");a_show();
+				}else if(!is_agree){
+					$(".prompt-center").text("请阅读并同意运输服务条款！");a_show();
+				}else{
+					$.ajax({
+						url:url_ym+"customer.php/plus_customer",
+						beforeSend:function(request){
+							request.setRequestHeader("tenant-id",sessionStorage.getItem("tenant-id"));
+						},
+						dataType:'json',
+						type:'post',
+						ContentType:"application/json;charset=utf-8",
+						data:JSON.stringify({
+							customer_name:sname,
+							customer_phone:sphone,
+							city_id:scity_id,
+							address:saddress,
+							type:1,
+							wx_openid:sessionStorage.getItem("user-id"),
+						}),
+						success:function(msg){
+							var scustomer_id=msg.customer_id;
+							$.ajax({
+								url:url_ym+"customer.php/plus_customer",
+								beforeSend:function(request){
+									request.setRequestHeader("tenant-id",sessionStorage.getItem("tenant-id"));
+								},
+								dataType:'json',
+								type:'post',
+								ContentType:"application/json;charset=utf-8",
+								data:JSON.stringify({
+									customer_name:ename,
+									customer_phone:ephone,
+									city_id:ecity_id,
+									address:eaddress,
+									type:0,
+									wx_openid:sessionStorage.getItem("user-id"),
+								}),
+								success:function(msg){
+									var ecustomer_id=msg.customer_id;
+									$.ajax({
+										url:url_ym+"wxmessage.php/gwmessage_insert",
+										beforeSend:function(request){
+											request.setRequestHeader("tenant-id",sessionStorage.getItem("tenant-id"));
+										},
+										dataType:'json',
+										type:'post',
+										ContentType:"application/json;charset=utf-8",
+										data:JSON.stringify({
+											customer_send_id:scustomer_id,
+											customer_accept_id:ecustomer_id,
+											goods_name:gname,
+											goods_count:gcount,
+											goods_capacity:gcapacity,
+											goods_weight:gweight,
+											goods_package:gpackage_id,
+											good_worth:gvalue,
+											pay_method:gmethod_id,
+											special_need:"寄:"+gsend+";  收:"+gaccept+";  运:"+gtransit,
+											openid:sessionStorage.getItem("user-id"),
+										}),
+										success:function(msg){
+											$(".prompt-center").text("下单成功！");a_show();
+											$("#consignor-name").val("");
+											$("#consignor-phone").val("");
+											$("#consignor-province").val("0");
+											$("#consignor-city").val("0");
+											$("#consignor-address").val("");
+											$("#consignee-name").val("");
+											$("#consignee-phone").val("");
+											$("#consignee-province").val("0");
+											$("#consignee-city").val("0");
+											$("#consignee-address").val("");
+											$("#goods-name").val("");
+											$("#goods-count").val("");
+											$("#goods-capacity").val("");
+											$("#goods-weight").val("");
+											$("#goods-package").val("请选择");
+											$("#goods-value").val("");
+											$("#goods-method").val("请选择");
+											$("#goods-transit").val("请选择");
+											$("#goods-send").val("请选择");
+											$("#goods-accept").val("请选择");
+											$("#is_agree").prop("checked",false);
+										},
+										error:function(xhr){
+											console.log(xhr.responseText);
+										}
+									});
+								},
+								error:function(xhr){
+									console.log(xhr.responseText);
+								}
+							});
+						},
+						error:function(xhr){
+							console.log(xhr.responseText);
+						}
+					});
+				}
+			}
+			function protocol(){
+				$(".mask").css("display","block");
+				$("#protocol-view").css("display","block");
+			}
+			
+			function protocol_close(){
+				$("#protocol-view").css("display","none");
+				$(".mask").css("display","none");
+			}
+			function protocol_confirm(){
+				$("#is_agree").prop("checked",true);
+				$("#protocol-view").css("display","none");
+				$(".mask").css("display","none");
+			}
+			
+			function order_desc1(order_id){
+				$.ajax({
+					url:url_ym+"order.php/orderbyid?tenant_id="+sessionStorage.getItem("tenant-id")+"&order_id="+order_id,
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						console.log(msg);
+						vm.order1_desc=msg.order;
+						$(".mask").css("display","block");
+						$("#order1-desc-view").css("display","block");
+					},
+					error:function(xhr){
+						console.log(xhr.responseText);
+					}
+				});
+			}
+			function order1_desc_close(){
+				$(".mask").css("display","none");
+				$("#order1-desc-view").css("display","none");
+			}
+			function order_desc2(order_id){
+				sessionStorage.setItem("bindex",3);
+				$(".nav-item").removeClass("nav-active");
+				$(".nav-item").eq(3).addClass("nav-active");
+				$(".view").removeClass("visible");
+				$(".view").eq(3).addClass("visible");
+				$("#order-id").val(order_id);
+				$("#order-id").focus();
+				order_search();
+			}
+			
+			function a2c(num){
+				num+="";
+				if(num.length<6){
+					num=(Array(6).join('0')+num).slice(-6);
+				}
+				for(i=num.length-1;i>=0;i--){
+					perchar=num.charAt(i);
+					switch(perchar){
+						case "0":$("#upper"+i).html("零");break;
+						case "1":$("#upper"+i).html("壹");break;
+						case "2":$("#upper"+i).html("贰");break;
+						case "3":$("#upper"+i).html("叁");break;
+						case "4":$("#upper"+i).html("肆");break;
+						case "5":$("#upper"+i).html("伍");break;
+						case "6":$("#upper"+i).html("陆");break;
+						case "7":$("#upper"+i).html("柒");break;
+						case "8":$("#upper"+i).html("捌");break;
+						case "9":$("#upper"+i).html("玖");break;
+					}
+				}
+			}
+			function order_search(){
+				var order_id=$("#order-id").val();
+				if(order_id!=''&&order_id.length==13){
+					$.ajax({
+						url:url_ym+"order_nedb.php/gwgetOrders1?order_id="+order_id+"&wx_openid="+sessionStorage.getItem("user-id"),
+						dataType:'json',
+						type:'get',
+						ContentType:"application/json;charset=utf-8",
+						data:JSON.stringify({
+						}),
+						success:function(msg){
+							$(".order-result1").empty();
+							$(".order-rate").empty();
+							$(".order-status").empty();
+							$(".order-city").empty();
+							$(".order-time").empty();
+							$(".order-result1").hide();
+							$(".order-result2").hide();
+							$(".order-result3").hide();
+							$(".order-result4").hide();
+							$(".order-result5").hide();
+							var result1="";
+							var rate="";
+							var status="";
+							var city="";
+							var time="";
+							var flag=0;
+							if(msg.orders.length!=0){
+								$(".order-result1").show();
+								$(".order-result2").show();
+								$(".order-result4").show();
+								$(".order-result5").show();
+								result1+="运单号：<span style='color:red'>"+order_id+"</span>";
+								result1+="<span class='order-state'>目前状态：</span>";
+								if(msg.orders[msg.orders.length-1].order_status==0){
+									result1+="<span style='color:red'>下单（"+msg.orders[msg.orders.length-1].from_city.name+"）</span>";
+								}else if(msg.orders[msg.orders.length-1].order_status==1){
+									result1+="<span style='color:red'>入库（"+msg.orders[msg.orders.length-1].from_city.name+"）</span>";
+								}else if(msg.orders[msg.orders.length-1].order_status==2){
+									result1+="<span style='color:red'>出库（"+msg.orders[msg.orders.length-1].from_city.name+"）</span>";
+								}else if(msg.orders[msg.orders.length-1].order_status==3){
+									result1+="<span style='color:red'>在途</span>";
+								}else if(msg.orders[msg.orders.length-1].order_status==4&&(msg.orders[msg.orders.length-1].is_sign==0||msg.orders[msg.orders.length-1].is_sign==2)){
+									result1+="<span style='color:red'>到达</span>";
+								}else if(msg.orders[msg.orders.length-1].order_status==4&&(msg.orders[msg.orders.length-1].is_sign==1||msg.orders[msg.orders.length-1].is_sign==3)){
+									result1+="<span style='color:red'>中转</span>";
+								}else if(msg.orders[msg.orders.length-1].order_status==5){
+									result1+="<span style='color:red'>异常</span>";
+								}else if(msg.orders[msg.orders.length-1].order_status==6){
+									result1+="<span style='color:red'>作废</span>";
+								}else if(msg.orders[msg.orders.length-1].order_status==7){
+									result1+="<span style='color:red'>签收</span>";
+								}
+								for(var i=0;i<msg.orders.length;i++){
+									var from_city_name="";
+									if(msg.orders[i].from_city.name.lastIndexOf("市")==-1){
+										from_city_name=msg.orders[i].from_city.name;
+									}else{
+										from_city_name=msg.orders[i].from_city.name.substring(0,msg.orders[i].from_city.name.lastIndexOf("市"));
+									}
+									if(msg.orders[i].order_datetime0!=""&&msg.orders[i].order_datetime0!=null){
+										if(i==0){
+											rate+="<img src='images/rate0.png' />";
+										}else{
+											rate+="<img src='images/rate1.png' />";
+										}
+										status+="<span>下单</span>";
+										city+="<span>（"+from_city_name+"）</span>";
+										time+="<span>"+msg.orders[i].order_datetime0+"</span>";
+										flag=1;
+									}
+									if(msg.orders[i].order_datetime1!=""&&msg.orders[i].order_datetime1!=null){
+										rate+="<img src='images/rate1.png' />";
+										status+="<span>入库</span>";
+										city+="<span>（"+from_city_name+"）</span>";
+										time+="<span>"+msg.orders[i].order_datetime1+"</span>";
+									}
+									if(msg.orders[i].order_datetime2!=""&&msg.orders[i].order_datetime2!=null){
+										rate+="<img src='images/rate1.png' />";
+										status+="<span>出库</span>";
+										city+="<span>（"+from_city_name+"）</span>";
+										time+="<span>"+msg.orders[i].order_datetime2+"</span>";
+									}
+									if(msg.orders[i].order_datetime3!=""&&msg.orders[i].order_datetime3!=null){
+										rate+="<img src='images/rate1.png' />";
+										status+="<span>在途</span>";
+										city+="<span></span>";
+										time+="<span>"+msg.orders[i].order_datetime3+"</span>";
+									}
+									if(msg.orders[i].order_datetime4!=""&&msg.orders[i].order_datetime4!=null&&(msg.orders[i].is_sign==0||msg.orders[i].is_sign==2)){
+										rate+="<img src='images/rate1.png' />";
+										status+="<span>到达</span>";
+										if(msg.orders[i].reach_city==null){
+											city+="<span></span>";
+										}else{
+											city+="<span>（"+msg.orders[i].reach_city+"）</span>";
+										}
+										time+="<span>"+msg.orders[i].order_datetime4+"</span>";
+									}
+									if(msg.orders[i].order_datetime4!=""&&msg.orders[i].order_datetime4!=null&&(msg.orders[i].is_sign==1||msg.orders[i].is_sign==3)){
+										rate+="<img src='images/rate1.png' />";
+										status+="<span>中转</span>";
+										if(msg.orders[i].reach_city==null){
+											city+="<span></span>";
+										}else{
+											city+="<span>（"+msg.orders[i].reach_city+"）</span>";
+										}
+										time+="<span>"+msg.orders[i].order_datetime4+"</span>";
+									}
+									if(i==msg.orders.length-1&&msg.orders[i].order_datetime5!=""&&msg.orders[i].order_datetime5!=null){
+										rate+="<img src='images/rate1.png' />";
+										status+="<span>签收</span>";
+										if(msg.orders[i].reach_city==null){
+											city+="<span></span>";
+										}else{
+											city+="<span>（"+msg.orders[i].reach_city+"）</span>";
+										}
+										time+="<span>"+msg.orders[i].order_datetime5+"</span>";
+										flag=2;
+									}
+								}
+								if(flag==1){
+									rate+="<img src='images/rate2.png' />";
+								}
+								var centerP=new BMap.Point(msg.orders[0].tenant.longitude,msg.orders[0].tenant.latitude);
+								$.ajax({
+									url:url_ym+"mapselect.php/mapsbyor?order_id="+order_id,
+									beforeSend:function(request){
+									},
+									dataType:'json',
+									type:'get',
+									ContentType:"application/json;charset=utf-8",
+									data:JSON.stringify({
+									}),
+									success:function(msg){
+										if(msg.result==0){
+											$(".order-result3").show();
+											var a=[];
+											var map=new BMap.Map("order-map");
+											map.centerAndZoom(centerP,9);
+											map.enableScrollWheelZoom();
+											map.enableKeyboard();
+											for(var x=0;x<msg.map.length;x++){
+												var p=new BMap.Point(msg.map[x].longitude,msg.map[x].latitude);
+												a.push(p);
+												var marker=new BMap.Marker(p);
+												var opts={
+													position:p,  // 指定文本标注所在的地理位置
+													offset:new BMap.Size(-30,0)  //设置文本偏移量
+												}
+												var label=new BMap.Label(msg.map[x].time,opts);  //创建文本标注对象
+												label.setStyle({
+													color:"black",
+													fontSize:"12px",
+													height:"12px",
+													lineHeight:"12px",
+													fontFamily:"微软雅黑"
+												});
+												map.addOverlay(marker);
+												map.addOverlay(label);
+											}
+											var polyline=new BMap.Polyline(a,{strokeColor:"#0E1A49",strokeWeight:4,strokeOpacity:0.5});
+											map.addOverlay(polyline);
+										}else{
+											$(".prompt-center").text(msg.desc);a_show();
+										}
+									},
+									error:function(xhr) {
+										console.log(xhr.responseText);
+									}
+								});
+								JsBarcode("#barcode",order_id,{
+									format:"code128",
+									displayValue:false,
+									lineColor:"black"
+								});
+								$("#barcode_value").text(order_id);
+								var order_datetime1=msg.orders[0].order_datetime1;
+								if(order_datetime1!==null&&order_datetime1!==''){
+									$(".dateyear").html(order_datetime1.substring(0,4));
+									if(order_datetime1.substring(5,6)=="0"){
+										$(".datemonth").html(order_datetime1.substring(6,7));
+									}else{
+										$(".datemonth").html(order_datetime1.substring(5,7));
+									}
+									if(order_datetime1.substring(8,9)=="0"){
+										$(".dateday").html(order_datetime1.substring(9,10));
+									}else{
+										$(".dateday").html(order_datetime1.substring(8,10));
+									}
+									if(msg.orders[0].order_id.substring(0,7)==sessionStorage.getItem('tenant-num')||msg.orders[0].pre_company==null){
+										a2c(msg.orders[0].order_cost);
+									}else if(msg.orders[0].order_id.substring(0,7)!=sessionStorage.getItem('tenant-num')&&msg.orders[0].pre_company=='1'){
+										a2c(msg.orders[0].transfer_cost);
+									}
+								}
+								vm.order2_desc=msg.orders;
+							}else{
+								$(".order-result1").show();
+								result1+="未查询到运单号为<span style='color:red'>"+order_id+"</span>的运单";
+							}
+							$(".order-result1").append(result1);
+							$(".order-rate").append(rate);
+							$(".order-status").append(status);
+							$(".order-city").append(city);
+							$(".order-time").append(time);
+						},
+						error:function(xhr){
+							console.log(xhr.responseText);
+						}
+					});
+				}else{
+					$(".order-result1").empty();
+					$(".order-rate").empty();
+					$(".order-status").empty();
+					$(".order-city").empty();
+					$(".order-time").empty();
+					$(".order-result1").hide();
+					$(".order-result2").hide();
+					$(".order-result3").hide();
+					$(".order-result4").hide();
+					$(".order-result5").hide();
+				}
+			}
+			function order_print(){
+				$("#print-content").print({
+					globalStyles:true,
+					mediaPrint:false,
+					stylesheet:null,
+					noPrintSelector:".no-print",
+					iframe:true,
+					append:null,
+					prepend:null,
+					deferred:$.Deferred()
+				});
+			}
+			
+			function hunt5(province_id){
+				$.ajax({
+					url:url_ym+"wsx_os.php/getCitys1?province_id="+province_id,
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						vm.city1=msg.city;
+					},
+					error:function(xhr){
+						console.log(xhr.responseText);
+					}
+				});
+			}
+			function hunt6(province_id){
+				$.ajax({
+					url:url_ym+"wsx_os.php/getCitys1?province_id="+province_id,
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						vm.city2=msg.city;
+					},
+					error:function(xhr){
+						console.log(xhr.responseText);
+					}
+				});
+			}
+			function hunt7(city_id){
+				if(city_id==0){
+					$("#begin-province").val(0);
+				}else{
+					$.ajax({
+						url:url_ym+"wsx_os.php/getCity1?city_id="+city_id,
+						dataType:'json',
+						type:'get',
+						ContentType:"application/json;charset=utf-8",
+						data:JSON.stringify({
+						}),
+						success:function(msg){
+							$("begin-province").val(msg.city.pid);
+						},
+						error:function(xhr){
+							console.log(xhr.responseText);
+						}
+					});
+				}
+			}
+			function hunt8(city_id){
+				if(city_id==0){
+					$("#end-province").val(0);
+				}else{
+					$.ajax({
+						url:url_ym+"wsx_os.php/getCity1?city_id="+city_id,
+						dataType:'json',
+						type:'get',
+						ContentType:"application/json;charset=utf-8",
+						data:JSON.stringify({
+						}),
+						success:function(msg){
+							$("#end-province").val(msg.city.pid);
+						},
+						error:function(xhr){
+							console.log(xhr.responseText);
+						}
+					});
+				}
+			}
+			var map=new BMap.Map("map-view");
+			map.centerAndZoom(new BMap.Point(116.404,39.915),12);
+			map.enableScrollWheelZoom(); 
+			function price_query(){
+				var sprovince_name=$("#begin-province").find("option:selected").text();
+				var scity_name=$("#begin-city").find("option:selected").text();
+				var saddress=$("#begin-address").val();
+				var eprovince_name=$("#end-province").find("option:selected").text();
+				var ecity_name=$("#end-city").find("option:selected").text();
+				var eaddress=$("#end-address").val();
+				var gweight=$("#gweight").val();
+				if(sprovince_name=="请选择省"){
+					$(".prompt-center").text("请选择发货省！");a_show();
+				}else if(scity_name=="请选择市"){
+					$(".prompt-center").text("请选择发货市！");a_show();
+				}else if(saddress==""){
+					$(".prompt-center").text("请填写发货详细地址！");a_show();
+				}else if(eprovince_name=="请选择省"){
+					$(".prompt-center").text("请选择收货省！");a_show();
+				}else if(ecity_name=="请选择市"){
+					$(".prompt-center").text("请选择收货市！");a_show();
+				}else if(eaddress==""){
+					$(".prompt-center").text("请填写收货详细地址！");a_show();
+				}else if(gweight==""){
+					$(".prompt-center").text("请填写货物重量！");a_show();
+				}else if(isNaN(gweight)||gweight.substring(0,1)=='-'){
+					$(".prompt-center").text("请检查货物重量是否为数字（不能为负数，但可包含小数点）！");a_show();
+				}else if(gweight=='0'||gweight*10000000==0){
+					$(".prompt-center").text("货物重量不能为0！");a_show();
+				}else{
+					var a=sprovince_name+scity_name+saddress;
+					var b=eprovince_name+ecity_name+eaddress;
+					$("#price-result").empty();
+					var output="";
+					var searchComplete=function(results) {
+						if(transit.getStatus()!=BMAP_STATUS_SUCCESS) {
+							return;
+						}
+						var plan=results.getPlan(0);
+						output+="<p>";
+						output+="参考价格：";
+						output+=Math.round(0.2*plan.getDistance(true).substring(0,plan.getDistance(true).length-2)*gweight*1000000)/1000000+"-"+0.25*Math.round(plan.getDistance(true).substring(0,plan.getDistance(true).length-2)*gweight*1000000)/1000000+"元";
+						output+="</p>";
+						output+="<p style='color:red;font-size:15px'>注意：以上价格仅供参考，实际价格请咨询QQ客服！</p>";
+					}
+					var transit=new BMap.DrivingRoute(map,{
+						renderOptions:{
+							map:map,
+							panel:"map-route", 
+						},
+						onSearchComplete:searchComplete,
+						onPolylinesSet:function(){
+							setTimeout(function(){
+								$("#price-result").html(output);
+							},"1000");
+						}
+					});
+					transit.search(a,b);
+					$(".price-result").css("display","block");
+				}
+			}
+			
+			function route_order(){
+				$(".nav-item").removeClass("nav-active");
+				$(".nav-item").eq(5).addClass("nav-active");
+				$(".view").removeClass("visible");
+				$(".view").eq(5).addClass("visible");
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,273 @@
+*{
+	margin:0 auto;
+	padding:0;
+	font-size:0;
+	font-family:"微软雅黑";
+}
+body{
+	background:#f2f2f2;
+}
+
+/*导航*/
+.nav{
+	width:100%;
+	height:85px;
+	background:#1596fa;
+}
+.detail{
+	width:1200px;
+	margin:0 auto;
+}
+.logo{
+	display:inline-block;
+	float:left;
+	cursor:pointer;
+}
+#logo{
+	margin-top:13px;
+	height:59px;
+}
+.nav-items{
+	display:inline-block;
+	float:right;
+}
+.nav-item{
+	display:inline-block;
+	height:85px;
+	font-size:16px;
+	line-height:85px;
+	padding:0 36px;
+	background:transparent;
+	color:#ffffff;
+	cursor:pointer;
+	margin-left:1px;
+}
+.nav-item:hover{
+	background:rgba(0,0,0,0.5);
+}
+.nav-active{
+	background:rgba(0,0,0,0.5);
+}
+.subnav{
+	display:none;
+	width:100%;
+	height:40px;
+	position:absolute;
+	top:85px;
+	left:0;
+	background:rgba(0,0,0,0.4);
+	color:#ffffff;
+	z-index:999;
+}
+.subnav-items{
+	display:none;
+	width:100%;
+}
+.subnav-item{
+	display:inline-block;
+	height:40px;
+	font-size:14px;
+	line-height:40px;
+	padding:0 20px;
+	background:transparent;
+	color:#ffffff;
+	cursor:pointer;
+}
+.subnav-item:hover{
+	color:orange;
+}
+
+/*内容*/
+.bg-view{
+	width:100%;
+	height:180px;
+	background:url("../images/ps-banner.jpg") center center no-repeat;
+}
+.intro-view{
+	padding:40px 0;
+}
+.intro-left{
+	display:inline-block;
+	width:240px;
+	height:auto;
+	background:#ffffff;
+	margin-right:40px;
+	vertical-align:top;
+}
+.intro-right{
+	display:inline-block;
+	width:920px;
+	height:auto;
+	background:#ffffff;
+	vertical-align:top;
+}
+.intro-title{
+	width:210px;
+	height:60px;
+	font-size:24px;
+	line-height:60px;
+	padding-left:30px;
+	background:#1596fa;
+	color:#ffffff;
+	float:left;
+}
+.intro-subtitle{
+	width:210px;
+	height:40px;
+	font-size:16px;
+	line-height:40px;
+	padding-left:30px;
+	border-bottom:1px solid #eeeeee;
+	float:left;
+	cursor:pointer;
+}
+.intro-subtitle a{
+	display:inline-block;
+	width:210px;
+	font-size:16px;
+	text-decoration:none;
+	color:#000000;
+}
+.intro-smalltitle{
+	width:190px;
+	padding:8px 0px 8px 50px;
+	border-bottom:1px solid #eeeeee;
+	float:left;
+}
+.intro-subtitle:hover,.intro-subtitle a:hover,.smalltitle-item:hover{
+	color:#1596fa;
+}
+.smalltitle-item{
+	width:190px;
+	height:34px;
+	font-size:15px;
+	line-height:34px;
+	float:left;
+	cursor:pointer;
+}
+.subtitle-active{
+	color:#1596fa;
+	background:url(../images/arrow.png) no-repeat 200px 13px;
+}
+.smalltitle-active{
+	color:#1596fa;
+	background:url(../images/arrow.png) no-repeat 150px 11px;
+}
+.smalltitle-view,.subtitle-view{
+	display:none;
+	padding:36px 40px;
+}
+.titleview-visible{
+	display:block;
+}
+.desc-title{
+	width:100%;
+	height:54px;
+	font-size:24px;
+	text-align:center;
+	float:left;
+}
+.desc-img img{
+	width:840px;
+	margin-bottom:30px;
+}
+.desc-text,.desc-img{
+	float:left;
+}
+.desc-text div{
+	font-size:16px;
+	line-height:32px;
+}
+.desc-para{
+	margin-bottom:40px;
+}
+.desc-abstract{
+	font-size:16px;
+	font-weight:bold;
+	color:#1596fa;
+}
+.desc-indent{
+	text-indent:32px;
+}
+.desc-table table{
+	width:100%;
+	box-sizing:border-box;
+	border:1px solid #9e9e9e;
+}
+.desc-table table tr th,.desc-table table tr td{
+	height:36px;
+	font-size:15px;
+	text-align:center;
+	border:1px solid #9e9e9e;
+}
+.desc-map{
+	margin-bottom:30px;
+}
+#company-map{
+	width:840px;
+	height:400px;
+}
+.desc-half{
+	display:inline-block;
+	width:416px;
+}
+
+/*底部*/
+.footer{
+	padding:60px 0;
+	background:#1596fa;
+	color:#ffffff;
+}
+.footer-content{
+	display:inline-block;
+	vertical-align:top;
+}
+.footer-logo{
+	width:380px;
+}
+.footer-contact{
+	width:500px;
+}
+.footer-title{
+	font-size:18px;
+	margin-bottom:20px;
+}
+.footer-contact-div{
+	height:42px;
+	font-size:16px;
+}
+.footer-contact img{
+	width:20px;
+	height:20px;
+	vertical-align:top;
+	margin:3px 8px 0 0;
+}
+.footer-scan{
+	width:320px;
+}
+.footer-qrcode{
+	display:inline-block;
+	margin-right:30px;
+}
+#qrcode{
+	width:145px;
+	height:145px;
+}
+.footer-app{
+	display:inline-block;
+}
+#app{
+	width:145px;
+	height:145px;
+}
+.footer-scan-tip{
+	width:145px;
+	font-size:15px;
+	text-align:center;
+	margin-top:4px;
+}
+.footer-copyright{
+	height:40px;
+	font-size:16px;
+	line-height:40px;
+}

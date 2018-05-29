@@ -1,0 +1,488 @@
+<html>
+	<head>
+        <title>靖江市万事鑫联运</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+		<link type="text/css" href="css/common.css" rel="stylesheet">
+		<link type="text/css" href="css/prompt.css" rel="stylesheet">
+		<link rel="shortcut icon" href="favicon.ico" />
+		<style>
+			.show-view{
+				width:1200px;
+				background:#ffffff;
+				margin:50px auto;
+			}
+			.show-box{
+				width:460px;
+				padding:80px 0;
+			}
+			.show-title{
+				font-size:26px;
+				text-align:center;
+				margin-bottom:35px;
+			}
+			.login-phone{
+				margin-bottom:20px;
+			}
+			.login-img{
+				display:inline-block;
+				background:#cccccc;
+				margin-left:50px;
+			}
+			#login-phone,#login-passwd{
+				width:310px;
+				height:50px;
+				font-size:16px;
+				padding:0 10px;
+				border:1px solid #cccccc;
+				outline:0;
+				vertical-align:top;
+			}
+			.login-forget{
+				text-align:right;
+				margin:20px 0;
+			}
+			#jump2{
+				font-size:16px;
+				margin-right:50px;
+				cursor:pointer;
+			}
+			#jump2:hover{
+				color:#1596fa;
+			}
+			.show-btn input{
+				height:50px;
+				font-size:18px;
+				background:#1596fa;
+				color:#ffffff;
+				border:none;
+				cursor:pointer;
+			}
+			#login,#jump1{
+				width:160px;
+			}
+			#login{
+				margin:0 40px 0 50px;
+			}
+			#register-view{
+				display:none;
+			}
+			.register-div{
+				margin-bottom:20px;
+			}
+			.register-tip{
+				display:inline-block;
+				width:100px;
+				height:45px;
+				font-size:16px;
+				line-height:45px;
+			}
+			.register-star{
+				display:inline-block;
+				width:12px;
+				font-size:16px;
+				color:red;
+			}
+			.register-div input{
+				width:360px;
+				height:45px;
+				font-size:16px;
+				padding:0 10px;
+				outline:0;
+			}
+			#register,#jump3{
+				width:210px;
+				margin-top:5px;
+			}
+			#register{
+				margin-right:40px;
+			}
+			#forget-view{
+				display:none;
+			}
+			.forget-div{
+				margin-bottom:20px;
+			}
+			.forget-div input{
+				width:360px;
+				height:45px;
+				font-size:16px;
+				padding:0 10px;
+				margin-left:50px;
+				outline:0;
+			}
+			#forget,#jump4{
+				width:160px;
+				margin-top:5px;
+			}
+			#forget{
+				margin:0 40px 0 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="nav">
+			<div class="detail">
+				<div class="logo" onclick="window.location.href='index.html'">
+					<img id="logo" src="images/logo.png" />
+				</div>
+				<div class="nav-items">
+					<div class="nav-item" onclick="navTo(0)" onmouseover="navOver(0)" onmouseout="navOut(0)">首页</div>
+					<div class="nav-item" onclick="navTo(1)" onmouseover="navOver(1)" onmouseout="navOut(1)">产品与服务</div>
+					<div class="nav-item" onclick="navTo(2)" onmouseover="navOver(2)" onmouseout="navOut(2)">线上营运中心</div>
+					<div class="nav-item" onclick="navTo(3)" onmouseover="navOver(3)" onmouseout="navOut(3)">关于万事鑫</div>
+				</div>
+			</div>
+		</div>
+		<div class="subnav">
+			<div class="detail">
+				<div class="subnav-items" onmouseenter="subnavEnter(1)" onmouseleave="subnavLeave()">
+					<div class="subnav-item" onclick="subnavTo(0)">产品介绍</div>
+					<div class="subnav-item" onclick="subnavTo(1)">增值服务</div>
+					<div class="subnav-item" onclick="subnavTo(2)">禁运品</div>
+				</div>
+				<div class="subnav-items" onmouseenter="subnavEnter(3)" onmouseleave="subnavLeave()">
+					<div class="subnav-item" onclick="subnavTo(3)">公司简介</div>
+					<div class="subnav-item" onclick="subnavTo(4)">业务部门</div>
+					<div class="subnav-item" onclick="subnavTo(5)">联系我们</div>
+					<div class="subnav-item" onclick="subnavTo(6)">加盟合作</div>
+				</div>
+			</div>
+		</div>
+		<div class="show-view" id="login-view">
+			<div class="show-box">
+				<div class="show-title">欢迎登录万事鑫线上营运中心</div>
+				<div class="login-phone">
+					<div class="login-img"><img src="images/name.png"/></div>
+					<input type="text" id="login-phone" placeholder="手机号" />
+				</div>
+				<div class="login-passwd">
+					<div class="login-img"><img src="images/passwd.png"/></div>
+					<input type="password" id="login-passwd" placeholder="密码" />
+				</div>
+				<div class="login-forget">
+					<span id="jump2" onclick="jump2()">忘记密码</span>
+				</div>
+				<div class="show-btn">
+					<input type="button" id="login" value="登录" onclick="login()" />
+					<input type="button" id="jump1" value="注册" onclick="jump1()" />
+				</div>
+			</div>
+		</div>
+		<div class="show-view" id="register-view">
+			<div class="show-box">
+				<div class="show-title">用户注册</div>
+				<div class="register-div">
+					<div class="register-tip"><span class="register-star">*</span>手机号码：</div>
+					<input type="text" id="register-phone" />
+				</div>
+				<div class="register-div">
+					<div class="register-tip"><span class="register-star">*</span>真实姓名：</div>
+					<input type="text" id="register-name" />
+				</div>
+				<div class="register-div">
+					<div class="register-tip"><span class="register-star">*</span>身份证号：</div>
+					<input type="text" id="register-number" />
+				</div>
+				<div class="register-div">
+					<div class="register-tip"><span class="register-star"></span>单位名称：</div>
+					<input type="text" id="register-company" />
+				</div>
+				<div class="register-div">
+					<div class="register-tip"><span class="register-star"></span>联系地址：</div>
+					<input type="text" id="register-address" />
+				</div>
+				<div class="register-div">
+					<div class="register-tip"><span class="register-star"></span>固定电话：</div>
+					<input type="text" id="register-telephone" />
+				</div>
+				<div class="register-div">
+					<div class="register-tip"><span class="register-star"></span>邮箱：</div>
+					<input type="email" id="register-email" />
+				</div>
+				<div class="register-div">
+					<div class="register-tip"><span class="register-star">*</span>设置密码：</div>
+					<input type="password" id="register-passwd" placeholder="8-16位，同时包含字符和数字" />
+				</div>
+				<div class="register-div">
+					<div class="register-tip"><span class="register-star">*</span>确认密码：</div>
+					<input type="password" id="register-passwd2" />
+				</div>
+				<div class="show-btn">
+					<input type="button" id="register" value="注册" onclick="register()" />
+					<input type="button" id="jump3" value="返回登录" onclick="jump3()" />
+				</div>
+			</div>
+		</div>
+		<div class="show-view" id="forget-view">
+			<div class="show-box">
+				<div class="show-title">找回密码</div>
+				<div class="forget-div">
+					<input type="text" id="forget-name" placeholder="真实姓名" />
+				</div>
+				<div class="forget-div">
+					<input type="text" id="forget-number" placeholder="身份证号" />
+				</div>
+				<div class="forget-div">
+					<input type="password" id="forget-passwd" placeholder="新的密码，8-16位，同时包含字符和数字" />
+				</div>
+				<div class="forget-div">
+					<input type="password" id="forget-passwd2" placeholder="确认新的密码" />
+				</div>
+				<div class="show-btn">
+					<input type="button" id="forget" value="确认修改" onclick="forget()" />
+					<input type="button" id="jump4" value="返回登录" onclick="jump4()" />
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="detail">
+				<div class="footer-content footer-logo">
+					<img src="images/logo2.png" />
+				</div>
+				<div class="footer-content footer-contact">
+					<div class="footer-title">联系我们</div>
+					<div class="footer-contact-div"><img src="images/time.png" />工作时间： 8:00 AM - 22:00PM</div>
+					<div class="footer-contact-div"><img src="images/phone.png" />0523-84862770</div>
+					<div class="footer-contact-div"><img src="images/email.png" />wanshixin2004@163.com</div>
+					<div class="footer-contact-div"><img src="images/address.png" />江苏省靖江市南环路76号联运大厦</div>
+				</div>
+				<div class="footer-content footer-scan">
+					<div class="footer-title">关注或下载</div>
+					<div class="footer-qrcode">
+						<img id="qrcode" src="images/qrcode.jpg" />
+						<div class="footer-scan-tip">官方微信公众号</div>
+					</div>
+					<div class="footer-app">
+						<img id="app" src="images/app.png" />
+						<div class="footer-scan-tip">交付帮手APP</div>
+					</div>
+				</div>
+				<div class="footer-copyright">Copyright &copy; 2018 靖江市万事鑫联运服务有限公司. All rights reserved.<a target="_blank" href="#"></a></div>
+			</div>
+		</div>
+		<div class="mask"></div>
+		<div class="prompt-view" id="alert-view">
+			<div class="prompt-top">提示</div>
+			<div class="prompt-center"></div>
+			<div class="prompt-bottom">
+				<input type="button" value="知道了" onclick="a_know()" />
+			</div>
+		</div>
+		<div class="prompt-view" id="confirm-view">
+			<div class="prompt-top">提示</div>
+			<div class="prompt-center"></div>
+			<div class="prompt-bottom">
+				<input type="button" value="确定" onclick="c_confirm()" />
+				<input type="button" value="取消" onclick="c_cancel()" />
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript" src="js/prompt.js"></script>
+		<script>
+			var url="http://123.207.144.43/";
+			
+			$(document).ready(function(){
+				sessionStorage.setItem("aindex",2);
+				$(".nav-item").removeClass("nav-active");
+				$(".nav-item").eq(2).addClass("nav-active");
+				if(sessionStorage.getItem("oindex")==1){
+					$("#login-view").css("display","none");
+					$("#register-view").css("display","block");
+				}else if(sessionStorage.getItem("oindex")==2){
+					$("#login-view").css("display","none");
+					$("#forget-view").css("display","block");
+				}else{
+					if(sessionStorage.getItem("user-id")==null){
+					}else{
+						window.location.href="member.html";
+					}
+				}
+			});
+			
+			function login(){
+				var phone=$("#login-phone").val();
+				var passwd=$("#login-passwd").val();
+				if(phone==""){
+					$(".prompt-center").text("请输入手机号！");a_show();
+				}else if(passwd==""){
+					$(".prompt-center").text("请输入密码！");a_show();
+				}else{
+					$.ajax({
+						url:url+"user.php/getUser1?phone="+phone+"&passwd="+passwd,
+						dataType:'json',
+						type:'get',
+						ContentType:"application/json;charset=utf-8",
+						data:JSON.stringify({
+						}),
+						success:function(msg){
+							if(msg.result==0){
+								sessionStorage.setItem("oindex",0);
+								sessionStorage.setItem("user-id",msg.user.id);
+								sessionStorage.setItem("tenant-id",msg.user.tenant_id);
+								window.location.href="member.html";
+							}else{
+								$(".prompt-center").text("手机号或密码错误！");a_show();
+							}
+						},
+						error:function(e){
+							console.log(e);
+						}
+					});
+				}
+			}
+			function jump1(){
+				sessionStorage.setItem("oindex",1);
+				$("#login-view").css("display","none");
+				$("#register-view").css("display","block");
+			}
+			function jump2(){
+				sessionStorage.setItem("oindex",2);
+				$("#login-view").css("display","none");
+				$("#forget-view").css("display","block");
+			}
+			
+			function register(){
+				var phone=$("#register-phone").val();
+				var name=$("#register-name").val();
+				var number=$("#register-number").val();
+				var company=$("#register-company").val();
+				var address=$("#register-address").val();
+				var telephone=$("#register-telephone").val();
+				var email=$("#register-email").val();
+				var passwd=$("#register-passwd").val();
+				var passwd2=$("#register-passwd2").val();
+				if(phone==""||!(/^1[34578]\d{9}$/.test(phone))){
+					$(".prompt-center").text("手机号码格式不正确！");a_show();
+				}else if(name==""){
+					$(".prompt-center").text("姓名未填！");a_show();
+				}else if(number==""||!(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(number))){
+					$(".prompt-center").text("身份证号格式不正确！");a_show();
+				}else if(telephone!=""&&!(/^0\d{2,3}-?\d{7,8}$/.test(telephone))){
+					$(".prompt-center").text("固定电话格式不正确！");a_show();
+				}else if(email!=""&&!(/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email))){
+					$(".prompt-center").text("邮箱格式不正确！");a_show();
+				}else if(passwd==""||!(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/.test(passwd))){
+					$(".prompt-center").text("密码格式不正确！");a_show();
+				}else if(passwd2==""||!(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/.test(passwd2))){
+					$(".prompt-center").text("确认密码格式不正确！");a_show();
+				}else if(passwd!=passwd2){
+					$(".prompt-center").text("两次密码不一致！");a_show();
+				}else{
+					$.ajax({
+						url:url+"user.php/getUser0?phone="+phone,
+						dataType:'json',
+						type:'get',
+						ContentType:"application/json;charset=utf-8",
+						data:JSON.stringify({
+						}),
+						success:function(msg){
+							if(msg.result==0){
+								$(".prompt-center").text("该手机号已被注册！");a_show();
+							}else{
+								$.ajax({
+									url:url+"user.php/addUser",
+									dataType:'json',
+									type:'post',
+									ContentType:"application/json;charset=utf-8",
+									data:JSON.stringify({
+										phone:phone,
+										name:name,
+										number:number,
+										company:company,
+										address:address,
+										telephone:telephone,
+										email:email,
+										passwd:passwd
+									}),
+									success:function(msg){
+										if(msg.result==0){
+											sessionStorage.setItem("oindex",0);
+											window.location.href="member.html";
+										}else{
+											$(".prompt-center").text(msg.desc);a_show();
+										}
+									},
+									error:function(e){
+										console.log(e);
+									}
+								});
+							}
+						},
+						error:function(e){
+							console.log(e);
+						}
+					});
+				}
+			}
+			function jump3(){
+				sessionStorage.setItem("oindex",0);
+				$("#login-view").css("display","block");
+				$("#register-view").css("display","none");
+			}
+			
+			function forget(){
+				var name=$("#forget-name").val();
+				var number=$("#forget-number").val();
+				var passwd=$("#forget-passwd").val();
+				var passwd2=$("#forget-passwd2").val();
+				if(name==""){
+					$(".prompt-center").text("姓名未填！");a_show();
+				}else if(number==""||!(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(number))){
+					$(".prompt-center").text("身份证号格式不正确！");a_show();
+				}else if(passwd==""||!(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/.test(passwd))){
+					$(".prompt-center").text("密码格式不正确！");a_show();
+				}else if(passwd2==""||!(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/.test(passwd2))){
+					$(".prompt-center").text("确认密码格式不正确！");a_show();
+				}else if(passwd!=passwd2){
+					$(".prompt-center").text("两次密码不一致！");a_show();
+				}else{
+					$.ajax({
+						url:url+"user.php/getUser2?name="+name+"&number="+number,
+						dataType:'json',
+						type:'get',
+						ContentType:"application/json;charset=utf-8",
+						data:JSON.stringify({
+						}),
+						success:function(msg){
+							if(msg.result==0){
+								$.ajax({
+									url:url+"user.php/alterUser0",
+									dataType:'json',
+									type:'post',
+									ContentType:"application/json;charset=utf-8",
+									data:JSON.stringify({
+										id:msg.user.id,
+										passwd:passwd
+									}),
+									success:function(msg){
+										if(msg.result==0){
+											$(".forget-div input").val("");
+											jump4();
+										}else{
+											$(".prompt-center").text(msg.desc);a_show();
+										}
+									},
+									error:function(e){
+										console.log(e);
+									}
+								});
+							}else{
+								$(".prompt-center").text("姓名与身份证号不匹配！");a_show();
+							}
+						},
+						error:function(e){
+							console.log(e);
+						}
+					});
+				}
+				
+			}
+			function jump4(){
+				sessionStorage.setItem("oindex",0);
+				$("#login-view").css("display","block");
+				$("#forget-view").css("display","none");
+			}
+		</script>
+	</body>
+</html>
