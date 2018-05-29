@@ -105,10 +105,13 @@ $app->get('/getOrders',function()use($app){
     $time2=$app->request->get('time2');
     date_default_timezone_set("PRC");
     if($time2==null||$time2==""){
-        $time2=date('Y-m-d H:i:s',time());
+        $time2=date('Y-m-d H:i:s',time()+1);
     }
     if($time1==null||$time1==null){
         $time1=date('Y-m-d H:i:s','0');
+    }else{
+       $time1=mktime(59,59,23,date('d',$time1)-1,date('m',$time1),date('Y',$time1));
+        $time1=date('Y-m-d H:i:s',$time1);
     }
     if($admin_id!=null||$admin_id!=""){
         if($tenant_id!=null||$tenant_id!=""){
@@ -564,10 +567,13 @@ $app->get('/limitOrders',function()use($app){
     $perpage=$app->request->get('perpage');
     date_default_timezone_set("PRC");
     if($time2==null||$time2==""){
-        $time2=date('Y-m-d H:i:s',time());
+        $time2=date('Y-m-d H:i:s',time()+1);
     }
     if($time1==null||$time1==null){
         $time1=date('Y-m-d H:i:s','0');
+    }else{
+        $time1=mktime(59,59,23,date('d',$time1)-1,date('m',$time1),date('Y',$time1));
+        $time1=date('Y-m-d H:i:s',$time1);
     }
     if($admin_id!=null||$admin_id!=""){
         if($tenant_id!=null||$tenant_id!=""){
@@ -1028,10 +1034,12 @@ $app->get('/getSchedules',function()use($app){
     $time2=$app->request->get('time2');
     date_default_timezone_set("PRC");
     if($time2==null||$time2==""){
-        $time2=date('Y-m-d H:i:s',time());
+        $time2=date('Y-m-d H:i:s',time()+1);
     }
     if($tenant_id!=null||$tenant_id!=""){
         if($time1!=null||$time1!=''){
+            $time1=mktime(59,59,23,date('d',$time1)-1,date('m',$time1),date('Y',$time1));
+            $time1=date('Y-m-d H:i:s',$time1);
             $selectStament=$database->select()
                 ->from('scheduling')
                 ->where('scheduling_datetime','>',$time1)
@@ -1132,6 +1140,8 @@ $app->get('/getSchedules',function()use($app){
             array_push($array1,$data2[$j]['tenant_id']);
         }
         if($time1!=null||$time1!=''){
+            $time1=mktime(59,59,23,date('d',$time1)-1,date('m',$time1),date('Y',$time1));
+            $time1=date('Y-m-d H:i:s',$time1);
             $selectStament=$database->select()
                 ->from('scheduling')
                 ->where('scheduling_datetime','>',$time1)
@@ -1235,10 +1245,12 @@ $app->get('/limitSchedules',function()use($app){
     $perpage=$app->request->get('perpage');
     date_default_timezone_set("PRC");
     if($time2==null||$time2==""){
-        $time2=date('Y-m-d H:i:s',time());
+        $time2=date('Y-m-d H:i:s',time()+1);
     }
     if($tenant_id!=null||$tenant_id!=""){
         if($time1!=null||$time1!=''){
+            $time1=mktime(59,59,23,date('d',$time1)-1,date('m',$time1),date('Y',$time1));
+            $time1=date('Y-m-d H:i:s',$time1);
             $selectStament=$database->select()
                 ->from('scheduling')
                 ->where('scheduling_datetime','>',$time1)
@@ -1341,6 +1353,8 @@ $app->get('/limitSchedules',function()use($app){
             array_push($array1,$data2[$j]['tenant_id']);
         }
         if($time1!=null||$time1!=''){
+            $time1=mktime(59,59,23,date('d',$time1)-1,date('m',$time1),date('Y',$time1));
+            $time1=date('Y-m-d H:i:s',$time1);
             $selectStament=$database->select()
                 ->from('scheduling')
                 ->where('scheduling_datetime','>',$time1)
@@ -1446,19 +1460,19 @@ $app->get('/getAgreements',function()use($app){
     if($time2==null||$time2==""){
         $a=date('Y',time());
         $b=date('m',time());
-        $c=date('d',time());
+        $c=date('d',time())+1;
         $time2=$a.'年'.$b.'月'.$c.'日';
     }else{
         $a=date('Y',strtotime($time2));
         $b=date('m',strtotime($time2));
-        $c=date('d',strtotime($time2));
+        $c=date('d',strtotime($time2))+1;
         $time2=$a.'年'.$b.'月'.$c.'日';
     }
     if($tenant_id!=null||$tenant_id!=""){
         if($time1!=null||$time1!=""){
                 $e=date('Y',strtotime($time1));
                 $f=date('m',strtotime($time1));
-                $g=date('d',strtotime($time1));
+                $g=date('d',strtotime($time1))-1;
                 $time3=$e.'年'.$f.'月'.$g.'日';
                     $selectStament=$database->select()
                         ->from('agreement')
@@ -1521,7 +1535,7 @@ $app->get('/getAgreements',function()use($app){
         if($time1!=null||$time1!=""){
             $e=date('Y',strtotime($time1));
             $f=date('m',strtotime($time1));
-            $g=date('d',strtotime($time1));
+            $g=date('d',strtotime($time1))-1;
             $time3=$e.'年'.$f.'月'.$g.'日';
             $selectStament=$database->select()
                 ->from('agreement')
@@ -1594,7 +1608,7 @@ $app->get('/limitAgreements',function()use($app){
     }else{
         $a=date('Y',strtotime($time2));
         $b=date('m',strtotime($time2));
-        $c=date('d',strtotime($time2));
+        $c=date('d',strtotime($time2))+1;
         $time2=$a.'年'.$b.'月'.$c.'日';
     }
 
@@ -1602,7 +1616,7 @@ $app->get('/limitAgreements',function()use($app){
         if($time1!=null||$time1!=""){
             $e=date('Y',strtotime($time1));
             $f=date('m',strtotime($time1));
-            $g=date('d',strtotime($time1));
+            $g=date('d',strtotime($time1))-1;
             $time3=$e.'年'.$f.'月'.$g.'日';
             $selectStament=$database->select()
                 ->from('agreement')
@@ -1667,7 +1681,7 @@ $app->get('/limitAgreements',function()use($app){
         if($time1!=null||$time1!=""){
             $e=date('Y',strtotime($time1));
             $f=date('m',strtotime($time1));
-            $g=date('d',strtotime($time1));
+            $g=date('d',strtotime($time1))-1;
             $time3=$e.'年'.$f.'月'.$g.'日';
             $selectStament=$database->select()
                 ->from('agreement')
