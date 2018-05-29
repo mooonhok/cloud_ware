@@ -755,7 +755,7 @@ $app->post('/addScheduling',function()use($app){
                                         ->values(array($scheduling_id,$tenant_id,$array1[$i],0));
                                     $insertId = $insertStatement->execute(false);
                                 }
-                                echo json_encode(array('result'=>'0','desc'=>'success','aaa'=>$scheduling_id));
+                                echo json_encode(array('result'=>'0','desc'=>'success','scheduling_id'=>$scheduling_id));
                             }else{
                                 echo json_encode(array('result'=>'7','desc'=>'缺少客户地址'));
                             }
@@ -906,6 +906,26 @@ $app->get('/IsSchedulingSchedulings',function()use($app){
                 ->where('lorry_id','=',$data1[$i]['lorry_id']);
             $stmt = $selectStatement->execute();
             $data4= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data1[$i]['send_city_id']);
+            $stmt = $selectStatement->execute();
+            $data5 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id','=',$data5['pid']);
+            $stmt = $selectStatement->execute();
+            $data6 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data1[$i]['receive_city_id']);
+            $stmt = $selectStatement->execute();
+            $data7 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id','=',$data7['pid']);
+            $stmt = $selectStatement->execute();
+            $data8 = $stmt->fetch();
             $data1[$i]['orders']=$data2;
             $data1[$i]['receiver']=$data3;
             $data1[$i]['lorry']=$data4;
