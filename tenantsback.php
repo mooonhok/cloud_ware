@@ -107,9 +107,6 @@ $app->get('/getOrders',function()use($app){
     if($time2==null||$time2==""){
         $time2=date('Y-m-d',time());
         $time2=$time2.' 23:59:59';
-    }else{
-        $time2=date('Y-m-d',$time2);
-        $time2=$time2.' 23:59:59';
     }
     if($time1==null||$time1==null){
         $time1=date('Y-m-d H:i:s','0');
@@ -572,9 +569,6 @@ $app->get('/limitOrders',function()use($app){
     date_default_timezone_set("PRC");
     if($time2==null||$time2==""){
         $time2=date('Y-m-d H:i:s',time()+1);
-        $time2=$time2.' 23:59:59';
-    }else{
-        $time2=date('Y-m-d',$time2);
         $time2=$time2.' 23:59:59';
     }
     if($time1==null||$time1==null){
@@ -2094,10 +2088,11 @@ $app->get('/limitLorrys',function()use($app){
             ->where('exist','=',0)
             ->where('tenant_id','=',$tenant_id)
             ->limit((int)$perpage, (int)$perpage * (int)$curr)
+            ->distinct('driver_phone')
             ->orderBy('id','DESC');
         $stmt=$selectStament->execute();
         $data2=$stmt->fetchAll();
-        $data2= array_values(array_unset_tt($data2,'driver_phone'));
+//        $data2= array_values(array_unset_tt($data2,'driver_phone'));
         if($data2!=null){
             for($x=0;$x<count($data2);$x++){
                 $selectStament=$database->select()
@@ -2141,6 +2136,7 @@ $app->get('/limitLorrys',function()use($app){
             ->where('exist','=',0)
             ->whereIn('tenant_id',$array1)
             ->limit((int)$perpage, (int)$perpage * (int)$curr)
+            ->distinct('driver_phone')
             ->orderBy('id','DESC');
         $stmt=$selectStament->execute();
         $data2=$stmt->fetchAll();
