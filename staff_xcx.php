@@ -891,7 +891,7 @@ $app->get('/IsSchedulingSchedulings',function()use($app){
                 ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
                 ->where('orders.tenant_id','=',$tenant_id)
                 ->where('schedule_order.tenant_id','=',$tenant_id)
-                ->where('schedule_order.schedule_id','=',$data1[$i]['scheduling']);
+                ->where('schedule_order.schedule_id','=',$data1[$i]['scheduling_id']);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetchAll();
             $selectStatement = $database->select()
