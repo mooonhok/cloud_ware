@@ -1080,6 +1080,17 @@ $app->get('/getSchedules',function()use($app){
                     $data3[$j]['driver_name']=$data7['driver_name'];
                     $data3[$j]['platenumber']=$data7['plate_number'];
                     $data3[$j]['driver_phone']=$data7['driver_phone'];
+                    $selectStatement = $database->select()
+                        ->sum('order_cost','zon')
+                        ->from('schedule_order')
+                        ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+                        ->where('schedule_order.schedule_id','=',$data3[$j]['scheduling_id'])
+                        ->where('schedule_order.tenant_id', '=',$data3[$j]['tenant_id'])
+                        ->where('orders.pay_method','=',1)
+                        ->where('orders.tenant_id', '=',$data3[$j]['tenant_id']);
+                    $stmt = $selectStatement->execute();
+                    $data1 = $stmt->fetch();
+                    $data3[$j]['sum']=$data1['zon'];
                 }
             }
             echo json_encode(array('result'=>'0','desc'=>'','schedulings'=>$data3));
@@ -1123,6 +1134,17 @@ $app->get('/getSchedules',function()use($app){
                     $data3[$j]['driver_name']=$data7['driver_name'];
                     $data3[$j]['platenumber']=$data7['plate_number'];
                     $data3[$j]['driver_phone']=$data7['driver_phone'];
+                    $selectStatement = $database->select()
+                        ->sum('order_cost','zon')
+                        ->from('schedule_order')
+                        ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+                        ->where('schedule_order.schedule_id','=',$data3[$j]['scheduling_id'])
+                        ->where('schedule_order.tenant_id', '=',$data3[$j]['tenant_id'])
+                        ->where('orders.pay_method','=',1)
+                        ->where('orders.tenant_id', '=',$data3[$j]['tenant_id']);
+                    $stmt = $selectStatement->execute();
+                    $data1 = $stmt->fetch();
+                    $data3[$j]['sum']=$data1['zon'];
                 }
 
             }
@@ -1182,6 +1204,17 @@ $app->get('/getSchedules',function()use($app){
                     $data3[$j]['driver_name']=$data7['driver_name'];
                     $data3[$j]['platenumber']=$data7['plate_number'];
                     $data3[$j]['driver_phone']=$data7['driver_phone'];
+                    $selectStatement = $database->select()
+                        ->sum('order_cost','zon')
+                        ->from('schedule_order')
+                        ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+                        ->where('schedule_order.schedule_id','=',$data3[$j]['scheduling_id'])
+                        ->where('schedule_order.tenant_id', '=',$data3[$j]['tenant_id'])
+                        ->where('orders.pay_method','=',1)
+                        ->where('orders.tenant_id', '=',$data3[$j]['tenant_id']);
+                    $stmt = $selectStatement->execute();
+                    $data1 = $stmt->fetch();
+                    $data3[$j]['sum']=$data1['zon'];
                 }
             }
                echo json_encode(array('result'=>'0','desc'=>'','schedulings'=>$data3));
@@ -1225,6 +1258,17 @@ $app->get('/getSchedules',function()use($app){
                             $data3[$j]['driver_name']=$data7['driver_name'];
                             $data3[$j]['platenumber']=$data7['plate_number'];
                             $data3[$j]['driver_phone']=$data7['driver_phone'];
+                            $selectStatement = $database->select()
+                                ->sum('order_cost','zon')
+                                ->from('schedule_order')
+                                ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+                                ->where('schedule_order.schedule_id','=',$data3[$j]['scheduling_id'])
+                                ->where('schedule_order.tenant_id', '=',$data3[$j]['tenant_id'])
+                                ->where('orders.pay_method','=',1)
+                                ->where('orders.tenant_id', '=',$data3[$j]['tenant_id']);
+                            $stmt = $selectStatement->execute();
+                            $data1 = $stmt->fetch();
+                            $data3[$j]['sum']=$data1['zon'];
                         }
                     }
                 echo json_encode(array('result'=>'0','desc'=>'','schedulings'=>$data3));
@@ -1292,6 +1336,17 @@ $app->get('/limitSchedules',function()use($app){
                     $data3[$j]['driver_name']=$data7['driver_name'];
                     $data3[$j]['platenumber']=$data7['plate_number'];
                     $data3[$j]['driver_phone']=$data7['driver_phone'];
+                    $selectStatement = $database->select()
+                        ->sum('order_cost','zon')
+                        ->from('schedule_order')
+                        ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+                        ->where('schedule_order.schedule_id','=',$data3[$j]['scheduling_id'])
+                        ->where('schedule_order.tenant_id', '=',$data3[$j]['tenant_id'])
+                        ->where('orders.pay_method','=',1)
+                        ->where('orders.tenant_id', '=',$data3[$j]['tenant_id']);
+                    $stmt = $selectStatement->execute();
+                    $data1 = $stmt->fetch();
+                    $data3[$j]['sum']=$data1['zon'];
                 }
             }
             echo json_encode(array('result'=>'0','desc'=>'','schedulings'=>$data3));
@@ -1336,6 +1391,17 @@ $app->get('/limitSchedules',function()use($app){
                     $data3[$j]['driver_name']=$data7['driver_name'];
                     $data3[$j]['platenumber']=$data7['plate_number'];
                     $data3[$j]['driver_phone']=$data7['driver_phone'];
+                    $selectStatement = $database->select()
+                        ->sum('order_cost','zon')
+                        ->from('schedule_order')
+                        ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+                        ->where('schedule_order.schedule_id','=',$data3[$j]['scheduling_id'])
+                        ->where('schedule_order.tenant_id', '=',$data3[$j]['tenant_id'])
+                        ->where('orders.pay_method','=',1)
+                        ->where('orders.tenant_id', '=',$data3[$j]['tenant_id']);
+                    $stmt = $selectStatement->execute();
+                    $data1 = $stmt->fetch();
+                    $data3[$j]['sum']=$data1['zon'];
                 }
 
             }
@@ -1396,6 +1462,17 @@ $app->get('/limitSchedules',function()use($app){
                     $data3[$j]['driver_name']=$data7['driver_name'];
                     $data3[$j]['platenumber']=$data7['plate_number'];
                     $data3[$j]['driver_phone']=$data7['driver_phone'];
+                    $selectStatement = $database->select()
+                        ->sum('order_cost','zon')
+                        ->from('schedule_order')
+                        ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+                        ->where('schedule_order.schedule_id','=',$data3[$j]['scheduling_id'])
+                        ->where('schedule_order.tenant_id', '=',$data3[$j]['tenant_id'])
+                        ->where('orders.pay_method','=',1)
+                        ->where('orders.tenant_id', '=',$data3[$j]['tenant_id']);
+                    $stmt = $selectStatement->execute();
+                    $data1 = $stmt->fetch();
+                    $data3[$j]['sum']=$data1['zon'];
                 }
             }
             echo json_encode(array('result'=>'0','desc'=>'','schedulings'=>$data3));
@@ -1440,6 +1517,17 @@ $app->get('/limitSchedules',function()use($app){
                     $data3[$j]['driver_name']=$data7['driver_name'];
                     $data3[$j]['platenumber']=$data7['plate_number'];
                     $data3[$j]['driver_phone']=$data7['driver_phone'];
+                    $selectStatement = $database->select()
+                        ->sum('order_cost','zon')
+                        ->from('schedule_order')
+                        ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+                        ->where('schedule_order.schedule_id','=',$data3[$j]['scheduling_id'])
+                        ->where('schedule_order.tenant_id', '=',$data3[$j]['tenant_id'])
+                        ->where('orders.pay_method','=',1)
+                        ->where('orders.tenant_id', '=',$data3[$j]['tenant_id']);
+                    $stmt = $selectStatement->execute();
+                    $data1 = $stmt->fetch();
+                    $data3[$j]['sum']=$data1['zon'];
                 }
             }
             echo json_encode(array('result'=>'0','desc'=>'','schedulings'=>$data3));
@@ -1887,67 +1975,7 @@ $app->get('/agredet',function()use($app){
         echo json_encode(array('result'=>'1','desc'=>'合同id为空'));
     }
 });
-//
-//
-//$app->get('/lorrys',function()use($app){
-//    $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
-//    $database=localhost();
-//    $tenant_id=$app->request->get('tenant-id');
-//    $page=$app->request->get('page');
-//    $perpage=$app->request->get('perpage');
-//    $array1=explode(',',$tenant_id);
-//    if($tenant_id!=null||$tenant_id!=""){
-//        $selectStament=$database->select()
-//            ->from('lorry')
-//            ->where('exist','=',0)
-//            ->whereIn('tenant_id',$array1);
-//        $stmt=$selectStament->execute();
-//        $data=$stmt->fetchAll();
-//        $num=count($data);
-//        $page=(int)$page-1;
-//        $selectStament=$database->select()
-//            ->from('lorry')
-//            ->where('exist','=',0)
-//            ->whereIn('tenant_id',$array1)
-//            ->limit((int)$perpage, (int)$perpage * (int)$page);
-//        $stmt=$selectStament->execute();
-//        $data2=$stmt->fetchAll();
-////        $data2= array_values(array_unset_tt($data2,'lorry_id'));
-//        if($data2!=null){
-//            for($x=0;$x<count($data2);$x++){
-//                $selectStament=$database->select()
-//                    ->from('app_lorry')
-//                    ->where('exist','=',0)
-//                    ->where('phone','=',$data2[$x]['driver_phone'])
-//                    ->where('plate_number','=',$data2[$x]['plate_number'])
-//                    ->where('name','=',$data2[$x]['driver_name']);
-//                $stmt=$selectStament->execute();
-//                $data3=$stmt->fetch();
-//                $data2[$x]['deadweight']=$data3['deadweight'];
-//                $selectStament=$database->select()
-//                    ->from('lorry_type')
-//                    ->where('lorry_type_id','=',$data3['type']);
-//                $stmt=$selectStament->execute();
-//                $data4=$stmt->fetch();
-//                $data2[$x]['typename']=$data4['lorry_type_name'];
-//                $data2[$x]['applorryid']=$data3['app_lorry_id'];
-//                $selectStament=$database->select()
-//                    ->from('lorry_length')
-//                    ->where('lorry_length_id','=',$data3['length']);
-//                $stmt=$selectStament->execute();
-//                $data5=$stmt->fetch();
-//                $data2[$x]['length']=$data5['lorry_length'];
-//            }
-//            echo json_encode(array('result'=>'0','desc'=>'','lorrys'=>$data2,'count'=>$num));
-//        }else{
-//            echo json_encode(array('result'=>'2','desc'=>'该公司尚未有合作车辆'));
-//        }
-//    }else{
-//        echo json_encode(array('result'=>'3','desc'=>'缺少租户id'));
-//    }
-//});
-//
+
 $app->get('/getLorrys',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
