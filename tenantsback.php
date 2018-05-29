@@ -1044,9 +1044,6 @@ $app->get('/getSchedules',function()use($app){
     if($time2==null||$time2==""){
         $time2=date('Y-m-d H:i:s',time()+1);
         $time2=$time2.' 23:59:59';
-    }else{
-        $time2=date('Y-m-d',$time2);
-        $time2=$time2.' 23:59:59';
     }
     if($tenant_id!=null||$tenant_id!=""){
         if($time1!=null||$time1!=''){
@@ -1302,9 +1299,6 @@ $app->get('/limitSchedules',function()use($app){
     date_default_timezone_set("PRC");
     if($time2==null||$time2==""){
         $time2=date('Y-m-d H:i:s',time());
-        $time2=$time2.' 23:59:59';
-    }else{
-        $time2=date('Y-m-d',$time2);
         $time2=$time2.' 23:59:59';
     }
     if($tenant_id!=null||$tenant_id!=""){
