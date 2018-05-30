@@ -2147,40 +2147,39 @@ $app->get('/limitLorrys',function()use($app){
         $data2=array();
         if((((int)$curr*(int)$perpage)+(int)$perpage)<=count($data6)){
             for($i=(int)$curr*(int)$perpage;$i<(int)$curr*(int)$perpage+(int)$perpage;$i++){
-                array_push($data2,array_values($data6[$i]));
+                array_push($data2,$data6[$i]);
             }
         }else{
             for($j=(int)$curr*(int)$perpage;$j<count($data6);$j++){
-                array_push($data2,array_values($data6[$j]));
+                array_push($data2,$data6[$j]);
             }
         }
-
-//        if($data2!=null){
-//            for($x=0;$x<count($data2);$x++){
-//                $selectStament=$database->select()
-//                    ->from('app_lorry')
-//                    ->where('exist','=',0)
-//                    ->where('phone','=',$data2[$x]['driver_phone'])
-//                    ->where('plate_number','=',$data2[$x]['plate_number'])
-//                    ->where('name','=',$data2[$x]['driver_name']);
-//                $stmt=$selectStament->execute();
-//                $data3=$stmt->fetch();
-//                $data2[$x]['deadweight']=$data3['deadweight'];
-//                $selectStament=$database->select()
-//                    ->from('lorry_type')
-//                    ->where('lorry_type_id','=',$data3['type']);
-//                $stmt=$selectStament->execute();
-//                $data4=$stmt->fetch();
-//                $data2[$x]['typename']=$data4['lorry_type_name'];
-//                $data2[$x]['applorryid']=$data3['app_lorry_id'];
-//                $selectStament=$database->select()
-//                    ->from('lorry_length')
-//                    ->where('lorry_length_id','=',$data3['length']);
-//                $stmt=$selectStament->execute();
-//                $data5=$stmt->fetch();
-//                $data2[$x]['length']=$data5['lorry_length'];
-//            }
-//        }
+        if($data2!=null){
+            for($x=0;$x<count($data2);$x++){
+                $selectStament=$database->select()
+                    ->from('app_lorry')
+                    ->where('exist','=',0)
+                    ->where('phone','=',$data2[$x]['driver_phone'])
+                    ->where('plate_number','=',$data2[$x]['plate_number'])
+                    ->where('name','=',$data2[$x]['driver_name']);
+                $stmt=$selectStament->execute();
+                $data3=$stmt->fetch();
+                $data2[$x]['deadweight']=$data3['deadweight'];
+                $selectStament=$database->select()
+                    ->from('lorry_type')
+                    ->where('lorry_type_id','=',$data3['type']);
+                $stmt=$selectStament->execute();
+                $data4=$stmt->fetch();
+                $data2[$x]['typename']=$data4['lorry_type_name'];
+                $data2[$x]['applorryid']=$data3['app_lorry_id'];
+                $selectStament=$database->select()
+                    ->from('lorry_length')
+                    ->where('lorry_length_id','=',$data3['length']);
+                $stmt=$selectStament->execute();
+                $data5=$stmt->fetch();
+                $data2[$x]['length']=$data5['lorry_length'];
+            }
+        }
        echo json_encode(array('result'=>'0','desc'=>'','lorrys'=>$data2));
     }
 });
