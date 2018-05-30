@@ -2097,7 +2097,7 @@ $app->get('/limitLorrys',function()use($app){
             ->orderBy('id','DESC');
         $stmt=$selectStament->execute();
         $data2=$stmt->fetchAll();
-//        $data2= array_values(array_unset_tt($data2,'driver_phone'));
+        $data2= array_values(array_unset_tt($data2,'driver_phone'));
         if($data2!=null){
             for($x=0;$x<count($data2);$x++){
                 $selectStament=$database->select()
@@ -2182,7 +2182,7 @@ $app->get('/limitLorrys',function()use($app){
 //                $data2[$x]['length']=$data5['lorry_length'];
 //            }
 //        }
-        echo json_encode(array('result'=>'0','desc'=>'','lorrys'=>$data2,'lorryname'=>$data2[0]['driver_phone']));
+        echo json_encode(array('result'=>'0','desc'=>'','lorrys'=>$data2,'lorry1'=>$data6));
     }
 });
 
