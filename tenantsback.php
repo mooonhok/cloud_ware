@@ -2139,7 +2139,7 @@ $app->get('/limitLorrys',function()use($app){
         $selectStament=$database->select()
             ->from('lorry')
             ->where('exist','=',0)
-            ->whereIn('tenant_id',$tenant_id)
+            ->whereIn('tenant_id',$array1)
             ->orderBy('id','DESC');
         $stmt=$selectStament->execute();
         $data6=$stmt->fetchAll();
