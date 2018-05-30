@@ -796,66 +796,7 @@ $app->get('/orderGoodsCity',function()use($app){
             ->where('orders.is_schedule','=',0);
         $stmt = $selectStatement->execute();
         $data= $stmt->fetchAll();
-        $selectStatement = $database->select()
-            ->from('orders')
-            ->where('orders.tenant_id','=',$tenant_id)
-            ->where('orders.exist','=',0)
-            ->where('orders.order_status','=',1)
-            ->whereNull('orders.exception_id')
-            ->where('orders.inventory_type','=',$inventory_type)
-            ->where('orders.is_back','=',0)
-            ->where('orders.is_schedule','=',1);
-        $stmt = $selectStatement->execute();
-        $dataa = $stmt->fetchAll();
-        for($i=0;$i<count($dataa);$i++){
-            $selectStatement = $database->select()
-                ->from('schedule_order')
-                ->where('tenant_id','=',$tenant_id)
-                ->where('exist','=',1)
-                ->where('order_id','=',$dataa[$i]['order_id']);
-            $stmt = $selectStatement->execute();
-            $datab= $stmt->fetch();
-            if($datab){
-                $selectStatement = $database->select()
-                    ->from('orders')
-                    ->join('goods','goods.order_id','=','orders.order_id','INNER')
-                    ->where('goods.tenant_id','=',$tenant_id)
-                    ->where('orders.tenant_id','=',$tenant_id)
-                    ->where('orders.exist','=',0)
-                    ->where('orders.order_status','=',1)
-                    ->whereNull('orders.exception_id')
-                    ->where('orders.inventory_type','=',$inventory_type)
-                    ->where('orders.is_back','=',0)
-                    ->where('orders.order_id','=',$dataa[$i]['order_id']);
-                $stmt = $selectStatement->execute();
-                $datac= $stmt->fetch();
-                array_push($data,$datac);
-            }else{
-                $selectStatement = $database->select()
-                    ->from('schedule_order')
-                    ->where('tenant_id','=',$tenant_id)
-                    ->where('exist','=',0)
-                    ->where('order_id','=',$dataa[$i]['order_id']);
-                $stmt = $selectStatement->execute();
-                $datab= $stmt->fetch();
-                if(!$datab){
-                    $selectStatement = $database->select()
-                        ->from('orders')
-                        ->join('goods','goods.order_id','=','orders.order_id','INNER')
-                        ->where('goods.tenant_id','=',$tenant_id)
-                        ->where('orders.tenant_id','=',$tenant_id)
-                        ->where('orders.exist','=',0)
-                        ->where('orders.order_status','=',1)
-                        ->whereNull('orders.exception_id')
-                        ->where('orders.inventory_type','=',$inventory_type)
-                        ->where('orders.is_back','=',0)
-                        ->where('orders.order_id','=',$dataa[$i]['order_id']);
-                    $stmt = $selectStatement->execute();
-                    $datac= $stmt->fetch();
-                    array_push($data,$datac);
-                }
-            }
-        }
+
         for($i=0;$i<count($data);$i++){
             $selectStatement = $database->select()
                 ->from('customer')
@@ -1181,10 +1122,55 @@ $app->post('/onRoadScheduling',function()use($app){
     }else{
         echo json_encode(array('result'=>'1','desc'=>'请司机在交付帮手上确认'));
     }
-
-
 });
 
+$app->put('/orderIsSchedule',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database=localhost();
+    $selectStatement = $database->select()
+        ->from('orders')
+        ->where('orders.tenant_id','=',$tenant_id)
+        ->where('orders.exist','=',0)
+        ->where('orders.order_status','=',1)
+        ->whereNull('orders.exception_id')
+        ->where('orders.is_back','=',0)
+        ->where('orders.is_schedule','=',1);
+    $stmt = $selectStatement->execute();
+    $dataa = $stmt->fetchAll();
+    for($i=0;$i<count($dataa);$i++){
+        $selectStatement = $database->select()
+            ->from('schedule_order')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('exist','=',1)
+            ->where('order_id','=',$dataa[$i]['order_id']);
+        $stmt = $selectStatement->execute();
+        $datab= $stmt->fetch();
+        if($datab){
+            $updateStatement = $database->update(array("is_schedule" => 0))
+                ->table('orders')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('order_id','=',$dataa[$i]['order_id']);
+            $affectedRows = $updateStatement->execute();
+        }else{
+            $selectStatement = $database->select()
+                ->from('schedule_order')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('exist','=',0)
+                ->where('order_id','=',$dataa[$i]['order_id']);
+            $stmt = $selectStatement->execute();
+            $datab= $stmt->fetch();
+            if(!$datab){
+                $updateStatement = $database->update(array("is_schedule" => 0))
+                    ->table('orders')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->whereIn('order_id','=',$dataa[$i]['order_id']);
+                $affectedRows = $updateStatement->execute();
+            }
+        }
+    }
+});
 
 $app->run();
 
