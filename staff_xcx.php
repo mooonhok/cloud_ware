@@ -1098,19 +1098,31 @@ $app->post('/onRoadScheduling',function()use($app){
     foreach ($order_ids as $key => $value) {
         $array1[$key] = $value;
     }
-    date_default_timezone_set("PRC");
-    $shijian=date("Y-m-d H:i:s",time());
-    $updateStatement = $database->update(array("scheduling_datetime"=>$shijian,"scheduling_status"=>4,"exist"=>0,"is_show"=>1,"is_alter"=>0,"is_load"=>1,"is_contract"=>1,"is_insurance"=>1,"is_scan"=>0))
-        ->table('scheduling')
-        ->where('tenant_id','=',$tenant_id)
-        ->where('scheduling_id','=',$scheduling_id);
-    $affectedRows = $updateStatement->execute();
-        $updateStatement = $database->update(array("is_schedule" => 2,'order_status'=>3,'order_datetime3'=>$shijian))
+    $selectStatement = $database->select()
+        ->from('scheduling')
+        ->where('scheduling_id','=',$scheduling_id)
+        ->where('tenant_id','=',$tenant_id);
+    $stmt = $selectStatement->execute();
+    $data= $stmt->fetch();
+    if($data['scheduling_status']==2){
+        date_default_timezone_set("PRC");
+        $shijian=date("Y-m-d H:i:s",time());
+        $updateStatement = $database->update(array("scheduling_datetime"=>$shijian,"scheduling_status"=>4,"exist"=>0,"is_show"=>1,"is_alter"=>0,"is_load"=>1,"is_contract"=>1,"is_insurance"=>1,"is_scan"=>0))
+            ->table('scheduling')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('scheduling_id','=',$scheduling_id);
+        $affectedRows = $updateStatement->execute();
+        $updateStatement = $database->update(array("is_schedule" => 2,'order_status'=>3,'order_datetime3'=>$shijian,'order_datetime2'=>$shijian))
             ->table('orders')
             ->where('tenant_id', '=', $tenant_id)
             ->whereIn('order_id', array_values($array1));
         $affectedRows = $updateStatement->execute();
-    echo json_encode(array('result'=>'0','desc'=>'success'));
+        echo json_encode(array('result'=>'0','desc'=>'success'));
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'请司机在交付帮手上确认'));
+    }
+
+
 });
 
 
