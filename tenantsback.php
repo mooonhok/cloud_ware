@@ -2147,11 +2147,13 @@ $app->get('/limitLorrys',function()use($app){
         $data2=array();
         if((int)$curr*(int)$perpage+$perpage<=count($data6)){
             for($i=(int)$curr*(int)$perpage;$i<(int)$curr*(int)$perpage+$perpage;$i++){
+                echo json_encode($data6[$i]);
                 array_push($data2,array_values($data6[$i]));
             }
         }else{
             for($j=(int)$curr*(int)$perpage;$j<count($data6);$j++){
                 array_push($data2,array_values($data6[$j]));
+                echo json_encode($data6[$j]);
             }
         }
 
@@ -2181,7 +2183,7 @@ $app->get('/limitLorrys',function()use($app){
 //                $data2[$x]['length']=$data5['lorry_length'];
 //            }
 //        }
-        echo json_encode(array('result'=>'0','desc'=>'','lorrys'=>$data2,'lorry1'=>$data6));
+//        echo json_encode(array('result'=>'0','desc'=>'','lorrys'=>$data2,'lorry1'=>$data6));
     }
 });
 
