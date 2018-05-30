@@ -2135,7 +2135,7 @@ $app->get('/limitLorrys',function()use($app){
         for($j=0;$j<count($data);$j++){
             array_push($array1,$data[$j]['tenant_id']);
         }
-        $data2=array();
+
         $selectStament=$database->select()
             ->from('lorry')
             ->where('exist','=',0)
@@ -2144,13 +2144,14 @@ $app->get('/limitLorrys',function()use($app){
         $stmt=$selectStament->execute();
         $data6=$stmt->fetchAll();
         $data6= array_values(array_unset_tt($data6,'driver_phone'));
+        $data2=array();
         if((int)$curr*(int)$perpage+$perpage<=count($data6)){
             for($i=(int)$curr*(int)$perpage;$i<(int)$curr*(int)$perpage+$perpage;$i++){
-                array_push($data2,$data6[$i]);
+                array_push($data2,array_values($data6[$i]));
             }
         }else{
             for($j=(int)$curr*(int)$perpage;$j<count($data6);$j++){
-                array_push($data2,$data6[$j]);
+                array_push($data2,array_values($data6[$j]));
             }
         }
 
