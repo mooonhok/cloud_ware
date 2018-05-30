@@ -2093,8 +2093,8 @@ $app->get('/limitLorrys',function()use($app){
             ->from('lorry')
             ->where('exist','=',0)
             ->where('tenant_id','=',$tenant_id)
-            ->limit((int)$perpage, (int)$perpage * (int)$curr)
-            ->orderBy('id','DESC');
+            ->orderBy('id','DESC')
+            ->limit((int)$perpage, (int)$perpage * (int)$curr);
         $stmt=$selectStament->execute();
         $data2=$stmt->fetchAll();
         if($data2!=null){
