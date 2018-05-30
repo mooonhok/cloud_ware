@@ -809,7 +809,7 @@ $app->get('/orderGoodsCity',function()use($app){
         $dataa = $stmt->fetchAll();
         for($i=0;$i<count($dataa);$i++){
             $selectStatement = $database->select()
-                ->from('shedule_order')
+                ->from('schedule_order')
                 ->where('tenant_id','=',$tenant_id)
                 ->where('exist','=',0)
                 ->where('order_id','=',$dataa[$i]['order_id']);
