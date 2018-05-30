@@ -2143,8 +2143,8 @@ $app->get('/limitLorrys',function()use($app){
             ->orderBy('id','DESC');
         $stmt=$selectStament->execute();
         $data6=$stmt->fetchAll();
-//        $data6= array_values(array_unset_tt($data6,'driver_phone'));
-        if((int)$curr*(int)$perpage+$perpage<count($data6)){
+        $data6= array_values(array_unset_tt($data6,'driver_phone'));
+        if((int)$curr*(int)$perpage+$perpage<=count($data6)){
             for($i=(int)$curr*(int)$perpage;$i<(int)$curr*(int)$perpage+$perpage;$i++){
                 array_push($data2,$data6[$i]);
             }
