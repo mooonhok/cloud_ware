@@ -2145,10 +2145,9 @@ $app->get('/limitLorrys',function()use($app){
         $data6=$stmt->fetchAll();
         $data6= array_values(array_unset_tt($data6,'driver_phone'));
         $data2=array();
-        echo (int)$curr*(int)$perpage+$perpage;
-        if((int)$curr*(int)$perpage+$perpage<=count($data6)){
-            echo (int)$curr*(int)$perpage+$perpage<=count($data6);
-            for($i=(int)$curr*(int)$perpage;$i<(int)$curr*(int)$perpage+$perpage;$i++){
+        echo (int)$curr*(int)$perpage+(int)$perpage;
+        if((int)$curr*(int)$perpage+(int)$perpage<=count($data6)){
+            for($i=(int)$curr*(int)$perpage;$i<(int)$curr*(int)$perpage+(int)$perpage;$i++){
                 array_push($data2,array_values($data6[$i]));
             }
         }else{
