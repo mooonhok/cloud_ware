@@ -811,7 +811,7 @@ $app->get('/orderGoodsCity',function()use($app){
             $selectStatement = $database->select()
                 ->from('schedule_order')
                 ->where('tenant_id','=',$tenant_id)
-                ->where('exist','=',0)
+                ->where('exist','=',1)
                 ->where('order_id','=',$dataa[$i]['order_id']);
             $stmt = $selectStatement->execute();
             $datab= $stmt->fetch();
@@ -830,6 +830,30 @@ $app->get('/orderGoodsCity',function()use($app){
                 $stmt = $selectStatement->execute();
                 $datac= $stmt->fetch();
                 array_push($data,$datac);
+            }else{
+                $selectStatement = $database->select()
+                    ->from('schedule_order')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('exist','=',0)
+                    ->where('order_id','=',$dataa[$i]['order_id']);
+                $stmt = $selectStatement->execute();
+                $datab= $stmt->fetch();
+                if(!$datab){
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->join('goods','goods.order_id','=','orders.order_id','INNER')
+                        ->where('goods.tenant_id','=',$tenant_id)
+                        ->where('orders.tenant_id','=',$tenant_id)
+                        ->where('orders.exist','=',0)
+                        ->where('orders.order_status','=',1)
+                        ->whereNull('orders.exception_id')
+                        ->where('orders.inventory_type','=',$inventory_type)
+                        ->where('orders.is_back','=',0)
+                        ->where('orders.order_id','=',$dataa[$i]['order_id']);
+                    $stmt = $selectStatement->execute();
+                    $datac= $stmt->fetch();
+                    array_push($data,$datac);
+                }
             }
         }
         for($i=0;$i<count($data);$i++){
