@@ -70,6 +70,7 @@ $app->get('/gettenants',function()use($app){
                 ->where('admin_id','=',$admin_id);
             $stmt=$selectStament->execute();
             $data2=$stmt->fetchAll();
+            $os_url="";
             if($data2!=null){
             for($i=0;$i<count($data2);$i++){
                 $selectStament=$database->select()
@@ -79,8 +80,11 @@ $app->get('/gettenants',function()use($app){
                 $stmt=$selectStament->execute();
                 $data3=$stmt->fetch();
                 $data2[$i]['name']=$data3['company'];
+                if($data3['nature']==0){
+                    $os_url=$data3['os_url'];
+                }
             }
-                echo json_encode(array('result' => '0', 'desc' =>'','tenants'=>$data2));
+                echo json_encode(array('result' => '0', 'desc' =>'','tenants'=>$data2,'os_url'=>$os_url));
             }else{
                 echo json_encode(array('result' => '3', 'desc' =>'该管理账号下没有公司'));
             }
@@ -1833,12 +1837,6 @@ $app->get('/limitAgreements',function()use($app){
     }
 });
 
-
-
-
-
-//
-//
 ////查询运单具体信息
 $app->get('/agredet',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -2225,15 +2223,11 @@ function array_unset_tt($arr,$key){
     $res = array();
     foreach ($arr as $value) {
         //查看有没有重复项
-
         if(isset($res[$value[$key]])){
             //有：销毁
-
             unset($value[$key]);
-
         }
         else{
-
             $res[$value[$key]] = $value;
         }
     }
