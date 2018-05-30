@@ -2090,12 +2090,11 @@ $app->get('/limitLorrys',function()use($app){
     $perpage=$app->request->get('perpage');
     if($tenant_id!=null||$tenant_id!=""){
         $selectStament=$database->select()
-            ->from('app_lorry')
-            ->join('lorry', 'lorry.driver_phone', '=', 'app_lorry.phone', 'INNER')
-            ->where('lorry.exist','=',0)
-            ->where('lorry.tenant_id','=',$tenant_id)
+            ->from('lorry')
+            ->where('exist','=',0)
+            ->where('tenant_id','=',$tenant_id)
             ->limit((int)$perpage, (int)$perpage * (int)$curr)
-            ->orderBy('lorry.id','DESC');
+            ->orderBy('id','DESC');
         $stmt=$selectStament->execute();
         $data2=$stmt->fetchAll();
 //        $data2= array_values(array_unset_tt($data2,'driver_phone'));
@@ -2137,24 +2136,25 @@ $app->get('/limitLorrys',function()use($app){
         for($j=0;$j<count($data);$j++){
             array_push($array1,$data[$j]['tenant_id']);
         }
-        $selectStament=$database->select()
-            ->from('app_lorry');
-        $stmt=$selectStament->execute();
-        $data7=$stmt->fetchAll();
         $data2=array();
-        for($i=0;$i<count($data7);$i++){
-            $selectStament=$database->select()
-                ->from('lorry')
-                ->where('exist','=',0)
-                ->where('driver_phone','=',$data7[$i]['phone'])
-                ->whereIn('tenant_id',$array1)
-                ->limit(1);
-            $stmt=$selectStament->execute();
-            $data6=$stmt->fetch();
-            if($data6!=null){
-            array_push($data2,$data6);
-            }
-        }
+        $selectStament=$database->select()
+            ->from('lorry')
+            ->where('exist','=',0)
+            ->whereIn('tenant_id',$tenant_id)
+//            ->limit((int)$perpage, (int)$perpage * (int)$curr)
+            ->orderBy('id','DESC');
+        $stmt=$selectStament->execute();
+        $data6=$stmt->fetchAll();
+        $data6= array_values(array_unset_tt($data6,'driver_phone'));
+                if((int)$curr*(int)$perpage+$perpage<count($data6)){
+                    for($i=(int)$curr*(int)$perpage;$i<(int)$curr*(int)$perpage+$perpage;$i++){
+                    array_push($data2,$data6[$i]);
+                    }
+                }else{
+                    for($j=(int)$curr*(int)$perpage;$j<count($data6);$j++){
+                        array_push($data2,$data6[$j]);
+                    }
+                }
 
 //        if($data2!=null){
 //            for($x=0;$x<count($data2);$x++){
