@@ -1165,7 +1165,7 @@ $app->put('/orderIsSchedule',function()use($app){
                 $updateStatement = $database->update(array("is_schedule" => 0))
                     ->table('orders')
                     ->where('tenant_id', '=', $tenant_id)
-                    ->whereIn('order_id','=',$dataa[$i]['order_id']);
+                    ->where('order_id','=',$dataa[$i]['order_id']);
                 $affectedRows = $updateStatement->execute();
             }
         }
