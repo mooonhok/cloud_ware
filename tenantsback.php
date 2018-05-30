@@ -2097,7 +2097,6 @@ $app->get('/limitLorrys',function()use($app){
             ->orderBy('id','DESC');
         $stmt=$selectStament->execute();
         $data2=$stmt->fetchAll();
-        $data2= array_values(array_unset_tt($data2,'driver_phone'));
         if($data2!=null){
             for($x=0;$x<count($data2);$x++){
                 $selectStament=$database->select()
@@ -2141,20 +2140,19 @@ $app->get('/limitLorrys',function()use($app){
             ->from('lorry')
             ->where('exist','=',0)
             ->whereIn('tenant_id',$tenant_id)
-//            ->limit((int)$perpage, (int)$perpage * (int)$curr)
             ->orderBy('id','DESC');
         $stmt=$selectStament->execute();
         $data6=$stmt->fetchAll();
-        $data6= array_values(array_unset_tt($data6,'driver_phone'));
-                if((int)$curr*(int)$perpage+$perpage<count($data6)){
-                    for($i=(int)$curr*(int)$perpage;$i<(int)$curr*(int)$perpage+$perpage;$i++){
-                    array_push($data2,$data6[$i]);
-                    }
-                }else{
-                    for($j=(int)$curr*(int)$perpage;$j<count($data6);$j++){
-                        array_push($data2,$data6[$j]);
-                    }
-                }
+//        $data6= array_values(array_unset_tt($data6,'driver_phone'));
+        if((int)$curr*(int)$perpage+$perpage<count($data6)){
+            for($i=(int)$curr*(int)$perpage;$i<(int)$curr*(int)$perpage+$perpage;$i++){
+                array_push($data2,$data6[$i]);
+            }
+        }else{
+            for($j=(int)$curr*(int)$perpage;$j<count($data6);$j++){
+                array_push($data2,$data6[$j]);
+            }
+        }
 
 //        if($data2!=null){
 //            for($x=0;$x<count($data2);$x++){
