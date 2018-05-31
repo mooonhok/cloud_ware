@@ -1958,9 +1958,8 @@ $app->get('/agredet',function()use($app){
                if($j==count($data5)-1){
                    $sum.=$data5[$j]['scheduling_id'];
                }else{
-                   $sum.=$data5[$j]['scheduling_id'].",";
+                   $sum.=$data5[$j]['scheduling_id']."、";
                }
-
                 $selectStament=$database->select()
                     ->from('schedule_order')
                     ->where('tenant_id','=',$data['tenant_id'])
