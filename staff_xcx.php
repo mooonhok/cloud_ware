@@ -1187,7 +1187,7 @@ $app->get('/insuranceSchedulings',function()use($app){
             ->where('scheduling.is_insurance','=',1)
             ->where('scheduling.exist','=',0)
             ->whereIn('scheduling.scheduling_status',array(1,2,3,4))
-            ->whereLike('lorry_id','%'.$lorry_id.'%');
+            ->whereLike('lorry.lorry_id','%'.$lorry_id.'%');
         $stmt = $selectStatement->execute();
         $data= $stmt->fetchAll();
         for($i=0;$i<count($data);$i++){
