@@ -1211,7 +1211,7 @@ $app->get('/insuranceSchedulings',function()use($app){
                 ->where('schedule_order.tenant_id','=',$tenant_id)
                 ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id']);
             $stmt = $selectStatement->execute();
-            $data3= $stmt->fetch();
+            $data3= $stmt->fetchAll();
             $data[$i]['send_city_name']=$data1['name'];
             $data[$i]['receive_city_name']=$data2['name'];
             $data[$i]['orders_goods']=$data3;
