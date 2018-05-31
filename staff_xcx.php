@@ -1199,8 +1199,20 @@ $app->get('/insuranceSchedulings',function()use($app){
                 ->where('id','=',$data[$i]['receive_city_id']);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('schedule_order')
+                ->sum('goods_value','goods_value_zon')
+                ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
+                ->join('goods','goods.order_id','=','schedule_order.order_id','INNER')
+                ->where('goods.tenant_id','=',$tenant_id)
+                ->where('orders.tenant_id','=',$tenant_id)
+                ->where('schedule_order.tenant_id','=',$tenant_id)
+                ->where('orders.order_id','=',$data[$i]['order_id']);
+            $stmt = $selectStatement->execute();
+            $data3= $stmt->fetch();
             $data[$i]['send_city_name']=$data1['name'];
             $data[$i]['receive_city_name']=$data2['name'];
+            $data[$i]['orders_goods']=$data3;
         }
         echo json_encode(array('result'=>'0','desc'=>'success','insuranceschedulings'=>$data));
     }else{
