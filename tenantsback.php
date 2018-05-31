@@ -47,11 +47,10 @@ $app->post('/sign',function()use($app){
     }
 });
 
-$app->options('/alterpw',function(Request $request,Response $response){
-    $response=$response->withAddedHeader('Access-Control-Allow-Origin','*');
-    $response=$response->withAddedHeader('Content-Type','application/json');
-    $response=$response->withAddedHeader("Access-Control-Allow-Methods", "PUT");
-    return $response;
+$app->options('/alterpw',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set("Access-Control-Allow-Methods", "PUT");
 });
 
 
