@@ -1929,7 +1929,12 @@ $app->get('/agredet',function()use($app){
                 ->where('id','=',$data2['customer_city_id']);
             $stmt=$selectStament->execute();
             $data3=$stmt->fetch();
-            $data['saddress']=$data3['name'].$data2['customer_address'];
+            $selectStament=$database->select()
+                ->from('province')
+                ->where('id','=',$data3['pid']);
+            $stmt=$selectStament->execute();
+            $data15=$stmt->fetch();
+            $data['saddress']=$data15['name'].$data3['name'].$data2['customer_address'];
             $data['scity']=$data3['name'];
             $selectStament=$database->select()
                 ->from('lorry')
