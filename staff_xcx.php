@@ -1211,10 +1211,21 @@ $app->get('/insuranceSchedulings',function()use($app){
                 ->where('schedule_order.tenant_id','=',$tenant_id)
                 ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id']);
             $stmt = $selectStatement->execute();
-            $data3= $stmt->fetch();
+            $data4= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('schedule_order')
+                ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
+                ->join('goods','goods.order_id','=','schedule_order.order_id','INNER')
+                ->where('goods.tenant_id','=',$tenant_id)
+                ->where('orders.tenant_id','=',$tenant_id)
+                ->where('schedule_order.tenant_id','=',$tenant_id)
+                ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id']);
+            $stmt = $selectStatement->execute();
+            $data3= $stmt->fetchAll();
             $data[$i]['send_city_name']=$data1['name'];
             $data[$i]['receive_city_name']=$data2['name'];
             $data[$i]['orders_goods']=$data3;
+            $data[$i]['goods_value_zon']=$data4['goods_value_zon'];
         }
         echo json_encode(array('result'=>'0','desc'=>'success','insuranceschedulings'=>$data));
     }else{
