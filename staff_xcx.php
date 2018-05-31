@@ -1172,6 +1172,42 @@ $app->put('/orderIsSchedule',function()use($app){
     }
 });
 
+$app->get('/insuranceSchedulings',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database=localhost();
+    if($tenant_id!=''||$tenant_id==null){
+        $selectStatement = $database->select()
+            ->from('scheduling')
+            ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
+            ->where('scheduling.tenant_id','=',$tenant_id)
+            ->where('lorry.tenant_id','=',$tenant_id)
+            ->where('scheduling.is_insurance','=',1)
+            ->where('scheduling.exist','=',0)
+            ->whereIn('scheduling.scheduling_status',array(1,2,3,4));
+        $stmt = $selectStatement->execute();
+        $data= $stmt->fetchAll();
+        for($i=0;$i<count($data);$i++){
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data[$i]['send_city_id']);
+            $stmt = $selectStatement->execute();
+            $data1= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data[$i]['receive_city_id']);
+            $stmt = $selectStatement->execute();
+            $data2= $stmt->fetch();
+            $data[$i]['send_city_name']=$data1['name'];
+            $data[$i]['receive_city_name']=$data2['name'];
+        }
+        echo json_encode(array('result'=>'0','desc'=>'success','insuranceschedulings'=>$data));
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
+    }
+});
+
 $app->run();
 
 function localhost(){
