@@ -600,7 +600,7 @@ $app->get('/tenantLorry',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database=localhost();
-    if($tenant_id!=''||$tenant_id==null){
+    if($tenant_id!=''||$tenant_id!=null){
         $selectStatement = $database->select()
             ->from('lorry')
             ->where('flag','=',0)
@@ -1177,7 +1177,7 @@ $app->get('/insuranceSchedulings',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database=localhost();
-    if($tenant_id!=''||$tenant_id==null){
+    if($tenant_id!=''||$tenant_id!=null){
         $selectStatement = $database->select()
             ->from('scheduling')
             ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
@@ -1218,6 +1218,23 @@ $app->get('/insuranceSchedulings',function()use($app){
     }else{
         echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
     }
+});
+
+$app->put('/changeIsInsurance',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $scheduling_id=$body->scheduling_id;
+    $is_insurance=$body->is_insurance;
+        $updateStatement = $database->update(array("is_insurance" => $is_insurance))
+            ->table('scheduling')
+            ->where('tenant_id', '=', $tenant_id)
+            ->where('exist','=',0)
+            ->where('scheduling_id','=',$scheduling_id);
+        $affectedRows = $updateStatement->execute();
 });
 
 $app->run();
