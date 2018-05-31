@@ -1176,6 +1176,7 @@ $app->get('/insuranceSchedulings',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
+    $lorry_id = $app->request->get("lorry_id");
     $database=localhost();
     if($tenant_id!=''||$tenant_id!=null){
         $selectStatement = $database->select()
@@ -1185,7 +1186,8 @@ $app->get('/insuranceSchedulings',function()use($app){
             ->where('lorry.tenant_id','=',$tenant_id)
             ->where('scheduling.is_insurance','=',1)
             ->where('scheduling.exist','=',0)
-            ->whereIn('scheduling.scheduling_status',array(1,2,3,4));
+            ->whereIn('scheduling.scheduling_status',array(1,2,3,4))
+            ->whereLike('lorry_id','%'.$lorry_id.'%');
         $stmt = $selectStatement->execute();
         $data= $stmt->fetchAll();
         for($i=0;$i<count($data);$i++){
