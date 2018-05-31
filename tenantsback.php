@@ -71,7 +71,7 @@ $app->put('/alterpw',function()use($app){
     $password3=null;
     $str2=str_split($password2,3);
     for ($x=0;$x<count($str2);$x++){
-        $password3.=$str1[$x].$x;
+        $password3.=$str2[$x].$x;
     }
     if($id!=null||$id!=""){
         $selectStament=$database->select()
@@ -89,7 +89,7 @@ $app->put('/alterpw',function()use($app){
                     ->table('admin')
                     ->where('id','=',$id);
                 $affectedRows = $updateStatement->execute();
-                echo json_encode(array('result' => '0', 'desc' => '登录成功'));
+                echo json_encode(array('result' => '0', 'desc' => '修改密码成功'));
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '旧密码错误'));
             }
