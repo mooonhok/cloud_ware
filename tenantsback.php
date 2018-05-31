@@ -47,6 +47,63 @@ $app->post('/sign',function()use($app){
     }
 });
 
+$app->options('/alterpw',function(Request $request,Response $response){
+    $response=$response->withAddedHeader('Access-Control-Allow-Origin','*');
+    $response=$response->withAddedHeader('Content-Type','application/json');
+    $response=$response->withAddedHeader("Access-Control-Allow-Methods", "PUT");
+    return $response;
+});
+
+
+$app->put('/alterpw',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database = localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $id=$body->id;
+    $password1=$body->password1;
+    $str1=str_split($password1,3);
+    $password=null;
+    for ($x=0;$x<count($str1);$x++){
+        $password.=$str1[$x].$x;
+    }
+    $password2=$body->password2;
+    $password3=null;
+    $str2=str_split($password2,3);
+    for ($x=0;$x<count($str2);$x++){
+        $password3.=$str1[$x].$x;
+    }
+    if($id!=null||$id!=""){
+        $selectStament=$database->select()
+            ->from('admin')
+            ->where('exist','=',0)
+            ->where('type','=','3')
+            ->where('id','=',$id);
+        $stmt=$selectStament->execute();
+        $data=$stmt->fetch();
+        if($data!=null){
+            if($data['password']==$password){
+                $array=array();
+                $array['password']=$password3;
+                $updateStatement = $database->update($array)
+                    ->table('admin')
+                    ->where('id','=',$id);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array('result' => '0', 'desc' => '登录成功'));
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '旧密码错误'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '用户不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => 'id为空'));
+    }
+});
+
+
+
 
 
 //获取管理员下租户列表
