@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>登录</title>
+		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="css/login.css" />
+		<link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+	</head>
+	<body class="beg-login-bg">
+		<div class="beg-login-box">
+			<header>
+				<h1>后台登录</h1>
+			</header>
+			<div class="beg-login-main">
+				<div class="layui-form-item">
+					<label class="beg-login-icon">
+						<i class="fa fa-user"></i>
+					</label>
+					<input type="text" class="layui-input" id="name" autocomplete="off" placeholder="这里输入用户名" value="jswsx">
+				</div>
+				<div class="layui-form-item">
+					<label class="beg-login-icon">
+						<i class="fa fa-pencil"></i>
+					</label>
+					<input type="password" class="layui-input" id="password" autocomplete="off" placeholder="这里输入密码" value="123456">
+				</div>
+				<div class="layui-form-item">
+					<div class="beg-pull-right">
+						<button class="layui-btn layui-btn-primary" id="login">
+							<i class="fa fa-smile-o"></i> 登录
+						</button>
+					</div>
+				</div>
+			</div>
+			<footer>
+				<p>Copyright © 2018 www.uminfo.cn</p>
+			</footer>
+		</div>
+		<script type="text/javascript" src="plugins/layui/layui.js"></script>
+		<script>
+			var url="http://api.uminfo.cn/";
+			
+			layui.use(['layer'], function(){
+				var layer=layui.layer,
+					$=layui.jquery;
+				$('#login').on('click',function(){
+					var name=$("#name").val();
+					var password=$("#password").val();
+					if(name==""){
+						layer.msg('请输入用户名！');
+					}else if(password==""){
+						layer.msg('请输入密码！');
+					}else{
+						$.ajax({
+							url:url+"tenantsback.php/sign",
+							dataType:'json',
+							type:'post',
+							ContentType:"application/json;charset=utf-8",
+							data:JSON.stringify({
+								name:name,
+								password:password,
+								type:1
+							}),
+							success:function(msg){
+								if(msg.result==0){
+									sessionStorage.setItem('admin_id',msg.admin);
+									sessionStorage.setItem('admin_name',name);
+									window.location.href='index.html';
+								}else{
+									layer.msg("用户名或密码不正确！");
+								}
+							},
+							error:function(xhr){
+								layer.msg("获取后台失败！");
+							}
+						});
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

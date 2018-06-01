@@ -1,0 +1,63 @@
+.beg-login-bg {
+	background: #393d49;
+}
+.beg-login-box {
+	width: 450px;
+	height: 300px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-top: -150px;
+	margin-left: -225px;
+	background: rgba(255, 255, 255, 0.407843);
+	color: aliceblue;
+	border-radius: 10px;
+}
+header {
+	height: 39px;
+	padding: 10px;
+	border-bottom: 1px solid aliceblue;
+}
+header h1 {
+	font-size: 25px;
+	line-height: 40px;
+	text-align: center;
+}
+.beg-login-main {
+	height: 165px;
+	padding: 30px 90px 0;
+}
+.layui-form-item {
+	position: relative;
+}
+.beg-login-icon {
+	position: absolute;
+	top: 9px;
+	left: 11px;
+	color: #777777;
+}
+.beg-login-icon i{
+	font-size:20px;
+}
+.layui-form-item input {
+	font-size:15px;
+	padding-left: 36px;
+}
+.layui-form-item button {
+	font-size:16px;
+}
+.layui-form-item button i{
+	font-size:22px;
+	vertical-align:middle;
+	margin:-1px 1px 0 0;
+}
+.beg-pull-right {
+	float: right !important;
+}
+footer {
+	height: 45px;
+}
+footer p {
+	line-height: 45px;
+	text-align: center;
+}

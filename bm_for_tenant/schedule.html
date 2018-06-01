@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>后台管理<</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="css/global.css" media="all">
+	</head>
+	<body>
+		<div style="margin: 15px;">
+			<blockquote class="layui-elem-quote">
+				<div class="div-inline">
+					<label class="div-label">公司：</label>
+					<div class="div-input-inline">
+						<select id="tenant-select">
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>
+				<div class="div-inline">
+					<label class="div-label">开始时间：</label>
+					<div class="div-input-inline">
+						<input type="text" class="layui-input" id="time1-input" placeholder="yyyy-mm-dd" autocomplete="off" onclick="layui.laydate({elem: this})">
+					</div>
+				</div>
+				<div class="div-inline">
+					<label class="div-label">结束时间：</label>
+					<div class="div-input-inline">
+						<input type="text" class="layui-input" id="time2-input" placeholder="yyyy-mm-dd" autocomplete="off" onclick="layui.laydate({elem: this})">
+					</div>
+				</div>
+				<div class="div-inline">
+					<div class="div-input-inline">
+						<button class="layui-btn" id="search-input" onclick="search_input()">搜索</button>
+					</div>
+				</div>
+			</blockquote>
+			<fieldset class="layui-elem-field">
+				<legend>清单信息</legend>
+				<div class="layui-field-box">
+					<table class="site-table">
+						<thead>
+							<tr>
+								<th>清单号</th>
+								<th>清单发货人</th>
+								<th>到站</th>
+								<th>车牌号</th>
+								<th>驾驶员</th>
+								<th>联系电话</th>
+								<th>清单状态</th>
+								<th>到付总金额</th>
+								<th>发车时间</th>
+							</tr>
+						</thead>
+						<!--内容容器-->
+						<tbody id="info-table">
+						</tbody>
+					</table>
+					<!--分页容器-->
+					<div id="info-page"></div>
+					<div class="statistics-div">
+						<div class="statistics-left">
+							<span class="data-circle" style="background:#f7b824">总</span><span class="data-figure" id="schedule_num0">0</span><span class="data-unit">单</span>
+						</div>
+						<div class="statistics-right">
+							<span class="data-oval" style="background:#ff5722">到付总金额</span><span class="data-figure" id="schedule_sum0">0</span><span>元</span>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+		<script type="text/javascript" src="plugins/layui/layui.js"></script>
+		<script>
+			var url="http://api.uminfo.cn/";
+			
+			layui.use(['layer','laydate'],function(){
+				var $=layui.jquery,
+					layer=layui.layer,
+					laydate=layui.laydate;
+				$.ajax({
+					url:url+"tenantsback.php/gettenants?adminid="+sessionStorage.getItem('admin_id'),
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						if(msg.result==0){
+							for(var i=0;i<msg.tenants.length;i++){
+								$("#tenant-select").append("<option value="+msg.tenants[i].tenant_id+">"+msg.tenants[i].name+"</option>");
+							}
+						}else{
+							layer.msg(msg.desc);
+						}
+					},
+					error:function(xhr){
+						layer.msg("获取后台失败！");
+					}
+				});
+				loadInfo(sessionStorage.getItem('admin_id'),"","","");
+			});
+			
+			function loadInfo(admin_id,tenant_id,time1,time2){
+				layui.use(['layer','laypage'],function(){
+					var $=layui.jquery,
+						layer=layui.layer,
+						laypage=layui.laypage;
+					var index=layer.load(2);
+					$.ajax({
+						url:url+"tenantsback.php/getSchedules?admin_id="+admin_id+"&tenant_id="+tenant_id+"&time1="+time1+"&time2="+time2,
+						dataType:'json',
+						type:'get',
+						ContentType:"application/json;charset=utf-8",
+						data:JSON.stringify({
+						}),
+						success:function(msg){
+							var schedule_sum0=0;
+							for(var i=0;i<msg.schedulings.length;i++){
+								if(msg.schedulings[i].sum!=0&&msg.schedulings[i].sum!=null){
+									schedule_sum0+=parseFloat(msg.schedulings[i].sum);
+								}
+							}
+							$("#schedule_num0").text(msg.schedulings.length);
+							$("#schedule_sum0").text(schedule_sum0);
+							laypage({
+								cont:'info-page',
+								pages:Math.ceil(msg.schedulings.length/14),  //总页数
+								curr:1,
+								groups:5,
+								skip:true,
+								jump:function(obj,first){
+									var curr=obj.curr;  //当前页
+									$.ajax({
+										url:url+"tenantsback.php/limitSchedules?admin_id="+admin_id+"&tenant_id="+tenant_id+"&time1="+time1+"&time2="+time2+"&curr="+curr+"&perpage=14",
+										dataType:'json',
+										type:'get',
+										ContentType:"application/json;charset=utf-8",
+										data:JSON.stringify({}),
+										success:function(msg){
+											$("#info-table").empty();
+											var tbody="";
+											for(var i=0;i<msg.schedulings.length;i++){
+												tbody+="<tr>";
+												tbody+="<td>"+msg.schedulings[i].scheduling_id+"</td>";
+												tbody+="<td>"+msg.schedulings[i].receivername+"</td>";
+												tbody+="<td>"+msg.schedulings[i].receivercity+"</td>";
+												tbody+="<td>"+msg.schedulings[i].platenumber+"</td>";
+												tbody+="<td>"+msg.schedulings[i].driver_name+"</td>";
+												tbody+="<td>"+msg.schedulings[i].driver_phone+"</td>";
+												if(msg.schedulings[i].scheduling_status==1){
+													tbody+="<td>已生成清单</td>";
+												}else if(msg.schedulings[i].scheduling_status==2){
+													tbody+="<td>司机已接单</td>";
+												}else if(msg.schedulings[i].scheduling_status==3){
+													tbody+="<td>装车完成</td>";
+												}else if(msg.schedulings[i].scheduling_status==4){
+													tbody+="<td>在途</td>";
+												}else if(msg.schedulings[i].scheduling_status==5){
+													tbody+="<td>到达</td>";
+												}else if(msg.schedulings[i].scheduling_status==6){
+													tbody+="<td>退单中</td>";
+												}else if(msg.schedulings[i].scheduling_status==7){
+													tbody+="<td>已退单</td>";
+												}else if(msg.schedulings[i].scheduling_status==8){
+													tbody+="<td>出险</td>";
+												}else if(msg.schedulings[i].scheduling_status==9){
+													tbody+="<td>出险已处理</td>";
+												}
+												if(msg.schedulings[i].sum==0||msg.schedulings[i].sum==null){
+													tbody+="<td></td>";
+												}else{
+													tbody+="<td>"+msg.schedulings[i].sum+"</td>";
+												}
+												tbody+="<td>"+msg.schedulings[i].scheduling_datetime.substring(0,10)+"</td>";
+												tbody+="</tr>";
+											}
+											$("#info-table").append(tbody);
+											layer.close(index);
+										},
+										error:function(xhr){
+											layer.msg("获取后台失败！");
+											layer.close(index);
+										}
+									});
+								}
+							});
+						},
+						error:function(xhr){
+							layer.msg("获取后台失败！");
+						}
+					});
+				});
+			}
+			
+			function search_input(){
+				var $=layui.jquery;
+				var tenant_id=$("#tenant-select").val();
+				var time1=$("#time1-input").val();
+				var time2=$("#time2-input").val();
+				loadInfo(sessionStorage.getItem('admin_id'),tenant_id,time1,time2);
+			}
+		</script>
+	</body>
+</html>

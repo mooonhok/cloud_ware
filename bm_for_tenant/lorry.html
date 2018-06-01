@@ -1,0 +1,264 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>后台管理<</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="css/global.css" media="all">
+	</head>
+	<body>
+		<div style="margin: 15px;">
+			<blockquote class="layui-elem-quote">
+				<div class="div-inline">
+					<label class="div-label">公司：</label>
+					<div class="div-input-inline">
+						<select id="tenant-select">
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>
+				<div class="div-inline">
+					<div class="div-input-inline">
+						<button class="layui-btn" id="search-input" onclick="search_input()">搜索</button>
+					</div>
+				</div>
+			</blockquote>
+			<fieldset class="layui-elem-field">
+				<legend>车辆信息</legend>
+				<div class="layui-field-box">
+					<table class="site-table">
+						<thead>
+							<tr>
+								<th>车牌号</th>
+								<th>驾驶员</th>
+								<th>联系电话</th>
+								<th>车型</th>
+								<th>车长(米)</th>
+								<th>载重(吨)</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<!--内容容器-->
+						<tbody id="info-table">
+						</tbody>
+					</table>
+					<!--分页容器-->
+					<div id="info-page"></div>
+				</div>
+			</fieldset>
+		</div>
+		<script type="text/javascript" src="plugins/layui/layui.js"></script>
+		<script>
+			var url="http://api.uminfo.cn/";
+			
+			layui.use(['layer','laydate'],function(){
+				var $=layui.jquery,
+					layer=layui.layer,
+					laydate=layui.laydate;
+				$.ajax({
+					url:url+"tenantsback.php/gettenants?adminid="+sessionStorage.getItem('admin_id'),
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						if(msg.result==0){
+							for(var i=0;i<msg.tenants.length;i++){
+								$("#tenant-select").append("<option value="+msg.tenants[i].tenant_id+">"+msg.tenants[i].name+"</option>");
+							}
+						}else{
+							layer.msg(msg.desc);
+						}
+					},
+					error:function(xhr){
+						layer.msg("获取后台失败！");
+					}
+				});
+				loadInfo(sessionStorage.getItem('admin_id'),"","","");
+			});
+			
+			function loadInfo(admin_id,tenant_id,time1,time2){
+				layui.use(['layer','laypage'],function(){
+					var $=layui.jquery,
+						layer=layui.layer,
+						laypage=layui.laypage;
+					var index=layer.load(2);
+					$.ajax({
+						url:url+"tenantsback.php/getLorrys?admin_id="+admin_id+"&tenant_id="+tenant_id,
+						dataType:'json',
+						type:'get',
+						ContentType:"application/json;charset=utf-8",
+						data:JSON.stringify({
+						}),
+						success:function(msg){
+							laypage({
+								cont:'info-page',
+								pages:Math.ceil(msg.lorrys.length/14),  //总页数
+								curr:1,
+								groups:5,
+								skip:true,
+								jump:function(obj,first){
+									var curr=obj.curr;  //当前页
+									$.ajax({
+										url:url+"tenantsback.php/limitLorrys?admin_id="+admin_id+"&tenant_id="+tenant_id+"&curr="+curr+"&perpage=14",
+										dataType:'json',
+										type:'get',
+										ContentType:"application/json;charset=utf-8",
+										data:JSON.stringify({}),
+										success:function(msg){
+											$("#info-table").empty();
+											var tbody="";
+											for(var i=0;i<msg.lorrys.length;i++){
+												tbody+="<tr>";
+												tbody+="<td>"+msg.lorrys[i].plate_number+"</td>";
+												tbody+="<td>"+msg.lorrys[i].driver_name+"</td>";
+												tbody+="<td>"+msg.lorrys[i].driver_phone+"</td>";
+												tbody+="<td>"+msg.lorrys[i].typename+"</td>";
+												tbody+="<td>"+msg.lorrys[i].length+"</td>";
+												tbody+="<td>"+msg.lorrys[i].deadweight+"</td>";
+												tbody+="<td><a class='layui-btn layui-btn-mini' onclick='desc("+msg.lorrys[i].applorryid+")'>详情</a></td>";
+												tbody+="</tr>";
+											}
+											$("#info-table").append(tbody);
+											layer.close(index);
+										},
+										error:function(xhr){
+											layer.msg("获取后台失败！");
+											layer.close(index);
+										}
+									});
+								}
+							});
+						},
+						error:function(xhr){
+							layer.msg("获取后台失败！");
+						}
+					});
+				});
+			}
+			
+			function search_input(){
+				var $=layui.jquery;
+				var tenant_id=$("#tenant-select").val();
+				loadInfo(sessionStorage.getItem('admin_id'),tenant_id);
+			}
+			
+			function desc(app_lorry_id){
+				var $=layui.jquery;
+				$.ajax({
+					url:url+"tenantsback.php/lorrydetil?id="+app_lorry_id,
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						if(msg.result==0){
+							var content='';
+							content+='<div class="lorry_view">';
+							content+='<div class="lorry_left">';
+							content+='<div class="lorry">';
+							content+='<span>驾驶员：</span><input type="text" value="'+msg.lorrydetil.name+'" readonly="readonly" />';
+							content+='</div>';
+							content+='<div class="lorry">';
+							content+='<span>电话：</span><input type="text" value="'+msg.lorrydetil.phone+'" readonly="readonly" />';
+							content+='</div>';
+							content+='<div class="lorry">';
+							content+='<span>身份证：</span><input type="text" value="'+msg.lorrydetil.id_number+'" readonly="readonly" />';
+							content+='</div>';
+							content+='</div>';
+							content+='<div class="lorry_right">';
+							content+='<div class="lorry">';
+							content+='<span>车牌号：</span><input type="text" value="'+msg.lorrydetil.plate_number+'" readonly="readonly" />';
+							content+='</div>';
+							content+='<div class="lorry">';
+							content+='<span>车型：</span><input type="text" value="'+msg.lorrydetil.typename+'" readonly="readonly" />';
+							content+='</div>';
+							content+='<div class="lorry">';
+							content+='<span>车长(米)：</span><input type="text" value="'+msg.lorrydetil.length+'" readonly="readonly" />';
+							content+='</div>';
+							content+='<div class="lorry">';
+							content+='<span>载重(吨)：</span><input type="text" value="'+msg.lorrydetil.deadweight+'" readonly="readonly" />';
+							content+='</div>';
+							content+='</div>';
+							content+='<div id="photo-list">';
+							content+='<div class="photo">';
+							content+='<span>驾驶员照片</span>';
+							if(msg.lorrydetil.identity_card_z==null||msg.lorrydetil.identity_card_z==''||msg.lorrydetil.identity_card_z==false){
+								content+='<img class="pic" src="images/photo1.png" onclick="look_pic()" alt="驾驶员照片" />';
+							}else if(msg.lorrydetil.identity_card_z!=null&&msg.lorrydetil.identity_card_z!=''&&msg.lorrydetil.identity_card_z!=false){
+								content+='<img class="pic" src="'+msg.lorrydetil.identity_card_z+'" alt="驾驶员照片" onclick="look_pic()" />';
+							}
+							content+='</div>';
+							content+='<div class="photo">';
+							content+='<span>车辆照片</span>';
+							if(msg.lorrydetil.identity_card_f==null||msg.lorrydetil.identity_card_f==''||msg.lorrydetil.identity_card_f==false){
+								content+='<img class="pic" src="images/photo1.png" onclick="look_pic()" alt="车辆照片" />';
+							}else if(msg.lorrydetil.identity_card_f!=null&&msg.lorrydetil.identity_card_f!=''&&msg.lorrydetil.identity_card_f!=false){
+								content+='<img class="pic" src="'+msg.lorrydetil.identity_card_f+'" alt="车辆照片" onclick="look_pic()" />';
+							}
+							content+='</div>';
+							content+='<div class="photo">';
+							content+='<span>驾驶证正本</span>';
+							if(msg.lorrydetil.driver_license_fp==null||msg.lorrydetil.driver_license_fp==''||msg.lorrydetil.driver_license_fp==false){
+								content+='<img class="pic" src="images/photo2.png" onclick="look_pic()" alt="驾驶证正本" />';
+							}else if(msg.lorrydetil.driver_license_fp!=null&&msg.lorrydetil.driver_license_fp!=''&&msg.lorrydetil.driver_license_fp!=false){
+								content+='<img class="pic" src="'+msg.lorrydetil.driver_license_fp+'" alt="驾驶证正本" onclick="look_pic()" />';
+							}
+							content+='</div>';
+							content+='<div class="photo">';
+							content+='<span>驾驶证副本</span>';
+							if(msg.lorrydetil.driver_license_tp==null||msg.lorrydetil.driver_license_tp==''||msg.lorrydetil.driver_license_tp==false){
+								content+='<img class="pic" src="images/photo2.png" onclick="look_pic()" alt="驾驶证副本" />';
+							}else if(msg.lorrydetil.driver_license_tp!=null&&msg.lorrydetil.driver_license_tp!=''&&msg.lorrydetil.driver_license_tp!=false){
+								content+='<img class="pic" src="'+msg.lorrydetil.driver_license_tp+'" alt="驾驶证副本" onclick="look_pic()" />';
+							}
+							content+='</div>';
+							content+='<div class="photo">';
+							content+='<span>行驶证正本</span>';
+							if(msg.lorrydetil.driving_license_fp==null||msg.lorrydetil.driving_license_fp==''||msg.lorrydetil.driving_license_fp==false){
+								content+='<img class="pic" src="images/photo3.png" onclick="look_pic()" alt="行驶证正本" />';
+							}else if(msg.lorrydetil.driving_license_fp!=null&&msg.lorrydetil.driving_license_fp!=''&&msg.lorrydetil.driving_license_fp!=false){
+								content+='<img class="pic" src="'+msg.lorrydetil.driving_license_fp+'" alt="行驶证正本" onclick="look_pic()" />';
+							}
+							content+='</div>';
+							content+='<div class="photo">';
+							content+='<span>行驶证副本</span>';
+							if(msg.lorrydetil.driving_license_tp==null||msg.lorrydetil.driving_license_tp==''||msg.lorrydetil.driving_license_tp==false){
+								content+='<img class="pic" src="images/photo3.png" onclick="look_pic()" alt="行驶证副本" />';
+							}else if(msg.lorrydetil.driving_license_tp!=null&&msg.lorrydetil.driving_license_tp!=''&&msg.lorrydetil.driving_license_tp!=false){
+								content+='<img class="pic" src="'+msg.lorrydetil.driving_license_tp+'" alt="行驶证副本" onclick="look_pic()" />';
+							}
+							content+='</div>';
+							content+='</div>';
+							content+='</div>';
+							layer.open({
+								title:'车辆详情',
+								content:content,
+								area:['590px','550px'],
+								offset:'80px',
+								skin:'layui-layer-molv'
+							});
+						}else{
+							layer.msg(msg.desc);
+						}
+					},
+					error:function(xhr){
+						layer.msg("获取后台失败！");
+					}
+				});
+			}
+			
+			function look_pic(){
+				layer.photos({
+					photos:'#photo-list',
+					anim:5
+				});
+			}
+		</script>
+	</body>
+</html>

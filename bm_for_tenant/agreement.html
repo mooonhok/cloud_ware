@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>后台管理<</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="css/global.css" media="all">
+	</head>
+	<body>
+		<div style="margin: 15px;">
+			<blockquote class="layui-elem-quote">
+				<div class="div-inline">
+					<label class="div-label">公司：</label>
+					<div class="div-input-inline">
+						<select id="tenant-select">
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>
+				<div class="div-inline">
+					<label class="div-label">开始时间：</label>
+					<div class="div-input-inline">
+						<input type="text" class="layui-input" id="time1-input" placeholder="yyyy-mm-dd" autocomplete="off" onclick="layui.laydate({elem: this})">
+					</div>
+				</div>
+				<div class="div-inline">
+					<label class="div-label">结束时间：</label>
+					<div class="div-input-inline">
+						<input type="text" class="layui-input" id="time2-input" placeholder="yyyy-mm-dd" autocomplete="off" onclick="layui.laydate({elem: this})">
+					</div>
+				</div>
+				<div class="div-inline">
+					<div class="div-input-inline">
+						<button class="layui-btn" id="search-input" onclick="search_input()">搜索</button>
+					</div>
+				</div>
+			</blockquote>
+			<fieldset class="layui-elem-field">
+				<legend>合同信息</legend>
+				<div class="layui-field-box">
+					<table class="site-table">
+						<thead>
+							<tr>
+								<th>合同编号</th>
+								<th>车牌号</th>
+								<th>驾驶员</th>
+								<th>联系电话</th>
+								<th>运费</th>
+								<th>合同状态</th>
+								<th>签订时间</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<!--内容容器-->
+						<tbody id="info-table">
+						</tbody>
+					</table>
+					<!--分页容器-->
+					<div id="info-page"></div>
+				</div>
+			</fieldset>
+		</div>
+		<script type="text/javascript" src="plugins/layui/layui.js"></script>
+		<script>
+			var url="http://api.uminfo.cn/";
+			
+			layui.use(['layer','laydate'],function(){
+				var $=layui.jquery,
+					layer=layui.layer,
+					laydate=layui.laydate;
+				$.ajax({
+					url:url+"tenantsback.php/gettenants?adminid="+sessionStorage.getItem('admin_id'),
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						if(msg.result==0){
+							for(var i=0;i<msg.tenants.length;i++){
+								$("#tenant-select").append("<option value="+msg.tenants[i].tenant_id+">"+msg.tenants[i].name+"</option>");
+							}
+						}else{
+							layer.msg(msg.desc);
+						}
+					},
+					error:function(xhr){
+						layer.msg("获取后台失败！");
+					}
+				});
+				loadInfo(sessionStorage.getItem('admin_id'),"","","");
+			});
+			
+			function loadInfo(admin_id,tenant_id,time1,time2){
+				layui.use(['layer','laypage'],function(){
+					var $=layui.jquery,
+						layer=layui.layer,
+						laypage=layui.laypage;
+					var index=layer.load(2);
+					$.ajax({
+						url:url+"tenantsback.php/getAgreements?admin_id="+admin_id+"&tenant_id="+tenant_id+"&time1="+time1+"&time2="+time2,
+						dataType:'json',
+						type:'get',
+						ContentType:"application/json;charset=utf-8",
+						data:JSON.stringify({
+						}),
+						success:function(msg){
+							laypage({
+								cont:'info-page',
+								pages:Math.ceil(msg.agreements.length/14),  //总页数
+								curr:1,
+								groups:5,
+								skip:true,
+								jump:function(obj,first){
+									var curr=obj.curr;  //当前页
+									$.ajax({
+										url:url+"tenantsback.php/limitAgreements?admin_id="+admin_id+"&tenant_id="+tenant_id+"&time1="+time1+"&time2="+time2+"&curr="+curr+"&perpage=14",
+										dataType:'json',
+										type:'get',
+										ContentType:"application/json;charset=utf-8",
+										data:JSON.stringify({}),
+										success:function(msg){
+											$("#info-table").empty();
+											var tbody="";
+											for(var i=0;i<msg.agreements.length;i++){
+												tbody+="<tr>";
+												tbody+="<td>"+msg.agreements[i].agreement_id+"</td>";
+												tbody+="<td>"+msg.agreements[i].platenumber+"</td>";
+												tbody+="<td>"+msg.agreements[i].driver_name+"</td>";
+												tbody+="<td>"+msg.agreements[i].driver_phone+"</td>";
+												tbody+="<td>"+msg.agreements[i].freight+"</td>";
+												if(msg.agreements[i].agreement_status==0){
+													tbody+="<td>待签字</td>";
+												}else if(msg.agreements[i].agreement_status==1){
+													tbody+="<td>已达成</td>";
+												}else if(msg.agreements[i].agreement_status==2){
+													tbody+="<td>作废</td>";
+												}else if(msg.agreements[i].agreement_status==3){
+													tbody+="<td>出险</td>";
+												}
+												tbody+="<td>"+msg.agreements[i].agreement_time+"</td>";
+												tbody+="<td><a class='layui-btn layui-btn-mini' id='a_"+msg.agreements[i].agreement_id.substring(2)+"'>详情</a></td>";
+												tbody+="</tr>";
+											}
+											$("#info-table").append(tbody);
+											for(var i=0;i<msg.agreements.length;i++){
+												$("#a_"+msg.agreements[i].agreement_id.substring(2)).attr("onclick","desc('"+msg.agreements[i].agreement_id+"')");
+											}
+											layer.close(index);
+										},
+										error:function(xhr){
+											layer.msg("获取后台失败！");
+											layer.close(index);
+										}
+									});
+								}
+							});
+						},
+						error:function(xhr){
+							layer.msg("获取后台失败！");
+						}
+					});
+				});
+			}
+			
+			function search_input(){
+				var $=layui.jquery;
+				var tenant_id=$("#tenant-select").val();
+				var time1=$("#time1-input").val();
+				var time2=$("#time2-input").val();
+				loadInfo(sessionStorage.getItem('admin_id'),tenant_id,time1,time2);
+			}
+			
+			function desc(agreement_id){
+				var $=layui.jquery;
+				$.ajax({
+					url:url+"tenantsback.php/agredet?agreementid="+agreement_id,
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						if(msg.result==0){
+							var content='';
+							content+='<div class="contract_content">';
+							content+='<div class="contract_list" style="text-align:left">';
+							content+='<div class="bold">合同编号：'+msg.agree.agreement_id+'</div>';
+							content+='<div class="contract_title">运输协议书</div>';
+							content+='<p>托运方（甲方）：<span>'+msg.agree.company+'</span></p>';
+							content+='<p>承运方（乙方）：<span>'+msg.agree.driver_name+'</span></p>';
+							content+='<p>甲方联系人：<span class="do_fpname">'+msg.agree.sname+'</span>，联系电话：<span class="do_fpphone">'+msg.agree.stelephone+'</span>，地址：<span class="do_fpaddress">'+msg.agree.saddress+'</span></p>';
+							content+='<p>乙方车号：<span class="do_spnumber">'+msg.agree.plate_number+'</span>，驾驶员姓名：<span class="do_spname">'+msg.agree.driver_name+'</span>，联系电话：<span class="do_spphone">'+msg.agree.driver_phone+'</span></p>';
+							content+='<p>经甲乙双方同意，关于甲方托运货物';
+							content+='<span class="do_city">';
+							content+='从'+msg.agree.scity+'到'+msg.agree.cityname+'</span>';
+							content+='</span>的运输事项达成如下协议：';
+							content+='</p>';
+							content+='<table cellspacing="0" cellpadding="0" class="contract_table">';
+							content+='<tr>';
+							content+='<td width="10%">运单数</td>';
+							content+='<td width="11%">总件数/件</td>';
+							content+='<td width="11%">总体积/m³</td>';
+							content+='<td width="11%">总重量/吨</td>';
+							content+='<td width="13%">总价值/万元</td>';
+							content+='<td width="14%">运费/元</td>';
+							content+='<td width="30%">支付方式</td>';
+							content+='</tr>';
+							content+='<tr>';
+							content+='<td>'+msg.agree.ordercount+'</td>';
+							if(msg.agree.ordercountgood==0){
+								content+='<td>-</td>';
+							}else{
+								content+='<td>'+msg.agree.ordercountgood+'</td>';
+							}
+							if(msg.agree.ordersize==0){
+								content+='<td>-</td>';
+							}else{
+								content+='<td>'+msg.agree.ordersize+'</td>';
+							}
+							content+='<td>'+msg.agree.orderweight+'</td>';
+							content+='<td>'+msg.agree.ordervalue+'</td>';
+							content+='<td>'+msg.agree.freight+'</td>';
+							content+='<td>'+msg.agree.pay_method+'</td>';
+							content+='</tr>';
+							content+='<tr>';
+							content+='<td colspan="5" rowspan="3"><div>货物的详细信息见附件清单：'+msg.agree.schedules+'</div></td>';
+							content+='<td>约定到达时间</td>';
+							content+='<td colspan="1" class="do_endtime">'+msg.agree.deadline+'</td>';
+							content+='</tr>';
+							content+='<tr>';
+							content+='<td colspan="1" rowspan="2">备注要求</td>';
+							content+='<td colspan="1" rowspan="2" class="do_comment" style="height:80px;">'+msg.agree.agreement_require+'</td>';
+							content+='</tr>';
+							content+='</table>';
+							content+='<p class="contract_blank bold">甲方的权利与义务</p>';
+							content+='<p class="contract_subtitle">1.甲方须如实填写货物信息，严禁夹带法律禁运物品，造成后果由甲方负责。</p>';
+							content+='<p class="contract_subtitle">2.甲方应对所托货物按照行业标准妥善包装，使其适合运输。</p>';
+							content+='<p class="contract_subtitle">3.甲方应确保所提供收货人信息准确，电话通畅，如因此造成收货延误，乙方不负违约责任。乙方确认交货后，甲方如有异议须在三天内以书面方式提出，否则视同乙方运输义务完成。运输完成后，甲方应主动按约定支付运费。</p>';
+							content+='<p class="contract_blank bold">乙方的权利与义务</p>';
+							content+='<p class="contract_subtitle">1.所运货物经乙方验点准确捆扎牢固后方可行驶，路途一切费用均由乙方负承担。</p>';
+							content+='<p class="contract_subtitle">2.在合同规定的期限内，将货物运到指定的地点，按时向收货人发出货物到达的通知，对托运的货物要负责安全，保证货物无短缺，无损坏，否则应承担由此引起的一切赔偿责任。</p>';
+							content+='<p class="contract_subtitle">3.乙方保证运输途中通讯畅通，如遇异常与甲方及时联系。</p>';
+							content+='<p class="contract_subtitle">4.货物途中如被查超载造成罚款，由乙方承担，货物途中如被查超载造成卸货费用及货物到达卸货地点前一切费用由乙方负全责，甲方不予列支。</p>';
+							content+='<p class="contract_subtitle">5.因发生自然灾害等不可抗力造成货物无法按期运达目的地时，乙方应将情况及时通知甲方并取得相关证明，以便甲方与客户协调；非因自然灾害等不可抗力造成货物无法按时到达，乙方须在最短时间内运至甲方指定的收货地点并交给收货人，且赔偿逾期承运给甲方造成的全部经济损失。</p>';
+							content+='<p class="contract_blank">本合同不得无故违约，如有法律纠纷，在甲方所在地人民法院受理。</p>';
+							content+='<p class="contract_blank">甲方确认人：'+msg.agree.company+'</p>';
+							content+='<p class="contract_blank">乙方确认人：';
+							if(msg.agree.sign_img!=null&&msg.agree.sign_img!=''){
+								content+='<span><img class="contract_sign" src="'+msg.agree.sign_img+'" /></span>';
+							}
+							content+='</p>';
+							content+='<p class="contract_blank">签订日期：<span class="contract_time">'+msg.agree.agreement_time+'</span></p>';
+							content+='</div>';
+							content+='</div>';
+							layer.open({
+								title:'合同详情',
+								content:content,
+								area:['840px','550px'],
+								offset:'80px',
+								skin:'layui-layer-molv'
+							});
+						}else{
+							layer.msg(msg.desc);
+						}
+					},
+					error:function(xhr){
+						layer.msg("获取后台失败！");
+					}
+				});
+			}
+		</script>
+	</body>
+</html>

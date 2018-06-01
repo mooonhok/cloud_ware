@@ -1,0 +1,266 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>后台管理<</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="css/global.css" media="all">
+	</head>
+	<body>
+		<div style="margin: 15px;">
+			<blockquote class="layui-elem-quote">
+				<div class="div-inline">
+					<label class="div-label">公司：</label>
+					<div class="div-input-inline">
+						<select id="tenant-select">
+							<option value="">全部</option>
+						</select>
+					</div>
+				</div>
+				<div class="div-inline">
+					<label class="div-label">付款方式：</label>
+					<div class="div-input-inline">
+						<select id="method-select">
+							<option value="">全部</option>
+							<option value="0">现付</option>
+							<option value="1">到付</option>
+							<option value="2">月结</option>
+							<option value="3">回单</option>
+						</select>
+					</div>
+				</div>
+				<div class="div-inline">
+					<label class="div-label">开始时间：</label>
+					<div class="div-input-inline">
+						<input type="text" class="layui-input" id="time1-input" placeholder="yyyy-mm-dd" autocomplete="off" onclick="layui.laydate({elem: this})">
+					</div>
+				</div>
+				<div class="div-inline">
+					<label class="div-label">结束时间：</label>
+					<div class="div-input-inline">
+						<input type="text" class="layui-input" id="time2-input" placeholder="yyyy-mm-dd" autocomplete="off" onclick="layui.laydate({elem: this})">
+					</div>
+				</div>
+				<div class="div-inline">
+					<div class="div-input-inline">
+						<button class="layui-btn" id="search-input" onclick="search_input()">搜索</button>
+					</div>
+				</div>
+			</blockquote>
+			<fieldset class="layui-elem-field">
+				<legend>运单信息</legend>
+				<div class="layui-field-box">
+					<table class="site-table">
+						<thead>
+							<tr>
+								<th>运单号</th>
+								<th>发货人</th>
+								<th>到站</th>
+								<th>付款方式</th>
+								<th>运费</th>
+								<th>中转(收)</th>
+								<th>中转(支)</th>
+								<th>代收运费</th>
+								<th>运单状态</th>
+								<th>入库时间</th>
+							</tr>
+						</thead>
+						<!--内容容器-->
+						<tbody id="info-table">
+						</tbody>
+					</table>
+					<!--分页容器-->
+					<div id="info-page"></div>
+					<div class="statistics-div">
+						<div class="statistics-left">
+							<span class="data-circle" style="background:#f7b824">总</span><span class="data-figure" id="order_num0">0</span><span class="data-unit">单</span>
+							<span class="data-circle" style="background:#1e9fff">发</span><span class="data-figure" id="order_num1">0</span><span class="data-unit">单</span>
+							<span class="data-circle" style="background:#ff5722">转</span><span class="data-figure" id="order_num2">0</span><span class="data-unit">单</span>
+							<span class="data-circle" style="background:#009688">到</span><span class="data-figure" id="order_num3">0</span><span class="data-unit">单</span>
+						</div>
+						<div class="statistics-right">
+							<span class="data-oval" style="background:#009688">运费</span><span class="data-figure" id="order_sum0">0</span><span>元</span>
+							<span class="data-oval" style="background:#6a5acd">中转(收)</span><span class="data-figure" id="order_sum1">0</span><span>元</span>
+							<span class="data-oval" style="background:#f7b824">中转(支)</span><span class="data-figure" id="order_sum2">0</span><span>元</span>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+		<script type="text/javascript" src="plugins/layui/layui.js"></script>
+		<script>
+			var url="http://api.uminfo.cn/";
+			
+			layui.use(['layer','laydate'],function(){
+				var $=layui.jquery,
+					layer=layui.layer,
+					laydate=layui.laydate;
+				$.ajax({
+					url:url+"tenantsback.php/gettenants?adminid="+sessionStorage.getItem('admin_id'),
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						if(msg.result==0){
+							for(var i=0;i<msg.tenants.length;i++){
+								$("#tenant-select").append("<option value="+msg.tenants[i].tenant_id+">"+msg.tenants[i].name+"</option>");
+							}
+						}else{
+							layer.msg(msg.desc);
+						}
+					},
+					error:function(xhr){
+						layer.msg("获取后台失败！");
+					}
+				});
+				loadInfo(sessionStorage.getItem('admin_id'),"","","","");
+			});
+			
+			function loadInfo(admin_id,tenant_id,pay_method,time1,time2){
+				layui.use(['layer','laypage'],function(){
+					var $=layui.jquery,
+						layer=layui.layer,
+						laypage=layui.laypage;
+					var index=layer.load(2);
+					$.ajax({
+						url:url+"tenantsback.php/getOrders?admin_id="+admin_id+"&tenant_id="+tenant_id+"&pay_method="+pay_method+"&time1="+time1+"&time2="+time2,
+						dataType:'json',
+						type:'get',
+						ContentType:"application/json;charset=utf-8",
+						data:JSON.stringify({
+						}),
+						success:function(msg){
+							var order_num0=0,order_num1=0,order_num2=0,order_num3=0,order_sum0=0,order_sum1=0,order_sum2=0;
+							for(var i=0;i<msg.goods_orders.length;i++){
+								if(msg.goods_orders[i].order_id.substring(0,7)==msg.goods_orders[i].tenant_num||msg.goods_orders[i].pre_company==null||isNaN(msg.goods_orders[i].order_id)==true){
+									order_num1++;
+								}else if(msg.goods_orders[i].order_id.substring(0,7)!=msg.goods_orders[i].tenant_num&&msg.goods_orders[i].pre_company=='0'&&isNaN(msg.goods_orders[i].order_id)==false){
+									order_num3++;
+								}else if(msg.goods_orders[i].order_id.substring(0,7)!=msg.goods_orders[i].tenant_num&&msg.goods_orders[i].pre_company=='1'&&isNaN(msg.goods_orders[i].order_id)==false){
+									order_num2++;
+								}
+								if(msg.goods_orders[i].order_id.substring(0,7)==msg.goods_orders[i].tenant_num){
+									order_sum0+=parseFloat(msg.goods_orders[i].order_cost);
+								}
+								if(msg.goods_orders[i].order_id.substring(0,7)!=msg.goods_orders[i].tenant_num&&msg.goods_orders[i].pre_company=='1'){
+									order_sum1+=parseFloat(msg.goods_orders[i].transfer_cost);
+								}
+								if(msg.goods_orders[i].next_cost!=""&&msg.goods_orders[i].next_cost!=null){
+									order_sum2+=parseFloat(msg.goods_orders[i].next_cost);
+								}
+							}
+							$("#order_num0").text(msg.goods_orders.length);
+							$("#order_num1").text(order_num1);
+							$("#order_num2").text(order_num2);
+							$("#order_num3").text(order_num3);
+							$("#order_sum0").text(order_sum0);
+							$("#order_sum1").text(order_sum1);
+							$("#order_sum2").text(order_sum2);
+							laypage({
+								cont:'info-page',
+								pages:Math.ceil(msg.goods_orders.length/14),  //总页数
+								curr:1,
+								groups:5,
+								skip:true,
+								jump:function(obj,first){
+									var curr=obj.curr;  //当前页
+									$.ajax({
+										url:url+"tenantsback.php/limitOrders?admin_id="+admin_id+"&tenant_id="+tenant_id+"&pay_method="+pay_method+"&time1="+time1+"&time2="+time2+"&curr="+curr+"&perpage=14",
+										dataType:'json',
+										type:'get',
+										ContentType:"application/json;charset=utf-8",
+										data:JSON.stringify({}),
+										success:function(msg){
+											$("#info-table").empty();
+											var tbody="";
+											for(var i=0;i<msg.goods_orders.length;i++){
+												tbody+="<tr>";
+												tbody+="<td>"+msg.goods_orders[i].order_id+"</td>";
+												tbody+="<td>"+msg.goods_orders[i].sender.customer_name+"</td>";
+												tbody+="<td>"+msg.goods_orders[i].receiver.receiver_city.name+"</td>";
+												if(msg.goods_orders[i].pay_method==0){
+													tbody+="<td>现付</td>";
+												}else if(msg.goods_orders[i].pay_method==1){
+													tbody+="<td>到付</td>";
+												}else if(msg.goods_orders[i].pay_method==2){
+													tbody+="<td>月结</td>";
+												}else if(msg.goods_orders[i].pay_method==3){
+													tbody+="<td>回单</td>";
+												}
+												if(msg.goods_orders[i].order_id.substring(0,7)==msg.goods_orders[i].tenant_num){
+													tbody+="<td>"+msg.goods_orders[i].order_cost+"</td>";
+												}else{
+													tbody+="<td></td>";
+												}
+												if(msg.goods_orders[i].order_id.substring(0,7)==msg.goods_orders[i].tenant_num||msg.goods_orders[i].pre_company==null){
+													tbody+="<td></td>";
+												}else if(msg.goods_orders[i].order_id.substring(0,7)!=msg.goods_orders[i].tenant_num&&msg.goods_orders[i].pre_company=='1'){
+													tbody+="<td style='color:#6a5acd'>"+msg.goods_orders[i].transfer_cost+"</td>";
+												}
+												if(msg.goods_orders[i].next_cost==''||msg.goods_orders[i].next_cost==null){
+													tbody+="<td></td>";
+												}else if(msg.goods_orders[i].next_cost!=''&&msg.goods_orders[i].next_cost!=null){
+													tbody+="<td style='color:#f7b824'>"+msg.goods_orders[i].next_cost+"</td>";
+												}
+												if(msg.goods_orders[i].order_id.substring(0,7)==msg.goods_orders[i].tenant_num||msg.goods_orders[i].pay_method!=1){
+													tbody+="<td></td>";
+												}else{
+													tbody+="<td style='color:#ff5722'>"+msg.goods_orders[i].order_cost+"</td>";
+												}
+												if(msg.goods_orders[i].order_status==1){
+													tbody+="<td>入库</td>";
+												}else if(msg.goods_orders[i].order_status==2){
+													tbody+="<td>出库</td>";
+												}else if(msg.goods_orders[i].order_status==3){
+													tbody+="<td>在途</td>";
+												}else if(msg.goods_orders[i].order_status==4){
+													tbody+="<td>到达</td>";
+												}else if(msg.goods_orders[i].order_status==5){
+													tbody+="<td>异常</td>";
+												}else if(msg.goods_orders[i].order_status==6){
+													tbody+="<td>作废</td>";
+												}else if(msg.goods_orders[i].order_status==7){
+													tbody+="<td>签收</td>";
+												}
+												tbody+="<td>"+msg.goods_orders[i].order_datetime1.substring(0,10)+"</td>";
+												tbody+="</tr>";
+											}
+											$("#info-table").append(tbody);
+											layer.close(index);
+										},
+										error:function(xhr){
+											layer.msg("获取后台失败！");
+											layer.close(index);
+										}
+									});
+								}
+							});
+						},
+						error:function(xhr){
+							layer.msg("获取后台失败！");
+						}
+					});
+				});
+			}
+			
+			function search_input(){
+				var $=layui.jquery;
+				var tenant_id=$("#tenant-select").val();
+				var pay_method=$("#method-select").val();
+				var time1=$("#time1-input").val();
+				var time2=$("#time2-input").val();
+				loadInfo(sessionStorage.getItem('admin_id'),tenant_id,pay_method,time1,time2);
+			}
+			
+			<!-- $(window).on('resize', function (e) { -->
+                <!-- var $that = $(this); -->
+                <!-- $('#content').height($that.height() - 92); -->
+            <!-- }).resize(); -->
+		</script>
+	</body>
+</html>

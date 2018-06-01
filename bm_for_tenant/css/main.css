@@ -1,0 +1,28 @@
+.panel,.panel-word,.panel-icon{ box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; -o-box-sizing:border-box;}
+.panel{ width:15.6%; min-width:210px; margin-bottom:10px; margin-left:15px; text-align: center; background:#f2f2f2; border-radius:6px; float: left; }
+.panel-icon{ width:40%; display: inline-block; padding:22px 0; border-top-left-radius:6px; border-bottom-left-radius:6px; float:left; }
+.panel-icon i{ font-size:3em; color:#ffffff;}
+@keyframes i_rotate{
+	from{ transform:rotate(0deg); }
+	to{ transform:rotate(360deg); }
+}
+@-moz-keyframes i_rotate{
+	from{ transform:rotate(0deg); }
+	to{ transform:rotate(360deg); }
+}
+
+@-webkit-keyframes i_rotate{
+	from{ transform:rotate(0deg); }
+	to{ transform:rotate(360deg); }
+}
+@-o-keyframes i_rotate{
+	from{ transform:rotate(0deg); }
+	to{ transform:rotate(360deg); }
+}
+@-ms-keyframes i_rotate{
+	from{ transform:rotate(0deg); }
+	to{ transform:rotate(360deg); }
+}
+.panel a:hover .panel-icon i{ animation:i_rotate 0.6s linear; -webkit-animation:i_rotate 0.6s linear; -moz-animation:i_rotate 0.6s linear; -o-animation:i_rotate 0.6s linear; -ms-animation:i_rotate 0.6s linear; }
+.panel-word{ width:60%; display: inline-block; margin-top: 22px; float:right; }
+.panel-word span{ display:block; height:30px; font-size:25px; line-height:30px; }

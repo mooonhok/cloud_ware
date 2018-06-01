@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>后台管理系统</title>
+		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="css/main.css" />
+		<link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+	</head>
+	<body>
+		<div style="margin: 15px;">
+			<div class="panel">
+				<a>
+					<div class="panel-icon" style="background-color:#009688;">
+						<i class="fa fa-tree"></i>
+					</div>
+					<div class="panel-word">
+						<span id="order-sum"></span>
+						<cite>运单总数</cite>
+					</div>
+				</a>
+			</div>
+			<div class="panel">
+				<a>
+					<div class="panel-icon" style="background-color:#1e9fff;">
+						<i class="fa fa-database"></i>
+					</div>
+					<div class="panel-word">
+						<span id="schedule-sum"></span>
+						<cite>清单总数</cite>
+					</div>
+				</a>
+			</div>
+			<div class="panel">
+				<a>
+					<div class="panel-icon" style="background-color:#f7b824;">
+						<i class="fa fa-tag"></i>
+					</div>
+					<div class="panel-word">
+						<span id="agreement-sum"></span>
+						<cite>合同总数</cite>
+					</div>
+				</a>
+			</div>
+			<div class="panel">
+				<a>
+					<div class="panel-icon" style="background-color:#ff5722;">
+						<i class="fa fa-train"></i>
+					</div>
+					<div class="panel-word">
+						<span id="lorry-sum"></span>
+						<cite>车辆总数</cite>
+					</div>
+				</a>
+			</div>
+			<div class="panel">
+				<a>
+					<div class="panel-icon" style="background-color:#5fb878;">
+						<i class="fa fa-road"></i>
+					</div>
+					<div class="panel-word">
+						<span id="route2-sum"></span>
+						<cite>铁路快线总数</cite>
+					</div>
+				</a>
+			</div>
+			<div class="panel">
+				<a>
+					<div class="panel-icon" style="background-color:#01aaed;">
+						<i class="fa fa-truck"></i>
+					</div>
+					<div class="panel-word">
+						<span id="route1-sum"></span>
+						<cite>公路专线总数</cite>
+					</div>
+				</a>
+			</div>
+		</div>
+		<script type="text/javascript" src="plugins/layui/layui.js"></script>
+		<script>
+			var url="http://api.uminfo.cn/";
+			
+			layui.use(['layer'],function(){
+				var $=layui.jquery,
+					layer=layui.layer;
+				var index=layer.load(2);
+				$.ajax({
+					url:url+"tenantsback.php/getOrders?admin_id="+sessionStorage.getItem('admin_id')+"&tenant_id=&pay_method=&time1=&time2=",
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						$("#order-sum").text(msg.goods_orders.length);
+						layer.close(index);
+					},
+					error:function(xhr){
+						layer.msg("获取后台失败！");
+						layer.close(index);
+					}
+				});
+				
+				$.ajax({
+					url:url+"tenantsback.php/getSchedules?admin_id="+sessionStorage.getItem('admin_id')+"&tenant_id=&time1=&time2=",
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						$("#schedule-sum").text(msg.schedulings.length);
+					},
+					error:function(xhr){
+						layer.msg("获取后台失败！");
+					}
+				});
+				
+				$.ajax({
+					url:url+"tenantsback.php/getLorrys?admin_id="+sessionStorage.getItem('admin_id')+"&tenant_id=",
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						$("#lorry-sum").text(msg.lorrys.length);
+					},
+					error:function(xhr){
+						layer.msg("获取后台失败！");
+					}
+				});
+				
+				$.ajax({
+					url:url+"tenantsback.php/getAgreements?admin_id="+sessionStorage.getItem('admin_id')+"&tenant_id=&time1=&time2=",
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						$("#agreement-sum").text(msg.agreements.length);
+					},
+					error:function(xhr){
+						layer.msg("获取后台失败！");
+					}
+				});
+				
+				$.ajax({
+					url:url+"tenantsback.php/gettenants?adminid="+sessionStorage.getItem('admin_id'),
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						if(msg.result==0){
+							$.ajax({
+								url:msg.os_url+"route.php/getRoutes?type=1",
+								dataType:'json',
+								type:'get',
+								ContentType:"application/json;charset=utf-8",
+								data:JSON.stringify({
+								}),
+								success:function(msg){
+									$("#route2-sum").text(msg.routes.length);
+								},
+								error:function(e){
+									layer.msg("获取后台失败！");
+								}
+							});
+							$.ajax({
+								url:msg.os_url+"route.php/getRoutes?type=0",
+								dataType:'json',
+								type:'get',
+								ContentType:"application/json;charset=utf-8",
+								data:JSON.stringify({
+								}),
+								success:function(msg){
+									$("#route1-sum").text(msg.routes.length);
+								},
+								error:function(e){
+									layer.msg("获取后台失败！");
+								}
+							});
+						}else{
+							layer.msg(msg.desc);
+						}
+					},
+					error:function(xhr){
+						layer.msg("获取后台失败！");
+					}
+				});
+			});
+		</script>
+	</body>
+</html>
