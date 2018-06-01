@@ -291,12 +291,10 @@ $app->get('/gwgetOrders1', function () use ($app) {
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
     $order_id= $app->request->get('order_id');
-    $wx_openid=$app->request->get('wx_openid');
     if ($order_id != null || $order_id != "") {
         $selectStatement = $database->select()
             ->from('orders')
             ->where('order_id', '=', $order_id)
-           ->where('wx_openid','=',$wx_openid)
             ->orderBy('order_datetime1');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
