@@ -1095,14 +1095,22 @@ $app->get('/lastinsurance',function()use($app){
 //            $stmt = $selectStatement->execute();
 //            $data1 = $stmt->fetch();
 //            if ($data1 != null || $data1 != "") {
+        $selectStatement = $database->select()
+            ->from('insurance')
+            ->join('tenant','tenant.tenant_id','=','insurance.tenant_id','INNER')
+            ->whereLike('insurance.tenant_id', '%'.$tenant_id.'%')
+            ->orderBy('insurance.insurance_start_time', 'desc');
+        $stmt = $selectStatement->execute();
+        $data2a = $stmt->fetchAll();
                 $selectStatement = $database->select()
                     ->from('insurance')
                     ->join('tenant','tenant.tenant_id','=','insurance.tenant_id','INNER')
                     ->whereLike('insurance.tenant_id', '%'.$tenant_id.'%')
-                    ->orderBy('insurance.insurance_start_time', 'desc');
+                    ->orderBy('insurance.insurance_start_time', 'desc')
+                    ->limit((int)$per_page, (int)$per_page * (int)$page);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetchAll();
-                $num=count($data2);
+                $num=count($data2a);
                 $sum=ceil($num/(int)$per_page);
 //                $selectStatement = $database->select()
 //                    ->from('insurance')
