@@ -1315,7 +1315,7 @@ $app->post('/addInsurance',function()use($app){
                                ->where('tenant_id','=',$tenant_id);
                            $stmt = $selectStatement->execute();
                            $data3= $stmt->fetchAll();
-                           $insurance_id=count($data3)+10000000001;
+                           $insurance_id=count($data3)+1000000001;
                            date_default_timezone_set("PRC");
                            $shijian=date("Y-m-d H:i:s",time());
                            $insertStatement = $database->insert(array('insurance_id','tenant_id','insurance_lorry_id','exist','insurance_price','insurance_amount','transtime','insurance_start_time'))
