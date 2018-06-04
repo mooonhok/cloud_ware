@@ -1969,6 +1969,12 @@ $app->post('/change_orders_status',function()use($app){
     $scheduling_id=$body->scheduling_id;
     $back_comment=$body->reason;
     $time=time();
+    $selectStament=$database->select()
+        ->from('scheduling')
+        ->where('exist','=',0)
+        ->where('scheduling_id','=',$scheduling_id);
+    $stmt=$selectStament->execute();
+    $dataa=$stmt->fetch();
         if($lorryid!=null||$lorryid!=""){
             $selectStament=$database->select()
                 ->from('app_lorry')
@@ -1981,14 +1987,14 @@ $app->post('/change_orders_status',function()use($app){
                 $selectStament=$database->select()
                     ->from('lorry')
                     ->where('exist','=',0)
-                    ->where('tenant_id','!=',0)
+                    ->where('tenant_id','=',$dataa['tenant_id'])
                     ->where('plate_number','=',$data1['plate_number'])
                     ->where('driver_phone','=',$data1['phone']);
                 $stmt=$selectStament->execute();
-                $data2=$stmt->fetchAll();
+                $data2=$stmt->fetch();
                 $aaa=0;
                 if($data2!=null){
-                    for($i=0;$i<count($data2);$i++){
+//                    for($i=0;$i<count($data2);$i++){
 //                        $selectStament=$database->select()
 //                            ->from('scheduling')
 //                            ->where('exist','=',0)
@@ -2004,15 +2010,15 @@ $app->post('/change_orders_status',function()use($app){
                             ->table('scheduling')
                             ->where('exist','=',0)
                             ->where('scheduling_status','=',4)
-                            ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                            ->where('tenant_id','=',$data2['tenant_id'])
                             ->where('scheduling_id','=',$scheduling_id)
-                            ->where('lorry_id','=',$data2[$i]['lorry_id']);
+                            ->where('lorry_id','=',$data2['lorry_id']);
                         $affectedRows = $updateStatement->execute();
                         if($affectedRows>0){
                             $selectStament=$database->select()
                                 ->from('schedule_order')
                                 ->where('exist','=',0)
-                                ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                                ->where('tenant_id','=',$data2['tenant_id'])
                                 ->where('schedule_id','=',$scheduling_id);
                             $stmt=$selectStament->execute();
                             $data4=$stmt->fetchAll();
@@ -2020,7 +2026,7 @@ $app->post('/change_orders_status',function()use($app){
                                 for ($y = 0; $y < count($data4); $y++) {
                                 $updateStatement = $database->update(array('is_back'=>1))
                                     ->table('orders')
-                                    ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                                    ->where('tenant_id','=',$data2['tenant_id'])
                                     ->where('order_id','=',$data4[$y]['order_id'])
                                     ->where('exist',"=","0");
                                 $affectedRows = $updateStatement->execute();
@@ -2050,32 +2056,32 @@ $app->post('/change_orders_status',function()use($app){
                                 ->from('scheduling')
                                 ->where('exist','=',0)
                                 ->whereIn('scheduling_status',array(2,3))
-                                ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                                ->where('tenant_id','=',$data2['tenant_id'])
                                 ->where('scheduling_id','=',$scheduling_id)
-                                ->where('lorry_id','=',$data2[$i]['lorry_id']);
+                                ->where('lorry_id','=',$data2['lorry_id']);
                             $stmt=$selectStament->execute();
                             $data5=$stmt->fetch();
                             $selectStament=$database->select()
                                 ->from('scheduling')
                                 ->where('exist','=',0)
                                 ->where('scheduling_status','=',6)
-                                ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                                ->where('tenant_id','=',$data2['tenant_id'])
                                 ->where('scheduling_id','=',$scheduling_id)
-                                ->where('lorry_id','=',$data2[$i]['lorry_id']);
+                                ->where('lorry_id','=',$data2['lorry_id']);
                             $stmt=$selectStament->execute();
                             $data6=$stmt->fetch();
                             $selectStament=$database->select()
                                 ->from('scheduling')
                                 ->where('exist','=',0)
                                 ->where('scheduling_status','=',8)
-                                ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                                ->where('tenant_id','=',$data2['tenant_id'])
                                 ->where('scheduling_id','=',$scheduling_id)
-                                ->where('lorry_id','=',$data2[$i]['lorry_id']);
+                                ->where('lorry_id','=',$data2['lorry_id']);
                             $stmt=$selectStament->execute();
                             $data7=$stmt->fetch();
                         }
 
-                    }
+//                    }
                     if($aaa!=0){
                         echo json_encode(array('result' => '0', 'desc' => '退单中，待审核'));
                     }else{
@@ -2087,8 +2093,6 @@ $app->post('/change_orders_status',function()use($app){
                             }else{
                                if($data7){
                                    echo json_encode(array('result' => '7', 'desc' => '该调度单出险中'));
-                               }else{
-                                   echo json_encode(array('result' => '111', 'desc' => '改状态'));
                                }
                             }
 
@@ -2101,9 +2105,9 @@ $app->post('/change_orders_status',function()use($app){
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '司机不存在'));
             }
-        }else{
-            echo json_encode(array('result' => '2', 'desc' => '司机id为空'));
-        }
+}else{
+    echo json_encode(array('result' => '2', 'desc' => '司机id为空'));
+}
 });
 
 $app->post('/change_orders_status2',function()use($app){
