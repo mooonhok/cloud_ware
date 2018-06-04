@@ -44,7 +44,7 @@ function loadinsurances(tenant_id,page) {
                     ,limit: 10
                     ,jump: function(obj,first){
                         if(!first){
-                            loadtenants(adminid,obj.curr);
+                            loadinsurances(adminid,obj.curr);
                         }
                         //模拟渲染
                         document.getElementById('tb4').innerHTML = function(){
