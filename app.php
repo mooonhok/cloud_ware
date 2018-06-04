@@ -2049,7 +2049,7 @@ $app->post('/change_orders_status',function()use($app){
                             $selectStament=$database->select()
                                 ->from('scheduling')
                                 ->where('exist','=',0)
-                                ->where('scheduling_status','<',4)
+                                ->whereIn('scheduling_status',array(2,3))
                                 ->where('tenant_id','=',$data2[$i]['tenant_id'])
                                 ->where('scheduling_id','=',$scheduling_id)
                                 ->where('lorry_id','=',$data2[$i]['lorry_id']);
