@@ -1310,29 +1310,29 @@ $app->post('/addInsurance',function()use($app){
                                echo json_encode(array('result'=>'98','desc'=>'清单号：'.$schedu.'与车辆不符'));
                                exit;
                            }
-//                           $selectStatement = $database->select()
-//                               ->from('insurance')
-//                               ->where('tenant_id','=',$tenant_id);
-//                           $stmt = $selectStatement->execute();
-//                           $data3= $stmt->fetchAll();
-//                           $insurance_id=count($data3)+1000000001;
-//                           date_default_timezone_set("PRC");
-//                           $shijian=date("Y-m-d H:i:s",time());
-//                           $insertStatement = $database->insert(array('insurance_id','tenant_id','insurance_lorry_id','exist','insurance_price','insurance_amount','transtime','insurance_start_time'))
-//                               ->into('insurance')
-//                               ->values(array($insurance_id,$tenant_id,$data1['lorry_id'],0,$insurance_price,$insurance_amount,$transtime,$shijian));
-//                           $insertId = $insertStatement->execute(false);
-//                           for($i=0;$i<count($array1);$i++){
-//                               $insertStatement = $database->insert(array('insurance_id','tenant_id','scheduling_id','exist'))
-//                                   ->into('insurance_scheduling')
-//                                   ->values(array($insurance_id,$tenant_id,$array1[$i],0));
-//                               $insertId = $insertStatement->execute(false);
-//                               $updateStatement = $database->update(array("is_insurance" => 2))
-//                                   ->table('scheduling')
-//                                   ->where('tenant_id', '=', $tenant_id)
-//                                   ->where('scheduling_id','=',$array1[$i]);
-//                               $affectedRows = $updateStatement->execute();
-//                           }
+                           $selectStatement = $database->select()
+                               ->from('insurance')
+                               ->where('tenant_id','=',$tenant_id);
+                           $stmt = $selectStatement->execute();
+                           $data3= $stmt->fetchAll();
+                           $insurance_id=count($data3)+1000000001;
+                           date_default_timezone_set("PRC");
+                           $shijian=date("Y-m-d H:i:s",time());
+                           $insertStatement = $database->insert(array('insurance_id','tenant_id','insurance_lorry_id','exist','insurance_price','insurance_amount','transtime','insurance_start_time'))
+                               ->into('insurance')
+                               ->values(array($insurance_id,$tenant_id,$data1['lorry_id'],0,$insurance_price,$insurance_amount,$transtime,$shijian));
+                           $insertId = $insertStatement->execute(false);
+                           for($i=0;$i<count($array1);$i++){
+                               $insertStatement = $database->insert(array('insurance_id','tenant_id','scheduling_id','exist'))
+                                   ->into('insurance_scheduling')
+                                   ->values(array($insurance_id,$tenant_id,$array1[$i],0));
+                               $insertId = $insertStatement->execute(false);
+                               $updateStatement = $database->update(array("is_insurance" => 2))
+                                   ->table('scheduling')
+                                   ->where('tenant_id', '=', $tenant_id)
+                                   ->where('scheduling_id','=',$array1[$i]);
+                               $affectedRows = $updateStatement->execute();
+                           }
                            echo json_encode(array('result'=>'0','desc'=>'success'));
                        }else{
                            echo json_encode(array('result'=>'6','desc'=>'缺少调度单'));
