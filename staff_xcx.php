@@ -1250,6 +1250,111 @@ $app->put('/changeIsInsurance',function()use($app){
         $affectedRows = $updateStatement->execute();
 });
 
+$app->post('/addInsurance',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $scheduling_ids=$body->scheduling_ids;
+    $driver_name=$body->driver_name;
+    $plate_number=$body->plate_number;
+    $driver_phone=$body->driver_phone;
+    $transtime=$body->transtime;
+    $insurance_price=$body->insurance_price;
+    $insurance_amount=$body->insurance_amount;
+    $array1 = array();
+    $schedu='';
+    foreach ($scheduling_ids as $key => $value) {
+        $array1[$key] = $value;
+    }
+    if($tenant_id!=null||$tenant_id!=''){
+       if($driver_name!=null||$driver_name!=''){
+           if($plate_number!=null||$plate_number!=''){
+               if($driver_phone!=null||$driver_phone!=''){
+                   if($transtime!=null||$transtime!=''){
+                       if($scheduling_ids){
+                           $selectStatement = $database->select()
+                               ->from('lorry')
+                               ->where('exist','=',0)
+                               ->where('driver_phone','=',$driver_phone)
+                               ->where('plate_number','=',$plate_number)
+                               ->where('driver_name','=',$driver_name)
+                               ->where('tenant_id','=',$tenant_id);
+                           $stmt = $selectStatement->execute();
+                           $data1= $stmt->fetch();
+                           if(!$data1){
+                               echo json_encode(array('result'=>'99','desc'=>'该车辆不存在'));
+                               exit;
+                           }
+                           for($i=0;$i<count($array1);$i++){
+                               $selectStatement = $database->select()
+                                   ->from('scheduling')
+                                   ->where('scheduling_id','=',$array1[$i])
+                                   ->where('tenant_id','=',$tenant_id)
+                                   ->where('is_insurance','=',3)
+                                   ->where('scheduling.exist','=',0)
+                                   ->where('lorry_id','=',$data1['lorry_id']);
+                               $stmt = $selectStatement->execute();
+                               $data2= $stmt->fetch();
+                               if(!$data2) {
+                                   if ($schedu) {
+                                       $schedu .= $array1[$i];
+                                   } else {
+                                       $schedu .= ',' . $array1[$i];
+                                   }
+                               }
+                           }
+                           if($schedu){
+                               echo json_encode(array('result'=>'98','desc'=>'清单号：'.$schedu.'与车辆不符'));
+                               exit;
+                           }
+                           $selectStatement = $database->select()
+                               ->from('insurance')
+                               ->where('tenant_id','=',$tenant_id);
+                           $stmt = $selectStatement->execute();
+                           $data3= $stmt->fetchAll();
+                           $insurance_id=count($data3)+10000000001;
+                           date_default_timezone_set("PRC");
+                           $shijian=date("Y-m-d H:i:s",time());
+                           $insertStatement = $database->insert(array('insurance_id','tenant_id','insurance_lorry_id','exist','insurance_price','insurance_amount','transtime','insurance_start_time'))
+                               ->into('insurance')
+                               ->values(array($insurance_id,$tenant_id,$data1['lorry_id'],0,$insurance_price,$insurance_amount,$transtime,$shijian));
+                           $insertId = $insertStatement->execute(false);
+
+                           for($i=0;$i<count($array1);$i++){
+                               $insertStatement = $database->insert(array('insurance_id','tenant_id','scheduling_id','exist'))
+                                   ->into('insurance_scheduling')
+                                   ->values(array($insurance_id,$tenant_id,$array1[$i],0));
+                               $insertId = $insertStatement->execute(false);
+                               $updateStatement = $database->update(array("is_insurance" => 2))
+                                   ->table('scheduling')
+                                   ->where('tenant_id', '=', $tenant_id)
+                                   ->where('scheduling_id','=',$array1[$i]);
+                               $affectedRows = $updateStatement->execute();
+                           }
+                           echo json_encode(array('result'=>'0','desc'=>'success'));
+                       }else{
+                           echo json_encode(array('result'=>'6','desc'=>'缺少调度单'));
+                       }
+                   }else{
+                       echo json_encode(array('result'=>'5','desc'=>'缺少起运时间'));
+                   }
+               }else{
+                   echo json_encode(array('result'=>'4','desc'=>'缺少驾驶员电话'));
+               }
+           }else{
+               echo json_encode(array('result'=>'3','desc'=>'缺少车牌号码'));
+           }
+       }else{
+           echo json_encode(array('result'=>'2','desc'=>'缺少驾驶员名字'));
+       }
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
+    }
+});
+
 $app->run();
 
 function localhost(){
