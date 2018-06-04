@@ -2087,6 +2087,8 @@ $app->post('/change_orders_status',function()use($app){
                             }else{
                                if($data7){
                                    echo json_encode(array('result' => '7', 'desc' => '该调度单出险中'));
+                               }else{
+                                   echo json_encode(array('result' => '111', 'desc' => '改状态'));
                                }
                             }
 
