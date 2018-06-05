@@ -64,10 +64,11 @@ class littleWeixinPay {
     {
         $this->total_fee = $total_fee;
     }
-    function __construct( $openid,$body,$total_fee) {
-        $this->openid = $openid;
-        $this->body = $body;
-        $this->total_fee = $total_fee;
+    function __construct() {
+        $this->appid = WxPayConfig1::APPID;
+        $this->out_trade_no = WxPayConfig1::MCHID.time();
+        $this->mch_id = WxPayConfig1::MCHID;
+        $this->key = WxPayConfig1::KEY;
     }
 
     /**
@@ -81,7 +82,7 @@ class littleWeixinPay {
     /**
      * @param mixed $appid
      */
-    public function setAppid($appid)
+    public function setAppid()
     {
         $this->appid = WxPayConfig1::APPID;
     }
@@ -97,7 +98,7 @@ class littleWeixinPay {
     /**
      * @param mixed $mch_id
      */
-    public function setMchId($mch_id)
+    public function setMchId()
     {
         $this->mch_id = WxPayConfig1::MCHID;
     }
@@ -113,7 +114,7 @@ class littleWeixinPay {
     /**
      * @param mixed $key
      */
-    public function setKey($key)
+    public function setKey()
     {
         $this->key = WxPayConfig1::KEY;
     }
@@ -129,7 +130,7 @@ class littleWeixinPay {
     /**
      * @param mixed $out_trade_no
      */
-    public function setOutTradeNo($out_trade_no)
+    public function setOutTradeNo()
     {
         $this->out_trade_no = WxPayConfig1::MCHID.time();
     }
