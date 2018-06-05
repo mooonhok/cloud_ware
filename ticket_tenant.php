@@ -40,6 +40,61 @@ $app->get('/getTicketTenant0',function()use($app){
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket_tenant'=>$data));
 });
 
+$app->get('/getTicketTenants1',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $is_check=$app->request->get('is_check');
+    $company_id=$app->request->get('company_id');
+    $database = localhost();
+    $selectStatement = $database->select()
+        ->from('ticket_tenant')
+        ->where('is_check','=',$is_check)
+        ->where('company_id','=',$company_id);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetchAll();
+    echo  json_encode(array("result"=>"0","desc"=>"",'ticket_tenant'=>$data));
+});
+
+
+$app->options('/alterTicketTenant0',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set("Access-Control-Allow-Methods", "PUT");
+});
+
+
+$app->put('/alterTicketTenant0',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $is_check=$app->request->get('is_check');
+    $check_time=$app->request->get('check_time');
+    $id=$app->request->get('id');
+    $database = localhost();
+    $arrays=array();
+    $arrays['is_check']=$is_check;
+    $arrays['check_time']=$check_time;
+   if($id!=null||$id!=""){
+    $selectStatement = $database->select()
+        ->from('ticket_tenant')
+        ->where('id','=',$id);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetch();
+    if($data!=null){
+        $updateStatement = $database->update($arrays)
+            ->table('ticket_tenant')
+            ->where('id', '=', $id);
+        $affectedRows = $updateStatement->execute();
+        echo  json_encode(array("result"=>"0","desc"=>"修改记录成功"));
+    }else{
+    echo  json_encode(array("result"=>"1","desc"=>"记录不存在"));
+    }
+   }else{
+       echo  json_encode(array("result"=>"1","desc"=>"缺少id"));
+   }
+});
+
+
+
 $app->post('/addTicketTenant',function()use($app) {
     $app->response->headers->set('Access-Control-Allow-Origin', '*');
     $app->response->headers->set('Content-Type', 'application/json');
