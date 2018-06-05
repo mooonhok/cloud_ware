@@ -9,13 +9,13 @@ require_once 'littleWeiXinPay/WxPay.Config1.php';
 class littleWeixinPay {
 
 
-    protected $appid;
-    protected $mch_id;
-    protected $key;
-    protected $openid;
-    protected $out_trade_no;
-    protected $body;
-    protected $total_fee;
+    public $appid;
+    public $mch_id;
+    public $key;
+    public $openid;
+    public $out_trade_no;
+    public $body;
+    public $total_fee;
 
     /**
      * @return mixed
@@ -156,7 +156,7 @@ class littleWeixinPay {
 //            'total_fee' => floatval(0.01 * 100), //总金额 单位 分
             'total_fee' => $this->total_fee,
 //            'spbill_create_ip' => $_SERVER['REMOTE_ADDR'], //终端IP
-            'spbill_create_ip' => '192.168.0.161', //终端IP
+            'spbill_create_ip' => $_SERVER['REMOTE_ADDR'], //终端IP
             'notify_url' => 'http://www.weixin.qq.com/wxpay/pay.php', //通知地址  确保外网能正常访问
             'openid' => $this->openid, //用户id
             'trade_type' => 'JSAPI'//交易类型
