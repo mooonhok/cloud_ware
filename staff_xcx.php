@@ -13,7 +13,7 @@ require "littleWeiXinPay/littleWeiXinPay.php";
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
-$weiXinPay=new littleWeixinPay();
+$weiXinPay=new littleWeixinPay;
 
 $app->post('/staff_login',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
