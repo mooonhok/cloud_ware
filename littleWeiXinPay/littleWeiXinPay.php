@@ -138,8 +138,7 @@ class littleWeixinPay {
 
     public function pay() {
         //统一下单接口
-//        $return = $this->weixinapp();
-        $return=$this->body;
+        $return = $this->weixinapp();
         return $return;
     }
 
@@ -164,10 +163,11 @@ class littleWeixinPay {
             'trade_type' => 'JSAPI'//交易类型
         );
         //统一下单签名
-        $parameters['sign'] = $this->getSign($parameters);
-        $xmlData = $this->arrayToXml($parameters);
-        $return = $this->xmlToArray($this->postXmlCurl($xmlData, $url, 60));
-        return $return;
+//        $parameters['sign'] = $this->getSign($parameters);
+//        $xmlData = $this->arrayToXml($parameters);
+//        $return = $this->xmlToArray($this->postXmlCurl($xmlData, $url, 60));
+//        return $return;
+        return $parameters;
     }
 
 
@@ -248,16 +248,17 @@ class littleWeixinPay {
         //统一下单接口
         $unifiedorder = $this->unifiedorder();
 //        print_r($unifiedorder);
-        $parameters = array(
-            'appId' => $this->appid, //小程序ID
-            'timeStamp' => '' . time() . '', //时间戳
-            'nonceStr' => $this->createNoncestr(), //随机串
-            'package' => 'prepay_id=' . $unifiedorder['prepay_id'], //数据包
-            'signType' => 'MD5'//签名方式
-        );
-        //签名
-        $parameters['paySign'] = $this->getSign($parameters);
-        return $parameters;
+//        $parameters = array(
+//            'appId' => $this->appid, //小程序ID
+//            'timeStamp' => '' . time() . '', //时间戳
+//            'nonceStr' => $this->createNoncestr(), //随机串
+//            'package' => 'prepay_id=' . $unifiedorder['prepay_id'], //数据包
+//            'signType' => 'MD5'//签名方式
+//        );
+//        //签名
+//        $parameters['paySign'] = $this->getSign($parameters);
+//        return $parameters;
+        return $unifiedorder;
     }
 
 
