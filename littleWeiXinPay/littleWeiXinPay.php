@@ -246,7 +246,7 @@ class littleWeixinPay {
     private function weixinapp() {
         //统一下单接口
         $unifiedorder = $this->unifiedorder();
-//        print_r($unifiedorder);
+        print_r($unifiedorder);
         $parameters = array(
             'appId' => $this->appid, //小程序ID
             'timeStamp' => '' . time() . '', //时间戳
