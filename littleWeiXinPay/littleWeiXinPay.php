@@ -64,11 +64,11 @@ class littleWeixinPay {
     {
         $this->total_fee = $total_fee;
     }
-//    function __construct( $openid,$body,$total_fee) {
-//        $this->openid = $openid;
-//        $this->body = $body;
-//        $this->total_fee = $total_fee;
-//    }
+    function __construct( $openid,$body,$total_fee) {
+        $this->openid = $openid;
+        $this->body = $body;
+        $this->total_fee = $total_fee;
+    }
 
     /**
      * @return mixed
