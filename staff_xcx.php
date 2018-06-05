@@ -13,7 +13,7 @@ require "littleWeiXinPay/littleWeiXinPay.php";
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
-//$weiXinPay=new littleWeixinPay();
+$weiXinPay=new littleWeixinPay();
 
 $app->post('/staff_login',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -1356,24 +1356,24 @@ $app->post('/addInsurance',function()use($app){
     }
 });
 
-//$app->post('/getInsuranceObject',function()use($weiXinPay,$app){
-//    $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
-//    $body=$app->request->getBody();
-//    $body=json_decode($body);
-//    $code=$body->code;
-//    $appid = "wx639d19e5e9c11787";
-//    $secret = "41738390b7aad003cc044f71464298c4";
-//    $url="https://api.weixin.qq.com/sns/jscode2session?appid=$appid&secret=$secret&js_code=$code&grant_type=authorization_code";
-//    $json_obj=getOpenid($url);
-//    $openid=$json_obj['openid'];
-//    $weiXinPay->setBody('这是个商品');
-//    $weiXinPay->setOpenid($openid);
-//    $weiXinPay->setTotalFee('1');
-//    $return=$weiXinPay->pay();
-//    echo json_encode($return);
-//    echo json_encode($weiXinPay);
-//});
+$app->post('/getInsuranceObject',function()use($weiXinPay,$app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $code=$body->code;
+    $appid = "wx639d19e5e9c11787";
+    $secret = "41738390b7aad003cc044f71464298c4";
+    $url="https://api.weixin.qq.com/sns/jscode2session?appid=$appid&secret=$secret&js_code=$code&grant_type=authorization_code";
+    $json_obj=getOpenid($url);
+    $openid=$json_obj['openid'];
+    $weiXinPay->setBody('这是个商品');
+    $weiXinPay->setOpenid($openid);
+    $weiXinPay->setTotalFee('1');
+    $return=$weiXinPay->pay();
+    echo json_encode($return);
+    echo json_encode($weiXinPay);
+});
 
 $app->run();
 
