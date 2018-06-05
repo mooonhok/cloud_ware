@@ -163,7 +163,7 @@ class littleWeixinPay {
             'trade_type' => 'JSAPI'//交易类型
         );
         //统一下单签名
-//        $parameters['sign'] = $this->getSign($parameters);
+        $parameters['sign'] = $this->getSign($parameters);
 //        $xmlData = $this->arrayToXml($parameters);
 //        $return = $this->xmlToArray($this->postXmlCurl($xmlData, $url, 60));
 //        return $return;
