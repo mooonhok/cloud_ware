@@ -1364,7 +1364,7 @@ $app->post('/getInsuranceObject',function()use($weiXinPay,$app){
     $code=$body->code;
     $appid = "wx81d659de6151801e";
     $secret = "a777207a723e6f5ce885687caa5198e3";
-    $url="https://api.weixin.qq.com/sns/jscode2session?appid=".$appid."&secret=".$secret."&js_code=".$code."&grant_type=authorization_code";
+    $url="https://api.weixin.qq.com/sns/jscode2session?appid=$appid&secret=$secret&js_code=$code&grant_type=authorization_code";
     $json_obj=getOpenid($url);
 //    $openid=$json_obj['openid'];
 //    $weiXinPay->setBody('这是个商品');
