@@ -1372,7 +1372,7 @@ $app->post('/getInsuranceObject',function()use($weiXinPay,$app){
 //    $weiXinPay->setTotalFee('1');
 //    $return=$weiXinPay->pay();
 //    echo json_encode($return);
-    echo $json_obj;
+    echo json_encode($json_obj);
 });
 
 $app->run();
