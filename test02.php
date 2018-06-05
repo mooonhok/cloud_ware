@@ -19,7 +19,7 @@ $app->get('/testone',function()use($app){
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     date_default_timezone_set("PRC");
-    $time1=microtime();;
+    $time1=time();
 
         $selectStatement = $database->select()
             ->from('scheduling')
@@ -27,7 +27,51 @@ $app->get('/testone',function()use($app){
             ->whereIn('scheduling_status',array(6,8));
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        $time2=microtime();;
+    for($i=0;$i<count($data);$i++){
+        $selectStatement = $database->select()
+            ->from('lorry')
+            ->where('lorry.lorry_id','=',$data[$i]['lorry_id'])
+            ->where('lorry.tenant_id', '=', $tenant_id);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('app_lorry')
+            ->join('lorry_length','app_lorry.length','=','lorry_length.lorry_length_id','INNER')
+            ->join('lorry_type','app_lorry.type','=','lorry_type.lorry_type_id','INNER')
+            ->where('phone', '=', $data1['driver_phone'])
+            ->where('name', '=', $data1['driver_name'])
+            ->where('plate_number', '=', $data1['plate_number'])
+            ->where('exist','=','0');
+        $stmt = $selectStatement->execute();
+        $data6= $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id', '=', $data[$i]['send_city_id']);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('province')
+            ->where('id', '=', $data2['pid']);
+        $stmt = $selectStatement->execute();
+        $data3 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id', '=', $data[$i]['receive_city_id']);
+        $stmt = $selectStatement->execute();
+        $data4 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('province')
+            ->where('id', '=', $data4['pid']);
+        $stmt = $selectStatement->execute();
+        $data5 = $stmt->fetch();
+        $data[$i]['lorry']=$data1;
+        $data[$i]['app_lorry']=$data6;
+        $data[$i]['send_city']=$data2;
+        $data[$i]['send_province']=$data3;
+        $data[$i]['receive_city']=$data4;
+        $data[$i]['receive_province']=$data5;
+    }
+        $time2=time();
         $num=$time2-$time1;
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$num));
 
@@ -42,21 +86,62 @@ $app->get('/testtwo',function()use($app){
     $database = localhost();
     $array=array();
     date_default_timezone_set("PRC");
-    $time1=microtime();;
-
+    $time1=time();
         $selectStatement = $database->select()
             ->from('scheduling')
             ->where('exist', '=', 0);
-
-
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
+    for($i=0;$i<count($data);$i++){
+        $selectStatement = $database->select()
+            ->from('lorry')
+            ->where('lorry.lorry_id','=',$data[$i]['lorry_id'])
+            ->where('lorry.tenant_id', '=', $tenant_id);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('app_lorry')
+            ->join('lorry_length','app_lorry.length','=','lorry_length.lorry_length_id','INNER')
+            ->join('lorry_type','app_lorry.type','=','lorry_type.lorry_type_id','INNER')
+            ->where('phone', '=', $data1['driver_phone'])
+            ->where('name', '=', $data1['driver_name'])
+            ->where('plate_number', '=', $data1['plate_number'])
+            ->where('exist','=','0');
+        $stmt = $selectStatement->execute();
+        $data6= $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id', '=', $data[$i]['send_city_id']);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('province')
+            ->where('id', '=', $data2['pid']);
+        $stmt = $selectStatement->execute();
+        $data3 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id', '=', $data[$i]['receive_city_id']);
+        $stmt = $selectStatement->execute();
+        $data4 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('province')
+            ->where('id', '=', $data4['pid']);
+        $stmt = $selectStatement->execute();
+        $data5 = $stmt->fetch();
+        $data[$i]['lorry']=$data1;
+        $data[$i]['app_lorry']=$data6;
+        $data[$i]['send_city']=$data2;
+        $data[$i]['send_province']=$data3;
+        $data[$i]['receive_city']=$data4;
+        $data[$i]['receive_province']=$data5;
+    }
         for($x=0;$x<count($data);$x++){
             if($data[$x]['scheduling_status']==6||$data[$x]['scheduling_status']==6){
                 array_push($array,$data[$x]);
             }
         }
-        $time2=microtime();
+        $time2=time();
         $num=$time2-$time1;
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$num));
 });
