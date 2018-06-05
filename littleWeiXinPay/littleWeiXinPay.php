@@ -232,14 +232,13 @@ class littleWeixinPay {
         libxml_disable_entity_loader(true);
 
 
-        $xmlstring = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
+        $xmlstring = simplexml_load_string($xml);
 
 
-//        $val = json_decode(json_encode($xmlstring), true);
+        $val = json_decode(json_encode($xmlstring), true);
 
 
-//        return $val;
-        return $xmlstring;
+        return $val;
     }
 
 
