@@ -165,9 +165,8 @@ class littleWeixinPay {
         //统一下单签名
         $parameters['sign'] = $this->getSign($parameters);
         $xmlData = $this->arrayToXml($parameters);
-//        $return = $this->xmlToArray($this->postXmlCurl($xmlData, $url, 60));
-//        return $return;
-        return $xmlData;
+        $return = $this->xmlToArray($this->postXmlCurl($xmlData, $url, 60));
+        return $return;
     }
 
 
