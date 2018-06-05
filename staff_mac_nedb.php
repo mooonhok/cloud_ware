@@ -8,11 +8,15 @@
 
 require 'Slim/Slim.php';
 require 'connect.php';
+require "littleWeiXinPay/littleWeiXinPay.php";
 use Slim\PDO\Database;
 
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
+$weiXinPay=new littleWeixinPay();
+
+
 $app->post('/addStaffMac',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -324,6 +328,24 @@ $app->get("/getStaffMac2",function()use($app){
     }
 });
 
+$app->post('/getInsuranceObject',function()use($weiXinPay,$app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $code=$body->code;
+     $appid = "wx81d659de6151801e";
+     $secret = "a777207a723e6f5ce885687caa5198e3";
+    $url="https://api.weixin.qq.com/sns/jscode2session?appid=".$appid."&secret=".$secret."&js_code=".$code."&grant_type=authorization_code";
+    $json_obj=getOpenid($url);
+    $openid=$json_obj['openid'];
+    $weiXinPay->setBody('这是个商品');
+    $weiXinPay->setOpenid($openid);
+    $weiXinPay->setTotalFee('1');
+    $return=$weiXinPay->pay();
+    echo json_encode($return);
+});
+
 $app->run();
 
 function localhost(){
@@ -339,4 +361,16 @@ function decode($string, $skey) {
     return base64_decode(join('', $strArr));
 }
 
+
+function getOpenid($url){
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $output = curl_exec($ch);
+    curl_close($ch);
+    $json_obj = json_decode($output, true);
+    return $json_obj;
+}
 ?>
