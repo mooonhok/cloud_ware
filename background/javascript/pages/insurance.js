@@ -33,7 +33,7 @@ function loadinsurances(tenant_id,page) {
         data: JSON.stringify({}),
         success: function(msg) {
             $("#allinmoney").html("");
-            $("#allinmoney").html(msg.countins);
+            $("#allinmoney").html("总保费为："+msg.countins);
             $("#tb4").html("");
             //调用分页
             layui.use(['laypage', 'layer'], function(){
