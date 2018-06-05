@@ -1370,8 +1370,9 @@ $app->post('/getInsuranceObject',function()use($weiXinPay,$app){
     $weiXinPay->setBody('这是个商品');
     $weiXinPay->setOpenid($openid);
     $weiXinPay->setTotalFee('1');
-    $return=$weiXinPay->pay();
-    echo json_encode($return);
+//    $return=$weiXinPay->pay();
+//    echo json_encode($return);
+    echo json_encode($weiXinPay);
 });
 
 $app->run();
