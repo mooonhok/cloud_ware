@@ -165,8 +165,8 @@ class littleWeixinPay {
         //统一下单签名
         $parameters['sign'] = $this->getSign($parameters);
         $xmlData = $this->arrayToXml($parameters);
-//        $return = $this->xmlToArray($this->postXmlCurl($xmlData, $url, 60));
-        return $this->postXmlCurl($xmlData, $url, 60);
+        $return = $this->xmlToArray($this->postXmlCurl($xmlData, $url, 60));
+        return $return;
     }
 
 
@@ -229,7 +229,7 @@ class littleWeixinPay {
         //禁止引用外部xml实体
 
 
-        libxml_disable_entity_loader(true);
+//        libxml_disable_entity_loader(true);
 
 
         $xmlstring = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
