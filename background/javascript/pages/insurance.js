@@ -32,7 +32,8 @@ function loadinsurances(tenant_id,page) {
         ContentType: "application/json;charset=utf-8",
         data: JSON.stringify({}),
         success: function(msg) {
-
+            $("#allinmoney").html("");
+            $("#allinmoney").html(msg.countins);
             $("#tb4").html("");
             //调用分页
             layui.use(['laypage', 'layer'], function(){

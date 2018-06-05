@@ -1086,6 +1086,7 @@ $app->get('/lastinsurance',function()use($app){
 //            echo json_encode(array('result' => '1', 'desc' => '租户id为空', 'rechanges' => ''));
 //        }
     }else{
+        $num111=0;
         $page=(int)$page-1;
         $arrays = array();
 //        if ($tenant_id != null || $tenant_id != "") {
@@ -1102,6 +1103,17 @@ $app->get('/lastinsurance',function()use($app){
             ->orderBy('insurance.insurance_start_time', 'desc');
         $stmt = $selectStatement->execute();
         $data2a = $stmt->fetchAll();
+        $a=0;
+        for($x=0;$x<count($data2a);$x++){
+            $a+=$data2a[$x]['insurance_amount'];
+            $sss=(explode('.',$data2a[$x]['insurance_amount']));
+            if(count($sss)>1) {
+                if ($num111 < strlen($sss[1])) {
+                    $num111 = strlen((explode('.', $data2a[$x]['insurance_amount']))[1]);
+                        };
+            }
+            $a=sprintf("%.".$num111."f",$a);
+        }
                 $selectStatement = $database->select()
                     ->from('insurance')
                     ->join('tenant','tenant.tenant_id','=','insurance.tenant_id','INNER')
@@ -1158,7 +1170,7 @@ $app->get('/lastinsurance',function()use($app){
 //                        $arrays1['goods_name'] = $data2[$i]['g_type'];
                         array_push($arrays, $arrays1);
                     }
-                    echo json_encode(array('result' => '0', 'desc' => '', 'rechanges' => $arrays,'count'=>$num));
+                    echo json_encode(array('result' => '0', 'desc' => '', 'rechanges' => $arrays,'count'=>$num,'countins'=>$a));
                 } else {
                     echo json_encode(array('result' => '3', 'desc' => '该公司无历史保单', 'rechanges' => ''));
                 }
