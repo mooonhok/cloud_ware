@@ -19,21 +19,18 @@ $app->get('/testone',function()use($app){
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     date_default_timezone_set("PRC");
-    $time1=time();
-    if($tenant_id!=null||$tenant_id!=''){
+    $time1=microtime();;
+
         $selectStatement = $database->select()
             ->from('scheduling')
             ->where('exist', '=', 0)
-            ->whereIn('scheduling_status',array(6,8))
-            ->where('tenant_id', '=', $tenant_id);
+            ->whereIn('scheduling_status',array(6,8));
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        $time2=time();
+        $time2=microtime();;
         $num=$time2-$time1;
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$num));
-    }else{
-        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
-    }
+
 });
 
 
@@ -45,13 +42,13 @@ $app->get('/testtwo',function()use($app){
     $database = localhost();
     $array=array();
     date_default_timezone_set("PRC");
-    $time1=time();
-    if($tenant_id!=null||$tenant_id!=''){
+    $time1=microtime();;
+
         $selectStatement = $database->select()
             ->from('scheduling')
-            ->where('exist', '=', 0)
-//            ->whereIn('scheduling_status',array(6,8))
-            ->where('tenant_id', '=', $tenant_id);
+            ->where('exist', '=', 0);
+
+
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         for($x=0;$x<count($data);$x++){
@@ -59,12 +56,9 @@ $app->get('/testtwo',function()use($app){
                 array_push($array,$data[$x]);
             }
         }
-        $time2=time();
+        $time2=microtime();
         $num=$time2-$time1;
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$num));
-    }else{
-        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
-    }
 });
 
 
