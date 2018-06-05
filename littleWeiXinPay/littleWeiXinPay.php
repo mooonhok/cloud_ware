@@ -246,17 +246,18 @@ class littleWeixinPay {
     private function weixinapp() {
         //统一下单接口
         $unifiedorder = $this->unifiedorder();
-        print_r($unifiedorder);
-        $parameters = array(
-            'appId' => $this->appid, //小程序ID
-            'timeStamp' => '' . time() . '', //时间戳
-            'nonceStr' => $this->createNoncestr(), //随机串
-            'package' => 'prepay_id=' . $unifiedorder['prepay_id'], //数据包
-            'signType' => 'MD5'//签名方式
-        );
-        //签名
-        $parameters['paySign'] = $this->getSign($parameters);
-        return $parameters;
+//        print_r($unifiedorder);
+//        $parameters = array(
+//            'appId' => $this->appid, //小程序ID
+//            'timeStamp' => '' . time() . '', //时间戳
+//            'nonceStr' => $this->createNoncestr(), //随机串
+//            'package' => 'prepay_id=' . $unifiedorder['prepay_id'], //数据包
+//            'signType' => 'MD5'//签名方式
+//        );
+//        //签名
+//        $parameters['paySign'] = $this->getSign($parameters);
+//        return $parameters;
+        return $unifiedorder;
     }
 
 
