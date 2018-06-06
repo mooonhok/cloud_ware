@@ -41,6 +41,7 @@
 								<th>单价（重货）</th>
 								<th>单价（轻货）</th>
 								<th>提货地点</th>
+								<th>备注</th>
 							</tr>
 						</thead>
 						<!--内容容器-->
@@ -93,7 +94,12 @@
 										tbody+="<td>"+msg.routes[i].time+"</td>";
 										tbody+="<td>"+msg.routes[i].price_heavy+"</td>";
 										tbody+="<td>"+msg.routes[i].price_light+"</td>";
-										tbody+="<td>"+msg.routes[i].place+"</td>";
+										if(msg.routes[i].place==null){
+											tbody+="<td></td>";
+										}else{
+											tbody+="<td>"+msg.routes[i].place+"</td>";
+										}
+										tbody+="<td>"+msg.routes[i].comment+"</td>";
 										tbody+="</tr>";
 									}
 									$("#info-table").append(tbody);
@@ -137,14 +143,14 @@
 					}
 				});
 				var content='';
-				content+='<div>';
-				content+='<div class="layui-form-item layui-form-pane">';
+				content+='<div class="layui-form-pane">';
+				content+='<div class="layui-form-item">';
 				content+='<label class="layui-form-label">线路</label>';
 				content+='<div class="layui-input-inline">';
 				content+='<input type="text" class="layui-input" id="line" placeholder="如：靖江—沈阳" autocomplete="off">';
 				content+='</div>';
 				content+='</div>';
-				content+='<div class="layui-form-item layui-form-pane">';
+				content+='<div class="layui-form-item">';
 				content+='<label class="layui-form-label">省份</label>';
 				content+='<div class="layui-input-inline">';
 				content+='<select id="province">';
@@ -169,28 +175,34 @@
 				content+='</select>';
 				content+='</div>';
 				content+='</div>';
-				content+='<div class="layui-form-item layui-form-pane">';
+				content+='<div class="layui-form-item">';
 				content+='<label class="layui-form-label">参考时间</label>';
 				content+='<div class="layui-input-inline">';
 				content+='<input type="text" class="layui-input" id="time" placeholder="如：2天" autocomplete="off">';
 				content+='</div>';
 				content+='</div>';
-				content+='<div class="layui-form-item layui-form-pane">';
+				content+='<div class="layui-form-item">';
 				content+='<label class="layui-form-label">单价(重货)</label>';
 				content+='<div class="layui-input-inline">';
 				content+='<input type="text" class="layui-input" id="price_heavy" placeholder="如：360元/吨" autocomplete="off">';
 				content+='</div>';
 				content+='</div>';
-				content+='<div class="layui-form-item layui-form-pane">';
+				content+='<div class="layui-form-item">';
 				content+='<label class="layui-form-label">单价(轻货)</label>';
 				content+='<div class="layui-input-inline">';
 				content+='<input type="text" class="layui-input" id="price_light" placeholder="如：120元/立方" autocomplete="off">';
 				content+='</div>';
 				content+='</div>';
-				content+='<div class="layui-form-item layui-form-pane">';
+				content+='<div class="layui-form-item">';
 				content+='<label class="layui-form-label">提货地点</label>';
 				content+='<div class="layui-input-inline">';
 				content+='<input type="text" class="layui-input" id="place" placeholder="如：沈阳东站" autocomplete="off">';
+				content+='</div>';
+				content+='</div>';
+				content+='<div class="layui-form-item layui-form-text">';
+				content+='<label class="layui-form-label">备注</label>';
+				content+='<div class="layui-input-block">';
+				content+='<textarea class="layui-textarea" id="comment" placeholder="如：10吨以下货物，30公里内免费配送，10吨以上货物，30公里内500元/吨，30公里以外800元/吨"></textarea>';
 				content+='</div>';
 				content+='</div>';
 				content+='</div>';
@@ -207,6 +219,7 @@
 						var price_heavy=$("#price_heavy").val();
 						var price_light=$("#price_light").val();
 						var place=$("#place").val();
+						var comment=$("#comment").val();
 						var num;
 						if(line==""){
 							layer.tips('请填写线路','#line');
@@ -218,8 +231,6 @@
 							layer.tips('请填写单价(重货)','#price_heavy');
 						}else if(price_light==""){
 							layer.tips('请填写单价(轻货)','#price_light');
-						}else if(place==""){
-							layer.tips('请填写提货地点','#place');
 						}else{
 							$.ajax({
 								url:os_url+"route.php/getRoutes1?province="+province+"&type=1",
@@ -264,6 +275,7 @@
 											price_heavy:price_heavy,
 											price_light:price_light,
 											place:place,
+											comment:comment,
 											type:1
 										}),
 										success:function(msg){
@@ -328,14 +340,14 @@
 								var num_pre=msg.routes[0].num;
 								var province_pre=msg.routes[0].province;
 								var content='';
-								content+='<div>';
-								content+='<div class="layui-form-item layui-form-pane">';
+								content+='<div class="layui-form-pane">';
+								content+='<div class="layui-form-item">';
 								content+='<label class="layui-form-label">线路</label>';
 								content+='<div class="layui-input-inline">';
 								content+='<input type="text" class="layui-input" id="line" placeholder="如：靖江—沈阳" value="'+msg.routes[0].line+'" autocomplete="off">';
 								content+='</div>';
 								content+='</div>';
-								content+='<div class="layui-form-item layui-form-pane">';
+								content+='<div class="layui-form-item">';
 								content+='<label class="layui-form-label">省份</label>';
 								content+='<div class="layui-input-inline">';
 								content+='<select id="province">';
@@ -364,28 +376,38 @@
 								content+='</select>';
 								content+='</div>';
 								content+='</div>';
-								content+='<div class="layui-form-item layui-form-pane">';
+								content+='<div class="layui-form-item">';
 								content+='<label class="layui-form-label">参考时间</label>';
 								content+='<div class="layui-input-inline">';
 								content+='<input type="text" class="layui-input" id="time" placeholder="如：2天" value="'+msg.routes[0].time+'" autocomplete="off">';
 								content+='</div>';
 								content+='</div>';
-								content+='<div class="layui-form-item layui-form-pane">';
+								content+='<div class="layui-form-item">';
 								content+='<label class="layui-form-label">单价(重货)</label>';
 								content+='<div class="layui-input-inline">';
 								content+='<input type="text" class="layui-input" id="price_heavy" placeholder="如：360元/吨" value="'+msg.routes[0].price_heavy+'" autocomplete="off">';
 								content+='</div>';
 								content+='</div>';
-								content+='<div class="layui-form-item layui-form-pane">';
+								content+='<div class="layui-form-item">';
 								content+='<label class="layui-form-label">单价(轻货)</label>';
 								content+='<div class="layui-input-inline">';
 								content+='<input type="text" class="layui-input" id="price_light" placeholder="如：120元/立方" value="'+msg.routes[0].price_light+'" autocomplete="off">';
 								content+='</div>';
 								content+='</div>';
-								content+='<div class="layui-form-item layui-form-pane">';
+								content+='<div class="layui-form-item">';
 								content+='<label class="layui-form-label">提货地点</label>';
 								content+='<div class="layui-input-inline">';
-								content+='<input type="text" class="layui-input" id="place" placeholder="如：沈阳东站" value="'+msg.routes[0].place+'" autocomplete="off">';
+								if(msg.routes[0].place==null){
+									content+='<input type="text" class="layui-input" id="place" placeholder="如：15元" value="" autocomplete="off">';
+								}else{
+									content+='<input type="text" class="layui-input" id="place" placeholder="如：15元" value="'+msg.routes[0].place+'" autocomplete="off">';
+								}
+								content+='</div>';
+								content+='</div>';
+								content+='<div class="layui-form-item layui-form-text">';
+								content+='<label class="layui-form-label">备注</label>';
+								content+='<div class="layui-input-block">';
+								content+='<textarea class="layui-textarea" id="comment" placeholder="如：10吨以下货物，30公里内免费配送，10吨以上货物，30公里内500元/吨，30公里以外800元/吨">'+msg.routes[0].comment+'</textarea>';
 								content+='</div>';
 								content+='</div>';
 								content+='</div>';
@@ -402,6 +424,7 @@
 										var price_heavy=$("#price_heavy").val();
 										var price_light=$("#price_light").val();
 										var place=$("#place").val();
+										var comment=$("#comment").val();
 										var num;
 										if(line==""){
 											layer.tips('请填写线路','#line');
@@ -413,8 +436,6 @@
 											layer.tips('请填写单价(重货)','#price_heavy');
 										}else if(price_light==""){
 											layer.tips('请填写单价(轻货)','#price_light');
-										}else if(place==""){
-											layer.tips('请填写提货地点','#place');
 										}else{
 											if(province==province_pre){
 												$.ajax({
@@ -427,7 +448,8 @@
 														time:time,
 														price_heavy:price_heavy,
 														price_light:price_light,
-														place:place
+														place:place,
+														comment:comment
 													}),
 													success:function(msg){
 														loadRoute();
@@ -530,7 +552,8 @@
 																time:time,
 																price_heavy:price_heavy,
 																price_light:price_light,
-																place:place
+																place:place,
+																comment:comment
 															}),
 															success:function(msg){
 																loadRoute();
