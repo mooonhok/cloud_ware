@@ -76,7 +76,7 @@ $app->get('/all',function()use($app){
     $table=$app->request->get('table_name');
     $database=localhost();
     $selectStatement = $database->select()
-        ->count('*','aaa')
+        ->count('id','aaa')
         ->from($table.'');
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
