@@ -19,11 +19,16 @@
 		}
 		#business_show,#logo_show,#order_show,#agreement_show{
 			font:normal 15px "微软雅黑";
+			color:green;
 		}
 		#business_img{
 			width:160px;
 			height:284px;
 			border:1px solid #cccccc;
+		}
+		.nature{
+			width:18px;
+			height:18px;
 		}
 		#logo_img{
 			width:80px;
@@ -179,6 +184,17 @@
 					<label for="business_show" class="col-sm-3 control-label"></label>
 					<div class="col-sm-6">
 						<div id="business_show">支持jpg、jpeg、png、gif等所有图像文件</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="business_file" class="col-sm-3 control-label">公司分类</label>
+					<div class="col-sm-6">
+						<label class="radio-inline">
+							<input type="radio" name="nature" class="nature" value="0"> 总公司
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="nature" class="nature" value="1"> 分公司
+						</label>
 					</div>
 				</div>
 				<div class="form-group">
@@ -465,12 +481,15 @@
 			<!-- var order_file=$("#order_file").val(); -->
 			<!-- var agreement_file=$("#agreement_file").val(); -->
 			var business_file=$("#business_hide").html();
+			var nature=$("input[name='nature']:checked").val();
 			var logo_file=$("#logo_hide").html();
 			var order_file=$("#order_hide").html();
 			var agreement_file=$("#agreement_hide").html();
 			var introduction=$("#introduction").val();
 			var service=$("#service").val();
-			if(jcompany==""){
+			if(company==""){
+				$("#alert-content").text("请填写公司全称！");$('#alert').modal();
+			}else if(jcompany==""){
 				$("#alert-content").text("请填写公司简称！");$('#alert').modal();
 			}else if(name==""){
 				$("#alert-content").text("请填写负责人姓名！");$('#alert').modal();
@@ -500,6 +519,8 @@
 				$("#alert-content").text("请填写营业执照号码！");$('#alert').modal();
 			}else if(business_file==""){
 				$("#alert-content").text("请上传营业执照图片！");$('#alert').modal();
+			}else if(nature==undefined||nature=="undefined"){
+				$("#alert-content").text("请选择公司类型！");$('#alert').modal();
 			}else{
 				Confirm.confirm({message:"确定该公司试用物牛管理系统？"}).on(function(e){
 					if(!e){
@@ -522,6 +543,7 @@
 							location:location,
 							business:business,
 							business_file:business_file,
+							nature:nature,
 							logo_file:logo_file,
 							order_file:order_file,
 							agreement_file:agreement_file,
