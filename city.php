@@ -78,9 +78,9 @@ $app->get('/all',function()use($app){
     $selectStatement = $database->select()
         ->count('*','add')
         ->from($table.'');
-    $stmt = $selectStatement->execute();
+//    $stmt = $selectStatement->execute();
 //    $data = $stmt->fetch();
-    echo  json_encode(array("result"=>"0","desc"=>"success",'sql'=>$stmt));
+    echo  json_encode(array("result"=>"0","desc"=>"success",'sql'=>$selectStatement));
 });
 
 $app->post('/addpackage',function()use($app){
