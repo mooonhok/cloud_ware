@@ -76,9 +76,10 @@ $app->get('/all',function()use($app){
     $table=$app->request->get('table_name');
     $database=localhost();
     $selectStatement = $database->select()
+        ->count('*','all')
         ->from($table.'');
     $stmt = $selectStatement->execute();
-    $data = $stmt->fetchAll();
+    $data = $stmt->fetch();
     echo  json_encode(array("result"=>"0","desc"=>"success","tables"=>$data));
 });
 
