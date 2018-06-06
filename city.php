@@ -80,7 +80,7 @@ $app->get('/all',function()use($app){
         ->from($table.'');
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
-    echo  json_encode(array("result"=>"0","desc"=>"success",'sql'=>$selectStatement));
+    echo  json_encode(array("result"=>"0","desc"=>"success","tables"=>$data));
 });
 
 $app->post('/addpackage',function()use($app){
