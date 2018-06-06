@@ -76,11 +76,11 @@ $app->get('/all',function()use($app){
     $table=$app->request->get('table_name');
     $database=localhost();
     $selectStatement = $database->select()
-        ->count('*','all')
+        ->count('*','add')
         ->from($table.'');
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
-    echo  json_encode(array("result"=>"0","desc"=>"success","tables"=>$data));
+    echo  json_encode(array("result"=>"0","desc"=>"success","tables"=>$data,'sql'=>$stmt));
 });
 
 $app->post('/addpackage',function()use($app){
