@@ -52,7 +52,15 @@ $app->get('/getTicketTenants1',function()use($app){
         ->where('company_id','=',$company_id);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
-    echo  json_encode(array("result"=>"0","desc"=>"",'ticket_tenant'=>$data));
+    $array=array();
+    $array1=array();
+    for($i=0;$i<count($data);$i++){
+        $num=$i+1;
+        $array1['num']=$num;
+        $array1["ticket_tenant"]=$data[$i];
+        array_push($array,$array1);
+    }
+    echo  json_encode(array("result"=>"0","desc"=>"",'ticket_tenants'=>$array));
 });
 
 
