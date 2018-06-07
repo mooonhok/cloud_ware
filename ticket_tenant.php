@@ -58,6 +58,7 @@ $app->get('/getTicketTenants1',function()use($app){
         $num=$i+1;
         $array1['num']=$num;
         $array1["ticket_tenant"]=$data[$i];
+        $array1['count']=count($data);
         array_push($array,$array1);
     }
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket_tenants'=>$array));
