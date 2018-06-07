@@ -1374,26 +1374,7 @@ $app->post('/getInsuranceObject',function()use($weiXinPay,$app){
     echo json_encode($return);
 });
 
-$app->get('/getTest',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $database=localhost();
-    $array=array();
-    $tenant_id=$app->request->headers->get('tenant-id');
-    $selectStatement = $database->select()
-        ->from('orders')
-        ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
-        ->where('goods.tenant_id','=',$tenant_id)
-        ->where('orders.tenant_id','=',$tenant_id)
-        ->whereNotIn('orders.order_status',array(-1,-2,0,6))
-        ->where('orders.exist','=',0)
-        ->orderBy('orders.order_status')
-        ->orderBy('orders.order_datetime1','DESC')
-        ->orderBy('orders.id','DESC');
-    $stmt = $selectStatement->execute();
-    $data1 = $stmt->fetchAll();
-    echo json_encode(array('data'=>$data1));
-});
+
 
 $app->run();
 
