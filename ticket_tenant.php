@@ -155,6 +155,18 @@ $app->post('/addTicketTenant',function()use($app) {
     }
 });
 
+$app->get('/getTicketTenant1',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $id=$app->request->get('id');
+    $database = localhost();
+    $selectStatement = $database->select()
+        ->from('ticket_tenant')
+        ->where('id','=',$id);
+    $stmt = $selectStatement->execute();
+    $data = $stmt->fetch();
+    echo  json_encode(array("result"=>"0","desc"=>"",'ticket_tenant'=>$data));
+});
 
 $app->run();
 
