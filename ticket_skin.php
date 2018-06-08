@@ -18,7 +18,8 @@ $app->get('/getTicketSkins',function()use($app){
 //    $lorry_id=$app->request->get('lorry_id');
     $database = localhost();
     $selectStatement = $database->select()
-        ->from('ticket_skin');
+        ->from('ticket_skin')
+        ->where('exist','=',0);
     $stmt = $selectStatement->execute();
     $data2 = $stmt->fetchAll();
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket_skins'=>$data2));
