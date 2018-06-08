@@ -133,8 +133,8 @@ $app->post('/addTicketTenant',function()use($app) {
             $name1=substr(strrchr($name, '.'), 1);
             $shijian = time();
             $name1 = $shijian .".". $name1;
-            move_uploaded_file($_FILES["business_img"]["tmp_name"], "/files/business_l_p/" . $name1);
-            $business_img=$file_url."business_l_p/".$name1;
+            move_uploaded_file($_FILES["business_img"]["tmp_name"], "/files/ticket/business/" . $name1);
+            $business_img=$file_url."ticket/business/".$name1;
         }
    }
     if($tenant_id!=null||$tenant_id!=null){
