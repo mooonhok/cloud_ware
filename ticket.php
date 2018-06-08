@@ -266,6 +266,52 @@ $app->post('/de_password',function()use($app){
     $password=decode($password , 'cxphp' );
     echo json_encode(array("password"=>$password));
 });
+$app->options('/alterTicket1',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set("Access-Control-Allow-Methods", "PUT");
+});
+
+
+$app->put('/alterTicket1',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $id=$body->id;
+    $pre_passwd=$body->pre_passwd;
+    $new_passwd=$body->new_passwd;
+    $database = localhost();
+    $arrays=array();
+    $arrays['passwd']=encode($new_passwd, 'cxphp' );
+    if($id!=null||$id!=''){
+        $selectStatement = $database->select()
+            ->from('ticket')
+            ->where('id','=',$id );
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetch();
+        if($data!=null){
+            if($pre_passwd==decode($data['passwd'] , 'cxphp' )){
+                $updateStatement = $database->update($arrays)
+                    ->table('ticket')
+                    ->where('id','=',$id);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array('result'=>'0','desc'=>'success'));
+            }else{
+                echo json_encode(array('result'=>'3','desc'=>'旧密码错误'));
+            }
+        }else{
+            echo json_encode(array('result'=>'2','desc'=>'该记录不存在'));
+        }
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'id为空'));
+    }
+});
+
+
+
+
+
 
 $app->run();
 
