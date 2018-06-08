@@ -55,6 +55,14 @@ $app->get('/getTicketTenants1',function()use($app){
     $array=array();
     $array1=array();
     for($i=0;$i<count($data);$i++){
+        if($data!=null){
+            $selectStatement = $database->select()
+                ->from('tenant')
+                ->where('tenant_id','=',$data[$i]['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $data[$i]['tenant']=$data2;
+        }
         $num=$i+1;
         $array1['num']=$num;
         $array1["ticket_tenant"]=$data[$i];
@@ -75,11 +83,13 @@ $app->options('/alterTicketTenant0',function()use($app){
 $app->put('/alterTicketTenant0',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $is_check=$app->request->get('is_check');
 //    $check_time=$app->request->get('check_time');
     date_default_timezone_set("PRC");
     $check_time=date('Y-m-d H:i:s',time());
-    $id=$app->request->get('id');
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $id=$body->id;
+    $is_check=$body->is_check;
     $database = localhost();
     $arrays=array();
     $arrays['is_check']=$is_check;
@@ -168,6 +178,14 @@ $app->get('/getTicketTenant1',function()use($app){
         ->where('id','=',$id);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
+    if($data!=null){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('tenant_id','=',$data['tenant_id']);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        $data['tenant']=$data2;
+    }
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket_tenant'=>$data));
 });
 
