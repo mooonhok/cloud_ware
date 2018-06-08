@@ -27,7 +27,7 @@ $app->get('/getTicketSkins',function()use($app){
     for($i=0;$i<count($data2);$i++){
         $num=$i+1;
         $array1['num']=$num;
-        $array1["ticket_tenant"]=$data2[$i];
+        $array1["ticket_skin"]=$data2[$i];
         $array1['count']=count($data2);
         array_push($array,$array1);
     }
