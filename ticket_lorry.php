@@ -38,6 +38,16 @@ $app->get('/getTicketLorrys1',function()use($app){
         ->where('company_id','=',$company_id);
     $stmt = $selectStatement->execute();
     $data2 = $stmt->fetchAll();
+    if($data2!=null){
+      for($i=0;$i<count($data2);$i++){
+          $selectStatement = $database->select()
+              ->from('app_lorry')
+              ->where('app_lorry_id','=',$data2[$i]['lorry_id']);
+          $stmt = $selectStatement->execute();
+          $data3 = $stmt->fetch();
+          $data2[$i]['lorry']=$data3;
+      }
+    }
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket_lorrys'=>$data2));
 });
 
