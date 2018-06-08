@@ -266,6 +266,7 @@ $app->post('/de_password',function()use($app){
     $password=decode($password , 'cxphp' );
     echo json_encode(array("password"=>$password));
 });
+
 $app->options('/alterTicket1',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
@@ -308,8 +309,41 @@ $app->put('/alterTicket1',function()use($app){
     }
 });
 
+$app->options('/alterTicket2',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set("Access-Control-Allow-Methods", "PUT");
+});
 
-
+$app->put('/alterTicket2',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $id=$body->id;
+    $bg_img=$body->bg_img;
+    $database = localhost();
+    $arrays=array();
+    $arrays['bg_img']=$bg_img;
+    if($id!=null||$id!=''){
+        $selectStatement = $database->select()
+            ->from('ticket')
+            ->where('id','=',$id );
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetch();
+        if($data!=null){
+                $updateStatement = $database->update($arrays)
+                    ->table('ticket')
+                    ->where('id','=',$id);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array('result'=>'0','desc'=>'success'));
+        }else{
+            echo json_encode(array('result'=>'2','desc'=>'该记录不存在'));
+        }
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'id为空'));
+    }
+});
 
 
 
