@@ -76,7 +76,9 @@ $app->put('/alterTicketTenant0',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $is_check=$app->request->get('is_check');
-    $check_time=$app->request->get('check_time');
+//    $check_time=$app->request->get('check_time');
+    date_default_timezone_set("PRC");
+    $check_time=date('Y-m-d H:i:s',time());
     $id=$app->request->get('id');
     $database = localhost();
     $arrays=array();
