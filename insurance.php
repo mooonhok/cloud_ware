@@ -359,11 +359,11 @@ $app->get('/insurances_platenumber',function()use($app){
             ->groupBy('insurance_scheduling.insurance_id');
         $stmt = $selectStatement->execute();
         $data2= $stmt->fetchAll();
-        if($array){
-            array_push($array,$data2);
-        }else{
+//        if($array){
+//            array_push($array,$data2);
+//        }else{
             $array=$data2;
-        }
+//        }
     }
 //    for($j=0;$j<count($array);$j++){
 //        $selectStatement = $database->select()
