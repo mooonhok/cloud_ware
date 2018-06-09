@@ -1091,7 +1091,7 @@ $app->get('/lastinsurance',function()use($app){
                         $arrays1['tenant_id']= $data2[$i]['tenant_id'];
                         $arrays1['company'] =  $data2[$i]['company'];
                         $arrays1['insurance_start_time'] = $data2[$i]['insurance_start_time'];
-                        $arrays1['transtime'] = $data2[$i]['transtime'];
+//                        $arrays1['transtime'] = $data2[$i]['transtime'];
 //                        $arrays1['duration'] = $data2[$i]['duration'];
                         $arrays1['insurance_amount'] = $data2[$i]['insurance_amount'];
                         $arrays1['insurance_price'] = $data2[$i]['insurance_price'];
@@ -1183,7 +1183,7 @@ $app->get('/lastinsurance',function()use($app){
                         $arrays1['tenant_id']= $data2[$i]['tenant_id'];
                         $arrays1['company'] =  $data2[$i]['company'];
                         $arrays1['insurance_start_time'] = $data2[$i]['insurance_start_time'];
-                        $arrays1['transtime'] = $data2[$i]['transtime'];
+//                        $arrays1['transtime'] = $data2[$i]['transtime'];
 //                        $arrays1['duration'] = $data2[$i]['duration'];
                         $arrays1['insurance_amount'] = $data2[$i]['insurance_amount'];
                         $arrays1['insurance_price'] = $data2[$i]['insurance_price'];
