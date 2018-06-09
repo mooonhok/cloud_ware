@@ -501,7 +501,7 @@ $app->get('/dbadmin1',function()use($app){
         ->where('insurance_id','=',$data1a['insurance_id']);
     $stmt=$selectStament->execute();
     $data2a=$stmt->fetch();
-    $data['transtime']=$data2a['transtime'];
+    $data['insurance_start_time']=$data2a['insurance_start_time'];
     $selectStament=$database->select()
         ->from('city')
         ->where('id','=',$data['send_city_id']);
