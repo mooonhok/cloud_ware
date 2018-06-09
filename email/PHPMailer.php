@@ -1477,7 +1477,7 @@ class PHPMailer
                 case 'sendmail':
                 case 'qmail':
                     return $this->sendmailSend($this->MIMEHeader, $this->MIMEBody);
-                case 'smtp':
+                case 'SMTP':
                     return $this->smtpSend($this->MIMEHeader, $this->MIMEBody);
                 case 'mail':
                     return $this->mailSend($this->MIMEHeader, $this->MIMEBody);
