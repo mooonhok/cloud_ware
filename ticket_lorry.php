@@ -36,6 +36,8 @@ $app->get('/getTicketLorrys1',function()use($app){
         ->where('company_id','=',$company_id);
     $stmt = $selectStatement->execute();
     $data2 = $stmt->fetchAll();
+    $array=array();
+    $array1=array();
     if($data2!=null){
       for($i=0;$i<count($data2);$i++){
           $selectStatement = $database->select()
@@ -44,9 +46,14 @@ $app->get('/getTicketLorrys1',function()use($app){
           $stmt = $selectStatement->execute();
           $data3 = $stmt->fetch();
           $data2[$i]['lorry']=$data3;
+          $num=$i+1;
+          $array1['num']=$num;
+          $array1["ticket_lorry"]=$data2[$i];
+          $array1['count']=count($data2);
+          array_push($array,$array1);
       }
     }
-    echo  json_encode(array("result"=>"0","desc"=>"",'ticket_lorrys'=>$data2));
+    echo  json_encode(array("result"=>"0","desc"=>"",'ticket_lorrys'=>$array));
 });
 
 $app->run();
