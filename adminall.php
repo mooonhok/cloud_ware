@@ -46,11 +46,10 @@ $app->post('/sign',function()use($app,$mail){
                $mail->Encoding = "base64";//设置文本编码方式
                //Server settings
                $mail->SMTPDebug = 0;                                 // Enable verbose debug output
-               $mail->isSMTP();                                      // Set mailer to use SMTP
                $mail->Host = 'smtp.163.com';  // Specify main and backup SMTP servers
                $mail->SMTPAuth = true;                               // Enable SMTP authentication
                $mail->Username = 'jsyouming@163.com';                 // SMTP username
-               $mail->Password = '70607102mysj';                           // SMTP password
+               $mail->Password = '70607102jsym';                           // SMTP password
                $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
                $mail->Port = 465;                                    // TCP port to connect to
                $emailaddress='206353932@qq.com';//收件邮箱地址
