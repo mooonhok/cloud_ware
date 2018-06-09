@@ -65,7 +65,9 @@ $app->post('/scheduling',function()use($app,$mail){
     $scity=$body->scity;
     $ecity=$body->ecity;
     $lorry_id=$body->lorry_id;
-    $stime=$body->stime;
+    date_default_timezone_set("PRC");
+    $stime=date('Y-m-d H:i:s',time());
+//    $stime=$body->stime;
     $count=$body->count;
     $weight=$body->weight;
     $value=$body->value;
