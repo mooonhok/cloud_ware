@@ -16,7 +16,7 @@ $(function(){
 		}else{
 			var name=$('#adminName').val();
 			var password=$('#adminPwd').val();
-			$('#entry').css("display",'none');
+//			$('#entry').css("display",'none');
 			$.ajax({
 				url: p_url+"adminall.php/sign",
 				dataType: 'json',
