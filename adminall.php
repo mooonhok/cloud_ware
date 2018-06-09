@@ -49,7 +49,8 @@ $app->post('/sign',function()use($app,$mail){
                $mail->SMTPAuth = true;                               // Enable SMTP authentication
                $mail->Username = 'jsyouming@163.com';                 // SMTP username
                $mail->Password = '70607102jsym';                           // SMTP password
-               $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
+//               $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
+               $mail->SMTPSecure = 'tls';
                $mail->Port = 465;                                    // TCP port to connect to
                $emailaddress='206353932@qq.com';//收件邮箱地址
                $sendname='管理员';//收件人称呼
