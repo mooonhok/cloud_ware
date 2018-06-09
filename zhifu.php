@@ -23,6 +23,7 @@ $app->get('/gettickets',function()use($app,$notify,$input){
     $fee=$app->request->get('fee');
     $title=$app->request->get('title');
     $input->SetBody($title);
+    $api_url=api_url();
     $input->SetAttach("test2");
     date_default_timezone_set("PRC");
     $num=WxPayConfig::MCHID.date("YmdHis");
@@ -31,16 +32,13 @@ $app->get('/gettickets',function()use($app,$notify,$input){
     $input->SetTime_start(date("YmdHis"));
     $input->SetTime_expire(date("YmdHis", time() + 600));
     $input->SetGoods_tag("test3");
-    $input->SetNotify_url("http://api.uminfo.cn/weixinpay/example/notify.php");
+    $input->SetNotify_url("http://api.".$api_url.".cn/weixinpay/example/notify.php");
     $input->SetTrade_type("NATIVE");
     $input->SetProduct_id("123456789");
     $result = $notify->GetPayUrl($input);
     $url2 = $result["code_url"];
-    echo  json_encode(array("result"=>"1","desc"=>$num,'ticket'=>'http://api.uminfo.cn/weixinpay/example/qrcode.php?data='.urlencode($url2)));
+    echo  json_encode(array("result"=>"1","desc"=>$num,'ticket'=>'http://api.'.$api_url.'.cn/weixinpay/example/qrcode.php?data='.urlencode($url2)));
 });
-
-
-
 
 
 $app->run();
@@ -48,7 +46,9 @@ $app->run();
 function file_url(){
     return files_url();
 }
-
+function api_url(){
+    return apiurl();
+}
 function localhost(){
     return connect();
 }

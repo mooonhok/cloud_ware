@@ -12,4 +12,9 @@ function files_url(){
 //    return  'http://files.uminfo.cn:8000/';
 }
 
+
+function apiurl(){
+    $url=explode(".",$_SERVER["HTTP_HOST"]);
+    return $url[1];
+}
 ?>

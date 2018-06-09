@@ -359,11 +359,6 @@ $app->get('/insurances_platenumber',function()use($app){
             ->groupBy('insurance_scheduling.insurance_id');
         $stmt = $selectStatement->execute();
         $data2= $stmt->fetchAll();
-//        if($array){
-//            array_push($array,$data2);
-//        }else{
-//            $array=array_merge($array,$data2);
-//        }
         if(!$array){
             $array=$data2;
         }else{
@@ -380,7 +375,6 @@ $app->get('/insurances_platenumber',function()use($app){
             array_push($array1,$data3);
     }
     echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$array1));
-//    echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$array));
 });
 
 $app->get('/per_insurances_platenumber',function()use($app){

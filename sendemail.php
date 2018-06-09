@@ -10,7 +10,7 @@ require 'Slim/Slim.php';
 require 'connect.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
+require 'files_url.php';
 require './email/Exception.php';
 require './email/PHPMailer.php';
 require './email/SMTP.php';
@@ -88,10 +88,16 @@ $app->post('/scheduling',function()use($app,$mail){
         ->where('phone', '=',$data3['driver_phone']);
     $stmt = $selectStatement->execute();
     $data4 = $stmt->fetch();
-
+    $api_url=api_url();
 //    $title=$body->title;//邮件标题
-    $emailaddress='jsjjrsbx@126.com';//收件邮箱地址
-    $sendname='江苏人寿保险';//收件人称呼
+    if($api_url=='uminfor'){
+        $emailaddress='1026413232@qq.com';//收件邮箱地址
+        $sendname='江苏保险测试';//收件人称呼
+    }else{
+        $emailaddress='jsjjrsbx@126.com';//收件邮箱地址
+        $sendname='江苏人寿保险';//收件人称呼
+    }
+
 //    $message=$body->text;//邮件内容
 //    $message='<table border="1" cellspacing="0" cellpadding="0" width="600px;">'.
 //                            '<thead bgcolor="white" >'.
@@ -193,6 +199,7 @@ $app->post('/scheduling',function()use($app,$mail){
 //    $num=count($schedulings);
 //    for($i=0;$i<$num;$i++) {
         $array1 = array();
+
         foreach ($schedulings as $key => $value) {
             $array1[$key] = $value;
      $selectStatement = $database->select()
@@ -209,13 +216,13 @@ $app->post('/scheduling',function()use($app,$mail){
     $stmt = $selectStatement->execute();
     $data5= $stmt->fetch();
     $message.='<tr style="height:30px">'.
-        '<th style="width:600px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000"><a href="http://api.uminfo.cn/insurance/insurancegoods.html?scheduling_id='.$value.'">'.$value.''.'</a></th>'.
+        '<th style="width:600px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000"><a href="http://api.'.$api_url.'.cn/insurance/insurancegoods.html?scheduling_id='.$value.'">'.$value.''.'</a></th>'.
         '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_count"].'</th>'.
         '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_weight"].'</th>'.
         '<th style="width:300px;font:normal 15px 微软雅黑;text-align:center;border:1px solid #000000">'.$data5["zon_cost"].'</th>'.
         '</tr>';
         }
-    $message.='<a href="http://api.uminfo.cn/insurance/returnemail.html?scheduling_id='.$array1[0].'&tenant_id='.$tenant_id.'" target="_blank" style="font-size:40px;">回复保单号</a>';
+    $message.='<a href="http://api.'.$api_url.'.cn/insurance/returnemail.html?scheduling_id='.$array1[0].'&tenant_id='.$tenant_id.'" target="_blank" style="font-size:40px;">回复保单号</a>';
 //        foreach($array1 as $value){
 //
 //
@@ -278,5 +285,9 @@ $app->run();
 
 function localhost(){
     return connect();
+}
+
+function api_url(){
+    return apiurl();
 }
 ?>
