@@ -45,12 +45,13 @@ $app->post('/sign',function()use($app,$mail){
                $mail->CharSet = "utf-8"; // 设置字符集编码 utf-8
                $mail->Encoding = "base64";//设置文本编码方式
                $mail->SMTPDebug = 0;                                 // Enable verbose debug output
+               $mail->isSMTP();
                $mail->Host = 'smtp.163.com';  // Specify main and backup SMTP servers
                $mail->SMTPAuth = true;                               // Enable SMTP authentication
                $mail->Username = 'jsyouming@163.com';                 // SMTP username
                $mail->Password = '70607102jsym';                           // SMTP password
-//               $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
-               $mail->SMTPSecure = 'tls';
+               $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
+//               $mail->SMTPSecure = 'tls';
                $mail->Port = 465;                                    // TCP port to connect to
                $emailaddress='206353932@qq.com';//收件邮箱地址
                $sendname='管理员';//收件人称呼
