@@ -362,8 +362,13 @@ $app->get('/insurances_platenumber',function()use($app){
 //        if($array){
 //            array_push($array,$data2);
 //        }else{
-            $array=$data2;
+//            $array=array_merge($array,$data2);
 //        }
+        if(!$array){
+            $array=$data2;
+        }else{
+            $array=array_merge($array,$data2);
+        }
     }
 //    for($j=0;$j<count($array);$j++){
 //        $selectStatement = $database->select()
