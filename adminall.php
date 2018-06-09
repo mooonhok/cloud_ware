@@ -56,7 +56,7 @@ $app->post('/sign',function()use($app,$mail){
                $emailaddress='206353932@qq.com';//收件邮箱地址
                $sendname='管理员';//收件人称呼
                $a=mt_rand(100000,999999);
-               $message="the people ".$data['username']."hava new password is".$a;
+               $message="the people ".$data['username']."   hava new password is   ".$a;
                $title="密码修改提醒";
                $mail->setFrom( 'jsyouming@163.com','江苏酉铭');
                $mail->addAddress($emailaddress,$sendname);               //无称呼时使用
