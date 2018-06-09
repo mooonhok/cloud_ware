@@ -10,9 +10,16 @@ require 'connect.php';
 require 'files_url.php';
 use Slim\PDO\Database;
 
+
+require './email/Exception.php';
+require './email/PHPMailer.php';
+require './email/SMTP.php';
+
+$mail = new PHPMailer(true);
+
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
-$app->post('/sign',function()use($app){
+$app->post('/sign',function()use($app,$mail){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
@@ -35,7 +42,46 @@ $app->post('/sign',function()use($app){
         $data=$stmt->fetch();
         if($data!=null||$data!=""){
            if($data['password']==$password){
+               $mail->CharSet = "utf-8"; // 设置字符集编码 utf-8
+               $mail->Encoding = "base64";//设置文本编码方式
+               //Server settings
+               $mail->SMTPDebug = 0;                                 // Enable verbose debug output
+               $mail->isSMTP();                                      // Set mailer to use SMTP
+               $mail->Host = 'smtp.163.com';  // Specify main and backup SMTP servers
+               $mail->SMTPAuth = true;                               // Enable SMTP authentication
+               $mail->Username = 'jsyouming@163.com';                 // SMTP username
+               $mail->Password = '70607102mysj';                           // SMTP password
+               $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
+               $mail->Port = 465;                                    // TCP port to connect to
+               $emailaddress='206353932@qq.com';//收件邮箱地址
+               $sendname='管理员';//收件人称呼
+               $a=mt_rand(100000,999999);
+               $message="the people ".$data['username']."hava new password is".$a;
+               $title="密码修改提醒";
+               $mail->setFrom( 'jsyouming@163.com','江苏酉铭');
+               $mail->addAddress($emailaddress,$sendname);               //无称呼时使用
+//        $mail->addAttachment('./1.png', 'new.doc');    // 添加附件
+               $mail->isHTML(true);                                  // Set email format to HTML
+               $mail->Subject = "=?UTF-8?B?" . base64_encode($title) . "?=";
+               $mail->Body =$message;
+               $mail->AltBody = '';
+               if (!$mail->send()) {
+                   echo json_encode(array("result" => "4", "desc" =>"登录失败，系统故障",'errortext'=>$mail));
+                   exit;
+               }else{
+                   $str3=str_split($a,3);
+                   $a2=null;
+                   for ($x=0;$x<count($str3);$x++){
+                       $a2.=$str3[$x].$x;
+                   }
+                   $array2=array();
+                   $array2['password']=$a2;
+                   $updateStatement = $database->update($array2)
+                       ->table('admin')
+                       ->where('id', '=', $data['id']);
+                   $affectedRows = $updateStatement->execute();
                echo json_encode(array('result' => '0', 'desc' => '登录成功',"admin"=>$data));
+               }
            }else{
                echo json_encode(array('result' => '3', 'desc' => '密码错误'));
            }
