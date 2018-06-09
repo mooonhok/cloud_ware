@@ -9,7 +9,7 @@ require 'Slim/Slim.php';
 require 'connect.php';
 require 'files_url.php';
 use Slim\PDO\Database;
-
+use PHPMailer\PHPMailer\PHPMailer;
 
 require './email/Exception.php';
 require './email/PHPMailer.php';
