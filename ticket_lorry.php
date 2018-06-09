@@ -30,11 +30,9 @@ $app->get('/getTicketLorrys1',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $company_id=$app->request->get('company_id');
-    $is_check=$app->request->get('is_check');
     $database = localhost();
     $selectStatement = $database->select()
         ->from('ticket_lorry')
-        ->where('is_check','=',$is_check)
         ->where('company_id','=',$company_id);
     $stmt = $selectStatement->execute();
     $data2 = $stmt->fetchAll();
