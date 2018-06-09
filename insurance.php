@@ -370,17 +370,17 @@ $app->get('/insurances_platenumber',function()use($app){
             $array=array_merge($array,$data2);
         }
     }
-//    for($j=0;$j<count($array);$j++){
-//        $selectStatement = $database->select()
-//            ->from('insurance')
-//            ->where('tenant_id','=',$tenant_id)
-//            ->where('insurance_id','=',$array[$j]['insurance_id']);
-//        $stmt = $selectStatement->execute();
-//        $data3= $stmt->fetch();
-//            array_push($array1,$data3);
-//    }
-//    echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$array1));
-    echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$array));
+    for($j=0;$j<count($array);$j++){
+        $selectStatement = $database->select()
+            ->from('insurance')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('insurance_id','=',$array[$j]['insurance_id']);
+        $stmt = $selectStatement->execute();
+        $data3= $stmt->fetch();
+            array_push($array1,$data3);
+    }
+    echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$array1));
+//    echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$array));
 });
 
 $app->get('/per_insurances_platenumber',function()use($app){
