@@ -59,7 +59,7 @@ function loadinsurances(tenant_id,page) {
                                     insurance_nu1='-';
                                 }
                             		 arr.push( '<tr><td>'+item.tenant_id+'</td><td>'
-                                    +item.company+'</td><td>'+item.insurance_start_time+'</td><td>'+item.transtime+'</td><td>'
+                                    +item.company+'</td><td>'+item.insurance_start_time+'</td><td>'
                                     +item.insurance_amount+'</td><td>'+item.insurance_price+'</td><td>'
                                     +item.insurance_id+'</td><td>'+item.plate_number+'</td><td>'
                                     +item.driver_name+'</td><td>'+item.customer_phone+'</td><td>'+insurance_nu1+'</td></tr>');
