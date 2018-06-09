@@ -8,8 +8,8 @@
 require 'Slim/Slim.php';
 require 'connect.php';
 require 'files_url.php';
-use Slim\PDO\Database;
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 require './email/Exception.php';
 require './email/PHPMailer.php';
@@ -44,7 +44,6 @@ $app->post('/sign',function()use($app,$mail){
            if($data['password']==$password){
                $mail->CharSet = "utf-8"; // 设置字符集编码 utf-8
                $mail->Encoding = "base64";//设置文本编码方式
-               //Server settings
                $mail->SMTPDebug = 0;                                 // Enable verbose debug output
                $mail->Host = 'smtp.163.com';  // Specify main and backup SMTP servers
                $mail->SMTPAuth = true;                               // Enable SMTP authentication
