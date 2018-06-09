@@ -1,6 +1,5 @@
 $(function(){
 	$('#entry').click(function(){
-		$('#entry').hide();
 		if($('#adminName').val()==''){
 			$('.mask,.dialog').show();
 			$('.dialog .dialog-bd p').html('请输入管理员账号');
@@ -17,6 +16,7 @@ $(function(){
 		}else{
 			var name=$('#adminName').val();
 			var password=$('#adminPwd').val();
+			$('#entry').css("display",'none');
 			$.ajax({
 				url: p_url+"adminall.php/sign",
 				dataType: 'json',
