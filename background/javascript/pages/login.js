@@ -16,7 +16,7 @@ $(function(){
 		}else{
 			var name=$('#adminName').val();
 			var password=$('#adminPwd').val();
-//			$('#entry').css("display",'none');
+		$('#entry').css("display",'none');
 			$.ajax({
 				url: p_url+"adminall.php/sign",
 				dataType: 'json',
@@ -33,6 +33,8 @@ $(function(){
                        $.session.set('adminid',msg.admin.id);
                        $.session.set('admintype',msg.admin.type);
                        $.session.set('adminusername',msg.admin.username);
+				  }else{
+				  	alert(msg.desc);
 				  }
 				},
 				error: function(xhr) {
