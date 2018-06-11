@@ -16,23 +16,25 @@ $app->get('/gettickets',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database = localhost();
+    $lorry_id=$app->request->get('lorry_id');
     $selectStatement = $database->select()
         ->from('ticket')
-        ->leftJoin('ticket_lorry','ticket_lorry.company_id','=','ticket.id');
+        ->where('exist','=',0);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
     for($i=0;$i<count($data);$i++){
         $selectStatement = $database->select()
             ->from('ticket')
-            ->where('company','=',$data[$i]['company']);
+            ->where('company_id','=',$data[$i]['id'])
+            ->where('lorry_id','=',$lorry_id);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetch();
-        $data[$i]['id']=$data1['id'];
-        if($data[$i]['passwd']){
-            $data[$i]['passwd_decode']=decode($data[$i]['passwd'], 'cxphp');
+        if($data1!=null){
+          $data[$i]['is_check']=1;
         }else{
-            $data[$i]['passwd_decode']='';
+          $data[$i]['is_check']=0;
         }
+        $data[$i]['lorry_id']=$data1['lorry_id'];
     }
         echo  json_encode(array("result"=>"1","desc"=>"",'ticket'=>$data));
 });
@@ -65,6 +67,12 @@ $app->get('/getticket_lorry',function()use($app){
         ->where('company_id','=',$id);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetch();
+    $selectStatement = $database->select()
+        ->from('app_lorry')
+        ->where('app_lorry_id','=',$app_lorry_id);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetch();
+    $data['name']=$data1['name'];
     echo  json_encode(array("result"=>"0","desc"=>"",'ticket'=>$data));
 });
 
