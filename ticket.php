@@ -18,8 +18,7 @@ $app->get('/gettickets',function()use($app){
     $database = localhost();
     $selectStatement = $database->select()
         ->from('ticket')
-        ->leftJoin('ticket_lorry','ticket_lorry.company_id','=','ticket.id')
-        ->orderBy('sign_img','desc');
+        ->leftJoin('ticket_lorry','ticket_lorry.company_id','=','ticket.id');
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
     for($i=0;$i<count($data);$i++){
