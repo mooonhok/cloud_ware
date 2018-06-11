@@ -85,24 +85,24 @@ $app->post('/addticketlorry',function()use($app){
     $body=json_decode($body);
     $id=$body->id;
     $app_lorry_id=$body->app_lorry_id;
-    $pic=$body->pic;
-    $base64_image_content = $pic;
-//匹配出图片的格式
-    if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
-        $type = $result[2];
-        date_default_timezone_set("PRC");
-        $time1 = time();
-        $new_file = "/files/ticket_sign/" . date('Ymd', $time1) . "/";
-        if (!file_exists($new_file)) {
-//检查是否有该文件夹，如果没有就创建，并给予最高权限
-            mkdir($new_file, 0700);
-        }
-        $new_file = $new_file . $time1 . ".{$type}";
-        if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-            $lujing1 = $file_url."ticket_sign/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
-        }
-    }
-    $arrays['sign_img']=$lujing1;
+//    $pic=$body->pic;
+//    $base64_image_content = $pic;
+////匹配出图片的格式
+//    if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+//        $type = $result[2];
+//        date_default_timezone_set("PRC");
+//        $time1 = time();
+//        $new_file = "/files/ticket_sign/" . date('Ymd', $time1) . "/";
+//        if (!file_exists($new_file)) {
+////检查是否有该文件夹，如果没有就创建，并给予最高权限
+//            mkdir($new_file, 0700);
+//        }
+//        $new_file = $new_file . $time1 . ".{$type}";
+//        if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+//            $lujing1 = $file_url."ticket_sign/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+//        }
+//    }
+//    $arrays['sign_img']=$lujing1;
     if($id!=null||$id!=""){
         if($app_lorry_id!=null||$app_lorry_id!=""){
             $selectStament=$database->select()
@@ -122,9 +122,9 @@ $app->post('/addticketlorry',function()use($app){
                 $stmt=$selectStament->execute();
                 $data2=$stmt->fetch();
                 if($data2==null){
-                    $insertStatement = $database->insert(array('company_id','lorry_id','sign_img','commit_time'))
+                    $insertStatement = $database->insert(array('company_id','lorry_id','commit_time'))
                         ->into('ticket_lorry')
-                        ->values(array($id,$app_lorry_id,$arrays['sign_img'],$shijian));
+                        ->values(array($id,$app_lorry_id,$shijian));
                     $insertId = $insertStatement->execute(false);
                 }
                 echo  json_encode(array("result"=>"0","desc"=>"添加成功"));
