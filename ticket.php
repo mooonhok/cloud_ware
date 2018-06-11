@@ -24,7 +24,7 @@ $app->get('/gettickets',function()use($app){
     $data = $stmt->fetchAll();
     for($i=0;$i<count($data);$i++){
         $selectStatement = $database->select()
-            ->from('ticket')
+            ->from('ticket_lorry')
             ->where('company_id','=',$data[$i]['id'])
             ->where('lorry_id','=',$lorry_id);
         $stmt = $selectStatement->execute();
