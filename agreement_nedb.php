@@ -211,6 +211,29 @@ $app->get('/limitAgreements',function()use($app) {
     }
 });
 
+
+$app->get('/getAgreements2',function()use($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $is_ticket = $app->request->headers->get("is_ticket");
+    $database=localhost();
+    if($tenant_id!=''||$tenant_id!=null){
+        $selectStatement = $database->select()
+            ->from('agreement')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('is_ticket','=',$is_ticket)
+            ->where('exist',"=",0);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        echo json_encode(array("result" => "1", "desc" => 'success','agreements'=>$data));
+    }else{
+        echo json_encode(array("result" => "2", "desc" => "缺少租户id"));
+    }
+});
+
+
+
+
 $app->run();
 
 function file_url(){
