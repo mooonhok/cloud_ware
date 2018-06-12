@@ -47,7 +47,7 @@ $app->post('/addAddress',function()use($app){
         $insertId = $insertStatement->execute(false);
         echo json_encode(array("result" => "0", "desc" => "success"));
         }else{
-            echo json_encode(array("result" => "2", "desc" => "该记录已经存在"));
+            echo json_encode(array("result" => "2", "desc" => "该邮寄地址已经存在"));
         }
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
@@ -59,14 +59,14 @@ $app->get('/limitAddresses',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get("tenant_id");
-    $page=$app->request->get('page');
-    $per_page=$app->request->get("per_page");
+    $offset=$app->request->get('offset');
+    $size=$app->request->get('size');
     $database=localhost();
     if($tenant_id!=null||$tenant_id!=""){
         $selectStatement = $database->select()
             ->from('address')
             ->where('tenant_id','=',$tenant_id)
-            ->limit((int)$per_page,(int)$per_page*(int)$page);
+            ->limit((int)$size,(int)$offset);
             $stmt = $selectStatement->execute();
            $data = $stmt->fetchAll();
         echo json_encode(array("result"=>"0","desc"=>"success","addresses"=>$data));
@@ -111,7 +111,7 @@ $app->delete('/deleteAddress',function()use($app){
         $affectedRows = $deleteStatement->execute();
         echo json_encode(array("result"=>"0","desc"=>"success"));
         }else{
-            echo json_encode(array("result"=>"1","desc"=>"该记录不存在"));
+            echo json_encode(array("result"=>"1","desc"=>"该邮寄地址不存在"));
         }
     }else{
         echo json_encode(array("result"=>"2","desc"=>"缺少id"));
