@@ -133,6 +133,75 @@ $app->delete('/deleteAddress',function()use($app){
 });
 
 
+$app->get('/getAddress',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $id=$app->request->get('id');
+    $database=localhost();
+    if($id!=null||$id!=""){
+        $selectStatement = $database->select()
+            ->from('address')
+            ->where('tenant_id','=',$id);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data['city_id']);
+            $stmt = $selectStatement->execute();
+            $data7 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id', '=', $data['province_id']);
+            $stmt = $selectStatement->execute();
+            $data9 = $stmt->fetch();
+            $data['cityname']=$data7['name'];
+            $data['provincename']=$data9['name'];
+
+        echo json_encode(array("result"=>"0","desc"=>"success","address"=>$data));
+    }else{
+        echo json_encode(array("result"=>"2","desc"=>"缺少租户id"));
+    }
+});
+
+$app->options('/alterAddress',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set("Access-Control-Allow-Methods", "PUT");
+});
+
+
+
+$app->put('/alterAddress',function()use($app) {
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $id=$body->id;
+    $array=array();
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+    if($id!=''||$id!=null){
+        $selectStatement = $database->select()
+            ->from('address')
+            ->where('tenant_id','=',$id);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetch();
+        if($data!=null){
+            $updateStatement = $database->update($array)
+                ->table('address')
+                ->where('id','=',$id);
+            $affectedRows = $updateStatement->execute();
+            echo json_encode(array("result" => "0", "desc" => "success"));
+        }else{
+            echo json_encode(array("result"=>"1","desc"=>"该邮寄地址不存在"));
+        }
+    }else{
+        echo json_encode(array("result" => "3", "desc" => "缺少租户id"));
+    }
+});
+
 $app->run();
 
 function file_url(){
