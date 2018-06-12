@@ -58,7 +58,7 @@ $app->post('/addAddress',function()use($app){
 $app->get('/limitAddresses',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $tenant_id=$app->request->get("tenant_id");
+    $tenant_id=$app->request->headers->get("tenant_id");
     $page=$app->request->get('page');
     $per_page=$app->request->get("per_page");
     $database=localhost();
@@ -78,7 +78,7 @@ $app->get('/limitAddresses',function()use($app){
 $app->get('/getAddresses',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $tenant_id=$app->request->get("tenant_id");
+    $tenant_id=$app->request->headers->get("tenant_id");
     $database=localhost();
     if($tenant_id!=null||$tenant_id!=""){
         $selectStatement = $database->select()
