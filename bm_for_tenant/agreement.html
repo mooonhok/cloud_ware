@@ -64,6 +64,8 @@
 			</fieldset>
 		</div>
 		<script type="text/javascript" src="plugins/layui/layui.js"></script>
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.print.min.js"></script>
 		<script>
 			var url="http://api.uminfo.cn/";
 			
@@ -186,7 +188,7 @@
 					success:function(msg){
 						if(msg.result==0){
 							var content='';
-							content+='<div class="contract_content">';
+							content+='<div class="contract_content" id="print_content">';
 							content+='<div class="contract_list" style="text-align:left">';
 							content+='<div class="bold">合同编号：'+msg.agree.agreement_id+'</div>';
 							content+='<div class="contract_title">运输协议书</div>';
@@ -259,9 +261,25 @@
 							layer.open({
 								title:'合同详情',
 								content:content,
+								btn:['确定','打印'],
 								area:['840px','550px'],
 								offset:'80px',
-								skin:'layui-layer-molv'
+								skin:'layui-layer-molv',
+								yes:function(index,layero){
+									layer.close(index);
+								},
+								btn2:function(index,layero){
+									$("#print_content").print({
+										globalStyles:true,
+										mediaPrint:false,
+										stylesheet:null,
+										noPrintSelector:".no-print",
+										iframe:true,
+										append:null,
+										prepend:null,
+										deferred:$.Deferred()
+									});
+								}
 							});
 						}else{
 							layer.msg(msg.desc);
