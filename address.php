@@ -69,6 +69,20 @@ $app->get('/limitAddresses',function()use($app){
             ->limit((int)$size,(int)$offset);
             $stmt = $selectStatement->execute();
            $data = $stmt->fetchAll();
+        for($x=0;$x<count($data);$x++){
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id', '=', $data[$x]['city_id']);
+        $stmt = $selectStatement->execute();
+        $data7 = $stmt->fetch();
+          $selectStatement = $database->select()
+             ->from('province')
+             ->where('id', '=', $data[$x]['province_id']);
+         $stmt = $selectStatement->execute();
+            $data9 = $stmt->fetch();
+            $data[$x]['cityname']=$data7['name'];
+            $data[$x]['provincename']=$data9['name'];
+        }
         echo json_encode(array("result"=>"0","desc"=>"success","addresses"=>$data));
     }else{
         echo json_encode(array("result"=>"2","desc"=>"缺少租户id"));
