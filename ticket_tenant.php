@@ -90,10 +90,12 @@ $app->put('/alterTicketTenant0',function()use($app){
     $body=json_decode($body);
     $id=$body->id;
     $is_check=$body->is_check;
+    $check_reason=$body->check_reason;
     $database = localhost();
     $arrays=array();
     $arrays['is_check']=$is_check;
     $arrays['check_time']=$check_time;
+    $arrays['check_reason']=$check_reason;
    if($id!=null||$id!=""){
     $selectStatement = $database->select()
         ->from('ticket_tenant')
