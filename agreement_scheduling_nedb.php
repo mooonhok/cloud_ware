@@ -126,7 +126,7 @@ $app->get('/getAgreementScheduling0',function()use($app) {
                 ->join('agreement','agreement.agreement_id','=','agreement_schedule.agreement_id','INNER')
                 ->join('scheduling','agreement_schedule.scheduling_id','=','scheduling.scheduling_id','INNER')
                 ->join('lorry','lorry.lorry_id','=','agreement.secondparty_id','INNER')
-                ->join('ticket','agreement.company_id','=','ticket.id','INNER')
+//                ->join('ticket','agreement.company_id','=','ticket.id','INNER')
                 ->where('agreement.tenant_id','=',$tenant_id)
                 ->where('agreement.agreement_id','=',$agreement_id)
                 ->where('scheduling.tenant_id','=',$tenant_id)
@@ -134,8 +134,12 @@ $app->get('/getAgreementScheduling0',function()use($app) {
                 ->where('agreement_schedule.tenant_id','=',$tenant_id);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
-
             for($i=0;$i<count($data);$i++){
+                $selectStatement = $database->select()
+                    ->from('ticket')
+                    ->where('id','=',$data[$i]['company_id']);
+                $stmt = $selectStatement->execute();
+                $data5 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('city')
                     ->where('id', '=', $data[$i]['send_city_id']);
@@ -160,6 +164,7 @@ $app->get('/getAgreementScheduling0',function()use($app) {
                 $data[$i]['receive_city']=$data2;
                 $data[$i]['send_province']=$data3;
                 $data[$i]['receive_province']=$data4;
+                $data[$i]['company']=$data5;
             }
             echo json_encode(array("result" => "1", "desc" => 'success','agreement_schedules'=>$data));
         }else{
