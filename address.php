@@ -141,7 +141,7 @@ $app->get('/getAddress',function()use($app){
     if($id!=null||$id!=""){
         $selectStatement = $database->select()
             ->from('address')
-            ->where('tenant_id','=',$id);
+            ->where('id','=',$id);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetch();
             $selectStatement = $database->select()
@@ -185,7 +185,7 @@ $app->put('/alterAddress',function()use($app) {
     if($id!=''||$id!=null){
         $selectStatement = $database->select()
             ->from('address')
-            ->where('tenant_id','=',$id);
+            ->where('id','=',$id);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetch();
         if($data!=null){
