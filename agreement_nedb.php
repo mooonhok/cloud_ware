@@ -227,6 +227,15 @@ $app->get('/getAgreements2',function()use($app) {
             ->where('exist',"=",0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
+        for($x=0;$x<count($data);$x++){
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('lorry_id','=',$data[$x]['secondparty_id'])
+                ->where('tenant_id','=',$data[$x]['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $data[$x]['lorry']=$data2;
+        }
         echo json_encode(array("result" => "1", "desc" => 'success','agreements'=>$data));
     }else{
         echo json_encode(array("result" => "2", "desc" => "缺少租户id"));
@@ -252,6 +261,15 @@ $app->get('/limitAgreements2',function()use($app) {
             ->limit((int)$size,(int)$offset);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
+        for($x=0;$x<count($data);$x++){
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('lorry_id','=',$data[$x]['secondparty_id'])
+                ->where('tenant_id','=',$data[$x]['tenant_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $data[$x]['lorry']=$data2;
+        }
         echo json_encode(array("result" => "1", "desc" => 'success','agreements'=>$data));
     }else{
         echo json_encode(array("result" => "2", "desc" => "缺少租户id"));
