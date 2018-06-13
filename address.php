@@ -144,19 +144,18 @@ $app->get('/getAddress',function()use($app){
             ->where('id','=',$id);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('city')
-                ->where('id', '=', $data['city_id']);
-            $stmt = $selectStatement->execute();
-            $data7 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('province')
-                ->where('id', '=', $data['province_id']);
-            $stmt = $selectStatement->execute();
-            $data9 = $stmt->fetch();
-            $data['cityname']=$data7['name'];
-            $data['provincename']=$data9['name'];
-
+//            $selectStatement = $database->select()
+//                ->from('city')
+//                ->where('id', '=', $data['city_id']);
+//            $stmt = $selectStatement->execute();
+//            $data7 = $stmt->fetch();
+//            $selectStatement = $database->select()
+//                ->from('province')
+//                ->where('id', '=', $data['province_id']);
+//            $stmt = $selectStatement->execute();
+//            $data9 = $stmt->fetch();
+//            $data['cityname']=$data7['name'];
+//            $data['provincename']=$data9['name'];
         echo json_encode(array("result"=>"0","desc"=>"success","address"=>$data));
     }else{
         echo json_encode(array("result"=>"2","desc"=>"缺少租户id"));
@@ -178,6 +177,12 @@ $app->put('/alterAddress',function()use($app) {
     $body=$app->request->getBody();
     $body=json_decode($body);
     $id=$body->id;
+    $tenant_id=$body->tenant_id;
+    $name=$body->name;
+    $phone=$body->phone;
+    $province_id=$body->province_id;
+    $city_id=$body->city_id;
+    $address=$body->address;
     $array=array();
     foreach($body as $key=>$value){
         $array[$key]=$value;
@@ -189,11 +194,25 @@ $app->put('/alterAddress',function()use($app) {
         $stmt = $selectStatement->execute();
         $data = $stmt->fetch();
         if($data!=null){
+            $selectStatement = $database->select()
+                ->from('address')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('phone','=',$phone)
+                ->where('address','=',$address)
+                ->where('city_id','=',$city_id)
+                ->where('province_id','=',$province_id)
+                ->where('name','=',$name);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            if($data2==null){
             $updateStatement = $database->update($array)
                 ->table('address')
                 ->where('id','=',$id);
             $affectedRows = $updateStatement->execute();
             echo json_encode(array("result" => "0", "desc" => "success"));
+            }else{
+                echo json_encode(array("result" => "2", "desc" => "该邮寄地址已经存在"));
+            }
         }else{
             echo json_encode(array("result"=>"1","desc"=>"该邮寄地址不存在"));
         }
