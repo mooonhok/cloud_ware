@@ -201,7 +201,8 @@ $app->put('/alterAddress',function()use($app) {
                 ->where('address','=',$address)
                 ->where('city_id','=',$city_id)
                 ->where('province_id','=',$province_id)
-                ->where('name','=',$name);
+                ->where('name','=',$name)
+                ->where('id','!=',$id);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetch();
             if($data2==null){
