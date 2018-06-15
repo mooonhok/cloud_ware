@@ -33,4 +33,14 @@ var navs = [{
 			"href": "route1.html"
 		}
 	]
+}, {
+	"title": "运率管理",
+	"icon": "fa-magnet",
+	"href": "rate.html",
+	"spread": false
+}, {
+	"title": "公告管理",
+	"icon": "fa-fa",
+	"href": "notice.html",
+	"spread": false
 }];

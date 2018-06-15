@@ -382,8 +382,9 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 .data-figure{ margin:0 3px;}
 .data-unit{margin-right:30px;}
 
-#info-table a{font-size:14px; padding:0 10px; vertical-align:middle;}
+#info-table a{font-size:14px; padding:0 10px; vertical-align:middle; margin:0 4px;}
 #info-table input[type='checkbox']{width:18px; height:18px; vertical-align:middle; cursor:pointer;}
+#info-table input[type='text']{width:80px;}
 
 .layui-input-inline input[type="text"]{width:200px;}
 .layui-input-inline select{width:200px; height:38px; padding:0 10px 0 6px; border:1px solid #e6e6e6}
@@ -399,7 +400,6 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 .photo{width:270px;text-align:center;margin-top:10px;float:left;}	
 .photo span{margin-bottom:4px;display: block;}
 .pic{width:180px;height:120px;border:1px solid #999999;cursor:pointer;}
-
 
 /* 合同详情 */
 .contract_content{font-size:15px;padding:0 20px 0 20px;margin-bottom:20px;text-align:left;}

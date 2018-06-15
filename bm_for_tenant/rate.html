@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>后台管理</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="css/global.css" media="all">
+	</head>
+	<body>
+		<div style="margin: 15px;">
+			<fieldset class="layui-elem-field">
+				<legend>运价信息</legend>
+				<div class="layui-field-box">
+					<table class="site-table">
+						<thead>
+							<tr>
+								<th width="25%">车型</th>
+								<th width="25%">里程（公里）</th>
+								<th width="25%">运率</th>
+								<th width="25%">操作</th>
+							</tr>
+						</thead>
+						<!--内容容器-->
+						<tbody id="info-table">
+						</tbody>
+					</table>
+				</div>
+			</fieldset>
+		</div>
+		<script type="text/javascript" src="plugins/layui/layui.js"></script>
+		<script>
+			var url="http://api.uminfo.cn/";
+			
+			layui.use(['layer'],function(){
+				var $=layui.jquery,
+					layer=layui.layer;
+				loadRate();
+			});
+			
+			function loadRate(){
+				var $=layui.jquery;
+				var index=layer.load(2);
+				$.ajax({
+					url:url+"tenantsback.php/gettenants?adminid="+sessionStorage.getItem('admin_id'),
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						if(msg.result==0){
+							$.ajax({
+								url:msg.os_url+"rate.php/getRates?transfer_type=1",
+								dataType:'json',
+								type:'get',
+								ContentType:"application/json;charset=utf-8",
+								data:JSON.stringify({
+								}),
+								success:function(msg){
+									$("#info-table").empty();
+									var tbody="";
+									for(var i=0;i<msg.rates.length;i++){
+										tbody+="<tr>";
+										if(msg.rates[i].id%6==1){
+											tbody+="<td rowspan='6'>"+msg.rates[i].lorry_type.type+"</td>";
+										}
+										tbody+="<td>"+msg.rates[i].distance.distance+"</td>";
+										tbody+="<td>"+msg.rates[i].rate+"</td>";
+										tbody+="<td><a class='layui-btn layui-btn-mini' onclick='alter_rate("+msg.rates[i].id+","+msg.rates[i].rate+")'>修改</a></td>";
+										tbody+="</tr>";
+									}
+									$("#info-table").append(tbody);
+									layer.close(index);
+								},
+								error:function(e){
+									layer.msg("获取后台失败！");
+									layer.close(index);
+								}
+							});
+						}else{
+							layer.msg(msg.desc);
+						}
+					},
+					error:function(xhr){
+						layer.msg("获取后台失败！");
+					}
+				});
+			}
+			
+			function alter_rate(id,rate){
+				var $=layui.jquery;
+				var tdArray=$("#info-table tr").eq(id-1).children();
+				if(id%6==1){
+					tdArray.eq(2).html("<input type='text' id='rate"+id+"' value='"+rate+"'>");
+					tdArray.eq(3).html("<a class='layui-btn layui-btn-mini layui-btn-normal' onclick='alter_confirm("+id+","+rate+")'>保存</a><a class='layui-btn layui-btn-mini layui-btn-warm' onclick='alter_cancel("+id+","+rate+")'>取消</a>");
+				}else{
+					tdArray.eq(1).html("<input type='text' value='"+rate+"'>");
+					tdArray.eq(2).html("<a class='layui-btn layui-btn-mini layui-btn-normal' onclick='alter_confirm("+id+","+rate+")'>保存</a><a class='layui-btn layui-btn-mini layui-btn-warm' onclick='alter_cancel("+id+","+rate+")'>取消</a>");
+				}
+			}
+			
+			function alter_confirm(id,rate){
+				var $=layui.jquery;
+				var rate_new=parseFloat($("#rate"+id).val());
+				var tdArray=$("#info-table tr").eq(id-1).children();
+				$.ajax({
+					url:url+"tenantsback.php/gettenants?adminid="+sessionStorage.getItem('admin_id'),
+					dataType:'json',
+					type:'get',
+					ContentType:"application/json;charset=utf-8",
+					data:JSON.stringify({
+					}),
+					success:function(msg){
+						if(msg.result==0){
+							$.ajax({
+								url:msg.os_url+"rate.php/alterRate",
+								dataType:'json',
+								type:'put',
+								ContentType:"application/json;charset=utf-8",
+								data:JSON.stringify({
+									id:id,
+									rate:rate_new
+								}),
+								success:function(msg){
+									if(msg.result==0){
+										layer.msg("修改运率成功！");
+										tdArray.eq(2).html(rate_new);
+										tdArray.eq(3).html("<a class='layui-btn layui-btn-mini' onclick='alter_rate("+id+","+rate_new+")'>修改</a>");
+									}else{
+										layer.msg(msg.desc);
+										tdArray.eq(2).html(rate);
+										tdArray.eq(3).html("<a class='layui-btn layui-btn-mini' onclick='alter_rate("+id+","+rate+")'>修改</a>");
+									}
+								},
+								error:function(e){
+									layer.msg("获取后台失败！");
+								}
+							});
+						}else{
+							layer.msg(msg.desc);
+						}
+					},
+					error:function(xhr){
+						layer.msg("获取后台失败！");
+					}
+				});
+			}
+			
+			function alter_cancel(id,rate){
+				var $=layui.jquery;
+				var tdArray=$("#info-table tr").eq(id-1).children();
+				if(id%6==1){
+					tdArray.eq(2).html(rate);
+					tdArray.eq(3).html("<a class='layui-btn layui-btn-mini' onclick='alter_rate("+id+","+rate+")'>修改</a>");
+				}else{
+					tdArray.eq(1).html(rate);
+					tdArray.eq(2).html("<a class='layui-btn layui-btn-mini' onclick='alter_rate("+id+","+rate+")'>修改</a>");
+				}
+			}
+			
+		</script>
+	</body>
+</html>
