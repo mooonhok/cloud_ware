@@ -126,7 +126,7 @@ $app->get('/getCitys3',function()use($app){
     if($letter!=null||$letter!=""){
         $selectStatement = $database->select()
             ->from('city')
-            ->whereLike('letter','=',$letter);
+            ->where('letter','=',$letter);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         echo  json_encode(array("result"=>"0","desc"=>"success","citys"=>$data));
