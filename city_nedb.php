@@ -104,7 +104,7 @@ $app->get('/getCitys2',function()use($app){
             ->whereLike('name',$city.'%');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        if($data=null){
+        if($data==null){
             $selectStatement = $database->select()
                 ->from('city')
                 ->whereLike('pinyin',strtolower($city).'%');
