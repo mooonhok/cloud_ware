@@ -85,14 +85,14 @@
 					layer=layui.layer;
 				var index=layer.load(2);
 				$.ajax({
-					url:url+"tenantsback.php/getOrders?admin_id="+sessionStorage.getItem('admin_id')+"&tenant_id=&pay_method=&time1=&time2=",
+					url:url+"tenantsback.php/getOrderscount?admin_id="+sessionStorage.getItem('admin_id')+"&tenant_id=&pay_method=&time1=&time2=",
 					dataType:'json',
 					type:'get',
 					ContentType:"application/json;charset=utf-8",
 					data:JSON.stringify({
 					}),
 					success:function(msg){
-						$("#order-sum").text(msg.goods_orders.length);
+						$("#order-sum").text(msg.count);
 						layer.close(index);
 					},
 					error:function(xhr){
@@ -102,14 +102,14 @@
 				});
 				
 				$.ajax({
-					url:url+"tenantsback.php/getSchedules?admin_id="+sessionStorage.getItem('admin_id')+"&tenant_id=&time1=&time2=",
+					url:url+"tenantsback.php/getSchedulescount?admin_id="+sessionStorage.getItem('admin_id')+"&tenant_id=&time1=&time2=",
 					dataType:'json',
 					type:'get',
 					ContentType:"application/json;charset=utf-8",
 					data:JSON.stringify({
 					}),
 					success:function(msg){
-						$("#schedule-sum").text(msg.schedulings.length);
+						$("#schedule-sum").text(msg.count);
 					},
 					error:function(xhr){
 						layer.msg("获取后台失败！");
