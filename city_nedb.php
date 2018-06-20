@@ -76,22 +76,22 @@ $app->get('/getCity1',function()use($app){
     }
 });
 
-$app->get('/getCitys2',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $database=localhost();
-    $city=$app->request->get('city');
-    if($city!=null||$city!=""){
-        $selectStatement = $database->select()
-            ->from('city')
-            ->whereLike('city.name',$city.'%');
-        $stmt = $selectStatement->execute();
-        $data = $stmt->fetchAll();
-        echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
-    }else{
-        echo  json_encode(array("result"=>"1","desc"=>"省份的id为空"));
-    }
-});
+//$app->get('/getCitys2',function()use($app){
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
+//    $database=localhost();
+//    $city=$app->request->get('city');
+//    if($city!=null||$city!=""){
+//        $selectStatement = $database->select()
+//            ->from('city')
+//            ->whereLike('city.name',$city.'%');
+//        $stmt = $selectStatement->execute();
+//        $data = $stmt->fetchAll();
+//        echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
+//    }else{
+//        echo  json_encode(array("result"=>"1","desc"=>"省份的id为空"));
+//    }
+//});
 
 $app->get('/getCitys2',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
