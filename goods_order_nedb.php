@@ -5088,42 +5088,6 @@ $app->get('/limitGoodsOrders11',function()use($app){
     }
 });
 
-
-$app->get('/getGoodsOrders1count',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $database=localhost();
-    $array=array();
-    $tenant_id=$app->request->headers->get('tenant-id');
-    if($tenant_id!=null||$tenant_id!=''){
-        $selectStatement = $database->select()
-            ->from('orders')
-            ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
-            ->where('goods.tenant_id','=',$tenant_id)
-            ->where('orders.tenant_id','=',$tenant_id)
-            ->whereNotIn('orders.order_status',array(-1,-2,0,6))
-            ->where('orders.exist','=',0)
-            ->orderBy('orders.order_status')
-            ->orderBy('orders.order_datetime1','DESC')
-            ->orderBy('orders.id','DESC');
-        $stmt = $selectStatement->execute();
-        $data1 = $stmt->fetchAll();
-        $num=0;
-        for($i=0;$i<count($data1);$i++){
-            if(!(preg_match('/[a-zA-Z]/',$data1[$i]['order_id']))){
-                $num=$num+1;
-            }
-        }
-        echo json_encode(array('result'=>'0','desc'=>'success','count'=>$num));
-    }else{
-        echo json_encode(array('result'=>'1','desc'=>'租户id为空'));
-    }
-});
-
-
-
-
-
 $app->run();
 function localhost(){
     return connect();
