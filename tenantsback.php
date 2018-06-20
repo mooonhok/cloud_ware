@@ -2276,6 +2276,107 @@ $app->get('/lorrydetil',function()use($app){
 });
 
 
+$app->get('/getOrderscount',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $admin_id=$app->request->get('admin_id');
+    $tenant_id=$app->request->get('tenant_id');
+    $paymethod=$app->request->get('pay_method');
+    $time1=$app->request->get('time1');
+    $time2=$app->request->get('time2');
+    date_default_timezone_set("PRC");
+    if($time2==null||$time2==""){
+        $time2=date('Y-m-d',time());
+        $time2=$time2.' 23:59:59';
+    }else{
+        $time2=date("Y-m-d",strtotime("+1 days",strtotime($time2)));
+        $time2=$time2.' 00:00:00';
+    }
+    if($time1==null||$time1==null){
+        $time1=date('Y-m-d H:i:s','0');
+    }else{
+        $time1=date("Y-m-d",strtotime("-1 days",strtotime($time1)));
+        $time1=$time1.' 23:59:59';
+    }
+    if($admin_id!=null||$admin_id!=""){
+        if($tenant_id!=null||$tenant_id!=""){
+            if($paymethod!=null||$paymethod!=""){
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+                    ->where('goods.tenant_id','=',$tenant_id)
+                    ->where('orders.tenant_id','=',$tenant_id)
+                    ->where('orders.order_datetime1','>',$time1)
+                    ->where('orders.order_datetime1','<',$time2)
+                    ->where('orders.pay_method','=',$paymethod)
+                    ->whereNotIn('orders.order_status',array(-1,-2,0,6))
+                    ->where('orders.exist','=',0);
+                $stmt = $selectStatement->execute();
+                $data1= $stmt->fetchAll();
+                echo json_encode(array('result'=>'0','desc'=>'success','count'=>count($data1)));
+            }else{
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+                    ->where('goods.tenant_id','=',$tenant_id)
+                    ->where('orders.tenant_id','=',$tenant_id)
+                    ->where('orders.order_datetime1','>',$time1)
+                    ->where('orders.order_datetime1','<',$time2)
+                    ->whereNotIn('orders.order_status',array(-1,-2,0,6))
+                    ->where('orders.exist','=',0);
+                $stmt = $selectStatement->execute();
+                $data1= $stmt->fetchAll();
+                echo json_encode(array('result'=>'0','desc'=>'success','count'=>count($data1)));
+            }
+        }else{
+            $array1=array();
+            $selectStament=$database->select()
+                ->from('tenant_admin')
+                ->where('exist','=',0)
+                ->where('admin_id','=',$admin_id);
+            $stmt=$selectStament->execute();
+            $data2=$stmt->fetchAll();
+            for($j=0;$j<count($data2);$j++){
+                array_push($array1,$data2[$j]['tenant_id']);
+            }
+            if($paymethod!=null||$paymethod!=""){
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+                    ->whereIn('goods.tenant_id',$array1)
+                    ->whereIn('orders.tenant_id',$array1)
+                    ->where('orders.order_datetime1','>',$time1)
+                    ->where('orders.order_datetime1','<',$time2)
+                    ->where('orders.pay_method','=',$paymethod)
+                    ->whereNotIn('orders.order_status',array(-1,-2,0,6))
+                    ->where('orders.exist','=',0);
+                $stmt = $selectStatement->execute();
+                $data1= $stmt->fetchAll();
+                echo json_encode(array('result'=>'0','desc'=>'success','count'=>count($data1)));
+            }else{
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+                    ->whereIn('goods.tenant_id',$array1)
+                    ->whereIn('orders.tenant_id',$array1)
+                    ->where('orders.order_datetime1','>',$time1)
+                    ->where('orders.order_datetime1','<',$time2)
+                    ->whereNotIn('orders.order_status',array(-1,-2,0,6))
+                    ->where('orders.exist','=',0);
+                $stmt = $selectStatement->execute();
+                $data1= $stmt->fetchAll();
+                echo json_encode(array('result'=>'0','desc'=>'success','count'=>count($data1)));
+            }
+        }
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'管理员id不能为空'));
+    }
+});
+
+
+
+
 $app->run();
 
 function array_unset_tt($arr,$key){
