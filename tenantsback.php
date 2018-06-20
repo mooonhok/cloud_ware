@@ -2374,6 +2374,81 @@ $app->get('/getOrderscount',function()use($app){
     }
 });
 
+$app->get('/getSchedulescount',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->get('tenant_id');
+    $admin_id=$app->request->get('admin_id');
+    $time1=$app->request->get('time1');
+    $time2=$app->request->get('time2');
+    date_default_timezone_set("PRC");
+    if($time2==null||$time2==""){
+        $time2=date('Y-m-d H:i:s',time()+1);
+        $time2=$time2.' 23:59:59';
+    }
+    if($tenant_id!=null||$tenant_id!=""){
+        if($time1!=null||$time1!=''){
+            $time1=date("Y-m-d",strtotime("-1 days",strtotime($time1)));
+            $time1=$time1.' 23:59:59';
+            $selectStament=$database->select()
+                ->from('scheduling')
+                ->where('scheduling_datetime','>',$time1)
+                ->where('scheduling_datetime','<',$time2)
+                ->where('exist','=',0)
+                ->where('tenant_id','=',$tenant_id)
+                ->orderBy('scheduling_datetime','DESC');
+            $stmt=$selectStament->execute();
+            $data3=$stmt->fetchAll();
+            echo json_encode(array('result'=>'0','desc'=>'','count'=>count($data3)));
+        }else{
+            $selectStament=$database->select()
+                ->from('scheduling')
+                ->where('scheduling_datetime','<',$time2)
+                ->where('exist','=',0)
+                ->where('tenant_id','=',$tenant_id)
+                ->orderBy('scheduling_datetime','DESC');
+            $stmt=$selectStament->execute();
+            $data3=$stmt->fetchAll();
+            echo json_encode(array('result'=>'0','desc'=>'','count'=>count($data3)));
+        }
+    }else{
+        $array1=array();
+        $selectStament=$database->select()
+            ->from('tenant_admin')
+            ->where('exist','=',0)
+            ->where('admin_id','=',$admin_id);
+        $stmt=$selectStament->execute();
+        $data2=$stmt->fetchAll();
+        for($j=0;$j<count($data2);$j++){
+            array_push($array1,$data2[$j]['tenant_id']);
+        }
+        if($time1!=null||$time1!=''){
+            $time1=date("Y-m-d",strtotime("-1 days",strtotime($time1)));
+            $time1=$time1.' 23:59:59';
+            $selectStament=$database->select()
+                ->from('scheduling')
+                ->where('scheduling_datetime','>',$time1)
+                ->where('scheduling_datetime','<',$time2)
+                ->where('exist','=',0)
+                ->whereIn('tenant_id',$array1)
+                ->orderBy('scheduling_datetime','DESC');
+            $stmt=$selectStament->execute();
+            $data3=$stmt->fetchAll();
+            echo json_encode(array('result'=>'0','desc'=>'','count'=>count($data3)));
+        }else{
+            $selectStament=$database->select()
+                ->from('scheduling')
+                ->where('scheduling_datetime','<',$time2)
+                ->where('exist','=',0)
+                ->whereIn('tenant_id',$array1)
+                ->orderBy('scheduling_datetime','DESC');
+            $stmt=$selectStament->execute();
+            $data3=$stmt->fetchAll();
+            echo json_encode(array('result'=>'0','desc'=>'','count'=>count($data3)));
+        }
+    }
+});
 
 
 
