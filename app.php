@@ -64,52 +64,53 @@ $app->post('/addlorry0',function()use($app){
         $a=$a-1;
     }
     if($tel!=null||$tel!=""){
-       if($password!=null||$password!=""){
-           $selectStament=$database->select()
-               ->from('app_lorry')
-               ->where('phone','=',$tel);
-               $stmt=$selectStament->execute();
-               $data1=$stmt->fetch();
-               if($data1!=null){
-               if($data1['exist']==1){
-                   $deleteStatement = $database->delete()
-                       ->from('app_lorry')
-                       ->where('phone', '=', $tel);
-                   $affectedRows = $deleteStatement->execute();
-                   $selectStament=$database->select()
-                       ->from('app_lorry')
-                       ->orderBy('id','desc')
-                       ->limit(1);
-                   $stmt=$selectStament->execute();
-                   $data2=$stmt->fetch();
-                   $insertStatement = $database->insert(array('app_lorry_id','phone','password','exist'))
-                       ->into('app_lorry')
-                       ->values(array($data2['id']+1,$tel,$password,1));
-                   $insertId = $insertStatement->execute(false);
-                   echo  json_encode(array("result"=>"0","desc"=>"",'lorryid'=>$data2['id']+1));
-               }else{
-                   echo  json_encode(array("result"=>"3","desc"=>"电话号码已经被注册"));
-               }
-       }else{
-                   $deleteStatement = $database->delete()
-                       ->from('app_lorry')
-                       ->where('phone', '=', $tel);
-                   $affectedRows = $deleteStatement->execute();
-                   $selectStament=$database->select()
-                       ->from('app_lorry')
-                       ->orderBy('id','desc')
-                       ->limit(1);
-                   $stmt=$selectStament->execute();
-                   $data2=$stmt->fetch();
-                   $insertStatement = $database->insert(array('app_lorry_id','phone','password','exist'))
-                       ->into('app_lorry')
-                       ->values(array($data2['id']+1,$tel,$password,1));
-                   $insertId = $insertStatement->execute(false);
-                   echo  json_encode(array("result"=>"0","desc"=>"",'lorryid'=>$data2['id']+1));
-       }
-       }else{
-           echo  json_encode(array("result"=>"2","desc"=>"密码不能为空"));
-       }
+        if($password!=null||$password!=""){
+            $selectStament=$database->select()
+                ->from('app_lorry')
+                ->where('phone','=',$tel)
+                ->where('is_bind','=',0);
+            $stmt=$selectStament->execute();
+            $data1=$stmt->fetch();
+            if($data1!=null){
+                if($data1['exist']==1){
+                    $deleteStatement = $database->delete()
+                        ->from('app_lorry')
+                        ->where('id', '=', $data1['id']);
+                    $affectedRows = $deleteStatement->execute();
+                    $selectStament=$database->select()
+                        ->from('app_lorry')
+                        ->orderBy('id','desc')
+                        ->limit(1);
+                    $stmt=$selectStament->execute();
+                    $data2=$stmt->fetch();
+                    $insertStatement = $database->insert(array('app_lorry_id','phone','password','exist'))
+                        ->into('app_lorry')
+                        ->values(array($data2['id']+1,$tel,$password,1));
+                    $insertId = $insertStatement->execute(false);
+                    echo  json_encode(array("result"=>"0","desc"=>"",'lorryid'=>$data2['id']+1));
+                }else{
+                    echo  json_encode(array("result"=>"3","desc"=>"电话号码已经被注册"));
+                }
+            }else{
+//                $deleteStatement = $database->delete()
+//                    ->from('app_lorry')
+//                    ->where('phone', '=', $tel);
+//                $affectedRows = $deleteStatement->execute();
+                $selectStament=$database->select()
+                    ->from('app_lorry')
+                    ->orderBy('id','desc')
+                    ->limit(1);
+                $stmt=$selectStament->execute();
+                $data2=$stmt->fetch();
+                $insertStatement = $database->insert(array('app_lorry_id','phone','password','exist'))
+                    ->into('app_lorry')
+                    ->values(array($data2['id']+1,$tel,$password,1));
+                $insertId = $insertStatement->execute(false);
+                echo  json_encode(array("result"=>"0","desc"=>"",'lorryid'=>$data2['id']+1));
+            }
+        }else{
+            echo  json_encode(array("result"=>"2","desc"=>"密码不能为空"));
+        }
     }else{
         echo  json_encode(array("result"=>"1","desc"=>"您未填写电话号码"));
     }
@@ -133,7 +134,6 @@ $app->get("/schedule_on",function()use($app){
         }else{
             echo json_encode(array('result' => '1', 'desc' => ''));
         }
-
     }else{
         echo json_encode(array('result' => '2', 'desc' => '缺少司机id'));
     }
@@ -150,26 +150,26 @@ $app->post('/addlorry1',function()use($app){
     $idcard=$body->idcard;
     $lorryid=$body->lorryid;
     if($name!=null||$name!=""){
-         if($idcard!=null||$idcard!=""){
-                 $selectStament=$database->select()
-                     ->from('app_lorry')
-                     ->where('app_lorry_id','=',$lorryid);
-                 $stmt=$selectStament->execute();
-                 $data1=$stmt->fetch();
-                 if($data1!=null){
-                 $arrays['name']=$name;
-                 $arrays['id_number']=$idcard;
-                 $updateStatement = $database->update($arrays)
-                     ->table('app_lorry')
-                     ->where('app_lorry_id','=',$lorryid);
-                 $affectedRows = $updateStatement->execute();
-                     echo  json_encode(array("result"=>"0","desc"=>"","lorryid"=>$lorryid));
-                 }else{
-                     echo  json_encode(array("result"=>"3","desc"=>"您未填写电话和密码"));
-                 }
-         }else{
-             echo  json_encode(array("result"=>"2","desc"=>"您未填写身份证号"));
-         }
+        if($idcard!=null||$idcard!=""){
+            $selectStament=$database->select()
+                ->from('app_lorry')
+                ->where('app_lorry_id','=',$lorryid);
+            $stmt=$selectStament->execute();
+            $data1=$stmt->fetch();
+            if($data1!=null){
+                $arrays['name']=$name;
+                $arrays['id_number']=$idcard;
+                $updateStatement = $database->update($arrays)
+                    ->table('app_lorry')
+                    ->where('app_lorry_id','=',$lorryid);
+                $affectedRows = $updateStatement->execute();
+                echo  json_encode(array("result"=>"0","desc"=>"","lorryid"=>$lorryid));
+            }else{
+                echo  json_encode(array("result"=>"3","desc"=>"您未填写电话和密码"));
+            }
+        }else{
+            echo  json_encode(array("result"=>"2","desc"=>"您未填写身份证号"));
+        }
     }else{
         echo  json_encode(array("result"=>"1","desc"=>"您未填写姓名"));
     }
@@ -237,11 +237,11 @@ $app->post('/addlorry2',function()use($app){
     $cweight=$body->cweight;
     $lorryid=$body->lorryid;
     $plate_number=$body->plate_number;
-        if($lorryid!=null||$lorryid!="") {
-            if ($type == 0) {
-                if ($long != null || $long != "") {
-                    if ($ctype != null || $ctype != "") {
-                        if($plate_number!=null||$plate_number!=""){
+    if($lorryid!=null||$lorryid!="") {
+        if ($type == 0) {
+            if ($long != null || $long != "") {
+                if ($ctype != null || $ctype != "") {
+                    if($plate_number!=null||$plate_number!=""){
                         $selectStament = $database->select()
                             ->from('app_lorry')
                             ->where('app_lorry_id', '=', $lorryid);
@@ -261,26 +261,26 @@ $app->post('/addlorry2',function()use($app){
                         } else {
                             echo json_encode(array('result' => '4', 'desc' => '未填写电话号码'));
                         }
-                        }else{
-                            echo json_encode(array('result' => '5', 'desc' => '车牌号不能为空'));
-                        }
-                    } else {
-                        echo json_encode(array('result' => '3', 'desc' => '未选择车辆类型'));
+                    }else{
+                        echo json_encode(array('result' => '5', 'desc' => '车牌号不能为空'));
                     }
                 } else {
-                    echo json_encode(array('result' => '2', 'desc' => '未填写车辆长度'));
+                    echo json_encode(array('result' => '3', 'desc' => '未选择车辆类型'));
                 }
             } else {
-                $arrays['exist'] = 0;
-                $updateStatement = $database->update($arrays)
-                    ->table('app_lorry')
-                    ->where('app_lorry_id', '=', $lorryid);
-                $affectedRows = $updateStatement->execute();
-                echo json_encode(array('result' => '0', 'desc' => '注册成功', 'lorryid' => ''));
+                echo json_encode(array('result' => '2', 'desc' => '未填写车辆长度'));
             }
-        }else{
-            echo json_encode(array('result' => '5', 'desc' => '未填写电话号码'));
+        } else {
+            $arrays['exist'] = 0;
+            $updateStatement = $database->update($arrays)
+                ->table('app_lorry')
+                ->where('app_lorry_id', '=', $lorryid);
+            $affectedRows = $updateStatement->execute();
+            echo json_encode(array('result' => '0', 'desc' => '注册成功', 'lorryid' => ''));
         }
+    }else{
+        echo json_encode(array('result' => '5', 'desc' => '未填写电话号码'));
+    }
 });
 
 //司机注册4(图片1)
@@ -319,80 +319,80 @@ $app->post('/addlorry3',function()use($app){
             }
         }
         $arrays['driver_license_fp']=$lujing1;
-       if($pic2!=null){
-           $base64_image_content = $pic2;
+        if($pic2!=null){
+            $base64_image_content = $pic2;
 //匹配出图片的格式
-           if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
-               $type = $result[2];
-               date_default_timezone_set("PRC");
-               $time1 = time();
-               $new_file = "/files/lorry2/" . date('Ymd', $time1) . "/";
-               if (!file_exists($new_file)) {
+            if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+                $type = $result[2];
+                date_default_timezone_set("PRC");
+                $time1 = time();
+                $new_file = "/files/lorry2/" . date('Ymd', $time1) . "/";
+                if (!file_exists($new_file)) {
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
-                   mkdir($new_file, 0700);
-               }
-               $new_file = $new_file . $time1 . ".{$type}";
-               if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                   $lujing2 = $file_url."lorry2/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
-               }
-           }
-           $arrays['driver_license_tp']=$lujing2;
-           $base64_image_content = $pic3;
+                    mkdir($new_file, 0700);
+                }
+                $new_file = $new_file . $time1 . ".{$type}";
+                if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                    $lujing2 = $file_url."lorry2/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                }
+            }
+            $arrays['driver_license_tp']=$lujing2;
+            $base64_image_content = $pic3;
 //匹配出图片的格式
-           if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
-               $type = $result[2];
-               date_default_timezone_set("PRC");
-               $time1 = time();
-               $new_file = "/files/lorry3/" . date('Ymd', $time1) . "/";
-               if (!file_exists($new_file)) {
+            if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+                $type = $result[2];
+                date_default_timezone_set("PRC");
+                $time1 = time();
+                $new_file = "/files/lorry3/" . date('Ymd', $time1) . "/";
+                if (!file_exists($new_file)) {
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
-                   mkdir($new_file, 0700);
-               }
-               $new_file = $new_file . $time1 . ".{$type}";
-               if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                   $lujing3 = $file_url."lorry3/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
-               }
-           }
-           $arrays['driving_license_fp']=$lujing3;
-           if($pic4!=null) {
-               $base64_image_content = $pic4;
+                    mkdir($new_file, 0700);
+                }
+                $new_file = $new_file . $time1 . ".{$type}";
+                if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                    $lujing3 = $file_url."lorry3/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                }
+            }
+            $arrays['driving_license_fp']=$lujing3;
+            if($pic4!=null) {
+                $base64_image_content = $pic4;
 //匹配出图片的格式
-               if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
-                   $type = $result[2];
-                   date_default_timezone_set("PRC");
-                   $time1 = time();
-                   $new_file = "/files/lorry4/" . date('Ymd', $time1) . "/";
-                   if (!file_exists($new_file)) {
+                if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
+                    $type = $result[2];
+                    date_default_timezone_set("PRC");
+                    $time1 = time();
+                    $new_file = "/files/lorry4/" . date('Ymd', $time1) . "/";
+                    if (!file_exists($new_file)) {
 //检查是否有该文件夹，如果没有就创建，并给予最高权限
-                       mkdir($new_file, 0700);
-                   }
-                   $new_file = $new_file . $time1 . ".{$type}";
-                   if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
-                       $lujing4 = $file_url."lorry4/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
-                   }
-               }
-           }
-               $arrays['driving_license_tp']=$lujing4;
+                        mkdir($new_file, 0700);
+                    }
+                    $new_file = $new_file . $time1 . ".{$type}";
+                    if (file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64_image_content)))) {
+                        $lujing4 = $file_url."lorry4/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
+                    }
+                }
+            }
+            $arrays['driving_license_tp']=$lujing4;
 
-           $selectStament=$database->select()
-               ->from('app_lorry')
-               ->where('app_lorry_id','=',$lorryid);
-           $stmt=$selectStament->execute();
-           $data1=$stmt->fetch();
-           if($data1!=null){
-               $arrays['exist']=0;
-               $arrays['flag']=$type;
-               $updateStatement = $database->update($arrays)
-                   ->table('app_lorry')
-                   ->where('app_lorry_id','=',$lorryid);
-               $affectedRows = $updateStatement->execute();
-               echo json_encode(array('result'=>'0','desc'=>'','lorryid'=>$lorryid,'phone'=>$data1['phone']));
-           }else {
-               echo json_encode(array('result' => '4', 'desc' => '未填写电话号码'));
-           }
-       }else{
-           echo json_encode(array('result' => '2', 'desc' => '没有驾驶证反面图片'));
-       }
+            $selectStament=$database->select()
+                ->from('app_lorry')
+                ->where('app_lorry_id','=',$lorryid);
+            $stmt=$selectStament->execute();
+            $data1=$stmt->fetch();
+            if($data1!=null){
+                $arrays['exist']=0;
+                $arrays['flag']=$type;
+                $updateStatement = $database->update($arrays)
+                    ->table('app_lorry')
+                    ->where('app_lorry_id','=',$lorryid);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array('result'=>'0','desc'=>'','lorryid'=>$lorryid,'phone'=>$data1['phone']));
+            }else {
+                echo json_encode(array('result' => '4', 'desc' => '未填写电话号码'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '没有驾驶证反面图片'));
+        }
     }else{
         echo json_encode(array('result' => '1', 'desc' => '没有驾驶证正面图片'));
     }
@@ -568,6 +568,7 @@ $app->post('/lorrysign',function()use($app){
             $selectStament=$database->select()
                 ->from('app_lorry')
                 ->where('exist','=',0)
+                ->where('is_bind','=',0)
                 ->where('phone','=',$username);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
@@ -610,6 +611,7 @@ $app->post('/check',function()use($app){
             $selectStament=$database->select()
                 ->from('app_lorry')
                 ->where('exist','=',0)
+                ->where('is_bind','=',0)
                 ->where('app_lorry_id','=',$lorryid);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
@@ -645,6 +647,7 @@ $app->post('/persoonmessage',function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->where('exist','=',0)
+            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorryid);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -669,9 +672,9 @@ $app->post('/updriveringpic',function()use($app){
     $lorryid=$body->lorryid;
     $type=$body->type;
 //	$platenumber=$body->platenumber;
-	$clong=$body->clong;
-	$ctype=$body->ctype;
-	$cweight=$body->cweight;
+    $clong=$body->clong;
+    $ctype=$body->ctype;
+    $cweight=$body->cweight;
     $pic3=$body->pic3;
     $pic4=$body->pic4;
     $lujing3=null;
@@ -720,12 +723,14 @@ $app->post('/updriveringpic',function()use($app){
             $selectStament=$database->select()
                 ->from('app_lorry')
                 ->where('exist','=',0)
+                ->where('is_bind','=',0)
                 ->where('app_lorry_id','=',$lorryid);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
             if($data1!=null){
                 $updateStatement = $database->update($arrays)
                     ->table('app_lorry')
+                    ->where('is_bind','=',0)
                     ->where('app_lorry_id','=',$lorryid);
                 $affectedRows = $updateStatement->execute();
                 echo json_encode(array('result'=>'0','desc'=>'修改行驶证成功'));
@@ -792,12 +797,14 @@ $app->post('/updriverpic',function()use($app){
             $selectStament=$database->select()
                 ->from('app_lorry')
                 ->where('exist','=',0)
+                ->where('is_bind','=',0)
                 ->where('app_lorry_id','=',$lorryid);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
             if($data1!=null){
                 $updateStatement = $database->update($arrays)
                     ->table('app_lorry')
+                    ->where('is_bind','=',0)
                     ->where('app_lorry_id','=',$lorryid);
                 $affectedRows = $updateStatement->execute();
                 echo json_encode(array('result'=>'0','desc'=>'修改驾驶证成功'));
@@ -845,6 +852,7 @@ $app->post('/uphead',function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->where('exist','=',0)
+            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorryid);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -852,6 +860,7 @@ $app->post('/uphead',function()use($app){
             $arrays['route']=$introduce;
             $updateStatement = $database->update($arrays)
                 ->table('app_lorry')
+                ->where('is_bind','=',0)
                 ->where('app_lorry_id','=',$lorryid);
             $affectedRows = $updateStatement->execute();
             echo json_encode(array('result' => '0', 'desc' => '名片已保存'));
@@ -906,6 +915,7 @@ $app->get('/wait_schedulings',function()use($app){
             ->from('app_lorry')
             ->where('exist','=',0)
             ->where('flag','=',0)
+            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -987,6 +997,7 @@ $app->get('/schistory',function()use($app){
             ->from('app_lorry')
             ->where('exist','=',0)
             ->where('flag','=',0)
+            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -1000,14 +1011,14 @@ $app->get('/schistory',function()use($app){
             $data2=$stmt->fetchAll();
             if($data2!=null){
                 for($x=0;$x<count($data2);$x++){
-                        $selectStament=$database->select()
-                            ->from('scheduling')
-                            ->whereIn('scheduling_status',array(5,7,8,9))
-                            ->where('tenant_id','=',$data2[$x]['tenant_id'])
-                            ->where('lorry_id','=',$data2[$x]['lorry_id'])
-                            ->orderBy('change_datetime','desc');
-                        $stmt=$selectStament->execute();
-                        $data3=$stmt->fetchAll();
+                    $selectStament=$database->select()
+                        ->from('scheduling')
+                        ->whereIn('scheduling_status',array(5,7,8,9))
+                        ->where('tenant_id','=',$data2[$x]['tenant_id'])
+                        ->where('lorry_id','=',$data2[$x]['lorry_id'])
+                        ->orderBy('change_datetime','desc');
+                    $stmt=$selectStament->execute();
+                    $data3=$stmt->fetchAll();
 
                     for($i=0;$i<count($data3);$i++){
                         $selectStament=$database->select()
@@ -1066,6 +1077,7 @@ $app->get('/scnoaccept',function()use($app){
             ->from('app_lorry')
             ->where('exist','=',0)
             ->where('flag','=',0)
+            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -1222,9 +1234,9 @@ $app->get('/sandoandg',function()use($app){
         }else{
             echo json_encode(array('result' => '4', 'desc' => '该清单不存在','goods'=>''));
         }
-     }else{
-    echo json_encode(array('result' => '1', 'desc' => '清单号为空','goods'=>''));
-}
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '清单号为空','goods'=>''));
+    }
 });
 //获取待交付清单数量
 $app->get('/tongji',function()use($app){
@@ -1237,6 +1249,7 @@ $app->get('/tongji',function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->where('exist','=',0)
+            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -1251,23 +1264,23 @@ $app->get('/tongji',function()use($app){
             $stmt=$selectStament->execute();
             $data2=$stmt->fetchAll();
             if($data2!=null){
-                 for($i=0;$i<count($data2);$i++){
-                     $selectStament=$database->select()
-                         ->from('scheduling')
-                         ->where('exist','=',0)
-                         ->where('scheduling_status','!=',1)
-                         ->where('scheduling_status','!=',5)
-                         ->where('scheduling_status','!=',7)
-                         ->where('scheduling_status','!=',8)
-                         ->where('scheduling_status','!=',9)
-                         ->where('tenant_id','=',$data2[$i]['tenant_id'])
-                         ->where('lorry_id','=',$data2[$i]['lorry_id']);
-                     $stmt=$selectStament->execute();
-                     $data3=$stmt->fetchAll();
-                     if($data3!=null){
-                         $num+=count($data3);
-                     }
-                 }
+                for($i=0;$i<count($data2);$i++){
+                    $selectStament=$database->select()
+                        ->from('scheduling')
+                        ->where('exist','=',0)
+                        ->where('scheduling_status','!=',1)
+                        ->where('scheduling_status','!=',5)
+                        ->where('scheduling_status','!=',7)
+                        ->where('scheduling_status','!=',8)
+                        ->where('scheduling_status','!=',9)
+                        ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                        ->where('lorry_id','=',$data2[$i]['lorry_id']);
+                    $stmt=$selectStament->execute();
+                    $data3=$stmt->fetchAll();
+                    if($data3!=null){
+                        $num+=count($data3);
+                    }
+                }
                 echo json_encode(array('result' => '0', 'desc' => '','count'=>$num));
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '您还没拉过清单'));
@@ -1296,6 +1309,7 @@ $app->post('/scmap',function()use($app){
             $selectStament=$database->select()
                 ->from('app_lorry')
                 ->where('exist','=',0)
+                ->where('is_bind','=',0)
                 ->where('flag','=',0)
                 ->where('app_lorry_id','=',$lorryid);
             $stmt=$selectStament->execute();
@@ -1340,13 +1354,13 @@ $app->post('/scmap',function()use($app){
 //                                            ->where('id', '=', $data4[count($data4)-1]['id']);
 //                                        $affectedRows = $updateStatement->execute();
 //                                    } else {
-                                        if ($time - $data4[count($data4) - 1]['accept_time'] > 1200) {
+                                    if ($time - $data4[count($data4) - 1]['accept_time'] > 1200) {
 //                                        if ($time - $data4[count($data4) - 1]['accept_time'] > 60) {
-                                            $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
-                                                ->into('map')
-                                                ->values(array($data3[$y]['scheduling_id'], $longitude, $latitude, $time));
-                                            $insertId = $insertStatement->execute(false);
-                                        }
+                                        $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
+                                            ->into('map')
+                                            ->values(array($data3[$y]['scheduling_id'], $longitude, $latitude, $time));
+                                        $insertId = $insertStatement->execute(false);
+                                    }
 //                                    }
                                 }else {
                                     $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
@@ -1385,6 +1399,7 @@ $app->get('/check_scheduling',function()use($app){
                 ->from('app_lorry')
                 ->where('exist','=',0)
                 ->where('flag','=',0)
+                ->where('is_bind','=',0)
                 ->where('app_lorry_id','=',$lorry_id);
             $stmt=$selectStament->execute();
             $data2=$stmt->fetch();
@@ -1409,7 +1424,7 @@ $app->get('/check_scheduling',function()use($app){
                 $data1=$stmt->fetch();
                 if($data1){
                     $a=1;
-                   break;
+                    break;
                 }
             }
 
@@ -1421,9 +1436,9 @@ $app->get('/check_scheduling',function()use($app){
         }else{
             echo json_encode(array('result' => '3', 'desc' => '缺少司机id'));
         }
-      }else{
-          echo json_encode(array('result' => '1', 'desc' => '缺少调度id'));
-     }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '缺少调度id'));
+    }
 });
 
 
@@ -1445,6 +1460,7 @@ $app->post('/suresc1',function()use($app){
             ->from('app_lorry')
             ->where('exist','=',0)
             ->where('flag','=',0)
+            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -1465,20 +1481,20 @@ $app->post('/suresc1',function()use($app){
                 $stmt=$selectStament->execute();
                 $data4=$stmt->fetch();
                 if($data4!=null){
-                   if($data1['phone']==$data4['driver_phone']&&$data1['plate_number']==$data4['plate_number']){
-                       $updateStatement = $database->update($arrays)
-                           ->table('scheduling')
-                           ->where('scheduling_id', '=', $schedule_id);
-                       $affectedRows = $updateStatement->execute();
-                       if($affectedRows>0){
-                           echo json_encode(array('result' => '0', 'desc' => '确认成功'));
-                       }else{
-                           echo json_encode(array('result' => '6', 'desc' => '该清单不是您的'));
-                       }
+                    if($data1['phone']==$data4['driver_phone']&&$data1['plate_number']==$data4['plate_number']){
+                        $updateStatement = $database->update($arrays)
+                            ->table('scheduling')
+                            ->where('scheduling_id', '=', $schedule_id);
+                        $affectedRows = $updateStatement->execute();
+                        if($affectedRows>0){
+                            echo json_encode(array('result' => '0', 'desc' => '确认成功'));
+                        }else{
+                            echo json_encode(array('result' => '6', 'desc' => '该清单不是您的'));
+                        }
 
-                   }else{
-                       echo json_encode(array('result' => '5', 'desc' => '该清单不是您的'));
-                   }
+                    }else{
+                        echo json_encode(array('result' => '5', 'desc' => '该清单不是您的'));
+                    }
                 }else{
                     echo json_encode(array('result' => '4', 'desc' => '该清单上的司机不存在'));
                 }
@@ -1539,6 +1555,7 @@ $app->post('/receivesc',function()use($app){
                 ->from('app_lorry')
                 ->where('exist','=',0)
                 ->where('flag','=',0)
+                ->where('is_bind','=',0)
                 ->where('app_lorry_id','=',$lorry_id);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
@@ -1626,6 +1643,7 @@ $app->post('/receivesc',function()use($app){
                 ->from('app_lorry')
                 ->where('exist','=',0)
                 ->where('flag','=',0)
+                ->where('is_bind','=',0)
                 ->where('app_lorry_id','=',$lorry_id);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
@@ -1713,11 +1731,11 @@ $app->post('/last_map1',function()use($app) {
     $time=time();
     if($schedule_id!=''||$schedule_id!=null){
 
-            $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
-                ->into('map')
-                ->values(array($schedule_id, $longitude, $latitude, $time));
-            $insertId = $insertStatement->execute(false);
-            echo json_encode(array('result' => '0', 'desc' => '上传成功'));
+        $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
+            ->into('map')
+            ->values(array($schedule_id, $longitude, $latitude, $time));
+        $insertId = $insertStatement->execute(false);
+        echo json_encode(array('result' => '0', 'desc' => '上传成功'));
 
     }else{
         echo json_encode(array('result' => '1', 'desc' => '清单号不存在'));
@@ -1749,13 +1767,13 @@ $app->post('/last_map',function()use($app) {
             $insertId = $insertStatement->execute(false);
             echo json_encode(array('result' => '0', 'desc' => '上传成功'));
         }else {
-                $selectStament = $database->select()
-                    ->from('scheduling')
-                    ->where('exist', '=', 0)
-                    ->where('scheduling_status', '=', 8)
-                    ->where('scheduling_id', '=', $schedule_id);
-                $stmt = $selectStament->execute();
-                $data4 = $stmt->fetch();
+            $selectStament = $database->select()
+                ->from('scheduling')
+                ->where('exist', '=', 0)
+                ->where('scheduling_status', '=', 8)
+                ->where('scheduling_id', '=', $schedule_id);
+            $stmt = $selectStament->execute();
+            $data4 = $stmt->fetch();
             if($data4){
                 echo json_encode(array('result' => '2', 'desc' => '调度单出险中'));
             }else{
@@ -1791,6 +1809,7 @@ $app->post('/changpass',function()use($app){
                     $selectStament=$database->select()
                         ->from('app_lorry')
                         ->where('exist','=',0)
+                        ->where('is_bind','=',0)
                         ->where('name','=',$name)
                         ->where('id_number','=',$idcard)
                         ->where('phone','=',$telephone);
@@ -1799,6 +1818,7 @@ $app->post('/changpass',function()use($app){
                     if($data1!=null){
                         $updateStatement = $database->update(array('password'=>$password))
                             ->table('app_lorry')
+                            ->where('is_bind','=',0)
                             ->where('app_lorry_id', '=', $data1['app_lorry_id']);
                         $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '修改成功'));
@@ -1832,19 +1852,20 @@ $app->post('/match_user',function()use($app){
     if($name!=null||$name!=""){
         if($idcard!=null||$idcard!=""){
             if($telephone!=null||$telephone!=""){
-                    $selectStament=$database->select()
-                        ->from('app_lorry')
-                        ->where('exist','=',0)
-                        ->where('name','=',$name)
-                        ->where('id_number','=',$idcard)
-                        ->where('phone','=',$telephone);
-                    $stmt=$selectStament->execute();
-                    $data1=$stmt->fetch();
-                    if($data1){
-                        echo json_encode(array('result' => '0', 'desc' => 'success'));
-                    }else{
-                        echo json_encode(array('result' => '1', 'desc' => '用户不存在'));
-                    }
+                $selectStament=$database->select()
+                    ->from('app_lorry')
+                    ->where('exist','=',0)
+                    ->where('is_bind','=',0)
+                    ->where('name','=',$name)
+                    ->where('id_number','=',$idcard)
+                    ->where('phone','=',$telephone);
+                $stmt=$selectStament->execute();
+                $data1=$stmt->fetch();
+                if($data1){
+                    echo json_encode(array('result' => '0', 'desc' => 'success'));
+                }else{
+                    echo json_encode(array('result' => '1', 'desc' => '用户不存在'));
+                }
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '您没有填写电话号码'));
             }
@@ -1913,16 +1934,17 @@ $app->post('/t_change_password',function()use($app){
         if($password1!=null||$password1!=""){
             if($password2!=null||$password2!=""){
 
-                        $updateStatement = $database->update(array('password'=>$password2))
-                            ->table('app_lorry')
-                            ->where('password', '=', $password1)
-                            ->where('app_lorry_id', '=', $lorry_id);
-                        $affectedRows = $updateStatement->execute();
-                        if($affectedRows>0){
-                            echo json_encode(array('result' => '0', 'desc' => '修改成功'));
-                        }else{
-                            echo json_encode(array('result' => '4', 'desc' => '旧密码有误，修改未成功'));
-                        }
+                $updateStatement = $database->update(array('password'=>$password2))
+                    ->table('app_lorry')
+                    ->where('password', '=', $password1)
+                    ->where('is_bind','=',0)
+                    ->where('app_lorry_id', '=', $lorry_id);
+                $affectedRows = $updateStatement->execute();
+                if($affectedRows>0){
+                    echo json_encode(array('result' => '0', 'desc' => '修改成功'));
+                }else{
+                    echo json_encode(array('result' => '4', 'desc' => '旧密码有误，修改未成功'));
+                }
             }else{
                 echo json_encode(array('result' => '3', 'desc' => '您没有填写新密码'));
             }
@@ -1942,18 +1964,18 @@ $app->post('/search_back_scheduling',function()use($app){
     $body=json_decode($body);
     $scheduling_id=$body->scheduling_id;
     if($scheduling_id!=null||$scheduling_id!=''){
-                        $selectStament=$database->select()
-                            ->from('scheduling')
-                            ->where('exist','=',0)
-                            ->where('scheduling_status','=',6)
-                            ->where('scheduling_id','=',$scheduling_id);
-                        $stmt=$selectStament->execute();
-                        $data1=$stmt->fetch();
-                        if($data1!=null){
-                            echo json_encode(array('result' => '0', 'desc' => '该调度单退单审核中'));
-                        }else{
-                            echo json_encode(array('result' => '1', 'desc' => ''));
-                        }
+        $selectStament=$database->select()
+            ->from('scheduling')
+            ->where('exist','=',0)
+            ->where('scheduling_status','=',6)
+            ->where('scheduling_id','=',$scheduling_id);
+        $stmt=$selectStament->execute();
+        $data1=$stmt->fetch();
+        if($data1!=null){
+            echo json_encode(array('result' => '0', 'desc' => '该调度单退单审核中'));
+        }else{
+            echo json_encode(array('result' => '1', 'desc' => ''));
+        }
     }else{
         echo json_encode(array('result' => '2', 'desc' => ''));
     }
@@ -1975,25 +1997,26 @@ $app->post('/change_orders_status',function()use($app){
         ->where('scheduling_id','=',$scheduling_id);
     $stmt=$selectStament->execute();
     $dataa=$stmt->fetch();
-        if($lorryid!=null||$lorryid!=""){
+    if($lorryid!=null||$lorryid!=""){
+        $selectStament=$database->select()
+            ->from('app_lorry')
+            ->where('exist','=',0)
+            ->where('flag','=',0)
+            ->where('is_bind','=',0)
+            ->where('app_lorry_id','=',$lorryid);
+        $stmt=$selectStament->execute();
+        $data1=$stmt->fetch();
+        if($data1!=null){
             $selectStament=$database->select()
-                ->from('app_lorry')
+                ->from('lorry')
                 ->where('exist','=',0)
-                ->where('flag','=',0)
-                ->where('app_lorry_id','=',$lorryid);
+                ->where('tenant_id','=',$dataa['tenant_id'])
+                ->where('plate_number','=',$data1['plate_number'])
+                ->where('driver_phone','=',$data1['phone']);
             $stmt=$selectStament->execute();
-            $data1=$stmt->fetch();
-            if($data1!=null){
-                $selectStament=$database->select()
-                    ->from('lorry')
-                    ->where('exist','=',0)
-                    ->where('tenant_id','=',$dataa['tenant_id'])
-                    ->where('plate_number','=',$data1['plate_number'])
-                    ->where('driver_phone','=',$data1['phone']);
-                $stmt=$selectStament->execute();
-                $data2=$stmt->fetch();
-                $aaa=0;
-                if($data2!=null){
+            $data2=$stmt->fetch();
+            $aaa=0;
+            if($data2!=null){
 //                    for($i=0;$i<count($data2);$i++){
 //                        $selectStament=$database->select()
 //                            ->from('scheduling')
@@ -2004,32 +2027,32 @@ $app->post('/change_orders_status',function()use($app){
 //                            ->where('lorry_id','=',$data2[$i]['lorry_id']);
 //                        $stmt=$selectStament->execute();
 //                        $data3=$stmt->fetch();
-                        date_default_timezone_set("PRC");
-                        $shijian=date("Y-m-d H:i:s",time());
-                        $updateStatement = $database->update(array('scheduling_status'=>6,'back_reason'=> '驾驶员申请退单','back_time'=>$shijian,'back_comment'=>$back_comment,))
-                            ->table('scheduling')
-                            ->where('exist','=',0)
-                            ->where('scheduling_status','=',4)
-                            ->where('tenant_id','=',$data2['tenant_id'])
-                            ->where('scheduling_id','=',$scheduling_id)
-                            ->where('lorry_id','=',$data2['lorry_id']);
-                        $affectedRows = $updateStatement->execute();
-                        if($affectedRows>0){
-                            $selectStament=$database->select()
-                                ->from('schedule_order')
-                                ->where('exist','=',0)
+                date_default_timezone_set("PRC");
+                $shijian=date("Y-m-d H:i:s",time());
+                $updateStatement = $database->update(array('scheduling_status'=>6,'back_reason'=> '驾驶员申请退单','back_time'=>$shijian,'back_comment'=>$back_comment,))
+                    ->table('scheduling')
+                    ->where('exist','=',0)
+                    ->where('scheduling_status','=',4)
+                    ->where('tenant_id','=',$data2['tenant_id'])
+                    ->where('scheduling_id','=',$scheduling_id)
+                    ->where('lorry_id','=',$data2['lorry_id']);
+                $affectedRows = $updateStatement->execute();
+                if($affectedRows>0){
+                    $selectStament=$database->select()
+                        ->from('schedule_order')
+                        ->where('exist','=',0)
+                        ->where('tenant_id','=',$data2['tenant_id'])
+                        ->where('schedule_id','=',$scheduling_id);
+                    $stmt=$selectStament->execute();
+                    $data4=$stmt->fetchAll();
+                    if($data4!=null){
+                        for ($y = 0; $y < count($data4); $y++) {
+                            $updateStatement = $database->update(array('is_back'=>1))
+                                ->table('orders')
                                 ->where('tenant_id','=',$data2['tenant_id'])
-                                ->where('schedule_id','=',$scheduling_id);
-                            $stmt=$selectStament->execute();
-                            $data4=$stmt->fetchAll();
-                            if($data4!=null){
-                                for ($y = 0; $y < count($data4); $y++) {
-                                $updateStatement = $database->update(array('is_back'=>1))
-                                    ->table('orders')
-                                    ->where('tenant_id','=',$data2['tenant_id'])
-                                    ->where('order_id','=',$data4[$y]['order_id'])
-                                    ->where('exist',"=","0");
-                                $affectedRows = $updateStatement->execute();
+                                ->where('order_id','=',$data4[$y]['order_id'])
+                                ->where('exist',"=","0");
+                            $affectedRows = $updateStatement->execute();
 //                                    date_default_timezone_set("PRC");
 //                                    $time=time();
 //                                    $date=date("Y-m-d h:i:sa", $time);
@@ -2048,66 +2071,66 @@ $app->post('/change_orders_status',function()use($app){
 //                                        ->where('order_id','=',$data4[$y]['order_id'])
 //                                        ->where('exist',"=","0");
 //                                    $affectedRows = $updateStatement->execute();
-                                }
-                            }
-                            $aaa++;
-                        }else{
-                            $selectStament=$database->select()
-                                ->from('scheduling')
-                                ->where('exist','=',0)
-                                ->whereIn('scheduling_status',array(2,3))
-                                ->where('tenant_id','=',$data2['tenant_id'])
-                                ->where('scheduling_id','=',$scheduling_id)
-                                ->where('lorry_id','=',$data2['lorry_id']);
-                            $stmt=$selectStament->execute();
-                            $data5=$stmt->fetch();
-                            $selectStament=$database->select()
-                                ->from('scheduling')
-                                ->where('exist','=',0)
-                                ->where('scheduling_status','=',6)
-                                ->where('tenant_id','=',$data2['tenant_id'])
-                                ->where('scheduling_id','=',$scheduling_id)
-                                ->where('lorry_id','=',$data2['lorry_id']);
-                            $stmt=$selectStament->execute();
-                            $data6=$stmt->fetch();
-                            $selectStament=$database->select()
-                                ->from('scheduling')
-                                ->where('exist','=',0)
-                                ->where('scheduling_status','=',8)
-                                ->where('tenant_id','=',$data2['tenant_id'])
-                                ->where('scheduling_id','=',$scheduling_id)
-                                ->where('lorry_id','=',$data2['lorry_id']);
-                            $stmt=$selectStament->execute();
-                            $data7=$stmt->fetch();
                         }
+                    }
+                    $aaa++;
+                }else{
+                    $selectStament=$database->select()
+                        ->from('scheduling')
+                        ->where('exist','=',0)
+                        ->whereIn('scheduling_status',array(2,3))
+                        ->where('tenant_id','=',$data2['tenant_id'])
+                        ->where('scheduling_id','=',$scheduling_id)
+                        ->where('lorry_id','=',$data2['lorry_id']);
+                    $stmt=$selectStament->execute();
+                    $data5=$stmt->fetch();
+                    $selectStament=$database->select()
+                        ->from('scheduling')
+                        ->where('exist','=',0)
+                        ->where('scheduling_status','=',6)
+                        ->where('tenant_id','=',$data2['tenant_id'])
+                        ->where('scheduling_id','=',$scheduling_id)
+                        ->where('lorry_id','=',$data2['lorry_id']);
+                    $stmt=$selectStament->execute();
+                    $data6=$stmt->fetch();
+                    $selectStament=$database->select()
+                        ->from('scheduling')
+                        ->where('exist','=',0)
+                        ->where('scheduling_status','=',8)
+                        ->where('tenant_id','=',$data2['tenant_id'])
+                        ->where('scheduling_id','=',$scheduling_id)
+                        ->where('lorry_id','=',$data2['lorry_id']);
+                    $stmt=$selectStament->execute();
+                    $data7=$stmt->fetch();
+                }
 
 //                    }
-                    if($aaa!=0){
-                        echo json_encode(array('result' => '0', 'desc' => '退单中，待审核'));
+                if($aaa!=0){
+                    echo json_encode(array('result' => '0', 'desc' => '退单中，待审核'));
+                }else{
+                    if($data5){
+                        echo json_encode(array('result' => '6', 'desc' => '物流公司尚未发车，无法退单'));
                     }else{
-                        if($data5){
-                            echo json_encode(array('result' => '6', 'desc' => '物流公司尚未发车，无法退单'));
+                        if($data6){
+                            echo json_encode(array('result' => '5', 'desc' => '该调度单退单审核中'));
                         }else{
-                            if($data6){
-                                echo json_encode(array('result' => '5', 'desc' => '该调度单退单审核中'));
-                            }else{
-                               if($data7){
-                                   echo json_encode(array('result' => '7', 'desc' => '该调度单出险中'));
-                               }
+                            if($data7){
+                                echo json_encode(array('result' => '7', 'desc' => '该调度单出险中'));
                             }
-
                         }
 
                     }
-                }else{
-                    echo json_encode(array('result' => '4', 'desc' => '该车辆不属于本公司司机'));
+
                 }
             }else{
-                echo json_encode(array('result' => '3', 'desc' => '司机不存在'));
+                echo json_encode(array('result' => '4', 'desc' => '该车辆不属于本公司司机'));
             }
-}else{
-    echo json_encode(array('result' => '2', 'desc' => '司机id为空'));
-}
+        }else{
+            echo json_encode(array('result' => '3', 'desc' => '司机不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '2', 'desc' => '司机id为空'));
+    }
 });
 
 $app->post('/change_orders_status2',function()use($app){
@@ -2128,6 +2151,7 @@ $app->post('/change_orders_status2',function()use($app){
             ->from('app_lorry')
             ->where('exist','=',0)
             ->where('flag','=',0)
+            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorryid);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -2186,55 +2210,55 @@ $app->post('/change_orders_status2',function()use($app){
                     }
                     date_default_timezone_set("PRC");
                     $shijian=date("Y-m-d H:i:s",time());
-                        $updateStatement = $database->update(array('scheduling_status'=>8,'back_time'=>$shijian,'back_reason'=>'事故出险',))
-                            ->table('scheduling')
-                            ->where('exist','=',0)
-                            ->where('scheduling_status','=',4)
-                            ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                    $updateStatement = $database->update(array('scheduling_status'=>8,'back_time'=>$shijian,'back_reason'=>'事故出险',))
+                        ->table('scheduling')
+                        ->where('exist','=',0)
+                        ->where('scheduling_status','=',4)
+                        ->where('tenant_id','=',$data2[$i]['tenant_id'])
 //                            ->where('scheduling_id','=',$scheduling_id)
-                            ->where('lorry_id','=',$data2[$i]['lorry_id']);
-                        $affectedRows = $updateStatement->execute();
-                        if($affectedRows>0&&$datad){
-                                  $aaa=1;
-                            for($x=0;$x<count($datad);$x++){
-                                $time=time();
-                                $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
-                                    ->into('map')
-                                    ->values(array($datad[$x]['scheduling_id'], $longitude, $latitude, $time));
-                                $insertId = $insertStatement->execute(false);
-                                $selectStament=$database->select()
-                                    ->from('schedule_order')
-                                    ->where('exist','=',0)
-                                    ->where('tenant_id','=',$data2[$i]['tenant_id'])
-                                    ->where('schedule_id','=',$datad[$x]['scheduling_id']);
-                                $stmt=$selectStament->execute();
-                                $data4=$stmt->fetchAll();
-                                if($data4!=null){
-                                    for ($y = 0; $y < count($data4); $y++) {
+                        ->where('lorry_id','=',$data2[$i]['lorry_id']);
+                    $affectedRows = $updateStatement->execute();
+                    if($affectedRows>0&&$datad){
+                        $aaa=1;
+                        for($x=0;$x<count($datad);$x++){
+                            $time=time();
+                            $insertStatement = $database->insert(array('scheduling_id', 'longitude', 'latitude', 'accept_time'))
+                                ->into('map')
+                                ->values(array($datad[$x]['scheduling_id'], $longitude, $latitude, $time));
+                            $insertId = $insertStatement->execute(false);
+                            $selectStament=$database->select()
+                                ->from('schedule_order')
+                                ->where('exist','=',0)
+                                ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                                ->where('schedule_id','=',$datad[$x]['scheduling_id']);
+                            $stmt=$selectStament->execute();
+                            $data4=$stmt->fetchAll();
+                            if($data4!=null){
+                                for ($y = 0; $y < count($data4); $y++) {
 
-                                        date_default_timezone_set("PRC");
-                                        $time=time();
+                                    date_default_timezone_set("PRC");
+                                    $time=time();
 
-                                        $date=date("Y-m-d H:i:s", $time);
-                                        $selectStatement = $database->select()
-                                            ->from('exception')
-                                            ->where('tenant_id', '=', $data2[$i]['tenant_id']);
-                                        $stmt = $selectStatement->execute();
-                                        $data5 = $stmt->fetchAll();
-                                        $insertStatement = $database->insert(array('exception_source','exception_person','exception_time','exception_comment','tenant_id','exception_id','order_id'))
-                                            ->into('exception')
-                                            ->values(array_values(array('交付帮手',$data1['name'].'('.$data1['plate_number'].')',$date,'事故出险',$data2[$i]['tenant_id'],(count($data5)+100000001),$data4[$y]['order_id'])));
-                                        $insertId = $insertStatement->execute(false);
-                                        $updateStatement = $database->update(array('exception_id'=>(count($data5)+100000001),'order_status'=>5))
-                                            ->table('orders')
-                                            ->where('tenant_id','=',$data2[$i]['tenant_id'])
-                                            ->where('order_id','=',$data4[$y]['order_id'])
-                                            ->where('exist',"=","0");
-                                        $affectedRows = $updateStatement->execute();
-                                    }
+                                    $date=date("Y-m-d H:i:s", $time);
+                                    $selectStatement = $database->select()
+                                        ->from('exception')
+                                        ->where('tenant_id', '=', $data2[$i]['tenant_id']);
+                                    $stmt = $selectStatement->execute();
+                                    $data5 = $stmt->fetchAll();
+                                    $insertStatement = $database->insert(array('exception_source','exception_person','exception_time','exception_comment','tenant_id','exception_id','order_id'))
+                                        ->into('exception')
+                                        ->values(array_values(array('交付帮手',$data1['name'].'('.$data1['plate_number'].')',$date,'事故出险',$data2[$i]['tenant_id'],(count($data5)+100000001),$data4[$y]['order_id'])));
+                                    $insertId = $insertStatement->execute(false);
+                                    $updateStatement = $database->update(array('exception_id'=>(count($data5)+100000001),'order_status'=>5))
+                                        ->table('orders')
+                                        ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                                        ->where('order_id','=',$data4[$y]['order_id'])
+                                        ->where('exist',"=","0");
+                                    $affectedRows = $updateStatement->execute();
                                 }
                             }
                         }
+                    }
                 }
                 if($aaa==1){
                     echo json_encode(array('result' => '0', 'desc' => '正在上报物流公司'));
@@ -2293,6 +2317,7 @@ $app->get('/agreement_lorrys',function()use($app){
             ->from('app_lorry')
             ->where('exist','=',0)
             ->where('flag','=',0)
+            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -2306,39 +2331,39 @@ $app->get('/agreement_lorrys',function()use($app){
             $stmt = $selectStament->execute();
             $data2 = $stmt->fetchAll();
             if($data2!=null){
-               for($i=0;$i<count($data2);$i++){
-                   $selectStatement = $database->select()
-                       ->from('agreement')
-                       ->join('lorry','lorry.lorry_id','=','agreement.secondparty_id','INNER')
-                       ->join('tenant','tenant.tenant_id','=','agreement.tenant_id','INNER')
-                       ->where('agreement.exist','=','0')
-                       ->where('tenant.tenant_id','=', $data2[$i]['tenant_id'])
-                       ->where('lorry.tenant_id','=', $data2[$i]['tenant_id'])
-                       ->where('lorry.lorry_id','=', $data2[$i]['lorry_id'])
-                       ->where('agreement.tenant_id','=', $data2[$i]['tenant_id'])
-                       ->where('agreement.secondparty_id', '=', $data2[$i]['lorry_id'])
-                       ->where('agreement.agreement_status', '=',0)
-                       ->orderBy('agreement.agreement_id','DESC');
-                   $stmt = $selectStatement->execute();
-                   $data3= $stmt->fetchAll();
-                   $arrays=array_merge($arrays,$data3);
-                   $selectStatement = $database->select()
-                       ->from('agreement')
-                       ->join('lorry','lorry.lorry_id','=','agreement.secondparty_id','INNER')
-                       ->join('tenant','tenant.tenant_id','=','agreement.tenant_id','INNER')
-                       ->where('agreement.exist','=','0')
-                       ->where('tenant.tenant_id','=', $data2[$i]['tenant_id'])
-                       ->where('lorry.tenant_id','=', $data2[$i]['tenant_id'])
-                       ->where('lorry.lorry_id','=', $data2[$i]['lorry_id'])
-                       ->where('agreement.tenant_id','=', $data2[$i]['tenant_id'])
-                       ->where('agreement.secondparty_id', '=', $data2[$i]['lorry_id'])
-                       ->where('agreement.agreement_status', '!=',0)
-                       ->orderBy('agreement.agreement_id','DESC');
-                   $stmt = $selectStatement->execute();
-                   $data4= $stmt->fetchAll();
-                   $arrays1=array_merge($arrays1,$data4);
-               }
-                   $arrays=array_merge($arrays,$arrays1);
+                for($i=0;$i<count($data2);$i++){
+                    $selectStatement = $database->select()
+                        ->from('agreement')
+                        ->join('lorry','lorry.lorry_id','=','agreement.secondparty_id','INNER')
+                        ->join('tenant','tenant.tenant_id','=','agreement.tenant_id','INNER')
+                        ->where('agreement.exist','=','0')
+                        ->where('tenant.tenant_id','=', $data2[$i]['tenant_id'])
+                        ->where('lorry.tenant_id','=', $data2[$i]['tenant_id'])
+                        ->where('lorry.lorry_id','=', $data2[$i]['lorry_id'])
+                        ->where('agreement.tenant_id','=', $data2[$i]['tenant_id'])
+                        ->where('agreement.secondparty_id', '=', $data2[$i]['lorry_id'])
+                        ->where('agreement.agreement_status', '=',0)
+                        ->orderBy('agreement.agreement_id','DESC');
+                    $stmt = $selectStatement->execute();
+                    $data3= $stmt->fetchAll();
+                    $arrays=array_merge($arrays,$data3);
+                    $selectStatement = $database->select()
+                        ->from('agreement')
+                        ->join('lorry','lorry.lorry_id','=','agreement.secondparty_id','INNER')
+                        ->join('tenant','tenant.tenant_id','=','agreement.tenant_id','INNER')
+                        ->where('agreement.exist','=','0')
+                        ->where('tenant.tenant_id','=', $data2[$i]['tenant_id'])
+                        ->where('lorry.tenant_id','=', $data2[$i]['tenant_id'])
+                        ->where('lorry.lorry_id','=', $data2[$i]['lorry_id'])
+                        ->where('agreement.tenant_id','=', $data2[$i]['tenant_id'])
+                        ->where('agreement.secondparty_id', '=', $data2[$i]['lorry_id'])
+                        ->where('agreement.agreement_status', '!=',0)
+                        ->orderBy('agreement.agreement_id','DESC');
+                    $stmt = $selectStatement->execute();
+                    $data4= $stmt->fetchAll();
+                    $arrays1=array_merge($arrays1,$data4);
+                }
+                $arrays=array_merge($arrays,$arrays1);
                 echo json_encode(array('result' => '0','desc' => '','agreements'=>$arrays));
             }else{
                 echo json_encode(array('result' => '1', 'desc' => '司机尚未有过订单'));
@@ -2351,92 +2376,92 @@ $app->get('/agreement_lorrys',function()use($app){
     }
 });
 
- $app->get('/agreement_scheduling_id',function()use($app){
-     $app->response->headers->set('Access-Control-Allow-Origin','*');
-     $app->response->headers->set('Content-Type','application/json');
-     $database=localhost();
-     $data5=array();
-     $agreement_id = $app->request->get("agreement_id");
-     $selectStatement = $database->select()
-         ->from('agreement')
-         ->join('tenant','tenant.tenant_id','=','agreement.tenant_id','INNER')
-         ->join('city','city.id','=','tenant.from_city_id','INNER')
-         ->where('agreement_id','=',$agreement_id);
-     $stmt = $selectStatement->execute();
-     $data1= $stmt->fetch();
-     $selectStatement = $database->select()
-         ->from('lorry')
-         ->where('tenant_id','=', $data1['tenant_id'])
-         ->where('lorry_id','=',$data1['secondparty_id']);
-     $stmt = $selectStatement->execute();
-     $data4= $stmt->fetch();
-     $data1['lorry_name']=$data4['driver_name'];
-     $selectStatement = $database->select()
-         ->from('agreement')
-         ->join('agreement_schedule','agreement_schedule.agreement_id','=','agreement.agreement_id','INNER')
-         ->join('lorry','lorry.lorry_id','=','agreement.secondparty_id','INNER')
-         ->join('tenant','tenant.tenant_id','=','agreement.tenant_id','INNER')
-         ->where('agreement.exist','=','0')
-         ->where('tenant.tenant_id','=', $data1['tenant_id'])
-         ->where('lorry.tenant_id','=', $data1['tenant_id'])
-         ->where('lorry.lorry_id','=', $data1['secondparty_id'])
-         ->where('agreement.tenant_id','=', $data1['tenant_id'])
-         ->where('agreement_schedule.agreement_id','=',$agreement_id)
-         ->where('agreement_schedule.tenant_id','=', $data1['tenant_id'])
-         ->where('agreement.secondparty_id', '=', $data1['secondparty_id']);
-     $stmt = $selectStatement->execute();
-     $data2= $stmt->fetchAll();
-     for($i=0;$i<count($data2);$i++){
-         $selectStatement = $database->select()
-             ->sum('goods.goods_weight','weight_zon')
-             ->sum('goods.goods_capacity','capacity_zon')
-             ->sum('goods.goods_count','count_zon')
-             ->from('schedule_order')
-             ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
-             ->join('goods','goods.order_id','=','orders.order_id','INNER')
-             ->where('schedule_order.schedule_id','=',$data2[$i]['scheduling_id'])
-             ->where('schedule_order.tenant_id', '=', $data2[$i]['tenant_id'])
-             ->where('goods.tenant_id', '=', $data2[$i]['tenant_id'])
-             ->where('orders.tenant_id', '=',$data2[$i]['tenant_id']);
-         $stmt = $selectStatement->execute();
-         $data3 = $stmt->fetch();
-         $selectStatement = $database->select()
-             ->from('scheduling')
-             ->where('tenant_id', '=', $data2[$i]['tenant_id'])
-             ->where('scheduling_id','=',$data2[$i]['scheduling_id']);
-         $stmt = $selectStatement->execute();
-         $data6 = $stmt->fetch();
-             $selectStatement = $database->select()
-                 ->from('city')
-                 ->where('id','=',$data6['receive_city_id']);
-             $stmt = $selectStatement->execute();
-             $data4 = $stmt->fetch();
-             if($data4['name']!=$data2[$i]['rcity']){
-                 array_push($data5,$data4['name']);
-             }
-                 $data2[$i]['weight_zon']=$data3['weight_zon'];
-             if($data3['capacity_zon']){
-                 $data2[$i]['capacity_zon']=$data3['capacity_zon'];
-             }else{
-                 $data2[$i]['capacity_zon']='—';
-             }
-         if($data3['count_zon']){
-             $data2[$i]['count_zon']=$data3['count_zon'];
-         }else{
-             $data2[$i]['count_zon']='—';
-         }
-     }
-     $data5=array_unique($data5);
-     for($x=0;$x<count($data5);$x++){
-         if($x!=0){
-             $data1['receive_tj_citys'].=','.$data5[$x];
-         }else{
-             $data1['receive_tj_citys']=$data5[$x];
-         }
+$app->get('/agreement_scheduling_id',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $data5=array();
+    $agreement_id = $app->request->get("agreement_id");
+    $selectStatement = $database->select()
+        ->from('agreement')
+        ->join('tenant','tenant.tenant_id','=','agreement.tenant_id','INNER')
+        ->join('city','city.id','=','tenant.from_city_id','INNER')
+        ->where('agreement_id','=',$agreement_id);
+    $stmt = $selectStatement->execute();
+    $data1= $stmt->fetch();
+    $selectStatement = $database->select()
+        ->from('lorry')
+        ->where('tenant_id','=', $data1['tenant_id'])
+        ->where('lorry_id','=',$data1['secondparty_id']);
+    $stmt = $selectStatement->execute();
+    $data4= $stmt->fetch();
+    $data1['lorry_name']=$data4['driver_name'];
+    $selectStatement = $database->select()
+        ->from('agreement')
+        ->join('agreement_schedule','agreement_schedule.agreement_id','=','agreement.agreement_id','INNER')
+        ->join('lorry','lorry.lorry_id','=','agreement.secondparty_id','INNER')
+        ->join('tenant','tenant.tenant_id','=','agreement.tenant_id','INNER')
+        ->where('agreement.exist','=','0')
+        ->where('tenant.tenant_id','=', $data1['tenant_id'])
+        ->where('lorry.tenant_id','=', $data1['tenant_id'])
+        ->where('lorry.lorry_id','=', $data1['secondparty_id'])
+        ->where('agreement.tenant_id','=', $data1['tenant_id'])
+        ->where('agreement_schedule.agreement_id','=',$agreement_id)
+        ->where('agreement_schedule.tenant_id','=', $data1['tenant_id'])
+        ->where('agreement.secondparty_id', '=', $data1['secondparty_id']);
+    $stmt = $selectStatement->execute();
+    $data2= $stmt->fetchAll();
+    for($i=0;$i<count($data2);$i++){
+        $selectStatement = $database->select()
+            ->sum('goods.goods_weight','weight_zon')
+            ->sum('goods.goods_capacity','capacity_zon')
+            ->sum('goods.goods_count','count_zon')
+            ->from('schedule_order')
+            ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+            ->join('goods','goods.order_id','=','orders.order_id','INNER')
+            ->where('schedule_order.schedule_id','=',$data2[$i]['scheduling_id'])
+            ->where('schedule_order.tenant_id', '=', $data2[$i]['tenant_id'])
+            ->where('goods.tenant_id', '=', $data2[$i]['tenant_id'])
+            ->where('orders.tenant_id', '=',$data2[$i]['tenant_id']);
+        $stmt = $selectStatement->execute();
+        $data3 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('scheduling')
+            ->where('tenant_id', '=', $data2[$i]['tenant_id'])
+            ->where('scheduling_id','=',$data2[$i]['scheduling_id']);
+        $stmt = $selectStatement->execute();
+        $data6 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id','=',$data6['receive_city_id']);
+        $stmt = $selectStatement->execute();
+        $data4 = $stmt->fetch();
+        if($data4['name']!=$data2[$i]['rcity']){
+            array_push($data5,$data4['name']);
+        }
+        $data2[$i]['weight_zon']=$data3['weight_zon'];
+        if($data3['capacity_zon']){
+            $data2[$i]['capacity_zon']=$data3['capacity_zon'];
+        }else{
+            $data2[$i]['capacity_zon']='—';
+        }
+        if($data3['count_zon']){
+            $data2[$i]['count_zon']=$data3['count_zon'];
+        }else{
+            $data2[$i]['count_zon']='—';
+        }
+    }
+    $data5=array_unique($data5);
+    for($x=0;$x<count($data5);$x++){
+        if($x!=0){
+            $data1['receive_tj_citys'].=','.$data5[$x];
+        }else{
+            $data1['receive_tj_citys']=$data5[$x];
+        }
 
-     }
-     echo json_encode(array('result' => '0', 'desc' => '','agreement_schedulings'=>$data2,'agreement'=>$data1,'data'=>$data5));
- });
+    }
+    echo json_encode(array('result' => '0', 'desc' => '','agreement_schedulings'=>$data2,'agreement'=>$data1,'data'=>$data5));
+});
 
 $app->get('/agreement_status',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -2485,6 +2510,7 @@ $app->post('/sign_agreement',function()use($app){
             ->from('app_lorry')
             ->where('exist','=',0)
             ->where('flag','=',0)
+            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -2561,6 +2587,7 @@ $app->post('/sign_agreement',function()use($app){
             ->from('app_lorry')
             ->where('exist','=',0)
             ->where('flag','=',0)
+            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -2615,6 +2642,7 @@ $app->get('/tongji_agreement',function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->where('exist','=',0)
+            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -2679,6 +2707,7 @@ $app->get("/get_lorry_status",function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->where('exist','=',0)
+            ->where('is_bind','=',0)
             ->where('lorry_status','=',1)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
@@ -2846,6 +2875,7 @@ $app->post('/change_lorry_status',function()use($app){
     $arrays['lorry_status']=0;
     $updateStatement = $database->update($arrays)
         ->table('app_lorry')
+        ->where('is_bind','=',0)
         ->where('app_lorry_id','=',$lorry_id);
     $affectedRows = $updateStatement->execute();
     if($affectedRows>0){
@@ -2855,6 +2885,79 @@ $app->post('/change_lorry_status',function()use($app){
     }
 });
 
+$app->get('/checkSchedulings',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $lorry_id = $app->request->get("lorry_id");
+    $database=localhost();
+    $num=0;
+    if($lorry_id!=null||$lorry_id!=""){
+        $selectStament=$database->select()
+            ->from('app_lorry')
+            ->where('exist','=',0)
+            ->where('is_bind','=',0)
+            ->where('app_lorry_id','=',$lorry_id);
+        $stmt=$selectStament->execute();
+        $data1=$stmt->fetch();
+        if($data1!=null){
+            $selectStament=$database->select()
+                ->from('lorry')
+                ->where('exist','=',0)
+                ->where('flag','=',0)
+                ->where('tenant_id','!=',0)
+                ->where('plate_number','=',$data1['plate_number'])
+                ->where('driver_phone','=',$data1['phone']);
+            $stmt=$selectStament->execute();
+            $data2=$stmt->fetchAll();
+            if($data2!=null){
+                for($i=0;$i<count($data2);$i++){
+                    $selectStament=$database->select()
+                        ->from('scheduling')
+                        ->where('exist','=',0)
+                        ->where('scheduling_status','!=',1)
+                        ->where('scheduling_status','!=',5)
+                        ->where('scheduling_status','!=',7)
+                        ->where('scheduling_status','!=',8)
+                        ->where('scheduling_status','!=',9)
+                        ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                        ->where('lorry_id','=',$data2[$i]['lorry_id']);
+                    $stmt=$selectStament->execute();
+                    $data3=$stmt->fetchAll();
+                    if($data3!=null){
+                        $num+=count($data3);
+                    }
+                }
+                echo json_encode(array('result' => '0', 'desc' => '','count'=>$num));
+            }else{
+                echo json_encode(array('result' => '3', 'desc' => '您还没拉过清单'));
+            }
+        }else{
+            echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+        }
+    }else{
+        echo json_encode(array('result' => '1', 'desc' => '缺少司机id'));
+    }
+});
+
+$app->post('/changeIs_bind',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $body = $app->request->getBody();
+    $body=json_decode($body);
+    $lorry_id=$body->lorry_id;
+    $database=localhost();
+    if($lorry_id!=''||$lorry_id!=null){
+        $updateStatement = $database->update(array('is_bind'=>1))
+            ->table('app_lorry')
+            ->where('is_bind','=',0)
+            ->where('exist','=',0)
+            ->where('app_lorry_id','=',$lorry_id);
+        $affectedRows = $updateStatement->execute();
+        echo json_encode(array('result'=>'0','desc'=>'success'));
+    }else{
+      echo json_encode(array('result'=>'1','desc'=>'缺少司机id'));
+    }
+});
 
 $app->run();
 
