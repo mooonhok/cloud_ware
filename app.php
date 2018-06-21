@@ -3119,7 +3119,7 @@ $app->post('/addlorryA',function()use($app){
                                     ->table('app_lorry')
                                     ->where('app_lorry_id', '=', ($datab['id']+1));
                                 $affectedRows = $updateStatement->execute();
-                                echo json_encode(array('result' => '0', 'desc' => '', 'lorryid' => $lorryid));
+                                echo json_encode(array('result' => '0', 'desc' => '', 'lorryid' => ($datab['id']+1)));
                             } else {
                                 echo json_encode(array('result' => '4', 'desc' => '未填写电话号码'));
                             }
