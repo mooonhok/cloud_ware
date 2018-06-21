@@ -3169,7 +3169,7 @@ $app->post('/addlorryB',function()use($app){
                 $lujing5 = $file_url."lorry3/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
             }
         }
-        $arrays['identity_card_z']=$lujing5;
+        $arrays['driving_license_fp']=$lujing5;
         if($id_pic6!=null){
             $base64_image_content = $id_pic6;
 //匹配出图片的格式
@@ -3187,7 +3187,7 @@ $app->post('/addlorryB',function()use($app){
                     $lujing6 = $file_url."lorry4/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                 }
             }
-            $arrays['identity_card_f']=$lujing6;
+            $arrays['driving_license_p']=$lujing6;
             $arrays['flag']=0;
             $selectStament=$database->select()
                 ->from('app_lorry')
