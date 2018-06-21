@@ -3187,7 +3187,7 @@ $app->post('/addlorryB',function()use($app){
                     $lujing6 = $file_url."lorry4/" . date('Ymd', $time1) . "/" . $time1 . ".{$type}";
                 }
             }
-            $arrays['driving_license_p']=$lujing6;
+            $arrays['driving_license_tp']=$lujing6;
             $arrays['flag']=0;
             $selectStament=$database->select()
                 ->from('app_lorry')
