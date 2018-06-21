@@ -2990,17 +2990,28 @@ $app->post('/changeIsBind',function()use($app){
     $phone=$body->phone;
     $database=localhost();
     if($lorry_id!=''||$lorry_id!=null){
-        $updateStatement = $database->update(array('is_bind'=>1))
-            ->table('app_lorry')
-            ->where('exist','=',0)
-            ->where('app_lorry_id','=',$lorry_id_o);
-        $affectedRows = $updateStatement->execute();
-        $updateStatement = $database->update(array('is_bind'=>0))
-            ->table('app_lorry')
+        $selectStament=$database->select()
+            ->from('app_lorry')
+            ->where('is_bind','=',0)
             ->where('exist','=',0)
             ->where('app_lorry_id','=',$lorry_id);
-        $affectedRows = $updateStatement->execute();
-        echo json_encode(array('result'=>'0','desc'=>'success'));
+        $stmt=$selectStament->execute();
+        $data1=$stmt->fetch();
+        if($data1){
+            echo json_encode(array('result'=>'2','desc'=>'该车是当前车辆'));
+        }else{
+            $updateStatement = $database->update(array('is_bind'=>1))
+                ->table('app_lorry')
+                ->where('exist','=',0)
+                ->where('app_lorry_id','=',$lorry_id_o);
+            $affectedRows = $updateStatement->execute();
+            $updateStatement = $database->update(array('is_bind'=>0))
+                ->table('app_lorry')
+                ->where('exist','=',0)
+                ->where('app_lorry_id','=',$lorry_id);
+            $affectedRows = $updateStatement->execute();
+            echo json_encode(array('result'=>'0','desc'=>'success'));
+        }
     }else{
         echo json_encode(array('result'=>'1','desc'=>'缺少司机id'));
     }
@@ -3212,6 +3223,7 @@ $app->post('/addlorryB',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '没有行驶证正面图片'));
     }
 });
+
 
 $app->run();
 
