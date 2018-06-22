@@ -1413,6 +1413,17 @@ $app->get('/agreementSchedulings',function()use($app){
             $data[$i]['plate_number']=$data3['plate_number'];
             $data[$i]['driver_name']=$data3['driver_name'];
             $data[$i]['driver_phone']=$data3['driver_phone'];
+            if($data[$i]['scheduling_status']==1){
+                $data[$i]['scheduling_status']='生成清单';
+            }else if($data[$i]['scheduling_status']==2){
+                $data[$i]['scheduling_status']='司机确认';
+            }else if($data[$i]['scheduling_status']==3){
+                $data[$i]['scheduling_status']='装车完成';
+            }else if($data[$i]['scheduling_status']==4){
+                $data[$i]['scheduling_status']='在途';
+            }else if($data[$i]['scheduling_status']==5){
+                $data[$i]['scheduling_status']='到达';
+            }
         }
         echo json_encode(array('result'=>'0','desc'=>'success','agreementschedulings'=>$data));
     }else{
