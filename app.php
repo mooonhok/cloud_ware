@@ -1820,7 +1820,7 @@ $app->post('/changpass',function()use($app){
                     $selectStament=$database->select()
                         ->from('app_lorry')
                         ->where('exist','=',0)
-                        ->where('is_bind','=',0)
+//                        ->where('is_bind','=',0)
                         ->where('name','=',$name)
                         ->where('id_number','=',$idcard)
                         ->where('phone','=',$telephone);
@@ -1829,8 +1829,9 @@ $app->post('/changpass',function()use($app){
                     if($data1!=null){
                         $updateStatement = $database->update(array('password'=>$password))
                             ->table('app_lorry')
-                            ->where('is_bind','=',0)
-                            ->where('app_lorry_id', '=', $data1['app_lorry_id']);
+                            ->where('exist','=',0)
+//                            ->where('is_bind','=',0)
+                            ->where('phone','=',$telephone);
                         $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '修改成功'));
                     }else{
@@ -1866,7 +1867,7 @@ $app->post('/match_user',function()use($app){
                 $selectStament=$database->select()
                     ->from('app_lorry')
                     ->where('exist','=',0)
-                    ->where('is_bind','=',0)
+//                    ->where('is_bind','=',0)
                     ->where('name','=',$name)
                     ->where('id_number','=',$idcard)
                     ->where('phone','=',$telephone);
@@ -1944,12 +1945,18 @@ $app->post('/t_change_password',function()use($app){
     if($lorry_id!=null||$lorry_id!=""){
         if($password1!=null||$password1!=""){
             if($password2!=null||$password2!=""){
-
+                $selectStament=$database->select()
+                    ->from('app_lorry')
+                    ->where('exist','=',0)
+                    ->where('app_lorry_id', '=', $lorry_id);
+                $stmt=$selectStament->execute();
+                $data1=$stmt->fetch();
                 $updateStatement = $database->update(array('password'=>$password2))
                     ->table('app_lorry')
                     ->where('password', '=', $password1)
-                    ->where('is_bind','=',0)
-                    ->where('app_lorry_id', '=', $lorry_id);
+//                    ->where('is_bind','=',0)
+                    ->where('exist','=',0)
+                    ->where('phone','=',$data1['phone']);
                 $affectedRows = $updateStatement->execute();
                 if($affectedRows>0){
                     echo json_encode(array('result' => '0', 'desc' => '修改成功'));
