@@ -68,14 +68,26 @@ $app->post('/addlorry0',function()use($app){
             $selectStament=$database->select()
                 ->from('app_lorry')
                 ->where('phone','=',$tel)
-                ->where('is_bind','=',0);
+                ->where('exist','=',0);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
-            if($data1!=null){
-                if($data1['exist']==1){
+            if($data1){
+                echo  json_encode(array("result"=>"3","desc"=>"电话号码已经被注册"));
+            }else{
+//                $deleteStatement = $database->delete()
+//                    ->from('app_lorry')
+//                    ->where('phone', '=', $tel);
+//                $affectedRows = $deleteStatement->execute();
+                $selectStament=$database->select()
+                    ->from('app_lorry')
+                    ->where('phone','=',$tel)
+                    ->where('exist','=',1);
+                $stmt=$selectStament->execute();
+                $data1a=$stmt->fetch();
+                if($data1a){
                     $deleteStatement = $database->delete()
                         ->from('app_lorry')
-                        ->where('id', '=', $data1['id']);
+                        ->where('id', '=', $data1a['id']);
                     $affectedRows = $deleteStatement->execute();
                     $selectStament=$database->select()
                         ->from('app_lorry')
@@ -87,26 +99,21 @@ $app->post('/addlorry0',function()use($app){
                         ->into('app_lorry')
                         ->values(array($data2['id']+1,$tel,$password,1));
                     $insertId = $insertStatement->execute(false);
-                    echo  json_encode(array("result"=>"0","desc"=>"",'lorryid'=>$data2['id']+1));
+                    echo  json_encode(array("result"=>"0","desc"=>"success",'lorryid'=>$data2['id']+1));
                 }else{
-                    echo  json_encode(array("result"=>"3","desc"=>"电话号码已经被注册"));
+                    $selectStament=$database->select()
+                        ->from('app_lorry')
+                        ->orderBy('id','desc')
+                        ->limit(1);
+                    $stmt=$selectStament->execute();
+                    $data2=$stmt->fetch();
+                    $insertStatement = $database->insert(array('app_lorry_id','phone','password','exist'))
+                        ->into('app_lorry')
+                        ->values(array($data2['id']+1,$tel,$password,1));
+                    $insertId = $insertStatement->execute(false);
+                    echo  json_encode(array("result"=>"0","desc"=>"",'lorryid'=>$data2['id']+1));
                 }
-            }else{
-//                $deleteStatement = $database->delete()
-//                    ->from('app_lorry')
-//                    ->where('phone', '=', $tel);
-//                $affectedRows = $deleteStatement->execute();
-                $selectStament=$database->select()
-                    ->from('app_lorry')
-                    ->orderBy('id','desc')
-                    ->limit(1);
-                $stmt=$selectStament->execute();
-                $data2=$stmt->fetch();
-                $insertStatement = $database->insert(array('app_lorry_id','phone','password','exist'))
-                    ->into('app_lorry')
-                    ->values(array($data2['id']+1,$tel,$password,1));
-                $insertId = $insertStatement->execute(false);
-                echo  json_encode(array("result"=>"0","desc"=>"",'lorryid'=>$data2['id']+1));
+
             }
         }else{
             echo  json_encode(array("result"=>"2","desc"=>"密码不能为空"));
