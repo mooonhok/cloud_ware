@@ -1374,7 +1374,51 @@ $app->post('/getInsuranceObject',function()use($weiXinPay,$app){
     echo json_encode($return);
 });
 
-
+$app->get('/agreementSchedulings',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $lorry_id = $app->request->get("lorry_id");
+    $database=localhost();
+    if($tenant_id!=''||$tenant_id!=null){
+        $selectStatement = $database->select()
+            ->from('scheduling')
+            ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
+            ->where('scheduling.tenant_id','=',$tenant_id)
+            ->where('lorry.tenant_id','=',$tenant_id)
+            ->where('scheduling.is_contract','=',1)
+            ->where('scheduling.exist','=',0)
+            ->whereIn('scheduling.scheduling_status',array(1,2,3,4,5))
+            ->whereLike('lorry.lorry_id','%'.$lorry_id.'%');
+        $stmt = $selectStatement->execute();
+        $data= $stmt->fetchAll();
+        for($i=0;$i<count($data);$i++){
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data[$i]['send_city_id']);
+            $stmt = $selectStatement->execute();
+            $data1= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id','=',$data[$i]['receive_city_id']);
+            $stmt = $selectStatement->execute();
+            $data2= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('lorry_id','=',$data[$i]['lorry_id']);
+            $stmt = $selectStatement->execute();
+            $data3= $stmt->fetch();
+            $data[$i]['send_city_name']=$data1['name'];
+            $data[$i]['receive_city_name']=$data2['name'];
+            $data[$i]['plate_number']=$data3['plate_number'];
+            $data[$i]['driver_name']=$data3['driver_name'];
+            $data[$i]['driver_phone']=$data3['driver_phone'];
+        }
+        echo json_encode(array('result'=>'0','desc'=>'success','agreementschedulings'=>$data));
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
+    }
+});
 
 $app->run();
 
