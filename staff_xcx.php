@@ -1408,11 +1408,22 @@ $app->get('/agreementSchedulings',function()use($app){
                 ->where('lorry_id','=',$data[$i]['lorry_id']);
             $stmt = $selectStatement->execute();
             $data3= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('schedule_order')
+                ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
+                ->join('goods','goods.order_id','=','schedule_order.order_id','INNER')
+                ->where('goods.tenant_id','=',$tenant_id)
+                ->where('orders.tenant_id','=',$tenant_id)
+                ->where('schedule_order.tenant_id','=',$tenant_id)
+                ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id']);
+            $stmt = $selectStatement->execute();
+            $data4= $stmt->fetchAll();
             $data[$i]['send_city_name']=$data1['name'];
             $data[$i]['receive_city_name']=$data2['name'];
             $data[$i]['plate_number']=$data3['plate_number'];
             $data[$i]['driver_name']=$data3['driver_name'];
             $data[$i]['driver_phone']=$data3['driver_phone'];
+            $data[$i]['orders']=$data4;
             if($data[$i]['scheduling_status']==1){
                 $data[$i]['scheduling_status']='生成清单';
             }else if($data[$i]['scheduling_status']==2){
