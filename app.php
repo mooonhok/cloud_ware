@@ -3029,7 +3029,7 @@ $app->post('/changeIsExist',function()use($app){
             $selectStament=$database->select()
                 ->from('app_lorry')
                 ->where('exist','=',0)
-//                ->where('is_bind','=',0)
+                ->where('is_bind','=',1)
                 ->where('app_lorry_id','=',$lorry_id);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
@@ -3073,7 +3073,7 @@ $app->post('/changeIsExist',function()use($app){
                     echo json_encode(array('result'=>'4','desc'=>'您还有清单未处理'));
                 }
             }else{
-                echo json_encode(array('result' => '2', 'desc' => '司机不存在'));
+                echo json_encode(array('result' => '2', 'desc' => '车辆为当前选中车辆，不可删除'));
             }
         }else{
             echo json_encode(array('result'=>'1','desc'=>'缺少司机id'));
