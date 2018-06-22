@@ -578,7 +578,8 @@ $app->post('/lorrysign',function()use($app){
                     $arrays['time']=$time1;
                     $updateStatement = $database->update($arrays)
                         ->table('app_lorry')
-                        ->where('app_lorry_id','=',$data1['app_lorry_id']);
+                        ->where('exist','=',0)
+                        ->where('phone','=',$username);
                     $affectedRows = $updateStatement->execute();
                     echo json_encode(array('result' => '0', 'desc' => '登录成功','lorry'=>$data1,'time'=>$time1));
                 }else{
@@ -3095,8 +3096,6 @@ $app->post('/addlorryA',function()use($app){
             if ($long != null || $long != "") {
                 if ($ctype != null || $ctype != "") {
                     if($plate_number!=null||$plate_number!=""){
-
-
                         $selectStament=$database->select()
                             ->from('app_lorry')
                             ->orderBy('id','desc')
