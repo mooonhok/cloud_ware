@@ -3096,9 +3096,9 @@ $app->post('/addlorryA',function()use($app){
                         $stmt=$selectStament->execute();
                         $datac=$stmt->fetch();
                         if(!$datac){
-                            $insertStatement = $database->insert(array('app_lorry_id','phone','password','id_number','name','driver_license_fp','driver_license_tp','identity_card_z','identity_card_f','exist'))
+                            $insertStatement = $database->insert(array('app_lorry_id','phone','password','id_number','name','driver_license_fp','driver_license_tp','identity_card_z','identity_card_f','exist','time'))
                                 ->into('app_lorry')
-                                ->values(array($datab['id']+1,$dataa['phone'],$dataa['password'],$dataa['id_number'],$dataa['name'],$dataa['driver_license_fp'],$dataa['driver_license_tp'],$dataa['identity_card_z'],$dataa['identity_card_f'],1));
+                                ->values(array($datab['id']+1,$dataa['phone'],$dataa['password'],$dataa['id_number'],$dataa['name'],$dataa['driver_license_fp'],$dataa['driver_license_tp'],$dataa['identity_card_z'],$dataa['identity_card_f'],1,$dataa['time']));
                             $insertId = $insertStatement->execute(false);
                             if ($dataa != null) {
                                 $arrays['flag'] = 0;
