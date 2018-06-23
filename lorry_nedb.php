@@ -20,7 +20,6 @@ $app->post('/addLorry',function()use($app) {
     $body = $app->request->getBody();
     $body = json_decode($body);
     $database = localhost();
-    $lorry_id= $body->lorry_id;
     $plate_number= $body->plate_number;
     $driver_name= $body->driver_name;
     $driver_phone= $body->driver_phone;
@@ -29,7 +28,6 @@ $app->post('/addLorry',function()use($app) {
         $array[$key] = $value;
     }
     if($tenant_id!=null||$tenant_id!=''){
-        if($lorry_id!=null||$lorry_id!=''){
             if($plate_number!=null||$plate_number!=''){
                 if($driver_name!=null||$driver_name!=''){
                     if($driver_phone!=null||$driver_phone!=''){
@@ -122,9 +120,6 @@ $app->post('/addLorry',function()use($app) {
             }else{
                 echo json_encode(array("result" => "6", "desc" => "缺少车牌号"));
             }
-        }else{
-            echo json_encode(array("result" => "7", "desc" => "缺少车辆id"));
-        }
     }else{
         echo json_encode(array("result" => "8", "desc" => "缺少租户id"));
     }
