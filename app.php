@@ -575,7 +575,9 @@ $app->post('/lorrysign',function()use($app){
             $selectStament=$database->select()
                 ->from('app_lorry')
                 ->where('exist','=',0)
-                ->where('phone','=',$username);
+                ->where('phone','=',$username)
+                ->orderBy('time','DESC')
+                ->limit(1);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
             if($data1!=null){
@@ -585,7 +587,7 @@ $app->post('/lorrysign',function()use($app){
                     $updateStatement = $database->update($arrays)
                         ->table('app_lorry')
                         ->where('exist','=',0)
-                        ->where('phone','=',$username);
+                        ->where('app_lorry_id','=',$data1['app_lorry_id']);
                     $affectedRows = $updateStatement->execute();
                     echo json_encode(array('result' => '0', 'desc' => '登录成功','lorry'=>$data1,'time'=>$time1));
                 }else{
@@ -2964,41 +2966,35 @@ $app->get('/getAppLorry',function()use($app){
     }
 });
 
-//$app->post('/changeIsBind',function()use($app){
-//    $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
-//    $body = $app->request->getBody();
-//    $body=json_decode($body);
-//    $lorry_id_o=$body->lorry_id_o;
-//    $lorry_id=$body->lorry_id;
-//    $phone=$body->phone;
-//    $database=localhost();
-//    if($lorry_id!=''||$lorry_id!=null){
-//        $selectStament=$database->select()
-//            ->from('app_lorry')
-//            ->where('exist','=',0)
-//            ->where('app_lorry_id','=',$lorry_id);
-//        $stmt=$selectStament->execute();
-//        $data1=$stmt->fetch();
-//        if($data1){
-//            echo json_encode(array('result'=>'2','desc'=>'该车是当前车辆'));
-//        }else{
-//            $updateStatement = $database->update(array('is_bind'=>1))
-//                ->table('app_lorry')
-//                ->where('exist','=',0)
-//                ->where('app_lorry_id','=',$lorry_id_o);
-//            $affectedRows = $updateStatement->execute();
-//            $updateStatement = $database->update(array('is_bind'=>0))
-//                ->table('app_lorry')
-//                ->where('exist','=',0)
-//                ->where('app_lorry_id','=',$lorry_id);
-//            $affectedRows = $updateStatement->execute();
-//            echo json_encode(array('result'=>'0','desc'=>'success'));
-//        }
-//    }else{
-//        echo json_encode(array('result'=>'1','desc'=>'缺少司机id'));
-//    }
-//});
+$app->post('/changeTime',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $body = $app->request->getBody();
+    $body=json_decode($body);
+    $lorry_id=$body->lorry_id;
+    $database=localhost();
+    if($lorry_id!=''||$lorry_id!=null){
+        $selectStament=$database->select()
+            ->from('app_lorry')
+            ->where('app_lorry_id','=',$lorry_id)
+            ->where('exist','=',0);
+        $stmt=$selectStament->execute();
+        $data1=$stmt->fetch();
+        if($data1){
+            $time=time();
+            $updateStatement = $database->update(array('time'=>$time))
+                ->table('app_lorry')
+                ->where('app_lorry_id','=',$lorry_id)
+                ->where('exist','=',0);
+            $affectedRows = $updateStatement->execute();
+            echo json_encode(array('result'=>'0','desc'=>'success','time'=>$time));
+        }else{
+            echo json_encode(array('result'=>'2','desc'=>'该车是不存在'));
+        }
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'缺少司机id'));
+    }
+});
 
 $app->post('/changeIsExist',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
