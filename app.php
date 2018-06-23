@@ -1933,7 +1933,7 @@ $app->post('/t_change_password',function()use($app){
                 $updateStatement = $database->update(array('password'=>$password2))
                     ->table('app_lorry')
                     ->where('password', '=', $password1)
-                    ->where('exist','=',0)
+//                    ->where('exist','=',0)
                     ->where('phone','=',$data1['phone']);
                 $affectedRows = $updateStatement->execute();
                 if($affectedRows>0){
