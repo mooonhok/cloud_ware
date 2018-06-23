@@ -575,7 +575,6 @@ $app->post('/lorrysign',function()use($app){
             $selectStament=$database->select()
                 ->from('app_lorry')
                 ->where('exist','=',0)
-                ->where('is_bind','=',0)
                 ->where('phone','=',$username);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
@@ -619,7 +618,6 @@ $app->post('/check',function()use($app){
             $selectStament=$database->select()
                 ->from('app_lorry')
                 ->where('exist','=',0)
-                ->where('is_bind','=',0)
                 ->where('app_lorry_id','=',$lorryid);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
@@ -655,7 +653,6 @@ $app->post('/persoonmessage',function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->where('exist','=',0)
-//            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorryid);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -731,14 +728,12 @@ $app->post('/updriveringpic',function()use($app){
             $selectStament=$database->select()
                 ->from('app_lorry')
                 ->where('exist','=',0)
-                ->where('is_bind','=',0)
                 ->where('app_lorry_id','=',$lorryid);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
             if($data1!=null){
                 $updateStatement = $database->update($arrays)
                     ->table('app_lorry')
-                    ->where('is_bind','=',0)
                     ->where('app_lorry_id','=',$lorryid);
                 $affectedRows = $updateStatement->execute();
                 echo json_encode(array('result'=>'0','desc'=>'修改行驶证成功'));
@@ -805,14 +800,12 @@ $app->post('/updriverpic',function()use($app){
             $selectStament=$database->select()
                 ->from('app_lorry')
                 ->where('exist','=',0)
-                ->where('is_bind','=',0)
                 ->where('app_lorry_id','=',$lorryid);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
             if($data1!=null){
                 $updateStatement = $database->update($arrays)
                     ->table('app_lorry')
-                    ->where('is_bind','=',0)
                     ->where('app_lorry_id','=',$lorryid);
                 $affectedRows = $updateStatement->execute();
                 echo json_encode(array('result'=>'0','desc'=>'修改驾驶证成功'));
@@ -860,7 +853,6 @@ $app->post('/uphead',function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->where('exist','=',0)
-            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorryid);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -868,7 +860,6 @@ $app->post('/uphead',function()use($app){
             $arrays['route']=$introduce;
             $updateStatement = $database->update($arrays)
                 ->table('app_lorry')
-                ->where('is_bind','=',0)
                 ->where('app_lorry_id','=',$lorryid);
             $affectedRows = $updateStatement->execute();
             echo json_encode(array('result' => '0', 'desc' => '名片已保存'));
@@ -923,7 +914,6 @@ $app->get('/wait_schedulings',function()use($app){
             ->from('app_lorry')
             ->where('exist','=',0)
             ->where('flag','=',0)
-            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -1006,7 +996,6 @@ $app->get('/schistory',function()use($app){
             ->from('app_lorry')
             ->where('exist','=',0)
             ->where('flag','=',0)
-            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -1087,7 +1076,6 @@ $app->get('/scnoaccept',function()use($app){
             ->from('app_lorry')
             ->where('exist','=',0)
             ->where('flag','=',0)
-            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -1260,7 +1248,6 @@ $app->get('/tongji',function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->where('exist','=',0)
-            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -1320,7 +1307,6 @@ $app->post('/scmap',function()use($app){
             $selectStament=$database->select()
                 ->from('app_lorry')
                 ->where('exist','=',0)
-                ->where('is_bind','=',0)
                 ->where('flag','=',0)
                 ->where('app_lorry_id','=',$lorryid);
             $stmt=$selectStament->execute();
@@ -1410,7 +1396,6 @@ $app->get('/check_scheduling',function()use($app){
                 ->from('app_lorry')
                 ->where('exist','=',0)
                 ->where('flag','=',0)
-                ->where('is_bind','=',0)
                 ->where('app_lorry_id','=',$lorry_id);
             $stmt=$selectStament->execute();
             $data2=$stmt->fetch();
@@ -1471,7 +1456,6 @@ $app->post('/suresc1',function()use($app){
             ->from('app_lorry')
             ->where('exist','=',0)
             ->where('flag','=',0)
-            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -1566,7 +1550,6 @@ $app->post('/receivesc',function()use($app){
                 ->from('app_lorry')
                 ->where('exist','=',0)
                 ->where('flag','=',0)
-                ->where('is_bind','=',0)
                 ->where('app_lorry_id','=',$lorry_id);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
@@ -1654,7 +1637,6 @@ $app->post('/receivesc',function()use($app){
                 ->from('app_lorry')
                 ->where('exist','=',0)
                 ->where('flag','=',0)
-                ->where('is_bind','=',0)
                 ->where('app_lorry_id','=',$lorry_id);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
@@ -1820,7 +1802,6 @@ $app->post('/changpass',function()use($app){
                     $selectStament=$database->select()
                         ->from('app_lorry')
                         ->where('exist','=',0)
-//                        ->where('is_bind','=',0)
                         ->where('name','=',$name)
                         ->where('id_number','=',$idcard)
                         ->where('phone','=',$telephone);
@@ -1830,7 +1811,6 @@ $app->post('/changpass',function()use($app){
                         $updateStatement = $database->update(array('password'=>$password))
                             ->table('app_lorry')
                             ->where('exist','=',0)
-//                            ->where('is_bind','=',0)
                             ->where('phone','=',$telephone);
                         $affectedRows = $updateStatement->execute();
                         echo json_encode(array('result' => '0', 'desc' => '修改成功'));
@@ -1867,7 +1847,6 @@ $app->post('/match_user',function()use($app){
                 $selectStament=$database->select()
                     ->from('app_lorry')
                     ->where('exist','=',0)
-//                    ->where('is_bind','=',0)
                     ->where('name','=',$name)
                     ->where('id_number','=',$idcard)
                     ->where('phone','=',$telephone);
@@ -1954,7 +1933,6 @@ $app->post('/t_change_password',function()use($app){
                 $updateStatement = $database->update(array('password'=>$password2))
                     ->table('app_lorry')
                     ->where('password', '=', $password1)
-//                    ->where('is_bind','=',0)
                     ->where('exist','=',0)
                     ->where('phone','=',$data1['phone']);
                 $affectedRows = $updateStatement->execute();
@@ -2020,7 +1998,6 @@ $app->post('/change_orders_status',function()use($app){
             ->from('app_lorry')
             ->where('exist','=',0)
             ->where('flag','=',0)
-            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorryid);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -2169,7 +2146,6 @@ $app->post('/change_orders_status2',function()use($app){
             ->from('app_lorry')
             ->where('exist','=',0)
             ->where('flag','=',0)
-            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorryid);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -2335,7 +2311,6 @@ $app->get('/agreement_lorrys',function()use($app){
             ->from('app_lorry')
             ->where('exist','=',0)
             ->where('flag','=',0)
-            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -2528,7 +2503,6 @@ $app->post('/sign_agreement',function()use($app){
             ->from('app_lorry')
             ->where('exist','=',0)
             ->where('flag','=',0)
-            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -2605,7 +2579,6 @@ $app->post('/sign_agreement',function()use($app){
             ->from('app_lorry')
             ->where('exist','=',0)
             ->where('flag','=',0)
-            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -2660,7 +2633,6 @@ $app->get('/tongji_agreement',function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->where('exist','=',0)
-            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -2725,7 +2697,6 @@ $app->get("/get_lorry_status",function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->where('exist','=',0)
-            ->where('is_bind','=',0)
             ->where('lorry_status','=',1)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
@@ -2893,7 +2864,6 @@ $app->post('/change_lorry_status',function()use($app){
     $arrays['lorry_status']=0;
     $updateStatement = $database->update($arrays)
         ->table('app_lorry')
-        ->where('is_bind','=',0)
         ->where('app_lorry_id','=',$lorry_id);
     $affectedRows = $updateStatement->execute();
     if($affectedRows>0){
@@ -2913,7 +2883,6 @@ $app->get('/checkSchedulings',function()use($app){
         $selectStament=$database->select()
             ->from('app_lorry')
             ->where('exist','=',0)
-            ->where('is_bind','=',0)
             ->where('app_lorry_id','=',$lorry_id);
         $stmt=$selectStament->execute();
         $data1=$stmt->fetch();
@@ -2957,25 +2926,25 @@ $app->get('/checkSchedulings',function()use($app){
     }
 });
 
-$app->post('/changeIs_bind',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $body = $app->request->getBody();
-    $body=json_decode($body);
-    $lorry_id=$body->lorry_id;
-    $database=localhost();
-    if($lorry_id!=''||$lorry_id!=null){
-        $updateStatement = $database->update(array('is_bind'=>1))
-            ->table('app_lorry')
-            ->where('is_bind','=',0)
-            ->where('exist','=',0)
-            ->where('app_lorry_id','=',$lorry_id);
-        $affectedRows = $updateStatement->execute();
-        echo json_encode(array('result'=>'0','desc'=>'success'));
-    }else{
-      echo json_encode(array('result'=>'1','desc'=>'缺少司机id'));
-    }
-});
+//$app->post('/changeIs_bind',function()use($app){
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
+//    $body = $app->request->getBody();
+//    $body=json_decode($body);
+//    $lorry_id=$body->lorry_id;
+//    $database=localhost();
+//    if($lorry_id!=''||$lorry_id!=null){
+//        $updateStatement = $database->update(array('is_bind'=>1))
+//            ->table('app_lorry')
+//            ->where('is_bind','=',0)
+//            ->where('exist','=',0)
+//            ->where('app_lorry_id','=',$lorry_id);
+//        $affectedRows = $updateStatement->execute();
+//        echo json_encode(array('result'=>'0','desc'=>'success'));
+//    }else{
+//      echo json_encode(array('result'=>'1','desc'=>'缺少司机id'));
+//    }
+//});
 
 $app->get('/getAppLorry',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -2995,42 +2964,41 @@ $app->get('/getAppLorry',function()use($app){
     }
 });
 
-$app->post('/changeIsBind',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $body = $app->request->getBody();
-    $body=json_decode($body);
-    $lorry_id_o=$body->lorry_id_o;
-    $lorry_id=$body->lorry_id;
-    $phone=$body->phone;
-    $database=localhost();
-    if($lorry_id!=''||$lorry_id!=null){
-        $selectStament=$database->select()
-            ->from('app_lorry')
-            ->where('is_bind','=',0)
-            ->where('exist','=',0)
-            ->where('app_lorry_id','=',$lorry_id);
-        $stmt=$selectStament->execute();
-        $data1=$stmt->fetch();
-        if($data1){
-            echo json_encode(array('result'=>'2','desc'=>'该车是当前车辆'));
-        }else{
-            $updateStatement = $database->update(array('is_bind'=>1))
-                ->table('app_lorry')
-                ->where('exist','=',0)
-                ->where('app_lorry_id','=',$lorry_id_o);
-            $affectedRows = $updateStatement->execute();
-            $updateStatement = $database->update(array('is_bind'=>0))
-                ->table('app_lorry')
-                ->where('exist','=',0)
-                ->where('app_lorry_id','=',$lorry_id);
-            $affectedRows = $updateStatement->execute();
-            echo json_encode(array('result'=>'0','desc'=>'success'));
-        }
-    }else{
-        echo json_encode(array('result'=>'1','desc'=>'缺少司机id'));
-    }
-});
+//$app->post('/changeIsBind',function()use($app){
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
+//    $body = $app->request->getBody();
+//    $body=json_decode($body);
+//    $lorry_id_o=$body->lorry_id_o;
+//    $lorry_id=$body->lorry_id;
+//    $phone=$body->phone;
+//    $database=localhost();
+//    if($lorry_id!=''||$lorry_id!=null){
+//        $selectStament=$database->select()
+//            ->from('app_lorry')
+//            ->where('exist','=',0)
+//            ->where('app_lorry_id','=',$lorry_id);
+//        $stmt=$selectStament->execute();
+//        $data1=$stmt->fetch();
+//        if($data1){
+//            echo json_encode(array('result'=>'2','desc'=>'该车是当前车辆'));
+//        }else{
+//            $updateStatement = $database->update(array('is_bind'=>1))
+//                ->table('app_lorry')
+//                ->where('exist','=',0)
+//                ->where('app_lorry_id','=',$lorry_id_o);
+//            $affectedRows = $updateStatement->execute();
+//            $updateStatement = $database->update(array('is_bind'=>0))
+//                ->table('app_lorry')
+//                ->where('exist','=',0)
+//                ->where('app_lorry_id','=',$lorry_id);
+//            $affectedRows = $updateStatement->execute();
+//            echo json_encode(array('result'=>'0','desc'=>'success'));
+//        }
+//    }else{
+//        echo json_encode(array('result'=>'1','desc'=>'缺少司机id'));
+//    }
+//});
 
 $app->post('/changeIsExist',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -3044,7 +3012,6 @@ $app->post('/changeIsExist',function()use($app){
             $selectStament=$database->select()
                 ->from('app_lorry')
                 ->where('exist','=',0)
-                ->where('is_bind','=',1)
                 ->where('app_lorry_id','=',$lorry_id);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
@@ -3129,9 +3096,9 @@ $app->post('/addlorryA',function()use($app){
                         $stmt=$selectStament->execute();
                         $datac=$stmt->fetch();
                         if(!$datac){
-                            $insertStatement = $database->insert(array('app_lorry_id','phone','password','id_number','name','driver_license_fp','driver_license_tp','identity_card_z','identity_card_f','is_bind','exist'))
+                            $insertStatement = $database->insert(array('app_lorry_id','phone','password','id_number','name','driver_license_fp','driver_license_tp','identity_card_z','identity_card_f','exist'))
                                 ->into('app_lorry')
-                                ->values(array($datab['id']+1,$dataa['phone'],$dataa['password'],$dataa['id_number'],$dataa['name'],$dataa['driver_license_fp'],$dataa['driver_license_tp'],$dataa['identity_card_z'],$dataa['identity_card_f'],1,1));
+                                ->values(array($datab['id']+1,$dataa['phone'],$dataa['password'],$dataa['id_number'],$dataa['name'],$dataa['driver_license_fp'],$dataa['driver_license_tp'],$dataa['identity_card_z'],$dataa['identity_card_f'],1));
                             $insertId = $insertStatement->execute(false);
                             if ($dataa != null) {
                                 $arrays['flag'] = 0;
@@ -3220,7 +3187,6 @@ $app->post('/addlorryB',function()use($app){
             $data1=$stmt->fetch();
             if($data1!=null){
                 $arrays['exist']=0;
-                $arrays['is_bind']=1;
                 $updateStatement = $database->update($arrays)
                     ->table('app_lorry')
                     ->where('app_lorry_id','=',$lorryid);
