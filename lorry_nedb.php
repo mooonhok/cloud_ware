@@ -52,18 +52,18 @@ $app->post('/addLorry',function()use($app) {
                         $stmt = $selectStatement->execute();
                         $data4 = $stmt->fetch();
 
-                        $selectStatement = $database->select()
-                            ->from('lorry')
-                            ->where('exist','=',0)
-                            ->where('tenant_id', '=', $tenant_id)
-                            ->where('driver_phone', '=', $driver_phone);
-                        $stmt = $selectStatement->execute();
-                        $data5 = $stmt->fetch();
+//                        $selectStatement = $database->select()
+//                            ->from('lorry')
+//                            ->where('exist','=',0)
+//                            ->where('tenant_id', '=', $tenant_id)
+//                            ->where('driver_phone', '=', $driver_phone);
+//                        $stmt = $selectStatement->execute();
+//                        $data5 = $stmt->fetch();
 
-                        $selectStatement = $database->select()
-                            ->from('lorry');
-                        $stmt = $selectStatement->execute();
-                        $data = $stmt->fetchAll();
+//                        $selectStatement = $database->select()
+//                            ->from('lorry');
+//                        $stmt = $selectStatement->execute();
+//                        $data = $stmt->fetchAll();
 
 //                        if(!$data1){
 //                            $password1=123456;
@@ -86,15 +86,22 @@ $app->post('/addLorry',function()use($app) {
 //                                ->values(array_values($array));
 //                            $insertId = $insertStatement->execute(false);
 //                        }
-                        if($data5){
-                            echo json_encode(array("result" => "9", "desc" => "该电话号码已经注册过了"));
-                        }else{
+//                        if($data5){
+//                            echo json_encode(array("result" => "9", "desc" => "该电话号码已经注册过了"));
+//                        }else{
                             if(!$data1){
                                 echo json_encode(array("result" => "10", "desc" => "请司机下载交付帮手注册"));
                             }else{
                                 if(!$data4){
                                     $array['tenant_id']=$tenant_id;
                                     $array['exist']=0;
+
+                        $selectStatement = $database->select()
+                            ->from('lorry')
+                            ->where('tenant_id', '=', $tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data1 = $stmt->fetchAll();
+                        $array['lorry_id']=count($data1)+100000001;
                                     $insertStatement = $database->insert(array_keys($array))
                                         ->into('lorry')
                                         ->values(array_values($array));
@@ -105,7 +112,7 @@ $app->post('/addLorry',function()use($app) {
                                 }
                             }
 
-                        }
+//                        }
                     }else{
                         echo json_encode(array("result" => "4", "desc" => "缺少驾驶员手机号码"));
                     }
