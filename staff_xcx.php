@@ -1442,6 +1442,23 @@ $app->get('/agreementSchedulings',function()use($app){
     }
 });
 
+$app->put('/changeIsContract',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $scheduling_id=$body->scheduling_id;
+    $is_contract=$body->is_contract;
+    $updateStatement = $database->update(array("is_contract" => $is_contract))
+        ->table('scheduling')
+        ->where('tenant_id', '=', $tenant_id)
+        ->where('exist','=',0)
+        ->where('scheduling_id','=',$scheduling_id);
+    $affectedRows = $updateStatement->execute();
+});
+
 $app->run();
 
 function localhost(){
