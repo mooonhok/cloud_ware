@@ -220,40 +220,42 @@ $app->get('/getLorry',function()use($app){
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     $driver_phone= $app->request->get('driver_phone');
+    $plate_number= $app->request->get('plate_number');
+    $driver_name= $app->request->get('driver_name');
     $flag=$app->request->get('flag');
     if($tenant_id!=null||$tenant_id!=''){
         if($driver_phone!=null||$driver_phone!=''){
 
             $selectStatement = $database->select()
-                ->from('app_lorry')
-                ->join('lorry','app_lorry.phone','=','lorry.driver_phone','INNER')
-                ->where('lorry.tenant_id', '=', $tenant_id)
-                ->where('lorry.flag', '=', $flag)
-                ->where('app_lorry.flag', '=', $flag)
-                ->where('lorry.driver_phone', '=', $driver_phone)
-                ->orderBy('lorry.id','DESC');
+                ->from('lorry')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('flag', '=', $flag)
+                ->where('driver_phone', '=', $driver_phone)
+                ->where('plate_number','=',$plate_number)
+                ->where('driver_name','=',$driver_name)
+                ->orderBy('id','DESC');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
-            for($i=0;$i<count($data);$i++){
-                $selectStatement = $database->select()
-                    ->from('lorry_length')
-                    ->where('lorry_length.lorry_length_id', '=', $data[$i]['length']);
-                $stmt = $selectStatement->execute();
-                $data1 = $stmt->fetch();
+//            for($i=0;$i<count($data);$i++){
 //                $selectStatement = $database->select()
-//                    ->from('lorry_load')
-//                    ->where('lorry_load.lorry_load_id', '=', $data[$i]['deadweight']);
+//                    ->from('lorry_length')
+//                    ->where('lorry_length.lorry_length_id', '=', $data[$i]['length']);
 //                $stmt = $selectStatement->execute();
-//                $data2 = $stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('lorry_type')
-                    ->where('lorry_type.lorry_type_id', '=', $data[$i]['type']);
-                $stmt = $selectStatement->execute();
-                $data3 = $stmt->fetch();
-                $data[$i]['lorry_length_name']=$data1['lorry_length'];
-                $data[$i]['lorry_type_name']=$data3['lorry_type_name'];
-//                $data[$i]['lorry_load_name']=$data2['lorry_load'];
-            }
+//                $data1 = $stmt->fetch();
+////                $selectStatement = $database->select()
+////                    ->from('lorry_load')
+////                    ->where('lorry_load.lorry_load_id', '=', $data[$i]['deadweight']);
+////                $stmt = $selectStatement->execute();
+////                $data2 = $stmt->fetch();
+//                $selectStatement = $database->select()
+//                    ->from('lorry_type')
+//                    ->where('lorry_type.lorry_type_id', '=', $data[$i]['type']);
+//                $stmt = $selectStatement->execute();
+//                $data3 = $stmt->fetch();
+//                $data[$i]['lorry_length_name']=$data1['lorry_length'];
+//                $data[$i]['lorry_type_name']=$data3['lorry_type_name'];
+////                $data[$i]['lorry_load_name']=$data2['lorry_load'];
+//            }
 
             echo json_encode(array("result" => "0", "desc" => "success",'lorrys'=>$data));
         }else{
