@@ -411,7 +411,6 @@ $app->get('/limitLorrys1',function()use($app){
         for($i=0;$i<count($data);$i++){
             $selectStatement = $database->select()
                 ->from('app_lorry')
-//                ->where('exist', '=', 0)
                 ->where('flag','=',$data[$i]['flag'])
                 ->where('name','=',$data[$i]['driver_name'])
                 ->where('phone','=',$data[$i]['driver_phone'])
@@ -423,11 +422,6 @@ $app->get('/limitLorrys1',function()use($app){
                 ->where('lorry_length.lorry_length_id', '=', $data2['length']);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('lorry_load')
-//                ->where('lorry_load.lorry_load_id', '=', $data[$i]['deadweight']);
-//            $stmt = $selectStatement->execute();
-//            $data2 = $stmt->fetch();
             $selectStatement = $database->select()
                 ->from('lorry_type')
                 ->where('lorry_type.lorry_type_id', '=', $data2['type']);
@@ -435,6 +429,7 @@ $app->get('/limitLorrys1',function()use($app){
             $data3 = $stmt->fetch();
             $data[$i]['lorry_length_name']=$data1['lorry_length'];
             $data[$i]['lorry_type_name']=$data3['lorry_type_name'];
+            $data[$i]['lorry_status']=$data2['lorry_status'];
         }
         echo json_encode(array("result" => "0", "desc" => "success",'lorrys'=>$data));
     }else{
