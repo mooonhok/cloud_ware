@@ -502,7 +502,7 @@ $app->get('/getLorrys3',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('lorry')
-            ->where('lexist', '=', 0)
+            ->where('exist', '=', 0)
             ->where('flag', '=', $flag)
             ->where('tenant_id', '=', $tenant_id);
         $stmt = $selectStatement->execute();
