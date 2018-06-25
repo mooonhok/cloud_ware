@@ -444,9 +444,9 @@ $app->get('/limitLorrys3',function()use($app){
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     $flag=$app->request->get('flag');
-    $plate_number=$app->request->get('plate_number');
-    $driver_name=$app->request->get('driver_name');
-    $driver_phone=$app->request->get('driver_phone');
+//    $plate_number=$app->request->get('plate_number');
+//    $driver_name=$app->request->get('driver_name');
+//    $driver_phone=$app->request->get('driver_phone');
     $size= $app->request->get('size');
     $offset= $app->request->get('offset');
     if($tenant_id!=null||$tenant_id!=''){
@@ -462,9 +462,6 @@ $app->get('/limitLorrys3',function()use($app){
             ->where('exist', '=', 0)
             ->where('tenant_id', '=', $tenant_id)
             ->where('flag', '=', $flag)
-            ->where('plate_number', '=', $plate_number)
-            ->where('driver_name', '=', $driver_name)
-            ->where('driver_phone', '=', $driver_phone)
             ->orderBy('lorry_id','desc')
             ->limit((int)$size,(int)$offset);
         $stmt = $selectStatement->execute();
@@ -473,7 +470,7 @@ $app->get('/limitLorrys3',function()use($app){
             $selectStatement = $database->select()
                 ->from('app_lorry')
             ->where('phone', '=', $data[$i]['driver_phone'])
-            ->where('plate_number', '=', $data[$i]['plate_number'])
+            ->where('plate_number','=',$data[$i]['plate_number'])
             ->where('name', '=', $data[$i]['driver_name'])
             ->where('flag', '=', $data[$i]['flag']);
             $stmt = $selectStatement->execute();
