@@ -67,7 +67,7 @@ $app->post('/addCustomer',function()use($app) {
                                 ->into('customer')
                                 ->values(array_values($array));
                             $insertId = $insertStatement->execute(false);
-                            echo json_encode(array("result" => "0", "desc" => "success"));
+                            echo json_encode(array("result" => "0", "desc" => "success",'customer'=>$array['customer_id']));
                             }else{
                                 echo json_encode(array("result" => "6", "desc" => "用户已经存在",'customer'=>$data2['customer_id']));
                             }
@@ -104,7 +104,7 @@ $app->post('/addCustomer',function()use($app) {
                                         ->into('customer')
                                         ->values(array_values($array));
                                     $insertId = $insertStatement->execute(false);
-                                    echo json_encode(array("result" => "0", "desc" => "success"));
+                                    echo json_encode(array("result" => "0", "desc" => "success",'customer'=>$array['customer_id']));
                                 }else{
                                     echo json_encode(array("result" => "6", "desc" => "用户已经存在",'customer'=>$data2['customer_id']));
                                 }
