@@ -37,6 +37,7 @@ $app->post('/addCustomer',function()use($app) {
                             if( $contact_tenant_id==null|| $contact_tenant_id==""){
                             $selectStatement = $database->select()
                                 ->from('customer')
+                                ->whereNull('wx_openid')
                                 ->where('customer_name','=',$customer_name)
                                 ->where('customer_phone','=',$customer_phone)
                                 ->where('customer_city_id','=',$customer_city_id)
@@ -68,11 +69,12 @@ $app->post('/addCustomer',function()use($app) {
                             $insertId = $insertStatement->execute(false);
                             echo json_encode(array("result" => "0", "desc" => "success"));
                             }else{
-                                echo json_encode(array("result" => "6", "desc" => "用户已经存在",'customer'=>$data2));
+                                echo json_encode(array("result" => "6", "desc" => "用户已经存在",'customer'=>$data2['customer_id']));
                             }
                             }else{
                                 $selectStatement = $database->select()
                                     ->from('customer')
+                                    ->whereNull('wx_openid')
                                     ->where('customer_name','=',$customer_name)
                                     ->where('customer_phone','=',$customer_phone)
                                     ->where('customer_city_id','=',$customer_city_id)
@@ -104,7 +106,7 @@ $app->post('/addCustomer',function()use($app) {
                                     $insertId = $insertStatement->execute(false);
                                     echo json_encode(array("result" => "0", "desc" => "success"));
                                 }else{
-                                    echo json_encode(array("result" => "6", "desc" => "用户已经存在",'customer'=>$data2));
+                                    echo json_encode(array("result" => "6", "desc" => "用户已经存在",'customer'=>$data2['customer_id']));
                                 }
 
                             }
