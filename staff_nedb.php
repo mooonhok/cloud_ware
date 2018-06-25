@@ -36,16 +36,44 @@ $app->post('/addstaff',function()use($app){
                     if($position!=null||$position!=''){
                         if($status!=null||$status!=''){
                             if($permission!=null||$permission!=''){
+                                $selectStatement = $database->select()
+                                    ->from('staff')
+                                    ->where('tenant_id', '=', $tenant_id)
+                                    ->where('username','=',$username);
+                                $stmt = $selectStatement->execute();
+                                $data3 = $stmt->fetchAll();
+                                if($data3==null){
+                                    $selectStatement = $database->select()
+                                        ->from('staff')
+                                        ->where('tenant_id', '=', $tenant_id)
+                                        ->where('name','=',$name)
+                                        ->where('telephone','=',$telephone);
+                                    $stmt = $selectStatement->execute();
+                                    $data4 = $stmt->fetchAll();
+                                    if($data4==null){
                                 $array['head_img']="http://files.uminfo.cn:8000/staff/5230001_head.jpg";
                                 $array['exist']=0;
                                 $array['password']=encode('123456' , 'cxphp');
                                 $array['tenant_id']=$tenant_id;
                                 $array['bg_img']="http://files.uminfo.cn:8000/client/skin/bg1.jpg";
+                                $selectStatement = $database->select()
+                                    ->from('staff')
+                                    ->where('tenant_id', '=', $tenant_id);
+                                $stmt = $selectStatement->execute();
+                                $data2 = $stmt->fetchAll();
+                                $array['staff_id']=count($data2)+100001;
+
                                 $insertStatement = $database->insert(array_keys($array))
                                     ->into('staff')
                                     ->values(array_values($array));
                                 $insertId = $insertStatement->execute(false);
                                 echo json_encode(array("result"=>"0","desc"=>"success"));
+                                    }else{
+                                        echo json_encode(array('result'=>'9','desc'=>'该员工已存在'));
+                                    }
+                                }else{
+                                    echo json_encode(array('result'=>'8','desc'=>'名字已经存在'));
+                                }
                             }else{
                                 echo json_encode(array('result'=>'7','desc'=>'缺少状态'));
                             }
