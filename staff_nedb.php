@@ -72,7 +72,7 @@ $app->post('/addstaff',function()use($app){
                                         echo json_encode(array('result'=>'9','desc'=>'该员工已存在'));
                                     }
                                 }else{
-                                    echo json_encode(array('result'=>'8','desc'=>'名字已经存在'));
+                                    echo json_encode(array('result'=>'8','desc'=>'用户名已存在'));
                                 }
                             }else{
                                 echo json_encode(array('result'=>'7','desc'=>'缺少状态'));
