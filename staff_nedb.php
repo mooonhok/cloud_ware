@@ -128,7 +128,7 @@ $app->get('/getStaff1',function()use($app){
             if($password!=null||$password!=''){
                 $selectStatement = $database->select()
                     ->from('staff')
-                    ->where('exist',"=",0)
+//                    ->where('exist',"=",0)
                     ->where('username','=',$username)
                     ->where('password','=',encode($password , 'cxphp'));
                 $stmt = $selectStatement->execute();
@@ -152,7 +152,7 @@ $app->get('/getStaff2',function()use($app){
         if($password!=null||$password!=''){
             $selectStatement = $database->select()
                 ->from('staff')
-                ->where('exist',"=",0)
+//                ->where('exist',"=",0)
                 ->where('telephone','=',$telephone)
                 ->where('password','=',encode($password , 'cxphp'));
             $stmt = $selectStatement->execute();
@@ -186,7 +186,7 @@ $app->get('/getStaffs1',function()use($app){
     $database=localhost();
     $selectStatement = $database->select()
         ->from('staff')
-        ->where('exist',"=",0)
+//        ->where('exist',"=",0)
         ->where('tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
@@ -206,7 +206,7 @@ $app->get('/limitStaffs',function()use($app){
             if($tenant_id!=null||$tenant_id!=''){
                 $selectStatement = $database->select()
                     ->from('staff')
-                    ->where('exist',"=",0)
+//                    ->where('exist',"=",0)
                     ->where('tenant_id','=',$tenant_id)
                     ->orderBy('staff_id')
                     ->limit((int)$size,(int)$offset);
@@ -258,7 +258,7 @@ $app->get('/searchStaff0',function()use($app){
         if($tenant_id!=null||$tenant_id!=''){
             $selectStatement = $database->select()
                 ->from('staff')
-                ->where('exist',"=",0)
+//                ->where('exist',"=",0)
                 ->where('staff_id','=',$staff_id)
                 ->where('tenant_id','=',$tenant_id);
             $stmt = $selectStatement->execute();
@@ -302,7 +302,7 @@ $app->put('/alterStaff',function()use($app){
                                $updateStatement = $database->update($array)
                                    ->table('staff')
                                    ->where('tenant_id','=',$tenant_id)
-                                   ->where('exist',"=",0)
+//                                   ->where('exist',"=",0)
                                    ->where('staff_id','=',$staff_id);
                                $affectedRows = $updateStatement->execute();
                                echo json_encode(array('result'=>'0','desc'=>'success'));
@@ -441,8 +441,8 @@ $app->put('/alterStaff1',function()use($app){
                     $updateStatement = $database->update($array)
                         ->table('staff')
                         ->where('tenant_id','=',$tenant_id)
-                        ->where('staff_id','=',$staff_id)
-                        ->where('exist',"=",0);
+                        ->where('staff_id','=',$staff_id);
+//                        ->where('exist',"=",0);
                     $affectedRows = $updateStatement->execute();
                     echo json_encode(array('result'=>'0','desc'=>'success'));
                 }else{
@@ -477,8 +477,8 @@ $app->put('/alterStaff2',function()use($app){
                     $updateStatement = $database->update($array)
                         ->table('staff')
                         ->where('tenant_id','=',$tenant_id)
-                        ->where('staff_id','=',$staff_id)
-                        ->where('exist',"=",0);
+                        ->where('staff_id','=',$staff_id);
+//                        ->where('exist',"=",0);
                     $affectedRows = $updateStatement->execute();
                     echo json_encode(array('result'=>'0','desc'=>'success'));
                 }else{
@@ -508,8 +508,8 @@ $app->put('/alterStaff3',function()use($app){
                 $updateStatement = $database->update($array)
                     ->table('staff')
                     ->where('tenant_id','=',$tenant_id)
-                    ->where('staff_id','=',$staff_id)
-                    ->where('exist',"=",0);
+                    ->where('staff_id','=',$staff_id);
+//                    ->where('exist',"=",0);
                 $affectedRows = $updateStatement->execute();
                 echo json_encode(array('result'=>'0','desc'=>'success'));
             }else{
@@ -545,8 +545,8 @@ $app->post('/uploadStaff',function()use($app) {
                 $updateStatement = $database->update($array)
                     ->table('staff')
                     ->where('tenant_id','=',$tenant_id)
-                    ->where('staff_id','=',$staff_id)
-                    ->where('exist',"=",0);
+                    ->where('staff_id','=',$staff_id);
+//                    ->where('exist',"=",0);
                 $affectedRows = $updateStatement->execute();
                 echo json_encode(array('result'=>'0','desc'=>'success','url'=>$array['head_img']));
             }else{
