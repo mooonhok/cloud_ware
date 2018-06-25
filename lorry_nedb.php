@@ -431,6 +431,7 @@ $app->get('/limitLorrys1',function()use($app){
             $data3 = $stmt->fetch();
             $data[$i]['lorry_length_name']=$data1['lorry_length'];
             $data[$i]['lorry_type_name']=$data3['lorry_type_name'];
+            $data[$i]['lorry_load_name']=$data2['deadweight'];
 //            $data[$i]['lorry_status']=$data2['lorry_status'];
         }
         echo json_encode(array("result" => "0", "desc" => "success",'lorrys'=>$data));
