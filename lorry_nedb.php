@@ -404,8 +404,8 @@ $app->get('/limitLorrys1',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('lorry')
-            ->where('exist', '=', 0)
-            ->where('tenant_id', '=', $exist)
+            ->where('exist', '=',$exist)
+            ->where('tenant_id', '=',$tenant_id)
             ->orderBy('lorry_id','desc')
             ->limit((int)$size,(int)$offset);
         $stmt = $selectStatement->execute();
