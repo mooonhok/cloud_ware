@@ -41,7 +41,7 @@ $app->post('/addstaff',function()use($app){
                                     ->where('tenant_id', '=', $tenant_id)
                                     ->where('username','=',$username);
                                 $stmt = $selectStatement->execute();
-                                $data3 = $stmt->fetchAll();
+                                $data3 = $stmt->fetch();
                                 if($data3==null){
                                     $selectStatement = $database->select()
                                         ->from('staff')
@@ -49,7 +49,7 @@ $app->post('/addstaff',function()use($app){
                                         ->where('name','=',$name)
                                         ->where('telephone','=',$telephone);
                                     $stmt = $selectStatement->execute();
-                                    $data4 = $stmt->fetchAll();
+                                    $data4 = $stmt->fetch();
                                     if($data4==null){
                                 $array['head_img']="http://files.uminfo.cn:8000/staff/5230001_head.jpg";
                                 $array['exist']=0;
