@@ -34,6 +34,7 @@ $app->post('/addCustomer',function()use($app) {
                 if($customer_phone!=null||$customer_phone!=''){
                     if($customer_city_id!=null||$customer_city_id!=''){
                         if($customer_address!=null||$customer_address!=''){
+                            if( $contact_tenant_id==null|| $contact_tenant_id==""){
                             $selectStatement = $database->select()
                                 ->from('customer')
                                 ->where('customer_name','=',$customer_name)
@@ -41,34 +42,72 @@ $app->post('/addCustomer',function()use($app) {
                                 ->where('customer_city_id','=',$customer_city_id)
                                 ->where('customer_address','=',$customer_address)
                                 ->where('type','=',$type)
-                                ->where('contact_tenant_id','=',$contact_tenant_id)
+//                                ->where('contact_tenant_id','=',$contact_tenant_id)
                                 ->where('tenant_id', '=', $tenant_id);
                             $stmt = $selectStatement->execute();
                             $data2 = $stmt->fetch();
-//                            if($data2==null){
-//                            $array['tenant_id']=$tenant_id;
-//                            $array['exist']=0;
-//                                $selectStatement = $database->select()
-//                                    ->from('tenant')
-//                                    ->where('tenant_id', '=', $tenant_id);
-//                                $stmt = $selectStatement->execute();
-//                                $data1 = $stmt->fetch();
-//                            $selectStatement = $database->select()
-//                                ->from('customer')
-//                                ->whereNull('wx_openid')
-//                                ->where('customer_id', '!=', $data1['contact_id'])
-//                                ->where('tenant_id', '=', $tenant_id);
-//                            $stmt = $selectStatement->execute();
-//                            $data = $stmt->fetchAll();
-//                            $array['customer_id']=count($data)+10000000001;
-//                            $insertStatement = $database->insert(array_keys($array))
-//                                ->into('customer')
-//                                ->values(array_values($array));
-//                            $insertId = $insertStatement->execute(false);
-//                            echo json_encode(array("result" => "0", "desc" => "success"));
-//                            }else{
+                            if($data2==null){
+                            $array['tenant_id']=$tenant_id;
+                            $array['exist']=0;
+                                $selectStatement = $database->select()
+                                    ->from('tenant')
+                                    ->where('tenant_id', '=', $tenant_id);
+                                $stmt = $selectStatement->execute();
+                                $data1 = $stmt->fetch();
+                            $selectStatement = $database->select()
+                                ->from('customer')
+                                ->whereNull('wx_openid')
+                                ->where('customer_id', '!=', $data1['contact_id'])
+                                ->where('tenant_id', '=', $tenant_id);
+                            $stmt = $selectStatement->execute();
+                            $data = $stmt->fetchAll();
+                            $array['customer_id']=count($data)+10000000001;
+                            $insertStatement = $database->insert(array_keys($array))
+                                ->into('customer')
+                                ->values(array_values($array));
+                            $insertId = $insertStatement->execute(false);
+                            echo json_encode(array("result" => "0", "desc" => "success"));
+                            }else{
                                 echo json_encode(array("result" => "6", "desc" => "用户已经存在",'customer'=>$data2));
-//                            }
+                            }
+                            }else{
+                                $selectStatement = $database->select()
+                                    ->from('customer')
+                                    ->where('customer_name','=',$customer_name)
+                                    ->where('customer_phone','=',$customer_phone)
+                                    ->where('customer_city_id','=',$customer_city_id)
+                                    ->where('customer_address','=',$customer_address)
+                                    ->where('type','=',$type)
+                                    ->where('contact_tenant_id','=',$contact_tenant_id)
+                                    ->where('tenant_id', '=', $tenant_id);
+                                $stmt = $selectStatement->execute();
+                                $data2 = $stmt->fetch();
+                                if($data2==null){
+                                    $array['tenant_id']=$tenant_id;
+                                    $array['exist']=0;
+                                    $selectStatement = $database->select()
+                                        ->from('tenant')
+                                        ->where('tenant_id', '=', $tenant_id);
+                                    $stmt = $selectStatement->execute();
+                                    $data1 = $stmt->fetch();
+                                    $selectStatement = $database->select()
+                                        ->from('customer')
+                                        ->whereNull('wx_openid')
+                                        ->where('customer_id', '!=', $data1['contact_id'])
+                                        ->where('tenant_id', '=', $tenant_id);
+                                    $stmt = $selectStatement->execute();
+                                    $data = $stmt->fetchAll();
+                                    $array['customer_id']=count($data)+10000000001;
+                                    $insertStatement = $database->insert(array_keys($array))
+                                        ->into('customer')
+                                        ->values(array_values($array));
+                                    $insertId = $insertStatement->execute(false);
+                                    echo json_encode(array("result" => "0", "desc" => "success"));
+                                }else{
+                                    echo json_encode(array("result" => "6", "desc" => "用户已经存在",'customer'=>$data2));
+                                }
+
+                            }
                         }else{
                             echo json_encode(array("result" => "2", "desc" => "缺少用户城市的地址"));
                         }
