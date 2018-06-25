@@ -541,7 +541,7 @@ $app->get('/getLorrys3',function()use($app){
     }
 });
 
-$app->delete('/deleteLorry',function()use($app){
+$app->put('/alterLorry',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
@@ -610,57 +610,6 @@ $app->get('/searchLorry',function()use($app){
     }
 });
 
-$app->put('/alterLorry',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
-    $tenant_id = $app->request->headers->get("tenant-id");
-    $database = localhost();
-    $body = $app->request->getBody();
-    $body = json_decode($body);
-    $lorry_id= $body->lorry_id;
-    $plate_number= $body->plate_number;
-    $driver_name= $body->driver_name;
-    $driver_phone= $body->driver_phone;
-//    $driving_license=$body->driving_license;
-//    $vehicle_travel_license=$body->vehicle_travel_license;
-    $array = array();
-    foreach ($body as $key => $value) {
-        $array[$key] = $value;
-    }
-    if($tenant_id!=null||$tenant_id!=''){
-        if($lorry_id!=null||$lorry_id!=''){
-            if($plate_number!=null||$plate_number!=''){
-                if($driver_name!=null||$driver_name!=''){
-                    if($driver_phone!=null||$driver_phone!=''){
-//                        if($driving_license!=null||$driving_license!=''){
-//                            if($vehicle_travel_license!=null||$vehicle_travel_license!=''){
-                        $updateStatement = $database->update($array)
-                            ->table('lorry')
-                            ->where('tenant_id','=',$tenant_id)
-                            ->where('lorry_id','=',$lorry_id);
-                        $affectedRows = $updateStatement->execute();
-                        echo json_encode(array("result" => "0", "desc" => "success"));
-//                            }else{
-//                                echo json_encode(array("result" => "2", "desc" => "缺少行驶证"));
-//                            }
-//                        }else{
-//                            echo json_encode(array("result" => "3", "desc" => "缺少驾驶证"));
-//                        }
-                    }else{
-                        echo json_encode(array("result" => "4", "desc" => "缺少驾驶员手机号码"));
-                    }
-                }else{
-                    echo json_encode(array("result" => "5", "desc" => "缺少驾驶员名字"));
-                }
-            }else{
-                echo json_encode(array("result" => "6", "desc" => "缺少车牌号码"));
-            }
-        }else{
-            echo json_encode(array("result" => "7", "desc" => "缺少车辆id"));
-        }
-    }else{
-        echo json_encode(array("result" => "8", "desc" => "缺少租户id"));
-    }
-});
 
 $app->post('/uploadLorry',function()use($app) {
     $app->response->headers->set('Content-Type', 'application/json');
@@ -708,118 +657,7 @@ $app->post('/uploadLorry',function()use($app) {
     }
 });
 
-$app->get('/getLorrys2',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
-    $tenant_id = $app->request->headers->get("tenant-id");
-    $database = localhost();
-    if($tenant_id!=null||$tenant_id!=''){
-        $selectStatement = $database->select()
-            ->from('lorry')
-            ->leftJoin('app_lorry','app_lorry.phone','=','lorry.driver_phone')
-            ->where('app_lorry.exist', '=', 0)
-            ->where('lorry.tenant_id', '=', $tenant_id)
-            ->where('lorry.exist','=',1);
-        $stmt = $selectStatement->execute();
-        $data = $stmt->fetchAll();
-        for($i=0;$i<count($data);$i++){
-            $selectStatement = $database->select()
-                ->from('lorry_length')
-                ->where('lorry_length.lorry_length_id', '=', $data[$i]['length']);
-            $stmt = $selectStatement->execute();
-            $data1 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('lorry_load')
-//                ->where('lorry_load.lorry_load_id', '=', $data[$i]['deadweight']);
-//            $stmt = $selectStatement->execute();
-//            $data2 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('lorry_type')
-                ->where('lorry_type.lorry_type_id', '=', $data[$i]['type']);
-            $stmt = $selectStatement->execute();
-            $data3 = $stmt->fetch();
-            $data[$i]['lorry_length_name']=$data1['lorry_length'];
-            $data[$i]['lorry_type_name']=$data3['lorry_type_name'];
-//            $data[$i]['lorry_load_name']=$data2['lorry_load'];
-        }
-        echo json_encode(array("result" => "0", "desc" => "success",'lorrys'=>$data));
-    }else{
-        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
-    }
-});
 
-$app->get('/limitLorrys2',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
-    $tenant_id = $app->request->headers->get("tenant-id");
-    $database = localhost();
-    $size = $app->request->get("size");
-    $offset = $app->request->get("offset");
-    if($tenant_id!=null||$tenant_id!=''){
-        if($size!=null||$size!=''){
-            if($offset!=null||$offset!=''){
-                $selectStatement = $database->select()
-                    ->from('lorry')
-                    ->leftJoin('app_lorry','app_lorry.phone','=','lorry.driver_phone')
-                    ->where('app_lorry.exist', '=', 0)
-                    ->where('lorry.tenant_id', '=', $tenant_id)
-                    ->where('lorry.exist','=',1)
-                    ->orderBy('lorry.lorry_id','DESC')
-                    ->limit((int)$size,(int)$offset);
-                $stmt = $selectStatement->execute();
-                $data = $stmt->fetchAll();
-                for($i=0;$i<count($data);$i++){
-                    $selectStatement = $database->select()
-                        ->from('lorry_length')
-                        ->where('lorry_length.lorry_length_id', '=', $data[$i]['length']);
-                    $stmt = $selectStatement->execute();
-                    $data1 = $stmt->fetch();
-//                    $selectStatement = $database->select()
-//                        ->from('lorry_load')
-//                        ->where('lorry_load.lorry_load_id', '=', $data[$i]['deadweight']);
-//                    $stmt = $selectStatement->execute();
-//                    $data2 = $stmt->fetch();
-                    $selectStatement = $database->select()
-                        ->from('lorry_type')
-                        ->where('lorry_type.lorry_type_id', '=', $data[$i]['type']);
-                    $stmt = $selectStatement->execute();
-                    $data3 = $stmt->fetch();
-                    $data[$i]['lorry_length_name']=$data1['lorry_length'];
-                    $data[$i]['lorry_type_name']=$data3['lorry_type_name'];
-//                    $data[$i]['lorry_load_name']=$data2['lorry_load'];
-                }
-                echo json_encode(array("result" => "0", "desc" => "success",'lorrys'=>$data));
-            }else{
-                echo json_encode(array("result" => "1", "desc" => "缺少偏移量"));
-            }
-        }else{
-            echo json_encode(array("result" => "2", "desc" => "缺少size"));
-        }
-    }else{
-        echo json_encode(array("result" => "3", "desc" => "缺少租户id"));
-    }
-});
-
-$app->put('/recoverLorry',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
-    $tenant_id = $app->request->headers->get("tenant-id");
-    $database = localhost();
-    $body = $app->request->getBody();
-    $body = json_decode($body);
-    $lorry_id= $body->lorry_id;
-    if($tenant_id!=null||$tenant_id!=''){
-        if($lorry_id!=null||$lorry_id!=''){
-            $updateStatement = $database->update(array('exist'=>0))
-                ->table('lorry')
-                ->where('tenant_id','=',$tenant_id)
-                ->where('lorry_id','=',$lorry_id);
-            $affectedRows = $updateStatement->execute();
-            echo json_encode(array("result" => "0", "desc" => "success"));
-        }else{
-            echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
-        }
-    }else{
-        echo json_encode(array("result" => "2", "desc" => "缺少租户id"));
-    }
-});
 
 $app->run();
 
