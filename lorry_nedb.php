@@ -40,7 +40,7 @@ $app->post('/addLorry',function()use($app) {
                             ->where('exist', '=', 0)
                             ->where('phone', '=', $driver_phone);
                         $stmt = $selectStatement->execute();
-                        $data1 = $stmt->fetch();
+                        $data = $stmt->fetch();
 //                        $selectStatement = $database->select()
 //                            ->from('lorry')
 //                            ->where('tenant_id', '=', $tenant_id)
@@ -68,7 +68,7 @@ $app->post('/addLorry',function()use($app) {
                                          ->into('lorry')
                                          ->values(array_values($array));
                                       $insertId = $insertStatement->execute(false);
-                                      echo json_encode(array("result" => "0", "desc" => "success",'app_lorry'=>$data1['app_lorry_id']));
+                                      echo json_encode(array("result" => "0", "desc" => "success",'app_lorry'=>$data['app_lorry_id']));
 //                                   }else if($data4['exist']==0){
 //                                      echo json_encode(array("result" => "1", "desc" => "该车辆已被添加过"));
 //                                    }else if($data4['exist']==1){
@@ -87,97 +87,6 @@ $app->post('/addLorry',function()use($app) {
         echo json_encode(array("result" => "5", "desc" => "缺少租户id"));
     }
 });
-//$app->post('/addLorry',function()use($app) {
-//    $app->response->headers->set('Content-Type', 'application/json');
-//    $tenant_id = $app->request->headers->get("tenant-id");
-//    $body = $app->request->getBody();
-//    $body = json_decode($body);
-//    $database = localhost();
-//    $lorry_id= $body->lorry_id;
-//    $plate_number= $body->plate_number;
-//    $driver_name= $body->driver_name;
-//    $driver_phone= $body->driver_phone;
-////    $flag=$body->flag;
-//    $array = array();
-//    foreach ($body as $key => $value) {
-//        $array[$key] = $value;
-//    }
-//    if($tenant_id!=null||$tenant_id!=''){
-//        if($lorry_id!=null||$lorry_id!=''){
-//            if($plate_number!=null||$plate_number!=''){
-//                if($driver_name!=null||$driver_name!=''){
-//                    if($driver_phone!=null||$driver_phone!=''){
-////                        $selectStatement = $database->select()
-////                            ->from('lorry')
-////                            ->where('tenant_id', '=', 0)
-////                            ->where('driver_phone', '=', $driver_phone);
-////                        $stmt = $selectStatement->execute();
-////                        $data1 = $stmt->fetch();
-//
-//                        $selectStatement = $database->select()
-//                            ->from('lorry')
-//                            ->where('tenant_id', '=', $tenant_id)
-//                            ->where('driver_phone', '=', $driver_phone);
-//                        $stmt = $selectStatement->execute();
-//                        $data4 = $stmt->fetch();
-//
-//                        $selectStatement = $database->select()
-//                            ->from('lorry');
-//                        $stmt = $selectStatement->execute();
-//                        $data = $stmt->fetchAll();
-//
-////                        if(!$data1){
-////                            $password1=123456;
-////                            $str1=str_split($password1,3);
-////                            $password=null;
-////                            for ($x=0;$x<count($str1);$x++){
-////                                $password.=$str1[$x].$x;
-////                            }
-////                            $insertStatement = $database->insert(array('lorry_id','plate_number','driver_name','driver_phone','password','flag','driving_license','vehicle_travel_license'))
-////                                ->into('lorry')
-////                                ->values(array((count($data)+100000001),$plate_number,$driver_name,$driver_phone,$password,$flag,"http://files.uminfo.cn:8000/lorry/photo1.png","http://files.uminfo.cn:8000/lorry/photo2.png"));
-////                            $insertId = $insertStatement->execute(false);
-////                            $array['tenant_id']=$tenant_id;
-////                            $array['exist']=0;
-////                            $array['driving_license']="http://files.uminfo.cn:8000/lorry/photo1.png";
-////                            $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/photo2.png";
-////
-////                            $insertStatement = $database->insert(array_keys($array))
-////                                ->into('lorry')
-////                                ->values(array_values($array));
-////                            $insertId = $insertStatement->execute(false);
-////                        }
-//                        if((!$data4)){
-//                            $array['lorry_id']=count($data)+100000001;
-////                            $array['signtime']=$data1['signtime'];
-//                            $array['tenant_id']=$tenant_id;
-//                            $array['exist']=0;
-//                            $array['driving_license']="http://files.uminfo.cn:8000/lorry/photo1.png";
-//                            $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/photo2.png";
-//                            $insertStatement = $database->insert(array_keys($array))
-//                                ->into('lorry')
-//                                ->values(array_values($array));
-//                            $insertId = $insertStatement->execute(false);
-//                            echo json_encode(array("result" => "0", "desc" => "success"));
-//                        }else{
-//                            echo json_encode(array("result" => "1", "desc" => "该手机号已被使用"));
-//                        }
-//                    }else{
-//                        echo json_encode(array("result" => "4", "desc" => "缺少驾驶员手机号码"));
-//                    }
-//                }else{
-//                    echo json_encode(array("result" => "5", "desc" => "缺少驾驶员名字"));
-//                }
-//            }else{
-//                echo json_encode(array("result" => "6", "desc" => "缺少车牌号"));
-//            }
-//        }else{
-//            echo json_encode(array("result" => "7", "desc" => "缺少车辆id"));
-//        }
-//    }else{
-//        echo json_encode(array("result" => "8", "desc" => "缺少租户id"));
-//    }
-//});
 
 
 $app->get('/getLorry',function()use($app){
