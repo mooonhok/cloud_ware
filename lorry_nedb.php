@@ -32,15 +32,15 @@ $app->post('/addLorry',function()use($app) {
             if($plate_number!=null||$plate_number!=''){
                 if($driver_name!=null||$driver_name!=''){
                     if($driver_phone!=null||$driver_phone!=''){
-//                        $selectStatement = $database->select()
-//                            ->from('app_lorry')
-//                            ->where('plate_number', '=', $plate_number)
-//                            ->where('flag','=',$flag)
-//                            ->where('name', '=', $driver_name)
-//                            ->where('exist', '=', 0)
-//                            ->where('phone', '=', $driver_phone);
-//                        $stmt = $selectStatement->execute();
-//                        $data1 = $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('app_lorry')
+                            ->where('plate_number', '=', $plate_number)
+                            ->where('flag','=',$flag)
+                            ->where('name', '=', $driver_name)
+                            ->where('exist', '=', 0)
+                            ->where('phone', '=', $driver_phone);
+                        $stmt = $selectStatement->execute();
+                        $data1 = $stmt->fetch();
 //                        $selectStatement = $database->select()
 //                            ->from('lorry')
 //                            ->where('tenant_id', '=', $tenant_id)
