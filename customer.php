@@ -829,6 +829,7 @@ $app->get('/old_customers_f',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
+    $array1=array();
     $selectStatement = $database->select()
         ->from('customer')
 //        ->distinctCount('customer_name')
@@ -848,9 +849,14 @@ $app->get('/old_customers_f',function()use($app){
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetch();
         $data1[$i]['cityname']=$data2['name'];
+        $array1[$i]['customer_id']=$data1[$i]['customer_id'];
+        $array1[$i]['customer_name']=$data1[$i]['customer_name'];
+        $array1[$i]['customer_address']=$data1[$i]['customer_address'];
+        $array1[$i]['customer_phone']=$data1[$i]['customer_phone'];
+        $array1[$i]['cityname']=$data2['cityname'];
     }
-    $data1=array_values(array_unique_fb($data1));
-    echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$data1));
+    $array1=array_values(array_unique_fb($array1));
+    echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array1));
 });
 
 //获取最近10条信息,type为1
@@ -859,6 +865,7 @@ $app->get('/old_customers_s',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
+    $array1=array();
     $selectStatement = $database->select()
         ->from('customer')
 //        ->distinctCount('customer_name')
@@ -876,9 +883,15 @@ $app->get('/old_customers_s',function()use($app){
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetch();
         $data1[$i]['cityname']=$data2['name'];
+
+        $array1[$i]['customer_id']=$data1[$i]['customer_id'];
+        $array1[$i]['customer_name']=$data1[$i]['customer_name'];
+        $array1[$i]['customer_address']=$data1[$i]['customer_address'];
+        $array1[$i]['customer_phone']=$data1[$i]['customer_phone'];
+        $array1[$i]['cityname']=$data2['cityname'];
     }
-    $data1=array_values(array_unique_fb($data1));
-    echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$data1));
+    $array1=array_values(array_unique_fb($array1));
+    echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array1));
 });
 
 //type为3
@@ -940,11 +953,21 @@ function array_unset_tt($arr,$key){
 
 function array_unique_fb($array2D){
     foreach ($array2D as $k=>$v){
+        if($k!="customer_id"){}
         $v=join(',',$v); //降维,也可以用implode,将一维数组转换为用逗号连接的字符串
         $temp[$k]=$v;
     }
-    $temp1=array_unique($temp); //去掉重复的字符串,也就是重复的一维数组
-    return $temp1;
+    $temp=array_unique($temp); //去掉重复的字符串,也就是重复的一维数组
+    foreach ($temp as $k => $v){
+        $array=explode(',',$v); //再将拆开的数组重新组装
+        //下面的索引根据自己的情况进行修改即可
+        $temp2[$k]['customer_id'] =$array2D[$k]['customer_id'];
+        $temp2[$k]['customer_name'] =$array[1];
+        $temp2[$k]['customer_phone'] =$array[3];
+        $temp2[$k]['customer_address'] =$array[2];
+        $temp2[$k]['cityname'] =$array[4];
+    }
+    return $temp2;
 }
 
 
