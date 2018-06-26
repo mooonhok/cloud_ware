@@ -41,7 +41,6 @@ $app->post('/addLorry',function()use($app) {
                             ->where('phone', '=', $driver_phone);
                         $stmt = $selectStatement->execute();
                         $data1 = $stmt->fetch();
-
                         $selectStatement = $database->select()
                             ->from('lorry')
                             ->where('tenant_id', '=', $tenant_id)
@@ -51,47 +50,12 @@ $app->post('/addLorry',function()use($app) {
                             ->where('driver_phone', '=', $driver_phone);
                         $stmt = $selectStatement->execute();
                         $data4 = $stmt->fetch();
-
-//                        $selectStatement = $database->select()
-//                            ->from('lorry')
-//                            ->where('exist','=',0)
-//                            ->where('tenant_id', '=', $tenant_id)
-//                            ->where('driver_phone', '=', $driver_phone);
-//                        $stmt = $selectStatement->execute();
-//                        $data5 = $stmt->fetch();
-
-//                        $selectStatement = $database->select()
-//                            ->from('lorry');
-//                        $stmt = $selectStatement->execute();
-//                        $data = $stmt->fetchAll();
-
-//                        if(!$data1){
-//                            $password1=123456;
-//                            $str1=str_split($password1,3);
-//                            $password=null;
-//                            for ($x=0;$x<count($str1);$x++){
-//                                $password.=$str1[$x].$x;
-//                            }
-//                            $insertStatement = $database->insert(array('lorry_id','plate_number','driver_name','driver_phone','password','flag','driving_license','vehicle_travel_license'))
-//                                ->into('lorry')
-//                                ->values(array((count($data)+100000001),$plate_number,$driver_name,$driver_phone,$password,$flag,"http://files.uminfo.cn:8000/lorry/photo1.png","http://files.uminfo.cn:8000/lorry/photo2.png"));
-//                            $insertId = $insertStatement->execute(false);
-//                            $array['tenant_id']=$tenant_id;
-//                            $array['exist']=0;
-//                            $array['driving_license']="http://files.uminfo.cn:8000/lorry/photo1.png";
-//                            $array['vehicle_travel_license']="http://files.uminfo.cn:8000/lorry/photo2.png";
-//
-//                            $insertStatement = $database->insert(array_keys($array))
-//                                ->into('lorry')
-//                                ->values(array_values($array));
-//                            $insertId = $insertStatement->execute(false);
-//                        }
-//                        if($data5){
-//                            echo json_encode(array("result" => "9", "desc" => "该电话号码已经注册过了"));
-//                        }else{
                               if(!$data1){
                                   echo json_encode(array("result" => "6", "desc" => "请司机下载交付帮手注册"));
                               }else{
+                                  if($data1['lorry_status']==1){
+                                      echo json_encode(array("result" => "7", "desc" => "驾驶员正在修改个人资料"));
+                                  }else{
                                 if(!$data4){
                                     $array['tenant_id']=$tenant_id;
                                     $array['exist']=0;
@@ -110,7 +74,7 @@ $app->post('/addLorry',function()use($app) {
                                     echo json_encode(array("result" => "1", "desc" => "司机已经添加"));
                                 }
                             }
-//                        }
+                              }
                     }else{
                         echo json_encode(array("result" => "2", "desc" => "缺少驾驶员手机号码"));
                     }
