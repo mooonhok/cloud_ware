@@ -23,6 +23,7 @@ $app->post('/addLorry',function()use($app) {
     $plate_number= $body->plate_number;
     $driver_name= $body->driver_name;
     $driver_phone= $body->driver_phone;
+    $flag=$body->flag;
     $array = array();
     foreach ($body as $key => $value) {
         $array[$key] = $value;
@@ -34,6 +35,7 @@ $app->post('/addLorry',function()use($app) {
                         $selectStatement = $database->select()
                             ->from('app_lorry')
                             ->where('plate_number', '=', $plate_number)
+                            ->where('flag','=',$flag)
                             ->where('name', '=', $driver_name)
                             ->where('exist', '=', 0)
                             ->where('phone', '=', $driver_phone);
@@ -87,19 +89,18 @@ $app->post('/addLorry',function()use($app) {
 //                        if($data5){
 //                            echo json_encode(array("result" => "9", "desc" => "该电话号码已经注册过了"));
 //                        }else{
-                            if(!$data1){
-                                echo json_encode(array("result" => "10", "desc" => "请司机下载交付帮手注册"));
-                            }else{
+                              if(!$data1){
+                                  echo json_encode(array("result" => "6", "desc" => "请司机下载交付帮手注册"));
+                              }else{
                                 if(!$data4){
                                     $array['tenant_id']=$tenant_id;
                                     $array['exist']=0;
-
-                        $selectStatement = $database->select()
-                            ->from('lorry')
-                            ->where('tenant_id', '=', $tenant_id);
-                        $stmt = $selectStatement->execute();
-                        $data1 = $stmt->fetchAll();
-                        $array['lorry_id']=count($data1)+100000001;
+                                    $selectStatement = $database->select()
+                                    ->from('lorry')
+                                    ->where('tenant_id', '=', $tenant_id);
+                                    $stmt = $selectStatement->execute();
+                                    $data1 = $stmt->fetchAll();
+                                    $array['lorry_id']=count($data1)+100000001;
                                     $insertStatement = $database->insert(array_keys($array))
                                         ->into('lorry')
                                         ->values(array_values($array));
@@ -109,19 +110,18 @@ $app->post('/addLorry',function()use($app) {
                                     echo json_encode(array("result" => "1", "desc" => "司机已经添加"));
                                 }
                             }
-
 //                        }
                     }else{
-                        echo json_encode(array("result" => "4", "desc" => "缺少驾驶员手机号码"));
+                        echo json_encode(array("result" => "2", "desc" => "缺少驾驶员手机号码"));
                     }
                 }else{
-                    echo json_encode(array("result" => "5", "desc" => "缺少驾驶员名字"));
+                    echo json_encode(array("result" => "3", "desc" => "缺少驾驶员名字"));
                 }
             }else{
-                echo json_encode(array("result" => "6", "desc" => "缺少车牌号"));
+                echo json_encode(array("result" => "4", "desc" => "缺少车牌号"));
             }
     }else{
-        echo json_encode(array("result" => "8", "desc" => "缺少租户id"));
+        echo json_encode(array("result" => "5", "desc" => "缺少租户id"));
     }
 });
 //$app->post('/addLorry',function()use($app) {
