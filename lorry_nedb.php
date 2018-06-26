@@ -44,7 +44,6 @@ $app->post('/addLorry',function()use($app) {
                         $selectStatement = $database->select()
                             ->from('lorry')
                             ->where('tenant_id', '=', $tenant_id)
-                            ->where('exist','=',0)
                             ->where('plate_number', '=', $plate_number)
                             ->where('driver_name', '=', $driver_name)
                             ->where('driver_phone', '=', $driver_phone);
@@ -56,7 +55,7 @@ $app->post('/addLorry',function()use($app) {
                                   if($data1['lorry_status']==1){
                                       echo json_encode(array("result" => "7", "desc" => "驾驶员正在修改个人资料"));
                                   }else{
-                                 if(!$data4){
+                                 if($data4==null){
                                      $array['tenant_id']=$tenant_id;
                                      $array['exist']=0;
                                      $selectStatement = $database->select()
@@ -70,9 +69,11 @@ $app->post('/addLorry',function()use($app) {
                                          ->values(array_values($array));
                                      $insertId = $insertStatement->execute(false);
                                       echo json_encode(array("result" => "0", "desc" => "success",'app_lorry'=>$data1['app_lorry_id']));
-                                   }else{
-                                      echo json_encode(array("result" => "1", "desc" => "司机已经添加"));
-                                    }
+                                   }else if($data4['exist']==0){
+                                      echo json_encode(array("result" => "1", "desc" => "该车辆已被添加过"));
+                                    }else if($data4['exist']==1){
+                                     echo json_encode(array("result" => "8", "desc" => "车辆已被您加入了黑名单"));
+                                 }
                                  }
                               }
                     }else{
