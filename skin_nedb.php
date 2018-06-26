@@ -41,7 +41,7 @@ $app->get('/getSkins',function()use($app){
     $database = localhost();
     $selectStatement = $database->select()
         ->from('skin')
-        ->orderBy('skin_id');
+        ->orderBy('id');
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
     echo  json_encode(array("result"=>"0","desc"=>"success","skins"=>$data));
