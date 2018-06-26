@@ -32,30 +32,30 @@ $app->post('/addLorry',function()use($app) {
             if($plate_number!=null||$plate_number!=''){
                 if($driver_name!=null||$driver_name!=''){
                     if($driver_phone!=null||$driver_phone!=''){
-                        $selectStatement = $database->select()
-                            ->from('app_lorry')
-                            ->where('plate_number', '=', $plate_number)
-                            ->where('flag','=',$flag)
-                            ->where('name', '=', $driver_name)
-                            ->where('exist', '=', 0)
-                            ->where('phone', '=', $driver_phone);
-                        $stmt = $selectStatement->execute();
-                        $data1 = $stmt->fetch();
-                        $selectStatement = $database->select()
-                            ->from('lorry')
-                            ->where('tenant_id', '=', $tenant_id)
-                            ->where('plate_number', '=', $plate_number)
-                            ->where('driver_name', '=', $driver_name)
-                            ->where('driver_phone', '=', $driver_phone);
-                        $stmt = $selectStatement->execute();
-                        $data4 = $stmt->fetch();
-                              if(!$data1){
-                                  echo json_encode(array("result" => "6", "desc" => "请司机下载交付帮手注册"));
-                              }else{
-                                  if($data1['lorry_status']==1){
-                                      echo json_encode(array("result" => "7", "desc" => "驾驶员正在修改个人资料"));
-                                  }else{
-                                 if($data4==null){
+//                        $selectStatement = $database->select()
+//                            ->from('app_lorry')
+//                            ->where('plate_number', '=', $plate_number)
+//                            ->where('flag','=',$flag)
+//                            ->where('name', '=', $driver_name)
+//                            ->where('exist', '=', 0)
+//                            ->where('phone', '=', $driver_phone);
+//                        $stmt = $selectStatement->execute();
+//                        $data1 = $stmt->fetch();
+//                        $selectStatement = $database->select()
+//                            ->from('lorry')
+//                            ->where('tenant_id', '=', $tenant_id)
+//                            ->where('plate_number', '=', $plate_number)
+//                            ->where('driver_name', '=', $driver_name)
+//                            ->where('driver_phone', '=', $driver_phone);
+//                        $stmt = $selectStatement->execute();
+////                        $data4 = $stmt->fetch();
+//                              if(!$data1){
+//                                  echo json_encode(array("result" => "6", "desc" => "请司机下载交付帮手注册"));
+//                              }else{
+//                                  if($data1['lorry_status']==1){
+//                                      echo json_encode(array("result" => "7", "desc" => "驾驶员正在修改个人资料"));
+//                                  }else{
+//                                 if($data4==null){
                                      $array['tenant_id']=$tenant_id;
                                      $array['exist']=0;
                                      $selectStatement = $database->select()
@@ -67,15 +67,13 @@ $app->post('/addLorry',function()use($app) {
                                      $insertStatement = $database->insert(array_keys($array))
                                          ->into('lorry')
                                          ->values(array_values($array));
-                                     $insertId = $insertStatement->execute(false);
+                                      $insertId = $insertStatement->execute(false);
                                       echo json_encode(array("result" => "0", "desc" => "success",'app_lorry'=>$data1['app_lorry_id']));
-                                   }else if($data4['exist']==0){
-                                      echo json_encode(array("result" => "1", "desc" => "该车辆已被添加过"));
-                                    }else if($data4['exist']==1){
-                                     echo json_encode(array("result" => "8", "desc" => "车辆已被您加入了黑名单"));
-                                 }
-                                 }
-                              }
+//                                   }else if($data4['exist']==0){
+//                                      echo json_encode(array("result" => "1", "desc" => "该车辆已被添加过"));
+//                                    }else if($data4['exist']==1){
+//                                     echo json_encode(array("result" => "8", "desc" => "车辆已被您加入了黑名单"));
+//                                 }}}
                     }else{
                         echo json_encode(array("result" => "2", "desc" => "缺少驾驶员手机号码"));
                     }
