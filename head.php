@@ -21,7 +21,8 @@ $app->get('/getHeads',function()use($app){
     $database=localhost();
     $selectStatement = $database->select()
         ->from('head')
-        ->where('type','=',$type);
+        ->where('type','=',$type)
+        ->orderBy('id');
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
     echo json_encode(array('result'=>'0','desc'=>'success','heads'=>$data1));
