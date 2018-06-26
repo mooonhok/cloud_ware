@@ -41,7 +41,6 @@ $app->get('/getSkins',function()use($app){
     $database = localhost();
     $selectStatement = $database->select()
         ->from('skin')
-        ->where('exist','=',0)
         ->orderBy('skin_id');
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
