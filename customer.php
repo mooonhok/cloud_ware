@@ -830,7 +830,6 @@ $app->get('/old_customers_f',function()use($app){
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
     $array1=array();
-    $array2=array();
     $selectStatement = $database->select()
         ->from('customer')
 //        ->distinctCount('customer_name')
@@ -857,9 +856,6 @@ $app->get('/old_customers_f',function()use($app){
         $array1[$i]['cityname']=$data2['name'];
     }
     $array1=array_values(array_unique_fb($array1));
-//    for($x=0;$x<count($array1);$x++){
-//        $array2=array($array2,$array1[$i]);
-//    }
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array1));
 });
 
@@ -870,7 +866,6 @@ $app->get('/old_customers_s',function()use($app){
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
     $array1=array();
-    $array2=array();
     $selectStatement = $database->select()
         ->from('customer')
 //        ->distinctCount('customer_name')
@@ -896,9 +891,6 @@ $app->get('/old_customers_s',function()use($app){
         $array1[$i]['cityname']=$data2['name'];
     }
     $array1=array_values(array_unique_fb($array1));
-//    for($x=0;$x<count($array1);$x++){
-//        $array2=array($array2,$array1[$i]);
-//    }
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array1));
 });
 
@@ -939,26 +931,23 @@ $app->get('/old_customers_w',function()use($app){
 });
 
 $app->run();
+//二维数组依据一个元素去重
 function array_unset_tt($arr,$key){
     //建立一个目标数组
     $res = array();
     foreach ($arr as $value) {
         //查看有没有重复项
-
         if(isset($res[$value[$key]])){
             //有：销毁
-
             unset($value[$key]);
-
         }
         else{
-
             $res[$value[$key]] = $value;
         }
     }
     return $res;
 }
-
+//二维数组依据多个元素去重
 function array_unique_fb($array2D){
     foreach ($array2D as $k=>$v){
         if($k!="customer_id"){
@@ -978,9 +967,6 @@ function array_unique_fb($array2D){
     }
     return $temp2;
 }
-
-
-
 
 function localhost(){
     return connect();
