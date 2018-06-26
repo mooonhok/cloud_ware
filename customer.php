@@ -849,6 +849,7 @@ $app->get('/old_customers_f',function()use($app){
         $data2 = $stmt->fetch();
         $data1[$i]['cityname']=$data2['name'];
     }
+    $data1=array_values(array_unique_fb($data1));
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$data1));
 });
 
@@ -876,6 +877,7 @@ $app->get('/old_customers_s',function()use($app){
         $data2 = $stmt->fetch();
         $data1[$i]['cityname']=$data2['name'];
     }
+    $data1=array_values(array_unique_fb($data1));
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$data1));
 });
 
@@ -935,6 +937,27 @@ function array_unset_tt($arr,$key){
     }
     return $res;
 }
+
+function array_unique_fb($array2D){
+    foreach ($array2D as $k=>$v){
+        $v=join(',',$v); //降维,也可以用implode,将一维数组转换为用逗号连接的字符串
+        $temp[$k]=$v;
+    }
+    $temp=array_unique($temp); //去掉重复的字符串,也就是重复的一维数组
+    foreach ($temp as $k => $v){
+        $array=explode(',',$v); //再将拆开的数组重新组装
+        //下面的索引根据自己的情况进行修改即可
+        $temp2[$k]['customer_name'] =$array[0];
+        $temp2[$k]['customer_phone'] =$array[1];
+        $temp2[$k]['customer_city_id'] =$array[2];
+        $temp2[$k]['customer_address'] =$array[3];
+    }
+    return $temp2;
+}
+
+
+
+
 function localhost(){
     return connect();
 }
