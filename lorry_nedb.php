@@ -56,24 +56,24 @@ $app->post('/addLorry',function()use($app) {
                                   if($data1['lorry_status']==1){
                                       echo json_encode(array("result" => "7", "desc" => "驾驶员正在修改个人资料"));
                                   }else{
-                                if(!$data4){
-                                    $array['tenant_id']=$tenant_id;
-                                    $array['exist']=0;
-                                    $selectStatement = $database->select()
-                                    ->from('lorry')
-                                    ->where('tenant_id', '=', $tenant_id);
-                                    $stmt = $selectStatement->execute();
-                                    $data1 = $stmt->fetchAll();
-                                    $array['lorry_id']=count($data1)+100000001;
-                                    $insertStatement = $database->insert(array_keys($array))
-                                        ->into('lorry')
-                                        ->values(array_values($array));
-                                    $insertId = $insertStatement->execute(false);
-                                    echo json_encode(array("result" => "0", "desc" => "success"));
-                                }else{
-                                    echo json_encode(array("result" => "1", "desc" => "司机已经添加"));
-                                }
-                            }
+                                 if(!$data4){
+                                     $array['tenant_id']=$tenant_id;
+                                     $array['exist']=0;
+                                     $selectStatement = $database->select()
+                                       ->from('lorry')
+                                       ->where('tenant_id', '=', $tenant_id);
+                                     $stmt = $selectStatement->execute();
+                                     $data1 = $stmt->fetchAll();
+                                     $array['lorry_id']=count($data1)+100000001;
+                                     $insertStatement = $database->insert(array_keys($array))
+                                         ->into('lorry')
+                                         ->values(array_values($array));
+                                     $insertId = $insertStatement->execute(false);
+                                      echo json_encode(array("result" => "0", "desc" => "success",'app_lorry'=>$data1['app_lorry_id']));
+                                   }else{
+                                      echo json_encode(array("result" => "1", "desc" => "司机已经添加"));
+                                    }
+                                 }
                               }
                     }else{
                         echo json_encode(array("result" => "2", "desc" => "缺少驾驶员手机号码"));
