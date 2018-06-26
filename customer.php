@@ -830,6 +830,7 @@ $app->get('/old_customers_f',function()use($app){
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
     $array1=array();
+    $array2=array();
     $selectStatement = $database->select()
         ->from('customer')
 //        ->distinctCount('customer_name')
@@ -856,6 +857,9 @@ $app->get('/old_customers_f',function()use($app){
         $array1[$i]['cityname']=$data2['name'];
     }
     $array1=array_values(array_unique_fb($array1));
+    for($x=0;$x<count($array1);$x++){
+        $array2=array($array2,$array1[$i]);
+    }
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array1));
 });
 
@@ -866,6 +870,7 @@ $app->get('/old_customers_s',function()use($app){
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
     $array1=array();
+    $array2=array();
     $selectStatement = $database->select()
         ->from('customer')
 //        ->distinctCount('customer_name')
@@ -891,6 +896,9 @@ $app->get('/old_customers_s',function()use($app){
         $array1[$i]['cityname']=$data2['name'];
     }
     $array1=array_values(array_unique_fb($array1));
+    for($x=0;$x<count($array1);$x++){
+        $array2=array($array2,$array1[$i]);
+    }
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array1));
 });
 
