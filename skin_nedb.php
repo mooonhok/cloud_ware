@@ -34,18 +34,8 @@ $app->post('/addSkin',function()use($app) {
     $insertId = $insertStatement->execute(false);
 });
 
-$app->get('/getSkins0',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $database = localhost();
-    $selectStatement = $database->select()
-        ->from('skin');
-    $stmt = $selectStatement->execute();
-    $data = $stmt->fetchAll();
-    echo  json_encode(array("result"=>"0","desc"=>"success","skins"=>$data));
-});
 
-$app->get('/getSkins1',function()use($app){
+$app->get('/getSkins',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database = localhost();
