@@ -5093,7 +5093,7 @@ $app->get('/limitGoodsOrders11',function()use($app){
 });
 
 $app->post('/addGoodsOrder',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
+    $app->response->headers->set('Content-Type','application/json');
     $database = localhost();
     $tenant_id = $app->request->headers->get("tenant-id");
     $body=$app->request->getBody();
@@ -5132,29 +5132,29 @@ $app->post('/addGoodsOrder',function()use($app){
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
             if(count($data2)<10){
-                $array1['goods_id']=$data['tenant_num']."00000".count($data2);
-                $array1['order_id']=$data['tenant_num']."00000".count($data2);
-                $array2['order_id']=$data['tenant_num']."00000".count($data2);
+                $array1['goods_id']=$data['tenant_num']."00000".(count($data2)+1);
+                $array1['order_id']=$data['tenant_num']."00000".(count($data2)+1);
+                $array2['order_id']=$data['tenant_num']."00000".(count($data2)+1);
             }else if(count($data2)<100&&count($data2)>9){
-                $array1['goods_id']=$data['tenant_num']."0000".count($data2);
-                $array1['order_id']=$data['tenant_num']."0000".count($data2);
-                $array2['order_id']=$data['tenant_num']."0000".count($data2);
+                $array1['goods_id']=$data['tenant_num']."0000".(count($data2)+1);
+                $array1['order_id']=$data['tenant_num']."0000".(count($data2)+1);
+                $array2['order_id']=$data['tenant_num']."0000".(count($data2)+1);
             }else if(count($data2)<1000&&count($data2)>99){
-                $array1['goods_id']=$data['tenant_num']."000".count($data2);
-                $array1['order_id']=$data['tenant_num']."000".count($data2);
-                $array2['order_id']=$data['tenant_num']."000".count($data2);
+                $array1['goods_id']=$data['tenant_num']."000".(count($data2)+1);
+                $array1['order_id']=$data['tenant_num']."000".(count($data2)+1);
+                $array2['order_id']=$data['tenant_num']."000".(count($data2)+1);
             }else if(count($data2)<10000&&count($data2)>999){
-                $array1['goods_id']=$data['tenant_num']."00".count($data2);
-                $array1['order_id']=$data['tenant_num']."00".count($data2);
-                $array2['order_id']=$data['tenant_num']."00".count($data2);
+                $array1['goods_id']=$data['tenant_num']."00".(count($data2)+1);
+                $array1['order_id']=$data['tenant_num']."00".(count($data2)+1);
+                $array2['order_id']=$data['tenant_num']."00".(count($data2)+1);
             }else if(count($data2)<100000&&count($data2)>9999){
-                $array1['goods_id']=$data['tenant_num']."0".count($data2);
-                $array1['order_id']=$data['tenant_num']."0".count($data2);
-                $array2['order_id']=$data['tenant_num']."0".count($data2);
+                $array1['goods_id']=$data['tenant_num']."0".(count($data2)+1);
+                $array1['order_id']=$data['tenant_num']."0".(count($data2)+1);
+                $array2['order_id']=$data['tenant_num']."0".(count($data2)+1);
             }else if(count($data2)<1000000&&count($data2)>99999){
-                $array1['goods_id']=$data['tenant_num'].count($data2);
-                $array1['order_id']=$data['tenant_num'].count($data2);
-                $array2['order_id']=$data['tenant_num'].count($data2);
+                $array1['goods_id']=$data['tenant_num'].(count($data2)+1);
+                $array1['order_id']=$data['tenant_num'].(count($data2)+1);
+                $array2['order_id']=$data['tenant_num'].(count($data2)+1);
             }
             $insertStatement = $database->insert(array_keys($array1))
                 ->into('goods')
