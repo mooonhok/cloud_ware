@@ -5158,7 +5158,7 @@ $app->post('/addGoodsOrder',function()use($app){
             }
             $insertStatement = $database->insert(array_keys($array1))
                 ->into('goods')
-                ->values(array_values($array));
+                ->values(array_values($array1));
             $insertId = $insertStatement->execute(false);
             date_default_timezone_set("PRC");
             $array1['order_datetime0']=date('Y-m-d H:i:s',time());
@@ -5171,7 +5171,7 @@ $app->post('/addGoodsOrder',function()use($app){
             $array2["is_transfer"]=0;
             $insertStatement = $database->insert(array_keys($array2))
                 ->into('orders')
-                ->values(array_values($array1));
+                ->values(array_values($array2));
             $insertId = $insertStatement->execute(false);
             echo json_encode(array("result" => "0", "desc" => "success"));
         }else{
