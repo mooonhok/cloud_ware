@@ -26,7 +26,13 @@ $app->post('/addInventoryLoc',function()use($app) {
     }
     if($tenant_id!=null||$tenant_id!=''){
        if($inventory_loc_name!=null||$inventory_loc_name!=''){
-
+           $selectStatement = $database->select()
+               ->from('inventory_loc')
+               ->where('tenant_id', '=', $tenant_id)
+               ->where('inventory_loc_name','=',$inventory_loc_name);
+           $stmt = $selectStatement->execute();
+           $data2= $stmt->fetchAll();
+           if($data2==null){
                $selectStatement = $database->select()
                    ->from('inventory_loc')
                    ->where('tenant_id', '=', $tenant_id);
@@ -40,6 +46,9 @@ $app->post('/addInventoryLoc',function()use($app) {
                    ->values(array_values($array));
                $insertId = $insertStatement->execute(false);
                echo json_encode(array("result" => "0", "desc" => "success"));
+           }else{
+               echo json_encode(array("result" => "1", "desc" => "该库位名字已经存在"));
+           }
        }else{
            echo json_encode(array("result" => "2", "desc" => "缺少库位名字"));
        }
@@ -73,11 +82,11 @@ $app->delete('/deleteInventoryLoc',function()use($app){
     $inventory_loc_id=$app->request->get('inventory_loc_id');
     if($tenant_id!=null||$tenant_id!=''){
         if($inventory_loc_id!=null||$inventory_loc_id!=''){
-            $updateStatement = $database->update(array('exist'=>1))
-                ->table('inventory_loc')
+            $deleteStatement = $database->delete()
+                ->from('inventory_loc')
                 ->where('tenant_id','=',$tenant_id)
                 ->where('inventory_loc_id','=',$inventory_loc_id);
-            $affectedRows = $updateStatement->execute();
+                 $affectedRows = $deleteStatement->execute();
             echo json_encode(array("result" => "0", "desc" => "success"));
         }else{
             echo json_encode(array("result" => "1", "desc" => "库位id为空"));
