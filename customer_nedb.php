@@ -43,6 +43,7 @@ $app->post('/addCustomer',function()use($app) {
                                 ->where('customer_city_id','=',$customer_city_id)
                                 ->where('customer_address','=',$customer_address)
                                 ->where('type','=',$type)
+                                ->where('exist','=',0)
 //                                ->where('contact_tenant_id','=',$contact_tenant_id)
                                 ->where('tenant_id', '=', $tenant_id);
                             $stmt = $selectStatement->execute();
@@ -81,6 +82,7 @@ $app->post('/addCustomer',function()use($app) {
                                     ->where('customer_address','=',$customer_address)
                                     ->where('type','=',$type)
                                     ->where('contact_tenant_id','=',$contact_tenant_id)
+                                    ->where('exist','=',0)
                                     ->where('tenant_id', '=', $tenant_id);
                                 $stmt = $selectStatement->execute();
                                 $data2 = $stmt->fetch();
@@ -204,11 +206,6 @@ $app->get('/getCustomer1',function()use($app){
                 ->where('id', '=', $data['customer_city_id']);
             $stmt = $selectStatement->execute();
             $data6 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('province')
-//                ->where('id', '=', $data6['pid']);
-//            $stmt = $selectStatement->execute();
-//            $data8 = $stmt->fetch();
             if($data['contact_tenant_id']!=null){
                 $selectStatement = $database->select()
                     ->from('tenant')
@@ -222,8 +219,6 @@ $app->get('/getCustomer1',function()use($app){
                 $data['contact_company']='';
                 $data['contact_jcompany']='';
             }
-//            $data['customer_city']=$data6['name'];
-//            $data['province']=$data8['name'];
             $data['province_id']=$data6['pid'];
             echo json_encode(array("result" => "0", "desc" => "success",'customer'=>$data));
         }else{
