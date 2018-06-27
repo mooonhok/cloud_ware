@@ -5096,12 +5096,12 @@ $app->post('/addGoodsOrder',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
     $tenant_id = $app->request->headers->get("tenant-id");
-    $body = $app->request->getBody();
-    $body = json_decode($body);
+    $body=$app->request->getBody();
+    $body=json_decode($body);
     $array1=array();
     $array2=array();
-    $array1['goods_name']= $body->goods_name;
-    $array1['goods_weight']= $body->goods_weight;
+    $array1['goods_name']=$body->goods_name;
+    $array1['goods_weight']=$body->goods_weight;
     $array1['goods_value']=$body->goods_value;
     $array1['goods_count']=$body->goods_count;
     $array1['goods_capacity']=$body->goods_capacity;
@@ -5118,7 +5118,6 @@ $app->post('/addGoodsOrder',function()use($app){
     $array2['order_status']=$body->order_status;
     $array2['inventory_type']=$body->inventory_type;
     $flag=$body->flag;
-    $array=array();
     if($tenant_id!=null||$tenant_id!=""){
         $selectStatement = $database->select()
             ->from('tenant')
@@ -5182,9 +5181,6 @@ $app->post('/addGoodsOrder',function()use($app){
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
 });
-
-
-
 
 
 $app->run();
