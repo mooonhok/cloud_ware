@@ -384,7 +384,7 @@ $app->get('/getOrders0', function () use ($app) {
             ->whereLike('order_id',$tenant_num.'%');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
+        echo json_encode(array("result" => "0", "desc" => "success", "count" => count($data)));
     } else {
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
