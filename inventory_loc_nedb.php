@@ -19,24 +19,27 @@ $app->post('/addInventoryLoc',function()use($app) {
     $body = json_decode($body);
     $database = localhost();
     $inventory_loc_name = $body->inventory_loc_name;
-    $inventory_loc_id = $body->inventory_loc_id;
+//    $inventory_loc_id = $body->inventory_loc_id;
     $array = array();
     foreach ($body as $key => $value) {
         $array[$key] = $value;
     }
     if($tenant_id!=null||$tenant_id!=''){
        if($inventory_loc_name!=null||$inventory_loc_name!=''){
-           if($inventory_loc_id!=null||$inventory_loc_id!=''){
+
+               $selectStatement = $database->select()
+                   ->from('inventory_loc')
+                   ->where('tenant_id', '=', $tenant_id);
+               $stmt = $selectStatement->execute();
+               $data = $stmt->fetchAll();
                $array['tenant_id']=$tenant_id;
                $array['exist']=0;
+               $array['inventory_loc_id']=count($data)+100001;
                $insertStatement = $database->insert(array_keys($array))
                    ->into('inventory_loc')
                    ->values(array_values($array));
                $insertId = $insertStatement->execute(false);
                echo json_encode(array("result" => "0", "desc" => "success"));
-           }else{
-               echo json_encode(array("result" => "1", "desc" => "缺少库位id"));
-           }
        }else{
            echo json_encode(array("result" => "2", "desc" => "缺少库位名字"));
        }
@@ -45,25 +48,8 @@ $app->post('/addInventoryLoc',function()use($app) {
     }
 });
 
-$app->get('/getInventoryLocs0',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
-    $tenant_id = $app->request->headers->get("tenant-id");
-    $database = localhost();
-    if($tenant_id!=null||$tenant_id!=''){
-        $selectStatement = $database->select()
-            ->from('inventory_loc')
-            ->where('tenant_id', '=', $tenant_id)
-            ->where('exist','=',0)
-            ->orderBy('inventory_loc_name');
-        $stmt = $selectStatement->execute();
-        $data = $stmt->fetchAll();
-        echo json_encode(array("result" => "0", "desc" => "success",'inventory_locs'=>$data));
-    }else{
-        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
-    }
-});
 
-$app->get('/getInventoryLocs1',function()use($app){
+$app->get('/getInventoryLocs',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
