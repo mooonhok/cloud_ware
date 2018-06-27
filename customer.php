@@ -842,6 +842,7 @@ $app->get('/old_customers_f',function()use($app){
         ->limit(10);
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
+    if($data1!=null){
     for($i=0;$i<count($data1);$i++){
         $selectStatement = $database->select()
             ->from('city')
@@ -856,6 +857,7 @@ $app->get('/old_customers_f',function()use($app){
         $array1[$i]['cityname']=$data2['name'];
     }
     $array1=array_values(array_unique_fb($array1));
+    }
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array1));
 });
 
@@ -876,21 +878,23 @@ $app->get('/old_customers_s',function()use($app){
         ->limit(10);
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
-    for($i=0;$i<count($data1);$i++){
-        $selectStatement = $database->select()
-            ->from('city')
-            ->where('id','=',$data1[$i]['customer_city_id']);
-        $stmt = $selectStatement->execute();
-        $data2 = $stmt->fetch();
-        $data1[$i]['cityname']=$data2['name'];
+    if($data1!=null){
+        for ($i = 0; $i < count($data1); $i++) {
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data1[$i]['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $data1[$i]['cityname'] = $data2['name'];
 
-        $array1[$i]['customer_id']=$data1[$i]['customer_id'];
-        $array1[$i]['customer_name']=$data1[$i]['customer_name'];
-        $array1[$i]['customer_address']=$data1[$i]['customer_address'];
-        $array1[$i]['customer_phone']=$data1[$i]['customer_phone'];
-        $array1[$i]['cityname']=$data2['name'];
+            $array1[$i]['customer_id'] = $data1[$i]['customer_id'];
+            $array1[$i]['customer_name'] = $data1[$i]['customer_name'];
+            $array1[$i]['customer_address'] = $data1[$i]['customer_address'];
+            $array1[$i]['customer_phone'] = $data1[$i]['customer_phone'];
+            $array1[$i]['cityname'] = $data2['name'];
+        }
+        $array1 = array_values(array_unique_fb($array1));
     }
-    $array1=array_values(array_unique_fb($array1));
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array1));
 });
 
