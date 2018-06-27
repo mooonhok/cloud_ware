@@ -5173,7 +5173,7 @@ $app->post('/addGoodsOrder',function()use($app){
                 ->into('orders')
                 ->values(array_values($array2));
             $insertId = $insertStatement->execute(false);
-            echo json_encode(array("result" => "0", "desc" => "success"));
+            echo json_encode(array("result" => "0", "desc" => "success",'order_id'=>$array1['order_id']));
         }else{
             echo json_encode(array("result" => "2", "desc" => "租户不存在"));
         }
