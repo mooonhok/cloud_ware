@@ -5092,7 +5092,7 @@ $app->get('/limitGoodsOrders11',function()use($app){
     }
 });
 
-$app->post('/addGoodsOrder',function()use($app) {
+$app->post('/addGoodsOrder',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
     $tenant_id = $app->request->headers->get("tenant-id");
@@ -5157,9 +5157,6 @@ $app->post('/addGoodsOrder',function()use($app) {
                 $array1['order_id']=$data['tenant_num'].count($data2);
                 $array2['order_id']=$data['tenant_num'].count($data2);
             }
-//            $array1['goods_id']=count($data2)+(int)($data['tenant_num']."000001");
-//            $array1['order_id']=count($data2)+(int)($data['tenant_num']."000001");
-//            $array2['order_id']=count($data2)+(int)($data['tenant_num']."000001");
             $insertStatement = $database->insert(array_keys($array1))
                 ->into('goods')
                 ->values(array_values($array));
