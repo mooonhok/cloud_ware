@@ -41,39 +41,23 @@ $app->post('/addLorry',function()use($app) {
                             ->where('phone', '=', $driver_phone);
                         $stmt = $selectStatement->execute();
                         $data = $stmt->fetch();
-//                        $selectStatement = $database->select()
-//                            ->from('lorry')
-//                            ->where('tenant_id', '=', $tenant_id)
-//                            ->where('plate_number', '=', $plate_number)
-//                            ->where('driver_name', '=', $driver_name)
-//                            ->where('driver_phone', '=', $driver_phone);
-//                        $stmt = $selectStatement->execute();
-////                        $data4 = $stmt->fetch();
-//                              if(!$data1){
-//                                  echo json_encode(array("result" => "6", "desc" => "请司机下载交付帮手注册"));
-//                              }else{
-//                                  if($data1['lorry_status']==1){
-//                                      echo json_encode(array("result" => "7", "desc" => "驾驶员正在修改个人资料"));
-//                                  }else{
-//                                 if($data4==null){
-                                     $array['tenant_id']=$tenant_id;
-                                     $array['exist']=0;
-                                     $selectStatement = $database->select()
-                                       ->from('lorry')
-                                       ->where('tenant_id', '=', $tenant_id);
-                                     $stmt = $selectStatement->execute();
-                                     $data1 = $stmt->fetchAll();
-                                     $array['lorry_id']=count($data1)+100000001;
-                                     $insertStatement = $database->insert(array_keys($array))
-                                         ->into('lorry')
-                                         ->values(array_values($array));
-                                      $insertId = $insertStatement->execute(false);
-                                      echo json_encode(array("result" => "0", "desc" => "success",'app_lorry'=>$data['app_lorry_id']));
-//                                   }else if($data4['exist']==0){
-//                                      echo json_encode(array("result" => "1", "desc" => "该车辆已被添加过"));
-//                                    }else if($data4['exist']==1){
-//                                     echo json_encode(array("result" => "8", "desc" => "车辆已被您加入了黑名单"));
-//                                 }}}
+                        $array['tenant_id']=$tenant_id;
+                        $array['exist']=0;
+                        $selectStatement = $database->select()
+                            ->from('lorry')
+                            ->where('tenant_id', '=', $tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data1 = $stmt->fetchAll();
+                        $array['lorry_id']=count($data1)+100000001;
+                        $insertStatement = $database->insert(array_keys($array))
+                            ->into('lorry')
+                            ->values(array_values($array));
+                        $insertId = $insertStatement->execute(false);
+                        $updateStatement = $database->update(array('lorry_status'=>2))
+                            ->table('app_lorry')
+                            ->where('app_lorry_id','=',$data['app_lorry_id']);
+                        $affectedRows = $updateStatement->execute();
+                        echo json_encode(array("result" => "0", "desc" => "success"));
                     }else{
                         echo json_encode(array("result" => "2", "desc" => "缺少驾驶员手机号码"));
                     }
