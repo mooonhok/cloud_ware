@@ -39,7 +39,6 @@ $app->post('/addInventoryLoc',function()use($app) {
                $stmt = $selectStatement->execute();
                $data = $stmt->fetchAll();
                $array['tenant_id']=$tenant_id;
-               $array['exist']=0;
                $array['inventory_loc_id']=count($data)+100001;
                $insertStatement = $database->insert(array_keys($array))
                    ->into('inventory_loc')
