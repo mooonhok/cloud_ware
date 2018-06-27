@@ -36,6 +36,10 @@ $app->post('/addAppLorryReject',function()use($app){
                     ->into('app_lorry_reject')
                     ->values(array_values($array));
                 $insertId = $insertStatement->execute(false);
+                $updateStatement = $database->update(array('lorry_status'=>1))
+                    ->table('app_lorry')
+                    ->where('app_lorry_id','=',$app_lorry_id);
+                $affectedRows = $updateStatement->execute();
                 if($insertId){
                     echo json_encode(array("result"=>"0","desc"=>"success"));
                 }else{
