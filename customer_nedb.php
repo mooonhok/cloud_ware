@@ -204,11 +204,11 @@ $app->get('/getCustomer1',function()use($app){
                 ->where('id', '=', $data['customer_city_id']);
             $stmt = $selectStatement->execute();
             $data6 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('province')
-                ->where('id', '=', $data6['pid']);
-            $stmt = $selectStatement->execute();
-            $data8 = $stmt->fetch();
+//            $selectStatement = $database->select()
+//                ->from('province')
+//                ->where('id', '=', $data6['pid']);
+//            $stmt = $selectStatement->execute();
+//            $data8 = $stmt->fetch();
             if($data['contact_tenant_id']!=null){
                 $selectStatement = $database->select()
                     ->from('tenant')
@@ -222,8 +222,8 @@ $app->get('/getCustomer1',function()use($app){
                 $data['contact_company']='';
                 $data['contact_jcompany']='';
             }
-            $data['customer_city']=$data6['name'];
-            $data['province']=$data8['name'];
+//            $data['customer_city']=$data6['name'];
+//            $data['province']=$data8['name'];
             $data['province_id']=$data6['pid'];
             echo json_encode(array("result" => "0", "desc" => "success",'customer'=>$data));
         }else{
