@@ -5092,6 +5092,79 @@ $app->get('/limitGoodsOrders11',function()use($app){
     }
 });
 
+$app->post('/addGoodsOrder',function()use($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $array1=array();
+    $array2=array();
+    $array1['goods_name']= $body->goods_name;
+    $array1['goods_weight']= $body->goods_weight;
+    $array1['goods_value']=$body->goods_value;
+    $array1['goods_count']=$body->goods_count;
+    $array1['goods_capacity']=$body->goods_capacity;
+    $array1['goods_package_id']=$body->goods_package_id;
+    $array1['special_need']=$body->special_need;
+    $array1['exist']=0;
+    $array1['tenant_id']=$tenant_id;
+    $array2['tenant_id']=$tenant_id;
+    $array2['exist']=0;
+    $array2['sender_id']=$body->sender_id;
+    $array2['receiver_id']=$body->receiver_id;
+    $array2['pay_method']=$body->pay_method;
+    $array2['order_cost']=$body->order_cost;
+    $array2['order_status']=$body->order_status;
+    $array2['inventory_type']=$body->inventory_type;
+    $flag=$body->flag;
+    $array=array();
+    if($tenant_id!=null||$tenant_id!=""){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('tenant_id', '=', $tenant_id);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetch();
+        if($data!=null){
+            $selectStatement = $database->select()
+              ->from('orders')
+              ->where('tenant_id', '=', $tenant_id)
+              ->whereLike('order_id',$data['tenant_num'].'%');
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetchAll();
+            $array1['goods_id']=count($data2)+(int)($data['tenant_num']."000001");
+            $array1['order_id']=count($data2)+(int)($data['tenant_num']."000001");
+            $array2['order_id']=count($data2)+(int)($data['tenant_num']."000001");
+            $insertStatement = $database->insert(array_keys($array1))
+                ->into('goods')
+                ->values(array_values($array));
+            $insertId = $insertStatement->execute(false);
+            date_default_timezone_set("PRC");
+            $array1['order_datetime0']=date('Y-m-d H:i:s',time());
+            if($flag==0){
+                $array1['order_datetime1']=date('Y-m-d H:i:s',time());
+            }else{
+                $array1['order_datetime1']=null;
+            }
+            $array2["is_schedule"]=0;
+            $array2["is_transfer"]=0;
+            $insertStatement = $database->insert(array_keys($array2))
+                ->into('orders')
+                ->values(array_values($array1));
+            $insertId = $insertStatement->execute(false);
+            echo json_encode(array("result" => "0", "desc" => "success"));
+        }else{
+            echo json_encode(array("result" => "2", "desc" => "租户不存在"));
+        }
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
+
+
+
+
 $app->run();
 function localhost(){
     return connect();
