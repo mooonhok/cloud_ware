@@ -838,7 +838,7 @@ $app->get('/old_customers_f',function()use($app){
         ->where('type','=',1)
         ->whereNotNull('times')
         ->where('times','!=',0)
-        ->orderBy('id','DESC')
+        ->orderBy('id')
         ->limit(10);
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
@@ -872,7 +872,7 @@ $app->get('/old_customers_s',function()use($app){
         ->where('tenant_id','=',$tenant_id)
         ->where('exist','=',0)
         ->where('type','=',0)
-        ->orderBy('id','DESC')
+        ->orderBy('id')
         ->limit(10);
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
