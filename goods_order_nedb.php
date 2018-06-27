@@ -5132,9 +5132,34 @@ $app->post('/addGoodsOrder',function()use($app) {
               ->whereLike('order_id',$data['tenant_num'].'%');
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
-            $array1['goods_id']=count($data2)+(int)($data['tenant_num']."000001");
-            $array1['order_id']=count($data2)+(int)($data['tenant_num']."000001");
-            $array2['order_id']=count($data2)+(int)($data['tenant_num']."000001");
+            if(count($data2)<10){
+                $array1['goods_id']=$data['tenant_num']."00000".count($data2);
+                $array1['order_id']=$data['tenant_num']."00000".count($data2);
+                $array2['order_id']=$data['tenant_num']."00000".count($data2);
+            }else if(count($data2)<100&&count($data2)>9){
+                $array1['goods_id']=$data['tenant_num']."0000".count($data2);
+                $array1['order_id']=$data['tenant_num']."0000".count($data2);
+                $array2['order_id']=$data['tenant_num']."0000".count($data2);
+            }else if(count($data2)<1000&&count($data2)>99){
+                $array1['goods_id']=$data['tenant_num']."000".count($data2);
+                $array1['order_id']=$data['tenant_num']."000".count($data2);
+                $array2['order_id']=$data['tenant_num']."000".count($data2);
+            }else if(count($data2)<10000&&count($data2)>999){
+                $array1['goods_id']=$data['tenant_num']."00".count($data2);
+                $array1['order_id']=$data['tenant_num']."00".count($data2);
+                $array2['order_id']=$data['tenant_num']."00".count($data2);
+            }else if(count($data2)<100000&&count($data2)>9999){
+                $array1['goods_id']=$data['tenant_num']."0".count($data2);
+                $array1['order_id']=$data['tenant_num']."0".count($data2);
+                $array2['order_id']=$data['tenant_num']."0".count($data2);
+            }else if(count($data2)<1000000&&count($data2)>99999){
+                $array1['goods_id']=$data['tenant_num'].count($data2);
+                $array1['order_id']=$data['tenant_num'].count($data2);
+                $array2['order_id']=$data['tenant_num'].count($data2);
+            }
+//            $array1['goods_id']=count($data2)+(int)($data['tenant_num']."000001");
+//            $array1['order_id']=count($data2)+(int)($data['tenant_num']."000001");
+//            $array2['order_id']=count($data2)+(int)($data['tenant_num']."000001");
             $insertStatement = $database->insert(array_keys($array1))
                 ->into('goods')
                 ->values(array_values($array));
