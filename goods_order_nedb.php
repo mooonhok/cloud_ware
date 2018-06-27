@@ -5161,11 +5161,11 @@ $app->post('/addGoodsOrder',function()use($app){
                 ->values(array_values($array1));
             $insertId = $insertStatement->execute(false);
             date_default_timezone_set("PRC");
-            $array1['order_datetime0']=date('Y-m-d H:i:s',time());
+            $array2['order_datetime0']=date('Y-m-d H:i:s',time());
             if($flag==0){
-                $array1['order_datetime1']=date('Y-m-d H:i:s',time());
+                $array2['order_datetime1']=date('Y-m-d H:i:s',time());
             }else{
-                $array1['order_datetime1']=null;
+                $array2['order_datetime1']=null;
             }
             $array2["is_schedule"]=0;
             $array2["is_transfer"]=0;
