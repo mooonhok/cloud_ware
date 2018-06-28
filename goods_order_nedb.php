@@ -5547,17 +5547,17 @@ $app->put('/alterGoodsOrder',function()use($app){
             $stmt = $selectStatement->execute();
             $data3 = $stmt->fetchAll();
             $order_id2=null;
-            if(count($data2)<10){
+            if(count($data3)<10){
                 $order_id2=$tenant_num."00000".(count($data3)+1);
-            }else if(count($data2)<100&&count($data2)>9){
+            }else if(count($data3)<100&&count($data3)>9){
                 $order_id2=$tenant_num."0000".(count($data3)+1);
-            }else if(count($data2)<1000&&count($data2)>99){
+            }else if(count($data3)<1000&&count($data3)>99){
                 $order_id2=$tenant_num."000".(count($data3)+1);
-            }else if(count($data2)<10000&&count($data2)>999){
+            }else if(count($data3)<10000&&count($data3)>999){
                 $order_id2=$tenant_num."00".(count($data3)+1);
-            }else if(count($data2)<100000&&count($data2)>9999){
+            }else if(count($data3)<100000&&count($data3)>9999){
                 $order_id2=$tenant_num."0".(count($data3)+1);
-            }else if(count($data2)<1000000&&count($data2)>99999){
+            }else if(count($data3)<1000000&&count($data3)>99999){
                 $order_id2=$tenant_num.(count($data3)+1);
             }
             $updateStatement = $database->update(array('order_id' => $order_id2,'order_cost' => $order_cost,'order_status' => $order_status,'order_datetime1' => $order_datetime1,'inventory_type' => $inventory_type,'tenant_id'=>$tenant_id,'pay_method'=>$pay_method))
