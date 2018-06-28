@@ -5508,7 +5508,7 @@ $app->put('/alterGoodsOrder',function()use($app){
     $order_cost=$body->order_cost;
     $order_status=$body->order_status;
     $inventory_type=$body->inventory_type;
-    $pay_method=$body->pay_menthod;
+    $pay_method=$body->pay_method;
     $goods_count=$body->goods_count;
     $goods_capacity=$body->goods_capacity;
     $goods_weight=$body->goods_weight;
