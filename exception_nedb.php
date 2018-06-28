@@ -37,7 +37,8 @@ $app->post('/addException',function()use($app){
                 if($exception_time!=null||$exception_time!=''){
                     if($order_id!=null||$order_id!=''){
                         $selectStatement = $database->select()
-                            ->from('exception');
+                            ->from('exception')
+                            ->where('tenant_id', '=', $tenant_id);
                         $stmt = $selectStatement->execute();
                         $data = $stmt->fetchAll();
                         $exception_id=count($data)+100000001;
