@@ -386,7 +386,7 @@ $app->post('/wxmessages',function()use($app){
                     ->where('order_id','=',$data[$i]['order_id']);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
-                $array['orders']=$data1;
+//                $array['orders']=$data1;
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('tenant_id','=',$tenant_id)
@@ -413,14 +413,14 @@ $app->post('/wxmessages',function()use($app){
                 $data6 = $stmt->fetch();
                 $array['receiver_city']=$data6['name'];
                 $array['receiver']=$data3;
-                $selectStatement = $database->select()
-                    ->from('goods')
-                    ->where('tenant_id','=',$tenant_id)
-                    ->where('exist',"=",0)
-                    ->where('order_id','=',$data[$i]['order_id']);
-                $stmt = $selectStatement->execute();
-                $data4 = $stmt->fetch();
-                $array['goods']=$data4;
+//                $selectStatement = $database->select()
+//                    ->from('goods')
+//                    ->where('tenant_id','=',$tenant_id)
+//                    ->where('exist',"=",0)
+//                    ->where('order_id','=',$data[$i]['order_id']);
+//                $stmt = $selectStatement->execute();
+//                $data4 = $stmt->fetch();
+//                $array['goods']=$data4;
                 array_push($array1,$array);
             }
             echo  json_encode(array("result"=>"0","desc"=>"success","wxmessage"=>$array1));
@@ -445,7 +445,7 @@ $app->post('/wxmessages',function()use($app){
                     ->where('order_id', '=', $data[$i]['order_id']);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
-                $array['orders'] = $data1;
+//                $array['orders'] = $data1;
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('tenant_id', '=', $tenant_id)
@@ -473,14 +473,14 @@ $app->post('/wxmessages',function()use($app){
                 $data6 = $stmt->fetch();
                 $array['receiver_city']=$data6['name'];
                 $array['receiver'] = $data3;
-                $selectStatement = $database->select()
-                    ->from('goods')
-                    ->where('tenant_id', '=', $tenant_id)
-                    ->where('exist', "=", 0)
-                    ->where('order_id', '=', $data1['order_id']);
-                $stmt = $selectStatement->execute();
-                $data7 = $stmt->fetch();
-                $array['goods'] = $data7;
+//                $selectStatement = $database->select()
+//                    ->from('goods')
+//                    ->where('tenant_id', '=', $tenant_id)
+//                    ->where('exist', "=", 0)
+//                    ->where('order_id', '=', $data1['order_id']);
+//                $stmt = $selectStatement->execute();
+//                $data7 = $stmt->fetch();
+//                $array['goods'] = $data7;
                 array_push($array1, $array);
             }
             echo json_encode(array("result" => "0", "desc" => "success", "orders" => $array1));
