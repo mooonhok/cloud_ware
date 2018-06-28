@@ -53,7 +53,7 @@ $app->post('/addException',function()use($app){
                         $array1['exception_id']=$exception_id;
                         $updateStatement = $database->update($array1)
                             ->table('orders')
-                            ->where('order_id','=',$tenant_id)
+                            ->where('order_id','=',$order_id)
                             ->where('tenant_id','=',$tenant_id);
                         $affectedRows = $updateStatement->execute();
                         echo json_encode(array("result" => "0", "desc" => ""));
