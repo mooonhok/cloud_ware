@@ -1673,7 +1673,7 @@ $app->get('/order_unaccept',function()use($app){
         ->where('orders.order_status','=',-2);
     $stmt = $selectStatement->execute();
     $data1= $stmt->fetchAll();
-    echo json_encode(array("result"=>"0","desc"=>"success","orders"=>$data1));
+    echo json_encode(array("result"=>"0","desc"=>"success","count"=>count($data1)));
 });
 
 //批量上传，有改无增
