@@ -94,27 +94,6 @@ $app->get('/getLorry',function()use($app){
                 ->orderBy('id','DESC');
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
-//            for($i=0;$i<count($data);$i++){
-//                $selectStatement = $database->select()
-//                    ->from('lorry_length')
-//                    ->where('lorry_length.lorry_length_id', '=', $data[$i]['length']);
-//                $stmt = $selectStatement->execute();
-//                $data1 = $stmt->fetch();
-////                $selectStatement = $database->select()
-////                    ->from('lorry_load')
-////                    ->where('lorry_load.lorry_load_id', '=', $data[$i]['deadweight']);
-////                $stmt = $selectStatement->execute();
-////                $data2 = $stmt->fetch();
-//                $selectStatement = $database->select()
-//                    ->from('lorry_type')
-//                    ->where('lorry_type.lorry_type_id', '=', $data[$i]['type']);
-//                $stmt = $selectStatement->execute();
-//                $data3 = $stmt->fetch();
-//                $data[$i]['lorry_length_name']=$data1['lorry_length'];
-//                $data[$i]['lorry_type_name']=$data3['lorry_type_name'];
-////                $data[$i]['lorry_load_name']=$data2['lorry_load'];
-//            }
-
             echo json_encode(array("result" => "0", "desc" => "success",'lorrys'=>$data));
         }else{
             echo json_encode(array("result" => "1", "desc" => "缺少车牌号码"));
@@ -133,7 +112,6 @@ $app->get('/getLorry1',function()use($app){
     $driver_name=$app->request->get('driver_name');
     if($tenant_id!=null||$tenant_id!=''){
         if($driver_phone!=null||$driver_phone!=''){
-
             $selectStatement = $database->select()
                 ->from('app_lorry')
                 ->join('lorry','app_lorry.phone','=','lorry.driver_phone','INNER')
@@ -152,11 +130,6 @@ $app->get('/getLorry1',function()use($app){
                     ->where('lorry_length.lorry_length_id', '=', $data[$i]['length']);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
-//                $selectStatement = $database->select()
-//                    ->from('lorry_load')
-//                    ->where('lorry_load.lorry_load_id', '=', $data[$i]['deadweight']);
-//                $stmt = $selectStatement->execute();
-//                $data2 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('lorry_type')
                     ->where('lorry_type.lorry_type_id', '=', $data[$i]['type']);
@@ -164,9 +137,7 @@ $app->get('/getLorry1',function()use($app){
                 $data3 = $stmt->fetch();
                 $data[$i]['lorry_length_name']=$data1['lorry_length'];
                 $data[$i]['lorry_type_name']=$data3['lorry_type_name'];
-//                $data[$i]['lorry_load_name']=$data2['lorry_load'];
             }
-
             echo json_encode(array("result" => "0", "desc" => "success",'lorrys'=>$data));
         }else{
             echo json_encode(array("result" => "1", "desc" => "缺少电话号码"));
@@ -176,40 +147,6 @@ $app->get('/getLorry1',function()use($app){
     }
 });
 
-//$app->get('/getLorrys0',function()use($app){
-//    $app->response->headers->set('Content-Type', 'application/json');
-//    $tenant_id = $app->request->headers->get("tenant-id");
-//    $database = localhost();
-//    if($tenant_id!=null||$tenant_id!=''){
-//        $selectStatement = $database->select()
-//            ->from('lorry')
-//            ->where('tenant_id', '=', $tenant_id);
-//        $stmt = $selectStatement->execute();
-//        $data = $stmt->fetchAll();
-////        for($i=0;$i<count($data);$i++){
-////            $selectStatement = $database->select()
-////                ->from('lorry_length')
-////                ->where('lorry_length.lorry_length_id', '=', $data[$i]['length']);
-////            $stmt = $selectStatement->execute();
-////            $data1 = $stmt->fetch();
-//////            $selectStatement = $database->select()
-//////                ->from('lorry_load')
-//////                ->where('lorry_load.lorry_load_id', '=', $data[$i]['deadweight']);
-//////            $stmt = $selectStatement->execute();
-//////            $data2 = $stmt->fetch();
-////            $selectStatement = $database->select()
-////                ->from('lorry_type')
-////                ->where('lorry_type.lorry_type_id', '=', $data[$i]['type']);
-////            $stmt = $selectStatement->execute();
-////            $data3 = $stmt->fetch();
-////            $data[$i]['lorry_length_name']=$data1['lorry_length'];
-////            $data[$i]['lorry_type_name']=$data3['lorry_type_name'];
-////        }
-//        echo json_encode(array("result" => "0", "desc" => "success",'lorrys'=>$data));
-//    }else{
-//        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
-//    }
-//});
 
 $app->get('/getLorrys1',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
@@ -219,31 +156,10 @@ $app->get('/getLorrys1',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('lorry')
-//            ->leftJoin('app_lorry','app_lorry.phone','=','lorry.driver_phone')
-//            ->where('app_lorry.exist', '=', 0)
             ->where('exist', '=',$exist)
             ->where('tenant_id', '=', $tenant_id);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-//        for($i=0;$i<count($data);$i++){
-//            $selectStatement = $database->select()
-//                ->from('lorry_length')
-//                ->where('lorry_length.lorry_length_id', '=', $data[$i]['length']);
-//            $stmt = $selectStatement->execute();
-//            $data1 = $stmt->fetch();
-////            $selectStatement = $database->select()
-////                ->from('lorry_load')
-////                ->where('lorry_load.lorry_load_id', '=', $data[$i]['deadweight']);
-////            $stmt = $selectStatement->execute();
-////            $data2 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('lorry_type')
-//                ->where('lorry_type.lorry_type_id', '=', $data[$i]['type']);
-//            $stmt = $selectStatement->execute();
-//            $data3 = $stmt->fetch();
-//            $data[$i]['lorry_length_name']=$data1['lorry_length'];
-//            $data[$i]['lorry_type_name']=$data3['lorry_type_name'];
-//        }
         echo json_encode(array("result" => "0", "desc" => "success",'lorrys'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
@@ -301,21 +217,11 @@ $app->get('/limitLorrys3',function()use($app){
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
     $flag=$app->request->get('flag');
-//    $plate_number=$app->request->get('plate_number');
-//    $driver_name=$app->request->get('driver_name');
-//    $driver_phone=$app->request->get('driver_phone');
     $size= $app->request->get('size');
     $offset= $app->request->get('offset');
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('lorry')
-//            ->leftJoin('app_lorry','app_lorry.phone','=','lorry.driver_phone')
-//            ->where('app_lorry.exist', '=', 0)
-//
-//            ->where('app_lorry.phone', '=', $driver_phone)
-//            ->where('app_lorry.plate_number', '=', $plate_number)
-//            ->where('app_lorry.name', '=', $driver_name)
-//            ->where('app_lorry.flag', '=', $flag)
             ->where('exist', '=', 0)
             ->where('tenant_id', '=', $tenant_id)
             ->where('flag', '=', $flag)
@@ -338,11 +244,6 @@ $app->get('/limitLorrys3',function()use($app){
                 ->where('lorry_length.lorry_length_id', '=', $data2['length']);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('lorry_load')
-//                ->where('lorry_load.lorry_load_id', '=', $data[$i]['deadweight']);
-//            $stmt = $selectStatement->execute();
-//            $data2 = $stmt->fetch();
             $selectStatement = $database->select()
                 ->from('lorry_type')
                 ->where('lorry_type.lorry_type_id', '=', $data2['type']);
@@ -406,8 +307,6 @@ $app->get('/searchLorry',function()use($app){
         if($lorry_id!=null||$lorry_id!=''){
             $selectStatement = $database->select()
                 ->from('lorry')
-//                ->leftJoin('app_lorry','app_lorry.phone','=','lorry.driver_phone')
-//                ->where('app_lorry.exist', '=', 0)
                 ->where('tenant_id', '=', $tenant_id)
                 ->where('lorry_id', '=', $lorry_id);
             $stmt = $selectStatement->execute();
@@ -425,11 +324,6 @@ $app->get('/searchLorry',function()use($app){
                     ->where('lorry_length.lorry_length_id', '=', $data2['length']);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetch();
-//                $selectStatement = $database->select()
-//                    ->from('lorry_load')
-//                    ->where('lorry_load.lorry_load_id', '=', $data[$i]['deadweight']);
-//                $stmt = $selectStatement->execute();
-//                $data2 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('lorry_type')
                     ->where('lorry_type.lorry_type_id', '=', $data2['type']);
