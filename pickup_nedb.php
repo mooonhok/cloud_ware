@@ -31,55 +31,55 @@ $app->post('/addPickup',function()use($app) {
             $array[$key]=$value;
         }
     }
-        if($pickup_name!=null||$pickup_name!=''){
-            if($pickup_phone!=null||$pickup_phone!=''){
-                if($pickup_number!=null||$pickup_number!=''){
-                    if($type!=null||$type!=""){
+    if($pickup_name!=null||$pickup_name!=''){
+        if($pickup_phone!=null||$pickup_phone!=''){
+            if($pickup_number!=null||$pickup_number!=''){
+                if($type!=null||$type!=""){
+                    $selectStatement = $database->select()
+                        ->from('pickup')
+                        ->where('pickup_name','=',$pickup_name)
+                        ->where('pickup_phone','=',$pickup_phone)
+                        ->where('pickup_number','=',$pickup_number)
+                        ->where('type','=',$type)
+                        ->where('exist','=',0);
+                    $stmt = $selectStatement->execute();
+                    $data = $stmt->fetch();
+                    if($data==null){
                         $selectStatement = $database->select()
-                            ->from('pickup')
-                            ->where('pickup_name','=',$pickup_name)
-                            ->where('pickup_phone','=',$pickup_phone)
-                            ->where('pickup_number','=',$pickup_number)
-                            ->where('type','=',$type)
-                            ->where('exist','=',0);
+                            ->from('pickup');
                         $stmt = $selectStatement->execute();
-                        $data = $stmt->fetch();
-                        if($data==null){
-                            $selectStatement = $database->select()
-                                ->from('pickup');
-                            $stmt = $selectStatement->execute();
-                            $data = $stmt->fetchAll();
-                            $array['pickup_id']=count($data)+1000000001;
-                            $insertStatement = $database->insert(array_keys($array))
-                                ->into('pickup')
-                                ->values(array_values($array));
-                            $insertId = $insertStatement->execute(false);
-                            $updateStatement = $database->update(array('pickup_id'=> $array['pickup_id'],'order_datetime5'=>$order_datetime5,'order_status'=>7))
-                                ->table('orders')
-                                ->where('exist','=',0)
-                                ->where('order_id','=',$order_id);
-                            $affectedRows = $updateStatement->execute();
-                            echo json_encode(array("result" => "0", "desc" => "success"));
-                        }else{
-                            $updateStatement = $database->update(array('pickup_id'=> $data['pickup_id'],'order_datetime5'=>$order_datetime5,'order_status'=>7))
-                                ->table('orders')
-                                ->where('exist','=',0)
-                                ->where('order_id','=',$order_id);
-                            $affectedRows = $updateStatement->execute();
-                            echo json_encode(array("result" => "0", "desc" => "success"));
-                        }
+                        $data2 = $stmt->fetchAll();
+                        $array['pickup_id']=count($data2)+1000000001;
+                        $insertStatement = $database->insert(array_keys($array))
+                            ->into('pickup')
+                            ->values(array_values($array));
+                        $insertId = $insertStatement->execute(false);
+                        $updateStatement = $database->update(array('pickup_id'=> $array['pickup_id'],'order_datetime5'=>$order_datetime5,'order_status'=>7))
+                            ->table('orders')
+                            ->where('exist','=',0)
+                            ->where('order_id','=',$order_id);
+                        $affectedRows = $updateStatement->execute();
+                        echo json_encode(array("result" => "0", "desc" => "success"));
                     }else{
-                        echo json_encode(array("result" => "6", "desc" => "缺少类型"));
+                        $updateStatement = $database->update(array('pickup_id'=> $data['pickup_id'],'order_datetime5'=>$order_datetime5,'order_status'=>7))
+                            ->table('orders')
+                            ->where('exist','=',0)
+                            ->where('order_id','=',$order_id);
+                        $affectedRows = $updateStatement->execute();
+                        echo json_encode(array("result" => "0", "desc" => "success"));
                     }
                 }else{
-                    echo json_encode(array("result" => "1", "desc" => "缺少收件人身份证"));
+                    echo json_encode(array("result" => "6", "desc" => "缺少类型"));
                 }
             }else{
-                echo json_encode(array("result" => "2", "desc" => "缺少收件人电话"));
+                echo json_encode(array("result" => "1", "desc" => "缺少收件人身份证"));
             }
         }else{
-            echo json_encode(array("result" => "3", "desc" => "缺少收件人名字"));
+            echo json_encode(array("result" => "2", "desc" => "缺少收件人电话"));
         }
+    }else{
+        echo json_encode(array("result" => "3", "desc" => "缺少收件人名字"));
+    }
 });
 
 $app->get('/getPickup0',function()use($app){
