@@ -5494,6 +5494,100 @@ $app->post('/addCustomer',function()use($app) {
         echo json_encode(array("result" => "7", "desc" => "缺少租户id"));
     }
 });
+
+
+
+$app->put('/alterGoodsOrder',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $order_id=$body->order_id;
+    $order_cost=$body->order_cost;
+    $order_status=$body->order_status;
+    $inventory_type=$body->inventory_type;
+    $pay_method=$body->pay_menthod;
+    $goods_count=$body->goods_count;
+    $goods_capacity=$body->goods_capacity;
+    $goods_weight=$body->goods_weight;
+    $goods_package_id=$body->goods_package_id;
+    $goods_value=$body->goods_value;
+    $tenant_num=$body->tenant_num;
+    date_default_timezone_set("PRC");
+    $order_datetime1=date('Y-m-d H:i:s',time());
+    if($tenant_id!=null||$tenant_id!=""){
+        if($order_id!=null||$order_id!=""){
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('order_id','=',$order_id)
+                ->where('tenant_id','=',$tenant_id);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('customer_id','=',$data1['sender_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            if($data2['times']==null||$data2['times']==""){
+                $data2['times']=0;
+            }
+            $updateStatement = $database->update(array('type'=>1,'times'=>($data2['times']+1)))
+                ->table('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('customer_id','=',$data1['sender_id']);
+            $affectedRows = $updateStatement->execute();
+
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('tenant_id', '=', $tenant_id)
+                ->whereLike('order_id',$tenant_num.'%');
+            $stmt = $selectStatement->execute();
+            $data3 = $stmt->fetchAll();
+            $order_id2=null;
+            if(count($data2)<10){
+                $order_id2=$tenant_num."00000".(count($data3)+1);
+            }else if(count($data2)<100&&count($data2)>9){
+                $order_id2=$tenant_num."0000".(count($data3)+1);
+            }else if(count($data2)<1000&&count($data2)>99){
+                $order_id2=$tenant_num."000".(count($data3)+1);
+            }else if(count($data2)<10000&&count($data2)>999){
+                $order_id2=$tenant_num."00".(count($data3)+1);
+            }else if(count($data2)<100000&&count($data2)>9999){
+                $order_id2=$tenant_num."0".(count($data3)+1);
+            }else if(count($data2)<1000000&&count($data2)>99999){
+                $order_id2=$tenant_num.(count($data3)+1);
+            }
+            $updateStatement = $database->update(array('order_id' => $order_id2,'order_cost' => $order_cost,'order_status' => $order_status,'order_datetime1' => $order_datetime1,'inventory_type' => $inventory_type,'tenant_id'=>$tenant_id,'pay_method'=>$pay_method))
+                ->table('orders')
+                ->where('exist','=',0)
+                ->where('order_id', '=', $order_id)
+                ->where('tenant_id','=',$tenant_id);
+            $affectedRows = $updateStatement->execute();
+            $updateStatement = $database->update(array('order_id' => $order_id2,"goods_id"=>$order_id2,"goods_count"=>$goods_count,"goods_capacity"=>$goods_capacity,"goods_weight"=>$goods_weight,"goods_value"=>$goods_value,"goods_package_id"=>$goods_package_id))
+                ->table('goods')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('order_id','=',$order_id)
+                ->where('exist',"=",0);
+            $affectedRows = $updateStatement->execute();
+
+            $updateStatement = $database->update(array('order_id' => $order_id2))
+                ->table('wx_message')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('order_id','=',$order_id)
+                ->where('exist',"=",0);
+            $affectedRows = $updateStatement->execute();
+            echo json_encode(array("result"=>"0",'desc'=>'success'));
+        }else{
+            echo json_encode(array("result"=>"1",'desc'=>'缺少运单id'));
+        }
+    }else{
+        echo json_encode(array("result"=>"2",'desc'=>'缺少租户id'));
+    }
+});
+
 $app->run();
 function localhost(){
     return connect();
