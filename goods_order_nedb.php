@@ -313,14 +313,9 @@ $app->get('/limitGoodsOrders1',function()use($app){
                         $is_transfer=$data12['is_transfer'];
                     }
                     $data1[$i]['pre_company']=$is_transfer;
-
                     $data1[$i]['goods_package']=$data2;
-//                    $data1[$i]['sender']=$data3;
-                    $data1[$i]['sender']['sender_city_name']=$data6['name'];
-//                    $data1[$i]['sender']['sender_province']=$data8;
-//                    $data1[$i]['receiver']=$data4;
+                    $data1[$i]['sender_city_name']=$data6['name'];
                     $data1[$i]['receiver_city_name']=$data7['name'];
-//                    $data1[$i]['receiver']['receiver_province']=$data9;
                     $data1[$i]['inventory_loc']=$data5;
                 }
                 echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
@@ -2719,7 +2714,6 @@ $app->get('/limitGoodsOrders13',function()use($app){
                 array_push($dataa,$data2[$g]);
             }
         }
-
         $num=0;
         if($offset<count($dataa)&&$offset<(count($dataa)-$size)){
             $num=$offset+$size;
@@ -3235,15 +3229,10 @@ $app->get('/limitGoodsOrders2',function()use($app){
                         $is_transfer=$data12['is_transfer'];
                     }
                     $data1[$i]['pre_company']=$is_transfer;
-
                     $data1[$i]['goods_package']=$data2;
                     $data1[$i]['goods_package']=$data2;
-//                    $data1[$i]['sender']=$data3;
-                    $data1[$i]['sender']['sender_city_name']=$data6['name'];
-//                    $data1[$i]['sender']['sender_province']=$data8;
-//                    $data1[$i]['receiver']=$data4;
+                    $data1[$i]['sender_city_name']=$data6['name'];
                     $data1[$i]['receiver_city_name']=$data7['name'];
-//                    $data1[$i]['receiver']['receiver_province']=$data9;
                     $data1[$i]['inventory_loc']=$data5;
                 }
                 echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
@@ -3745,7 +3734,6 @@ $app->post('/addGoodsOrder',function()use($app){
     $array2['order_status']=$body->order_status;
     $array2['inventory_type']=$body->inventory_type;
     $flag=$body->flag;
-
     $sender_name = $body->sender_name;
     $sender_phone = $body->sender_phone;
     $sender_city_id = $body->sender_city_id;
@@ -4010,7 +3998,6 @@ $app->post('/addCustomer',function()use($app) {
     $tenant_id = $app->request->headers->get("tenant-id");
     $body = $app->request->getBody();
     $body = json_decode($body);
-//    $customer_id=$body->customer_id;
     $customer_name = $body->customer_name;
     $customer_phone = $body->customer_phone;
     $customer_city_id = $body->customer_city_id;
@@ -4036,7 +4023,6 @@ $app->post('/addCustomer',function()use($app) {
                                 ->where('customer_address','=',$customer_address)
                                 ->where('type','=',$type)
                                 ->where('exist','=',0)
-//                                ->where('contact_tenant_id','=',$contact_tenant_id)
                                 ->where('tenant_id', '=', $tenant_id);
                             $stmt = $selectStatement->execute();
                             $data2 = $stmt->fetch();
