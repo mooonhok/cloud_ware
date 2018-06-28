@@ -5328,27 +5328,27 @@ $app->post('/addGoodsOrder',function()use($app){
               ->whereLike('order_id',$data['tenant_num'].'%');
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
-            if(count($data2)<10){
+            if((count($data2)+1)<10){
                 $array1['goods_id']=$data['tenant_num']."00000".(count($data2)+1);
                 $array1['order_id']=$data['tenant_num']."00000".(count($data2)+1);
                 $array2['order_id']=$data['tenant_num']."00000".(count($data2)+1);
-            }else if(count($data2)<100&&count($data2)>9){
+            }else if((count($data2)+1)<100&&(count($data2)+1)>9){
                 $array1['goods_id']=$data['tenant_num']."0000".(count($data2)+1);
                 $array1['order_id']=$data['tenant_num']."0000".(count($data2)+1);
                 $array2['order_id']=$data['tenant_num']."0000".(count($data2)+1);
-            }else if(count($data2)<1000&&count($data2)>99){
+            }else if((count($data2)+1)<1000&&(count($data2)+1)>99){
                 $array1['goods_id']=$data['tenant_num']."000".(count($data2)+1);
                 $array1['order_id']=$data['tenant_num']."000".(count($data2)+1);
                 $array2['order_id']=$data['tenant_num']."000".(count($data2)+1);
-            }else if(count($data2)<10000&&count($data2)>999){
+            }else if((count($data2)+1)<10000&&(count($data2)+1)>999){
                 $array1['goods_id']=$data['tenant_num']."00".(count($data2)+1);
                 $array1['order_id']=$data['tenant_num']."00".(count($data2)+1);
                 $array2['order_id']=$data['tenant_num']."00".(count($data2)+1);
-            }else if(count($data2)<100000&&count($data2)>9999){
+            }else if((count($data2)+1)<100000&&(count($data2)+1)>9999){
                 $array1['goods_id']=$data['tenant_num']."0".(count($data2)+1);
                 $array1['order_id']=$data['tenant_num']."0".(count($data2)+1);
                 $array2['order_id']=$data['tenant_num']."0".(count($data2)+1);
-            }else if(count($data2)<1000000&&count($data2)>99999){
+            }else if((count($data2)+1)<1000000&&(count($data2)+1)>99999){
                 $array1['goods_id']=$data['tenant_num'].(count($data2)+1);
                 $array1['order_id']=$data['tenant_num'].(count($data2)+1);
                 $array2['order_id']=$data['tenant_num'].(count($data2)+1);
