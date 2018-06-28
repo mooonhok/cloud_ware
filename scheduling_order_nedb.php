@@ -1886,6 +1886,97 @@ $app->get('/getSchedulingOrder',function()use($app){
     }
 });
 
+
+$app->post('/addSchedulingOrder',function()use($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $tenant_num=$body->tenant_num;
+    $send_city_id = $body->send_city_id;
+    $receive_city_id = $body->receive_city_id;
+    $lorry_id=$body->lorry_id;
+    $receiver_id=$body->receiver_id;
+    $is_load=$body->is_load;
+    $array=array();
+    $order_ary=$body->order_ary;
+    if($tenant_id!=null||$tenant_id!=''){
+            if($send_city_id!=null||$send_city_id!=''){
+                if($receiver_id!=null||$receiver_id!=''){
+                    if($receive_city_id!=null||$receive_city_id!=''){
+                        if($lorry_id!=null||$lorry_id!=''){
+                            $selectStatement = $database->select()
+                                ->from('scheduling')
+                                ->where('tenant_id', '=', $tenant_id);
+                            $stmt = $selectStatement->execute();
+                            $data = $stmt->fetchAll();
+                            $scheduling_id=null;
+                            if((count($data)+1)<10){
+                                $scheduling_id='QD'.$tenant_num."00000".(count($data)+1);
+                            }else if((count($data)+1)<100&&(count($data)+1)>9){
+                                $scheduling_id='QD'.$tenant_num."0000".(count($data)+1);
+                            }else if((count($data)+1)<1000&&(count($data)+1)>99){
+                                $scheduling_id='QD'.$tenant_num."000".(count($data)+1);
+                            }else if((count($data)+1)<10000&&(count($data)+1)>999){
+                                $scheduling_id='QD'.$tenant_num."00".(count($data)+1);
+                            }else if((count($data)+1)<100000&&(count($data)+1)>9999){
+                                $scheduling_id='QD'.$tenant_num."0".(count($data)+1);
+                            }else if((count($data)+1)<1000000&&(count($data)+1)>99999){
+                                $scheduling_id='QD'.$tenant_num.(count($data)+1);
+                            }
+
+                                $array['tenant_id']=$tenant_id;
+                                date_default_timezone_set("PRC");
+                                $array['scheduling_datetime']=date('Y-m-d H:i:s',time());
+                                $array['exist']=0;
+                                $array['scheduling_id']=$scheduling_id;
+                                $array['send_city_id']=$send_city_id;
+                                $array['$receive_city_id']=$receive_city_id;
+                                $array['lorry_id']=$lorry_id;
+                                $array['receiver_id']=$receiver_id;
+                                $array['is_load']=$is_load;
+                                $array['scheduling_status']=1;
+                                $array['is_show']=0;
+                                $array['is_alter']=0;
+                                $array['is_contract']=1;
+                                $array['is_insurance']=1;
+                                $insertStatement = $database->insert(array_keys($array))
+                                    ->into('scheduling')
+                                    ->values(array_values($array));
+                                $insertId = $insertStatement->execute(false);
+                                for($x=0;$x<count($order_ary);$x++){
+                                    $insertStatement = $database->insert(array('tenant_id','schedule_id','order_id','exist'))
+                                        ->into('schedule_order')
+                                        ->values(array($tenant_id,$scheduling_id,$order_ary[$x],0));
+                                     $insertId = $insertStatement->execute(false);
+                                    $updateStatement = $database->update(array('is_schedule'=>2))
+                                        ->table('orders')
+                                        ->where('tenant_id','=',$tenant_id)
+                                        ->where('order_id','=',$order_ary[$x]);
+                                    $affectedRows = $updateStatement->execute();
+                                }
+                            echo json_encode(array("result" => "0", "desc" => "success"));
+                        }else{
+                            echo json_encode(array("result" => "1", "desc" => "缺少车辆id"));
+                        }
+                    }else{
+                        echo json_encode(array("result" => "2", "desc" => "缺少收货城市id"));
+                    }
+                }else{
+                    echo json_encode(array("result" => "3", "desc" => "缺少收货人id"));
+                }
+            }else{
+                echo json_encode(array("result" => "4", "desc" => "缺少发货城市id"));
+            }
+    }else{
+        echo json_encode(array("result" => "6", "desc" => "缺少租户id"));
+    }
+});
+
+
+
+
 $app->run();
 function localhost(){
     return connect();
