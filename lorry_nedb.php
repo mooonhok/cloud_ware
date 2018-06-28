@@ -42,23 +42,51 @@ $app->post('/addLorry',function()use($app) {
                     $stmt = $selectStatement->execute();
                     $data = $stmt->fetch();
                     if($data!=null){
-                    $array['tenant_id']=$tenant_id;
-                    $array['exist']=0;
-                    $selectStatement = $database->select()
-                        ->from('lorry')
-                        ->where('tenant_id', '=', $tenant_id);
-                    $stmt = $selectStatement->execute();
-                    $data1 = $stmt->fetchAll();
-                    $array['lorry_id']=count($data1)+100000001;
-                    $insertStatement = $database->insert(array_keys($array))
-                        ->into('lorry')
-                        ->values(array_values($array));
-                    $insertId = $insertStatement->execute(false);
-                    $updateStatement = $database->update(array('lorry_status'=>2))
-                        ->table('app_lorry')
-                        ->where('app_lorry_id','=',$data['app_lorry_id']);
-                    $affectedRows = $updateStatement->execute();
-                    echo json_encode(array("result" => "0", "desc" => "success"));
+                        $selectStatement = $database->select()
+                            ->from('lorry')
+                            ->where('driver_phone', '=', $driver_phone)
+                            ->where('plate_number','=',$plate_number)
+                            ->where('driver_name','=',$driver_name)
+                            ->where('tenant_id', '=', $tenant_id)
+                            ->where('flag', '=', $flag)
+                            ->where("exist",'=',0);
+                        $stmt = $selectStatement->execute();
+                        $data2 = $stmt->fetch();
+                        if($data2==null){
+                            $selectStatement = $database->select()
+                                ->from('lorry')
+                                ->where('driver_phone', '=', $driver_phone)
+                                ->where('plate_number','=',$plate_number)
+                                ->where('driver_name','=',$driver_name)
+                                ->where('tenant_id', '=', $tenant_id)
+                                ->where('flag', '=', $flag)
+                                ->where("exist",'=',1);
+                            $stmt = $selectStatement->execute();
+                            $data3 = $stmt->fetch();
+                            if($data3==null){
+                                $array['tenant_id']=$tenant_id;
+                                $array['exist']=0;
+                                $selectStatement = $database->select()
+                                    ->from('lorry')
+                                    ->where('tenant_id', '=', $tenant_id);
+                                $stmt = $selectStatement->execute();
+                                $data1 = $stmt->fetchAll();
+                                $array['lorry_id']=count($data1)+100000001;
+                                $insertStatement = $database->insert(array_keys($array))
+                                    ->into('lorry')
+                                    ->values(array_values($array));
+                                $insertId = $insertStatement->execute(false);
+                                $updateStatement = $database->update(array('lorry_status'=>2))
+                                    ->table('app_lorry')
+                                    ->where('app_lorry_id','=',$data['app_lorry_id']);
+                                $affectedRows = $updateStatement->execute();
+                                echo json_encode(array("result" => "0", "desc" => "success","lorry_id"=>$array['lorry_id']));
+                            }else{
+                                echo json_encode(array("result" => "7", "desc" => "车辆已被您加入了黑名单"));
+                            }
+                        }else{
+                            echo json_encode(array("result" => "6", "desc" => "该车辆已被添加过","lorry_id"=>$data2['lorry_id']));
+                        }
                     }else{
                         echo json_encode(array("result" => "1", "desc" => "该车辆还未在交付帮手上注册过"));
                     }
