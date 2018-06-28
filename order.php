@@ -1383,7 +1383,6 @@ $app->post('/wx_orders_order_source', function () use ($app) {
                         ->from('orders')
                         ->where('order_id', "=", $data2[$i]['order_id'])
                         ->where('order_status','=',0)
-//                        ->where('tenant_id', '=', $tenant_id)
                         ->where('exist','=',0);
                     $stmt = $selectStatement->execute();
                     $data3= $stmt->fetch();
@@ -1393,7 +1392,6 @@ $app->post('/wx_orders_order_source', function () use ($app) {
                         ->where('tenant_id','=',$data3['tenant_id']);
                     $stmt = $selectStatement->execute();
                     $data5= $stmt->fetch();
-                    $data3['goods']=$data5;
                     $selectStatement = $database->select()
                         ->from('wx_message')
                         ->where('exist', "=", 0)
@@ -1403,7 +1401,7 @@ $app->post('/wx_orders_order_source', function () use ($app) {
                     $data4= $stmt->fetch();
                     $num=$offset+$i+1;
                         $array1['num']=$num;
-                        $array1["orders"]=$data3;
+                        $array1["special_need"]=$data5['special_need'];
                         $array1['message']=$data4;
                         array_push($array,$array1);
                  }
