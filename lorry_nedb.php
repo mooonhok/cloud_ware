@@ -41,6 +41,7 @@ $app->post('/addLorry',function()use($app) {
                         ->where('phone', '=', $driver_phone);
                     $stmt = $selectStatement->execute();
                     $data = $stmt->fetch();
+                    if($data!=null){
                     $array['tenant_id']=$tenant_id;
                     $array['exist']=0;
                     $selectStatement = $database->select()
@@ -58,6 +59,9 @@ $app->post('/addLorry',function()use($app) {
                         ->where('app_lorry_id','=',$data['app_lorry_id']);
                     $affectedRows = $updateStatement->execute();
                     echo json_encode(array("result" => "0", "desc" => "success"));
+                    }else{
+                        echo json_encode(array("result" => "1", "desc" => "该车辆还未在交付帮手上注册过"));
+                    }
                 }else{
                     echo json_encode(array("result" => "2", "desc" => "缺少驾驶员手机号码"));
                 }
