@@ -5579,7 +5579,7 @@ $app->put('/alterGoodsOrder',function()use($app){
                 ->where('order_id','=',$order_id)
                 ->where('exist',"=",0);
             $affectedRows = $updateStatement->execute();
-            echo json_encode(array("result"=>"0",'desc'=>'success'));
+            echo json_encode(array("result"=>"0",'desc'=>'success',"order_id"=>$order_id2));
         }else{
             echo json_encode(array("result"=>"1",'desc'=>'缺少运单id'));
         }
