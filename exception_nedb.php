@@ -19,48 +19,58 @@ $app->post('/addException',function()use($app){
     $body = $app->request->getBody();
     $body=json_decode($body);
     $array=array();
-    $exception_id=$body->exception_id;
+//    $exception_id=$body->exception_id;
     $exception_source=$body->exception_source;
-	$exception_person=$body->exception_person;
-	$exception_comment=$body->exception_comment;
+    $exception_person=$body->exception_person;
+    $exception_comment=$body->exception_comment;
     date_default_timezone_set("PRC");
-	$exception_time=date('Y-m-d H:i:s',time());
-	$order_id=$body->order_id;
+    $exception_time=date('Y-m-d H:i:s',time());
+    $order_id=$body->order_id;
     foreach($body as $key=>$value){
         $array[$key]=$value;
     }
     $array['tenant_id']=$tenant_id;
     $array['exist']=0;
-    if($exception_id!=null||$exception_id!=''){
-        if($exception_source!=null||$exception_source!=''){
-            if($exception_person!=null||$exception_person!=''){
-                if($exception_comment!=null||$exception_comment!=''){
-                    if($exception_time!=null||$exception_time!=''){
-                        if($order_id!=null||$order_id!=''){
-                            date_default_timezone_set("PRC");
-                            $array['exception_time']=date('Y-m-d H:i:s',time());
-                            $insertStatement = $database->insert(array_keys($array))
-                                ->into('exception')
-                                ->values(array_values($array));
-                            $insertId = $insertStatement->execute(false);
-                            echo json_encode(array("result" => "0", "desc" => ""));
-                        }else{
-                            echo json_encode(array("result" => "1", "desc" => "缺少运单id"));
-                        }
+    if($exception_source!=null||$exception_source!=''){
+        if($exception_person!=null||$exception_person!=''){
+            if($exception_comment!=null||$exception_comment!=''){
+                if($exception_time!=null||$exception_time!=''){
+                    if($order_id!=null||$order_id!=''){
+                        $selectStatement = $database->select()
+                            ->from('exception');
+                        $stmt = $selectStatement->execute();
+                        $data = $stmt->fetchAll();
+                        $exception_id=count($data)+100000001;
+                        date_default_timezone_set("PRC");
+                        $array['exception_id']=$exception_id;
+                        $array['exception_time']=date('Y-m-d H:i:s',time());
+                        $insertStatement = $database->insert(array_keys($array))
+                            ->into('exception')
+                            ->values(array_values($array));
+                        $insertId = $insertStatement->execute(false);
+                        $array1=array();
+                        $array1['order_status']=5;
+                        $array1['exception_id']=$exception_id;
+                        $updateStatement = $database->update($array1)
+                            ->table('orders')
+                            ->where('order_id','=',$tenant_id)
+                            ->where('tenant_id','=',$tenant_id);
+                        $affectedRows = $updateStatement->execute();
+                        echo json_encode(array("result" => "0", "desc" => ""));
                     }else{
-                        echo json_encode(array("result" => "2", "desc" => "缺少异常时间"));
+                        echo json_encode(array("result" => "1", "desc" => "缺少运单id"));
                     }
                 }else{
-                    echo json_encode(array("result" => "3", "desc" => "缺少异常备注"));
+                    echo json_encode(array("result" => "2", "desc" => "缺少异常时间"));
                 }
             }else{
-                echo json_encode(array("result" => "4", "desc" => "缺少异常人员"));
+                echo json_encode(array("result" => "3", "desc" => "缺少异常备注"));
             }
         }else{
-            echo json_encode(array("result" => "5", "desc" => "缺少异常来源"));
+            echo json_encode(array("result" => "4", "desc" => "缺少异常人员"));
         }
     }else{
-        echo json_encode(array("result" => "6", "desc" => "缺少异常id"));
+        echo json_encode(array("result" => "5", "desc" => "缺少异常来源"));
     }
 });
 
