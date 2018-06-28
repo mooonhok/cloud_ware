@@ -13,10 +13,11 @@
 define("TOKEN", "weixin");
 $wechatObj = new wechatCallbackapiTest();
 $a=$_GET['tenant_id'];
+$url=$_SERVER["HTTP_HOST"];
 if(isset($_GET['echostr'])){
     $wechatObj->valid();//如果发来了echostr则进行验证
 }else{
-    $wechatObj->responseMsg($a); //如果没有echostr，则返回消息
+    $wechatObj->responseMsg($a,$url); //如果没有echostr，则返回消息
 }
 
 class wechatCallbackapiTest
@@ -31,7 +32,7 @@ class wechatCallbackapiTest
         }
     }
 
-    public function responseMsg($a)
+    public function responseMsg($a,$url)
     {
         //get post data, May be due to the different environments
 //        $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
@@ -73,7 +74,7 @@ class wechatCallbackapiTest
            if ($ev == "subscribe") {
                $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news',
                    $ArticleCount,'公司简介',$data['company'],$data['tenant_img_url'],
-                   'http://api.uminfo.cn/weixin/sguangao.html?tenant_id='.$data['tenant_id']);
+                   $url.'/weixin/sguangao.html?tenant_id='.$data['tenant_id']);
                echo $resultStr;
            }
            if (!empty($keyword)) {
