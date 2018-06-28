@@ -1379,17 +1379,17 @@ $app->post('/wx_orders_order_source', function () use ($app) {
             if($data2!=null){
                   $num1=count($data2);
                 for($i=0;$i<$num1;$i++){
-                    $selectStatement = $database->select()
-                        ->from('orders')
-                        ->where('order_id', "=", $data2[$i]['order_id'])
-                        ->where('order_status','=',0)
-                        ->where('exist','=',0);
-                    $stmt = $selectStatement->execute();
-                    $data3= $stmt->fetch();
+//                    $selectStatement = $database->select()
+//                        ->from('orders')
+//                        ->where('order_id', "=", $data2[$i]['order_id'])
+//                        ->where('order_status','=',0)
+//                        ->where('exist','=',0);
+//                    $stmt = $selectStatement->execute();
+//                    $data3= $stmt->fetch();
                     $selectStatement = $database->select()
                         ->from('goods')
-                        ->where('order_id', "=", $data3['order_id'])
-                        ->where('tenant_id','=',$data3['tenant_id']);
+                        ->where('order_id', "=", $data2[$i]['order_id'])
+                        ->where('tenant_id','=',$tenant_id);
                     $stmt = $selectStatement->execute();
                     $data5= $stmt->fetch();
                     $selectStatement = $database->select()
