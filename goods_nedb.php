@@ -173,12 +173,13 @@ $app->put('/alterGood1',function()use($app){
     if($tenant_id!=null||$tenant_id!=''){
         if($order_id!=null||$order_id!=''){
             if($special_need!=null||$special_need!=''){
-                                $updateStatement = $database->update($array)
-                                    ->table('goods')
-                                    ->where('tenant_id','=',$tenant_id)
-                                    ->where('order_id','=',$order_id);
-                                $affectedRows = $updateStatement->execute();
-                                echo json_encode(array("result" => "0", "desc" => "success"));
+                $updateStatement = $database->update($array)
+                    ->table('goods')
+                    ->where('order_id','=',$order_id)
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('exist','=',0);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array("result" => "0", "desc" => "success"));
             }else{
                 echo json_encode(array("result" => "1", "desc" => "缺少特殊需求"));
             }
