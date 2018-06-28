@@ -276,7 +276,8 @@ $app->get('/getOrders1', function () use ($app) {
                 ->where('id', '=', $data1['from_city_id']);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetch();
-//            $data[$i]['tenant']=$data1;
+            $data[$i]['longitude']=$data1['longitude'];
+            $data[$i]['latitude']=$data1['latitude'];
             $data[$i]['from_city']=$data2;
         }
         echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
