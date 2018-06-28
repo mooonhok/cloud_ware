@@ -255,7 +255,6 @@ $app->get('/getOrder2', function () use ($app) {
 
 
 $app->get('/getOrders1', function () use ($app) {
-
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
     $order_id= $app->request->get('order_id');
@@ -277,7 +276,7 @@ $app->get('/getOrders1', function () use ($app) {
                 ->where('id', '=', $data1['from_city_id']);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetch();
-            $data[$i]['tenant']=$data1;
+//            $data[$i]['tenant']=$data1;
             $data[$i]['from_city']=$data2;
         }
         echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data));
