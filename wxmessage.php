@@ -393,7 +393,7 @@ $app->post('/wxmessages',function()use($app){
                     ->where('customer_id','=',$data1['sender_id']);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetch();
-                $array['sender']=$data2;
+//                $array['sender']=$data2;
                 $selectStatement = $database->select()
                     ->from('city')
                     ->where('id','=',$data2['customer_city_id']);
@@ -412,7 +412,7 @@ $app->post('/wxmessages',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data6 = $stmt->fetch();
                 $array['receiver_city']=$data6['name'];
-                $array['receiver']=$data3;
+//                $array['receiver']=$data3;
 //                $selectStatement = $database->select()
 //                    ->from('goods')
 //                    ->where('tenant_id','=',$tenant_id)
@@ -459,7 +459,7 @@ $app->post('/wxmessages',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data5 = $stmt->fetch();
                 $array['sender_city']=$data5['name'];
-                $array['sender'] = $data2;
+//                $array['sender'] = $data2;
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('tenant_id', '=', $tenant_id)
@@ -472,7 +472,7 @@ $app->post('/wxmessages',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data6 = $stmt->fetch();
                 $array['receiver_city']=$data6['name'];
-                $array['receiver'] = $data3;
+//                $array['receiver'] = $data3;
 //                $selectStatement = $database->select()
 //                    ->from('goods')
 //                    ->where('tenant_id', '=', $tenant_id)
