@@ -3155,7 +3155,7 @@ $app->put('/finishSchedulingOrder',function()use($app){
                     echo json_encode(array("result" => "0", "desc" => "success","orders"=>$array1));
                 }
             }else{
-                echo json_encode(array("result" => "0", "desc" => "success","scheduling_status"=>$data['scheduling_status']));
+                echo json_encode(array("result" => "3", "desc" => "success","scheduling_status"=>$data['scheduling_status']));
             }
         }else{
             echo json_encode(array("result" => "2", "desc" => "该清单不存在"));
