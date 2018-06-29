@@ -1960,7 +1960,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                         ->where('order_id','=',$array2[$x]);
                                     $affectedRows = $updateStatement->execute();
                                 }
-                            echo json_encode(array("result" => "0", "desc" => "success"));
+                            echo json_encode(array("result" => "0", "desc" => "success","scheduling_id"=>$scheduling_id));
                         }else{
                             echo json_encode(array("result" => "1", "desc" => "缺少车辆id"));
                         }
