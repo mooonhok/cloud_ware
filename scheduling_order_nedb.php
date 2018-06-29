@@ -1901,6 +1901,11 @@ $app->post('/addSchedulingOrder',function()use($app) {
     $is_load=$body->is_load;
     $array=array();
     $order_ary=$body->order_ary;
+    $array1 = array();
+    $array2=array();
+    foreach ($order_ary as $key => $value) {
+        $array2[$key] = $value;
+    }
     if($tenant_id!=null||$tenant_id!=''){
             if($send_city_id!=null||$send_city_id!=''){
                 if($receiver_id!=null||$receiver_id!=''){
@@ -1944,15 +1949,15 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                     ->into('scheduling')
                                     ->values(array_values($array));
                                 $insertId = $insertStatement->execute(false);
-                                for($x=0;$x<count($order_ary);$x++){
+                                for($x=0;$x<count($array2);$x++){
                                     $insertStatement = $database->insert(array('tenant_id','schedule_id','order_id','exist'))
                                         ->into('schedule_order')
-                                        ->values(array($tenant_id,$scheduling_id,$order_ary[$x],0));
+                                        ->values(array($tenant_id,$scheduling_id,$array2[$x],0));
                                      $insertId = $insertStatement->execute(false);
                                     $updateStatement = $database->update(array('is_schedule'=>2))
                                         ->table('orders')
                                         ->where('tenant_id','=',$tenant_id)
-                                        ->where('order_id','=',$order_ary[$x]);
+                                        ->where('order_id','=',$array2[$x]);
                                     $affectedRows = $updateStatement->execute();
                                 }
                             echo json_encode(array("result" => "0", "desc" => "success"));
@@ -1973,20 +1978,6 @@ $app->post('/addSchedulingOrder',function()use($app) {
     }
 });
 
-$app->post('/addtest',function()use($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
-    $database = localhost();
-    $tenant_id = $app->request->headers->get("tenant-id");
-    $body = $app->request->getBody();
-    $body = json_decode($body);
-    $tenant_num=$body->tenant_num;
-    $order_ary=$body->order_ary;
-    $a=null;
-    for($x=0;$x<count($order_ary);$x++){
-       $a+=$order_ary[$x];
-    }
-    echo json_encode(array("result" => "0", "desc" => $a));
-});
 $app->run();
 function localhost(){
     return connect();
