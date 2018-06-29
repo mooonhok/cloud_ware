@@ -2735,6 +2735,31 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                         ->where('tenant_id', '=', $tenant_id);
                                     $affectedRows = $updateStatement->execute();
                                     for ($x = 0; $x < count($array6); $x++) {
+                                        $selectStatement = $database->select()
+                                            ->from('schedule_order')
+                                            ->where('schedule_id', '=', $scheduling_id)
+                                            ->where('tenant_id', '=', $tenant_id)
+                                            ->where("order_id",'=',$array6[$x]);
+                                        $stmt = $selectStatement->execute();
+                                        $data16 = $stmt->fetch();
+                                        if($data16==null){
+                                            $insertStatement = $database->insert(array('tenant_id', 'schedule_id', 'order_id', 'exist'))
+                                                ->into('schedule_order')
+                                                ->values(array($tenant_id, $scheduling_id, $array6[$x], 0));
+                                            $insertId = $insertStatement->execute(false);
+                                            $updateStatement = $database->update(array('is_schedule' => 2))
+                                                ->table('orders')
+                                                ->where('tenant_id', '=', $tenant_id)
+                                                ->where('order_id', '=', $array6[$x]);
+                                            $affectedRows = $updateStatement->execute();
+                                        }else{
+                                            $updateStatement = $database->update(array('exist' => 0))
+                                                ->table('schedule_order')
+                                                ->where('schedule_id', '=', $scheduling_id)
+                                                ->where('tenant_id', '=', $tenant_id)
+                                                ->where("order_id",'=',$array6[$x]);
+                                            $affectedRows = $updateStatement->execute();
+                                        }
                                         $deleteStatement = $database->delete()
                                             ->from('schedule_order')
                                             ->where('schedule_id', '=', $scheduling_id)
@@ -2916,6 +2941,31 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                 ->where('tenant_id', '=', $tenant_id);
                                             $affectedRows = $updateStatement->execute();
                                             for ($x = 0; $x < count($array6); $x++) {
+                                                $selectStatement = $database->select()
+                                                    ->from('schedule_order')
+                                                    ->where('schedule_id', '=', $scheduling_id)
+                                                    ->where('tenant_id', '=', $tenant_id)
+                                                    ->where("order_id",'=',$array6[$x]);
+                                                $stmt = $selectStatement->execute();
+                                                $data16 = $stmt->fetch();
+                                                if($data16==null){
+                                                    $insertStatement = $database->insert(array('tenant_id', 'schedule_id', 'order_id', 'exist'))
+                                                        ->into('schedule_order')
+                                                        ->values(array($tenant_id, $scheduling_id, $array6[$x], 0));
+                                                    $insertId = $insertStatement->execute(false);
+                                                    $updateStatement = $database->update(array('is_schedule' => 2))
+                                                        ->table('orders')
+                                                        ->where('tenant_id', '=', $tenant_id)
+                                                        ->where('order_id', '=', $array6[$x]);
+                                                    $affectedRows = $updateStatement->execute();
+                                                }else{
+                                                    $updateStatement = $database->update(array('exist' => 0))
+                                                        ->table('schedule_order')
+                                                        ->where('schedule_id', '=', $scheduling_id)
+                                                        ->where('tenant_id', '=', $tenant_id)
+                                                        ->where("order_id",'=',$array6[$x]);
+                                                    $affectedRows = $updateStatement->execute();
+                                                }
                                                 $deleteStatement = $database->delete()
                                                     ->from('schedule_order')
                                                     ->where('schedule_id', '=', $scheduling_id)
