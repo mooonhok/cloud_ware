@@ -2345,7 +2345,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                             }else{
                                                 $selectStatement = $database->select()
                                                     ->from('city')
-                                                    ->where('name','=',$data10['from_city_id']);
+                                                    ->where('id','=',$data10['from_city_id']);
                                                 $stmt = $selectStatement->execute();
                                                 $data11 = $stmt->fetch();
                                                 echo json_encode(array("result" => "8", "desc" => "收货公司所在城市不匹配",'receivecityname'=>$data11['name']));
