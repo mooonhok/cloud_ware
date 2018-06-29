@@ -42,7 +42,7 @@ $app->post('/addLorry',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data = $stmt->fetch();
                     if($data!=null){
-                        if($data['lorry_status']==1){
+                        if($data['lorry_status']!=1){
                         $selectStatement = $database->select()
                             ->from('lorry')
                             ->where('driver_phone', '=', $driver_phone)

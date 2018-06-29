@@ -1906,7 +1906,6 @@ $app->post('/addSchedulingOrder',function()use($app) {
     $receive_tenant_id=$body->receive_tenant_id;
     $customer_name = $body->customer_name;
     $customer_phone = $body->customer_phone;
-//    $customer_city_id = $body->customer_city_id;
     $customer_address = $body->customer_address;
     $type=$body->type;
     $contact_tenant_id=$body->contact_tenant_id;
@@ -1951,6 +1950,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                     $stmt = $selectStatement->execute();
                     $data4= $stmt->fetch();
                     if($data4!=null){
+                        if($data4['lorry_status']!=1){
                         $selectStatement = $database->select()
                             ->from('lorry')
                             ->where('driver_phone', '=', $driver_phone)
@@ -2345,6 +2345,9 @@ $app->post('/addSchedulingOrder',function()use($app) {
                             }
                         }else{
                             echo json_encode(array("result" => "6", "desc" => "该车辆已经被加入黑名单"));
+                        }
+                        }else{
+                            echo json_encode(array("result" => "10", "desc" => "驾驶员正在修改个人资料"));
                         }
                     }else{
                         echo json_encode(array("result" => "5", "desc" => "该车辆还未在交付帮手上注册过"));
