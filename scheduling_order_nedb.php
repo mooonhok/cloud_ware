@@ -1913,8 +1913,9 @@ $app->post('/addSchedulingOrder',function()use($app) {
     $is_load=$body->is_load;
     $array3=array();
     $order_ary=$body->order_ary;
+    $array6=null;
     foreach ($order_ary as $key => $value) {
-        $array3[$key] = $value;
+        $array6[$key] = $value;
     }
     $array4=null;
     $partner_name=$body->partner_name;
@@ -2140,15 +2141,15 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                             ->into('scheduling')
                                             ->values(array_values($array1));
                                         $insertId = $insertStatement->execute(false);
-                                        for ($x = 0; $x < count($array2); $x++) {
+                                        for ($x = 0; $x < count($array6); $x++) {
                                             $insertStatement = $database->insert(array('tenant_id', 'schedule_id', 'order_id', 'exist'))
                                                 ->into('schedule_order')
-                                                ->values(array($tenant_id, $scheduling_id, $array2[$x], 0));
+                                                ->values(array($tenant_id, $scheduling_id, $array6[$x], 0));
                                             $insertId = $insertStatement->execute(false);
                                             $updateStatement = $database->update(array('is_schedule' => 2))
                                                 ->table('orders')
                                                 ->where('tenant_id', '=', $tenant_id)
-                                                ->where('order_id', '=', $array2[$x]);
+                                                ->where('order_id', '=', $array6[$x]);
                                             $affectedRows = $updateStatement->execute();
                                         }
                                         echo json_encode(array("result" => "0", "desc" => "success","scheduling_id"=>$scheduling_id));
@@ -2330,15 +2331,15 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                                     ->into('scheduling')
                                                     ->values(array_values($array1));
                                                 $insertId = $insertStatement->execute(false);
-                                                for ($x = 0; $x < count($array2); $x++) {
+                                                for ($x = 0; $x < count($array6); $x++) {
                                                     $insertStatement = $database->insert(array('tenant_id', 'schedule_id', 'order_id', 'exist'))
                                                         ->into('schedule_order')
-                                                        ->values(array($tenant_id, $scheduling_id, $array2[$x], 0));
+                                                        ->values(array($tenant_id, $scheduling_id, $array6[$x], 0));
                                                     $insertId = $insertStatement->execute(false);
                                                     $updateStatement = $database->update(array('is_schedule' => 2))
                                                         ->table('orders')
                                                         ->where('tenant_id', '=', $tenant_id)
-                                                        ->where('order_id', '=', $array2[$x]);
+                                                        ->where('order_id', '=', $array6[$x]);
                                                     $affectedRows = $updateStatement->execute();
                                                 }
                                                 echo json_encode(array("result" => "0", "desc" => "success","scheduling_id"=>$scheduling_id));
@@ -2377,7 +2378,19 @@ $app->post('/addSchedulingOrder',function()use($app) {
     }
 });
 
-
+$app->post('/addtest',function()use($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $array3=array();
+    $order_ary=$body->order_ary;
+    foreach ($order_ary as $key => $value) {
+        $array3[$key] = $value;
+    }
+    echo json_encode(array("result" => "1", "desc" =>$array3[0]));
+});
 
 $app->run();
 function localhost(){
