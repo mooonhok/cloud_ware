@@ -3025,10 +3025,6 @@ $app->put('/recoverSchedulingOrder',function()use($app){
         $data = $stmt->fetchAll();
         if($data!=null){
             for($x=0;$x<count($data);$x++){
-                $updateStatement = $database->update(array('is_alter'=>1,"exist"=>0))
-                    ->table('scheduling')
-                    ->where('scheduling_id', '=', $data[$x]['scheduling_id']);
-                $affectedRows = $updateStatement->execute();
                 $selectStatement = $database->select()
                     ->from('customer')
                     ->where('customer_id', '=', $data[$x]['receiver_id'])
@@ -3071,6 +3067,12 @@ $app->put('/recoverSchedulingOrder',function()use($app){
                 }
             }
         }
+        $updateStatement = $database->update(array('is_alter'=>1,"exist"=>0))
+            ->table('scheduling')
+            ->where('is_alter', '=',2)
+            ->where('tenant_id', '=', $tenant_id)
+            ->where("exist",'=',1);
+        $affectedRows = $updateStatement->execute();
         echo json_encode(array("result" => "0", "desc" => "success"));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
