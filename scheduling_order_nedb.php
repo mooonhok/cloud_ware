@@ -1912,7 +1912,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
     $contact_tenant_id=$body->contact_tenant_id;
     $times=$body->times;
     $is_load=$body->is_load;
-    $array3=array();
+
     $order_ary=$body->order_ary;
     //运单号数组
     $array6=null;
@@ -2131,7 +2131,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                         $array1['scheduling_datetime'] = date('Y-m-d H:i:s', time());
                                         $array1['exist'] = 0;
                                         $array1['scheduling_id'] = $scheduling_id;
-                                        $array1['lorry_id'] = $array3['lorry_id'];
+//                                        $array1['lorry_id'] = $array2['lorry_id'];
                                         $array1['receiver_id'] = $receiver_id;
                                         $array1['is_load'] = $is_load;
                                         $array1['scheduling_status'] = 1;
@@ -2139,10 +2139,10 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                         $array1['is_alter'] = 0;
                                         $array1['is_contract'] = 1;
                                         $array1['is_insurance'] = 1;
-//                                        $insertStatement = $database->insert(array_keys($array1))
-//                                            ->into('scheduling')
-//                                            ->values(array_values($array1));
-//                                        $insertId = $insertStatement->execute(false);
+                                        $insertStatement = $database->insert(array_keys($array1))
+                                            ->into('scheduling')
+                                            ->values(array_values($array1));
+                                        $insertId = $insertStatement->execute(false);
                                         for ($x = 0; $x < count($array6); $x++) {
                                             $insertStatement = $database->insert(array('tenant_id', 'schedule_id', 'order_id', 'exist'))
                                                 ->into('schedule_order')
@@ -2154,8 +2154,8 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                                 ->where('order_id', '=', $array6[$x]);
                                             $affectedRows = $updateStatement->execute();
                                         }
-//                                        echo json_encode(array("result" => "0", "desc" => "success","scheduling_id"=>$scheduling_id));
-                                        echo json_encode(array("result" => "0", "desc" => "success","scheduling"=>$array1));
+                                        echo json_encode(array("result" => "0", "desc" => "success","scheduling_id"=>$scheduling_id));
+//                                        echo json_encode(array("result" => "0", "desc" => "success","scheduling"=>$array1));
                                     }else{
                                         $selectStatement = $database->select()
                                             ->from('tenant')
@@ -2322,7 +2322,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                                 $array1['scheduling_datetime'] = date('Y-m-d H:i:s', time());
                                                 $array1['exist'] = 0;
                                                 $array1['scheduling_id'] = $scheduling_id;
-                                                $array1['lorry_id'] = $array3['lorry_id'];
+//                                                $array1['lorry_id'] = $array2['lorry_id'];
                                                 $array1['receiver_id'] = $receiver_id;
                                                 $array1['is_load'] = $is_load;
                                                 $array1['scheduling_status'] = 1;
@@ -2330,10 +2330,10 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                                 $array1['is_alter'] = 0;
                                                 $array1['is_contract'] = 1;
                                                 $array1['is_insurance'] = 1;
-//                                                $insertStatement = $database->insert(array_keys($array1))
-//                                                    ->into('scheduling')
-//                                                    ->values(array_values($array1));
-//                                                $insertId = $insertStatement->execute(false);
+                                                $insertStatement = $database->insert(array_keys($array1))
+                                                    ->into('scheduling')
+                                                    ->values(array_values($array1));
+                                                $insertId = $insertStatement->execute(false);
                                                 for ($x = 0; $x < count($array6); $x++) {
                                                     $insertStatement = $database->insert(array('tenant_id', 'schedule_id', 'order_id', 'exist'))
                                                         ->into('schedule_order')
@@ -2345,8 +2345,8 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                                         ->where('order_id', '=', $array6[$x]);
                                                     $affectedRows = $updateStatement->execute();
                                                 }
-//                                                echo json_encode(array("result" => "0", "desc" => "success","scheduling_id"=>$scheduling_id));
-                                                echo json_encode(array("result" => "0", "desc" => "success","scheduling"=>$array1));
+                                                echo json_encode(array("result" => "0", "desc" => "success","scheduling_id"=>$scheduling_id));
+//                                                echo json_encode(array("result" => "0", "desc" => "success","scheduling"=>$array1));
                                             }else{
                                                 $selectStatement = $database->select()
                                                     ->from('city')
