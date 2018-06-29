@@ -3170,6 +3170,7 @@ $app->put('/finishSchedulingOrder',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data7 = $stmt->fetch();
                     $data2['receiver_city_name']=$data7['name'];
+                    $data2['receiver_customer_phone']=$data6['customer_phone'];
                 }
                 echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data2));
             } else if ($data['scheduling_status']==2 && $data['is_load']==3) {
@@ -3216,6 +3217,7 @@ $app->put('/finishSchedulingOrder',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data7 = $stmt->fetch();
                     $data2['receiver_city_name']=$data7['name'];
+                    $data2['receiver_customer_phone']=$data6['customer_phone'];
                 }
                 echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data2));
             }else{
@@ -3228,6 +3230,62 @@ $app->put('/finishSchedulingOrder',function()use($app){
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
 });
+
+
+$app->put('/loadSchedulingOrder',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $scheduling_id=$body->scheduling_id;
+    $exist=$body->exist;
+    date_default_timezone_set("PRC");
+    $time=date("Y-m-d H:i", time());
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('scheduling')
+            ->where('scheduling_id', '=',$scheduling_id)
+            ->where('tenant_id', '=', $tenant_id)
+            ->where("exist",'=',0);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('schedule_order')
+            ->where('schedule_id', '=',$scheduling_id)
+            ->where('tenant_id', '=', $tenant_id)
+            ->where("exist",'=',0);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetchAll();
+        if($data!=null) {
+            if ($data['scheduling_status']==2) {
+                $updateStatement = $database->update(array('is_load' =>0, "scheduling_status" => 3))
+                    ->table('scheduling')
+                    ->where('scheduling_id', '=', $scheduling_id)
+                    ->where('tenant_id', '=', $tenant_id);
+                $affectedRows = $updateStatement->execute();
+                for ($x = 0; $x < count($data2); $x++) {
+                    $updateStatement = $database->update(array('order_status' => 2, "order_datetime2" => $time))
+                        ->table('orders')
+                        ->where('order_id', '=', $data2[$x]['order_id'])
+                        ->where('tenant_id', '=', $tenant_id);
+                    $affectedRows = $updateStatement->execute();
+                }
+                echo json_encode(array("result" => "0", "desc" => "success"));
+            }else{
+                echo json_encode(array("result" => "3", "desc" => "success", "scheduling_status" => $data['scheduling_status']));
+            }
+        }else{
+            echo json_encode(array("result" => "2", "desc" => "该清单不存在"));
+        }
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
+
+
+
 
 $app->run();
 function localhost(){
