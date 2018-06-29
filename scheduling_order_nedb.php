@@ -2273,7 +2273,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                                     ->where('customer_phone', '=', $partner_phone)
                                                     ->where('customer_city_id', '=', $partner_city_id)
                                                     ->where('customer_address', '=', $partner_address)
-                                                    ->where('type', '=', $type)
+                                                    ->where('type', '=', $partner_type)
                                                     ->where('exist', '=', 0)
                                                     ->where('tenant_id', '=', $contact_tenant_id);
                                                 $stmt = $selectStatement->execute();
