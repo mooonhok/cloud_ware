@@ -3153,7 +3153,7 @@ $app->put('/finishSchedulingOrder',function()use($app){
                     $data4 = $stmt->fetch();
                     $selectStatement = $database->select()
                         ->from('city')
-                        ->where('customer_id', '=', $data4['customer_city_id']);
+                        ->where('id', '=', $data4['customer_city_id']);
                     $stmt = $selectStatement->execute();
                     $data5 = $stmt->fetch();
                     $data2['sender_customer_phone']=$data4['customer_phone'];
@@ -3166,7 +3166,7 @@ $app->put('/finishSchedulingOrder',function()use($app){
                     $data6 = $stmt->fetch();
                     $selectStatement = $database->select()
                         ->from('city')
-                        ->where('customer_id', '=', $data6['customer_city_id']);
+                        ->where('id', '=', $data6['customer_city_id']);
                     $stmt = $selectStatement->execute();
                     $data7 = $stmt->fetch();
                     $data2['receiver_city_name']=$data7['name'];
@@ -3200,7 +3200,7 @@ $app->put('/finishSchedulingOrder',function()use($app){
                     $data4 = $stmt->fetch();
                     $selectStatement = $database->select()
                         ->from('city')
-                        ->where('customer_id', '=', $data4['customer_city_id']);
+                        ->where('id', '=', $data4['customer_city_id']);
                     $stmt = $selectStatement->execute();
                     $data5 = $stmt->fetch();
                     $data2['sender_customer_phone']=$data4['customer_phone'];
@@ -3213,7 +3213,7 @@ $app->put('/finishSchedulingOrder',function()use($app){
                     $data6 = $stmt->fetch();
                     $selectStatement = $database->select()
                         ->from('city')
-                        ->where('customer_id', '=', $data6['customer_city_id']);
+                        ->where('id', '=', $data6['customer_city_id']);
                     $stmt = $selectStatement->execute();
                     $data7 = $stmt->fetch();
                     $data2['receiver_city_name']=$data7['name'];
