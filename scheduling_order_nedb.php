@@ -3031,7 +3031,7 @@ $app->put('/recoverSchedulingOrder',function()use($app){
             for($x=0;$x<count($data);$x++){
                 $updateStatement = $database->update(array('is_alter'=>1,"exist"=>0))
                     ->table('scheduling')
-                    ->where('schedule_id', '=', $data[$x]['scheduling_id']);
+                    ->where('scheduling_id', '=', $data[$x]['scheduling_id']);
                 $affectedRows = $updateStatement->execute();
                 $selectStatement = $database->select()
                     ->from('customer')
