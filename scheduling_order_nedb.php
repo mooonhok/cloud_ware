@@ -2663,7 +2663,11 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                             $receiver_id="".$array4['customer_id'];
                                         } else {
                                             $receiver_id="".$data6['customer_id'];
-                                            $a=$data6['times']+1;
+                                            if($data6['times']==1){
+                                               $a=$data6['times'];
+                                            }else if($data6['times']>1){
+                                                $a=$data6['times']+1;
+                                            }
                                             $updateStatement = $database->update(array('times'=>$a,"exist"=>0))
                                                 ->table('customer')
                                                 ->where('customer_id','=',$data6['customer_id'])
@@ -2716,7 +2720,11 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                             $receiver_id="".$array4['customer_id'];
                                         } else {
                                             $receiver_id="".$data6['customer_id'];
-                                            $a=$data6['times']+1;
+                                            if($data6['times']==1){
+                                                $a=$data6['times'];
+                                            }else if($data6['times']>1){
+                                                $a=$data6['times']+1;
+                                            }
                                             $updateStatement = $database->update(array('times'=>$a,"exist"=>0))
                                                 ->table('customer')
                                                 ->where('customer_id','=',$data6['customer_id'])
@@ -2821,7 +2829,11 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                     $receiver_id="".$array4['customer_id'];
                                                 } else {
                                                     $receiver_id="".$data6['customer_id'];
-                                                    $a=$data6['times']+1;
+                                                    if($data6['times']==1){
+                                                        $a=$data6['times'];
+                                                    }else if($data6['times']>1){
+                                                        $a=$data6['times']+1;
+                                                    }
                                                     $updateStatement = $database->update(array('times'=>$a,"exist"=>0))
                                                         ->table('customer')
                                                         ->where('customer_id','=',$data6['customer_id'])
@@ -2874,7 +2886,11 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                     $receiver_id="".$array4['customer_id'];
                                                 } else {
                                                     $receiver_id="".$data6['customer_id'];
-                                                    $a=$data6['times']+1;
+                                                    if($data6['times']==1){
+                                                        $a=$data6['times'];
+                                                    }else if($data6['times']>1){
+                                                        $a=$data6['times']+1;
+                                                    }
                                                     $updateStatement = $database->update(array('times'=>$a,"exist"=>0))
                                                         ->table('customer')
                                                         ->where('customer_id','=',$data6['customer_id'])
@@ -2922,7 +2938,12 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                     ->values(array_values($array5));
                                                 $insertId = $insertStatement->execute(false);
                                             } else {
-                                                $a=$data12['times']+1;
+//                                                $a=$data12['times']+1;
+                                                if($data12['times']==1){
+                                                    $a=$data12['times'];
+                                                }else if($data12['times']>1){
+                                                    $a=$data12['times']+1;
+                                                }
                                                 $updateStatement = $database->update(array('times'=>$a,"exist"=>0))
                                                     ->table('customer')
                                                     ->where('customer_id','=',$data12['customer_id'])
@@ -3034,14 +3055,14 @@ $app->put('/recoverSchedulingOrder',function()use($app){
                 if($data2==null){
                     if($data2['exist']==1){
                         $updateStatement = $database->update(array('exist'=>0))
-                            ->table('lorry')
+                            ->table('customer')
                             ->where('tenant_id','=',$tenant_id)
                             ->where('customer_id','=',$data2['customer_id']);
                         $affectedRows = $updateStatement->execute();
                     }else if($data2['exist']==0){
                         $a=$data2['times']+1;
                         $updateStatement = $database->update(array('times'=>$a))
-                            ->table('lorry')
+                            ->table('customer')
                             ->where('tenant_id','=',$tenant_id)
                             ->where('customer_id','=',$data2['customer_id']);
                         $affectedRows = $updateStatement->execute();
