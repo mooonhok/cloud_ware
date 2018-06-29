@@ -436,35 +436,7 @@ $app->get('/getSchedulings4',function()use($app){
             ->orderBy('scheduling_id');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        for($i=0;$i<count($data);$i++){
-            $selectStatement = $database->select()
-                ->from('customer')
-                ->where('tenant_id', '=', $tenant_id)
-                ->where('customer_id', '=', $data[$i]['receiver_id']);
-            $stmt = $selectStatement->execute();
-            $data1 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('city')
-                ->where('id', '=', $data[$i]['send_city_id']);
-            $stmt = $selectStatement->execute();
-            $data2 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('city')
-                ->where('id', '=', $data[$i]['receive_city_id']);
-            $stmt = $selectStatement->execute();
-            $data3 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('lorry')
-                ->where('tenant_id', '=', $tenant_id)
-                ->where('lorry_id', '=', $data[$i]['lorry_id']);
-            $stmt = $selectStatement->execute();
-            $data4 = $stmt->fetch();
-            $data[$i]['receiver']=$data1;
-            $data[$i]['send_city']=$data2;
-            $data[$i]['receive_city']=$data3;
-            $data[$i]['lorry']=$data4;
-        }
-        echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
+        echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>count($data)));
     }else{
         echo json_encode(array("result" => "1", "desc" => "租户id为空"));
     }
