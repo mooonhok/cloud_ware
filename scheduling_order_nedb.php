@@ -1925,7 +1925,6 @@ $app->post('/addSchedulingOrder',function()use($app) {
                             }else if((count($data)+1)<1000000&&(count($data)+1)>99999){
                                 $scheduling_id='QD'.$tenant_num.(count($data)+1);
                             }
-
                                 $array['tenant_id']=$tenant_id;
                                 date_default_timezone_set("PRC");
                                 $array['scheduling_datetime']=date('Y-m-d H:i:s',time());
@@ -1974,9 +1973,20 @@ $app->post('/addSchedulingOrder',function()use($app) {
     }
 });
 
-
-
-
+$app->post('/addtest',function()use($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $tenant_num=$body->tenant_num;
+    $order_ary=$body->order_ary;
+    $a=null;
+    for($x=0;$x<count($order_ary);$x++){
+       $a+=$order_ary[$x];
+    }
+    echo json_encode(array("result" => "0", "desc" => $a));
+});
 $app->run();
 function localhost(){
     return connect();
