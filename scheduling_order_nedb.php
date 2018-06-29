@@ -2160,7 +2160,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                         $stmt = $selectStatement->execute();
                                         $data10= $stmt->fetch();
                                         if($data10!=null){
-                                            if($array1['send_city_id']==$data10['from_city_id']){
+                                            if($array1['receive_city_id']==$data10['from_city_id']){
                                                 $receiver_id=null;
                                                 if( $contact_tenant_id==null|| $contact_tenant_id=="") {
                                                     $selectStatement = $database->select()
