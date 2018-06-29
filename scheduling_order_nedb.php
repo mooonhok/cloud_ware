@@ -3139,12 +3139,12 @@ $app->put('/finishSchedulingOrder',function()use($app){
                         ->where('order_id', '=', $data2[$x]['order_id'])
                         ->where('tenant_id', '=', $tenant_id);
                     $affectedRows = $updateStatement->execute();
-//                    $selectStatement = $database->select()
-//                        ->from('orders')
-//                        ->where('order_id', '=', $data2[$x]['order_id'])
-//                        ->where('tenant_id', '=', $tenant_id);
-//                    $stmt = $selectStatement->execute();
-//                    $data3 = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('order_id', '=', $data2[$x]['order_id'])
+                        ->where('tenant_id', '=', $tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data3 = $stmt->fetch();
 //                    $selectStatement = $database->select()
 //                        ->from('customer')
 //                        ->where('customer_id', '=', $data3['sender_id'])
@@ -3180,13 +3180,13 @@ $app->put('/finishSchedulingOrder',function()use($app){
                     ->where('scheduling_id', '=', $scheduling_id)
                     ->where('tenant_id', '=', $tenant_id);
                 $affectedRows = $updateStatement->execute();
-//                if($data2!=null){
-//                for ($x = 0; $x < count($data2); $x++) {
-//                    $updateStatement = $database->update(array('order_status' => 3, "order_datetime3" => $time, "order_datetime2" => $time))
-//                        ->table('orders')
-//                        ->where('order_id', '=', $data2[$x]['order_id'])
-//                        ->where('tenant_id', '=', $tenant_id);
-//                    $affectedRows = $updateStatement->execute();
+                if($data2!=null){
+                for ($x = 0; $x < count($data2); $x++) {
+                    $updateStatement = $database->update(array('order_status' => 3, "order_datetime3" => $time, "order_datetime2" => $time))
+                        ->table('orders')
+                        ->where('order_id', '=', $data2[$x]['order_id'])
+                        ->where('tenant_id', '=', $tenant_id);
+                    $affectedRows = $updateStatement->execute();
 //                    $selectStatement = $database->select()
 //                        ->from('orders')
 //                        ->where('order_id', '=', $data2[$x]['order_id'])
@@ -3219,8 +3219,8 @@ $app->put('/finishSchedulingOrder',function()use($app){
 //                    $data7 = $stmt->fetch();
 //                    $data2['receiver_city_name']=$data7['name'];
 //                    $data2['receiver_customer_phone']=$data6['customer_phone'];
-//                }
-//                }
+                }
+               }
                 echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data2));
             }else{
                 echo json_encode(array("result" => "3", "desc" => "success", "scheduling_status" => $data['scheduling_status']));
