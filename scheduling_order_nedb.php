@@ -2468,7 +2468,7 @@ $app->put('/deleteSchedulingOrder',function()use($app){
                             $stmt = $selectStatement->execute();
                             $data3= $stmt->fetch();
                             if($data3!=null){
-                                if($data3['times']==0||$data3['times']==null){
+                                if($data3['times']==1){
                                     $updateStatement = $database->update(array('exist'=>1))
                                         ->table('customer')
                                         ->where('customer_id','=',$data3['customer_id'])
