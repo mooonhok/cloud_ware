@@ -3009,6 +3009,80 @@ $app->put('/alterSchedulingOrder',function()use($app) {
     }
 });
 
+
+
+$app->put('/recoverSchedulingOrder',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $is_alter=2;
+    $exist=1;
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('scheduling')
+            ->where('is_alter', '=', $is_alter)
+            ->where('tenant_id', '=', $tenant_id)
+            ->where("exist",'=',$exist);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        if($data!=null){
+            for($x=0;$x<count($data);$x++){
+                $updateStatement = $database->update(array('is_alter'=>1,"exist"=>0))
+                    ->table('scheduling')
+                    ->where('schedule_id', '=', $data[$x]['scheduling_id']);
+                $affectedRows = $updateStatement->execute();
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('customer_id', '=', $data[$x]['receiver_id'])
+                    ->where('tenant_id', '=', $tenant_id);
+                $stmt = $selectStatement->execute();
+                $data2= $stmt->fetch();
+                if($data2==null){
+                    if($data2['exist']==1){
+                        $updateStatement = $database->update(array('exist'=>0))
+                            ->table('lorry')
+                            ->where('tenant_id','=',$tenant_id)
+                            ->where('customer_id','=',$data2['customer_id']);
+                        $affectedRows = $updateStatement->execute();
+                    }else if($data2['exist']==0){
+                        $a=$data2['times'];
+                        $updateStatement = $database->update(array('times'=>$a))
+                            ->table('lorry')
+                            ->where('tenant_id','=',$tenant_id)
+                            ->where('customer_id','=',$data2['customer_id']);
+                        $affectedRows = $updateStatement->execute();
+                    }
+                }
+                $updateStatement = $database->update(array('exist'=>0))
+                    ->table('schedule_order')
+                    ->where('schedule_id', '=', $data[$x]['scheduling_id'])
+                    ->where('tenant_id', '=', $tenant_id);
+                $affectedRows = $updateStatement->execute();
+                $selectStatement = $database->select()
+                    ->from('schedule_order')
+                    ->where('schedule_id', '=', $$data[$x]['scheduling_id'])
+                    ->where('tenant_id', '=', $tenant_id);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetchAll();
+                for($i=0;$i<count($data3);$i++){
+                    $updateStatement = $database->update(array('is_schedule'=>2))
+                        ->table('orders')
+                        ->where('order_id','=',$data3[$i]['order_id'])
+                        ->where('tenant_id','=',$tenant_id);
+                    $affectedRows = $updateStatement->execute();
+                }
+            }
+        }
+        echo json_encode(array("result" => "0", "desc" => "success"));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
+
+
 $app->run();
 function localhost(){
     return connect();
