@@ -3127,7 +3127,7 @@ $app->put('/finishSchedulingOrder',function()use($app){
         $data2 = $stmt->fetchAll();
         $array1=array();
         if($data!=null) {
-            if ($data['scheduling_status'] ==3) {
+            if ($data['scheduling_status']==3) {
                 $updateStatement = $database->update(array('is_show' => 1, "scheduling_status" => 4))
                     ->table('scheduling')
                     ->where('scheduling_id', '=', $scheduling_id)
@@ -3172,7 +3172,7 @@ $app->put('/finishSchedulingOrder',function()use($app){
                     $data2['receiver_city_name']=$data7['name'];
                 }
                 echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data2));
-            } else if ($data['scheduling_status'] ==2 && $data['is_load'] == 3) {
+            } else if ($data['scheduling_status']==2 && $data['is_load']==3) {
                 $updateStatement = $database->update(array('is_show' => 1, "scheduling_status" => 4))
                     ->table('scheduling')
                     ->where('scheduling_id', '=', $scheduling_id)
