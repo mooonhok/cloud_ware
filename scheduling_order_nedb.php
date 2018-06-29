@@ -3088,7 +3088,7 @@ $app->put('/recoverSchedulingOrder',function()use($app){
                 }
             }
         }
-        $updateStatement = $database->update(array('is_alter'=>1,"exist"=>0))
+        $updateStatement = $database->update(array('is_alter'=>0,"exist"=>0))
             ->table('scheduling')
             ->where('is_alter', '=',2)
             ->where('tenant_id', '=', $tenant_id)
