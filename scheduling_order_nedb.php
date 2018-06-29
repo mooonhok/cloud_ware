@@ -2459,6 +2459,31 @@ $app->put('/deleteSchedulingOrder',function()use($app){
                                 ->where('tenant_id','=',$tenant_id);
                             $affectedRows = $updateStatement->execute();
                         }
+                        if($data2['contact_tenant_id']!=null){
+                            $selectStatement = $database->select()
+                                ->from('customer')
+                                ->where('contact_tenant_id', '=', $tenant_id)
+                                ->where('tenant_id', '=', $data2['contact_tenant_id'])
+                                ->where('exist','=',0);
+                            $stmt = $selectStatement->execute();
+                            $data3= $stmt->fetch();
+                            if($data3!=null){
+                                if($data3['times']==0||$data3['times']==null){
+                                    $updateStatement = $database->update(array('exist'=>1))
+                                        ->table('customer')
+                                        ->where('customer_id','=',$data3['customer_id'])
+                                        ->where('tenant_id','=',$data2['contact_tenant_id']);
+                                    $affectedRows = $updateStatement->execute();
+                                }else{
+                                    $a=$data2['times']-1;
+                                    $updateStatement = $database->update(array('times'=>$a))
+                                        ->table('customer')
+                                        ->where('customer_id','=',$data3['customer_id'])
+                                        ->where('tenant_id','=',$data2['contact_tenant_id']);
+                                    $affectedRows = $updateStatement->execute();
+                                }
+                            }
+                        }
                     }
                     $updateStatement = $database->update(array('exist'=>1))
                         ->table('schedule_order')
@@ -2605,7 +2630,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                             ->where('customer_city_id', '=',$array1['receive_city_id'])
                                             ->where('customer_address', '=', $customer_address)
                                             ->where('type', '=', $type)
-                                            ->where('exist', '=', 0)
+//                                            ->where('exist', '=', 0)
                                             ->where('tenant_id', '=', $tenant_id);
                                         $stmt = $selectStatement->execute();
                                         $data6 = $stmt->fetch();
@@ -2640,7 +2665,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                         } else {
                                             $receiver_id="".$data6['customer_id'];
                                             $a=$times+1;
-                                            $updateStatement = $database->update(array('times'=>$a))
+                                            $updateStatement = $database->update(array('times'=>$a,"exist"=>0))
                                                 ->table('customer')
                                                 ->where('customer_id','=',$data6['customer_id'])
                                                 ->where('tenant_id','=',$tenant_id);
@@ -2656,7 +2681,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                             ->where('customer_address','=',$customer_address)
                                             ->where('type','=',$type)
                                             ->where('contact_tenant_id','=',$contact_tenant_id)
-                                            ->where('exist','=',0)
+//                                            ->where('exist','=',0)
                                             ->where('tenant_id', '=', $tenant_id);
                                         $stmt = $selectStatement->execute();
                                         $data6 = $stmt->fetch();
@@ -2693,7 +2718,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                         } else {
                                             $receiver_id="".$data6['customer_id'];
                                             $a=$times+1;
-                                            $updateStatement = $database->update(array('times'=>$a))
+                                            $updateStatement = $database->update(array('times'=>$a,"exist"=>0))
                                                 ->table('customer')
                                                 ->where('customer_id','=',$data6['customer_id'])
                                                 ->where('tenant_id','=',$tenant_id);
@@ -2739,7 +2764,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                     ->where('customer_city_id', '=',$array1['receive_city_id'])
                                                     ->where('customer_address', '=', $customer_address)
                                                     ->where('type', '=', $type)
-                                                    ->where('exist', '=', 0)
+//                                                    ->where('exist', '=', 0)
                                                     ->where('tenant_id', '=', $tenant_id);
                                                 $stmt = $selectStatement->execute();
                                                 $data6 = $stmt->fetch();
@@ -2774,7 +2799,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                 } else {
                                                     $receiver_id="".$data6['customer_id'];
                                                     $a=$times+1;
-                                                    $updateStatement = $database->update(array('times'=>$a))
+                                                    $updateStatement = $database->update(array('times'=>$a,"exist"=>0))
                                                         ->table('customer')
                                                         ->where('customer_id','=',$data6['customer_id'])
                                                         ->where('tenant_id','=',$tenant_id);
@@ -2790,7 +2815,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                     ->where('customer_address','=',$customer_address)
                                                     ->where('type','=',$type)
                                                     ->where('contact_tenant_id','=',$contact_tenant_id)
-                                                    ->where('exist','=',0)
+//                                                    ->where('exist','=',0)
                                                     ->where('tenant_id', '=', $tenant_id);
                                                 $stmt = $selectStatement->execute();
                                                 $data6 = $stmt->fetch();
@@ -2827,7 +2852,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                 } else {
                                                     $receiver_id="".$data6['customer_id'];
                                                     $a=$times+1;
-                                                    $updateStatement = $database->update(array('times'=>$a))
+                                                    $updateStatement = $database->update(array('times'=>$a,"exist"=>0))
                                                         ->table('customer')
                                                         ->where('customer_id','=',$data6['customer_id'])
                                                         ->where('tenant_id','=',$tenant_id);
@@ -2842,7 +2867,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                 ->where('customer_city_id', '=', $partner_city_id)
                                                 ->where('customer_address', '=', $partner_address)
                                                 ->where('type', '=', $partner_type)
-                                                ->where('exist', '=', 0)
+//                                                ->where('exist', '=', 0)
                                                 ->where('tenant_id', '=', $contact_tenant_id);
                                             $stmt = $selectStatement->execute();
                                             $data12 = $stmt->fetch();
@@ -2875,7 +2900,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                 $insertId = $insertStatement->execute(false);
                                             } else {
                                                 $a=$partner_times+1;
-                                                $updateStatement = $database->update(array('times'=>$a))
+                                                $updateStatement = $database->update(array('times'=>$a,"exist"=>0))
                                                     ->table('customer')
                                                     ->where('customer_id','=',$data12['customer_id'])
                                                     ->where('tenant_id','=',$contact_tenant_id);
