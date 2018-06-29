@@ -3015,16 +3015,12 @@ $app->put('/recoverSchedulingOrder',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database = localhost();
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $is_alter=2;
-    $exist=1;
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('scheduling')
-            ->where('is_alter', '=', $is_alter)
+            ->where('is_alter', '=',2)
             ->where('tenant_id', '=', $tenant_id)
-            ->where("exist",'=',$exist);
+            ->where("exist",'=',1);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         if($data!=null){
@@ -3062,7 +3058,7 @@ $app->put('/recoverSchedulingOrder',function()use($app){
                 $affectedRows = $updateStatement->execute();
                 $selectStatement = $database->select()
                     ->from('schedule_order')
-                    ->where('schedule_id', '=', $$data[$x]['scheduling_id'])
+                    ->where('schedule_id', '=', $data[$x]['scheduling_id'])
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
                 $data3 = $stmt->fetchAll();
