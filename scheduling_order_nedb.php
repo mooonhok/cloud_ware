@@ -1936,7 +1936,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                 $array['exist']=0;
                                 $array['scheduling_id']=$scheduling_id;
                                 $array['send_city_id']=$send_city_id;
-                                $array['$receive_city_id']=$receive_city_id;
+                                $array['receive_city_id']=$receive_city_id;
                                 $array['lorry_id']=$lorry_id;
                                 $array['receiver_id']=$receiver_id;
                                 $array['is_load']=$is_load;
@@ -1991,9 +1991,6 @@ $app->post('/addtest',function()use($app) {
     }
     echo json_encode(array("result" => "6", "desc" =>$array2[1]));
 });
-
-
-
 
 
 
