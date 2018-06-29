@@ -2381,7 +2381,6 @@ $app->post('/addSchedulingOrder',function()use($app) {
 $app->post('/addtest',function()use($app) {
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
-    $tenant_id = $app->request->headers->get("tenant-id");
     $body = $app->request->getBody();
     $body = json_decode($body);
     $array3=array();
