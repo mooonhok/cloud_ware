@@ -1887,334 +1887,6 @@ $app->get('/getSchedulingOrder',function()use($app){
 });
 
 
-//$app->post('/addSchedulingOrder',function()use($app) {
-//    $app->response->headers->set('Content-Type', 'application/json');
-//    $database = localhost();
-//    $tenant_id = $app->request->headers->get("tenant-id");
-//    $body = $app->request->getBody();
-//    $body = json_decode($body);
-//    $tenant_num=$body->tenant_num;
-//    $tenant_flag=$body->tenant_flag;
-//    $receive_tenant_id=$body->receive_tenant_id;
-//    $send_city_name=$body->send_city_name;
-//    $receive_city_name=$body->receive_city_name;
-//    $plate_number=$body->plate_number;
-//    $driver_name=$body->driver_name;
-//    $driver_phone=$body->driver_phone;
-//    $flag=$body->flag;
-//    $customer_name = $body->customer_name;
-//    $customer_phone = $body->customer_phone;
-//    $customer_city_id = $body->customer_city_id;
-//    $customer_address = $body->customer_address;
-//    $type=$body->type;
-//    $contact_tenant_id=$body->contact_tenant_id;
-//    $times=$body->times;
-//    $is_load=$body->is_load;
-//    $array=array();
-//    $order_ary=$body->order_ary;
-//    $array1 = array();
-//    $array2=array();
-//    $array3=array();
-//    $array4=array();
-//    foreach ($order_ary as $key => $value) {
-//        $array2[$key] = $value;
-//    }
-//    if($tenant_flag==0){
-//    if($tenant_id!=null||$tenant_id!=''){
-//        if($send_city_name!=null||$send_city_name!=''){
-//            if($receive_city_name!=null||$receive_city_name!=''){
-//                if($plate_number!=null||$plate_number!=''){
-//                    if($driver_name!=null||$driver_name!=""){
-//                        if($driver_phone!=null||$driver_phone!=""){
-//                            if($flag!=null||$flag!=""){
-//                                $receiver_id=null;
-//                                if( $contact_tenant_id==null|| $contact_tenant_id=="") {
-//                                    $selectStatement = $database->select()
-//                                        ->from('customer')
-//                                        ->whereNull('wx_openid')
-//                                        ->where('customer_name', '=', $customer_name)
-//                                        ->where('customer_phone', '=', $customer_phone)
-//                                        ->where('customer_city_id', '=', $customer_city_id)
-//                                        ->where('customer_address', '=', $customer_address)
-//                                        ->where('type', '=', $type)
-//                                        ->where('exist', '=', 0)
-//                                        ->where('tenant_id', '=', $tenant_id);
-//                                    $stmt = $selectStatement->execute();
-//                                    $data7 = $stmt->fetch();
-//                                    if ($data7 == null) {
-//                                        $array4['tenant_id'] = $tenant_id;
-//                                        $array4['exist'] = 0;
-//                                        $array4['customer_name'] = $customer_name;
-//                                        $array4['customer_phone'] = $customer_phone;
-//                                        $array4['customer_city_id'] = $customer_city_id;
-//                                        $array4['customer_address'] = $customer_address;
-//                                        $array4['type']=$type;
-//                                        $array4['contact_tenant_id']=$contact_tenant_id;
-//                                        $array4['times']=$times;
-//                                        $selectStatement = $database->select()
-//                                            ->from('tenant')
-//                                            ->where('tenant_id', '=', $tenant_id);
-//                                        $stmt = $selectStatement->execute();
-//                                        $data8 = $stmt->fetch();
-//                                        $selectStatement = $database->select()
-//                                            ->from('customer')
-//                                            ->whereNull('wx_openid')
-//                                            ->where('customer_id', '!=', $data8['contact_id'])
-//                                            ->where('tenant_id', '=', $tenant_id);
-//                                        $stmt = $selectStatement->execute();
-//                                        $data9 = $stmt->fetchAll();
-//                                        $array4['customer_id'] = count($data9) + 10000000001;
-//                                        $insertStatement = $database->insert(array_keys($array4))
-//                                            ->into('customer')
-//                                            ->values(array_values($array4));
-//                                        $insertId = $insertStatement->execute(false);
-//                                        $receiver_id="".$array4['customer_id'];
-//                                    } else {
-//                                        $receiver_id="".$data7['customer_id'];
-//                                        $a=$times+1;
-//                                        $updateStatement = $database->update(array('times'=>$a))
-//                                            ->table('customer')
-//                                            ->where('customer_id','=',$data7['customer_id'])
-//                                            ->where('tenant_id','=',$tenant_id);
-//                                        $affectedRows = $updateStatement->execute();
-//                                    }
-//                                }else{
-//                                    $selectStatement = $database->select()
-//                                        ->from('customer')
-//                                        ->whereNull('wx_openid')
-//                                        ->where('customer_name','=',$customer_name)
-//                                        ->where('customer_phone','=',$customer_phone)
-//                                        ->where('customer_city_id','=',$customer_city_id)
-//                                        ->where('customer_address','=',$customer_address)
-//                                        ->where('type','=',$type)
-//                                        ->where('contact_tenant_id','=',$contact_tenant_id)
-//                                        ->where('exist','=',0)
-//                                        ->where('tenant_id', '=', $tenant_id);
-//                                    $stmt = $selectStatement->execute();
-//                                    $data7 = $stmt->fetch();
-//                                    if($data7==null){
-//                                        $array4['tenant_id'] = $tenant_id;
-//                                        $array4['exist'] = 0;
-//                                        $array4['customer_name'] = $customer_name;
-//                                        $array4['customer_phone'] = $customer_phone;
-//                                        $array4['customer_city_id'] = $customer_city_id;
-//                                        $array4['customer_address'] = $customer_address;
-//                                        $array4['type']=$type;
-//                                        $array4['contact_tenant_id']=$contact_tenant_id;
-//                                        $array4['times']=$times;
-//                                        $array4['tenant_id']=$tenant_id;
-//                                        $array4['exist']=0;
-//                                        $selectStatement = $database->select()
-//                                            ->from('tenant')
-//                                            ->where('tenant_id', '=', $tenant_id);
-//                                        $stmt = $selectStatement->execute();
-//                                        $data8 = $stmt->fetch();
-//                                        $selectStatement = $database->select()
-//                                            ->from('customer')
-//                                            ->whereNull('wx_openid')
-//                                            ->where('customer_id', '!=', $data8['contact_id'])
-//                                            ->where('tenant_id', '=', $tenant_id);
-//                                        $stmt = $selectStatement->execute();
-//                                        $data9 = $stmt->fetchAll();
-//                                        $array4['customer_id']=count($data9)+10000000001;
-//                                        $insertStatement = $database->insert(array_keys($array4))
-//                                            ->into('customer')
-//                                            ->values(array_values($array4));
-//                                        $insertId = $insertStatement->execute(false);
-//                                        $receiver_id="".$array4['customer_id'];
-//                                    } else {
-//                                        $receiver_id="".$data7['customer_id'];
-//                                        $a=$times+1;
-//                                        $updateStatement = $database->update(array('times'=>$a))
-//                                            ->table('customer')
-//                                            ->where('customer_id','=',$data7['customer_id'])
-//                                            ->where('tenant_id','=',$tenant_id);
-//                                        $affectedRows = $updateStatement->execute();
-//                                    }
-//                                }
-//                                $selectStatement = $database->select()
-//                                    ->from('scheduling')
-//                                    ->where('tenant_id', '=', $tenant_id);
-//                                $stmt = $selectStatement->execute();
-//                                $data = $stmt->fetchAll();
-//                                $scheduling_id=null;
-//                                if((count($data)+1)<10){
-//                                    $scheduling_id='QD'.$tenant_num."00000".(count($data)+1);
-//                                }else if((count($data)+1)<100&&(count($data)+1)>9){
-//                                    $scheduling_id='QD'.$tenant_num."0000".(count($data)+1);
-//                                }else if((count($data)+1)<1000&&(count($data)+1)>99){
-//                                    $scheduling_id='QD'.$tenant_num."000".(count($data)+1);
-//                                }else if((count($data)+1)<10000&&(count($data)+1)>999){
-//                                    $scheduling_id='QD'.$tenant_num."00".(count($data)+1);
-//                                }else if((count($data)+1)<100000&&(count($data)+1)>9999){
-//                                    $scheduling_id='QD'.$tenant_num."0".(count($data)+1);
-//                                }else if((count($data)+1)<1000000&&(count($data)+1)>99999){
-//                                    $scheduling_id='QD'.$tenant_num.(count($data)+1);
-//                                }
-//                                $selectStatement = $database->select()
-//                                    ->from('city')
-//                                    ->where('name','=',$send_city_name);
-//                                $stmt = $selectStatement->execute();
-//                                $data2 = $stmt->fetch();
-//                                if($data2!=null){
-//                                    $selectStatement = $database->select()
-//                                        ->from('city')
-//                                        ->where('name','=',$receive_city_name);
-//                                    $stmt = $selectStatement->execute();
-//                                    $data3 = $stmt->fetch();
-//                                    if($data3!=null){
-//                                        $selectStatement = $database->select()
-//                                            ->from('app_lorry')
-//                                            ->where('plate_number', '=', $plate_number)
-//                                            ->where('flag','=',$flag)
-//                                            ->where('name', '=', $driver_name)
-//                                            ->where('exist', '=', 0)
-//                                            ->where('phone', '=', $driver_phone);
-//                                        $stmt = $selectStatement->execute();
-//                                        $data4= $stmt->fetch();
-//                                        if($data4!=null){
-//                                            $selectStatement = $database->select()
-//                                                ->from('lorry')
-//                                                ->where('driver_phone', '=', $driver_phone)
-//                                                ->where('plate_number','=',$plate_number)
-//                                                ->where('driver_name','=',$driver_name)
-//                                                ->where('tenant_id', '=', $tenant_id)
-//                                                ->where('flag', '=', $flag)
-//                                                ->where("exist",'=',0);
-//                                            $stmt = $selectStatement->execute();
-//                                            $data5 = $stmt->fetch();
-//                                            if($data5==null){
-//                                                $array3['plate_number']=$plate_number;
-//                                                $array3['driver_name']=$driver_name;
-//                                                $array3['driver_phone']=$driver_phone;
-//                                                $array3['flag']=$flag;
-//                                                $array3['tenant_id']=$tenant_id;
-//                                                $array3['exist']=0;
-//                                                $selectStatement = $database->select()
-//                                                    ->from('lorry')
-//                                                    ->where('tenant_id', '=', $tenant_id);
-//                                                $stmt = $selectStatement->execute();
-//                                                $data6 = $stmt->fetchAll();
-//                                                $array3['lorry_id']=count($data6)+100000001;
-//                                                $insertStatement = $database->insert(array_keys($array3))
-//                                                    ->into('lorry')
-//                                                    ->values(array_values($array3));
-//                                                $insertId = $insertStatement->execute(false);
-//                                                $updateStatement = $database->update(array('lorry_status'=>2))
-//                                                    ->table('app_lorry')
-//                                                    ->where('app_lorry_id','=',$data4['app_lorry_id']);
-//                                                $affectedRows = $updateStatement->execute();
-//                                                $array1['tenant_id'] = $tenant_id;
-//                                                date_default_timezone_set("PRC");
-//                                                $array1['scheduling_datetime'] = date('Y-m-d H:i:s', time());
-//                                                $array1['exist'] = 0;
-//                                                $array1['scheduling_id'] = $scheduling_id;
-//                                                $array1['send_city_id'] = $data2['id'];
-//                                                $array1['receive_city_id'] = $data3['id'];
-//                                                $array1['lorry_id'] = $array3['lorry_id'];
-//                                                $array1['receiver_id'] = $receiver_id;
-//                                                $array1['is_load'] = $is_load;
-//                                                $array1['scheduling_status'] = 1;
-//                                                $array1['is_show'] = 0;
-//                                                $array1['is_alter'] = 0;
-//                                                $array1['is_contract'] = 1;
-//                                                $array1['is_insurance'] = 1;
-//                                                $insertStatement = $database->insert(array_keys($array1))
-//                                                    ->into('scheduling')
-//                                                    ->values(array_values($array1));
-//                                                $insertId = $insertStatement->execute(false);
-//                                                for ($x = 0; $x < count($array2); $x++) {
-//                                                    $insertStatement = $database->insert(array('tenant_id', 'schedule_id', 'order_id', 'exist'))
-//                                                        ->into('schedule_order')
-//                                                        ->values(array($tenant_id, $scheduling_id, $array2[$x], 0));
-//                                                    $insertId = $insertStatement->execute(false);
-//                                                    $updateStatement = $database->update(array('is_schedule' => 2))
-//                                                        ->table('orders')
-//                                                        ->where('tenant_id', '=', $tenant_id)
-//                                                        ->where('order_id', '=', $array2[$x]);
-//                                                    $affectedRows = $updateStatement->execute();
-//                                                }
-//                                            }else{
-//                                                $array1['tenant_id']=$tenant_id;
-//                                                date_default_timezone_set("PRC");
-//                                                $array1['scheduling_datetime']=date('Y-m-d H:i:s',time());
-//                                                $array1['exist']=0;
-//                                                $array1['scheduling_id']=$scheduling_id;
-//                                                $array1['send_city_id']=$data2['id'];
-//                                                $array1['receive_city_id']=$data3['id'];
-//                                                $array1['lorry_id']=$data5['lorry_id'];
-//                                                $array1['receiver_id']=$receiver_id;
-//                                                $array1['is_load']=$is_load;
-//                                                $array1['scheduling_status']=1;
-//                                                $array1['is_show']=0;
-//                                                $array1['is_alter']=0;
-//                                                $array1['is_contract']=1;
-//                                                $array1['is_insurance']=1;
-//                                                $insertStatement = $database->insert(array_keys($array1))
-//                                                    ->into('scheduling')
-//                                                    ->values(array_values($array1));
-//                                                $insertId = $insertStatement->execute(false);
-//                                                for($x=0;$x<count($array2);$x++){
-//                                                    $insertStatement = $database->insert(array('tenant_id','schedule_id','order_id','exist'))
-//                                                        ->into('schedule_order')
-//                                                        ->values(array($tenant_id,$scheduling_id,$array2[$x],0));
-//                                                    $insertId = $insertStatement->execute(false);
-//                                                    $updateStatement = $database->update(array('is_schedule'=>2))
-//                                                        ->table('orders')
-//                                                        ->where('tenant_id','=',$tenant_id)
-//                                                        ->where('order_id','=',$array2[$x]);
-//                                                    $affectedRows = $updateStatement->execute();
-//                                                }
-//                                            }
-//                                            echo json_encode(array("result" => "0", "desc" => "success","scheduling_id"=>$scheduling_id));
-//                                        }else{
-//                                            echo json_encode(array("result" => "11", "desc" => "该车辆还未在交付帮手上注册过"));
-//                                        }
-//                                    }else{
-//                                        echo json_encode(array("result" => "7", "desc" => "收货城市不存在"));
-//                                    }
-//                                }else{
-//                                    echo json_encode(array("result" => "5", "desc" => "发货城市不存在"));
-//                                }
-//                            }else{
-//                                echo json_encode(array("result" => "10", "desc" => "缺少车辆类型"));
-//                            }
-//                        }else{
-//                            echo json_encode(array("result" => "9", "desc" => "缺少司机电话"));
-//                        }
-//                    }else{
-//                        echo json_encode(array("result" => "8", "desc" => "缺少司机姓名"));
-//                    }
-//                }else{
-//                    echo json_encode(array("result" => "1", "desc" => "缺少车牌号"));
-//                }
-//            }else{
-//                echo json_encode(array("result" => "2", "desc" => "缺少收货城市id"));
-//            }
-//        }else{
-//            echo json_encode(array("result" => "4", "desc" => "缺少发货城市id"));
-//        }
-//    }else{
-//        echo json_encode(array("result" => "6", "desc" => "缺少租户id"));
-//    }
-//    }else if($tenant_flag==1){
-//        $selectStatement = $database->select()
-//            ->from('tenant')
-//            ->where('tenant_id','=',$receive_tenant_id)
-//            ->where('exist','=',0);
-//        $stmt = $selectStatement->execute();
-//        $data10= $stmt->fetch();
-//        if($data10==null){
-//
-//        }else{
-//            echo json_encode(array("result" => "13", "desc" => "收货租户公司不存在"));
-//        }
-//    }else{
-//        echo json_encode(array("result" => "12", "desc" => "tenant_flag有误"));
-//    }
-//});
-
-
 $app->post('/addSchedulingOrder',function()use($app) {
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
@@ -2234,7 +1906,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
     $receive_tenant_id=$body->receive_tenant_id;
     $customer_name = $body->customer_name;
     $customer_phone = $body->customer_phone;
-    $customer_city_id = $body->customer_city_id;
+//    $customer_city_id = $body->customer_city_id;
     $customer_address = $body->customer_address;
     $type=$body->type;
     $contact_tenant_id=$body->contact_tenant_id;
@@ -2342,7 +2014,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                         ->whereNull('wx_openid')
                                         ->where('customer_name', '=', $customer_name)
                                         ->where('customer_phone', '=', $customer_phone)
-                                        ->where('customer_city_id', '=', $customer_city_id)
+                                        ->where('customer_city_id', '=',$array1['receive_city_id'])
                                         ->where('customer_address', '=', $customer_address)
                                         ->where('type', '=', $type)
                                         ->where('exist', '=', 0)
@@ -2354,7 +2026,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                         $array4['exist'] = 0;
                                         $array4['customer_name'] = $customer_name;
                                         $array4['customer_phone'] = $customer_phone;
-                                        $array4['customer_city_id'] = $customer_city_id;
+                                        $array4['customer_city_id'] = $array1['receive_city_id'];
                                         $array4['customer_address'] = $customer_address;
                                         $array4['type']=$type;
                                         $array4['contact_tenant_id']=$contact_tenant_id;
@@ -2392,7 +2064,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                         ->whereNull('wx_openid')
                                         ->where('customer_name','=',$customer_name)
                                         ->where('customer_phone','=',$customer_phone)
-                                        ->where('customer_city_id','=',$customer_city_id)
+                                        ->where('customer_city_id','=',$array1['receive_city_id'])
                                         ->where('customer_address','=',$customer_address)
                                         ->where('type','=',$type)
                                         ->where('contact_tenant_id','=',$contact_tenant_id)
@@ -2405,7 +2077,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                         $array4['exist'] = 0;
                                         $array4['customer_name'] = $customer_name;
                                         $array4['customer_phone'] = $customer_phone;
-                                        $array4['customer_city_id'] = $customer_city_id;
+                                        $array4['customer_city_id'] = $array1['receive_city_id'];
                                         $array4['customer_address'] = $customer_address;
                                         $array4['type']=$type;
                                         $array4['contact_tenant_id']=$contact_tenant_id;
@@ -2485,7 +2157,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                                 ->whereNull('wx_openid')
                                                 ->where('customer_name', '=', $customer_name)
                                                 ->where('customer_phone', '=', $customer_phone)
-                                                ->where('customer_city_id', '=', $customer_city_id)
+                                                ->where('customer_city_id', '=',$array1['receive_city_id'])
                                                 ->where('customer_address', '=', $customer_address)
                                                 ->where('type', '=', $type)
                                                 ->where('exist', '=', 0)
@@ -2497,7 +2169,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                                 $array4['exist'] = 0;
                                                 $array4['customer_name'] = $customer_name;
                                                 $array4['customer_phone'] = $customer_phone;
-                                                $array4['customer_city_id'] = $customer_city_id;
+                                                $array4['customer_city_id'] = $array1['receive_city_id'];
                                                 $array4['customer_address'] = $customer_address;
                                                 $array4['type']=$type;
                                                 $array4['contact_tenant_id']=$contact_tenant_id;
@@ -2535,7 +2207,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                                 ->whereNull('wx_openid')
                                                 ->where('customer_name','=',$customer_name)
                                                 ->where('customer_phone','=',$customer_phone)
-                                                ->where('customer_city_id','=',$customer_city_id)
+                                                ->where('customer_city_id','=',$array1['receive_city_id'])
                                                 ->where('customer_address','=',$customer_address)
                                                 ->where('type','=',$type)
                                                 ->where('contact_tenant_id','=',$contact_tenant_id)
@@ -2548,7 +2220,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                                 $array4['exist'] = 0;
                                                 $array4['customer_name'] = $customer_name;
                                                 $array4['customer_phone'] = $customer_phone;
-                                                $array4['customer_city_id'] = $customer_city_id;
+                                                $array4['customer_city_id'] = $array1['receive_city_id'];
                                                 $array4['customer_address'] = $customer_address;
                                                 $array4['type']=$type;
                                                 $array4['contact_tenant_id']=$contact_tenant_id;
