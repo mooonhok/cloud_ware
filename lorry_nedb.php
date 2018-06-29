@@ -14,7 +14,7 @@ use Slim\PDO\Database;
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
-$app->post('/addLorry',function()use($app) {
+$app->post('/addLorry',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $body = $app->request->getBody();
@@ -42,6 +42,7 @@ $app->post('/addLorry',function()use($app) {
                     $stmt = $selectStatement->execute();
                     $data = $stmt->fetch();
                     if($data!=null){
+                        if($data['lorry_status']==1){
                         $selectStatement = $database->select()
                             ->from('lorry')
                             ->where('driver_phone', '=', $driver_phone)
@@ -87,6 +88,9 @@ $app->post('/addLorry',function()use($app) {
                         }else{
                             echo json_encode(array("result" => "6", "desc" => "该车辆已被添加过","lorry_id"=>$data2['lorry_id']));
                         }
+                        }else{
+                            echo json_encode(array("result" => "8", "desc" => "驾驶员正在修改个人资料"));
+                        }
                     }else{
                         echo json_encode(array("result" => "1", "desc" => "该车辆还未在交付帮手上注册过"));
                     }
@@ -115,7 +119,6 @@ $app->get('/getLorry',function()use($app){
     $flag=$app->request->get('flag');
     if($tenant_id!=null||$tenant_id!=''){
         if($driver_phone!=null||$driver_phone!=''){
-
             $selectStatement = $database->select()
                 ->from('lorry')
                 ->where('tenant_id', '=', $tenant_id)
