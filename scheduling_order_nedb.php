@@ -2760,14 +2760,13 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                 ->where("order_id",'=',$array6[$x]);
                                             $affectedRows = $updateStatement->execute();
                                         }
-                                        $deleteStatement = $database->delete()
-                                            ->from('schedule_order')
-                                            ->where('schedule_id', '=', $scheduling_id)
-                                            ->where('tenant_id', '=', $tenant_id)
-                                            ->where("order_id",'=',$array6[$x])
-                                            ->where("exist",'=',1);
-                                        $affectedRows = $deleteStatement->execute();
                                     }
+                                    $deleteStatement = $database->delete()
+                                        ->from('schedule_order')
+                                        ->where('schedule_id', '=', $scheduling_id)
+                                        ->where('tenant_id', '=', $tenant_id)
+                                        ->where("exist",'=',1);
+                                    $affectedRows = $deleteStatement->execute();
                                     echo json_encode(array("result" => "0", "desc" => "success"));
                                 }else{
                                     $selectStatement = $database->select()
@@ -2966,14 +2965,14 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                         ->where("order_id",'=',$array6[$x]);
                                                     $affectedRows = $updateStatement->execute();
                                                 }
-                                                $deleteStatement = $database->delete()
-                                                    ->from('schedule_order')
-                                                    ->where('schedule_id', '=', $scheduling_id)
-                                                    ->where('tenant_id', '=', $tenant_id)
-                                                    ->where("order_id",'=',$array6[$x])
-                                                    ->where("exist",'=',1);
-                                                $affectedRows = $deleteStatement->execute();
+
                                             }
+                                            $deleteStatement = $database->delete()
+                                                ->from('schedule_order')
+                                                ->where('schedule_id', '=', $scheduling_id)
+                                                ->where('tenant_id', '=', $tenant_id)
+                                                ->where("exist",'=',1);
+                                            $affectedRows = $deleteStatement->execute();
                                             echo json_encode(array("result" => "0", "desc" => "success"));
                                         }else{
                                             $selectStatement = $database->select()
