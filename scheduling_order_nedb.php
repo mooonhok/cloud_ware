@@ -2520,7 +2520,6 @@ $app->put('/alterSchedulingOrder',function()use($app) {
     $driver_name=$body->driver_name;
     $driver_phone=$body->driver_phone;
     $flag=$body->flag;
-    $tenant_num=$body->tenant_num;
     $tenant_flag=$body->tenant_flag;
     $receive_tenant_id=$body->receive_tenant_id;
     $customer_name = $body->customer_name;
