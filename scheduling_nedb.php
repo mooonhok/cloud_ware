@@ -436,7 +436,7 @@ $app->get('/getSchedulings4',function()use($app){
             ->orderBy('scheduling_id');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>count($data)));
+        echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "租户id为空"));
     }
