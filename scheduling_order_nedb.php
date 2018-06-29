@@ -3039,7 +3039,7 @@ $app->put('/recoverSchedulingOrder',function()use($app){
                             ->where('customer_id','=',$data2['customer_id']);
                         $affectedRows = $updateStatement->execute();
                     }else if($data2['exist']==0){
-                        $a=$data2['times'];
+                        $a=$data2['times']+1;
                         $updateStatement = $database->update(array('times'=>$a))
                             ->table('lorry')
                             ->where('tenant_id','=',$tenant_id)
