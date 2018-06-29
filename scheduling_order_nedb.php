@@ -3109,7 +3109,7 @@ $app->put('/finishSchedulingOrder',function()use($app){
     $body = json_decode($body);
     $scheduling_id=$body->scheduling_id;
     date_default_timezone_set("PRC");
-    $time=date("Y-m-d H:i", time());
+    $time=date("Y-m-d H:i:s", time());
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('scheduling')
@@ -3134,7 +3134,7 @@ $app->put('/finishSchedulingOrder',function()use($app){
                     ->where('tenant_id', '=', $tenant_id);
                 $affectedRows = $updateStatement->execute();
                 for ($x = 0; $x < count($data2); $x++) {
-                    $updateStatement = $database->update(array('order_status' => 3, "order_datetime3" => $time))
+                    $updateStatement = $database->update(array('order_status' =>3, "order_datetime3" => $time))
                         ->table('orders')
                         ->where('order_id', '=', $data2[$x]['order_id'])
                         ->where('tenant_id', '=', $tenant_id);
@@ -3185,7 +3185,6 @@ $app->put('/finishSchedulingOrder',function()use($app){
                         ->where('order_id', '=', $data2[$x]['order_id'])
                         ->where('tenant_id', '=', $tenant_id);
                     $affectedRows = $updateStatement->execute();
-//                        array_push($array1,$data2[$x]['order_id']);
                     $selectStatement = $database->select()
                         ->from('orders')
                         ->where('order_id', '=', $data2[$x]['order_id'])
@@ -3240,7 +3239,7 @@ $app->put('/loadSchedulingOrder',function()use($app){
     $body = json_decode($body);
     $scheduling_id=$body->scheduling_id;
     date_default_timezone_set("PRC");
-    $time=date("Y-m-d H:i", time());
+    $time=date("Y-m-d H:i:s", time());
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('scheduling')
