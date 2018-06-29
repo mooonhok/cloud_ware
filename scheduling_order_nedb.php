@@ -3052,7 +3052,7 @@ $app->put('/recoverSchedulingOrder',function()use($app){
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
                 $data2= $stmt->fetch();
-                if($data2==null){
+                if($data2!=null){
                     if($data2['exist']==1){
                         $updateStatement = $database->update(array('exist'=>0))
                             ->table('customer')
