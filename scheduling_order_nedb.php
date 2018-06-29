@@ -1978,6 +1978,25 @@ $app->post('/addSchedulingOrder',function()use($app) {
     }
 });
 
+$app->post('/addtest',function()use($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $order_ary=$body->order_ary;
+    $array2=array();
+    foreach ($order_ary as $key => $value) {
+        $array2[$key] = $value;
+    }
+    echo json_encode(array("result" => "6", "desc" =>$array2[1]));
+});
+
+
+
+
+
+
 $app->run();
 function localhost(){
     return connect();
