@@ -3239,7 +3239,6 @@ $app->put('/loadSchedulingOrder',function()use($app){
     $body = $app->request->getBody();
     $body = json_decode($body);
     $scheduling_id=$body->scheduling_id;
-    $exist=$body->exist;
     date_default_timezone_set("PRC");
     $time=date("Y-m-d H:i", time());
     if($tenant_id!=null||$tenant_id!=''){
