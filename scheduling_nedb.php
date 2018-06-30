@@ -2331,6 +2331,30 @@ $app->put('/alterScheduling9',function()use($app){
     }
 });
 
+$app->put('/alterScheduling10',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $is_insurance=$body->is_insurance;
+    $scheduling_id=$body->scheduling_id;
+    $updateStatement = $database->update(array('is_insurance'=>$is_insurance))
+        ->table('scheduling')
+        ->where('scheduling_id','=',$scheduling_id)
+        ->where('tenant_id','=',$tenant_id)
+        ->where('exist',"=",0);
+    $affectedRows = $updateStatement->execute();
+    if($affectedRows>0){
+        echo json_encode(array('result'=>'1','desc'=>'success'));
+    }else{
+        echo json_encode(array('result'=>'2','desc'=>'false'));
+    }
+});
+
+
+
 //$app->put('/alterSchedulings0',function()use($app){
 //    $app->response->headers->set('Content-Type', 'application/json');
 //    $tenant_id = $app->request->headers->get("tenant-id");
