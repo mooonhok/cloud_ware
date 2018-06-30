@@ -227,7 +227,7 @@ $app->get('/getScheduleOrder',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $tenant_id=$app->request->headers->get("tenant-id");
-    $scheduling_id=$app->request->scheduling_id;
+    $scheduling_id=$app->request->get('scheduling_id');
     $selectStatement = $database->select()
         ->from('schedule_order')
         ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
