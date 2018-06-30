@@ -239,7 +239,7 @@ $app->get('/getScheduleOrder',function()use($app){
         ->where('schedule_order.tenant_id','=',$tenant_id);
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
-    echo json_encode(array('result'=>'1','desc'=>'success','insurance_scheduling'=>$data1));
+    echo json_encode(array('result'=>'1','desc'=>'success','schedule_orders'=>$data1));
 });
 
 $app->run();
