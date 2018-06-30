@@ -69,7 +69,7 @@ $app->get('/getInsurances1',function()use($app){
         ->orderBy('insurance.insurance_start_time',"DESC");
     $stmt = $selectStatement->execute();
     $data1= $stmt->fetchAll();
-    echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$data1));
+    echo json_encode(array('result'=>'1','desc'=>'success','count'=>count($data1)));
 });
 
 $app->get('/limitInsurances1',function()use($app){
@@ -131,7 +131,7 @@ $app->get('/getInsurances2',function()use($app){
         $data3= $stmt->fetch();
         array_push($array1,$data3);
     }
-    echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$array1));
+    echo json_encode(array('result'=>'1','desc'=>'success','count'=>count($array1)));
 });
 
 
