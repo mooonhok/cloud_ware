@@ -193,7 +193,40 @@ $app->get('/limitInsurances2',function()use($app){
     echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$array2));
 });
 
-
+$app->get('/getInsurance',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $insurance_id=$app->request->get('insurance_id');
+    $selectStatement = $database->select()
+        ->from('insurance')
+        ->join('insurance_scheduling','insurance_scheduling.insurance_id','=','insurance.insurance_id','INNER')
+        ->join('scheduling','scheduling.scheduling_id','=','insurance_scheduling.scheduling_id','INNER')
+        ->where('insurance_scheduling.tenant_id','=',$tenant_id)
+        ->where('insurance.tenant_id','=',$tenant_id)
+        ->where('scheduling.tenant_id','=',$tenant_id)
+        ->where('insurance.insurance_id','=',$insurance_id)
+        ->where('insurance_scheduling.insurance_id','=',$insurance_id)
+        ->orderBy('scheduling.scheduling_id');
+    $stmt = $selectStatement->execute();
+    $data1= $stmt->fetchAll();
+    for($i=0;$i<count($data1);$i++){
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id', '=', $data1[$i]['receive_city_id']);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id', '=', $data1[$i]['send_city_id']);
+        $stmt = $selectStatement->execute();
+        $data3 = $stmt->fetch();
+        $data1[$i]['receive_city']=$data2['name'];
+        $data1[$i]['send_city']=$data3['name'];
+    }
+    echo json_encode(array('result'=>'1','desc'=>'success','insurances'=>$data1));
+});
 
 
 $app->run();
