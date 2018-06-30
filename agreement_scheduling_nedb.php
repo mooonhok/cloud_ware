@@ -302,7 +302,6 @@ $app->post('/addAgreementScheduling',function()use($app) {
         }
         $selectStatement = $database->select()
             ->from('agreement')
-            ->where('tenant_id', '=', $tenant_id)
             ->where('secondparty_id','=',$secondparty_id)
             ->where('pay_method','=',$pay_method)
             ->where('deadline','=',$deadline)
@@ -311,13 +310,14 @@ $app->post('/addAgreementScheduling',function()use($app) {
             ->where("is_ticket",'=',$is_ticket)
             ->where("company_id",'=',$company_id)
             ->where("freight","=",$freight)
+            ->where('tenant_id', '=', $tenant_id)
             ->where("exist",'=',0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetch();
         if($data==null){
-        $insertStatement = $database->insert(array("agreement_id","secondparty_id","pay_method","deadline","agreement_require","rcity","is_ticket","company_id","freight"))
+        $insertStatement = $database->insert(array("agreement_id","secondparty_id","pay_method","deadline","agreement_require","rcity","is_ticket","company_id","freight","tenant_id"))
             ->into('agreement')
-            ->values(array($agreement_id,$secondparty_id,$pay_method,$deadline,$agreement_require,$rcity,$is_ticket,$company_id,$freight));
+            ->values(array($agreement_id,$secondparty_id,$pay_method,$deadline,$agreement_require,$rcity,$is_ticket,$company_id,$freight,$tenant_id));
         $insertId = $insertStatement->execute(false);
         echo json_encode(array("result" => "0", "desc" => "success"));
         }else{
