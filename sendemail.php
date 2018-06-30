@@ -91,7 +91,7 @@ $app->post('/scheduling',function()use($app,$mail){
     $api_url=api_url();
 //    $title=$body->title;//邮件标题
     if($api_url=='uminfor'){
-        $emailaddress='1026413232@qq.com';//收件邮箱地址
+        $emailaddress='908359404@qq.com';//收件邮箱地址
         $sendname='江苏保险测试';//收件人称呼
     }else{
         $emailaddress='jsjjrsbx@126.com';//收件邮箱地址
