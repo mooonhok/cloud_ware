@@ -281,30 +281,48 @@ $app->post('/addAgreementScheduling',function()use($app) {
         }
         for($x=0;$x<count($array1);$x++){
             $selectStatement = $database->select()
-                ->from('agreement')
+                ->from('agreement_schedule')
                 ->where('tenant_id', '=', $tenant_id)
                 ->where('agreement_id','=',$agreement_id)
                 ->where('scheduling_id','=',$array1[$x])
                 ->where("exist",'=',0);
             $stmt = $selectStatement->execute();
-            $data = $stmt->fetch();
+            $data2 = $stmt->fetch();
             $updateStatement = $database->update(array('is_contract'=>2))
                 ->table('scheduling')
                 ->where('scheduling_id','=',$array1[$x])
                 ->where('tenant_id','=',$tenant_id);
             $affectedRows = $updateStatement->execute();
-            if($data==null) {
+            if($data2==null) {
                 $insertStatement = $database->insert(array("tenant_id", "agreement_id", "scheduling_id", "exist"))
                     ->into('agreement_schedule')
                     ->values(array($tenant_id, $agreement_id, $array1[$x], 0));
                 $insertId = $insertStatement->execute(false);
             }
         }
+        $selectStatement = $database->select()
+            ->from('agreement')
+            ->where('tenant_id', '=', $tenant_id)
+            ->where('secondparty_id','=',$secondparty_id)
+            ->where('pay_method','=',$pay_method)
+            ->where('deadline','=',$deadline)
+            ->where("agreement_require",'=',$agreement_require)
+            ->where("rcity","=",$rcity)
+            ->where("is_ticket",'=',$is_ticket)
+            ->where("company_id",'=',$company_id)
+            ->where("freight","=",$freight)
+            ->where("exist",'=',0);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetch();
+        if($data==null){
         $insertStatement = $database->insert(array("agreement_id","secondparty_id","pay_method","deadline","agreement_require","rcity","is_ticket","company_id","freight"))
             ->into('agreement')
             ->values(array($agreement_id,$secondparty_id,$pay_method,$deadline,$agreement_require,$rcity,$is_ticket,$company_id,$freight));
         $insertId = $insertStatement->execute(false);
         echo json_encode(array("result" => "0", "desc" => "success"));
+        }else{
+            echo json_encode(array("result" => "2", "desc" => "该合同已经存在"));
+        }
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
