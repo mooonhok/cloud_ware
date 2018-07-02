@@ -1151,38 +1151,6 @@ $app->get('/getGoodsOrders7',function()use($app){
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
         for($i=0;$i<count($data1);$i++){
-                $selectStament=$database->select()
-                    ->from('customer')
-                    ->where('tenant_id','=',$tenant_id)
-                    ->where('customer_id','=',$data1[$i]['sender_id']);
-                $stmt=$selectStament->execute();
-                $data3=$stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id', '=', $data3['customer_city_id']);
-                $stmt = $selectStatement->execute();
-                $data6 = $stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('province')
-                    ->where('id', '=', $data6['pid']);
-                $stmt = $selectStatement->execute();
-                $data8 = $stmt->fetch();
-                $selectStament=$database->select()
-                    ->from('customer')
-                    ->where('tenant_id','=',$tenant_id)
-                    ->where('customer_id','=',$data1[$i]['receiver_id']);
-                $stmt=$selectStament->execute();
-                $data4=$stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id', '=', $data4['customer_city_id']);
-                $stmt = $selectStatement->execute();
-                $data7 = $stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('province')
-                    ->where('id', '=', $data7['pid']);
-                $stmt = $selectStatement->execute();
-                $data9 = $stmt->fetch();
             $selectStatement = $database->select()
                 ->from('orders')
                 ->where('tenant_id','=',$tenant_id)
@@ -1228,12 +1196,6 @@ $app->get('/getGoodsOrders7',function()use($app){
                $data1[$i]['last_order_status']=$last_order_status;
                $data1[$i]['next_cost']=$next_cost;
                 $data1[$i]['pre_company']=$is_transfer;
-                $data1[$i]['sender']=$data3;
-                $data1[$i]['sender']['sender_city']=$data6;
-                $data1[$i]['sender']['sender_province']=$data8;
-                $data1[$i]['receiver']=$data4;
-                $data1[$i]['receiver']['receiver_city']=$data7;
-                $data1[$i]['receiver']['receiver_province']=$data9;
             }
         echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1,'count'=>count($data1)));
     }else{
@@ -1968,43 +1930,6 @@ $app->get('/getGoodsOrders9',function()use($app){
         }
         for($i=0;$i<count($dataa);$i++) {
             $selectStament=$database->select()
-                ->from('goods_package')
-                ->where('goods_package_id','=',$dataa[$i]['goods_package_id']);
-            $stmt=$selectStament->execute();
-            $data2=$stmt->fetch();
-            $selectStament=$database->select()
-                ->from('customer')
-                ->where('tenant_id','=',$tenant_id)
-                ->where('customer_id','=',$dataa[$i]['sender_id']);
-            $stmt=$selectStament->execute();
-            $data3=$stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('city')
-                ->where('id', '=', $data3['customer_city_id']);
-            $stmt = $selectStatement->execute();
-            $data6 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('province')
-                ->where('id', '=', $data6['pid']);
-            $stmt = $selectStatement->execute();
-            $data8 = $stmt->fetch();
-            $selectStament=$database->select()
-                ->from('customer')
-                ->where('tenant_id','=',$tenant_id)
-                ->where('customer_id','=',$dataa[$i]['receiver_id']);
-            $stmt=$selectStament->execute();
-            $data4=$stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('city')
-                ->where('id', '=', $data4['customer_city_id']);
-            $stmt = $selectStatement->execute();
-            $data7 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('province')
-                ->where('id', '=', $data7['pid']);
-            $stmt = $selectStatement->execute();
-            $data9 = $stmt->fetch();
-            $selectStament=$database->select()
                 ->from('inventory_loc')
                 ->where('tenant_id','=',$tenant_id)
                 ->where('inventory_loc_id','=',$dataa[$i]['inventory_loc_id']);
@@ -2055,13 +1980,6 @@ $app->get('/getGoodsOrders9',function()use($app){
             $dataa[$i]['last_order_status']=$last_order_status;
             $dataa[$i]['pre_company']=$is_transfer;
             $dataa[$i]['next_cost']=$next_cost;
-            $dataa[$i]['goods_package']=$data2;
-            $dataa[$i]['sender']=$data3;
-            $dataa[$i]['sender']['sender_city']=$data6;
-            $dataa[$i]['sender']['sender_province']=$data8;
-            $dataa[$i]['receiver']=$data4;
-            $dataa[$i]['receiver']['receiver_city']=$data7;
-            $dataa[$i]['receiver']['receiver_province']=$data9;
             $dataa[$i]['inventory_loc']=$data5;
         }
         echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$dataa));
@@ -2111,43 +2029,6 @@ $app->get('/getGoodsOrders8',function()use($app){
             }
         }
         for($i=0;$i<count($dataa);$i++) {
-            $selectStament=$database->select()
-                ->from('goods_package')
-                ->where('goods_package_id','=',$dataa[$i]['goods_package_id']);
-            $stmt=$selectStament->execute();
-            $data2=$stmt->fetch();
-            $selectStament=$database->select()
-                ->from('customer')
-                ->where('tenant_id','=',$tenant_id)
-                ->where('customer_id','=',$dataa[$i]['sender_id']);
-            $stmt=$selectStament->execute();
-            $data3=$stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('city')
-                ->where('id', '=', $data3['customer_city_id']);
-            $stmt = $selectStatement->execute();
-            $data6 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('province')
-                ->where('id', '=', $data6['pid']);
-            $stmt = $selectStatement->execute();
-            $data8 = $stmt->fetch();
-            $selectStament=$database->select()
-                ->from('customer')
-                ->where('tenant_id','=',$tenant_id)
-                ->where('customer_id','=',$dataa[$i]['receiver_id']);
-            $stmt=$selectStament->execute();
-            $data4=$stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('city')
-                ->where('id', '=', $data4['customer_city_id']);
-            $stmt = $selectStatement->execute();
-            $data7 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('province')
-                ->where('id', '=', $data7['pid']);
-            $stmt = $selectStatement->execute();
-            $data9 = $stmt->fetch();
             $selectStament=$database->select()
                 ->from('inventory_loc')
                 ->where('tenant_id','=',$tenant_id)
@@ -2200,13 +2081,6 @@ $app->get('/getGoodsOrders8',function()use($app){
             $dataa[$i]['last_order_status']=$last_order_status;
             $dataa[$i]['pre_company']=$is_transfer;
             $dataa[$i]['next_cost']=$next_cost;
-            $dataa[$i]['goods_package']=$data2;
-            $dataa[$i]['sender']=$data3;
-            $dataa[$i]['sender']['sender_city']=$data6;
-            $dataa[$i]['sender']['sender_province']=$data8;
-            $dataa[$i]['receiver']=$data4;
-            $dataa[$i]['receiver']['receiver_city']=$data7;
-            $dataa[$i]['receiver']['receiver_province']=$data9;
             $dataa[$i]['inventory_loc']=$data5;
         }
         echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$dataa));
@@ -2253,43 +2127,6 @@ $app->get('/getGoodsOrders10',function()use($app){
             }
         }
         for($i=0;$i<count($dataa);$i++) {
-            $selectStament=$database->select()
-                ->from('goods_package')
-                ->where('goods_package_id','=',$dataa[$i]['goods_package_id']);
-            $stmt=$selectStament->execute();
-            $data2=$stmt->fetch();
-            $selectStament=$database->select()
-                ->from('customer')
-                ->where('tenant_id','=',$tenant_id)
-                ->where('customer_id','=',$dataa[$i]['sender_id']);
-            $stmt=$selectStament->execute();
-            $data3=$stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('city')
-                ->where('id', '=', $data3['customer_city_id']);
-            $stmt = $selectStatement->execute();
-            $data6 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('province')
-                ->where('id', '=', $data6['pid']);
-            $stmt = $selectStatement->execute();
-            $data8 = $stmt->fetch();
-            $selectStament=$database->select()
-                ->from('customer')
-                ->where('tenant_id','=',$tenant_id)
-                ->where('customer_id','=',$dataa[$i]['receiver_id']);
-            $stmt=$selectStament->execute();
-            $data4=$stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('city')
-                ->where('id', '=', $data4['customer_city_id']);
-            $stmt = $selectStatement->execute();
-            $data7 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('province')
-                ->where('id', '=', $data7['pid']);
-            $stmt = $selectStatement->execute();
-            $data9 = $stmt->fetch();
             $selectStament=$database->select()
                 ->from('inventory_loc')
                 ->where('tenant_id','=',$tenant_id)
@@ -2341,13 +2178,6 @@ $app->get('/getGoodsOrders10',function()use($app){
             $dataa[$i]['last_order_status']=$last_order_status;
             $dataa[$i]['pre_company']=$is_transfer;
             $dataa[$i]['next_cost']=$next_cost;
-            $dataa[$i]['goods_package']=$data2;
-            $dataa[$i]['sender']=$data3;
-            $dataa[$i]['sender']['sender_city']=$data6;
-            $dataa[$i]['sender']['sender_province']=$data8;
-            $dataa[$i]['receiver']=$data4;
-            $dataa[$i]['receiver']['receiver_city']=$data7;
-            $dataa[$i]['receiver']['receiver_province']=$data9;
             $dataa[$i]['inventory_loc']=$data5;
         }
         echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$dataa));
