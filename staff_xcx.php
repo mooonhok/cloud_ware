@@ -1624,7 +1624,7 @@ $app->post('/add_agreement',function()use($app){
     $agreement_comment=$body->agreement_comment;
     $array = array();
     foreach ($body as $key => $value) {
-        if($key!='scheduling_ids'||$key!='driver_name'||$key!='driver_phone'||$key!='plate_number'){
+        if($key!='scheduling_ids'&&$key!='driver_name'&&$key!='driver_phone'&&$key!='plate_number'){
             $array[$key] = $value;
         }
     }
