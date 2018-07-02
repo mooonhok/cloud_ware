@@ -1628,6 +1628,7 @@ $app->post('/add_agreement',function()use($app){
             $array[$key] = $value;
         }
     }
+    
     $array1 = array();
     foreach ($scheduling_ids as $key => $value) {
         $array1[$key] = $value;
