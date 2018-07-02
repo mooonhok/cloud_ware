@@ -1542,7 +1542,7 @@ $app->post('/checkagreement',function()use($app){
                             $stmt = $selectStatement->execute();
                             $data3 = $stmt->fetch();
                             $num+=$data3['num'];
-                            $values+=$data3['values'];
+                            $values+=$data3['all_values'];
                             $counts+=$data3['counts'];
                             $capacitys+=$data3['capacitys'];
                             $weights+=$data3['weights'];
