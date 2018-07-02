@@ -1654,8 +1654,8 @@ $app->post('/add_agreement',function()use($app){
                         $data2= $stmt->fetch();
                         $selectStatement = $database->select()
                             ->from('app_lorry')
-                            ->where('driver_phone','=',$driver_phone)
-                            ->where('driver_name','=',$driver_name)
+                            ->where('phone','=',$driver_phone)
+                            ->where('name','=',$driver_name)
                             ->where('plate_number','=',$plate_number)
                             ->where('lorry_status','=',2)
                             ->where('exist','=',0);
