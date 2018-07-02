@@ -1546,7 +1546,7 @@ $app->post('/checkagreement',function()use($app){
                                 ->where('tenant_id', '=', $tenant_id)
                                 ->where('exist', '=', 0);
                             $stmt = $selectStatement->execute();
-                            $data8 = $stmt->fetchAll();
+                            $data8 = $stmt->fetch();
                         $selectStatement = $database->select()
                             ->from('city')
                             ->where('id', '=', $data8['send_city_id']);
