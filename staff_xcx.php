@@ -1459,6 +1459,73 @@ $app->put('/changeIsContract',function()use($app){
     $affectedRows = $updateStatement->execute();
 });
 
+$app->post('/checkagreement',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $scheduling_ids=$body->scheduling_ids;
+    $driver_name=$body->driver_name;
+    $driver_phone=$body->driver_phone;
+    $plate_number=$body->plate_number;
+    $array1 = array();
+    $schedu='';
+    foreach ($scheduling_ids as $key => $value) {
+        $array1[$key] = $value;
+    }
+    if($driver_name!=null||$driver_name!=''){
+        if($driver_phone!=null||$driver_phone!=''){
+            if($plate_number!=null||$plate_number!=''){
+                $selectStatement = $database->select()
+                    ->from('lorry')
+                    ->where('driver_phone','=',$driver_phone)
+                    ->where('driver_name','=',$driver_name)
+                    ->where('plate_number','=',$plate_number)
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('exist','=',0);
+                $stmt = $selectStatement->execute();
+                $data1= $stmt->fetch();
+                if($data1){
+                    for($i=0;$i<count($array1);$i++){
+                        $selectStatement = $database->select()
+                            ->from('scheduling')
+                            ->where('scheduling_id','=',$array1[$i])
+                            ->where('tenant_id','=',$tenant_id)
+                            ->where('is_','=',3)
+                            ->where('scheduling.exist','=',0)
+                            ->where('lorry_id','=',$data1['lorry_id']);
+                        $stmt = $selectStatement->execute();
+                        $data2= $stmt->fetch();
+                        if(!$data2) {
+                            if ($schedu) {
+                                $schedu .= $array1[$i];
+                            } else {
+                                $schedu .= ',' . $array1[$i];
+                            }
+                        }
+                    }
+                    if($schedu){
+                        echo json_encode(array('result'=>'98','desc'=>'清单号：'.$schedu.'与车辆不符'));
+                        exit;
+                    }else{
+                        echo json_encode(array('result'=>'5','desc'=>'success'));
+                    }
+                }else{
+                    echo json_encode(array('result'=>'4','desc'=>'该车辆不存在'));
+                }
+            }else{
+                echo json_encode(array('result'=>'1','desc'=>'缺少车牌号码'));
+            }
+        }else{
+            echo json_encode(array('result'=>'2','desc'=>'缺少驾驶员电话'));
+        }
+    }else{
+        echo json_encode(array('result'=>'3','desc'=>'缺少驾驶员名字'));
+    }
+});
+
 $app->run();
 
 function localhost(){
