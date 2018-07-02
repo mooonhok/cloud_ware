@@ -1508,7 +1508,6 @@ $app->post('/checkagreement',function()use($app){
                     }
                     if($schedu){
                         echo json_encode(array('result'=>'98','desc'=>'清单号：'.$schedu.'与车辆不符'));
-                        exit;
                     }else{
                         echo json_encode(array('result'=>'0','desc'=>'success'));
                     }
