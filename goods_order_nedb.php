@@ -105,43 +105,43 @@ $app->get('/getGoodsOrders1',function()use($app){
         $data1 = $stmt->fetchAll();
         for($i=0;$i<count($data1);$i++){
             if(!(preg_match('/[a-zA-Z]/',$data1[$i]['order_id']))){
-                $selectStament=$database->select()
-                    ->from('goods_package')
-                    ->where('goods_package_id','=',$data1[$i]['goods_package_id']);
-                $stmt=$selectStament->execute();
-                $data2=$stmt->fetch();
-                $selectStament=$database->select()
-                    ->from('customer')
-                    ->where('tenant_id','=',$tenant_id)
-                    ->where('customer_id','=',$data1[$i]['sender_id']);
-                $stmt=$selectStament->execute();
-                $data3=$stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id', '=', $data3['customer_city_id']);
-                $stmt = $selectStatement->execute();
-                $data6 = $stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('province')
-                    ->where('id', '=', $data6['pid']);
-                $stmt = $selectStatement->execute();
-                $data8 = $stmt->fetch();
-                $selectStament=$database->select()
-                    ->from('customer')
-                    ->where('tenant_id','=',$tenant_id)
-                    ->where('customer_id','=',$data1[$i]['receiver_id']);
-                $stmt=$selectStament->execute();
-                $data4=$stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id', '=', $data4['customer_city_id']);
-                $stmt = $selectStatement->execute();
-                $data7 = $stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('province')
-                    ->where('id', '=', $data7['pid']);
-                $stmt = $selectStatement->execute();
-                $data9 = $stmt->fetch();
+//                $selectStament=$database->select()
+//                    ->from('goods_package')
+//                    ->where('goods_package_id','=',$data1[$i]['goods_package_id']);
+//                $stmt=$selectStament->execute();
+//                $data2=$stmt->fetch();
+//                $selectStament=$database->select()
+//                    ->from('customer')
+//                    ->where('tenant_id','=',$tenant_id)
+//                    ->where('customer_id','=',$data1[$i]['sender_id']);
+//                $stmt=$selectStament->execute();
+//                $data3=$stmt->fetch();
+//                $selectStatement = $database->select()
+//                    ->from('city')
+//                    ->where('id', '=', $data3['customer_city_id']);
+//                $stmt = $selectStatement->execute();
+//                $data6 = $stmt->fetch();
+//                $selectStatement = $database->select()
+//                    ->from('province')
+//                    ->where('id', '=', $data6['pid']);
+//                $stmt = $selectStatement->execute();
+//                $data8 = $stmt->fetch();
+//                $selectStament=$database->select()
+//                    ->from('customer')
+//                    ->where('tenant_id','=',$tenant_id)
+//                    ->where('customer_id','=',$data1[$i]['receiver_id']);
+//                $stmt=$selectStament->execute();
+//                $data4=$stmt->fetch();
+//                $selectStatement = $database->select()
+//                    ->from('city')
+//                    ->where('id', '=', $data4['customer_city_id']);
+//                $stmt = $selectStatement->execute();
+//                $data7 = $stmt->fetch();
+//                $selectStatement = $database->select()
+//                    ->from('province')
+//                    ->where('id', '=', $data7['pid']);
+//                $stmt = $selectStatement->execute();
+//                $data9 = $stmt->fetch();
                 $selectStament=$database->select()
                     ->from('inventory_loc')
                     ->where('tenant_id','=',$tenant_id)
@@ -193,13 +193,13 @@ $app->get('/getGoodsOrders1',function()use($app){
                 $data1[$i]['last_order_status']=$last_order_status;
                 $data1[$i]['next_cost']=$next_cost;
                 $data1[$i]['pre_company']=$is_transfer;
-                $data1[$i]['goods_package']=$data2;
-                $data1[$i]['sender']=$data3;
-                $data1[$i]['sender']['sender_city']=$data6;
-                $data1[$i]['sender']['sender_province']=$data8;
-                $data1[$i]['receiver']=$data4;
-                $data1[$i]['receiver']['receiver_city']=$data7;
-                $data1[$i]['receiver']['receiver_province']=$data9;
+//                $data1[$i]['goods_package']=$data2;
+//                $data1[$i]['sender']=$data3;
+//                $data1[$i]['sender']['sender_city']=$data6;
+//                $data1[$i]['sender']['sender_province']=$data8;
+//                $data1[$i]['receiver']=$data4;
+//                $data1[$i]['receiver']['receiver_city']=$data7;
+//                $data1[$i]['receiver']['receiver_province']=$data9;
                 $data1[$i]['inventory_loc']=$data5;
                 array_push($array,$data1[$i]);
             }
@@ -3708,7 +3708,6 @@ $app->post('/addGoodsOrder',function()use($app){
                 $affectedRows = $updateStatement->execute();
             }
         }
-
         if( $receiver_tenant_id==null|| $receiver_tenant_id==""){
             $selectStatement = $database->select()
                 ->from('customer')
