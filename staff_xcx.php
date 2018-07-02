@@ -1618,13 +1618,129 @@ $app->post('/add_agreement',function()use($app){
     $driver_name=$body->driver_name;
     $driver_phone=$body->driver_phone;
     $plate_number=$body->plate_number;
-    $deadline=$body->shiJian;
-    $pay_method=$body->zhiFu;
-    $freight=$body->yunFei;
+    $deadline=$body->deadline;
+    $pay_method=$body->pay_method;
+    $freight=$body->freight;
+    $agreement_comment=$body->agreement_comment;
+    $array = array();
+    foreach ($body as $key => $value) {
+        if($key!='scheduling_ids'){
+            $array[$key] = $value;
+        }
+    }
     $array1 = array();
-    $schedu='';
     foreach ($scheduling_ids as $key => $value) {
         $array1[$key] = $value;
+    }
+    if($driver_name!=null||$driver_name!=''){
+        if($driver_phone!=null||$driver_phone!=''){
+            if($plate_number!=null||$plate_number!=''){
+                if($freight!=null||$freight!=''){
+                    if($deadline!=null||$deadline!=''){
+                        $selectStatement = $database->select()
+                            ->from('lorry')
+                            ->where('driver_phone','=',$driver_phone)
+                            ->where('driver_name','=',$driver_name)
+                            ->where('plate_number','=',$plate_number)
+                            ->where('tenant_id','=',$tenant_id)
+                            ->where('exist','=',0);
+                        $stmt = $selectStatement->execute();
+                        $data1= $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->count('*','num')
+                            ->from('agreement')
+                            ->where('tenant_id','=',$tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data2= $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('app_lorry')
+                            ->where('driver_phone','=',$driver_phone)
+                            ->where('driver_name','=',$driver_name)
+                            ->where('plate_number','=',$plate_number)
+                            ->where('lorry_status','=',2)
+                            ->where('exist','=',0);
+                        $stmt = $selectStatement->execute();
+                        $data3= $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('ticket_lorry')
+                            ->where('lorry_id','=',$data3['app_lorry_id']);
+                        $stmt = $selectStatement->execute();
+                        $data4= $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('scheduling')
+                            ->where('scheduling_id','=',$array1[0])
+                            ->where('tenant_id','=',$tenant_id)
+                            ->where('is_contract','=',3)
+                            ->where('exist','=',0)
+                            ->where('lorry_id','=',$data1['lorry_id']);
+                        $stmt = $selectStatement->execute();
+                        $data5= $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data5['receive_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data6= $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('tenant')
+                            ->where('tenant_id','=',$tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data7= $stmt->fetch();
+                        $agreement_id='';
+                        if(strlen(($data2['num']+1).'')==1){
+                            $agreement_id='HT'.$data7['tenant_num'].'00000'.($data2['num']+1);
+                        }else if(strlen(($data2['num']+1).'')==2){
+                            $agreement_id='HT'.$data7['tenant_num'].'0000'.($data2['num']+1);
+                        }else if(strlen(($data2['num']+1).'')==3){
+                            $agreement_id='HT'.$data7['tenant_num'].'000'.($data2['num']+1);
+                        }else if(strlen(($data2['num']+1).'')==4){
+                            $agreement_id='HT'.$data7['tenant_num'].'00'.($data2['num']+1);
+                        }else if(strlen(($data2['num']+1).'')==5){
+                            $agreement_id='HT'.$data7['tenant_num'].'0'.($data2['num']+1);
+                        }else if(strlen(($data2['num']+1).'')==6){
+                            $agreement_id='HT'.$data7['tenant_num'].''.($data2['num']+1);
+                        }else{
+                            echo json_encode(array('result'=>'10','desc'=>'合同满仓'));
+                            exit;
+                        }
+                        date_default_timezone_set("PRC");
+                        $shijian=date("Y-m-d H:i:s",time());
+                        $array['agreement_id']=$agreement_id;
+                        $array['secondparty_id']=$data1['lorry_id'];
+                        $array['agreement_time']=$shijian;
+                        $array['rcity']=$data6['name'];
+                        $array['company_id']=$data4['company_id'];
+                        $array['exist']=0;
+                        $array['tenant_id']=$tenant_id;
+                        $insertStatement = $database->insert(array_keys($array))
+                            ->into('agreement')
+                            ->values(array_values($array));
+                        $insertId = $insertStatement->execute(false);
+                        for($i=0;$i<count($array1);$i++){
+                            $insertStatement = $database->insert(array('tenant_id','agreement_id','scheduling_id','exist'))
+                                ->into('agreement_schedule')
+                                ->values(array($tenant_id,$agreement_id,$array1[$i],0));
+                            $insertId = $insertStatement->execute(false);
+                            $updateStatement = $database->update(array("is_contract" => 2))
+                                ->table('scheduling')
+                                ->where('tenant_id', '=', $tenant_id)
+                                ->where('scheduling_id','=',$array1[$i]);
+                            $affectedRows = $updateStatement->execute();
+                        }
+                        echo json_encode(array('result'=>'0','desc'=>'success'));
+                    }else{
+                        echo json_encode(array('result'=>'1','desc'=>'缺少约定时间'));
+                    }
+                }else{
+                    echo json_encode(array('result'=>'2','desc'=>'缺少运费'));
+                }
+            }else{
+                echo json_encode(array('result'=>'3','desc'=>'缺少车牌号码'));
+            }
+        }else{
+            echo json_encode(array('result'=>'4','desc'=>'缺少驾驶员电话'));
+        }
+    }else{
+        echo json_encode(array('result'=>'5','desc'=>'缺少驾驶员名字'));
     }
 });
 
