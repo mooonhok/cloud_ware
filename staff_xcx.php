@@ -1525,7 +1525,7 @@ $app->post('/checkagreement',function()use($app){
 //                            $num+=count($data3);
                             $selectStatement = $database->select()
                                 ->count('*','num')
-                                ->sum('goods.goods_value','values')
+                                ->sum('goods.goods_value','all_values')
                                 ->sum('goods.goods_count','counts')
                                 ->sum('goods.goods_capacity','capacitys')
                                 ->sum('	goods.goods_weight','weights')
