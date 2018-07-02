@@ -1780,7 +1780,10 @@ $app->get('/getGoodsOrders5',function()use($app){
             ->where('goods.tenant_id','=',$tenant_id)
             ->where('orders.tenant_id','=',$tenant_id)
             ->whereNotIn('orders.order_status',array(-1,-2,0))
-            ->where('orders.exist','=',0);
+            ->where('orders.exist','=',0)
+            ->orderBy('orders.order_status')
+            ->orderBy('orders.order_datetime1','DESC')
+            ->orderBy('orders.id','DESC');
         $stmt = $selectStatement->execute();
         $data10 = $stmt->fetchAll();
         $data1 = array_merge($data1, $data10);
