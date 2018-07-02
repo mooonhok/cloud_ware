@@ -1493,7 +1493,7 @@ $app->post('/checkagreement',function()use($app){
                             ->from('scheduling')
                             ->where('scheduling_id','=',$array1[$i])
                             ->where('tenant_id','=',$tenant_id)
-                            ->where('is_','=',3)
+                            ->where('is_contract','=',3)
                             ->where('scheduling.exist','=',0)
                             ->where('lorry_id','=',$data1['lorry_id']);
                         $stmt = $selectStatement->execute();
