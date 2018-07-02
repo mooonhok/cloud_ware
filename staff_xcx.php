@@ -1509,7 +1509,68 @@ $app->post('/checkagreement',function()use($app){
                     if($schedu){
                         echo json_encode(array('result'=>'98','desc'=>'清单号：'.$schedu.'与车辆不符'));
                     }else{
-                        echo json_encode(array('result'=>'0','desc'=>'success'));
+                        $num=0;
+                        $values=0;
+                        $counts=0;
+                        $capacitys=0;
+                        $weights=0;
+                        for($i=0;$i<count($array1);$i++) {
+//                            $selectStatement = $database->select()
+//                                ->from('schedule_order')
+//                                ->where('schedule_id', '=', $array1[$i])
+//                                ->where('tenant_id', '=', $tenant_id)
+//                                ->where('exist', '=', 0);
+//                            $stmt = $selectStatement->execute();
+//                            $data3 = $stmt->fetchAll();
+//                            $num+=count($data3);
+                            $selectStatement = $database->select()
+                                ->count('*','num')
+                                ->sum('goods_value','values')
+                                ->sum('goods_count','counts')
+                                ->sum('	goods_capacity','capacitys')
+                                ->sum('	goods_weight','weights')
+                                ->from('schedule_order')
+                                ->leftJoin('orders','orders.order_id','=','schedule_order.order_id')
+                                ->leftJoin('goods','goods.order_id','=','schedule_order.order_id')
+                                ->where('schedule_order.schedule_id', '=', $array1[$i])
+                                ->where('orders.tenant_id', '=', $tenant_id)
+                                ->where('goods.tenant_id', '=', $tenant_id)
+                                ->where('schedule_order.tenant_id', '=', $tenant_id)
+                                ->where('orders.exist', '=', 0)
+                                ->where('goods.exist', '=', 0)
+                                ->where('schedule_order.exist', '=', 0);
+                            $stmt = $selectStatement->execute();
+                            $data3 = $stmt->fetch();
+                            $num+=$data3['num'];
+                            $values+=$data3['values'];
+                            $counts+=$data3['counts'];
+                            $capacitys+=$data3['capacitys'];
+                            $weights+=$data3['weights'];
+                        }
+                        $array2=array();
+                        $array2['num']=$num;
+                        $array2['values']=$values;
+                        $array2['counts']=$counts;
+                        $array2['capacitys']=$capacitys;
+                        $array2['weights']=$weights;
+                        $selectStatement = $database->select()
+                            ->from('tenant')
+                            ->where('tenant_id','=',$tenant_id)
+                            ->where('exist','=',0);
+                        $stmt = $selectStatement->execute();
+                        $data4= $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id','=',$data4['contact_id'])
+                            ->where('tenant_id','=',$tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data5= $stmt->fetch();
+                        $array3=array();
+                        $array3['company']=$data4['company'];
+                        $array3['name']=$data5['customer_name'];
+                        $array3['phone']=$data5['customer_phone'];
+                        $array3['address']=$data5['customer_address'];
+                        echo json_encode(array('result'=>'0','desc'=>'success','xingxi'=>$array2,'tenant'=>$array3));
                     }
                 }else{
                     echo json_encode(array('result'=>'4','desc'=>'该车辆不存在'));
