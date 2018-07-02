@@ -1621,7 +1621,7 @@ $app->post('/add_agreement',function()use($app){
     $deadline=$body->deadline;
     $pay_method=$body->pay_method;
     $freight=$body->freight;
-    $agreement_comment=$body->agreement_comment;
+    $agreement_require=$body->agreement_require;
     $array = array();
     foreach ($body as $key => $value) {
         if($key!='scheduling_ids'&&$key!='driver_name'&&$key!='driver_phone'&&$key!='plate_number'){
