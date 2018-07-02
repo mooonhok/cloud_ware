@@ -3116,14 +3116,14 @@ $app->get('/limitGoodsOrders10',function()use($app){
                     ->where('goods.tenant_id','=',$tenant_id)
                     ->where('orders.tenant_id','=',$tenant_id)
                     ->whereNotIn('orders.order_status',array(-1,-2,0))
+                    ->where('orders.exist','=',0)
                     ->orderBy('orders.order_status')
-                    ->orderBy('orders.order_datetime5')
-                    ->where('orders.exist','=',0);
+                    ->orderBy('orders.order_datetime1','DESC')
+                    ->orderBy('orders.id','DESC');
                 $stmt = $selectStatement->execute();
                 $data10 = $stmt->fetchAll();
                 $data1 = array_merge($data1, $data10);
                 $num=count($data1);
-
                 if(count($data1)>($offset+$size)){
                     $num=($offset+$size);
                 }
@@ -3233,6 +3233,13 @@ $app->get('/limitGoodsOrders10',function()use($app){
                     $data1[$i]['receiver']['receiver_province']=$data9;
                     $data1[$i]['inventory_loc']=$data5;
                     array_push($datab,$data1[$i]);
+                }
+                if($datab!=null) {
+                    foreach ( $datab as $key => $row ){
+                        $id[$key] = (int)$row ['order_status'];
+                        $name[$key]=$row['order_datetime1'];
+                    }
+                    array_multisort($id, SORT_ASC, $name, SORT_DESC,$datab);
                 }
                 echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$datab));
             }else{
