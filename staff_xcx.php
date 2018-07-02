@@ -1515,14 +1515,7 @@ $app->post('/checkagreement',function()use($app){
                         $capacitys=0;
                         $weights=0;
                         for($i=0;$i<count($array1);$i++) {
-//                            $selectStatement = $database->select()
-//                                ->from('schedule_order')
-//                                ->where('schedule_id', '=', $array1[$i])
-//                                ->where('tenant_id', '=', $tenant_id)
-//                                ->where('exist', '=', 0);
-//                            $stmt = $selectStatement->execute();
-//                            $data3 = $stmt->fetchAll();
-//                            $num+=count($data3);
+
                             $selectStatement = $database->select()
                                 ->count('*','num')
                                 ->sum('goods.goods_value','all_values')
@@ -1547,6 +1540,23 @@ $app->post('/checkagreement',function()use($app){
                             $capacitys+=$data3['capacitys'];
                             $weights+=$data3['weights'];
                         }
+                            $selectStatement = $database->select()
+                                ->from('scheduling')
+                                ->where('scheduling_id', '=', $array1[0])
+                                ->where('tenant_id', '=', $tenant_id)
+                                ->where('exist', '=', 0);
+                            $stmt = $selectStatement->execute();
+                            $data8 = $stmt->fetchAll();
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data8['send_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data9= $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data8['receive_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data10= $stmt->fetch();
                         $array2=array();
                         $array2['num']=$num;
                         $array2['values']=$values;
@@ -1580,6 +1590,7 @@ $app->post('/checkagreement',function()use($app){
                         $array3['name']=$data5['customer_name'];
                         $array3['phone']=$data5['customer_phone'];
                         $array3['address']=$data7['name'].$data6['name'].$data5['customer_address'];
+                        $array3['lutu']=$data9['name'].'到'.$data10['name'];
                         echo json_encode(array('result'=>'0','desc'=>'success','xingxi'=>$array2,'tenant'=>$array3));
                     }
                 }else{
@@ -1593,6 +1604,27 @@ $app->post('/checkagreement',function()use($app){
         }
     }else{
         echo json_encode(array('result'=>'3','desc'=>'缺少驾驶员名字'));
+    }
+});
+
+$app->post('/add_agreement',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $scheduling_ids=$body->scheduling_ids;
+    $driver_name=$body->driver_name;
+    $driver_phone=$body->driver_phone;
+    $plate_number=$body->plate_number;
+    $deadline=$body->shiJian;
+    $pay_method=$body->zhiFu;
+    $freight=$body->yunFei;
+    $array1 = array();
+    $schedu='';
+    foreach ($scheduling_ids as $key => $value) {
+        $array1[$key] = $value;
     }
 });
 
