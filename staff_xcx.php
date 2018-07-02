@@ -1565,11 +1565,21 @@ $app->post('/checkagreement',function()use($app){
                             ->where('tenant_id','=',$tenant_id);
                         $stmt = $selectStatement->execute();
                         $data5= $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data5['customer_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data6= $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('province')
+                            ->where('id', '=', $data6['pid']);
+                        $stmt = $selectStatement->execute();
+                        $data7 = $stmt->fetch();
                         $array3=array();
                         $array3['company']=$data4['company'];
                         $array3['name']=$data5['customer_name'];
                         $array3['phone']=$data5['customer_phone'];
-                        $array3['address']=$data5['customer_address'];
+                        $array3['address']=$data7['name'].$data6['name'].$data5['customer_address'];
                         echo json_encode(array('result'=>'0','desc'=>'success','xingxi'=>$array2,'tenant'=>$array3));
                     }
                 }else{
