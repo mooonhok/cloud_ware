@@ -3284,8 +3284,6 @@ $app->put('/loadSchedulingOrder',function()use($app){
     }
 });
 
-
-
 $app->put('/cancelSchedulingOrder',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
@@ -3354,7 +3352,46 @@ $app->put('/cancelSchedulingOrder',function()use($app){
     }
 });
 
-
+$app->put('/transitSchedulingOrder',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $scheduling_id=$body->scheduling_id;
+    if($tenant_id!=null||$tenant_id!=''){
+        if($scheduling_id!=null||$scheduling_id!=''){
+            $selectStatement = $database->select()
+                ->from('schedule_order')
+                ->where('scheduling_id', '=', $scheduling_id)
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('exist','=',0);
+            $stmt = $selectStatement->execute();
+            $data = $stmt->fetchAll();
+            if($data!=null){
+                for($x=0;$x<count($data);$x++){
+                    $updateStatement = $database->update(array('is_back'=>0))
+                        ->table('orders')
+                        ->where('order_id', '=', $data[$x]["order_id"])
+                        ->where('tenant_id', '=', $tenant_id);
+                    $affectedRows = $updateStatement->execute();
+                }
+                $updateStatement = $database->update(array('scheduling_status'=>4))
+                    ->table('scheduling')
+                    ->where('scheduling_id', '=', $scheduling_id)
+                    ->where('tenant_id', '=', $tenant_id);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array("result" => "0", "desc" => "success"));
+            }else{
+                echo json_encode(array("result" => "3", "desc" => "清单尚未管理运单"));
+            }
+        }else{
+            echo json_encode(array("result" => "2", "desc" => "缺少调度单id"));
+        }
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
 
 
 $app->run();
