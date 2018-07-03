@@ -105,8 +105,9 @@ $app->get('/getAgreement',function()use($app) {
         if($agreement_id!=null||$agreement_id!=''){
             $selectStatement = $database->select()
                 ->from('agreement')
+                ->where('agreement_id',"=",$agreement_id)
                 ->where('tenant_id','=',$tenant_id)
-                ->where('agreement_id',"=",$agreement_id);
+                ->where('exist','=',0);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
             echo json_encode(array("result" => "0", "desc" => 'success','agreements'=>$data));
