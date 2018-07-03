@@ -79,7 +79,7 @@ $app->get('/getAgreements0',function()use($app) {
 });
 
 
-$app->get('/getAgreements1',function()use($app) {
+$app->get('/getAgreements',function()use($app) {
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database=localhost();
@@ -90,7 +90,7 @@ $app->get('/getAgreements1',function()use($app) {
             ->where('exist',"=",0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        echo json_encode(array("result" => "1", "desc" => 'success','agreements'=>$data));
+        echo json_encode(array("result" => "1", "desc" => 'success','count'=>count($data)));
     }else{
         echo json_encode(array("result" => "2", "desc" => "缺少租户id"));
     }
