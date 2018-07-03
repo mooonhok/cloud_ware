@@ -3791,6 +3791,71 @@ $app->put('/alterGoodsOrder',function()use($app){
     }
 });
 
+$app->put('/recoverGoodsOrder',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $order_id=$body->order_id;
+    date_default_timezone_set("PRC");
+    $time1=date('Y-m-d H:i:s',time());
+    if($tenant_id!=null||$tenant_id!=""){
+        if($order_id!=null||$order_id!=""){
+            $selectStatement = $database->select()
+                ->from('exception')
+                ->where('order_id','=',$order_id)
+                ->where('tenant_id','=',$tenant_id);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            if($data1!=null){
+                if($data1["exception_source"]=="前台"){
+                    $updateStatement = $database->update(array("order_status"=>-2))
+                        ->table('orders')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('order_id','=',$order_id);
+                    $affectedRows = $updateStatement->execute();
+                    echo json_encode(array("result"=>"0",'desc'=>'success',"exception_source"=>$data1["exception_source"]));
+                }else if($data1["exception_source"]=="仓库"){
+                    $updateStatement = $database->update(array("order_status"=>1,"order_datetime1"=>$time1,"order_datetime2"=>null,"order_datetime3"=>null))
+                        ->table('orders')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('order_id','=',$order_id);
+                    $affectedRows = $updateStatement->execute();
+                    echo json_encode(array("result"=>"0",'desc'=>'success',"exception_source"=>$data1["exception_source"]));
+                }else if($data1["exception_source"]=="交付帮手"){
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('order_id','=',$order_id)
+                        ->where('tenant_id','=',$tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data2 = $stmt->fetch();
+                    if($data2['is_back']==1){
+                        echo json_encode(array("result"=>"0",'desc'=>'退单中',"exception_source"=>$data1["exception_source"]));
+                    }else{
+                        $updateStatement = $database->update(array("order_status"=>1,"order_datetime1"=>$time1,"order_datetime2"=>null,"order_datetime3"=>null,"inventory_type"=>4,"is_schedule"=>0))
+                            ->table('orders')
+                            ->where('tenant_id','=',$tenant_id)
+                            ->where('order_id','=',$order_id);
+                        $affectedRows = $updateStatement->execute();
+                        echo json_encode(array("result"=>"0",'desc'=>'success',"exception_source"=>$data1["exception_source"]));
+                    }
+                }else{
+                    echo json_encode(array("result"=>"0",'desc'=>'success',"exception_source"=>$data1["exception_source"]));
+                }
+            }else{
+                echo json_encode(array("result"=>"3",'desc'=>'异常不存在'));
+            }
+        }else{
+            echo json_encode(array("result"=>"1",'desc'=>'缺少运单id'));
+        }
+    }else{
+        echo json_encode(array("result"=>"2",'desc'=>'缺少租户id'));
+    }
+});
+
+
 $app->run();
 function localhost(){
     return connect();
