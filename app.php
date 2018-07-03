@@ -3270,7 +3270,7 @@ $app->post('/addlorryB',function()use($app){
                 for($j=0;$j<count($data22);$j++){
                     $insertStatement = $database->insert(array('company_id','lorry_id','commit_time'))
                         ->into('ticket_lorry')
-                        ->values(array($data22[$j]['id'],$lorryid,$data22[$j]['commit_time']));
+                        ->values(array($data22[$j]['company_id'],$lorryid,$data22[$j]['commit_time']));
                     $insertId = $insertStatement->execute(false);
                 }
                 echo json_encode(array('result'=>'0','desc'=>'success'));
