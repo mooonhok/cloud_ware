@@ -3832,7 +3832,7 @@ $app->put('/recoverGoodsOrder',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data2 = $stmt->fetch();
                     if($data2['is_back']==1){
-                        echo json_encode(array("result"=>"0",'desc'=>'退单中',"exception_source"=>$data1["exception_source"]));
+                        echo json_encode(array("result"=>"4",'desc'=>'退单中',"exception_source"=>$data1["exception_source"]));
                     }else{
                         $updateStatement = $database->update(array("order_status"=>1,"order_datetime1"=>$time1,"order_datetime2"=>null,"order_datetime3"=>null,"inventory_type"=>4,"is_schedule"=>0))
                             ->table('orders')
