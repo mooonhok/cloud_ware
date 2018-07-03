@@ -3472,6 +3472,7 @@ $app->put('/saveGoodsOrder',function()use($app){
     $array3=array();
     $array4=array();
     $array5=array();
+    $array6=array();
     $array1['goods_name']=$body->goods_name;
     $array1['goods_weight']=$body->goods_weight;
     $array1['goods_value']=$body->goods_value;
@@ -3513,7 +3514,7 @@ $app->put('/saveGoodsOrder',function()use($app){
     $array4['type']=$receiver_type;
     $array4['contact_tenant_id']=$receiver_tenant_id;
     $exception_id=$body->exception_id;
-    $exception_comment=$body->exception_comment;
+    $array6["exception_comment"]=$body->exception_comment;
     if($tenant_id!=null||$tenant_id!=""){
         if( $sender_tenant_id==null|| $sender_tenant_id==""){
             $selectStatement = $database->select()
@@ -3669,7 +3670,6 @@ $app->put('/saveGoodsOrder',function()use($app){
                 $array5['receiver_id']=$data8['customer_id'];
             }
         }
-
         $selectStatement = $database->select()
             ->from('tenant')
             ->where('tenant_id', '=', $tenant_id);
@@ -3686,7 +3686,7 @@ $app->put('/saveGoodsOrder',function()use($app){
                 ->where('tenant_id','=',$tenant_id)
                 ->where('order_id','=',$order_id);
             $affectedRows = $updateStatement->execute();
-            $updateStatement = $database->update(array("exception_comment"=>$exception_comment))
+            $updateStatement = $database->update($array6)
                 ->table('exception')
                 ->where('tenant_id','=',$tenant_id)
                 ->where('exception_id','=',$exception_id);
