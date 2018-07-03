@@ -348,7 +348,7 @@ $app->get('/getCustomers2',function()use($app){
                 $array1=$data;
             }
         }
-        echo json_encode(array("result" => "0", "desc" => "success",'customers'=>$array1));
+        echo json_encode(array("result" => "0", "desc" => "success",'count'=>count($array1)));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
