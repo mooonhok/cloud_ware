@@ -1163,7 +1163,7 @@ $app->put('/orderIsSchedule',function()use($app){
                 ->where('order_id','=',$dataa[$i]['order_id']);
             $stmt = $selectStatement->execute();
             $datab= $stmt->fetch();
-            if(!$datab){
+            if($datab){
                 $updateStatement = $database->update(array("is_schedule" => 0))
                     ->table('orders')
                     ->where('tenant_id', '=', $tenant_id)
