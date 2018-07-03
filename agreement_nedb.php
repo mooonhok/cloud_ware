@@ -119,7 +119,7 @@ $app->get('/getAgreement',function()use($app) {
     }
 });
 
-$app->put('/alterAgreement0',function()use($app) {
+$app->put('/alterAgreement',function()use($app) {
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database=localhost();
