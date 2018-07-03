@@ -3468,7 +3468,6 @@ $app->put('/saveGoodsOrder',function()use($app){
     $body=$app->request->getBody();
     $body=json_decode($body);
     $array1=array();
-    $array2=array();
     $array3=array();
     $array4=array();
     $array5=array();
@@ -3681,7 +3680,7 @@ $app->put('/saveGoodsOrder',function()use($app){
                 ->where('tenant_id','=',$tenant_id)
                 ->where('order_id','=',$order_id);
             $affectedRows = $updateStatement->execute();
-            $updateStatement = $database->update($array2)
+            $updateStatement = $database->update($array1)
                 ->table('goods')
                 ->where('tenant_id','=',$tenant_id)
                 ->where('order_id','=',$order_id);
