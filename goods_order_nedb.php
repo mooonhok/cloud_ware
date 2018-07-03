@@ -3461,9 +3461,7 @@ $app->post('/addGoodsOrder',function()use($app){
 });
 
 
-
-
-$app->post('/saveGoodsOrder',function()use($app){
+$app->put('/saveGoodsOrder',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database = localhost();
     $tenant_id = $app->request->headers->get("tenant-id");
@@ -3473,6 +3471,7 @@ $app->post('/saveGoodsOrder',function()use($app){
     $array2=array();
     $array3=array();
     $array4=array();
+    $array5=array();
     $array1['goods_name']=$body->goods_name;
     $array1['goods_weight']=$body->goods_weight;
     $array1['goods_value']=$body->goods_value;
@@ -3482,15 +3481,11 @@ $app->post('/saveGoodsOrder',function()use($app){
     $array1['special_need']=$body->special_need;
     $array1['exist']=0;
     $array1['tenant_id']=$tenant_id;
-    $array2['tenant_id']=$tenant_id;
-    $array2['exist']=0;
-    $array2['sender_id']=null;
-    $array2['receiver_id']=null;
-    $array2['pay_method']=$body->pay_method;
-    $array2['order_cost']=$body->order_cost;
-    $array2['order_status']=$body->order_status;
-    $array2['inventory_type']=$body->inventory_type;
-    $flag=$body->flag;
+    $array5['sender_id']=null;
+    $array5['receiver_id']=null;
+    $array5['pay_method']=$body->pay_method;
+    $array5['order_cost']=$body->order_cost;
+    $order_id=$body->order_id;
     $sender_name = $body->sender_name;
     $sender_phone = $body->sender_phone;
     $sender_city_id = $body->sender_city_id;
@@ -3517,6 +3512,8 @@ $app->post('/saveGoodsOrder',function()use($app){
     $array4['customer_address']=$receiver_address;
     $array4['type']=$receiver_type;
     $array4['contact_tenant_id']=$receiver_tenant_id;
+    $exception_id=$body->exception_id;
+    $exception_comment=$body->exception_comment;
     if($tenant_id!=null||$tenant_id!=""){
         if( $sender_tenant_id==null|| $sender_tenant_id==""){
             $selectStatement = $database->select()
@@ -3546,20 +3543,14 @@ $app->post('/saveGoodsOrder',function()use($app){
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
                 $data6 = $stmt->fetchAll();
-                $array2['sender_id']=count($data6)+10000000001;
+                $array5['sender_id']=count($data6)+10000000001;
                 $array3['customer_id']=count($data6)+10000000001;
                 $insertStatement = $database->insert(array_keys($array3))
                     ->into('customer')
                     ->values(array_values($array3));
                 $insertId = $insertStatement->execute(false);
             }else{
-                $array2['sender_id']=$data4['customer_id'];
-                $updateStatement = $database->update(array('times'=>($data4['times']+1)))
-                    ->table('customer')
-                    ->where('tenant_id','=',$tenant_id)
-                    ->where('customer_id','=',$data4['customer_id'])
-                    ->where('exist',"=",0);
-                $affectedRows = $updateStatement->execute();
+                $array5['sender_id']=$data4['customer_id'];
             }
         }else{
             $selectStatement = $database->select()
@@ -3591,20 +3582,14 @@ $app->post('/saveGoodsOrder',function()use($app){
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
                 $data6 = $stmt->fetchAll();
-                $array2['sender_id']=count($data6)+10000000001;
+                $array5['sender_id']=count($data6)+10000000001;
                 $array3['customer_id']=count($data6)+10000000001;
                 $insertStatement = $database->insert(array_keys($array3))
                     ->into('customer')
                     ->values(array_values($array3));
                 $insertId = $insertStatement->execute(false);
             }else{
-                $array2['sender_id']=$data4['customer_id'];
-                $updateStatement = $database->update(array('times'=>($data4['times']+1)))
-                    ->table('customer')
-                    ->where('tenant_id','=',$tenant_id)
-                    ->where('customer_id','=',$data4['customer_id'])
-                    ->where('exist',"=",0);
-                $affectedRows = $updateStatement->execute();
+                $array5['sender_id']=$data4['customer_id'];
             }
         }
         if( $receiver_tenant_id==null|| $receiver_tenant_id==""){
@@ -3635,14 +3620,14 @@ $app->post('/saveGoodsOrder',function()use($app){
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
                 $data10 = $stmt->fetchAll();
-                $array2['receiver_id']=count($data10)+10000000001;
+                $array5['receiver_id']=count($data10)+10000000001;
                 $array4['customer_id']=count($data10)+10000000001;
                 $insertStatement = $database->insert(array_keys($array4))
                     ->into('customer')
                     ->values(array_values($array4));
                 $insertId = $insertStatement->execute(false);
             }else{
-                $array2['receiver_id']=$data8['customer_id'];
+                $array5['receiver_id']=$data8['customer_id'];
             }
         }else{
             $selectStatement = $database->select()
@@ -3674,14 +3659,14 @@ $app->post('/saveGoodsOrder',function()use($app){
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
                 $data10 = $stmt->fetchAll();
-                $array2['receiver_id']=count($data10)+10000000001;
+                $array5['receiver_id']=count($data10)+10000000001;
                 $array4['customer_id']=count($data10)+10000000001;
                 $insertStatement = $database->insert(array_keys($array4))
                     ->into('customer')
                     ->values(array_values($array4));
                 $insertId = $insertStatement->execute(false);
             }else{
-                $array2['receiver_id']=$data8['customer_id'];
+                $array5['receiver_id']=$data8['customer_id'];
             }
         }
 
@@ -3691,55 +3676,22 @@ $app->post('/saveGoodsOrder',function()use($app){
         $stmt = $selectStatement->execute();
         $data = $stmt->fetch();
         if($data!=null){
-            $selectStatement = $database->select()
-                ->from('orders')
-                ->where('tenant_id', '=', $tenant_id)
-                ->whereLike('order_id',$data['tenant_num'].'%');
-            $stmt = $selectStatement->execute();
-            $data2 = $stmt->fetchAll();
-            if((count($data2)+1)<10){
-                $array1['goods_id']=$data['tenant_num']."00000".(count($data2)+1);
-                $array1['order_id']=$data['tenant_num']."00000".(count($data2)+1);
-                $array2['order_id']=$data['tenant_num']."00000".(count($data2)+1);
-            }else if((count($data2)+1)<100&&(count($data2)+1)>9){
-                $array1['goods_id']=$data['tenant_num']."0000".(count($data2)+1);
-                $array1['order_id']=$data['tenant_num']."0000".(count($data2)+1);
-                $array2['order_id']=$data['tenant_num']."0000".(count($data2)+1);
-            }else if((count($data2)+1)<1000&&(count($data2)+1)>99){
-                $array1['goods_id']=$data['tenant_num']."000".(count($data2)+1);
-                $array1['order_id']=$data['tenant_num']."000".(count($data2)+1);
-                $array2['order_id']=$data['tenant_num']."000".(count($data2)+1);
-            }else if((count($data2)+1)<10000&&(count($data2)+1)>999){
-                $array1['goods_id']=$data['tenant_num']."00".(count($data2)+1);
-                $array1['order_id']=$data['tenant_num']."00".(count($data2)+1);
-                $array2['order_id']=$data['tenant_num']."00".(count($data2)+1);
-            }else if((count($data2)+1)<100000&&(count($data2)+1)>9999){
-                $array1['goods_id']=$data['tenant_num']."0".(count($data2)+1);
-                $array1['order_id']=$data['tenant_num']."0".(count($data2)+1);
-                $array2['order_id']=$data['tenant_num']."0".(count($data2)+1);
-            }else if((count($data2)+1)<1000000&&(count($data2)+1)>99999){
-                $array1['goods_id']=$data['tenant_num'].(count($data2)+1);
-                $array1['order_id']=$data['tenant_num'].(count($data2)+1);
-                $array2['order_id']=$data['tenant_num'].(count($data2)+1);
-            }
-            $insertStatement = $database->insert(array_keys($array1))
-                ->into('goods')
-                ->values(array_values($array1));
-            $insertId = $insertStatement->execute(false);
-            date_default_timezone_set("PRC");
-            $array2['order_datetime0']=date('Y-m-d H:i:s',time());
-            if($flag==0){
-                $array2['order_datetime1']=date('Y-m-d H:i:s',time());
-            }else{
-                $array2['order_datetime1']=null;
-            }
-            $array2["is_schedule"]=0;
-            $array2["is_transfer"]=0;
-            $insertStatement = $database->insert(array_keys($array2))
-                ->into('orders')
-                ->values(array_values($array2));
-            $insertId = $insertStatement->execute(false);
-            echo json_encode(array("result" => "0", "desc" => "success",'order_id'=>$array1['order_id']));
+            $updateStatement = $database->update($array5)
+                ->table('orders')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('order_id','=',$order_id);
+            $affectedRows = $updateStatement->execute();
+            $updateStatement = $database->update($array2)
+                ->table('goods')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('order_id','=',$order_id);
+            $affectedRows = $updateStatement->execute();
+            $updateStatement = $database->update(array("exception_comment"=>$exception_comment))
+                ->table('exception')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('exception_id','=',$exception_id);
+            $affectedRows = $updateStatement->execute();
+            echo json_encode(array("result" => "0", "desc" => "success"));
         }else{
             echo json_encode(array("result" => "2", "desc" => "租户不存在"));
         }
