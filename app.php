@@ -3256,6 +3256,23 @@ $app->post('/addlorryB',function()use($app){
                     ->table('app_lorry')
                     ->where('app_lorry_id','=',$lorryid);
                 $affectedRows = $updateStatement->execute();
+                $selectStament=$database->select()
+                    ->from('app_lorry')
+                    ->where('phone','=',$data1['phone'])
+                    ->where('exist','=',0);
+                $stmt=$selectStament->execute();
+                $data11=$stmt->fetch();
+                $selectStament=$database->select()
+                    ->from('ticket_lorry')
+                    ->where('lorry_id','=',$data11['app_lorry_id']);
+                $stmt=$selectStament->execute();
+                $data22=$stmt->fetchAll();
+                for($j=0;$j<count($data22);$j++){
+                    $insertStatement = $database->insert(array('company_id','lorry_id','commit_time'))
+                        ->into('ticket_lorry')
+                        ->values(array($data22[$j]['id'],$lorryid,$data22[$j]['commit_time']));
+                    $insertId = $insertStatement->execute(false);
+                }
                 echo json_encode(array('result'=>'0','desc'=>'success'));
             }else {
                 echo json_encode(array('result' => '4', 'desc' => '车辆信息有误'));
@@ -3267,6 +3284,7 @@ $app->post('/addlorryB',function()use($app){
         echo json_encode(array('result' => '1', 'desc' => '没有行驶证正面图片'));
     }
 });
+
 
 
 $app->run();

@@ -107,35 +107,44 @@ $app->post('/addticketlorry',function()use($app){
         if($app_lorry_id!=null||$app_lorry_id!=""){
             $selectStament=$database->select()
                 ->from('app_lorry')
-                ->where('app_lorry_id','=',$app_lorry_id);
+                ->where('app_lorry_id','=',$app_lorry_id)
+                ->where('exist','=',0);
             $stmt=$selectStament->execute();
             $data1=$stmt->fetch();
             if($data1!=null){
                 $arrays['company_id']=$id;
-                $arrays['lorry_id']=$app_lorry_id;
+//                $arrays['lorry_id']=$app_lorry_id;
                 date_default_timezone_set("PRC");
                 $shijian=date("Y-m-d H:i:s",time());
                 $selectStament=$database->select()
-                    ->from('ticket_lorry')
-                    ->where('company_id','=',$id)
-                    ->where('lorry_id','=',$app_lorry_id);
+                    ->from('app_lorry')
+                    ->where('phone','=',$data1['phone'])
+                    ->where('exist','=',0);
                 $stmt=$selectStament->execute();
-                $data2=$stmt->fetch();
-                if($data2==null){
-                    $insertStatement = $database->insert(array('company_id','lorry_id','commit_time'))
-                        ->into('ticket_lorry')
-                        ->values(array($id,$app_lorry_id,$shijian));
-                    $insertId = $insertStatement->execute(false);
+                $dataa=$stmt->fetchAll();
+                for($i=0;$i<count($dataa);$i++){
+                    $selectStament=$database->select()
+                        ->from('ticket_lorry')
+                        ->where('company_id','=',$id)
+                        ->where('lorry_id','=',$dataa[$i]['app_lorry_id']);
+                    $stmt=$selectStament->execute();
+                    $data2=$stmt->fetch();
+                    if($data2==null){
+                        $insertStatement = $database->insert(array('company_id','lorry_id','commit_time'))
+                            ->into('ticket_lorry')
+                            ->values(array($id,$dataa[$i]['app_lorry_id'],$shijian));
+                        $insertId = $insertStatement->execute(false);
+                    }
                 }
                 echo  json_encode(array("result"=>"0","desc"=>"添加成功"));
             }else{
-                echo  json_encode(array("result"=>"3","desc"=>"您未填写电话和密码"));
+                echo  json_encode(array("result"=>"3","desc"=>"车不存在"));
             }
         }else{
-            echo  json_encode(array("result"=>"2","desc"=>"您未填写身份证号"));
+            echo  json_encode(array("result"=>"2","desc"=>"车id不存在"));
         }
     }else{
-        echo  json_encode(array("result"=>"1","desc"=>"您未填写姓名"));
+        echo  json_encode(array("result"=>"1","desc"=>"开票公司id不存在"));
     }
 });
 
