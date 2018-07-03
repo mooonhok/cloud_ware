@@ -3856,6 +3856,43 @@ $app->put('/recoverGoodsOrder',function()use($app){
 });
 
 
+
+$app->put('/deleteGoodsOrder',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $order_id=$body->order_id;
+    date_default_timezone_set("PRC");
+    $time1=date('Y-m-d H:i:s',time());
+    if($tenant_id!=null||$tenant_id!=""){
+        if($order_id!=null||$order_id!=""){
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('order_id','=',$order_id)
+                ->where('tenant_id','=',$tenant_id);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            if($data2['is_back']==1){
+                echo json_encode(array("result"=>"0",'desc'=>'退单中'));
+            }else{
+                $updateStatement = $database->update(array("order_status"=>6))
+                    ->table('orders')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('order_id','=',$order_id);
+                $affectedRows = $updateStatement->execute();
+                echo json_encode(array("result"=>"0",'desc'=>'success'));
+            }
+        }else{
+            echo json_encode(array("result"=>"1",'desc'=>'缺少运单id'));
+        }
+    }else{
+        echo json_encode(array("result"=>"2",'desc'=>'缺少租户id'));
+    }
+});
+
 $app->run();
 function localhost(){
     return connect();
