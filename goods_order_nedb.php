@@ -3876,7 +3876,7 @@ $app->put('/deleteGoodsOrder',function()use($app){
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetch();
             if($data2['is_back']==1){
-                echo json_encode(array("result"=>"0",'desc'=>'退单中'));
+                echo json_encode(array("result"=>"4",'desc'=>'退单中'));
             }else{
                 $updateStatement = $database->update(array("order_status"=>6))
                     ->table('orders')
