@@ -1299,30 +1299,30 @@ $app->get('/getTenants1',function()use($app){
             ->where('exist','=','0');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        if($data!=null){
-         for($x=0;$x<count($data);$x++){
-             $selectStatement = $database->select()
-                 ->from('city')
-                 ->where('id','=',$data[$x]['from_city_id']);
-             $stmt = $selectStatement->execute();
-             $data2 = $stmt->fetch();
-             $data[$x]['from_city_name']=$data2['name'];
-             $selectStatement = $database->select()
-                 ->from('customer')
-                 ->where('customer_id','=',$data[$x]['contact_id'])
-                 ->where('tenant_id','=',$data[$x]['tenant_id']);
-             $stmt = $selectStatement->execute();
-             $data3 = $stmt->fetch();
-             $selectStatement = $database->select()
-                 ->from('city')
-                 ->where('id','=',$data3['customer_city_id']);
-             $stmt = $selectStatement->execute();
-             $data4 = $stmt->fetch();
-             $data3['customer_city_name']=$data4['name'];
-             $data[$x]['customer']=$data3;
-         }
-        }
-        echo json_encode(array("result"=>"0",'desc'=>'','tenants'=>$data));
+//        if($data!=null){
+//         for($x=0;$x<count($data);$x++){
+//             $selectStatement = $database->select()
+//                 ->from('city')
+//                 ->where('id','=',$data[$x]['from_city_id']);
+//             $stmt = $selectStatement->execute();
+//             $data2 = $stmt->fetch();
+//             $data[$x]['from_city_name']=$data2['name'];
+//             $selectStatement = $database->select()
+//                 ->from('customer')
+//                 ->where('customer_id','=',$data[$x]['contact_id'])
+//                 ->where('tenant_id','=',$data[$x]['tenant_id']);
+//             $stmt = $selectStatement->execute();
+//             $data3 = $stmt->fetch();
+//             $selectStatement = $database->select()
+//                 ->from('city')
+//                 ->where('id','=',$data3['customer_city_id']);
+//             $stmt = $selectStatement->execute();
+//             $data4 = $stmt->fetch();
+//             $data3['customer_city_name']=$data4['name'];
+//             $data[$x]['customer']=$data3;
+//         }
+//        }
+        echo json_encode(array("result"=>"0",'desc'=>'','count'=>count($data)));
     }else{
         echo json_encode(array("result"=>"1",'desc'=>'缺少城市id'));
     }
@@ -1388,30 +1388,30 @@ $app->get('/getTenants2',function()use($app){
             ->where('exist','=','0');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        if($data!=null){
-            for($x=0;$x<count($data);$x++){
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id','=',$data[$x]['from_city_id']);
-                $stmt = $selectStatement->execute();
-                $data2 = $stmt->fetch();
-                $data[$x]['from_city_name']=$data2['name'];
-                $selectStatement = $database->select()
-                    ->from('customer')
-                    ->where('customer_id','=',$data[$x]['contact_id'])
-                    ->where('tenant_id','=',$data[$x]['tenant_id']);
-                $stmt = $selectStatement->execute();
-                $data3 = $stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id','=',$data3['customer_city_id']);
-                $stmt = $selectStatement->execute();
-                $data4 = $stmt->fetch();
-                $data3['customer_city_name']=$data4['name'];
-                $data[$x]['customer']=$data3;
-            }
-        }
-        echo json_encode(array("result"=>"0",'desc'=>'','tenants'=>$data));
+//        if($data!=null){
+//            for($x=0;$x<count($data);$x++){
+//                $selectStatement = $database->select()
+//                    ->from('city')
+//                    ->where('id','=',$data[$x]['from_city_id']);
+//                $stmt = $selectStatement->execute();
+//                $data2 = $stmt->fetch();
+//                $data[$x]['from_city_name']=$data2['name'];
+//                $selectStatement = $database->select()
+//                    ->from('customer')
+//                    ->where('customer_id','=',$data[$x]['contact_id'])
+//                    ->where('tenant_id','=',$data[$x]['tenant_id']);
+//                $stmt = $selectStatement->execute();
+//                $data3 = $stmt->fetch();
+//                $selectStatement = $database->select()
+//                    ->from('city')
+//                    ->where('id','=',$data3['customer_city_id']);
+//                $stmt = $selectStatement->execute();
+//                $data4 = $stmt->fetch();
+//                $data3['customer_city_name']=$data4['name'];
+//                $data[$x]['customer']=$data3;
+//            }
+//        }
+        echo json_encode(array("result"=>"0",'desc'=>'','count'=>count($data)));
     }else{
         echo json_encode(array("result"=>"1",'desc'=>'缺少租户id'));
     }
@@ -1477,61 +1477,61 @@ $app->get('/getTenants3',function()use($app){
             ->where('exist','=','0');
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        if($data!=null){
-            for($x=0;$x<count($data);$x++){
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id','=',$data[$x]['from_city_id']);
-                $stmt = $selectStatement->execute();
-                $data2 = $stmt->fetch();
-                $data[$x]['from_city_name']=$data2['name'];
-                $selectStatement = $database->select()
-                    ->from('customer')
-                    ->where('customer_id','=',$data[$x]['contact_id'])
-                    ->where('tenant_id','=',$data[$x]['tenant_id']);
-                $stmt = $selectStatement->execute();
-                $data3 = $stmt->fetch();
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id','=',$data3['customer_city_id']);
-                $stmt = $selectStatement->execute();
-                $data4 = $stmt->fetch();
-                $data3['customer_city_name']=$data4['name'];
-                $data[$x]['customer']=$data3;
-            }
-        }else{
-            $selectStatement = $database->select()
-                ->from('tenant')
-                ->where('company','=',$company)
-                ->where('tenant_id','!=',$tenant_id)
-                ->where('exist','=','0');
-            $stmt = $selectStatement->execute();
-            $data = $stmt->fetchAll();
-            if($data!=null){
-                for($x=0;$x<count($data);$x++){
-                    $selectStatement = $database->select()
-                        ->from('city')
-                        ->where('id','=',$data[$x]['from_city_id']);
-                    $stmt = $selectStatement->execute();
-                    $data2 = $stmt->fetch();
-                    $data[$x]['from_city_name']=$data2['name'];
-                    $selectStatement = $database->select()
-                        ->from('customer')
-                        ->where('customer_id','=',$data[$x]['contact_id'])
-                        ->where('tenant_id','=',$data[$x]['tenant_id']);
-                    $stmt = $selectStatement->execute();
-                    $data3 = $stmt->fetch();
-                    $selectStatement = $database->select()
-                        ->from('city')
-                        ->where('id','=',$data3['customer_city_id']);
-                    $stmt = $selectStatement->execute();
-                    $data4 = $stmt->fetch();
-                    $data3['customer_city_name']=$data4['name'];
-                    $data[$x]['customer']=$data3;
-                }
-            }
-        }
-        echo json_encode(array("result"=>"0",'desc'=>'','tenants'=>$data));
+//        if($data!=null){
+//            for($x=0;$x<count($data);$x++){
+//                $selectStatement = $database->select()
+//                    ->from('city')
+//                    ->where('id','=',$data[$x]['from_city_id']);
+//                $stmt = $selectStatement->execute();
+//                $data2 = $stmt->fetch();
+//                $data[$x]['from_city_name']=$data2['name'];
+//                $selectStatement = $database->select()
+//                    ->from('customer')
+//                    ->where('customer_id','=',$data[$x]['contact_id'])
+//                    ->where('tenant_id','=',$data[$x]['tenant_id']);
+//                $stmt = $selectStatement->execute();
+//                $data3 = $stmt->fetch();
+//                $selectStatement = $database->select()
+//                    ->from('city')
+//                    ->where('id','=',$data3['customer_city_id']);
+//                $stmt = $selectStatement->execute();
+//                $data4 = $stmt->fetch();
+//                $data3['customer_city_name']=$data4['name'];
+//                $data[$x]['customer']=$data3;
+//            }
+//        }else{
+//            $selectStatement = $database->select()
+//                ->from('tenant')
+//                ->where('company','=',$company)
+//                ->where('tenant_id','!=',$tenant_id)
+//                ->where('exist','=','0');
+//            $stmt = $selectStatement->execute();
+//            $data = $stmt->fetchAll();
+//            if($data!=null){
+//                for($x=0;$x<count($data);$x++){
+//                    $selectStatement = $database->select()
+//                        ->from('city')
+//                        ->where('id','=',$data[$x]['from_city_id']);
+//                    $stmt = $selectStatement->execute();
+//                    $data2 = $stmt->fetch();
+//                    $data[$x]['from_city_name']=$data2['name'];
+//                    $selectStatement = $database->select()
+//                        ->from('customer')
+//                        ->where('customer_id','=',$data[$x]['contact_id'])
+//                        ->where('tenant_id','=',$data[$x]['tenant_id']);
+//                    $stmt = $selectStatement->execute();
+//                    $data3 = $stmt->fetch();
+//                    $selectStatement = $database->select()
+//                        ->from('city')
+//                        ->where('id','=',$data3['customer_city_id']);
+//                    $stmt = $selectStatement->execute();
+//                    $data4 = $stmt->fetch();
+//                    $data3['customer_city_name']=$data4['name'];
+//                    $data[$x]['customer']=$data3;
+//                }
+//            }
+//        }
+        echo json_encode(array("result"=>"0",'desc'=>'','count'=>count($data)));
     }else{
         echo json_encode(array("result"=>"1",'desc'=>'缺少公司名称'));
     }
@@ -1629,36 +1629,36 @@ $app->get('/getTenants4',function()use($app){
             ->where('customer_name','=',$customer_name);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
-        if($data!=null){
-            for($x=0;$x<count($data);$x++){
-                $selectStatement = $database->select()
-                    ->from('city')
-                    ->where('id','=',$data[$x]['customer_city_id']);
-                $stmt = $selectStatement->execute();
-                $data2 = $stmt->fetch();
-                $data[$x]['customer_city_name']=$data2['name'];
-                $selectStatement = $database->select()
-                    ->from('tenant')
-                    ->where('contact_id','=',$data[$x]['customer_id'])
-                    ->where('tenant_id','=',$data[$x]['tenant_id'])
-                    ->where('exist','=',0);
-                $stmt = $selectStatement->execute();
-                $data3 = $stmt->fetchAll();
-                if($data3!=null) {
-                    for($j=0;$j<count($data3);$j++) {
-                        $selectStatement = $database->select()
-                            ->from('city')
-                            ->where('id', '=', $data3[$j]['from_city_id']);
-                        $stmt = $selectStatement->execute();
-                        $data4 = $stmt->fetch();
-                        $data3[$j]['from_city_name'] = $data4['name'];
-                        $data3[$j]['customer'] = $data[$x];
-                        array_push($arrays1,$data3[$j]);
-                    }
-                }
-            }
-        }
-        echo json_encode(array("result"=>"0",'desc'=>'','tenants'=>$arrays1));
+//        if($data!=null){
+//            for($x=0;$x<count($data);$x++){
+//                $selectStatement = $database->select()
+//                    ->from('city')
+//                    ->where('id','=',$data[$x]['customer_city_id']);
+//                $stmt = $selectStatement->execute();
+//                $data2 = $stmt->fetch();
+//                $data[$x]['customer_city_name']=$data2['name'];
+//                $selectStatement = $database->select()
+//                    ->from('tenant')
+//                    ->where('contact_id','=',$data[$x]['customer_id'])
+//                    ->where('tenant_id','=',$data[$x]['tenant_id'])
+//                    ->where('exist','=',0);
+//                $stmt = $selectStatement->execute();
+//                $data3 = $stmt->fetchAll();
+//                if($data3!=null) {
+//                    for($j=0;$j<count($data3);$j++) {
+//                        $selectStatement = $database->select()
+//                            ->from('city')
+//                            ->where('id', '=', $data3[$j]['from_city_id']);
+//                        $stmt = $selectStatement->execute();
+//                        $data4 = $stmt->fetch();
+//                        $data3[$j]['from_city_name'] = $data4['name'];
+//                        $data3[$j]['customer'] = $data[$x];
+//                        array_push($arrays1,$data3[$j]);
+//                    }
+//                }
+//            }
+//        }
+        echo json_encode(array("result"=>"0",'desc'=>'','count'=>count($arrays1)));
     }else{
         echo json_encode(array("result"=>"4",'desc'=>'缺少客户名称'));
     }
