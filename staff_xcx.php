@@ -184,9 +184,9 @@ $app->post('/makeOrder',function()use($app){
                                                                     }
                                                                     date_default_timezone_set("PRC");
                                                                     $shijian=date("Y-m-d H:i:s",time());
-                                                                    $insertStatement = $database->insert(array('order_id','tenant_id','sender_id','receiver_id','pay_method','pay_status','order_cost','order_status','exist','order_datetime0','is_sign','order_datetime1','inventory_type'))
+                                                                    $insertStatement = $database->insert(array('order_id','tenant_id','sender_id','receiver_id','pay_method','order_cost','order_status','exist','order_datetime0','is_sign','order_datetime1','inventory_type'))
                                                                         ->into('orders')
-                                                                        ->values(array($order_id,$tenant_id,$customer_id1,$customer_id2,$pay_method,1,$order_cost,1,0,$shijian,'0',$shijian,$inventory_type));
+                                                                        ->values(array($order_id,$tenant_id,$customer_id1,$customer_id2,$pay_method,$order_cost,1,0,$shijian,'0',$shijian,$inventory_type));
                                                                     $insertId = $insertStatement->execute(false);
                                                                     $selectStatement = $database->select()
                                                                         ->from('goods')
