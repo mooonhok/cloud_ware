@@ -830,7 +830,6 @@ $app->get('/old_customers_f',function()use($app){
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
     $array1=array();
-    $array2=array();
     $selectStatement = $database->select()
         ->from('customer')
 //        ->distinctCount('customer_name')
@@ -839,7 +838,7 @@ $app->get('/old_customers_f',function()use($app){
         ->where('type','=',1)
         ->whereNotNull('times')
         ->where('times','!=',0)
-        ->orderBy('id')
+        ->orderBy('id','DESC')
         ->limit(10);
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
@@ -855,19 +854,11 @@ $app->get('/old_customers_f',function()use($app){
         $array1[$i]['customer_address'] = $data1[$i]['customer_address'];
         $array1[$i]['customer_phone'] = $data1[$i]['customer_phone'];
         $array1[$i]['cityname'] = $data2['name'];
+        $array1[$i]["a"]=$data1[$i]['customer_name'].$data1[$i]['customer_address'].$data1[$i]['customer_phone'].$data2['name'];
     }
-        for($x=0;$x<count($array1);$x++){
-            for($j=count($array1)-1;$j>$x;$j--){
-                if($array1[$x]["customer_name"]!=$array1[$j]["customer_name"]
-                    &&$array1[$x]["customer_phone"]!=$array1[$j]["customer_phone"]
-                    &&$array1[$x]["customer_address"]!=$array1[$j]["customer_address"]
-                    &&$array1[$x]["cityname"]!=$array1[$j]["cityname"]){
-                     array_push($array2,$array1[$x]);
-                }
-            }
-        }
     }
-    echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array2));
+    $array1= array_values(array_unset_tt($array1,'a'));
+    echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array1));
 });
 
 //获取最近10条信息,type为1
@@ -884,6 +875,7 @@ $app->get('/old_customers_s',function()use($app){
         ->where('tenant_id','=',$tenant_id)
         ->where('exist','=',0)
         ->where('type','=',0)
+        ->orderBy('id','DESC')
         ->orderBy('id')
         ->limit(10);
     $stmt = $selectStatement->execute();
@@ -900,19 +892,11 @@ $app->get('/old_customers_s',function()use($app){
             $array1[$i]['customer_address'] = $data1[$i]['customer_address'];
             $array1[$i]['customer_phone'] = $data1[$i]['customer_phone'];
             $array1[$i]['cityname'] = $data2['name'];
-        }
-       for($x=0;$x<count($array1);$x++){
-        for($j=count($array1)-1;$j>$x;$j--){
-            if($array1[$x]["customer_name"]!=$array1[$j]["customer_name"]
-                &&$array1[$x]["customer_phone"]!=$array1[$j]["customer_phone"]
-                &&$array1[$x]["customer_address"]!=$array1[$j]["customer_address"]
-                &&$array1[$x]["cityname"]!=$array1[$j]["cityname"]){
-                array_push($array2,$array1[$x]);
-            }
+            $array1[$i]["a"]=$data1[$i]['customer_name'].$data1[$i]['customer_address'].$data1[$i]['customer_phone'].$data2['name'];
         }
     }
-    }
-    echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array2));
+    $array1= array_values(array_unset_tt($array1,'a'));
+    echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array1));
 });
 
 //type为3
