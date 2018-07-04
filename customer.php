@@ -857,7 +857,7 @@ $app->get('/old_customers_f',function()use($app){
         $array1[$i]['cityname'] = $data2['name'];
     }
         for($x=0;$x<count($array1);$x++){
-            for($j=count($array1);$j>$i;$j--){
+            for($j=count($array1);$j>$x;$j--){
                 if($array1[$x]["customer_name"]!=$array1[$j]["customer_name"]
                     &&$array1[$x]["customer_phone"]!=$array1[$j]["customer_phone"]
                     &&$array1[$x]["customer_address"]!=$array1[$j]["customer_address"]
@@ -902,7 +902,7 @@ $app->get('/old_customers_s',function()use($app){
             $array1[$i]['cityname'] = $data2['name'];
         }
        for($x=0;$x<count($array1);$x++){
-        for($j=count($array1);$j>$i;$j--){
+        for($j=count($array1);$j>$x;$j--){
             if($array1[$x]["customer_name"]!=$array1[$j]["customer_name"]
                 &&$array1[$x]["customer_phone"]!=$array1[$j]["customer_phone"]
                 &&$array1[$x]["customer_address"]!=$array1[$j]["customer_address"]
