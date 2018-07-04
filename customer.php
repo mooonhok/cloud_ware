@@ -854,7 +854,6 @@ $app->get('/old_customers_f',function()use($app){
         $array1[$i]['customer_name']=$data1[$i]['customer_name'];
         $array1[$i]['customer_address']=$data1[$i]['customer_address'];
         $array1[$i]['customer_phone']=$data1[$i]['customer_phone'];
-        $array1[$i]['cityname']=$data2['name'];
     }
     $array1=array_values(array_unique_fb($array1));
     }
@@ -891,7 +890,6 @@ $app->get('/old_customers_s',function()use($app){
             $array1[$i]['customer_name'] = $data1[$i]['customer_name'];
             $array1[$i]['customer_address'] = $data1[$i]['customer_address'];
             $array1[$i]['customer_phone'] = $data1[$i]['customer_phone'];
-            $array1[$i]['cityname'] = $data2['name'];
         }
         $array1 = array_values(array_unique_fb($array1));
     }
@@ -955,8 +953,8 @@ function array_unset_tt($arr,$key){
 function array_unique_fb($array2D){
     foreach ($array2D as $k=>$v){
         if($k!="customer_id"){
-        $v=join(',',$v); //降维,也可以用implode,将一维数组转换为用逗号连接的字符串
-        $temp[$k]=$v;
+          $v=join(',',$v); //降维,也可以用implode,将一维数组转换为用逗号连接的字符串
+          $temp[$k]=$v;
         }
     }
     $temp=array_unique($temp); //去掉重复的字符串,也就是重复的一维数组
