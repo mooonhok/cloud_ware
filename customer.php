@@ -877,6 +877,7 @@ $app->get('/old_customers_s',function()use($app){
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
     $array1=array();
+    $array2=array();
     $selectStatement = $database->select()
         ->from('customer')
 //        ->distinctCount('customer_name')
@@ -900,7 +901,16 @@ $app->get('/old_customers_s',function()use($app){
             $array1[$i]['customer_phone'] = $data1[$i]['customer_phone'];
             $array1[$i]['cityname'] = $data2['name'];
         }
-//        $array1 = array_values(array_unique_fb($array1));
+       for($x=0;$x<count($array1);$x++){
+        for($j=0;$j<count($array1)-$i-1;$j++){
+            if($array1[$x]["customer_name"]==$array1[$j]["customer_name"]
+                &&$array1[$x]["customer_phone"]==$array1[$j]["customer_phone"]
+                &&$array1[$x]["customer_address"]==$array1[$j]["customer_address"]
+                &&$array1[$x]["cityname"]==$array1[$j]["cityname"]){
+                array_push($array2,$array1[$j]);
+            }
+        }
+    }
     }
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array1));
 });
