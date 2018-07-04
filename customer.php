@@ -855,9 +855,24 @@ $app->get('/old_customers_f',function()use($app){
         $array1[$i]['customer_phone']=$data1[$i]['customer_phone'];
         $array1[$i]['cityname']=$data2['name'];
     }
-    $array1=array_values(array_unique_fb($array1));
+        foreach ($array1 as $k=>$v){
+            if($k!="customer_id"){
+                $v=join(',',$v); //降维,也可以用implode,将一维数组转换为用逗号连接的字符串
+                $temp[$k]=$v;
+            }
+        }
+        $temp=array_unique($temp);
+//        foreach ($temp as $k => $v){
+//            $array=explode(',',$v); //再将拆开的数组重新组装
+//            //下面的索引根据自己的情况进行修改即可
+//            $temp2[$k]['customer_id'] =$array1[$k]['customer_id'];
+//            $temp2[$k]['customer_name'] =$array[0];
+//            $temp2[$k]['customer_phone'] =$array[2];
+//            $temp2[$k]['customer_address'] =$array[1];
+//            $temp2[$k]['cityname'] =$array[3];
+//        }
     }
-    echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array1));
+    echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$temp));
 });
 
 //获取最近10条信息,type为1
@@ -890,7 +905,7 @@ $app->get('/old_customers_s',function()use($app){
             $array1[$i]['customer_phone'] = $data1[$i]['customer_phone'];
             $array1[$i]['cityname'] = $data2['name'];
         }
-        $array1 = array_values(array_unique_fb($array1));
+//        $array1 = array_values(array_unique_fb($array1));
     }
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array1));
 });
