@@ -856,7 +856,7 @@ $app->get('/old_customers_f',function()use($app){
         $array1[$i]['customer_phone']=$data1[$i]['customer_phone'];
         $array1[$i]['cityname']=$data2['name'];
     }
-    $array1=array_values(array_unique_fb($array1));
+//    $array1=array_values(array_unique_fb($array1));
     }
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array1));
 });
@@ -893,7 +893,7 @@ $app->get('/old_customers_s',function()use($app){
             $array1[$i]['customer_phone'] = $data1[$i]['customer_phone'];
             $array1[$i]['cityname'] = $data2['name'];
         }
-        $array1 = array_values(array_unique_fb($array1));
+//        $array1 = array_values(array_unique_fb($array1));
     }
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array1));
 });
