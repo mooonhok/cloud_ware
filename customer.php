@@ -849,7 +849,7 @@ $app->get('/old_customers_f',function()use($app){
             ->where('id','=',$data1[$i]['customer_city_id']);
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetch();
-        $data1[$i]['cityname']=$data2['name'];
+        $array1[$i]['cityname']=$data2['name'];
         $array1[$i]['customer_id']=$data1[$i]['customer_id'];
         $array1[$i]['customer_name']=$data1[$i]['customer_name'];
         $array1[$i]['customer_address']=$data1[$i]['customer_address'];
@@ -884,11 +884,12 @@ $app->get('/old_customers_s',function()use($app){
                 ->where('id', '=', $data1[$i]['customer_city_id']);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetch();
-            $data1[$i]['cityname'] = $data2['name'];
+            $array1[$i]['cityname'] = $data2['name'];
             $array1[$i]['customer_id'] = $data1[$i]['customer_id'];
             $array1[$i]['customer_name'] = $data1[$i]['customer_name'];
             $array1[$i]['customer_address'] = $data1[$i]['customer_address'];
             $array1[$i]['customer_phone'] = $data1[$i]['customer_phone'];
+
         }
         $array1 = array_values(array_unique_fb($array1));
     }
