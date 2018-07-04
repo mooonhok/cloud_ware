@@ -912,7 +912,7 @@ $app->get('/old_customers_s',function()use($app){
         }
     }
     }
-    echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array1));
+    echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array2));
 });
 
 //type为3
