@@ -830,6 +830,7 @@ $app->get('/old_customers_f',function()use($app){
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
     $array1=array();
+    $array2=array();
     $selectStatement = $database->select()
         ->from('customer')
 //        ->distinctCount('customer_name')
@@ -843,38 +844,30 @@ $app->get('/old_customers_f',function()use($app){
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
     if($data1!=null){
-    for($i=0;$i<count($data1);$i++){
+    for($i=0;$i<count($data1);$i++) {
         $selectStatement = $database->select()
             ->from('city')
-            ->where('id','=',$data1[$i]['customer_city_id']);
+            ->where('id', '=', $data1[$i]['customer_city_id']);
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetch();
-        $array1[$i]['customer_id']=$data1[$i]['customer_id'];
-        $array1[$i]['customer_name']=$data1[$i]['customer_name'];
-        $array1[$i]['customer_address']=$data1[$i]['customer_address'];
-        $array1[$i]['customer_phone']=$data1[$i]['customer_phone'];
-        $array1[$i]['cityname']=$data2['name'];
+        $array1[$i]['customer_id'] = $data1[$i]['customer_id'];
+        $array1[$i]['customer_name'] = $data1[$i]['customer_name'];
+        $array1[$i]['customer_address'] = $data1[$i]['customer_address'];
+        $array1[$i]['customer_phone'] = $data1[$i]['customer_phone'];
+        $array1[$i]['cityname'] = $data2['name'];
     }
-
-        foreach ($array1 as $k=>$v){
-            if($k!="customer_id"){
-                $v=join(',',$v); //降维,也可以用implode,将一维数组转换为用逗号连接的字符串
-                $temp[$k]=$v;
+        for($x=0;$x<count($array1);$x++){
+            for($j=0;$j<count($array1)-$i-1;$j++){
+                if($array1[$x]["customer_name"]==$array1[$j]["customer_name"]
+                    &&$array1[$x]["customer_phone"]==$array1[$j]["customer_phone"]
+                    &&$array1[$x]["customer_address"]==$array1[$j]["customer_address"]
+                    &&$array1[$x]["cityname"]==$array1[$j]["cityname"]){
+                     array_push($array2,$array1[$j]);
+                }
             }
         }
-
-        $temp=array_unique($temp);
-//        foreach ($temp as $k => $v){
-//            $array=explode(',',$v); //再将拆开的数组重新组装
-//            //下面的索引根据自己的情况进行修改即可
-//            $temp2[$k]['customer_id'] =$array1[$k]['customer_id'];
-//            $temp2[$k]['customer_name'] =$array[0];
-//            $temp2[$k]['customer_phone'] =$array[2];
-//            $temp2[$k]['customer_address'] =$array[1];
-//            $temp2[$k]['cityname'] =$array[3];
-//        }
     }
-    echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$temp));
+    echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array2));
 });
 
 //获取最近10条信息,type为1
