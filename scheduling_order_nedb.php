@@ -3298,7 +3298,7 @@ $app->put('/cancelSchedulingOrder',function()use($app){
         if($scheduling_id!=null||$scheduling_id!=''){
             $selectStatement = $database->select()
                 ->from('schedule_order')
-                ->where('scheduling_id', '=', $scheduling_id)
+                ->where('schedule_id', '=', $scheduling_id)
                 ->where('tenant_id', '=', $tenant_id)
                 ->where('exist','=',0);
             $stmt = $selectStatement->execute();
@@ -3363,7 +3363,7 @@ $app->put('/transitSchedulingOrder',function()use($app){
         if($scheduling_id!=null||$scheduling_id!=''){
             $selectStatement = $database->select()
                 ->from('schedule_order')
-                ->where('scheduling_id', '=', $scheduling_id)
+                ->where('schedule_id', '=', $scheduling_id)
                 ->where('tenant_id', '=', $tenant_id)
                 ->where('exist','=',0);
             $stmt = $selectStatement->execute();
