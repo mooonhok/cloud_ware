@@ -858,10 +858,10 @@ $app->get('/old_customers_f',function()use($app){
     }
         for($x=0;$x<count($array1);$x++){
             for($j=0;$j<count($array1)-$i-1;$j++){
-                if($array1[$x]["customer_name"]==$array1[$j]["customer_name"]
-                    &&$array1[$x]["customer_phone"]==$array1[$j]["customer_phone"]
-                    &&$array1[$x]["customer_address"]==$array1[$j]["customer_address"]
-                    &&$array1[$x]["cityname"]==$array1[$j]["cityname"]){
+                if($array1[$x]["customer_name"]!=$array1[$j]["customer_name"]
+                    &&$array1[$x]["customer_phone"]!=$array1[$j]["customer_phone"]
+                    &&$array1[$x]["customer_address"]!=$array1[$j]["customer_address"]
+                    &&$array1[$x]["cityname"]!=$array1[$j]["cityname"]){
                      array_push($array2,$array1[$j]);
                 }
             }
@@ -903,10 +903,10 @@ $app->get('/old_customers_s',function()use($app){
         }
        for($x=0;$x<count($array1);$x++){
         for($j=0;$j<count($array1)-$i-1;$j++){
-            if($array1[$x]["customer_name"]==$array1[$j]["customer_name"]
-                &&$array1[$x]["customer_phone"]==$array1[$j]["customer_phone"]
-                &&$array1[$x]["customer_address"]==$array1[$j]["customer_address"]
-                &&$array1[$x]["cityname"]==$array1[$j]["cityname"]){
+            if($array1[$x]["customer_name"]!=$array1[$j]["customer_name"]
+                &&$array1[$x]["customer_phone"]!=$array1[$j]["customer_phone"]
+                &&$array1[$x]["customer_address"]!=$array1[$j]["customer_address"]
+                &&$array1[$x]["cityname"]!=$array1[$j]["cityname"]){
                 array_push($array2,$array1[$j]);
             }
         }
