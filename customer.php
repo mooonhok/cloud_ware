@@ -855,12 +855,14 @@ $app->get('/old_customers_f',function()use($app){
         $array1[$i]['customer_phone']=$data1[$i]['customer_phone'];
         $array1[$i]['cityname']=$data2['name'];
     }
-        foreach ($array1 as $k=>$v){
+       for($x=0;$x<count($array1);$x++){
+        foreach ($array1[$x] as $k=>$v){
             if($k!="customer_id"){
                 $v=join(',',$v); //降维,也可以用implode,将一维数组转换为用逗号连接的字符串
                 $temp[$k]=$v;
             }
         }
+       }
         $temp=array_unique($temp);
 //        foreach ($temp as $k => $v){
 //            $array=explode(',',$v); //再将拆开的数组重新组装
