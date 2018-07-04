@@ -849,11 +849,11 @@ $app->get('/old_customers_f',function()use($app){
             ->where('id','=',$data1[$i]['customer_city_id']);
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetch();
-        $array1[$i]['cityname']=$data2['name'];
         $array1[$i]['customer_id']=$data1[$i]['customer_id'];
         $array1[$i]['customer_name']=$data1[$i]['customer_name'];
         $array1[$i]['customer_address']=$data1[$i]['customer_address'];
         $array1[$i]['customer_phone']=$data1[$i]['customer_phone'];
+        $array1[$i]['cityname']=$data2['name'];
     }
     $array1=array_values(array_unique_fb($array1));
     }
@@ -884,12 +884,11 @@ $app->get('/old_customers_s',function()use($app){
                 ->where('id', '=', $data1[$i]['customer_city_id']);
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetch();
-            $array1[$i]['cityname'] = $data2['name'];
             $array1[$i]['customer_id'] = $data1[$i]['customer_id'];
             $array1[$i]['customer_name'] = $data1[$i]['customer_name'];
             $array1[$i]['customer_address'] = $data1[$i]['customer_address'];
             $array1[$i]['customer_phone'] = $data1[$i]['customer_phone'];
-
+            $array1[$i]['cityname'] = $data2['name'];
         }
         $array1 = array_values(array_unique_fb($array1));
     }
@@ -962,10 +961,10 @@ function array_unique_fb($array2D){
         $array=explode(',',$v); //再将拆开的数组重新组装
         //下面的索引根据自己的情况进行修改即可
         $temp2[$k]['customer_id'] =$array2D[$k]['customer_id'];
-        $temp2[$k]['customer_name'] =$array[1];
-        $temp2[$k]['customer_phone'] =$array[3];
-        $temp2[$k]['customer_address'] =$array[2];
-        $temp2[$k]['cityname'] =$array[0];
+        $temp2[$k]['customer_name'] =$array[0];
+        $temp2[$k]['customer_phone'] =$array[2];
+        $temp2[$k]['customer_address'] =$array[1];
+        $temp2[$k]['cityname'] =$array[3];
     }
     return $temp2;
 }
