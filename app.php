@@ -2251,6 +2251,12 @@ $app->post('/change_orders_status2',function()use($app){
                                         ->where('order_id','=',$data4[$y]['order_id'])
                                         ->where('exist',"=","0");
                                     $affectedRows = $updateStatement->execute();
+                                    $updateStatement = $database->update(array('exist'=>1))
+                                        ->table('schedule_order')
+                                        ->where('tenant_id','=',$data2[$i]['tenant_id'])
+                                        ->where('order_id','=',$data4[$y]['order_id'])
+                                        ->where('exist',"=","0");
+                                    $affectedRows = $updateStatement->execute();
                                 }
                             }
                         }
