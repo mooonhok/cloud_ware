@@ -1935,7 +1935,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
             ->where("order_id",'=',$array6[$y])
             ->where("exist",'=',0);
         $stmt = $selectStatement->execute();
-        $data20 = $stmt->fetch();
+        $data20 = $stmt->fetchAll();
         $num=$num+count($data20);
         if($data20!=null){
             array_push($oids,$array6[$y]);
