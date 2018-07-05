@@ -1937,7 +1937,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
         $stmt = $selectStatement->execute();
         $data20 = $stmt->fetch();
         $num=$num+count($data20);
-        if(count($data20)>0){
+        if($data20!=null){
             array_push($oid_ary,$array6[$y]);
         }
     }
