@@ -3412,38 +3412,38 @@ $app->put('/transitSchedulingOrder',function()use($app){
 });
 
 
-//$app->post('/addtest',function()use($app) {
-//    $app->response->headers->set('Content-Type', 'application/json');
-//    $database = localhost();
-//    $tenant_id = $app->request->headers->get("tenant-id");
-//    $body = $app->request->getBody();
-//    $body = json_decode($body);
-//    $array6=null;
-//
-//    foreach ($order_ary as $key => $value) {
-//        $array6[$key] = $value;
-//    }
-//    $num=0;
-//    $oid_ary=array();
-//    for($y=0;$y<count($array6);$y++){
-//        $selectStatement = $database->select()
-//            ->from('schedule_order')
-//            ->where('tenant_id', '=', $tenant_id)
-//            ->where("order_id",'=',$array6[$y])
-//            ->where("exist",'=',0);
-//        $stmt = $selectStatement->execute();
-//        $data20 = $stmt->fetch();
-//        $num=$num+count($data20);
-//        if($data20!=null){
-//            array_push($oid_ary,$array6[$y]);
-//        }
-//    }
-//    if($num==0){
-//
-//    }else{
-//        echo json_encode(array("result" => "11", "desc" => "无法生成清单","oid_ary"=>$oid_ary));
-//    }
-//});
+$app->post('/addtest',function()use($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $array6=null;
+    $order_ary=$body->order_ary;
+    foreach ($order_ary as $key => $value) {
+        $array6[$key] = $value;
+    }
+    $num=0;
+    $oid_ary=array();
+    for($y=0;$y<count($array6);$y++){
+        $selectStatement = $database->select()
+            ->from('schedule_order')
+            ->where('tenant_id', '=', $tenant_id)
+            ->where("order_id",'=',$array6[$y])
+            ->where("exist",'=',0);
+        $stmt = $selectStatement->execute();
+        $data20 = $stmt->fetch();
+        $num=$num+count($data20);
+        if($data20!=null){
+            array_push($oid_ary,$array6[$y]);
+        }
+    }
+    if($num==0){
+        echo json_encode(array("result" => "0", "desc" => "success"));
+    }else{
+        echo json_encode(array("result" => "11", "desc" => "无法生成清单","oid_ary"=>$oid_ary));
+    }
+});
 
 
 
