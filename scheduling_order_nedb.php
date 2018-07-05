@@ -3340,6 +3340,12 @@ $app->put('/cancelSchedulingOrder',function()use($app){
                         ->where('order_id', '=', $data[$x]["order_id"])
                         ->where('tenant_id', '=', $tenant_id);
                     $affectedRows = $updateStatement->execute();
+                      $updateStatement = $database->update(array('exist'=>1))
+                          ->table('schedule_order')
+                          ->where('order_id', '=', $data[$x]["order_id"])
+                          ->where('schedule_id',"=",$scheduling_id)
+                          ->where('tenant_id', '=', $tenant_id);
+                      $affectedRows = $updateStatement->execute();
                   }
                 $updateStatement = $database->update(array('scheduling_status'=>7))
                         ->table('scheduling')
