@@ -104,10 +104,11 @@ $app->post('/makeOrder',function()use($app){
                                                                         ->where('customer_city_id','=',$customer_city_a)
                                                                         ->where('customer_address','=',$customer_address_a)
                                                                         ->where('customer_name','=',$customer_name_a)
-                                                                        ->where('customer_phone','=',$customer_phone_a);
+                                                                        ->where('customer_phone','=',$customer_phone_a)
+                                                                        ->where('type','=',1);
                                                                     $stmt = $selectStatement->execute();
                                                                     $data = $stmt->fetch();
-                                                                    $customer_id1=$data['customer_id'];
+                                                                  $customer_id1='';
                                                                     if(!$data){
                                                                         $selectStatement = $database->select()
                                                                             ->from('customer')
@@ -120,10 +121,17 @@ $app->post('/makeOrder',function()use($app){
                                                                             }
                                                                         }
                                                                         $customer_id1=(count($data1)-$num1)+10000000001;
-                                                                        $insertStatement = $database->insert(array('customer_id','tenant_id','customer_city_id','customer_address','customer_name','customer_phone','type','exist'))
+                                                                        $insertStatement = $database->insert(array('customer_id','tenant_id','customer_city_id','customer_address','customer_name','customer_phone','type','exist','times'))
                                                                             ->into('customer')
-                                                                            ->values(array($customer_id1,$tenant_id,$customer_city_a,$customer_address_a,$customer_name_a,$customer_phone_a,0,0));
+                                                                            ->values(array($customer_id1,$tenant_id,$customer_city_a,$customer_address_a,$customer_name_a,$customer_phone_a,1,0,1));
                                                                         $insertId = $insertStatement->execute(false);
+                                                                    }else{
+                                                                        $customer_id1=$data['customer_id'];
+                                                                        $updateStatement = $database->update(array('times'=>($data['times']+1)))
+                                                                            ->table('customer')
+                                                                            ->where('customer_id','=',$customer_id1)
+                                                                            ->where('tenant_id','=',$tenant_id);
+                                                                        $affectedRows = $updateStatement->execute();
                                                                     }
                                                                     $selectStatement = $database->select()
                                                                         ->from('customer')
@@ -131,7 +139,8 @@ $app->post('/makeOrder',function()use($app){
                                                                         ->where('customer_city_id','=',$customer_city_b)
                                                                         ->where('customer_address','=',$customer_address_b)
                                                                         ->where('customer_name','=',$customer_name_b)
-                                                                        ->where('customer_phone','=',$customer_phone_b);
+                                                                        ->where('customer_phone','=',$customer_phone_b)
+                                                                        ->where('type','=',0);
                                                                     $stmt = $selectStatement->execute();
                                                                     $data2 = $stmt->fetch();
                                                                     $customer_id2=$data2['customer_id'];
@@ -149,7 +158,7 @@ $app->post('/makeOrder',function()use($app){
                                                                         $customer_id2=(count($data3)-$num2)+10000000001;
                                                                         $insertStatement = $database->insert(array('customer_id','tenant_id','customer_city_id','customer_address','customer_name','customer_phone','type','exist'))
                                                                             ->into('customer')
-                                                                            ->values(array($customer_id2,$tenant_id,$customer_city_b,$customer_address_b,$customer_name_b,$customer_phone_b,1,0));
+                                                                            ->values(array($customer_id2,$tenant_id,$customer_city_b,$customer_address_b,$customer_name_b,$customer_phone_b,0,0));
                                                                         $insertId = $insertStatement->execute(false);
                                                                     }
 
