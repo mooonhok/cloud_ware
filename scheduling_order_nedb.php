@@ -1927,7 +1927,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
     $partner_times=$body->partner_times;
     $array5=null;
     $num=0;
-    $oid_ary=array();
+    $oids=array();
     for($y=0;$y<count($array6);$y++){
         $selectStatement = $database->select()
             ->from('schedule_order')
@@ -1938,7 +1938,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
         $data20 = $stmt->fetch();
         $num=$num+count($data20);
         if($data20!=null){
-            array_push($oid_ary,$array6[$y]);
+            array_push($oids,$array6[$y]);
         }
     }
     if($num==0){
@@ -2427,7 +2427,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
         echo json_encode(array("result" => "1", "desc" => "缺少发货城市名称"));
     }
     }else{
-        echo json_encode(array("result" => "11", "desc" => "无法生成清单","oid_ary"=>$oid_ary));
+        echo json_encode(array("result" => "11", "desc" => "无法生成清单","oids"=>$oids));
     }
 });
 
@@ -3410,6 +3410,44 @@ $app->put('/transitSchedulingOrder',function()use($app){
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
 });
+
+
+//$app->post('/addtest',function()use($app) {
+//    $app->response->headers->set('Content-Type', 'application/json');
+//    $database = localhost();
+//    $tenant_id = $app->request->headers->get("tenant-id");
+//    $body = $app->request->getBody();
+//    $body = json_decode($body);
+//    $array6=null;
+//
+//    foreach ($order_ary as $key => $value) {
+//        $array6[$key] = $value;
+//    }
+//    $num=0;
+//    $oid_ary=array();
+//    for($y=0;$y<count($array6);$y++){
+//        $selectStatement = $database->select()
+//            ->from('schedule_order')
+//            ->where('tenant_id', '=', $tenant_id)
+//            ->where("order_id",'=',$array6[$y])
+//            ->where("exist",'=',0);
+//        $stmt = $selectStatement->execute();
+//        $data20 = $stmt->fetch();
+//        $num=$num+count($data20);
+//        if($data20!=null){
+//            array_push($oid_ary,$array6[$y]);
+//        }
+//    }
+//    if($num==0){
+//
+//    }else{
+//        echo json_encode(array("result" => "11", "desc" => "无法生成清单","oid_ary"=>$oid_ary));
+//    }
+//});
+
+
+
+
 
 
 $app->run();
