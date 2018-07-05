@@ -1280,7 +1280,7 @@ $app->get('/getSchedulingOrders8',function()use($app){
             ->where('orders.tenant_id', '=', $tenant_id)
             ->where('lorry.tenant_id', '=', $tenant_id)
             ->where('scheduling.scheduling_id', '=', $scheduling_id)
-            ->where('schedule_order.exist', '=', 0)
+//            ->where('schedule_order.exist', '=', 0)
             ->where('scheduling.exist', '=', 0)
             ->where('orders.exist', '=', 0);
         $stmt = $selectStatement->execute();
