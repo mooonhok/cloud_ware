@@ -2318,7 +2318,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                                     $array5['customer_address'] = $partner_address;
                                                     $array5['type']=$partner_type;
                                                     $array5['contact_tenant_id']=$tenant_id;
-                                                    $array5['times']=$times;
+                                                    $array5['times']=$partner_times;
                                                     $selectStatement = $database->select()
                                                         ->from('tenant')
                                                         ->where('tenant_id', '=', $contact_tenant_id);
