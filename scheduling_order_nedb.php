@@ -1935,7 +1935,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
             ->where("order_id",'=',$array6[$y])
             ->where("exist",'=',0);
         $stmt = $selectStatement->execute();
-        $data20 = $stmt->fetch();
+        $data20 = $stmt->fetchAll();
         $num=$num+count($data20);
         if($data20!=null){
             array_push($oids,$array6[$y]);
@@ -3312,6 +3312,8 @@ $app->put('/cancelSchedulingOrder',function()use($app){
     $exception_source=$body->exception_source;
     $exception_person=$body->exception_person;
     $exception_comment=$body->exception_comment;
+    date_default_timezone_set("PRC");
+    $time=date("Y-m-d H:i:s", time());
     if($tenant_id!=null||$tenant_id!=''){
         if($scheduling_id!=null||$scheduling_id!=''){
             $selectStatement = $database->select()
@@ -3321,17 +3323,29 @@ $app->put('/cancelSchedulingOrder',function()use($app){
                 ->where('exist','=',0);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
+            $selectStatement = $database->select()
+                ->from('exception')
+                ->where('tenant_id', '=', $tenant_id);
+            $stmt = $selectStatement->execute();
+            $data10= $stmt->fetchAll();
+            $exception_id=count($data10)+100000001;
             if($data!=null){
                   for($x=0;$x<count($data);$x++){
-                      $insertStatement = $database->insert(array("order_id","tenant_id","exception_source","exception_person","exception_comment","exist"))
+                      $insertStatement = $database->insert(array("order_id","tenant_id","exception_source","exception_person","exception_comment","exist","exception_time","exception_id"))
                           ->into('exception')
-                          ->values(array($data[$x]["order_id"],$tenant_id,$exception_source,$exception_person,$exception_comment,0));
+                          ->values(array($data[$x]["order_id"],$tenant_id,$exception_source,$exception_person,$exception_comment,0,$time,$exception_id));
                       $insertId = $insertStatement->execute(false);
-                      $updateStatement = $database->update(array('is_back'=>2))
+                      $updateStatement = $database->update(array('is_back'=>2,"exception_id"=>$exception_id,"order_status"=>5))
                         ->table('orders')
                         ->where('order_id', '=', $data[$x]["order_id"])
                         ->where('tenant_id', '=', $tenant_id);
                     $affectedRows = $updateStatement->execute();
+                      $updateStatement = $database->update(array('exist'=>1))
+                          ->table('schedule_order')
+                          ->where('order_id', '=', $data[$x]["order_id"])
+                          ->where('schedule_id',"=",$scheduling_id)
+                          ->where('tenant_id', '=', $tenant_id);
+                      $affectedRows = $updateStatement->execute();
                   }
                 $updateStatement = $database->update(array('scheduling_status'=>7))
                         ->table('scheduling')
@@ -3432,16 +3446,16 @@ $app->post('/addtest',function()use($app) {
             ->where("order_id",'=',$array6[$y])
             ->where("exist",'=',0);
         $stmt = $selectStatement->execute();
-        $data20 = $stmt->fetch();
+        $data20 = $stmt->fetchAll();
         $num+=count($data20);
         if($data20!=null){
-            array_push($oid_ary,count($data20));
+            array_push($oid_ary,$data20);
         }
     }
     if($num==0){
         echo json_encode(array("result" => "0", "desc" => "success"));
     }else{
-        echo json_encode(array("result" => "11", "desc" => "无法生成清单","num"=>$oid_ary));
+        echo json_encode(array("result" => "11", "desc" => "无法生成清单","num"=>$num));
     }
 });
 
