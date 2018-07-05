@@ -1167,7 +1167,7 @@ $app->get('/sandoandg',function()use($app){
             $selectStament = $database->select()
                 ->from('schedule_order')
                 ->where('tenant_id', '=', $data1['tenant_id'])
-                ->where('exist', '=', 0)
+//                ->where('exist', '=', 0)
                 ->where('schedule_id', '=', $schedule_id);
             $stmt = $selectStament->execute();
             $data4 = $stmt->fetchAll();
