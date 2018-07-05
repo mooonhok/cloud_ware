@@ -3441,7 +3441,7 @@ $app->post('/addtest',function()use($app) {
     if($num==0){
         echo json_encode(array("result" => "0", "desc" => "success"));
     }else{
-        echo json_encode(array("result" => "11", "desc" => "无法生成清单","oid_ary"=>$oid_ary));
+        echo json_encode(array("result" => "11", "desc" => "无法生成清单","num"=>$num));
     }
 });
 
