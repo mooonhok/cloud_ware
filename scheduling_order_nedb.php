@@ -1926,6 +1926,18 @@ $app->post('/addSchedulingOrder',function()use($app) {
     $partner_type=$body->partner_type;
     $partner_times=$body->partner_times;
     $array5=null;
+    $num=0;
+    for($y=0;$y<count($array6);$y++){
+        $selectStatement = $database->select()
+            ->from('schedule_order')
+            ->where('tenant_id', '=', $tenant_id)
+            ->where("order_id",'=',$array6[$y])
+            ->where("exist",'=',0);
+        $stmt = $selectStatement->execute();
+        $data20 = $stmt->fetch();
+        $num=$num+count($data20);
+    }
+    if($num==0){
     if($send_city_name!=null||$send_city_name!=''){
         if($receive_city_name!=null||$receive_city_name!=''){
             $selectStatement = $database->select()
@@ -2377,7 +2389,6 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                                     }
                                                 }
                                                 echo json_encode(array("result" => "0", "desc" => "success","scheduling_id"=>$scheduling_id));
-//                                                echo json_encode(array("result" => "0", "desc" => "success","scheduling"=>$array1));
                                             }else{
                                                 $selectStatement = $database->select()
                                                     ->from('city')
@@ -2410,6 +2421,9 @@ $app->post('/addSchedulingOrder',function()use($app) {
         }
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少发货城市名称"));
+    }
+    }else{
+        echo json_encode(array("result" => "11", "desc" => "无法生成清单"));
     }
 });
 
