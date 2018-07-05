@@ -3062,7 +3062,7 @@ $app->post('/changeTime',function()use($app){
                 ->where('app_lorry_id','=',$lorry_id)
                 ->where('exist','=',0);
             $affectedRows = $updateStatement->execute();
-            echo json_encode(array('result'=>'0','desc'=>'success','time'=>$time));
+            echo json_encode(array('result'=>'0','desc'=>'success','time'=>$time,'plate_number'=>$data1['plate_number']));
         }else{
             echo json_encode(array('result'=>'2','desc'=>'该车是不存在'));
         }
