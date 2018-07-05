@@ -2947,6 +2947,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                 $stmt = $selectStatement->execute();
                                                 $data14 = $stmt->fetchAll();
                                                 $array5['customer_id'] = count($data14) + 10000000001;
+                                                $array5['times']=$partner_times;
                                                 $insertStatement = $database->insert(array_keys($array5))
                                                     ->into('customer')
                                                     ->values(array_values($array5));
