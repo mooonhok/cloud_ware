@@ -1927,6 +1927,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
     $partner_times=$body->partner_times;
     $array5=null;
     $num=0;
+    $oid_ary=array();
     for($y=0;$y<count($array6);$y++){
         $selectStatement = $database->select()
             ->from('schedule_order')
@@ -1936,6 +1937,9 @@ $app->post('/addSchedulingOrder',function()use($app) {
         $stmt = $selectStatement->execute();
         $data20 = $stmt->fetch();
         $num=$num+count($data20);
+        if(count($data20)>0){
+            array_push($oid_ary,$array6[$y]);
+        }
     }
     if($num==0){
     if($send_city_name!=null||$send_city_name!=''){
@@ -2423,7 +2427,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
         echo json_encode(array("result" => "1", "desc" => "缺少发货城市名称"));
     }
     }else{
-        echo json_encode(array("result" => "11", "desc" => "无法生成清单"));
+        echo json_encode(array("result" => "11", "desc" => "无法生成清单","oid_ary"=>$oid_ary));
     }
 });
 
@@ -2933,7 +2937,6 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                 $array5['customer_address'] = $partner_address;
                                                 $array5['type']=$partner_type;
                                                 $array5['contact_tenant_id']=$tenant_id;
-                                                $array5['times']=$times;
                                                 $selectStatement = $database->select()
                                                     ->from('tenant')
                                                     ->where('tenant_id', '=', $contact_tenant_id);
