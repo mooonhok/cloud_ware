@@ -3435,13 +3435,13 @@ $app->post('/addtest',function()use($app) {
         $data20 = $stmt->fetch();
         $num+=count($data20);
         if($data20!=null){
-            array_push($oid_ary,$array6[$y]);
+            array_push($oid_ary,count($data20));
         }
     }
     if($num==0){
         echo json_encode(array("result" => "0", "desc" => "success"));
     }else{
-        echo json_encode(array("result" => "11", "desc" => "无法生成清单","num"=>$num));
+        echo json_encode(array("result" => "11", "desc" => "无法生成清单","num"=>$oid_ary));
     }
 });
 
