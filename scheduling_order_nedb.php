@@ -3335,7 +3335,7 @@ $app->put('/cancelSchedulingOrder',function()use($app){
                           ->into('exception')
                           ->values(array($data[$x]["order_id"],$tenant_id,$exception_source,$exception_person,$exception_comment,0,$time,$exception_id));
                       $insertId = $insertStatement->execute(false);
-                      $updateStatement = $database->update(array('is_back'=>2,"exception_id"=>$exception_id))
+                      $updateStatement = $database->update(array('is_back'=>2,"exception_id"=>$exception_id,"order_status"=>5))
                         ->table('orders')
                         ->where('order_id', '=', $data[$x]["order_id"])
                         ->where('tenant_id', '=', $tenant_id);
