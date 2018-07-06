@@ -3689,6 +3689,18 @@ $app->put('/saveGoodsOrder',function()use($app){
                     ->where('customer_id','=',$data11['sender_id']);
                 $stmt = $selectStatement->execute();
                 $data12= $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('customer_id','=',$array5['sender_id']);
+                $stmt = $selectStatement->execute();
+                $data13= $stmt->fetch();
+                $n=$data13['times']+1;
+                $updateStatement = $database->update(array("times"=>$n))
+                    ->table('customer')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('customer_id','=',$array5['sender_id']);
+                $affectedRows = $updateStatement->execute();
                 if($data12['times']==1){
                     $updateStatement = $database->update(array("exist"=>1))
                         ->table('customer')
@@ -3719,6 +3731,7 @@ $app->put('/saveGoodsOrder',function()use($app){
                 ->where('tenant_id','=',$tenant_id)
                 ->where('exception_id','=',$exception_id);
             $affectedRows = $updateStatement->execute();
+
             echo json_encode(array("result" => "0", "desc" => "success"));
         }else{
             echo json_encode(array("result" => "2", "desc" => "租户不存在"));
