@@ -3683,26 +3683,26 @@ $app->put('/saveGoodsOrder',function()use($app){
             $stmt = $selectStatement->execute();
             $data11= $stmt->fetch();
             if($data11['sender_id']!= $array5['sender_id']){
-            $selectStatement = $database->select()
-                ->from('customer')
-                ->where('tenant_id', '=', $tenant_id)
-                ->where('customer_id','=',$data11['sender_id']);
-            $stmt = $selectStatement->execute();
-            $data12= $stmt->fetch();
-            if($data12['times']==1){
-                $updateStatement = $database->update(array("exist"=>1))
+                $selectStatement = $database->select()
                     ->from('customer')
                     ->where('tenant_id', '=', $tenant_id)
                     ->where('customer_id','=',$data11['sender_id']);
-                $affectedRows = $updateStatement->execute();
-            }else if($data12['times']>1){
-                $f=$data12['times']-1;
-                $updateStatement = $database->update(array("times"=>$f))
-                    ->from('customer')
-                    ->where('tenant_id', '=', $tenant_id)
-                    ->where('customer_id','=',$data11['sender_id']);
-                $affectedRows = $updateStatement->execute();
-            }
+                $stmt = $selectStatement->execute();
+                $data12= $stmt->fetch();
+                if($data12['times']==1){
+                    $updateStatement = $database->update(array("exist"=>1))
+                        ->table('customer')
+                        ->where('tenant_id', '=', $tenant_id)
+                        ->where('customer_id','=',$data11['sender_id']);
+                    $affectedRows = $updateStatement->execute();
+                }else if($data12['times']>1){
+                    $f=$data12['times']-1;
+                    $updateStatement = $database->update(array("times"=>$f))
+                        ->table('customer')
+                        ->where('tenant_id', '=', $tenant_id)
+                        ->where('customer_id','=',$data11['sender_id']);
+                    $affectedRows = $updateStatement->execute();
+                }
             }
             $updateStatement = $database->update($array5)
                 ->table('orders')
