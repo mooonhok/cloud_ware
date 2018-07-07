@@ -3154,6 +3154,30 @@ $app->put('/recoverSchedulingOrder',function()use($app){
                         $affectedRows = $updateStatement->execute();
                     }
                 }
+                if($data2['contact_tenant_id']!=null){
+                    $selectStatement = $database->select()
+                        ->from('customer')
+                        ->where('contact_tenant_id', '=', $tenant_id)
+                        ->where('tenant_id', '=', $data2['contact_tenant_id']);
+                    $stmt = $selectStatement->execute();
+                    $data4= $stmt->fetch();
+                    if($data4!=null){
+                        if($data4['exist']==1){
+                            $updateStatement = $database->update(array('exist'=>0))
+                                ->table('customer')
+                                ->where('tenant_id','=',$tenant_id)
+                                ->where('customer_id','=',$data4['customer_id']);
+                            $affectedRows = $updateStatement->execute();
+                        }else if($data4['exist']==0){
+                            $a=$data4['times']+1;
+                            $updateStatement = $database->update(array('times'=>$a))
+                                ->table('customer')
+                                ->where('tenant_id','=',$tenant_id)
+                                ->where('customer_id','=',$data4['customer_id']);
+                            $affectedRows = $updateStatement->execute();
+                        }
+                    }
+                }
                 $updateStatement = $database->update(array('exist'=>0))
                     ->table('schedule_order')
                     ->where('schedule_id', '=', $data[$x]['scheduling_id'])
