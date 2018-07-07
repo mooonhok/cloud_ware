@@ -2911,7 +2911,8 @@ $app->put('/alterSchedulingOrder',function()use($app) {
             ->from('schedule_order')
             ->where('tenant_id', '=', $tenant_id)
             ->where("order_id",'=',$array6[$n])
-           ->where("exist","=",1);
+            ->where("exist","=",1)
+            ->orderBy('id');
         $stmt = $selectStatement->execute();
         $data20 = $stmt->fetchAll();
         if(count($data20)==1){
@@ -3471,7 +3472,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
         echo json_encode(array("result" => "1", "desc" => "缺少发货城市名称"));
     }
     }else{
-        echo json_encode(array("result" => "11", "desc" => "","sids"=>$array8));
+        echo json_encode(array("result" => "11","desc" => "","sids"=>$array8));
     }
 });
 
