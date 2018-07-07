@@ -2910,7 +2910,8 @@ $app->put('/alterSchedulingOrder',function()use($app) {
         $selectStatement = $database->select()
             ->from('schedule_order')
             ->where('tenant_id', '=', $tenant_id)
-            ->where("order_id",'=',$array6[$n]);
+            ->where("order_id",'=',$array6[$n])
+           ->where("exist","=",1);
         $stmt = $selectStatement->execute();
         $data20 = $stmt->fetchAll();
         if(count($data20)==1){
