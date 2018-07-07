@@ -3178,11 +3178,6 @@ $app->put('/recoverSchedulingOrder',function()use($app){
                         }
                     }
                 }
-//                $updateStatement = $database->update(array('exist'=>0))
-//                    ->table('schedule_order')
-//                    ->where('schedule_id', '=', $data[$x]['scheduling_id'])
-//                    ->where('tenant_id', '=', $tenant_id);
-//                $affectedRows = $updateStatement->execute();
                 $deleteStatement = $database->delete()
                     ->from('schedule_order')
                     ->where('schedule_id', '=',  $data[$x]['scheduling_id'])
@@ -3204,6 +3199,7 @@ $app->put('/recoverSchedulingOrder',function()use($app){
                 }
             }
         }
+
         $updateStatement = $database->update(array('is_alter'=>0,"exist"=>0))
             ->table('scheduling')
             ->where('is_alter', '=',2)
