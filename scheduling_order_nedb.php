@@ -2905,6 +2905,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
     $partner_times=$body->partner_times;
     $array5=array();
     $array8=array();
+    $c=0;
     for($n=0;$n<count($array6);$n++){
         $selectStatement = $database->select()
             ->from('schedule_order')
@@ -2914,11 +2915,30 @@ $app->put('/alterSchedulingOrder',function()use($app) {
             ->orderBy('id');
         $stmt = $selectStatement->execute();
         $data20 = $stmt->fetchAll();
-        if(count($data20)==1){
-            array_push($array8,$data20[0]['schedule_id']);
+        if(count($data20)==0){
+            $c=0;
+        }else if(count($data20)>1){
+            if($data20[count($data20)-1]['schedule_id']==$scheduling_id){
+                $c=0;
+            }else{
+                $selectStatement = $database->select()
+                    ->from('schedule_order')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where("schedule_id",'=',$$data20[count($data20)-1]['schedule_id']);
+                $stmt = $selectStatement->execute();
+                $data21 = $stmt->fetchAll();
+                if(count($data21)==1){
+                    $c=1;
+                    for($f=0;$f<count($data20);$f++){
+                        array_push($array8,$data20[$f]['schedule_id']);
+                    }
+                }else if(count($data21)>1){
+                    $c=0;
+                }
+            }
         }
     }
-    if(count($array8)==0){
+    if($c==0){
     if($send_city_name!=null||$send_city_name!=''){
         if($receive_city_name!=null||$receive_city_name!=''){
             $selectStatement = $database->select()
@@ -3594,7 +3614,6 @@ $app->put('/altertest',function()use($app) {
         $data20 = $stmt->fetchAll();
         if(count($data20)==0){
             $a=0;
-//            array_push($array8,$data20[0]['schedule_id']);
         }else if(count($data20)>1){
             if($data20[count($data20)-1]['schedule_id']==$scheduling_id){
                 $a=0;
