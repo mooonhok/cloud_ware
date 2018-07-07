@@ -2905,7 +2905,6 @@ $app->put('/alterSchedulingOrder',function()use($app) {
     $partner_times=$body->partner_times;
     $array5=array();
     $array8=array();
-    $c=0;
     for($n=0;$n<count($array6);$n++){
         $selectStatement = $database->select()
             ->from('schedule_order')
@@ -2916,11 +2915,11 @@ $app->put('/alterSchedulingOrder',function()use($app) {
         $stmt = $selectStatement->execute();
         $data20 = $stmt->fetchAll();
         if(count($data20)==0){
-            $c=0;
+
         }else if(count($data20)>0){
             $m=count($data20)-1;
             if($data20[$m]['schedule_id']==$scheduling_id){
-                $c=0;
+
             }else{
                 $selectStatement = $database->select()
                     ->from('schedule_order')
@@ -2929,15 +2928,14 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                 $stmt = $selectStatement->execute();
                 $data21 = $stmt->fetchAll();
                 if(count($data21)==1){
-                    $c=1;
                     array_push($array8,$data20[$m]['schedule_id']);
                 }else if(count($data21)>1){
-                    $c=0;
+
                 }
             }
         }
     }
-    if($c==0){
+    if(count($array8)==0){
     if($send_city_name!=null||$send_city_name!=''){
         if($receive_city_name!=null||$receive_city_name!=''){
             $selectStatement = $database->select()
