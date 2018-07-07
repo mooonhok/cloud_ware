@@ -3588,7 +3588,58 @@ $app->put('/recoverSchedulingOrder',function()use($app){
     }
 });
 
-
+$app->put('/test',function()use($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $order_ary=$body->order_ary;
+    $scheduling_id=$body->scheduling_id;
+    //运单号数组
+    $array6=array();
+    foreach ($order_ary as $key => $value) {
+        $array6[$key] = $value;
+    }
+    $array8=array();
+    $c=0;
+    for($n=0;$n<count($array6);$n++){
+        $selectStatement = $database->select()
+            ->from('schedule_order')
+            ->where('tenant_id', '=', $tenant_id)
+            ->where("order_id",'=',$array6[$n])
+            ->where("exist","=",1)
+            ->orderBy('id');
+        $stmt = $selectStatement->execute();
+        $data20 = $stmt->fetchAll();
+        if(count($data20)==0){
+            $c=0;
+        }else if(count($data20)>1){
+            $m=count($data20)-1;
+            if($data20[$m]['schedule_id']==$scheduling_id){
+                $c=0;
+            }else{
+                $selectStatement = $database->select()
+                    ->from('schedule_order')
+                    ->where('tenant_id', '=',$tenant_id)
+                    ->where("schedule_id",'=',$data20[$m]['schedule_id']);
+                $stmt = $selectStatement->execute();
+                $data21 = $stmt->fetchAll();
+                if(count($data21)==1){
+                    $c=1;
+                    array_push($array8,$data20[$m]['schedule_id']);
+                }else if(count($data21)>1){
+                    $c=0;
+                }
+            }
+        }
+    }
+    if($c==0){
+        echo json_encode(array("result" => "0", "desc" => "缺少租户id"));
+    }else{
+        echo json_encode(array("result" => "1", "desc" =>$array8));
+    }
+});
 $app->run();
 function localhost(){
     return connect();
