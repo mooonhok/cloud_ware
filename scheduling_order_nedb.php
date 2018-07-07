@@ -2893,18 +2893,31 @@ $app->put('/alterSchedulingOrder',function()use($app) {
     $order_ary=$body->order_ary;
     $scheduling_id=$body->scheduling_id;
     //运单号数组
-    $array6=null;
+    $array6=array();
     foreach ($order_ary as $key => $value) {
         $array6[$key] = $value;
     }
-    $array4=null;
+    $array4=array();
     $partner_name=$body->partner_name;
     $partner_phone=$body->partner_phone;
     $partner_city_id=$body->partner_city_id;
     $partner_address=$body->partner_address;
     $partner_type=$body->partner_type;
     $partner_times=$body->partner_times;
-    $array5=null;
+    $array5=array();
+    $array8=array();
+    for($n=0;$n<count($array6);$n++){
+        $selectStatement = $database->select()
+            ->from('schedule_order')
+            ->where('tenant_id', '=', $tenant_id)
+            ->where("order_id",'=',$array6[$n]);
+        $stmt = $selectStatement->execute();
+        $data20 = $stmt->fetchAll();
+        if(count($data20)==1){
+            array_push($array8,$data20[0]['schedule_id']);
+        }
+    }
+    if(count($array8)==0){
     if($send_city_name!=null||$send_city_name!=''){
         if($receive_city_name!=null||$receive_city_name!=''){
             $selectStatement = $database->select()
@@ -3415,7 +3428,6 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                         ->where("order_id",'=',$array6[$x]);
                                                     $affectedRows = $updateStatement->execute();
                                                 }
-
                                             }
                                             $deleteStatement = $database->delete()
                                                 ->from('schedule_order')
@@ -3456,6 +3468,9 @@ $app->put('/alterSchedulingOrder',function()use($app) {
         }
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少发货城市名称"));
+    }
+    }else{
+        echo json_encode(array("result" => "11", "desc" => "","sids"=>$array8));
     }
 });
 
