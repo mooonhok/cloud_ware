@@ -2918,13 +2918,14 @@ $app->put('/alterSchedulingOrder',function()use($app) {
         if(count($data20)==0){
             $c=0;
         }else if(count($data20)>1){
-            if($data20[count($data20)-1]['schedule_id']==$scheduling_id){
+            $m=count($data20)-1;
+            if($data20[$m]['schedule_id']==$scheduling_id){
                 $c=0;
             }else{
                 $selectStatement = $database->select()
                     ->from('schedule_order')
                     ->where('tenant_id', '=', $tenant_id)
-                    ->where("schedule_id",'=',$$data20[count($data20)-1]['schedule_id']);
+                    ->where("schedule_id",'=',$$data20[$m]['schedule_id']);
                 $stmt = $selectStatement->execute();
                 $data21 = $stmt->fetchAll();
                 if(count($data21)==1){
