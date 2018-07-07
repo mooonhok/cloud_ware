@@ -2503,11 +2503,11 @@ $app->put('/deleteSchedulingOrder',function()use($app){
                             }
                         }
                     }
-                    $updateStatement = $database->update(array('exist'=>1))
-                        ->table('schedule_order')
-                        ->where('schedule_id', '=', $scheduling_id)
-                        ->where('tenant_id', '=', $tenant_id);
-                    $affectedRows = $updateStatement->execute();
+//                    $updateStatement = $database->update(array('exist'=>1))
+//                        ->table('schedule_order')
+//                        ->where('schedule_id', '=', $scheduling_id)
+//                        ->where('tenant_id', '=', $tenant_id);
+//                    $affectedRows = $updateStatement->execute();
                     echo json_encode(array("result" => "0", "desc" => "success",'scheduling_status'=>$data['scheduling_status']));
                 }else{
                     echo json_encode(array("result" => "4", "desc" => "不可以修改该清单"));
@@ -3178,11 +3178,11 @@ $app->put('/recoverSchedulingOrder',function()use($app){
                         }
                     }
                 }
-                $updateStatement = $database->update(array('exist'=>0))
-                    ->table('schedule_order')
-                    ->where('schedule_id', '=', $data[$x]['scheduling_id'])
-                    ->where('tenant_id', '=', $tenant_id);
-                $affectedRows = $updateStatement->execute();
+//                $updateStatement = $database->update(array('exist'=>0))
+//                    ->table('schedule_order')
+//                    ->where('schedule_id', '=', $data[$x]['scheduling_id'])
+//                    ->where('tenant_id', '=', $tenant_id);
+//                $affectedRows = $updateStatement->execute();
                 $selectStatement = $database->select()
                     ->from('schedule_order')
                     ->where('schedule_id', '=', $data[$x]['scheduling_id'])
