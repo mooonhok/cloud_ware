@@ -2865,7 +2865,6 @@ $app->put('/deleteSchedulingOrder',function()use($app){
 });
 
 
-
 $app->put('/alterSchedulingOrder',function()use($app) {
     $app->response->headers->set('Content-Type', 'application/json');
     $database = localhost();
@@ -3570,7 +3569,59 @@ $app->put('/recoverSchedulingOrder',function()use($app){
     }
 });
 
-
+$app->put('/altertest',function()use($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $order_ary=$body->order_ary;
+    $scheduling_id=$body->scheduling_id;
+    $array6=array();
+    foreach ($order_ary as $key => $value) {
+        $array6[$key] = $value;
+    }
+    $array8=array();
+    $a=0;
+    for($n=0;$n<count($array6);$n++){
+        $selectStatement = $database->select()
+            ->from('schedule_order')
+            ->where('tenant_id', '=', $tenant_id)
+            ->where("order_id",'=',$array6[$n])
+            ->where("exist","=",1)
+            ->orderBy('id');
+        $stmt = $selectStatement->execute();
+        $data20 = $stmt->fetchAll();
+        if(count($data20)==0){
+            $a=0;
+//            array_push($array8,$data20[0]['schedule_id']);
+        }else if(count($data20)>1){
+            if($data20[count($data20)-1]['schedule_id']==$scheduling_id){
+                $a=0;
+            }else{
+                $selectStatement = $database->select()
+                    ->from('schedule_order')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where("schedule_id",'=',$$data20[count($data20)-1]['schedule_id']);
+                $stmt = $selectStatement->execute();
+                $data21 = $stmt->fetchAll();
+                if(count($data21)==1){
+                    $a=1;
+                    for($f=0;$f<count($data20);$f++){
+                        array_push($array8,$data20[$f]['schedule_id']);
+                    }
+                }else if(count($data21)>1){
+                    $a=0;
+                }
+            }
+        }
+    }
+    if($a==0){
+        echo json_encode(array("result" => "0","desc" => ""));
+    }else{
+        echo json_encode(array("result" => "11","desc" => "","sids"=>$array8));
+    }
+});
 
 
 
