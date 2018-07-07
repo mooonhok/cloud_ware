@@ -2924,8 +2924,8 @@ $app->put('/alterSchedulingOrder',function()use($app) {
             }else{
                 $selectStatement = $database->select()
                     ->from('schedule_order')
-                    ->where('tenant_id', '=', $tenant_id)
-                    ->where("schedule_id",'=',$$data20[$m]['schedule_id']);
+                    ->where('tenant_id', '=',$tenant_id)
+                    ->where("schedule_id",'=',$data20[$m]['schedule_id']);
                 $stmt = $selectStatement->execute();
                 $data21 = $stmt->fetchAll();
                 if(count($data21)==1){
