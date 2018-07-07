@@ -242,6 +242,44 @@ $app->get('/getScheduleOrder',function()use($app){
     echo json_encode(array('result'=>'1','desc'=>'success','schedule_orders'=>$data1));
 });
 
+
+
+$app->put('/alterScheduleOrder',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $order_id=$body->order_id;
+    if($tenant_id!=null||$tenant_id!=''){
+        $updateStatement = $database->update(array('is_schedule'=>0,"is_transfer"=>0))
+            ->table('orders')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('order_id','=',$order_id)
+            ->where('exist','=',0);
+        $affectedRows = $updateStatement->execute();
+        $selectStatement = $database->select()
+            ->from('schedule_order')
+            ->where('order_id', '=', $order_id)
+            ->where('tenant_id', '=', $tenant_id)
+            ->where('exist','=',0);
+        $stmt = $selectStatement->execute();
+        $data3 = $stmt->fetchAll();
+        if($data3!=null){
+            $updateStatement = $database->update(array('exist'=>1))
+                ->table('schedule_order')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('order_id','=',$order_id);
+            $affectedRows = $updateStatement->execute();
+        }
+        echo json_encode(array("result" => "0", "desc" => "success"));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
+
+
+
 $app->run();
 function localhost(){
     return connect();
