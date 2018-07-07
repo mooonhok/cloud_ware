@@ -2917,7 +2917,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
         $data20 = $stmt->fetchAll();
         if(count($data20)==0){
             $c=0;
-        }else if(count($data20)>1){
+        }else if(count($data20)>0){
             $m=count($data20)-1;
             if($data20[$m]['schedule_id']==$scheduling_id){
                 $c=0;
@@ -3614,7 +3614,7 @@ $app->put('/test',function()use($app) {
         $data20 = $stmt->fetchAll();
         if(count($data20)==0){
             $c=0;
-        }else if(count($data20)>1){
+        }else if(count($data20)>0){
             $m=count($data20)-1;
             if($data20[$m]['schedule_id']==$scheduling_id){
                 $c=0;
