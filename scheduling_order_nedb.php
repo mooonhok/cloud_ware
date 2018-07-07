@@ -3183,6 +3183,12 @@ $app->put('/recoverSchedulingOrder',function()use($app){
 //                    ->where('schedule_id', '=', $data[$x]['scheduling_id'])
 //                    ->where('tenant_id', '=', $tenant_id);
 //                $affectedRows = $updateStatement->execute();
+                $deleteStatement = $database->delete()
+                    ->from('schedule_order')
+                    ->where('schedule_id', '=',  $data[$x]['scheduling_id'])
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where("exist",'=',1);
+                $affectedRows = $deleteStatement->execute();
                 $selectStatement = $database->select()
                     ->from('schedule_order')
                     ->where('schedule_id', '=', $data[$x]['scheduling_id'])
