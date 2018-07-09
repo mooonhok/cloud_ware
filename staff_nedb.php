@@ -38,6 +38,7 @@ $app->post('/addstaff',function()use($app){
                             if($permission!=null||$permission!=''){
                                 $selectStatement = $database->select()
                                     ->from('staff')
+                                    ->where('tenant_id',"=",$tenant_id)
                                     ->where('username','=',$username);
                                 $stmt = $selectStatement->execute();
                                 $data3 = $stmt->fetch();
@@ -120,6 +121,7 @@ $app->post('/addstaff',function()use($app){
 $app->get('/getStaff1',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
     $username=$app->request->get('username');
     $password=$app->request->get('password');
@@ -127,7 +129,7 @@ $app->get('/getStaff1',function()use($app){
             if($password!=null||$password!=''){
                 $selectStatement = $database->select()
                     ->from('staff')
-//                    ->where('exist',"=",0)
+                    ->where('tenant_id',"=",$tenant_id)
                     ->where('username','=',$username)
                     ->where('password','=',encode($password , 'cxphp'));
                 $stmt = $selectStatement->execute();
@@ -144,6 +146,7 @@ $app->get('/getStaff1',function()use($app){
 $app->get('/getStaff2',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
     $telephone=$app->request->get('telephone');
     $password=$app->request->get('password');
@@ -151,7 +154,7 @@ $app->get('/getStaff2',function()use($app){
         if($password!=null||$password!=''){
             $selectStatement = $database->select()
                 ->from('staff')
-//                ->where('exist',"=",0)
+                ->where('tenant_id',"=",$tenant_id)
                 ->where('telephone','=',$telephone)
                 ->where('password','=',encode($password , 'cxphp'));
             $stmt = $selectStatement->execute();
