@@ -137,11 +137,11 @@ $app->put('/alterStaffMac0',function()use($app){
         $array[$key]=$value;
     }
     if($id!=null||$id!=''){
-                        $updateStatement = $database->update($array)
-                            ->table('staff_mac')
-                            ->where('id','=',$id);
-                        $affectedRows = $updateStatement->execute();
-                        echo json_encode(array("result"=>"0","desc"=>"success"));
+        $updateStatement = $database->update($array)
+            ->table('staff_mac')
+            ->where('id','=',$id);
+        $affectedRows = $updateStatement->execute();
+        echo json_encode(array("result"=>"0","desc"=>"success"));
     }else{
         echo json_encode(array('result'=>'5','desc'=>'缺少租户id'));
     }
@@ -327,7 +327,34 @@ $app->get("/getStaffMac2",function()use($app){
     }
 });
 
-
+$app->get('/getStaffMac',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->get("tenant_id");
+    $mac=$app->request->get('mac');
+    $staff_id=$app->request->get("staff_id");
+    $database=localhost();
+    if($tenant_id!=null||$tenant_id!=""){
+        if($mac!=null||$mac!=""){
+            if($staff_id!=null||$staff_id!=""){
+                $selectStatement = $database->select()
+                    ->from('staff_mac')
+                    ->where('mac',"=",$mac)
+                    ->where('staff_id',"=",$staff_id)
+                    ->where('tenant_id','=',$tenant_id);
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetchAll();
+                echo json_encode(array("result"=>"0","desc"=>"success","staff_macs"=>$data1));
+            }else{
+                echo json_encode(array("result"=>"1","desc"=>"缺少staff_id"));
+            }
+        }else{
+            echo json_encode(array("result"=>"2","desc"=>"缺少mac"));
+        }
+    }else{
+        echo json_encode(array("result"=>"3","desc"=>"缺少租户id"));
+    }
+});
 
 $app->run();
 
