@@ -1295,26 +1295,25 @@ $app->post('/wx_orders_accept', function () use ($app) {
                                 $array['goods_package'] = $data9;
                                 echo json_encode(array("result" => "0", "desc" => "success", "wx_message" => $array));
                             }else{
-                                echo json_encode(array("result" => "2", "desc" => "货物不存在", "wx_message" =>""));
+                                echo json_encode(array("result" => "1", "desc" => "货物不存在", "wx_message" =>""));
                             }
                         }else{
-                            echo json_encode(array("result" => "3", "desc" => "收货人不存在", "wx_message" =>""));
+                            echo json_encode(array("result" => "2", "desc" => "收货人不存在", "wx_message" =>""));
                         }
                     }else{
-                        echo json_encode(array("result" => "4", "desc" => "发货人不存在", "wx_message" =>""));
+                        echo json_encode(array("result" => "3", "desc" => "发货人不存在", "wx_message" =>""));
                     }
-
                 }else{
-                    echo json_encode(array("result" => "5", "desc" => "订单不存在", "wx_message" =>""));
+                    echo json_encode(array("result" => "4", "desc" => "订单不存在", "wx_message" =>""));
                 }
             }else{
-                echo json_encode(array("result" => "6", "desc" => "", "wx_message" =>""));
+                echo json_encode(array("result" => "5", "desc" => "消息不存在", "wx_message" =>""));
             }
         }else{
-            echo json_encode(array("result" => "7", "desc" => "", "wx_message" => ""));
+            echo json_encode(array("result" => "6", "desc" => "租户不存在", "wx_message" => ""));
         }
     }else{
-        echo json_encode(array("result" => "8", "desc" => "", "wx_message" => ""));
+        echo json_encode(array("result" => "7", "desc" => "缺少租户id", "wx_message" => ""));
     }
 });
 
