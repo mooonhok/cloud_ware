@@ -185,7 +185,7 @@ $app->get('/getStaff1',function()use($app){
                     $data4 = $stmt->fetchAll();
                     if($data4==null){
                         $insertStatement = $database->insert(array("mac","tenant_id","staff_id","is_login","is_remember","login_time"))
-                            ->into('staff')
+                            ->into('staff_mac')
                             ->values(array($mac,$tenant_id,$data['staff_id'],1,$is_remember,$time));
                         $insertId = $insertStatement->execute(false);
                     }else{
@@ -275,7 +275,7 @@ $app->get('/getStaff2',function()use($app){
                     $data4 = $stmt->fetchAll();
                     if($data4==null){
                         $insertStatement = $database->insert(array("mac","tenant_id","staff_id","is_login","is_remember","login_time"))
-                            ->into('staff')
+                            ->into('staff_mac')
                             ->values(array($mac,$tenant_id,$data['staff_id'],1,$is_remember,$time));
                         $insertId = $insertStatement->execute(false);
                     }else{
