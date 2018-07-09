@@ -1283,8 +1283,7 @@ $app->post('/wx_orders_accept', function () use ($app) {
                             $updateStatement = $database->update(array('is_read' => 1))
                                 ->table('wx_message')
                                 ->where('tenant_id','=',$tenant_id)
-                                ->where('message_id','=',$message_id)
-                                ->where('exist',"=",0);
+                                ->where('message_id','=',$message_id);
                             $affectedRows = $updateStatement->execute();
                             if($data8!=null){
                                 $array['goods']=$data8;
