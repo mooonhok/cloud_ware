@@ -125,7 +125,6 @@ $app->get('/getStaff1',function()use($app){
     $database=localhost();
     $username=$app->request->get('username');
     $password=$app->request->get('password');
-    $array1=array();
         if($username!=null||$username!=''){
             if($password!=null||$password!=''){
                 $selectStatement = $database->select()
@@ -159,9 +158,9 @@ $app->get('/getStaff1',function()use($app){
                         $data3 = $stmt->fetch();
                         $data1['city']=$data2;
                         $data1['province']=$data3;
-                        $array1['staff']=$data;
-                        $array1['tenant']=$data1;
-                        echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$array1));
+//                        $array1['staff']=$data;
+//                        $array1['tenant']=$data1;
+                        echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data,"tenant"=>$data1));
                     }
                 }else{
                     echo json_encode(array('result'=>'3','desc'=>'账号不存在'));
@@ -181,7 +180,6 @@ $app->get('/getStaff2',function()use($app){
     $database=localhost();
     $telephone=$app->request->get('telephone');
     $password=$app->request->get('password');
-    $array1=array();
     if($telephone!=null||$telephone!=''){
         if($password!=null||$password!=''){
             $selectStatement = $database->select()
@@ -215,9 +213,7 @@ $app->get('/getStaff2',function()use($app){
                     $data3 = $stmt->fetch();
                     $data1['city']=$data2;
                     $data1['province']=$data3;
-                    $array1['staff']=$data;
-                    $array1['tenant']=$data1;
-                    echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$array1));
+                    echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data,"tenant"=>$data1));
                 }
             }else{
                 echo json_encode(array('result'=>'3','desc'=>'账号不存在'));
