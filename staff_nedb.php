@@ -38,7 +38,6 @@ $app->post('/addstaff',function()use($app){
                             if($permission!=null||$permission!=''){
                                 $selectStatement = $database->select()
                                     ->from('staff')
-                                    ->where('tenant_id', '=', $tenant_id)
                                     ->where('username','=',$username);
                                 $stmt = $selectStatement->execute();
                                 $data3 = $stmt->fetch();
