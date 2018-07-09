@@ -691,7 +691,46 @@ $app->post('/uploadStaff',function()use($app) {
     }
 });
 
-
+$app->put('/alterStaff4',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $old_passwd=$body->old_passwd;
+    $staff_id=$body->staff_id;
+    $new_passwd=$body->new_passwd;
+    if($tenant_id!=null||$tenant_id!=''){
+        if($old_passwd!=null||$old_passwd!=''){
+            if($staff_id!=null||$staff_id!=''){
+                $selectStatement = $database->select()
+                    ->from('staff')
+                    ->where('staff_id','=',$staff_id)
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('password','=',decode($old_passwd,'cxphp'));
+                $stmt = $selectStatement->execute();
+                $data = $stmt->fetch();
+                if($data!=null){
+                    $updateStatement = $database->update(array("password"=>encode($new_passwd,'cxphp')))
+                        ->table('staff')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('staff_id','=',$staff_id);
+                    $affectedRows = $updateStatement->execute();
+                    echo json_encode(array('result'=>'0','desc'=>'success'));
+                }else{
+                    echo json_encode(array('result'=>'4','desc'=>'旧密码错误'));
+                }
+            }else{
+                echo json_encode(array('result'=>'1','desc'=>'员工id为空'));
+            }
+        }else{
+            echo json_encode(array('result'=>'2','desc'=>'旧密码为空'));
+        }
+    }else{
+        echo json_encode(array('result'=>'3','desc'=>'租户为空'));
+    }
+});
 
 $app->run();
 function file_url(){
