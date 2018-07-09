@@ -125,6 +125,7 @@ $app->get('/getStaff1',function()use($app){
     $database=localhost();
     $username=$app->request->get('username');
     $password=$app->request->get('password');
+    $array1=array();
         if($username!=null||$username!=''){
             if($password!=null||$password!=''){
                 $selectStatement = $database->select()
@@ -134,7 +135,37 @@ $app->get('/getStaff1',function()use($app){
                     ->where('password','=',encode($password , 'cxphp'));
                 $stmt = $selectStatement->execute();
                 $data = $stmt->fetch();
-                echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data));
+                if($data!=null){
+                    if($data['status']==2){
+                        echo json_encode(array('result'=>'4','desc'=>'已经离职'));
+                    }else{
+                        $selectStatement = $database->select()
+                            ->from('tenant')
+                            ->leftJoin('customer','customer.customer_id','=','tenant.contact_id')
+                            ->where('tenant.tenant_id','=',$tenant_id)
+                            ->where('customer.tenant_id','=',$tenant_id)
+                            ->where('tenant.exist',"=",0);
+                        $stmt = $selectStatement->execute();
+                        $data1= $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data1['customer_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data2 = $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('province')
+                            ->where('id', '=', $data2['pid']);
+                        $stmt = $selectStatement->execute();
+                        $data3 = $stmt->fetch();
+                        $data1['city']=$data2;
+                        $data1['province']=$data3;
+                        $array1['staff']=$data;
+                        $array1['tenant']=$data1;
+                        echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$array1));
+                    }
+                }else{
+                    echo json_encode(array('result'=>'3','desc'=>'账号不存在'));
+                }
             }else{
                 echo json_encode(array('result'=>'1','desc'=>'缺少密码'));
             }
@@ -150,6 +181,7 @@ $app->get('/getStaff2',function()use($app){
     $database=localhost();
     $telephone=$app->request->get('telephone');
     $password=$app->request->get('password');
+    $array1=array();
     if($telephone!=null||$telephone!=''){
         if($password!=null||$password!=''){
             $selectStatement = $database->select()
@@ -159,7 +191,37 @@ $app->get('/getStaff2',function()use($app){
                 ->where('password','=',encode($password , 'cxphp'));
             $stmt = $selectStatement->execute();
             $data = $stmt->fetch();
-            echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data));
+            if($data!=null){
+                if($data['status']==2){
+                    echo json_encode(array('result'=>'4','desc'=>'已经离职'));
+                }else{
+                    $selectStatement = $database->select()
+                        ->from('tenant')
+                        ->leftJoin('customer','customer.customer_id','=','tenant.contact_id')
+                        ->where('tenant.tenant_id','=',$tenant_id)
+                        ->where('customer.tenant_id','=',$tenant_id)
+                        ->where('tenant.exist',"=",0);
+                    $stmt = $selectStatement->execute();
+                    $data1= $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('city')
+                        ->where('id', '=', $data1['customer_city_id']);
+                    $stmt = $selectStatement->execute();
+                    $data2 = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('province')
+                        ->where('id', '=', $data2['pid']);
+                    $stmt = $selectStatement->execute();
+                    $data3 = $stmt->fetch();
+                    $data1['city']=$data2;
+                    $data1['province']=$data3;
+                    $array1['staff']=$data;
+                    $array1['tenant']=$data1;
+                    echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$array1));
+                }
+            }else{
+                echo json_encode(array('result'=>'3','desc'=>'账号不存在'));
+            }
         }else{
             echo json_encode(array('result'=>'1','desc'=>'缺少密码'));
         }
