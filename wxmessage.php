@@ -701,62 +701,6 @@ $app->put("/wxmessage_isread",function()use($app){
 });
 
 
-//根据message_id查出已读is_read
-//$app->post("/wxmessage_isread",function()use($app){
-//    $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
-//    $tenant_id=$app->request->headers->get('tenant_id');
-//    $body=$app->request->getBody();
-//    $body=json_decode($body);
-//    $database=localhost();
-//    $message_id=$body->message_id;
-//    $order_id=$body->order_id;
-//    if($tenant_id!=''||$tenant_id!=null){
-//        if ($message_id!=''||$message_id!=null){
-//            $selectStatement = $database->select()
-//                ->from('tenant')
-//                ->where('exist', "=", 0)
-//                ->where('tenant_id', '=', $tenant_id);
-//            $stmt = $selectStatement->execute();
-//            $data1 = $stmt->fetch();
-//            if($data1!=null){
-//                $selectStatement = $database->select()
-//                    ->from('wx_message')
-//                    ->where('tenant_id','=',$tenant_id)
-//                    ->where('message_id','=',$message_id)
-//                    ->where('exist',"=",0);
-//                $stmt = $selectStatement->execute();
-//                $data2 = $stmt->fetch();
-//                echo json_encode(array("result"=>"1","desc"=>"","is_read"=>$data2['is_read']));
-//            }else{
-//                echo json_encode(array("result"=>"2","desc"=>"租户不存在"));
-//            }
-//        }else if($order_id!=''||$order_id!=null){
-//            $selectStatement = $database->select()
-//                ->from('tenant')
-//                ->where('exist', "=", 0)
-//                ->where('tenant_id', '=', $tenant_id);
-//            $stmt = $selectStatement->execute();
-//            $data1 = $stmt->fetch();
-//            if($data1!=null){
-//                $selectStatement = $database->select()
-//                    ->from('wx_message')
-//                    ->where('tenant_id','=',$tenant_id)
-//                    ->where('order_id','=',$order_id)
-//                    ->where('exist',"=",0);
-//                $stmt = $selectStatement->execute();
-//                $data2 = $stmt->fetch();
-//                echo json_encode(array("result"=>"1","desc"=>"","is_read"=>$data2['is_read']));
-//            }else{
-//                echo json_encode(array("result"=>"2","desc"=>"租户不存在"));
-//            }
-//        }else{
-//            echo json_encode(array("result"=>"3","desc"=>"message_id和order_id必须有一个"));
-//        }
-//    }else{
-//        echo json_encode(array("result"=>"4","desc"=>"缺少租户id"));
-//    }
-//});
 
 
 //获得微信端的所有订单数
