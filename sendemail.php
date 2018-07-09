@@ -281,7 +281,7 @@ $app->post('/addinsurancenum',function()use($app){
     }
 });
 
-$app->post('/getWxGoodsId',function()use($app){
+$app->post('/getWxGoodsId',function()use($app,$mail){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get("tenant-id");
