@@ -182,7 +182,7 @@ $app->get('/getStaff1',function()use($app){
                         ->where('tenant_id','=',$tenant_id)
                         ->where('mac','=',$mac);
                     $stmt = $selectStatement->execute();
-                    $data4 = $stmt->fetchAll();
+                    $data4 = $stmt->fetch();
                     if($data4==null){
                         $insertStatement = $database->insert(array("mac","tenant_id","staff_id","is_login","is_remember","login_time"))
                             ->into('staff_mac')
@@ -272,7 +272,7 @@ $app->get('/getStaff2',function()use($app){
                         ->where('tenant_id','=',$tenant_id)
                         ->where('mac','=',$mac);
                     $stmt = $selectStatement->execute();
-                    $data4 = $stmt->fetchAll();
+                    $data4 = $stmt->fetch();
                     if($data4==null){
                         $insertStatement = $database->insert(array("mac","tenant_id","staff_id","is_login","is_remember","login_time"))
                             ->into('staff_mac')
