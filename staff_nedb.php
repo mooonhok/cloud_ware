@@ -125,6 +125,9 @@ $app->get('/getStaff1',function()use($app){
     $username=$app->request->get('username');
     $password=$app->request->get('password');
     $mac=$app->request->get('mac');
+    $is_remember=$app->request->get("is_remember");
+    date_default_timezone_set("PRC");
+    $time=date('Y-m-d H:i:s',time());
     if($username!=null||$username!=''){
         if($password!=null||$password!=''){
             $selectStatement = $database->select()
@@ -164,14 +167,32 @@ $app->get('/getStaff1',function()use($app){
                         ->where('tenant_id','=',$tenant_id)
                         ->where('is_login','=',1);
                     $stmt = $selectStatement->execute();
+                    $data5 = $stmt->fetchAll();
+                    for($x=0;$x<count($data5);$x++){
+                        if($data5[$x]["mac"]!=$mac){
+                            $updateStatement = $database->update(array("is_login"=>0))
+                                ->table('staff_mac')
+                                ->where('id','=',$data5[$x]['id']);
+                            $affectedRows = $updateStatement->execute();
+                        }
+                    }
+                    $selectStatement = $database->select()
+                        ->from('staff_mac')
+                        ->where('staff_id',"=",$data['staff_id'])
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('mac','=',$mac);
+                    $stmt = $selectStatement->execute();
                     $data4 = $stmt->fetchAll();
-                    for($x=0;$x<count($data4);$x++){
-                         if($data4[$x]["mac"]!=$mac){
-                             $updateStatement = $database->update(array("is_login"=>0))
-                                 ->table('staff_mac')
-                                 ->where('id','=',$data4[$x]['id']);
-                             $affectedRows = $updateStatement->execute();
-                         }
+                    if($data4==null){
+                        $insertStatement = $database->insert(array("mac","tenant_id","staff_id","is_login","is_remember","login_time"))
+                            ->into('staff')
+                            ->values(array($mac,$tenant_id,$data['staff_id'],1,$is_remember,$time));
+                        $insertId = $insertStatement->execute(false);
+                    }else{
+                        $updateStatement = $database->update(array("is_login"=>1,"login_time"=>$time,"is_remember"=>$is_remember))
+                            ->table('staff_mac')
+                            ->where('id','=',$data4['id']);
+                        $affectedRows = $updateStatement->execute();
                     }
                     echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data,"tenant"=>$data1));
                 }
@@ -194,6 +215,9 @@ $app->get('/getStaff2',function()use($app){
     $telephone=$app->request->get('telephone');
     $password=$app->request->get('password');
     $mac=$app->request->get('mac');
+    $is_remember=$app->request->get("is_remember");
+    date_default_timezone_set("PRC");
+    $time=date('Y-m-d H:i:s',time());
     if($telephone!=null||$telephone!=''){
         if($password!=null||$password!=''){
             $selectStatement = $database->select()
@@ -233,14 +257,32 @@ $app->get('/getStaff2',function()use($app){
                         ->where('tenant_id','=',$tenant_id)
                         ->where('is_login','=',1);
                     $stmt = $selectStatement->execute();
-                    $data4 = $stmt->fetchAll();
-                    for($x=0;$x<count($data4);$x++){
-                        if($data4[$x]["mac"]!=$mac){
+                    $data5 = $stmt->fetchAll();
+                    for($x=0;$x<count($data5);$x++){
+                        if($data5[$x]["mac"]!=$mac){
                             $updateStatement = $database->update(array("is_login"=>0))
                                 ->table('staff_mac')
-                                ->where('id','=',$data4[$x]['id']);
+                                ->where('id','=',$data5[$x]['id']);
                             $affectedRows = $updateStatement->execute();
                         }
+                    }
+                    $selectStatement = $database->select()
+                        ->from('staff_mac')
+                        ->where('staff_id',"=",$data['staff_id'])
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('mac','=',$mac);
+                    $stmt = $selectStatement->execute();
+                    $data4 = $stmt->fetchAll();
+                    if($data4==null){
+                        $insertStatement = $database->insert(array("mac","tenant_id","staff_id","is_login","is_remember","login_time"))
+                            ->into('staff')
+                            ->values(array($mac,$tenant_id,$data['staff_id'],1,$is_remember,$time));
+                        $insertId = $insertStatement->execute(false);
+                    }else{
+                        $updateStatement = $database->update(array("is_login"=>1,"login_time"=>$time,"is_remember"=>$is_remember))
+                            ->table('staff_mac')
+                            ->where('id','=',$data4['id']);
+                        $affectedRows = $updateStatement->execute();
                     }
                     echo json_encode(array('result'=>'0','desc'=>'success','staff'=>$data,"tenant"=>$data1));
                 }
