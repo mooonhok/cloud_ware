@@ -358,6 +358,8 @@ $app->get('/getStaffMac',function()use($app){
                     }else{
                         echo json_encode(array("result"=>"4","desc"=>"记录不存在"));
                     }
+                }else{
+                    echo json_encode(array("result"=>"5","desc"=>"记录不存在"));
                 }
             }else{
                 echo json_encode(array("result"=>"1","desc"=>"缺少staff_id"));
