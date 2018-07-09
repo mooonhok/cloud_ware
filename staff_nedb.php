@@ -708,7 +708,7 @@ $app->put('/alterStaff4',function()use($app){
                     ->from('staff')
                     ->where('staff_id','=',$staff_id)
                     ->where('tenant_id','=',$tenant_id)
-                    ->where('password','=',decode($old_passwd,'cxphp'));
+                    ->where('password','=',encode($old_passwd,'cxphp'));
                 $stmt = $selectStatement->execute();
                 $data = $stmt->fetch();
                 if($data!=null){
