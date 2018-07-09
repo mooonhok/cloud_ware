@@ -334,7 +334,6 @@ $app->get('/getStaffMac',function()use($app){
     $mac=$app->request->get('mac');
     $staff_id=$app->request->get("staff_id");
     $database=localhost();
-    $a=null;
     if($tenant_id!=null||$tenant_id!=""){
         if($mac!=null||$mac!=""){
             if($staff_id!=null||$staff_id!=""){
@@ -355,10 +354,11 @@ $app->get('/getStaffMac',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data2 = $stmt->fetchAll();
                     if($data2!=null){
-                        $a=$data2[0]["login_time"];
+                        echo json_encode(array("result"=>"0","desc"=>"success","staff_macs"=>$data2[0]["login_time"]));
+                    }else{
+                        echo json_encode(array("result"=>"4","desc"=>"记录不存在"));
                     }
                 }
-                echo json_encode(array("result"=>"0","desc"=>"success","staff_macs"=>$a));
             }else{
                 echo json_encode(array("result"=>"1","desc"=>"缺少staff_id"));
             }
