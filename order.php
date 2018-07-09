@@ -1293,7 +1293,7 @@ $app->post('/wx_orders_accept', function () use ($app) {
                                 $stmt = $selectStatement->execute();
                                 $data9 = $stmt->fetch();
                                 $array['goods_package'] = $data9;
-                                echo json_encode(array("result" => "1", "desc" => "success", "wx_message" => $array));
+                                echo json_encode(array("result" => "0", "desc" => "success", "wx_message" => $array));
                             }else{
                                 echo json_encode(array("result" => "2", "desc" => "货物不存在", "wx_message" =>""));
                             }
@@ -1342,7 +1342,7 @@ $app->get('/wx_orders_num', function () use ($app) {
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetchAll();
             $num1=count($data2);
-            echo json_encode(array("result" => "1", "desc" => "success", "num" => $num1));
+            echo json_encode(array("result" => "0", "desc" => "success", "num" => $num1));
         }else{
             echo json_encode(array("result" => "2", "desc" => "没有该租户"));
         }
@@ -1410,7 +1410,7 @@ $app->post('/wx_orders_order_source', function () use ($app) {
                         $array1['message']=$data4;
                         array_push($array,$array1);
                  }
-                echo json_encode(array("result" => "1", "desc" => "success", "orders" => $array));
+                echo json_encode(array("result" => "0", "desc" => "success", "orders" => $array));
             }else{
                 echo json_encode(array("result" => "2", "desc" => "不存在"));
             }
@@ -1461,7 +1461,7 @@ $app->put('/order_status', function () use ($app) {
                     $affectedRows = $updateStatement->execute();
                 }
                 if($affectedRows!=null){
-                    echo json_encode(array("result" => "1", "desc" => "success"));
+                    echo json_encode(array("result" => "0", "desc" => "success"));
                 }else{
                     echo json_encode(array("result" => "2", "desc" => "未执行"));
                 }
@@ -1600,7 +1600,7 @@ $app->put('/update_order_cost',function()use($app){
                        ->where('order_id', '=', $order_id);
                    $affectedRows = $updateStatement->execute();
                    if($affectedRows!=null){
-                       echo json_encode(array("result" => "1", "desc" => "success"));
+                       echo json_encode(array("result" => "0", "desc" => "success"));
                    }else{
                        echo json_encode(array("result" => "2", "desc" => "未执行"));
                    }
