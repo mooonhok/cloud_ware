@@ -1280,6 +1280,12 @@ $app->post('/wx_orders_accept', function () use ($app) {
                                 ->where('order_id', '=', $data2['order_id']);
                             $stmt = $selectStatement->execute();
                             $data8 = $stmt->fetch();
+                            $updateStatement = $database->update(array('is_read' => 1))
+                                ->table('wx_message')
+                                ->where('tenant_id','=',$tenant_id)
+                                ->where('message_id','=',$message_id)
+                                ->where('exist',"=",0);
+                            $affectedRows = $updateStatement->execute();
                             if($data8!=null){
                                 $array['goods']=$data8;
                                 $selectStatement = $database->select()
