@@ -3734,8 +3734,14 @@ $app->put('/acceptSchedulingOrder', function () use ($app) {
               $array5=array();
               if($data22==null){
                   $selectStatement = $database->select()
+                      ->from('tenant')
+                      ->where('tenant_id', '=', $tenant_id);
+                  $stmt = $selectStatement->execute();
+                  $data36 = $stmt->fetch();
+                  $selectStatement = $database->select()
                       ->from('customer')
                       ->whereNull('wx_openid')
+                      ->where('customer_id', '!=', $data36['contact_id'])
                       ->where('tenant_id', '=', $tenant_id);
                   $stmt = $selectStatement->execute();
                   $data23 = $stmt->fetchAll();
@@ -3776,8 +3782,14 @@ $app->put('/acceptSchedulingOrder', function () use ($app) {
               $array6=array();
               if($data24==null){
                   $selectStatement = $database->select()
+                      ->from('tenant')
+                      ->where('tenant_id', '=', $tenant_id);
+                  $stmt = $selectStatement->execute();
+                  $data35 = $stmt->fetch();
+                  $selectStatement = $database->select()
                       ->from('customer')
                       ->whereNull('wx_openid')
+                      ->where('customer_id', '!=', $data35['contact_id'])
                       ->where('tenant_id', '=', $tenant_id);
                   $stmt = $selectStatement->execute();
                   $data25 = $stmt->fetchAll();
@@ -3861,18 +3873,38 @@ $app->put('/acceptSchedulingOrder', function () use ($app) {
                       ->values(array($order_id,$tenant_id, $str1,0,$sender_name,$sender_phone,1,$time,'扫码接单',1));
                   $insertId = $insertStatement->execute(false);
               }
-              $updateStatement = $database->update(array("sure_img"=>$tenant_id,"is_scan"=>1))
+              $updateStatement = $database->update(array("sure_img"=>$tenant_id,"is_scan"=>1,"scheduling_status"=>5))
                   ->table('scheduling')
                   ->where('scheduling_id','=',$scheduling_id);
               $affectedRows = $updateStatement->execute();
-              $updateStatement = $database->update(array('reach_city'=>$from_city_name,"is_sign"=>3))
+              $selectStatement = $database->select()
+                  ->from('orders')
+                  ->where('order_id', '=', $order_id)
+                  ->where('exist','=',0)
+                  ->where('tenant_id', '=', $tenant_id);
+              $stmt = $selectStatement->execute();
+              $data37= $stmt->fetch();
+              $selectStatement = $database->select()
+                  ->from('orders')
+                  ->where('id', '<', $data37['id'])
+                  ->where('order_id', '=', $order_id)
+                  ->where('exist','=',0)
+                  ->orderBy('id','DESC');
+              $stmt = $selectStatement->execute();
+              $data38 = $stmt->fetchAll();
+              $updateStatement = $database->update(array('order_status'=>4,'order_datetime4'=>$time,'reach_city'=>$from_city_name))
                   ->table('orders')
-                  ->where('order_id','=',$order_id);
+                  ->where('id','=',$data38[0]['id']);
               $affectedRows = $updateStatement->execute();
               if($is_transfer==0){
                   $updateStatement = $database->update(array('is_sign'=>2))
                       ->table('orders')
-                      ->where('order_id','=',$order_id);
+                      ->where('order_id','=',$data38[0]['id']);
+                  $affectedRows = $updateStatement->execute();
+              }else{
+                  $updateStatement = $database->update(array('is_sign'=>3))
+                      ->table('orders')
+                      ->where('order_id','=',$data38[0]['id']);
                   $affectedRows = $updateStatement->execute();
               }
           }
