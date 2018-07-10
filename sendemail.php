@@ -552,6 +552,7 @@ $app->post('/getWxGoodsId',function()use($app,$mail){
             $array2=array();
             $array2['tenant_id']=$tenant_id;
             $array2['insurance_id']=1000000001+count($dataaa);
+            $insurance_id=$array2['insurance_id'];
             $array2['insurance_lorry_id']=$lorry_id;
             $array2['insurance_price']=$price;
             $array2['insurance_amount']=$cost;
@@ -562,6 +563,28 @@ $app->post('/getWxGoodsId',function()use($app,$mail){
                 ->into('insurance')
                 ->values(array_values($array2));
             $insertId = $insertStatement->execute(false);
+            for($x=0;$x<count($array1);$x++){
+                $selectStatement = $database->select()
+                    ->from('insurance_scheduling')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where("insurance_id",'=',$insurance_id)
+                    ->where("scheduling_id","=",$array1[$x])
+                    ->where("exist","=",0);
+                $stmt = $selectStatement->execute();
+                $data2= $stmt->fetch();
+                $updateStatement = $database->update(array('is_insurance'=>2))
+                    ->table('scheduling')
+                    ->where('scheduling_id','=',$array1[$x])
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('exist','=',0);
+                $affectedRows = $updateStatement->execute();
+                if($data2==null){
+                    $insertStatement = $database->insert(array("insurance_id","tenant_id","scheduling_id","exist"))
+                        ->into('insurance_scheduling')
+                        ->values(array($insurance_id,$tenant_id,$array1[$x],0));
+                    $insertId = $insertStatement->execute(false);
+                }
+            }
             echo json_encode(array("result" => "0", "desc" =>"发送成功"));
         }else{
             echo json_encode(array("result" => "1", "desc" => "收件邮箱不能为空"));
