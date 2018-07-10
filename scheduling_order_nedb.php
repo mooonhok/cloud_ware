@@ -3867,12 +3867,12 @@ $app->put('/acceptSchedulingOrder', function () use ($app) {
               $affectedRows = $updateStatement->execute();
               $updateStatement = $database->update(array('reach_city'=>$from_city_name,"is_sign"=>3))
                   ->table('orders')
-                  ->where('id','=',$order_id);
+                  ->where('order_id','=',$order_id);
               $affectedRows = $updateStatement->execute();
               if($is_transfer==0){
                   $updateStatement = $database->update(array('is_sign'=>2))
                       ->table('orders')
-                      ->where('id','=',$order_id);
+                      ->where('order_id','=',$order_id);
                   $affectedRows = $updateStatement->execute();
               }
           }
