@@ -10,6 +10,8 @@ require 'connect.php';
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
+require_once 'ChuanglanSmsHelper/ChuanglanSmsApi.php';
+$clapi  = new ChuanglanSmsApi();
 
 $app->get('/getSchedulingOrders0',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
@@ -3553,7 +3555,7 @@ $app->put('/recoverSchedulingOrder',function()use($app){
 });
 
 
-$app->put('/acceptSchedulingOrder', function () use ($app) {
+$app->put('/acceptSchedulingOrder', function () use ($app,$clapi) {
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
@@ -3705,210 +3707,241 @@ $app->put('/acceptSchedulingOrder', function () use ($app) {
             $data[$i]['order']['receiver_province']=$data15;
             $data[$i]['order']['sender_province']=$data14;
         }
-          $sender_name=$data[0]['jcompany'].$data[0]['tenant']['contact']['customer_name'];
-          $sender_phone=$data[0]['tenant']['contact']['customer_phone'];
-          $sender_city_id=$data[0]['tenant']['contact']['customer_city_id'];
-          $sender_address=$data[0]['tenant']['contact']['customer_address'];
-          $sender_tenant_id=$data[0]['tenant']['contact']['tenant_id'];
-          $from_city_name="";
-          $pos=strpos($data[0]['from_city']['name'],'市');
-          if($pos==false){
-              $from_city_name=$data[0]['from_city']['name'];
-          }else{
-              $from_city_name=substr($data[0]['from_city']['name'],0,$pos);
-          }
-
-          for($y=0;$y<count($data);$y++){
-              $sender_id=null;
-              $receiver_id=null;
-              $selectStatement = $database->select()
-                  ->from('customer')
-                  ->whereNull("wx_openid")
-                  ->where('customer_name', '=', $sender_name)
-                  ->where('customer_phone', '=', $sender_phone)
-                  ->where('customer_city_id', '=', $sender_city_id)
-                  ->where('customer_address', '=', $sender_address)
-                  ->where('tenant_id', '=',$tenant_id)
-                  ->where('exist',"=",0);
-              $stmt = $selectStatement->execute();
-              $data22 = $stmt->fetch();
-              $array5=array();
-              if($data22==null){
-                  $selectStatement = $database->select()
-                      ->from('tenant')
-                      ->where('tenant_id', '=', $tenant_id);
-                  $stmt = $selectStatement->execute();
-                  $data36 = $stmt->fetch();
-                  $selectStatement = $database->select()
-                      ->from('customer')
-                      ->whereNull('wx_openid')
-                      ->where('customer_id', '!=', $data36['contact_id'])
-                      ->where('tenant_id', '=', $tenant_id);
-                  $stmt = $selectStatement->execute();
-                  $data23 = $stmt->fetchAll();
-                  $array5['customer_id'] = count($data23) + 10000000001;
-                  $array5['tenant_id']=$tenant_id;
-                  $array5['times']=0;
-                  $array5['exist'] = 0;
-                  $array5['customer_name'] = $sender_name;
-                  $array5['customer_phone'] = $sender_phone;
-                  $array5['customer_city_id'] = $sender_city_id;
-                  $array5['customer_address'] = $sender_address;
-                  $array5['type']=4;
-                  $array5['contact_tenant_id']=$sender_tenant_id;
-                  $insertStatement = $database->insert(array_keys($array5))
-                      ->into('customer')
-                      ->values(array_values($array5));
-                  $insertId = $insertStatement->execute(false);
-                  $sender_id=$array5['customer_id'];
-              }else{
-                  $sender_id=$data22['customer_id'];
-              }
-              $receiver_name=$data[$y]['order']['order_receiver']['customer_name'];
-              $receiver_phone=$data[$y]['order']['order_receiver']['customer_phone'];
-              $receiver_city_id=$data[$y]['order']['order_receiver']['customer_city_id'];
-              $receiver_address=$data[$y]['order']['order_receiver']['customer_address'];
-              $receiver_tenant_id=$data[$y]['order']['order_receiver']['tenant_id'];
-              $selectStatement = $database->select()
-                  ->from('customer')
-                  ->whereNull("wx_openid")
-                  ->where('customer_name', '=', $receiver_name)
-                  ->where('customer_phone', '=', $receiver_phone)
-                  ->where('customer_city_id', '=', $receiver_city_id)
-                  ->where('customer_address', '=', $receiver_address)
-                  ->where('tenant_id', '=', $tenant_id)
-                  ->where('exist',"=",0);
-              $stmt = $selectStatement->execute();
-              $data24= $stmt->fetch();
-              $array6=array();
-              if($data24==null){
-                  $selectStatement = $database->select()
-                      ->from('tenant')
-                      ->where('tenant_id', '=', $tenant_id);
-                  $stmt = $selectStatement->execute();
-                  $data35 = $stmt->fetch();
-                  $selectStatement = $database->select()
-                      ->from('customer')
-                      ->whereNull('wx_openid')
-                      ->where('customer_id', '!=', $data35['contact_id'])
-                      ->where('tenant_id', '=', $tenant_id);
-                  $stmt = $selectStatement->execute();
-                  $data25 = $stmt->fetchAll();
-                  $array6['customer_id'] = count($data25) + 10000000001;
-                  $array6['times']=0;
-                  $array6['exist'] = 0;
-                  $array6['tenant_id']=$tenant_id;
-                  $array6['customer_name'] = $receiver_name;
-                  $array6['customer_phone'] = $receiver_phone;
-                  $array6['customer_city_id'] = $receiver_city_id;
-                  $array6['customer_address'] = $receiver_address;
-                  $array6['type']=4;
-                  $array6['contact_tenant_id']=$receiver_tenant_id;
-                  $insertStatement = $database->insert(array_keys($array6))
-                      ->into('customer')
-                      ->values(array_values($array6));
-                  $insertId = $insertStatement->execute(false);
-                  $receiver_id=$array6['customer_id'];
-              }else{
-                  $receiver_id=$data24['customer_id'];
-              }
-              $order_id=$data[$y]['order']['order_id'];
-              $pay_method=$data[$y]['order']['pay_method'];
-              $order_cost=$data[$y]['order']['order_cost'];
-              $is_transfer=$data[$y]['order']['is_transfer'];
-              $array7=array();
-              $array7['tenant_id']=$tenant_id;
-              $array7['order_id']=$order_id;
-              $array7['pay_method']=$pay_method;
-              $array7['order_cost']=$order_cost;
-              $array7['sender_id']=$sender_id;
-              $array7['receiver_id']=$receiver_id;
-              $array7['exist']=0;
-              if($is_transfer==0){
-                  $array7['order_status']=1;
-                  $array7['inventory_type']=0;
-                  $array7['order_datetime0']=$time;
-                  $array7['order_datetime1']=$time;
-              }else{
-                  $array7['order_status']=0;
-                  $array7['order_datetime0']=$time;
-              }
-              $insertStatement = $database->insert(array_keys($array7))
-                  ->into('orders')
-                  ->values(array_values($array7));
-              $insertId = $insertStatement->execute(false);
-              $goods_id=$data[$y]['goods']['goods_id'];
-              $goods_name=$data[$y]['goods']['goods_name'];
-              $goods_weight=$data[$y]['goods']['goods_weight'];
-              $goods_capacity=$data[$y]['goods']['goods_capacity'];
-              $goods_package_id=$data[$y]['goods']['goods_package_id'];
-              $goods_count=$data[$y]['goods']['goods_count'];
-              $goods_value=$data[$y]['goods']['goods_value'];
-              $special_need=$data[$y]['goods']['special_need'];
-              $array8=array();
-              $array8['order_id']=$order_id;
-              $array8['exist']=0;
-              $array8['tenant_id']=$tenant_id;
-              $array8['goods_id']=$goods_id;
-              $array8['goods_name']=$goods_name;
-              $array8['goods_weight']=$goods_weight;
-              $array8['goods_capacity']=$goods_capacity;
-              $array8['goods_package_id']=$goods_package_id;
-              $array8['goods_count']=$goods_count;
-              $array8['goods_value']=$goods_value;
-              $array8['special_need']=$special_need;
-              $insertStatement = $database->insert(array_keys($array8))
-                  ->into('goods')
-                  ->values(array_values($array8));
-              $insertId = $insertStatement->execute(false);
-              if($is_transfer!=0){
-              $chars = "0123456789abcdefghijklmnopqrstuvwxyz";
-              $strrr = substr($chars, mt_rand(0, strlen($chars) - 2), 1);
-              do{
-                  $strrr.= substr($chars, mt_rand(0, strlen($chars) - 2), 1);
-              }while(strlen($strrr)<6);
-              $time1=base_convert(time(), 10, 32);
-              $str1=$time1.$strrr;
-                  $insertStatement = $database->insert(array('order_id', 'tenant_id', 'message_id','exist','from_user','mobilephone','is_read','ms_date','title','is_show'))
-                      ->into('wx_message')
-                      ->values(array($order_id,$tenant_id, $str1,0,$sender_name,$sender_phone,1,$time,'扫码接单',1));
-                  $insertId = $insertStatement->execute(false);
-              }
-              $updateStatement = $database->update(array("sure_img"=>$tenant_id,"is_scan"=>1,"scheduling_status"=>5))
-                  ->table('scheduling')
-                  ->where('scheduling_id','=',$scheduling_id);
-              $affectedRows = $updateStatement->execute();
-              $selectStatement = $database->select()
-                  ->from('orders')
-                  ->where('order_id', '=', $order_id)
-                  ->where('exist','=',0)
-                  ->where('tenant_id', '=', $tenant_id);
-              $stmt = $selectStatement->execute();
-              $data37= $stmt->fetch();
-              $selectStatement = $database->select()
-                  ->from('orders')
-                  ->where('id', '<', $data37['id'])
-                  ->where('order_id', '=', $order_id)
-                  ->where('exist','=',0)
-                  ->orderBy('id','DESC');
-              $stmt = $selectStatement->execute();
-              $data38 = $stmt->fetchAll();
-              $updateStatement = $database->update(array('order_status'=>4,'order_datetime4'=>$time,'reach_city'=>$from_city_name))
-                  ->table('orders')
-                  ->where('id','=',$data38[0]['id']);
-              $affectedRows = $updateStatement->execute();
-              if($is_transfer==0){
-                  $updateStatement = $database->update(array('is_sign'=>2))
-                      ->table('orders')
-                      ->where('id','=',$data38[0]['id']);
-                  $affectedRows = $updateStatement->execute();
-              }else{
-                  $updateStatement = $database->update(array('is_sign'=>3))
-                      ->table('orders')
-                      ->where('id','=',$data38[0]['id']);
-                  $affectedRows = $updateStatement->execute();
-              }
-          }
+        $sender_name=$data[0]['jcompany'].$data[0]['tenant']['contact']['customer_name'];
+        $sender_phone=$data[0]['tenant']['contact']['customer_phone'];
+        $sender_city_id=$data[0]['tenant']['contact']['customer_city_id'];
+        $sender_address=$data[0]['tenant']['contact']['customer_address'];
+        $sender_tenant_id=$data[0]['tenant']['contact']['tenant_id'];
+        $from_city_name="";
+        $pos=strpos($data[0]['from_city']['name'],'市');
+        if($pos==false){
+            $from_city_name=$data[0]['from_city']['name'];
+        }else{
+            $from_city_name=substr($data[0]['from_city']['name'],0,$pos);
+        }
+        for($y=0;$y<count($data);$y++){
+            $sender_id=null;
+            $receiver_id=null;
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->whereNull("wx_openid")
+                ->where('customer_name', '=', $sender_name)
+                ->where('customer_phone', '=', $sender_phone)
+                ->where('customer_city_id', '=', $sender_city_id)
+                ->where('customer_address', '=', $sender_address)
+                ->where('tenant_id', '=',$tenant_id)
+                ->where('exist',"=",0);
+            $stmt = $selectStatement->execute();
+            $data22 = $stmt->fetch();
+            $array5=array();
+            if($data22==null){
+                $selectStatement = $database->select()
+                    ->from('tenant')
+                    ->where('tenant_id', '=', $tenant_id);
+                $stmt = $selectStatement->execute();
+                $data36 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->whereNull('wx_openid')
+                    ->where('customer_id', '!=', $data36['contact_id'])
+                    ->where('tenant_id', '=', $tenant_id);
+                $stmt = $selectStatement->execute();
+                $data23 = $stmt->fetchAll();
+                $array5['customer_id'] = count($data23) + 10000000001;
+                $array5['tenant_id']=$tenant_id;
+                $array5['times']=0;
+                $array5['exist'] = 0;
+                $array5['customer_name'] = $sender_name;
+                $array5['customer_phone'] = $sender_phone;
+                $array5['customer_city_id'] = $sender_city_id;
+                $array5['customer_address'] = $sender_address;
+                $array5['type']=4;
+                $array5['contact_tenant_id']=$sender_tenant_id;
+                $insertStatement = $database->insert(array_keys($array5))
+                    ->into('customer')
+                    ->values(array_values($array5));
+                $insertId = $insertStatement->execute(false);
+                $sender_id=$array5['customer_id'];
+            }else{
+                $sender_id=$data22['customer_id'];
+            }
+            $receiver_name=$data[$y]['order']['order_receiver']['customer_name'];
+            $receiver_phone=$data[$y]['order']['order_receiver']['customer_phone'];
+            $receiver_city_id=$data[$y]['order']['order_receiver']['customer_city_id'];
+            $receiver_address=$data[$y]['order']['order_receiver']['customer_address'];
+            $receiver_tenant_id=$data[$y]['order']['order_receiver']['tenant_id'];
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->whereNull("wx_openid")
+                ->where('customer_name', '=', $receiver_name)
+                ->where('customer_phone', '=', $receiver_phone)
+                ->where('customer_city_id', '=', $receiver_city_id)
+                ->where('customer_address', '=', $receiver_address)
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('exist',"=",0);
+            $stmt = $selectStatement->execute();
+            $data24= $stmt->fetch();
+            $array6=array();
+            if($data24==null){
+                $selectStatement = $database->select()
+                    ->from('tenant')
+                    ->where('tenant_id', '=', $tenant_id);
+                $stmt = $selectStatement->execute();
+                $data35 = $stmt->fetch();
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->whereNull('wx_openid')
+                    ->where('customer_id', '!=', $data35['contact_id'])
+                    ->where('tenant_id', '=', $tenant_id);
+                $stmt = $selectStatement->execute();
+                $data25 = $stmt->fetchAll();
+                $array6['customer_id'] = count($data25) + 10000000001;
+                $array6['times']=0;
+                $array6['exist'] = 0;
+                $array6['tenant_id']=$tenant_id;
+                $array6['customer_name'] = $receiver_name;
+                $array6['customer_phone'] = $receiver_phone;
+                $array6['customer_city_id'] = $receiver_city_id;
+                $array6['customer_address'] = $receiver_address;
+                $array6['type']=4;
+                $array6['contact_tenant_id']=$receiver_tenant_id;
+                $insertStatement = $database->insert(array_keys($array6))
+                    ->into('customer')
+                    ->values(array_values($array6));
+                $insertId = $insertStatement->execute(false);
+                $receiver_id=$array6['customer_id'];
+            }else{
+                $receiver_id=$data24['customer_id'];
+            }
+            $order_id=$data[$y]['order']['order_id'];
+            $pay_method=$data[$y]['order']['pay_method'];
+            $order_cost=$data[$y]['order']['order_cost'];
+            $is_transfer=$data[$y]['order']['is_transfer'];
+            $array7=array();
+            $array7['tenant_id']=$tenant_id;
+            $array7['order_id']=$order_id;
+            $array7['pay_method']=$pay_method;
+            $array7['order_cost']=$order_cost;
+            $array7['sender_id']=$sender_id;
+            $array7['receiver_id']=$receiver_id;
+            $array7['exist']=0;
+            if($is_transfer==0){
+                $array7['order_status']=1;
+                $array7['inventory_type']=0;
+                $array7['order_datetime0']=$time;
+                $array7['order_datetime1']=$time;
+            }else{
+                $array7['order_status']=0;
+                $array7['order_datetime0']=$time;
+            }
+            $insertStatement = $database->insert(array_keys($array7))
+                ->into('orders')
+                ->values(array_values($array7));
+            $insertId = $insertStatement->execute(false);
+            $goods_id=$data[$y]['goods']['goods_id'];
+            $goods_name=$data[$y]['goods']['goods_name'];
+            $goods_weight=$data[$y]['goods']['goods_weight'];
+            $goods_capacity=$data[$y]['goods']['goods_capacity'];
+            $goods_package_id=$data[$y]['goods']['goods_package_id'];
+            $goods_count=$data[$y]['goods']['goods_count'];
+            $goods_value=$data[$y]['goods']['goods_value'];
+            $special_need=$data[$y]['goods']['special_need'];
+            $array8=array();
+            $array8['order_id']=$order_id;
+            $array8['exist']=0;
+            $array8['tenant_id']=$tenant_id;
+            $array8['goods_id']=$goods_id;
+            $array8['goods_name']=$goods_name;
+            $array8['goods_weight']=$goods_weight;
+            $array8['goods_capacity']=$goods_capacity;
+            $array8['goods_package_id']=$goods_package_id;
+            $array8['goods_count']=$goods_count;
+            $array8['goods_value']=$goods_value;
+            $array8['special_need']=$special_need;
+            $insertStatement = $database->insert(array_keys($array8))
+                ->into('goods')
+                ->values(array_values($array8));
+            $insertId = $insertStatement->execute(false);
+            if($is_transfer!=0){
+                $chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+                $strrr = substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+                do{
+                    $strrr.= substr($chars, mt_rand(0, strlen($chars) - 2), 1);
+                }while(strlen($strrr)<6);
+                $time1=base_convert(time(), 10, 32);
+                $str1=$time1.$strrr;
+                $insertStatement = $database->insert(array('order_id', 'tenant_id', 'message_id','exist','from_user','mobilephone','is_read','ms_date','title','is_show'))
+                    ->into('wx_message')
+                    ->values(array($order_id,$tenant_id, $str1,0,$sender_name,$sender_phone,1,$time,'扫码接单',1));
+                $insertId = $insertStatement->execute(false);
+            }
+            $updateStatement = $database->update(array("sure_img"=>$tenant_id,"is_scan"=>1,"scheduling_status"=>5))
+                ->table('scheduling')
+                ->where('scheduling_id','=',$scheduling_id);
+            $affectedRows = $updateStatement->execute();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('order_id', '=', $order_id)
+                ->where('exist','=',0)
+                ->where('tenant_id', '=', $tenant_id);
+            $stmt = $selectStatement->execute();
+            $data37= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('id', '<', $data37['id'])
+                ->where('order_id', '=', $order_id)
+                ->where('exist','=',0)
+                ->orderBy('id','DESC');
+            $stmt = $selectStatement->execute();
+            $data38 = $stmt->fetchAll();
+            $updateStatement = $database->update(array('order_status'=>4,'order_datetime4'=>$time,'reach_city'=>$from_city_name))
+                ->table('orders')
+                ->where('id','=',$data38[0]['id']);
+            $affectedRows = $updateStatement->execute();
+            if($is_transfer==0){
+                $updateStatement = $database->update(array('is_sign'=>2))
+                    ->table('orders')
+                    ->where('id','=',$data38[0]['id']);
+                $affectedRows = $updateStatement->execute();
+            }else{
+                $updateStatement = $database->update(array('is_sign'=>3))
+                    ->table('orders')
+                    ->where('id','=',$data38[0]['id']);
+                $affectedRows = $updateStatement->execute();
+            }
+            if($data19['note_remain']>=1) {
+                $title = $data19['jcompany'];
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('customer_id','=',$data19['contact_id'])
+                    ->where('tenant_id', '=', $tenant_id);
+                $stmt = $selectStatement->execute();
+                $data41 = $stmt->fetch();
+                $phone1=$data41['customer_phone'];
+                $msg = '【'.$title.'】{$var}！您的运单号为'.$order_id.'的货物已到达'.$from_city_name.'。请联系电话'.$phone1.'确认';
+                $params = $receiver_phone.',您好';
+                $result = $clapi->sendVariableSMS($msg, $params);
+                if(!is_null(json_decode($result))){
+                    $output=json_decode($result,true);
+                    if(isset($output['code'])  && $output['code']=='0'){
+                        $arrays1['note_remain']=(int)$data19['note_remain']-1;
+                        $updateStatement = $database->update($arrays1)
+                            ->table('tenant')
+                            ->where('tenant_id', '=', $tenant_id);
+                        $affectedRows = $updateStatement->execute();
+                        $insertStatement = $database->insert(array('tenant_id','order_id','fcity','tcity','phone','type','exist','time'))
+                            ->into('note')
+                            ->values(array($tenant_id,$order_id,$from_city_name,"",$receiver_phone,3,0,$time));
+                        $insertId = $insertStatement->execute(false);
+                    }else{
+                        $insertStatement = $database->insert(array('tenant_id','order_id','fcity','tcity','phone','type','exist','time','error_desc'))
+                            ->into('note')
+                            ->values(array($tenant_id,$order_id,$from_city_name,"",$receiver_phone,3,0,$time,$output['errorMsg']));
+                        $insertId = $insertStatement->execute(false);
+                    }
+                }
+            }
+        }
         $selectStatement = $database->select()
             ->from('map');
         $stmt = $selectStatement->execute();
