@@ -3717,6 +3717,7 @@ $app->put('/acceptSchedulingOrder', function () use ($app) {
           }else{
               $from_city_name=substr($data[0]['from_city']['name'],0,$pos);
           }
+
           for($y=0;$y<count($data);$y++){
               $sender_id=null;
               $receiver_id=null;
@@ -3908,6 +3909,14 @@ $app->put('/acceptSchedulingOrder', function () use ($app) {
                   $affectedRows = $updateStatement->execute();
               }
           }
+        $selectStatement = $database->select()
+            ->from('map');
+        $stmt = $selectStatement->execute();
+        $data40= $stmt->fetchAll();
+        $insertStatement = $database->insert(array('scheduling_id','longitude','latitude','accept_time','id'))
+            ->into('map')
+            ->values(array($scheduling_id,$data19['longitude'],$data19['latitude'],time(),count($data40)+1));
+        $insertId = $insertStatement->execute(false);
         echo json_encode(array("result" => "0", "desc" => "success"));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少调度id"));
