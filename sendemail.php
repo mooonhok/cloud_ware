@@ -286,6 +286,7 @@ $app->post('/getWxGoodsId',function()use($app,$mail){
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get("tenant-id");
     $database = localhost();
+    $api_url=api_url();
     $body = $app->request->getBody();
     $body=json_decode($body);
     $wx_goods_id=$body->wx_goods_id;
@@ -301,7 +302,7 @@ $app->post('/getWxGoodsId',function()use($app,$mail){
     $schedulings=$body->scheduling_ary;
     $price=$body->insurance_price;
     $cost=$body->insurance_amount;
-    $url='http://api.uminfo.cn/weixinpay/example/orderquery.php?out_trade_no='.$wx_goods_id;
+    $url='http://api.'.$api_url.'.cn/weixinpay/example/orderquery.php?out_trade_no='.$wx_goods_id;
     $i=1;
     $array=array('huoqu'=>http_post_jsons($url));
 //    var_dump($array['huoqu']=='SUCCESS');
