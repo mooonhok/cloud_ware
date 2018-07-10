@@ -281,6 +281,12 @@ $app->post('/addinsurancenum',function()use($app){
     }
 });
 
+$app->options('/getWxGoodsId',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $app->response->headers->set("Access-Control-Allow-Methods", "POST");
+});
+
 $app->post('/getWxGoodsId',function()use($app,$mail){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
