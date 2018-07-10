@@ -147,8 +147,9 @@ $app->get("/getTest1",function(){
 $app->get("/getTest2",function(){
     echo "1";
     $i=1;
-    while($i==1){
+    while($i>0){
         echo "2";
+        sleep(1);
     }
 });
 
