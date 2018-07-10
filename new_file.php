@@ -9,6 +9,7 @@
  */
 require 'Slim/Slim.php';
 require 'connect.php';
+require 'files_url.php';
 use Slim\PDO\Database;
 
 
@@ -93,6 +94,64 @@ $url='http://mooonhok-cloudware.daoapp.io/test7.php';
     echo $output;
 });
 
+$app->get('/getfunc',function()use($app){
+    $database=localhost();
+    $database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $data=$database->query('select * from orders');
+    $data = $data->fetchAll(PDO::FETCH_OBJ);
+    echo json_encode(array('result' => '1', 'desc' => $data));
+});
+
+
+$app->get('/getOrdersTime',function()use($app){
+    $database=localhost();
+    $i=100;
+    while($i>1){
+        $selectStament=$database->select()
+            ->from('orders')
+            ->where('exist','=',0);
+        $stmt=$selectStament->execute();
+        $data1=$stmt->fetch();
+        echo json_encode($data1);
+        echo '<br>';
+        sleep(1);
+        $i=100-mt_rand(1,100);
+    }
+});
+$app->get('/getOrdersTime1',function()use($app) {
+    $urls = array(
+        'http://www.jswsx56.cn/index.html',
+        'http://www.jswsx56.cn/about_wsx.html',
+        'http://www.jswsx56.cn/member.html',
+        'http://www.jswsx56.cn/operate.html',
+        'http://www.jswsx56.cn/product_service.html',
+    );
+    $api = 'http://data.zz.baidu.com/urls?site=www.jswsx56.cn&token=oogvqUOZXwcxjIeg';
+    $ch = curl_init();
+    $options = array(
+        CURLOPT_URL => $api,
+        CURLOPT_POST => true,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POSTFIELDS => implode("\n", $urls),
+        CURLOPT_HTTPHEADER => array('Content-Type: text/plain'),
+    );
+    curl_setopt_array($ch, $options);
+    $result = curl_exec($ch);
+    echo $result;
+});
+
+$app->get("/getTest1",function(){
+    echo "1";
+});
+
+$app->get("/getTest2",function(){
+    echo "1";
+    $i=1;
+    while($i==1){
+        echo "2";
+    }
+});
+
 $app->run();
 
 function getConnection()
@@ -117,12 +176,15 @@ function getAllBook()
         $db = null;
         echo '{"book": ' . json_encode($book) . '}';
     } catch (PDOException $e) {
-     
         echo "fff";
     }
 }
 
 
+
+function file_url(){
+    return files_url();
+}
 
 function localhost(){
     return connect();
