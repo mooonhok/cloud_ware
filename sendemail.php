@@ -537,6 +537,24 @@ $app->post('/getWxGoodsId',function()use($app,$mail){
                 echo json_encode(array("result" => "2", "desc" =>"发送失败",'errortext'=>$mail));
                 exit;
             }
+            $selectStatement = $database->select()
+                ->from('insurance')
+                ->where('exist','=',0)
+                ->where('tenant_id','=',$tenant_id);
+            $stmt = $selectStatement->execute();
+            $dataaa= $stmt->fetchAll();
+            $array2['tenant_id']=$tenant_id;
+            $array2['insurance_id']=1000000001+count($dataaa);
+            $array2['insurance_lorry_id']=$lorry_id;
+            $array2['insurance_price']=$insurance_price;
+            $array2['insurance_amount']=$insurance_amount;
+            $array2['exist']=0;
+            date_default_timezone_set("PRC");
+            $array2['insurance_start_time']=date('Y-m-d H:i:s',time());
+            $insertStatement = $database->insert(array_keys($array2))
+                ->into('insurance')
+                ->values(array_values($array2));
+            $insertId = $insertStatement->execute(false);
             echo json_encode(array("result" => "0", "desc" =>"发送成功"));
         }else{
             echo json_encode(array("result" => "1", "desc" => "收件邮箱不能为空"));
