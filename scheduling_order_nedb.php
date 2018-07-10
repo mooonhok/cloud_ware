@@ -3707,7 +3707,7 @@ $app->put('/acceptSchedulingOrder', function () use ($app) {
         }
           $sender_name=$data[0]['jcompany'].$data[0]['tenant']['contact']['customer_name'];
           $sender_phone=$data[0]['tenant']['contact']['customer_phone'];
-          $sender_city_id=$data[0]['tenant']['contact']['customer_phone'];
+          $sender_city_id=$data[0]['tenant']['contact']['customer_city_id'];
           $sender_address=$data[0]['tenant']['contact']['customer_address'];
           $sender_tenant_id=$data[0]['tenant']['contact']['tenant_id'];
           $from_city_name="";
@@ -3727,7 +3727,7 @@ $app->put('/acceptSchedulingOrder', function () use ($app) {
                   ->where('customer_phone', '=', $sender_phone)
                   ->where('customer_city_id', '=', $sender_city_id)
                   ->where('customer_address', '=', $sender_address)
-                  ->where('tenant_id', '=', $tenant_id)
+                  ->where('tenant_id', '=',$tenant_id)
                   ->where('exist',"=",0);
               $stmt = $selectStatement->execute();
               $data22 = $stmt->fetch();
@@ -3736,7 +3736,7 @@ $app->put('/acceptSchedulingOrder', function () use ($app) {
                   $selectStatement = $database->select()
                       ->from('customer')
                       ->whereNull('wx_openid')
-                      ->where('tenant_id', '=', $sender_tenant_id);
+                      ->where('tenant_id', '=', $tenant_id);
                   $stmt = $selectStatement->execute();
                   $data23 = $stmt->fetchAll();
                   $array5['customer_id'] = count($data23) + 10000000001;
@@ -3778,7 +3778,7 @@ $app->put('/acceptSchedulingOrder', function () use ($app) {
                   $selectStatement = $database->select()
                       ->from('customer')
                       ->whereNull('wx_openid')
-                      ->where('tenant_id', '=', $receiver_tenant_id);
+                      ->where('tenant_id', '=', $tenant_id);
                   $stmt = $selectStatement->execute();
                   $data25 = $stmt->fetchAll();
                   $array6['customer_id'] = count($data25) + 10000000001;
