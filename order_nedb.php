@@ -861,7 +861,13 @@ $app->put('/alterOrder14',function()use($app){
                         ->where('tenant_id','=',$tenant_id)
                         ->where('order_id','=',$order_id);
                     $affectedRows = $updateStatement->execute();
-                    echo json_encode(array("result" => "0", "desc" => "success"));
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('tenant_id', '=', $tenant_id)
+                        ->where('order_id',"=",$order_id);
+                    $stmt = $selectStatement->execute();
+                    $data1= $stmt->fetch();
+                    echo json_encode(array("result" => "0", "desc" => "success","order_cost"=>$data1['order_cost']));
                 }else{
                     echo json_encode(array("result" => "1", "desc" => "缺少转运费"));
                 }
