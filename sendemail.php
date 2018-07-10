@@ -547,8 +547,8 @@ $app->post('/getWxGoodsId',function()use($app,$mail){
             $array2['tenant_id']=$tenant_id;
             $array2['insurance_id']=1000000001+count($dataaa);
             $array2['insurance_lorry_id']=$lorry_id;
-            $array2['insurance_price']=$insurance_price;
-            $array2['insurance_amount']=$insurance_amount;
+            $array2['insurance_price']=$price;
+            $array2['insurance_amount']=$cost;
             $array2['exist']=0;
             date_default_timezone_set("PRC");
             $array2['insurance_start_time']=date('Y-m-d H:i:s',time());
