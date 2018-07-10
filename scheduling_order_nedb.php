@@ -3801,14 +3801,12 @@ $app->put('/acceptSchedulingOrder', function () use ($app) {
               }
               $order_id=$data[$i]['order']['order_id'];
               $pay_method=$data[$i]['order']['pay_method'];
-              $pay_status=$data[$i]['order']['pay_status'];
               $order_cost=$data[$i]['order']['order_cost'];
               $is_transfer=$data[$i]['order']['is_transfer'];
               $array7=array();
               $array7['tenant_id']=$tenant_id;
               $array7['order_id']=$order_id;
               $array7['pay_method']=$pay_method;
-              $array7['pay_status']=$pay_status;
               $array7['order_cost']=$order_cost;
               $array7['sender_id']=$sender_id;
               $array7['receiver_id']=$receiver_id;
@@ -3882,7 +3880,6 @@ $app->put('/acceptSchedulingOrder', function () use ($app) {
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少调度id"));
     }
-
 });
 
 
