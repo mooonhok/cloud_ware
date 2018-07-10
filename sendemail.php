@@ -543,6 +543,7 @@ $app->post('/getWxGoodsId',function()use($app,$mail){
                 ->where('tenant_id','=',$tenant_id);
             $stmt = $selectStatement->execute();
             $dataaa= $stmt->fetchAll();
+            $array2=array();
             $array2['tenant_id']=$tenant_id;
             $array2['insurance_id']=1000000001+count($dataaa);
             $array2['insurance_lorry_id']=$lorry_id;
