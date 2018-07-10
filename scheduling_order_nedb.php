@@ -3757,11 +3757,11 @@ $app->put('/acceptSchedulingOrder', function () use ($app) {
               }else{
                   $sender_id=$data22['customer_id'];
               }
-              $receiver_name=$data[$i]['order']['order_receiver']['customer_name'];
-              $receiver_phone=$data[$i]['order']['order_receiver']['customer_phone'];
-              $receiver_city_id=$data[$i]['order']['order_receiver']['customer_city_id'];
-              $receiver_address=$data[$i]['order']['order_receiver']['customer_address'];
-              $receiver_tenant_id=$data[$i]['order']['order_receiver']['tenant_id'];
+              $receiver_name=$data[$y]['order']['order_receiver']['customer_name'];
+              $receiver_phone=$data[$y]['order']['order_receiver']['customer_phone'];
+              $receiver_city_id=$data[$y]['order']['order_receiver']['customer_city_id'];
+              $receiver_address=$data[$y]['order']['order_receiver']['customer_address'];
+              $receiver_tenant_id=$data[$y]['order']['order_receiver']['tenant_id'];
               $selectStatement = $database->select()
                   ->from('customer')
                   ->whereNull("wx_openid")
@@ -3799,10 +3799,10 @@ $app->put('/acceptSchedulingOrder', function () use ($app) {
               }else{
                   $receiver_id=$data24['customer_id'];
               }
-              $order_id=$data[$i]['order']['order_id'];
-              $pay_method=$data[$i]['order']['pay_method'];
-              $order_cost=$data[$i]['order']['order_cost'];
-              $is_transfer=$data[$i]['order']['is_transfer'];
+              $order_id=$data[$y]['order']['order_id'];
+              $pay_method=$data[$y]['order']['pay_method'];
+              $order_cost=$data[$y]['order']['order_cost'];
+              $is_transfer=$data[$y]['order']['is_transfer'];
               $array7=array();
               $array7['tenant_id']=$tenant_id;
               $array7['order_id']=$order_id;
@@ -3824,14 +3824,14 @@ $app->put('/acceptSchedulingOrder', function () use ($app) {
                   ->into('orders')
                   ->values(array_values($array7));
               $insertId = $insertStatement->execute(false);
-              $goods_id=$data[$i]['goods']['goods_id'];
-              $goods_name=$data[$i]['goods']['goods_name'];
-              $goods_weight=$data[$i]['goods']['goods_weight'];
-              $goods_capacity=$data[$i]['goods']['goods_capacity'];
-              $goods_package_id=$data[$i]['goods']['goods_package_id'];
-              $goods_count=$data[$i]['goods']['goods_count'];
-              $goods_value=$data[$i]['goods']['goods_value'];
-              $special_need=$data[$i]['goods']['special_need'];
+              $goods_id=$data[$y]['goods']['goods_id'];
+              $goods_name=$data[$y]['goods']['goods_name'];
+              $goods_weight=$data[$y]['goods']['goods_weight'];
+              $goods_capacity=$data[$y]['goods']['goods_capacity'];
+              $goods_package_id=$data[$y]['goods']['goods_package_id'];
+              $goods_count=$data[$y]['goods']['goods_count'];
+              $goods_value=$data[$y]['goods']['goods_value'];
+              $special_need=$data[$y]['goods']['special_need'];
               $array8=array();
               $array8['order_id']=$order_id;
               $array8['exist']=0;
