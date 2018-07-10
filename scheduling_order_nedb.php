@@ -3715,7 +3715,7 @@ $app->put('/acceptSchedulingOrder', function () use ($app) {
           if($pos==false){
               $from_city_name=$data[0]['from_city']['name'];
           }else{
-              $from_city_name=substr($data[0]['from_city']['name'],0,"市");
+              $from_city_name=substr($data[0]['from_city']['name'],0,$pos);
           }
           for($y=0;$y<count($data);$y++){
               $sender_id=null;
