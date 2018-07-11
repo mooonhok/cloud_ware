@@ -145,7 +145,7 @@ $app->get('/test',function()use($app) {
     set_time_limit(1000);
     ob_end_clean();     //在循环输出前，要关闭输出缓冲区
 
-    echo str_pad('', 1024);     //浏览器在接受输出一定长度内容之前不会显示缓冲输出，这个长度值 IE是256，火狐是1024
+    echo str_pad('', 32);     //浏览器在接受输出一定长度内容之前不会显示缓冲输出，这个长度值 IE是256，火狐是1024
     for ($i = 1; $i <= 1000; $i++) {
         echo json_encode(array("result" => "0", "desc" => "success", "tenant" => $i));
 //    echo $i.'<br/>';
@@ -164,10 +164,11 @@ $app->get("/getTest2",function(){
     echo json_encode(array("test2"=>1));
     ob_end_clean();
 
-    echo str_pad('',1024);
+    echo str_pad('',32);
     $i=1;
     while($i>0){
         echo json_encode(array("test3"=>2));
+        ob_flush();
         flush();
         sleep(1);
     }
