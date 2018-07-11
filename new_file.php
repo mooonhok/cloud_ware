@@ -158,7 +158,9 @@ $app->get("/getTest1",function(){
     echo "1";
 });
 
-$app->get("/getTest2",function(){
+$app->get("/getTest2",function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     ob_get_contents();
     set_time_limit(1000);
     ob_end_clean();
