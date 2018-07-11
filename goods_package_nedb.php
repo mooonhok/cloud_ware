@@ -21,7 +21,7 @@ $app->get('/getGoodsPackages',function()use($app){
         ->from('goods_package');
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
-    echo json_encode(array('result'=>'1','desc'=>'','goods_package'=>$data1));
+    echo json_encode(array('result'=>'0','desc'=>'','goods_package'=>$data1));
 });
 
 $app->run();
