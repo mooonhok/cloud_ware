@@ -161,11 +161,10 @@ $app->get("/getTest1",function(){
 $app->get("/getTest2",function(){
     ob_get_contents();
     set_time_limit(1000);
-    echo json_encode(array("test2"=>1));
     ob_end_clean();
-
     echo str_pad('',32);
     $i=1;
+    echo json_encode(array("test2"=>1));
     while($i>0){
         echo json_encode(array("test3"=>2));
         ob_flush();
