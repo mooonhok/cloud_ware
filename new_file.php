@@ -148,6 +148,7 @@ $app->get("/getTest2",function(){
     set_time_limit(0);
     ob_end_clean();
     echo json_encode(array("test2"=>1));
+    echo str_pad('',1024);
     $i=1;
     while($i>0){
         echo json_encode(array("test3"=>2));
