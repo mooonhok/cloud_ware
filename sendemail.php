@@ -269,15 +269,25 @@ $app->post('/addinsurancenum',function()use($app){
     $tenant_id=$body->tenant_id;
     $insurance_id=$body->insurance_id;
     $insurance_num=$body->insurance_num;
-    $updateStatement = $database->update(array('insurance_num'=>$insurance_num))
-        ->table('insurance')
-        ->where('tenant_id', '=', $tenant_id)
-        ->where('insurance_id','=',$insurance_id);
-    $affectedRows = $updateStatement->execute();
-    if($affectedRows>0){
-        echo json_encode(array("result" => "0", "desc" =>"发送成功"));
+    $selectStatement = $database->select()
+        ->from('insurance')
+        ->where('insurance_num', '=', $insurance_num);
+    $stmt = $selectStatement->execute();
+    $data1= $stmt->fetch();
+    if($data1){
+        echo json_encode(array("result" => "2", "desc" =>"保单号出现重复"));
+
     }else{
-        echo json_encode(array("result" => "1", "desc" =>"失败"));
+        $updateStatement = $database->update(array('insurance_num'=>$insurance_num))
+            ->table('insurance')
+            ->where('tenant_id', '=', $tenant_id)
+            ->where('insurance_id','=',$insurance_id);
+        $affectedRows = $updateStatement->execute();
+        if($affectedRows>0){
+            echo json_encode(array("result" => "0", "desc" =>"发送成功"));
+        }else{
+            echo json_encode(array("result" => "1", "desc" =>"失败"));
+        }
     }
 });
 
