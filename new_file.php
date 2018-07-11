@@ -145,6 +145,7 @@ $app->get("/getTest1",function(){
 });
 
 $app->get("/getTest2",function(){
+    ob_get_contents();
     set_time_limit(0);
     echo json_encode(array("test2"=>1));
     ob_end_clean();
