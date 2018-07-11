@@ -604,6 +604,23 @@ $app->post('/getWxGoodsId',function()use($app,$mail){
     }
 });
 
+$app->get("/getTest2",function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    ob_get_contents();
+    set_time_limit(1000);
+    ob_end_clean();
+    echo str_pad('',32);
+    $i=1;
+    echo json_encode(array("test2"=>1));
+    while($i>0){
+        echo json_encode(array("test3"=>2));
+        ob_flush();
+        flush();
+        sleep(1);
+    }
+});
+
 $app->run();
 
 function localhost(){
