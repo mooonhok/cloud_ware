@@ -79,11 +79,11 @@ $app->post('/makeOrder',function()use($app){
     $num2=0;
     $data1=array();
     $data3=array();
-    if($special_need==0){
-        $special_need='寄:门店自寄;  收:送货上门';
-    }else{
-        $special_need='寄:上门提货;  收:门店自提';
-    }
+//    if($special_need==0){
+//        $special_need='寄:门店自寄;  收:送货上门';
+//    }else{
+//        $special_need='寄:上门提货;  收:门店自提';
+//    }
     if($tenant_id!=null||$tenant_id!=''){
         if($customer_name_a!=null||$customer_name_a!=''){
             if($customer_phone_a!=null||$customer_phone_a!=''){
