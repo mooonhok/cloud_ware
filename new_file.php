@@ -145,10 +145,13 @@ $app->get("/getTest1",function(){
 });
 
 $app->get("/getTest2",function(){
-    echo "1";
+    set_time_limit(0);
+    ob_end_clean();
+    echo json_encode(array("test2"=>1));
     $i=1;
     while($i>0){
-        echo "2";
+        echo json_encode(array("test3"=>2));
+        flush();
         sleep(1);
     }
 });
