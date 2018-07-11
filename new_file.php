@@ -140,6 +140,20 @@ $app->get('/getOrdersTime1',function()use($app) {
     echo $result;
 });
 
+$app->get('/test',function()use($app) {
+    ob_get_contents();
+    set_time_limit(1000);
+    ob_end_clean();     //在循环输出前，要关闭输出缓冲区
+
+    echo str_pad('', 1024);     //浏览器在接受输出一定长度内容之前不会显示缓冲输出，这个长度值 IE是256，火狐是1024
+    for ($i = 1; $i <= 1000; $i++) {
+        echo json_encode(array("result" => "0", "desc" => "success", "tenant" => $i));
+//    echo $i.'<br/>';
+        flush();    //刷新输出缓冲
+        sleep(1);
+    }
+});
+
 $app->get("/getTest1",function(){
     echo "1";
 });
