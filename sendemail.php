@@ -275,8 +275,7 @@ $app->post('/addinsurancenum',function()use($app){
     $stmt = $selectStatement->execute();
     $data1= $stmt->fetch();
     if($data1){
-        echo json_encode(array("result" => "2", "desc" =>"保单号出现重复"));
-
+        echo json_encode(array("result" => "2", "desc" =>"保单号已存在，请检查"));
     }else{
         $updateStatement = $database->update(array('insurance_num'=>$insurance_num))
             ->table('insurance')
