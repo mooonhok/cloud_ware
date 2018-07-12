@@ -14,6 +14,8 @@ use Slim\PDO\Database;
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 $app->get('/test',function()use($app) {
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
     echo  json_encode(array("result" => "0", "desc" => "success"));
     set_time_limit(0);
     ob_end_clean();     //在循环输出前，要关闭输出缓冲区
