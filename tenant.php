@@ -1747,13 +1747,13 @@ $app->get('/getPC',function()use($app){
             ->where('exist','=',0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetch();
-        $city=$data['from_city_id'];
+//        $city=$data['from_city_id'];
         $selectStatement = $database->select()
             ->from('city')
-            ->where('id',"=",$city);
+            ->where('id',"=",$data['from_city_id']);
         $stmt = $selectStatement->execute();
         $data2 = $stmt->fetch();
-        echo json_encode(array("result"=>"0",'desc'=>'','province_id'=>$data2['pid'],"city_id"=>$city));
+        echo json_encode(array("result"=>"0",'desc'=>'','province_id'=>$data2['pid'],"city_id"=>$data['from_city_id']));
     }else{
         echo json_encode(array("result"=>"4",'desc'=>'缺少营业执照编号'));
     }
