@@ -34,6 +34,9 @@ $app->get('/city',function()use($app){
                 ->where('pid','=',$pid);
             $stmt = $selectStatement->execute();
             $data = $stmt->fetchAll();
+           for($i=0;$i<count($data);$i++){
+               $data[$i]['number']=$i+1;
+           }
             echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
     }
 });
