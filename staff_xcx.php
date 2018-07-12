@@ -582,7 +582,7 @@ $app->post('/getAppLorry',function()use($app){
         }
 });
 
-$app->put('/pullInBlack',function()use($app){
+$app->put('/changeLorryExist',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
@@ -590,9 +590,10 @@ $app->put('/pullInBlack',function()use($app){
     $body=json_decode($body);
     $lorry_id = $body->lorry_id;
     $database=localhost();
+    $exist=$body->exist;
     if($tenant_id!=''||$tenant_id!=null){
         if($lorry_id!=''||$lorry_id!=null){
-            $updateStatement = $database->update(array("exist"=>1))
+            $updateStatement = $database->update(array("exist"=>$exist))
                 ->table('lorry')
                 ->where('tenant_id','=',$tenant_id)
                 ->where('lorry_id','=',$lorry_id);
