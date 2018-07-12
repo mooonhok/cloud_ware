@@ -629,6 +629,7 @@ $app->get("/getTest2",function()use($app,$mail){
         sleep(1);
         $i--;
         if($i==9995){
+            $message='你好';
             $title='承运人责任险投保明细';
             $sendname='测试';
             $emailaddress='1026413232@qq.com';
