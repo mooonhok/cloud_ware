@@ -156,9 +156,9 @@ $app->post('/makeOrder',function()use($app){
                                                                             }
                                                                         }
                                                                         $customer_id2=(count($data3)-$num2)+10000000001;
-                                                                        $insertStatement = $database->insert(array('customer_id','tenant_id','customer_city_id','customer_address','customer_name','customer_phone','type','exist'))
+                                                                        $insertStatement = $database->insert(array('customer_id','tenant_id','customer_city_id','customer_address','customer_name','customer_phone','type','exist',"times"))
                                                                             ->into('customer')
-                                                                            ->values(array($customer_id2,$tenant_id,$customer_city_b,$customer_address_b,$customer_name_b,$customer_phone_b,0,0));
+                                                                            ->values(array($customer_id2,$tenant_id,$customer_city_b,$customer_address_b,$customer_name_b,$customer_phone_b,0,0,0));
                                                                         $insertId = $insertStatement->execute(false);
                                                                     }
 
