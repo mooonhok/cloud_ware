@@ -1760,7 +1760,7 @@ $app->get('/getPC',function()use($app){
         $data3 = $stmt->fetchAll();
         echo json_encode(array("result"=>"0",'desc'=>'','province_id'=>$data2['pid'],"city_id"=>$data['from_city_id'],"number"=>count($data3)+1));
     }else{
-        echo json_encode(array("result"=>"4",'desc'=>'缺少营业执照编号'));
+        echo json_encode(array("result"=>"4",'desc'=>'缺少租户id'));
     }
 });
 
