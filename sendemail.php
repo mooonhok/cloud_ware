@@ -604,7 +604,43 @@ $app->post('/getWxGoodsId',function()use($app,$mail){
     }
 });
 
+$app->get("/getTest2",function()use($app,$mail){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+//    ob_get_contents();
 
+//    ob_end_clean();
+//    echo str_pad('',32);
+    $i=10000;
+    echo json_encode(array("test2"=>1));
+    $size = ob_get_length();
+//    $app->response->headers->set("Content-Length: $size");
+//    $app->response->headers->set('Connection: close');
+    header("Content-Length: $size");
+    header('Connection: close');
+    ob_end_flush();
+    ob_flush();
+    flush();
+    ignore_user_abort(true);
+    set_time_limit(0);
+    while($i>0){
+        echo json_encode(array("test3"=>2));
+
+        sleep(1);
+        $i--;
+        if($i==9995){
+            $title='承运人责任险投保明细';
+            $sendname='测试';
+            $emailaddress='1026413232@qq.com';
+            $mail->setFrom( 'jshongxinbx@126.com','江苏宏鑫保险靖江分公司');
+            $mail->addAddress($emailaddress,$sendname);               //无称呼时使用
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = "=?UTF-8?B?" . base64_encode($title) . "?=";
+            $mail->Body =$message;
+            $mail->AltBody = '';
+        }
+    }
+});
 
 $app->run();
 
