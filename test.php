@@ -14,9 +14,10 @@ use Slim\PDO\Database;
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 $app->get('/test',function()use($app) {
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    echo  json_encode(array("result" => "0", "desc" => "success"));
+//    $app->response->headers->set('Access-Control-Allow-Origin','*');
+//    $app->response->headers->set('Content-Type','application/json');
+//    echo  json_encode(array("result" => "0", "desc" => "success"));
+    echo "<html><img src='http://files.uminfo.cn:8000/weixinguanggao/wsx.png'/></html>";
     set_time_limit(0);
     ob_end_clean();     //在循环输出前，要关闭输出缓冲区
     echo str_pad('',1024);     //浏览器在接受输出一定长度内容之前不会显示缓冲输出，这个长度值 IE是256，火狐是1024
