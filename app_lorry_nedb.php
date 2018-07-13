@@ -176,7 +176,7 @@ $app->get('/checkAppLorry',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data5= $stmt->fetch();
                     $data1['lorry_length_name']=$data5['lorry_length'];
-                    $data1['lorry_load_name']=$data1['deadweight'];
+//                    $data1['lorry_load_name']=$data1['deadweight'];
                     $selectStatement = $database->select()
                         ->from('lorry_type')
                         ->where('lorry_type_id','=',$data1['type']);
