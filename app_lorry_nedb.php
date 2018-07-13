@@ -168,6 +168,21 @@ $app->get('/checkAppLorry',function()use($app){
                         echo json_encode(array('result'=>'4','desc'=>'车辆已添加过'));
                     }else if($data2['exist']==1){
                         echo json_encode(array('result'=>'3','desc'=>'车辆被加入黑名单'));
+                    }else{
+                        $selectStatement = $database->select()
+                            ->from('lorry_length')
+                            ->where('lorry_length_id','=',$data1['length']);
+                        $stmt = $selectStatement->execute();
+                        $data5= $stmt->fetch();
+                        $data1['lorry_length_name']=$data5['lorry_length'];
+//                    $data1['lorry_load_name']=$data1['deadweight'];
+                        $selectStatement = $database->select()
+                            ->from('lorry_type')
+                            ->where('lorry_type_id','=',$data1['type']);
+                        $stmt = $selectStatement->execute();
+                        $data4= $stmt->fetch();
+                        $data1['lorry_type_name']=$data4['lorry_type_name'];
+                        echo json_encode(array("result"=>"0","desc"=>"","lorrys"=>$data1));
                     }
                 }else{
                     $selectStatement = $database->select()
@@ -192,7 +207,7 @@ $app->get('/checkAppLorry',function()use($app){
             echo json_encode(array('result'=>'1','desc'=>'未注册交付帮手'));
         }
     }else{
-        echo json_encode(array('result'=>'4','desc'=>'缺少租户id'));
+        echo json_encode(array('result'=>'5','desc'=>'缺少租户id'));
     }
 });
 
