@@ -458,7 +458,7 @@ $app->post('/chooseLorry',function()use($app){
                 ->where('app_lorry_id','=',$app_lorry_id);
             $stmt = $selectStatement->execute();
             $data1= $stmt->fetch();
-            if($data1){
+//            if($data1){
 //                $selectStatement = $database->select()
 //                    ->from('lorry')
 //                    ->where('tenant_id','=',$tenant_id)
@@ -477,23 +477,23 @@ $app->post('/chooseLorry',function()use($app){
                     $insertId = $insertStatement->execute(false);
                     echo json_encode(array('result'=>'0','desc'=>'success'));
 //                }
-            }else{
-                echo json_encode(array('result'=>'2','desc'=>'车辆未注册'));
-            }
+//            }else{
+//                echo json_encode(array('result'=>'2','desc'=>'车辆未注册'));
+//            }
         }else{
             echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
         }
     }else{
-        $selectStatement = $database->select()
-            ->from('app_lorry')
-            ->where('flag','=',0)
-            ->where('lorry_status','=',2)
-            ->where('app_lorry_id','=',$app_lorry_id);
-        $stmt = $selectStatement->execute();
-        $data1= $stmt->fetch();
-        if($data1){
-            echo json_encode(array('result'=>'4','desc'=>'无法驳回'));
-        }else{
+//        $selectStatement = $database->select()
+//            ->from('app_lorry')
+//            ->where('flag','=',0)
+//            ->where('lorry_status','=',2)
+//            ->where('app_lorry_id','=',$app_lorry_id);
+//        $stmt = $selectStatement->execute();
+//        $data1= $stmt->fetch();
+//        if($data1){
+//            echo json_encode(array('result'=>'4','desc'=>'无法驳回'));
+//        }else{
             $reason=$body->reason;
             date_default_timezone_set("PRC");
             $shijian=date("Y-m-d H:i:s",time());
@@ -507,7 +507,7 @@ $app->post('/chooseLorry',function()use($app){
                 ->where('app_lorry_id','=',$app_lorry_id);
             $affectedRows = $updateStatement->execute();
             echo json_encode(array('result'=>'3','desc'=>'已驳回'));
-        }
+//        }
     }
 });
 
