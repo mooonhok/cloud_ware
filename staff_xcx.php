@@ -526,7 +526,6 @@ $app->post('/getAppLorry',function()use($app){
             ->from('app_lorry')
             ->where('flag','=',0)
             ->where('exist','=',0)
-            ->where('tenant_id','=',$tenant_id)
             ->where('phone','=',$driver_phone)
             ->where('plate_number','=',$plate_number)
             ->where('name','=',$driver_name);
@@ -593,7 +592,6 @@ $app->get('/checkAppLorry',function()use($app){
             ->from('app_lorry')
             ->where('flag','=',$flag)
             ->where('exist','=',0)
-            ->where('tenant_id','=',$tenant_id)
             ->where('phone','=',$driver_phone)
             ->where('plate_number','=',$plate_number)
             ->where('name','=',$driver_name);
@@ -642,12 +640,6 @@ $app->get('/checkAppLorry',function()use($app){
         echo json_encode(array('result'=>'4','desc'=>'缺少租户id'));
     }
 });
-
-
-
-
-
-
 
 $app->put('/changeLorryExist',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
