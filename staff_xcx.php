@@ -511,7 +511,7 @@ $app->post('/chooseLorry',function()use($app){
     }
 });
 
-$app->post('/getAppLorry',function()use($app){
+$app->post('/checkAppLorry',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
@@ -589,7 +589,38 @@ $app->post('/getAppLorry',function()use($app){
     }
 });
 
-
+$app->get('/getAppLorry',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $applorry=$app->request->get("app_lorry_id");
+    if($applorry!=null||$applorry!=null){
+        $selectStatement = $database->select()
+            ->from('app_lorry')
+            ->where('app_lorry_id','=',$applorry);
+        $stmt = $selectStatement->execute();
+        $data= $stmt->fetch();
+        if($data!=null){
+            $selectStatement = $database->select()
+                ->from('lorry_length')
+                ->where('lorry_length_id','=',$data['length']);
+            $stmt = $selectStatement->execute();
+            $data5= $stmt->fetch();
+            $data['lorry_length_name']=$data5['lorry_length'];
+            $selectStatement = $database->select()
+                ->from('lorry_type')
+                ->where('lorry_type_id','=',$data['type']);
+            $stmt = $selectStatement->execute();
+            $data4= $stmt->fetch();
+            $data['lorry_type_name']=$data4['lorry_type_name'];
+            echo json_encode(array("result"=>"0","desc"=>"","lorry"=>$data));
+        }else{
+            echo json_encode(array("result"=>"2","desc"=>"司机不存在"));
+        }
+    }else{
+        echo json_encode(array("result"=>"1","desc"=>"缺少司机ID"));
+    }
+});
 
 
 $app->put('/changeLorryExist',function()use($app){
