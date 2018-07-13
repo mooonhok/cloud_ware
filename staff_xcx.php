@@ -459,24 +459,24 @@ $app->post('/chooseLorry',function()use($app){
             $stmt = $selectStatement->execute();
             $data1= $stmt->fetch();
             if($data1){
-                $selectStatement = $database->select()
-                    ->from('lorry')
-                    ->where('tenant_id','=',$tenant_id)
-                    ->where('exist','=',0)
-                    ->where('driver_phone','=',$data1['phone'])
-                    ->where('plate_number','=',$data1['plate_number'])
-                    ->where('driver_name','=',$data1['name']);
-                $stmt = $selectStatement->execute();
-                $data2= $stmt->fetch();
-                if($data2){
-                    echo json_encode(array('result'=>'3','desc'=>'该车辆已添加'));
-                }else{
+//                $selectStatement = $database->select()
+//                    ->from('lorry')
+//                    ->where('tenant_id','=',$tenant_id)
+//                    ->where('exist','=',0)
+//                    ->where('driver_phone','=',$data1['phone'])
+//                    ->where('plate_number','=',$data1['plate_number'])
+//                    ->where('driver_name','=',$data1['name']);
+//                $stmt = $selectStatement->execute();
+//                $data2= $stmt->fetch();
+//                if($data2){
+//                    echo json_encode(array('result'=>'3','desc'=>'该车辆已添加'));
+//                }else{
                     $insertStatement = $database->insert(array('tenant_id','lorry_id','plate_number','driver_name','driver_phone','flag','exist'))
                         ->into('lorry')
                         ->values(array($tenant_id,(count($data)+100000001),$data1['plate_number'],$data1['name'],$data1['phone'],0,0));
                     $insertId = $insertStatement->execute(false);
                     echo json_encode(array('result'=>'0','desc'=>'success'));
-                }
+//                }
             }else{
                 echo json_encode(array('result'=>'2','desc'=>'车辆未注册'));
             }
