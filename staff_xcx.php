@@ -531,7 +531,7 @@ $app->post('/getAppLorry',function()use($app){
             ->where('name','=',$driver_name);
         $stmt = $selectStatement->execute();
         $data1= $stmt->fetch();
-        if($data1==null){
+        if($data1!=null){
             if($data1['lorry_status']!=1){
                 $selectStatement = $database->select()
                     ->from('lorry')
@@ -555,7 +555,6 @@ $app->post('/getAppLorry',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data5= $stmt->fetch();
                     $data1['lorry_length_name']=$data5['lorry_length'];
-//                    $data1['lorry_load_name']=$data1['deadweight'];
                     $selectStatement = $database->select()
                         ->from('lorry_type')
                         ->where('lorry_type_id','=',$data1['type']);

@@ -152,7 +152,7 @@ $app->get('/checkAppLorry',function()use($app){
             ->where('name','=',$driver_name);
         $stmt = $selectStatement->execute();
         $data1= $stmt->fetch();
-        if($data1==null){
+        if($data1!=null){
             if($data1['lorry_status']!=1){
                 $selectStatement = $database->select()
                     ->from('lorry')
