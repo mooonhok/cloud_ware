@@ -142,6 +142,7 @@ $app->get('/checkAppLorry',function()use($app){
     $plate_number = $app->request->get('plate_number');
     $flag=$app->request->get('flag');
     $database=localhost();
+    $array1=array();
     if($tenant_id!=''||$tenant_id!=null){
         $selectStatement = $database->select()
             ->from('app_lorry')
@@ -182,7 +183,8 @@ $app->get('/checkAppLorry',function()use($app){
                         $stmt = $selectStatement->execute();
                         $data4= $stmt->fetch();
                         $data1['lorry_type_name']=$data4['lorry_type_name'];
-                        echo json_encode(array("result"=>"0","desc"=>"","lorrys"=>$data1));
+                        $array1[0]=$data1;
+                        echo json_encode(array("result"=>"0","desc"=>"","lorrys"=>$array1));
                     }
                 }else{
                     $selectStatement = $database->select()
@@ -198,7 +200,8 @@ $app->get('/checkAppLorry',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data4= $stmt->fetch();
                     $data1['lorry_type_name']=$data4['lorry_type_name'];
-                    echo json_encode(array("result"=>"0","desc"=>"","lorrys"=>$data1));
+                    $array1[0]=$data1;
+                    echo json_encode(array("result"=>"0","desc"=>"","lorrys"=>$array1));
                 }
             }else{
                 echo json_encode(array('result'=>'2','desc'=>'正在修改资料'));

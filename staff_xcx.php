@@ -561,7 +561,7 @@ $app->post('/getAppLorry',function()use($app){
                             $stmt = $selectStatement->execute();
                             $data4= $stmt->fetch();
                             $data1['lorry_type_name']=$data4['lorry_type_name'];
-                            echo json_encode(array("result"=>"0","desc"=>"","lorrys"=>$data1));
+                            echo json_encode(array("result"=>"0","desc"=>"","lorry_id"=>$data1['app_lorry_id']));
                         }
                 }else{
                     $selectStatement = $database->select()
@@ -576,7 +576,7 @@ $app->post('/getAppLorry',function()use($app){
                     $stmt = $selectStatement->execute();
                     $data4= $stmt->fetch();
                     $data1['lorry_type_name']=$data4['lorry_type_name'];
-                    echo json_encode(array("result"=>"0","desc"=>"","lorrys"=>$data1));
+                    echo json_encode(array("result"=>"0","desc"=>"","lorry_id"=>$data1['app_lorry_id']));
                 }
             }else{
                 echo json_encode(array('result'=>'2','desc'=>'正在修改资料'));
