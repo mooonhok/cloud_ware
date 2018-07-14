@@ -682,6 +682,7 @@ $app->get('/tenantLorry',function()use($app){
             $stmt = $selectStatement->execute();
             $data4= $stmt->fetch();
             $data[$x]['lorry_type_name']=$data4['lorry_type_name'];
+            $data[$x]['deadweight']=$data2['deadweight'];
         }
         echo json_encode(array('result'=>'0','desc'=>'success','lorry'=>$data));
     }else{
