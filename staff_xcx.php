@@ -661,6 +661,28 @@ $app->get('/tenantLorry',function()use($app){
             ->where('tenant_id','=',$tenant_id);
         $stmt = $selectStatement->execute();
         $data= $stmt->fetchAll();
+        for($x=0;$x<count($data);$x++){
+            $selectStatement = $database->select()
+                ->from('app_lorry')
+                ->where('flag','=',0)
+                ->where('phone','=',$data[$x]['driver_phone'])
+                ->where('plate_number','=',$data[$x]['plate_number'])
+                ->where('name','=',$data[$x]['driver_name']);
+            $stmt = $selectStatement->execute();
+            $data2= $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('lorry_length')
+                ->where('lorry_length_id','=',$data2['length']);
+            $stmt = $selectStatement->execute();
+            $data5= $stmt->fetch();
+            $data[$x]['lorry_length_name']=$data5['lorry_length'];
+            $selectStatement = $database->select()
+                ->from('lorry_type')
+                ->where('lorry_type_id','=',$data2['type']);
+            $stmt = $selectStatement->execute();
+            $data4= $stmt->fetch();
+            $data[$x]['lorry_type_name']=$data4['lorry_type_name'];
+        }
         echo json_encode(array('result'=>'0','desc'=>'success','lorry'=>$data));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
