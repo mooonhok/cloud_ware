@@ -92,23 +92,7 @@ $app->get('/getAppLorry1',function()use($app){
     }
 });
 
-$app->put('/alterAppLorry0',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
-    $database = localhost();
-    $body = $app->request->getBody();
-    $body = json_decode($body);
-    $lorry_status=$body->lorry_status;
-    $app_lorry_id=$body->app_lorry_id;
-    $updateStatement = $database->update(array('lorry_status'=>$lorry_status))
-            ->table('app_lorry')
-            ->where('app_lorry_id','=',$app_lorry_id);
-    $affectedRows = $updateStatement->execute();
-    if($affectedRows){
-        echo json_encode(array("result" => "0", "desc" => "success"));
-    }else{
-        echo json_encode(array("result" => "1", "desc" => "没有app_lorry_id"));
-    }
-});
+
 
 $app->get('/getAppLorry_app',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
