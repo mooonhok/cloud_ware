@@ -23,18 +23,6 @@ $app->get('/getProvinces',function ()use($app){
     echo  json_encode(array("result"=>"0","desc"=>"success","province"=>$data));
 });
 
-$app->get('/getProvince',function ()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $database=localhost();
-    $id=$app->request->get('province_id');
-    $selectStatement = $database->select()
-        ->from('province')
-        ->where('id','=',$id);
-    $stmt = $selectStatement->execute();
-    $data = $stmt->fetch();
-    echo  json_encode(array("result"=>"0","desc"=>"success","province"=>$data));
-});
 
 $app->run();
 
