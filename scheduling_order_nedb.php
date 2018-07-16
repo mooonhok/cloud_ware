@@ -906,92 +906,7 @@ $app->get('/getSchedulingOrders7',function()use($app){
     }
 });
 
-//$app->get('/getSchedulingOrderList0',function()use($app){
-//    $app->response->headers->set('Content-Type', 'application/json');
-//    $database = localhost();
-//    $tenant_id = $app->request->headers->get("tenant-id");
-//    $lorry_id=$app->request->get('lorry_id');
-//    if($tenant_id!=null||$tenant_id!=''){
-//        $selectStatement = $database->select()
-//            ->from('schedule_order')
-//            ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
-//            ->join('scheduling','scheduling.scheduling_id','=','schedule_order.schedule_id','INNER')
-//            ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
-//            ->where('schedule_order.tenant_id', '=', $tenant_id)
-//            ->where('scheduling.tenant_id', '=', $tenant_id)
-//            ->where('orders.tenant_id', '=', $tenant_id)
-//            ->where('lorry.tenant_id', '=', $tenant_id)
-//            ->where('lorry.lorry_id', '=', $lorry_id)
-//            ->where('scheduling.scheduling_status', '=', 1)
-//            ->where('schedule_order.exist', '=', 0)
-//            ->where('scheduling.exist', '=', 0)
-//            ->where('orders.exist', '=', 0);
-//        $stmt = $selectStatement->execute();
-//        $data = $stmt->fetchAll();
-//        for($i=0;$i<count($data);$i++){
-//            $selectStatement = $database->select()
-//                ->from('lorry')
-//                ->where('tenant_id', '=', $tenant_id)
-//                ->where('lorry_id', '=', $data[$i]['lorry_id']);
-//            $stmt = $selectStatement->execute();
-//            $data1 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('goods')
-//                ->where('tenant_id', '=', $tenant_id)
-//                ->where('order_id', '=', $data[$i]['order_id']);
-//            $stmt = $selectStatement->execute();
-//            $data2 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('goods_package')
-//                ->where('goods_package_id', '=', $data2['goods_package_id']);
-//            $stmt = $selectStatement->execute();
-//            $data5 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('scheduling')
-//                ->where('tenant_id', '=', $tenant_id)
-//                ->where('scheduling_id', '=', $data[$i]['scheduling_id']);
-//            $stmt = $selectStatement->execute();
-//            $data3 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('customer')
-//                ->where('tenant_id', '=', $tenant_id)
-//                ->where('customer_id', '=', $data3['receiver_id']);
-//            $stmt = $selectStatement->execute();
-//            $data4 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('city')
-//                ->where('id', '=', $data[$i]['send_city_id']);
-//            $stmt = $selectStatement->execute();
-//            $data6 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('city')
-//                ->where('id', '=', $data[$i]['receive_city_id']);
-//            $stmt = $selectStatement->execute();
-//            $data7 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('province')
-//                ->where('id', '=', $data6['pid']);
-//            $stmt = $selectStatement->execute();
-//            $data8 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('province')
-//                ->where('id', '=', $data7['pid']);
-//            $stmt = $selectStatement->execute();
-//            $data9 = $stmt->fetch();
-//            $data[$i]['lorry']=$data1;
-//            $data[$i]['goods']=$data2;
-//            $data[$i]['goods']['goods_package']=$data5;
-//            $data[$i]['receiver']=$data4;
-//            $data[$i]['sender_city']=$data6;
-//            $data[$i]['sender_province']=$data8;
-//            $data[$i]['receiver_city']=$data7;
-//            $data[$i]['receiver_province']=$data9;
-//        }
-//        echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
-//    }else{
-//        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
-//    }
-//});
+
 
 $app->get('/getSchedulingOrderList0',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
@@ -2005,7 +1920,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                             ->where('tenant_id', '=', $tenant_id);
                                         $stmt = $selectStatement->execute();
                                         $data6 = $stmt->fetchAll();
-                                        $array2['lorry_id']=(count($data6)+100000001)."";
+                                        $array2['lorry_id']=count($data6)+100000001;
                                         $insertStatement = $database->insert(array_keys($array2))
                                             ->into('lorry')
                                             ->values(array_values($array2));
@@ -2644,7 +2559,7 @@ $app->put('/cancelSchedulingOrder',function()use($app){
                 ->where('tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data10= $stmt->fetchAll();
-            $exception_id=(count($data10)+100000001)."";
+            $exception_id=count($data10)+100000001;
             if($data!=null){
                 for($x=0;$x<count($data);$x++){
                     $insertStatement = $database->insert(array("order_id","tenant_id","exception_source","exception_person","exception_comment","exist","exception_time","exception_id"))
@@ -2966,7 +2881,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                             ->where('tenant_id', '=', $tenant_id);
                                         $stmt = $selectStatement->execute();
                                         $data6 = $stmt->fetchAll();
-                                        $array2['lorry_id']=(count($data6)+100000001)."";
+                                        $array2['lorry_id']=count($data6)+100000001;
                                         $insertStatement = $database->insert(array_keys($array2))
                                             ->into('lorry')
                                             ->values(array_values($array2));
