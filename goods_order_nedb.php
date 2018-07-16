@@ -3451,7 +3451,7 @@ $app->post('/addGoodsOrder',function()use($app){
                 ->into('orders')
                 ->values(array_values($array2));
             $insertId = $insertStatement->execute(false);
-            echo json_encode(array("result" => "0", "desc" => "success",'order_id'=>$array1['order_id']));
+            echo json_encode(array("result" => "0", "desc" => "success",'order_id'=>$array1['order_id'],'senderid'=>$array2['sender_id'],'receiverid'=>$array2['receiver_id'],"count1"=>count($data6),"count2"=>count($data10)));
         }else{
             echo json_encode(array("result" => "2", "desc" => "租户不存在"));
         }
@@ -4017,6 +4017,11 @@ $app->put('/deleteGoodsOrder',function()use($app){
         echo json_encode(array("result"=>"2",'desc'=>'缺少租户id'));
     }
 });
+
+
+
+
+
 
 $app->run();
 function localhost(){
