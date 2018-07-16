@@ -1735,6 +1735,36 @@ $app->get('/getTenant5',function()use($app){
     }
 });
 
+$app->get('/getPC',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    if($tenant_id!=null||$tenant_id!=""){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('tenant_id',"=",$tenant_id)
+            ->where('exist','=',0);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id',"=",$data['from_city_id']);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('pid',"=",$data2['pid'])
+            ->where('id',"<",$data["from_city_id"]);
+        $stmt = $selectStatement->execute();
+        $data3 = $stmt->fetchAll();
+        echo json_encode(array("result"=>"0",'desc'=>'','province_id'=>$data2['pid'],"city_id"=>$data['from_city_id'],"number"=>count($data3)+1));
+    }else{
+        echo json_encode(array("result"=>"4",'desc'=>'缺少租户id'));
+    }
+});
+
+
 
 
 $app->run();

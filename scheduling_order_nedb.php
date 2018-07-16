@@ -906,92 +906,7 @@ $app->get('/getSchedulingOrders7',function()use($app){
     }
 });
 
-//$app->get('/getSchedulingOrderList0',function()use($app){
-//    $app->response->headers->set('Content-Type', 'application/json');
-//    $database = localhost();
-//    $tenant_id = $app->request->headers->get("tenant-id");
-//    $lorry_id=$app->request->get('lorry_id');
-//    if($tenant_id!=null||$tenant_id!=''){
-//        $selectStatement = $database->select()
-//            ->from('schedule_order')
-//            ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
-//            ->join('scheduling','scheduling.scheduling_id','=','schedule_order.schedule_id','INNER')
-//            ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
-//            ->where('schedule_order.tenant_id', '=', $tenant_id)
-//            ->where('scheduling.tenant_id', '=', $tenant_id)
-//            ->where('orders.tenant_id', '=', $tenant_id)
-//            ->where('lorry.tenant_id', '=', $tenant_id)
-//            ->where('lorry.lorry_id', '=', $lorry_id)
-//            ->where('scheduling.scheduling_status', '=', 1)
-//            ->where('schedule_order.exist', '=', 0)
-//            ->where('scheduling.exist', '=', 0)
-//            ->where('orders.exist', '=', 0);
-//        $stmt = $selectStatement->execute();
-//        $data = $stmt->fetchAll();
-//        for($i=0;$i<count($data);$i++){
-//            $selectStatement = $database->select()
-//                ->from('lorry')
-//                ->where('tenant_id', '=', $tenant_id)
-//                ->where('lorry_id', '=', $data[$i]['lorry_id']);
-//            $stmt = $selectStatement->execute();
-//            $data1 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('goods')
-//                ->where('tenant_id', '=', $tenant_id)
-//                ->where('order_id', '=', $data[$i]['order_id']);
-//            $stmt = $selectStatement->execute();
-//            $data2 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('goods_package')
-//                ->where('goods_package_id', '=', $data2['goods_package_id']);
-//            $stmt = $selectStatement->execute();
-//            $data5 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('scheduling')
-//                ->where('tenant_id', '=', $tenant_id)
-//                ->where('scheduling_id', '=', $data[$i]['scheduling_id']);
-//            $stmt = $selectStatement->execute();
-//            $data3 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('customer')
-//                ->where('tenant_id', '=', $tenant_id)
-//                ->where('customer_id', '=', $data3['receiver_id']);
-//            $stmt = $selectStatement->execute();
-//            $data4 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('city')
-//                ->where('id', '=', $data[$i]['send_city_id']);
-//            $stmt = $selectStatement->execute();
-//            $data6 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('city')
-//                ->where('id', '=', $data[$i]['receive_city_id']);
-//            $stmt = $selectStatement->execute();
-//            $data7 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('province')
-//                ->where('id', '=', $data6['pid']);
-//            $stmt = $selectStatement->execute();
-//            $data8 = $stmt->fetch();
-//            $selectStatement = $database->select()
-//                ->from('province')
-//                ->where('id', '=', $data7['pid']);
-//            $stmt = $selectStatement->execute();
-//            $data9 = $stmt->fetch();
-//            $data[$i]['lorry']=$data1;
-//            $data[$i]['goods']=$data2;
-//            $data[$i]['goods']['goods_package']=$data5;
-//            $data[$i]['receiver']=$data4;
-//            $data[$i]['sender_city']=$data6;
-//            $data[$i]['sender_province']=$data8;
-//            $data[$i]['receiver_city']=$data7;
-//            $data[$i]['receiver_province']=$data9;
-//        }
-//        echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
-//    }else{
-//        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
-//    }
-//});
+
 
 $app->get('/getSchedulingOrderList0',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
@@ -1944,33 +1859,33 @@ $app->post('/addSchedulingOrder',function()use($app) {
         }
     }
     if($num==0){
-    if($send_city_name!=null||$send_city_name!=''){
-        if($receive_city_name!=null||$receive_city_name!=''){
-            $selectStatement = $database->select()
-                ->from('city')
-                ->where('name','=',$send_city_name);
-            $stmt = $selectStatement->execute();
-            $data1= $stmt->fetch();
-            if($data1!=null){
-                $array1['send_city_id'] = $data1['id'];
+        if($send_city_name!=null||$send_city_name!=''){
+            if($receive_city_name!=null||$receive_city_name!=''){
                 $selectStatement = $database->select()
                     ->from('city')
-                    ->where('name','=',$receive_city_name);
+                    ->where('name','=',$send_city_name);
                 $stmt = $selectStatement->execute();
-                $data2 = $stmt->fetch();
-                if($data2!=null){
-                    $array1['receive_city_id'] = $data2['id'];
+                $data1= $stmt->fetch();
+                if($data1!=null){
+                    $array1['send_city_id'] = $data1['id'];
                     $selectStatement = $database->select()
-                        ->from('app_lorry')
-                        ->where('plate_number', '=', $plate_number)
-                        ->where('flag','=',$flag)
-                        ->where('name', '=', $driver_name)
-                        ->where('exist', '=', 0)
-                        ->where('phone', '=', $driver_phone);
+                        ->from('city')
+                        ->where('name','=',$receive_city_name);
                     $stmt = $selectStatement->execute();
-                    $data4= $stmt->fetch();
-                    if($data4!=null){
-                        if($data4['lorry_status']!=1){
+                    $data2 = $stmt->fetch();
+                    if($data2!=null){
+                        $array1['receive_city_id'] = $data2['id'];
+                        $selectStatement = $database->select()
+                            ->from('app_lorry')
+                            ->where('plate_number', '=', $plate_number)
+                            ->where('flag','=',$flag)
+                            ->where('name', '=', $driver_name)
+                            ->where('exist', '=', 0)
+                            ->where('phone', '=', $driver_phone);
+                        $stmt = $selectStatement->execute();
+                        $data4= $stmt->fetch();
+                        if($data4!=null){
+                            if($data4['lorry_status']!=1){
                                 $selectStatement = $database->select()
                                     ->from('lorry')
                                     ->where('driver_phone', '=', $driver_phone)
@@ -2074,7 +1989,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                                     ->where('tenant_id', '=', $tenant_id);
                                                 $stmt = $selectStatement->execute();
                                                 $data8 = $stmt->fetchAll();
-                                                $array4['customer_id'] = count($data8) + 10000000001;
+                                                $array4['customer_id'] = (count($data8)+10000000001)."";
                                                 $insertStatement = $database->insert(array_keys($array4))
                                                     ->into('customer')
                                                     ->values(array_values($array4));
@@ -2127,7 +2042,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                                     ->where('tenant_id', '=', $tenant_id);
                                                 $stmt = $selectStatement->execute();
                                                 $data8 = $stmt->fetchAll();
-                                                $array4['customer_id']=count($data8)+10000000001;
+                                                $array4['customer_id']=(count($data8)+10000000001)."";
                                                 $insertStatement = $database->insert(array_keys($array4))
                                                     ->into('customer')
                                                     ->values(array_values($array4));
@@ -2169,15 +2084,15 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                             $stmt = $selectStatement->execute();
                                             $data16 = $stmt->fetch();
                                             if($data16==null){
-                                            $insertStatement = $database->insert(array('tenant_id', 'schedule_id', 'order_id', 'exist'))
-                                                ->into('schedule_order')
-                                                ->values(array($tenant_id, $scheduling_id, $array6[$x], 0));
-                                            $insertId = $insertStatement->execute(false);
-                                            $updateStatement = $database->update(array('is_schedule' => 2))
-                                                ->table('orders')
-                                                ->where('tenant_id', '=', $tenant_id)
-                                                ->where('order_id', '=', $array6[$x]);
-                                            $affectedRows = $updateStatement->execute();
+                                                $insertStatement = $database->insert(array('tenant_id', 'schedule_id', 'order_id', 'exist'))
+                                                    ->into('schedule_order')
+                                                    ->values(array($tenant_id, $scheduling_id, $array6[$x], 0));
+                                                $insertId = $insertStatement->execute(false);
+                                                $updateStatement = $database->update(array('is_schedule' => 2))
+                                                    ->table('orders')
+                                                    ->where('tenant_id', '=', $tenant_id)
+                                                    ->where('order_id', '=', $array6[$x]);
+                                                $affectedRows = $updateStatement->execute();
                                             }else{
                                                 $updateStatement = $database->update(array('exist' => 0))
                                                     ->table('schedule_order')
@@ -2234,7 +2149,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                                             ->where('tenant_id', '=', $tenant_id);
                                                         $stmt = $selectStatement->execute();
                                                         $data8 = $stmt->fetchAll();
-                                                        $array4['customer_id'] = count($data8) + 10000000001;
+                                                        $array4['customer_id'] = (count($data8) + 10000000001)."";
                                                         $insertStatement = $database->insert(array_keys($array4))
                                                             ->into('customer')
                                                             ->values(array_values($array4));
@@ -2287,7 +2202,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                                             ->where('tenant_id', '=', $tenant_id);
                                                         $stmt = $selectStatement->execute();
                                                         $data8 = $stmt->fetchAll();
-                                                        $array4['customer_id']=count($data8)+10000000001;
+                                                        $array4['customer_id']=(count($data8)+10000000001)."";
                                                         $insertStatement = $database->insert(array_keys($array4))
                                                             ->into('customer')
                                                             ->values(array_values($array4));
@@ -2337,7 +2252,7 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                                         ->where('tenant_id', '=', $contact_tenant_id);
                                                     $stmt = $selectStatement->execute();
                                                     $data14 = $stmt->fetchAll();
-                                                    $array5['customer_id'] = count($data14) + 10000000001;
+                                                    $array5['customer_id'] = (count($data14) + 10000000001)."";
                                                     $insertStatement = $database->insert(array_keys($array5))
                                                         ->into('customer')
                                                         ->values(array_values($array5));
@@ -2410,24 +2325,24 @@ $app->post('/addSchedulingOrder',function()use($app) {
                                 }else{
                                     echo json_encode(array("result" => "6", "desc" => "该车辆已经被加入黑名单"));
                                 }
+                            }else{
+                                echo json_encode(array("result" => "10", "desc" => "驾驶员正在修改个人资料"));
+                            }
                         }else{
-                            echo json_encode(array("result" => "10", "desc" => "驾驶员正在修改个人资料"));
+                            echo json_encode(array("result" => "5", "desc" => "该车辆还未在交付帮手上注册过"));
                         }
                     }else{
-                        echo json_encode(array("result" => "5", "desc" => "该车辆还未在交付帮手上注册过"));
+                        echo json_encode(array("result" => "4", "desc" => "收货城市不存在"));
                     }
                 }else{
-                    echo json_encode(array("result" => "4", "desc" => "收货城市不存在"));
+                    echo json_encode(array("result" => "3", "desc" => "发货城市不存在"));
                 }
             }else{
-                echo json_encode(array("result" => "3", "desc" => "发货城市不存在"));
+                echo json_encode(array("result" => "2", "desc" => "缺少收货城市名称"));
             }
         }else{
-            echo json_encode(array("result" => "2", "desc" => "缺少收货城市名称"));
+            echo json_encode(array("result" => "1", "desc" => "缺少发货城市名称"));
         }
-    }else{
-        echo json_encode(array("result" => "1", "desc" => "缺少发货城市名称"));
-    }
     }else{
         echo json_encode(array("result" => "11", "desc" => "无法生成清单","oids"=>$oids));
     }
@@ -2467,45 +2382,45 @@ $app->put('/finishSchedulingOrder',function()use($app){
                     ->where('tenant_id', '=', $tenant_id);
                 $affectedRows = $updateStatement->execute();
                 if($data2!=null){
-                for ($x = 0; $x < count($data2); $x++) {
-                    $updateStatement = $database->update(array('order_status' =>3, "order_datetime3" => $time))
-                        ->table('orders')
-                        ->where('order_id', '=', $data2[$x]['order_id'])
-                        ->where('tenant_id', '=', $tenant_id);
-                    $affectedRows = $updateStatement->execute();
-                    $selectStatement = $database->select()
-                        ->from('orders')
-                        ->where('order_id', '=', $data2[$x]['order_id'])
-                        ->where('tenant_id', '=', $tenant_id);
-                    $stmt = $selectStatement->execute();
-                    $data3 = $stmt->fetch();
-                    $selectStatement = $database->select()
-                        ->from('customer')
-                        ->where('customer_id', '=', $data3['sender_id'])
-                        ->where('tenant_id', '=', $tenant_id);
-                    $stmt = $selectStatement->execute();
-                    $data4 = $stmt->fetch();
-                    $selectStatement = $database->select()
-                        ->from('city')
-                        ->where('id', '=', $data4['customer_city_id']);
-                    $stmt = $selectStatement->execute();
-                    $data5 = $stmt->fetch();
-                    $data2[$x]['sender_customer_phone']=$data4['customer_phone'];
-                    $data2[$x]['sender_city_name']=$data5['name'];
-                    $selectStatement = $database->select()
-                        ->from('customer')
-                        ->where('customer_id', '=', $data3['receiver_id'])
-                        ->where('tenant_id', '=', $tenant_id);
-                    $stmt = $selectStatement->execute();
-                    $data6 = $stmt->fetch();
-                    $selectStatement = $database->select()
-                        ->from('city')
-                        ->where('id', '=', $data6['customer_city_id']);
-                    $stmt = $selectStatement->execute();
-                    $data7 = $stmt->fetch();
-                    $data2[$x]['receiver_city_name']=$data7['name'];
-                    $data2[$x]['receiver_customer_phone']=$data6['customer_phone'];
-                }
+                    for ($x = 0; $x < count($data2); $x++) {
+                        $updateStatement = $database->update(array('order_status' =>3, "order_datetime3" => $time))
+                            ->table('orders')
+                            ->where('order_id', '=', $data2[$x]['order_id'])
+                            ->where('tenant_id', '=', $tenant_id);
+                        $affectedRows = $updateStatement->execute();
+                        $selectStatement = $database->select()
+                            ->from('orders')
+                            ->where('order_id', '=', $data2[$x]['order_id'])
+                            ->where('tenant_id', '=', $tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data3 = $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id', '=', $data3['sender_id'])
+                            ->where('tenant_id', '=', $tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data4 = $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data4['customer_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data5 = $stmt->fetch();
+                        $data2[$x]['sender_customer_phone']=$data4['customer_phone'];
+                        $data2[$x]['sender_city_name']=$data5['name'];
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id', '=', $data3['receiver_id'])
+                            ->where('tenant_id', '=', $tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data6 = $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data6['customer_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data7 = $stmt->fetch();
+                        $data2[$x]['receiver_city_name']=$data7['name'];
+                        $data2[$x]['receiver_customer_phone']=$data6['customer_phone'];
+                    }
                 }
                 echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data2));
             } else if ($data['scheduling_status']==2 && $data['is_load']==3) {
@@ -2515,46 +2430,46 @@ $app->put('/finishSchedulingOrder',function()use($app){
                     ->where('tenant_id', '=', $tenant_id);
                 $affectedRows = $updateStatement->execute();
                 if($data2!=null){
-                for ($x = 0; $x < count($data2); $x++) {
-                    $updateStatement = $database->update(array('order_status' => 3, "order_datetime3" => $time, "order_datetime2" => $time))
-                        ->table('orders')
-                        ->where('order_id', '=', $data2[$x]['order_id'])
-                        ->where('tenant_id', '=', $tenant_id);
-                    $affectedRows = $updateStatement->execute();
-                    $selectStatement = $database->select()
-                        ->from('orders')
-                        ->where('order_id', '=', $data2[$x]['order_id'])
-                        ->where('tenant_id', '=', $tenant_id);
-                    $stmt = $selectStatement->execute();
-                    $data3 = $stmt->fetch();
-                    $selectStatement = $database->select()
-                        ->from('customer')
-                        ->where('customer_id', '=', $data3['sender_id'])
-                        ->where('tenant_id', '=', $tenant_id);
-                    $stmt = $selectStatement->execute();
-                    $data4 = $stmt->fetch();
-                    $selectStatement = $database->select()
-                        ->from('city')
-                        ->where('id', '=', $data4['customer_city_id']);
-                    $stmt = $selectStatement->execute();
-                    $data5 = $stmt->fetch();
-                    $data2[$x]['sender_customer_phone']=$data4['customer_phone'];
-                    $data2[$x]['sender_city_name']=$data5['name'];
-                    $selectStatement = $database->select()
-                        ->from('customer')
-                        ->where('customer_id', '=', $data3['receiver_id'])
-                        ->where('tenant_id', '=', $tenant_id);
-                    $stmt = $selectStatement->execute();
-                    $data6 = $stmt->fetch();
-                    $selectStatement = $database->select()
-                        ->from('city')
-                        ->where('id', '=', $data6['customer_city_id']);
-                    $stmt = $selectStatement->execute();
-                    $data7 = $stmt->fetch();
-                    $data2[$x]['receiver_city_name']=$data7['name'];
-                    $data2[$x]['receiver_customer_phone']=$data6['customer_phone'];
+                    for ($x = 0; $x < count($data2); $x++) {
+                        $updateStatement = $database->update(array('order_status' => 3, "order_datetime3" => $time, "order_datetime2" => $time))
+                            ->table('orders')
+                            ->where('order_id', '=', $data2[$x]['order_id'])
+                            ->where('tenant_id', '=', $tenant_id);
+                        $affectedRows = $updateStatement->execute();
+                        $selectStatement = $database->select()
+                            ->from('orders')
+                            ->where('order_id', '=', $data2[$x]['order_id'])
+                            ->where('tenant_id', '=', $tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data3 = $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id', '=', $data3['sender_id'])
+                            ->where('tenant_id', '=', $tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data4 = $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data4['customer_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data5 = $stmt->fetch();
+                        $data2[$x]['sender_customer_phone']=$data4['customer_phone'];
+                        $data2[$x]['sender_city_name']=$data5['name'];
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('customer_id', '=', $data3['receiver_id'])
+                            ->where('tenant_id', '=', $tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data6 = $stmt->fetch();
+                        $selectStatement = $database->select()
+                            ->from('city')
+                            ->where('id', '=', $data6['customer_city_id']);
+                        $stmt = $selectStatement->execute();
+                        $data7 = $stmt->fetch();
+                        $data2[$x]['receiver_city_name']=$data7['name'];
+                        $data2[$x]['receiver_customer_phone']=$data6['customer_phone'];
+                    }
                 }
-               }
                 echo json_encode(array("result" => "0", "desc" => "success", "orders" => $data2));
             }else{
                 echo json_encode(array("result" => "3", "desc" => "success", "scheduling_status" => $data['scheduling_status']));
@@ -2646,27 +2561,27 @@ $app->put('/cancelSchedulingOrder',function()use($app){
             $data10= $stmt->fetchAll();
             $exception_id=count($data10)+100000001;
             if($data!=null){
-                  for($x=0;$x<count($data);$x++){
-                      $insertStatement = $database->insert(array("order_id","tenant_id","exception_source","exception_person","exception_comment","exist","exception_time","exception_id"))
-                          ->into('exception')
-                          ->values(array($data[$x]["order_id"],$tenant_id,$exception_source,$exception_person,$exception_comment,0,$time,$exception_id));
-                      $insertId = $insertStatement->execute(false);
-                      $updateStatement = $database->update(array('is_back'=>2,"exception_id"=>$exception_id,"order_status"=>5))
+                for($x=0;$x<count($data);$x++){
+                    $insertStatement = $database->insert(array("order_id","tenant_id","exception_source","exception_person","exception_comment","exist","exception_time","exception_id"))
+                        ->into('exception')
+                        ->values(array($data[$x]["order_id"],$tenant_id,$exception_source,$exception_person,$exception_comment,0,$time,$exception_id));
+                    $insertId = $insertStatement->execute(false);
+                    $updateStatement = $database->update(array('is_back'=>2,"exception_id"=>$exception_id,"order_status"=>5))
                         ->table('orders')
                         ->where('order_id', '=', $data[$x]["order_id"])
                         ->where('tenant_id', '=', $tenant_id);
                     $affectedRows = $updateStatement->execute();
-                      $updateStatement = $database->update(array('exist'=>1))
-                          ->table('schedule_order')
-                          ->where('order_id', '=', $data[$x]["order_id"])
-                          ->where('schedule_id',"=",$scheduling_id)
-                          ->where('tenant_id', '=', $tenant_id);
-                      $affectedRows = $updateStatement->execute();
-                  }
-                $updateStatement = $database->update(array('scheduling_status'=>7))
-                        ->table('scheduling')
-                        ->where('scheduling_id', '=', $scheduling_id)
+                    $updateStatement = $database->update(array('exist'=>1))
+                        ->table('schedule_order')
+                        ->where('order_id', '=', $data[$x]["order_id"])
+                        ->where('schedule_id',"=",$scheduling_id)
                         ->where('tenant_id', '=', $tenant_id);
+                    $affectedRows = $updateStatement->execute();
+                }
+                $updateStatement = $database->update(array('scheduling_status'=>7))
+                    ->table('scheduling')
+                    ->where('scheduling_id', '=', $scheduling_id)
+                    ->where('tenant_id', '=', $tenant_id);
                 $affectedRows = $updateStatement->execute();
                 $selectStatement = $database->select()
                     ->from('agreement_schedule')
@@ -3015,7 +2930,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                     ->where('tenant_id', '=', $tenant_id);
                                                 $stmt = $selectStatement->execute();
                                                 $data8 = $stmt->fetchAll();
-                                                $array4['customer_id'] = count($data8) + 10000000001;
+                                                $array4['customer_id'] = (count($data8) + 10000000001)."";
                                                 $insertStatement = $database->insert(array_keys($array4))
                                                     ->into('customer')
                                                     ->values(array_values($array4));
@@ -3086,7 +3001,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                     ->where('tenant_id', '=', $tenant_id);
                                                 $stmt = $selectStatement->execute();
                                                 $data8 = $stmt->fetchAll();
-                                                $array4['customer_id']=count($data8)+10000000001;
+                                                $array4['customer_id']=(count($data8)+10000000001)."";
                                                 $insertStatement = $database->insert(array_keys($array4))
                                                     ->into('customer')
                                                     ->values(array_values($array4));
@@ -3209,7 +3124,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                             ->where('tenant_id', '=', $tenant_id);
                                                         $stmt = $selectStatement->execute();
                                                         $data8 = $stmt->fetchAll();
-                                                        $array4['customer_id'] = count($data8) + 10000000001;
+                                                        $array4['customer_id']=(count($data8)+10000000001)."";
                                                         $insertStatement = $database->insert(array_keys($array4))
                                                             ->into('customer')
                                                             ->values(array_values($array4));
@@ -3280,7 +3195,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                             ->where('tenant_id', '=', $tenant_id);
                                                         $stmt = $selectStatement->execute();
                                                         $data8 = $stmt->fetchAll();
-                                                        $array4['customer_id']=count($data8)+10000000001;
+                                                        $array4['customer_id']=(count($data8)+10000000001)."";
                                                         $insertStatement = $database->insert(array_keys($array4))
                                                             ->into('customer')
                                                             ->values(array_values($array4));
@@ -3347,7 +3262,7 @@ $app->put('/alterSchedulingOrder',function()use($app) {
                                                         ->where('tenant_id', '=', $contact_tenant_id);
                                                     $stmt = $selectStatement->execute();
                                                     $data14 = $stmt->fetchAll();
-                                                    $array5['customer_id'] = count($data14) + 10000000001;
+                                                    $array5['customer_id'] =(count($data14)+10000000001)."";
                                                     $array5['times']=$partner_times;
                                                     $insertStatement = $database->insert(array_keys($array5))
                                                         ->into('customer')
@@ -3747,7 +3662,7 @@ $app->put('/acceptSchedulingOrder', function () use ($app,$clapi) {
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
                 $data23 = $stmt->fetchAll();
-                $array5['customer_id'] = count($data23) + 10000000001;
+                $array5['customer_id'] =(count($data23)+10000000001)."";
                 $array5['tenant_id']=$tenant_id;
                 $array5['times']=0;
                 $array5['exist'] = 0;
@@ -3795,7 +3710,7 @@ $app->put('/acceptSchedulingOrder', function () use ($app,$clapi) {
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
                 $data25 = $stmt->fetchAll();
-                $array6['customer_id'] = count($data25) + 10000000001;
+                $array6['customer_id'] =(count($data25)+10000000001)."";
                 $array6['times']=0;
                 $array6['exist'] = 0;
                 $array6['tenant_id']=$tenant_id;

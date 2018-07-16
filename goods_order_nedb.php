@@ -3258,8 +3258,8 @@ $app->post('/addGoodsOrder',function()use($app){
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
                 $data6 = $stmt->fetchAll();
-                $array2['sender_id']=count($data6)+10000000001;
-                $array3['customer_id']=count($data6)+10000000001;
+                $array2['sender_id']=(count($data6)+10000000001)."";
+                $array3['customer_id']=(count($data6)+10000000001)."";
                 $insertStatement = $database->insert(array_keys($array3))
                     ->into('customer')
                     ->values(array_values($array3));
@@ -3272,6 +3272,7 @@ $app->post('/addGoodsOrder',function()use($app){
                     ->where('customer_id','=',$data4['customer_id'])
                     ->where('exist',"=",0);
                 $affectedRows = $updateStatement->execute();
+//                $array5['count1']=count($data6);
             }
         }else{
             $selectStatement = $database->select()
@@ -3303,12 +3304,13 @@ $app->post('/addGoodsOrder',function()use($app){
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
                 $data6 = $stmt->fetchAll();
-                $array2['sender_id']=count($data6)+10000000001;
-                $array3['customer_id']=count($data6)+10000000001;
+                $array2['sender_id']=(count($data6)+10000000001)."";
+                $array3['customer_id']=(count($data6)+10000000001)."";
                 $insertStatement = $database->insert(array_keys($array3))
                     ->into('customer')
                     ->values(array_values($array3));
                 $insertId = $insertStatement->execute(false);
+
             }else{
                 $array2['sender_id']=$data4['customer_id'];
                 $updateStatement = $database->update(array('times'=>($data4['times']+1)))
@@ -3347,8 +3349,8 @@ $app->post('/addGoodsOrder',function()use($app){
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
                 $data10 = $stmt->fetchAll();
-                $array2['receiver_id']=count($data10)+10000000001;
-                $array4['customer_id']=count($data10)+10000000001;
+                $array2['receiver_id']=(count($data10)+10000000001)."";
+                $array4['customer_id']=(count($data10)+10000000001)."";
                 $insertStatement = $database->insert(array_keys($array4))
                     ->into('customer')
                     ->values(array_values($array4));
@@ -3386,8 +3388,8 @@ $app->post('/addGoodsOrder',function()use($app){
                     ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
                 $data10 = $stmt->fetchAll();
-                $array2['receiver_id']=count($data10)+10000000001;
-                $array4['customer_id']=count($data10)+10000000001;
+                $array2['receiver_id']=(count($data10)+10000000001)."";
+                $array4['customer_id']=(count($data10)+10000000001)."";
                 $insertStatement = $database->insert(array_keys($array4))
                     ->into('customer')
                     ->values(array_values($array4));
@@ -3396,7 +3398,6 @@ $app->post('/addGoodsOrder',function()use($app){
                 $array2['receiver_id']=$data8['customer_id'];
             }
         }
-
         $selectStatement = $database->select()
             ->from('tenant')
             ->where('tenant_id', '=', $tenant_id);
@@ -3549,8 +3550,8 @@ $app->put('/saveGoodsOrder',function()use($app){
                         ->where('tenant_id', '=', $tenant_id);
                     $stmt = $selectStatement->execute();
                     $data6 = $stmt->fetchAll();
-                    $array5['sender_id']=count($data6)+10000000001;
-                    $array3['customer_id']=count($data6)+10000000001;
+                    $array5['sender_id']=(count($data6)+10000000001)."";
+                    $array3['customer_id']=(count($data6)+10000000001)."";
                     $insertStatement = $database->insert(array_keys($array3))
                         ->into('customer')
                         ->values(array_values($array3));
@@ -3650,8 +3651,8 @@ $app->put('/saveGoodsOrder',function()use($app){
                         ->where('tenant_id', '=', $tenant_id);
                     $stmt = $selectStatement->execute();
                     $data6 = $stmt->fetchAll();
-                    $array5['sender_id']=count($data6)+10000000001;
-                    $array3['customer_id']=count($data6)+10000000001;
+                    $array5['sender_id']=(count($data6)+10000000001)."";
+                    $array3['customer_id']=(count($data6)+10000000001)."";
                     $insertStatement = $database->insert(array_keys($array3))
                         ->into('customer')
                         ->values(array_values($array3));
@@ -3750,8 +3751,8 @@ $app->put('/saveGoodsOrder',function()use($app){
                         ->where('tenant_id', '=', $tenant_id);
                     $stmt = $selectStatement->execute();
                     $data10 = $stmt->fetchAll();
-                    $array5['receiver_id']=count($data10)+10000000001;
-                    $array4['customer_id']=count($data10)+10000000001;
+                    $array5['receiver_id']=(count($data10)+10000000001)."";
+                    $array4['customer_id']=(count($data10)+10000000001)."";
                     $insertStatement = $database->insert(array_keys($array4))
                         ->into('customer')
                         ->values(array_values($array4));
@@ -3789,8 +3790,8 @@ $app->put('/saveGoodsOrder',function()use($app){
                         ->where('tenant_id', '=', $tenant_id);
                     $stmt = $selectStatement->execute();
                     $data10 = $stmt->fetchAll();
-                    $array5['receiver_id']=count($data10)+10000000001;
-                    $array4['customer_id']=count($data10)+10000000001;
+                    $array5['receiver_id']=(count($data10)+10000000001)."";
+                    $array4['customer_id']=(count($data10)+10000000001)."";
                     $insertStatement = $database->insert(array_keys($array4))
                         ->into('customer')
                         ->values(array_values($array4));
@@ -4017,6 +4018,11 @@ $app->put('/deleteGoodsOrder',function()use($app){
         echo json_encode(array("result"=>"2",'desc'=>'缺少租户id'));
     }
 });
+
+
+
+
+
 
 $app->run();
 function localhost(){

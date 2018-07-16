@@ -82,24 +82,7 @@ $app->post('/addPickup',function()use($app) {
     }
 });
 
-$app->get('/getPickup0',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
-    $database = localhost();
-    $pickup_name=$app->request->get('pickup_name');
-    $pickup_phone=$app->request->get('pickup_phone');
-    $pickup_number=$app->request->get('pickup_number');
-    $type=$app->request->get('type');
-    $selectStatement = $database->select()
-        ->from('pickup')
-        ->where('pickup_name','=',$pickup_name)
-        ->where('pickup_phone','=',$pickup_phone)
-        ->where('pickup_number','=',$pickup_number)
-        ->where('type','=',$type)
-        ->where('exist','=',0);
-    $stmt = $selectStatement->execute();
-    $data = $stmt->fetchAll();
-    echo json_encode(array("result" => "0", "desc" => "success",'pickups'=>$data));
-});
+
 
 $app->get('/getPickup1',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
@@ -114,15 +97,6 @@ $app->get('/getPickup1',function()use($app){
     echo json_encode(array("result" => "0", "desc" => "success",'pickups'=>$data));
 });
 
-$app->get('/getPickups0',function()use($app){
-    $app->response->headers->set('Content-Type', 'application/json');
-    $database = localhost();
-    $selectStatement = $database->select()
-        ->from('pickup');
-    $stmt = $selectStatement->execute();
-    $data = $stmt->fetchAll();
-    echo json_encode(array("result" => "0", "desc" => "success",'pickups'=>$data));
-});
 
 $app->get('/getPickups1',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');

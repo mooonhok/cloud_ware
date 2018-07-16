@@ -935,6 +935,34 @@ $app->get('/old_customers_w',function()use($app){
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$data1));
 });
 
+
+
+$app->get('/test',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    $selectStatement = $database->select()
+        ->from('tenant')
+        ->where('tenant_id', '=', $tenant_id);
+    $stmt = $selectStatement->execute();
+    $data5 = $stmt->fetch();
+    $selectStatement = $database->select()
+        ->from('customer')
+        ->whereNull('wx_openid')
+        ->where('customer_id', '!=', $data5['contact_id'])
+        ->where('tenant_id', '=', $tenant_id);
+    $stmt = $selectStatement->execute();
+    $data6 = $stmt->fetchAll();
+    $sender_id=count($data6)+10000000001;
+//    $array3['customer_id']=count($data6)+10000000001;
+    echo json_encode(array("result"=>"0",'desc'=>'success','customer_id'=>$sender_id,"count"=>count($data6)));
+});
+
+
+
+
+
 $app->run();
 //二维数组依据一个元素去重
 function array_unset_tt($arr,$key){

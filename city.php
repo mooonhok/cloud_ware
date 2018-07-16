@@ -24,17 +24,17 @@ $app->get('/province',function ()use($app){
 });
 
 $app->get('/city',function()use($app){
-      $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $pid=$app->request->get('pid');
     if($pid!=null||$pid!=""){
-            $selectStatement = $database->select()
-                ->from('city')
-                ->where('pid','=',$pid);
-            $stmt = $selectStatement->execute();
-            $data = $stmt->fetchAll();
-            echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('pid','=',$pid);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data));
     }
 });
 
