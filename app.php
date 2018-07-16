@@ -221,7 +221,8 @@ $app->get('/lorry_long',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $database=localhost();
     $selectStament = $database->select()
-        ->from('lorry_length');
+        ->from('lorry_length')
+        ->orderBy('lorry_length');
     $stmt = $selectStament->execute();
     $data = $stmt->fetchAll();
     if($data!=null){
