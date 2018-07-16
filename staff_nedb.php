@@ -325,28 +325,6 @@ $app->get('/limitStaffs',function()use($app){
 });
 
 
-//$app->delete('/deleteStaff',function()use($app){
-//    $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
-//    $tenant_id=$app->request->headers->get('tenant-id');
-//    $database=localhost();
-//    $staff_id=$app->request->get('staff_id');
-//        if($staff_id!=null||$staff_id!=''){
-//            if($tenant_id!=null||$tenant_id!=''){
-//                $updateStatement = $database->update(array('exist'=>1))
-//                    ->table('staff')
-//                    ->where('tenant_id','=',$tenant_id)
-//                    ->where('exist',"=",0)
-//                    ->where('staff_id','=',$staff_id);
-//                $affectedRows = $updateStatement->execute();
-//                echo json_encode(array('result'=>'0','desc'=>'success'));
-//            }else{
-//                echo json_encode(array('result'=>'1','desc'=>'租户为空'));
-//            }
-//        }else{
-//            echo json_encode(array('result'=>'2','desc'=>'员工id为空'));
-//        }
-//});
 
 $app->get('/searchStaff0',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
