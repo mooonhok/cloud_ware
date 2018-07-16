@@ -3185,7 +3185,6 @@ $app->post('/addGoodsOrder',function()use($app){
     $array2=array();
     $array3=array();
     $array4=array();
-    $array5=array();
     $array1['goods_name']=$body->goods_name;
     $array1['goods_weight']=$body->goods_weight;
     $array1['goods_value']=$body->goods_value;
@@ -3261,8 +3260,6 @@ $app->post('/addGoodsOrder',function()use($app){
                 $data6 = $stmt->fetchAll();
                 $array2['sender_id']=(count($data6)+10000000001)."";
                 $array3['customer_id']=(count($data6)+10000000001)."";
-                $array5['count1']=count($data6);
-                $array5['customer_id1']=(count($data6)+10000000001)."";
                 $insertStatement = $database->insert(array_keys($array3))
                     ->into('customer')
                     ->values(array_values($array3));
@@ -3313,8 +3310,7 @@ $app->post('/addGoodsOrder',function()use($app){
                     ->into('customer')
                     ->values(array_values($array3));
                 $insertId = $insertStatement->execute(false);
-                $array5['count1']=count($data6);
-                $array5['customer_id1']=(count($data6)+10000000001)."";
+
             }else{
                 $array2['sender_id']=$data4['customer_id'];
                 $updateStatement = $database->update(array('times'=>($data4['times']+1)))
@@ -3359,8 +3355,6 @@ $app->post('/addGoodsOrder',function()use($app){
                     ->into('customer')
                     ->values(array_values($array4));
                 $insertId = $insertStatement->execute(false);
-                $array5['count2']=count($data10);
-                $array5['customer_id2']=(count($data10)+10000000001)."";
             }else{
                 $array2['receiver_id']=$data8['customer_id'];
             }
@@ -3396,8 +3390,6 @@ $app->post('/addGoodsOrder',function()use($app){
                 $data10 = $stmt->fetchAll();
                 $array2['receiver_id']=(count($data10)+10000000001)."";
                 $array4['customer_id']=(count($data10)+10000000001)."";
-                $array5['count2']=count($data10);
-                $array5['customer_id2']=(count($data10)+10000000001)."";
                 $insertStatement = $database->insert(array_keys($array4))
                     ->into('customer')
                     ->values(array_values($array4));
@@ -3460,7 +3452,7 @@ $app->post('/addGoodsOrder',function()use($app){
                 ->into('orders')
                 ->values(array_values($array2));
             $insertId = $insertStatement->execute(false);
-            echo json_encode(array("result" => "0", "desc" => "success",'order_id'=>$array1['order_id'],'con'=>$array5));
+            echo json_encode(array("result" => "0", "desc" => "success",'order_id'=>$array1['order_id']));
         }else{
             echo json_encode(array("result" => "2", "desc" => "租户不存在"));
         }
