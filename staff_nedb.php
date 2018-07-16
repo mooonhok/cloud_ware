@@ -97,25 +97,6 @@ $app->post('/addstaff',function()use($app){
     }
 });
 
-//$app->get('/getStaff0',function()use($app){
-//    $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
-//    $database=localhost();
-//    $tenant_id=$app->request->headers->get('tenant-id');
-//    $username=$app->request->get('username');
-//        if($username!=null||$username!=''){
-//            $selectStatement = $database->select()
-//                ->from('staff')
-//                ->where('exist',"=",0)
-//                ->where('username','=',$username)
-//                ->where('tenant_id','=',$tenant_id);
-//            $stmt = $selectStatement->execute();
-//            $data = $stmt->fetchAll();
-//            echo json_encode(array('result'=>'0','desc'=>'success','staffs'=>$data));
-//        }else{
-//            echo json_encode(array('result'=>'1','desc'=>'缺少员工名字'));
-//        }
-//});
 
 $app->get('/getStaff1',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -297,18 +278,6 @@ $app->get('/getStaff2',function()use($app){
     }
 });
 
-//$app->get('/getStaffs0',function()use($app){
-//    $app->response->headers->set('Access-Control-Allow-Origin','*');
-//    $app->response->headers->set('Content-Type','application/json');
-//    $tenant_id=$app->request->headers->get('tenant-id');
-//    $database=localhost();
-//            $selectStatement = $database->select()
-//                ->from('staff')
-//                ->where('tenant_id','=',$tenant_id);
-//            $stmt = $selectStatement->execute();
-//            $data = $stmt->fetchAll();
-//            echo json_encode(array('result'=>'0','desc'=>'success','staffs'=>$data));
-//});
 
 $app->get('/getStaffs1',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');

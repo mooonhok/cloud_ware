@@ -63,7 +63,7 @@ $app->post('/addCustomer',function()use($app) {
                                 ->where('tenant_id', '=', $tenant_id);
                             $stmt = $selectStatement->execute();
                             $data = $stmt->fetchAll();
-                            $array['customer_id']=count($data)+10000000001;
+                            $array['customer_id']=(count($data)+10000000001)."";
                             $insertStatement = $database->insert(array_keys($array))
                                 ->into('customer')
                                 ->values(array_values($array));
@@ -101,7 +101,7 @@ $app->post('/addCustomer',function()use($app) {
                                         ->where('tenant_id', '=', $tenant_id);
                                     $stmt = $selectStatement->execute();
                                     $data = $stmt->fetchAll();
-                                    $array['customer_id']=count($data)+10000000001;
+                                    $array['customer_id']=(count($data)+10000000001)."";
                                     $insertStatement = $database->insert(array_keys($array))
                                         ->into('customer')
                                         ->values(array_values($array));
