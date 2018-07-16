@@ -62,22 +62,6 @@ $app->post('/addAgreement',function()use($app) {
 });
 
 
-$app->get('/getAgreements0',function()use($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
-    $tenant_id = $app->request->headers->get("tenant-id");
-    $database=localhost();
-    if($tenant_id!=''||$tenant_id!=null){
-        $selectStatement = $database->select()
-            ->from('agreement')
-            ->where('tenant_id','=',$tenant_id);
-        $stmt = $selectStatement->execute();
-        $data = $stmt->fetchAll();
-        echo json_encode(array("result" => "1", "desc" => 'success','agreements'=>$data));
-    }else{
-        echo json_encode(array("result" => "2", "desc" => "缺少租户id"));
-    }
-});
-
 
 $app->get('/getAgreements',function()use($app) {
     $app->response->headers->set('Content-Type', 'application/json');
@@ -152,34 +136,7 @@ $app->put('/alterAgreement',function()use($app) {
     }
 });
 
-$app->put('/alterAgreement1',function()use($app) {
-    $app->response->headers->set('Content-Type', 'application/json');
-    $tenant_id = $app->request->headers->get("tenant-id");
-    $database=localhost();
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $agreement_id=$body->agreement_id;
-    $agreement_status=$body->agreement_status;
-    $array=array();
-    foreach($body as $key=>$value){
-        $array[$key]=$value;
-    }
-    if($tenant_id!=''||$tenant_id!=null){
-        if($agreement_id!=null||$agreement_id!=''){
-                $updateStatement = $database->update(array('agreement_status'=>$agreement_status))
-                    ->table('agreement')
-                    ->where('tenant_id','=',$tenant_id)
-                    ->where('agreement_id','=',$agreement_id)
-                    ->where('exist',"=","0");
-                $affectedRows = $updateStatement->execute();
-                echo json_encode(array("result" => "0", "desc" => "success"));
-        }else{
-            echo json_encode(array("result" => "2", "desc" => "缺少合同id"));
-        }
-    }else{
-        echo json_encode(array("result" => "3", "desc" => "缺少租户id"));
-    }
-});
+
 
 $app->get('/limitAgreements',function()use($app) {
     $app->response->headers->set('Content-Type', 'application/json');
