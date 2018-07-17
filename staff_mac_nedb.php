@@ -125,51 +125,9 @@ $app->get('/getStaffMac1',function()use($app){
     }
 });
 
-$app->put('/alterStaffMac0',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $database=localhost();
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $id=$body->id;
-    $array=array();
-    foreach($body as $key=>$value){
-        $array[$key]=$value;
-    }
-    if($id!=null||$id!=''){
-        $updateStatement = $database->update($array)
-            ->table('staff_mac')
-            ->where('id','=',$id);
-        $affectedRows = $updateStatement->execute();
-        echo json_encode(array("result"=>"0","desc"=>"success"));
-    }else{
-        echo json_encode(array('result'=>'5','desc'=>'缺少租户id'));
-    }
-});
 
-$app->put('/alterStaffMac1',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $database=localhost();
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $id=$body->id;
-    $is_remember=$body->is_remember;
-    $array=array();
-    foreach($body as $key=>$value){
-        $array[$key]=$value;
-    }
-    if($id!=null||$id!=''){
-        $updateStatement = $database->update(array('is_remember'=>$is_remember))
-            ->table('staff_mac')
-            ->where('id','=',$id);
-        $affectedRows = $updateStatement->execute();
-        echo json_encode(array("result"=>"0","desc"=>"success"));
 
-      }else{
-        echo json_encode(array('result'=>'5','desc'=>'缺少租户id'));
-    }
-});
+
 
 $app->put('/alterStaffMac2',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -206,25 +164,6 @@ $app->put('/alterStaffMac2',function()use($app){
     }
 });
 
-$app->put('/alterStaffMac3',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $database=localhost();
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $id=$body->id;
-    date_default_timezone_set("PRC");
-    $login_time=date('Y-m-d H:i:s',time());
-    if($id!=null||$id!=''){
-        $updateStatement = $database->update(array('login_time'=>$login_time))
-            ->table('staff_mac')
-            ->where('id','=',$id);
-        $affectedRows = $updateStatement->execute();
-        echo json_encode(array("result"=>"0","desc"=>"success"));
-    }else{
-        echo json_encode(array('result'=>'5','desc'=>'缺少租户id'));
-    }
-});
 
 $app->get('/alterStaffMac4',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
