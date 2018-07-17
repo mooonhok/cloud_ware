@@ -1218,7 +1218,7 @@ $app->get('/lastinsurance',function()use($app){
 //                        $arrays1['goods_name'] = $data2[$i]['g_type'];
                         array_push($arrays, $arrays1);
                     }
-                    echo json_encode(array('result' => '0', 'desc' => '', 'rechanges' => $arrays,'count'=>$num,'countins'=>$a));
+                    echo json_encode(array('result' => '0', 'desc' => 'success', 'rechanges' => $arrays,'count'=>$num,'countins'=>$a));
                 } else {
                     echo json_encode(array('result' => '3', 'desc' => '该公司无历史保单', 'rechanges' => ''));
                 }
