@@ -75,11 +75,15 @@ $app->get('/all',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $table=$app->request->get('table_name');
     $database=localhost();
+//    $selectStatement = $database->select()
+//        ->count('id','aaa')
+//        ->from($table.'');
+//    $stmt = $selectStatement->execute();
+//    $data = $stmt->fetch();
     $selectStatement = $database->select()
-        ->count('id','aaa')
         ->from($table.'');
     $stmt = $selectStatement->execute();
-    $data = $stmt->fetch();
+    $data = $stmt->fetchAll();
     echo  json_encode(array("result"=>"0","desc"=>"success","tables"=>$data));
 });
 
