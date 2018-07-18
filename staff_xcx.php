@@ -930,6 +930,7 @@ $app->post('/changeOrderIsSchedule',function()use($app){
     $body=json_decode($body);
     $order_id=$body->order_id;
     $is_schedule=$body->is_schedule;
+    $i=$body->i;
     $database=localhost();
     if($tenant_id!=null||$tenant_id!=''){
         if($order_id!=null||$order_id!=''){
@@ -938,7 +939,7 @@ $app->post('/changeOrderIsSchedule',function()use($app){
                                         ->where('tenant_id','=',$tenant_id)
                                         ->where('order_id','=',$order_id);
                                     $affectedRows = $updateStatement->execute();
-            echo json_encode(array('result'=>'0','desc'=>'success'));
+            echo json_encode(array('result'=>'0','desc'=>'success','i'=>$i));
         }else{
             echo json_encode(array('result'=>'2','desc'=>'缺少运单id'));
         }
