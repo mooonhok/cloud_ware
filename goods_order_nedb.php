@@ -2977,6 +2977,7 @@ $app->post('/addGoodsOrder',function()use($app){
     $array2['order_cost']=$body->order_cost;
     $array2['order_status']=$body->order_status;
     $array2['inventory_type']=$body->inventory_type;
+    $array2['collect_cost']=$body->collect_cost;
     $flag=$body->flag;
     $sender_name = $body->sender_name;
     $sender_phone = $body->sender_phone;
