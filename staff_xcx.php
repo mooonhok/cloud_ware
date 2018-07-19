@@ -1860,7 +1860,7 @@ $app->put('/alterOrders0',function()use($app){
 $app->get('/getTenant',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-    $tenant_id=$app->request->get('tenant-id');
+    $tenant_id = $app->request->headers->get("tenant-id");
     $database=localhost();
     $array1=array();
     if($tenant_id!=null||$tenant_id!=""){
