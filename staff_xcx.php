@@ -1836,6 +1836,29 @@ $app->put('/newChangeIsContract',function()use($app){
     $affectedRows = $updateStatement->execute();
 });
 
+$app->put('/alterOrders0',function()use($app){
+    $app->response->headers->set('Content-Type', 'application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database = localhost();
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $is_schedule = $body->is_schedule;
+    $is_transfer=$body->is_transfer;
+    if($tenant_id!=null||$tenant_id!=''){
+        $updateStatement = $database->update(array('is_transfer'=>$is_transfer,'is_schedule'=>$is_schedule))
+            ->table('orders')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('exist','=',0)
+            ->where('is_schedule','=',1);
+        $affectedRows = $updateStatement->execute();
+        echo json_encode(array("result" => "0", "desc" => "success"));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少运单id", "orders" => ""));
+    }
+});
+
+
+
 $app->run();
 
 function localhost(){
