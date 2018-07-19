@@ -872,7 +872,6 @@ $app->get('/orderGoodsCity',function()use($app){
             ->where('orders.is_schedule','=',0);
         $stmt = $selectStatement->execute();
         $data= $stmt->fetchAll();
-
         for($i=0;$i<count($data);$i++){
             $selectStatement = $database->select()
                 ->from('customer')
@@ -891,6 +890,8 @@ $app->get('/orderGoodsCity',function()use($app){
             $stmt = $selectStatement->execute();
             $data3= $stmt->fetch();
             $data[$i]['receive_name']=$data1['customer_name'];
+            $data[$i]['receive_address']=$data1['customer_address'];
+            $data[$i]['receive_phone']=$data1['customer_phone'];
             $data[$i]['receive_city_name']=$data2['name'];
             $data[$i]['goods_package']=$data3['goods_package'];
         }
@@ -910,12 +911,12 @@ $app->post('/orderCustomer',function()use($app){
     $database=localhost();
     $array=array();
     if($tenant_id!=null||$tenant_id!=''){
-                $selectStatement = $database->select()
-                    ->from('customer')
-                    ->where('tenant_id','=',$tenant_id)
-                    ->where('customer_id','=',$receive_id);
-                $stmt = $selectStatement->execute();
-                $data1= $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('customer')
+            ->where('tenant_id','=',$tenant_id)
+            ->where('customer_id','=',$receive_id);
+        $stmt = $selectStatement->execute();
+        $data1= $stmt->fetch();
         echo json_encode(array('result'=>'0','desc'=>'success','orderCustomer'=>$data1));
     }else{
         echo json_encode(array('result'=>'1','desc'=>'缺少租户id'));
@@ -934,11 +935,11 @@ $app->post('/changeOrderIsSchedule',function()use($app){
     $database=localhost();
     if($tenant_id!=null||$tenant_id!=''){
         if($order_id!=null||$order_id!=''){
-                                    $updateStatement = $database->update(array("is_schedule"=>$is_schedule))
-                                        ->table('orders')
-                                        ->where('tenant_id','=',$tenant_id)
-                                        ->where('order_id','=',$order_id);
-                                    $affectedRows = $updateStatement->execute();
+            $updateStatement = $database->update(array("is_schedule"=>$is_schedule))
+                ->table('orders')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('order_id','=',$order_id);
+            $affectedRows = $updateStatement->execute();
             echo json_encode(array('result'=>'0','desc'=>'success','i'=>$i));
         }else{
             echo json_encode(array('result'=>'2','desc'=>'缺少运单id'));
