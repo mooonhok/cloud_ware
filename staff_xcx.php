@@ -1877,12 +1877,12 @@ $app->get('/getTenant',function()use($app){
                 ->where('customer_id',"=",$data['contact_id']);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('city')
-                ->where('id',"=",$data1['customer_city_id']);
-            $stmt = $selectStatement->execute();
-            $data2 = $stmt->fetch();
-            $array1['address']=$data2['name'].$data1['customer_address'];
+//            $selectStatement = $database->select()
+//                ->from('city')
+//                ->where('id',"=",$data1['customer_city_id']);
+//            $stmt = $selectStatement->execute();
+//            $data2 = $stmt->fetch();
+            $array1['address']=$data1['customer_address'];
             $array1['customer_name']=$data1['customer_name'];
             $array1['customer_phone']=$data1['customer_phone'];
             echo  json_encode(array("result"=>"0","desc"=>"success","tenant"=>$array1));
