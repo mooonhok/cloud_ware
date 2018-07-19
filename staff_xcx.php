@@ -1857,7 +1857,42 @@ $app->put('/alterOrders0',function()use($app){
     }
 });
 
-
+$app->get('/getTenant',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->get('tenant_id');
+    $database=localhost();
+    $array1=array();
+    if($tenant_id!=null||$tenant_id!=""){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('tenant_id',"=",$tenant_id)
+            ->where('exist','=',0);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetch();
+        $array1['company']=$data['company'];
+        if($data!=null){
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('customer_id',"=",$data['contact_id']);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id',"=",$data1['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $array1['address']=$data2['name'].$data1['customer_address'];
+            $array1['customer_name']=$data1['customer_name'];
+            $array1['customer_phone']=$data1['customer_phone'];
+            echo  json_encode(array("result"=>"0","desc"=>"success","tenant"=>$array1));
+        }else{
+            echo  json_encode(array("result"=>"1","desc"=>"租户不存在"));
+        }
+    }else{
+        echo json_encode(array("result" => "2", "desc" => "缺少租户id"));
+    }
+});
 
 $app->run();
 
