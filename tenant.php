@@ -1740,6 +1740,7 @@ $app->get('/getPC',function()use($app){
     $app->response->headers->set('Content-Type', 'application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
+    $array1=array();
     if($tenant_id!=null||$tenant_id!=""){
         $selectStatement = $database->select()
             ->from('tenant')
@@ -1747,6 +1748,16 @@ $app->get('/getPC',function()use($app){
             ->where('exist','=',0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('customer')
+            ->where('customer_id',"=",$data['contact_id']);
+        $stmt = $selectStatement->execute();
+        $data3 = $stmt->fetch();
+        $array1['customer_address']=$data3['customer_address'];
+        $array1['customer_name']=$data3['customer_name'];
+        $array1['customer_phone']=$data3['customer_phone'];
+        $array1['company']=$data['company'];
+        $array1['tenant_num']=$data['tenant_num'];
         $selectStatement = $database->select()
             ->from('city')
             ->where('id',"=",$data['from_city_id']);
@@ -1757,8 +1768,8 @@ $app->get('/getPC',function()use($app){
             ->where('pid',"=",$data2['pid'])
             ->where('id',"<",$data["from_city_id"]);
         $stmt = $selectStatement->execute();
-        $data3 = $stmt->fetchAll();
-        echo json_encode(array("result"=>"0",'desc'=>'','province_id'=>$data2['pid'],"city_id"=>$data['from_city_id'],"number"=>count($data3)+1));
+        $data4 = $stmt->fetchAll();
+        echo json_encode(array("result"=>"0",'desc'=>'','province_id'=>$data2['pid'],"city_id"=>$data['from_city_id'],"number"=>count($data4)+1,"tenant"=>$array1));
     }else{
         echo json_encode(array("result"=>"4",'desc'=>'缺少租户id'));
     }
