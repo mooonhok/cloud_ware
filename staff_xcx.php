@@ -1425,10 +1425,10 @@ $app->post('/checkagreement',function()use($app){
                         $stmt = $selectStatement->execute();
                         $data2= $stmt->fetch();
                         if(!$data2) {
-                            if ($schedu!=null||$schedu!="") {
+                            if ($schedu==null||$schedu=="") {
                                 $schedu .= $array1[$i];
                             } else {
-                                $schedu .= ',' . $array1[$i];
+                                $schedu .= ','.$array1[$i];
                             }
                         }
                     }
