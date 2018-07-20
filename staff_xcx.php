@@ -771,11 +771,12 @@ $app->post('/changeOrderIsSchedule',function()use($app){
     $body=json_decode($body);
     $order_id=$body->order_id;
     $is_schedule=$body->is_schedule;
+    $is_transfer=$body->is_transfer;
     $i=$body->i;
     $database=localhost();
     if($tenant_id!=null||$tenant_id!=''){
         if($order_id!=null||$order_id!=''){
-            $updateStatement = $database->update(array("is_schedule"=>$is_schedule))
+            $updateStatement = $database->update(array("is_schedule"=>$is_schedule,"is_transfer"=>$is_transfer))
                 ->table('orders')
                 ->where('tenant_id','=',$tenant_id)
                 ->where('order_id','=',$order_id);
