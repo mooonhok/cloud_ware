@@ -3031,7 +3031,6 @@ $app->get('/getDepartList',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id = $app->request->headers->get("tenant-id");
     $database=localhost();
-    $array1=array();
     if($tenant_id!=null||$tenant_id!=""){
         $selectStatement = $database->select()
             ->from('scheduling')
@@ -3039,8 +3038,42 @@ $app->get('/getDepartList',function()use($app){
             ->where('scheduling_status', '=',1)
             ->where('is_load','=',3);
         $stmt = $selectStatement->execute();
-        $data7 = $stmt->fetchAll();
-        echo  json_encode(array("result"=>"0","desc"=>"success","schedulings"=>$data7));
+        $data = $stmt->fetchAll();
+        for($x=0;$x<count($data);$x++){
+            $selectStatement = $database->select()
+                ->from('lorry')
+                ->where('lorry_id', '=', $data[$x]['lorry_id'])
+                ->where('tenant_id', '=', $tenant_id);
+            $stmt = $selectStatement->execute();
+            $data8 = $stmt->fetch();
+            $data[$x]['lorry']=$data8;
+            $selectStatement = $database->select()
+                ->from('customer')
+                ->where('customer_id', '=', $data[$x]['receiver_id'])
+                ->where('tenant_id', '=', $tenant_id);
+            $stmt = $selectStatement->execute();
+            $data6 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data6['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data7 = $stmt->fetch();
+            $data6['customer_city_name']=$data7['name'];
+            $data[$x]['customer']=$data6;
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data[$x]['send_city_id']);
+            $stmt = $selectStatement->execute();
+            $data2= $stmt->fetch();
+            $data[$x]['send_city']=$data2['name'];
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data[$x]['receive_city_id']);
+            $stmt = $selectStatement->execute();
+            $data3= $stmt->fetch();
+            $data[$x]['receive_city']=$data3['name'];
+        }
+        echo  json_encode(array("result"=>"0","desc"=>"success","schedulings"=>$data));
     }else{
         echo json_encode(array("result" => "2", "desc" => "缺少租户id"));
     }
