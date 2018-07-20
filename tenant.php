@@ -1764,8 +1764,13 @@ $app->get('/getPC',function()use($app){
             ->where('id',"<",$data["from_city_id"]);
         $stmt = $selectStatement->execute();
         $data4 = $stmt->fetchAll();
+        $selectStatement = $database->select()
+            ->from('province')
+            ->where('id','=',$data2['pid']);
+        $stmt = $selectStatement->execute();
+        $data5 = $stmt->fetch();
         echo json_encode(array("result"=>"0",'desc'=>'','province_id'=>$data2['pid'],"city_id"=>$data['from_city_id'],"number"=>count($data4)+1,"customer_name"=>$data3['customer_name'],
-            'customer_address'=>$data3['customer_address'],'customer_phone'=>$data3['customer_phone'],'company'=>$data['company'],'tenant_num'=>$data['tenant_num']));
+            'customer_address'=>$data3['customer_address'],'customer_phone'=>$data3['customer_phone'],'company'=>$data['company'],'tenant_num'=>$data['tenant_num'],'city_name'=>$data2['name'],'province_name'=>$data5['name']));
     }else{
         echo json_encode(array("result"=>"4",'desc'=>'缺少租户id'));
     }
