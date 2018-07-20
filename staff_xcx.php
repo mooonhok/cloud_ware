@@ -1432,7 +1432,6 @@ $app->post('/checkagreement',function()use($app){
                             }
                         }
                     }
-
                     if($schedu){
                         echo json_encode(array('result'=>'98','desc'=>'清单号：'.$schedu.'，与车辆不符'));
                     }else{
@@ -1480,143 +1479,6 @@ $app->post('/checkagreement',function()use($app){
     }
 });
 
-$app->post('/add_agreement',function()use($app){
-    $app->response->headers->set('Access-Control-Allow-Origin','*');
-    $app->response->headers->set('Content-Type','application/json');
-    $tenant_id = $app->request->headers->get("tenant-id");
-    $database=localhost();
-    $body=$app->request->getBody();
-    $body=json_decode($body);
-    $scheduling_ids=$body->scheduling_ids;
-    $driver_name=$body->driver_name;
-    $driver_phone=$body->driver_phone;
-    $plate_number=$body->plate_number;
-    $deadline=$body->deadline;
-    $pay_method=$body->pay_method;
-    $freight=$body->freight;
-    $agreement_require=$body->agreement_require;
-    $array = array();
-    foreach ($body as $key => $value) {
-        if($key!='scheduling_ids'&&$key!='driver_name'&&$key!='driver_phone'&&$key!='plate_number'){
-            $array[$key] = $value;
-        }
-    }
-
-    $array1 = array();
-    foreach ($scheduling_ids as $key => $value) {
-        $array1[$key] = $value;
-    }
-    if($driver_name!=null||$driver_name!=''){
-        if($driver_phone!=null||$driver_phone!=''){
-            if($plate_number!=null||$plate_number!=''){
-                if($freight!=null||$freight!=''){
-                    if($deadline!=null||$deadline!=''){
-                        $selectStatement = $database->select()
-                            ->from('lorry')
-                            ->where('driver_phone','=',$driver_phone)
-                            ->where('driver_name','=',$driver_name)
-                            ->where('plate_number','=',$plate_number)
-                            ->where('tenant_id','=',$tenant_id)
-                            ->where('exist','=',0);
-                        $stmt = $selectStatement->execute();
-                        $data1= $stmt->fetch();
-                        $selectStatement = $database->select()
-                            ->count('*','num')
-                            ->from('agreement')
-                            ->where('tenant_id','=',$tenant_id);
-                        $stmt = $selectStatement->execute();
-                        $data2= $stmt->fetch();
-                        $selectStatement = $database->select()
-                            ->from('app_lorry')
-                            ->where('phone','=',$driver_phone)
-                            ->where('name','=',$driver_name)
-                            ->where('plate_number','=',$plate_number)
-                            ->where('lorry_status','=',2)
-                            ->where('exist','=',0);
-                        $stmt = $selectStatement->execute();
-                        $data3= $stmt->fetch();
-                        $selectStatement = $database->select()
-                            ->from('ticket_lorry')
-                            ->where('lorry_id','=',$data3['app_lorry_id']);
-                        $stmt = $selectStatement->execute();
-                        $data4= $stmt->fetch();
-                        $selectStatement = $database->select()
-                            ->from('scheduling')
-                            ->where('scheduling_id','=',$array1[0])
-                            ->where('tenant_id','=',$tenant_id)
-                            ->where('is_contract','=',3)
-                            ->where('exist','=',0)
-                            ->where('lorry_id','=',$data1['lorry_id']);
-                        $stmt = $selectStatement->execute();
-                        $data5= $stmt->fetch();
-                        $selectStatement = $database->select()
-                            ->from('city')
-                            ->where('id', '=', $data5['receive_city_id']);
-                        $stmt = $selectStatement->execute();
-                        $data6= $stmt->fetch();
-                        $selectStatement = $database->select()
-                            ->from('tenant')
-                            ->where('tenant_id','=',$tenant_id);
-                        $stmt = $selectStatement->execute();
-                        $data7= $stmt->fetch();
-                        $agreement_id='';
-                        if(strlen(($data2['num']+1).'')==1){
-                            $agreement_id='HT'.$data7['tenant_num'].'00000'.($data2['num']+1);
-                        }else if(strlen(($data2['num']+1).'')==2){
-                            $agreement_id='HT'.$data7['tenant_num'].'0000'.($data2['num']+1);
-                        }else if(strlen(($data2['num']+1).'')==3){
-                            $agreement_id='HT'.$data7['tenant_num'].'000'.($data2['num']+1);
-                        }else if(strlen(($data2['num']+1).'')==4){
-                            $agreement_id='HT'.$data7['tenant_num'].'00'.($data2['num']+1);
-                        }else if(strlen(($data2['num']+1).'')==5){
-                            $agreement_id='HT'.$data7['tenant_num'].'0'.($data2['num']+1);
-                        }else if(strlen(($data2['num']+1).'')==6){
-                            $agreement_id='HT'.$data7['tenant_num'].''.($data2['num']+1);
-                        }else{
-                            echo json_encode(array('result'=>'10','desc'=>'合同满仓'));
-                            exit;
-                        }
-                        date_default_timezone_set("PRC");
-                        $shijian=date("Y-m-d H:i:s",time());
-                        $array['agreement_id']=$agreement_id;
-                        $array['secondparty_id']=$data1['lorry_id'];
-                        $array['agreement_time']=$shijian;
-                        $array['rcity']=$data6['name'];
-                        $array['company_id']=$data4['company_id'];
-                        $array['exist']=0;
-                        $array['tenant_id']=$tenant_id;
-                        $insertStatement = $database->insert(array_keys($array))
-                            ->into('agreement')
-                            ->values(array_values($array));
-                        $insertId = $insertStatement->execute(false);
-                        for($i=0;$i<count($array1);$i++){
-                            $insertStatement = $database->insert(array('tenant_id','agreement_id','scheduling_id','exist'))
-                                ->into('agreement_schedule')
-                                ->values(array($tenant_id,$agreement_id,$array1[$i],0));
-                            $insertId = $insertStatement->execute(false);
-                            $updateStatement = $database->update(array("is_contract" => 2))
-                                ->table('scheduling')
-                                ->where('tenant_id', '=', $tenant_id)
-                                ->where('scheduling_id','=',$array1[$i]);
-                            $affectedRows = $updateStatement->execute();
-                        }
-                        echo json_encode(array('result'=>'0','desc'=>'success'));
-                    }else{
-                        echo json_encode(array('result'=>'1','desc'=>'缺少约定时间'));
-                    }
-                }else{
-                    echo json_encode(array('result'=>'2','desc'=>'缺少运费'));
-                }
-            }else{
-                echo json_encode(array('result'=>'3','desc'=>'缺少车牌号码'));
-            }
-        }else{
-            echo json_encode(array('result'=>'4','desc'=>'缺少驾驶员电话'));
-        }
-    }else{
-        echo json_encode(array('result'=>'5','desc'=>'缺少驾驶员名字'));
-    }
-});
 
 $app->put('/newChangeIsContract',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
@@ -3092,6 +2954,76 @@ $app->put('/finishSchedulingOrder',function()use($app){
     }
 });
 
+$app->post('/addAgreementScheduling',function()use($app) {
+    $app->response->headers->set('Content-Type', 'application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $secondparty_id=$body->secondparty_id;
+    $pay_method=$body->pay_method;
+    $deadline=$body->deadline;
+    $agreement_require=$body->agreement_require;
+    $rcity=$body->rcity;
+    $is_ticket=$body->is_ticket;
+    $company_id=$body->company_id;
+    $scheduling_ary=$body->scheduling_ary;
+    $freight=$body->freight;
+    $tenant_num=$body->tenant_num;
+    $array1=null;
+    foreach ($scheduling_ary as $key => $value) {
+        $array1[$key] = $value;
+    }
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('agreement')
+            ->where('tenant_id', '=', $tenant_id);
+        $stmt = $selectStatement->execute();
+        $data9 = $stmt->fetchAll();
+        $agreement_id=null;
+        if((count($data9)+1)<10){
+            $agreement_id='HT'.$tenant_num."00000".(count($data9)+1);
+        }else if((count($data9)+1)<100&&(count($data9)+1)>9){
+            $agreement_id='HT'.$tenant_num."0000".(count($data9)+1);
+        }else if((count($data9)+1)<1000&&(count($data9)+1)>99){
+            $agreement_id='HT'.$tenant_num."000".(count($data9)+1);
+        }else if((count($data9)+1)<10000&&(count($data9)+1)>999){
+            $agreement_id='HT'.$tenant_num."00".(count($data9)+1);
+        }else if((count($data9)+1)<100000&&(count($data9)+1)>9999){
+            $agreement_id='HT'.$tenant_num."0".(count($data9)+1);
+        }else if((count($data9)+1)<1000000&&(count($data9)+1)>99999){
+            $agreement_id='HT'.$tenant_num.(count($data9)+1);
+        }
+        for($x=0;$x<count($array1);$x++){
+            $selectStatement = $database->select()
+                ->from('agreement_schedule')
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('agreement_id','=',$agreement_id)
+                ->where('scheduling_id','=',$array1[$x])
+                ->where("exist",'=',0);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $updateStatement = $database->update(array('is_contract'=>2))
+                ->table('scheduling')
+                ->where('scheduling_id','=',$array1[$x])
+                ->where('tenant_id','=',$tenant_id);
+            $affectedRows = $updateStatement->execute();
+            if($data2==null) {
+                $insertStatement = $database->insert(array("tenant_id", "agreement_id", "scheduling_id", "exist"))
+                    ->into('agreement_schedule')
+                    ->values(array($tenant_id, $agreement_id, $array1[$x], 0));
+                $insertId = $insertStatement->execute(false);
+            }
+        }
+        $insertStatement = $database->insert(array("agreement_id","secondparty_id","pay_method","deadline","agreement_require","rcity","is_ticket","company_id","freight","tenant_id"))
+            ->into('agreement')
+            ->values(array($agreement_id,$secondparty_id,$pay_method,$deadline,$agreement_require,$rcity,$is_ticket,$company_id,$freight,$tenant_id));
+        $insertId = $insertStatement->execute(false);
+        echo json_encode(array("result" => "0", "desc" => "success"));
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
 
 
 $app->run();
