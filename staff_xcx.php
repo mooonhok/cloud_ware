@@ -3181,16 +3181,12 @@ $app->get('/getDepartDetail',function()use($app){
             }
 //            $array1[$x]['sender_city']=$data15['name'];
             $array1[$x]['receive_city']=$data14['name'];
-//            $array1[$x]['sender_id']=$data13['customer_id'];
-//            $array1[$x]['sender_name']=$data13['customer_name'];
-//            $array1[$x]['sender_phone']=$data13['customer_phone'];
-//            $array1[$x]['sender_address']=$data13['customer_address'];
-//            $array1[$x]['sender_city_id']=$data13['customer_city_id'];
             $array1[$x]['receive_id']=$data12['customer_id'];
             $array1[$x]['receive_name']=$data12['customer_name'];
             $array1[$x]['receive_phone']=$data12['customer_phone'];
             $array1[$x]['receive_address']=$data12['customer_address'];
             $array1[$x]['receive_city_id']=$data12['customer_city_id'];
+
         }
         $data['orders']=$array1;
         echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
