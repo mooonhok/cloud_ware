@@ -3108,12 +3108,14 @@ $app->get('/getDepartDetail',function()use($app){
         $stmt = $selectStatement->execute();
         $data3 = $stmt->fetch();
         $data['send_city']=$data3['name'];
+        $data['send_province']=$data3['pid'];
         $selectStatement = $database->select()
             ->from('city')
             ->where('id', '=', $data['receive_city_id']);
         $stmt = $selectStatement->execute();
         $data4 = $stmt->fetch();
         $data['receive_city']=$data4['name'];
+        $data['receive_province']=$data4['pid'];
         $selectStatement = $database->select()
             ->from('city')
             ->where('id', '=', $data2['customer_city_id']);
@@ -3140,8 +3142,6 @@ $app->get('/getDepartDetail',function()use($app){
                 ->where('goods_package_id', '=', $data7['goods_package_id']);
             $stmt = $selectStatement->execute();
             $data8 = $stmt->fetch();
-            $data7['goods_package']=$data8['goods_package'];
-            $array1[$x]['goods']=$data7;
             $selectStatement = $database->select()
                 ->from('orders')
                 ->where('tenant_id', '=', $tenant_id)
@@ -3170,11 +3170,15 @@ $app->get('/getDepartDetail',function()use($app){
                 ->where('id', '=', $data13['customer_city_id']);
             $stmt = $selectStatement->execute();
             $data15 = $stmt->fetch();
-            $data13['customer_city']=$data15['name'];
-            $data11['order_sender']=$data13;
-            $data12['customer_city']=$data14['name'];
-            $data11['order_receiver']=$data12;
-            $array1[$x]['orders']=$data11;
+            $array1[$x]['goods_package']=$data8['goods_package'];
+            foreach ($data7 as $key => $value) {
+                $array1[$x][$key] = $value;
+            }
+            foreach ($data11 as $key => $value) {
+                if($key!="order_id"&&$key!="tenant_id"&&$key!="exist"&&$key!="id"){
+                $array1[$x][$key] = $value;
+                }
+            }
         }
         $data['orders']=$array1;
         echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
