@@ -1428,7 +1428,7 @@ $app->post('/checkagreement',function()use($app){
                             if ($schedu==null||$schedu=="") {
                                 $schedu .= $array1[$i];
                             } else {
-                                $schedu .= ','.$array1[$i];
+                                $schedu .= '、'.$array1[$i];
                             }
                         }
                     }
