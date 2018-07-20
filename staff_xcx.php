@@ -1340,6 +1340,13 @@ $app->get('/agreementSchedulings',function()use($app){
             $data[$i]['plate_number']=$data3['plate_number'];
             $data[$i]['driver_name']=$data3['driver_name'];
             $data[$i]['driver_phone']=$data3['driver_phone'];
+
+            $selectStatement = $database->select()
+                ->from('goods_package')
+                ->where('goods_package_id','=',$data4['goods_package_id']);
+            $stmt = $selectStatement->execute();
+            $data5= $stmt->fetch();
+            $data4['goods_package']=$data5['goods_package'];
             $data[$i]['orders']=$data4;
             if($data[$i]['scheduling_status']==1){
                 $data[$i]['scheduling_status']='生成清单';
