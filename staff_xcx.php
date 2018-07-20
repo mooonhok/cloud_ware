@@ -3127,7 +3127,7 @@ $app->get('/getDepartDetail',function()use($app){
             ->where('pid',"=",$data4['pid']);
         $stmt = $selectStatement->execute();
         $data21 = $stmt->fetch();
-        $data['send_city_num']=count($data21)+1;
+        $data['receive_city_num']=count($data21)+1;
         $data['receive_city']=$data4['name'];
         $data['receive_province']=$data4['pid'];
         $selectStatement = $database->select()
@@ -3193,7 +3193,6 @@ $app->get('/getDepartDetail',function()use($app){
                 $array1[$x][$key] = $value;
                 }
             }
-//            $array1[$x]['sender_city']=$data15['name'];
             $array1[$x]['receive_city_name']=$data14['name'];
             $array1[$x]['receive_id']=$data12['customer_id'];
             $array1[$x]['receive_name']=$data12['customer_name'];
