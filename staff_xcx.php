@@ -3052,14 +3052,14 @@ $app->get('/getDepartList',function()use($app){
                 ->where('customer_id', '=', $data[$x]['receiver_id'])
                 ->where('tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
-            $data6 = $stmt->fetch();
+            $data5 = $stmt->fetch();
             $selectStatement = $database->select()
                 ->from('city')
-                ->where('id', '=', $data6['customer_city_id']);
+                ->where('id', '=', $data5['customer_city_id']);
             $stmt = $selectStatement->execute();
-            $data7 = $stmt->fetch();
-            $data6['customer_city_name']=$data7['name'];
-            $data[$x]['customer']=$data6;
+            $data6 = $stmt->fetch();
+            $data6['customer_city_name']=$data6['name'];
+            $data[$x]['receiver']=$data5;
             $selectStatement = $database->select()
                 ->from('city')
                 ->where('id', '=', $data[$x]['send_city_id']);
