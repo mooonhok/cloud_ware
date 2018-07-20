@@ -1321,7 +1321,8 @@ $app->get('/agreementSchedulings',function()use($app){
             $data2= $stmt->fetch();
             $selectStatement = $database->select()
                 ->from('lorry')
-                ->where('lorry_id','=',$data[$i]['lorry_id']);
+                ->where('lorry_id','=',$data[$i]['lorry_id'])
+                ->where('tenant_id','=',$tenant_id);
             $stmt = $selectStatement->execute();
             $data3= $stmt->fetch();
             $selectStatement = $database->select()
