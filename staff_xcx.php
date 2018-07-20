@@ -3087,85 +3087,64 @@ $app->get('/getDepartDetail',function()use($app){
     $scheduling_id=$app->request->get('scheduling_id');
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
-            ->from('schedule_order')
-            ->join('orders','orders.order_id','=','schedule_order.order_id','INNER')
-            ->join('scheduling','scheduling.scheduling_id','=','schedule_order.schedule_id','INNER')
+            ->from('scheduling')
             ->join('lorry','lorry.lorry_id','=','scheduling.lorry_id','INNER')
-            ->where('schedule_order.tenant_id', '=', $tenant_id)
             ->where('scheduling.tenant_id', '=', $tenant_id)
-            ->where('orders.tenant_id', '=', $tenant_id)
             ->where('lorry.tenant_id', '=', $tenant_id)
             ->where('scheduling.scheduling_id', '=', $scheduling_id)
-//            ->where('schedule_order.exist', '=', 0)
-            ->where('scheduling.exist', '=', 0)
-            ->where('orders.exist', '=', 0);
+            ->where('scheduling.exist', '=', 0);
         $stmt = $selectStatement->execute();
-        $data = $stmt->fetchAll();
-        for($i=0;$i<count($data);$i++){
-            $selectStatement = $database->select()
-                ->from('lorry')
-                ->where('tenant_id', '=', $tenant_id)
-                ->where('lorry_id', '=', $data[$i]['lorry_id']);
-            $stmt = $selectStatement->execute();
-            $data1 = $stmt->fetch();
+        $data = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('customer')
+            ->where('tenant_id', '=', $tenant_id)
+            ->where('customer_id', '=', $data['receiver_id']);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id', '=', $data2['send_city_id']);
+        $stmt = $selectStatement->execute();
+        $data3 = $stmt->fetch();
+        $data['send_city']=$data3;
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id', '=', $data['receive_city_id']);
+        $stmt = $selectStatement->execute();
+        $data4 = $stmt->fetch();
+        $data['receive_city']=$data4['name'];
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id', '=', $data2['customer_city_id']);
+        $stmt = $selectStatement->execute();
+        $data5 = $stmt->fetch();
+        $data2['customer_city']=$data5['name'];
+        $data['receiver']=$data2;
+        $selectStatement = $database->select()
+            ->from('schedule_order')
+            ->where('schedule_id', '=', $scheduling_id)
+            ->where('tenant_id','=',$tenant_id)
+            ->where("exist",'=',0);
+        $stmt = $selectStatement->execute();
+        $data6= $stmt->fetchAll();
+        for($x=0;$x<count($data6);$x++){
             $selectStatement = $database->select()
                 ->from('goods')
                 ->where('tenant_id', '=', $tenant_id)
-                ->where('order_id', '=', $data[$i]['order_id']);
-            $stmt = $selectStatement->execute();
-            $data2 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('goods_package')
-                ->where('goods_package_id', '=', $data2['goods_package_id']);
-            $stmt = $selectStatement->execute();
-            $data5 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('scheduling')
-                ->where('tenant_id', '=', $tenant_id)
-                ->where('scheduling_id', '=', $data[$i]['scheduling_id']);
-            $stmt = $selectStatement->execute();
-            $data3 = $stmt->fetch();
-            date_default_timezone_set("PRC");
-            $changedatetime=date('Y-m-d H:i',$data3['change_datetime']);
-            $data[$i]['change_datetime']=$changedatetime;
-            $selectStatement = $database->select()
-                ->from('customer')
-                ->where('tenant_id', '=', $tenant_id)
-                ->where('customer_id', '=', $data3['receiver_id']);
-            $stmt = $selectStatement->execute();
-            $data4 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('city')
-                ->where('id', '=', $data[$i]['send_city_id']);
-            $stmt = $selectStatement->execute();
-            $data6 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('city')
-                ->where('id', '=', $data[$i]['receive_city_id']);
+                ->where('order_id', '=', $data6[$x]['order_id']);
             $stmt = $selectStatement->execute();
             $data7 = $stmt->fetch();
             $selectStatement = $database->select()
-                ->from('province')
-                ->where('id', '=', $data6['pid']);
+                ->from('goods_package')
+                ->where('goods_package_id', '=', $data7['goods_package_id']);
             $stmt = $selectStatement->execute();
             $data8 = $stmt->fetch();
-            $selectStatement = $database->select()
-                ->from('province')
-                ->where('id', '=', $data7['pid']);
-            $stmt = $selectStatement->execute();
-            $data9 = $stmt->fetch();
-            $data10=$data[$i]['sure_img'];
-            if(substr($data[$i]['sure_img'],0,4)!='http'){
-                $selectStatement = $database->select()
-                    ->from('tenant')
-                    ->where('tenant_id', '=',$data[$i]['sure_img']);
-                $stmt = $selectStatement->execute();
-                $data10 = $stmt->fetch();
-            }
+            $data7['goods_package']=$data8['goods_package'];
+            $data6[$x]['goods']=$data7;
             $selectStatement = $database->select()
                 ->from('orders')
                 ->where('tenant_id', '=', $tenant_id)
-                ->where('order_id', '=', $data2['order_id']);
+                ->where('order_id', '=', $data6[$x]['order_id']);
             $stmt = $selectStatement->execute();
             $data11 = $stmt->fetch();
             $selectStatement = $database->select()
@@ -3190,21 +3169,13 @@ $app->get('/getDepartDetail',function()use($app){
                 ->where('id', '=', $data13['customer_city_id']);
             $stmt = $selectStatement->execute();
             $data15 = $stmt->fetch();
-            $data[$i]['number']=$i+1;
-            $data[$i]['lorry']=$data1;
-            $data[$i]['goods']=$data2;
-            $data[$i]['goods']['goods_package']=$data5;
-            $data[$i]['receiver']=$data4;
-            $data[$i]['sender_city']=$data6;
-            $data[$i]['sender_province']=$data8;
-            $data[$i]['receiver_city']=$data7;
-            $data[$i]['receiver_province']=$data9;
-            $data[$i]['sure_company']=$data10;
-            $data[$i]['order_sender']=$data13;
-            $data[$i]['order_receiver']=$data12;
-            $data[$i]['order_sender_city']=$data15;
-            $data[$i]['order_receiver_city']=$data14;
+            $data13['customer_city']=$data15['name'];
+            $data11['order_sender']=$data13;
+            $data12['customer_city']=$data14['name'];
+            $data11['order_receiver']=$data12;
+            $data6[$x]['orders']=$data11;
         }
+        $data['orders']=$data6;
         echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
