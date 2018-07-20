@@ -3026,6 +3026,28 @@ $app->post('/addAgreementScheduling',function()use($app) {
 });
 
 
+$app->get('/getDepartList',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $database=localhost();
+    $array1=array();
+    if($tenant_id!=null||$tenant_id!=""){
+        $selectStatement = $database->select()
+            ->from('scheduling')
+            ->where('exist', '=', 0)
+            ->where('scheduling_status', '=',1)
+            ->where('is_load','=',3);
+        $stmt = $selectStatement->execute();
+        $data7 = $stmt->fetchAll();
+        echo  json_encode(array("result"=>"0","desc"=>"success","schedulings"=>$data7));
+    }else{
+        echo json_encode(array("result" => "2", "desc" => "缺少租户id"));
+    }
+});
+
+
+
 $app->run();
 
 function localhost(){
