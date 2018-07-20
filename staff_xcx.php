@@ -3194,7 +3194,7 @@ $app->get('/getDepartDetail',function()use($app){
                 }
             }
 //            $array1[$x]['sender_city']=$data15['name'];
-            $array1[$x]['receive_city']=$data14['name'];
+            $array1[$x]['receive_city_name']=$data14['name'];
             $array1[$x]['receive_id']=$data12['customer_id'];
             $array1[$x]['receive_name']=$data12['customer_name'];
             $array1[$x]['receive_phone']=$data12['customer_phone'];
