@@ -3112,7 +3112,7 @@ $app->get('/getDepartDetail',function()use($app){
             ->where('id', '<', $data3['id'])
             ->where('pid',"=",$data3['pid']);
         $stmt = $selectStatement->execute();
-        $data20 = $stmt->fetch();
+        $data20 = $stmt->fetchAll();
         $data['send_city_num']=count($data20)+1;
         $data['send_city']=$data3['name'];
         $data['send_province']=$data3['pid'];
@@ -3126,7 +3126,7 @@ $app->get('/getDepartDetail',function()use($app){
             ->where('id', '<', $data4['id'])
             ->where('pid',"=",$data4['pid']);
         $stmt = $selectStatement->execute();
-        $data21 = $stmt->fetch();
+        $data21 = $stmt->fetchAll();
         $data['receive_city_num']=count($data21)+1;
         $data['receive_city']=$data4['name'];
         $data['receive_province']=$data4['pid'];
