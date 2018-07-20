@@ -3103,7 +3103,7 @@ $app->get('/getDepartDetail',function()use($app){
         $data2 = $stmt->fetch();
         $selectStatement = $database->select()
             ->from('city')
-            ->where('id', '=', $data2['send_city_id']);
+            ->where('id', '=', $data['send_city_id']);
         $stmt = $selectStatement->execute();
         $data3 = $stmt->fetch();
         $data['send_city']=$data3;
