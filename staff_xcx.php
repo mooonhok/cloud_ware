@@ -3085,6 +3085,7 @@ $app->get('/getDepartDetail',function()use($app){
     $database = localhost();
     $tenant_id = $app->request->headers->get("tenant-id");
     $scheduling_id=$app->request->get('scheduling_id');
+    $array1=array();
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('scheduling')
@@ -3106,7 +3107,7 @@ $app->get('/getDepartDetail',function()use($app){
             ->where('id', '=', $data['send_city_id']);
         $stmt = $selectStatement->execute();
         $data3 = $stmt->fetch();
-        $data['send_city']=$data3;
+        $data['send_city']=$data3['name'];
         $selectStatement = $database->select()
             ->from('city')
             ->where('id', '=', $data['receive_city_id']);
@@ -3140,7 +3141,7 @@ $app->get('/getDepartDetail',function()use($app){
             $stmt = $selectStatement->execute();
             $data8 = $stmt->fetch();
             $data7['goods_package']=$data8['goods_package'];
-            $data6[$x]['goods']=$data7;
+            $array1[$x]['goods']=$data7;
             $selectStatement = $database->select()
                 ->from('orders')
                 ->where('tenant_id', '=', $tenant_id)
@@ -3173,9 +3174,9 @@ $app->get('/getDepartDetail',function()use($app){
             $data11['order_sender']=$data13;
             $data12['customer_city']=$data14['name'];
             $data11['order_receiver']=$data12;
-            $data6[$x]['orders']=$data11;
+            $array1[$x]['orders']=$data11;
         }
-        $data['orders']=$data6;
+        $data['orders']=$array1;
         echo json_encode(array("result" => "0", "desc" => "success",'schedule_orders'=>$data));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
