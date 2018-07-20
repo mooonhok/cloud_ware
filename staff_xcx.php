@@ -1433,7 +1433,7 @@ $app->post('/checkagreement',function()use($app){
                         }
                     }
                     if($schedu){
-                        echo json_encode(array('result'=>'98','desc'=>'清单号：'.$schedu.'与车辆不符'));
+                        echo json_encode(array('result'=>'98','desc'=>'清单号：'.$schedu.'，与车辆不符'));
                     }else{
                         $num=0;
                         $values=0;
