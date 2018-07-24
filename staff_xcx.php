@@ -366,7 +366,7 @@ $app->get('/getTenantLorrys',function()use($app){
             $selectStatement = $database->select()
                 ->from('app_lorry')
                 ->where('exist','=',0)
-                ->where('lorry_status','=',2)
+//                ->where('lorry_status','=',2)
                 ->where('phone','=',$data[$i]['driver_phone'])
                 ->where('plate_number','=',$data[$i]['plate_number'])
                 ->where('name','=',$data[$i]['driver_name']);
