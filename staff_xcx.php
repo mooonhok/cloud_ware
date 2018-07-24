@@ -402,7 +402,7 @@ $app->get('/getOneLorry',function()use($app){
                 $selectStatement = $database->select()
                     ->from('app_lorry')
                     ->where('exist','=',0)
-                    ->where('lorry_status','=',2)
+//                    ->where('lorry_status','=',2)
                     ->where('phone','=',$data['driver_phone'])
                     ->where('plate_number','=',$data['plate_number'])
                     ->where('name','=',$data['driver_name']);

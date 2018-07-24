@@ -74,17 +74,22 @@ $app->get('/all',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $table=$app->request->get('table_name');
+    $tenant_id=$app->request->get('tenant_id');
     $database=localhost();
-//    $selectStatement = $database->select()
-//        ->count('id','aaa')
-//        ->from($table.'');
-//    $stmt = $selectStatement->execute();
-//    $data = $stmt->fetch();
+    if($tenant_id!=null||$tenant_id!=""){
+        $selectStatement = $database->select()
+            ->from($table.'')
+            ->where('tenant_id','=',$tenant_id);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetchAll();
+        echo  json_encode(array("result"=>"0","desc"=>"success","tables"=>$data));
+    }else{
     $selectStatement = $database->select()
         ->from($table.'');
     $stmt = $selectStatement->execute();
     $data = $stmt->fetchAll();
     echo  json_encode(array("result"=>"0","desc"=>"success","tables"=>$data));
+    }
 });
 
 $app->post('/addpackage',function()use($app){
