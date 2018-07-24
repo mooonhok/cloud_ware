@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="javascript/jquery.js"></script>
+		<style>
+		#select {
+			width: 100%;
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+		}
+		
+		#select input {
+			width: 20%;
+			margin-left: 5%;
+			float:left;
+			font-size: 18px;
+		}
+		
+		#table {
+			width: 100%;
+			float: left;
+		}
+		 table {
+            border-right: 1px solid #DDDDDD;
+            border-bottom: 1px solid #DDDDDD;
+        }
+        table td {
+            border-left: 1px solid #DDDDDD;
+            border-top: 1px solid #DDDDDD;
+            height: 40px;
+            text-align: center;
+        }
+        table thead tr th {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-left: 1px solid #DDDDDD;
+            border-top: 1px solid #DDDDDD;
+            /* background: #9CBA60; */
+        }
+	</style>
+	</head>
+	<body>
+		<div id="select">
+			<input type="text" id="table_name" placeholder="表名" />
+			<input type="text" id="tenant_id" placeholder="租户名" />
+			<input type="button" id="show" value="查询 " />
+		</div>
+		<div id="table">
+			<table style="width:100%;">
+				<thead>
+					<tr id="line">
+					</tr>
+				</thead>
+				<tbody id="tb1">
+				</tbody>
+			</table>
+		</div>
+	</body>
+	<script>
+		$("#show").on("click", function() {
+			var table_name = $("#table_name").val();
+			var tenant_id = $("#tenant_id").val();
+            $("#line").html();
+            $("#tb1").html();
+            var array1=new Array();
+			if(table_name== null || table_name=="") {
+				alert("表名不能为空");
+			} else {
+				$.ajax({
+					url: "http://api.uminfo.cn/city.php/all?table_name=" + table_name + "&tenant_id=" + tenant_id,
+					dataType: 'json',
+					type: 'get',
+					ContentType: "application/json;charset=utf-8",
+					data: JSON.stringify({}),
+					success: function(msg) {
+						console.log(msg);
+						for (var key in msg.tables[0]) {
+                             $("#line").append("<th>"+key+"</th>");
+                             array1.push(key);
+	                     }
+						for(var i=0;i<msg.tables.length;i++){
+							$("#tb1").append("<tr>");
+							for(var j=0;j<array1.length;j++){
+								$("#tb1").append("<td>"+msg.tables[i][array1[j]]+"</td>");
+							}
+							$("#tb1").append("</tr>");
+						}
+					},
+					error: function(xhr) {
+						alert("获取后台失败！");
+					}
+				});
+			}
+		});
+	</script>
+</html>
