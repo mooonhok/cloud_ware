@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<title></title>
-		<script src="javascript/jquery.js"></script>
+	    <script src="javascript/jquery.js"></script>
 		<style>
 		#select {
 			width: 100%;
@@ -53,7 +53,7 @@
 		<div id="table">
 			<table style="width:100%;">
 				<thead>
-					<tr id="line">
+					<tr id="line" style="background: red;">
 					</tr>
 				</thead>
 				<tbody id="tb1">
@@ -65,8 +65,8 @@
 		$("#show").on("click", function() {
 			var table_name = $("#table_name").val();
 			var tenant_id = $("#tenant_id").val();
-            $("#line").html();
-            $("#tb1").html();
+            $("#line").empty();
+            $("#tb1").empty();
             var array1=new Array();
 			if(table_name== null || table_name=="") {
 				alert("表名不能为空");
@@ -85,8 +85,17 @@
 	                     }
 						for(var i=0;i<msg.tables.length;i++){
 							$("#tb1").append("<tr>");
+							if(i%3==0){
 							for(var j=0;j<array1.length;j++){
-								$("#tb1").append("<td>"+msg.tables[i][array1[j]]+"</td>");
+								$("#tb1").append("<td style='color:red'>"+msg.tables[i][array1[j]]+"</td>");
+							}
+							}else if(i%3==2){
+								for(var j=0;j<array1.length;j++){
+								$("#tb1").append("<td style='color:green'>"+msg.tables[i][array1[j]]+"</td>");}
+							}else if(i%3==1){
+								for(var j=0;j<array1.length;j++){
+								$("#tb1").append("<td style='color:black'>"+msg.tables[i][array1[j]]+"</td>");
+							}
 							}
 							$("#tb1").append("</tr>");
 						}
