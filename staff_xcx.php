@@ -3307,9 +3307,11 @@ $app->post('/getuser',function()use($app){
     $app->response->headers->set('Content-Type','application/json');
    $data=null;
     $appid="wx639d19e5e9c11787";
-    $sessionKey   = $app->request->get('code');
-    $encryptedData   =$app->request->get('encryptedData');
-    $iv   = $app->request->get('iv');
+    $body = $app->request->getBody();
+    $body = json_decode($body);
+    $sessionKey=$body->code;
+    $encryptedData   =$body->encryptedData;
+    $iv   = $body->iv;
     $pc = new WXBizDataCrypt($appid, $sessionKey);
     $errCode = $pc->decryptData($encryptedData, $iv, $data );
     if ($errCode == 0) {
