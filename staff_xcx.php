@@ -10,7 +10,8 @@
 require 'Slim/Slim.php';
 require 'connect.php';
 require "littleWeiXinPay/littleWeiXinPay.php";
-include_once "wxBizDataCrypt.php";
+require 'files_url.php';
+require "wxBizDataCrypt.php";
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 $weiXinPay=new littleWeixinPay();
@@ -3306,7 +3307,12 @@ $app->post('/getuser',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
    $data=null;
-    $appid="wx639d19e5e9c11787";
+    $api_url=api_url();
+    if($api_url=='uminfor'){
+      $appid="wxff9afde3d7ab859e";
+    }else{
+        $appid="wx639d19e5e9c11787";
+    }
     $body = $app->request->getBody();
     $body = json_decode($body);
     $sessionKey=$body->code;
@@ -3327,6 +3333,10 @@ $app->run();
 
 function localhost(){
     return connect();
+}
+
+function api_url(){
+    return apiurl();
 }
 //加密
 function encode($string , $skey ) {
