@@ -3315,9 +3315,9 @@ $app->post('/getuser',function()use($app){
     }
     $body = $app->request->getBody();
     $body = json_decode($body);
-    $sessionKey=$body->code;
+    $sessionKey=$body->iv;
     $encryptedData   =$body->encryptedData;
-    $iv   = $body->iv;
+    $iv= $body->code;
     $pc = new WXBizDataCrypt($appid, $sessionKey);
     $errCode = $pc->decryptData($encryptedData, $iv, $data );
     if ($errCode == 0) {
