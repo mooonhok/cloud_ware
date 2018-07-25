@@ -3303,7 +3303,7 @@ $app->put('/recoverSchedulingOrder',function()use($app){
 
 
 
-$app->post('/getuser',function()use($app){
+$app->get('/getuser',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $appid=$app->request->get('appid');
