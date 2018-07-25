@@ -3324,7 +3324,7 @@ $app->post('/getuser',function()use($app){
 //        print($data . "\n");
         echo json_encode(array('result'=>0,"desc"=>$data));
     } else {
-        echo json_encode(array('result'=>1,"desc"=>$errCode));
+        echo json_encode(array('result'=>1,"desc"=>$errCode,"appid"=>$appid));
     }
 });
 
