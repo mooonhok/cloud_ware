@@ -11,7 +11,7 @@ require 'Slim/Slim.php';
 require 'connect.php';
 require "littleWeiXinPay/littleWeiXinPay.php";
 require 'files_url.php';
-require "wxBizDataCrypt.php";
+
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 $weiXinPay=new littleWeixinPay();
@@ -3306,26 +3306,13 @@ $app->put('/recoverSchedulingOrder',function()use($app){
 $app->post('/getuser',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
-   $data=null;
-    $api_url=api_url();
-    if($api_url=='uminfor'){
-      $appid="wxff9afde3d7ab859e";
-    }else{
-        $appid="wx639d19e5e9c11787";
-    }
-    $body = $app->request->getBody();
-    $body = json_decode($body);
-    $sessionKey=$body->code;
-    $encryptedData   =$body->encryptedData;
-    $iv= $body->iv;
-    $pc = new WXBizDataCrypt($appid, $sessionKey);
-    $errCode = $pc->decryptData($encryptedData, $iv, $data );
-    if ($errCode == 0) {
-//        print($data . "\n");
-        echo json_encode(array('result'=>0,"desc"=>$data));
-    } else {
-        echo json_encode(array('result'=>1,"desc"=>$errCode));
-    }
+    $appid=$app->request->get('appid');
+    $secret=$app->request->get('secret');
+    $js_code=$app->request->get("js_code");
+    $grant_type=$app->request->get("grant_type");
+    $url="https://api.weixin.qq.com/sns/jscode2session?appid=".$appid."&secret=".$secret."&js_code=".$js_code."&grant_type=".$grant_type;
+    $openid=getOpenid($url);
+    echo json_encode(array("result" => "0", "openid" =>$openid));
 });
 
 
