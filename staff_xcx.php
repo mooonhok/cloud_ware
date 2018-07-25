@@ -3315,16 +3315,16 @@ $app->post('/getuser',function()use($app){
     }
     $body = $app->request->getBody();
     $body = json_decode($body);
-    $sessionKey=$body->iv;
+    $sessionKey=$body->code;
     $encryptedData   =$body->encryptedData;
-    $iv= $body->code;
+    $iv= $body->iv;
     $pc = new WXBizDataCrypt($appid, $sessionKey);
     $errCode = $pc->decryptData($encryptedData, $iv, $data );
     if ($errCode == 0) {
 //        print($data . "\n");
         echo json_encode(array('result'=>0,"desc"=>$data));
     } else {
-        echo json_encode(array('result'=>1,"desc"=>$errCode,"appid"=>$appid));
+        echo json_encode(array('result'=>1,"desc"=>$errCode));
     }
 });
 
