@@ -10,7 +10,7 @@
 require 'Slim/Slim.php';
 require 'connect.php';
 require "littleWeiXinPay/littleWeiXinPay.php";
-
+include_once "wxBizDataCrypt.php";
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 $weiXinPay=new littleWeixinPay();
@@ -3299,6 +3299,27 @@ $app->put('/recoverSchedulingOrder',function()use($app){
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
 });
+
+
+
+$app->post('/getuser',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+   $data=null;
+    $appid="wx639d19e5e9c11787";
+    $sessionKey   = $app->request->get('code');
+    $encryptedData   =$app->request->get('encryptedData');
+    $iv   = $app->request->get('iv');
+    $pc = new WXBizDataCrypt($appid, $sessionKey);
+    $errCode = $pc->decryptData($encryptedData, $iv, $data );
+    if ($errCode == 0) {
+//        print($data . "\n");
+        echo json_encode(array('result'=>0,"desc"=>$data));
+    } else {
+        echo json_encode(array('result'=>1,"desc"=>$errCode));
+    }
+});
+
 
 $app->run();
 
