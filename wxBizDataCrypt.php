@@ -37,15 +37,15 @@ class WXBizDataCrypt
 	 */
 	public function decryptData( $encryptedData, $iv, &$data )
 	{
-//		if (strlen($this->sessionKey) != 24) {
-//			return ErrorCode::$IllegalAesKey;
-//		}
+		if (strlen($this->sessionKey) != 24) {
+			return ErrorCode::$IllegalAesKey;
+		}
 		$aesKey=base64_decode($this->sessionKey);
 
         
-//		if (strlen($iv) != 24) {
-//			return ErrorCode::$IllegalIv;
-//		}
+		if (strlen($iv) != 24) {
+			return ErrorCode::$IllegalIv;
+		}
 		$aesIV=base64_decode($iv);
 
 		$aesCipher=base64_decode($encryptedData);
