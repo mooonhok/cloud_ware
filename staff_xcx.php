@@ -572,9 +572,9 @@ $app->post('/checkAppLorry',function()use($app){
                 $data2= $stmt->fetch();
                 if($data2!=null){
                     if($data2['exist']==0){
-                        echo json_encode(array('result'=>'4','desc'=>'车辆已添加过'));
+                        echo json_encode(array('result'=>'4','desc'=>'车辆已添加过',"exsit"=>$data2['exist']));
                     }else if($data2['exist']==1){
-                        echo json_encode(array('result'=>'3','desc'=>'车辆被加入黑名单'));
+                        echo json_encode(array('result'=>'3','desc'=>'车辆被加入黑名单',"exsit"=>$data2['exist']));
                     }else{
                             $selectStatement = $database->select()
                                 ->from('lorry_length')
@@ -589,7 +589,7 @@ $app->post('/checkAppLorry',function()use($app){
                             $stmt = $selectStatement->execute();
                             $data4= $stmt->fetch();
                             $data1['lorry_type_name']=$data4['lorry_type_name'];
-                            echo json_encode(array("result"=>"0","desc"=>"","lorry_id"=>$data1['app_lorry_id']));
+                            echo json_encode(array("result"=>"0","desc"=>"","lorry_id"=>$data1['app_lorry_id'],"exsit"=>$data2['exist']));
                         }
                 }else{
                     $selectStatement = $database->select()
