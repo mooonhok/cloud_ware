@@ -3066,7 +3066,7 @@ $app->get('/getDepartList',function()use($app){
         $selectStatement = $database->select()
             ->from('scheduling')
             ->where('exist', '=', 0)
-            ->where('scheduling_status', '=',1)
+            ->whereIn('scheduling_status',array(1,2))
             ->where('is_load','=',3)
             ->where('tenant_id','=',$tenant_id);
         $stmt = $selectStatement->execute();
