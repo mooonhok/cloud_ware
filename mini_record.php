@@ -27,7 +27,7 @@ $app->get('/getMiniRecord',function()use($app){
             ->limit(1);
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetch();
-        echo  json_encode(array("result"=>"0","desc"=>"success","city"=>$data1));
+        echo  json_encode(array("result"=>"0","desc"=>"success","record"=>$data1));
     }else{
         echo  json_encode(array("result"=>"1","desc"=>"缺少openid"));
     }
