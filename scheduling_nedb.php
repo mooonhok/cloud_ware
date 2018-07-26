@@ -23,6 +23,7 @@ $app->get('/getSchedulings1',function()use($app){
         $selectStatement = $database->select()
             ->from('scheduling')
             ->where('exist', '=', 0)
+            ->where('scheduling_status',"!=",10)
             ->where('tenant_id', '=', $tenant_id);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
@@ -241,6 +242,7 @@ $app->get('/getSchedulings6',function()use($app){
         $selectStatement = $database->select()
             ->from('scheduling')
             ->where('scheduling_id','=',$scheduling_id)
+            ->where('scheduling_status','!=',10)
             ->where('tenant_id', '=', $tenant_id)
             ->where('exist', '=', 0);
         $stmt = $selectStatement->execute();
@@ -317,7 +319,8 @@ $app->get('/getSchedulings7',function()use($app){
             ->join('city','city.id','=','scheduling.receive_city_id','INNER')
             ->where('city.name','=',$receive_city_name)
             ->where('scheduling.tenant_id', '=', $tenant_id)
-            ->where('scheduling.exist', '=', 0);
+            ->where('scheduling.exist', '=', 0)
+            ->where('scheduling.scheduling_status','!=',10);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
         for($i=0;$i<count($data);$i++){
@@ -417,6 +420,7 @@ $app->get('/getSchedulings8',function()use($app){
             ->where('lorry.plate_number','=',$plate_number)
             ->where('lorry.tenant_id', '=', $tenant_id)
             ->where('scheduling.tenant_id', '=', $tenant_id)
+            ->where('scheduling.scheduling_status','!=',10)
             ->where('scheduling.exist', '=', 0);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
@@ -625,6 +629,7 @@ $app->get('/getSchedulings9',function()use($app){
         $selectStatement = $database->select()
             ->from('scheduling')
             ->where('exist', '=', 0)
+            ->where('scheduling_status','!=',10)
             ->where('tenant_id', '=', $tenant_id);
         $stmt = $selectStatement->execute();
         $data = $stmt->fetchAll();
@@ -1133,7 +1138,7 @@ $app->get('/limitSchedulings1',function()use($app){
             ->where('exist', '=', 0)
             ->where('scheduling_id', '=', $scheduling_id)
             ->where('tenant_id', '=', $tenant_id)
-          //  ->whereIn('scheduling_status',array(6,8))
+            ->where('scheduling_status','!=',10)
             ->orderBy('scheduling_status')
             ->orderBy('scheduling_id','DESC');
         $stmt = $selectStatement->execute();
