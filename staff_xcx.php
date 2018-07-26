@@ -567,7 +567,9 @@ $app->post('/checkAppLorry',function()use($app){
                     ->where('tenant_id','=',$tenant_id)
                     ->where('driver_phone','=',$driver_phone)
                     ->where('plate_number','=',$plate_number)
-                    ->where('driver_name','=',$driver_name);
+                    ->where('driver_name','=',$driver_name)
+                    ->orderBy('id','DESC')
+                    ->limit(1);
                 $stmt = $selectStatement->execute();
                 $data2= $stmt->fetch();
                 if($data2!=null){
