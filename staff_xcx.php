@@ -25,13 +25,13 @@ $app->post('/staff_login',function()use($app){
     $body=json_decode($body);
     $name=$body->name;
     $password=$body->password;
-//    date_default_timezone_set("PRC");
-//    $login_time=date("Y-m-d  H:i:s",time());
-//    $openid=$body->openid;
+    date_default_timezone_set("PRC");
+    $login_time=date("Y-m-d  H:i:s",time());
+    $openid=$body->openid;
     if($tenant_id!=null||$tenant_id!=''){
         if($name!=null||$name!=''){
             if($password!=null||$password!=''){
-//                if($openid!=null||$openid!=""){
+                if($openid!=null||$openid!=""){
                 $selectStatement = $database->select()
                     ->from('staff')
                     ->where('tenant_id','=',$tenant_id)
@@ -40,33 +40,33 @@ $app->post('/staff_login',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data = $stmt->fetch();
                 if($data){
-//                    $selectStatement = $database->select()
-//                        ->from('mini_record')
-//                        ->where('openid','=',$openid)
-//                        ->where('username','=',$name)
-//                        ->where('tenant_id','=',$tenant_id);
-//                    $stmt = $selectStatement->execute();
-//                    $data1 = $stmt->fetch();
-//                    if($data1!=null){
-//                        $updateStatement = $database->update(array('login_time'=>$login_time))
-//                            ->table('mini_record')
-//                            ->where('openid','=',$openid)
-//                            ->where('username','=',$name)
-//                            ->where('tenant_id','=',$tenant_id);
-//                        $affectedRows = $updateStatement->execute();
-//                    }else{
-//                        $insertStatement = $database->insert(array('openid','tenant_id',"username",'login_time'))
-//                            ->into('mini_record')
-//                            ->values(array($openid,$tenant_id,$name,$login_time));
-//                        $insertId = $insertStatement->execute(false);
-//                    }
+                    $selectStatement = $database->select()
+                        ->from('mini_record')
+                        ->where('openid','=',$openid)
+                        ->where('username','=',$name)
+                        ->where('tenant_id','=',$tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data1 = $stmt->fetch();
+                    if($data1!=null){
+                        $updateStatement = $database->update(array('login_time'=>$login_time))
+                            ->table('mini_record')
+                            ->where('openid','=',$openid)
+                            ->where('username','=',$name)
+                            ->where('tenant_id','=',$tenant_id);
+                        $affectedRows = $updateStatement->execute();
+                    }else{
+                        $insertStatement = $database->insert(array('openid','tenant_id',"username",'login_time'))
+                            ->into('mini_record')
+                            ->values(array($openid,$tenant_id,$name,$login_time));
+                        $insertId = $insertStatement->execute(false);
+                    }
                     echo json_encode(array('result'=>'0','desc'=>'success'));
                 }else{
                     echo json_encode(array('result'=>'4','desc'=>'账号或密码错误'));
                 }
-//                }else{
-//                    echo json_encode(array('result'=>'5','desc'=>'缺少openid'));
-//                }
+                }else{
+                    echo json_encode(array('result'=>'5','desc'=>'缺少openid'));
+                }
             }else{
                 echo json_encode(array('result'=>'3','desc'=>'密码不能为空'));
             }
