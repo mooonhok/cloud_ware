@@ -26,7 +26,7 @@ $app->post('/staff_login',function()use($app){
     $name=$body->name;
     $password=$body->password;
     date_default_timezone_set("PRC");
-    $login_time=date("Y-m-d",time());
+    $login_time=date("Y-m-d  H:i:s",time());
     $openid=$body->openid;
     if($tenant_id!=null||$tenant_id!=''){
         if($name!=null||$name!=''){
