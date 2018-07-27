@@ -448,21 +448,21 @@ $app->get('/searchStaff1',function()use($app){
     $tenant_id=$app->request->headers->get('tenant-id');
     $database=localhost();
     $name=$app->request->get('name');
-            if($tenant_id!=null||$tenant_id!=''){
-                if($name!=null||$name!=''){
-                    $selectStatement = $database->select()
-                        ->from('staff')
-                        ->where('tenant_id','=',$tenant_id)
-                        ->where('name','=',$name);
-                    $stmt = $selectStatement->execute();
-                    $data = $stmt->fetchAll();
-                    echo json_encode(array('result'=>'0','desc'=>'success','staffs'=>$data));
-                }else{
-                    echo json_encode(array('result'=>'1','desc'=>'员工姓名为空'));
-                }
-            }else{
-                echo json_encode(array('result'=>'2','desc'=>'租户为空'));
-            }
+    if($tenant_id!=null||$tenant_id!=''){
+        if($name!=null||$name!=''){
+            $selectStatement = $database->select()
+                ->from('staff')
+                ->where('tenant_id','=',$tenant_id)
+                ->whereLike('name','%'.$name.'%');
+            $stmt = $selectStatement->execute();
+            $data = $stmt->fetchAll();
+            echo json_encode(array('result'=>'0','desc'=>'success','staffs'=>$data));
+        }else{
+            echo json_encode(array('result'=>'1','desc'=>'员工姓名为空'));
+        }
+    }else{
+        echo json_encode(array('result'=>'2','desc'=>'租户为空'));
+    }
 });
 
 $app->get('/limitStaffs1',function()use($app){
@@ -480,7 +480,8 @@ $app->get('/limitStaffs1',function()use($app){
                     $selectStatement = $database->select()
                         ->from('staff')
                         ->where('tenant_id','=',$tenant_id)
-                        ->where('name','=',$name)
+                        ->whereLike('name','%'.$name.'%')
+//                        ->where('name','=',$name)
                         ->orderBy('staff_id')
                         ->limit((int)$size,(int)$offset);
                     $stmt = $selectStatement->execute();
