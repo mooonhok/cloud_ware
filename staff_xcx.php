@@ -148,7 +148,7 @@ $app->post('/makeOrder',function()use($app){
                                                                                 $num1++;
                                                                             }
                                                                         }
-                                                                        $customer_id1=(count($data1)-$num1)+10000000001;
+                                                                        $customer_id1=((count($data1)-$num1)+10000000001)."";
                                                                         $insertStatement = $database->insert(array('customer_id','tenant_id','customer_city_id','customer_address','customer_name','customer_phone','type','exist','times'))
                                                                             ->into('customer')
                                                                             ->values(array($customer_id1,$tenant_id,$customer_city_a,$customer_address_a,$customer_name_a,$customer_phone_a,1,0,1));
@@ -183,7 +183,7 @@ $app->post('/makeOrder',function()use($app){
                                                                                 $num2++;
                                                                             }
                                                                         }
-                                                                        $customer_id2=(count($data3)-$num2)+10000000001;
+                                                                        $customer_id2=((count($data3)-$num2)+10000000001)."";
                                                                         $insertStatement = $database->insert(array('customer_id','tenant_id','customer_city_id','customer_address','customer_name','customer_phone','type','exist',"times"))
                                                                             ->into('customer')
                                                                             ->values(array($customer_id2,$tenant_id,$customer_city_b,$customer_address_b,$customer_name_b,$customer_phone_b,0,0,0));
@@ -974,15 +974,15 @@ $app->post('/changeScheduling',function()use($app){
                                 if($contact_tenant_id){
                                     $insertStatement = $database->insert(array('customer_id','tenant_id','customer_city_id','customer_address','customer_name','customer_phone','contact_tenant_id','exist','type'))
                                         ->into('customer')
-                                        ->values(array(((count($data)-$num1)+10000000001),$tenant_id,$receive_city_id,$customer_address,$customer_name,$customer_phone,$contact_tenant_id,'0',3));
+                                        ->values(array(((count($data)-$num1)+10000000001)."",$tenant_id,$receive_city_id,$customer_address,$customer_name,$customer_phone,$contact_tenant_id,'0',3));
                                     $insertId = $insertStatement->execute(false);
                                 }else{
                                     $insertStatement = $database->insert(array('customer_id','tenant_id','customer_city_id','customer_address','customer_name','customer_phone','exist','type'))
                                         ->into('customer')
-                                        ->values(array(((count($data)-$num1)+10000000001),$tenant_id,$receive_city_id,$customer_address,$customer_name,$customer_phone,'0',3));
+                                        ->values(array(((count($data)-$num1)+10000000001)."",$tenant_id,$receive_city_id,$customer_address,$customer_name,$customer_phone,'0',3));
                                     $insertId = $insertStatement->execute(false);
                                 }
-                                $customer_id=(count($data)-$num1)+10000000001;
+                                $customer_id=((count($data)-$num1)+10000000001)."";
                             }
                             date_default_timezone_set("PRC");
                             $time=time();
