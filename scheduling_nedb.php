@@ -1359,6 +1359,7 @@ $app->get('/limitSchedulings7',function()use($app){
     $size= $app->request->get('size');
     $offset= $app->request->get('offset');
     $arrays1=array();
+    $arrays2=array();
     if($tenant_id!=null||$tenant_id!=''){
         $selectStatement = $database->select()
             ->from('customer')
@@ -1425,7 +1426,10 @@ $app->get('/limitSchedulings7',function()use($app){
             }
             $arrays1=array_values(array_unset_tt($arrays1,'scheduling_id'));
         }
-        echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$arrays1));
+        for($n=$offset*$size;$n<($offset*$size+$size);$n++){
+            array_push($arrays2,$arrays1[$n]);
+        }
+        echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$arrays2));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
