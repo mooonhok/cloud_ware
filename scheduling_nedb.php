@@ -1530,7 +1530,7 @@ $app->get('/limitSchedulings8',function()use($app){
                         ->from('orders')
                         ->where('order_id','=',$data11[$h]['order_id'])
                         ->where('orders.pay_method','=',1)
-                        ->where('orders.tenant_id', '=',$data11['tenant_id']);
+                        ->where('orders.tenant_id', '=',$data11[$h]['tenant_id']);
                     $stmt = $selectStatement->execute();
                     $data10= $stmt->fetch();
                     if($data10['collect_cost']!=null||$data10['collect_cost']!=0){
