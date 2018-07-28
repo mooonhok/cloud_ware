@@ -152,20 +152,10 @@ $app->get('/limitSchedulings6',function()use($app){
                     ->where('id', '=', $data4['from_city_id']);
                 $stmt = $selectStatement->execute();
                 $data5 = $stmt->fetch();
-//                $selectStatement = $database->select()
-//                    ->sum('order_cost','zon')
-//                    ->from('schedule_order')
-//                    ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
-//                    ->where('schedule_order.schedule_id','=',$data2[$i]['scheduling_id'])
-//                    ->where('schedule_order.tenant_id', '=', $data2[$i]['tenant_id'])
-//                    ->where('orders.pay_method','=',1)
-//                    ->where('orders.tenant_id', '=', $data2[$i]['tenant_id']);
-//                $stmt = $selectStatement->execute();
-//                $data1 = $stmt->fetch();
                 $selectStatement = $database->select()
                     ->from('schedule_order')
-                    ->where('schedule_id','=',$data2[$x]['scheduling_id'])
-                    ->where('tenant_id', '=', $data2[$x]['tenant_id']);
+                    ->where('schedule_id','=',$data2[$i]['scheduling_id'])
+                    ->where('tenant_id', '=', $data2[$i]['tenant_id']);
                 $stmt = $selectStatement->execute();
                 $data8 = $stmt->fetchAll();
                 $num=0;
