@@ -49,6 +49,7 @@ $app->get('/getSchedulings1',function()use($app){
                     $num+=$data9['order_cost'];
                 }
             }
+            $data[$i]['sum']=$num;
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
     }else{
@@ -1636,7 +1637,7 @@ $app->get('/limitSchedulings3',function()use($app){
                 ->where('tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
             $data8 = $stmt->fetchAll();
-            $num=0;
+            $num2=0;
             for($j=0;$j<count($data8);$j++){
                 $selectStatement = $database->select()
                     ->from('orders')
@@ -1646,9 +1647,9 @@ $app->get('/limitSchedulings3',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data9= $stmt->fetch();
                 if($data9['collect_cost']!=null||$data9['collect_cost']!=0){
-                    $num+=$data9['collect_cost'];
+                    $num2+=$data9['collect_cost'];
                 }else{
-                    $num+=$data9['order_cost'];
+                    $num2+=$data9['order_cost'];
                 }
             }
 
@@ -1691,7 +1692,7 @@ $app->get('/limitSchedulings3',function()use($app){
             $data[$i]['send_city']=$data2;
             $data[$i]['receive_city']=$data3;
             $data[$i]['lorry']=$data4;
-            $data[$i]['sum']=$num;
+            $data[$i]['sum']=$num2;
             array_push($datab,$data[$i]);
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$datab));
