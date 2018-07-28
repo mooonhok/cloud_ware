@@ -165,7 +165,7 @@ $app->get('/limitSchedulings6',function()use($app){
                 $selectStatement = $database->select()
                     ->from('schedule_order')
                     ->where('schedule_id','=',$data2[$x]['scheduling_id'])
-                    ->where('tenant_id', '=', $data2[$i]['tenant_id']);
+                    ->where('tenant_id', '=', $data2[$x]['tenant_id']);
                 $stmt = $selectStatement->execute();
                 $data8 = $stmt->fetchAll();
                 $num=0;
