@@ -54,9 +54,9 @@ $app->post('/customer',function()use($app){
                         $stmt = $selectStatement->execute();
                         $data = $stmt->fetchAll();
                         if ($data == null) {
-                            $customer_id = 10000001;
+                            $customer_id = (10000001)."";
                         } else {
-                            $customer_id = count($data) + 10000001;
+                            $customer_id = (count($data) + 10000001)."";
                         }
                         $array["customer_id"] = $customer_id;
                         $array["tenant_id"] = $tenant_id;
@@ -332,7 +332,7 @@ $app->put('/customer_address',function()use($app){
                $data3 = $stmt->fetchAll();
                 $insertStatement = $database->insert(array('exist','tenant_id','wx_openid','type','customer_id','customer_address','customer_city_id','customer_name','customer_phone'))
                    ->into('customer')
-                   ->values(array(0,$tenant_id,$wx_openid,$type,count($data3)+10000001,$adress,$city_id,$customer_name,$phone));
+                   ->values(array(0,$tenant_id,$wx_openid,$type,(count($data3)+10000001)."",$adress,$city_id,$customer_name,$phone));
                $insertId = $insertStatement->execute(false);
                 echo json_encode(array("result"=>"0","desc"=>"success"));
             }else{
