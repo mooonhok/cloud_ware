@@ -90,7 +90,7 @@ $app->get('/getSchedulings16',function()use($app){
                         ->from('orders')
                         ->where('order_id','=',$data8[$h]['order_id'])
                         ->where('pay_method','=',1)
-                        ->where('tenant_id', '=', $data2[$i]['tenant_id']);
+                        ->where('tenant_id', '=', $data8[$h]['tenant_id']);
                     $stmt = $selectStatement->execute();
                     $data9= $stmt->fetch();
                     if($data9['collect_cost']!=null||$data9['collect_cost']!=0){
@@ -174,7 +174,7 @@ $app->get('/limitSchedulings6',function()use($app){
                         ->from('orders')
                         ->where('order_id','=',$data8[$h]['order_id'])
                         ->where('pay_method','=',1)
-                        ->where('tenant_id', '=',$data2[$i]['tenant_id']);
+                        ->where('tenant_id', '=',$data8[$h]['tenant_id']);
                     $stmt = $selectStatement->execute();
                     $data9= $stmt->fetch();
                     if($data9['collect_cost']!=null||$data9['collect_cost']!=0){
@@ -344,7 +344,7 @@ $app->get('/getSchedulings17',function()use($app){
                 $selectStatement = $database->select()
                     ->from('schedule_order')
                     ->where('schedule_id','=',$data[$i]['scheduling_id'])
-                    ->where('tenant_id', '=', $tenant_id);
+                    ->where('tenant_id', '=', $data[$i]['tenant_id']);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
                 $num=0;
@@ -352,8 +352,8 @@ $app->get('/getSchedulings17',function()use($app){
                     $selectStatement = $database->select()
                         ->from('orders')
                         ->where('order_id','=',$data1[$j]['order_id'])
-                        ->where('orders.pay_method','=',1)
-                        ->where('orders.tenant_id', '=',$tenant_id);
+                        ->where('pay_method','=',1)
+                        ->where('tenant_id', '=',$data1[$i]['tenant_id']);
                     $stmt = $selectStatement->execute();
                     $data2 = $stmt->fetch();
                     if($data2['collect_cost']!=null||$data2['collect_cost']!=0){
@@ -461,7 +461,7 @@ $app->get('/getSchedulings18',function()use($app){
             $selectStatement = $database->select()
                 ->from('schedule_order')
                 ->where('schedule_id','=',$data[$i]['scheduling_id'])
-                ->where('tenant_id', '=', $tenant_id);
+                ->where('tenant_id', '=', $data[$i]['tenant_id']);
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
             $num=0;
@@ -470,7 +470,7 @@ $app->get('/getSchedulings18',function()use($app){
                     ->from('orders')
                     ->where('order_id','=',$data1[$j]['order_id'])
                     ->where('orders.pay_method','=',1)
-                    ->where('orders.tenant_id', '=',$tenant_id);
+                    ->where('orders.tenant_id', '=',$data1[$j]['tenant_id']);
                 $stmt = $selectStatement->execute();
                 $data2 = $stmt->fetch();
                 if($data2['collect_cost']!=null||$data2['collect_cost']!=0){
@@ -585,7 +585,7 @@ $app->get('/getSchedulings19',function()use($app){
                 $selectStatement = $database->select()
                     ->from('schedule_order')
                     ->where('schedule_id','=',$data[$i]['scheduling_id'])
-                    ->where('tenant_id', '=', $tenant_id);
+                    ->where('tenant_id', '=', $data[$i]['tenant_id']);
                 $stmt = $selectStatement->execute();
                 $data1 = $stmt->fetchAll();
                 $num=0;
@@ -594,7 +594,7 @@ $app->get('/getSchedulings19',function()use($app){
                         ->from('orders')
                         ->where('order_id','=',$data1[$j]['order_id'])
                         ->where('orders.pay_method','=',1)
-                        ->where('orders.tenant_id', '=',$tenant_id);
+                        ->where('orders.tenant_id', '=',$data1[$j]['tenant_id']);
                     $stmt = $selectStatement->execute();
                     $data2 = $stmt->fetch();
                     if($data2['collect_cost']!=null||$data2['collect_cost']!=0){
@@ -1397,7 +1397,7 @@ $app->get('/limitSchedulings7',function()use($app){
                 $selectStatement = $database->select()
                     ->from('schedule_order')
                     ->where('schedule_id','=',$data2[$i]['scheduling_id'])
-                    ->where('tenant_id', '=', $tenant_id);
+                    ->where('tenant_id', '=', $data2[$i]['tnenant_id']);
                 $stmt = $selectStatement->execute();
                 $data11 = $stmt->fetchAll();
                 $num=0;
@@ -1406,7 +1406,7 @@ $app->get('/limitSchedulings7',function()use($app){
                         ->from('orders')
                         ->where('order_id','=',$data11[$h]['order_id'])
                         ->where('orders.pay_method','=',1)
-                        ->where('orders.tenant_id', '=',$tenant_id);
+                        ->where('orders.tenant_id', '=',$data11[$h]['tenant_id']);
                     $stmt = $selectStatement->execute();
                     $data10= $stmt->fetch();
                     if($data10['collect_cost']!=null||$data10['collect_cost']!=0){
@@ -1521,7 +1521,7 @@ $app->get('/limitSchedulings8',function()use($app){
                 $selectStatement = $database->select()
                     ->from('schedule_order')
                     ->where('schedule_id','=',$data[$i]['scheduling_id'])
-                    ->where('tenant_id', '=', $tenant_id);
+                    ->where('tenant_id', '=', $data[$i]['tenant_id']);
                 $stmt = $selectStatement->execute();
                 $data11 = $stmt->fetchAll();
                 $num2=0;
@@ -1530,7 +1530,7 @@ $app->get('/limitSchedulings8',function()use($app){
                         ->from('orders')
                         ->where('order_id','=',$data11[$h]['order_id'])
                         ->where('orders.pay_method','=',1)
-                        ->where('orders.tenant_id', '=',$tenant_id);
+                        ->where('orders.tenant_id', '=',$data11['tenant_id']);
                     $stmt = $selectStatement->execute();
                     $data10= $stmt->fetch();
                     if($data10['collect_cost']!=null||$data10['collect_cost']!=0){
@@ -1859,7 +1859,7 @@ $app->get('/limitSchedulings9',function()use($app){
                 $selectStatement = $database->select()
                     ->from('schedule_order')
                     ->where('schedule_id','=',$data[$i]['scheduling_id'])
-                    ->where('tenant_id', '=', $tenant_id);
+                    ->where('tenant_id', '=', $data[$i]['tenant_id']);
                 $stmt = $selectStatement->execute();
                 $data11 = $stmt->fetchAll();
                 $num2=0;
@@ -1868,7 +1868,7 @@ $app->get('/limitSchedulings9',function()use($app){
                         ->from('orders')
                         ->where('order_id','=',$data11[$h]['order_id'])
                         ->where('orders.pay_method','=',1)
-                        ->where('orders.tenant_id', '=',$tenant_id);
+                        ->where('orders.tenant_id', '=',$data11[$h]['tenant_id']);
                     $stmt = $selectStatement->execute();
                     $data10= $stmt->fetch();
                     if($data10['collect_cost']!=null||$data10['collect_cost']!=0){
