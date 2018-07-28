@@ -1416,9 +1416,9 @@ $app->get('/limitSchedulings7',function()use($app){
             }
             $arrays1=array_values(array_unset_tt($arrays1,'scheduling_id'));
         }
-        for($n=$offset*$size;$n<($offset*$size+$size);$n++){
-            array_push($arrays2,$arrays1[$n]);
-        }
+//        for($n=$offset*$size;$n<($offset*$size+$size);$n++){
+//            array_push($arrays2,$arrays1[$n]);
+//        }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$arrays2));
     }else{
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
