@@ -81,7 +81,7 @@ $app->get('/getSchedulings16',function()use($app){
                 $selectStatement = $database->select()
                     ->from('schedule_order')
                     ->where('schedule_id','=',$data2[$i]['scheduling_id'])
-                    ->where('tenant_id', '=', $tenant_id);
+                    ->where('tenant_id', '=', $data2[$i]['tenant_id']);
                 $stmt = $selectStatement->execute();
                 $data8 = $stmt->fetchAll();
                 $num=0;
@@ -89,8 +89,8 @@ $app->get('/getSchedulings16',function()use($app){
                     $selectStatement = $database->select()
                         ->from('orders')
                         ->where('order_id','=',$data8[$h]['order_id'])
-                        ->where('orders.pay_method','=',1)
-                        ->where('orders.tenant_id', '=',$tenant_id);
+                        ->where('pay_method','=',1)
+                        ->where('tenant_id', '=', $data2[$i]['tenant_id']);
                     $stmt = $selectStatement->execute();
                     $data9= $stmt->fetch();
                     if($data9['collect_cost']!=null||$data9['collect_cost']!=0){
@@ -165,7 +165,7 @@ $app->get('/limitSchedulings6',function()use($app){
                 $selectStatement = $database->select()
                     ->from('schedule_order')
                     ->where('schedule_id','=',$data2[$x]['scheduling_id'])
-                    ->where('tenant_id', '=', $tenant_id);
+                    ->where('tenant_id', '=', $data2[$i]['tenant_id']);
                 $stmt = $selectStatement->execute();
                 $data8 = $stmt->fetchAll();
                 $num=0;
@@ -173,8 +173,8 @@ $app->get('/limitSchedulings6',function()use($app){
                     $selectStatement = $database->select()
                         ->from('orders')
                         ->where('order_id','=',$data8[$h]['order_id'])
-                        ->where('orders.pay_method','=',1)
-                        ->where('orders.tenant_id', '=',$tenant_id);
+                        ->where('pay_method','=',1)
+                        ->where('tenant_id', '=',$data2[$i]['tenant_id']);
                     $stmt = $selectStatement->execute();
                     $data9= $stmt->fetch();
                     if($data9['collect_cost']!=null||$data9['collect_cost']!=0){
