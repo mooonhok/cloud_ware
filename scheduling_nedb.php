@@ -79,16 +79,27 @@ $app->get('/getSchedulings16',function()use($app){
             $data2 = $stmt->fetchAll();
             for($i=0;$i<count($data2);$i++){
                 $selectStatement = $database->select()
-                    ->sum('order_cost','zon')
                     ->from('schedule_order')
-                    ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
-                    ->where('schedule_order.schedule_id','=',$data2[$i]['scheduling_id'])
-                    ->where('schedule_order.tenant_id', '=', $data2[$i]['tenant_id'])
-                    ->where('orders.pay_method','=',1)
-                    ->where('orders.tenant_id', '=', $data2[$i]['tenant_id']);
+                    ->where('schedule_id','=',$data2[$i]['scheduling_id'])
+                    ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
-                $data1 = $stmt->fetch();
-                $data2[$i]['sum']=$data1['zon'];
+                $data8 = $stmt->fetchAll();
+                $num=0;
+                for($h=0;$h<count($data8);$h++){
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('order_id','=',$data8[$h]['order_id'])
+                        ->where('orders.pay_method','=',1)
+                        ->where('orders.tenant_id', '=',$tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data9= $stmt->fetch();
+                    if($data9['collect_cost']!=null||$data9['collect_cost']!=0){
+                        $num+=$data9['collect_cost'];
+                    }else{
+                        $num+=$data9['order_cost'];
+                    }
+                }
+                $data2[$i]['sum']=$num;
                 array_push($arrays1,$data2[$i]);
             }
         }
@@ -141,17 +152,38 @@ $app->get('/limitSchedulings6',function()use($app){
                     ->where('id', '=', $data4['from_city_id']);
                 $stmt = $selectStatement->execute();
                 $data5 = $stmt->fetch();
+//                $selectStatement = $database->select()
+//                    ->sum('order_cost','zon')
+//                    ->from('schedule_order')
+//                    ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+//                    ->where('schedule_order.schedule_id','=',$data2[$i]['scheduling_id'])
+//                    ->where('schedule_order.tenant_id', '=', $data2[$i]['tenant_id'])
+//                    ->where('orders.pay_method','=',1)
+//                    ->where('orders.tenant_id', '=', $data2[$i]['tenant_id']);
+//                $stmt = $selectStatement->execute();
+//                $data1 = $stmt->fetch();
                 $selectStatement = $database->select()
-                    ->sum('order_cost','zon')
                     ->from('schedule_order')
-                    ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
-                    ->where('schedule_order.schedule_id','=',$data2[$i]['scheduling_id'])
-                    ->where('schedule_order.tenant_id', '=', $data2[$i]['tenant_id'])
-                    ->where('orders.pay_method','=',1)
-                    ->where('orders.tenant_id', '=', $data2[$i]['tenant_id']);
+                    ->where('schedule_id','=',$data2[$x]['scheduling_id'])
+                    ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
-                $data1 = $stmt->fetch();
-                $data2[$i]['sum']=$data1['zon'];
+                $data8 = $stmt->fetchAll();
+                $num=0;
+                for($h=0;$h<count($data8);$h++){
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('order_id','=',$data8[$h]['order_id'])
+                        ->where('orders.pay_method','=',1)
+                        ->where('orders.tenant_id', '=',$tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data9= $stmt->fetch();
+                    if($data9['collect_cost']!=null||$data9['collect_cost']!=0){
+                        $num+=$data9['collect_cost'];
+                    }else{
+                        $num+=$data9['order_cost'];
+                    }
+                }
+                $data2[$i]['sum']=$num;
                 $data2[$i]['drivername']=$data3['driver_name'];
                 $data2[$i]['driverphone']=$data3['driver_phone'];
                 $data2[$i]['platenumber']=$data3['plate_number'];
@@ -310,16 +342,27 @@ $app->get('/getSchedulings17',function()use($app){
             $data = $stmt->fetchAll();
             for ($i = 0; $i < count($data); $i++) {
                 $selectStatement = $database->select()
-                    ->sum('order_cost', 'zon')
                     ->from('schedule_order')
-                    ->join('orders', 'schedule_order.order_id', '=', 'orders.order_id', 'INNER')
-                    ->where('schedule_order.schedule_id', '=', $data[$i]['scheduling_id'])
-                    ->where('schedule_order.tenant_id', '=',$data3[$x]['tenant_id'])
-                    ->where('orders.pay_method', '=', 1)
-                    ->where('orders.tenant_id', '=', $data3[$x]['tenant_id']);
+                    ->where('schedule_id','=',$data[$i]['scheduling_id'])
+                    ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
-                $data1 = $stmt->fetch();
-                $data[$i]['sum'] = $data1['zon'];
+                $data1 = $stmt->fetchAll();
+                $num=0;
+                for($j=0;$j<count($data1);$j++){
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('order_id','=',$data1[$j]['order_id'])
+                        ->where('orders.pay_method','=',1)
+                        ->where('orders.tenant_id', '=',$tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data2 = $stmt->fetch();
+                    if($data2['collect_cost']!=null||$data2['collect_cost']!=0){
+                        $num+=$data2['collect_cost'];
+                    }else{
+                        $num+=$data2['order_cost'];
+                    }
+                }
+                $data[$i]['sum'] = $num;
             }
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$data));
@@ -416,16 +459,27 @@ $app->get('/getSchedulings18',function()use($app){
             $stmt = $selectStatement->execute();
             $data5 = $stmt->fetch();
             $selectStatement = $database->select()
-                ->sum('order_cost','zon')
                 ->from('schedule_order')
-                ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
-                ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id'])
-                ->where('schedule_order.tenant_id', '=', $data[$i]['tenant_id'])
-                ->where('orders.pay_method','=',1)
-                ->where('orders.tenant_id', '=', $data[$i]['tenant_id']);
+                ->where('schedule_id','=',$data[$i]['scheduling_id'])
+                ->where('tenant_id', '=', $tenant_id);
             $stmt = $selectStatement->execute();
-            $data1 = $stmt->fetch();
-            $data[$i]['sum']=$data1['zon'];
+            $data1 = $stmt->fetchAll();
+            $num=0;
+            for($j=0;$j<count($data1);$j++){
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->where('order_id','=',$data1[$j]['order_id'])
+                    ->where('orders.pay_method','=',1)
+                    ->where('orders.tenant_id', '=',$tenant_id);
+                $stmt = $selectStatement->execute();
+                $data2 = $stmt->fetch();
+                if($data2['collect_cost']!=null||$data2['collect_cost']!=0){
+                    $num+=$data2['collect_cost'];
+                }else{
+                    $num+=$data2['order_cost'];
+                }
+            }
+            $data[$i]['sum']=$num;
             $data[$i]['drivername']=$data3['driver_name'];
             $data[$i]['driverphone']=$data3['driver_phone'];
             $data[$i]['platenumber']=$data3['plate_number'];
@@ -529,16 +583,27 @@ $app->get('/getSchedulings19',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data5 = $stmt->fetch();
                 $selectStatement = $database->select()
-                    ->sum('order_cost','zon')
                     ->from('schedule_order')
-                    ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
-                    ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id'])
-                    ->where('schedule_order.tenant_id', '=', $data[$i]['tenant_id'])
-                    ->where('orders.pay_method','=',1)
-                    ->where('orders.tenant_id', '=', $data[$i]['tenant_id']);
+                    ->where('schedule_id','=',$data[$i]['scheduling_id'])
+                    ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
-                $data1 = $stmt->fetch();
-                $data[$i]['sum']=$data1['zon'];
+                $data1 = $stmt->fetchAll();
+                $num=0;
+                for($j=0;$j<count($data1);$j++){
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('order_id','=',$data1[$j]['order_id'])
+                        ->where('orders.pay_method','=',1)
+                        ->where('orders.tenant_id', '=',$tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data2 = $stmt->fetch();
+                    if($data2['collect_cost']!=null||$data2['collect_cost']!=0){
+                        $num+=$data2['collect_cost'];
+                    }else{
+                        $num+=$data2['order_cost'];
+                    }
+                }
+                $data[$i]['sum']=$num;
                 $data[$i]['drivername']=$data3['driver_name'];
                 $data[$i]['driverphone']=$data3['driver_phone'];
                 $data[$i]['platenumber']=$data3['plate_number'];
@@ -1329,16 +1394,27 @@ $app->get('/limitSchedulings7',function()use($app){
                 $stmt = $selectStatement->execute();
                 $data5 = $stmt->fetch();
                 $selectStatement = $database->select()
-                    ->sum('order_cost','zon')
                     ->from('schedule_order')
-                    ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
-                    ->where('schedule_order.schedule_id','=',$data2[$i]['scheduling_id'])
-                    ->where('schedule_order.tenant_id', '=', $data2[$i]['tenant_id'])
-                    ->where('orders.pay_method','=',1)
-                    ->where('orders.tenant_id', '=', $data2[$i]['tenant_id']);
+                    ->where('schedule_id','=',$data2[$i]['scheduling_id'])
+                    ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
-                $data1 = $stmt->fetch();
-                $data2[$i]['sum']=$data1['zon'];
+                $data11 = $stmt->fetchAll();
+                $num=0;
+                for($h=0;$h<count($data11);$h++){
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('order_id','=',$data11[$h]['order_id'])
+                        ->where('orders.pay_method','=',1)
+                        ->where('orders.tenant_id', '=',$tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data10= $stmt->fetch();
+                    if($data10['collect_cost']!=null||$data10['collect_cost']!=0){
+                        $num+=$data10['collect_cost'];
+                    }else{
+                        $num+=$data10['order_cost'];
+                    }
+                }
+                $data2[$i]['sum']=$num;
                 $data2[$i]['drivername']=$data3['driver_name'];
                 $data2[$i]['driverphone']=$data3['driver_phone'];
                 $data2[$i]['platenumber']=$data3['plate_number'];
@@ -1428,17 +1504,38 @@ $app->get('/limitSchedulings8',function()use($app){
                     ->where('id', '=', $data4['from_city_id']);
                 $stmt = $selectStatement->execute();
                 $data5 = $stmt->fetch();
+//                $selectStatement = $database->select()
+//                    ->sum('order_cost','zon')
+//                    ->from('schedule_order')
+//                    ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+//                    ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id'])
+//                    ->where('schedule_order.tenant_id', '=', $data[$i]['tenant_id'])
+//                    ->where('orders.pay_method','=',1)
+//                    ->where('orders.tenant_id', '=', $data[$i]['tenant_id']);
+//                $stmt = $selectStatement->execute();
+//                $data1 = $stmt->fetch();
                 $selectStatement = $database->select()
-                    ->sum('order_cost','zon')
                     ->from('schedule_order')
-                    ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
-                    ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id'])
-                    ->where('schedule_order.tenant_id', '=', $data[$i]['tenant_id'])
-                    ->where('orders.pay_method','=',1)
-                    ->where('orders.tenant_id', '=', $data[$i]['tenant_id']);
+                    ->where('schedule_id','=',$data[$i]['scheduling_id'])
+                    ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
-                $data1 = $stmt->fetch();
-                $data[$i]['sum']=$data1['zon'];
+                $data11 = $stmt->fetchAll();
+                $num2=0;
+                for($h=0;$h<count($data11);$h++){
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('order_id','=',$data11[$h]['order_id'])
+                        ->where('orders.pay_method','=',1)
+                        ->where('orders.tenant_id', '=',$tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data10= $stmt->fetch();
+                    if($data10['collect_cost']!=null||$data10['collect_cost']!=0){
+                        $num2+=$data10['collect_cost'];
+                    }else{
+                        $num2+=$data10['order_cost'];
+                    }
+                }
+                $data[$i]['sum']=$num2;
                 $data[$i]['drivername']=$data3['driver_name'];
                 $data[$i]['driverphone']=$data3['driver_phone'];
                 $data[$i]['platenumber']=$data3['plate_number'];
@@ -1745,17 +1842,38 @@ $app->get('/limitSchedulings9',function()use($app){
                     ->where('id', '=', $data4['from_city_id']);
                 $stmt = $selectStatement->execute();
                 $data5 = $stmt->fetch();
+//                $selectStatement = $database->select()
+//                    ->sum('order_cost','zon')
+//                    ->from('schedule_order')
+//                    ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
+//                    ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id'])
+//                    ->where('schedule_order.tenant_id', '=', $data[$i]['tenant_id'])
+//                    ->where('orders.pay_method','=',1)
+//                    ->where('orders.tenant_id', '=', $data[$i]['tenant_id']);
+//                $stmt = $selectStatement->execute();
+//                $data1 = $stmt->fetch();
                 $selectStatement = $database->select()
-                    ->sum('order_cost','zon')
                     ->from('schedule_order')
-                    ->join('orders','schedule_order.order_id','=','orders.order_id','INNER')
-                    ->where('schedule_order.schedule_id','=',$data[$i]['scheduling_id'])
-                    ->where('schedule_order.tenant_id', '=', $data[$i]['tenant_id'])
-                    ->where('orders.pay_method','=',1)
-                    ->where('orders.tenant_id', '=', $data[$i]['tenant_id']);
+                    ->where('schedule_id','=',$data[$i]['scheduling_id'])
+                    ->where('tenant_id', '=', $tenant_id);
                 $stmt = $selectStatement->execute();
-                $data1 = $stmt->fetch();
-                $data[$i]['sum']=$data1['zon'];
+                $data11 = $stmt->fetchAll();
+                $num2=0;
+                for($h=0;$h<count($data11);$h++){
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('order_id','=',$data11[$h]['order_id'])
+                        ->where('orders.pay_method','=',1)
+                        ->where('orders.tenant_id', '=',$tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data10= $stmt->fetch();
+                    if($data10['collect_cost']!=null||$data10['collect_cost']!=0){
+                        $num2+=$data10['collect_cost'];
+                    }else{
+                        $num2+=$data10['order_cost'];
+                    }
+                }
+                $data[$i]['sum']=$num2;
                 $data[$i]['drivername']=$data3['driver_name'];
                 $data[$i]['driverphone']=$data3['driver_phone'];
                 $data[$i]['platenumber']=$data3['plate_number'];
