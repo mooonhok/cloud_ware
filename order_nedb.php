@@ -455,10 +455,16 @@ $app->put('/alterOrder14',function()use($app){
     $order_datetime1= date('Y-m-d H:i:s',time());
     $pay_method = $body->pay_method;
     $transfer_cost=$body->transfer_cost;
+    $collect_cost=null;
+    foreach($body as $key=>$value){
+        if($key=="collect_cost"){
+            $collect_cost=$body->collect_cost;
+        }
+    }
     if($order_id!=null||$order_id!=''){
         if($order_datetime1!=null||$order_datetime1!=''){
                 if($transfer_cost!=null||$transfer_cost!=''){
-                    $updateStatement = $database->update(array('order_status'=>1,'order_datetime1'=>$order_datetime1,'inventory_type'=>0,'pay_method'=>$pay_method,'transfer_cost'=>$transfer_cost))
+                    $updateStatement = $database->update(array('order_status'=>1,'order_datetime1'=>$order_datetime1,'inventory_type'=>0,'pay_method'=>$pay_method,'transfer_cost'=>$transfer_cost,'collect_cost'=>$collect_cost))
                         ->table('orders')
                         ->where('exist','=',0)
                         ->where('tenant_id','=',$tenant_id)
@@ -470,7 +476,11 @@ $app->put('/alterOrder14',function()use($app){
                         ->where('order_id',"=",$order_id);
                     $stmt = $selectStatement->execute();
                     $data1= $stmt->fetch();
-                    echo json_encode(array("result" => "0", "desc" => "success","order_cost"=>$data1['order_cost']));
+                    if($data1['collect_cost']==null||$data1['collect_cost']==0){
+                        echo json_encode(array("result" => "0", "desc" => "success","order_cost"=>$data1['order_cost']));
+                    }else{
+                        echo json_encode(array("result" => "0", "desc" => "success","order_cost"=>$data1['collect_cost']));
+                    }
                 }else{
                     echo json_encode(array("result" => "1", "desc" => "缺少转运费"));
                 }
