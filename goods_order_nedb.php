@@ -3634,6 +3634,12 @@ $app->put('/alterGoodsOrder',function()use($app){
     $tenant_num=$body->tenant_num;
     date_default_timezone_set("PRC");
     $order_datetime1=date('Y-m-d H:i:s',time());
+    $collect_cost=null;
+    foreach($body as $key=>$value){
+        if($key=="collect_cost"){
+            $collect_cost=$body->collect_cost;
+        }
+    }
     if($tenant_id!=null||$tenant_id!=""){
         if($order_id!=null||$order_id!=""){
             $selectStatement = $database->select()
@@ -3677,7 +3683,7 @@ $app->put('/alterGoodsOrder',function()use($app){
             }else if((count($data3)+1)<1000000&&(count($data3)+1)>99999){
                 $order_id2=$tenant_num.(count($data3)+1);
             }
-            $updateStatement = $database->update(array('order_id' => $order_id2,'order_cost' => $order_cost,'order_status' => $order_status,'order_datetime1' => $order_datetime1,'inventory_type' => $inventory_type,'tenant_id'=>$tenant_id,'pay_method'=>$pay_method))
+            $updateStatement = $database->update(array('order_id' => $order_id2,'order_cost' => $order_cost,'order_status' => $order_status,'order_datetime1' => $order_datetime1,'inventory_type' => $inventory_type,'tenant_id'=>$tenant_id,'pay_method'=>$pay_method,'collect_cost'=>$collect_cost))
                 ->table('orders')
                 ->where('exist','=',0)
                 ->where('order_id', '=', $order_id)
