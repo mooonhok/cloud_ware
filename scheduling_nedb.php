@@ -2096,11 +2096,11 @@ $app->get('/limitSchedulings10',function()use($app){
                 ->orderby('change_datetime','DESC');
             $stmt = $selectStatement->execute();
             $data2 = $stmt->fetchAll();
-            for($i=0;$i<count($data2);$i++) {
+            for($j=0;$j<count($data2);$j++) {
                 $selectStatement = $database->select()
                     ->from('schedule_order')
-                    ->where('schedule_id', '=', $data2[$i]['scheduling_id'])
-                    ->where('tenant_id', '=', $data2[$i]['tenant_id']);
+                    ->where('schedule_id', '=', $data2[$j]['scheduling_id'])
+                    ->where('tenant_id', '=', $data2[$j]['tenant_id']);
                 $stmt = $selectStatement->execute();
                 $data8 = $stmt->fetchAll();
                 $num = 0;
@@ -2119,8 +2119,8 @@ $app->get('/limitSchedulings10',function()use($app){
                     }
                 }
                 if ($num != 0) {
-                    $data2[$i]['sum'] = $num;
-                    array_push($arrays2, $data2[$i]);
+                    $data2[$j]['sum'] = $num;
+                    array_push($arrays2, $data2[$j]);
                 }
             }
             $num2=0;
