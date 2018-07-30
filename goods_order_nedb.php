@@ -3270,6 +3270,11 @@ $app->put('/saveGoodsOrder',function()use($app){
     $array5['pay_method']=$body->pay_method;
     $array5['order_cost']=$body->order_cost;
     $order_id=$body->order_id;
+    foreach($body as $key=>$value){
+        if($key=="collect_cost"){
+            $array5['collect_cost']=$body->collect_cost;
+        }
+    }
     $sender_name = $body->sender_name;
     $sender_phone = $body->sender_phone;
     $sender_city_id = $body->sender_city_id;
