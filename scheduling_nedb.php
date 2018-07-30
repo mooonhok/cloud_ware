@@ -2125,11 +2125,11 @@ $app->get('/limitSchedulings10',function()use($app){
             }
             $num2=0;
             if($offset<count($arrays2)&&$offset<(count($arrays2)-$size)){
-                $num=$offset+$size;
+                $num2=$offset+$size;
             }else{
-                $num=count($arrays2);
+                $num2=count($arrays2);
             }
-            for($i=$offset;$i<$num;$i++) {
+            for($i=$offset;$i<$num2;$i++) {
                 $selectStatement = $database->select()
                     ->from('lorry')
                     ->where('tenant_id', '=', $arrays2[$i]['tenant_id'])
