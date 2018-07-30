@@ -2153,7 +2153,7 @@ $app->get('/limitSchedulings10',function()use($app){
                 $arrays2[$i]['companyname']=$data4['company'];
                 $arrays2[$i]['jcompany']=$data4['jcompany'];
                 $arrays2[$i]['fromcity']=$data5['name'];
-                array_push($arrays1,$data2[$i]);
+                array_push($arrays1,$arrays2[$i]);
             }
         }
         echo json_encode(array("result" => "0", "desc" => "success",'schedulings'=>$arrays1));
