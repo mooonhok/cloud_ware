@@ -436,7 +436,11 @@ $app->get('/getStatistic4',function()use($app){
                         $stmt = $selectStatement->execute();
                         $data5= $stmt->fetch();
                         if($data5['pay_method']==1){
-                           $count2+=$data5['order_cost'];
+                            if($data5['collect_cost']!=null||$data5['collect_cost']!=0){
+                                $count2+=$data5['collect_cost'];
+                            }else{
+                                $count2+=$data5['order_cost'];
+                            }
                         }
                         $selectStatement = $database->select()
                             ->from('orders')
@@ -526,7 +530,12 @@ $app->get('/getStatistic4',function()use($app){
                         $stmt = $selectStatement->execute();
                         $data500= $stmt->fetch();
                         if($data500['pay_method']==1){
-                            $count2+=$data500['order_cost'];
+
+                            if($data500['collect_cost']!=null||$data500['collect_cost']!=0){
+                                $count2+=$data500['collect_cost'];
+                            }else{
+                                $count2+=$data500['order_cost'];
+                            }
                         }
                         $selectStatement = $database->select()
                             ->from('orders')
@@ -646,7 +655,11 @@ $app->get('/getStatistic5',function()use($app){
                         $stmt = $selectStatement->execute();
                         $data5= $stmt->fetch();
                         if($data5['pay_method']==1){
-                            $count2+=$data5['order_cost'];
+                            if($data5['collect_cost']!=null||$data5['collect_cost']!=0){
+                                $count2+=$data5['collect_cost'];
+                            }else{
+                                $count2+=$data5['order_cost'];
+                            }
                         }
                         $selectStatement = $database->select()
                             ->from('orders')
@@ -736,7 +749,11 @@ $app->get('/getStatistic5',function()use($app){
                         $stmt = $selectStatement->execute();
                         $data500= $stmt->fetch();
                         if($data500['pay_method']==1){
-                            $count2+=$data500['order_cost'];
+                            if($data500['collect_cost']!=null||$data500['collect_cost']!=0){
+                                $count2+=$data500['collect_cost'];
+                            }else{
+                                $count2+=$data500['order_cost'];
+                            }
                         }
                         $selectStatement = $database->select()
                             ->from('orders')
