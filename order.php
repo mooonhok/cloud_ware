@@ -1337,6 +1337,7 @@ $app->get('/wx_orders_num', function () use ($app) {
                 ->join('wx_message','wx_message.order_id','=','orders.order_id','INNER')
                 ->where('orders.exist', "=", 0)
                 ->where('orders.order_status','=',0)
+                ->where('orders.tenant_id','=',$tenant_id)
                 ->where('wx_message.tenant_id','=',$tenant_id);
             $stmt = $selectStatement->execute();
             $data2= $stmt->fetchAll();
@@ -1376,6 +1377,7 @@ $app->post('/wx_orders_order_source', function () use ($app) {
                 ->where('wx_message.exist', "=", 0)
                 ->where('wx_message.tenant_id', '=', $tenant_id)
                 ->where('orders.order_status','=',0)
+                ->where('orders.tenant_id','=',$tenant_id)
                 ->orderBy("wx_message.ms_date",'DESC')
                 ->limit((int)$size,(int)$offset);
             $stmt = $selectStatement->execute();
@@ -1383,13 +1385,6 @@ $app->post('/wx_orders_order_source', function () use ($app) {
             if($data2!=null){
                   $num1=count($data2);
                 for($i=0;$i<$num1;$i++){
-//                    $selectStatement = $database->select()
-//                        ->from('orders')
-//                        ->where('order_id', "=", $data2[$i]['order_id'])
-//                        ->where('order_status','=',0)
-//                        ->where('exist','=',0);
-//                    $stmt = $selectStatement->execute();
-//                    $data3= $stmt->fetch();
                     $selectStatement = $database->select()
                         ->from('goods')
                         ->where('order_id', "=", $data2[$i]['order_id'])
