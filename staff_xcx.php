@@ -736,9 +736,7 @@ $app->get('/orderGoodsCity',function()use($app){
             ->where('orders.tenant_id','=',$tenant_id)
             ->where('orders.exist','=',0)
             ->where('orders.order_status','=',1)
-            ->whereNull('orders.exception_id')
             ->where('orders.inventory_type','=',$inventory_type)
-            ->where('orders.is_back','=',0)
             ->where('orders.is_schedule','=',0);
         $stmt = $selectStatement->execute();
         $data= $stmt->fetchAll();
