@@ -2965,11 +2965,13 @@ $app->put('/acceptSchedulingOrder', function () use ($app,$clapi) {
             $order_id=$data[$y]['order']['order_id'];
             $pay_method=$data[$y]['order']['pay_method'];
             $order_cost=$data[$y]['order']['order_cost'];
+            $collect_cost=$data[$y]['order']['collect_cost'];
             $is_transfer=$data[$y]['order']['is_transfer'];
             $array7=array();
             $array7['tenant_id']=$tenant_id;
             $array7['order_id']=$order_id;
             $array7['pay_method']=$pay_method;
+//            $array7['collect_cost']=$collect_cost;
             $array7['order_cost']=$order_cost;
             $array7['sender_id']=$sender_id;
             $array7['receiver_id']=$receiver_id;
@@ -2979,6 +2981,7 @@ $app->put('/acceptSchedulingOrder', function () use ($app,$clapi) {
                 $array7['inventory_type']=0;
                 $array7['order_datetime0']=$time;
                 $array7['order_datetime1']=$time;
+                $array7['collect_cost']=$collect_cost;
             }else{
                 $array7['order_status']=0;
                 $array7['order_datetime0']=$time;
