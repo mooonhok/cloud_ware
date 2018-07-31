@@ -476,10 +476,18 @@ $app->put('/alterOrder14',function()use($app){
                         ->where('order_id',"=",$order_id);
                     $stmt = $selectStatement->execute();
                     $data1= $stmt->fetch();
-                    if($data1['collect_cost']==null||$data1['collect_cost']==0){
-                        echo json_encode(array("result" => "0", "desc" => "success","order_cost"=>$data1['order_cost']));
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('order_id',"=",$order_id)
+                        ->where('id','<',$data1['id'])
+                        ->orderBy('id','DESC')
+                        ->limit(1);
+                    $stmt = $selectStatement->execute();
+                    $data2= $stmt->fetch();
+                    if($data2['collect_cost']==null||$data2['collect_cost']==0){
+                        echo json_encode(array("result" => "0", "desc" => "success","order_cost"=>$data2['order_cost']));
                     }else{
-                        echo json_encode(array("result" => "0", "desc" => "success","order_cost"=>$data1['collect_cost']));
+                        echo json_encode(array("result" => "0", "desc" => "success","order_cost"=>$data2['collect_cost']));
                     }
                 }else{
                     echo json_encode(array("result" => "1", "desc" => "缺少转运费"));
