@@ -828,18 +828,18 @@ $app->get('/old_customers_f',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
+    $customer_name=$app->request->get('customer_name');
     $database=localhost();
     $array1=array();
     $selectStatement = $database->select()
         ->from('customer')
-//        ->distinctCount('customer_name')
         ->where('tenant_id','=',$tenant_id)
         ->where('exist','=',0)
         ->where('type','=',1)
         ->whereNotNull('times')
         ->where('times','!=',0)
         ->orderBy('id','DESC')
-        ->limit(10);
+        ->whereLike("customer_name","".$customer_name."");
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
     if($data1!=null){
