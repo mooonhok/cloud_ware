@@ -839,7 +839,7 @@ $app->get('/old_customers_f',function()use($app){
         ->whereNotNull('times')
         ->where('times','!=',0)
         ->orderBy('id','DESC')
-        ->whereLike("customer_name","".$customer_name."");
+        ->whereLike("customer_name","%".$customer_name."%");
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
     if($data1!=null){
