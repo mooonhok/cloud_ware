@@ -3803,6 +3803,26 @@ $app->put('/deleteGoodsOrder',function()use($app){
                     ->where('tenant_id','=',$tenant_id)
                     ->where('order_id','=',$order_id);
                 $affectedRows = $updateStatement->execute();
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('customer_id','=',$data2['sender_id'])
+                    ->where('tenant_id','=',$tenant_id);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetch();
+                if($data3['times']>1){
+                    $a=$data3['times']-1;
+                    $updateStatement = $database->update(array("times"=>$a))
+                        ->table('customer')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('customer_id','=',$data2['sender_id']);
+                    $affectedRows = $updateStatement->execute();
+                }else{
+                    $updateStatement = $database->update(array("exist"=>1))
+                        ->table('customer')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('customer_id','=',$data2['sender_id']);
+                    $affectedRows = $updateStatement->execute();
+                }
                 echo json_encode(array("result"=>"0",'desc'=>'success'));
             }
         }else{
