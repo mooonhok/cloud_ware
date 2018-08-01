@@ -866,6 +866,7 @@ $app->get('/old_customers_s',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
+    $customer_name=$app->request->get('customer_name');
     $database=localhost();
     $array1=array();
     $array2=array();
@@ -877,7 +878,7 @@ $app->get('/old_customers_s',function()use($app){
         ->where('type','=',0)
         ->orderBy('id','DESC')
         ->orderBy('id')
-        ->limit(10);
+        ->whereLike("customer_name","%".$customer_name."%");
     $stmt = $selectStatement->execute();
     $data1 = $stmt->fetchAll();
     if($data1!=null){
