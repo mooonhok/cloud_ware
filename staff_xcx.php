@@ -3349,6 +3349,31 @@ $app->get('/getuser',function()use($app){
 });
 
 
+$app->get('/getGoodsOrdersNum',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $inventory_type=$app->request->get('inventory_type');
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('orders')
+            ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+            ->where('goods.tenant_id','=',$tenant_id)
+            ->where('orders.tenant_id','=',$tenant_id)
+            ->where('orders.order_status','=',1)
+            ->where('orders.inventory_type','=',$inventory_type)
+            ->where('orders.exist','=',0);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetchAll();
+        echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
+    }else{
+        echo json_encode(array('result'=>'1','desc'=>'租户id为空'));
+    }
+});
+
+
+
 $app->run();
 
 function localhost(){
