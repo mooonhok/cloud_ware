@@ -3367,11 +3367,6 @@ $app->get('/getGoodsOrdersNum',function()use($app){
         $stmt = $selectStatement->execute();
         $data1 = $stmt->fetchAll();
         for($i=0;$i<count($data1);$i++){
-//            $selectStament=$database->select()
-//                ->from('goods_package')
-//                ->where('goods_package_id','=',$data1[$i]['goods_package_id']);
-//            $stmt=$selectStament->execute();
-//            $data2=$stmt->fetch();
             $selectStament=$database->select()
                 ->from('customer')
                 ->where('tenant_id','=',$tenant_id)
@@ -3394,35 +3389,8 @@ $app->get('/getGoodsOrdersNum',function()use($app){
                 ->where('id', '=', $data4['customer_city_id']);
             $stmt = $selectStatement->execute();
             $data7 = $stmt->fetch();
-//            $selectStament=$database->select()
-//                ->from('inventory_loc')
-//                ->where('tenant_id','=',$tenant_id)
-//                ->where('inventory_loc_id','=',$data1[$i]['inventory_loc_id']);
-//            $stmt=$selectStament->execute();
-//            $data5=$stmt->fetch();
-//            $selectStament=$database->select()
-//                ->from('orders')
-//                ->where('tenant_id','=',$tenant_id)
-//                ->where('order_id','=',$data1[$i]['order_id']);
-//            $stmt=$selectStament->execute();
-//            $data11=$stmt->fetch();
-//            $selectStament=$database->select()
-//                ->from('orders')
-//                ->where('id','<',$data11['id'])
-//                ->where('order_id','=',$data1[$i]['order_id'])
-//                ->orderBy('id','DESC')
-//                ->limit(1);
-//            $stmt=$selectStament->execute();
-//            $data12=$stmt->fetch();
-//            $is_transfer=null;
-//            if($data12!=null){
-//                $is_transfer=$data12['is_transfer'];
-//            }
-//            $data1[$i]['pre_company']=$is_transfer;
-//            $data1[$i]['goods_package']=$data2;
             $data1[$i]['sender_city_name']=$data6['name'];
             $data1[$i]['receiver_city_name']=$data7['name'];
-//            $data1[$i]['inventory_loc']=$data5;
         }
         echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
     }else{
@@ -3515,12 +3483,26 @@ $app->get('/getGoodsOrder',function()use($app){
                 if($data12!=null){
                     $is_transfer=$data12['is_transfer'];
                 }
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '<', $data6['id'])
+                    ->where('pid',"=",$data6['pid']);
+                $stmt = $selectStatement->execute();
+                $data20 = $stmt->fetchAll();
+                $selectStatement = $database->select()
+                    ->from('city')
+                    ->where('id', '<', $data7['id'])
+                    ->where('pid',"=",$data7['pid']);
+                $stmt = $selectStatement->execute();
+                $data21 = $stmt->fetchAll();
                 $data1[$i]['pre_company']=$is_transfer;
                 $data1[$i]['goods_package']=$data2;
                 $data1[$i]['sender']=$data3;
+                $data1[$i]['sender']['citynum']=count($data20)+1;
                 $data1[$i]['sender']['sender_city']=$data6;
                 $data1[$i]['sender']['sender_province']=$data8;
                 $data1[$i]['receiver']=$data4;
+                $data1[$i]['receiver']['citynum']=count($data21)+1;
                 $data1[$i]['receiver']['receiver_city']=$data7;
                 $data1[$i]['receiver']['receiver_province']=$data9;
                 $data1[$i]['inventory_loc']=$data5;
@@ -3535,6 +3517,642 @@ $app->get('/getGoodsOrder',function()use($app){
     }
 });
 
+
+$app->post('/addException',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get("tenant-id");
+    $body = $app->request->getBody();
+    $body=json_decode($body);
+    $array=array();
+//    $exception_id=$body->exception_id;
+    $exception_source=$body->exception_source;
+    $exception_person=$body->exception_person;
+    $exception_comment=$body->exception_comment;
+    date_default_timezone_set("PRC");
+    $exception_time=date('Y-m-d H:i:s',time());
+    $order_id=$body->order_id;
+    foreach($body as $key=>$value){
+        $array[$key]=$value;
+    }
+    $array['tenant_id']=$tenant_id;
+    $array['exist']=0;
+    if($exception_source!=null||$exception_source!=''){
+        if($exception_person!=null||$exception_person!=''){
+            if($exception_comment!=null||$exception_comment!=''){
+                if($exception_time!=null||$exception_time!=''){
+                    if($order_id!=null||$order_id!=''){
+                        $selectStatement = $database->select()
+                            ->from('exception')
+                            ->where('tenant_id', '=', $tenant_id);
+                        $stmt = $selectStatement->execute();
+                        $data = $stmt->fetchAll();
+                        $exception_id=count($data)+100000001;
+                        date_default_timezone_set("PRC");
+                        $array['exception_id']=$exception_id;
+                        $array['exception_time']=date('Y-m-d H:i:s',time());
+                        $insertStatement = $database->insert(array_keys($array))
+                            ->into('exception')
+                            ->values(array_values($array));
+                        $insertId = $insertStatement->execute(false);
+                        $array1=array();
+                        $array1['order_status']=5;
+                        $array1['exception_id']=$exception_id;
+                        $updateStatement = $database->update($array1)
+                            ->table('orders')
+                            ->where('order_id','=',$order_id)
+                            ->where('tenant_id','=',$tenant_id);
+                        $affectedRows = $updateStatement->execute();
+                        echo json_encode(array("result" => "0", "desc" => ""));
+                    }else{
+                        echo json_encode(array("result" => "1", "desc" => "缺少运单id"));
+                    }
+                }else{
+                    echo json_encode(array("result" => "2", "desc" => "缺少异常时间"));
+                }
+            }else{
+                echo json_encode(array("result" => "3", "desc" => "缺少异常备注"));
+            }
+        }else{
+            echo json_encode(array("result" => "4", "desc" => "缺少异常人员"));
+        }
+    }else{
+        echo json_encode(array("result" => "5", "desc" => "缺少异常来源"));
+    }
+});
+
+$app->get('/getExceptionList',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get('tenant-id');
+    if($tenant_id!=null||$tenant_id!=''){
+        $selectStatement = $database->select()
+            ->from('orders')
+            ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+            ->where('goods.tenant_id','=',$tenant_id)
+            ->where('orders.tenant_id','=',$tenant_id)
+            ->where('inventory_type','=',4)
+            ->where('orders.order_status','=',5)
+            ->where('orders.exist','=',0);
+        $stmt = $selectStatement->execute();
+        $data1 = $stmt->fetchAll();
+        for($i=0;$i<count($data1);$i++){
+            $selectStament=$database->select()
+                ->from('goods_package')
+                ->where('goods_package_id','=',$data1[$i]['goods_package_id']);
+            $stmt=$selectStament->execute();
+            $data2=$stmt->fetch();
+            $selectStament=$database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('customer_id','=',$data1[$i]['sender_id']);
+            $stmt=$selectStament->execute();
+            $data3=$stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data3['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data6 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id', '=', $data6['pid']);
+            $stmt = $selectStatement->execute();
+            $data8 = $stmt->fetch();
+            $selectStament=$database->select()
+                ->from('customer')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('customer_id','=',$data1[$i]['receiver_id']);
+            $stmt=$selectStament->execute();
+            $data4=$stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data4['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data7 = $stmt->fetch();
+            $selectStatement = $database->select()
+                ->from('province')
+                ->where('id', '=', $data7['pid']);
+            $stmt = $selectStatement->execute();
+            $data9 = $stmt->fetch();
+            $selectStament=$database->select()
+                ->from('inventory_loc')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('inventory_loc_id','=',$data1[$i]['inventory_loc_id']);
+            $stmt=$selectStament->execute();
+            $data5=$stmt->fetch();
+            $selectStament=$database->select()
+                ->from('exception')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('exception_id','=',$data1[$i]['exception_id']);
+            $stmt=$selectStament->execute();
+            $data10=$stmt->fetch();
+            $data1[$i]['goods_package']=$data2;
+            $data1[$i]['sender']=$data3;
+            $data1[$i]['sender']['sender_city']=$data6;
+            $data1[$i]['sender']['sender_province']=$data8;
+            $data1[$i]['receiver']=$data4;
+            $data1[$i]['receiver']['receiver_city']=$data7;
+            $data1[$i]['receiver']['receiver_province']=$data9;
+            $data1[$i]['inventory_loc']=$data5;
+            $data1[$i]['exception']=$data10;
+        }
+        echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
+    }else{
+        echo json_encode(array('result'=>'2','desc'=>'租户id为空'));
+    }
+});
+
+
+$app->put('/recoverGoodsOrder',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $order_id=$body->order_id;
+    date_default_timezone_set("PRC");
+    $time1=date('Y-m-d H:i:s',time());
+    if($tenant_id!=null||$tenant_id!=""){
+        if($order_id!=null||$order_id!=""){
+            $selectStatement = $database->select()
+                ->from('exception')
+                ->where('order_id','=',$order_id)
+                ->where('tenant_id','=',$tenant_id);
+            $stmt = $selectStatement->execute();
+            $data1 = $stmt->fetch();
+            if($data1!=null){
+                if($data1["exception_source"]=="前台"){
+                    $updateStatement = $database->update(array("order_status"=>-2))
+                        ->table('orders')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('order_id','=',$order_id);
+                    $affectedRows = $updateStatement->execute();
+                    echo json_encode(array("result"=>"0",'desc'=>'success',"exception_source"=>$data1["exception_source"]));
+                }else if($data1["exception_source"]=="仓库"){
+                    $updateStatement = $database->update(array("order_status"=>1,"order_datetime1"=>$time1,"order_datetime2"=>null,"order_datetime3"=>null))
+                        ->table('orders')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('order_id','=',$order_id);
+                    $affectedRows = $updateStatement->execute();
+                    echo json_encode(array("result"=>"0",'desc'=>'success',"exception_source"=>$data1["exception_source"]));
+                }else if($data1["exception_source"]=="交付帮手"){
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('order_id','=',$order_id)
+                        ->where('tenant_id','=',$tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data2 = $stmt->fetch();
+                    if($data2['is_back']==1){
+                        echo json_encode(array("result"=>"4",'desc'=>'退单中',"exception_source"=>$data1["exception_source"]));
+                    }else{
+                        $updateStatement = $database->update(array("order_status"=>1,"order_datetime1"=>$time1,"order_datetime2"=>null,"order_datetime3"=>null,"inventory_type"=>4,"is_schedule"=>0))
+                            ->table('orders')
+                            ->where('tenant_id','=',$tenant_id)
+                            ->where('order_id','=',$order_id);
+                        $affectedRows = $updateStatement->execute();
+                        echo json_encode(array("result"=>"0",'desc'=>'success',"exception_source"=>$data1["exception_source"]));
+                    }
+                }else{
+                    echo json_encode(array("result"=>"0",'desc'=>'success',"exception_source"=>$data1["exception_source"]));
+                }
+            }else{
+                echo json_encode(array("result"=>"3",'desc'=>'异常不存在'));
+            }
+        }else{
+            echo json_encode(array("result"=>"1",'desc'=>'缺少运单id'));
+        }
+    }else{
+        echo json_encode(array("result"=>"2",'desc'=>'缺少租户id'));
+    }
+});
+
+
+$app->put('/deleteGoodsOrder',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $order_id=$body->order_id;
+    date_default_timezone_set("PRC");
+    $time1=date('Y-m-d H:i:s',time());
+    if($tenant_id!=null||$tenant_id!=""){
+        if($order_id!=null||$order_id!=""){
+            $selectStatement = $database->select()
+                ->from('orders')
+                ->where('order_id','=',$order_id)
+                ->where('tenant_id','=',$tenant_id);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            if($data2['is_back']==1){
+                echo json_encode(array("result"=>"4",'desc'=>'退单中'));
+            }else{
+                $updateStatement = $database->update(array("order_status"=>6))
+                    ->table('orders')
+                    ->where('tenant_id','=',$tenant_id)
+                    ->where('order_id','=',$order_id);
+                $affectedRows = $updateStatement->execute();
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->where('customer_id','=',$data2['sender_id'])
+                    ->where('tenant_id','=',$tenant_id);
+                $stmt = $selectStatement->execute();
+                $data3 = $stmt->fetch();
+                if($data3['times']>1){
+                    $a=$data3['times']-1;
+                    $updateStatement = $database->update(array("times"=>$a))
+                        ->table('customer')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('customer_id','=',$data2['sender_id']);
+                    $affectedRows = $updateStatement->execute();
+                }else{
+                    $updateStatement = $database->update(array("exist"=>1))
+                        ->table('customer')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('customer_id','=',$data2['sender_id']);
+                    $affectedRows = $updateStatement->execute();
+                }
+                echo json_encode(array("result"=>"0",'desc'=>'success'));
+            }
+        }else{
+            echo json_encode(array("result"=>"1",'desc'=>'缺少运单id'));
+        }
+    }else{
+        echo json_encode(array("result"=>"2",'desc'=>'缺少租户id'));
+    }
+});
+
+$app->put('/saveGoodsOrder',function()use($app){
+    $app->response->headers->set('Content-Type','application/json');
+    $database = localhost();
+    $tenant_id = $app->request->headers->get("tenant-id");
+    $body=$app->request->getBody();
+    $body=json_decode($body);
+    $array1=array();
+    $array3=array();
+    $array4=array();
+    $array5=array();
+    $array6=array();
+    $array1['goods_name']=$body->goods_name;
+    $array1['goods_weight']=$body->goods_weight;
+    $array1['goods_value']=$body->goods_value;
+    $array1['goods_count']=$body->goods_count;
+    $array1['goods_capacity']=$body->goods_capacity;
+    $array1['goods_package_id']=$body->goods_package_id;
+    $array1['special_need']=$body->special_need;
+    $array1['exist']=0;
+    $array1['tenant_id']=$tenant_id;
+    $array5['sender_id']=null;
+    $array5['receiver_id']=null;
+    $array5['pay_method']=$body->pay_method;
+    $array5['order_cost']=$body->order_cost;
+    $order_id=$body->order_id;
+    foreach($body as $key=>$value){
+        if($key=="collect_cost"){
+            $array5['collect_cost']=$body->collect_cost;
+        }
+    }
+    $sender_name = $body->sender_name;
+    $sender_phone = $body->sender_phone;
+    $sender_city_id = $body->sender_city_id;
+    $sender_address = $body->sender_address;
+    $sender_type=$body->sender_type;
+    $sender_tenant_id=$body->sender_tenant_id;
+    $array3['times']=$body->sender_times;
+    $array3['customer_name']=$sender_name;
+    $array3['customer_phone']=$sender_phone;
+    $array3['customer_city_id']=$sender_city_id;
+    $array3['customer_address']=$sender_address;
+    $array3['type']=$sender_type;
+    $array3['contact_tenant_id']=$sender_tenant_id;
+    $receiver_name = $body->receiver_name;
+    $receiver_phone = $body->receiver_phone;
+    $receiver_city_id = $body->receiver_city_id;
+    $receiver_address = $body->receiver_address;
+    $receiver_type=$body->receiver_type;
+    $receiver_tenant_id=$body->receiver_tenant_id;
+    $array4['times']=$body->receiver_times;
+    $array4['customer_name']=$receiver_name;
+    $array4['customer_phone']=$receiver_phone;
+    $array4['customer_city_id']=$receiver_city_id;
+    $array4['customer_address']=$receiver_address;
+    $array4['type']=$receiver_type;
+    $array4['contact_tenant_id']=$receiver_tenant_id;
+    $exception_id=$body->exception_id;
+    $array6["exception_comment"]=$body->exception_comment;
+    if($tenant_id!=null||$tenant_id!=""){
+        $selectStatement = $database->select()
+            ->from('tenant')
+            ->where('tenant_id', '=', $tenant_id);
+        $stmt = $selectStatement->execute();
+        $data = $stmt->fetch();
+        if($data!=null){
+            if( $sender_tenant_id==null|| $sender_tenant_id==""){
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->whereNull('wx_openid')
+                    ->where('customer_name','=',$sender_name)
+                    ->where('customer_phone','=',$sender_phone)
+                    ->where('customer_city_id','=',$sender_city_id)
+                    ->where('customer_address','=',$sender_address)
+                    ->where('type','=',$sender_type)
+                    ->where('exist','=',0)
+                    ->where('tenant_id', '=', $tenant_id);
+                $stmt = $selectStatement->execute();
+                $data4 = $stmt->fetch();
+                if($data4==null){
+                    $array3['tenant_id']=$tenant_id;
+                    $array3['exist']=0;
+                    $selectStatement = $database->select()
+                        ->from('tenant')
+                        ->where('tenant_id', '=', $tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data5 = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('customer')
+                        ->whereNull('wx_openid')
+                        ->where('customer_id', '!=', $data5['contact_id'])
+                        ->where('tenant_id', '=', $tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data6 = $stmt->fetchAll();
+                    $array5['sender_id']=(count($data6)+10000000001)."";
+                    $array3['customer_id']=(count($data6)+10000000001)."";
+                    $insertStatement = $database->insert(array_keys($array3))
+                        ->into('customer')
+                        ->values(array_values($array3));
+                    $insertId = $insertStatement->execute(false);
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('tenant_id', '=', $tenant_id)
+                        ->where('order_id','=',$order_id);
+                    $stmt = $selectStatement->execute();
+                    $data11= $stmt->fetch();
+                    if($data11['sender_id']!= $array5['sender_id']){
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('tenant_id', '=', $tenant_id)
+                            ->where('customer_id','=',$data11['sender_id']);
+                        $stmt = $selectStatement->execute();
+                        $data12= $stmt->fetch();
+                        if($data12['times']==1){
+                            $updateStatement = $database->update(array("exist"=>1))
+                                ->table('customer')
+                                ->where('tenant_id', '=', $tenant_id)
+                                ->where('customer_id','=',$data11['sender_id']);
+                            $affectedRows = $updateStatement->execute();
+                        }else if($data12['times']>1){
+                            $f=$data12['times']-1;
+                            $updateStatement = $database->update(array("times"=>$f))
+                                ->table('customer')
+                                ->where('tenant_id', '=', $tenant_id)
+                                ->where('customer_id','=',$data11['sender_id']);
+                            $affectedRows = $updateStatement->execute();
+                        }
+                    }
+                }else{
+                    $array5['sender_id']=$data4['customer_id'];
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('tenant_id', '=', $tenant_id)
+                        ->where('order_id','=',$order_id);
+                    $stmt = $selectStatement->execute();
+                    $data11= $stmt->fetch();
+                    if($data11['sender_id']!= $array5['sender_id']){
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('tenant_id', '=', $tenant_id)
+                            ->where('customer_id','=',$data11['sender_id']);
+                        $stmt = $selectStatement->execute();
+                        $data12= $stmt->fetch();
+                        if($data12['times']==1){
+                            $updateStatement = $database->update(array("exist"=>1))
+                                ->table('customer')
+                                ->where('tenant_id', '=', $tenant_id)
+                                ->where('customer_id','=',$data11['sender_id']);
+                            $affectedRows = $updateStatement->execute();
+                        }else if($data12['times']>1){
+                            $f=$data12['times']-1;
+                            $updateStatement = $database->update(array("times"=>$f))
+                                ->table('customer')
+                                ->where('tenant_id', '=', $tenant_id)
+                                ->where('customer_id','=',$data11['sender_id']);
+                            $affectedRows = $updateStatement->execute();
+                        }
+                        $n=$data4['times']+1;
+                        $updateStatement = $database->update(array("times"=>$n))
+                            ->table('customer')
+                            ->where('tenant_id', '=', $tenant_id)
+                            ->where('customer_id','=',$data4['customer_id']);
+                        $affectedRows = $updateStatement->execute();
+                    }
+                }
+            }else{
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->whereNull('wx_openid')
+                    ->where('customer_name','=',$sender_name)
+                    ->where('customer_phone','=',$sender_phone)
+                    ->where('customer_city_id','=',$sender_city_id)
+                    ->where('customer_address','=',$sender_address)
+                    ->where('type','=',$sender_type)
+                    ->where('exist','=',0)
+                    ->where('contact_tenant_id','=',$sender_tenant_id)
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('exist','=',0);
+                $stmt = $selectStatement->execute();
+                $data4 = $stmt->fetch();
+                if($data4==null){
+                    $array3['tenant_id']=$tenant_id;
+                    $array3['exist']=0;
+                    $selectStatement = $database->select()
+                        ->from('tenant')
+                        ->where('tenant_id', '=', $tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data5 = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('customer')
+                        ->whereNull('wx_openid')
+                        ->where('customer_id', '!=', $data5['contact_id'])
+                        ->where('tenant_id', '=', $tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data6 = $stmt->fetchAll();
+                    $array5['sender_id']=(count($data6)+10000000001)."";
+                    $array3['customer_id']=(count($data6)+10000000001)."";
+                    $insertStatement = $database->insert(array_keys($array3))
+                        ->into('customer')
+                        ->values(array_values($array3));
+                    $insertId = $insertStatement->execute(false);
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('tenant_id', '=', $tenant_id)
+                        ->where('order_id','=',$order_id);
+                    $stmt = $selectStatement->execute();
+                    $data11= $stmt->fetch();
+                    if($data11['sender_id']!= $array5['sender_id']){
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('tenant_id', '=', $tenant_id)
+                            ->where('customer_id','=',$data11['sender_id']);
+                        $stmt = $selectStatement->execute();
+                        $data12= $stmt->fetch();
+                        if($data12['times']==1){
+                            $updateStatement = $database->update(array("exist"=>1))
+                                ->table('customer')
+                                ->where('tenant_id', '=', $tenant_id)
+                                ->where('customer_id','=',$data11['sender_id']);
+                            $affectedRows = $updateStatement->execute();
+                        }else if($data12['times']>1){
+                            $f=$data12['times']-1;
+                            $updateStatement = $database->update(array("times"=>$f))
+                                ->table('customer')
+                                ->where('tenant_id', '=', $tenant_id)
+                                ->where('customer_id','=',$data11['sender_id']);
+                            $affectedRows = $updateStatement->execute();
+                        }
+                    }
+                }else{
+                    $array5['sender_id']=$data4['customer_id'];
+                    $selectStatement = $database->select()
+                        ->from('orders')
+                        ->where('tenant_id', '=', $tenant_id)
+                        ->where('order_id','=',$order_id);
+                    $stmt = $selectStatement->execute();
+                    $data11= $stmt->fetch();
+                    if($data11['sender_id']!= $array5['sender_id']){
+                        $selectStatement = $database->select()
+                            ->from('customer')
+                            ->where('tenant_id', '=', $tenant_id)
+                            ->where('customer_id','=',$data11['sender_id']);
+                        $stmt = $selectStatement->execute();
+                        $data12= $stmt->fetch();
+                        if($data12['times']==1){
+                            $updateStatement = $database->update(array("exist"=>1))
+                                ->table('customer')
+                                ->where('tenant_id', '=', $tenant_id)
+                                ->where('customer_id','=',$data11['sender_id']);
+                            $affectedRows = $updateStatement->execute();
+                        }else if($data12['times']>1){
+                            $f=$data12['times']-1;
+                            $updateStatement = $database->update(array("times"=>$f))
+                                ->table('customer')
+                                ->where('tenant_id', '=', $tenant_id)
+                                ->where('customer_id','=',$data11['sender_id']);
+                            $affectedRows = $updateStatement->execute();
+                        }
+                        $n=$data4['times']+1;
+                        $updateStatement = $database->update(array("times"=>$n))
+                            ->table('customer')
+                            ->where('tenant_id', '=', $tenant_id)
+                            ->where('customer_id','=',$data4['customer_id']);
+                        $affectedRows = $updateStatement->execute();
+                    }
+                }
+            }
+            if( $receiver_tenant_id==null|| $receiver_tenant_id==""){
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->whereNull('wx_openid')
+                    ->where('customer_name','=',$receiver_name)
+                    ->where('customer_phone','=',$receiver_phone)
+                    ->where('customer_city_id','=',$receiver_city_id)
+                    ->where('customer_address','=',$receiver_address)
+                    ->where('type','=',$receiver_type)
+                    ->where('exist','=',0)
+                    ->where('tenant_id', '=', $tenant_id);
+                $stmt = $selectStatement->execute();
+                $data8 = $stmt->fetch();
+                if($data8==null){
+                    $array4['tenant_id']=$tenant_id;
+                    $array4['exist']=0;
+                    $selectStatement = $database->select()
+                        ->from('tenant')
+                        ->where('tenant_id', '=', $tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data9 = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('customer')
+                        ->whereNull('wx_openid')
+                        ->where('customer_id', '!=', $data9['contact_id'])
+                        ->where('tenant_id', '=', $tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data10 = $stmt->fetchAll();
+                    $array5['receiver_id']=(count($data10)+10000000001)."";
+                    $array4['customer_id']=(count($data10)+10000000001)."";
+                    $insertStatement = $database->insert(array_keys($array4))
+                        ->into('customer')
+                        ->values(array_values($array4));
+                    $insertId = $insertStatement->execute(false);
+                }else{
+                    $array5['receiver_id']=$data8['customer_id'];
+                }
+            }else{
+                $selectStatement = $database->select()
+                    ->from('customer')
+                    ->whereNull('wx_openid')
+                    ->where('customer_name','=',$receiver_name)
+                    ->where('customer_phone','=',$receiver_phone)
+                    ->where('customer_city_id','=',$receiver_city_id)
+                    ->where('customer_address','=',$receiver_address)
+                    ->where('type','=',$receiver_type)
+                    ->where('exist','=',0)
+                    ->where('contact_tenant_id','=',$sender_tenant_id)
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('exist','=',0);
+                $stmt = $selectStatement->execute();
+                $data8 = $stmt->fetch();
+                if($data8==null){
+                    $array4['tenant_id']=$tenant_id;
+                    $array4['exist']=0;
+                    $selectStatement = $database->select()
+                        ->from('tenant')
+                        ->where('tenant_id', '=', $tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data9 = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('customer')
+                        ->whereNull('wx_openid')
+                        ->where('customer_id', '!=', $data9['contact_id'])
+                        ->where('tenant_id', '=', $tenant_id);
+                    $stmt = $selectStatement->execute();
+                    $data10 = $stmt->fetchAll();
+                    $array5['receiver_id']=(count($data10)+10000000001)."";
+                    $array4['customer_id']=(count($data10)+10000000001)."";
+                    $insertStatement = $database->insert(array_keys($array4))
+                        ->into('customer')
+                        ->values(array_values($array4));
+                    $insertId = $insertStatement->execute(false);
+                }else{
+                    $array5['receiver_id']=$data8['customer_id'];
+                }
+            }
+            $updateStatement = $database->update($array5)
+                ->table('orders')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('order_id','=',$order_id);
+            $affectedRows = $updateStatement->execute();
+            $updateStatement = $database->update($array1)
+                ->table('goods')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('order_id','=',$order_id);
+            $affectedRows = $updateStatement->execute();
+            $updateStatement = $database->update($array6)
+                ->table('exception')
+                ->where('tenant_id','=',$tenant_id)
+                ->where('exception_id','=',$exception_id);
+            $affectedRows = $updateStatement->execute();
+
+            echo json_encode(array("result" => "0", "desc" => "success"));
+        }else{
+            echo json_encode(array("result" => "2", "desc" => "租户不存在"));
+        }
+    }else{
+        echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
+    }
+});
 $app->run();
 
 function localhost(){

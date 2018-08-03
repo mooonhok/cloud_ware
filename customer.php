@@ -828,6 +828,82 @@ $app->get('/old_customers_f',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    $array1=array();
+    $selectStatement = $database->select()
+        ->from('customer')
+        ->where('tenant_id','=',$tenant_id)
+        ->where('exist','=',0)
+        ->where('type','=',1)
+        ->whereNotNull('times')
+        ->where('times','!=',0)
+        ->orderBy('id','DESC')
+        ->limit(10);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetchAll();
+    if($data1!=null){
+    for($i=0;$i<count($data1);$i++) {
+        $selectStatement = $database->select()
+            ->from('city')
+            ->where('id', '=', $data1[$i]['customer_city_id']);
+        $stmt = $selectStatement->execute();
+        $data2 = $stmt->fetch();
+        $array1[$i]['customer_id'] = $data1[$i]['customer_id'];
+        $array1[$i]['customer_name'] = $data1[$i]['customer_name'];
+        $array1[$i]['customer_address'] = $data1[$i]['customer_address'];
+        $array1[$i]['customer_phone'] = $data1[$i]['customer_phone'];
+        $array1[$i]['cityname'] = $data2['name'];
+        $array1[$i]["a"]=$data1[$i]['customer_name'].$data1[$i]['customer_address'].$data1[$i]['customer_phone'].$data2['name'];
+    }
+    }
+    $array1= array_values(array_unset_tt($array1,'a'));
+    echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array1));
+});
+
+////获取最近10条信息,type为1
+$app->get('/old_customers_s',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $database=localhost();
+    $array1=array();
+    $array2=array();
+    $selectStatement = $database->select()
+        ->from('customer')
+//        ->distinctCount('customer_name')
+        ->where('tenant_id','=',$tenant_id)
+        ->where('exist','=',0)
+        ->where('type','=',0)
+        ->orderBy('id','DESC')
+        ->orderBy('id')
+        ->limit(10);
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetchAll();
+    if($data1!=null){
+        for ($i = 0; $i < count($data1); $i++) {
+            $selectStatement = $database->select()
+                ->from('city')
+                ->where('id', '=', $data1[$i]['customer_city_id']);
+            $stmt = $selectStatement->execute();
+            $data2 = $stmt->fetch();
+            $array1[$i]['customer_id'] = $data1[$i]['customer_id'];
+            $array1[$i]['customer_name'] = $data1[$i]['customer_name'];
+            $array1[$i]['customer_address'] = $data1[$i]['customer_address'];
+            $array1[$i]['customer_phone'] = $data1[$i]['customer_phone'];
+            $array1[$i]['cityname'] = $data2['name'];
+            $array1[$i]["a"]=$data1[$i]['customer_name'].$data1[$i]['customer_address'].$data1[$i]['customer_phone'].$data2['name'];
+        }
+    }
+    $array1= array_values(array_unset_tt($array1,'a'));
+    echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array1));
+});
+
+
+//获取最近10条信息,type为1
+$app->get('/old_customers_f_input',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $tenant_id=$app->request->headers->get('tenant-id');
     $customer_name=$app->request->get('customer_name');
     $database=localhost();
     $array1=array();
@@ -862,7 +938,7 @@ $app->get('/old_customers_f',function()use($app){
 });
 
 //获取最近10条信息,type为1
-$app->get('/old_customers_s',function()use($app){
+$app->get('/old_customers_s_input',function()use($app){
     $app->response->headers->set('Access-Control-Allow-Origin','*');
     $app->response->headers->set('Content-Type','application/json');
     $tenant_id=$app->request->headers->get('tenant-id');
@@ -899,6 +975,7 @@ $app->get('/old_customers_s',function()use($app){
     $array1= array_values(array_unset_tt($array1,'a'));
     echo json_encode(array("result"=>"0",'desc'=>'success','customers'=>$array1));
 });
+
 
 //type为3
 $app->get('/old_customers_w',function()use($app){
