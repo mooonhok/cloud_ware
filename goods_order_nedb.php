@@ -3731,12 +3731,27 @@ $app->put('/recoverGoodsOrder',function()use($app){
             $data1 = $stmt->fetch();
             if($data1!=null){
                 if($data1["exception_source"]=="前台"){
-                    $updateStatement = $database->update(array("order_status"=>-2))
-                        ->table('orders')
-                        ->where('tenant_id','=',$tenant_id)
-                        ->where('order_id','=',$order_id);
-                    $affectedRows = $updateStatement->execute();
-                    echo json_encode(array("result"=>"0",'desc'=>'success',"exception_source"=>$data1["exception_source"]));
+                    $selectStatement = $database->select()
+                        ->from('wx_message')
+                        ->where('tenant_id', '=', $tenant_id)
+                        ->where('order_id', "=", $order_id);
+                    $stmt = $selectStatement->execute();
+                    $data2 = $stmt->fetch();
+                    if($data2['title']=="微信受理"||$data2['title']=="网页受理"){
+                        $updateStatement = $database->update(array("order_status"=>-2))
+                            ->table('orders')
+                            ->where('tenant_id','=',$tenant_id)
+                            ->where('order_id','=',$order_id);
+                        $affectedRows = $updateStatement->execute();
+                        echo json_encode(array("result"=>"0",'desc'=>'success',"exception_source"=>$data1["exception_source"]));
+                    }else if($data2['title']=="扫码接单"){
+                        $updateStatement = $database->update(array("order_status"=>0))
+                            ->table('orders')
+                            ->where('tenant_id','=',$tenant_id)
+                            ->where('order_id','=',$order_id);
+                        $affectedRows = $updateStatement->execute();
+                        echo json_encode(array("result"=>"0",'desc'=>'success',"exception_source"=>$data1["exception_source"]));
+                    }
                 }else if($data1["exception_source"]=="仓库"){
                     $updateStatement = $database->update(array("order_status"=>1,"order_datetime1"=>$time1,"order_datetime2"=>null,"order_datetime3"=>null))
                         ->table('orders')
