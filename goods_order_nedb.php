@@ -387,6 +387,12 @@ $app->get('/getGoodsOrder',function()use($app){
             $stmt = $selectStatement->execute();
             $data1 = $stmt->fetchAll();
             for($i=0;$i<count($data1);$i++){
+                $selectStatement = $database->select()
+                    ->from('wx_message')
+                    ->where('tenant_id', '=', $tenant_id)
+                    ->where('order_id', "=", $data1[$i]['order_id']);
+                $stmt = $selectStatement->execute();
+                $data13 = $stmt->fetch();
                 $selectStament=$database->select()
                     ->from('goods_package')
                     ->where('goods_package_id','=',$data1[$i]['goods_package_id']);
@@ -464,6 +470,7 @@ $app->get('/getGoodsOrder',function()use($app){
                 $data1[$i]['receiver']['receiver_province']=$data9;
                 $data1[$i]['inventory_loc']=$data5;
                 $data1[$i]['exception']=$data10;
+                $data1[$i]['wx_message']=$data13;
             }
             echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
         }else{
