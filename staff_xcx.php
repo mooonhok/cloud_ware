@@ -4153,6 +4153,104 @@ $app->put('/saveGoodsOrder',function()use($app){
         echo json_encode(array("result" => "1", "desc" => "缺少租户id"));
     }
 });
+
+
+$app->get('/getHistoryList',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $tenant_id=$app->request->headers->get('tenant-id');
+    $tenant_num=$app->request->get('tenant_num');
+    if($tenant_id!=null||$tenant_id!=''){
+                $selectStatement = $database->select()
+                    ->from('orders')
+                    ->join('goods', 'goods.order_id', '=', 'orders.order_id', 'INNER')
+                    ->whereLike('orders.order_id',$tenant_num.'%')
+                    ->where('goods.tenant_id','=',$tenant_id)
+                    ->where('orders.tenant_id','=',$tenant_id)
+                    ->where('orders.exist','=',0)
+                    ->orderBy('orders.order_id','DESC');
+                $stmt = $selectStatement->execute();
+                $data1 = $stmt->fetchAll();
+                $data1a=array();
+                $data1b=array();
+                for($i=0;$i<count($data1);$i++){
+                    $cc=0;
+                    for($j=0;$j<$i;$j++){
+                        if($data1[$j]['sender_id']==$data1[$i]['sender_id']&&$data1[$j]['receiver_id']==$data1[$i]['receiver_id']&&$data1[$j]['goods_name']==$data1[$i]['goods_name']){
+                            break;
+                        }
+                        $cc++;
+                    }
+                    if($cc==$i) {
+                        array_push($data1a,$data1[$i]);
+                    }
+                }
+                for($g=0;$g<count($data1a);$g++){
+                    $selectStament=$database->select()
+                        ->from('customer')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('customer_id','=',$data1a[$g]['sender_id']);
+                    $stmt=$selectStament->execute();
+                    $data3=$stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('city')
+                        ->where('id', '=', $data3['customer_city_id']);
+                    $stmt = $selectStatement->execute();
+                    $data6 = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('province')
+                        ->where('id', '=', $data6['pid']);
+                    $stmt = $selectStatement->execute();
+                    $data8 = $stmt->fetch();
+                    $selectStament=$database->select()
+                        ->from('customer')
+                        ->where('tenant_id','=',$tenant_id)
+                        ->where('customer_id','=',$data1a[$g]['receiver_id']);
+                    $stmt=$selectStament->execute();
+                    $data4=$stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('city')
+                        ->where('id', '=', $data4['customer_city_id']);
+                    $stmt = $selectStatement->execute();
+                    $data7 = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('province')
+                        ->where('id', '=', $data7['pid']);
+                    $stmt = $selectStatement->execute();
+                    $data9 = $stmt->fetch();
+                    $selectStatement = $database->select()
+                        ->from('city')
+                        ->where('id', '<', $data6['id'])
+                        ->where('pid',"=",$data6['pid']);
+                    $stmt = $selectStatement->execute();
+                    $data20 = $stmt->fetchAll();
+
+                    $selectStatement = $database->select()
+                        ->from('city')
+                        ->where('id', '<', $data7['id'])
+                        ->where('pid',"=",$data7['pid']);
+                    $stmt = $selectStatement->execute();
+                    $data21 = $stmt->fetchAll();
+
+                    $data1a[$g]['sender']=$data3;
+                    $data1a[$g]['sender']['citynum']=count($data20)+1;
+                    $data1a[$g]['sender']['sender_city']=$data6;
+                    $data1a[$g]['sender']['sender_province']=$data8;
+                    $data1a[$g]['receiver']=$data4;
+                    $data1a[$g]['receiver']['citynum']=count($data21)+1;
+                    $data1a[$g]['receiver']['receiver_city']=$data7;
+                    $data1a[$g]['receiver']['receiver_province']=$data9;
+                    array_push($data1b,$data1a[$g]);
+                }
+                echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1b));
+    }else{
+        echo json_encode(array('result'=>'3','desc'=>'租户id为空'));
+    }
+});
+
+
+
 $app->run();
 
 function localhost(){
