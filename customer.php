@@ -605,9 +605,9 @@ $app->post('/plus_customer',function()use($app){
                }while(strlen($strr)<4);
                $time=base_convert(time(), 10, 32);
                $str=$time.$strr;
-               $insertStatement = $database->insert(array('exist','tenant_id','wx_openid','type','customer_id','customer_address','customer_city_id','customer_name','customer_phone'))
+               $insertStatement = $database->insert(array('exist','tenant_id','wx_openid','type','customer_id','customer_address','customer_city_id','customer_name','customer_phone','times'))
                    ->into('customer')
-                   ->values(array(0,$tenant_id,$wx_openid,$type,$str,$adress,$city_id,$customer_name,$phone));
+                   ->values(array(0,$tenant_id,$wx_openid,$type,$str,$adress,$city_id,$customer_name,$phone,1));
                $insertId = $insertStatement->execute(false);
                if($insertId!=null){
 //                   $selectStatement = $database->select()
