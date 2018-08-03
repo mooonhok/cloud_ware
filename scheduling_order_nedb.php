@@ -2985,6 +2985,7 @@ $app->put('/acceptSchedulingOrder', function () use ($app,$clapi) {
             }else{
                 $array7['order_status']=0;
                 $array7['order_datetime0']=$time;
+                $array7['collect_cost']=$collect_cost;
             }
             $insertStatement = $database->insert(array_keys($array7))
                 ->into('orders')
