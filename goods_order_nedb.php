@@ -474,7 +474,7 @@ $app->get('/getGoodsOrder',function()use($app){
             }
             echo json_encode(array('result'=>'0','desc'=>'success','goods_orders'=>$data1));
         }else{
-            echo json_encode(array('result'=>'1','desc'=>'size为空'));
+            echo json_encode(array('result'=>'1','desc'=>'orderid为空'));
         }
     }else{
         echo json_encode(array('result'=>'2','desc'=>'租户id为空'));
