@@ -3011,10 +3011,19 @@ $app->put('/acceptSchedulingOrder', function () use ($app,$clapi) {
             $array8['goods_count']=$goods_count;
             $array8['goods_value']=$goods_value;
             $array8['special_need']=$special_need;
+            $selectStatement = $database->select()
+                ->from('goods')
+                ->where('order_id', '=', $order_id)
+                ->where('tenant_id', '=', $tenant_id)
+                ->where('exist','=',0);
+            $stmt = $selectStatement->execute();
+            $data50 = $stmt->fetch();
+            if($data50==null){
             $insertStatement = $database->insert(array_keys($array8))
                 ->into('goods')
                 ->values(array_values($array8));
             $insertId = $insertStatement->execute(false);
+            }
             if($is_transfer!=0){
                 $chars = "0123456789abcdefghijklmnopqrstuvwxyz";
                 $strrr = substr($chars, mt_rand(0, strlen($chars) - 2), 1);
