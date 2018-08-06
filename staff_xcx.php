@@ -113,11 +113,6 @@ $app->post('/makeOrder',function()use($app){
             $collect_cost=$body->collect_cost;
         }
     }
-//    if($special_need==0){
-//        $special_need='寄:门店自寄;  收:送货上门';
-//    }else{
-//        $special_need='寄:上门提货;  收:门店自提';
-//    }
     if($tenant_id!=null||$tenant_id!=''){
         if($customer_name_a!=null||$customer_name_a!=''){
             if($customer_phone_a!=null||$customer_phone_a!=''){
@@ -134,27 +129,31 @@ $app->post('/makeOrder',function()use($app){
                                                             if($order_cost!=null||$order_cost!=''){
                                                                     $selectStatement = $database->select()
                                                                         ->from('customer')
+                                                                        ->whereNull('wx_openid')
                                                                         ->where('tenant_id','=',$tenant_id)
                                                                         ->where('customer_city_id','=',$customer_city_a)
                                                                         ->where('customer_address','=',$customer_address_a)
                                                                         ->where('customer_name','=',$customer_name_a)
                                                                         ->where('customer_phone','=',$customer_phone_a)
-                                                                        ->where('type','=',1);
+                                                                        ->where('type','=',1)
+                                                                        ->where('exist','=',0);
                                                                     $stmt = $selectStatement->execute();
                                                                     $data = $stmt->fetch();
                                                                   $customer_id1='';
                                                                     if(!$data){
                                                                         $selectStatement = $database->select()
-                                                                            ->from('customer')
-                                                                            ->where('tenant_id','=',$tenant_id);
+                                                                            ->from('tenant')
+                                                                            ->where('tenant_id', '=', $tenant_id);
                                                                         $stmt = $selectStatement->execute();
-                                                                        $data1 = $stmt->fetchAll();
-                                                                        for($i=0;$i<count($data);$i++){
-                                                                            if(preg_match('/[a-zA-Z]/',$data1[$i]['customer_id'])){
-                                                                                $num1++;
-                                                                            }
-                                                                        }
-                                                                        $customer_id1=((count($data1)-$num1)+10000000001)."";
+                                                                        $data1 = $stmt->fetch();
+                                                                        $selectStatement = $database->select()
+                                                                            ->from('customer')
+                                                                            ->whereNull('wx_openid')
+                                                                            ->where('customer_id', '!=', $data1['contact_id'])
+                                                                            ->where('tenant_id', '=', $tenant_id);
+                                                                        $stmt = $selectStatement->execute();
+                                                                        $data2 = $stmt->fetchAll();
+                                                                        $customer_id1=(count($data2)+10000000001)."";
                                                                         $insertStatement = $database->insert(array('customer_id','tenant_id','customer_city_id','customer_address','customer_name','customer_phone','type','exist','times'))
                                                                             ->into('customer')
                                                                             ->values(array($customer_id1,$tenant_id,$customer_city_a,$customer_address_a,$customer_name_a,$customer_phone_a,1,0,1));
@@ -169,31 +168,37 @@ $app->post('/makeOrder',function()use($app){
                                                                     }
                                                                     $selectStatement = $database->select()
                                                                         ->from('customer')
+                                                                        ->whereNull('wx_openid')
                                                                         ->where('tenant_id','=',$tenant_id)
                                                                         ->where('customer_city_id','=',$customer_city_b)
                                                                         ->where('customer_address','=',$customer_address_b)
                                                                         ->where('customer_name','=',$customer_name_b)
                                                                         ->where('customer_phone','=',$customer_phone_b)
-                                                                        ->where('type','=',0);
+                                                                        ->where('type','=',0)
+                                                                        ->where('exist','=',0);
                                                                     $stmt = $selectStatement->execute();
-                                                                    $data2 = $stmt->fetch();
-                                                                    $customer_id2=$data2['customer_id'];
-                                                                    if(!$data2){
+                                                                    $data4 = $stmt->fetch();
+                                                                    $customer_id2='';
+                                                                    if(!$data4){
+                                                                        $selectStatement = $database->select()
+                                                                            ->from('tenant')
+                                                                            ->where('tenant_id', '=', $tenant_id);
+                                                                        $stmt = $selectStatement->execute();
+                                                                        $data5 = $stmt->fetch();
                                                                         $selectStatement = $database->select()
                                                                             ->from('customer')
-                                                                            ->where('tenant_id','=',$tenant_id);
+                                                                            ->whereNull('wx_openid')
+                                                                            ->where('customer_id', '!=', $data5['contact_id'])
+                                                                            ->where('tenant_id', '=', $tenant_id);
                                                                         $stmt = $selectStatement->execute();
-                                                                        $data3 = $stmt->fetchAll();
-                                                                        for($i=0;$i<count($data3);$i++){
-                                                                            if(preg_match('/[a-zA-Z]/',$data3[$i]['customer_id'])){
-                                                                                $num2++;
-                                                                            }
-                                                                        }
-                                                                        $customer_id2=((count($data3)-$num2)+10000000001)."";
+                                                                        $data6 = $stmt->fetchAll();
+                                                                        $customer_id2=(count($data6)+10000000001)."";
                                                                         $insertStatement = $database->insert(array('customer_id','tenant_id','customer_city_id','customer_address','customer_name','customer_phone','type','exist',"times"))
                                                                             ->into('customer')
                                                                             ->values(array($customer_id2,$tenant_id,$customer_city_b,$customer_address_b,$customer_name_b,$customer_phone_b,0,0,0));
                                                                         $insertId = $insertStatement->execute(false);
+                                                                    }else{
+                                                                        $customer_id2=$data4['customer_id'];
                                                                     }
 
                                                                     $selectStatement = $database->select()
