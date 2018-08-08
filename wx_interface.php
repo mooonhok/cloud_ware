@@ -73,8 +73,13 @@ class wechatCallbackapiTest
 
            if ($ev == "subscribe") {
                $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, 'news',
-                   $ArticleCount,'公司简介',$data['company'],$data['tenant_img_url'],
-                   "http://".$url.'/weixin/sguangao.html?tenant_id='.$a);
+                   $ArticleCount,'人在家中坐 收发全国货',$data['company'],"http://files.uminfor.cn:8000/tenant/jieshao.jpg",
+                   "http://".$url.'/weixin/first.html?tenant_id='.$a);
+               echo $resultStr;
+           }else if($ev=="CLICK"){
+               $msgType = "text";
+               $contentStr = "客服电话：0523-81165089";
+               $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                echo $resultStr;
            }
            if (!empty($keyword)) {
@@ -92,7 +97,7 @@ class wechatCallbackapiTest
     }
      private function getcompany($a)
      {
-         $dbhost = "172.17.16.2";
+         $dbhost = "172.17.16.17";
          $dbuser = "root";
          $dbpass = "jsym_20170607";
          $dbname = "cloud_ware";

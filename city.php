@@ -136,7 +136,32 @@ $app->get('/datetime',function()use($app){
     echo  json_encode(array("result"=>"0","desc"=>"success","time"=>$time));
 });
 
-
+$app->get('/getIosPro_City',function()use($app){
+    $app->response->headers->set('Access-Control-Allow-Origin','*');
+    $app->response->headers->set('Content-Type','application/json');
+    $database=localhost();
+    $selectStatement = $database->select()
+        ->from('province');
+    $stmt = $selectStatement->execute();
+    $data1 = $stmt->fetchAll();
+    $data3=array();
+    $data4=array();
+    for($i=0;$i<count($data1);$i++){
+        $data3[$i]['id']=$data1[$i]['id'];
+        $data3[$i]['value']=$data1[$i]['name'];
+        $data3[$i]['parentId']=0;
+    }
+    $selectStatement = $database->select()
+        ->from('city');
+    $stmt = $selectStatement->execute();
+    $data2 = $stmt->fetchAll();
+    for($i=0;$i<count($data2);$i++){
+        $data4[$i]['id']=$data2[$i]['id'];
+        $data4[$i]['value']=$data2[$i]['name'];
+        $data4[$i]['parentId']=$data2[$i]['pid'];
+    }
+    echo  json_encode(array("result"=>"0","desc"=>"success","provinces"=>$data3,"citys"=>$data4));
+});
 
 $app->run();
 

@@ -273,7 +273,8 @@ $app->post('/onewxaddress',function()use($app){
                        $data4 = $stmt->fetch();
                        $data2['customer_city']=$data3['id'];
                        $data2['customer_province']=$data4['id'];
-                   
+                      $data2['customer_city_name']=$data3['name'];
+                      $data2['customer_province_name']=$data4['name'];
                    echo json_encode(array("result"=>"1","desc"=>"success","wxmessage"=>$data2));
                }else{
                    echo json_encode(array("result"=>"2","desc"=>"租户不存在"));
