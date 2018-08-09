@@ -650,8 +650,8 @@ html,body{height:100%; width:100%;
 }
 .box2-1{
 	width: 100%;
-	height: 250px;
-	background: white;
+	height: 260px;
+/*	background: rgb(238,238,238);*/
 }
 .jj{
 	width: 100%;
@@ -875,7 +875,7 @@ select{
 	background: #24D9C9;
 	border-radius: 5px;
 	float: left;
-	margin-top: 25px;
+	margin-top: 10px;
 	margin-left: 10%;
 	font-size: 18px;
 	color: white;
@@ -892,8 +892,8 @@ label{
 
 .box2-1{
 	width: 100%;
-	height: 208px;
-	background: white;
+	height: 260px;
+	/*background: white;*/
 }
 #box10{
 	width: 100%;
@@ -1180,8 +1180,72 @@ input[disabled],input:disabled,input.disabled{
 .name_1:-ms-input-placeholder,.name_2:-ms-input-placeholder  {
 	color: rgb(161,161,161);
 }
-
-
-
-
+.box20-1{
+	width:95%;
+	height:240px;
+	margin-top:15px;
+	margin-bottom:5px;
+	margin-left:2.5%;
+	background:white;
+	float:left;
+}
+.box20-2{
+	width:250px;
+	height:50px;
+	border:1px solid rgb(221,221,221);
+	margin:5px auto;
+	border-radius:10px;
+}
+.box20-3{
+	float:left;
+	height:100%;
+	width:30%;
+	border-right:1px solid rgb(221,221,221);
+	text-align:center;
+	line-height:50px;
+	border-bottom-left-radius: 10px;
+	border-top-left-radius:10px;
+	font-size:20px;
+	background-color:#EEEEEE;
+}
+.box20-4{
+	float:right;
+	height:40px;
+	width:62%;
+	text-align:left;
+	line-height:46px;
+	outline: none;
+	border:none;
+	font-size: 20px;
+	border-left:1px solid rgb(221,221,221);
+	border-bottom-right-radius: 10px;
+	border-top-right-radius:10px;
+	margin-top:4px;
+	margin-bottom:4px;
+	padding-left:3%;
+}
+.box20-5{
+	float:left;
+	height:100%;
+	width:70%;
+	text-align:center;
+	line-height:50px;
+	border-bottom-left-radius: 10px;
+	border-top-left-radius:10px;
+	font-size:20px;
+	overflow:hidden;
+}
+.box20-6{
+	float:left;
+	height:100%;
+	width:30%;
+	text-align:center;
+	line-height:50px;
+	border-bottom-left-radius: 10px;
+	border-top-left-radius:10px;
+	font-size:20px;
+}
+.box20-7{
+	margin-top:10px;
+}
 
