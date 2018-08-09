@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+		 <script src="js/scale.js"></script>
+		 <script type="text/javascript" src="js/config.js"></script>
+		 <!--<link rel="stylesheet" href="css/scale.css" type="text/css" />-->
+		 <title>盛大开业</title>
+		 <style>
+			* {
+				margin: 0;
+				padding: 0;
+				background-color:white;
+			}
+			.top_img_a{
+				width:70%;
+				height:150px;
+				margin:0 auto;
+				box-shadow:0 0 10px #06c;
+				margin-top:50px;
+				z-index:111;
+			}
+			.top_img_a>img{
+				width:100%;
+				height:100%;
+				z-index:113;
+			}
+			.top_duanluo{
+				width:50%;
+				height:650px;
+				/*margin:0 auto;
+				margin-top:-50px;*/
+				position: absolute;
+				top:150px;
+				margin-left:25%;
+				background-color:white;
+				z-index:9999;
+			}
+			.top_duanluo>div{
+				text-align: center;
+			}
+			.mokuai_a{
+				position:absolute;
+				top:850px;
+				margin-left:15%;
+				width:70%;
+				height:31px;
+			}
+			.mokuai_b{
+				width:45%;
+				height:30px;
+				float:left;
+				background-color:rgb(78,153,223);
+				color:white;
+				text-align: center;
+				line-height:30px;
+			}
+			.mokuai_c{
+				width:55%;
+				height:16px;
+				float:left;
+				border-bottom:1px solid rgb(204,204,204);
+			}
+			.mokuai_d{
+				position:absolute;
+				top:881px;
+				width:60%;
+				margin-left:20%;
+			}
+			.mokuai_e{
+				position:absolute;
+				top:1220px;
+				margin-left:15%;
+				width:70%;
+				height:31px;
+			}
+			.mokuai_f{
+				position:absolute;
+				top:1260px;
+				width:70%;
+				height:150px;
+				margin-left:15%;
+				box-shadow:0 0 10px #06c;
+				z-index:111;
+			}
+			.mokuai_f>img{
+				width:100%;
+				height:100%;
+			}
+			.mokuai_g{
+				width:100%;
+				height:20px;
+				border-bottom:1px solid rgb(204,204,204);
+			}
+			.mokuai_h{
+				position:absolute;
+				top:1460px;
+				width:70%;
+				margin-left:15%;
+				width:70%;
+				height:31px;
+			}
+			.mokuai_i{
+				position:absolute;
+				top:1500px;
+				width:70%;
+				margin-left:15%;
+				width:70%;
+				height:31px;
+			}
+			.mokuai_l{
+				width:100%;
+				height:150px;
+			}
+			.mokuai_l>img,.mokuai_n>img{
+				width:100%;
+				height:100%;
+				box-shadow:0 0 10px #06c;
+			}
+			.mokuai_m{
+				position:absolute;
+				top:2620px;
+				width:70%;
+				margin-left:15%;
+				width:70%;
+			}
+			.mokuai_n{
+				width:100%;
+				height:500px;
+			}
+			.mokuai_o{
+				margin-top:20px;
+				width:100%;
+				height:120px;
+			}
+			.mokuai_o>img{
+				width:100%;
+				height:100%;
+			}
+		</style>
+	</head>
+
+	<body>
+      <div class="top_img_a">
+      	<img src="images/top_img.jpg"/>
+      </div>
+      <div class="top_duanluo">
+      	      <br>
+      	      <div>今年年初</div>
+      	      <br>
+              <div>靖江万事鑫联运宣布</div>
+              <br>
+              <div>首先迈入了互联网＋物流</div>
+              <br>
+              <div>在过去的几个月时间里</div>
+              <br>
+              <div>应广大用户需求</div>
+              <br>
+              <div>我司自主投资并建设了</div>
+              <br>
+              <div>线上营运中心</div>
+              <br>
+              <div>更贴合客户使用习惯</div>
+              <br>
+              <div>服务更专业</div>
+              <br>
+              <div>品质更优秀</div>
+              <br>
+              <div>重新定义了现代物流的新方向</div>
+              <br>
+              <div>经过不断的调整优化</div>
+              <br>
+              <div>我司的物流营运中心</div>
+              <br>
+              <div>于今日正式投入运营!</div>
+              <br>
+      </div>
+      <div class="mokuai_a">
+      	<div class="mokuai_b">区别于传统物流</div>
+      	<div class="mokuai_c"></div>
+      </div>
+      <div class="mokuai_d">
+      	<div>在线下单：支持网页、微信一键下单，大幅度提升了工作效率；</div>
+      	<br>
+      	<div>货运保险：我司所有承运货物均由江苏省人寿财产保险有限公司承保，费率更优惠；</div>
+      	<br>
+      	<div>轨迹查询：我司官网和微信公众号均支持在线查询运单的最新动态，服务更透明放心；</div>
+      	<br>
+      	<div>电子运单：网页下单之后支持打印电子运单；</div>
+      	<br>
+      	<hr/>
+      </div>
+      <div class="mokuai_e">
+      	<div class="mokuai_b">产品与服务</div>
+      	<div class="mokuai_c"></div>
+      </div>
+      <div class="mokuai_f">
+      	<img src="images/mokuai1.png"/>
+      	<div class="mokuai_g"></div>
+      </div>
+      <div class="mokuai_h">
+      	<div class="mokuai_b">操作流程</div>
+      	<div class="mokuai_c"></div>
+      </div>
+      <div class="mokuai_i">
+      	<div class="mokuai_j">基本流程</div>
+      	<div class="mokuai_k">步骤一：浏览器登陆万事鑫联运官网 www.jswsx56.cn </div>
+      	<div class="mokuai_l"><img src="images/mokuai2.png"/></div>
+      	<div class="mokuai_k">步骤二：进入“线上营运中心”完成用户注册后输入账号密码登陆大厅。</div>
+      	<div class="mokuai_l"><img src="images/mokuai3.png"/></div>
+      	<div class="mokuai_k">步骤三：填写您所需托运货物的相关信息，勾选同意“万事鑫联运服务条款”后立即下单。</div>
+      	<div class="mokuai_l"><img src="images/mokuai4.png"/></div>
+      	<div class="mokuai_k">步骤四：在“我的运单”中查看您所发货物的运单状态。</div>
+      	<div class="mokuai_l"><img src="images/mokuai5.png"/></div>
+      	<div class="mokuai_k">步骤五：在“运单查询”中查询您的运单所处的物理定位并可打印电子运单。</div>
+      	<div class="mokuai_l"><img src="images/mokuai6.png"/></div>
+      	<div class="mokuai_k">如有其他问题或者特殊需求可以咨询在线客服。</div>
+      	<div class="mokuai_g"></div>
+      </div>
+      <div class="mokuai_m">
+      	<div class="mokuai_n"><img src="images/haibao.jpg"/></div>
+      </div>
+	</body>
+</html>

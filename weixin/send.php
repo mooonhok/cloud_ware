@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 require_once "jssdk.php";
 $str=$_SERVER["QUERY_STRING"];
 $arr=explode("=",$str);
@@ -7,7 +7,7 @@ $appid=substr($arr[2],0,18);
 $secret=substr($arr[3],0,32);
 $jssdk = new JSSDK($appid,$secret);
 $signPackage = $jssdk->GetSignPackage();
-?>
+?> -->
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -16,6 +16,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 		<link rel="stylesheet" href="css/woyaojijian.css">
+		<link rel="stylesheet" href="css/iosSelect.css"/>	
 		<script type="text/javascript" src="js/config.js"></script>
 		<title>我要寄件</title>
 	</head>
@@ -113,10 +114,37 @@ $signPackage = $jssdk->GetSignPackage();
 					</div>
 					<div class="qx">取消</div>
 				</div>
-				<form>
+				<div class="box20-1">
+					<div class="box20-2">
+						<div class="box20-3">姓名</div>
+						<input class="box20-4 name_1" placeholder="请输入姓名" id="xingming_a"/>
+					</div>
+					<div class="box20-2">
+						<div class="box20-3">电话</div>
+						<input class="box20-4 phone_1 name_1" placeholder="请输入电话" id="phone_a"/>
+					</div>
+					<div class="box20-2" id="select_contact">    
+    <!--<label>省、市</label>-->    
+    <div data-city-code="" data-province-code="" id="show_contact" class="box20-5" >省、市</div> 
+    <div class="box20-6"><img src="images/xiala.png" class="box20-7"/></div>            
+    <div class="pc-box">                     
+        <input type="hidden" name="contact_province_code" data-id="0001" id="contact_province_code" value="" data-province-name="">                     
+        <input type="hidden" name="contact_city_code" id="contact_city_code" value="" data-city-name="">
+    </div>  
+					</div>
+
+
+					<div class="box20-2">
+						<div class="box20-3">地址</div>
+						<input class="box20-4 name_1" placeholder="请输入地址" id="address_a"/>
+					</div>
+				</div>
+				
+				<!--<form>
 					<div class="name1">
 						<div class="lab">
 							<label for="">姓名:</label>
+							<input type="text" class="name_1" placeholder="姓名">
 						</div>
 						
 					</div>
@@ -168,10 +196,10 @@ $signPackage = $jssdk->GetSignPackage();
 							<textarea id="dizhi_1" rows="2"></textarea>
 						</div>
 					</div>
-				</form>
+				</form>-->
 			</div>
 			<div class="tijiao2" id="subaddress3">保存地址</div>
-			<div class="kbox"></div>
+			<!--<div class="kbox"></div>-->
 		</div>
 		<!--  -->
 		<div class="box1" id="box10">
@@ -195,7 +223,33 @@ $signPackage = $jssdk->GetSignPackage();
 					</div>
 					<div class="qx1">取消</div>
 				</div>
-				<form>
+				<div class="box20-1">
+					<div class="box20-2">
+						<div class="box20-3">姓名</div>
+						<input class="box20-4 name_2" placeholder="请输入姓名" id="xingming_b"/>
+					</div>
+					<div class="box20-2">
+						<div class="box20-3">电话</div>
+						<input class="box20-4 phone_2 name_2" placeholder="请输入电话" id="phone_b"/>
+					</div>
+					<div class="box20-2" id="select_contact_a">    
+    <!--<label>省、市</label>-->    
+    <div data-city-code="" data-province-code="" id="show_contact_a" class="box20-5" >省、市</div> 
+    <div class="box20-6"><img src="images/xiala.png" class="box20-7"/></div>            
+    <div class="pc-box">                     
+        <input type="hidden" name="contact_province_code" data-id="0001" id="contact_province_code_a" value="" data-province-name="">                     
+        <input type="hidden" name="contact_city_code" id="contact_city_code_a" value="" data-city-name="">
+    </div>  
+					</div>
+
+
+					<div class="box20-2">
+						<div class="box20-3">地址</div>
+						<input class="box20-4 name_2" placeholder="请输入地址" id="address_b"/>
+					</div>
+				</div>
+				
+				<!--<form>
 					<div class="name1">
 						<div class="lab">
 							<label for="">姓名</label>
@@ -250,11 +304,11 @@ $signPackage = $jssdk->GetSignPackage();
 						</div>
 					</div>
 				
-				</form>
+				</form>-->
 			</div>
 
 			<div class="tijiao2" id="subaddress5">保存地址</div>
-			<div class="kbox"></div>
+			<!--<div class="kbox"></div>-->
 		</div>
 		<!--  -->
 		<div class="box1" id="box11">
@@ -307,63 +361,88 @@ $signPackage = $jssdk->GetSignPackage();
 					</div>
 					<div class="qx10">取消</div>
 				</div>
-				<form>
-					<div class="name1">
-						<div class="lab">
-							<label for="">姓名:</label>
-						</div>
-					</div>
-					<div class="bor"></div>
-					<div class="name1">
-						<div class="name2">
-							<input type="text" class="name_1" id="name_1" placeholder="最多15个字">
-						</div>
-					</div>
-					<div class="bor"></div>
-					<div class="phone1">
-						<div class="lab">
-							<label for="">联系方式:</label>
-						</div>		
-					</div>
-					<div class="bor"></div>
-					<div class="phone1">
-						<div class="phone2">
-							<input type="tel" class="phone_1" id="phone_1">
-						</div>
-					</div>
-					<div class="bor"></div>
-					<div class="dizhi1">
-						<div class="lab">
-							<label for="">地址:</label>
-						</div>
-					</div>
-					<div class="bor"></div>
-					<div class="dizhi1">
-						<div class="dizhi2">
-							<select name="province" id="province3" onchange="getPro3()" class="pro">
-								<option value="">请选择</option>
-							</select>
-							<select name="city" id="city3" class="cit">
-								<option value="">请选择</option>
-							</select>
-						</div>
-					</div>
-					<div class="bor"></div>
-					<div class="dizhi3">
-						<div class="lab">
-							<label for="">详细地址:</label>
-						</div>	
-					</div>
-					<div class="bor"></div>
-					<div class="dizhi3">
-						<div class="dizhi3-1">
-							<textarea id="dizhi_3" rows="2"></textarea>
-						</div>
-					</div>
-				</form>
+                <div class="box20-1">
+                <div class="box20-2">
+                    <div class="box20-3">姓名</div>
+                    <input class="box20-4 name_1" placeholder="请输入姓名" id="xingming_c"/>
+                </div>
+                <div class="box20-2">
+                    <div class="box20-3">电话</div>
+                    <input class="box20-4 phone_1 name_1" placeholder="请输入电话" id="phone_c"/>
+                </div>
+                <div class="box20-2" id="select_contact_b">
+                    <!--<label>省、市</label>-->
+                    <div data-city-code="" data-province-code="" id="show_contact_b" class="box20-5" >省、市</div>
+                    <div class="box20-6"><img src="images/xiala.png" class="box20-7"/></div>
+                    <div class="pc-box">
+                        <input type="hidden" name="contact_province_code" data-id="0001" id="contact_province_code_b" value="" data-province-name="">
+                        <input type="hidden" name="contact_city_code" id="contact_city_code_b" value="" data-city-name="">
+                    </div>
+                </div>
+
+
+                <div class="box20-2">
+                    <div class="box20-3">地址</div>
+                    <input class="box20-4 name_2" placeholder="请输入地址" id="address_c"/>
+                </div>
+                </div>
+<!--				<form>-->
+<!--					<div class="name1">-->
+<!--						<div class="lab">-->
+<!--							<label for="">姓名:</label>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="bor"></div>-->
+<!--					<div class="name1">-->
+<!--						<div class="name2">-->
+<!--							<input type="text" class="name_1" id="name_1" placeholder="最多15个字">-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="bor"></div>-->
+<!--					<div class="phone1">-->
+<!--						<div class="lab">-->
+<!--							<label for="">联系方式:</label>-->
+<!--						</div>		-->
+<!--					</div>-->
+<!--					<div class="bor"></div>-->
+<!--					<div class="phone1">-->
+<!--						<div class="phone2">-->
+<!--							<input type="tel" class="phone_1" id="phone_1">-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="bor"></div>-->
+<!--					<div class="dizhi1">-->
+<!--						<div class="lab">-->
+<!--							<label for="">地址:</label>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="bor"></div>-->
+<!--					<div class="dizhi1">-->
+<!--						<div class="dizhi2">-->
+<!--							<select name="province" id="province3" onchange="getPro3()" class="pro">-->
+<!--								<option value="">请选择</option>-->
+<!--							</select>-->
+<!--							<select name="city" id="city3" class="cit">-->
+<!--								<option value="">请选择</option>-->
+<!--							</select>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="bor"></div>-->
+<!--					<div class="dizhi3">-->
+<!--						<div class="lab">-->
+<!--							<label for="">详细地址:</label>-->
+<!--						</div>	-->
+<!--					</div>-->
+<!--					<div class="bor"></div>-->
+<!--					<div class="dizhi3">-->
+<!--						<div class="dizhi3-1">-->
+<!--							<textarea id="dizhi_3" rows="2"></textarea>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</form>-->
 			</div>
 			<div class="tijiao2" id="subaddress10">保存地址</div>
-			<div class="kbox"></div>
+<!--			<div class="kbox"></div>-->
 		</div>
 
 		<div class="box8">
@@ -374,67 +453,92 @@ $signPackage = $jssdk->GetSignPackage();
 					</div>
 					<div class="qx11">取消</div>
 				</div>
-				<form>
-					<div class="name1">
-						<div class="lab">
-							<label for="">姓名</label>
-						</div>	
-					</div>
-					<div class="bor"></div>
-					<div class="name1">
-						<div class="name2">
-							<input type="text" class="name_2" id="name_2" placeholder="最多15个字">
-						</div>
-					</div>
-					<div class="bor"></div>
-					<div class="phone1">
-						<div class="lab">
-							<label for="">联系方式</label>
-						</div>
-					</div>
-					<div class="bor"></div>
-					<div class="phone1">
-						<div class="phone2">
-							<input type="tel" class="phone_2" id="phone_2">
-						</div>
-					</div>
-					<div class="bor"></div>
-					<div class="dizhi1">
-						<div class="lab">
-							<label for="">地址</label>
-						</div>
-					</div>
-					<div class="bor"></div>
-					<div class="dizhi1">
-						<div class="dizhi2">
-							<select name="province" id="province4" onchange="getPro4()" class="pro1">
-								<option value="">请选择</option>
-							</select>
-							<select name="city" id="city4" class="cit1">
-								<option value="">请选择</option>
-							</select>
-						</div>
-					</div>
-					<div class="bor"></div>
-					<div class="dizhi3">
-						<div class="lab">
-							<label for="">详细地址:</label>
-						</div>	
-					</div>
-					<div class="bor"></div>
-					<div class="dizhi3">
-						<div class="dizhi3-1">
-							<textarea id="dizhi_4" rows="2"></textarea>
-						</div>
-					</div>
-					<!-- <div class="tijiao2" id="subaddress4">
-						添加新地址
-					</div> -->
-				</form>
+                <div class="box20-1">
+                    <div class="box20-2">
+                        <div class="box20-3">姓名</div>
+                        <input class="box20-4 name_1" placeholder="请输入姓名" id="xingming_d"/>
+                    </div>
+                    <div class="box20-2">
+                        <div class="box20-3">电话</div>
+                        <input class="box20-4 phone_1 name_1" placeholder="请输入电话" id="phone_d"/>
+                    </div>
+                    <div class="box20-2" id="select_contact_c">
+                        <!--<label>省、市</label>-->
+                        <div data-city-code="" data-province-code="" id="show_contact_c" class="box20-5" >省、市</div>
+                        <div class="box20-6"><img src="images/xiala.png" class="box20-7"/></div>
+                        <div class="pc-box">
+                            <input type="hidden" name="contact_province_code" data-id="0001" id="contact_province_code_c" value="" data-province-name="">
+                            <input type="hidden" name="contact_city_code" id="contact_city_code_c" value="" data-city-name="">
+                        </div>
+                    </div>
+
+
+                    <div class="box20-2">
+                        <div class="box20-3">地址</div>
+                        <input class="box20-4 name_2" placeholder="请输入地址" id="address_d"/>
+                    </div>
+                </div>
+<!--				<form>-->
+<!--					<div class="name1">-->
+<!--						<div class="lab">-->
+<!--							<label for="">姓名</label>-->
+<!--						</div>	-->
+<!--					</div>-->
+<!--					<div class="bor"></div>-->
+<!--					<div class="name1">-->
+<!--						<div class="name2">-->
+<!--							<input type="text" class="name_2" id="name_2" placeholder="最多15个字">-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="bor"></div>-->
+<!--					<div class="phone1">-->
+<!--						<div class="lab">-->
+<!--							<label for="">联系方式</label>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="bor"></div>-->
+<!--					<div class="phone1">-->
+<!--						<div class="phone2">-->
+<!--							<input type="tel" class="phone_2" id="phone_2">-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="bor"></div>-->
+<!--					<div class="dizhi1">-->
+<!--						<div class="lab">-->
+<!--							<label for="">地址</label>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="bor"></div>-->
+<!--					<div class="dizhi1">-->
+<!--						<div class="dizhi2">-->
+<!--							<select name="province" id="province4" onchange="getPro4()" class="pro1">-->
+<!--								<option value="">请选择</option>-->
+<!--							</select>-->
+<!--							<select name="city" id="city4" class="cit1">-->
+<!--								<option value="">请选择</option>-->
+<!--							</select>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="bor"></div>-->
+<!--					<div class="dizhi3">-->
+<!--						<div class="lab">-->
+<!--							<label for="">详细地址:</label>-->
+<!--						</div>	-->
+<!--					</div>-->
+<!--					<div class="bor"></div>-->
+<!--					<div class="dizhi3">-->
+<!--						<div class="dizhi3-1">-->
+<!--							<textarea id="dizhi_4" rows="2"></textarea>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<!-- <div class="tijiao2" id="subaddress4">-->
+<!--						添加新地址-->
+<!--					</div> -->
+<!--				</form>-->
 			</div>
 
 			<div class="tijiao2" id="subaddress11">保存地址</div>
-			<div class="kbox"></div>
+<!--			<div class="kbox"></div>-->
 		</div>
           <div class="box12">
 			<div class="box12_1">
@@ -460,6 +564,9 @@ $signPackage = $jssdk->GetSignPackage();
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="layer/layer.js"></script>
+	<script type="text/javascript" src="js/zepto.js"></script>
+	<script type="text/javascript" src="js/iosSelect.js"></script>
+
 	<script type="text/javascript">
 		(function($) {
 			$.getUrlParam = function(name) {
@@ -919,11 +1026,15 @@ window.alert = function(name){
 					}),
 					success: function(msg) {
 			    
-			    $("#name_1").val(msg.wxmessage.customer_name);
-			    $("#phone_1").val(msg.wxmessage.customer_phone);
-			    $("#province3").val(msg.wxmessage.customer_province);
-			    $("#city3").val(msg.wxmessage.customer_city);
-			    $("#dizhi_3").text(msg.wxmessage.customer_address);
+			    $("#xingming_c").val(msg.wxmessage.customer_name);
+			    $("#phone_c").val(msg.wxmessage.customer_phone);
+			    $("#contact_province_code_b").val(msg.wxmessage.customer_province);
+			    $("#contact_city_code_b").val(msg.wxmessage.customer_city);
+                var showContactDom2 = $('#show_contact_b');
+                showContactDom2.attr('data-province-code', msg.wxmessage.customer_province);
+                showContactDom2.attr('data-city-code',msg.wxmessage.customer_city);
+                showContactDom2.html(msg.wxmessage.customer_province_name + ' ' + msg.wxmessage.customer_city_name + ' ' );
+			    $("#address_c").val(msg.wxmessage.customer_address);
 					},
 					error: function(xhr) {
 						alert("获取数据失败");
@@ -933,11 +1044,11 @@ window.alert = function(name){
 				$(".box7").css("display","block");
 				$("#box10").css("display", "none");
 			$("#subaddress10").on("click",function(){
-			var name_3 = $("#name_1").val();
-			var phone_3 = $("#phone_1").val();
-			var cit3 = $("#city3").val();
-			var dizhi_3 = $("#dizhi_3").val();
-			var province_3 =$("#province3").val();
+			var name_3 = $("#xingming_c").val();
+			var phone_3 = $("#phone_c").val();
+			var cit3 =  $('#show_contact_b').attr('data-city-code');
+			var dizhi_3 = $("#address_c").val();
+			var province_3 =$('#show_contact_b').attr('data-province-code');
 			if(!/^1[34578]\d{9}$/.test(phone_3)){
 				layer.msg("手机号码格式不对");
 				return false;
@@ -1085,6 +1196,7 @@ window.alert = function(name){
 	</script>
 	<script type="text/javascript">
 		function edit1(id){
+		    console.log(id);
 					$.ajax({
 					url: p_url+"customer.php/onewxaddress",
 					beforeSend: function(request) {
@@ -1098,12 +1210,18 @@ window.alert = function(name){
 						customer_id:id,
 					}),
 					success: function(msg) {
-			    
-			    $("#name_2").val(msg.wxmessage.customer_name);
-			    $("#phone_2").val(msg.wxmessage.customer_phone);
-			    $("#province4").val(msg.wxmessage.customer_province);
-			    $("#city4").val(msg.wxmessage.customer_city);
-			    $("#dizhi_4").text(msg.wxmessage.customer_address);
+                        console.log(msg);
+			    $("#xingming_d").val(msg.wxmessage.customer_name);
+			    $("#phone_d").val(msg.wxmessage.customer_phone);
+//			    $("#province4").val(msg.wxmessage.customer_province);
+//			    $("#city4").val(msg.wxmessage.customer_city);
+                        $("#contact_province_code_c").val(msg.wxmessage.customer_province);
+                        $("#contact_city_code_c").val(msg.wxmessage.customer_city);
+                        var showContactDom3 = $('#show_contact_c');
+                        showContactDom3.attr('data-province-code', msg.wxmessage.customer_province);
+                        showContactDom3.attr('data-city-code',msg.wxmessage.customer_city);
+                        showContactDom3.html(msg.wxmessage.customer_province_name + ' ' + msg.wxmessage.customer_city_name + ' ' );
+			    $("#address_d").val(msg.wxmessage.customer_address);
 					},
 					error: function(xhr) {
 						alert("获取数据失败");
@@ -1113,11 +1231,11 @@ window.alert = function(name){
 				$(".box8").css("display","block");
 				$("#box11").css("display", "none");
 			$("#subaddress11").on("click", function() {
-			var name_4 = $("#name_2").val();
-			var phone_4 = $("#phone_2").val();
-			var cit4 = $("#city4").val();
-			var dizhi_4 = $("#dizhi_4").val();
-			var province_4 =$("#province4").val();
+			var name_4 = $("#xingming_d").val();
+			var phone_4 = $("#phone_d").val();
+			var cit4 = $('#show_contact_c').attr('data-city-code');
+			var dizhi_4 = $("#address_d").val();
+			var province_4 =$('#show_contact_c').attr('data-province-code');
 			if(!/^1[34578]\d{9}$/.test(phone_4)) {
 				layer.msg("手机号码格式不对");
 				return false;
@@ -1166,14 +1284,22 @@ window.alert = function(name){
 	</script>
 	<script type="text/javascript">
 		//添加寄件地址s
+		var cit_v;
 		$("#subaddress3").on("click", function() {
-			var name_1 = $(".name_1").val();
-			var phone_1 = $(".phone_1").val();
-			var cit =$('#city1 option:selected').val();
-			var cit_v=$('#city1 option:selected').text();
-			var dizhi_1 = $("#dizhi_1").val();
-			var province_1 =$("#province1").val();
-
+//			var name_1 = $(".name_1").val();
+//			var phone_1 = $(".phone_1").val();
+//			var cit =$('#city1 option:selected').val();
+//			var cit_v=$('#city1 option:selected').text();
+//			var dizhi_1 = $("#dizhi_1").val();
+//			var province_1 =$("#province1").val();
+            var name_1=$("#xingming_a").val();
+            var phone_1=$("#phone_a").val();
+            var dizhi_1 = $("#address_a").val();
+            var showContactDom = $('#show_contact');
+            var province_1 = showContactDom.attr('data-province-code');
+            var cit = showContactDom.attr('data-city-code');
+            
+        
 			if(!/^1[34578]\d{9}$/.test(phone_1)) {
 				layer.msg("手机号码格式不对");
 				return false;
@@ -1223,13 +1349,20 @@ window.alert = function(name){
 	</script>
 	<script type="text/javascript">
 		//添加收货地址
+		var cit1_v;
 		$("#subaddress5").on("click", function() {
-			var name_2 = $(".name_2").val();
-			var phone_2 = $(".phone_2").val();
-			var cit1 = $('#city2 option:selected').val();
-			var cit1_v=$('#city2 option:selected').text();
-			var dizhi_2 = $("#dizhi_2").val();
-			var province_2 =$("#province2").val();
+//			var name_2 = $(".name_2").val();
+//			var phone_2 = $(".phone_2").val();
+//			var cit1 = $('#city2 option:selected').val();
+//			var cit1_v=$('#city2 option:selected').text();
+//			var dizhi_2 = $("#dizhi_2").val();
+//			var province_2 =$("#province2").val();
+            var name_2=$("#xingming_b").val();
+            var phone_2=$("#phone_b").val();
+            var dizhi_2 = $("#address_b").val();
+            var showContactDom = $('#show_contact_a');
+            var province_2 = showContactDom.attr('data-province-code');
+            var cit1 = showContactDom.attr('data-city-code');
 			if(!/^1[34578]\d{9}$/.test(phone_2)) {
 				layer.msg("手机号码格式不对");
 				return false;
@@ -1400,7 +1533,7 @@ window.alert = function(name){
 		})
 	</script>
 	<script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
-	<script>
+<script>
 	wx.config({
         debug: false,
         appId: '<?php echo $signPackage["appId"];?>',
@@ -1456,4 +1589,165 @@ window.alert = function(name){
  })
 
 </script>
+<script type="text/javascript">
+			var provices,citys;
+			$.ajax({
+				url: p_url+"city.php/getIosPro_City",
+				dataType: 'json',
+				type: 'get',
+				ContentType: "application/json;charset=utf-8",
+				data: JSON.stringify({}),
+				success: function(msg) {
+                  if(msg.result==0){
+                  	provices=msg.provinces;
+                  	citys=msg.citys;
+                  }
+				},
+				error: function(e) {
+					layer.msg("城市1列表信息出错!");
+				}
+			});
+    var selectContactDom1 = $('#select_contact');
+    var showContactDom1 = $('#show_contact');
+    var contactProvinceCodeDom1 = $('#contact_province_code');
+    var contactCityCodeDom1 = $('#contact_city_code');
+    selectContactDom1.bind('click', function () {
+        var sccode = showContactDom1.attr('data-city-code');
+        var scname = showContactDom1.attr('data-city-name');
+
+        var oneLevelId = showContactDom1.attr('data-province-code');
+        var twoLevelId = showContactDom1.attr('data-city-code');
+//      var threeLevelId = showContactDom.attr('data-district-code');
+        var iosSelect = new IosSelect(2, 
+            [provices, citys],
+            {
+                title: '地址选择',
+                itemHeight: 35,
+                relation: [1, 1],
+                oneLevelId: oneLevelId,
+                twoLevelId: twoLevelId,
+//              threeLevelId: threeLevelId,
+                callback: function (selectOneObj, selectTwoObj) {
+                    contactProvinceCodeDom1.val(selectOneObj.id);
+                    contactProvinceCodeDom1.attr('data-province-name', selectOneObj.value);
+                    contactCityCodeDom1.val(selectTwoObj.id);
+                    contactCityCodeDom1.attr('data-city-name', selectTwoObj.value);
+
+                    showContactDom1.attr('data-province-code', selectOneObj.id);
+                    showContactDom1.attr('data-city-code', selectTwoObj.id);
+//                  showContactDom.attr('data-district-code', selectThreeObj.id);
+                    showContactDom1.html(selectOneObj.value + ' ' + selectTwoObj.value + ' ' );
+                    cit_v=selectTwoObj.value;
+                }
+        });
+    });
+</script>
+<script type="text/javascript">
+    var selectContactDom = $('#select_contact_a');
+    var showContactDom = $('#show_contact_a');
+    var contactProvinceCodeDom = $('#contact_province_code_a');
+    var contactCityCodeDom = $('#contact_city_code_a');
+    selectContactDom.bind('click', function () {
+        var sccode = showContactDom.attr('data-city-code');
+        var scname = showContactDom.attr('data-city-name');
+
+        var oneLevelId = showContactDom.attr('data-province-code');
+        var twoLevelId = showContactDom.attr('data-city-code');
+//      var threeLevelId = showContactDom.attr('data-district-code');
+        var iosSelect = new IosSelect(2, 
+            [provices, citys],
+            {
+                title: '地址选择',
+                itemHeight: 35,
+                relation: [1, 1],
+                oneLevelId: oneLevelId,
+                twoLevelId: twoLevelId,
+//              threeLevelId: threeLevelId,
+                callback: function (selectOneObj, selectTwoObj) {
+                    contactProvinceCodeDom.val(selectOneObj.id); 
+                    contactProvinceCodeDom.attr('data-province-name', selectOneObj.value);
+                    contactCityCodeDom.val(selectTwoObj.id);
+                    contactCityCodeDom.attr('data-city-name', selectTwoObj.value);
+
+                    showContactDom.attr('data-province-code', selectOneObj.id);
+                    showContactDom.attr('data-city-code', selectTwoObj.id);
+//                  showContactDom.attr('data-district-code', selectThreeObj.id);
+                    showContactDom.html(selectOneObj.value + ' ' + selectTwoObj.value + ' ' );
+                    cit1_v=selectTwoObj.value;
+                }
+        });
+    });
+</script>
+    <script type="text/javascript">
+        var selectContactDom2 = $('#select_contact_b');
+        var showContactDom2 = $('#show_contact_b');
+        var contactProvinceCodeDom2 = $('#contact_province_code_b');
+        var contactCityCodeDom2 = $('#contact_city_code_b');
+        selectContactDom2.bind('click', function () {
+            var sccode = showContactDom2.attr('data-city-code');
+            var scname = showContactDom2.attr('data-city-name');
+
+            var oneLevelId = showContactDom2.attr('data-province-code');
+            var twoLevelId = showContactDom2.attr('data-city-code');
+//      var threeLevelId = showContactDom.attr('data-district-code');
+            var iosSelect = new IosSelect(2,
+                [provices, citys],
+                {
+                    title: '地址选择',
+                    itemHeight: 35,
+                    relation: [1, 1],
+                    oneLevelId: oneLevelId,
+                    twoLevelId: twoLevelId,
+//              threeLevelId: threeLevelId,
+                    callback: function (selectOneObj, selectTwoObj) {
+                        contactProvinceCodeDom2.val(selectOneObj.id);
+                        contactProvinceCodeDom2.attr('data-province-name', selectOneObj.value);
+                        contactCityCodeDom2.val(selectTwoObj.id);
+                        contactCityCodeDom2.attr('data-city-name', selectTwoObj.value);
+
+                        showContactDom2.attr('data-province-code', selectOneObj.id);
+                        showContactDom2.attr('data-city-code', selectTwoObj.id);
+//                  showContactDom.attr('data-district-code', selectThreeObj.id);
+                        showContactDom2.html(selectOneObj.value + ' ' + selectTwoObj.value + ' ' );
+//                        cit1_v=selectTwoObj.value;
+                    }
+                });
+        });
+    </script>
+    <script type="text/javascript">
+        var selectContactDom3 = $('#select_contact_c');
+        var showContactDom3 = $('#show_contact_c');
+        var contactProvinceCodeDom3 = $('#contact_province_code_c');
+        var contactCityCodeDom3 = $('#contact_city_code_c');
+        selectContactDom3.bind('click', function () {
+            var sccode = showContactDom3.attr('data-city-code');
+            var scname = showContactDom3.attr('data-city-name');
+
+            var oneLevelId = showContactDom3.attr('data-province-code');
+            var twoLevelId = showContactDom3.attr('data-city-code');
+//      var threeLevelId = showContactDom.attr('data-district-code');
+            var iosSelect = new IosSelect(2,
+                [provices, citys],
+                {
+                    title: '地址选择',
+                    itemHeight: 35,
+                    relation: [1, 1],
+                    oneLevelId: oneLevelId,
+                    twoLevelId: twoLevelId,
+//              threeLevelId: threeLevelId,
+                    callback: function (selectOneObj, selectTwoObj) {
+                        contactProvinceCodeDom3.val(selectOneObj.id);
+                        contactProvinceCodeDom3.attr('data-province-name', selectOneObj.value);
+                        contactCityCodeDom3.val(selectTwoObj.id);
+                        contactCityCodeDom3.attr('data-city-name', selectTwoObj.value);
+
+                        showContactDom3.attr('data-province-code', selectOneObj.id);
+                        showContactDom3.attr('data-city-code', selectTwoObj.id);
+//                  showContactDom.attr('data-district-code', selectThreeObj.id);
+                        showContactDom3.html(selectOneObj.value + ' ' + selectTwoObj.value + ' ' );
+//                        cit1_v=selectTwoObj.value;
+                    }
+                });
+        });
+    </script>
 </html>

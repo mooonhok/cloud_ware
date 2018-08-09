@@ -73,12 +73,21 @@ $signPackage = $jssdk->GetSignPackage();
          	border-radius: 4px;
          	text-indent:2em;
          }
+		 .wangzhi{
+			width:90%;
+         	margin-left:5%;
+			text-align:center;
+         	font-size:20px;
+         	float:left;
+         	margin-top:10px;
+		 }
 		</style>
 	</head>
 	<body>
 		<div class="top" id="company"></div>
 		<div class="center"><img id="cimg" src=""><div id="c_text"></div></div>
 		<div class="foot"></div>
+		<div class="wangzhi"><span>官方网址:</span><span style="color:rgb(92,163,185);">www.jswsx56.cn</span></div>
 	</body>
 	<script>
 		    (function($) {
